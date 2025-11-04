@@ -23,7 +23,7 @@
                   </a>
                   <a
                     href="#"
-                    @click.prevent="openInNewTab(exportExcelUrl)"
+                    @click.prevent="exportExcel"
                     v-tooltip="$t('Export to Excel')"
                     class="btn export-excel-btn"
                     title="Export to Excel"
@@ -325,15 +325,6 @@ export default {
     this.loadTemporaryData()
   },
   methods: {
-    openInNewTab(url) {
-      try {
-        const fullUrl = url.startsWith('http') ? url : (window.location.origin + url);
-        window.open(fullUrl, '_blank', 'noopener');
-      } catch (e) {
-        console.error('Failed to open URL in new tab', e);
-        window.location.href = url;
-      }
-    },
     // get all categories
     async getCatgories() {
       await this.$store.dispatch("operations/allData", {
@@ -442,6 +433,78 @@ export default {
     // print
     printWindow() {
       window.print();
+    },
+
+    // export Excel without navigation and show toast on validation errors
+    async exportExcel() {
+      if (!this.form.category || !this.form.category.id) {
+        toast.fire({ type: "error", title: this.$t("The category field is required.") });
+        return;
+      }
+
+      try {
+        const response = await fetch(this.exportExcelUrl, { 
+          headers: { 
+            Accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' 
+          } 
+        });
+
+        if (!response.ok) {
+          let message = this.$t("There was something wrong.");
+          try {
+            const data = await response.clone().json();
+            if (data && data.errors) {
+              const firstField = Object.keys(data.errors)[0];
+              if (firstField && data.errors[firstField] && data.errors[firstField][0]) {
+                message = data.errors[firstField][0];
+              }
+            } else if (data && typeof data.error === 'string') {
+              // Backend returns: "Failed to generate Excel: The category field is required."
+              const raw = data.error;
+              const extracted = raw.includes(':') ? raw.split(':').pop().trim() : raw;
+              message = extracted || raw;
+            } else if (data && data.message) {
+              message = data.message;
+            }
+          } catch (e) { void e; }
+          toast.fire({ type: "error", title: this.$t(message) });
+          return;
+        }
+
+        // Check if response is actually an Excel file (not HTML error page)
+        const contentType = response.headers.get('content-type');
+        if (contentType && !contentType.includes('spreadsheet') && !contentType.includes('excel') && !contentType.includes('octet-stream')) {
+          // If we got HTML or JSON instead of Excel, try to parse error
+          const text = await response.text();
+          if (text.includes('<!DOCTYPE') || text.includes('<html')) {
+            toast.fire({ type: "error", title: this.$t("The server returned an error page. Please check your filters and try again.") });
+            return;
+          }
+          try {
+            const errorData = JSON.parse(text);
+            if (errorData && errorData.error) {
+              toast.fire({ type: "error", title: this.$t(errorData.error) });
+              return;
+            }
+          } catch (e) { 
+            toast.fire({ type: "error", title: this.$t("The server returned an unexpected response. Please check your filters and try again.") });
+            return;
+          }
+          return;
+        }
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'expenses-report.xlsx';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      } catch (error) {
+        toast.fire({ type: "error", title: this.$t("There was something wrong.") });
+      }
     },
 
     // export PDF without navigation and show toast on validation errors

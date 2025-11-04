@@ -22,7 +22,7 @@
                     <i class="fas fa-sync"></i>
                   </a>
                   <a
-                    :href="exportExcelUrl"
+                    :href="exportUrl"
                     v-tooltip="$t('Export to Excel')"
                     class="btn export-excel-btn"
                     title="Export to Excel"
@@ -292,7 +292,8 @@ export default {
     breadcrumbsCurrent() {
       return this.$t("Item Report");
     },
-    exportExcelUrl() {
+    exportUrl() {
+      // Create a dynamic export URL for items report with current filters
       const params = new URLSearchParams();
       if (this.form.productName && this.form.productName.slug) {
         params.append('productName[slug]', this.form.productName.slug);

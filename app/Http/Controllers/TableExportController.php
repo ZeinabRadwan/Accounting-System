@@ -50,6 +50,7 @@ use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use App\Exports\ExportAssetType;
 use App\Exports\ExportInventory;
+use App\Exports\ExportInventoryCount;
 use App\Exports\ExportInventoryHistory;
 use App\Exports\ExportQuotation;
 use App\Models\NonInvoicePayment;
@@ -93,6 +94,8 @@ use App\Exports\ExportPurchaseSummary;
 use App\Exports\ExportVatReport;
 use App\Exports\ExportChartOfAccounts;
 use App\Exports\ExportJournalEntries;
+use App\Exports\ExportItems;
+use App\Exports\ExportInventoryReport;
 
 
 class TableExportController extends Controller
@@ -1044,6 +1047,15 @@ class TableExportController extends Controller
         $locale = $request->input('locale', session('locale', app()->getLocale()));
         
         return Excel::download(new ExportInventoryHistory($term, $filterType, $locale), 'InventoryHistory.xlsx');
+    }
+
+    // return inventory count excel
+    public function inventoryCountExcel(Request $request)
+    {
+        $term = $request->input('term', '');
+        $filterType = $request->input('filterType', 'default');
+        
+        return Excel::download(new ExportInventoryCount($term, $filterType), 'InventoryCount.xlsx');
     }
 
     // return inventory history pdf
@@ -2038,6 +2050,13 @@ class TableExportController extends Controller
         }
     }
 
+    // return inventory report excel
+    public function inventoryReportExportExcel(Request $request)
+    {
+        $filters = $request->all();
+        return Excel::download(new ExportInventoryReport($filters), 'InventoryReport.xlsx');
+    }
+
     // return items report pdf
     public function itemsReportPDF(Request $request)
     {
@@ -2073,6 +2092,13 @@ class TableExportController extends Controller
                 'error' => 'Failed to generate PDF: ' . $e->getMessage()
             ], 500);
         }
+    }
+
+    // return items report excel
+    public function itemsReportExportExcel(Request $request)
+    {
+        $filters = $request->all();
+        return Excel::download(new ExportItems($filters), 'ItemsReport.xlsx');
     }
 
     // return expenses report pdf

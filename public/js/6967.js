@@ -1,5 +1,5 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[2867],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[6967],{
 
 /***/ 10151:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
@@ -20,7 +20,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".mj-daterange-picker{border:1px solid 
 
 /***/ }),
 
-/***/ 4477:
+/***/ 60045:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -32,7 +32,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".mj-daterange-picker{border:1px solid 
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".refresh-btn[data-v-84e459b2]{background:#33a0d91a!important;border:none;border-radius:10px;color:#33a0d9!important;height:44px;padding:10px 16px;width:56px}.export-excel-btn[data-v-84e459b2],.export-pdf-btn[data-v-84e459b2]{background:#f6fef4!important;color:#2ab930!important}.export-excel-btn[data-v-84e459b2],.export-pdf-btn[data-v-84e459b2],.print-btn[data-v-84e459b2]{border:none;border-radius:10px;height:44px;padding:10px 16px;width:56px}.print-btn[data-v-84e459b2]{background:#33a0d91a!important;color:#33a0d9!important}.btn-group.c-w-100[data-v-84e459b2]{gap:10px}.card[data-v-84e459b2]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-header[data-v-84e459b2]{background-color:#fff;border-bottom:1px solid #ced4da;border-radius:20px 20px 0 0;padding:1.25rem 1.25rem 0}.card-body[data-v-84e459b2]{padding:1.25rem}.form-control[data-v-84e459b2]{background:#fff!important}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".refresh-btn[data-v-2adb3bd2]{background:#33a0d91a!important;border:none;border-radius:10px;color:#33a0d9!important;height:44px;padding:10px 16px;width:56px}.export-excel-btn[data-v-2adb3bd2],.export-pdf-btn[data-v-2adb3bd2]{background:#f6fef4!important;border:none;border-radius:10px;color:#2ab930!important;height:44px;padding:10px 16px;width:56px}.print-btn[data-v-2adb3bd2],.save-btn[data-v-2adb3bd2]{background:#33a0d91a!important;border:none;border-radius:10px;color:#33a0d9!important;height:44px;padding:10px 16px;width:56px}.btn-group.c-w-100[data-v-2adb3bd2]{gap:10px}.card[data-v-2adb3bd2]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-header[data-v-2adb3bd2]{background-color:#fff;border-bottom:1px solid #ced4da;border-radius:20px 20px 0 0;padding:1.25rem 1.25rem 0}.card-body[data-v-2adb3bd2]{padding:1.25rem}.form-control[data-v-2adb3bd2]{background:#fff!important}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -61,7 +61,7 @@ var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMP
 
 /***/ }),
 
-/***/ 82867:
+/***/ 56967:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -69,10 +69,10 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ items)
+  "default": () => (/* binding */ expenses)
 });
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/items.vue?vue&type=template&id=84e459b2&scoped=true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/expenses.vue?vue&type=template&id=2adb3bd2&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -124,8 +124,14 @@ var render = function render() {
     }],
     staticClass: "btn export-excel-btn",
     attrs: {
-      "href": _vm.exportUrl,
+      "href": "#",
       "title": "Export to Excel"
+    },
+    on: {
+      "click": function click($event) {
+        $event.preventDefault();
+        return _vm.exportExcel.apply(null, arguments);
+      }
     }
   }, [_c('svg', {
     attrs: {
@@ -184,50 +190,86 @@ var render = function render() {
     }
   }, [_c('i', {
     staticClass: "fas fa-print"
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-info save-btn",
+    attrs: {
+      "type": "button",
+      "title": "Save Filter Settings"
+    },
+    on: {
+      "click": _vm.saveTemporary
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-save"
   })])])])]), _vm._v(" "), _c('form', {
     attrs: {
       "role": "form"
-    },
-    on: {
-      "submit": function submit($event) {
-        $event.preventDefault();
-        return _vm.saveType.apply(null, arguments);
-      },
-      "keydown": function keydown($event) {
-        return _vm.form.onKeydown($event);
-      }
     }
   }, [_c('div', {
     staticClass: "row"
   }, [_vm.items ? _c('div', {
-    staticClass: "form-group col-md-12"
+    staticClass: "form-group col-md-6"
   }, [_c('label', {
     attrs: {
-      "for": "productName"
+      "for": "category"
     }
-  }, [_vm._v(_vm._s(_vm.$t("Product Name")) + "\n                  "), _c('span', {
+  }, [_vm._v(_vm._s(_vm.$t("Category Name")) + "\n                  "), _c('span', {
     staticClass: "required"
   }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
     "class": {
-      'is-invalid': _vm.form.errors.has('productName')
+      'is-invalid': _vm.form.errors.has('category')
     },
     attrs: {
       "options": _vm.items,
-      "label": "label",
-      "name": "productName",
-      "placeholder": _vm.$t('Select a product')
+      "label": "name",
+      "name": "category",
+      "placeholder": _vm.$t('Select a category')
+    },
+    on: {
+      "input": _vm.getSubCategories
     },
     model: {
-      value: _vm.form.productName,
+      value: _vm.form.category,
       callback: function callback($$v) {
-        _vm.$set(_vm.form, "productName", $$v);
+        _vm.$set(_vm.form, "category", $$v);
       },
-      expression: "form.productName"
+      expression: "form.category"
     }
   }), _vm._v(" "), _c('has-error', {
     attrs: {
       "form": _vm.form,
-      "field": "productName"
+      "field": "category"
+    }
+  })], 1) : _vm._e(), _vm._v(" "), _vm.items ? _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "subCategory"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Sub Category Name"))), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
+    "class": {
+      'is-invalid': _vm.form.errors.has('subCategory')
+    },
+    attrs: {
+      "disabled": _vm.form.category.id == 0,
+      "options": _vm.subCategories,
+      "label": "name",
+      "name": "subCategory",
+      "placeholder": _vm.$t('Select a category')
+    },
+    model: {
+      value: _vm.form.subCategory,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "subCategory", $$v);
+      },
+      expression: "form.subCategory"
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "subCategory"
     }
   })], 1) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "col-12"
@@ -240,7 +282,7 @@ var render = function render() {
     on: {
       "update": _vm.update
     }
-  })]], 2)])])])])]), _vm._v(" "), _vm.allData && _vm.allData.stockIns && _vm.allData.stockOuts && (_vm.allData.stockIns.length > 0 || _vm.allData.stockIns.stockOuts > 0) ? _c('div', {
+  })]], 2)])])])])]), _vm._v(" "), _vm.expenses && _vm.expenses.length > 0 ? _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-lg-12"
@@ -257,9 +299,9 @@ var render = function render() {
     staticClass: "row invoice-info"
   }, [_c('div', {
     staticClass: "col-sm-4 invoice-col"
-  }, [_c('CompanyInfo')], 1), _vm._v(" "), _vm.allData.product && _vm.allData.product.category && _vm.allData.product.subCategory && _vm.allData.product.itemUnit ? _c('div', {
-    staticClass: "col-sm-6 offset-sm-2 invoice-col float-right text-md-right"
-  }, [_c('h5', [_vm._v("\n                  " + _vm._s(_vm.$t("Date")) + ": " + _vm._s(_vm._f("moment")(_vm.date, "Do MMM, YYYY")) + "\n                ")]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Code")) + ":")]), _vm._v("\n                " + _vm._s(_vm._f("withPrefix")(_vm.allData.product.code, _vm.prfix))), _c('br'), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Category")) + ":")]), _vm._v("\n                " + _vm._s(_vm.allData.product.category.name)), _c('br'), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Sub Category")) + ":")]), _vm._v("\n                " + _vm._s(_vm.allData.product.subCategory.name)), _c('br'), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Stock")) + ":")]), _vm._v("\n                " + _vm._s(_vm.allData.product.availableQty) + "\n                " + _vm._s(_vm.allData.product.itemUnit ? _vm.allData.product.itemUnit.code : '-') + " "), _c('br')]) : _vm._e()]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+  }, [_c('CompanyInfo')], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-8 invoice-col float-right text-md-right"
+  }, [_c('h5', [_vm._v(_vm._s(_vm.$t("Expense Report")))]), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Date")) + ":")]), _vm._v("\n            " + _vm._s(_vm._f("moment")(_vm.date, "Do MMM, YYYY"))), _c('br'), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Category")) + ":")]), _vm._v("\n            " + _vm._s(_vm.form.category.name)), _c('br'), _vm._v(" "), _vm.form.subCategory ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Sub Category")) + ":")]), _vm._v("\n              " + _vm._s(_vm.form.subCategory.name)), _c('br')]) : _vm._e(), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Date Range")) + ":")]), _vm._v("\n            " + _vm._s(_vm._f("moment")(_vm.form.fromDate, "Do MMM, YYYY")) + " -\n            " + _vm._s(_vm._f("moment")(_vm.form.toDate, "Do MMM, YYYY")) + " "), _c('br')])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
     staticClass: "row mt-5 position-relative"
   }, [_c('table-loading', {
     directives: [{
@@ -268,73 +310,54 @@ var render = function render() {
       value: _vm.loading,
       expression: "loading"
     }]
-  }), _vm._v(" "), _vm.loading == false ? _c('div', {
-    staticClass: "col-lg-6 table-responsive mb-5"
-  }, [_c('h4', [_c('i', [_vm._v(_vm._s(_vm.$t("Stock In")))])]), _vm._v(" "), _c('table', {
-    staticClass: "table table-bordered table-sm"
-  }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Date")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Stock In")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Price")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Type")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', {
+  }), _vm._v(" "), _c('div', {
+    staticClass: "table-responsive table-custom"
+  }, [_c('table', {
+    staticClass: "table table-sm"
+  }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Date")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Expense Reason")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Category")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Sub Category")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Amount")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Account")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _c('th', {
     staticClass: "text-right"
-  }, [_vm._v("\n                        " + _vm._s(_vm.$t("Supplier")) + "/" + _vm._s(_vm.$t("Client")) + "\n                      ")])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.allData.stockIns, function (data, i) {
+  }, [_vm._v(_vm._s(_vm.$t("Created By")))])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.expenses, function (data, i) {
     return _c('tr', {
       key: i
-    }, [_c('td', [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("moment")(data.date, "Do MMM, YYYY")))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.quantity))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.price) + " "), _c('span', {
+    }, [_c('td', [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', [data.date ? _c('span', [_vm._v(_vm._s(_vm._f("moment")(data.date, "Do MMM, YYYY")))]) : _vm._e()]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.reason))]), _vm._v(" "), _c('td', [data.category ? _c('span', [_vm._v("\n                      " + _vm._s(_vm._f("withPrefix")(data.category.code, _vm.categoryPrefix)) + "\n                    ")]) : _vm._e()]), _vm._v(" "), _c('td', [data.subCategory ? _c('span', [_vm._v("\n                      " + _vm._s(_vm._f("withPrefix")(data.subCategory.code, _vm.subCategoryPrefix)) + "\n                    ")]) : _vm._e()]), _vm._v(" "), _c('td', [data.transaction ? _c('span', [_vm._v(_vm._s(data.transaction.amount)), _c('span', {
       staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_c('span', {
+    }, [_vm._v("ê")])]) : _vm._e()]), _vm._v(" "), _c('td', [data.account ? _c('span', [_vm._v("\n                      " + _vm._s(data.account.accountNumber) + "\n                    ")]) : _vm._e()]), _vm._v(" "), _c('td', [data.status === 1 ? _c('span', {
       staticClass: "badge bg-success"
-    }, [_vm._v(_vm._s(data.type))])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.code))]), _vm._v(" "), _c('td', {
+    }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
+      staticClass: "badge bg-danger"
+    }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _c('td', {
       staticClass: "text-right"
-    }, [data.type === 'Purchase' ? _c('span', [_vm._v(_vm._s(data.supplier))]) : data.type === 'Invoice Return' ? _c('span', [_vm._v(_vm._s(data.client))]) : _vm._e()])]);
+    }, [_vm._v(_vm._s(data.createdBy))])]);
   }), _vm._v(" "), _c('tr', [_c('td', {
+    staticClass: "text-right",
     attrs: {
-      "colspan": "2",
-      "align": "right"
+      "colspan": "5"
     }
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Total Quantity")))])]), _vm._v(" "), _vm.allData.stockIns ? _c('td', [_c('strong', [_vm._v(_vm._s(_vm.stockInQty(_vm.allData.stockIns)))])]) : _vm._e()])], 2)])]) : _vm._e(), _vm._v(" "), _vm.loading == false ? _c('div', {
-    staticClass: "col-lg-6 table-responsive"
-  }, [_c('h4', [_c('i', [_vm._v(_vm._s(_vm.$t("Stock Out")))])]), _vm._v(" "), _c('table', {
-    staticClass: "table table-bordered table-sm"
-  }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Date")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Stock Out")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Price")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Type")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', {
-    staticClass: "text-right"
-  }, [_vm._v(_vm._s(_vm.$t("Client")))])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.allData.stockOuts, function (data, i) {
-    return _c('tr', {
-      key: i
-    }, [_c('td', [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("moment")(data.date, "Do MMM, YYYY")))]), _vm._v(" "), _c('td', [_vm._v("-" + _vm._s(data.quantity))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.price) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_c('span', {
-      staticClass: "badge bg-success"
-    }, [_vm._v(_vm._s(data.type))])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.code))]), _vm._v(" "), _c('td', {
-      staticClass: "text-right"
-    }, [data.type === 'Invoice' ? _c('span', [_vm._v(_vm._s(data.client))]) : data.type === 'Purchase Return' ? _c('span', [_vm._v(_vm._s(data.supplier))]) : _vm._e()])]);
-  }), _vm._v(" "), _c('tr', [_c('td', {
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Total")))])]), _vm._v(" "), _c('td', {
     attrs: {
-      "colspan": "2",
-      "align": "right"
+      "colspan": "4"
     }
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Total Quantity")))])]), _vm._v(" "), _vm.allData.stockOuts ? _c('td', [_c('strong', [_vm._v(_vm._s(_vm.stockOutQty(_vm.allData.stockOuts)))])]) : _vm._e()])], 2)])]) : _vm._e()], 1)])])])])]) : _vm.allData.stockIns && _vm.allData.stockOuts && (_vm.allData.stockIns.length <= 0 || _vm.allData.stockIns.stockOuts <= 0) ? _c('div', {
+  }, [_c('strong', [_vm._v(_vm._s(_vm.calculateTotal(_vm.expenses))), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])])])], 2)])])], 1)])])])])]) : _vm.expenses && _vm.expenses.length <= 0 ? _c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-lg-12"
+    staticClass: "col-lg-12 col-xl-10 offset-xl-1"
   }, [_c('EmptyTable')], 1)]) : _vm._e()]);
 };
 var staticRenderFns = [];
 
 // EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
 var vform_es = __webpack_require__(63216);
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 // EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
 var vuex_esm = __webpack_require__(95353);
-// EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
-var sweetalert2_all = __webpack_require__(78465);
-var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all);
 // EXTERNAL MODULE: ./node_modules/vue-mj-daterangepicker/dist/vue-mj-daterangepicker.css
 var vue_mj_daterangepicker = __webpack_require__(74208);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/items.vue?vue&type=script&lang=js
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/expenses.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -347,54 +370,50 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
 
 
-/* harmony default export */ const itemsvue_type_script_lang_js = ({
+/* harmony default export */ const expensesvue_type_script_lang_js = ({
   middleware: ["auth", "check-permissions"],
   metaInfo: function metaInfo() {
     return {
-      title: this.$t("Item Report")
+      title: this.$t("Expense Report")
     };
   },
   data: function data() {
     return {
-      toast: sweetalert2_all_default().mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true
-      }),
+      breadcrumbsCurrent: "Expense Report",
+      breadcrumbs: [{
+        name: "Dashboard",
+        url: "home"
+      }, {
+        name: "Reports",
+        url: ""
+      }, {
+        name: "Expense Report",
+        url: ""
+      }],
       form: new vform_es/* default */.Ay({
         fromDate: String(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)),
         toDate: String(new Date()),
-        productName: ""
+        category: "",
+        subCategory: ""
       }),
+      subCategories: [],
       loading: false,
-      allData: "",
+      expenses: "",
       date: new Date(),
-      prefix: ""
+      categoryPrefix: "",
+      subCategoryPrefix: ""
     };
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "appInfo"])), {}, {
-    breadcrumbs: function breadcrumbs() {
-      return [{
-        name: this.$t("Dashboard"),
-        url: "home"
-      }, {
-        name: this.$t("Reports"),
-        url: ""
-      }, {
-        name: this.$t("Item Report"),
-        url: ""
-      }];
-    },
-    breadcrumbsCurrent: function breadcrumbsCurrent() {
-      return this.$t("Item Report");
-    },
-    exportUrl: function exportUrl() {
-      // Create a dynamic export URL for items report with current filters
+    exportExcelUrl: function exportExcelUrl() {
       var params = new URLSearchParams();
-      if (this.form.productName && this.form.productName.slug) {
-        params.append('productName[slug]', this.form.productName.slug);
+      if (this.form.category && this.form.category.id) {
+        params.append('category[id]', this.form.category.id);
+        params.append('category[name]', this.form.category.name);
+      }
+      if (this.form.subCategory && this.form.subCategory.id) {
+        params.append('subCategory[id]', this.form.subCategory.id);
+        params.append('subCategory[name]', this.form.subCategory.name);
       }
       if (this.form.fromDate) {
         params.append('fromDate', this.form.fromDate);
@@ -402,12 +421,17 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       if (this.form.toDate) {
         params.append('toDate', this.form.toDate);
       }
-      return "/items-report/export?".concat(params.toString());
+      return "/reports/expenses-report/export?".concat(params.toString());
     },
     exportPdfUrl: function exportPdfUrl() {
       var params = new URLSearchParams();
-      if (this.form.productName && this.form.productName.slug) {
-        params.append('productName[slug]', this.form.productName.slug);
+      if (this.form.category && this.form.category.id) {
+        params.append('category[id]', this.form.category.id);
+        params.append('category[name]', this.form.category.name);
+      }
+      if (this.form.subCategory && this.form.subCategory.id) {
+        params.append('subCategory[id]', this.form.subCategory.id);
+        params.append('subCategory[name]', this.form.subCategory.name);
       }
       if (this.form.fromDate) {
         params.append('fromDate', this.form.fromDate);
@@ -415,15 +439,20 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       if (this.form.toDate) {
         params.append('toDate', this.form.toDate);
       }
-      return "/items-report/pdf?".concat(params.toString());
+      return "/reports/expenses-report/pdf?".concat(params.toString());
     },
     printTemplateUrl: function printTemplateUrl() {
-      // Create a dynamic print template URL for items report with current filters
+      // Create a dynamic print template URL for expenses report with current filters
       var params = new URLSearchParams();
 
-      // Always pass product information (required by API)
-      if (this.form.productName && this.form.productName.slug) {
-        params.append('productName[slug]', this.form.productName.slug);
+      // Always pass category information (required by API)
+      if (this.form.category) {
+        params.append('category[id]', this.form.category.id);
+        params.append('category[name]', this.form.category.name);
+      }
+      if (this.form.subCategory && this.form.subCategory.id) {
+        params.append('subCategory[id]', this.form.subCategory.id);
+        params.append('subCategory[name]', this.form.subCategory.name);
       }
       if (this.form.fromDate) {
         params.append('fromDate', this.form.fromDate);
@@ -431,16 +460,20 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       if (this.form.toDate) {
         params.append('toDate', this.form.toDate);
       }
-      return "/print/reports/items?".concat(params.toString());
+      return "/print/reports/expenses?".concat(params.toString());
     }
   }),
   created: function created() {
-    this.getItems();
-    this.prfix = this.appInfo.productPrefix;
+    this.getCatgories();
+    this.categoryPrefix = this.appInfo.expCatPrefix;
+    this.subCategoryPrefix = this.appInfo.expSubCatPrefix;
+  },
+  mounted: function mounted() {
+    this.loadTemporaryData();
   },
   methods: {
     // get all categories
-    getItems: function getItems() {
+    getCatgories: function getCatgories() {
       var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         return _regeneratorRuntime().wrap(function _callee$(_context) {
@@ -448,218 +481,121 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
             case 0:
               _context.next = 2;
               return _this.$store.dispatch("operations/allData", {
-                path: "/api/all-products"
+                path: "/api/all-expense-categories"
               });
             case 2:
+              _this.items.unshift({
+                id: 0,
+                name: "All Categories"
+              });
+            case 3:
             case "end":
               return _context.stop();
           }
         }, _callee);
       }))();
     },
-    // translate validation messages from backend to localized messages
-    translateValidationMessage: function translateValidationMessage(message, field) {
-      // If there is a direct translation key, use it
-      var direct = this.$t(message);
-      if (direct && direct !== message) return direct;
-
-      // Get current locale
-      var currentLocale = this.$i18n.locale || 'en';
-      var isArabic = currentLocale === 'ar';
-
-      // Field label mapping for items report form fields
-      var fieldLabelMap = {
-        'productName': this.$t('Product Name'),
-        'product name': this.$t('Product Name'),
-        'product_name': this.$t('Product Name'),
-        'fromDate': this.$t('From Date'),
-        'from date': this.$t('From Date'),
-        'from_date': this.$t('From Date'),
-        'toDate': this.$t('To Date'),
-        'to date': this.$t('To Date'),
-        'to_date': this.$t('To Date')
-      };
-      var fieldLabel = fieldLabelMap[field] || fieldLabelMap[field === null || field === void 0 ? void 0 : field.toLowerCase()] || field;
-
-      // Handle mixed language messages from backend (Arabic + English)
-      // Pattern: "حقل [field] مطلوب" -> "Field is required"
-      var mixedLanguagePatterns = [
-      // Arabic "حقل" + English field + Arabic "مطلوب"
-      {
-        re: /حقل\s+([^م]+?)\s+مطلوب/i,
-        en: function en(_, fieldName) {
-          var cleanFieldName = fieldName.trim();
-          var fieldTranslation = fieldLabelMap[cleanFieldName] || fieldLabelMap[cleanFieldName.toLowerCase()] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] || cleanFieldName;
-          return "".concat(fieldTranslation, " is required");
-        },
-        ar: function ar(_, fieldName) {
-          var cleanFieldName = fieldName.trim();
-          var fieldTranslation = fieldLabelMap[cleanFieldName] || fieldLabelMap[cleanFieldName.toLowerCase()] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] || cleanFieldName;
-          return "".concat(fieldTranslation, " \u0645\u0637\u0644\u0648\u0628");
-        }
-      },
-      // Arabic "يرجى اختيار" + English field
-      {
-        re: /يرجى\s+اختيار\s+([^.]+)/i,
-        en: function en(_, fieldName) {
-          var cleanFieldName = fieldName.trim();
-          var fieldTranslation = fieldLabelMap[cleanFieldName] || fieldLabelMap[cleanFieldName.toLowerCase()] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] || cleanFieldName;
-          return "Please select ".concat(fieldTranslation);
-        },
-        ar: function ar(_, fieldName) {
-          var cleanFieldName = fieldName.trim();
-          var fieldTranslation = fieldLabelMap[cleanFieldName] || fieldLabelMap[cleanFieldName.toLowerCase()] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] || cleanFieldName;
-          return "\u064A\u0631\u062C\u0649 \u0627\u062E\u062A\u064A\u0627\u0631 ".concat(fieldTranslation);
-        }
-      },
-      // Arabic "يرجى إدخال" + English field
-      {
-        re: /يرجى\s+إدخال\s+([^.]+)/i,
-        en: function en(_, fieldName) {
-          var cleanFieldName = fieldName.trim();
-          var fieldTranslation = fieldLabelMap[cleanFieldName] || fieldLabelMap[cleanFieldName.toLowerCase()] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] || cleanFieldName;
-          return "Please enter ".concat(fieldTranslation);
-        },
-        ar: function ar(_, fieldName) {
-          var cleanFieldName = fieldName.trim();
-          var fieldTranslation = fieldLabelMap[cleanFieldName] || fieldLabelMap[cleanFieldName.toLowerCase()] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] || fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] || cleanFieldName;
-          return "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 ".concat(fieldTranslation);
-        }
-      }];
-
-      // Check mixed language patterns first
-      for (var _i = 0, _mixedLanguagePattern = mixedLanguagePatterns; _i < _mixedLanguagePattern.length; _i++) {
-        var _mixedLanguagePattern2 = _mixedLanguagePattern[_i],
-          re = _mixedLanguagePattern2.re,
-          en = _mixedLanguagePattern2.en,
-          ar = _mixedLanguagePattern2.ar;
-        var match = message.match(re);
-        if (match) {
-          var text = typeof (isArabic ? ar : en) === 'function' ? (isArabic ? ar : en).apply(void 0, _toConsumableArray(match)) : isArabic ? ar : en;
-          return text;
-        }
-      }
-
-      // Additional pattern for "حقل [field] مطلوب" format
-      if (message.includes('حقل') && message.includes('مطلوب')) {
-        var fieldMatch = message.match(/حقل\s+([^م]+?)\s+مطلوب/i);
-        if (fieldMatch) {
-          var fieldName = fieldMatch[1].trim();
-          var fieldTranslation = fieldLabelMap[fieldName] || fieldLabelMap[fieldName.toLowerCase()] || fieldLabelMap[fieldName.replace(/\s+/g, '')] || fieldLabelMap[fieldName.replace(/\s+/g, '_')] || fieldName;
-          return isArabic ? "".concat(fieldTranslation, " \u0645\u0637\u0644\u0648\u0628") : "".concat(fieldTranslation, " is required");
-        }
-      }
-
-      // Handle "يرجى اختيار" patterns
-      if (message.includes('يرجى اختيار')) {
-        var _fieldMatch = message.match(/يرجى\s+اختيار\s+([^.]+)/i);
-        if (_fieldMatch) {
-          var _fieldName = _fieldMatch[1].trim();
-          var _fieldTranslation = fieldLabelMap[_fieldName] || fieldLabelMap[_fieldName.toLowerCase()] || fieldLabelMap[_fieldName.replace(/\s+/g, '')] || fieldLabelMap[_fieldName.replace(/\s+/g, '_')] || _fieldName;
-          return isArabic ? "\u064A\u0631\u062C\u0649 \u0627\u062E\u062A\u064A\u0627\u0631 ".concat(_fieldTranslation) : "Please select ".concat(_fieldTranslation);
-        }
-      }
-
-      // Common Laravel validation patterns with localized messages
-      var patterns = [
-      // Required field patterns
-      {
-        re: /The\s+.+?\s+field\s+is\s+required\.?/i,
-        en: "".concat(fieldLabel, " is required"),
-        ar: "".concat(fieldLabel, " \u0645\u0637\u0644\u0648\u0628")
-      }, {
-        re: /Please\s+select\s+an?\s+.+?\.?/i,
-        en: "Please select ".concat(fieldLabel),
-        ar: "\u064A\u0631\u062C\u0649 \u0627\u062E\u062A\u064A\u0627\u0631 ".concat(fieldLabel)
-      }, {
-        re: /Please\s+enter\s+a\s+.+?\.?/i,
-        en: "Please enter ".concat(fieldLabel),
-        ar: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 ".concat(fieldLabel)
-      }, {
-        re: /Please\s+provide\s+a\s+.+?\.?/i,
-        en: "Please provide ".concat(fieldLabel),
-        ar: "\u064A\u0631\u062C\u0649 \u062A\u0642\u062F\u064A\u0645 ".concat(fieldLabel)
-      }];
-
-      // Check standard Laravel patterns
-      for (var _i2 = 0, _patterns = patterns; _i2 < _patterns.length; _i2++) {
-        var _patterns$_i = _patterns[_i2],
-          _re = _patterns$_i.re,
-          _en = _patterns$_i.en,
-          _ar = _patterns$_i.ar;
-        if (_re.test(message)) {
-          return isArabic ? _ar : _en;
-        }
-      }
-
-      // Fallback: return the message with translation attempt
-      return this.$t(message) !== message ? this.$t(message) : message;
-    },
-    // get filtered data
-    update: function update(values) {
+    // get sub categories for a category
+    getSubCategories: function getSubCategories() {
       var _this2 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var slug, _yield$axios$get, data;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              _this2.loading = true;
-              _this2.form.fromDate = values.from;
-              _this2.form.toDate = values.to;
-              _context2.next = 5;
-              return _this2.form.post(window.location.origin + "/api/reports/items").then(function (response) {
-                _this2.allData = response.data;
-                _this2.loading = false;
-              })["catch"](function (error) {
-                var _error$response, _error$response2;
-                _this2.loading = false;
-
-                // Handle validation errors
-                if (((_error$response = error.response) === null || _error$response === void 0 ? void 0 : _error$response.status) === 422 && (_error$response2 = error.response) !== null && _error$response2 !== void 0 && (_error$response2 = _error$response2.data) !== null && _error$response2 !== void 0 && _error$response2.errors) {
-                  // Translate validation errors
-                  var translatedErrors = {};
-                  Object.keys(error.response.data.errors).forEach(function (field) {
-                    translatedErrors[field] = error.response.data.errors[field].map(function (message) {
-                      // Use translateValidationMessage to handle mixed language messages
-                      return _this2.translateValidationMessage(message, field);
-                    });
-                  });
-
-                  // Set the translated errors back to the form
-                  _this2.form.errors.set(translatedErrors);
-
-                  // Show a general validation error message
-                  _this2.toast.fire({
-                    type: "error",
-                    title: _this2.$t("Please check your input and try again.")
-                  });
-                } else {
-                  // Handle other errors
-                  _this2.toast.fire({
-                    type: "error",
-                    title: _this2.$t("There was something wrong.")
-                  });
-                }
-              });
-            case 5:
+              _this2.subCategories = [];
+              _this2.form.subCategory = "";
+              if (!(_this2.form.category.id != 0)) {
+                _context2.next = 10;
+                break;
+              }
+              slug = _this2.form.category.slug;
+              _context2.next = 6;
+              return axios_default().get(window.location.origin + "/api/sub-categories-by-category/" + slug);
+            case 6:
+              _yield$axios$get = _context2.sent;
+              data = _yield$axios$get.data;
+              _this2.subCategories = data.data;
+              if (_this2.subCategories.length > 0) {
+                _this2.subCategories.unshift({
+                  id: 0,
+                  name: "All Sub Categories"
+                });
+              }
+            case 10:
             case "end":
               return _context2.stop();
           }
         }, _callee2);
       }))();
     },
-    // count stock in qty
-    stockInQty: function stockInQty(stockIns) {
-      var total = stockIns.reduce(function (accumulator, current) {
-        return Number(accumulator) + Number(current.quantity);
+    // get filtered data
+    update: function update(values) {
+      var _this3 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              _this3.loading = true;
+              _this3.form.fromDate = values.from;
+              _this3.form.toDate = values.to;
+              _context3.next = 5;
+              return _this3.form.post(window.location.origin + "/api/reports/expenses").then(function (response) {
+                _this3.expenses = response.data.data;
+                _this3.loading = false;
+              })["catch"](function () {
+                toast.fire({
+                  type: "error",
+                  title: _this3.$t("There was something wrong.")
+                });
+              });
+            case 5:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3);
+      }))();
+    },
+    // calculate total
+    calculateTotal: function calculateTotal(expenses) {
+      var total = expenses.reduce(function (accumulator, current) {
+        return Number(accumulator) + Number(current.transaction.amount);
       }, 0);
       return total;
     },
-    // count stock out qty
-    stockOutQty: function stockOutQty(stockOuts) {
-      var total = stockOuts.reduce(function (accumulator, current) {
-        return Number(accumulator) + Number(current.quantity);
-      }, 0);
-      return total;
+    // save form data temporarily
+    saveTemporary: function saveTemporary() {
+      var tempData = {
+        category: this.form.category,
+        subCategory: this.form.subCategory,
+        fromDate: this.form.fromDate,
+        toDate: this.form.toDate,
+        timestamp: new Date().toISOString()
+      };
+      localStorage.setItem('expensesReportTempData', JSON.stringify(tempData));
+      toast.fire({
+        type: 'success',
+        title: this.$t('Filter settings saved temporarily')
+      });
+    },
+    // load temporary data
+    loadTemporaryData: function loadTemporaryData() {
+      var tempData = localStorage.getItem('expensesReportTempData');
+      if (tempData) {
+        try {
+          var data = JSON.parse(tempData);
+          this.form.category = data.category || this.form.category;
+          this.form.subCategory = data.subCategory || this.form.subCategory;
+          this.form.fromDate = data.fromDate || this.form.fromDate;
+          this.form.toDate = data.toDate || this.form.toDate;
+        } catch (error) {
+          console.error('Error loading temporary data:', error);
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData: function clearTemporaryData() {
+      localStorage.removeItem('expensesReportTempData');
     },
     // refresh top buttons
     refreshTable: function refreshTable() {
@@ -670,132 +606,270 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     },
     // print table area
     print: function print() {
-      var _this3 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
+      var _this4 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              if (!_this3.$htmlToPaper) {
-                _context3.next = 5;
+              if (!_this4.$htmlToPaper) {
+                _context4.next = 5;
                 break;
               }
-              _context3.next = 3;
-              return _this3.$htmlToPaper("printMe");
+              _context4.next = 3;
+              return _this4.$htmlToPaper("printMe");
             case 3:
-              _context3.next = 6;
+              _context4.next = 6;
               break;
             case 5:
-              _this3.printWindow();
+              _this4.printWindow();
             case 6:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
-        }, _callee3);
+        }, _callee4);
       }))();
     },
     // print
     printWindow: function printWindow() {
       window.print();
     },
-    // export PDF without navigation and show toast on validation errors
-    exportPdf: function exportPdf() {
-      var _this4 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        var response, message, data, firstField, translated, blob, url, link;
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
+    // export Excel without navigation and show toast on validation errors
+    exportExcel: function exportExcel() {
+      var _this5 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        var response, message, data, firstField, raw, extracted, contentType, text, errorData, blob, url, link;
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
             case 0:
-              if (!(!_this4.form.productName || !_this4.form.productName.slug)) {
-                _context4.next = 3;
+              if (!(!_this5.form.category || !_this5.form.category.id)) {
+                _context5.next = 3;
                 break;
               }
-              _this4.toast.fire({
+              toast.fire({
                 type: "error",
-                title: _this4.$t("The product name field is required.")
+                title: _this5.$t("The category field is required.")
               });
-              return _context4.abrupt("return");
+              return _context5.abrupt("return");
             case 3:
-              _context4.prev = 3;
-              _context4.next = 6;
-              return fetch(_this4.exportPdfUrl, {
+              _context5.prev = 3;
+              _context5.next = 6;
+              return fetch(_this5.exportExcelUrl, {
+                headers: {
+                  Accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                }
+              });
+            case 6:
+              response = _context5.sent;
+              if (response.ok) {
+                _context5.next = 21;
+                break;
+              }
+              message = _this5.$t("There was something wrong.");
+              _context5.prev = 9;
+              _context5.next = 12;
+              return response.clone().json();
+            case 12:
+              data = _context5.sent;
+              if (data && data.errors) {
+                firstField = Object.keys(data.errors)[0];
+                if (firstField && data.errors[firstField] && data.errors[firstField][0]) {
+                  message = data.errors[firstField][0];
+                }
+              } else if (data && typeof data.error === 'string') {
+                // Backend returns: "Failed to generate Excel: The category field is required."
+                raw = data.error;
+                extracted = raw.includes(':') ? raw.split(':').pop().trim() : raw;
+                message = extracted || raw;
+              } else if (data && data.message) {
+                message = data.message;
+              }
+              _context5.next = 19;
+              break;
+            case 16:
+              _context5.prev = 16;
+              _context5.t0 = _context5["catch"](9);
+              void _context5.t0;
+            case 19:
+              toast.fire({
+                type: "error",
+                title: _this5.$t(message)
+              });
+              return _context5.abrupt("return");
+            case 21:
+              // Check if response is actually an Excel file (not HTML error page)
+              contentType = response.headers.get('content-type');
+              if (!(contentType && !contentType.includes('spreadsheet') && !contentType.includes('excel') && !contentType.includes('octet-stream'))) {
+                _context5.next = 41;
+                break;
+              }
+              _context5.next = 25;
+              return response.text();
+            case 25:
+              text = _context5.sent;
+              if (!(text.includes('<!DOCTYPE') || text.includes('<html'))) {
+                _context5.next = 29;
+                break;
+              }
+              toast.fire({
+                type: "error",
+                title: _this5.$t("The server returned an error page. Please check your filters and try again.")
+              });
+              return _context5.abrupt("return");
+            case 29:
+              _context5.prev = 29;
+              errorData = JSON.parse(text);
+              if (!(errorData && errorData.error)) {
+                _context5.next = 34;
+                break;
+              }
+              toast.fire({
+                type: "error",
+                title: _this5.$t(errorData.error)
+              });
+              return _context5.abrupt("return");
+            case 34:
+              _context5.next = 40;
+              break;
+            case 36:
+              _context5.prev = 36;
+              _context5.t1 = _context5["catch"](29);
+              toast.fire({
+                type: "error",
+                title: _this5.$t("The server returned an unexpected response. Please check your filters and try again.")
+              });
+              return _context5.abrupt("return");
+            case 40:
+              return _context5.abrupt("return");
+            case 41:
+              _context5.next = 43;
+              return response.blob();
+            case 43:
+              blob = _context5.sent;
+              url = window.URL.createObjectURL(blob);
+              link = document.createElement('a');
+              link.href = url;
+              link.download = 'expenses-report.xlsx';
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+              window.URL.revokeObjectURL(url);
+              _context5.next = 57;
+              break;
+            case 54:
+              _context5.prev = 54;
+              _context5.t2 = _context5["catch"](3);
+              toast.fire({
+                type: "error",
+                title: _this5.$t("There was something wrong.")
+              });
+            case 57:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5, null, [[3, 54], [9, 16], [29, 36]]);
+      }))();
+    },
+    // export PDF without navigation and show toast on validation errors
+    exportPdf: function exportPdf() {
+      var _this6 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        var response, message, data, firstField, raw, extracted, blob, url, link;
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
+            case 0:
+              if (!(!_this6.form.category || !_this6.form.category.id)) {
+                _context6.next = 3;
+                break;
+              }
+              toast.fire({
+                type: "error",
+                title: _this6.$t("The category field is required.")
+              });
+              return _context6.abrupt("return");
+            case 3:
+              _context6.prev = 3;
+              _context6.next = 6;
+              return fetch(_this6.exportPdfUrl, {
                 headers: {
                   Accept: 'application/pdf'
                 }
               });
             case 6:
-              response = _context4.sent;
+              response = _context6.sent;
               if (response.ok) {
-                _context4.next = 20;
+                _context6.next = 21;
                 break;
               }
-              // Try to parse JSON for validation messages
-              message = _this4.$t("There was something wrong.");
-              _context4.prev = 9;
-              _context4.next = 12;
+              message = _this6.$t("There was something wrong.");
+              _context6.prev = 9;
+              _context6.next = 12;
               return response.clone().json();
             case 12:
-              data = _context4.sent;
+              data = _context6.sent;
               if (data && data.errors) {
                 firstField = Object.keys(data.errors)[0];
                 if (firstField && data.errors[firstField] && data.errors[firstField][0]) {
-                  // Use translateValidationMessage to handle mixed language messages
-                  message = _this4.translateValidationMessage(data.errors[firstField][0], firstField);
+                  message = data.errors[firstField][0];
                 }
+              } else if (data && typeof data.error === 'string') {
+                // Backend returns: "Failed to generate PDF: The category field is required."
+                raw = data.error;
+                extracted = raw.includes(':') ? raw.split(':').pop().trim() : raw;
+                message = extracted || raw;
               } else if (data && data.message) {
-                // Try to translate the message, fallback to original if no translation
-                translated = _this4.translateValidationMessage(data.message, '');
-                message = translated !== data.message ? translated : _this4.$t(data.message) !== data.message ? _this4.$t(data.message) : data.message;
+                message = data.message;
               }
-              _context4.next = 18;
+              _context6.next = 19;
               break;
             case 16:
-              _context4.prev = 16;
-              _context4.t0 = _context4["catch"](9);
-            case 18:
-              _this4.toast.fire({
+              _context6.prev = 16;
+              _context6.t0 = _context6["catch"](9);
+              void _context6.t0;
+            case 19:
+              toast.fire({
                 type: "error",
-                title: message
+                title: _this6.$t(message)
               });
-              return _context4.abrupt("return");
-            case 20:
-              _context4.next = 22;
+              return _context6.abrupt("return");
+            case 21:
+              _context6.next = 23;
               return response.blob();
-            case 22:
-              blob = _context4.sent;
+            case 23:
+              blob = _context6.sent;
               url = window.URL.createObjectURL(blob);
               link = document.createElement('a');
               link.href = url;
-              link.download = 'items-report.pdf';
+              link.download = 'expenses-report.pdf';
               document.body.appendChild(link);
               link.click();
               document.body.removeChild(link);
               window.URL.revokeObjectURL(url);
-              _context4.next = 36;
+              _context6.next = 37;
               break;
-            case 33:
-              _context4.prev = 33;
-              _context4.t1 = _context4["catch"](3);
-              _this4.toast.fire({
+            case 34:
+              _context6.prev = 34;
+              _context6.t1 = _context6["catch"](3);
+              toast.fire({
                 type: "error",
-                title: _this4.$t("There was something wrong.")
+                title: _this6.$t("There was something wrong.")
               });
-            case 36:
+            case 37:
             case "end":
-              return _context4.stop();
+              return _context6.stop();
           }
-        }, _callee4, null, [[3, 33], [9, 16]]);
+        }, _callee6, null, [[3, 34], [9, 16]]);
       }))();
     }
   }
 });
-;// CONCATENATED MODULE: ./resources/js/pages/reports/items.vue?vue&type=script&lang=js
- /* harmony default export */ const reports_itemsvue_type_script_lang_js = (itemsvue_type_script_lang_js); 
+;// CONCATENATED MODULE: ./resources/js/pages/reports/expenses.vue?vue&type=script&lang=js
+ /* harmony default export */ const reports_expensesvue_type_script_lang_js = (expensesvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/items.vue?vue&type=style&index=0&id=84e459b2&prod&scoped=true&lang=css
-var itemsvue_type_style_index_0_id_84e459b2_prod_scoped_true_lang_css = __webpack_require__(4477);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/items.vue?vue&type=style&index=0&id=84e459b2&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/expenses.vue?vue&type=style&index=0&id=2adb3bd2&prod&scoped=true&lang=css
+var expensesvue_type_style_index_0_id_2adb3bd2_prod_scoped_true_lang_css = __webpack_require__(60045);
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/expenses.vue?vue&type=style&index=0&id=2adb3bd2&prod&scoped=true&lang=css
 
             
 
@@ -804,16 +878,16 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(itemsvue_type_style_index_0_id_84e459b2_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(expensesvue_type_style_index_0_id_2adb3bd2_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const reports_itemsvue_type_style_index_0_id_84e459b2_prod_scoped_true_lang_css = (itemsvue_type_style_index_0_id_84e459b2_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/pages/reports/items.vue?vue&type=style&index=0&id=84e459b2&prod&scoped=true&lang=css
+/* harmony default export */ const reports_expensesvue_type_style_index_0_id_2adb3bd2_prod_scoped_true_lang_css = (expensesvue_type_style_index_0_id_2adb3bd2_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// CONCATENATED MODULE: ./resources/js/pages/reports/expenses.vue?vue&type=style&index=0&id=2adb3bd2&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// CONCATENATED MODULE: ./resources/js/pages/reports/items.vue
+;// CONCATENATED MODULE: ./resources/js/pages/reports/expenses.vue
 
 
 
@@ -823,17 +897,17 @@ var componentNormalizer = __webpack_require__(14486);
 /* normalize component */
 
 var component = (0,componentNormalizer/* default */.A)(
-  reports_itemsvue_type_script_lang_js,
+  reports_expensesvue_type_script_lang_js,
   render,
   staticRenderFns,
   false,
   null,
-  "84e459b2",
+  "2adb3bd2",
   null
   
 )
 
-/* harmony default export */ const items = (component.exports);
+/* harmony default export */ const expenses = (component.exports);
 
 /***/ })
 

@@ -22,7 +22,7 @@
                     <i class="fas fa-sync"></i>
                   </a>
                   <a
-                    :href="exportExcelUrl"
+                    :href="exportUrl"
                     v-tooltip="$t('Export to Excel')"
                     class="btn export-excel-btn"
                     title="Export to Excel"
@@ -241,7 +241,8 @@ export default {
 
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
-    exportExcelUrl() {
+    exportUrl() {
+      // Create a dynamic export URL for inventory report with current filters
       const params = new URLSearchParams();
       if (this.form.category && this.form.category.slug) {
         params.append('category[slug]', this.form.category.slug);
@@ -264,7 +265,7 @@ export default {
       if (this.form.toDate) {
         params.append('toDate', this.form.toDate);
       }
-      return `/reports/inventory-report/export?${params.toString()}`;
+      return `/inventory-report/export?${params.toString()}`;
     },
     exportPdfUrl() {
       const params = new URLSearchParams();

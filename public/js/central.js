@@ -117238,12 +117238,12 @@ var map = {
 		9231
 	],
 	"./reports/expenses": [
-		4779,
-		4779
+		56967,
+		6967
 	],
 	"./reports/expenses.vue": [
-		4779,
-		4779
+		56967,
+		6967
 	],
 	"./reports/group-account-statement": [
 		88958,
@@ -117254,12 +117254,12 @@ var map = {
 		8958
 	],
 	"./reports/inventory": [
-		68600,
-		8600
+		73966,
+		3966
 	],
 	"./reports/inventory.vue": [
-		68600,
-		8600
+		73966,
+		3966
 	],
 	"./reports/invoice-summary": [
 		60628,
@@ -117270,12 +117270,12 @@ var map = {
 		628
 	],
 	"./reports/items": [
-		99872,
-		9872
+		82867,
+		2867
 	],
 	"./reports/items.vue": [
-		99872,
-		9872
+		82867,
+		2867
 	],
 	"./reports/profit-loss": [
 		9432,
@@ -118475,11 +118475,11 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 2732) return "js/2732.js";
 /******/ 			if (chunkId === 249) return "js/249.js";
 /******/ 			if (chunkId === 9231) return "js/9231.js";
-/******/ 			if (chunkId === 4779) return "js/4779.js";
+/******/ 			if (chunkId === 6967) return "js/6967.js";
 /******/ 			if (chunkId === 8958) return "js/8958.js";
-/******/ 			if (chunkId === 8600) return "js/8600.js";
+/******/ 			if (chunkId === 3966) return "js/3966.js";
 /******/ 			if (chunkId === 628) return "js/628.js";
-/******/ 			if (chunkId === 9872) return "js/9872.js";
+/******/ 			if (chunkId === 2867) return "js/2867.js";
 /******/ 			if (chunkId === 9432) return "js/9432.js";
 /******/ 			if (chunkId === 534) return "js/534.js";
 /******/ 			if (chunkId === 1664) return "js/1664.js";

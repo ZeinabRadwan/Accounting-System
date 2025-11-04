@@ -815,6 +815,7 @@ Route::middleware([
     Route::get('/inventory-adjustments/pdf', [TableExportController::class, 'inventoryAdjustmentsPDF'])->name('inventoryAdjustments.pdf');
     Route::get('/inventory-adjustments/excel', [TableExportController::class, 'inventoryAdjustmentsExcel'])->name('inventoryAdjustments.excel');
     Route::get('/inventory/excel', [TableExportController::class, 'inventoryExcel'])->name('inventory.excel');
+    Route::get('/inventory-count/excel', [TableExportController::class, 'inventoryCountExcel'])->name('inventoryCount.excel');
     Route::get('/inventory-history/excel', [TableExportController::class, 'inventoryHistoryExcel'])->name('inventoryHistory.excel');
     Route::get('/inventory-history/pdf', [TableExportController::class, 'inventoryHistoryPDF'])->name('inventoryHistory.pdf');
 
