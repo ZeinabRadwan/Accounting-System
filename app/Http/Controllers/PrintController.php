@@ -102,7 +102,15 @@ class PrintController extends Controller
         app()->setLocale('ar');
         
         $invoiceReturn = InvoiceReturn::where('slug', $slug)
-            ->with('invoice.client', 'invoiceReturnProducts.product.productUnit', 'invoiceReturnProducts.product.productTax', 'user')
+            ->with([
+                'invoice.client', 
+                'invoice.invoiceProducts.product.productUnit',
+                'invoice.invoiceProducts.product.productTax',
+                'invoice.invoiceProducts.vatRate',
+                'invoiceReturnProducts.product.productUnit', 
+                'invoiceReturnProducts.product.productTax', 
+                'user'
+            ])
             ->firstOrFail();
 
         // Get the default template for invoice returns
@@ -1251,7 +1259,15 @@ class PrintController extends Controller
         app()->setLocale('ar');
         
         $invoiceReturn = InvoiceReturn::where('slug', $slug)
-            ->with('invoice.client', 'invoiceReturnProducts.product.productUnit', 'invoiceReturnProducts.product.productTax', 'user')
+            ->with([
+                'invoice.client', 
+                'invoice.invoiceProducts.product.productUnit',
+                'invoice.invoiceProducts.product.productTax',
+                'invoice.invoiceProducts.vatRate',
+                'invoiceReturnProducts.product.productUnit', 
+                'invoiceReturnProducts.product.productTax', 
+                'user'
+            ])
             ->firstOrFail();
 
         // Get the default template for invoice returns
