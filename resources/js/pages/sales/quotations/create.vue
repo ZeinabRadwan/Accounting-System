@@ -402,7 +402,7 @@
                         <td style="min-width: 200px;">
                           <div class="input-group custom-qty-input">
                             <input type="number" step="any" min="0" :id="`unitPrice-${i}`" v-model="item.unitPrice"
-                              name="unitPrice" class="quantity-field border-0" required @change="
+                              name="unitPrice" class="price-field border-0" required @change="
                                 generateItemTotal(
                                   $event.target.value,
                                   'price',
@@ -2048,6 +2048,8 @@ export default {
   background-color: #0056b3;
   transform: scale(1.05);
 }
+
+.price-field {width: 100%}
 
 .quantity-field {
   width: 60px;
