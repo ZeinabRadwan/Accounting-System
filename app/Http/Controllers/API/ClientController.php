@@ -54,11 +54,24 @@ class ClientController extends Controller
     {
         $query = Client::query();
         
+        // Apply branch filter for non-superadmin users
+        $user = Auth::user();
+        // if ((int) $user->account_role !== 1) {
+            $branchIds = $this->getUserBranchIds($user);
+            $query->whereIn('branch_id', $branchIds);
+        // }
+        
         if ($request->type) {
             $query = $query->where('type', $request->type);
         }
         
         return ClientListResource::collection($query->orderBy('client_id', 'DESC')->paginate($request->perPage));
+    }
+    
+    private function getUserBranchIds($user)
+    {
+        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        return [$defaultBranchId > 0 ? $defaultBranchId : 0];
     }
 
     /**
@@ -444,6 +457,13 @@ class ClientController extends Controller
     {
         $term = $request->term;
         $query = Client::query();
+
+        // Apply branch filter for non-superadmin users
+        $user = Auth::user();
+        if ((int) $user->account_role !== 1) {
+            $branchIds = $this->getUserBranchIds($user);
+            $query->whereIn('branch_id', $branchIds);
+        }
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('created_at', [$request->startDate, $request->endDate]);

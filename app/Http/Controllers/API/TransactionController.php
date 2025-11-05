@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AccountTransactionResource;
 use App\Models\AccountTransaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
@@ -18,9 +20,22 @@ class TransactionController extends Controller
     //return all transactions
     public function allTransactions(Request $request)
     {
-        $transactions = AccountTransaction::with('cashbookAccount', 'user')->latest()->paginate($request->perPage);
-
-        return AccountTransactionResource::collection($transactions);
+        $query = AccountTransaction::with('cashbookAccount', 'user');
+        
+        // Apply branch filter for non-superadmin users
+        $user = Auth::user();
+        // if ((int) $user->account_role !== 1) {
+            $branchIds = $this->getUserBranchIds($user);
+            $query->whereIn('branch_id', $branchIds);
+        // }
+        
+        return AccountTransactionResource::collection($query->latest()->paginate($request->perPage));
+    }
+    
+    private function getUserBranchIds($user)
+    {
+        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        return [$defaultBranchId > 0 ? $defaultBranchId : 0];
     }
 
     // search and return transactions
@@ -28,6 +43,13 @@ class TransactionController extends Controller
     {
         $term = $request->term;
         $query = AccountTransaction::with('cashbookAccount', 'user');
+
+        // Apply branch filter for non-superadmin users
+        $user = Auth::user();
+        if ((int) $user->account_role !== 1) {
+            $branchIds = $this->getUserBranchIds($user);
+            $query->whereIn('branch_id', $branchIds);
+        }
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('transaction_date', [$request->startDate, $request->endDate]);

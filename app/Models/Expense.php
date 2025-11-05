@@ -17,7 +17,7 @@ class Expense extends Model
      * @var array
      */
     protected $fillable = [
-        'reason', 'slug', 'sub_cat_id', 'transaction_id', 'amount', 'expense_account_id', 'date', 'created_by', 'note', 'image_path', 'status',
+        'reason', 'slug', 'sub_cat_id', 'transaction_id', 'amount', 'expense_account_id', 'date', 'created_by', 'note', 'image_path', 'status', 'branch_id',
     ];
 
     /**
@@ -80,5 +80,21 @@ class Expense extends Model
     public function expenseAccount()
     {
         return $this->belongsTo(ChartOfAccount::class, 'expense_account_id');
+    }
+
+    /**
+     * Get the branch for this expense.
+     */
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
+    /**
+     * Scope: filter by branch
+     */
+    public function scopeForBranch($query, $branchId)
+    {
+        return $query->where('branch_id', $branchId);
     }
 }

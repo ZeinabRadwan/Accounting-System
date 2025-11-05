@@ -22,7 +22,7 @@ class Product extends Model implements HasMedia
      * @var array
      */
     protected $fillable = [
-        'is_service', 'name', 'slug', 'code', 'model', 'barcode_symbology', 'sub_cat_id', 'brand_id', 'unit_id', 'tax_id', 'sales_account_id', 'purchase_account_id', 'tax_type', 'purchase_price', 'regular_price', 'discount', 'inventory_count', 'opening_stock_count', 'opening_stock_unit_price', 'alert_qty', 'note', 'status', 'image_path',
+        'is_service', 'name', 'slug', 'code', 'model', 'barcode_symbology', 'sub_cat_id', 'brand_id', 'unit_id', 'tax_id', 'sales_account_id', 'purchase_account_id', 'tax_type', 'purchase_price', 'regular_price', 'discount', 'inventory_count', 'opening_stock_count', 'opening_stock_unit_price', 'alert_qty', 'note', 'status', 'image_path', 'branch_id',
     ];
 
     /**
@@ -333,5 +333,13 @@ class Product extends Model implements HasMedia
         }
 
         return $productData;
+    }
+
+    /**
+     * Get the branch for this product.
+     */
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
     }
 }

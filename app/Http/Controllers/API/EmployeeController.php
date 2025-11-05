@@ -44,7 +44,22 @@ class EmployeeController extends Controller
      */
     public function index(Request $request)
     {
-        return EmployeeResource::collection(Employee::with('department', 'user')->latest()->paginate($request->perPage));
+        $query = Employee::with('department', 'user');
+        
+        // Apply branch filter for non-superadmin users
+        $user = Auth::user();
+        // if ((int) $user->account_role !== 1) {
+            $branchIds = $this->getUserBranchIds($user);
+            $query->whereIn('branch_id', $branchIds);
+        // }
+        
+        return EmployeeResource::collection($query->latest()->paginate($request->perPage));
+    }
+    
+    private function getUserBranchIds($user)
+    {
+        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        return [$defaultBranchId > 0 ? $defaultBranchId : 0];
     }
 
     /**
@@ -83,15 +98,39 @@ class EmployeeController extends Controller
             if ($request->allowLogin == true) {
                 // get role
                 $role = Role::where('slug', $request->role['slug'])->first();
+                
+                // Authorization: Super admin (account_role === 1) can select any branch; normal users must belong to branch
+                $currentUser = Auth::user();
+                $branchId = (int) $request->branch_id;
+
+                if ((int) $currentUser->account_role !== 1) {
+                    $belongs = DB::table('branch_user')
+                        ->where('user_id', $currentUser->id)
+                        ->where('branch_id', $branchId)
+                        ->exists();
+                    if (!$belongs) {
+                        throw new Exception(__('You can only add users to branches you belong to.'));
+                    }
+                }
+
                 // store user
                 $user = User::create([
                     'name' => $request->employeeName,
                     'email' => $request->email,
                     'password' => Hash::make($request->password),
                     'account_role' => 0,
+                    'default_branch_id' => $branchId,
                 ]);
                 $user->roles()->attach($role->id);
                 $user->permissions()->attach($user->roles[0]->permissions);
+
+                // attach user to branch in branch_user pivot table
+                DB::table('branch_user')->insert([
+                    'user_id' => $user->id,
+                    'branch_id' => $branchId,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
             }
 
             // create employee
@@ -113,6 +152,7 @@ class EmployeeController extends Controller
                 'status' => $request->status,
                 'image_path' => $imageName,
                 'user_id' => isset($user) ? $user->id : null,
+                'branch_id' => (int) $request->branch_id,
             ]);
 
                         // add activity log
@@ -185,6 +225,20 @@ class EmployeeController extends Controller
                 Image::make($request->image)->save(public_path('images/employees/') . $imageName);
             }
 
+            // Branch authorization
+            $currentUser = Auth::user();
+            $branchId = (int) $request->branch_id;
+            
+            if ((int) $currentUser->account_role !== 1) {
+                $belongs = DB::table('branch_user')
+                    ->where('user_id', $currentUser->id)
+                    ->where('branch_id', $branchId)
+                    ->exists();
+                if (!$belongs) {
+                    throw new Exception(__('You can only assign users to branches you belong to.'));
+                }
+            }
+
             // operations for allow login
             if ($request->allowLogin == true) {
                 // get role
@@ -201,9 +255,16 @@ class EmployeeController extends Controller
                         'email' => $request->email,
                         'password' => $password,
                         'is_active' => 1,
+                        'default_branch_id' => $branchId,
                     ]);
                     $user->roles()->sync($role->id);
                     $user->permissions()->sync($user->roles[0]->permissions);
+                    
+                    // Update branch assignment
+                    DB::table('branch_user')->updateOrInsert(
+                        ['user_id' => $user->id, 'branch_id' => $branchId],
+                        ['updated_at' => now()]
+                    );
                 } else {
                     // store user login
                     $user = User::create([
@@ -211,9 +272,18 @@ class EmployeeController extends Controller
                         'email' => $request->email,
                         'password' => Hash::make($request->password),
                         'account_role' => 0,
+                        'default_branch_id' => $branchId,
                     ]);
                     $user->roles()->attach($role->id);
                     $user->permissions()->attach($user->roles[0]->permissions);
+                    
+                    // attach user to branch
+                    DB::table('branch_user')->insert([
+                        'user_id' => $user->id,
+                        'branch_id' => $branchId,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
                 }
             } else {
                 if (isset($employee->user)) {
@@ -241,6 +311,7 @@ class EmployeeController extends Controller
                 'status' => $request->status,
                 'image_path' => $imageName,
                 'user_id' => isset($user) ? $user->id : null,
+                'branch_id' => $branchId,
             ]);
 
             // add activity log
@@ -329,6 +400,13 @@ class EmployeeController extends Controller
     {
         $term = $request->term;
         $query = Employee::with('department');
+
+        // Apply branch filter for non-superadmin users
+        $user = Auth::user();
+        if ((int) $user->account_role !== 1) {
+            $branchIds = $this->getUserBranchIds($user);
+            $query->whereIn('branch_id', $branchIds);
+        }
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('joining_date', [$request->startDate, $request->endDate]);

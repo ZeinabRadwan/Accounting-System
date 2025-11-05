@@ -26,6 +26,8 @@ class UserResource extends JsonResource
             'photo_url' => $this->photo_url,
             'slug' => $this->slug,
             'locale' => $this->locale,
+            'account_role' => $this->account_role,
+            'default_branch_id' => $this->default_branch_id,
             'created_at' => $this->created_at,
             'roles' => $roles,
             'permissions' => $rolesPermissions,

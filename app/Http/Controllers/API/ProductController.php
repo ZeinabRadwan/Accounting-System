@@ -47,14 +47,29 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        return ProductListingResource::collection(Product::with(
+        $query = Product::with(
             'proSubCategory.category',
             'productUnit',
             'productTax',
             'productBrand',
             'salesAccount.type',
             'purchaseAccount.type'
-        )->latest()->paginate($request->perPage));
+        );
+        
+        // Apply branch filter for non-superadmin users
+        $user = Auth::user();
+        // if ((int) $user->account_role !== 1) {
+            $branchIds = $this->getUserBranchIds($user);
+            $query->whereIn('branch_id', $branchIds);
+        // }
+        
+        return ProductListingResource::collection($query->latest()->paginate($request->perPage));
+    }
+    
+    private function getUserBranchIds($user)
+    {
+        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        return [$defaultBranchId > 0 ? $defaultBranchId : 0];
     }
 
     /**
@@ -520,7 +535,16 @@ class ProductController extends Controller
     {
         $term = $request->term;
 
-        $query = Product::with('proSubCategory.category')->where('name', 'LIKE', '%' . $term . '%')
+        $query = Product::with('proSubCategory.category');
+        
+        // Apply branch filter for non-superadmin users
+        $user = Auth::user();
+        if ((int) $user->account_role !== 1) {
+            $branchIds = $this->getUserBranchIds($user);
+            $query->whereIn('branch_id', $branchIds);
+        }
+        
+        $query->where('name', 'LIKE', '%' . $term . '%')
             ->orWhere('slug', 'LIKE', '%' . $term . '%')
             ->orWhere('model', 'LIKE', '%' . $term . '%')
             ->orWhere('code', 'LIKE', '%' . $term . '%')

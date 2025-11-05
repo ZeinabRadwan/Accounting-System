@@ -51,12 +51,25 @@ class SupplierController extends Controller
     {
         $query = Supplier::query();
 
+        // Apply branch filter for non-superadmin users
+        $user = Auth::user();
+        // if ((int) $user->account_role !== 1) {
+            $branchIds = $this->getUserBranchIds($user);
+            $query->whereIn('branch_id', $branchIds);
+        // }
+
         // Filter by type if provided
         if ($request->has('type') && $request->type !== '') {
             $query->where('type', $request->type);
         }
 
         return SupplierListResource::collection($query->latest()->paginate($request->perPage));
+    }
+    
+    private function getUserBranchIds($user)
+    {
+        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        return [$defaultBranchId > 0 ? $defaultBranchId : 0];
     }
 
     /**
@@ -413,6 +426,13 @@ class SupplierController extends Controller
     {
         $term = $request->term;
         $query = Supplier::with('purchases.purchaseReturn');
+
+        // Apply branch filter for non-superadmin users
+        $user = Auth::user();
+        if ((int) $user->account_role !== 1) {
+            $branchIds = $this->getUserBranchIds($user);
+            $query->whereIn('branch_id', $branchIds);
+        }
 
         // Filter by date range
         if ($request->startDate && $request->endDate) {

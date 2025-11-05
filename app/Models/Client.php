@@ -18,7 +18,7 @@ class Client extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'client_id', 'email', 'phone', 'phone_secondary', 'status', 'image_path', 'type', 'chart_of_account_id',
+        'name', 'slug', 'client_id', 'email', 'phone', 'phone_secondary', 'status', 'image_path', 'type', 'chart_of_account_id', 'branch_id',
         // Account and billing details
         'code_number', 'notes', 'display_language',
         // Name fields (conditional based on type)
@@ -379,5 +379,13 @@ class Client extends Model
         }
 
         return $clientData;
+    }
+
+    /**
+     * Get the branch for this client.
+     */
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
     }
 }

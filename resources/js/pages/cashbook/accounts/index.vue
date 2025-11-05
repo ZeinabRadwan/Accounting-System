@@ -61,7 +61,8 @@
                     </svg>
                   </a>
                   <a
-                    href="/accounts/pdf"
+                    @click="exportToPDF"
+                    href="#"
                     v-tooltip="$t('Export to PDF')"
                     class="btn export-pdf-btn"
                     title="Export to PDF"
@@ -249,6 +250,7 @@ import { mapGetters } from "vuex";
 import i18n from "~/plugins/i18n";
 import DateRangePicker from "vue2-daterange-picker";
 import Swal from "sweetalert2";
+import html2pdf from "html2pdf.js";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -458,6 +460,42 @@ export default {
     // print table
     async print() {
       await this.$htmlToPaper("printMe");
+    },
+
+    // export table to PDF using html2pdf (hide action column)
+    async exportToPDF() {
+      try {
+        const element = document.getElementById("printMe");
+        if (!element) {
+          this.$toast.error(this.$t("Error!"), this.$t("Table not found"));
+          return;
+        }
+
+        const style = document.createElement('style');
+        style.setAttribute('data-pdf-export', 'true');
+        style.textContent = `
+          .no-print, .no-print * { display: none !important; }
+        `;
+        document.head.appendChild(style);
+
+        const opt = {
+          margin: [10, 10, 10, 10],
+          filename: `accounts-${(new Date()).toISOString().slice(0,10)}.pdf`,
+          image: { type: "jpeg", quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true, logging: false },
+          jsPDF: { unit: "mm", format: "a4", orientation: "landscape" },
+          pagebreak: { mode: ["avoid-all", "css", "legacy"] }
+        };
+
+        await html2pdf().set(opt).from(element).save();
+
+        document.head.removeChild(style);
+        this.$toast.success(this.$t("Success!"), this.$t("PDF exported successfully"));
+      } catch (error) {
+        const pdfStyle = document.querySelector('style[data-pdf-export]');
+        if (pdfStyle) document.head.removeChild(pdfStyle);
+        this.$toast.error(this.$t("Error!"), this.$t("Failed to export PDF"));
+      }
     },
 
     // delete data

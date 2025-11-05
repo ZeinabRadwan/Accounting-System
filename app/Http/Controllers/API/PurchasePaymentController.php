@@ -36,7 +36,22 @@ class PurchasePaymentController extends Controller
      */
     public function index(Request $request)
     {
-        return PurchasePaymentResource::collection(PurchasePayment::with('purchase.supplier', 'purchase.purchaseTax', 'purchase.purchaseReturn', 'purchasePaymentTransaction.cashbookAccount', 'user')->latest()->paginate($request->perPage));
+        $query = PurchasePayment::with('purchase.supplier', 'purchase.purchaseTax', 'purchase.purchaseReturn', 'purchasePaymentTransaction.cashbookAccount', 'user');
+        
+        // Apply branch filter for non-superadmin users
+        $user = Auth::user();
+        // if ((int) $user->account_role !== 1) {
+            $branchIds = $this->getUserBranchIds($user);
+            $query->whereIn('branch_id', $branchIds);
+        // }
+        
+        return PurchasePaymentResource::collection($query->latest()->paginate($request->perPage));
+    }
+    
+    private function getUserBranchIds($user)
+    {
+        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        return [$defaultBranchId > 0 ? $defaultBranchId : 0];
     }
 
     /**
@@ -297,6 +312,13 @@ class PurchasePaymentController extends Controller
     {
         $term = $request->term;
         $query = PurchasePayment::with('purchase.supplier', 'purchase.purchaseReturn', 'purchasePaymentTransaction.cashbookAccount', 'user');
+
+        // Apply branch filter for non-superadmin users
+        $user = Auth::user();
+        if ((int) $user->account_role !== 1) {
+            $branchIds = $this->getUserBranchIds($user);
+            $query->whereIn('branch_id', $branchIds);
+        }
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('date', [$request->startDate, $request->endDate]);

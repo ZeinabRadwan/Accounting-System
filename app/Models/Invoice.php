@@ -16,7 +16,7 @@ class Invoice extends Model
      * @var array
      */
     protected $fillable = [
-        'invoice_no', 'slug', 'reference', 'client_id', 'discount_type', 'discount', 'transport', 'sub_total', 'po_reference', 'payment_terms', 'delivery_place', 'tax_id', 'invoice_date', 'created_by', 'note', 'status', 'is_paid', 'fiscal_year_id', 'accounting_period_id',
+        'invoice_no', 'slug', 'reference', 'client_id', 'discount_type', 'discount', 'transport', 'sub_total', 'po_reference', 'payment_terms', 'delivery_place', 'tax_id', 'invoice_date', 'created_by', 'note', 'status', 'is_paid', 'fiscal_year_id', 'accounting_period_id', 'branch_id',
     ];
 
     protected $appends = ['calculated_due', 'calculated_tax', 'calculated_total'];
@@ -358,5 +358,13 @@ class Invoice extends Model
     public function accountingPeriod()
     {
         return $this->belongsTo(AccountingPeriod::class, 'accounting_period_id');
+    }
+
+    /**
+     * Get the branch for this invoice.
+     */
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
     }
 }

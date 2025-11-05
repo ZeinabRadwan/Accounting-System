@@ -16,7 +16,7 @@ class AccountTransaction extends Model
      * @var array
      */
     protected $fillable = [
-        'account_id', 'reason', 'amount', 'type', 'transaction_date', 'cheque_no', 'receipt_no',  'created_by', 'note', 'status', 'journal_entry_id', 'second_account_id',
+        'account_id', 'reason', 'amount', 'type', 'transaction_date', 'cheque_no', 'receipt_no',  'created_by', 'note', 'status', 'journal_entry_id', 'second_account_id', 'branch_id',
     ];
 
     /**
@@ -78,6 +78,21 @@ class AccountTransaction extends Model
         return $this->belongsTo(Account::class, 'account_id');
     }
 
+    /**
+     * Get the branch for this transaction.
+     */
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
+    /**
+     * Scope: filter by branch
+     */
+    public function scopeForBranch($query, $branchId)
+    {
+        return $query->where('branch_id', $branchId);
+    }
 
     /**
      * Get the journal entry this transaction is linked to

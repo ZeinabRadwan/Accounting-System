@@ -38,6 +38,17 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+      <li v-if="currentBranchName" class="nav-item d-flex align-items-center mr-2" v-tooltip="currentBranchName">
+        <span class="branch-pill d-inline-flex align-items-center">
+          <i class="fas fa-code-branch mr-2"></i>
+          <span class="text-truncate" style="max-width: 180px;">{{ currentBranchName }}</span>
+        </span>
+      </li>
+      <li class="nav-item" v-tooltip="$t('Change Branch')">
+        <a class="nav-link custom-nav-btn" href="#" @click.prevent="goSelectBranch">
+          <i class="fas fa-code-branch"></i>
+        </a>
+      </li>
       <li v-if="$can('today-profit')" v-tooltip="$t('Today Report')" class="nav-item">
         <a class="nav-link custom-nav-btn" :href="`#${$route.name === 'reports.todayReport' ? '' : 'reports.todayReport'}`" @click.prevent="$router.push({ name: 'reports.todayReport' })">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
@@ -227,6 +238,7 @@ export default {
     menuSearchQuery: "",
     menuItems: [],
     imageError: false,
+    currentBranchName: '',
   }),
 
   computed: {
@@ -240,6 +252,7 @@ export default {
 
   created() {
     this.stockNotification();
+    this.loadCurrentBranch();
   },
 
   mounted() {
@@ -253,10 +266,28 @@ export default {
   watch: {
     '$i18n.locale'() {
       this.updateSearchPlaceholder();
+    },
+    user: {
+      handler() {
+        // Reload current branch when user changes (e.g., after selecting new default)
+        this.loadCurrentBranch();
+      },
+      deep: false
     }
   },
 
   methods: {
+    goSelectBranch() {
+      this.$router.push({ name: 'branches.select', query: { redirect: this.$route.fullPath } })
+    },
+    async loadCurrentBranch() {
+      try {
+        const { data } = await axios.get('/api/branches/current')
+        this.currentBranchName = data?.branch?.name || ''
+      } catch (e) {
+        this.currentBranchName = ''
+      }
+    },
     setSearchPlaceholder() {
       if (this.$refs.searchInput) {
         this.$refs.searchInput.setAttribute('placeholder', this.$t('Search...'));
@@ -510,4 +541,16 @@ export default {
   line-height: 16px !important;
   padding: 0 4px !important;
 }
+
+/* Current branch pill */
+.branch-pill {
+  background: #ebf6fc;
+  border: 1px solid #d6edf7;
+  color: #33a0d9;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+[dir="rtl"] .branch-pill .mr-2 { margin-right: 0 !important; margin-left: .5rem !important; }
 </style>

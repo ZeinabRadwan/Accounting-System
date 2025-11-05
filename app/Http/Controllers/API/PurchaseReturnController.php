@@ -42,7 +42,22 @@ class PurchaseReturnController extends Controller
      */
     public function index(Request $request)
     {
-        return PurchaseReturnListReource::collection(PurchaseReturn::with('purchase.supplier', 'purchase.purchaseTax', 'purchaseReturnProducts.product.productTax')->latest()->paginate($request->perPage));
+        $query = PurchaseReturn::with('purchase.supplier', 'purchase.purchaseTax', 'purchaseReturnProducts.product.productTax');
+        
+        // Apply branch filter for non-superadmin users
+        $user = Auth::user();
+        // if ((int) $user->account_role !== 1) {
+            $branchIds = $this->getUserBranchIds($user);
+            $query->whereIn('branch_id', $branchIds);
+        // }
+        
+        return PurchaseReturnListReource::collection($query->latest()->paginate($request->perPage));
+    }
+    
+    private function getUserBranchIds($user)
+    {
+        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        return [$defaultBranchId > 0 ? $defaultBranchId : 0];
     }
 
     /**
@@ -395,6 +410,13 @@ class PurchaseReturnController extends Controller
     {
         $term = $request->term;
         $query = PurchaseReturn::with('purchase.supplier', 'purchase.purchaseTax', 'purchaseReturnProducts.product.productTax');
+
+        // Apply branch filter for non-superadmin users
+        $user = Auth::user();
+        if ((int) $user->account_role !== 1) {
+            $branchIds = $this->getUserBranchIds($user);
+            $query->whereIn('branch_id', $branchIds);
+        }
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('date', [$request->startDate, $request->endDate]);

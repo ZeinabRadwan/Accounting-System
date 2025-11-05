@@ -47,6 +47,7 @@ class UpdateEmployeeRequest extends BaseRequest
             'bloodGroup' => 'nullable|string',
             'religion' => 'nullable|string',
             'address' => 'nullable|string|max:255',
+            'branch_id' => 'required|exists:branches,id',
             'email' => $this->allowLogin == true ? 'required|string|email:rfc,dns|max:255|unique:users,email,'.$userId : 'nullable',
             'password' => ($this->allowLogin == true) && (isset($this->password) || empty($employee->user_id)) ? 'required|string|max:255|min:8' : 'nullable',
             'role' => $this->allowLogin == true ? 'required' : 'nullable',
