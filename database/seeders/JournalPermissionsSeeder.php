@@ -56,6 +56,55 @@ class JournalPermissionsSeeder extends Seeder
             );
 
         }
+
+
+
+        $branchPermissions = [
+            [
+                'name' => 'Create',
+                'guard_name' => 'Branch Management',
+                'slug' => 'branches-create',
+            ],
+            [
+                'name' => 'List',
+                'guard_name' => 'Branch Management',
+                'slug' => 'branches-list',
+            ],
+            [
+                'name' => 'Edit',
+                'guard_name' => 'Branch Management',
+                'slug' => 'branches-edit',
+            ],
+            [
+                'name' => 'View',
+                'guard_name' => 'Branch Management',
+                'slug' => 'branches-view',
+            ],
+            [
+                'name' => 'Delete',
+                'guard_name' => 'Branch Management',
+                'slug' => 'branches-delete',
+            ],
+            [
+                'name' => 'Assign Users',
+                'guard_name' => 'Branch Management',
+                'slug' => 'branches-assign-users',
+            ],
+        ];
+
+        foreach ($branchPermissions as $permission) {
+            Permission::firstOrCreate(
+                ['slug' => $permission['slug']],
+                [
+                    'name' => $permission['name'],
+                    'guard_name' => $permission['guard_name'],
+                ]
+            );
+
+        }
+
+
+
         $permissions = [
             [
                 'name' => 'List',
@@ -114,7 +163,7 @@ class JournalPermissionsSeeder extends Seeder
             'chart-of-account-create',
             'chart-of-account-view',
             'chart-of-account-edit',
-            'chart-of-account-delete'
+            'chart-of-account-delete',
         );
 
         // If you have a super admin role, give it permissions too
@@ -130,7 +179,13 @@ class JournalPermissionsSeeder extends Seeder
             'chart-of-account-create',
             'chart-of-account-view',
             'chart-of-account-edit',
-            'chart-of-account-delete'
+            'chart-of-account-delete',
+            'branches-create',
+            'branches-list',
+            'branches-edit',
+            'branches-view',
+            'branches-delete',
+            'branches-assign-users',
         );
 
         $roles = DB::table('roles')->get();
