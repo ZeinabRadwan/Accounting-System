@@ -598,7 +598,6 @@
       </div>
     </div>
   </div>
-  </div>
   
   <!-- Stock Adjustment Modal -->
   <StockAdjustmentModal 
@@ -609,6 +608,7 @@
     @persist="saveTemporary"
     @stock-updated="handleStockUpdated"
   />
+  </div>
 </template>
 
 <script>

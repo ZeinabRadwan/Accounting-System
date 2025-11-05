@@ -1,74 +1,6 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[1152],{
 
-/***/ 97469:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  methods: {
-    /**
-     * Get avatar with fallback to default avatar if image doesn't exist
-     * @param {string|null} imagePath - The image path (can be null or empty)
-     * @param {string} directory - The directory where the image is stored (e.g., 'clients', 'suppliers', 'employees')
-     * @param {string} defaultAvatar - The default avatar filename (defaults to 'default-avatar.jpeg')
-     * @returns {string} The full URL to the avatar image
-     */
-    getAvatarWithFallback: function getAvatarWithFallback(imagePath) {
-      var directory = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-      var defaultAvatar = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'default-avatar.jpeg';
-      // If no image path provided, return default avatar
-      if (!imagePath || imagePath.trim() === '') {
-        return window.location.origin + '/images/' + defaultAvatar;
-      }
-
-      // Build the full image path
-      var fullImagePath = directory ? "images/".concat(directory, "/").concat(imagePath) : "images/".concat(imagePath);
-      var fullUrl = window.location.origin + '/' + fullImagePath;
-
-      // Return the image URL - the browser will handle 404s and show broken image icon
-      // We could implement a more sophisticated check here, but for now we'll rely on the backend
-      // to provide the correct fallback URL through the Resource classes
-      return fullUrl;
-    },
-    /**
-     * Handle image error by setting src to default avatar
-     * @param {Event} event - The error event from the img element
-     * @param {string} directory - The directory where the image is stored
-     * @param {string} defaultAvatar - The default avatar filename
-     */
-    handleImageError: function handleImageError(event) {
-      var directory = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-      var defaultAvatar = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'default-avatar.jpeg';
-      var img = event.target;
-      img.src = window.location.origin + '/images/' + defaultAvatar;
-      img.onerror = null; // Prevent infinite loop
-    },
-    /**
-     * Get avatar URL for display with error handling
-     * @param {string|null} imagePath - The image path
-     * @param {string} directory - The directory where the image is stored
-     * @param {string} defaultAvatar - The default avatar filename
-     * @returns {Object} Object with src and onerror handler
-     */
-    getAvatarProps: function getAvatarProps(imagePath) {
-      var _this = this;
-      var directory = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-      var defaultAvatar = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'default-avatar.jpeg';
-      return {
-        src: this.getAvatarWithFallback(imagePath, directory, defaultAvatar),
-        onerror: function onerror(event) {
-          return _this.handleImageError(event, directory, defaultAvatar);
-        }
-      };
-    }
-  }
-});
-
-/***/ }),
-
 /***/ 85738:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -99,7 +31,7 @@ __webpack_require__.d(__webpack_exports__, {
   "default": () => (/* binding */ show)
 });
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/show.vue?vue&type=template&id=1d74d7ce&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/show.vue?vue&type=template&id=1d74d7ce&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -862,14 +794,15 @@ var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 var vuex_esm = __webpack_require__(95353);
 // EXTERNAL MODULE: ./resources/js/mixins/avatarMixin.js
 var avatarMixin = __webpack_require__(97469);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/show.vue?vue&type=script&lang=js
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/show.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
@@ -966,15 +899,14 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
   methods: {
     loadInitialData: function loadInitialData() {
       var _this2 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.n) {
             case 0:
               _this2.getEmployee();
               _this2.getEmployeePayroll();
-            case 2:
-            case "end":
-              return _context.stop();
+            case 1:
+              return _context.a(2);
           }
         }, _callee);
       }))();
@@ -982,20 +914,19 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // get the employee
     getEmployee: function getEmployee() {
       var _this3 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
         var _yield$axios$get, data;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.n) {
             case 0:
-              _context2.next = 2;
+              _context2.n = 1;
               return axios_default().get(window.location.origin + "/api/employees/" + _this3.$route.params.slug);
-            case 2:
-              _yield$axios$get = _context2.sent;
+            case 1:
+              _yield$axios$get = _context2.v;
               data = _yield$axios$get.data;
               _this3.allData = data.data;
-            case 5:
-            case "end":
-              return _context2.stop();
+            case 2:
+              return _context2.a(2);
           }
         }, _callee2);
       }))();
@@ -1016,19 +947,18 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // get the employee payroll
     getEmployeePayroll: function getEmployeePayroll() {
       var _this4 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.n) {
             case 0:
               _this4.$store.state.operations.loading = true;
-              _context3.next = 3;
+              _context3.n = 1;
               return _this4.$store.dispatch("operations/fetchData", {
                 path: "/api/employee-payroll/" + _this4.$route.params.slug + "?page=",
                 currentPage: _this4.pagination.current_page + "&perPage=" + _this4.perPage
               });
-            case 3:
-            case "end":
-              return _context3.stop();
+            case 1:
+              return _context3.a(2);
           }
         }, _callee3);
       }))();
@@ -1036,20 +966,19 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // search employee payroll
     searchEmployeePayroll: function searchEmployeePayroll() {
       var _this5 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.n) {
             case 0:
               _this5.$store.state.operations.loading = true;
-              _context4.next = 3;
+              _context4.n = 1;
               return _this5.$store.dispatch("operations/searchData", {
                 term: _this5.query,
                 path: "/api/employee-payroll/" + _this5.$route.params.slug + "/search/",
                 currentPage: _this5.pagination.current_page + "&perPage=" + _this5.perPage
               });
-            case 3:
-            case "end":
-              return _context4.stop();
+            case 1:
+              return _context4.a(2);
           }
         }, _callee4);
       }))();
@@ -1057,14 +986,13 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // pagination
     paginate: function paginate() {
       var _this6 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+        return _regenerator().w(function (_context5) {
+          while (1) switch (_context5.n) {
             case 0:
               _this6.query === "" ? _this6.getEmployeePayroll() : _this6.searchEmployeePayroll();
             case 1:
-            case "end":
-              return _context5.stop();
+              return _context5.a(2);
           }
         }, _callee5);
       }))();
@@ -1072,14 +1000,13 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // reset purchase pagination
     resetPagination: function resetPagination() {
       var _this7 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
-        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-          while (1) switch (_context6.prev = _context6.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+        return _regenerator().w(function (_context6) {
+          while (1) switch (_context6.n) {
             case 0:
               _this7.pagination.current_page = 1;
             case 1:
-            case "end":
-              return _context6.stop();
+              return _context6.a(2);
           }
         }, _callee6);
       }))();
@@ -1087,14 +1014,13 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // reload purchases after search
     reload: function reload() {
       var _this8 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-          while (1) switch (_context7.prev = _context7.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+        return _regenerator().w(function (_context7) {
+          while (1) switch (_context7.n) {
             case 0:
               _this8.query = "";
             case 1:
-            case "end":
-              return _context7.stop();
+              return _context7.a(2);
           }
         }, _callee7);
       }))();
@@ -1102,96 +1028,91 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // get the employee salary increments
     getEmployeeSalIncrements: function getEmployeeSalIncrements() {
       var _this9 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
         var currentPage, _yield$axios$get2, data;
-        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-          while (1) switch (_context8.prev = _context8.next) {
+        return _regenerator().w(function (_context8) {
+          while (1) switch (_context8.n) {
             case 0:
               _this9.salIncreLoading = true;
               currentPage = _this9.allIncrements ? _this9.salIncrePagination.current_page : 1;
-              _context8.next = 4;
+              _context8.n = 1;
               return axios_default().get(window.location.origin + "/api/employee-increments/" + _this9.$route.params.slug + "?page=" + currentPage + "&perPage=" + _this9.perPage);
-            case 4:
-              _yield$axios$get2 = _context8.sent;
+            case 1:
+              _yield$axios$get2 = _context8.v;
               data = _yield$axios$get2.data;
               _this9.allIncrements = data.data;
               _this9.salIncrePagination = data.meta;
               _this9.salIncreLoading = false;
-            case 9:
-            case "end":
-              return _context8.stop();
+            case 2:
+              return _context8.a(2);
           }
         }, _callee8);
       }))();
     },
     // search employee salary increments
     searchEmployeeSalIncrements: function searchEmployeeSalIncrements() {
-      var _this10 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+      var _this0 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
         var currentPage, _yield$axios$get3, data;
-        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
-          while (1) switch (_context9.prev = _context9.next) {
+        return _regenerator().w(function (_context9) {
+          while (1) switch (_context9.n) {
             case 0:
-              _this10.salIncreLoading = true;
-              currentPage = _this10.allIncrements ? _this10.salIncrePagination.current_page : 1;
-              _context9.next = 4;
-              return axios_default().get(window.location.origin + "/api/employee-increments/" + _this10.$route.params.slug + "/search?term=" + _this10.salIncreQuery + "&page=" + currentPage + "&perPage=" + _this10.perPage);
-            case 4:
-              _yield$axios$get3 = _context9.sent;
+              _this0.salIncreLoading = true;
+              currentPage = _this0.allIncrements ? _this0.salIncrePagination.current_page : 1;
+              _context9.n = 1;
+              return axios_default().get(window.location.origin + "/api/employee-increments/" + _this0.$route.params.slug + "/search?term=" + _this0.salIncreQuery + "&page=" + currentPage + "&perPage=" + _this0.perPage);
+            case 1:
+              _yield$axios$get3 = _context9.v;
               data = _yield$axios$get3.data;
-              _this10.allIncrements = data.data;
-              _this10.salIncrePagination = data.meta;
-              _this10.salIncreLoading = false;
-            case 9:
-            case "end":
-              return _context9.stop();
+              _this0.allIncrements = data.data;
+              _this0.salIncrePagination = data.meta;
+              _this0.salIncreLoading = false;
+            case 2:
+              return _context9.a(2);
           }
         }, _callee9);
       }))();
     },
     // salary increments pagination
     salIncrePaginate: function salIncrePaginate() {
-      var _this11 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
-        return _regeneratorRuntime().wrap(function _callee10$(_context10) {
-          while (1) switch (_context10.prev = _context10.next) {
+      var _this1 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
+        return _regenerator().w(function (_context0) {
+          while (1) switch (_context0.n) {
             case 0:
-              _this11.salIncreQuery === "" ? _this11.getEmployeeSalIncrements() : _this11.searchEmployeeSalIncrements();
+              _this1.salIncreQuery === "" ? _this1.getEmployeeSalIncrements() : _this1.searchEmployeeSalIncrements();
             case 1:
-            case "end":
-              return _context10.stop();
+              return _context0.a(2);
           }
-        }, _callee10);
+        }, _callee0);
       }))();
     },
     // reset increments pagination
     resetSalIncrePagination: function resetSalIncrePagination() {
-      var _this12 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
-        return _regeneratorRuntime().wrap(function _callee11$(_context11) {
-          while (1) switch (_context11.prev = _context11.next) {
+      var _this10 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1() {
+        return _regenerator().w(function (_context1) {
+          while (1) switch (_context1.n) {
             case 0:
-              _this12.salIncrePagination.current_page = 1;
+              _this10.salIncrePagination.current_page = 1;
             case 1:
-            case "end":
-              return _context11.stop();
+              return _context1.a(2);
           }
-        }, _callee11);
+        }, _callee1);
       }))();
     },
     // Reload increments after search
     salIncreReload: function salIncreReload() {
-      var _this13 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
-        return _regeneratorRuntime().wrap(function _callee12$(_context12) {
-          while (1) switch (_context12.prev = _context12.next) {
+      var _this11 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee10() {
+        return _regenerator().w(function (_context10) {
+          while (1) switch (_context10.n) {
             case 0:
-              _this13.salIncreQuery = "";
+              _this11.salIncreQuery = "";
             case 1:
-            case "end":
-              return _context12.stop();
+              return _context10.a(2);
           }
-        }, _callee12);
+        }, _callee10);
       }))();
     },
     // print
@@ -1200,94 +1121,90 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     },
     // print table
     printActivityLog: function printActivityLog() {
-      var _this14 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
-        return _regeneratorRuntime().wrap(function _callee13$(_context13) {
-          while (1) switch (_context13.prev = _context13.next) {
+      var _this12 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee11() {
+        return _regenerator().w(function (_context11) {
+          while (1) switch (_context11.n) {
             case 0:
-              _context13.next = 2;
-              return _this14.$htmlToPaper("printMe");
-            case 2:
-            case "end":
-              return _context13.stop();
+              _context11.n = 1;
+              return _this12.$htmlToPaper("printMe");
+            case 1:
+              return _context11.a(2);
           }
-        }, _callee13);
+        }, _callee11);
       }))();
     },
     // get activity logs
     getActivity: function getActivity() {
-      var _this15 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee14() {
+      var _this13 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee12() {
         var currentPage, slug, modelName, baseUrl, queryParams, url, _yield$axios$get4, data;
-        return _regeneratorRuntime().wrap(function _callee14$(_context14) {
-          while (1) switch (_context14.prev = _context14.next) {
+        return _regenerator().w(function (_context12) {
+          while (1) switch (_context12.n) {
             case 0:
-              _this15.activityLoading = true;
-              currentPage = _this15.allActivityLog ? _this15.allActivityLogPagination.current_page : 1;
-              slug = _this15.$route.params.slug;
+              _this13.activityLoading = true;
+              currentPage = _this13.allActivityLog ? _this13.allActivityLogPagination.current_page : 1;
+              slug = _this13.$route.params.slug;
               modelName = "Employee";
               baseUrl = "".concat(window.location.origin, "/api/activity-log-specific");
-              queryParams = "?page=".concat(currentPage, "&perPage=").concat(_this15.perPage, "&slug=").concat(slug, "&modelName=").concat(modelName);
+              queryParams = "?page=".concat(currentPage, "&perPage=").concat(_this13.perPage, "&slug=").concat(slug, "&modelName=").concat(modelName);
               url = baseUrl + queryParams;
-              _context14.next = 9;
+              _context12.n = 1;
               return axios_default().get(url);
-            case 9:
-              _yield$axios$get4 = _context14.sent;
+            case 1:
+              _yield$axios$get4 = _context12.v;
               data = _yield$axios$get4.data;
-              _this15.allActivityLog = data.data;
-              _this15.allActivityLogPagination = data.meta;
-              _this15.activityLoading = false;
-            case 14:
-            case "end":
-              return _context14.stop();
+              _this13.allActivityLog = data.data;
+              _this13.allActivityLogPagination = data.meta;
+              _this13.activityLoading = false;
+            case 2:
+              return _context12.a(2);
           }
-        }, _callee14);
+        }, _callee12);
       }))();
     },
     // search data
     searchActivity: function searchActivity() {
-      var _this16 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee15() {
+      var _this14 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
         var currentPage, term, slug, modelName, baseUrl, queryParams, url, _yield$axios$get5, data;
-        return _regeneratorRuntime().wrap(function _callee15$(_context15) {
-          while (1) switch (_context15.prev = _context15.next) {
+        return _regenerator().w(function (_context13) {
+          while (1) switch (_context13.n) {
             case 0:
-              _this16.activityLoading = true;
-              currentPage = _this16.allActivityLog ? _this16.allActivityLogPagination.current_page : 1;
-              term = _this16.activitySearchQuery;
-              slug = _this16.$route.params.slug;
+              _this14.activityLoading = true;
+              currentPage = _this14.allActivityLog ? _this14.allActivityLogPagination.current_page : 1;
+              term = _this14.activitySearchQuery;
+              slug = _this14.$route.params.slug;
               modelName = "Employee";
               baseUrl = "".concat(window.location.origin, "/api/activity-log-specific");
-              queryParams = "?page=".concat(currentPage, "&perPage=").concat(_this16.perPage, "&term=").concat(term, "&slug=").concat(slug, "&modelName=").concat(modelName);
+              queryParams = "?page=".concat(currentPage, "&perPage=").concat(_this14.perPage, "&term=").concat(term, "&slug=").concat(slug, "&modelName=").concat(modelName);
               url = baseUrl + queryParams;
-              _context15.next = 10;
+              _context13.n = 1;
               return axios_default().get(url);
-            case 10:
-              _yield$axios$get5 = _context15.sent;
+            case 1:
+              _yield$axios$get5 = _context13.v;
               data = _yield$axios$get5.data;
-              _this16.allActivityLog = data.data;
-              _this16.allActivityLogPagination = data.meta;
-              _this16.activityLoading = false;
-            case 15:
-            case "end":
-              return _context15.stop();
+              _this14.allActivityLog = data.data;
+              _this14.allActivityLogPagination = data.meta;
+              _this14.activityLoading = false;
+            case 2:
+              return _context13.a(2);
           }
-        }, _callee15);
+        }, _callee13);
       }))();
     },
     // activity pagination
     activityPaginate: function activityPaginate() {
-      var _this17 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee16() {
-        return _regeneratorRuntime().wrap(function _callee16$(_context16) {
-          while (1) switch (_context16.prev = _context16.next) {
+      var _this15 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee14() {
+        return _regenerator().w(function (_context14) {
+          while (1) switch (_context14.n) {
             case 0:
-              _this17.getActivity();
+              _this15.getActivity();
             case 1:
-            case "end":
-              return _context16.stop();
+              return _context14.a(2);
           }
-        }, _callee16);
+        }, _callee14);
       }))();
     },
     // update activity per page count
@@ -1297,17 +1214,16 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     },
     // reload after search
     activityReload: function activityReload() {
-      var _this18 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee17() {
-        return _regeneratorRuntime().wrap(function _callee17$(_context17) {
-          while (1) switch (_context17.prev = _context17.next) {
+      var _this16 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee15() {
+        return _regenerator().w(function (_context15) {
+          while (1) switch (_context15.n) {
             case 0:
-              _this18.activitySearchQuery = "";
+              _this16.activitySearchQuery = "";
             case 1:
-            case "end":
-              return _context17.stop();
+              return _context15.a(2);
           }
-        }, _callee17);
+        }, _callee15);
       }))();
     },
     // refresh activity table
@@ -1317,17 +1233,16 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     },
     // reset activity pagination
     resetActivityPagination: function resetActivityPagination() {
-      var _this19 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee18() {
-        return _regeneratorRuntime().wrap(function _callee18$(_context18) {
-          while (1) switch (_context18.prev = _context18.next) {
+      var _this17 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee16() {
+        return _regenerator().w(function (_context16) {
+          while (1) switch (_context16.n) {
             case 0:
-              _this19.allActivityLogPagination.current_page = 1;
+              _this17.allActivityLogPagination.current_page = 1;
             case 1:
-            case "end":
-              return _context18.stop();
+              return _context16.a(2);
           }
-        }, _callee18);
+        }, _callee16);
       }))();
     },
     // dispaly modal
@@ -1348,88 +1263,86 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     },
     // delete payroll
     deletePayroll: function deletePayroll(slug) {
-      var _this20 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee19() {
-        return _regeneratorRuntime().wrap(function _callee19$(_context19) {
-          while (1) switch (_context19.prev = _context19.next) {
+      var _this18 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee17() {
+        return _regenerator().w(function (_context17) {
+          while (1) switch (_context17.n) {
             case 0:
               Swal.fire({
-                title: _this20.$t("Are you sure?"),
-                text: _this20.$t("You will not be able to return to this!"),
+                title: _this18.$t("Are you sure?"),
+                text: _this18.$t("You will not be able to return to this!"),
                 type: "warning",
                 showCancelButton: true,
-                confirmButtonText: _this20.$t("Confirm"),
-                cancelButtonText: _this20.$t("Cancel")
+                confirmButtonText: _this18.$t("Confirm"),
+                cancelButtonText: _this18.$t("Cancel")
               }).then(function (result) {
                 // Send request to the server
                 if (result.value) {
-                  _this20.$store.dispatch("operations/deleteData", {
+                  _this18.$store.dispatch("operations/deleteData", {
                     path: "/api/payroll/",
                     slug: slug
                   }).then(function (response) {
                     if (response === true) {
-                      _this20.$toast.success(_this20.$t("Deleted!"), _this20.$t("Deleted successfully."));
+                      _this18.$toast.success(_this18.$t("Deleted!"), _this18.$t("Deleted successfully."));
                       Fire.$emit("AfterDelete");
                     } else {
-                      _this20.$toast.warning(_this20.$t("Failed!"), _this20.$t("There was something wrong."));
+                      _this18.$toast.warning(_this18.$t("Failed!"), _this18.$t("There was something wrong."));
                     }
                   });
                 }
               });
             case 1:
-            case "end":
-              return _context19.stop();
+              return _context17.a(2);
           }
-        }, _callee19);
+        }, _callee17);
       }))();
     },
     // delete increment
     deleteIncrement: function deleteIncrement(slug) {
-      var _this21 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee20() {
-        return _regeneratorRuntime().wrap(function _callee20$(_context20) {
-          while (1) switch (_context20.prev = _context20.next) {
+      var _this19 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee18() {
+        return _regenerator().w(function (_context18) {
+          while (1) switch (_context18.n) {
             case 0:
               Swal.fire({
-                title: _this21.$t("Are you sure?"),
-                text: _this21.$t("You will not be able to return to this!"),
+                title: _this19.$t("Are you sure?"),
+                text: _this19.$t("You will not be able to return to this!"),
                 type: "warning",
                 showCancelButton: true,
-                confirmButtonText: _this21.$t("Confirm"),
-                cancelButtonText: _this21.$t("Cancel")
+                confirmButtonText: _this19.$t("Confirm"),
+                cancelButtonText: _this19.$t("Cancel")
               }).then(function (result) {
                 // Send request to the server
                 if (result.value) {
-                  _this21.$store.dispatch("operations/deleteData", {
+                  _this19.$store.dispatch("operations/deleteData", {
                     path: "/api/increments/",
                     slug: slug
                   }).then(function (response) {
                     if (response === true) {
-                      _this21.$toast.success(_this21.$t("Deleted!"), _this21.$t("Deleted successfully."));
+                      _this19.$toast.success(_this19.$t("Deleted!"), _this19.$t("Deleted successfully."));
                       Fire.$emit("AfterDelete");
                     } else {
-                      _this21.$toast.warning(_this21.$t("Failed!"), _this21.$t("There was something wrong."));
+                      _this19.$toast.warning(_this19.$t("Failed!"), _this19.$t("There was something wrong."));
                     }
                   });
                 }
               });
             case 1:
-            case "end":
-              return _context20.stop();
+              return _context18.a(2);
           }
-        }, _callee20);
+        }, _callee18);
       }))();
     }
   }
 });
-;// CONCATENATED MODULE: ./resources/js/pages/employees/show.vue?vue&type=script&lang=js
+;// ./resources/js/pages/employees/show.vue?vue&type=script&lang=js
  /* harmony default export */ const employees_showvue_type_script_lang_js = (showvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
 // EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/show.vue?vue&type=style&index=0&id=1d74d7ce&prod&scoped=true&lang=css
 var showvue_type_style_index_0_id_1d74d7ce_prod_scoped_true_lang_css = __webpack_require__(85738);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/show.vue?vue&type=style&index=0&id=1d74d7ce&prod&scoped=true&lang=css
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/show.vue?vue&type=style&index=0&id=1d74d7ce&prod&scoped=true&lang=css
 
             
 
@@ -1443,11 +1356,11 @@ var update = injectStylesIntoStyleTag_default()(showvue_type_style_index_0_id_1d
 
 
 /* harmony default export */ const employees_showvue_type_style_index_0_id_1d74d7ce_prod_scoped_true_lang_css = (showvue_type_style_index_0_id_1d74d7ce_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/pages/employees/show.vue?vue&type=style&index=0&id=1d74d7ce&prod&scoped=true&lang=css
+;// ./resources/js/pages/employees/show.vue?vue&type=style&index=0&id=1d74d7ce&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// CONCATENATED MODULE: ./resources/js/pages/employees/show.vue
+;// ./resources/js/pages/employees/show.vue
 
 
 
@@ -1468,6 +1381,74 @@ var component = (0,componentNormalizer/* default */.A)(
 )
 
 /* harmony default export */ const show = (component.exports);
+
+/***/ }),
+
+/***/ 97469:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  methods: {
+    /**
+     * Get avatar with fallback to default avatar if image doesn't exist
+     * @param {string|null} imagePath - The image path (can be null or empty)
+     * @param {string} directory - The directory where the image is stored (e.g., 'clients', 'suppliers', 'employees')
+     * @param {string} defaultAvatar - The default avatar filename (defaults to 'default-avatar.jpeg')
+     * @returns {string} The full URL to the avatar image
+     */
+    getAvatarWithFallback: function getAvatarWithFallback(imagePath) {
+      var directory = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      var defaultAvatar = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'default-avatar.jpeg';
+      // If no image path provided, return default avatar
+      if (!imagePath || imagePath.trim() === '') {
+        return window.location.origin + '/images/' + defaultAvatar;
+      }
+
+      // Build the full image path
+      var fullImagePath = directory ? "images/".concat(directory, "/").concat(imagePath) : "images/".concat(imagePath);
+      var fullUrl = window.location.origin + '/' + fullImagePath;
+
+      // Return the image URL - the browser will handle 404s and show broken image icon
+      // We could implement a more sophisticated check here, but for now we'll rely on the backend
+      // to provide the correct fallback URL through the Resource classes
+      return fullUrl;
+    },
+    /**
+     * Handle image error by setting src to default avatar
+     * @param {Event} event - The error event from the img element
+     * @param {string} directory - The directory where the image is stored
+     * @param {string} defaultAvatar - The default avatar filename
+     */
+    handleImageError: function handleImageError(event) {
+      var directory = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      var defaultAvatar = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'default-avatar.jpeg';
+      var img = event.target;
+      img.src = window.location.origin + '/images/' + defaultAvatar;
+      img.onerror = null; // Prevent infinite loop
+    },
+    /**
+     * Get avatar URL for display with error handling
+     * @param {string|null} imagePath - The image path
+     * @param {string} directory - The directory where the image is stored
+     * @param {string} defaultAvatar - The default avatar filename
+     * @returns {Object} Object with src and onerror handler
+     */
+    getAvatarProps: function getAvatarProps(imagePath) {
+      var _this = this;
+      var directory = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      var defaultAvatar = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'default-avatar.jpeg';
+      return {
+        src: this.getAvatarWithFallback(imagePath, directory, defaultAvatar),
+        onerror: function onerror(event) {
+          return _this.handleImageError(event, directory, defaultAvatar);
+        }
+      };
+    }
+  }
+});
 
 /***/ })
 

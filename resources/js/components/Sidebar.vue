@@ -927,6 +927,8 @@
                   :style="
                     menuOpen('nonInvoicePayments') ||
                     menuOpen('invoicePayments')
+                      ? 'display: block'
+                      : 'display: none'
                   "
                 >
                   <li
@@ -1579,7 +1581,7 @@
               $can('units') ||
               $can('currencies') ||
               $can('general-settings')
-            )"
+            "
             class="nav-item"
           >
             <router-link :to="{ name: 'setup.index' }" class="nav-link">

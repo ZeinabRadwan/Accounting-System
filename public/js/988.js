@@ -1,1366 +1,5 @@
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[988],{
 
-/***/ 23:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _MSI2 = __webpack_require__(33551);
-
-var _MSI3 = _interopRequireDefault(_MSI2);
-
-var _checksums = __webpack_require__(16320);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var MSI1010 = function (_MSI) {
-	_inherits(MSI1010, _MSI);
-
-	function MSI1010(data, options) {
-		_classCallCheck(this, MSI1010);
-
-		data += (0, _checksums.mod10)(data);
-		data += (0, _checksums.mod10)(data);
-		return _possibleConstructorReturn(this, (MSI1010.__proto__ || Object.getPrototypeOf(MSI1010)).call(this, data, options));
-	}
-
-	return MSI1010;
-}(_MSI3.default);
-
-exports["default"] = MSI1010;
-
-/***/ }),
-
-/***/ 470:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-var JsBarcode = __webpack_require__(86129);
-
-var VueBarcode = {
-   render: function (createElement) {
-    return createElement('div', [
-      createElement(this.elementTag, {
-        style: { display: this.valid ? undefined : 'none' },
-        'class': ['vue-barcode-element']
-      }),
-      createElement('div', {
-        style: { display: this.valid ? 'none' : undefined }
-      }, this.$slots.default),
-    ]);
-  },
-  props: {
-    value: [String, Number],
-    format: [String],
-    width: [String, Number],
-    height: [String, Number],
-    displayValue: {
-      type:  [String, Boolean],
-      default: true
-    },
-    text: [String, Number],
-    fontOptions : [String],
-    font: [String],
-    textAlign: [String],
-    textPosition: [String],
-    textMargin: [String, Number],
-    fontSize: [String, Number],
-    background: [String],
-    lineColor: [String],
-    margin: [String, Number],
-    marginTop: [String, Number],
-    marginBottom: [String, Number],
-    marginLeft: [String, Number],
-    marginRight: [String, Number],
-    flat: [Boolean],
-    ean128: [String, Boolean],
-    elementTag: {
-      type: String,
-      default: 'svg',
-      validator: function (value) {
-          return ['canvas', 'svg', 'img'].indexOf(value) !== -1
-      }
-    }
-  },
-  mounted: function(){
-    this.$watch('$props', render, { deep: true, immediate: true });
-    render.call(this);
-  },
-  data: function(){
-    return {valid: true};
-  }
-};
-
-function render(){
-  var that = this;
-
-  var settings = {
-    format: this.format,
-    width: this.width,
-    height: this.height,
-    displayValue: this.displayValue,
-    text: this.text,
-    fontOptions: this.fontOptions,
-    font: this.font,
-    textAlign: this.textAlign,
-    textPosition: this.textPosition,
-    textMargin: this.textMargin,
-    fontSize: this.fontSize,
-    background: this.background,
-    lineColor: this.lineColor,
-    margin: this.margin,
-    marginTop: this.marginTop,
-    marginBottom: this.marginBottom,
-    marginLeft: this.marginLeft,
-    marginRight: this.marginRight,
-    flat: this.flat,
-    ean128: this.ean128,
-    valid: function (valid) {
-      that.valid = valid;
-    },
-    elementTag: this.elementTag
-  };
-
-  removeUndefinedProps(settings);
-
-  JsBarcode(this.$el.querySelector('.vue-barcode-element'), String(this.value), settings);
-}
-
-function removeUndefinedProps(obj) {
-  for (var prop in obj) {
-    if (obj.hasOwnProperty(prop) && obj[prop] === undefined) {
-      delete obj[prop];
-    }
-  }
-}
-
-module.exports = VueBarcode;
-
-
-/***/ }),
-
-/***/ 892:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _optionsFromStrings = __webpack_require__(69796);
-
-var _optionsFromStrings2 = _interopRequireDefault(_optionsFromStrings);
-
-var _defaults = __webpack_require__(55099);
-
-var _defaults2 = _interopRequireDefault(_defaults);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function getOptionsFromElement(element) {
-	var options = {};
-	for (var property in _defaults2.default) {
-		if (_defaults2.default.hasOwnProperty(property)) {
-			// jsbarcode-*
-			if (element.hasAttribute("jsbarcode-" + property.toLowerCase())) {
-				options[property] = element.getAttribute("jsbarcode-" + property.toLowerCase());
-			}
-
-			// data-*
-			if (element.hasAttribute("data-" + property.toLowerCase())) {
-				options[property] = element.getAttribute("data-" + property.toLowerCase());
-			}
-		}
-	}
-
-	options["value"] = element.getAttribute("jsbarcode-value") || element.getAttribute("data-value");
-
-	// Since all atributes are string they need to be converted to integers
-	options = (0, _optionsFromStrings2.default)(options);
-
-	return options;
-}
-
-exports["default"] = getOptionsFromElement;
-
-/***/ }),
-
-/***/ 1886:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-exports.GenericBarcode = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _Barcode2 = __webpack_require__(72444);
-
-var _Barcode3 = _interopRequireDefault(_Barcode2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var GenericBarcode = function (_Barcode) {
-	_inherits(GenericBarcode, _Barcode);
-
-	function GenericBarcode(data, options) {
-		_classCallCheck(this, GenericBarcode);
-
-		return _possibleConstructorReturn(this, (GenericBarcode.__proto__ || Object.getPrototypeOf(GenericBarcode)).call(this, data, options)); // Sets this.data and this.text
-	}
-
-	// Return the corresponding binary numbers for the data provided
-
-
-	_createClass(GenericBarcode, [{
-		key: "encode",
-		value: function encode() {
-			return {
-				data: "10101010101010101010101010101010101010101",
-				text: this.text
-			};
-		}
-
-		// Resturn true/false if the string provided is valid for this encoder
-
-	}, {
-		key: "valid",
-		value: function valid() {
-			return true;
-		}
-	}]);
-
-	return GenericBarcode;
-}(_Barcode3.default);
-
-exports.GenericBarcode = GenericBarcode;
-
-/***/ }),
-
-/***/ 3781:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _encoder = __webpack_require__(16350);
-
-var _encoder2 = _interopRequireDefault(_encoder);
-
-var _Barcode2 = __webpack_require__(72444);
-
-var _Barcode3 = _interopRequireDefault(_Barcode2);
-
-var _UPC = __webpack_require__(17960);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Encoding documentation:
-// https://en.wikipedia.org/wiki/Universal_Product_Code#Encoding
-//
-// UPC-E documentation:
-// https://en.wikipedia.org/wiki/Universal_Product_Code#UPC-E
-
-var EXPANSIONS = ["XX00000XXX", "XX10000XXX", "XX20000XXX", "XXX00000XX", "XXXX00000X", "XXXXX00005", "XXXXX00006", "XXXXX00007", "XXXXX00008", "XXXXX00009"];
-
-var PARITIES = [["EEEOOO", "OOOEEE"], ["EEOEOO", "OOEOEE"], ["EEOOEO", "OOEEOE"], ["EEOOOE", "OOEEEO"], ["EOEEOO", "OEOOEE"], ["EOOEEO", "OEEOOE"], ["EOOOEE", "OEEEOO"], ["EOEOEO", "OEOEOE"], ["EOEOOE", "OEOEEO"], ["EOOEOE", "OEEOEO"]];
-
-var UPCE = function (_Barcode) {
-	_inherits(UPCE, _Barcode);
-
-	function UPCE(data, options) {
-		_classCallCheck(this, UPCE);
-
-		var _this = _possibleConstructorReturn(this, (UPCE.__proto__ || Object.getPrototypeOf(UPCE)).call(this, data, options));
-		// Code may be 6 or 8 digits;
-		// A 7 digit code is ambiguous as to whether the extra digit
-		// is a UPC-A check or number system digit.
-
-
-		_this.isValid = false;
-		if (data.search(/^[0-9]{6}$/) !== -1) {
-			_this.middleDigits = data;
-			_this.upcA = expandToUPCA(data, "0");
-			_this.text = options.text || '' + _this.upcA[0] + data + _this.upcA[_this.upcA.length - 1];
-			_this.isValid = true;
-		} else if (data.search(/^[01][0-9]{7}$/) !== -1) {
-			_this.middleDigits = data.substring(1, data.length - 1);
-			_this.upcA = expandToUPCA(_this.middleDigits, data[0]);
-
-			if (_this.upcA[_this.upcA.length - 1] === data[data.length - 1]) {
-				_this.isValid = true;
-			} else {
-				// checksum mismatch
-				return _possibleConstructorReturn(_this);
-			}
-		} else {
-			return _possibleConstructorReturn(_this);
-		}
-
-		_this.displayValue = options.displayValue;
-
-		// Make sure the font is not bigger than the space between the guard bars
-		if (options.fontSize > options.width * 10) {
-			_this.fontSize = options.width * 10;
-		} else {
-			_this.fontSize = options.fontSize;
-		}
-
-		// Make the guard bars go down half the way of the text
-		_this.guardHeight = options.height + _this.fontSize / 2 + options.textMargin;
-		return _this;
-	}
-
-	_createClass(UPCE, [{
-		key: 'valid',
-		value: function valid() {
-			return this.isValid;
-		}
-	}, {
-		key: 'encode',
-		value: function encode() {
-			if (this.options.flat) {
-				return this.flatEncoding();
-			} else {
-				return this.guardedEncoding();
-			}
-		}
-	}, {
-		key: 'flatEncoding',
-		value: function flatEncoding() {
-			var result = "";
-
-			result += "101";
-			result += this.encodeMiddleDigits();
-			result += "010101";
-
-			return {
-				data: result,
-				text: this.text
-			};
-		}
-	}, {
-		key: 'guardedEncoding',
-		value: function guardedEncoding() {
-			var result = [];
-
-			// Add the UPC-A number system digit beneath the quiet zone
-			if (this.displayValue) {
-				result.push({
-					data: "00000000",
-					text: this.text[0],
-					options: { textAlign: "left", fontSize: this.fontSize }
-				});
-			}
-
-			// Add the guard bars
-			result.push({
-				data: "101",
-				options: { height: this.guardHeight }
-			});
-
-			// Add the 6 UPC-E digits
-			result.push({
-				data: this.encodeMiddleDigits(),
-				text: this.text.substring(1, 7),
-				options: { fontSize: this.fontSize }
-			});
-
-			// Add the end bits
-			result.push({
-				data: "010101",
-				options: { height: this.guardHeight }
-			});
-
-			// Add the UPC-A check digit beneath the quiet zone
-			if (this.displayValue) {
-				result.push({
-					data: "00000000",
-					text: this.text[7],
-					options: { textAlign: "right", fontSize: this.fontSize }
-				});
-			}
-
-			return result;
-		}
-	}, {
-		key: 'encodeMiddleDigits',
-		value: function encodeMiddleDigits() {
-			var numberSystem = this.upcA[0];
-			var checkDigit = this.upcA[this.upcA.length - 1];
-			var parity = PARITIES[parseInt(checkDigit)][parseInt(numberSystem)];
-			return (0, _encoder2.default)(this.middleDigits, parity);
-		}
-	}]);
-
-	return UPCE;
-}(_Barcode3.default);
-
-function expandToUPCA(middleDigits, numberSystem) {
-	var lastUpcE = parseInt(middleDigits[middleDigits.length - 1]);
-	var expansion = EXPANSIONS[lastUpcE];
-
-	var result = "";
-	var digitIndex = 0;
-	for (var i = 0; i < expansion.length; i++) {
-		var c = expansion[i];
-		if (c === 'X') {
-			result += middleDigits[digitIndex++];
-		} else {
-			result += c;
-		}
-	}
-
-	result = '' + numberSystem + result;
-	return '' + result + (0, _UPC.checksum)(result);
-}
-
-exports["default"] = UPCE;
-
-/***/ }),
-
-/***/ 4205:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/*eslint no-console: 0 */
-
-var ErrorHandler = function () {
-	function ErrorHandler(api) {
-		_classCallCheck(this, ErrorHandler);
-
-		this.api = api;
-	}
-
-	_createClass(ErrorHandler, [{
-		key: "handleCatch",
-		value: function handleCatch(e) {
-			// If babel supported extending of Error in a correct way instanceof would be used here
-			if (e.name === "InvalidInputException") {
-				if (this.api._options.valid !== this.api._defaults.valid) {
-					this.api._options.valid(false);
-				} else {
-					throw e.message;
-				}
-			} else {
-				throw e;
-			}
-
-			this.api.render = function () {};
-		}
-	}, {
-		key: "wrapBarcodeCall",
-		value: function wrapBarcodeCall(func) {
-			try {
-				var result = func.apply(undefined, arguments);
-				this.api._options.valid(true);
-				return result;
-			} catch (e) {
-				this.handleCatch(e);
-
-				return this.api;
-			}
-		}
-	}]);
-
-	return ErrorHandler;
-}();
-
-exports["default"] = ErrorHandler;
-
-/***/ }),
-
-/***/ 5070:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.ITF14 = exports.ITF = undefined;
-
-var _ITF = __webpack_require__(50739);
-
-var _ITF2 = _interopRequireDefault(_ITF);
-
-var _ITF3 = __webpack_require__(8122);
-
-var _ITF4 = _interopRequireDefault(_ITF3);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.ITF = _ITF2.default;
-exports.ITF14 = _ITF4.default;
-
-/***/ }),
-
-/***/ 5798:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _CODE2 = __webpack_require__(53651);
-
-var _CODE3 = _interopRequireDefault(_CODE2);
-
-var _constants = __webpack_require__(62700);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var CODE128C = function (_CODE) {
-	_inherits(CODE128C, _CODE);
-
-	function CODE128C(string, options) {
-		_classCallCheck(this, CODE128C);
-
-		return _possibleConstructorReturn(this, (CODE128C.__proto__ || Object.getPrototypeOf(CODE128C)).call(this, _constants.C_START_CHAR + string, options));
-	}
-
-	_createClass(CODE128C, [{
-		key: 'valid',
-		value: function valid() {
-			return new RegExp('^' + _constants.C_CHARS + '+$').test(this.data);
-		}
-	}]);
-
-	return CODE128C;
-}(_CODE3.default);
-
-exports["default"] = CODE128C;
-
-/***/ }),
-
-/***/ 7570:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _constants = __webpack_require__(96575);
-
-var _encoder = __webpack_require__(16350);
-
-var _encoder2 = _interopRequireDefault(_encoder);
-
-var _Barcode2 = __webpack_require__(72444);
-
-var _Barcode3 = _interopRequireDefault(_Barcode2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Encoding documentation:
-// https://en.wikipedia.org/wiki/EAN_2#Encoding
-
-var EAN2 = function (_Barcode) {
-	_inherits(EAN2, _Barcode);
-
-	function EAN2(data, options) {
-		_classCallCheck(this, EAN2);
-
-		return _possibleConstructorReturn(this, (EAN2.__proto__ || Object.getPrototypeOf(EAN2)).call(this, data, options));
-	}
-
-	_createClass(EAN2, [{
-		key: 'valid',
-		value: function valid() {
-			return this.data.search(/^[0-9]{2}$/) !== -1;
-		}
-	}, {
-		key: 'encode',
-		value: function encode() {
-			// Choose the structure based on the number mod 4
-			var structure = _constants.EAN2_STRUCTURE[parseInt(this.data) % 4];
-			return {
-				// Start bits + Encode the two digits with 01 in between
-				data: '1011' + (0, _encoder2.default)(this.data, structure, '01'),
-				text: this.text
-			};
-		}
-	}]);
-
-	return EAN2;
-}(_Barcode3.default);
-
-exports["default"] = EAN2;
-
-/***/ }),
-
-/***/ 8122:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _ITF2 = __webpack_require__(50739);
-
-var _ITF3 = _interopRequireDefault(_ITF2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-// Calculate the checksum digit
-var checksum = function checksum(data) {
-	var res = data.substr(0, 13).split('').map(function (num) {
-		return parseInt(num, 10);
-	}).reduce(function (sum, n, idx) {
-		return sum + n * (3 - idx % 2 * 2);
-	}, 0);
-
-	return Math.ceil(res / 10) * 10 - res;
-};
-
-var ITF14 = function (_ITF) {
-	_inherits(ITF14, _ITF);
-
-	function ITF14(data, options) {
-		_classCallCheck(this, ITF14);
-
-		// Add checksum if it does not exist
-		if (data.search(/^[0-9]{13}$/) !== -1) {
-			data += checksum(data);
-		}
-		return _possibleConstructorReturn(this, (ITF14.__proto__ || Object.getPrototypeOf(ITF14)).call(this, data, options));
-	}
-
-	_createClass(ITF14, [{
-		key: 'valid',
-		value: function valid() {
-			return this.data.search(/^[0-9]{14}$/) !== -1 && +this.data[13] === checksum(this.data);
-		}
-	}]);
-
-	return ITF14;
-}(_ITF3.default);
-
-exports["default"] = ITF14;
-
-/***/ }),
-
-/***/ 11687:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _merge = __webpack_require__(91490);
-
-var _merge2 = _interopRequireDefault(_merge);
-
-var _shared = __webpack_require__(26258);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var CanvasRenderer = function () {
-	function CanvasRenderer(canvas, encodings, options) {
-		_classCallCheck(this, CanvasRenderer);
-
-		this.canvas = canvas;
-		this.encodings = encodings;
-		this.options = options;
-	}
-
-	_createClass(CanvasRenderer, [{
-		key: "render",
-		value: function render() {
-			// Abort if the browser does not support HTML5 canvas
-			if (!this.canvas.getContext) {
-				throw new Error('The browser does not support canvas.');
-			}
-
-			this.prepareCanvas();
-			for (var i = 0; i < this.encodings.length; i++) {
-				var encodingOptions = (0, _merge2.default)(this.options, this.encodings[i].options);
-
-				this.drawCanvasBarcode(encodingOptions, this.encodings[i]);
-				this.drawCanvasText(encodingOptions, this.encodings[i]);
-
-				this.moveCanvasDrawing(this.encodings[i]);
-			}
-
-			this.restoreCanvas();
-		}
-	}, {
-		key: "prepareCanvas",
-		value: function prepareCanvas() {
-			// Get the canvas context
-			var ctx = this.canvas.getContext("2d");
-
-			ctx.save();
-
-			(0, _shared.calculateEncodingAttributes)(this.encodings, this.options, ctx);
-			var totalWidth = (0, _shared.getTotalWidthOfEncodings)(this.encodings);
-			var maxHeight = (0, _shared.getMaximumHeightOfEncodings)(this.encodings);
-
-			this.canvas.width = totalWidth + this.options.marginLeft + this.options.marginRight;
-
-			this.canvas.height = maxHeight;
-
-			// Paint the canvas
-			ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-			if (this.options.background) {
-				ctx.fillStyle = this.options.background;
-				ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-			}
-
-			ctx.translate(this.options.marginLeft, 0);
-		}
-	}, {
-		key: "drawCanvasBarcode",
-		value: function drawCanvasBarcode(options, encoding) {
-			// Get the canvas context
-			var ctx = this.canvas.getContext("2d");
-
-			var binary = encoding.data;
-
-			// Creates the barcode out of the encoded binary
-			var yFrom;
-			if (options.textPosition == "top") {
-				yFrom = options.marginTop + options.fontSize + options.textMargin;
-			} else {
-				yFrom = options.marginTop;
-			}
-
-			ctx.fillStyle = options.lineColor;
-
-			for (var b = 0; b < binary.length; b++) {
-				var x = b * options.width + encoding.barcodePadding;
-
-				if (binary[b] === "1") {
-					ctx.fillRect(x, yFrom, options.width, options.height);
-				} else if (binary[b]) {
-					ctx.fillRect(x, yFrom, options.width, options.height * binary[b]);
-				}
-			}
-		}
-	}, {
-		key: "drawCanvasText",
-		value: function drawCanvasText(options, encoding) {
-			// Get the canvas context
-			var ctx = this.canvas.getContext("2d");
-
-			var font = options.fontOptions + " " + options.fontSize + "px " + options.font;
-
-			// Draw the text if displayValue is set
-			if (options.displayValue) {
-				var x, y;
-
-				if (options.textPosition == "top") {
-					y = options.marginTop + options.fontSize - options.textMargin;
-				} else {
-					y = options.height + options.textMargin + options.marginTop + options.fontSize;
-				}
-
-				ctx.font = font;
-
-				// Draw the text in the correct X depending on the textAlign option
-				if (options.textAlign == "left" || encoding.barcodePadding > 0) {
-					x = 0;
-					ctx.textAlign = 'left';
-				} else if (options.textAlign == "right") {
-					x = encoding.width - 1;
-					ctx.textAlign = 'right';
-				}
-				// In all other cases, center the text
-				else {
-						x = encoding.width / 2;
-						ctx.textAlign = 'center';
-					}
-
-				ctx.fillText(encoding.text, x, y);
-			}
-		}
-	}, {
-		key: "moveCanvasDrawing",
-		value: function moveCanvasDrawing(encoding) {
-			var ctx = this.canvas.getContext("2d");
-
-			ctx.translate(encoding.width, 0);
-		}
-	}, {
-		key: "restoreCanvas",
-		value: function restoreCanvas() {
-			// Get the canvas context
-			var ctx = this.canvas.getContext("2d");
-
-			ctx.restore();
-		}
-	}]);
-
-	return CanvasRenderer;
-}();
-
-exports["default"] = CanvasRenderer;
-
-/***/ }),
-
-/***/ 13528:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var ObjectRenderer = function () {
-	function ObjectRenderer(object, encodings, options) {
-		_classCallCheck(this, ObjectRenderer);
-
-		this.object = object;
-		this.encodings = encodings;
-		this.options = options;
-	}
-
-	_createClass(ObjectRenderer, [{
-		key: "render",
-		value: function render() {
-			this.object.encodings = this.encodings;
-		}
-	}]);
-
-	return ObjectRenderer;
-}();
-
-exports["default"] = ObjectRenderer;
-
-/***/ }),
-
-/***/ 16320:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-exports.mod10 = mod10;
-exports.mod11 = mod11;
-function mod10(number) {
-	var sum = 0;
-	for (var i = 0; i < number.length; i++) {
-		var n = parseInt(number[i]);
-		if ((i + number.length) % 2 === 0) {
-			sum += n;
-		} else {
-			sum += n * 2 % 10 + Math.floor(n * 2 / 10);
-		}
-	}
-	return (10 - sum % 10) % 10;
-}
-
-function mod11(number) {
-	var sum = 0;
-	var weights = [2, 3, 4, 5, 6, 7];
-	for (var i = 0; i < number.length; i++) {
-		var n = parseInt(number[number.length - 1 - i]);
-		sum += weights[i % weights.length] * n;
-	}
-	return (11 - sum % 11) % 11;
-}
-
-/***/ }),
-
-/***/ 16350:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _constants = __webpack_require__(96575);
-
-// Encode data string
-var encode = function encode(data, structure, separator) {
-	var encoded = data.split('').map(function (val, idx) {
-		return _constants.BINARIES[structure[idx]];
-	}).map(function (val, idx) {
-		return val ? val[data[idx]] : '';
-	});
-
-	if (separator) {
-		var last = data.length - 1;
-		encoded = encoded.map(function (val, idx) {
-			return idx < last ? val + separator : val;
-		});
-	}
-
-	return encoded.join('');
-};
-
-exports["default"] = encode;
-
-/***/ }),
-
-/***/ 17960:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-exports.checksum = checksum;
-
-var _encoder = __webpack_require__(16350);
-
-var _encoder2 = _interopRequireDefault(_encoder);
-
-var _Barcode2 = __webpack_require__(72444);
-
-var _Barcode3 = _interopRequireDefault(_Barcode2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Encoding documentation:
-// https://en.wikipedia.org/wiki/Universal_Product_Code#Encoding
-
-var UPC = function (_Barcode) {
-	_inherits(UPC, _Barcode);
-
-	function UPC(data, options) {
-		_classCallCheck(this, UPC);
-
-		// Add checksum if it does not exist
-		if (data.search(/^[0-9]{11}$/) !== -1) {
-			data += checksum(data);
-		}
-
-		var _this = _possibleConstructorReturn(this, (UPC.__proto__ || Object.getPrototypeOf(UPC)).call(this, data, options));
-
-		_this.displayValue = options.displayValue;
-
-		// Make sure the font is not bigger than the space between the guard bars
-		if (options.fontSize > options.width * 10) {
-			_this.fontSize = options.width * 10;
-		} else {
-			_this.fontSize = options.fontSize;
-		}
-
-		// Make the guard bars go down half the way of the text
-		_this.guardHeight = options.height + _this.fontSize / 2 + options.textMargin;
-		return _this;
-	}
-
-	_createClass(UPC, [{
-		key: "valid",
-		value: function valid() {
-			return this.data.search(/^[0-9]{12}$/) !== -1 && this.data[11] == checksum(this.data);
-		}
-	}, {
-		key: "encode",
-		value: function encode() {
-			if (this.options.flat) {
-				return this.flatEncoding();
-			} else {
-				return this.guardedEncoding();
-			}
-		}
-	}, {
-		key: "flatEncoding",
-		value: function flatEncoding() {
-			var result = "";
-
-			result += "101";
-			result += (0, _encoder2.default)(this.data.substr(0, 6), "LLLLLL");
-			result += "01010";
-			result += (0, _encoder2.default)(this.data.substr(6, 6), "RRRRRR");
-			result += "101";
-
-			return {
-				data: result,
-				text: this.text
-			};
-		}
-	}, {
-		key: "guardedEncoding",
-		value: function guardedEncoding() {
-			var result = [];
-
-			// Add the first digit
-			if (this.displayValue) {
-				result.push({
-					data: "00000000",
-					text: this.text.substr(0, 1),
-					options: { textAlign: "left", fontSize: this.fontSize }
-				});
-			}
-
-			// Add the guard bars
-			result.push({
-				data: "101" + (0, _encoder2.default)(this.data[0], "L"),
-				options: { height: this.guardHeight }
-			});
-
-			// Add the left side
-			result.push({
-				data: (0, _encoder2.default)(this.data.substr(1, 5), "LLLLL"),
-				text: this.text.substr(1, 5),
-				options: { fontSize: this.fontSize }
-			});
-
-			// Add the middle bits
-			result.push({
-				data: "01010",
-				options: { height: this.guardHeight }
-			});
-
-			// Add the right side
-			result.push({
-				data: (0, _encoder2.default)(this.data.substr(6, 5), "RRRRR"),
-				text: this.text.substr(6, 5),
-				options: { fontSize: this.fontSize }
-			});
-
-			// Add the end bits
-			result.push({
-				data: (0, _encoder2.default)(this.data[11], "R") + "101",
-				options: { height: this.guardHeight }
-			});
-
-			// Add the last digit
-			if (this.displayValue) {
-				result.push({
-					data: "00000000",
-					text: this.text.substr(11, 1),
-					options: { textAlign: "right", fontSize: this.fontSize }
-				});
-			}
-
-			return result;
-		}
-	}]);
-
-	return UPC;
-}(_Barcode3.default);
-
-// Calulate the checksum digit
-// https://en.wikipedia.org/wiki/International_Article_Number_(EAN)#Calculation_of_checksum_digit
-
-
-function checksum(number) {
-	var result = 0;
-
-	var i;
-	for (i = 1; i < 11; i += 2) {
-		result += parseInt(number[i]);
-	}
-	for (i = 0; i < 11; i += 2) {
-		result += parseInt(number[i]) * 3;
-	}
-
-	return (10 - result % 10) % 10;
-}
-
-exports["default"] = UPC;
-
-/***/ }),
-
-/***/ 18179:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /* global HTMLImageElement */
-/* global HTMLCanvasElement */
-/* global SVGElement */
-
-var _getOptionsFromElement = __webpack_require__(892);
-
-var _getOptionsFromElement2 = _interopRequireDefault(_getOptionsFromElement);
-
-var _renderers = __webpack_require__(82727);
-
-var _renderers2 = _interopRequireDefault(_renderers);
-
-var _exceptions = __webpack_require__(28157);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// Takes an element and returns an object with information about how
-// it should be rendered
-// This could also return an array with these objects
-// {
-//   element: The element that the renderer should draw on
-//   renderer: The name of the renderer
-//   afterRender (optional): If something has to done after the renderer
-//     completed, calls afterRender (function)
-//   options (optional): Options that can be defined in the element
-// }
-
-function getRenderProperties(element) {
-	// If the element is a string, query select call again
-	if (typeof element === "string") {
-		return querySelectedRenderProperties(element);
-	}
-	// If element is array. Recursivly call with every object in the array
-	else if (Array.isArray(element)) {
-			var returnArray = [];
-			for (var i = 0; i < element.length; i++) {
-				returnArray.push(getRenderProperties(element[i]));
-			}
-			return returnArray;
-		}
-		// If element, render on canvas and set the uri as src
-		else if (typeof HTMLCanvasElement !== 'undefined' && element instanceof HTMLImageElement) {
-				return newCanvasRenderProperties(element);
-			}
-			// If SVG
-			else if (element && element.nodeName && element.nodeName.toLowerCase() === 'svg' || typeof SVGElement !== 'undefined' && element instanceof SVGElement) {
-					return {
-						element: element,
-						options: (0, _getOptionsFromElement2.default)(element),
-						renderer: _renderers2.default.SVGRenderer
-					};
-				}
-				// If canvas (in browser)
-				else if (typeof HTMLCanvasElement !== 'undefined' && element instanceof HTMLCanvasElement) {
-						return {
-							element: element,
-							options: (0, _getOptionsFromElement2.default)(element),
-							renderer: _renderers2.default.CanvasRenderer
-						};
-					}
-					// If canvas (in node)
-					else if (element && element.getContext) {
-							return {
-								element: element,
-								renderer: _renderers2.default.CanvasRenderer
-							};
-						} else if (element && (typeof element === "undefined" ? "undefined" : _typeof(element)) === 'object' && !element.nodeName) {
-							return {
-								element: element,
-								renderer: _renderers2.default.ObjectRenderer
-							};
-						} else {
-							throw new _exceptions.InvalidElementException();
-						}
-}
-
-function querySelectedRenderProperties(string) {
-	var selector = document.querySelectorAll(string);
-	if (selector.length === 0) {
-		return undefined;
-	} else {
-		var returnArray = [];
-		for (var i = 0; i < selector.length; i++) {
-			returnArray.push(getRenderProperties(selector[i]));
-		}
-		return returnArray;
-	}
-}
-
-function newCanvasRenderProperties(imgElement) {
-	var canvas = document.createElement('canvas');
-	return {
-		element: canvas,
-		options: (0, _getOptionsFromElement2.default)(imgElement),
-		renderer: _renderers2.default.CanvasRenderer,
-		afterRender: function afterRender() {
-			imgElement.setAttribute("src", canvas.toDataURL());
-		}
-	};
-}
-
-exports["default"] = getRenderProperties;
-
-/***/ }),
-
-/***/ 18784:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-
-var _EAN2 = __webpack_require__(74754);
-
-var _EAN3 = _interopRequireDefault(_EAN2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Encoding documentation:
-// http://www.barcodeisland.com/ean8.phtml
-
-// Calculate the checksum digit
-var checksum = function checksum(number) {
-	var res = number.substr(0, 7).split('').map(function (n) {
-		return +n;
-	}).reduce(function (sum, a, idx) {
-		return idx % 2 ? sum + a : sum + a * 3;
-	}, 0);
-
-	return (10 - res % 10) % 10;
-};
-
-var EAN8 = function (_EAN) {
-	_inherits(EAN8, _EAN);
-
-	function EAN8(data, options) {
-		_classCallCheck(this, EAN8);
-
-		// Add checksum if it does not exist
-		if (data.search(/^[0-9]{7}$/) !== -1) {
-			data += checksum(data);
-		}
-
-		return _possibleConstructorReturn(this, (EAN8.__proto__ || Object.getPrototypeOf(EAN8)).call(this, data, options));
-	}
-
-	_createClass(EAN8, [{
-		key: 'valid',
-		value: function valid() {
-			return this.data.search(/^[0-9]{8}$/) !== -1 && +this.data[7] === checksum(this.data);
-		}
-	}, {
-		key: 'leftText',
-		value: function leftText() {
-			return _get(EAN8.prototype.__proto__ || Object.getPrototypeOf(EAN8.prototype), 'leftText', this).call(this, 0, 4);
-		}
-	}, {
-		key: 'leftEncode',
-		value: function leftEncode() {
-			var data = this.data.substr(0, 4);
-			return _get(EAN8.prototype.__proto__ || Object.getPrototypeOf(EAN8.prototype), 'leftEncode', this).call(this, data, 'LLLL');
-		}
-	}, {
-		key: 'rightText',
-		value: function rightText() {
-			return _get(EAN8.prototype.__proto__ || Object.getPrototypeOf(EAN8.prototype), 'rightText', this).call(this, 4, 4);
-		}
-	}, {
-		key: 'rightEncode',
-		value: function rightEncode() {
-			var data = this.data.substr(4, 4);
-			return _get(EAN8.prototype.__proto__ || Object.getPrototypeOf(EAN8.prototype), 'rightEncode', this).call(this, data, 'RRRR');
-		}
-	}]);
-
-	return EAN8;
-}(_EAN3.default);
-
-exports["default"] = EAN8;
-
-/***/ }),
-
 /***/ 20354:
 /***/ (function(module) {
 
@@ -9197,507 +7836,6 @@ exports["default"] = EAN8;
 
 /***/ }),
 
-/***/ 21133:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-exports.codabar = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _Barcode2 = __webpack_require__(72444);
-
-var _Barcode3 = _interopRequireDefault(_Barcode2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Encoding specification:
-// http://www.barcodeisland.com/codabar.phtml
-
-var codabar = function (_Barcode) {
-	_inherits(codabar, _Barcode);
-
-	function codabar(data, options) {
-		_classCallCheck(this, codabar);
-
-		if (data.search(/^[0-9\-\$\:\.\+\/]+$/) === 0) {
-			data = "A" + data + "A";
-		}
-
-		var _this = _possibleConstructorReturn(this, (codabar.__proto__ || Object.getPrototypeOf(codabar)).call(this, data.toUpperCase(), options));
-
-		_this.text = _this.options.text || _this.text.replace(/[A-D]/g, '');
-		return _this;
-	}
-
-	_createClass(codabar, [{
-		key: "valid",
-		value: function valid() {
-			return this.data.search(/^[A-D][0-9\-\$\:\.\+\/]+[A-D]$/) !== -1;
-		}
-	}, {
-		key: "encode",
-		value: function encode() {
-			var result = [];
-			var encodings = this.getEncodings();
-			for (var i = 0; i < this.data.length; i++) {
-				result.push(encodings[this.data.charAt(i)]);
-				// for all characters except the last, append a narrow-space ("0")
-				if (i !== this.data.length - 1) {
-					result.push("0");
-				}
-			}
-			return {
-				text: this.text,
-				data: result.join('')
-			};
-		}
-	}, {
-		key: "getEncodings",
-		value: function getEncodings() {
-			return {
-				"0": "101010011",
-				"1": "101011001",
-				"2": "101001011",
-				"3": "110010101",
-				"4": "101101001",
-				"5": "110101001",
-				"6": "100101011",
-				"7": "100101101",
-				"8": "100110101",
-				"9": "110100101",
-				"-": "101001101",
-				"$": "101100101",
-				":": "1101011011",
-				"/": "1101101011",
-				".": "1101101101",
-				"+": "1011011011",
-				"A": "1011001001",
-				"B": "1001001011",
-				"C": "1010010011",
-				"D": "1010011001"
-			};
-		}
-	}]);
-
-	return codabar;
-}(_Barcode3.default);
-
-exports.codabar = codabar;
-
-/***/ }),
-
-/***/ 24845:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _CODE2 = __webpack_require__(53651);
-
-var _CODE3 = _interopRequireDefault(_CODE2);
-
-var _auto = __webpack_require__(74802);
-
-var _auto2 = _interopRequireDefault(_auto);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var CODE128AUTO = function (_CODE) {
-	_inherits(CODE128AUTO, _CODE);
-
-	function CODE128AUTO(data, options) {
-		_classCallCheck(this, CODE128AUTO);
-
-		// ASCII value ranges 0-127, 200-211
-		if (/^[\x00-\x7F\xC8-\xD3]+$/.test(data)) {
-			var _this = _possibleConstructorReturn(this, (CODE128AUTO.__proto__ || Object.getPrototypeOf(CODE128AUTO)).call(this, (0, _auto2.default)(data), options));
-		} else {
-			var _this = _possibleConstructorReturn(this, (CODE128AUTO.__proto__ || Object.getPrototypeOf(CODE128AUTO)).call(this, data, options));
-		}
-		return _possibleConstructorReturn(_this);
-	}
-
-	return CODE128AUTO;
-}(_CODE3.default);
-
-exports["default"] = CODE128AUTO;
-
-/***/ }),
-
-/***/ 26258:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-exports.getTotalWidthOfEncodings = exports.calculateEncodingAttributes = exports.getBarcodePadding = exports.getEncodingHeight = exports.getMaximumHeightOfEncodings = undefined;
-
-var _merge = __webpack_require__(91490);
-
-var _merge2 = _interopRequireDefault(_merge);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function getEncodingHeight(encoding, options) {
-	return options.height + (options.displayValue && encoding.text.length > 0 ? options.fontSize + options.textMargin : 0) + options.marginTop + options.marginBottom;
-}
-
-function getBarcodePadding(textWidth, barcodeWidth, options) {
-	if (options.displayValue && barcodeWidth < textWidth) {
-		if (options.textAlign == "center") {
-			return Math.floor((textWidth - barcodeWidth) / 2);
-		} else if (options.textAlign == "left") {
-			return 0;
-		} else if (options.textAlign == "right") {
-			return Math.floor(textWidth - barcodeWidth);
-		}
-	}
-	return 0;
-}
-
-function calculateEncodingAttributes(encodings, barcodeOptions, context) {
-	for (var i = 0; i < encodings.length; i++) {
-		var encoding = encodings[i];
-		var options = (0, _merge2.default)(barcodeOptions, encoding.options);
-
-		// Calculate the width of the encoding
-		var textWidth;
-		if (options.displayValue) {
-			textWidth = messureText(encoding.text, options, context);
-		} else {
-			textWidth = 0;
-		}
-
-		var barcodeWidth = encoding.data.length * options.width;
-		encoding.width = Math.ceil(Math.max(textWidth, barcodeWidth));
-
-		encoding.height = getEncodingHeight(encoding, options);
-
-		encoding.barcodePadding = getBarcodePadding(textWidth, barcodeWidth, options);
-	}
-}
-
-function getTotalWidthOfEncodings(encodings) {
-	var totalWidth = 0;
-	for (var i = 0; i < encodings.length; i++) {
-		totalWidth += encodings[i].width;
-	}
-	return totalWidth;
-}
-
-function getMaximumHeightOfEncodings(encodings) {
-	var maxHeight = 0;
-	for (var i = 0; i < encodings.length; i++) {
-		if (encodings[i].height > maxHeight) {
-			maxHeight = encodings[i].height;
-		}
-	}
-	return maxHeight;
-}
-
-function messureText(string, options, context) {
-	var ctx;
-
-	if (context) {
-		ctx = context;
-	} else if (typeof document !== "undefined") {
-		ctx = document.createElement("canvas").getContext("2d");
-	} else {
-		// If the text cannot be messured we will return 0.
-		// This will make some barcode with big text render incorrectly
-		return 0;
-	}
-	ctx.font = options.fontOptions + " " + options.fontSize + "px " + options.font;
-
-	// Calculate the width of the encoding
-	var measureTextResult = ctx.measureText(string);
-	if (!measureTextResult) {
-		// Some implementations don't implement measureText and return undefined.
-		// If the text cannot be measured we will return 0.
-		// This will make some barcode with big text render incorrectly
-		return 0;
-	}
-	var size = measureTextResult.width;
-	return size;
-}
-
-exports.getMaximumHeightOfEncodings = getMaximumHeightOfEncodings;
-exports.getEncodingHeight = getEncodingHeight;
-exports.getBarcodePadding = getBarcodePadding;
-exports.calculateEncodingAttributes = calculateEncodingAttributes;
-exports.getTotalWidthOfEncodings = getTotalWidthOfEncodings;
-
-/***/ }),
-
-/***/ 27052:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _MSI2 = __webpack_require__(33551);
-
-var _MSI3 = _interopRequireDefault(_MSI2);
-
-var _checksums = __webpack_require__(16320);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var MSI1110 = function (_MSI) {
-	_inherits(MSI1110, _MSI);
-
-	function MSI1110(data, options) {
-		_classCallCheck(this, MSI1110);
-
-		data += (0, _checksums.mod11)(data);
-		data += (0, _checksums.mod10)(data);
-		return _possibleConstructorReturn(this, (MSI1110.__proto__ || Object.getPrototypeOf(MSI1110)).call(this, data, options));
-	}
-
-	return MSI1110;
-}(_MSI3.default);
-
-exports["default"] = MSI1110;
-
-/***/ }),
-
-/***/ 28157:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var InvalidInputException = function (_Error) {
-	_inherits(InvalidInputException, _Error);
-
-	function InvalidInputException(symbology, input) {
-		_classCallCheck(this, InvalidInputException);
-
-		var _this = _possibleConstructorReturn(this, (InvalidInputException.__proto__ || Object.getPrototypeOf(InvalidInputException)).call(this));
-
-		_this.name = "InvalidInputException";
-
-		_this.symbology = symbology;
-		_this.input = input;
-
-		_this.message = '"' + _this.input + '" is not a valid input for ' + _this.symbology;
-		return _this;
-	}
-
-	return InvalidInputException;
-}(Error);
-
-var InvalidElementException = function (_Error2) {
-	_inherits(InvalidElementException, _Error2);
-
-	function InvalidElementException() {
-		_classCallCheck(this, InvalidElementException);
-
-		var _this2 = _possibleConstructorReturn(this, (InvalidElementException.__proto__ || Object.getPrototypeOf(InvalidElementException)).call(this));
-
-		_this2.name = "InvalidElementException";
-		_this2.message = "Not supported type to render on";
-		return _this2;
-	}
-
-	return InvalidElementException;
-}(Error);
-
-var NoElementException = function (_Error3) {
-	_inherits(NoElementException, _Error3);
-
-	function NoElementException() {
-		_classCallCheck(this, NoElementException);
-
-		var _this3 = _possibleConstructorReturn(this, (NoElementException.__proto__ || Object.getPrototypeOf(NoElementException)).call(this));
-
-		_this3.name = "NoElementException";
-		_this3.message = "No element to render on.";
-		return _this3;
-	}
-
-	return NoElementException;
-}(Error);
-
-exports.InvalidInputException = InvalidInputException;
-exports.InvalidElementException = InvalidElementException;
-exports.NoElementException = NoElementException;
-
-/***/ }),
-
-/***/ 31271:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _CODE2 = __webpack_require__(51087);
-
-var _CODE3 = _interopRequireDefault(_CODE2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Encoding documentation
-// https://en.wikipedia.org/wiki/Code_93#Full_ASCII_Code_93
-
-var CODE93FullASCII = function (_CODE) {
-	_inherits(CODE93FullASCII, _CODE);
-
-	function CODE93FullASCII(data, options) {
-		_classCallCheck(this, CODE93FullASCII);
-
-		return _possibleConstructorReturn(this, (CODE93FullASCII.__proto__ || Object.getPrototypeOf(CODE93FullASCII)).call(this, data, options));
-	}
-
-	_createClass(CODE93FullASCII, [{
-		key: 'valid',
-		value: function valid() {
-			return (/^[\x00-\x7f]+$/.test(this.data)
-			);
-		}
-	}]);
-
-	return CODE93FullASCII;
-}(_CODE3.default);
-
-exports["default"] = CODE93FullASCII;
-
-/***/ }),
-
-/***/ 33551:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _Barcode2 = __webpack_require__(72444);
-
-var _Barcode3 = _interopRequireDefault(_Barcode2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Encoding documentation
-// https://en.wikipedia.org/wiki/MSI_Barcode#Character_set_and_binary_lookup
-
-var MSI = function (_Barcode) {
-	_inherits(MSI, _Barcode);
-
-	function MSI(data, options) {
-		_classCallCheck(this, MSI);
-
-		return _possibleConstructorReturn(this, (MSI.__proto__ || Object.getPrototypeOf(MSI)).call(this, data, options));
-	}
-
-	_createClass(MSI, [{
-		key: "encode",
-		value: function encode() {
-			// Start bits
-			var ret = "110";
-
-			for (var i = 0; i < this.data.length; i++) {
-				// Convert the character to binary (always 4 binary digits)
-				var digit = parseInt(this.data[i]);
-				var bin = digit.toString(2);
-				bin = addZeroes(bin, 4 - bin.length);
-
-				// Add 100 for every zero and 110 for every 1
-				for (var b = 0; b < bin.length; b++) {
-					ret += bin[b] == "0" ? "100" : "110";
-				}
-			}
-
-			// End bits
-			ret += "1001";
-
-			return {
-				data: ret,
-				text: this.text
-			};
-		}
-	}, {
-		key: "valid",
-		value: function valid() {
-			return this.data.search(/^[0-9]+$/) !== -1;
-		}
-	}]);
-
-	return MSI;
-}(_Barcode3.default);
-
-function addZeroes(number, n) {
-	for (var i = 0; i < n; i++) {
-		number = "0" + number;
-	}
-	return number;
-}
-
-exports["default"] = MSI;
-
-/***/ }),
-
 /***/ 33833:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -9709,7 +7847,7 @@ exports["default"] = MSI;
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(true)
-		module.exports = factory(__webpack_require__(41371), __webpack_require__(20354));
+		module.exports = factory(__webpack_require__(94733), __webpack_require__(20354));
 	else // removed by dead control flow
 {}
 })(self, function(__WEBPACK_EXTERNAL_MODULE_jspdf__, __WEBPACK_EXTERNAL_MODULE_html2canvas__) {
@@ -15573,275 +13711,801 @@ __nested_webpack_exports__ = __nested_webpack_exports__.default;
 
 /***/ }),
 
-/***/ 35965:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 61330:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
 
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".table-custom[data-v-a145b8a2]{border:none!important}.departments-table[data-v-a145b8a2]{border-collapse:separate;border-spacing:0}.departments-table thead th[data-v-a145b8a2]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.departments-table thead tr[data-v-a145b8a2]{border:none!important}.departments-table thead th[data-v-a145b8a2]:first-child{border-top-left-radius:10px}.departments-table thead th[data-v-a145b8a2]:last-child{border-top-right-radius:10px}[dir=rtl] .departments-table thead th[data-v-a145b8a2]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .departments-table thead th[data-v-a145b8a2]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.refresh-btn[data-v-a145b8a2]{background:#33a0d91a!important;border:none;border-radius:10px;color:#33a0d9!important;height:44px;padding:10px 16px;width:56px}.export-excel-btn[data-v-a145b8a2],.export-pdf-btn[data-v-a145b8a2]{background:#f6fef4!important;color:#2ab930!important}.export-excel-btn[data-v-a145b8a2],.export-pdf-btn[data-v-a145b8a2],.print-btn[data-v-a145b8a2]{border:none;border-radius:10px;height:44px;padding:10px 16px;width:56px}.print-btn[data-v-a145b8a2]{background:#33a0d91a!important;color:#33a0d9!important}.action-dropdown[data-v-a145b8a2]{display:inline-block;position:relative}.action-icon-btn[data-v-a145b8a2]{align-items:center;background-color:#fff;border:none;cursor:pointer;display:inline-flex;height:24px;justify-content:center;padding:0;width:24px}.action-menu[data-v-a145b8a2]{animation:slideInDown-a145b8a2 .3s ease-out;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 8px 20px 0 #00000014;max-height:80vh;min-width:200px;overflow:hidden;position:fixed;z-index:9999}[dir=rtl] .action-menu[data-v-a145b8a2]{left:45px!important;right:auto!important}@keyframes slideInDown-a145b8a2{0%{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}.action-menu-header[data-v-a145b8a2]{align-items:center;background:#fafbfc;border-bottom:1px solid #f1f5f9;border-radius:12px 12px 0 0;display:flex;justify-content:space-between;padding:16px 20px 12px}.action-menu-title[data-v-a145b8a2]{color:#374151;font-size:14px;font-weight:600;margin:0}.action-menu-close[data-v-a145b8a2]{align-items:center;background:none;border:none;border-radius:4px;cursor:pointer;display:flex;justify-content:center;padding:4px;transition:background-color .2s ease}.action-menu-close[data-v-a145b8a2]:hover{background-color:#e5e7eb}.action-menu ul[data-v-a145b8a2]{list-style:none;margin:0;padding:8px 0}.action-menu li[data-v-a145b8a2]{margin:0}.action-menu li a[data-v-a145b8a2]{align-items:center;border-left:3px solid transparent;color:#374151;display:flex;font-size:14px;font-weight:500;gap:12px;padding:12px 20px;text-decoration:none;transition:all .2s ease}.action-menu li a[data-v-a145b8a2]:hover{background:#f8fafc;border-left-color:#3b82f6;color:#1f2937;transform:translateX(2px)}.action-menu li a svg[data-v-a145b8a2]{flex-shrink:0;height:16px;width:16px}.btn-group.c-w-100[data-v-a145b8a2]{gap:10px}.card[data-v-a145b8a2]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px;overflow:visible}.card-footer[data-v-a145b8a2]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.departments-table .badge.bg-success[data-v-a145b8a2]{background:#f6fef4!important;color:#2ab930!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.departments-table .badge.bg-danger[data-v-a145b8a2]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.form-control[data-v-a145b8a2]{background:#fff!important}.btn-primary[data-v-a145b8a2]{background:#2ab930!important;border:none!important;color:#fff!important;padding:10px 20px!important}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _merge = __webpack_require__(91490);
-
-var _merge2 = _interopRequireDefault(_merge);
-
-var _shared = __webpack_require__(26258);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var svgns = "http://www.w3.org/2000/svg";
-
-var SVGRenderer = function () {
-	function SVGRenderer(svg, encodings, options) {
-		_classCallCheck(this, SVGRenderer);
-
-		this.svg = svg;
-		this.encodings = encodings;
-		this.options = options;
-		this.document = options.xmlDocument || document;
-	}
-
-	_createClass(SVGRenderer, [{
-		key: "render",
-		value: function render() {
-			var currentX = this.options.marginLeft;
-
-			this.prepareSVG();
-			for (var i = 0; i < this.encodings.length; i++) {
-				var encoding = this.encodings[i];
-				var encodingOptions = (0, _merge2.default)(this.options, encoding.options);
-
-				var group = this.createGroup(currentX, encodingOptions.marginTop, this.svg);
-
-				this.setGroupOptions(group, encodingOptions);
-
-				this.drawSvgBarcode(group, encodingOptions, encoding);
-				this.drawSVGText(group, encodingOptions, encoding);
-
-				currentX += encoding.width;
-			}
-		}
-	}, {
-		key: "prepareSVG",
-		value: function prepareSVG() {
-			// Clear the SVG
-			while (this.svg.firstChild) {
-				this.svg.removeChild(this.svg.firstChild);
-			}
-
-			(0, _shared.calculateEncodingAttributes)(this.encodings, this.options);
-			var totalWidth = (0, _shared.getTotalWidthOfEncodings)(this.encodings);
-			var maxHeight = (0, _shared.getMaximumHeightOfEncodings)(this.encodings);
-
-			var width = totalWidth + this.options.marginLeft + this.options.marginRight;
-			this.setSvgAttributes(width, maxHeight);
-
-			if (this.options.background) {
-				this.drawRect(0, 0, width, maxHeight, this.svg).setAttribute("style", "fill:" + this.options.background + ";");
-			}
-		}
-	}, {
-		key: "drawSvgBarcode",
-		value: function drawSvgBarcode(parent, options, encoding) {
-			var binary = encoding.data;
-
-			// Creates the barcode out of the encoded binary
-			var yFrom;
-			if (options.textPosition == "top") {
-				yFrom = options.fontSize + options.textMargin;
-			} else {
-				yFrom = 0;
-			}
-
-			var barWidth = 0;
-			var x = 0;
-			for (var b = 0; b < binary.length; b++) {
-				x = b * options.width + encoding.barcodePadding;
-
-				if (binary[b] === "1") {
-					barWidth++;
-				} else if (barWidth > 0) {
-					this.drawRect(x - options.width * barWidth, yFrom, options.width * barWidth, options.height, parent);
-					barWidth = 0;
-				}
-			}
-
-			// Last draw is needed since the barcode ends with 1
-			if (barWidth > 0) {
-				this.drawRect(x - options.width * (barWidth - 1), yFrom, options.width * barWidth, options.height, parent);
-			}
-		}
-	}, {
-		key: "drawSVGText",
-		value: function drawSVGText(parent, options, encoding) {
-			var textElem = this.document.createElementNS(svgns, 'text');
-
-			// Draw the text if displayValue is set
-			if (options.displayValue) {
-				var x, y;
-
-				textElem.setAttribute("style", "font:" + options.fontOptions + " " + options.fontSize + "px " + options.font);
-
-				if (options.textPosition == "top") {
-					y = options.fontSize - options.textMargin;
-				} else {
-					y = options.height + options.textMargin + options.fontSize;
-				}
-
-				// Draw the text in the correct X depending on the textAlign option
-				if (options.textAlign == "left" || encoding.barcodePadding > 0) {
-					x = 0;
-					textElem.setAttribute("text-anchor", "start");
-				} else if (options.textAlign == "right") {
-					x = encoding.width - 1;
-					textElem.setAttribute("text-anchor", "end");
-				}
-				// In all other cases, center the text
-				else {
-						x = encoding.width / 2;
-						textElem.setAttribute("text-anchor", "middle");
-					}
-
-				textElem.setAttribute("x", x);
-				textElem.setAttribute("y", y);
-
-				textElem.appendChild(this.document.createTextNode(encoding.text));
-
-				parent.appendChild(textElem);
-			}
-		}
-	}, {
-		key: "setSvgAttributes",
-		value: function setSvgAttributes(width, height) {
-			var svg = this.svg;
-			svg.setAttribute("width", width + "px");
-			svg.setAttribute("height", height + "px");
-			svg.setAttribute("x", "0px");
-			svg.setAttribute("y", "0px");
-			svg.setAttribute("viewBox", "0 0 " + width + " " + height);
-
-			svg.setAttribute("xmlns", svgns);
-			svg.setAttribute("version", "1.1");
-
-			svg.setAttribute("style", "transform: translate(0,0)");
-		}
-	}, {
-		key: "createGroup",
-		value: function createGroup(x, y, parent) {
-			var group = this.document.createElementNS(svgns, 'g');
-			group.setAttribute("transform", "translate(" + x + ", " + y + ")");
-
-			parent.appendChild(group);
-
-			return group;
-		}
-	}, {
-		key: "setGroupOptions",
-		value: function setGroupOptions(group, options) {
-			group.setAttribute("style", "fill:" + options.lineColor + ";");
-		}
-	}, {
-		key: "drawRect",
-		value: function drawRect(x, y, width, height, parent) {
-			var rect = this.document.createElementNS(svgns, 'rect');
-
-			rect.setAttribute("x", x);
-			rect.setAttribute("y", y);
-			rect.setAttribute("width", width);
-			rect.setAttribute("height", height);
-
-			parent.appendChild(rect);
-
-			return rect;
-		}
-	}]);
-
-	return SVGRenderer;
-}();
-
-exports["default"] = SVGRenderer;
 
 /***/ }),
 
-/***/ 38075:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 80988:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
 
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ departments)
+});
 
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _constants = __webpack_require__(96575);
-
-var _encoder = __webpack_require__(16350);
-
-var _encoder2 = _interopRequireDefault(_encoder);
-
-var _Barcode2 = __webpack_require__(72444);
-
-var _Barcode3 = _interopRequireDefault(_Barcode2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Encoding documentation:
-// https://en.wikipedia.org/wiki/EAN_5#Encoding
-
-var checksum = function checksum(data) {
-	var result = data.split('').map(function (n) {
-		return +n;
-	}).reduce(function (sum, a, idx) {
-		return idx % 2 ? sum + a * 9 : sum + a * 3;
-	}, 0);
-	return result % 10;
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/departments/index.vue?vue&type=template&id=a145b8a2&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "mb-50"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-12"
+  }, [_c('div', {
+    staticClass: "card custom-card w-100"
+  }, [_c('div', {
+    staticClass: "card-header setings-header"
+  }, [_c('breadcrumbs', {
+    attrs: {
+      "items": _vm.breadcrumbs,
+      "current": _vm.breadcrumbsCurrent
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "card-body position-relative"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-6 col-xl-4 mb-2"
+  }, [_c('search', {
+    on: {
+      "reset-pagination": function resetPagination($event) {
+        return _vm.resetPagination();
+      },
+      "reload": _vm.reload
+    },
+    model: {
+      value: _vm.query,
+      callback: function callback($$v) {
+        _vm.query = $$v;
+      },
+      expression: "query"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-xl-8 col-8 float-right text-right"
+  }, [_c('div', {
+    staticClass: "btn-group c-w-100"
+  }, [_c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Refresh'),
+      expression: "$t('Refresh')"
+    }],
+    staticClass: "btn btn-success refresh-btn",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.refreshTable();
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-sync"
+  })]), _vm._v(" "), _c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Export to Excel'),
+      expression: "$t('Export to Excel')"
+    }],
+    staticClass: "btn export-excel-btn",
+    attrs: {
+      "href": _vm.exportUrl,
+      "title": "Export to Excel"
+    }
+  }, [_c('svg', {
+    attrs: {
+      "width": "18",
+      "height": "19",
+      "viewBox": "0 0 18 19",
+      "fill": "none",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M11.625 17.5001C11.625 17.699 11.546 17.8898 11.4053 18.0305C11.2647 18.1711 11.0739 18.2501 10.875 18.2501H8.24998C8.05107 18.2501 7.86031 18.1711 7.71966 18.0305C7.579 17.8898 7.49998 17.699 7.49998 17.5001V12.2501C7.49998 12.0512 7.579 11.8604 7.71966 11.7198C7.86031 11.5791 8.05107 11.5001 8.24998 11.5001C8.4489 11.5001 8.63966 11.5791 8.78031 11.7198C8.92097 11.8604 8.99998 12.0512 8.99998 12.2501V16.7501H10.875C11.0739 16.7501 11.2647 16.8291 11.4053 16.9698C11.546 17.1104 11.625 17.3012 11.625 17.5001ZM5.68592 11.6398C5.60578 11.5826 5.51514 11.5417 5.41918 11.5194C5.32323 11.4972 5.22384 11.4941 5.12668 11.5103C5.02953 11.5265 4.93651 11.5617 4.85295 11.6138C4.76939 11.6659 4.69692 11.734 4.63967 11.8142L3.37498 13.5851L2.1103 11.8142C2.05509 11.7292 1.98324 11.6564 1.89909 11.5999C1.81495 11.5435 1.72024 11.5047 1.62069 11.4859C1.52114 11.4671 1.41882 11.4687 1.31988 11.4905C1.22095 11.5123 1.12747 11.554 1.04507 11.6129C0.962677 11.6719 0.893077 11.7469 0.840473 11.8335C0.787869 11.9201 0.753352 12.0164 0.739005 12.1167C0.724657 12.217 0.730776 12.3191 0.756994 12.417C0.783211 12.5148 0.828983 12.6064 0.891547 12.6861L2.45342 14.8751L0.889672 17.0642C0.784434 17.2261 0.74571 17.4224 0.781564 17.6121C0.817419 17.8019 0.925088 17.9705 1.08215 18.0829C1.23922 18.1952 1.43357 18.2427 1.62474 18.2153C1.81591 18.188 1.98916 18.088 2.10842 17.9361L3.37498 16.1651L4.63967 17.9361C4.75893 18.088 4.93219 18.188 5.12336 18.2153C5.31453 18.188 5.50888 18.1952 5.66594 18.0829C5.82301 17.9705 5.93068 17.8019 5.96653 17.6121C6.00239 17.4224 5.96366 17.2261 5.85842 17.0642L4.29655 14.8751L5.8603 12.6861C5.91755 12.6059 5.95845 12.5153 5.98067 12.4193C6.00289 12.3234 6.00599 12.224 5.9898 12.1268C5.97361 12.0297 5.93844 11.9367 5.8863 11.8531C5.83416 11.7695 5.76607 11.6971 5.68592 11.6398ZM14.9615 14.0604C14.5865 13.9517 14.1984 13.8401 13.9819 13.7004C13.8647 13.6236 13.8665 13.6067 13.8769 13.5223C13.8783 13.4541 13.896 13.3873 13.9287 13.3274C13.9613 13.2675 14.0078 13.2164 14.0644 13.1782C14.4956 12.8857 15.5025 13.017 15.9225 13.1257C16.1149 13.1763 16.3196 13.1484 16.4915 13.0481C16.6633 12.9478 16.7883 12.7834 16.8389 12.5909C16.8895 12.3985 16.8616 12.1938 16.7613 12.0219C16.661 11.8501 16.4965 11.7251 16.304 11.6745C16.1062 11.6229 14.3353 11.1851 13.2262 11.9332C12.9924 12.0913 12.796 12.2987 12.6511 12.5408C12.5061 12.783 12.416 13.054 12.3872 13.3348C12.1997 14.8236 13.6669 15.2482 14.5434 15.5014C15.674 15.8286 15.7734 15.9626 15.7415 16.2129C15.7125 16.4389 15.6234 16.5251 15.54 16.5814C15.1087 16.8682 14.1187 16.7267 13.7081 16.6142C13.516 16.5609 13.3106 16.586 13.1371 16.6841C13.0512 16.7327 12.9757 16.7977 12.9149 16.8755C12.8541 16.9532 12.8092 17.0422 12.7828 17.1373C12.7564 17.2324 12.749 17.3318 12.761 17.4298C12.773 17.5277 12.8041 17.6224 12.8527 17.7083C12.9508 17.8818 13.1138 18.0093 13.3059 18.0626C13.7708 18.1851 14.2493 18.2481 14.73 18.2501C15.2756 18.2501 15.8831 18.1564 16.3697 17.832C16.6097 17.6724 16.8114 17.4615 16.9602 17.2146C17.109 16.9678 17.2012 16.691 17.2303 16.4042C17.4375 14.7814 15.8887 14.3286 14.9615 14.0604ZM0.749985 8.50012V1.75012C0.749985 1.3523 0.90802 0.970767 1.18932 0.689462C1.47063 0.408157 1.85216 0.250122 2.24998 0.250122H11.25C11.3485 0.250045 11.4461 0.269379 11.5371 0.30702C11.6282 0.344661 11.7109 0.399872 11.7806 0.469497L17.0306 5.7195C17.1002 5.7892 17.1554 5.87194 17.1931 5.96299C17.2307 6.05403 17.2501 6.1516 17.25 6.25012V8.50012C17.25 8.69903 17.171 8.8898 17.0303 9.03045C16.8897 9.1711 16.6989 9.25012 16.5 9.25012C16.3011 9.25012 16.1103 9.1711 15.9697 9.03045C15.829 8.8898 15.75 8.69903 15.75 8.50012V7.00012H11.25C11.0511 7.00012 10.8603 6.9211 10.7197 6.78045C10.579 6.6398 10.5 6.44903 10.5 6.25012V1.75012H2.24998V8.50012C2.24998 8.69903 2.17097 8.8898 2.03031 9.03045C1.88966 9.1711 1.6989 9.25012 1.49998 9.25012C1.30107 9.25012 1.11031 9.1711 0.969655 9.03045C0.829003 8.8898 0.749985 8.69903 0.749985 8.50012ZM12 5.50012H14.6887L12 2.81043V5.50012Z",
+      "fill": "#2AB930"
+    }
+  })])]), _vm._v(" "), _c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Export to PDF'),
+      expression: "$t('Export to PDF')"
+    }],
+    staticClass: "btn export-pdf-btn",
+    attrs: {
+      "href": "#",
+      "title": "Export to PDF"
+    },
+    on: {
+      "click": _vm.exportToPDF
+    }
+  }, [_c('svg', {
+    attrs: {
+      "width": "24",
+      "height": "24",
+      "viewBox": "0 0 24 24",
+      "fill": "none",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M21 14.2501C21 14.449 20.921 14.6398 20.7803 14.7805C20.6397 14.9211 20.4489 15.0001 20.25 15.0001H18V16.5001H19.5C19.6989 16.5001 19.8897 16.5791 20.0303 16.7198C20.171 16.8604 20.25 17.0512 20.25 17.2501C20.25 17.449 20.171 17.6398 20.0303 17.7805C19.8897 17.9211 19.6989 18.0001 19.5 18.0001H18V19.5001C18 19.699 17.921 19.8898 17.7803 20.0305C17.6397 20.1711 17.4489 20.2501 17.25 20.2501C17.0511 20.2501 16.8603 20.1711 16.7197 20.0305C16.579 19.8898 16.5 19.699 16.5 19.5001V14.2501C16.5 14.0512 16.579 13.8604 16.7197 13.7198C16.8603 13.5791 17.0511 13.5001 17.25 13.5001H20.25C20.4489 13.5001 20.6397 13.5791 20.7803 13.7198C20.921 13.8604 21 14.0512 21 14.2501ZM8.625 16.1251C8.625 16.8213 8.34844 17.489 7.85616 17.9813C7.36387 18.4736 6.69619 18.7501 6 18.7501H5.25V19.5001C5.25 19.699 5.17098 19.8898 5.03033 20.0305C4.88968 20.1711 4.69891 20.2501 4.5 20.2501C4.30109 20.2501 4.11032 20.1711 3.96967 20.0305C3.82902 19.8898 3.75 19.699 3.75 19.5001V14.2501C3.75 14.0512 3.82902 13.8604 3.96967 13.7198C4.11032 13.5791 4.30109 13.5001 4.5 13.5001H6C6.69619 13.5001 7.36387 13.7767 7.85616 14.269C8.34844 14.7612 8.625 15.4289 8.625 16.1251ZM7.125 16.1251C7.125 15.8268 7.00647 15.5406 6.7955 15.3296C6.58452 15.1186 6.29837 15.0001 6 15.0001H5.25V17.2501H6C6.29837 17.2501 6.58452 17.1316 6.7955 16.9206C7.00647 16.7096 7.125 16.4235 7.125 16.1251ZM15.375 16.8751C15.375 17.7702 15.0194 18.6287 14.3865 19.2616C13.7535 19.8945 12.8951 20.2501 12 20.2501H10.5C10.3011 20.2501 10.1103 20.1711 9.96967 20.0305C9.82902 19.8898 9.75 19.699 9.75 19.5001V14.2501C9.75 14.0512 9.82902 13.8604 9.96967 13.7198C10.1103 13.5791 10.3011 13.5001 10.5 13.5001H12C12.8951 13.5001 13.7535 13.8557 14.3865 14.4886C15.0194 15.1216 15.375 15.98 15.375 16.8751ZM13.875 16.8751C13.875 16.3778 13.6775 15.9009 13.3258 15.5493C12.9742 15.1977 12.4973 15.0001 12 15.0001H11.25V18.7501H12C12.4973 18.7501 12.9742 18.5526 13.3258 18.2009C13.6775 17.8493 13.875 17.3724 13.875 16.8751ZM3.75 10.5001V3.75012C3.75 3.3523 3.90804 2.97077 4.18934 2.68946C4.47064 2.40816 4.85218 2.25012 5.25 2.25012H14.25C14.3485 2.25004 14.4461 2.26938 14.5371 2.30702C14.6282 2.34466 14.7109 2.39987 14.7806 2.4695L20.0306 7.7195C20.1003 7.7892 20.1555 7.87194 20.1931 7.96299C20.2307 8.05403 20.2501 8.1516 20.25 8.25012V10.5001C20.25 10.699 20.171 10.8898 20.0303 11.0305C19.8897 11.1711 19.6989 11.2501 19.5 11.2501C19.3011 11.2501 19.1103 11.1711 18.9697 11.0305C18.829 10.8898 18.75 10.699 18.75 10.5001V9.00012H14.25C14.0511 9.00012 13.8603 8.9211 13.7197 8.78045C13.579 8.6398 13.5 8.44903 13.5 8.25012V3.75012H5.25V10.5001C5.25 10.699 5.17098 10.8898 5.03033 11.0305C4.88968 11.1711 4.69891 11.2501 4.5 11.2501C4.30109 11.2501 4.11032 11.1711 3.96967 11.0305C3.82902 10.8898 3.75 10.699 3.75 10.5001ZM15 7.50012H17.6897L15 4.81043V7.50012Z",
+      "fill": "#2AB930"
+    }
+  })])]), _vm._v(" "), _c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Print Table'),
+      expression: "$t('Print Table')"
+    }],
+    staticClass: "btn print-btn",
+    on: {
+      "click": _vm.print
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-print"
+  })]), _vm._v(" "), _vm.$can('department-create') ? _c('router-link', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "to": {
+        name: 'departments.create'
+      }
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Create")) + "\n                "), _c('i', {
+    staticClass: "fas fa-plus-circle d-none d-sm-inline-block"
+  })]) : _vm._e()], 1)])]), _vm._v(" "), _c('table-loading', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.loading,
+      expression: "loading"
+    }]
+  }), _vm._v(" "), _c('div', {
+    staticClass: "table-responsive table-custom mt-3",
+    attrs: {
+      "id": "printMe"
+    }
+  }, [_c('table', {
+    staticClass: "table departments-table"
+  }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Name")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Note")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _vm.$can('department-edit') || _vm.$can('department-delete') ? _c('th', {
+    staticClass: "text-right no-print"
+  }, [_vm._v("\n                    " + _vm._s(_vm.$t("Action")) + "\n                  ")]) : _vm._e()]), _vm._v(" "), _c('tbody', [_vm._l(_vm.items, function (data, i) {
+    return _c('tr', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.items.length,
+        expression: "items.length"
+      }],
+      key: i
+    }, [_c('td', [_vm.pagination && _vm.pagination.current_page > 1 ? _c('span', [_vm._v("\n                      " + _vm._s(_vm.pagination.per_page * (_vm.pagination.current_page - 1) + (i + 1)) + "\n                    ")]) : _c('span', [_vm._v(_vm._s(i + 1))])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.note))]), _vm._v(" "), _c('td', [data.status === 1 ? _c('span', {
+      staticClass: "badge bg-success"
+    }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
+      staticClass: "badge bg-danger"
+    }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _vm.$can('department-edit') || _vm.$can('department-delete') ? _c('td', {
+      staticClass: "text-right no-print"
+    }, [_c('div', {
+      staticClass: "action-dropdown",
+      "class": {
+        open: _vm.openActionIndex === i
+      }
+    }, [_c('button', {
+      staticClass: "action-icon-btn",
+      attrs: {
+        "type": "button",
+        "data-action-index": i
+      },
+      on: {
+        "click": function click($event) {
+          $event.stopPropagation();
+          return _vm.toggleAction(i);
+        }
+      }
+    }, [_c('svg', {
+      attrs: {
+        "xmlns": "http://www.w3.org/2000/svg",
+        "width": "24",
+        "height": "25",
+        "viewBox": "0 0 24 25",
+        "fill": "none"
+      }
+    }, [_c('path', {
+      attrs: {
+        "d": "M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z",
+        "fill": "#023033"
+      }
+    })])]), _vm._v(" "), _vm.openActionIndex === i ? _c('div', {
+      staticClass: "action-menu"
+    }, [_c('div', {
+      staticClass: "action-menu-header"
+    }, [_c('h6', {
+      staticClass: "action-menu-title"
+    }, [_vm._v(_vm._s(_vm.$t('Actions')))]), _vm._v(" "), _c('button', {
+      staticClass: "action-menu-close",
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function click($event) {
+          $event.stopPropagation();
+          return _vm.toggleAction(i);
+        }
+      }
+    }, [_c('svg', {
+      attrs: {
+        "xmlns": "http://www.w3.org/2000/svg",
+        "width": "16",
+        "height": "16",
+        "viewBox": "0 0 16 16",
+        "fill": "none"
+      }
+    }, [_c('path', {
+      attrs: {
+        "d": "M12 4L4 12M4 4L12 12",
+        "stroke": "#6B7280",
+        "stroke-width": "2",
+        "stroke-linecap": "round",
+        "stroke-linejoin": "round"
+      }
+    })])])]), _vm._v(" "), _c('ul', [_vm.$can('department-edit') ? _c('li', [_c('router-link', {
+      attrs: {
+        "to": {
+          name: 'departments.edit',
+          params: {
+            slug: data.slug
+          }
+        }
+      }
+    }, [_c('svg', {
+      attrs: {
+        "xmlns": "http://www.w3.org/2000/svg",
+        "width": "16",
+        "height": "16",
+        "viewBox": "0 0 16 16",
+        "fill": "none"
+      }
+    }, [_c('path', {
+      attrs: {
+        "d": "M11.5 1.5L14.5 4.5L5.5 13.5H2.5V10.5L11.5 1.5Z",
+        "stroke": "#6B7280",
+        "stroke-width": "1.5",
+        "stroke-linecap": "round",
+        "stroke-linejoin": "round"
+      }
+    })]), _vm._v("\n                              " + _vm._s(_vm.$t('Edit')) + "\n                            ")])], 1) : _vm._e(), _vm._v(" "), _vm.$can('department-delete') ? _c('li', [_c('a', {
+      attrs: {
+        "href": "#"
+      },
+      on: {
+        "click": function click($event) {
+          $event.preventDefault();
+          return _vm.deleteData(data.slug);
+        }
+      }
+    }, [_c('svg', {
+      attrs: {
+        "xmlns": "http://www.w3.org/2000/svg",
+        "width": "16",
+        "height": "16",
+        "viewBox": "0 0 16 16",
+        "fill": "none"
+      }
+    }, [_c('path', {
+      attrs: {
+        "d": "M2 4H14M5.5 4V2.5C5.5 2.2 5.7 2 6 2H10C10.3 2 10.5 2.2 10.5 2.5V4M12.5 4V13.5C12.5 13.8 12.3 14 12 14H4C3.7 14 3.5 13.8 3.5 13.5V4H12.5Z",
+        "stroke": "#EF4444",
+        "stroke-width": "1.5",
+        "stroke-linecap": "round",
+        "stroke-linejoin": "round"
+      }
+    })]), _vm._v("\n                              " + _vm._s(_vm.$t('Delete')) + "\n                            ")])]) : _vm._e()])]) : _vm._e()])]) : _vm._e()]);
+  }), _vm._v(" "), _c('tr', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: !_vm.loading && !_vm.items.length,
+      expression: "!loading && !items.length"
+    }]
+  }, [_c('td', {
+    attrs: {
+      "colspan": "5"
+    }
+  }, [_c('EmptyTable')], 1)])], 2)])])], 1), _vm._v(" "), _c('div', {
+    staticClass: "card-footer"
+  }, [_c('div', {
+    staticClass: "dtable-footer"
+  }, [_c('div', {
+    staticClass: "form-group row display-per-page"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t("per_page")) + " ")]), _vm._v(" "), _c('div', [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.perPage,
+      expression: "perPage"
+    }],
+    staticClass: "form-control form-control-sm ml-1",
+    on: {
+      "change": [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.perPage = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }, _vm.updatePerPager]
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "10"
+    }
+  }, [_vm._v("10")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "25"
+    }
+  }, [_vm._v("25")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "50"
+    }
+  }, [_vm._v("50")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "100"
+    }
+  }, [_vm._v("100")])])])]), _vm._v(" "), _vm.pagination && _vm.pagination.last_page > 1 ? _c('pagination', {
+    staticClass: "justify-flex-end",
+    attrs: {
+      "pagination": _vm.pagination,
+      "offset": 5
+    },
+    on: {
+      "paginate": _vm.paginate
+    }
+  }) : _vm._e()], 1)])])])])]);
 };
+var staticRenderFns = [];
 
-var EAN5 = function (_Barcode) {
-	_inherits(EAN5, _Barcode);
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__(95353);
+// EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
+var sweetalert2_all = __webpack_require__(78465);
+var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all);
+// EXTERNAL MODULE: ./node_modules/html2pdf.js/dist/html2pdf.js
+var html2pdf = __webpack_require__(33833);
+var html2pdf_default = /*#__PURE__*/__webpack_require__.n(html2pdf);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/departments/index.vue?vue&type=script&lang=js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
-	function EAN5(data, options) {
-		_classCallCheck(this, EAN5);
 
-		return _possibleConstructorReturn(this, (EAN5.__proto__ || Object.getPrototypeOf(EAN5)).call(this, data, options));
-	}
 
-	_createClass(EAN5, [{
-		key: 'valid',
-		value: function valid() {
-			return this.data.search(/^[0-9]{5}$/) !== -1;
-		}
-	}, {
-		key: 'encode',
-		value: function encode() {
-			var structure = _constants.EAN5_STRUCTURE[checksum(this.data)];
-			return {
-				data: '1011' + (0, _encoder2.default)(this.data, structure, '01'),
-				text: this.text
-			};
-		}
-	}]);
+/* harmony default export */ const departmentsvue_type_script_lang_js = ({
+  middleware: ["auth", "check-permissions"],
+  metaInfo: function metaInfo() {
+    return {
+      title: this.$t("Departments")
+    };
+  },
+  data: function data() {
+    return {
+      breadcrumbsCurrent: "Departments",
+      breadcrumbs: [{
+        name: "Dashboard",
+        url: "home"
+      }, {
+        name: "Employees",
+        url: "employees.index"
+      }, {
+        name: "Departments",
+        url: ""
+      }],
+      query: "",
+      perPage: 10,
+      openActionIndex: null
+    };
+  },
+  // Map Getters
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "loading", "pagination"])), {}, {
+    exportUrl: function exportUrl() {
+      // Create a dynamic export URL with query parameters and locale for localized headers
+      var locale = this.$i18n.locale;
+      return "/departments/export/excel?term=".concat(this.query, "&locale=").concat(locale);
+    }
+  }),
+  watch: {
+    // watch search data
+    query: function query(newQ) {
+      if (newQ === "") {
+        this.getData();
+      } else {
+        this.searchData();
+      }
+    }
+  },
+  created: function created() {
+    this.getData();
+  },
+  mounted: function mounted() {
+    document.addEventListener('click', this.onClickOutside);
+    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('resize', this.handleResize);
+  },
+  beforeDestroy: function beforeDestroy() {
+    document.removeEventListener('click', this.onClickOutside);
+    window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('resize', this.handleResize);
+  },
+  methods: {
+    toggleAction: function toggleAction(index) {
+      var _this = this;
+      this.openActionIndex = this.openActionIndex === index ? null : index;
+      if (this.openActionIndex === index) {
+        this.$nextTick(function () {
+          _this.positionDropdown(index);
+        });
+      }
+    },
+    positionDropdown: function positionDropdown(index) {
+      var button = document.querySelector("[data-action-index=\"".concat(index, "\"]"));
+      if (button) {
+        var rect = button.getBoundingClientRect();
+        var menu = document.querySelector('.action-menu');
+        if (menu) {
+          // Check if page direction is RTL
+          var isRTL = document.documentElement.dir === 'rtl' || document.documentElement.getAttribute('dir') === 'rtl';
+          if (isRTL) {
+            menu.style.left = '45px';
+            menu.style.right = 'auto';
+          } else {
+            menu.style.left = "".concat(rect.right - 200, "px"); // 200px is min-width
+            menu.style.right = 'auto';
+          }
+          menu.style.top = "".concat(rect.bottom + 8, "px");
+        }
+      }
+    },
+    onClickOutside: function onClickOutside() {
+      this.openActionIndex = null;
+    },
+    handleScroll: function handleScroll() {
+      if (this.openActionIndex !== null) {
+        this.positionDropdown(this.openActionIndex);
+      }
+    },
+    handleResize: function handleResize() {
+      if (this.openActionIndex !== null) {
+        this.positionDropdown(this.openActionIndex);
+      }
+    },
+    // update per page count
+    updatePerPager: function updatePerPager() {
+      this.pagination.current_page = 1;
+      this.query === "" ? this.getData() : this.searchData();
+    },
+    // get data
+    getData: function getData() {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var currentPage;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.n) {
+            case 0:
+              _this2.$store.state.operations.loading = true;
+              currentPage = _this2.pagination ? _this2.pagination.current_page : 1;
+              _context.n = 1;
+              return _this2.$store.dispatch("operations/fetchData", {
+                path: "/api/departments?page=",
+                currentPage: currentPage + "&perPage=" + _this2.perPage
+              });
+            case 1:
+              return _context.a(2);
+          }
+        }, _callee);
+      }))();
+    },
+    // Pagination
+    paginate: function paginate() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.n) {
+            case 0:
+              _this3.query === "" ? _this3.getData() : _this3.searchData();
+            case 1:
+              return _context2.a(2);
+          }
+        }, _callee2);
+      }))();
+    },
+    // Reset pagination
+    resetPagination: function resetPagination() {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.n) {
+            case 0:
+              _this4.pagination.current_page = 1;
+            case 1:
+              return _context3.a(2);
+          }
+        }, _callee3);
+      }))();
+    },
+    // search data
+    searchData: function searchData() {
+      var _this5 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+        var currentPage;
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.n) {
+            case 0:
+              _this5.$store.state.operations.loading = true;
+              currentPage = _this5.pagination ? _this5.pagination.current_page : 1;
+              _context4.n = 1;
+              return _this5.$store.dispatch("operations/searchData", {
+                path: "/api/departments/search",
+                term: _this5.query,
+                currentPage: currentPage + "&perPage=" + _this5.perPage
+              });
+            case 1:
+              return _context4.a(2);
+          }
+        }, _callee4);
+      }))();
+    },
+    // Reload after search
+    reload: function reload() {
+      var _this6 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+        return _regenerator().w(function (_context5) {
+          while (1) switch (_context5.n) {
+            case 0:
+              _this6.query = "";
+            case 1:
+              return _context5.a(2);
+          }
+        }, _callee5);
+      }))();
+    },
+    // print table
+    print: function print() {
+      var _this7 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+        return _regenerator().w(function (_context6) {
+          while (1) switch (_context6.n) {
+            case 0:
+              _context6.n = 1;
+              return _this7.$htmlToPaper("printMe");
+            case 1:
+              return _context6.a(2);
+          }
+        }, _callee6);
+      }))();
+    },
+    exportToPDF: function exportToPDF() {
+      var _this8 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+        var element, style, opt, pdfStyle, _t;
+        return _regenerator().w(function (_context7) {
+          while (1) switch (_context7.p = _context7.n) {
+            case 0:
+              _context7.p = 0;
+              element = document.getElementById("printMe");
+              if (element) {
+                _context7.n = 1;
+                break;
+              }
+              _this8.$toast.error(_this8.$t("Error!"), _this8.$t("Table not found"));
+              return _context7.a(2);
+            case 1:
+              style = document.createElement('style');
+              style.setAttribute('data-pdf-export', 'true');
+              style.textContent = ".no-print, .no-print * { display: none !important; }";
+              document.head.appendChild(style);
+              opt = {
+                margin: [10, 10, 10, 10],
+                filename: "employee-departments-".concat(new Date().toISOString().slice(0, 10), ".pdf"),
+                image: {
+                  type: "jpeg",
+                  quality: 0.98
+                },
+                html2canvas: {
+                  scale: 2,
+                  useCORS: true,
+                  logging: false
+                },
+                jsPDF: {
+                  unit: "mm",
+                  format: "a4",
+                  orientation: "landscape"
+                },
+                pagebreak: {
+                  mode: ["avoid-all", "css", "legacy"]
+                }
+              };
+              _context7.n = 2;
+              return html2pdf_default()().set(opt).from(element).save();
+            case 2:
+              document.head.removeChild(style);
+              _this8.$toast.success(_this8.$t("Success!"), _this8.$t("PDF exported successfully"));
+              _context7.n = 4;
+              break;
+            case 3:
+              _context7.p = 3;
+              _t = _context7.v;
+              pdfStyle = document.querySelector('style[data-pdf-export]');
+              if (pdfStyle) document.head.removeChild(pdfStyle);
+              _this8.$toast.error(_this8.$t("Error!"), _this8.$t("Failed to export PDF"));
+            case 4:
+              return _context7.a(2);
+          }
+        }, _callee7, null, [[0, 3]]);
+      }))();
+    },
+    // refresh table
+    refreshTable: function refreshTable() {
+      this.query = "";
+      this.query === "" ? this.getData() : this.searchData();
+    },
+    // delete data
+    deleteData: function deleteData(slug) {
+      var _this9 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
+        return _regenerator().w(function (_context8) {
+          while (1) switch (_context8.n) {
+            case 0:
+              sweetalert2_all_default().fire({
+                title: _this9.$t("Are you sure?"),
+                text: _this9.$t("You will not be able to return to this! This will delete the department permanently."),
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: _this9.$t("Confirm"),
+                cancelButtonText: _this9.$t("Cancel")
+              }).then(function (result) {
+                // Send request to the server
+                if (result.value) {
+                  _this9.$store.dispatch("operations/deleteData", {
+                    path: "/api/departments/",
+                    slug: slug
+                  }).then(function (response) {
+                    if (response === true) {
+                      _this9.$toast.success(_this9.$t("Deleted!"), _this9.$t("Deleted successfully."));
+                    } else {
+                      _this9.$toast.warning(_this9.$t("Failed!"), _this9.$t("There was something wrong."));
+                    }
+                  });
+                }
+              });
+            case 1:
+              return _context8.a(2);
+          }
+        }, _callee8);
+      }))();
+    }
+  }
+});
+;// ./resources/js/pages/employees/departments/index.vue?vue&type=script&lang=js
+ /* harmony default export */ const employees_departmentsvue_type_script_lang_js = (departmentsvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/departments/index.vue?vue&type=style&index=0&id=a145b8a2&prod&scoped=true&lang=css
+var departmentsvue_type_style_index_0_id_a145b8a2_prod_scoped_true_lang_css = __webpack_require__(61330);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/departments/index.vue?vue&type=style&index=0&id=a145b8a2&prod&scoped=true&lang=css
 
-	return EAN5;
-}(_Barcode3.default);
+            
 
-exports["default"] = EAN5;
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(departmentsvue_type_style_index_0_id_a145b8a2_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const employees_departmentsvue_type_style_index_0_id_a145b8a2_prod_scoped_true_lang_css = (departmentsvue_type_style_index_0_id_a145b8a2_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/employees/departments/index.vue?vue&type=style&index=0&id=a145b8a2&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/departments/index.vue?vue&type=style&index=1&id=a145b8a2&prod&lang=css
+var departmentsvue_type_style_index_1_id_a145b8a2_prod_lang_css = __webpack_require__(82494);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/departments/index.vue?vue&type=style&index=1&id=a145b8a2&prod&lang=css
+
+            
+
+var departmentsvue_type_style_index_1_id_a145b8a2_prod_lang_css_options = {};
+
+departmentsvue_type_style_index_1_id_a145b8a2_prod_lang_css_options.insert = "head";
+departmentsvue_type_style_index_1_id_a145b8a2_prod_lang_css_options.singleton = false;
+
+var departmentsvue_type_style_index_1_id_a145b8a2_prod_lang_css_update = injectStylesIntoStyleTag_default()(departmentsvue_type_style_index_1_id_a145b8a2_prod_lang_css/* default */.A, departmentsvue_type_style_index_1_id_a145b8a2_prod_lang_css_options);
+
+
+
+/* harmony default export */ const employees_departmentsvue_type_style_index_1_id_a145b8a2_prod_lang_css = (departmentsvue_type_style_index_1_id_a145b8a2_prod_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/employees/departments/index.vue?vue&type=style&index=1&id=a145b8a2&prod&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/pages/employees/departments/index.vue
+
+
+
+;
+
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  employees_departmentsvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "a145b8a2",
+  null
+  
+)
+
+/* harmony default export */ const departments = (component.exports);
 
 /***/ }),
 
-/***/ 41371:
+/***/ 82494:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".dtable-footer{align-items:center;display:flex;flex-direction:column;justify-content:space-between;margin-top:30px;padding:0 0 0 10px}.card-footer .form-group.row.display-per-page{align-items:center;display:flex;gap:10px;justify-content:flex-end;width:100%}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 94733:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19233,7 +17897,7 @@ class IOBuffer {
     }
 }
 //# sourceMappingURL=IOBuffer.js.map
-;// ./node_modules/pako/dist/pako.esm.mjs
+;// ./node_modules/fast-png/node_modules/pako/dist/pako.esm.mjs
 
 /*! pako 2.1.0 https://github.com/nodeca/pako @license (MIT AND Zlib) */
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -27581,2606 +26245,6 @@ function(t){var e=function(){return void 0===this.internal.vFS&&(this.internal.v
 function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var n,r,i,a,o,s,u,c=e,l=[[0,3,0,1,0,0,0],[0,3,0,1,2,2,0],[0,3,0,17,2,0,1],[0,3,5,5,4,1,0],[0,3,21,21,4,0,1],[0,3,5,5,4,2,0]],h=[[2,0,1,1,0,1,0],[2,0,1,1,0,2,0],[2,0,2,1,3,2,0],[2,0,2,33,3,1,1]],f={L:0,R:1,EN:2,AN:3,N:4,B:5,S:6},d={0:0,5:1,6:2,7:3,32:4,251:5,254:6,255:7},p=["(",")","(","<",">","<","[","]","[","{","}","{","«","»","«","‹","›","‹","⁅","⁆","⁅","⁽","⁾","⁽","₍","₎","₍","≤","≥","≤","〈","〉","〈","﹙","﹚","﹙","﹛","﹜","﹛","﹝","﹞","﹝","﹤","﹥","﹤"],g=new RegExp(/^([1-4|9]|1[0-9]|2[0-9]|3[0168]|4[04589]|5[012]|7[78]|159|16[0-9]|17[0-2]|21[569]|22[03489]|250)$/),m=!1,v=0;this.__bidiEngine__={};var b=function(t){var e=t.charCodeAt(),n=e>>8,r=d[n];return void 0!==r?c[256*r+(255&e)]:252===n||253===n?"AL":g.test(n)?"L":8===n?"R":"N"},y=function(t){for(var e,n=0;n<t.length;n++){if("L"===(e=b(t.charAt(n))))return!1;if("R"===e)return!0}return!1},w=function(t,e,o,s){var u,c,l,h,f=e[s];switch(f){case"L":case"R":case"LRE":case"RLE":case"LRO":case"RLO":case"PDF":m=!1;break;case"N":case"AN":break;case"EN":m&&(f="AN");break;case"AL":m=!0,f="R";break;case"WS":case"BN":f="N";break;case"CS":s<1||s+1>=e.length||"EN"!==(u=o[s-1])&&"AN"!==u||"EN"!==(c=e[s+1])&&"AN"!==c?f="N":m&&(c="AN"),f=c===u?c:"N";break;case"ES":f="EN"===(u=s>0?o[s-1]:"B")&&s+1<e.length&&"EN"===e[s+1]?"EN":"N";break;case"ET":if(s>0&&"EN"===o[s-1]){f="EN";break}if(m){f="N";break}for(l=s+1,h=e.length;l<h&&"ET"===e[l];)l++;f=l<h&&"EN"===e[l]?"EN":"N";break;case"NSM":if(i&&!a){for(h=e.length,l=s+1;l<h&&"NSM"===e[l];)l++;if(l<h){var d=t[s],p=d>=1425&&d<=2303||64286===d;if(u=e[l],p&&("R"===u||"AL"===u)){f="R";break}}}f=s<1||"B"===(u=e[s-1])?"N":o[s-1];break;case"B":m=!1,n=!0,f=v;break;case"S":r=!0,f="N"}return f},N=function(t,e,n){var r=t.split("");return n&&L(r,n,{hiLevel:v}),r.reverse(),e&&e.reverse(),r.join("")},L=function(t,e,i){var a,o,s,u,c,d=-1,p=t.length,g=0,y=[],N=v?h:l,L=[];for(m=!1,n=!1,r=!1,o=0;o<p;o++)L[o]=b(t[o]);for(s=0;s<p;s++){if(c=g,y[s]=w(t,L,y,s),a=240&(g=N[c][f[y[s]]]),g&=15,e[s]=u=N[g][5],a>0)if(16===a){for(o=d;o<s;o++)e[o]=1;d=-1}else d=-1;if(N[g][6])-1===d&&(d=s);else if(d>-1){for(o=d;o<s;o++)e[o]=u;d=-1}"B"===L[s]&&(e[s]=0),i.hiLevel|=u}r&&function(t,e,n){for(var r=0;r<n;r++)if("S"===t[r]){e[r]=v;for(var i=r-1;i>=0&&"WS"===t[i];i--)e[i]=v}}(L,e,p)},x=function(t,e,r,i,a){if(!(a.hiLevel<t)){if(1===t&&1===v&&!n)return e.reverse(),void(r&&r.reverse());for(var o,s,u,c,l=e.length,h=0;h<l;){if(i[h]>=t){for(u=h+1;u<l&&i[u]>=t;)u++;for(c=h,s=u-1;c<s;c++,s--)o=e[c],e[c]=e[s],e[s]=o,r&&(o=r[c],r[c]=r[s],r[s]=o);h=u}h++}}},A=function(t,e,n){var r=t.split(""),i={hiLevel:v};return n||(n=[]),L(r,n,i),function(t,e,n){if(0!==n.hiLevel&&u)for(var r,i=0;i<t.length;i++)1===e[i]&&(r=p.indexOf(t[i]))>=0&&(t[i]=p[r+1])}(r,n,i),x(2,r,e,n,i),x(1,r,e,n,i),r.join("")};return this.__bidiEngine__.doBidiReorder=function(t,e,n){if(function(t,e){if(e)for(var n=0;n<t.length;n++)e[n]=n;void 0===a&&(a=y(t)),void 0===s&&(s=y(t))}(t,e),i||!o||s)if(i&&o&&a^s)v=a?1:0,t=N(t,e,n);else if(!i&&o&&s)v=a?1:0,t=A(t,e,n),t=N(t,e);else if(!i||a||o||s){if(i&&!o&&a^s)t=N(t,e),a?(v=0,t=A(t,e,n)):(v=1,t=A(t,e,n),t=N(t,e));else if(i&&a&&!o&&s)v=1,t=A(t,e,n),t=N(t,e);else if(!i&&!o&&a^s){var r=u;a?(v=1,t=A(t,e,n),v=0,u=!1,t=A(t,e,n),u=r):(v=0,t=A(t,e,n),t=N(t,e),v=1,u=!1,t=A(t,e,n),u=r,t=N(t,e))}}else v=0,t=A(t,e,n);else v=a?1:0,t=A(t,e,n);return t},this.__bidiEngine__.setOptions=function(t){t&&(i=t.isInputVisual,o=t.isOutputVisual,a=t.isInputRtl,s=t.isOutputRtl,u=t.isSymmetricSwapping)},this.__bidiEngine__.setOptions(t),this.__bidiEngine__};var e=["BN","BN","BN","BN","BN","BN","BN","BN","BN","S","B","S","WS","B","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","B","B","B","S","WS","N","N","ET","ET","ET","N","N","N","N","N","ES","CS","ES","CS","CS","EN","EN","EN","EN","EN","EN","EN","EN","EN","EN","CS","N","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","N","BN","BN","BN","BN","BN","BN","B","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","CS","N","ET","ET","ET","ET","N","N","N","N","L","N","N","BN","N","N","ET","ET","EN","EN","N","L","N","N","N","EN","L","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","L","L","L","L","L","L","L","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","L","N","N","N","N","N","ET","N","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","R","NSM","R","NSM","NSM","R","NSM","NSM","R","NSM","N","N","N","N","N","N","N","N","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","N","N","N","N","N","R","R","R","R","R","N","N","N","N","N","N","N","N","N","N","N","AN","AN","AN","AN","AN","AN","N","N","AL","ET","ET","AL","CS","AL","N","N","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","AL","AL","N","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","AN","AN","AN","AN","AN","AN","AN","AN","AN","AN","ET","AN","AN","AL","AL","AL","NSM","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","NSM","NSM","NSM","NSM","NSM","NSM","NSM","AN","N","NSM","NSM","NSM","NSM","NSM","NSM","AL","AL","NSM","NSM","N","NSM","NSM","NSM","NSM","AL","AL","EN","EN","EN","EN","EN","EN","EN","EN","EN","EN","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","N","AL","AL","NSM","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","N","N","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","AL","N","N","N","N","N","N","N","N","N","N","N","N","N","N","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","R","R","N","N","N","N","R","N","N","N","N","N","WS","WS","WS","WS","WS","WS","WS","WS","WS","WS","WS","BN","BN","BN","L","R","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","WS","B","LRE","RLE","PDF","LRO","RLO","CS","ET","ET","ET","ET","ET","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","CS","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","WS","BN","BN","BN","BN","BN","N","LRI","RLI","FSI","PDI","BN","BN","BN","BN","BN","BN","EN","L","N","N","EN","EN","EN","EN","EN","EN","ES","ES","N","N","N","L","EN","EN","EN","EN","EN","EN","EN","EN","EN","EN","ES","ES","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","L","L","L","L","L","L","L","N","N","N","N","N","N","N","N","N","N","N","N","L","L","L","L","L","N","N","N","N","N","R","NSM","R","R","R","R","R","R","R","R","R","R","ES","R","R","R","R","R","R","R","R","R","R","R","R","R","N","R","R","R","R","R","N","R","N","R","R","N","R","R","N","R","R","R","R","R","R","R","R","R","R","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","CS","N","CS","N","N","CS","N","N","N","N","N","N","N","N","N","ET","N","N","ES","ES","N","N","N","N","N","ET","ET","N","N","N","N","N","AL","AL","AL","AL","AL","N","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","N","N","BN","N","N","N","ET","ET","ET","N","N","N","N","N","ES","CS","ES","CS","CS","EN","EN","EN","EN","EN","EN","EN","EN","EN","EN","CS","N","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","N","N","N","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","L","L","L","L","L","L","N","N","L","L","L","L","L","L","N","N","L","L","L","L","L","L","N","N","L","L","L","N","N","N","ET","ET","N","N","N","ET","ET","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N"],n=new t.__bidiEngine__({isInputVisual:!0});t.API.events.push(["postProcessText",function(t){var e=t.text;t.x,t.y;var r=t.options||{};t.mutex,r.lang;var i=[];if(r.isInputVisual="boolean"!=typeof r.isInputVisual||r.isInputVisual,n.setOptions(r),"[object Array]"===Object.prototype.toString.call(e)){var a=0;for(i=[],a=0;a<e.length;a+=1)"[object Array]"===Object.prototype.toString.call(e[a])?i.push([n.doBidiReorder(e[a][0]),e[a][1],e[a][2]]):i.push([n.doBidiReorder(e[a])]);t.text=i}else t.text=n.doBidiReorder(e);n.setOptions({isInputVisual:!0})}])}(E),E.API.TTFFont=function(){function t(t){var e;if(this.rawData=t,e=this.contents=new fe(t),this.contents.pos=4,"ttcf"===e.readString(4))throw new Error("TTCF not supported.");e.pos=0,this.parse(),this.subset=new je(this),this.registerTTF()}return t.open=function(e){return new t(e)},t.prototype.parse=function(){return this.directory=new de(this.contents),this.head=new me(this),this.name=new xe(this),this.cmap=new be(this),this.toUnicode={},this.hhea=new ye(this),this.maxp=new Ae(this),this.hmtx=new Se(this),this.post=new Ne(this),this.os2=new we(this),this.loca=new Ie(this),this.glyf=new Pe(this),this.ascender=this.os2.exists&&this.os2.ascender||this.hhea.ascender,this.decender=this.os2.exists&&this.os2.decender||this.hhea.decender,this.lineGap=this.os2.exists&&this.os2.lineGap||this.hhea.lineGap,this.bbox=[this.head.xMin,this.head.yMin,this.head.xMax,this.head.yMax]},t.prototype.registerTTF=function(){var t,e,n,r,i;if(this.scaleFactor=1e3/this.head.unitsPerEm,this.bbox=function(){var e,n,r,i;for(i=[],e=0,n=(r=this.bbox).length;e<n;e++)t=r[e],i.push(Math.round(t*this.scaleFactor));return i}.call(this),this.stemV=0,this.post.exists?(n=255&(r=this.post.italic_angle),32768&(e=r>>16)&&(e=-(1+(65535^e))),this.italicAngle=+(e+"."+n)):this.italicAngle=0,this.ascender=Math.round(this.ascender*this.scaleFactor),this.decender=Math.round(this.decender*this.scaleFactor),this.lineGap=Math.round(this.lineGap*this.scaleFactor),this.capHeight=this.os2.exists&&this.os2.capHeight||this.ascender,this.xHeight=this.os2.exists&&this.os2.xHeight||0,this.familyClass=(this.os2.exists&&this.os2.familyClass||0)>>8,this.isSerif=1===(i=this.familyClass)||2===i||3===i||4===i||5===i||7===i,this.isScript=10===this.familyClass,this.flags=0,this.post.isFixedPitch&&(this.flags|=1),this.isSerif&&(this.flags|=2),this.isScript&&(this.flags|=8),0!==this.italicAngle&&(this.flags|=64),this.flags|=32,!this.cmap.unicode)throw new Error("No unicode cmap for font")},t.prototype.characterToGlyph=function(t){var e;return(null!=(e=this.cmap.unicode)?e.codeMap[t]:void 0)||0},t.prototype.widthOfGlyph=function(t){var e;return e=1e3/this.head.unitsPerEm,this.hmtx.forGlyph(t).advance*e},t.prototype.widthOfString=function(t,e,n){var r,i,a,o;for(a=0,i=0,o=(t=""+t).length;0<=o?i<o:i>o;i=0<=o?++i:--i)r=t.charCodeAt(i),a+=this.widthOfGlyph(this.characterToGlyph(r))+n*(1e3/e)||0;return a*(e/1e3)},t.prototype.lineHeight=function(t,e){var n;return null==e&&(e=!1),n=e?this.lineGap:0,(this.ascender+n-this.decender)/1e3*t},t}();var he,fe=function(){function t(t){this.data=null!=t?t:[],this.pos=0,this.length=this.data.length}return t.prototype.readByte=function(){return this.data[this.pos++]},t.prototype.writeByte=function(t){return this.data[this.pos++]=t},t.prototype.readUInt32=function(){return 16777216*this.readByte()+(this.readByte()<<16)+(this.readByte()<<8)+this.readByte()},t.prototype.writeUInt32=function(t){return this.writeByte(t>>>24&255),this.writeByte(t>>16&255),this.writeByte(t>>8&255),this.writeByte(255&t)},t.prototype.readInt32=function(){var t;return(t=this.readUInt32())>=2147483648?t-4294967296:t},t.prototype.writeInt32=function(t){return t<0&&(t+=4294967296),this.writeUInt32(t)},t.prototype.readUInt16=function(){return this.readByte()<<8|this.readByte()},t.prototype.writeUInt16=function(t){return this.writeByte(t>>8&255),this.writeByte(255&t)},t.prototype.readInt16=function(){var t;return(t=this.readUInt16())>=32768?t-65536:t},t.prototype.writeInt16=function(t){return t<0&&(t+=65536),this.writeUInt16(t)},t.prototype.readString=function(t){var e,n;for(n=[],e=0;0<=t?e<t:e>t;e=0<=t?++e:--e)n[e]=String.fromCharCode(this.readByte());return n.join("")},t.prototype.writeString=function(t){var e,n,r;for(r=[],e=0,n=t.length;0<=n?e<n:e>n;e=0<=n?++e:--e)r.push(this.writeByte(t.charCodeAt(e)));return r},t.prototype.readShort=function(){return this.readInt16()},t.prototype.writeShort=function(t){return this.writeInt16(t)},t.prototype.readLongLong=function(){var t,e,n,r,i,a,o,s;return t=this.readByte(),e=this.readByte(),n=this.readByte(),r=this.readByte(),i=this.readByte(),a=this.readByte(),o=this.readByte(),s=this.readByte(),128&t?-1*(72057594037927940*(255^t)+281474976710656*(255^e)+1099511627776*(255^n)+4294967296*(255^r)+16777216*(255^i)+65536*(255^a)+256*(255^o)+(255^s)+1):72057594037927940*t+281474976710656*e+1099511627776*n+4294967296*r+16777216*i+65536*a+256*o+s},t.prototype.writeLongLong=function(t){var e,n;return e=Math.floor(t/4294967296),n=4294967295&t,this.writeByte(e>>24&255),this.writeByte(e>>16&255),this.writeByte(e>>8&255),this.writeByte(255&e),this.writeByte(n>>24&255),this.writeByte(n>>16&255),this.writeByte(n>>8&255),this.writeByte(255&n)},t.prototype.readInt=function(){return this.readInt32()},t.prototype.writeInt=function(t){return this.writeInt32(t)},t.prototype.read=function(t){var e,n;for(e=[],n=0;0<=t?n<t:n>t;n=0<=t?++n:--n)e.push(this.readByte());return e},t.prototype.write=function(t){var e,n,r,i;for(i=[],n=0,r=t.length;n<r;n++)e=t[n],i.push(this.writeByte(e));return i},t}(),de=function(){var t;function e(t){var e,n,r;for(this.scalarType=t.readInt(),this.tableCount=t.readShort(),this.searchRange=t.readShort(),this.entrySelector=t.readShort(),this.rangeShift=t.readShort(),this.tables={},n=0,r=this.tableCount;0<=r?n<r:n>r;n=0<=r?++n:--n)e={tag:t.readString(4),checksum:t.readInt(),offset:t.readInt(),length:t.readInt()},this.tables[e.tag]=e}return e.prototype.encode=function(e){var n,r,i,a,o,s,u,c,l,h,f,d,p;for(p in f=Object.keys(e).length,s=Math.log(2),l=16*Math.floor(Math.log(f)/s),a=Math.floor(l/s),c=16*f-l,(r=new fe).writeInt(this.scalarType),r.writeShort(f),r.writeShort(l),r.writeShort(a),r.writeShort(c),i=16*f,u=r.pos+i,o=null,d=[],e)for(h=e[p],r.writeString(p),r.writeInt(t(h)),r.writeInt(u),r.writeInt(h.length),d=d.concat(h),"head"===p&&(o=u),u+=h.length;u%4;)d.push(0),u++;return r.write(d),n=2981146554-t(r.data),r.pos=o+8,r.writeUInt32(n),r.data},t=function(t){var e,n,r,i;for(t=_e.call(t);t.length%4;)t.push(0);for(r=new fe(t),n=0,e=0,i=t.length;e<i;e=e+=4)n+=r.readUInt32();return 4294967295&n},e}(),pe={}.hasOwnProperty,ge=function(t,e){for(var n in e)pe.call(e,n)&&(t[n]=e[n]);function r(){this.constructor=t}return r.prototype=e.prototype,t.prototype=new r,t.__super__=e.prototype,t};he=function(){function t(t){var e;this.file=t,e=this.file.directory.tables[this.tag],this.exists=!!e,e&&(this.offset=e.offset,this.length=e.length,this.parse(this.file.contents))}return t.prototype.parse=function(){},t.prototype.encode=function(){},t.prototype.raw=function(){return this.exists?(this.file.contents.pos=this.offset,this.file.contents.read(this.length)):null},t}();var me=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="head",t.prototype.parse=function(t){return t.pos=this.offset,this.version=t.readInt(),this.revision=t.readInt(),this.checkSumAdjustment=t.readInt(),this.magicNumber=t.readInt(),this.flags=t.readShort(),this.unitsPerEm=t.readShort(),this.created=t.readLongLong(),this.modified=t.readLongLong(),this.xMin=t.readShort(),this.yMin=t.readShort(),this.xMax=t.readShort(),this.yMax=t.readShort(),this.macStyle=t.readShort(),this.lowestRecPPEM=t.readShort(),this.fontDirectionHint=t.readShort(),this.indexToLocFormat=t.readShort(),this.glyphDataFormat=t.readShort()},t.prototype.encode=function(t){var e;return(e=new fe).writeInt(this.version),e.writeInt(this.revision),e.writeInt(this.checkSumAdjustment),e.writeInt(this.magicNumber),e.writeShort(this.flags),e.writeShort(this.unitsPerEm),e.writeLongLong(this.created),e.writeLongLong(this.modified),e.writeShort(this.xMin),e.writeShort(this.yMin),e.writeShort(this.xMax),e.writeShort(this.yMax),e.writeShort(this.macStyle),e.writeShort(this.lowestRecPPEM),e.writeShort(this.fontDirectionHint),e.writeShort(t),e.writeShort(this.glyphDataFormat),e.data},t}(),ve=function(){function t(t,e){var n,r,i,a,o,s,u,c,l,h,f,d,p,g,m,v,b;switch(this.platformID=t.readUInt16(),this.encodingID=t.readShort(),this.offset=e+t.readInt(),l=t.pos,t.pos=this.offset,this.format=t.readUInt16(),this.length=t.readUInt16(),this.language=t.readUInt16(),this.isUnicode=3===this.platformID&&1===this.encodingID&&4===this.format||0===this.platformID&&4===this.format,this.codeMap={},this.format){case 0:for(s=0;s<256;++s)this.codeMap[s]=t.readByte();break;case 4:for(f=t.readUInt16(),h=f/2,t.pos+=6,i=function(){var e,n;for(n=[],s=e=0;0<=h?e<h:e>h;s=0<=h?++e:--e)n.push(t.readUInt16());return n}(),t.pos+=2,p=function(){var e,n;for(n=[],s=e=0;0<=h?e<h:e>h;s=0<=h?++e:--e)n.push(t.readUInt16());return n}(),u=function(){var e,n;for(n=[],s=e=0;0<=h?e<h:e>h;s=0<=h?++e:--e)n.push(t.readUInt16());return n}(),c=function(){var e,n;for(n=[],s=e=0;0<=h?e<h:e>h;s=0<=h?++e:--e)n.push(t.readUInt16());return n}(),r=(this.length-t.pos+this.offset)/2,o=function(){var e,n;for(n=[],s=e=0;0<=r?e<r:e>r;s=0<=r?++e:--e)n.push(t.readUInt16());return n}(),s=m=0,b=i.length;m<b;s=++m)for(g=i[s],n=v=d=p[s];d<=g?v<=g:v>=g;n=d<=g?++v:--v)0===c[s]?a=n+u[s]:0!==(a=o[c[s]/2+(n-d)-(h-s)]||0)&&(a+=u[s]),this.codeMap[n]=65535&a}t.pos=l}return t.encode=function(t,e){var n,r,i,a,o,s,u,c,l,h,f,d,p,g,m,v,b,y,w,N,L,x,A,S,_,P,k,F,I,j,C,O,B,M,q,E,R,D,T,z,U,H,W,V,G,Y;switch(F=new fe,a=Object.keys(t).sort(function(t,e){return t-e}),e){case"macroman":for(p=0,g=function(){var t=[];for(d=0;d<256;++d)t.push(0);return t}(),v={0:0},i={},I=0,B=a.length;I<B;I++)null==v[W=t[r=a[I]]]&&(v[W]=++p),i[r]={old:t[r],new:v[t[r]]},g[r]=v[t[r]];return F.writeUInt16(1),F.writeUInt16(0),F.writeUInt32(12),F.writeUInt16(0),F.writeUInt16(262),F.writeUInt16(0),F.write(g),{charMap:i,subtable:F.data,maxGlyphID:p+1};case"unicode":for(P=[],l=[],b=0,v={},n={},m=u=null,j=0,M=a.length;j<M;j++)null==v[w=t[r=a[j]]]&&(v[w]=++b),n[r]={old:w,new:v[w]},o=v[w]-r,null!=m&&o===u||(m&&l.push(m),P.push(r),u=o),m=r;for(m&&l.push(m),l.push(65535),P.push(65535),S=2*(A=P.length),x=2*Math.pow(Math.log(A)/Math.LN2,2),h=Math.log(x/2)/Math.LN2,L=2*A-x,s=[],N=[],f=[],d=C=0,q=P.length;C<q;d=++C){if(_=P[d],c=l[d],65535===_){s.push(0),N.push(0);break}if(_-(k=n[_].new)>=32768)for(s.push(0),N.push(2*(f.length+A-d)),r=O=_;_<=c?O<=c:O>=c;r=_<=c?++O:--O)f.push(n[r].new);else s.push(k-_),N.push(0)}for(F.writeUInt16(3),F.writeUInt16(1),F.writeUInt32(12),F.writeUInt16(4),F.writeUInt16(16+8*A+2*f.length),F.writeUInt16(0),F.writeUInt16(S),F.writeUInt16(x),F.writeUInt16(h),F.writeUInt16(L),U=0,E=l.length;U<E;U++)r=l[U],F.writeUInt16(r);for(F.writeUInt16(0),H=0,R=P.length;H<R;H++)r=P[H],F.writeUInt16(r);for(V=0,D=s.length;V<D;V++)o=s[V],F.writeUInt16(o);for(G=0,T=N.length;G<T;G++)y=N[G],F.writeUInt16(y);for(Y=0,z=f.length;Y<z;Y++)p=f[Y],F.writeUInt16(p);return{charMap:n,subtable:F.data,maxGlyphID:b+1}}},t}(),be=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="cmap",t.prototype.parse=function(t){var e,n,r;for(t.pos=this.offset,this.version=t.readUInt16(),r=t.readUInt16(),this.tables=[],this.unicode=null,n=0;0<=r?n<r:n>r;n=0<=r?++n:--n)e=new ve(t,this.offset),this.tables.push(e),e.isUnicode&&null==this.unicode&&(this.unicode=e);return!0},t.encode=function(t,e){var n,r;return null==e&&(e="macroman"),n=ve.encode(t,e),(r=new fe).writeUInt16(0),r.writeUInt16(1),n.table=r.data.concat(n.subtable),n},t}(),ye=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="hhea",t.prototype.parse=function(t){return t.pos=this.offset,this.version=t.readInt(),this.ascender=t.readShort(),this.decender=t.readShort(),this.lineGap=t.readShort(),this.advanceWidthMax=t.readShort(),this.minLeftSideBearing=t.readShort(),this.minRightSideBearing=t.readShort(),this.xMaxExtent=t.readShort(),this.caretSlopeRise=t.readShort(),this.caretSlopeRun=t.readShort(),this.caretOffset=t.readShort(),t.pos+=8,this.metricDataFormat=t.readShort(),this.numberOfMetrics=t.readUInt16()},t}(),we=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="OS/2",t.prototype.parse=function(t){if(t.pos=this.offset,this.version=t.readUInt16(),this.averageCharWidth=t.readShort(),this.weightClass=t.readUInt16(),this.widthClass=t.readUInt16(),this.type=t.readShort(),this.ySubscriptXSize=t.readShort(),this.ySubscriptYSize=t.readShort(),this.ySubscriptXOffset=t.readShort(),this.ySubscriptYOffset=t.readShort(),this.ySuperscriptXSize=t.readShort(),this.ySuperscriptYSize=t.readShort(),this.ySuperscriptXOffset=t.readShort(),this.ySuperscriptYOffset=t.readShort(),this.yStrikeoutSize=t.readShort(),this.yStrikeoutPosition=t.readShort(),this.familyClass=t.readShort(),this.panose=function(){var e,n;for(n=[],e=0;e<10;++e)n.push(t.readByte());return n}(),this.charRange=function(){var e,n;for(n=[],e=0;e<4;++e)n.push(t.readInt());return n}(),this.vendorID=t.readString(4),this.selection=t.readShort(),this.firstCharIndex=t.readShort(),this.lastCharIndex=t.readShort(),this.version>0&&(this.ascent=t.readShort(),this.descent=t.readShort(),this.lineGap=t.readShort(),this.winAscent=t.readShort(),this.winDescent=t.readShort(),this.codePageRange=function(){var e,n;for(n=[],e=0;e<2;e=++e)n.push(t.readInt());return n}(),this.version>1))return this.xHeight=t.readShort(),this.capHeight=t.readShort(),this.defaultChar=t.readShort(),this.breakChar=t.readShort(),this.maxContext=t.readShort()},t}(),Ne=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="post",t.prototype.parse=function(t){var e,n,r;switch(t.pos=this.offset,this.format=t.readInt(),this.italicAngle=t.readInt(),this.underlinePosition=t.readShort(),this.underlineThickness=t.readShort(),this.isFixedPitch=t.readInt(),this.minMemType42=t.readInt(),this.maxMemType42=t.readInt(),this.minMemType1=t.readInt(),this.maxMemType1=t.readInt(),this.format){case 65536:case 196608:break;case 131072:var i;for(n=t.readUInt16(),this.glyphNameIndex=[],i=0;0<=n?i<n:i>n;i=0<=n?++i:--i)this.glyphNameIndex.push(t.readUInt16());for(this.names=[],r=[];t.pos<this.offset+this.length;)e=t.readByte(),r.push(this.names.push(t.readString(e)));return r;case 151552:return n=t.readUInt16(),this.offsets=t.read(n);case 262144:return this.map=function(){var e,n,r;for(r=[],i=e=0,n=this.file.maxp.numGlyphs;0<=n?e<n:e>n;i=0<=n?++e:--e)r.push(t.readUInt32());return r}.call(this)}},t}(),Le=function(t,e){this.raw=t,this.length=t.length,this.platformID=e.platformID,this.encodingID=e.encodingID,this.languageID=e.languageID},xe=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="name",t.prototype.parse=function(t){var e,n,r,i,a,o,s,u,c,l,h;for(t.pos=this.offset,t.readShort(),e=t.readShort(),o=t.readShort(),n=[],i=0;0<=e?i<e:i>e;i=0<=e?++i:--i)n.push({platformID:t.readShort(),encodingID:t.readShort(),languageID:t.readShort(),nameID:t.readShort(),length:t.readShort(),offset:this.offset+o+t.readShort()});for(s={},i=c=0,l=n.length;c<l;i=++c)r=n[i],t.pos=r.offset,u=t.readString(r.length),a=new Le(u,r),null==s[h=r.nameID]&&(s[h]=[]),s[r.nameID].push(a);this.strings=s,this.copyright=s[0],this.fontFamily=s[1],this.fontSubfamily=s[2],this.uniqueSubfamily=s[3],this.fontName=s[4],this.version=s[5];try{this.postscriptName=s[6][0].raw.replace(/[\x00-\x19\x80-\xff]/g,"")}catch(f){this.postscriptName=s[4][0].raw.replace(/[\x00-\x19\x80-\xff]/g,"")}return this.trademark=s[7],this.manufacturer=s[8],this.designer=s[9],this.description=s[10],this.vendorUrl=s[11],this.designerUrl=s[12],this.license=s[13],this.licenseUrl=s[14],this.preferredFamily=s[15],this.preferredSubfamily=s[17],this.compatibleFull=s[18],this.sampleText=s[19]},t}(),Ae=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="maxp",t.prototype.parse=function(t){return t.pos=this.offset,this.version=t.readInt(),this.numGlyphs=t.readUInt16(),this.maxPoints=t.readUInt16(),this.maxContours=t.readUInt16(),this.maxCompositePoints=t.readUInt16(),this.maxComponentContours=t.readUInt16(),this.maxZones=t.readUInt16(),this.maxTwilightPoints=t.readUInt16(),this.maxStorage=t.readUInt16(),this.maxFunctionDefs=t.readUInt16(),this.maxInstructionDefs=t.readUInt16(),this.maxStackElements=t.readUInt16(),this.maxSizeOfInstructions=t.readUInt16(),this.maxComponentElements=t.readUInt16(),this.maxComponentDepth=t.readUInt16()},t}(),Se=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="hmtx",t.prototype.parse=function(t){var e,n,r,i,a,o,s;for(t.pos=this.offset,this.metrics=[],e=0,o=this.file.hhea.numberOfMetrics;0<=o?e<o:e>o;e=0<=o?++e:--e)this.metrics.push({advance:t.readUInt16(),lsb:t.readInt16()});for(r=this.file.maxp.numGlyphs-this.file.hhea.numberOfMetrics,this.leftSideBearings=function(){var n,i;for(i=[],e=n=0;0<=r?n<r:n>r;e=0<=r?++n:--n)i.push(t.readInt16());return i}(),this.widths=function(){var t,e,n,r;for(r=[],t=0,e=(n=this.metrics).length;t<e;t++)i=n[t],r.push(i.advance);return r}.call(this),n=this.widths[this.widths.length-1],s=[],e=a=0;0<=r?a<r:a>r;e=0<=r?++a:--a)s.push(this.widths.push(n));return s},t.prototype.forGlyph=function(t){return t in this.metrics?this.metrics[t]:{advance:this.metrics[this.metrics.length-1].advance,lsb:this.leftSideBearings[t-this.metrics.length]}},t}(),_e=[].slice,Pe=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="glyf",t.prototype.parse=function(){return this.cache={}},t.prototype.glyphFor=function(t){var e,n,r,i,a,o,s,u,c,l;return t in this.cache?this.cache[t]:(i=this.file.loca,e=this.file.contents,n=i.indexOf(t),0===(r=i.lengthOf(t))?this.cache[t]=null:(e.pos=this.offset+n,a=(o=new fe(e.read(r))).readShort(),u=o.readShort(),l=o.readShort(),s=o.readShort(),c=o.readShort(),this.cache[t]=-1===a?new Fe(o,u,l,s,c):new ke(o,a,u,l,s,c),this.cache[t]))},t.prototype.encode=function(t,e,n){var r,i,a,o,s;for(a=[],i=[],o=0,s=e.length;o<s;o++)r=t[e[o]],i.push(a.length),r&&(a=a.concat(r.encode(n)));return i.push(a.length),{table:a,offsets:i}},t}(),ke=function(){function t(t,e,n,r,i,a){this.raw=t,this.numberOfContours=e,this.xMin=n,this.yMin=r,this.xMax=i,this.yMax=a,this.compound=!1}return t.prototype.encode=function(){return this.raw.data},t}(),Fe=function(){function t(t,e,n,r,i){var a,o;for(this.raw=t,this.xMin=e,this.yMin=n,this.xMax=r,this.yMax=i,this.compound=!0,this.glyphIDs=[],this.glyphOffsets=[],a=this.raw;o=a.readShort(),this.glyphOffsets.push(a.pos),this.glyphIDs.push(a.readUInt16()),32&o;)a.pos+=1&o?4:2,128&o?a.pos+=8:64&o?a.pos+=4:8&o&&(a.pos+=2)}return t.prototype.encode=function(){var t,e,n;for(e=new fe(_e.call(this.raw.data)),t=0,n=this.glyphIDs.length;t<n;++t)e.pos=this.glyphOffsets[t];return e.data},t}(),Ie=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="loca",t.prototype.parse=function(t){var e,n;return t.pos=this.offset,e=this.file.head.indexToLocFormat,this.offsets=0===e?function(){var e,r;for(r=[],n=0,e=this.length;n<e;n+=2)r.push(2*t.readUInt16());return r}.call(this):function(){var e,r;for(r=[],n=0,e=this.length;n<e;n+=4)r.push(t.readUInt32());return r}.call(this)},t.prototype.indexOf=function(t){return this.offsets[t]},t.prototype.lengthOf=function(t){return this.offsets[t+1]-this.offsets[t]},t.prototype.encode=function(t,e){for(var n=new Uint32Array(this.offsets.length),r=0,i=0,a=0;a<n.length;++a)if(n[a]=r,i<e.length&&e[i]==a){++i,n[a]=r;var o=this.offsets[a],s=this.offsets[a+1]-o;s>0&&(r+=s)}for(var u=new Array(4*n.length),c=0;c<n.length;++c)u[4*c+3]=255&n[c],u[4*c+2]=(65280&n[c])>>8,u[4*c+1]=(16711680&n[c])>>16,u[4*c]=(4278190080&n[c])>>24;return u},t}(),je=function(){function t(t){this.font=t,this.subset={},this.unicodes={},this.next=33}return t.prototype.generateCmap=function(){var t,e,n,r,i;for(e in r=this.font.cmap.tables[0].codeMap,t={},i=this.subset)n=i[e],t[e]=r[n];return t},t.prototype.glyphsFor=function(t){var e,n,r,i,a,o,s;for(r={},a=0,o=t.length;a<o;a++)r[i=t[a]]=this.font.glyf.glyphFor(i);for(i in e=[],r)(null!=(n=r[i])?n.compound:void 0)&&e.push.apply(e,n.glyphIDs);if(e.length>0)for(i in s=this.glyphsFor(e))n=s[i],r[i]=n;return r},t.prototype.encode=function(t,e){var n,r,i,a,o,s,u,c,l,h,f,d,p,g,m;for(r in n=be.encode(this.generateCmap(),"unicode"),a=this.glyphsFor(t),f={0:0},m=n.charMap)f[(s=m[r]).old]=s.new;for(d in h=n.maxGlyphID,a)d in f||(f[d]=h++);return c=function(t){var e,n;for(e in n={},t)n[t[e]]=e;return n}(f),l=Object.keys(c).sort(function(t,e){return t-e}),p=function(){var t,e,n;for(n=[],t=0,e=l.length;t<e;t++)o=l[t],n.push(c[o]);return n}(),i=this.font.glyf.encode(a,p,f),u=this.font.loca.encode(i.offsets,p),g={cmap:this.font.cmap.raw(),glyf:i.table,loca:u,hmtx:this.font.hmtx.raw(),hhea:this.font.hhea.raw(),maxp:this.font.maxp.raw(),post:this.font.post.raw(),name:this.font.name.raw(),head:this.font.head.encode(e)},this.font.os2.exists&&(g["OS/2"]=this.font.os2.raw()),this.font.directory.encode(g)},t}();E.API.PDFObject=function(){var t;function e(){}return t=function(t,e){return(Array(e+1).join("0")+t).slice(-e)},e.convert=function(n){var r,i,a,o;if(Array.isArray(n))return"["+function(){var t,i,a;for(a=[],t=0,i=n.length;t<i;t++)r=n[t],a.push(e.convert(r));return a}().join(" ")+"]";if("string"==typeof n)return"/"+n;if(null!=n?n.isString:void 0)return"("+n+")";if(n instanceof Date)return"(D:"+t(n.getUTCFullYear(),4)+t(n.getUTCMonth(),2)+t(n.getUTCDate(),2)+t(n.getUTCHours(),2)+t(n.getUTCMinutes(),2)+t(n.getUTCSeconds(),2)+"Z)";if("[object Object]"==={}.toString.call(n)){for(i in a=["<<"],n)o=n[i],a.push("/"+i+" "+e.convert(o));return a.push(">>"),a.join("\n")}return""+n},e}();
 //# sourceMappingURL=jspdf.es.min.js.map
 
-
-/***/ }),
-
-/***/ 42889:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-exports.pharmacode = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _Barcode2 = __webpack_require__(72444);
-
-var _Barcode3 = _interopRequireDefault(_Barcode2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Encoding documentation
-// http://www.gomaro.ch/ftproot/Laetus_PHARMA-CODE.pdf
-
-var pharmacode = function (_Barcode) {
-	_inherits(pharmacode, _Barcode);
-
-	function pharmacode(data, options) {
-		_classCallCheck(this, pharmacode);
-
-		var _this = _possibleConstructorReturn(this, (pharmacode.__proto__ || Object.getPrototypeOf(pharmacode)).call(this, data, options));
-
-		_this.number = parseInt(data, 10);
-		return _this;
-	}
-
-	_createClass(pharmacode, [{
-		key: "encode",
-		value: function encode() {
-			var z = this.number;
-			var result = "";
-
-			// http://i.imgur.com/RMm4UDJ.png
-			// (source: http://www.gomaro.ch/ftproot/Laetus_PHARMA-CODE.pdf, page: 34)
-			while (!isNaN(z) && z != 0) {
-				if (z % 2 === 0) {
-					// Even
-					result = "11100" + result;
-					z = (z - 2) / 2;
-				} else {
-					// Odd
-					result = "100" + result;
-					z = (z - 1) / 2;
-				}
-			}
-
-			// Remove the two last zeroes
-			result = result.slice(0, -2);
-
-			return {
-				data: result,
-				text: this.text
-			};
-		}
-	}, {
-		key: "valid",
-		value: function valid() {
-			return this.number >= 3 && this.number <= 131070;
-		}
-	}]);
-
-	return pharmacode;
-}(_Barcode3.default);
-
-exports.pharmacode = pharmacode;
-
-/***/ }),
-
-/***/ 43804:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _CODE2 = __webpack_require__(53651);
-
-var _CODE3 = _interopRequireDefault(_CODE2);
-
-var _constants = __webpack_require__(62700);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var CODE128A = function (_CODE) {
-	_inherits(CODE128A, _CODE);
-
-	function CODE128A(string, options) {
-		_classCallCheck(this, CODE128A);
-
-		return _possibleConstructorReturn(this, (CODE128A.__proto__ || Object.getPrototypeOf(CODE128A)).call(this, _constants.A_START_CHAR + string, options));
-	}
-
-	_createClass(CODE128A, [{
-		key: 'valid',
-		value: function valid() {
-			return new RegExp('^' + _constants.A_CHARS + '+$').test(this.data);
-		}
-	}]);
-
-	return CODE128A;
-}(_CODE3.default);
-
-exports["default"] = CODE128A;
-
-/***/ }),
-
-/***/ 44250:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-
-var _constants = __webpack_require__(96575);
-
-var _EAN2 = __webpack_require__(74754);
-
-var _EAN3 = _interopRequireDefault(_EAN2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Encoding documentation:
-// https://en.wikipedia.org/wiki/International_Article_Number_(EAN)#Binary_encoding_of_data_digits_into_EAN-13_barcode
-
-// Calculate the checksum digit
-// https://en.wikipedia.org/wiki/International_Article_Number_(EAN)#Calculation_of_checksum_digit
-var checksum = function checksum(number) {
-	var res = number.substr(0, 12).split('').map(function (n) {
-		return +n;
-	}).reduce(function (sum, a, idx) {
-		return idx % 2 ? sum + a * 3 : sum + a;
-	}, 0);
-
-	return (10 - res % 10) % 10;
-};
-
-var EAN13 = function (_EAN) {
-	_inherits(EAN13, _EAN);
-
-	function EAN13(data, options) {
-		_classCallCheck(this, EAN13);
-
-		// Add checksum if it does not exist
-		if (data.search(/^[0-9]{12}$/) !== -1) {
-			data += checksum(data);
-		}
-
-		// Adds a last character to the end of the barcode
-		var _this = _possibleConstructorReturn(this, (EAN13.__proto__ || Object.getPrototypeOf(EAN13)).call(this, data, options));
-
-		_this.lastChar = options.lastChar;
-		return _this;
-	}
-
-	_createClass(EAN13, [{
-		key: 'valid',
-		value: function valid() {
-			return this.data.search(/^[0-9]{13}$/) !== -1 && +this.data[12] === checksum(this.data);
-		}
-	}, {
-		key: 'leftText',
-		value: function leftText() {
-			return _get(EAN13.prototype.__proto__ || Object.getPrototypeOf(EAN13.prototype), 'leftText', this).call(this, 1, 6);
-		}
-	}, {
-		key: 'leftEncode',
-		value: function leftEncode() {
-			var data = this.data.substr(1, 6);
-			var structure = _constants.EAN13_STRUCTURE[this.data[0]];
-			return _get(EAN13.prototype.__proto__ || Object.getPrototypeOf(EAN13.prototype), 'leftEncode', this).call(this, data, structure);
-		}
-	}, {
-		key: 'rightText',
-		value: function rightText() {
-			return _get(EAN13.prototype.__proto__ || Object.getPrototypeOf(EAN13.prototype), 'rightText', this).call(this, 7, 6);
-		}
-	}, {
-		key: 'rightEncode',
-		value: function rightEncode() {
-			var data = this.data.substr(7, 6);
-			return _get(EAN13.prototype.__proto__ || Object.getPrototypeOf(EAN13.prototype), 'rightEncode', this).call(this, data, 'RRRRRR');
-		}
-
-		// The "standard" way of printing EAN13 barcodes with guard bars
-
-	}, {
-		key: 'encodeGuarded',
-		value: function encodeGuarded() {
-			var data = _get(EAN13.prototype.__proto__ || Object.getPrototypeOf(EAN13.prototype), 'encodeGuarded', this).call(this);
-
-			// Extend data with left digit & last character
-			if (this.options.displayValue) {
-				data.unshift({
-					data: '000000000000',
-					text: this.text.substr(0, 1),
-					options: { textAlign: 'left', fontSize: this.fontSize }
-				});
-
-				if (this.options.lastChar) {
-					data.push({
-						data: '00'
-					});
-					data.push({
-						data: '00000',
-						text: this.options.lastChar,
-						options: { fontSize: this.fontSize }
-					});
-				}
-			}
-
-			return data;
-		}
-	}]);
-
-	return EAN13;
-}(_EAN3.default);
-
-exports["default"] = EAN13;
-
-/***/ }),
-
-/***/ 48248:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.MSI1110 = exports.MSI1010 = exports.MSI11 = exports.MSI10 = exports.MSI = undefined;
-
-var _MSI = __webpack_require__(33551);
-
-var _MSI2 = _interopRequireDefault(_MSI);
-
-var _MSI3 = __webpack_require__(76338);
-
-var _MSI4 = _interopRequireDefault(_MSI3);
-
-var _MSI5 = __webpack_require__(96065);
-
-var _MSI6 = _interopRequireDefault(_MSI5);
-
-var _MSI7 = __webpack_require__(23);
-
-var _MSI8 = _interopRequireDefault(_MSI7);
-
-var _MSI9 = __webpack_require__(27052);
-
-var _MSI10 = _interopRequireDefault(_MSI9);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.MSI = _MSI2.default;
-exports.MSI10 = _MSI4.default;
-exports.MSI11 = _MSI6.default;
-exports.MSI1010 = _MSI8.default;
-exports.MSI1110 = _MSI10.default;
-
-/***/ }),
-
-/***/ 50739:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _constants = __webpack_require__(71135);
-
-var _Barcode2 = __webpack_require__(72444);
-
-var _Barcode3 = _interopRequireDefault(_Barcode2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ITF = function (_Barcode) {
-	_inherits(ITF, _Barcode);
-
-	function ITF() {
-		_classCallCheck(this, ITF);
-
-		return _possibleConstructorReturn(this, (ITF.__proto__ || Object.getPrototypeOf(ITF)).apply(this, arguments));
-	}
-
-	_createClass(ITF, [{
-		key: 'valid',
-		value: function valid() {
-			return this.data.search(/^([0-9]{2})+$/) !== -1;
-		}
-	}, {
-		key: 'encode',
-		value: function encode() {
-			var _this2 = this;
-
-			// Calculate all the digit pairs
-			var encoded = this.data.match(/.{2}/g).map(function (pair) {
-				return _this2.encodePair(pair);
-			}).join('');
-
-			return {
-				data: _constants.START_BIN + encoded + _constants.END_BIN,
-				text: this.text
-			};
-		}
-
-		// Calculate the data of a number pair
-
-	}, {
-		key: 'encodePair',
-		value: function encodePair(pair) {
-			var second = _constants.BINARIES[pair[1]];
-
-			return _constants.BINARIES[pair[0]].split('').map(function (first, idx) {
-				return (first === '1' ? '111' : '1') + (second[idx] === '1' ? '000' : '0');
-			}).join('');
-		}
-	}]);
-
-	return ITF;
-}(_Barcode3.default);
-
-exports["default"] = ITF;
-
-/***/ }),
-
-/***/ 51087:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _constants = __webpack_require__(76929);
-
-var _Barcode2 = __webpack_require__(72444);
-
-var _Barcode3 = _interopRequireDefault(_Barcode2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Encoding documentation:
-// https://en.wikipedia.org/wiki/Code_93#Detailed_outline
-
-var CODE93 = function (_Barcode) {
-	_inherits(CODE93, _Barcode);
-
-	function CODE93(data, options) {
-		_classCallCheck(this, CODE93);
-
-		return _possibleConstructorReturn(this, (CODE93.__proto__ || Object.getPrototypeOf(CODE93)).call(this, data, options));
-	}
-
-	_createClass(CODE93, [{
-		key: 'valid',
-		value: function valid() {
-			return (/^[0-9A-Z\-. $/+%]+$/.test(this.data)
-			);
-		}
-	}, {
-		key: 'encode',
-		value: function encode() {
-			var symbols = this.data.split('').flatMap(function (c) {
-				return _constants.MULTI_SYMBOLS[c] || c;
-			});
-			var encoded = symbols.map(function (s) {
-				return CODE93.getEncoding(s);
-			}).join('');
-
-			// Compute checksum symbols
-			var csumC = CODE93.checksum(symbols, 20);
-			var csumK = CODE93.checksum(symbols.concat(csumC), 15);
-
-			return {
-				text: this.text,
-				data:
-				// Add the start bits
-				CODE93.getEncoding('\xff') +
-				// Add the encoded bits
-				encoded +
-				// Add the checksum
-				CODE93.getEncoding(csumC) + CODE93.getEncoding(csumK) +
-				// Add the stop bits
-				CODE93.getEncoding('\xff') +
-				// Add the termination bit
-				'1'
-			};
-		}
-
-		// Get the binary encoding of a symbol
-
-	}], [{
-		key: 'getEncoding',
-		value: function getEncoding(symbol) {
-			return _constants.BINARIES[CODE93.symbolValue(symbol)];
-		}
-
-		// Get the symbol for a symbol value
-
-	}, {
-		key: 'getSymbol',
-		value: function getSymbol(symbolValue) {
-			return _constants.SYMBOLS[symbolValue];
-		}
-
-		// Get the symbol value of a symbol
-
-	}, {
-		key: 'symbolValue',
-		value: function symbolValue(symbol) {
-			return _constants.SYMBOLS.indexOf(symbol);
-		}
-
-		// Calculate a checksum symbol
-
-	}, {
-		key: 'checksum',
-		value: function checksum(symbols, maxWeight) {
-			var csum = symbols.slice().reverse().reduce(function (sum, symbol, idx) {
-				var weight = idx % maxWeight + 1;
-				return sum + CODE93.symbolValue(symbol) * weight;
-			}, 0);
-
-			return CODE93.getSymbol(csum % 47);
-		}
-	}]);
-
-	return CODE93;
-}(_Barcode3.default);
-
-exports["default"] = CODE93;
-
-/***/ }),
-
-/***/ 53651:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _Barcode2 = __webpack_require__(72444);
-
-var _Barcode3 = _interopRequireDefault(_Barcode2);
-
-var _constants = __webpack_require__(62700);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-// This is the master class,
-// it does require the start code to be included in the string
-var CODE128 = function (_Barcode) {
-	_inherits(CODE128, _Barcode);
-
-	function CODE128(data, options) {
-		_classCallCheck(this, CODE128);
-
-		// Get array of ascii codes from data
-		var _this = _possibleConstructorReturn(this, (CODE128.__proto__ || Object.getPrototypeOf(CODE128)).call(this, data.substring(1), options));
-
-		_this.bytes = data.split('').map(function (char) {
-			return char.charCodeAt(0);
-		});
-		return _this;
-	}
-
-	_createClass(CODE128, [{
-		key: 'valid',
-		value: function valid() {
-			// ASCII value ranges 0-127, 200-211
-			return (/^[\x00-\x7F\xC8-\xD3]+$/.test(this.data)
-			);
-		}
-
-		// The public encoding function
-
-	}, {
-		key: 'encode',
-		value: function encode() {
-			var bytes = this.bytes;
-			// Remove the start code from the bytes and set its index
-			var startIndex = bytes.shift() - 105;
-			// Get start set by index
-			var startSet = _constants.SET_BY_CODE[startIndex];
-
-			if (startSet === undefined) {
-				throw new RangeError('The encoding does not start with a start character.');
-			}
-
-			if (this.shouldEncodeAsEan128() === true) {
-				bytes.unshift(_constants.FNC1);
-			}
-
-			// Start encode with the right type
-			var encodingResult = CODE128.next(bytes, 1, startSet);
-
-			return {
-				text: this.text === this.data ? this.text.replace(/[^\x20-\x7E]/g, '') : this.text,
-				data:
-				// Add the start bits
-				CODE128.getBar(startIndex) +
-				// Add the encoded bits
-				encodingResult.result +
-				// Add the checksum
-				CODE128.getBar((encodingResult.checksum + startIndex) % _constants.MODULO) +
-				// Add the end bits
-				CODE128.getBar(_constants.STOP)
-			};
-		}
-
-		// GS1-128/EAN-128
-
-	}, {
-		key: 'shouldEncodeAsEan128',
-		value: function shouldEncodeAsEan128() {
-			var isEAN128 = this.options.ean128 || false;
-			if (typeof isEAN128 === 'string') {
-				isEAN128 = isEAN128.toLowerCase() === 'true';
-			}
-			return isEAN128;
-		}
-
-		// Get a bar symbol by index
-
-	}], [{
-		key: 'getBar',
-		value: function getBar(index) {
-			return _constants.BARS[index] ? _constants.BARS[index].toString() : '';
-		}
-
-		// Correct an index by a set and shift it from the bytes array
-
-	}, {
-		key: 'correctIndex',
-		value: function correctIndex(bytes, set) {
-			if (set === _constants.SET_A) {
-				var charCode = bytes.shift();
-				return charCode < 32 ? charCode + 64 : charCode - 32;
-			} else if (set === _constants.SET_B) {
-				return bytes.shift() - 32;
-			} else {
-				return (bytes.shift() - 48) * 10 + bytes.shift() - 48;
-			}
-		}
-	}, {
-		key: 'next',
-		value: function next(bytes, pos, set) {
-			if (!bytes.length) {
-				return { result: '', checksum: 0 };
-			}
-
-			var nextCode = void 0,
-			    index = void 0;
-
-			// Special characters
-			if (bytes[0] >= 200) {
-				index = bytes.shift() - 105;
-				var nextSet = _constants.SWAP[index];
-
-				// Swap to other set
-				if (nextSet !== undefined) {
-					nextCode = CODE128.next(bytes, pos + 1, nextSet);
-				}
-				// Continue on current set but encode a special character
-				else {
-						// Shift
-						if ((set === _constants.SET_A || set === _constants.SET_B) && index === _constants.SHIFT) {
-							// Convert the next character so that is encoded correctly
-							bytes[0] = set === _constants.SET_A ? bytes[0] > 95 ? bytes[0] - 96 : bytes[0] : bytes[0] < 32 ? bytes[0] + 96 : bytes[0];
-						}
-						nextCode = CODE128.next(bytes, pos + 1, set);
-					}
-			}
-			// Continue encoding
-			else {
-					index = CODE128.correctIndex(bytes, set);
-					nextCode = CODE128.next(bytes, pos + 1, set);
-				}
-
-			// Get the correct binary encoding and calculate the weight
-			var enc = CODE128.getBar(index);
-			var weight = index * pos;
-
-			return {
-				result: enc + nextCode.result,
-				checksum: weight + nextCode.checksum
-			};
-		}
-	}]);
-
-	return CODE128;
-}(_Barcode3.default);
-
-exports["default"] = CODE128;
-
-/***/ }),
-
-/***/ 55099:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-var defaults = {
-	width: 2,
-	height: 100,
-	format: "auto",
-	displayValue: true,
-	fontOptions: "",
-	font: "monospace",
-	text: undefined,
-	textAlign: "center",
-	textPosition: "bottom",
-	textMargin: 2,
-	fontSize: 20,
-	background: "#ffffff",
-	lineColor: "#000000",
-	margin: 10,
-	marginTop: undefined,
-	marginBottom: undefined,
-	marginLeft: undefined,
-	marginRight: undefined,
-	valid: function valid() {}
-};
-
-exports["default"] = defaults;
-
-/***/ }),
-
-/***/ 55726:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.UPCE = exports.UPC = exports.EAN2 = exports.EAN5 = exports.EAN8 = exports.EAN13 = undefined;
-
-var _EAN = __webpack_require__(44250);
-
-var _EAN2 = _interopRequireDefault(_EAN);
-
-var _EAN3 = __webpack_require__(18784);
-
-var _EAN4 = _interopRequireDefault(_EAN3);
-
-var _EAN5 = __webpack_require__(38075);
-
-var _EAN6 = _interopRequireDefault(_EAN5);
-
-var _EAN7 = __webpack_require__(7570);
-
-var _EAN8 = _interopRequireDefault(_EAN7);
-
-var _UPC = __webpack_require__(17960);
-
-var _UPC2 = _interopRequireDefault(_UPC);
-
-var _UPCE = __webpack_require__(3781);
-
-var _UPCE2 = _interopRequireDefault(_UPCE);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.EAN13 = _EAN2.default;
-exports.EAN8 = _EAN4.default;
-exports.EAN5 = _EAN6.default;
-exports.EAN2 = _EAN8.default;
-exports.UPC = _UPC2.default;
-exports.UPCE = _UPCE2.default;
-
-/***/ }),
-
-/***/ 57714:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".nav-pills .nav-item[data-v-7e0e48cb]{background:#ddd;border-radius:.25rem;margin:2px}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 59368:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _CODE = __webpack_require__(61428);
-
-var _CODE2 = __webpack_require__(71509);
-
-var _EAN_UPC = __webpack_require__(55726);
-
-var _ITF = __webpack_require__(5070);
-
-var _MSI = __webpack_require__(48248);
-
-var _pharmacode = __webpack_require__(42889);
-
-var _codabar = __webpack_require__(21133);
-
-var _CODE3 = __webpack_require__(89852);
-
-var _GenericBarcode = __webpack_require__(1886);
-
-exports["default"] = {
-	CODE39: _CODE.CODE39,
-	CODE128: _CODE2.CODE128, CODE128A: _CODE2.CODE128A, CODE128B: _CODE2.CODE128B, CODE128C: _CODE2.CODE128C,
-	EAN13: _EAN_UPC.EAN13, EAN8: _EAN_UPC.EAN8, EAN5: _EAN_UPC.EAN5, EAN2: _EAN_UPC.EAN2, UPC: _EAN_UPC.UPC, UPCE: _EAN_UPC.UPCE,
-	ITF14: _ITF.ITF14,
-	ITF: _ITF.ITF,
-	MSI: _MSI.MSI, MSI10: _MSI.MSI10, MSI11: _MSI.MSI11, MSI1010: _MSI.MSI1010, MSI1110: _MSI.MSI1110,
-	pharmacode: _pharmacode.pharmacode,
-	codabar: _codabar.codabar,
-	CODE93: _CODE3.CODE93, CODE93FullASCII: _CODE3.CODE93FullASCII,
-	GenericBarcode: _GenericBarcode.GenericBarcode
-};
-
-/***/ }),
-
-/***/ 61428:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-exports.CODE39 = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _Barcode2 = __webpack_require__(72444);
-
-var _Barcode3 = _interopRequireDefault(_Barcode2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Encoding documentation:
-// https://en.wikipedia.org/wiki/Code_39#Encoding
-
-var CODE39 = function (_Barcode) {
-	_inherits(CODE39, _Barcode);
-
-	function CODE39(data, options) {
-		_classCallCheck(this, CODE39);
-
-		data = data.toUpperCase();
-
-		// Calculate mod43 checksum if enabled
-		if (options.mod43) {
-			data += getCharacter(mod43checksum(data));
-		}
-
-		return _possibleConstructorReturn(this, (CODE39.__proto__ || Object.getPrototypeOf(CODE39)).call(this, data, options));
-	}
-
-	_createClass(CODE39, [{
-		key: "encode",
-		value: function encode() {
-			// First character is always a *
-			var result = getEncoding("*");
-
-			// Take every character and add the binary representation to the result
-			for (var i = 0; i < this.data.length; i++) {
-				result += getEncoding(this.data[i]) + "0";
-			}
-
-			// Last character is always a *
-			result += getEncoding("*");
-
-			return {
-				data: result,
-				text: this.text
-			};
-		}
-	}, {
-		key: "valid",
-		value: function valid() {
-			return this.data.search(/^[0-9A-Z\-\.\ \$\/\+\%]+$/) !== -1;
-		}
-	}]);
-
-	return CODE39;
-}(_Barcode3.default);
-
-// All characters. The position in the array is the (checksum) value
-
-
-var characters = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "-", ".", " ", "$", "/", "+", "%", "*"];
-
-// The decimal representation of the characters, is converted to the
-// corresponding binary with the getEncoding function
-var encodings = [20957, 29783, 23639, 30485, 20951, 29813, 23669, 20855, 29789, 23645, 29975, 23831, 30533, 22295, 30149, 24005, 21623, 29981, 23837, 22301, 30023, 23879, 30545, 22343, 30161, 24017, 21959, 30065, 23921, 22385, 29015, 18263, 29141, 17879, 29045, 18293, 17783, 29021, 18269, 17477, 17489, 17681, 20753, 35770];
-
-// Get the binary representation of a character by converting the encodings
-// from decimal to binary
-function getEncoding(character) {
-	return getBinary(characterValue(character));
-}
-
-function getBinary(characterValue) {
-	return encodings[characterValue].toString(2);
-}
-
-function getCharacter(characterValue) {
-	return characters[characterValue];
-}
-
-function characterValue(character) {
-	return characters.indexOf(character);
-}
-
-function mod43checksum(data) {
-	var checksum = 0;
-	for (var i = 0; i < data.length; i++) {
-		checksum += characterValue(data[i]);
-	}
-
-	checksum = checksum % 43;
-	return checksum;
-}
-
-exports.CODE39 = CODE39;
-
-/***/ }),
-
-/***/ 62700:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _SET_BY_CODE;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-// constants for internal usage
-var SET_A = exports.SET_A = 0;
-var SET_B = exports.SET_B = 1;
-var SET_C = exports.SET_C = 2;
-
-// Special characters
-var SHIFT = exports.SHIFT = 98;
-var START_A = exports.START_A = 103;
-var START_B = exports.START_B = 104;
-var START_C = exports.START_C = 105;
-var MODULO = exports.MODULO = 103;
-var STOP = exports.STOP = 106;
-var FNC1 = exports.FNC1 = 207;
-
-// Get set by start code
-var SET_BY_CODE = exports.SET_BY_CODE = (_SET_BY_CODE = {}, _defineProperty(_SET_BY_CODE, START_A, SET_A), _defineProperty(_SET_BY_CODE, START_B, SET_B), _defineProperty(_SET_BY_CODE, START_C, SET_C), _SET_BY_CODE);
-
-// Get next set by code
-var SWAP = exports.SWAP = {
-	101: SET_A,
-	100: SET_B,
-	99: SET_C
-};
-
-var A_START_CHAR = exports.A_START_CHAR = String.fromCharCode(208); // START_A + 105
-var B_START_CHAR = exports.B_START_CHAR = String.fromCharCode(209); // START_B + 105
-var C_START_CHAR = exports.C_START_CHAR = String.fromCharCode(210); // START_C + 105
-
-// 128A (Code Set A)
-// ASCII characters 00 to 95 (0–9, A–Z and control codes), special characters, and FNC 1–4
-var A_CHARS = exports.A_CHARS = "[\x00-\x5F\xC8-\xCF]";
-
-// 128B (Code Set B)
-// ASCII characters 32 to 127 (0–9, A–Z, a–z), special characters, and FNC 1–4
-var B_CHARS = exports.B_CHARS = "[\x20-\x7F\xC8-\xCF]";
-
-// 128C (Code Set C)
-// 00–99 (encodes two digits with a single code point) and FNC1
-var C_CHARS = exports.C_CHARS = "(\xCF*[0-9]{2}\xCF*)";
-
-// CODE128 includes 107 symbols:
-// 103 data symbols, 3 start symbols (A, B and C), and 1 stop symbol (the last one)
-// Each symbol consist of three black bars (1) and three white spaces (0).
-var BARS = exports.BARS = [11011001100, 11001101100, 11001100110, 10010011000, 10010001100, 10001001100, 10011001000, 10011000100, 10001100100, 11001001000, 11001000100, 11000100100, 10110011100, 10011011100, 10011001110, 10111001100, 10011101100, 10011100110, 11001110010, 11001011100, 11001001110, 11011100100, 11001110100, 11101101110, 11101001100, 11100101100, 11100100110, 11101100100, 11100110100, 11100110010, 11011011000, 11011000110, 11000110110, 10100011000, 10001011000, 10001000110, 10110001000, 10001101000, 10001100010, 11010001000, 11000101000, 11000100010, 10110111000, 10110001110, 10001101110, 10111011000, 10111000110, 10001110110, 11101110110, 11010001110, 11000101110, 11011101000, 11011100010, 11011101110, 11101011000, 11101000110, 11100010110, 11101101000, 11101100010, 11100011010, 11101111010, 11001000010, 11110001010, 10100110000, 10100001100, 10010110000, 10010000110, 10000101100, 10000100110, 10110010000, 10110000100, 10011010000, 10011000010, 10000110100, 10000110010, 11000010010, 11001010000, 11110111010, 11000010100, 10001111010, 10100111100, 10010111100, 10010011110, 10111100100, 10011110100, 10011110010, 11110100100, 11110010100, 11110010010, 11011011110, 11011110110, 11110110110, 10101111000, 10100011110, 10001011110, 10111101000, 10111100010, 11110101000, 11110100010, 10111011110, 10111101110, 11101011110, 11110101110, 11010000100, 11010010000, 11010011100, 1100011101011];
-
-/***/ }),
-
-/***/ 69796:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-exports["default"] = optionsFromStrings;
-
-// Convert string to integers/booleans where it should be
-
-function optionsFromStrings(options) {
-	var intOptions = ["width", "height", "textMargin", "fontSize", "margin", "marginTop", "marginBottom", "marginLeft", "marginRight"];
-
-	for (var intOption in intOptions) {
-		if (intOptions.hasOwnProperty(intOption)) {
-			intOption = intOptions[intOption];
-			if (typeof options[intOption] === "string") {
-				options[intOption] = parseInt(options[intOption], 10);
-			}
-		}
-	}
-
-	if (typeof options["displayValue"] === "string") {
-		options["displayValue"] = options["displayValue"] != "false";
-	}
-
-	return options;
-}
-
-/***/ }),
-
-/***/ 71135:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-var START_BIN = exports.START_BIN = '1010';
-var END_BIN = exports.END_BIN = '11101';
-
-var BINARIES = exports.BINARIES = ['00110', '10001', '01001', '11000', '00101', '10100', '01100', '00011', '10010', '01010'];
-
-/***/ }),
-
-/***/ 71509:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.CODE128C = exports.CODE128B = exports.CODE128A = exports.CODE128 = undefined;
-
-var _CODE128_AUTO = __webpack_require__(24845);
-
-var _CODE128_AUTO2 = _interopRequireDefault(_CODE128_AUTO);
-
-var _CODE128A = __webpack_require__(43804);
-
-var _CODE128A2 = _interopRequireDefault(_CODE128A);
-
-var _CODE128B = __webpack_require__(73541);
-
-var _CODE128B2 = _interopRequireDefault(_CODE128B);
-
-var _CODE128C = __webpack_require__(5798);
-
-var _CODE128C2 = _interopRequireDefault(_CODE128C);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.CODE128 = _CODE128_AUTO2.default;
-exports.CODE128A = _CODE128A2.default;
-exports.CODE128B = _CODE128B2.default;
-exports.CODE128C = _CODE128C2.default;
-
-/***/ }),
-
-/***/ 72444:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Barcode = function Barcode(data, options) {
-	_classCallCheck(this, Barcode);
-
-	this.data = data;
-	this.text = options.text || data;
-	this.options = options;
-};
-
-exports["default"] = Barcode;
-
-/***/ }),
-
-/***/ 73541:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _CODE2 = __webpack_require__(53651);
-
-var _CODE3 = _interopRequireDefault(_CODE2);
-
-var _constants = __webpack_require__(62700);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var CODE128B = function (_CODE) {
-	_inherits(CODE128B, _CODE);
-
-	function CODE128B(string, options) {
-		_classCallCheck(this, CODE128B);
-
-		return _possibleConstructorReturn(this, (CODE128B.__proto__ || Object.getPrototypeOf(CODE128B)).call(this, _constants.B_START_CHAR + string, options));
-	}
-
-	_createClass(CODE128B, [{
-		key: 'valid',
-		value: function valid() {
-			return new RegExp('^' + _constants.B_CHARS + '+$').test(this.data);
-		}
-	}]);
-
-	return CODE128B;
-}(_CODE3.default);
-
-exports["default"] = CODE128B;
-
-/***/ }),
-
-/***/ 73623:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-exports["default"] = fixOptions;
-
-
-function fixOptions(options) {
-	// Fix the margins
-	options.marginTop = options.marginTop || options.margin;
-	options.marginBottom = options.marginBottom || options.margin;
-	options.marginRight = options.marginRight || options.margin;
-	options.marginLeft = options.marginLeft || options.margin;
-
-	return options;
-}
-
-/***/ }),
-
-/***/ 74754:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _constants = __webpack_require__(96575);
-
-var _encoder = __webpack_require__(16350);
-
-var _encoder2 = _interopRequireDefault(_encoder);
-
-var _Barcode2 = __webpack_require__(72444);
-
-var _Barcode3 = _interopRequireDefault(_Barcode2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-// Base class for EAN8 & EAN13
-var EAN = function (_Barcode) {
-	_inherits(EAN, _Barcode);
-
-	function EAN(data, options) {
-		_classCallCheck(this, EAN);
-
-		// Make sure the font is not bigger than the space between the guard bars
-		var _this = _possibleConstructorReturn(this, (EAN.__proto__ || Object.getPrototypeOf(EAN)).call(this, data, options));
-
-		_this.fontSize = !options.flat && options.fontSize > options.width * 10 ? options.width * 10 : options.fontSize;
-
-		// Make the guard bars go down half the way of the text
-		_this.guardHeight = options.height + _this.fontSize / 2 + options.textMargin;
-		return _this;
-	}
-
-	_createClass(EAN, [{
-		key: 'encode',
-		value: function encode() {
-			return this.options.flat ? this.encodeFlat() : this.encodeGuarded();
-		}
-	}, {
-		key: 'leftText',
-		value: function leftText(from, to) {
-			return this.text.substr(from, to);
-		}
-	}, {
-		key: 'leftEncode',
-		value: function leftEncode(data, structure) {
-			return (0, _encoder2.default)(data, structure);
-		}
-	}, {
-		key: 'rightText',
-		value: function rightText(from, to) {
-			return this.text.substr(from, to);
-		}
-	}, {
-		key: 'rightEncode',
-		value: function rightEncode(data, structure) {
-			return (0, _encoder2.default)(data, structure);
-		}
-	}, {
-		key: 'encodeGuarded',
-		value: function encodeGuarded() {
-			var textOptions = { fontSize: this.fontSize };
-			var guardOptions = { height: this.guardHeight };
-
-			return [{ data: _constants.SIDE_BIN, options: guardOptions }, { data: this.leftEncode(), text: this.leftText(), options: textOptions }, { data: _constants.MIDDLE_BIN, options: guardOptions }, { data: this.rightEncode(), text: this.rightText(), options: textOptions }, { data: _constants.SIDE_BIN, options: guardOptions }];
-		}
-	}, {
-		key: 'encodeFlat',
-		value: function encodeFlat() {
-			var data = [_constants.SIDE_BIN, this.leftEncode(), _constants.MIDDLE_BIN, this.rightEncode(), _constants.SIDE_BIN];
-
-			return {
-				data: data.join(''),
-				text: this.text
-			};
-		}
-	}]);
-
-	return EAN;
-}(_Barcode3.default);
-
-exports["default"] = EAN;
-
-/***/ }),
-
-/***/ 74802:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _constants = __webpack_require__(62700);
-
-// Match Set functions
-var matchSetALength = function matchSetALength(string) {
-	return string.match(new RegExp('^' + _constants.A_CHARS + '*'))[0].length;
-};
-var matchSetBLength = function matchSetBLength(string) {
-	return string.match(new RegExp('^' + _constants.B_CHARS + '*'))[0].length;
-};
-var matchSetC = function matchSetC(string) {
-	return string.match(new RegExp('^' + _constants.C_CHARS + '*'))[0];
-};
-
-// CODE128A or CODE128B
-function autoSelectFromAB(string, isA) {
-	var ranges = isA ? _constants.A_CHARS : _constants.B_CHARS;
-	var untilC = string.match(new RegExp('^(' + ranges + '+?)(([0-9]{2}){2,})([^0-9]|$)'));
-
-	if (untilC) {
-		return untilC[1] + String.fromCharCode(204) + autoSelectFromC(string.substring(untilC[1].length));
-	}
-
-	var chars = string.match(new RegExp('^' + ranges + '+'))[0];
-
-	if (chars.length === string.length) {
-		return string;
-	}
-
-	return chars + String.fromCharCode(isA ? 205 : 206) + autoSelectFromAB(string.substring(chars.length), !isA);
-}
-
-// CODE128C
-function autoSelectFromC(string) {
-	var cMatch = matchSetC(string);
-	var length = cMatch.length;
-
-	if (length === string.length) {
-		return string;
-	}
-
-	string = string.substring(length);
-
-	// Select A/B depending on the longest match
-	var isA = matchSetALength(string) >= matchSetBLength(string);
-	return cMatch + String.fromCharCode(isA ? 206 : 205) + autoSelectFromAB(string, isA);
-}
-
-// Detect Code Set (A, B or C) and format the string
-
-exports["default"] = function (string) {
-	var newString = void 0;
-	var cLength = matchSetC(string).length;
-
-	// Select 128C if the string start with enough digits
-	if (cLength >= 2) {
-		newString = _constants.C_START_CHAR + autoSelectFromC(string);
-	} else {
-		// Select A/B depending on the longest match
-		var isA = matchSetALength(string) > matchSetBLength(string);
-		newString = (isA ? _constants.A_START_CHAR : _constants.B_START_CHAR) + autoSelectFromAB(string, isA);
-	}
-
-	return newString.replace(/[\xCD\xCE]([^])[\xCD\xCE]/, // Any sequence between 205 and 206 characters
-	function (match, char) {
-		return String.fromCharCode(203) + char;
-	});
-};
-
-/***/ }),
-
-/***/ 76338:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _MSI2 = __webpack_require__(33551);
-
-var _MSI3 = _interopRequireDefault(_MSI2);
-
-var _checksums = __webpack_require__(16320);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var MSI10 = function (_MSI) {
-	_inherits(MSI10, _MSI);
-
-	function MSI10(data, options) {
-		_classCallCheck(this, MSI10);
-
-		return _possibleConstructorReturn(this, (MSI10.__proto__ || Object.getPrototypeOf(MSI10)).call(this, data + (0, _checksums.mod10)(data), options));
-	}
-
-	return MSI10;
-}(_MSI3.default);
-
-exports["default"] = MSI10;
-
-/***/ }),
-
-/***/ 76929:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-// The position in the array is the (checksum) value
-var SYMBOLS = exports.SYMBOLS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '-', '.', ' ', '$', '/', '+', '%',
-// Only used for csum and multi-symbols character encodings
-'($)', '(%)', '(/)', '(+)',
-// Start/Stop
-'\xff'];
-
-// Order matches SYMBOLS array
-var BINARIES = exports.BINARIES = ['100010100', '101001000', '101000100', '101000010', '100101000', '100100100', '100100010', '101010000', '100010010', '100001010', '110101000', '110100100', '110100010', '110010100', '110010010', '110001010', '101101000', '101100100', '101100010', '100110100', '100011010', '101011000', '101001100', '101000110', '100101100', '100010110', '110110100', '110110010', '110101100', '110100110', '110010110', '110011010', '101101100', '101100110', '100110110', '100111010', '100101110', '111010100', '111010010', '111001010', '101101110', '101110110', '110101110', '100100110', '111011010', '111010110', '100110010', '101011110'];
-
-// Multi-symbol characters (Full ASCII Code 93)
-var MULTI_SYMBOLS = exports.MULTI_SYMBOLS = {
-	'\x00': ['(%)', 'U'],
-	'\x01': ['($)', 'A'],
-	'\x02': ['($)', 'B'],
-	'\x03': ['($)', 'C'],
-	'\x04': ['($)', 'D'],
-	'\x05': ['($)', 'E'],
-	'\x06': ['($)', 'F'],
-	'\x07': ['($)', 'G'],
-	'\x08': ['($)', 'H'],
-	'\x09': ['($)', 'I'],
-	'\x0a': ['($)', 'J'],
-	'\x0b': ['($)', 'K'],
-	'\x0c': ['($)', 'L'],
-	'\x0d': ['($)', 'M'],
-	'\x0e': ['($)', 'N'],
-	'\x0f': ['($)', 'O'],
-	'\x10': ['($)', 'P'],
-	'\x11': ['($)', 'Q'],
-	'\x12': ['($)', 'R'],
-	'\x13': ['($)', 'S'],
-	'\x14': ['($)', 'T'],
-	'\x15': ['($)', 'U'],
-	'\x16': ['($)', 'V'],
-	'\x17': ['($)', 'W'],
-	'\x18': ['($)', 'X'],
-	'\x19': ['($)', 'Y'],
-	'\x1a': ['($)', 'Z'],
-	'\x1b': ['(%)', 'A'],
-	'\x1c': ['(%)', 'B'],
-	'\x1d': ['(%)', 'C'],
-	'\x1e': ['(%)', 'D'],
-	'\x1f': ['(%)', 'E'],
-	'!': ['(/)', 'A'],
-	'"': ['(/)', 'B'],
-	'#': ['(/)', 'C'],
-	'&': ['(/)', 'F'],
-	'\'': ['(/)', 'G'],
-	'(': ['(/)', 'H'],
-	')': ['(/)', 'I'],
-	'*': ['(/)', 'J'],
-	',': ['(/)', 'L'],
-	':': ['(/)', 'Z'],
-	';': ['(%)', 'F'],
-	'<': ['(%)', 'G'],
-	'=': ['(%)', 'H'],
-	'>': ['(%)', 'I'],
-	'?': ['(%)', 'J'],
-	'@': ['(%)', 'V'],
-	'[': ['(%)', 'K'],
-	'\\': ['(%)', 'L'],
-	']': ['(%)', 'M'],
-	'^': ['(%)', 'N'],
-	'_': ['(%)', 'O'],
-	'`': ['(%)', 'W'],
-	'a': ['(+)', 'A'],
-	'b': ['(+)', 'B'],
-	'c': ['(+)', 'C'],
-	'd': ['(+)', 'D'],
-	'e': ['(+)', 'E'],
-	'f': ['(+)', 'F'],
-	'g': ['(+)', 'G'],
-	'h': ['(+)', 'H'],
-	'i': ['(+)', 'I'],
-	'j': ['(+)', 'J'],
-	'k': ['(+)', 'K'],
-	'l': ['(+)', 'L'],
-	'm': ['(+)', 'M'],
-	'n': ['(+)', 'N'],
-	'o': ['(+)', 'O'],
-	'p': ['(+)', 'P'],
-	'q': ['(+)', 'Q'],
-	'r': ['(+)', 'R'],
-	's': ['(+)', 'S'],
-	't': ['(+)', 'T'],
-	'u': ['(+)', 'U'],
-	'v': ['(+)', 'V'],
-	'w': ['(+)', 'W'],
-	'x': ['(+)', 'X'],
-	'y': ['(+)', 'Y'],
-	'z': ['(+)', 'Z'],
-	'{': ['(%)', 'P'],
-	'|': ['(%)', 'Q'],
-	'}': ['(%)', 'R'],
-	'~': ['(%)', 'S'],
-	'\x7f': ['(%)', 'T']
-};
-
-/***/ }),
-
-/***/ 80988:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ show)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/products/show.vue?vue&type=template&id=7e0e48cb&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c('breadcrumbs', {
-    attrs: {
-      "items": _vm.breadcrumbs,
-      "current": _vm.breadcrumbsCurrent
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "row no-print mb-2"
-  }, [_c('div', {
-    staticClass: "w-100 text-right float-right"
-  }, [_vm.allData ? _c('div', {
-    staticClass: "d-flex justify-content-between"
-  }, [_c('div', {
-    staticClass: "btn-group"
-  }, [_c('ul', {
-    staticClass: "nav nav-pills"
-  }, [_c('li', {
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link active",
-    attrs: {
-      "href": "#details",
-      "data-toggle": "tab"
-    },
-    on: {
-      "click": _vm.getProduct
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-info"
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Details")))])]), _vm._v(" "), _c('li', {
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "href": "#activity-log",
-      "data-toggle": "tab"
-    },
-    on: {
-      "click": _vm.getActivity
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fa fa-bell",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Activity log")))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "btn-group"
-  }, [_c('a', {
-    staticClass: "btn btn-info",
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.generatePDF();
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-download"
-  }), _vm._v(" " + _vm._s(_vm.$t("download")) + "\n          ")]), _vm._v(" "), _c('a', {
-    staticClass: "btn btn-secondary",
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.printWindow();
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-print"
-  }), _vm._v(" " + _vm._s(_vm.$t("Print")) + "\n          ")]), _vm._v(" "), _vm.$can('product-edit') ? _c('router-link', {
-    staticClass: "btn btn-info",
-    attrs: {
-      "to": {
-        name: 'products.edit',
-        params: {
-          slug: _vm.allData.slug
-        }
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-edit"
-  }), _vm._v(" " + _vm._s(_vm.$t("Edit")) + "\n          ")]) : _vm._e(), _vm._v(" "), _c('router-link', {
-    staticClass: "btn btn-info float-right",
-    attrs: {
-      "to": {
-        name: 'products.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-long-arrow-alt-left"
-  }), _vm._v(" " + _vm._s(_vm.$t("Back")) + "\n          ")])], 1)]) : _vm._e()])]), _vm._v(" "), _c('div', {
-    staticClass: "tab-content"
-  }, [_c('div', {
-    staticClass: "tab-pane active",
-    attrs: {
-      "id": "details"
-    }
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('table-loading', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.loading,
-      expression: "loading"
-    }]
-  }), _vm._v(" "), !_vm.loading ? _c('div', {
-    staticClass: "invoice p-3 mb-3 w-100",
-    attrs: {
-      "id": "content-to-pdf"
-    }
-  }, [_c('div', {
-    staticClass: "row align-items-center flex-row-reverse"
-  }, [_c('div', {
-    staticClass: "col-lg-6"
-  }, [_c('table', {
-    staticClass: "table table-hover table-bordered table-md"
-  }, [_c('tbody', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Barcode")))]), _vm._v(" "), _c('td', [_c('barcode', {
-    attrs: {
-      "format": _vm.allData.symbology,
-      "width": "1",
-      "height": "25",
-      "fontSize": "15",
-      "value": _vm.allData.code
-    }
-  }, [_vm._v("\n                        " + _vm._s(_vm.$t("Rendering fails.")) + "\n                      ")])], 1)]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Item Type")))]), _vm._v(" "), _c('td', {
-    staticClass: "text-capitalize"
-  }, [_vm._v(_vm._s(_vm.allData.itemType))])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Name")))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.allData.name))])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("withPrefix")(_vm.allData.code, _vm.prefix)))])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Item Model")))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.allData.itemModel))])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v("\n                      " + _vm._s(_vm.$t("Barcode Symbology")) + "\n                    ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.allData.symbology))])]), _vm._v(" "), _vm.allData.category ? _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Category")))]), _vm._v(" "), _c('td', [_vm._v("\n                      " + _vm._s(_vm.allData.category.name) + " [" + _vm._s(_vm._f("withPrefix")(_vm.allData.category.code, _vm.catPrefix)) + "]\n                    ")])]) : _vm._e(), _vm._v(" "), _vm.allData.subCategory ? _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Sub Category")))]), _vm._v(" "), _c('td', [_vm._v("\n                      " + _vm._s(_vm.allData.subCategory.name) + " [" + _vm._s(_vm._f("withPrefix")(_vm.allData.subCategory.code, _vm.subCatPrefix)) + "]\n                    ")])]) : _vm._e(), _vm._v(" "), _vm.allData.itemBrand ? _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Brand")))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.allData.itemBrand.name))])]) : _vm._e(), _vm._v(" "), _vm.allData.itemUnit ? _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Unit")))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.allData.itemUnit.code))])]) : _vm._e(), _vm._v(" "), _vm.allData.itemTax ? _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Product Tax")))]), _vm._v(" "), _c('td', [_vm._v("\n                      " + _vm._s(_vm.allData.itemTax.code) + "\n                      "), _vm.allData.itemTax && _vm.allData.itemTax.groupTaxDetails && _vm.allData.itemTax.groupTaxDetails.length ? _c('span', [_vm._v("\n                        ("), _vm._l(_vm.allData.itemTax.groupTaxDetails, function (tax, index) {
-    return _c('span', {
-      key: tax.id
-    }, [_vm._v("\n                          " + _vm._s(tax.rate) + "%"), index < _vm.allData.itemTax.groupTaxDetails.length - 1 ? _c('span', [_vm._v("\n                            +")]) : _vm._e()]);
-  }), _vm._v(")\n                      ")], 2) : _vm._e()])]) : _vm._e(), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Tax Type")))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.allData.taxType))])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Tax Amount")))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.allData.taxAmount))])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Regular Price")))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.allData.regularPrice) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Selling Price")))]), _vm._v(" "), _c('td', [_vm.allData.discount > 0 ? _c('span', [_c('del', [_vm._v(_vm._s(_vm.allData.regularPrice) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]), _vm._v("\n                        " + _vm._s(_vm.allData.sellingPrice) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")]), _vm._v(" (" + _vm._s(_vm.allData.discount) + "%)\n                      ")]) : _c('span', [_vm._v(_vm._s(_vm.allData.regularPrice) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v("\n                      " + _vm._s(_vm.$t("Avg. Purchase Price")) + "\n                    ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.allData.avgPurchasePrice) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _vm.allData.itemUnit ? _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Stock")))]), _vm._v(" "), _c('td', [_vm._v("\n                      " + _vm._s(_vm.allData.availableQty) + " " + _vm._s(_vm.allData.itemUnit.code) + "\n                    ")])]) : _vm._e(), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Inventory Value")))]), _vm._v(" "), _c('td', [_vm._v("\n                      " + _vm._s(_vm._f("withCurrency")(_vm.allData.avgPurchasePrice * _vm.allData.availableQty)) + "\n                    ")])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Alert Quantity")))]), _vm._v(" "), _c('td', [_vm._v("\n                      " + _vm._s(_vm.allData.alertQty) + "\n                      "), _vm.allData.itemUnit ? _c('span', [_vm._v(_vm._s(_vm.allData.itemUnit.code))]) : _vm._e()])]), _vm._v(" "), _vm.allData.openingStockCount ? _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Opening Stock Quantity")))]), _vm._v(" "), _c('td', [_vm._v("\n                      " + _vm._s(_vm.allData.openingStockCount) + " "), _vm.allData.itemUnit ? _c('span', [_vm._v(_vm._s(_vm.allData.itemUnit.code))]) : _vm._e()])]) : _vm._e(), _vm._v(" "), _vm.allData.openingStockUnitPrice ? _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Opening Stock Unit Price")))]), _vm._v(" "), _c('td', [_vm._v("\n                      " + _vm._s(_vm.allData.openingStockUnitPrice) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]) : _vm._e(), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Note")))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.allData.note))])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _c('td', [_vm.allData.status === 1 ? _c('span', {
-    staticClass: "badge bg-success"
-  }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
-    staticClass: "badge bg-danger"
-  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-lg-6 no-print"
-  }, [_c('div', {
-    staticClass: "about-avatar text-center"
-  }, [_vm.allData.image ? _c('img', {
-    staticClass: "img-fluid",
-    attrs: {
-      "src": _vm.allData.image,
-      "loading": "lazy"
-    }
-  }) : _c('img', {
-    staticClass: "img-fluid",
-    attrs: {
-      "src": "https://via.placeholder.com/800x1000",
-      "loading": "lazy"
-    }
-  })])])])]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "tab-pane",
-    attrs: {
-      "id": "activity-log"
-    }
-  }, [_c('div', {
-    staticClass: "card custom-card w-100 mt-5 no-print"
-  }, [_c('div', {
-    staticClass: "card-header setings-header"
-  }, [_c('div', {
-    staticClass: "col-xl-4 col-4"
-  }, [_c('h3', {
-    staticClass: "card-title"
-  }, [_vm._v("\n              " + _vm._s(_vm.$t("Activity log")) + "\n            ")])]), _vm._v(" "), _c('div', {
-    staticClass: "col-xl-8 col-8 float-right text-right"
-  }, [_c('div', {
-    staticClass: "btn-group c-w-100"
-  }, [_c('a', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: 'Refresh',
-      expression: "'Refresh'"
-    }],
-    staticClass: "btn btn-success",
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.refreshTable();
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-sync"
-  })]), _vm._v(" "), _c('a', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.$t('Print Table'),
-      expression: "$t('Print Table')"
-    }],
-    staticClass: "btn btn-info",
-    on: {
-      "click": _vm.print
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-print"
-  })])])])]), _vm._v(" "), _c('table-loading', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.loading,
-      expression: "loading"
-    }]
-  }), _vm._v(" "), _c('div', {
-    staticClass: "card-body position-relative"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-6 col-xl-4 mb-2"
-  }, [_c('search', {
-    on: {
-      "reset-pagination": function resetPagination($event) {
-        return _vm.resetPagination();
-      },
-      "reload": _vm.reload
-    },
-    model: {
-      value: _vm.query,
-      callback: function callback($$v) {
-        _vm.query = $$v;
-      },
-      expression: "query"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "table-responsive table-custom mt-3",
-    attrs: {
-      "id": "printMe"
-    }
-  }, [_vm._l(_vm.items, function (data, i) {
-    return _c('div', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.items.length > 0,
-        expression: "items.length > 0"
-      }],
-      key: i
-    }, [_c('div', {
-      staticClass: "card mb-0 border border-gray"
-    }, [_c('div', {
-      staticClass: "card-body py-1"
-    }, [_c('div', {
-      staticClass: "row"
-    }, [_c('div', {
-      staticClass: "col-1 d-flex justify-content-center align-items-center"
-    }, [data.event == 'Update' ? _c('i', {
-      staticClass: "fa fa-magic",
-      attrs: {
-        "aria-hidden": "true"
-      }
-    }) : _vm._e(), _vm._v(" "), data.event == 'Create' ? _c('i', {
-      staticClass: "fa fa-plus-circle",
-      attrs: {
-        "aria-hidden": "true"
-      }
-    }) : _vm._e(), _vm._v(" "), data.event == 'Delete' ? _c('i', {
-      staticClass: "fa fa-trash",
-      attrs: {
-        "aria-hidden": "true"
-      }
-    }) : _vm._e()]), _vm._v(" "), _c('div', {
-      staticClass: "col-11"
-    }, [_c('div', {
-      staticClass: "row"
-    }, [_c('div', {
-      staticClass: "col-12"
-    }, [_c('p', {
-      staticClass: "text-bold mb-0"
-    }, [_vm._v(_vm._s(data.causer_name))])]), _vm._v(" "), _c('div', {
-      staticClass: "col-12"
-    }, [_c('p', {
-      staticClass: "mb-0"
-    }, [_vm._v(_vm._s(data.description))])]), _vm._v(" "), _c('div', {
-      staticClass: "col-12"
-    }, [_c('p', {
-      staticClass: "mb-0"
-    }, [_vm._v(_vm._s(data.performedAt))])])])])])])])]);
-  }), _vm._v(" "), _c('div', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: !_vm.loading && !_vm.items.length,
-      expression: "!loading && !items.length"
-    }],
-    staticClass: "text-center"
-  }, [_c('EmptyTable')], 1)], 2)]), _vm._v(" "), _c('div', {
-    staticClass: "card-footer"
-  }, [_c('div', {
-    staticClass: "dtable-footer"
-  }, [_c('div', {
-    staticClass: "form-group row display-per-page"
-  }, [_c('label', [_vm._v(_vm._s(_vm.$t("per_page")) + " ")]), _vm._v(" "), _c('div', [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.perPage,
-      expression: "perPage"
-    }],
-    staticClass: "form-control form-control-sm ml-1",
-    on: {
-      "change": [function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.perPage = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
-      }, _vm.updatePerPager]
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "10"
-    }
-  }, [_vm._v("10")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "25"
-    }
-  }, [_vm._v("25")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "50"
-    }
-  }, [_vm._v("50")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "100"
-    }
-  }, [_vm._v("100")])])])]), _vm._v(" "), _vm.pagination && _vm.pagination.last_page > 1 ? _c('pagination', {
-    staticClass: "justify-flex-end",
-    attrs: {
-      "pagination": _vm.pagination,
-      "offset": 5
-    },
-    on: {
-      "paginate": _vm.paginate
-    }
-  }) : _vm._e()], 1)])], 1)])])], 1);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./node_modules/vue-barcode/index.js
-var vue_barcode = __webpack_require__(470);
-var vue_barcode_default = /*#__PURE__*/__webpack_require__.n(vue_barcode);
-// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__(95353);
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-// EXTERNAL MODULE: ./node_modules/html2pdf.js/dist/html2pdf.js
-var html2pdf = __webpack_require__(33833);
-var html2pdf_default = /*#__PURE__*/__webpack_require__.n(html2pdf);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/products/show.vue?vue&type=script&lang=js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-
-
-
-/* harmony default export */ const showvue_type_script_lang_js = ({
-  middleware: ["auth", "check-permissions"],
-  metaInfo: function metaInfo() {
-    return {
-      title: this.$t("Product Details")
-    };
-  },
-  components: {
-    barcode: (vue_barcode_default())
-  },
-  data: function data() {
-    return {
-      breadcrumbsCurrent: "Product Details",
-      breadcrumbs: [{
-        name: "Dashboard",
-        url: "home"
-      }, {
-        name: "Products",
-        url: "products.index"
-      }, {
-        name: "Details",
-        url: ""
-      }],
-      allData: "",
-      loading: false,
-      query: "",
-      perPage: 10
-    };
-  },
-  // Map Getters
-  computed: _objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["appInfo", "items", "loading", "pagination"])),
-  watch: {
-    // watch search data
-    query: function query(newQ, oldQ) {
-      if (newQ === "") {
-        this.getActivity();
-      } else {
-        this.searchData();
-      }
-    }
-  },
-  created: function created() {
-    this.getProduct();
-    this.prefix = this.appInfo.productPrefix;
-    this.catPrefix = this.appInfo.proCatPrefix;
-    this.subCatPrefix = this.appInfo.proSubCatPrefix;
-  },
-  methods: {
-    // print
-    printWindow: function printWindow() {
-      window.print();
-    },
-    // get the product
-    getProduct: function getProduct() {
-      var _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var _yield$axios$get, data;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.n) {
-            case 0:
-              _this.loading = true;
-              _context.n = 1;
-              return axios_default().get(window.location.origin + "/api/products/" + _this.$route.params.slug);
-            case 1:
-              _yield$axios$get = _context.v;
-              data = _yield$axios$get.data;
-              _this.allData = data.data;
-              _this.loading = false;
-            case 2:
-              return _context.a(2);
-          }
-        }, _callee);
-      }))();
-    },
-    // download pdf
-    generatePDF: function generatePDF() {
-      // Get the HTML content to be converted
-      var element = document.getElementById("content-to-pdf");
-      // Options for PDF generation
-      var options = {
-        margin: 5,
-        filename: "Product-" + this.$route.params.slug + ".pdf",
-        image: {
-          type: "jpeg",
-          quality: 0.98
-        },
-        pagebreak: {
-          mode: "avoid-all",
-          before: "#page-break"
-        },
-        html2canvas: {
-          scale: 2
-        },
-        jsPDF: {
-          unit: "mm",
-          format: "a4",
-          orientation: "landscape"
-        }
-      };
-      // Generate PDF from HTML content
-      html2pdf_default()().from(element).set(options).save();
-    },
-    // print table
-    print: function print() {
-      var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
-            case 0:
-              _context2.n = 1;
-              return _this2.$htmlToPaper("printMe");
-            case 1:
-              return _context2.a(2);
-          }
-        }, _callee2);
-      }))();
-    },
-    // get activity logs
-    getActivity: function getActivity() {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-        var currentPage, slug, modelName;
-        return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.n) {
-            case 0:
-              currentPage = _this3.pagination ? _this3.pagination.current_page : 1;
-              _this3.$store.state.operations.loading = true;
-              slug = _this3.$route.params.slug;
-              modelName = "Product";
-              _context3.n = 1;
-              return _this3.$store.dispatch("operations/fetchSpecificLogs", {
-                path: "/api/activity-log-specific?page=",
-                currentPage: currentPage + "&perPage=" + _this3.perPage,
-                slug: slug,
-                modelName: modelName
-              });
-            case 1:
-              return _context3.a(2);
-          }
-        }, _callee3);
-      }))();
-    },
-    // search data
-    searchData: function searchData() {
-      var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-        var slug, modelName;
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.n) {
-            case 0:
-              _this4.$store.state.operations.loading = true;
-              slug = _this4.$route.params.slug;
-              modelName = "Product";
-              _context4.n = 1;
-              return _this4.$store.dispatch("operations/fetchSpecificLogs", {
-                path: "/api/activity-log-specific?page=",
-                currentPage: _this4.pagination.current_page + "&perPage=" + _this4.perPage,
-                term: _this4.query,
-                slug: slug,
-                modelName: modelName
-              });
-            case 1:
-              return _context4.a(2);
-          }
-        }, _callee4);
-      }))();
-    },
-    // pagination
-    paginate: function paginate() {
-      var _this5 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-        return _regenerator().w(function (_context5) {
-          while (1) switch (_context5.n) {
-            case 0:
-              _this5.getActivity();
-            case 1:
-              return _context5.a(2);
-          }
-        }, _callee5);
-      }))();
-    },
-    updatePerPager: function updatePerPager() {
-      this.pagination.current_page = 1;
-      this.query === "" ? this.getActivity() : this.searchData();
-    },
-    // reload after search
-    reload: function reload() {
-      var _this6 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
-        return _regenerator().w(function (_context6) {
-          while (1) switch (_context6.n) {
-            case 0:
-              _this6.query = "";
-            case 1:
-              return _context6.a(2);
-          }
-        }, _callee6);
-      }))();
-    },
-    // refresh table
-    refreshTable: function refreshTable() {
-      this.query = "";
-      this.query === "" ? this.getActivity() : this.searchData();
-    },
-    // reset pagination
-    resetPagination: function resetPagination() {
-      var _this7 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
-        return _regenerator().w(function (_context7) {
-          while (1) switch (_context7.n) {
-            case 0:
-              _this7.pagination.current_page = 1;
-            case 1:
-              return _context7.a(2);
-          }
-        }, _callee7);
-      }))();
-    }
-  }
-});
-;// ./resources/js/pages/products/show.vue?vue&type=script&lang=js
- /* harmony default export */ const products_showvue_type_script_lang_js = (showvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/products/show.vue?vue&type=style&index=0&id=7e0e48cb&prod&scoped=true&lang=css
-var showvue_type_style_index_0_id_7e0e48cb_prod_scoped_true_lang_css = __webpack_require__(57714);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/products/show.vue?vue&type=style&index=0&id=7e0e48cb&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(showvue_type_style_index_0_id_7e0e48cb_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const products_showvue_type_style_index_0_id_7e0e48cb_prod_scoped_true_lang_css = (showvue_type_style_index_0_id_7e0e48cb_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/products/show.vue?vue&type=style&index=0&id=7e0e48cb&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/products/show.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  products_showvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "7e0e48cb",
-  null
-  
-)
-
-/* harmony default export */ const show = (component.exports);
-
-/***/ }),
-
-/***/ 82727:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-
-var _canvas = __webpack_require__(11687);
-
-var _canvas2 = _interopRequireDefault(_canvas);
-
-var _svg = __webpack_require__(35965);
-
-var _svg2 = _interopRequireDefault(_svg);
-
-var _object = __webpack_require__(13528);
-
-var _object2 = _interopRequireDefault(_object);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports["default"] = { CanvasRenderer: _canvas2.default, SVGRenderer: _svg2.default, ObjectRenderer: _object2.default };
-
-/***/ }),
-
-/***/ 86129:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _barcodes = __webpack_require__(59368);
-
-var _barcodes2 = _interopRequireDefault(_barcodes);
-
-var _merge = __webpack_require__(91490);
-
-var _merge2 = _interopRequireDefault(_merge);
-
-var _linearizeEncodings = __webpack_require__(98165);
-
-var _linearizeEncodings2 = _interopRequireDefault(_linearizeEncodings);
-
-var _fixOptions = __webpack_require__(73623);
-
-var _fixOptions2 = _interopRequireDefault(_fixOptions);
-
-var _getRenderProperties = __webpack_require__(18179);
-
-var _getRenderProperties2 = _interopRequireDefault(_getRenderProperties);
-
-var _optionsFromStrings = __webpack_require__(69796);
-
-var _optionsFromStrings2 = _interopRequireDefault(_optionsFromStrings);
-
-var _ErrorHandler = __webpack_require__(4205);
-
-var _ErrorHandler2 = _interopRequireDefault(_ErrorHandler);
-
-var _exceptions = __webpack_require__(28157);
-
-var _defaults = __webpack_require__(55099);
-
-var _defaults2 = _interopRequireDefault(_defaults);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// The protype of the object returned from the JsBarcode() call
-
-
-// Help functions
-var API = function API() {};
-
-// The first call of the library API
-// Will return an object with all barcodes calls and the data that is used
-// by the renderers
-
-
-// Default values
-
-
-// Exceptions
-// Import all the barcodes
-var JsBarcode = function JsBarcode(element, text, options) {
-	var api = new API();
-
-	if (typeof element === "undefined") {
-		throw Error("No element to render on was provided.");
-	}
-
-	// Variables that will be pased through the API calls
-	api._renderProperties = (0, _getRenderProperties2.default)(element);
-	api._encodings = [];
-	api._options = _defaults2.default;
-	api._errorHandler = new _ErrorHandler2.default(api);
-
-	// If text is set, use the simple syntax (render the barcode directly)
-	if (typeof text !== "undefined") {
-		options = options || {};
-
-		if (!options.format) {
-			options.format = autoSelectBarcode();
-		}
-
-		api.options(options)[options.format](text, options).render();
-	}
-
-	return api;
-};
-
-// To make tests work TODO: remove
-JsBarcode.getModule = function (name) {
-	return _barcodes2.default[name];
-};
-
-// Register all barcodes
-for (var name in _barcodes2.default) {
-	if (_barcodes2.default.hasOwnProperty(name)) {
-		// Security check if the propery is a prototype property
-		registerBarcode(_barcodes2.default, name);
-	}
-}
-function registerBarcode(barcodes, name) {
-	API.prototype[name] = API.prototype[name.toUpperCase()] = API.prototype[name.toLowerCase()] = function (text, options) {
-		var api = this;
-		return api._errorHandler.wrapBarcodeCall(function () {
-			// Ensure text is options.text
-			options.text = typeof options.text === 'undefined' ? undefined : '' + options.text;
-
-			var newOptions = (0, _merge2.default)(api._options, options);
-			newOptions = (0, _optionsFromStrings2.default)(newOptions);
-			var Encoder = barcodes[name];
-			var encoded = encode(text, Encoder, newOptions);
-			api._encodings.push(encoded);
-
-			return api;
-		});
-	};
-}
-
-// encode() handles the Encoder call and builds the binary string to be rendered
-function encode(text, Encoder, options) {
-	// Ensure that text is a string
-	text = "" + text;
-
-	var encoder = new Encoder(text, options);
-
-	// If the input is not valid for the encoder, throw error.
-	// If the valid callback option is set, call it instead of throwing error
-	if (!encoder.valid()) {
-		throw new _exceptions.InvalidInputException(encoder.constructor.name, text);
-	}
-
-	// Make a request for the binary data (and other infromation) that should be rendered
-	var encoded = encoder.encode();
-
-	// Encodings can be nestled like [[1-1, 1-2], 2, [3-1, 3-2]
-	// Convert to [1-1, 1-2, 2, 3-1, 3-2]
-	encoded = (0, _linearizeEncodings2.default)(encoded);
-
-	// Merge
-	for (var i = 0; i < encoded.length; i++) {
-		encoded[i].options = (0, _merge2.default)(options, encoded[i].options);
-	}
-
-	return encoded;
-}
-
-function autoSelectBarcode() {
-	// If CODE128 exists. Use it
-	if (_barcodes2.default["CODE128"]) {
-		return "CODE128";
-	}
-
-	// Else, take the first (probably only) barcode
-	return Object.keys(_barcodes2.default)[0];
-}
-
-// Sets global encoder options
-// Added to the api by the JsBarcode function
-API.prototype.options = function (options) {
-	this._options = (0, _merge2.default)(this._options, options);
-	return this;
-};
-
-// Will create a blank space (usually in between barcodes)
-API.prototype.blank = function (size) {
-	var zeroes = new Array(size + 1).join("0");
-	this._encodings.push({ data: zeroes });
-	return this;
-};
-
-// Initialize JsBarcode on all HTML elements defined.
-API.prototype.init = function () {
-	// Should do nothing if no elements where found
-	if (!this._renderProperties) {
-		return;
-	}
-
-	// Make sure renderProperies is an array
-	if (!Array.isArray(this._renderProperties)) {
-		this._renderProperties = [this._renderProperties];
-	}
-
-	var renderProperty;
-	for (var i in this._renderProperties) {
-		renderProperty = this._renderProperties[i];
-		var options = (0, _merge2.default)(this._options, renderProperty.options);
-
-		if (options.format == "auto") {
-			options.format = autoSelectBarcode();
-		}
-
-		this._errorHandler.wrapBarcodeCall(function () {
-			var text = options.value;
-			var Encoder = _barcodes2.default[options.format.toUpperCase()];
-			var encoded = encode(text, Encoder, options);
-
-			render(renderProperty, encoded, options);
-		});
-	}
-};
-
-// The render API call. Calls the real render function.
-API.prototype.render = function () {
-	if (!this._renderProperties) {
-		throw new _exceptions.NoElementException();
-	}
-
-	if (Array.isArray(this._renderProperties)) {
-		for (var i = 0; i < this._renderProperties.length; i++) {
-			render(this._renderProperties[i], this._encodings, this._options);
-		}
-	} else {
-		render(this._renderProperties, this._encodings, this._options);
-	}
-
-	return this;
-};
-
-API.prototype._defaults = _defaults2.default;
-
-// Prepares the encodings and calls the renderer
-function render(renderProperties, encodings, options) {
-	encodings = (0, _linearizeEncodings2.default)(encodings);
-
-	for (var i = 0; i < encodings.length; i++) {
-		encodings[i].options = (0, _merge2.default)(options, encodings[i].options);
-		(0, _fixOptions2.default)(encodings[i].options);
-	}
-
-	(0, _fixOptions2.default)(options);
-
-	var Renderer = renderProperties.renderer;
-	var renderer = new Renderer(renderProperties.element, encodings, options);
-	renderer.render();
-
-	if (renderProperties.afterRender) {
-		renderProperties.afterRender();
-	}
-}
-
-// Export to browser
-if (typeof window !== "undefined") {
-	window.JsBarcode = JsBarcode;
-}
-
-// Export to jQuery
-/*global jQuery */
-if (typeof jQuery !== 'undefined') {
-	jQuery.fn.JsBarcode = function (content, options) {
-		var elementArray = [];
-		jQuery(this).each(function () {
-			elementArray.push(this);
-		});
-		return JsBarcode(elementArray, content, options);
-	};
-}
-
-// Export to commonJS
-module.exports = JsBarcode;
-
-/***/ }),
-
-/***/ 89852:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.CODE93FullASCII = exports.CODE93 = undefined;
-
-var _CODE = __webpack_require__(51087);
-
-var _CODE2 = _interopRequireDefault(_CODE);
-
-var _CODE93FullASCII = __webpack_require__(31271);
-
-var _CODE93FullASCII2 = _interopRequireDefault(_CODE93FullASCII);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.CODE93 = _CODE2.default;
-exports.CODE93FullASCII = _CODE93FullASCII2.default;
-
-/***/ }),
-
-/***/ 91490:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-exports["default"] = function (old, replaceObj) {
-  return _extends({}, old, replaceObj);
-};
-
-/***/ }),
-
-/***/ 96065:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _MSI2 = __webpack_require__(33551);
-
-var _MSI3 = _interopRequireDefault(_MSI2);
-
-var _checksums = __webpack_require__(16320);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var MSI11 = function (_MSI) {
-	_inherits(MSI11, _MSI);
-
-	function MSI11(data, options) {
-		_classCallCheck(this, MSI11);
-
-		return _possibleConstructorReturn(this, (MSI11.__proto__ || Object.getPrototypeOf(MSI11)).call(this, data + (0, _checksums.mod11)(data), options));
-	}
-
-	return MSI11;
-}(_MSI3.default);
-
-exports["default"] = MSI11;
-
-/***/ }),
-
-/***/ 96575:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-// Standard start end and middle bits
-var SIDE_BIN = exports.SIDE_BIN = '101';
-var MIDDLE_BIN = exports.MIDDLE_BIN = '01010';
-
-var BINARIES = exports.BINARIES = {
-	'L': [// The L (left) type of encoding
-	'0001101', '0011001', '0010011', '0111101', '0100011', '0110001', '0101111', '0111011', '0110111', '0001011'],
-	'G': [// The G type of encoding
-	'0100111', '0110011', '0011011', '0100001', '0011101', '0111001', '0000101', '0010001', '0001001', '0010111'],
-	'R': [// The R (right) type of encoding
-	'1110010', '1100110', '1101100', '1000010', '1011100', '1001110', '1010000', '1000100', '1001000', '1110100'],
-	'O': [// The O (odd) encoding for UPC-E
-	'0001101', '0011001', '0010011', '0111101', '0100011', '0110001', '0101111', '0111011', '0110111', '0001011'],
-	'E': [// The E (even) encoding for UPC-E
-	'0100111', '0110011', '0011011', '0100001', '0011101', '0111001', '0000101', '0010001', '0001001', '0010111']
-};
-
-// Define the EAN-2 structure
-var EAN2_STRUCTURE = exports.EAN2_STRUCTURE = ['LL', 'LG', 'GL', 'GG'];
-
-// Define the EAN-5 structure
-var EAN5_STRUCTURE = exports.EAN5_STRUCTURE = ['GGLLL', 'GLGLL', 'GLLGL', 'GLLLG', 'LGGLL', 'LLGGL', 'LLLGG', 'LGLGL', 'LGLLG', 'LLGLG'];
-
-// Define the EAN-13 structure
-var EAN13_STRUCTURE = exports.EAN13_STRUCTURE = ['LLLLLL', 'LLGLGG', 'LLGGLG', 'LLGGGL', 'LGLLGG', 'LGGLLG', 'LGGGLL', 'LGLGLG', 'LGLGGL', 'LGGLGL'];
-
-/***/ }),
-
-/***/ 98165:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-exports["default"] = linearizeEncodings;
-
-// Encodings can be nestled like [[1-1, 1-2], 2, [3-1, 3-2]
-// Convert to [1-1, 1-2, 2, 3-1, 3-2]
-
-function linearizeEncodings(encodings) {
-	var linearEncodings = [];
-	function nextLevel(encoded) {
-		if (Array.isArray(encoded)) {
-			for (var i = 0; i < encoded.length; i++) {
-				nextLevel(encoded[i]);
-			}
-		} else {
-			encoded.text = encoded.text || "";
-			encoded.data = encoded.data || "";
-			linearEncodings.push(encoded);
-		}
-	}
-	nextLevel(encodings);
-
-	return linearEncodings;
-}
 
 /***/ })
 
