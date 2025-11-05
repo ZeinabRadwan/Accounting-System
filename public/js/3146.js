@@ -7867,7 +7867,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".nav-pills .nav-item[data-v-70247410]{
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(true)
-		module.exports = factory(__webpack_require__(94733), __webpack_require__(20354));
+		module.exports = factory(__webpack_require__(41371), __webpack_require__(20354));
 	else // removed by dead control flow
 {}
 })(self, function(__WEBPACK_EXTERNAL_MODULE_jspdf__, __WEBPACK_EXTERNAL_MODULE_html2canvas__) {
@@ -13731,2577 +13731,7 @@ __nested_webpack_exports__ = __nested_webpack_exports__.default;
 
 /***/ }),
 
-/***/ 53146:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ show)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/returns/show.vue?vue&type=template&id=70247410&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c('breadcrumbs', {
-    attrs: {
-      "items": _vm.breadcrumbs,
-      "current": _vm.breadcrumbsCurrent
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "row no-print mb-2"
-  }, [_c('div', {
-    staticClass: "w-100 text-right float-right"
-  }, [_vm.allData ? _c('div', {
-    staticClass: "d-flex justify-content-between"
-  }, [_c('div', {
-    staticClass: "btn-group"
-  }, [_c('ul', {
-    staticClass: "nav nav-pills"
-  }, [_c('li', {
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link active",
-    attrs: {
-      "href": "#details",
-      "data-toggle": "tab"
-    },
-    on: {
-      "click": _vm.getInvoiceReturn
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-info"
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Details")))])]), _vm._v(" "), _c('li', {
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "href": "#activity-log",
-      "data-toggle": "tab"
-    },
-    on: {
-      "click": _vm.getActivity
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fa fa-bell",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Activity log")))])]), _vm._v(" "), _c('li', {
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "href": "#journal-entry",
-      "data-toggle": "tab"
-    },
-    on: {
-      "click": _vm.getJournalEntries
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fa fa-book",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Journal Entry")))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "btn-group"
-  }, [_vm.isSaudiArabia && _vm.allData.status === 0 ? _c('a', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.sendCreditNote(_vm.allData);
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-paper-plane"
-  }), _vm._v(" " + _vm._s(_vm.$t("Send Credit Note")) + "\n          ")]) : _vm._e(), _vm._v(" "), _c('a', {
-    staticClass: "btn btn-info",
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.generatePDF();
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-download"
-  }), _vm._v(" " + _vm._s(_vm.$t("download")) + "\n          ")]), _vm._v(" "), _c('a', {
-    staticClass: "btn btn-secondary",
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.printWindow();
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-print"
-  }), _vm._v(" " + _vm._s(_vm.$t("Print")) + "\n          ")]), _vm._v(" "), _vm.$can('invoice-return-edit') && !(_vm.isSaudiArabia && _vm.allData.status === 1) ? _c('router-link', {
-    staticClass: "btn btn-info",
-    attrs: {
-      "to": {
-        name: 'invoiceReturns.edit',
-        params: {
-          slug: _vm.allData.slug
-        }
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-edit"
-  }), _vm._v(" " + _vm._s(_vm.$t("Edit")) + "\n          ")]) : _vm._e(), _vm._v(" "), _c('router-link', {
-    staticClass: "btn btn-info float-right",
-    attrs: {
-      "to": {
-        name: 'invoiceReturns.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-long-arrow-alt-left"
-  }), _vm._v(" " + _vm._s(_vm.$t("Back")) + "\n          ")])], 1)]) : _vm._e()])]), _vm._v(" "), _c('div', {
-    staticClass: "tab-content"
-  }, [_c('div', {
-    staticClass: "tab-pane active",
-    attrs: {
-      "id": "details"
-    }
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "invoice p-3 mb-3 w-100",
-    attrs: {
-      "id": "content-to-pdf"
-    }
-  }, [_c('div', {
-    staticClass: "row invoice-info"
-  }, [_c('div', {
-    staticClass: "col-sm-4 invoice-col"
-  }, [_c('CompanyInfo')], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-sm-8 invoice-col float-right text-md-right"
-  }, [_c('h5', [_vm._v(_vm._s(_vm.$t("Client Details")))]), _vm._v(" "), _vm.allData.client ? _c('div', [_vm.allData.client.companyName ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Client ID")) + ":")]), _vm._v("\n                  " + _vm._s(_vm._f("withPrefix")(_vm.allData.client.clientID, _vm.clientPrefix))), _c('br')]) : _vm._e(), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Client Name")) + ":")]), _vm._v("\n                " + _vm._s(_vm.allData.client.name)), _c('br'), _vm._v(" "), _vm.allData.client.companyName ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Company Name")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.client.companyName)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.client.email ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Email")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.client.email)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.client.contactNumber ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Contact Number")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.client.contactNumber)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.client.address ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Address")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.client.address)), _c('br')]) : _vm._e()]) : _vm._e()])]), _vm._v(" "), _c('div', {
-    staticClass: "row mt-3"
-  }, [_c('div', {
-    staticClass: "col-12"
-  }, [_c('div', {
-    staticClass: "table-custom table-responsive"
-  }, [_vm.allData.invoice ? _c('table', {
-    staticClass: "table table-bordered"
-  }, [_c('thead', [_c('tr', [_vm.allData.invoice.invoiceNo ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Invoice No")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnNo ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Return No")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.invoice.invoiceDate ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Invoice Date")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnDate ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Return Date")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.reason ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Return Reason")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.note ? _c('th', [_vm._v(_vm._s(_vm.$t("Note")))]) : _vm._e(), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _vm.allData.createdBy ? _c('th', {
-    staticClass: "text-right"
-  }, [_vm._v("\n                        " + _vm._s(_vm.$t("Created By")) + "\n                      ")]) : _vm._e()])]), _vm._v(" "), _c('tbody', [_c('tr', [_vm.allData.invoice.invoiceNo ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(_vm.allData.invoice.invoiceNo, _vm.invoicePrefix)) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnNo ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(_vm.allData.returnNo, _vm.returnPrefix)) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.invoice.invoiceDate ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("moment")(_vm.allData.invoice.invoiceDate, "Do MMM, YYYY")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnDate ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("moment")(_vm.allData.returnDate, "Do MMM, YYYY")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.reason ? _c('td', [_vm._v(_vm._s(_vm.allData.reason))]) : _vm._e(), _vm._v(" "), _vm.allData.note ? _c('td', [_vm._v(_vm._s(_vm.allData.note))]) : _vm._e(), _vm._v(" "), _c('td', [_vm.allData.status === 1 ? _c('span', {
-    staticClass: "badge bg-success"
-  }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
-    staticClass: "badge bg-danger"
-  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _vm.allData.createdBy ? _c('td', {
-    staticClass: "text-right"
-  }, [_vm._v("\n                        " + _vm._s(_vm.allData.createdBy) + "\n                      ")]) : _vm._e()])])]) : _vm._e()])])]), _vm._v(" "), _c('div', {
-    staticClass: "row position-relative mt-4 mb-4"
-  }, [_c('table-loading', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.loading,
-      expression: "loading"
-    }]
-  }), _vm._v(" "), _c('div', {
-    staticClass: "col-12"
-  }, [_c('strong', {
-    staticClass: "mt-3"
-  }, [_vm._v(_vm._s(_vm.$t("Return Products")) + ":")]), _vm._v(" "), _vm.allData.invoice ? _c('div', {
-    staticClass: "table-custom table-responsive text-center"
-  }, [_c('table', {
-    staticClass: "table table-sm invoices-create-table"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Item Name")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Qty")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Price")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Discount")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total After Discount")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("VAT Type")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("VAT")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total with VAT")))])])]), _vm._v(" "), _vm.returnProducts ? _c('tbody', [_vm._l(_vm.returnProducts, function (data, i) {
-    return _c('tr', {
-      key: i
-    }, [_c('td', [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(data.productCode, _vm.productPrefix)) + "\n                      ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.productName))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.returnQty) + " " + _vm._s(data.productUnit))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(data.salePrice)) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(data.salePrice * data.returnQty)) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.calculateReturnDiscount(data))) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.calculateReturnNet(data))) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getVatRate(data)) + "%")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.calculateReturnVat(data))) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.calculateReturnTotal(data))) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])])]);
-  }), _vm._v(" "), _c('tr', [_c('td', {
-    staticClass: "text-right",
-    attrs: {
-      "colspan": "5"
-    }
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Subtotal")))])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.calculateTotalReturnedProductCost())) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.calculateTotalReturnDiscount())) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.calculateTotalReturnedProductCost() - _vm.calculateTotalReturnDiscount())) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td'), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.calculateTotalReturnTax())) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.calculateTotalReturnedProductCost() - _vm.calculateTotalReturnDiscount() + _vm.calculateTotalReturnTax())) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])])])], 2) : _vm._e()])]) : _vm._e()])], 1), _vm._v(" "), _c('div', {
-    staticClass: "row mt-4",
-    attrs: {
-      "id": "page-break"
-    }
-  }, [_c('div', {
-    staticClass: "col-lg-12 col-xl-8"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "col-lg-12 col-xl-4 text-lg-right mt-4"
-  }, [_c('div', {
-    staticClass: "table-responsive table-custom table-border-y-0"
-  }, [_c('table', {
-    staticClass: "table"
-  }, [_c('tbody', [_c('tr', {
-    staticClass: "bg-sub-light text-bold"
-  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Subtotal")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.calculateTotalReturnedProductCost())) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Product Discount")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm.formatToTwoDecimals(_vm.calculateTotalReturnDiscount())) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', {
-    staticClass: "bg-green-light text-bold"
-  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Total After Discount")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.calculateTotalReturnedProductCost() - _vm.calculateTotalReturnDiscount())) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Product VAT")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm.formatToTwoDecimals(_vm.calculateTotalReturnTax())) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', {
-    staticClass: "bg-indigo-light"
-  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Total with VAT")) + ":")]), _vm._v(" "), _c('td', [_c('span', {
-    staticClass: "equal-sign"
-  }, [_vm._v("=")]), _vm._v("\n                        " + _vm._s(_vm.formatToTwoDecimals(_vm.calculateTotalReturnedProductCost() - _vm.calculateTotalReturnDiscount() + _vm.calculateTotalReturnTax())) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])])])])])])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "tab-pane",
-    attrs: {
-      "id": "activity-log"
-    }
-  }, [_c('div', {
-    staticClass: "card custom-card w-100 mt-5 no-print"
-  }, [_c('div', {
-    staticClass: "card-header setings-header"
-  }, [_c('div', {
-    staticClass: "col-xl-4 col-4"
-  }, [_c('h3', {
-    staticClass: "card-title"
-  }, [_vm._v("\n              " + _vm._s(_vm.$t("Activity log")) + "\n            ")])]), _vm._v(" "), _c('div', {
-    staticClass: "col-xl-8 col-8 float-right text-right"
-  }, [_c('div', {
-    staticClass: "btn-group c-w-100"
-  }, [_c('a', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.$t('Refresh'),
-      expression: "$t('Refresh')"
-    }],
-    "class": ['btn', 'btn-success', _vm.loading ? 'disabled' : ''],
-    attrs: {
-      "href": "#",
-      "aria-busy": _vm.loading ? 'true' : 'false'
-    },
-    on: {
-      "click": function click($event) {
-        $event.preventDefault();
-        !_vm.loading && _vm.refreshTable();
-      }
-    }
-  }, [!_vm.loading ? _c('i', {
-    staticClass: "fas fa-sync"
-  }) : _c('i', {
-    staticClass: "fas fa-spinner fa-spin"
-  })]), _vm._v(" "), _c('a', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.$t('Print Table'),
-      expression: "$t('Print Table')"
-    }],
-    staticClass: "btn btn-info",
-    on: {
-      "click": _vm.print
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-print"
-  })])])])]), _vm._v(" "), _c('table-loading', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.loading,
-      expression: "loading"
-    }]
-  }), _vm._v(" "), _c('div', {
-    staticClass: "card-body position-relative"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-6 col-xl-4 mb-2"
-  }, [_c('search', {
-    on: {
-      "reset-pagination": function resetPagination($event) {
-        return _vm.resetPagination();
-      },
-      "reload": _vm.reload
-    },
-    model: {
-      value: _vm.query,
-      callback: function callback($$v) {
-        _vm.query = $$v;
-      },
-      expression: "query"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "table-responsive table-custom mt-3",
-    attrs: {
-      "id": "printMe"
-    }
-  }, [_vm._l(_vm.items, function (data, i) {
-    return _c('div', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.items.length > 0,
-        expression: "items.length > 0"
-      }],
-      key: i
-    }, [_c('div', {
-      staticClass: "card mb-0 border border-gray"
-    }, [_c('div', {
-      staticClass: "card-body py-1"
-    }, [_c('div', {
-      staticClass: "row"
-    }, [_c('div', {
-      staticClass: "col-1 d-flex justify-content-center align-items-center"
-    }, [data.event == 'Update' ? _c('i', {
-      staticClass: "fa fa-magic",
-      attrs: {
-        "aria-hidden": "true"
-      }
-    }) : _vm._e(), _vm._v(" "), data.event == 'Create' ? _c('i', {
-      staticClass: "fa fa-plus-circle",
-      attrs: {
-        "aria-hidden": "true"
-      }
-    }) : _vm._e(), _vm._v(" "), data.event == 'Delete' ? _c('i', {
-      staticClass: "fa fa-trash",
-      attrs: {
-        "aria-hidden": "true"
-      }
-    }) : _vm._e()]), _vm._v(" "), _c('div', {
-      staticClass: "col-11"
-    }, [_c('div', {
-      staticClass: "row"
-    }, [_c('div', {
-      staticClass: "col-12"
-    }, [_c('p', {
-      staticClass: "text-bold mb-0"
-    }, [_vm._v(_vm._s(data.causer_name))])]), _vm._v(" "), _c('div', {
-      staticClass: "col-12"
-    }, [_c('p', {
-      staticClass: "mb-0"
-    }, [_vm._v(_vm._s(data.description))])]), _vm._v(" "), _c('div', {
-      staticClass: "col-12"
-    }, [_c('p', {
-      staticClass: "mb-0"
-    }, [_vm._v(_vm._s(data.performedAt))])])])])])])])]);
-  }), _vm._v(" "), _c('div', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: !_vm.loading && !_vm.items.length,
-      expression: "!loading && !items.length"
-    }],
-    staticClass: "text-center"
-  }, [_c('EmptyTable')], 1)], 2)]), _vm._v(" "), _c('div', {
-    staticClass: "card-footer"
-  }, [_c('div', {
-    staticClass: "dtable-footer"
-  }, [_c('div', {
-    staticClass: "form-group row display-per-page"
-  }, [_c('label', [_vm._v(_vm._s(_vm.$t("per_page")) + " ")]), _vm._v(" "), _c('div', [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.perPage,
-      expression: "perPage"
-    }],
-    staticClass: "form-control form-control-sm ml-1",
-    on: {
-      "change": [function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.perPage = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
-      }, _vm.updatePerPager]
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "10"
-    }
-  }, [_vm._v("10")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "25"
-    }
-  }, [_vm._v("25")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "50"
-    }
-  }, [_vm._v("50")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "100"
-    }
-  }, [_vm._v("100")])])])]), _vm._v(" "), _vm.pagination && _vm.pagination.last_page > 1 ? _c('pagination', {
-    staticClass: "justify-flex-end",
-    attrs: {
-      "pagination": _vm.pagination,
-      "offset": 5
-    },
-    on: {
-      "paginate": _vm.paginate
-    }
-  }) : _vm._e()], 1)])], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "tab-pane",
-    attrs: {
-      "id": "journal-entry"
-    }
-  }, [_c('div', {
-    staticClass: "card custom-card w-100 mt-5 no-print"
-  }, [_c('div', {
-    staticClass: "card-header setings-header"
-  }, [_c('div', {
-    staticClass: "col-xl-4 col-4"
-  }, [_c('h3', {
-    staticClass: "card-title"
-  }, [_vm._v("\n              " + _vm._s(_vm.$t("Journal Entry Information")) + "\n            ")])])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_vm.allData.journalEntries && _vm.allData.journalEntries.length > 0 ? _c('div', _vm._l(_vm.sortedJournalEntries, function (journalEntry, index) {
-    return _c('div', {
-      key: index,
-      staticClass: "mb-4"
-    }, [_c('div', {
-      staticClass: "row mb-3"
-    }, [_c('div', {
-      staticClass: "col-md-3"
-    }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Entry Number")) + ":")]), _vm._v(" "), _c('span', {
-      staticClass: "ml-2"
-    }, [_vm._v(_vm._s(journalEntry.formatted_entry_number))])]), _vm._v(" "), _c('div', {
-      staticClass: "col-md-3"
-    }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Entry Date")) + ":")]), _vm._v(" "), _c('span', {
-      staticClass: "ml-2"
-    }, [_vm._v(_vm._s(_vm._f("formatDate")(journalEntry.entry_date)))])]), _vm._v(" "), _c('div', {
-      staticClass: "col-md-3"
-    }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Status")) + ":")]), _vm._v(" "), _c('span', {
-      staticClass: "ml-2 badge",
-      "class": journalEntry.status === 'posted' ? 'badge-success' : 'badge-warning'
-    }, [_vm._v("\n                    " + _vm._s(journalEntry.formatted_status) + "\n                  ")])]), _vm._v(" "), _c('div', {
-      staticClass: "col-md-3"
-    }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Total Amount")) + ":")]), _vm._v(" "), _c('span', {
-      staticClass: "ml-2"
-    }, [_c('CurrencyDisplay', {
-      attrs: {
-        "amount": journalEntry.total_debit
-      }
-    })], 1)])]), _vm._v(" "), _c('div', {
-      staticClass: "row mb-3"
-    }, [_c('div', {
-      staticClass: "col-12"
-    }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Description")) + ":")]), _vm._v(" "), _c('span', {
-      staticClass: "ml-2"
-    }, [_vm._v(_vm._s(journalEntry.description))])])]), _vm._v(" "), _c('div', {
-      staticClass: "table-responsive"
-    }, [_c('table', {
-      staticClass: "table table-bordered table-sm"
-    }, [_c('thead', {
-      staticClass: "bg-light"
-    }, [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Line")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Chart of Account")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Description")))]), _vm._v(" "), _c('th', {
-      staticClass: "text-right"
-    }, [_vm._v(_vm._s(_vm.$t("Debit")))]), _vm._v(" "), _c('th', {
-      staticClass: "text-right"
-    }, [_vm._v(_vm._s(_vm.$t("Credit")))])])]), _vm._v(" "), _c('tbody', _vm._l(journalEntry.lines, function (line, lineIndex) {
-      return _c('tr', {
-        key: lineIndex
-      }, [_c('td', [_vm._v(_vm._s(line.line_number))]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(line.chart_of_account.name))]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
-        staticClass: "text-muted"
-      }, [_vm._v(_vm._s(line.chart_of_account.type.name))])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(line.description))]), _vm._v(" "), _c('td', {
-        staticClass: "text-right"
-      }, [line.debit_amount > 0 ? _c('span', [_vm._v(_vm._s(line.debit_amount)), _c('span', {
-        staticClass: "saudi-riyal"
-      }, [_vm._v("ê")])]) : _c('span', {
-        staticClass: "text-muted"
-      }, [_vm._v("-")])]), _vm._v(" "), _c('td', {
-        staticClass: "text-right"
-      }, [line.credit_amount > 0 ? _c('span', [_vm._v(_vm._s(line.credit_amount) + " "), _c('span', {
-        staticClass: "saudi-riyal"
-      }, [_vm._v("ê")])]) : _c('span', {
-        staticClass: "text-muted"
-      }, [_vm._v("-")])])]);
-    }), 0), _vm._v(" "), _c('tfoot', {
-      staticClass: "bg-light"
-    }, [_c('tr', [_c('th', {
-      staticClass: "text-right",
-      attrs: {
-        "colspan": "3"
-      }
-    }, [_vm._v("\n                        " + _vm._s(_vm.$t("Total")) + ":\n                      ")]), _vm._v(" "), _c('th', {
-      staticClass: "text-right"
-    }, [_vm._v("\n                        " + _vm._s(journalEntry.total_debit) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('th', {
-      staticClass: "text-right"
-    }, [_vm._v("\n                        " + _vm._s(journalEntry.total_credit) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', {
-      staticClass: "text-right",
-      attrs: {
-        "colspan": "3"
-      }
-    }, [_vm._v("\n                        " + _vm._s(_vm.$t("Balance")) + ":\n                      ")]), _vm._v(" "), _c('th', {
-      staticClass: "text-center",
-      attrs: {
-        "colspan": "2"
-      }
-    }, [_c('span', {
-      staticClass: "badge",
-      "class": journalEntry.is_balanced ? 'badge-success' : 'badge-danger'
-    }, [_vm._v("\n                          " + _vm._s(journalEntry.is_balanced ? _vm.$t("Balanced") : _vm.$t("Unbalanced")) + "\n                        ")])])])])])])]);
-  }), 0) : _c('div', {
-    staticClass: "text-center text-muted"
-  }, [_c('p', [_vm._v("\n              " + _vm._s(_vm.$t("No journal entries found for this invoice return.")) + "\n            ")])])])])])])], 1);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__(95353);
-// EXTERNAL MODULE: ./node_modules/html2pdf.js/dist/html2pdf.js
-var html2pdf = __webpack_require__(33833);
-// EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.js
-var sweetalert2 = __webpack_require__(94948);
-var sweetalert2_default = /*#__PURE__*/__webpack_require__.n(sweetalert2);
-// EXTERNAL MODULE: ./node_modules/izitoast/dist/js/iziToast.js
-var iziToast = __webpack_require__(69568);
-var iziToast_default = /*#__PURE__*/__webpack_require__.n(iziToast);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/returns/show.vue?vue&type=script&lang=js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
-function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-
-
-
-
-/* harmony default export */ const showvue_type_script_lang_js = ({
-  middleware: ["auth", "check-permissions"],
-  metaInfo: function metaInfo() {
-    return {
-      title: this.isSaudiArabia ? this.$t("Credit Note Details") : this.$t("Invoice Return Details")
-    };
-  },
-  components: {
-    CurrencyDisplay: function CurrencyDisplay() {
-      return __webpack_require__.e(/* import() */ 5448).then(__webpack_require__.bind(__webpack_require__, 75448));
-    }
-  },
-  data: function data() {
-    return {
-      breadcrumbs: [{
-        name: "Dashboard",
-        url: "home"
-      }, {
-        name: "Invoice Returns",
-        url: "invoiceReturns.index"
-      }, {
-        name: "Details",
-        url: ""
-      }],
-      allData: "",
-      invoiceSubTotal: 0,
-      invoiceReturn: 0,
-      returnProducts: [],
-      productPrefix: "",
-      invoicePrefix: "",
-      returnPrefix: "",
-      clientPrefix: "",
-      loading: false,
-      query: "",
-      perPage: 10
-    };
-  },
-  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["appInfo", "items", "loading", "pagination"])), {}, {
-    // Check if the country is Saudi Arabia
-    isSaudiArabia: function isSaudiArabia() {
-      return this.appInfo && this.appInfo.country === 'SA';
-    },
-    // Dynamic breadcrumb current page title
-    breadcrumbsCurrent: function breadcrumbsCurrent() {
-      return this.isSaudiArabia ? this.$t("Credit Note Details") : this.$t("Invoice Return Details");
-    },
-    // Filter products that have return quantities > 0
-    productsWithReturns: function productsWithReturns() {
-      if (!this.returnProducts || this.returnProducts.length === 0) {
-        return [];
-      }
-      return this.returnProducts.filter(function (product) {
-        return product.returnQty > 0;
-      });
-    },
-    // Sort journal entry lines with debits first, then credits
-    sortedJournalEntries: function sortedJournalEntries() {
-      var _this = this;
-      if (!this.allData || !this.allData.journalEntries) {
-        return [];
-      }
-      return this.allData.journalEntries.map(function (journalEntry) {
-        return _objectSpread(_objectSpread({}, journalEntry), {}, {
-          lines: _this.sortJournalEntryLines(journalEntry.lines || [])
-        });
-      });
-    }
-  }),
-  watch: {
-    // watch search data
-    query: function query(newQ) {
-      if (newQ === "") {
-        this.getActivity();
-      } else {
-        this.searchData();
-      }
-    }
-  },
-  created: function created() {
-    this.getInvoiceReturn();
-    this.productPrefix = this.appInfo.productPrefix;
-    this.invoicePrefix = this.appInfo.invoicePrefix;
-    this.returnPrefix = this.appInfo.invoiceReturnPrefix;
-    this.clientPrefix = this.appInfo.clientPrefix;
-  },
-  methods: {
-    // Format number to two decimal places
-    formatToTwoDecimals: function formatToTwoDecimals(value) {
-      // Handle null, undefined, or non-numeric values
-      if (value === null || value === undefined || isNaN(value)) {
-        return '0.00';
-      }
-      var numValue = Number(value);
-      if (isNaN(numValue)) {
-        return '0.00';
-      }
-      return numValue.toFixed(2);
-    },
-    // get the invoice
-    getInvoiceReturn: function getInvoiceReturn() {
-      var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var _yield$axios$get, data;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.n) {
-            case 0:
-              _this2.loading = true;
-              _context.n = 1;
-              return axios_default().get(window.location.origin + "/api/invoice-returns/" + _this2.$route.params.slug);
-            case 1:
-              _yield$axios$get = _context.v;
-              data = _yield$axios$get.data;
-              _this2.allData = data.data;
-              _this2.returnProducts = _this2.allData.invoiceReturnProducts;
-              _this2.returnProducts.sort(_this2.sortProducts);
-              _this2.calculateTotalAmount();
-              _this2.loading = false;
-            case 2:
-              return _context.a(2);
-          }
-        }, _callee);
-      }))();
-    },
-    sortProducts: function sortProducts(a, b) {
-      if (a.productCode < b.productCode) {
-        return -1;
-      }
-      if (a.productCode > b.productCode) {
-        return 1;
-      }
-      return 0;
-    },
-    // Sort journal entry lines: debits first, then credits
-    sortJournalEntryLines: function sortJournalEntryLines(lines) {
-      if (!lines || lines.length === 0) {
-        return [];
-      }
-      return _toConsumableArray(lines).sort(function (a, b) {
-        // If both are debits or both are credits, maintain original order
-        var aIsDebit = a.debit_amount > 0;
-        var bIsDebit = b.debit_amount > 0;
-        if (aIsDebit && !bIsDebit) return -1; // a is debit, b is credit - a comes first
-        if (!aIsDebit && bIsDebit) return 1; // a is credit, b is debit - b comes first
-
-        // If both are same type, maintain original order by line number
-        return a.line_number - b.line_number;
-      });
-    },
-    // Return Invoice Calculation Summary Methods (Based on Updated Formula)
-    // Get VAT rate for a product from database
-    getVatRate: function getVatRate() {
-      var product = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-      if (product && product.vatRate) {
-        return product.vatRate;
-      }
-      // Fallback to first product's VAT rate or default 20%
-      if (this.returnProducts && this.returnProducts.length > 0) {
-        return this.returnProducts[0].vatRate || 20;
-      }
-      return 20; // Default VAT rate
-    },
-    // 1. Calculate Subtotal (Original Quantity × Price per Unit)
-    calculateSubtotal: function calculateSubtotal(invoiceProduct) {
-      var originalQty = parseFloat(invoiceProduct.invoiceQty) || 0;
-      var unitPrice = parseFloat(invoiceProduct.salePrice) || 0;
-      return Number((originalQty * unitPrice).toFixed(2));
-    },
-    // Calculate Subtotal with VAT (Subtotal - Discount + VAT)
-    calculateSubtotalWithVat: function calculateSubtotalWithVat(invoiceProduct) {
-      var subtotal = this.calculateSubtotal(invoiceProduct);
-      var discountAmount = parseFloat(invoiceProduct.discountAmount) || 0;
-      var taxAmount = parseFloat(invoiceProduct.taxAmount) || 0;
-      return Number((subtotal - discountAmount + taxAmount).toFixed(2));
-    },
-    // 2. Calculate Cost of Returned Products
-    // Returned Product Cost = Returned Units × Unit Price
-    calculateReturnedProductCost: function calculateReturnedProductCost(invoiceProduct) {
-      var returnedUnits = parseFloat(invoiceProduct.returnQty) || 0;
-      var unitPrice = parseFloat(invoiceProduct.salePrice) || 0;
-      return Number((returnedUnits * unitPrice).toFixed(2));
-    },
-    // Returned Product Cost including VAT = (Total Invoice Amount / Original Quantity) × Returned Units
-    calculateReturnedProductCostWithVat: function calculateReturnedProductCostWithVat(invoiceProduct) {
-      var originalQty = parseFloat(invoiceProduct.invoiceQty) || 1;
-      var returnedUnits = parseFloat(invoiceProduct.returnQty) || 0;
-      var totalInvoiceAmount = this.calculateSubtotalWithVat(invoiceProduct);
-      return originalQty > 0 ? Number((totalInvoiceAmount / originalQty * returnedUnits).toFixed(2)) : 0;
-    },
-    // 3. Calculate Return Discount
-    // Per Unit Discount = Total Discount / Original Quantity
-    calculatePerUnitDiscount: function calculatePerUnitDiscount(invoiceProduct) {
-      var originalQty = parseFloat(invoiceProduct.invoiceQty) || 1;
-      var totalDiscount = parseFloat(invoiceProduct.discountAmount) || 0;
-      return originalQty > 0 ? Number((totalDiscount / originalQty).toFixed(2)) : 0;
-    },
-    // Return Discount = Per Unit Discount × Returned Units
-    calculateReturnDiscount: function calculateReturnDiscount(invoiceProduct) {
-      var perUnitDiscount = this.calculatePerUnitDiscount(invoiceProduct);
-      var returnedUnits = parseFloat(invoiceProduct.returnQty) || 0;
-      return Number((perUnitDiscount * returnedUnits).toFixed(2));
-    },
-    // 4. Calculate Return VAT
-    // Per Unit VAT = Total VAT / Original Quantity
-    calculatePerUnitVat: function calculatePerUnitVat(invoiceProduct) {
-      var originalQty = parseFloat(invoiceProduct.invoiceQty) || 1;
-      var totalVat = parseFloat(invoiceProduct.taxAmount) || 0;
-      return originalQty > 0 ? Number((totalVat / originalQty).toFixed(2)) : 0;
-    },
-    // Return VAT = Per Unit VAT × Returned Units
-    calculateReturnVat: function calculateReturnVat(invoiceProduct) {
-      var perUnitVat = this.calculatePerUnitVat(invoiceProduct);
-      var returnedUnits = parseFloat(invoiceProduct.returnQty) || 0;
-      return Number((perUnitVat * returnedUnits).toFixed(2));
-    },
-    // 5. Calculate Remaining Discount
-    // Remaining Units = Invoice Qty - Return Qty
-    calculateRemainingUnits: function calculateRemainingUnits(invoiceProduct) {
-      var invoiceQty = parseFloat(invoiceProduct.invoiceQty) || 0;
-      var returnQty = parseFloat(invoiceProduct.returnQty) || 0;
-      return Number((invoiceQty - returnQty).toFixed(2));
-    },
-    // Remaining Discount = Per Unit Discount × Remaining Units
-    calculateRemainingDiscount: function calculateRemainingDiscount(invoiceProduct) {
-      var perUnitDiscount = this.calculatePerUnitDiscount(invoiceProduct);
-      var remainingUnits = this.calculateRemainingUnits(invoiceProduct);
-      return Number((perUnitDiscount * remainingUnits).toFixed(2));
-    },
-    // 6. Calculate Remaining Tax
-    // Tax = TotalVAT - ReturnVAT
-    calculateRemainingTax: function calculateRemainingTax(invoiceProduct) {
-      var totalVat = parseFloat(invoiceProduct.taxAmount) || 0;
-      var returnVat = this.calculateReturnVat(invoiceProduct);
-      return Number((totalVat - returnVat).toFixed(2));
-    },
-    // Legacy methods for backward compatibility
-    calculateUnitDiscount: function calculateUnitDiscount(invoiceProduct) {
-      return this.calculatePerUnitDiscount(invoiceProduct);
-    },
-    calculateUnitNet: function calculateUnitNet(invoiceProduct) {
-      var salePrice = parseFloat(invoiceProduct.salePrice) || 0;
-      var unitDiscount = this.calculatePerUnitDiscount(invoiceProduct);
-      return Number((salePrice - unitDiscount).toFixed(2));
-    },
-    calculateUnitVat: function calculateUnitVat(invoiceProduct) {
-      return this.calculatePerUnitVat(invoiceProduct);
-    },
-    calculateUnitTotal: function calculateUnitTotal(invoiceProduct) {
-      var unitNet = this.calculateUnitNet(invoiceProduct);
-      var unitVat = this.calculatePerUnitVat(invoiceProduct);
-      return Number((unitNet + unitVat).toFixed(2));
-    },
-    calculateReturnTotal: function calculateReturnTotal(invoiceProduct) {
-      var unitTotal = this.calculateUnitTotal(invoiceProduct);
-      var returnQty = parseFloat(invoiceProduct.returnQty) || 0;
-      return Number((unitTotal * returnQty).toFixed(2));
-    },
-    calculateReturnSubtotal: function calculateReturnSubtotal(invoiceProduct) {
-      return this.calculateReturnedProductCost(invoiceProduct);
-    },
-    calculateReturnNet: function calculateReturnNet(invoiceProduct) {
-      var unitNet = this.calculateUnitNet(invoiceProduct);
-      var returnQty = parseFloat(invoiceProduct.returnQty) || 0;
-      return Number((unitNet * returnQty).toFixed(2));
-    },
-    // Calculate total invoice tax (sum of tax_amount from invoice_products)
-    calculateTotalInvoiceTax: function calculateTotalInvoiceTax() {
-      if (!this.returnProducts || this.returnProducts.length === 0) {
-        return 0;
-      }
-      return this.returnProducts.reduce(function (total, product) {
-        return total + (parseFloat(product.taxAmount) || 0);
-      }, 0);
-    },
-    // Calculate total return tax (sum of return VAT for all products)
-    calculateTotalReturnTax: function calculateTotalReturnTax() {
-      var _this3 = this;
-      if (!this.productsWithReturns || this.productsWithReturns.length === 0) {
-        return 0;
-      }
-      return this.productsWithReturns.reduce(function (total, product) {
-        return total + _this3.calculateReturnVat(product);
-      }, 0);
-    },
-    // Calculate total return discount (sum of return discount for all products)
-    calculateTotalReturnDiscount: function calculateTotalReturnDiscount() {
-      var _this4 = this;
-      if (!this.productsWithReturns || this.productsWithReturns.length === 0) {
-        return 0;
-      }
-      return this.productsWithReturns.reduce(function (total, product) {
-        return total + _this4.calculateReturnDiscount(product);
-      }, 0);
-    },
-    // Calculate total remaining discount (sum of remaining discount for all products)
-    calculateTotalRemainingDiscount: function calculateTotalRemainingDiscount() {
-      var _this5 = this;
-      if (!this.returnProducts || this.returnProducts.length === 0) {
-        return 0;
-      }
-      return this.returnProducts.reduce(function (total, product) {
-        return total + _this5.calculateRemainingDiscount(product);
-      }, 0);
-    },
-    // Calculate total remaining tax (sum of remaining tax for all products)
-    calculateTotalRemainingTax: function calculateTotalRemainingTax() {
-      var _this6 = this;
-      if (!this.returnProducts || this.returnProducts.length === 0) {
-        return 0;
-      }
-      return this.returnProducts.reduce(function (total, product) {
-        return total + _this6.calculateRemainingTax(product);
-      }, 0);
-    },
-    // Calculate total cost of returned products
-    calculateTotalReturnedProductCost: function calculateTotalReturnedProductCost() {
-      var _this7 = this;
-      if (!this.productsWithReturns || this.productsWithReturns.length === 0) {
-        return 0;
-      }
-      return this.productsWithReturns.reduce(function (total, product) {
-        return total + _this7.calculateReturnedProductCost(product);
-      }, 0);
-    },
-    // Calculate total subtotal with VAT for all products
-    calculateTotalSubtotalWithVat: function calculateTotalSubtotalWithVat() {
-      var _this8 = this;
-      if (!this.returnProducts || this.returnProducts.length === 0) {
-        return 0;
-      }
-      return this.returnProducts.reduce(function (total, product) {
-        return total + _this8.calculateSubtotalWithVat(product);
-      }, 0);
-    },
-    // Calculate final total using the new formula
-    calculateFinalTotal: function calculateFinalTotal() {
-      var subtotal = parseFloat(this.allData.invoice.subTotal) || 0;
-      var returnedProductCost = this.calculateTotalReturnedProductCost();
-      var returnDiscount = this.calculateTotalReturnDiscount();
-      var returnVat = this.calculateTotalReturnTax();
-      var remainingDiscount = this.calculateTotalRemainingDiscount();
-      var remainingTax = this.calculateTotalRemainingTax();
-      var transport = parseFloat(this.allData.invoice.transport) || 0;
-
-      // Final Total = Subtotal - Cost of Returned Products - Return Discount - Return VAT - Remaining Discount + Remaining Tax + Transport
-      return Number((subtotal + returnVat -
-      // returnedProductCost -
-      returnDiscount - remainingDiscount + remainingTax + transport).toFixed(2));
-    },
-    // calculate total return using the correct formula
-    calculateTotalAmount: function calculateTotalAmount() {
-      var _this9 = this;
-      var invoiceSubTotal = 0;
-      var invoiceReturn = 0;
-      if (this.allData.invoiceReturnProducts) {
-        // Calculate invoice subtotal (original calculation)
-        invoiceSubTotal = this.allData.invoiceReturnProducts.reduce(function (prev, next) {
-          return prev + Number(next.invoiceQty) * Number(next.salePrice);
-        }, 0);
-
-        // Calculate return total using the correct formula
-        invoiceReturn = this.allData.invoiceReturnProducts.reduce(function (prev, next) {
-          if (next.returnQty > 0) {
-            // Parse quantities safely and ensure they're numbers
-            var quantity = parseFloat(next.quantity) || 1; // fallback to 1 to avoid division by zero
-            var returnQty = parseFloat(next.returnQty) || 0;
-            var discountAmount = parseFloat(next.discountAmount) || 0;
-            var salePrice = parseFloat(next.salePrice) || 0;
-
-            // unit_discount = round(discount_amount / quantity, 2)
-            var unitDiscount = quantity > 0 ? Number((discountAmount / quantity).toFixed(2)) : 0;
-
-            // unit_net = sale_price - unit_discount
-            var unitNet = Number((salePrice - unitDiscount).toFixed(2));
-
-            // unit_vat = round(unit_net * vat_rate / 100, 2)
-            var vatRate = _this9.getVatRate(next);
-            var unitVat = Number((unitNet * vatRate / 100).toFixed(2));
-
-            // unit_total = unit_net + unit_vat
-            var unitTotal = Number((unitNet + unitVat).toFixed(2));
-
-            // return_total = round(unit_total * return_qty, 2)
-            var returnTotal = Number((unitTotal * returnQty).toFixed(2));
-            return prev + returnTotal;
-          }
-          return prev;
-        }, 0);
-      }
-      this.invoiceSubTotal = invoiceSubTotal;
-      this.invoiceReturn = invoiceReturn;
-      return;
-    },
-    // print
-    printWindow: function printWindow() {
-      // Open print page in new window
-      var printUrl = "/print/invoice-return/".concat(this.$route.params.slug);
-      window.open(printUrl, '_blank');
-    },
-    // download pdf
-    generatePDF: function generatePDF() {
-      // Download PDF using the new route
-      var downloadUrl = "/print/invoice-return/".concat(this.$route.params.slug, "/pdf");
-      window.open(downloadUrl, '_blank');
-    },
-    // print table
-    print: function print() {
-      var _this0 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
-            case 0:
-              _context2.n = 1;
-              return _this0.$htmlToPaper("printMe");
-            case 1:
-              return _context2.a(2);
-          }
-        }, _callee2);
-      }))();
-    },
-    // send credit note
-    sendCreditNote: function sendCreditNote(data) {
-      var _this1 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.n) {
-            case 0:
-              sweetalert2_default().fire({
-                title: _this1.$t("Send Credit Note to ZATCA"),
-                text: _this1.$t("Do you want to send this credit note to ZATCA?"),
-                type: "question",
-                showCancelButton: true,
-                confirmButtonText: _this1.$t("Yes"),
-                cancelButtonText: _this1.$t("No"),
-                confirmButtonColor: "#28a745",
-                cancelButtonColor: "#dc3545"
-              }).then(/*#__PURE__*/function () {
-                var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(result) {
-                  var response, _error$response, _t;
-                  return _regenerator().w(function (_context3) {
-                    while (1) switch (_context3.p = _context3.n) {
-                      case 0:
-                        if (!result.value) {
-                          _context3.n = 4;
-                          break;
-                        }
-                        _context3.p = 1;
-                        sweetalert2_default().fire({
-                          title: _this1.$t("Sending..."),
-                          text: _this1.$t("Please wait while we send the credit note to ZATCA"),
-                          allowOutsideClick: false,
-                          showConfirmButton: false,
-                          willOpen: function willOpen() {
-                            sweetalert2_default().showLoading();
-                          }
-                        });
-                        _context3.n = 2;
-                        return axios_default().post("/api/invoice-returns/".concat(data.slug, "/send-to-zatca"));
-                      case 2:
-                        response = _context3.v;
-                        sweetalert2_default().close();
-                        if (response.data.success) {
-                          _this1.$toast.success(_this1.$t("Sent Successfully!"), _this1.$t("Credit note has been sent to ZATCA and journal entries have been created."));
-                          // Refresh current page data to reflect updated status
-                          _this1.getInvoiceReturn();
-                        } else {
-                          _this1.$toast.error(_this1.$t("Failed!"), response.data.message || _this1.$t("Failed to send credit note to ZATCA"));
-                        }
-                        _context3.n = 4;
-                        break;
-                      case 3:
-                        _context3.p = 3;
-                        _t = _context3.v;
-                        sweetalert2_default().close();
-                        _this1.$toast.error(_this1.$t("Error!"), ((_error$response = _t.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this1.$t("An error occurred while sending the credit note"));
-                      case 4:
-                        return _context3.a(2);
-                    }
-                  }, _callee3, null, [[1, 3]]);
-                }));
-                return function (_x) {
-                  return _ref.apply(this, arguments);
-                };
-              }());
-            case 1:
-              return _context4.a(2);
-          }
-        }, _callee4);
-      }))();
-    },
-    // get activity logs
-    getActivity: function getActivity() {
-      var _this10 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-        var currentPage, slug, modelName;
-        return _regenerator().w(function (_context5) {
-          while (1) switch (_context5.n) {
-            case 0:
-              currentPage = _this10.pagination ? _this10.pagination.current_page : 1;
-              _this10.$store.state.operations.loading = true;
-              slug = _this10.$route.params.slug;
-              modelName = "InvoiceReturn";
-              _context5.n = 1;
-              return _this10.$store.dispatch("operations/fetchSpecificLogs", {
-                path: "/api/activity-log-specific?page=",
-                currentPage: currentPage + "&perPage=" + _this10.perPage,
-                slug: slug,
-                modelName: modelName
-              });
-            case 1:
-              return _context5.a(2);
-          }
-        }, _callee5);
-      }))();
-    },
-    // search data
-    searchData: function searchData() {
-      var _this11 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
-        var slug, modelName;
-        return _regenerator().w(function (_context6) {
-          while (1) switch (_context6.n) {
-            case 0:
-              _this11.$store.state.operations.loading = true;
-              slug = _this11.$route.params.slug;
-              modelName = "InvoiceReturn";
-              _context6.n = 1;
-              return _this11.$store.dispatch("operations/fetchSpecificLogs", {
-                path: "/api/activity-log-specific?page=",
-                currentPage: _this11.pagination.current_page + "&perPage=" + _this11.perPage,
-                term: _this11.query,
-                slug: slug,
-                modelName: modelName
-              });
-            case 1:
-              return _context6.a(2);
-          }
-        }, _callee6);
-      }))();
-    },
-    // pagination
-    paginate: function paginate() {
-      var _this12 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
-        return _regenerator().w(function (_context7) {
-          while (1) switch (_context7.n) {
-            case 0:
-              _this12.getActivity();
-            case 1:
-              return _context7.a(2);
-          }
-        }, _callee7);
-      }))();
-    },
-    updatePerPager: function updatePerPager() {
-      this.pagination.current_page = 1;
-      this.query === "" ? this.getActivity() : this.searchData();
-    },
-    // reload after search
-    reload: function reload() {
-      var _this13 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
-        return _regenerator().w(function (_context8) {
-          while (1) switch (_context8.n) {
-            case 0:
-              _this13.query = "";
-            case 1:
-              return _context8.a(2);
-          }
-        }, _callee8);
-      }))();
-    },
-    // refresh table
-    refreshTable: function refreshTable() {
-      var _this14 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
-        var refreshedText;
-        return _regenerator().w(function (_context9) {
-          while (1) switch (_context9.n) {
-            case 0:
-              _this14.query = "";
-              if (_this14.pagination) {
-                _this14.pagination.current_page = 1;
-              }
-              _context9.n = 1;
-              return _this14.getActivity();
-            case 1:
-              refreshedText = _this14.$te && _this14.$te('Refreshed') ? _this14.$t('Refreshed') : 'Refreshed';
-              if (typeof (iziToast_default()) !== 'undefined') {
-                iziToast_default().success({
-                  title: refreshedText,
-                  message: '',
-                  position: 'topRight',
-                  timeout: 3000
-                });
-              }
-            case 2:
-              return _context9.a(2);
-          }
-        }, _callee9);
-      }))();
-    },
-    // reset pagination
-    resetPagination: function resetPagination() {
-      var _this15 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
-        return _regenerator().w(function (_context0) {
-          while (1) switch (_context0.n) {
-            case 0:
-              _this15.pagination.current_page = 1;
-            case 1:
-              return _context0.a(2);
-          }
-        }, _callee0);
-      }))();
-    },
-    // get journal entries
-    getJournalEntries: function getJournalEntries() {
-      var _this16 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1() {
-        return _regenerator().w(function (_context1) {
-          while (1) switch (_context1.n) {
-            case 0:
-              _context1.n = 1;
-              return _this16.getInvoiceReturn();
-            case 1:
-              // Debug: Log the journal entries data
-              console.log('Journal Entries:', _this16.allData.journalEntries);
-              console.log('All Data:', _this16.allData);
-            case 2:
-              return _context1.a(2);
-          }
-        }, _callee1);
-      }))();
-    }
-  }
-});
-;// ./resources/js/pages/sales/returns/show.vue?vue&type=script&lang=js
- /* harmony default export */ const returns_showvue_type_script_lang_js = (showvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/returns/show.vue?vue&type=style&index=0&id=70247410&prod&scoped=true&lang=css
-var showvue_type_style_index_0_id_70247410_prod_scoped_true_lang_css = __webpack_require__(3625);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/returns/show.vue?vue&type=style&index=0&id=70247410&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(showvue_type_style_index_0_id_70247410_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const returns_showvue_type_style_index_0_id_70247410_prod_scoped_true_lang_css = (showvue_type_style_index_0_id_70247410_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/sales/returns/show.vue?vue&type=style&index=0&id=70247410&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/sales/returns/show.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  returns_showvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "70247410",
-  null
-  
-)
-
-/* harmony default export */ const show = (component.exports);
-
-/***/ }),
-
-/***/ 69568:
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
-* iziToast | v1.4.0
-* http://izitoast.marcelodolce.com
-* by Marcelo Dolce.
-*/
-(function (root, factory) {
-	if(true) {
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory(root)),
-		__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-		(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	} else // removed by dead control flow
-{}
-})(typeof __webpack_require__.g !== 'undefined' ? __webpack_require__.g : window || this.window || this.global, function (root) {
-
-	'use strict';
-
-	//
-	// Variables
-	//
-	var $iziToast = {},
-		PLUGIN_NAME = 'iziToast',
-		BODY = document.querySelector('body'),
-		ISMOBILE = (/Mobi/.test(navigator.userAgent)) ? true : false,
-		ISCHROME = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor),
-		ISFIREFOX = typeof InstallTrigger !== 'undefined',
-		ACCEPTSTOUCH = 'ontouchstart' in document.documentElement,
-		POSITIONS = ['bottomRight','bottomLeft','bottomCenter','topRight','topLeft','topCenter','center'],
-		THEMES = {
-			info: {
-				color: 'blue',
-				icon: 'ico-info'
-			},
-			success: {
-				color: 'green',
-				icon: 'ico-success'
-			},
-			warning: {
-				color: 'orange',
-				icon: 'ico-warning'
-			},
-			error: {
-				color: 'red',
-				icon: 'ico-error'
-			},
-			question: {
-				color: 'yellow',
-				icon: 'ico-question'
-			}
-		},
-		MOBILEWIDTH = 568,
-		CONFIG = {};
-
-	$iziToast.children = {};
-
-	// Default settings
-	var defaults = {
-		id: null, 
-		class: '',
-		title: '',
-		titleColor: '',
-		titleSize: '',
-		titleLineHeight: '',
-		message: '',
-		messageColor: '',
-		messageSize: '',
-		messageLineHeight: '',
-		backgroundColor: '',
-		theme: 'light', // dark
-		color: '', // blue, red, green, yellow
-		icon: '',
-		iconText: '',
-		iconColor: '',
-		iconUrl: null,
-		image: '',
-		imageWidth: 50,
-		maxWidth: null,
-		zindex: null,
-		layout: 1,
-		balloon: false,
-		close: true,
-		closeOnEscape: false,
-		closeOnClick: false,
-		displayMode: 0,
-		position: 'bottomRight', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
-		target: '',
-		targetFirst: true,
-		timeout: 5000,
-		rtl: false,
-		animateInside: true,
-		drag: true,
-		pauseOnHover: true,
-		resetOnHover: false,
-		progressBar: true,
-		progressBarColor: '',
-		progressBarEasing: 'linear',
-		overlay: false,
-		overlayClose: false,
-		overlayColor: 'rgba(0, 0, 0, 0.6)',
-		transitionIn: 'fadeInUp', // bounceInLeft, bounceInRight, bounceInUp, bounceInDown, fadeIn, fadeInDown, fadeInUp, fadeInLeft, fadeInRight, flipInX
-		transitionOut: 'fadeOut', // fadeOut, fadeOutUp, fadeOutDown, fadeOutLeft, fadeOutRight, flipOutX
-		transitionInMobile: 'fadeInUp',
-		transitionOutMobile: 'fadeOutDown',
-		buttons: {},
-		inputs: {},
-		onOpening: function () {},
-		onOpened: function () {},
-		onClosing: function () {},
-		onClosed: function () {}
-	};
-
-	//
-	// Methods
-	//
-
-
-	/**
-	 * Polyfill for remove() method
-	 */
-	if(!('remove' in Element.prototype)) {
-	    Element.prototype.remove = function() {
-	        if(this.parentNode) {
-	            this.parentNode.removeChild(this);
-	        }
-	    };
-	}
-
-	/*
-     * Polyfill for CustomEvent for IE >= 9
-     * https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill
-     */
-    if(typeof window.CustomEvent !== 'function') {
-        var CustomEventPolyfill = function (event, params) {
-            params = params || { bubbles: false, cancelable: false, detail: undefined };
-            var evt = document.createEvent('CustomEvent');
-            evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-            return evt;
-        };
-
-        CustomEventPolyfill.prototype = window.Event.prototype;
-
-        window.CustomEvent = CustomEventPolyfill;
-    }
-
-	/**
-	 * A simple forEach() implementation for Arrays, Objects and NodeLists
-	 * @private
-	 * @param {Array|Object|NodeList} collection Collection of items to iterate
-	 * @param {Function} callback Callback function for each iteration
-	 * @param {Array|Object|NodeList} scope Object/NodeList/Array that forEach is iterating over (aka `this`)
-	 */
-	var forEach = function (collection, callback, scope) {
-		if(Object.prototype.toString.call(collection) === '[object Object]') {
-			for (var prop in collection) {
-				if(Object.prototype.hasOwnProperty.call(collection, prop)) {
-					callback.call(scope, collection[prop], prop, collection);
-				}
-			}
-		} else {
-			if(collection){
-				for (var i = 0, len = collection.length; i < len; i++) {
-					callback.call(scope, collection[i], i, collection);
-				}
-			}
-		}
-	};
-
-	/**
-	 * Merge defaults with user options
-	 * @private
-	 * @param {Object} defaults Default settings
-	 * @param {Object} options User options
-	 * @returns {Object} Merged values of defaults and options
-	 */
-	var extend = function (defaults, options) {
-		var extended = {};
-		forEach(defaults, function (value, prop) {
-			extended[prop] = defaults[prop];
-		});
-		forEach(options, function (value, prop) {
-			extended[prop] = options[prop];
-		});
-		return extended;
-	};
-
-
-	/**
-	 * Create a fragment DOM elements
-	 * @private
-	 */
-	var createFragElem = function(htmlStr) {
-		var frag = document.createDocumentFragment(),
-			temp = document.createElement('div');
-		temp.innerHTML = htmlStr;
-		while (temp.firstChild) {
-			frag.appendChild(temp.firstChild);
-		}
-		return frag;
-	};
-
-
-	/**
-	 * Generate new ID
-	 * @private
-	 */
-	var generateId = function(params) {
-		var newId = btoa(encodeURIComponent(params));
-		return newId.replace(/=/g, "");
-	};
-
-
-	/**
-	 * Check if is a color
-	 * @private
-	 */
-	var isColor = function(color){
-		if( color.substring(0,1) == '#' || color.substring(0,3) == 'rgb' || color.substring(0,3) == 'hsl' ){
-			return true;
-		} else {
-			return false;
-		}
-	};
-
-
-	/**
-	 * Check if is a Base64 string
-	 * @private
-	 */
-	var isBase64 = function(str) {
-	    try {
-	        return btoa(atob(str)) == str;
-	    } catch (err) {
-	        return false;
-	    }
-	};
-
-
-	/**
-	 * Drag method of toasts
-	 * @private
-	 */
-	var drag = function() {
-	    
-	    return {
-	        move: function(toast, instance, settings, xpos) {
-
-	        	var opacity,
-	        		opacityRange = 0.3,
-	        		distance = 180;
-	            
-	            if(xpos !== 0){
-	            	
-	            	toast.classList.add(PLUGIN_NAME+'-dragged');
-
-	            	toast.style.transform = 'translateX('+xpos + 'px)';
-
-		            if(xpos > 0){
-		            	opacity = (distance-xpos) / distance;
-		            	if(opacity < opacityRange){
-							instance.hide(extend(settings, { transitionOut: 'fadeOutRight', transitionOutMobile: 'fadeOutRight' }), toast, 'drag');
-						}
-		            } else {
-		            	opacity = (distance+xpos) / distance;
-		            	if(opacity < opacityRange){
-							instance.hide(extend(settings, { transitionOut: 'fadeOutLeft', transitionOutMobile: 'fadeOutLeft' }), toast, 'drag');
-						}
-		            }
-					toast.style.opacity = opacity;
-			
-					if(opacity < opacityRange){
-
-						if(ISCHROME || ISFIREFOX)
-							toast.style.left = xpos+'px';
-
-						toast.parentNode.style.opacity = opacityRange;
-
-		                this.stopMoving(toast, null);
-					}
-	            }
-
-				
-	        },
-	        startMoving: function(toast, instance, settings, e) {
-
-	            e = e || window.event;
-	            var posX = ((ACCEPTSTOUCH) ? e.touches[0].clientX : e.clientX),
-	                toastLeft = toast.style.transform.replace('px)', '');
-	                toastLeft = toastLeft.replace('translateX(', '');
-	            var offsetX = posX - toastLeft;
-
-				if(settings.transitionIn){
-					toast.classList.remove(settings.transitionIn);
-				}
-				if(settings.transitionInMobile){
-					toast.classList.remove(settings.transitionInMobile);
-				}
-				toast.style.transition = '';
-
-	            if(ACCEPTSTOUCH) {
-	                document.ontouchmove = function(e) {
-	                    e.preventDefault();
-	                    e = e || window.event;
-	                    var posX = e.touches[0].clientX,
-	                        finalX = posX - offsetX;
-                        drag.move(toast, instance, settings, finalX);
-	                };
-	            } else {
-	                document.onmousemove = function(e) {
-	                    e.preventDefault();
-	                    e = e || window.event;
-	                    var posX = e.clientX,
-	                        finalX = posX - offsetX;
-                        drag.move(toast, instance, settings, finalX);
-	                };
-	            }
-
-	        },
-	        stopMoving: function(toast, e) {
-
-	            if(ACCEPTSTOUCH) {
-	                document.ontouchmove = function() {};
-	            } else {
-	            	document.onmousemove = function() {};
-	            }
-
-				toast.style.opacity = '';
-				toast.style.transform = '';
-
-	            if(toast.classList.contains(PLUGIN_NAME+'-dragged')){
-	            	
-	            	toast.classList.remove(PLUGIN_NAME+'-dragged');
-
-					toast.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
-					setTimeout(function() {
-						toast.style.transition = '';
-					}, 400);
-	            }
-
-	        }
-	    };
-
-	}();
-
-
-
-
-
-	$iziToast.setSetting = function (ref, option, value) {
-
-		$iziToast.children[ref][option] = value;
-
-	};
-
-
-	$iziToast.getSetting = function (ref, option) {
-
-		return $iziToast.children[ref][option];
-
-	};
-
-
-	/**
-	 * Destroy the current initialization.
-	 * @public
-	 */
-	$iziToast.destroy = function () {
-
-		forEach(document.querySelectorAll('.'+PLUGIN_NAME+'-overlay'), function(element, index) {
-			element.remove();
-		});
-
-		forEach(document.querySelectorAll('.'+PLUGIN_NAME+'-wrapper'), function(element, index) {
-			element.remove();
-		});
-
-		forEach(document.querySelectorAll('.'+PLUGIN_NAME), function(element, index) {
-			element.remove();
-		});
-
-		this.children = {};
-
-		// Remove event listeners
-		document.removeEventListener(PLUGIN_NAME+'-opened', {}, false);
-		document.removeEventListener(PLUGIN_NAME+'-opening', {}, false);
-		document.removeEventListener(PLUGIN_NAME+'-closing', {}, false);
-		document.removeEventListener(PLUGIN_NAME+'-closed', {}, false);
-		document.removeEventListener('keyup', {}, false);
-
-		// Reset variables
-		CONFIG = {};
-	};
-
-	/**
-	 * Initialize Plugin
-	 * @public
-	 * @param {Object} options User settings
-	 */
-	$iziToast.settings = function (options) {
-
-		// Destroy any existing initializations
-		$iziToast.destroy();
-
-		CONFIG = options;
-		defaults = extend(defaults, options || {});
-	};
-
-
-	/**
-	 * Building themes functions.
-	 * @public
-	 * @param {Object} options User settings
-	 */
-	forEach(THEMES, function (theme, name) {
-
-		$iziToast[name] = function (options) {
-
-			var settings = extend(CONFIG, options || {});
-			settings = extend(theme, settings || {});
-
-			this.show(settings);
-		};
-
-	});
-
-
-	/**
-	 * Do the calculation to move the progress bar
-	 * @private
-	 */
-	$iziToast.progress = function (options, $toast, callback) {
-
-
-		var that = this,
-			ref = $toast.getAttribute('data-iziToast-ref'),
-			settings = extend(this.children[ref], options || {}),
-			$elem = $toast.querySelector('.'+PLUGIN_NAME+'-progressbar div');
-
-	    return {
-	        start: function() {
-
-	        	if(typeof settings.time.REMAINING == 'undefined'){
-
-	        		$toast.classList.remove(PLUGIN_NAME+'-reseted');
-
-		        	if($elem !== null){
-						$elem.style.transition = 'width '+ settings.timeout +'ms '+settings.progressBarEasing;
-						$elem.style.width = '0%';
-					}
-
-		        	settings.time.START = new Date().getTime();
-		        	settings.time.END = settings.time.START + settings.timeout;
-					settings.time.TIMER = setTimeout(function() {
-
-						clearTimeout(settings.time.TIMER);
-
-						if(!$toast.classList.contains(PLUGIN_NAME+'-closing')){
-
-							that.hide(settings, $toast, 'timeout');
-
-							if(typeof callback === 'function'){
-								callback.apply(that);
-							}
-						}
-
-					}, settings.timeout);			
-		        	that.setSetting(ref, 'time', settings.time);
-	        	}
-	        },
-	        pause: function() {
-
-	        	if(typeof settings.time.START !== 'undefined' && !$toast.classList.contains(PLUGIN_NAME+'-paused') && !$toast.classList.contains(PLUGIN_NAME+'-reseted')){
-
-        			$toast.classList.add(PLUGIN_NAME+'-paused');
-
-					settings.time.REMAINING = settings.time.END - new Date().getTime();
-
-					clearTimeout(settings.time.TIMER);
-
-					that.setSetting(ref, 'time', settings.time);
-
-					if($elem !== null){
-						var computedStyle = window.getComputedStyle($elem),
-							propertyWidth = computedStyle.getPropertyValue('width');
-
-						$elem.style.transition = 'none';
-						$elem.style.width = propertyWidth;					
-					}
-
-					if(typeof callback === 'function'){
-						setTimeout(function() {
-							callback.apply(that);						
-						}, 10);
-					}
-        		}
-	        },
-	        resume: function() {
-
-				if(typeof settings.time.REMAINING !== 'undefined'){
-
-					$toast.classList.remove(PLUGIN_NAME+'-paused');
-
-		        	if($elem !== null){
-						$elem.style.transition = 'width '+ settings.time.REMAINING +'ms '+settings.progressBarEasing;
-						$elem.style.width = '0%';
-					}
-
-		        	settings.time.END = new Date().getTime() + settings.time.REMAINING;
-					settings.time.TIMER = setTimeout(function() {
-
-						clearTimeout(settings.time.TIMER);
-
-						if(!$toast.classList.contains(PLUGIN_NAME+'-closing')){
-
-							that.hide(settings, $toast, 'timeout');
-
-							if(typeof callback === 'function'){
-								callback.apply(that);
-							}
-						}
-
-
-					}, settings.time.REMAINING);
-
-					that.setSetting(ref, 'time', settings.time);
-				} else {
-					this.start();
-				}
-	        },
-	        reset: function(){
-
-				clearTimeout(settings.time.TIMER);
-
-				delete settings.time.REMAINING;
-
-				that.setSetting(ref, 'time', settings.time);
-
-				$toast.classList.add(PLUGIN_NAME+'-reseted');
-
-				$toast.classList.remove(PLUGIN_NAME+'-paused');
-
-				if($elem !== null){
-					$elem.style.transition = 'none';
-					$elem.style.width = '100%';
-				}
-
-				if(typeof callback === 'function'){
-					setTimeout(function() {
-						callback.apply(that);						
-					}, 10);
-				}
-	        }
-	    };
-
-	};
-
-
-	/**
-	 * Close the specific Toast
-	 * @public
-	 * @param {Object} options User settings
-	 */
-	$iziToast.hide = function (options, $toast, closedBy) {
-
-		if(typeof $toast != 'object'){
-			$toast = document.querySelector($toast);
-		}		
-
-		var that = this,
-			settings = extend(this.children[$toast.getAttribute('data-iziToast-ref')], options || {});
-			settings.closedBy = closedBy || null;
-
-		delete settings.time.REMAINING;
-
-		$toast.classList.add(PLUGIN_NAME+'-closing');
-
-		// Overlay
-		(function(){
-
-			var $overlay = document.querySelector('.'+PLUGIN_NAME+'-overlay');
-			if($overlay !== null){
-				var refs = $overlay.getAttribute('data-iziToast-ref');		
-					refs = refs.split(',');
-				var index = refs.indexOf(String(settings.ref));
-
-				if(index !== -1){
-					refs.splice(index, 1);			
-				}
-				$overlay.setAttribute('data-iziToast-ref', refs.join());
-
-				if(refs.length === 0){
-					$overlay.classList.remove('fadeIn');
-					$overlay.classList.add('fadeOut');
-					setTimeout(function() {
-						$overlay.remove();
-					}, 700);
-				}
-			}
-
-		})();
-
-		if(settings.transitionIn){
-			$toast.classList.remove(settings.transitionIn);
-		} 
-
-		if(settings.transitionInMobile){
-			$toast.classList.remove(settings.transitionInMobile);
-		}
-
-		if(ISMOBILE || window.innerWidth <= MOBILEWIDTH){
-			if(settings.transitionOutMobile)
-				$toast.classList.add(settings.transitionOutMobile);
-		} else {
-			if(settings.transitionOut)
-				$toast.classList.add(settings.transitionOut);
-		}
-		var H = $toast.parentNode.offsetHeight;
-				$toast.parentNode.style.height = H+'px';
-				$toast.style.pointerEvents = 'none';
-		
-		if(!ISMOBILE || window.innerWidth > MOBILEWIDTH){
-			$toast.parentNode.style.transitionDelay = '0.2s';
-		}
-
-		try {
-			var event = new CustomEvent(PLUGIN_NAME+'-closing', {detail: settings, bubbles: true, cancelable: true});
-			document.dispatchEvent(event);
-		} catch(ex){
-			console.warn(ex);
-		}
-
-		setTimeout(function() {
-			
-			$toast.parentNode.style.height = '0px';
-			$toast.parentNode.style.overflow = '';
-
-			setTimeout(function(){
-				
-				delete that.children[settings.ref];
-
-				$toast.parentNode.remove();
-
-				try {
-					var event = new CustomEvent(PLUGIN_NAME+'-closed', {detail: settings, bubbles: true, cancelable: true});
-					document.dispatchEvent(event);
-				} catch(ex){
-					console.warn(ex);
-				}
-
-				if(typeof settings.onClosed !== 'undefined'){
-					settings.onClosed.apply(null, [settings, $toast, closedBy]);
-				}
-
-			}, 1000);
-		}, 200);
-
-
-		if(typeof settings.onClosing !== 'undefined'){
-			settings.onClosing.apply(null, [settings, $toast, closedBy]);
-		}
-	};
-
-	/**
-	 * Create and show the Toast
-	 * @public
-	 * @param {Object} options User settings
-	 */
-	$iziToast.show = function (options) {
-
-		var that = this;
-
-		// Merge user options with defaults
-		var settings = extend(CONFIG, options || {});
-			settings = extend(defaults, settings);
-			settings.time = {};
-
-		if(settings.id === null){
-			settings.id = generateId(settings.title+settings.message+settings.color);
-		}
-
-		if(settings.displayMode === 1 || settings.displayMode == 'once'){
-			try {
-				if(document.querySelectorAll('.'+PLUGIN_NAME+'#'+settings.id).length > 0){
-					return false;
-				}
-			} catch (exc) {
-				console.warn('['+PLUGIN_NAME+'] Could not find an element with this selector: '+'#'+settings.id+'. Try to set an valid id.');
-			}
-		}
-
-		if(settings.displayMode === 2 || settings.displayMode == 'replace'){
-			try {
-				forEach(document.querySelectorAll('.'+PLUGIN_NAME+'#'+settings.id), function(element, index) {
-					that.hide(settings, element, 'replaced');
-				});
-			} catch (exc) {
-				console.warn('['+PLUGIN_NAME+'] Could not find an element with this selector: '+'#'+settings.id+'. Try to set an valid id.');
-			}
-		}
-
-		settings.ref = new Date().getTime() + Math.floor((Math.random() * 10000000) + 1);
-
-		$iziToast.children[settings.ref] = settings;
-
-		var $DOM = {
-			body: document.querySelector('body'),
-			overlay: document.createElement('div'),
-			toast: document.createElement('div'),
-			toastBody: document.createElement('div'),
-			toastTexts: document.createElement('div'),
-			toastCapsule: document.createElement('div'),
-			cover: document.createElement('div'),
-			buttons: document.createElement('div'),
-			inputs: document.createElement('div'),
-			icon: !settings.iconUrl ? document.createElement('i') : document.createElement('img'),
-			wrapper: null
-		};
-
-		$DOM.toast.setAttribute('data-iziToast-ref', settings.ref);
-		$DOM.toast.appendChild($DOM.toastBody);
-		$DOM.toastCapsule.appendChild($DOM.toast);
-
-		// CSS Settings
-		(function(){
-
-			$DOM.toast.classList.add(PLUGIN_NAME);
-			$DOM.toast.classList.add(PLUGIN_NAME+'-opening');
-			$DOM.toastCapsule.classList.add(PLUGIN_NAME+'-capsule');
-			$DOM.toastBody.classList.add(PLUGIN_NAME + '-body');
-			$DOM.toastTexts.classList.add(PLUGIN_NAME + '-texts');
-
-			if(ISMOBILE || window.innerWidth <= MOBILEWIDTH){
-				if(settings.transitionInMobile)
-					$DOM.toast.classList.add(settings.transitionInMobile);
-			} else {
-				if(settings.transitionIn)
-					$DOM.toast.classList.add(settings.transitionIn);
-			}
-
-			if(settings.class){
-				var classes = settings.class.split(' ');
-				forEach(classes, function (value, index) {
-					$DOM.toast.classList.add(value);
-				});
-			}
-
-			if(settings.id){ $DOM.toast.id = settings.id; }
-
-			if(settings.rtl){
-				$DOM.toast.classList.add(PLUGIN_NAME + '-rtl');
-				$DOM.toast.setAttribute('dir', 'rtl');
-			}
-
-			if(settings.layout > 1){ $DOM.toast.classList.add(PLUGIN_NAME+'-layout'+settings.layout); }
-
-			if(settings.balloon){ $DOM.toast.classList.add(PLUGIN_NAME+'-balloon'); }
-
-			if(settings.maxWidth){
-				if( !isNaN(settings.maxWidth) ){
-					$DOM.toast.style.maxWidth = settings.maxWidth+'px';
-				} else {
-					$DOM.toast.style.maxWidth = settings.maxWidth;
-				}
-			}
-
-			if(settings.theme !== '' || settings.theme !== 'light') {
-
-				$DOM.toast.classList.add(PLUGIN_NAME+'-theme-'+settings.theme);
-			}
-
-			if(settings.color) { //#, rgb, rgba, hsl
-				
-				if( isColor(settings.color) ){
-					$DOM.toast.style.background = settings.color;
-				} else {
-					$DOM.toast.classList.add(PLUGIN_NAME+'-color-'+settings.color);
-				}
-			}
-
-			if(settings.backgroundColor) {
-				$DOM.toast.style.background = settings.backgroundColor;
-				if(settings.balloon){
-					$DOM.toast.style.borderColor = settings.backgroundColor;				
-				}
-			}
-		})();
-
-		// Cover image
-		(function(){
-			if(settings.image) {
-				$DOM.cover.classList.add(PLUGIN_NAME + '-cover');
-				$DOM.cover.style.width = settings.imageWidth + 'px';
-
-				if(isBase64(settings.image.replace(/ /g,''))){
-					$DOM.cover.style.backgroundImage = 'url(data:image/png;base64,' + settings.image.replace(/ /g,'') + ')';
-				} else {
-					$DOM.cover.style.backgroundImage = 'url(' + settings.image + ')';
-				}
-
-				if(settings.rtl){
-					$DOM.toastBody.style.marginRight = (settings.imageWidth + 10) + 'px';
-				} else {
-					$DOM.toastBody.style.marginLeft = (settings.imageWidth + 10) + 'px';				
-				}
-				$DOM.toast.appendChild($DOM.cover);
-			}
-		})();
-
-		// Button close
-		(function(){
-			if(settings.close){
-				
-				$DOM.buttonClose = document.createElement('button');
-				$DOM.buttonClose.type = 'button';
-				$DOM.buttonClose.classList.add(PLUGIN_NAME + '-close');
-				$DOM.buttonClose.addEventListener('click', function (e) {
-					var button = e.target;
-					that.hide(settings, $DOM.toast, 'button');
-				});
-				$DOM.toast.appendChild($DOM.buttonClose);
-			} else {
-				if(settings.rtl){
-					$DOM.toast.style.paddingLeft = '18px';
-				} else {
-					$DOM.toast.style.paddingRight = '18px';
-				}
-			}
-		})();
-
-		// Progress Bar & Timeout
-		(function(){
-
-			if(settings.progressBar){
-				$DOM.progressBar = document.createElement('div');
-				$DOM.progressBarDiv = document.createElement('div');
-				$DOM.progressBar.classList.add(PLUGIN_NAME + '-progressbar');
-				$DOM.progressBarDiv.style.background = settings.progressBarColor;
-				$DOM.progressBar.appendChild($DOM.progressBarDiv);
-				$DOM.toast.appendChild($DOM.progressBar);
-			}
-
-			if(settings.timeout) {
-
-				if(settings.pauseOnHover && !settings.resetOnHover){
-					
-					$DOM.toast.addEventListener('mouseenter', function (e) {
-						that.progress(settings, $DOM.toast).pause();
-					});
-					$DOM.toast.addEventListener('mouseleave', function (e) {
-						that.progress(settings, $DOM.toast).resume();
-					});
-				}
-
-				if(settings.resetOnHover){
-
-					$DOM.toast.addEventListener('mouseenter', function (e) {
-						that.progress(settings, $DOM.toast).reset();
-					});
-					$DOM.toast.addEventListener('mouseleave', function (e) {
-						that.progress(settings, $DOM.toast).start();
-					});
-				}
-			}
-		})();
-
-		// Icon
-		(function(){
-
-			if(settings.iconUrl) {
-
-				$DOM.icon.setAttribute('class', PLUGIN_NAME + '-icon');
-				$DOM.icon.setAttribute('src', settings.iconUrl);
-
-			} else if(settings.icon) {
-				$DOM.icon.setAttribute('class', PLUGIN_NAME + '-icon ' + settings.icon);
-				
-				if(settings.iconText){
-					$DOM.icon.appendChild(document.createTextNode(settings.iconText));
-				}
-				
-				if(settings.iconColor){
-					$DOM.icon.style.color = settings.iconColor;
-				}				
-			}
-
-			if(settings.icon || settings.iconUrl) {
-
-				if(settings.rtl){
-					$DOM.toastBody.style.paddingRight = '33px';
-				} else {
-					$DOM.toastBody.style.paddingLeft = '33px';				
-				}
-
-				$DOM.toastBody.appendChild($DOM.icon);
-			}
-
-		})();
-
-		// Title & Message
-		(function(){
-			if(settings.title.length > 0) {
-
-				$DOM.strong = document.createElement('strong');
-				$DOM.strong.classList.add(PLUGIN_NAME + '-title');
-				$DOM.strong.appendChild(createFragElem(settings.title));
-				$DOM.toastTexts.appendChild($DOM.strong);
-
-				if(settings.titleColor) {
-					$DOM.strong.style.color = settings.titleColor;
-				}
-				if(settings.titleSize) {
-					if( !isNaN(settings.titleSize) ){
-						$DOM.strong.style.fontSize = settings.titleSize+'px';
-					} else {
-						$DOM.strong.style.fontSize = settings.titleSize;
-					}
-				}
-				if(settings.titleLineHeight) {
-					if( !isNaN(settings.titleSize) ){
-						$DOM.strong.style.lineHeight = settings.titleLineHeight+'px';
-					} else {
-						$DOM.strong.style.lineHeight = settings.titleLineHeight;
-					}
-				}
-			}
-
-			if(settings.message.length > 0) {
-
-				$DOM.p = document.createElement('p');
-				$DOM.p.classList.add(PLUGIN_NAME + '-message');
-				$DOM.p.appendChild(createFragElem(settings.message));
-				$DOM.toastTexts.appendChild($DOM.p);
-
-				if(settings.messageColor) {
-					$DOM.p.style.color = settings.messageColor;
-				}
-				if(settings.messageSize) {
-					if( !isNaN(settings.titleSize) ){
-						$DOM.p.style.fontSize = settings.messageSize+'px';
-					} else {
-						$DOM.p.style.fontSize = settings.messageSize;
-					}
-				}
-				if(settings.messageLineHeight) {
-					
-					if( !isNaN(settings.titleSize) ){
-						$DOM.p.style.lineHeight = settings.messageLineHeight+'px';
-					} else {
-						$DOM.p.style.lineHeight = settings.messageLineHeight;
-					}
-				}
-			}
-
-			if(settings.title.length > 0 && settings.message.length > 0) {
-				if(settings.rtl){
-					$DOM.strong.style.marginLeft = '10px';
-				} else if(settings.layout !== 2 && !settings.rtl) {
-					$DOM.strong.style.marginRight = '10px';	
-				}
-			}
-		})();
-
-		$DOM.toastBody.appendChild($DOM.toastTexts);
-
-		// Inputs
-		var $inputs;
-		(function(){
-			if(settings.inputs.length > 0) {
-
-				$DOM.inputs.classList.add(PLUGIN_NAME + '-inputs');
-
-				forEach(settings.inputs, function (value, index) {
-					$DOM.inputs.appendChild(createFragElem(value[0]));
-
-					$inputs = $DOM.inputs.childNodes;
-
-					$inputs[index].classList.add(PLUGIN_NAME + '-inputs-child');
-
-					if(value[3]){
-						setTimeout(function() {
-							$inputs[index].focus();
-						}, 300);
-					}
-
-					$inputs[index].addEventListener(value[1], function (e) {
-						var ts = value[2];
-						return ts(that, $DOM.toast, this, e);
-					});
-				});
-				$DOM.toastBody.appendChild($DOM.inputs);
-			}
-		})();
-
-		// Buttons
-		(function(){
-			if(settings.buttons.length > 0) {
-
-				$DOM.buttons.classList.add(PLUGIN_NAME + '-buttons');
-
-				forEach(settings.buttons, function (value, index) {
-					$DOM.buttons.appendChild(createFragElem(value[0]));
-
-					var $btns = $DOM.buttons.childNodes;
-
-					$btns[index].classList.add(PLUGIN_NAME + '-buttons-child');
-
-					if(value[2]){
-						setTimeout(function() {
-							$btns[index].focus();
-						}, 300);
-					}
-
-					$btns[index].addEventListener('click', function (e) {
-						e.preventDefault();
-						var ts = value[1];
-						return ts(that, $DOM.toast, this, e, $inputs);
-					});
-				});
-			}
-			$DOM.toastBody.appendChild($DOM.buttons);
-		})();
-
-		if(settings.message.length > 0 && (settings.inputs.length > 0 || settings.buttons.length > 0)) {
-			$DOM.p.style.marginBottom = '0';
-		}
-
-		if(settings.inputs.length > 0 || settings.buttons.length > 0){
-			if(settings.rtl){
-				$DOM.toastTexts.style.marginLeft = '10px';
-			} else {
-				$DOM.toastTexts.style.marginRight = '10px';
-			}
-			if(settings.inputs.length > 0 && settings.buttons.length > 0){
-				if(settings.rtl){
-					$DOM.inputs.style.marginLeft = '8px';
-				} else {
-					$DOM.inputs.style.marginRight = '8px';
-				}
-			}
-		}
-
-		// Wrap
-		(function(){
-			$DOM.toastCapsule.style.visibility = 'hidden';
-			setTimeout(function() {
-				var H = $DOM.toast.offsetHeight;
-				var style = $DOM.toast.currentStyle || window.getComputedStyle($DOM.toast);
-				var marginTop = style.marginTop;
-					marginTop = marginTop.split('px');
-					marginTop = parseInt(marginTop[0]);
-				var marginBottom = style.marginBottom;
-					marginBottom = marginBottom.split('px');
-					marginBottom = parseInt(marginBottom[0]);
-
-				$DOM.toastCapsule.style.visibility = '';
-				$DOM.toastCapsule.style.height = (H+marginBottom+marginTop)+'px';
-
-				setTimeout(function() {
-					$DOM.toastCapsule.style.height = 'auto';
-					if(settings.target){
-						$DOM.toastCapsule.style.overflow = 'visible';
-					}
-				}, 500);
-
-				if(settings.timeout) {
-					that.progress(settings, $DOM.toast).start();
-				}
-			}, 100);
-		})();
-
-		// Target
-		(function(){
-			var position = settings.position;
-
-			if(settings.target){
-
-				$DOM.wrapper = document.querySelector(settings.target);
-				$DOM.wrapper.classList.add(PLUGIN_NAME + '-target');
-
-				if(settings.targetFirst) {
-					$DOM.wrapper.insertBefore($DOM.toastCapsule, $DOM.wrapper.firstChild);
-				} else {
-					$DOM.wrapper.appendChild($DOM.toastCapsule);
-				}
-
-			} else {
-
-				if( POSITIONS.indexOf(settings.position) == -1 ){
-					console.warn('['+PLUGIN_NAME+'] Incorrect position.\nIt can be › ' + POSITIONS);
-					return;
-				}
-
-				if(ISMOBILE || window.innerWidth <= MOBILEWIDTH){
-					if(settings.position == 'bottomLeft' || settings.position == 'bottomRight' || settings.position == 'bottomCenter'){
-						position = PLUGIN_NAME+'-wrapper-bottomCenter';
-					}
-					else if(settings.position == 'topLeft' || settings.position == 'topRight' || settings.position == 'topCenter'){
-						position = PLUGIN_NAME+'-wrapper-topCenter';
-					}
-					else {
-						position = PLUGIN_NAME+'-wrapper-center';
-					}
-				} else {
-					position = PLUGIN_NAME+'-wrapper-'+position;
-				}
-				$DOM.wrapper = document.querySelector('.' + PLUGIN_NAME + '-wrapper.'+position);
-
-				if(!$DOM.wrapper) {
-					$DOM.wrapper = document.createElement('div');
-					$DOM.wrapper.classList.add(PLUGIN_NAME + '-wrapper');
-					$DOM.wrapper.classList.add(position);
-					document.body.appendChild($DOM.wrapper);
-				}
-				if(settings.position == 'topLeft' || settings.position == 'topCenter' || settings.position == 'topRight'){
-					$DOM.wrapper.insertBefore($DOM.toastCapsule, $DOM.wrapper.firstChild);
-				} else {
-					$DOM.wrapper.appendChild($DOM.toastCapsule);
-				}
-			}
-
-			if(!isNaN(settings.zindex)) {
-				$DOM.wrapper.style.zIndex = settings.zindex;
-			} else {
-				console.warn('['+PLUGIN_NAME+'] Invalid zIndex.');
-			}
-		})();
-
-		// Overlay
-		(function(){
-
-			if(settings.overlay) {
-
-				if( document.querySelector('.'+PLUGIN_NAME+'-overlay.fadeIn') !== null ){
-
-					$DOM.overlay = document.querySelector('.'+PLUGIN_NAME+'-overlay');
-					$DOM.overlay.setAttribute('data-iziToast-ref', $DOM.overlay.getAttribute('data-iziToast-ref') + ',' + settings.ref);
-
-					if(!isNaN(settings.zindex) && settings.zindex !== null) {
-						$DOM.overlay.style.zIndex = settings.zindex-1;
-					}
-
-				} else {
-
-					$DOM.overlay.classList.add(PLUGIN_NAME+'-overlay');
-					$DOM.overlay.classList.add('fadeIn');
-					$DOM.overlay.style.background = settings.overlayColor;
-					$DOM.overlay.setAttribute('data-iziToast-ref', settings.ref);
-					if(!isNaN(settings.zindex) && settings.zindex !== null) {
-						$DOM.overlay.style.zIndex = settings.zindex-1;
-					}
-					document.querySelector('body').appendChild($DOM.overlay);
-				}
-
-				if(settings.overlayClose) {
-
-					$DOM.overlay.removeEventListener('click', {});
-					$DOM.overlay.addEventListener('click', function (e) {
-						that.hide(settings, $DOM.toast, 'overlay');
-					});
-				} else {
-					$DOM.overlay.removeEventListener('click', {});
-				}
-			}			
-		})();
-
-		// Inside animations
-		(function(){
-			if(settings.animateInside){
-				$DOM.toast.classList.add(PLUGIN_NAME+'-animateInside');
-			
-				var animationTimes = [200, 100, 300];
-				if(settings.transitionIn == 'bounceInLeft' || settings.transitionIn == 'bounceInRight'){
-					animationTimes = [400, 200, 400];
-				}
-
-				if(settings.title.length > 0) {
-					setTimeout(function(){
-						$DOM.strong.classList.add('slideIn');
-					}, animationTimes[0]);
-				}
-
-				if(settings.message.length > 0) {
-					setTimeout(function(){
-						$DOM.p.classList.add('slideIn');
-					}, animationTimes[1]);
-				}
-
-				if(settings.icon || settings.iconUrl) {
-					setTimeout(function(){
-						$DOM.icon.classList.add('revealIn');
-					}, animationTimes[2]);
-				}
-
-				var counter = 150;
-				if(settings.buttons.length > 0 && $DOM.buttons) {
-
-					setTimeout(function(){
-
-						forEach($DOM.buttons.childNodes, function(element, index) {
-
-							setTimeout(function(){
-								element.classList.add('revealIn');
-							}, counter);
-							counter = counter + 150;
-						});
-
-					}, settings.inputs.length > 0 ? 150 : 0);
-				}
-
-				if(settings.inputs.length > 0 && $DOM.inputs) {
-					counter = 150;
-					forEach($DOM.inputs.childNodes, function(element, index) {
-
-						setTimeout(function(){
-							element.classList.add('revealIn');
-						}, counter);
-						counter = counter + 150;
-					});
-				}
-			}
-		})();
-
-		settings.onOpening.apply(null, [settings, $DOM.toast]);
-
-		try {
-			var event = new CustomEvent(PLUGIN_NAME + '-opening', {detail: settings, bubbles: true, cancelable: true});
-			document.dispatchEvent(event);
-		} catch(ex){
-			console.warn(ex);
-		}
-
-		setTimeout(function() {
-
-			$DOM.toast.classList.remove(PLUGIN_NAME+'-opening');
-			$DOM.toast.classList.add(PLUGIN_NAME+'-opened');
-
-			try {
-				var event = new CustomEvent(PLUGIN_NAME + '-opened', {detail: settings, bubbles: true, cancelable: true});
-				document.dispatchEvent(event);
-			} catch(ex){
-				console.warn(ex);
-			}
-
-			settings.onOpened.apply(null, [settings, $DOM.toast]);
-		}, 1000);
-
-		if(settings.drag){
-
-			if(ACCEPTSTOUCH) {
-
-			    $DOM.toast.addEventListener('touchstart', function(e) {
-			        drag.startMoving(this, that, settings, e);
-			    }, false);
-
-			    $DOM.toast.addEventListener('touchend', function(e) {
-			        drag.stopMoving(this, e);
-			    }, false);
-			} else {
-
-			    $DOM.toast.addEventListener('mousedown', function(e) {
-			    	e.preventDefault();
-			        drag.startMoving(this, that, settings, e);
-			    }, false);
-
-			    $DOM.toast.addEventListener('mouseup', function(e) {
-			    	e.preventDefault();
-			        drag.stopMoving(this, e);
-			    }, false);
-			}
-		}
-
-		if(settings.closeOnEscape) {
-
-			document.addEventListener('keyup', function (evt) {
-				evt = evt || window.event;
-				if(evt.keyCode == 27) {
-				    that.hide(settings, $DOM.toast, 'esc');
-				}
-			});
-		}
-
-		if(settings.closeOnClick) {
-			$DOM.toast.addEventListener('click', function (evt) {
-				that.hide(settings, $DOM.toast, 'toast');
-			});
-		}
-
-		that.toast = $DOM.toast;		
-	};
-	
-
-	return $iziToast;
-});
-
-/***/ }),
-
-/***/ 94733:
+/***/ 41371:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19693,7 +17123,7 @@ class IOBuffer {
     }
 }
 //# sourceMappingURL=IOBuffer.js.map
-;// ./node_modules/fast-png/node_modules/pako/dist/pako.esm.mjs
+;// ./node_modules/pako/dist/pako.esm.mjs
 
 /*! pako 2.1.0 https://github.com/nodeca/pako @license (MIT AND Zlib) */
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -28041,6 +25471,2576 @@ function(t){var e=function(){return void 0===this.internal.vFS&&(this.internal.v
 function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var n,r,i,a,o,s,u,c=e,l=[[0,3,0,1,0,0,0],[0,3,0,1,2,2,0],[0,3,0,17,2,0,1],[0,3,5,5,4,1,0],[0,3,21,21,4,0,1],[0,3,5,5,4,2,0]],h=[[2,0,1,1,0,1,0],[2,0,1,1,0,2,0],[2,0,2,1,3,2,0],[2,0,2,33,3,1,1]],f={L:0,R:1,EN:2,AN:3,N:4,B:5,S:6},d={0:0,5:1,6:2,7:3,32:4,251:5,254:6,255:7},p=["(",")","(","<",">","<","[","]","[","{","}","{","«","»","«","‹","›","‹","⁅","⁆","⁅","⁽","⁾","⁽","₍","₎","₍","≤","≥","≤","〈","〉","〈","﹙","﹚","﹙","﹛","﹜","﹛","﹝","﹞","﹝","﹤","﹥","﹤"],g=new RegExp(/^([1-4|9]|1[0-9]|2[0-9]|3[0168]|4[04589]|5[012]|7[78]|159|16[0-9]|17[0-2]|21[569]|22[03489]|250)$/),m=!1,v=0;this.__bidiEngine__={};var b=function(t){var e=t.charCodeAt(),n=e>>8,r=d[n];return void 0!==r?c[256*r+(255&e)]:252===n||253===n?"AL":g.test(n)?"L":8===n?"R":"N"},y=function(t){for(var e,n=0;n<t.length;n++){if("L"===(e=b(t.charAt(n))))return!1;if("R"===e)return!0}return!1},w=function(t,e,o,s){var u,c,l,h,f=e[s];switch(f){case"L":case"R":case"LRE":case"RLE":case"LRO":case"RLO":case"PDF":m=!1;break;case"N":case"AN":break;case"EN":m&&(f="AN");break;case"AL":m=!0,f="R";break;case"WS":case"BN":f="N";break;case"CS":s<1||s+1>=e.length||"EN"!==(u=o[s-1])&&"AN"!==u||"EN"!==(c=e[s+1])&&"AN"!==c?f="N":m&&(c="AN"),f=c===u?c:"N";break;case"ES":f="EN"===(u=s>0?o[s-1]:"B")&&s+1<e.length&&"EN"===e[s+1]?"EN":"N";break;case"ET":if(s>0&&"EN"===o[s-1]){f="EN";break}if(m){f="N";break}for(l=s+1,h=e.length;l<h&&"ET"===e[l];)l++;f=l<h&&"EN"===e[l]?"EN":"N";break;case"NSM":if(i&&!a){for(h=e.length,l=s+1;l<h&&"NSM"===e[l];)l++;if(l<h){var d=t[s],p=d>=1425&&d<=2303||64286===d;if(u=e[l],p&&("R"===u||"AL"===u)){f="R";break}}}f=s<1||"B"===(u=e[s-1])?"N":o[s-1];break;case"B":m=!1,n=!0,f=v;break;case"S":r=!0,f="N"}return f},N=function(t,e,n){var r=t.split("");return n&&L(r,n,{hiLevel:v}),r.reverse(),e&&e.reverse(),r.join("")},L=function(t,e,i){var a,o,s,u,c,d=-1,p=t.length,g=0,y=[],N=v?h:l,L=[];for(m=!1,n=!1,r=!1,o=0;o<p;o++)L[o]=b(t[o]);for(s=0;s<p;s++){if(c=g,y[s]=w(t,L,y,s),a=240&(g=N[c][f[y[s]]]),g&=15,e[s]=u=N[g][5],a>0)if(16===a){for(o=d;o<s;o++)e[o]=1;d=-1}else d=-1;if(N[g][6])-1===d&&(d=s);else if(d>-1){for(o=d;o<s;o++)e[o]=u;d=-1}"B"===L[s]&&(e[s]=0),i.hiLevel|=u}r&&function(t,e,n){for(var r=0;r<n;r++)if("S"===t[r]){e[r]=v;for(var i=r-1;i>=0&&"WS"===t[i];i--)e[i]=v}}(L,e,p)},x=function(t,e,r,i,a){if(!(a.hiLevel<t)){if(1===t&&1===v&&!n)return e.reverse(),void(r&&r.reverse());for(var o,s,u,c,l=e.length,h=0;h<l;){if(i[h]>=t){for(u=h+1;u<l&&i[u]>=t;)u++;for(c=h,s=u-1;c<s;c++,s--)o=e[c],e[c]=e[s],e[s]=o,r&&(o=r[c],r[c]=r[s],r[s]=o);h=u}h++}}},A=function(t,e,n){var r=t.split(""),i={hiLevel:v};return n||(n=[]),L(r,n,i),function(t,e,n){if(0!==n.hiLevel&&u)for(var r,i=0;i<t.length;i++)1===e[i]&&(r=p.indexOf(t[i]))>=0&&(t[i]=p[r+1])}(r,n,i),x(2,r,e,n,i),x(1,r,e,n,i),r.join("")};return this.__bidiEngine__.doBidiReorder=function(t,e,n){if(function(t,e){if(e)for(var n=0;n<t.length;n++)e[n]=n;void 0===a&&(a=y(t)),void 0===s&&(s=y(t))}(t,e),i||!o||s)if(i&&o&&a^s)v=a?1:0,t=N(t,e,n);else if(!i&&o&&s)v=a?1:0,t=A(t,e,n),t=N(t,e);else if(!i||a||o||s){if(i&&!o&&a^s)t=N(t,e),a?(v=0,t=A(t,e,n)):(v=1,t=A(t,e,n),t=N(t,e));else if(i&&a&&!o&&s)v=1,t=A(t,e,n),t=N(t,e);else if(!i&&!o&&a^s){var r=u;a?(v=1,t=A(t,e,n),v=0,u=!1,t=A(t,e,n),u=r):(v=0,t=A(t,e,n),t=N(t,e),v=1,u=!1,t=A(t,e,n),u=r,t=N(t,e))}}else v=0,t=A(t,e,n);else v=a?1:0,t=A(t,e,n);return t},this.__bidiEngine__.setOptions=function(t){t&&(i=t.isInputVisual,o=t.isOutputVisual,a=t.isInputRtl,s=t.isOutputRtl,u=t.isSymmetricSwapping)},this.__bidiEngine__.setOptions(t),this.__bidiEngine__};var e=["BN","BN","BN","BN","BN","BN","BN","BN","BN","S","B","S","WS","B","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","B","B","B","S","WS","N","N","ET","ET","ET","N","N","N","N","N","ES","CS","ES","CS","CS","EN","EN","EN","EN","EN","EN","EN","EN","EN","EN","CS","N","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","N","BN","BN","BN","BN","BN","BN","B","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","CS","N","ET","ET","ET","ET","N","N","N","N","L","N","N","BN","N","N","ET","ET","EN","EN","N","L","N","N","N","EN","L","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","L","L","L","L","L","L","L","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","L","N","N","N","N","N","ET","N","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","R","NSM","R","NSM","NSM","R","NSM","NSM","R","NSM","N","N","N","N","N","N","N","N","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","N","N","N","N","N","R","R","R","R","R","N","N","N","N","N","N","N","N","N","N","N","AN","AN","AN","AN","AN","AN","N","N","AL","ET","ET","AL","CS","AL","N","N","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","AL","AL","N","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","AN","AN","AN","AN","AN","AN","AN","AN","AN","AN","ET","AN","AN","AL","AL","AL","NSM","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","NSM","NSM","NSM","NSM","NSM","NSM","NSM","AN","N","NSM","NSM","NSM","NSM","NSM","NSM","AL","AL","NSM","NSM","N","NSM","NSM","NSM","NSM","AL","AL","EN","EN","EN","EN","EN","EN","EN","EN","EN","EN","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","N","AL","AL","NSM","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","N","N","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","AL","N","N","N","N","N","N","N","N","N","N","N","N","N","N","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","R","R","N","N","N","N","R","N","N","N","N","N","WS","WS","WS","WS","WS","WS","WS","WS","WS","WS","WS","BN","BN","BN","L","R","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","WS","B","LRE","RLE","PDF","LRO","RLO","CS","ET","ET","ET","ET","ET","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","CS","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","WS","BN","BN","BN","BN","BN","N","LRI","RLI","FSI","PDI","BN","BN","BN","BN","BN","BN","EN","L","N","N","EN","EN","EN","EN","EN","EN","ES","ES","N","N","N","L","EN","EN","EN","EN","EN","EN","EN","EN","EN","EN","ES","ES","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","L","L","L","L","L","L","L","N","N","N","N","N","N","N","N","N","N","N","N","L","L","L","L","L","N","N","N","N","N","R","NSM","R","R","R","R","R","R","R","R","R","R","ES","R","R","R","R","R","R","R","R","R","R","R","R","R","N","R","R","R","R","R","N","R","N","R","R","N","R","R","N","R","R","R","R","R","R","R","R","R","R","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","CS","N","CS","N","N","CS","N","N","N","N","N","N","N","N","N","ET","N","N","ES","ES","N","N","N","N","N","ET","ET","N","N","N","N","N","AL","AL","AL","AL","AL","N","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","N","N","BN","N","N","N","ET","ET","ET","N","N","N","N","N","ES","CS","ES","CS","CS","EN","EN","EN","EN","EN","EN","EN","EN","EN","EN","CS","N","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","N","N","N","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","L","L","L","L","L","L","N","N","L","L","L","L","L","L","N","N","L","L","L","L","L","L","N","N","L","L","L","N","N","N","ET","ET","N","N","N","ET","ET","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N"],n=new t.__bidiEngine__({isInputVisual:!0});t.API.events.push(["postProcessText",function(t){var e=t.text;t.x,t.y;var r=t.options||{};t.mutex,r.lang;var i=[];if(r.isInputVisual="boolean"!=typeof r.isInputVisual||r.isInputVisual,n.setOptions(r),"[object Array]"===Object.prototype.toString.call(e)){var a=0;for(i=[],a=0;a<e.length;a+=1)"[object Array]"===Object.prototype.toString.call(e[a])?i.push([n.doBidiReorder(e[a][0]),e[a][1],e[a][2]]):i.push([n.doBidiReorder(e[a])]);t.text=i}else t.text=n.doBidiReorder(e);n.setOptions({isInputVisual:!0})}])}(E),E.API.TTFFont=function(){function t(t){var e;if(this.rawData=t,e=this.contents=new fe(t),this.contents.pos=4,"ttcf"===e.readString(4))throw new Error("TTCF not supported.");e.pos=0,this.parse(),this.subset=new je(this),this.registerTTF()}return t.open=function(e){return new t(e)},t.prototype.parse=function(){return this.directory=new de(this.contents),this.head=new me(this),this.name=new xe(this),this.cmap=new be(this),this.toUnicode={},this.hhea=new ye(this),this.maxp=new Ae(this),this.hmtx=new Se(this),this.post=new Ne(this),this.os2=new we(this),this.loca=new Ie(this),this.glyf=new Pe(this),this.ascender=this.os2.exists&&this.os2.ascender||this.hhea.ascender,this.decender=this.os2.exists&&this.os2.decender||this.hhea.decender,this.lineGap=this.os2.exists&&this.os2.lineGap||this.hhea.lineGap,this.bbox=[this.head.xMin,this.head.yMin,this.head.xMax,this.head.yMax]},t.prototype.registerTTF=function(){var t,e,n,r,i;if(this.scaleFactor=1e3/this.head.unitsPerEm,this.bbox=function(){var e,n,r,i;for(i=[],e=0,n=(r=this.bbox).length;e<n;e++)t=r[e],i.push(Math.round(t*this.scaleFactor));return i}.call(this),this.stemV=0,this.post.exists?(n=255&(r=this.post.italic_angle),32768&(e=r>>16)&&(e=-(1+(65535^e))),this.italicAngle=+(e+"."+n)):this.italicAngle=0,this.ascender=Math.round(this.ascender*this.scaleFactor),this.decender=Math.round(this.decender*this.scaleFactor),this.lineGap=Math.round(this.lineGap*this.scaleFactor),this.capHeight=this.os2.exists&&this.os2.capHeight||this.ascender,this.xHeight=this.os2.exists&&this.os2.xHeight||0,this.familyClass=(this.os2.exists&&this.os2.familyClass||0)>>8,this.isSerif=1===(i=this.familyClass)||2===i||3===i||4===i||5===i||7===i,this.isScript=10===this.familyClass,this.flags=0,this.post.isFixedPitch&&(this.flags|=1),this.isSerif&&(this.flags|=2),this.isScript&&(this.flags|=8),0!==this.italicAngle&&(this.flags|=64),this.flags|=32,!this.cmap.unicode)throw new Error("No unicode cmap for font")},t.prototype.characterToGlyph=function(t){var e;return(null!=(e=this.cmap.unicode)?e.codeMap[t]:void 0)||0},t.prototype.widthOfGlyph=function(t){var e;return e=1e3/this.head.unitsPerEm,this.hmtx.forGlyph(t).advance*e},t.prototype.widthOfString=function(t,e,n){var r,i,a,o;for(a=0,i=0,o=(t=""+t).length;0<=o?i<o:i>o;i=0<=o?++i:--i)r=t.charCodeAt(i),a+=this.widthOfGlyph(this.characterToGlyph(r))+n*(1e3/e)||0;return a*(e/1e3)},t.prototype.lineHeight=function(t,e){var n;return null==e&&(e=!1),n=e?this.lineGap:0,(this.ascender+n-this.decender)/1e3*t},t}();var he,fe=function(){function t(t){this.data=null!=t?t:[],this.pos=0,this.length=this.data.length}return t.prototype.readByte=function(){return this.data[this.pos++]},t.prototype.writeByte=function(t){return this.data[this.pos++]=t},t.prototype.readUInt32=function(){return 16777216*this.readByte()+(this.readByte()<<16)+(this.readByte()<<8)+this.readByte()},t.prototype.writeUInt32=function(t){return this.writeByte(t>>>24&255),this.writeByte(t>>16&255),this.writeByte(t>>8&255),this.writeByte(255&t)},t.prototype.readInt32=function(){var t;return(t=this.readUInt32())>=2147483648?t-4294967296:t},t.prototype.writeInt32=function(t){return t<0&&(t+=4294967296),this.writeUInt32(t)},t.prototype.readUInt16=function(){return this.readByte()<<8|this.readByte()},t.prototype.writeUInt16=function(t){return this.writeByte(t>>8&255),this.writeByte(255&t)},t.prototype.readInt16=function(){var t;return(t=this.readUInt16())>=32768?t-65536:t},t.prototype.writeInt16=function(t){return t<0&&(t+=65536),this.writeUInt16(t)},t.prototype.readString=function(t){var e,n;for(n=[],e=0;0<=t?e<t:e>t;e=0<=t?++e:--e)n[e]=String.fromCharCode(this.readByte());return n.join("")},t.prototype.writeString=function(t){var e,n,r;for(r=[],e=0,n=t.length;0<=n?e<n:e>n;e=0<=n?++e:--e)r.push(this.writeByte(t.charCodeAt(e)));return r},t.prototype.readShort=function(){return this.readInt16()},t.prototype.writeShort=function(t){return this.writeInt16(t)},t.prototype.readLongLong=function(){var t,e,n,r,i,a,o,s;return t=this.readByte(),e=this.readByte(),n=this.readByte(),r=this.readByte(),i=this.readByte(),a=this.readByte(),o=this.readByte(),s=this.readByte(),128&t?-1*(72057594037927940*(255^t)+281474976710656*(255^e)+1099511627776*(255^n)+4294967296*(255^r)+16777216*(255^i)+65536*(255^a)+256*(255^o)+(255^s)+1):72057594037927940*t+281474976710656*e+1099511627776*n+4294967296*r+16777216*i+65536*a+256*o+s},t.prototype.writeLongLong=function(t){var e,n;return e=Math.floor(t/4294967296),n=4294967295&t,this.writeByte(e>>24&255),this.writeByte(e>>16&255),this.writeByte(e>>8&255),this.writeByte(255&e),this.writeByte(n>>24&255),this.writeByte(n>>16&255),this.writeByte(n>>8&255),this.writeByte(255&n)},t.prototype.readInt=function(){return this.readInt32()},t.prototype.writeInt=function(t){return this.writeInt32(t)},t.prototype.read=function(t){var e,n;for(e=[],n=0;0<=t?n<t:n>t;n=0<=t?++n:--n)e.push(this.readByte());return e},t.prototype.write=function(t){var e,n,r,i;for(i=[],n=0,r=t.length;n<r;n++)e=t[n],i.push(this.writeByte(e));return i},t}(),de=function(){var t;function e(t){var e,n,r;for(this.scalarType=t.readInt(),this.tableCount=t.readShort(),this.searchRange=t.readShort(),this.entrySelector=t.readShort(),this.rangeShift=t.readShort(),this.tables={},n=0,r=this.tableCount;0<=r?n<r:n>r;n=0<=r?++n:--n)e={tag:t.readString(4),checksum:t.readInt(),offset:t.readInt(),length:t.readInt()},this.tables[e.tag]=e}return e.prototype.encode=function(e){var n,r,i,a,o,s,u,c,l,h,f,d,p;for(p in f=Object.keys(e).length,s=Math.log(2),l=16*Math.floor(Math.log(f)/s),a=Math.floor(l/s),c=16*f-l,(r=new fe).writeInt(this.scalarType),r.writeShort(f),r.writeShort(l),r.writeShort(a),r.writeShort(c),i=16*f,u=r.pos+i,o=null,d=[],e)for(h=e[p],r.writeString(p),r.writeInt(t(h)),r.writeInt(u),r.writeInt(h.length),d=d.concat(h),"head"===p&&(o=u),u+=h.length;u%4;)d.push(0),u++;return r.write(d),n=2981146554-t(r.data),r.pos=o+8,r.writeUInt32(n),r.data},t=function(t){var e,n,r,i;for(t=_e.call(t);t.length%4;)t.push(0);for(r=new fe(t),n=0,e=0,i=t.length;e<i;e=e+=4)n+=r.readUInt32();return 4294967295&n},e}(),pe={}.hasOwnProperty,ge=function(t,e){for(var n in e)pe.call(e,n)&&(t[n]=e[n]);function r(){this.constructor=t}return r.prototype=e.prototype,t.prototype=new r,t.__super__=e.prototype,t};he=function(){function t(t){var e;this.file=t,e=this.file.directory.tables[this.tag],this.exists=!!e,e&&(this.offset=e.offset,this.length=e.length,this.parse(this.file.contents))}return t.prototype.parse=function(){},t.prototype.encode=function(){},t.prototype.raw=function(){return this.exists?(this.file.contents.pos=this.offset,this.file.contents.read(this.length)):null},t}();var me=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="head",t.prototype.parse=function(t){return t.pos=this.offset,this.version=t.readInt(),this.revision=t.readInt(),this.checkSumAdjustment=t.readInt(),this.magicNumber=t.readInt(),this.flags=t.readShort(),this.unitsPerEm=t.readShort(),this.created=t.readLongLong(),this.modified=t.readLongLong(),this.xMin=t.readShort(),this.yMin=t.readShort(),this.xMax=t.readShort(),this.yMax=t.readShort(),this.macStyle=t.readShort(),this.lowestRecPPEM=t.readShort(),this.fontDirectionHint=t.readShort(),this.indexToLocFormat=t.readShort(),this.glyphDataFormat=t.readShort()},t.prototype.encode=function(t){var e;return(e=new fe).writeInt(this.version),e.writeInt(this.revision),e.writeInt(this.checkSumAdjustment),e.writeInt(this.magicNumber),e.writeShort(this.flags),e.writeShort(this.unitsPerEm),e.writeLongLong(this.created),e.writeLongLong(this.modified),e.writeShort(this.xMin),e.writeShort(this.yMin),e.writeShort(this.xMax),e.writeShort(this.yMax),e.writeShort(this.macStyle),e.writeShort(this.lowestRecPPEM),e.writeShort(this.fontDirectionHint),e.writeShort(t),e.writeShort(this.glyphDataFormat),e.data},t}(),ve=function(){function t(t,e){var n,r,i,a,o,s,u,c,l,h,f,d,p,g,m,v,b;switch(this.platformID=t.readUInt16(),this.encodingID=t.readShort(),this.offset=e+t.readInt(),l=t.pos,t.pos=this.offset,this.format=t.readUInt16(),this.length=t.readUInt16(),this.language=t.readUInt16(),this.isUnicode=3===this.platformID&&1===this.encodingID&&4===this.format||0===this.platformID&&4===this.format,this.codeMap={},this.format){case 0:for(s=0;s<256;++s)this.codeMap[s]=t.readByte();break;case 4:for(f=t.readUInt16(),h=f/2,t.pos+=6,i=function(){var e,n;for(n=[],s=e=0;0<=h?e<h:e>h;s=0<=h?++e:--e)n.push(t.readUInt16());return n}(),t.pos+=2,p=function(){var e,n;for(n=[],s=e=0;0<=h?e<h:e>h;s=0<=h?++e:--e)n.push(t.readUInt16());return n}(),u=function(){var e,n;for(n=[],s=e=0;0<=h?e<h:e>h;s=0<=h?++e:--e)n.push(t.readUInt16());return n}(),c=function(){var e,n;for(n=[],s=e=0;0<=h?e<h:e>h;s=0<=h?++e:--e)n.push(t.readUInt16());return n}(),r=(this.length-t.pos+this.offset)/2,o=function(){var e,n;for(n=[],s=e=0;0<=r?e<r:e>r;s=0<=r?++e:--e)n.push(t.readUInt16());return n}(),s=m=0,b=i.length;m<b;s=++m)for(g=i[s],n=v=d=p[s];d<=g?v<=g:v>=g;n=d<=g?++v:--v)0===c[s]?a=n+u[s]:0!==(a=o[c[s]/2+(n-d)-(h-s)]||0)&&(a+=u[s]),this.codeMap[n]=65535&a}t.pos=l}return t.encode=function(t,e){var n,r,i,a,o,s,u,c,l,h,f,d,p,g,m,v,b,y,w,N,L,x,A,S,_,P,k,F,I,j,C,O,B,M,q,E,R,D,T,z,U,H,W,V,G,Y;switch(F=new fe,a=Object.keys(t).sort(function(t,e){return t-e}),e){case"macroman":for(p=0,g=function(){var t=[];for(d=0;d<256;++d)t.push(0);return t}(),v={0:0},i={},I=0,B=a.length;I<B;I++)null==v[W=t[r=a[I]]]&&(v[W]=++p),i[r]={old:t[r],new:v[t[r]]},g[r]=v[t[r]];return F.writeUInt16(1),F.writeUInt16(0),F.writeUInt32(12),F.writeUInt16(0),F.writeUInt16(262),F.writeUInt16(0),F.write(g),{charMap:i,subtable:F.data,maxGlyphID:p+1};case"unicode":for(P=[],l=[],b=0,v={},n={},m=u=null,j=0,M=a.length;j<M;j++)null==v[w=t[r=a[j]]]&&(v[w]=++b),n[r]={old:w,new:v[w]},o=v[w]-r,null!=m&&o===u||(m&&l.push(m),P.push(r),u=o),m=r;for(m&&l.push(m),l.push(65535),P.push(65535),S=2*(A=P.length),x=2*Math.pow(Math.log(A)/Math.LN2,2),h=Math.log(x/2)/Math.LN2,L=2*A-x,s=[],N=[],f=[],d=C=0,q=P.length;C<q;d=++C){if(_=P[d],c=l[d],65535===_){s.push(0),N.push(0);break}if(_-(k=n[_].new)>=32768)for(s.push(0),N.push(2*(f.length+A-d)),r=O=_;_<=c?O<=c:O>=c;r=_<=c?++O:--O)f.push(n[r].new);else s.push(k-_),N.push(0)}for(F.writeUInt16(3),F.writeUInt16(1),F.writeUInt32(12),F.writeUInt16(4),F.writeUInt16(16+8*A+2*f.length),F.writeUInt16(0),F.writeUInt16(S),F.writeUInt16(x),F.writeUInt16(h),F.writeUInt16(L),U=0,E=l.length;U<E;U++)r=l[U],F.writeUInt16(r);for(F.writeUInt16(0),H=0,R=P.length;H<R;H++)r=P[H],F.writeUInt16(r);for(V=0,D=s.length;V<D;V++)o=s[V],F.writeUInt16(o);for(G=0,T=N.length;G<T;G++)y=N[G],F.writeUInt16(y);for(Y=0,z=f.length;Y<z;Y++)p=f[Y],F.writeUInt16(p);return{charMap:n,subtable:F.data,maxGlyphID:b+1}}},t}(),be=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="cmap",t.prototype.parse=function(t){var e,n,r;for(t.pos=this.offset,this.version=t.readUInt16(),r=t.readUInt16(),this.tables=[],this.unicode=null,n=0;0<=r?n<r:n>r;n=0<=r?++n:--n)e=new ve(t,this.offset),this.tables.push(e),e.isUnicode&&null==this.unicode&&(this.unicode=e);return!0},t.encode=function(t,e){var n,r;return null==e&&(e="macroman"),n=ve.encode(t,e),(r=new fe).writeUInt16(0),r.writeUInt16(1),n.table=r.data.concat(n.subtable),n},t}(),ye=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="hhea",t.prototype.parse=function(t){return t.pos=this.offset,this.version=t.readInt(),this.ascender=t.readShort(),this.decender=t.readShort(),this.lineGap=t.readShort(),this.advanceWidthMax=t.readShort(),this.minLeftSideBearing=t.readShort(),this.minRightSideBearing=t.readShort(),this.xMaxExtent=t.readShort(),this.caretSlopeRise=t.readShort(),this.caretSlopeRun=t.readShort(),this.caretOffset=t.readShort(),t.pos+=8,this.metricDataFormat=t.readShort(),this.numberOfMetrics=t.readUInt16()},t}(),we=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="OS/2",t.prototype.parse=function(t){if(t.pos=this.offset,this.version=t.readUInt16(),this.averageCharWidth=t.readShort(),this.weightClass=t.readUInt16(),this.widthClass=t.readUInt16(),this.type=t.readShort(),this.ySubscriptXSize=t.readShort(),this.ySubscriptYSize=t.readShort(),this.ySubscriptXOffset=t.readShort(),this.ySubscriptYOffset=t.readShort(),this.ySuperscriptXSize=t.readShort(),this.ySuperscriptYSize=t.readShort(),this.ySuperscriptXOffset=t.readShort(),this.ySuperscriptYOffset=t.readShort(),this.yStrikeoutSize=t.readShort(),this.yStrikeoutPosition=t.readShort(),this.familyClass=t.readShort(),this.panose=function(){var e,n;for(n=[],e=0;e<10;++e)n.push(t.readByte());return n}(),this.charRange=function(){var e,n;for(n=[],e=0;e<4;++e)n.push(t.readInt());return n}(),this.vendorID=t.readString(4),this.selection=t.readShort(),this.firstCharIndex=t.readShort(),this.lastCharIndex=t.readShort(),this.version>0&&(this.ascent=t.readShort(),this.descent=t.readShort(),this.lineGap=t.readShort(),this.winAscent=t.readShort(),this.winDescent=t.readShort(),this.codePageRange=function(){var e,n;for(n=[],e=0;e<2;e=++e)n.push(t.readInt());return n}(),this.version>1))return this.xHeight=t.readShort(),this.capHeight=t.readShort(),this.defaultChar=t.readShort(),this.breakChar=t.readShort(),this.maxContext=t.readShort()},t}(),Ne=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="post",t.prototype.parse=function(t){var e,n,r;switch(t.pos=this.offset,this.format=t.readInt(),this.italicAngle=t.readInt(),this.underlinePosition=t.readShort(),this.underlineThickness=t.readShort(),this.isFixedPitch=t.readInt(),this.minMemType42=t.readInt(),this.maxMemType42=t.readInt(),this.minMemType1=t.readInt(),this.maxMemType1=t.readInt(),this.format){case 65536:case 196608:break;case 131072:var i;for(n=t.readUInt16(),this.glyphNameIndex=[],i=0;0<=n?i<n:i>n;i=0<=n?++i:--i)this.glyphNameIndex.push(t.readUInt16());for(this.names=[],r=[];t.pos<this.offset+this.length;)e=t.readByte(),r.push(this.names.push(t.readString(e)));return r;case 151552:return n=t.readUInt16(),this.offsets=t.read(n);case 262144:return this.map=function(){var e,n,r;for(r=[],i=e=0,n=this.file.maxp.numGlyphs;0<=n?e<n:e>n;i=0<=n?++e:--e)r.push(t.readUInt32());return r}.call(this)}},t}(),Le=function(t,e){this.raw=t,this.length=t.length,this.platformID=e.platformID,this.encodingID=e.encodingID,this.languageID=e.languageID},xe=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="name",t.prototype.parse=function(t){var e,n,r,i,a,o,s,u,c,l,h;for(t.pos=this.offset,t.readShort(),e=t.readShort(),o=t.readShort(),n=[],i=0;0<=e?i<e:i>e;i=0<=e?++i:--i)n.push({platformID:t.readShort(),encodingID:t.readShort(),languageID:t.readShort(),nameID:t.readShort(),length:t.readShort(),offset:this.offset+o+t.readShort()});for(s={},i=c=0,l=n.length;c<l;i=++c)r=n[i],t.pos=r.offset,u=t.readString(r.length),a=new Le(u,r),null==s[h=r.nameID]&&(s[h]=[]),s[r.nameID].push(a);this.strings=s,this.copyright=s[0],this.fontFamily=s[1],this.fontSubfamily=s[2],this.uniqueSubfamily=s[3],this.fontName=s[4],this.version=s[5];try{this.postscriptName=s[6][0].raw.replace(/[\x00-\x19\x80-\xff]/g,"")}catch(f){this.postscriptName=s[4][0].raw.replace(/[\x00-\x19\x80-\xff]/g,"")}return this.trademark=s[7],this.manufacturer=s[8],this.designer=s[9],this.description=s[10],this.vendorUrl=s[11],this.designerUrl=s[12],this.license=s[13],this.licenseUrl=s[14],this.preferredFamily=s[15],this.preferredSubfamily=s[17],this.compatibleFull=s[18],this.sampleText=s[19]},t}(),Ae=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="maxp",t.prototype.parse=function(t){return t.pos=this.offset,this.version=t.readInt(),this.numGlyphs=t.readUInt16(),this.maxPoints=t.readUInt16(),this.maxContours=t.readUInt16(),this.maxCompositePoints=t.readUInt16(),this.maxComponentContours=t.readUInt16(),this.maxZones=t.readUInt16(),this.maxTwilightPoints=t.readUInt16(),this.maxStorage=t.readUInt16(),this.maxFunctionDefs=t.readUInt16(),this.maxInstructionDefs=t.readUInt16(),this.maxStackElements=t.readUInt16(),this.maxSizeOfInstructions=t.readUInt16(),this.maxComponentElements=t.readUInt16(),this.maxComponentDepth=t.readUInt16()},t}(),Se=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="hmtx",t.prototype.parse=function(t){var e,n,r,i,a,o,s;for(t.pos=this.offset,this.metrics=[],e=0,o=this.file.hhea.numberOfMetrics;0<=o?e<o:e>o;e=0<=o?++e:--e)this.metrics.push({advance:t.readUInt16(),lsb:t.readInt16()});for(r=this.file.maxp.numGlyphs-this.file.hhea.numberOfMetrics,this.leftSideBearings=function(){var n,i;for(i=[],e=n=0;0<=r?n<r:n>r;e=0<=r?++n:--n)i.push(t.readInt16());return i}(),this.widths=function(){var t,e,n,r;for(r=[],t=0,e=(n=this.metrics).length;t<e;t++)i=n[t],r.push(i.advance);return r}.call(this),n=this.widths[this.widths.length-1],s=[],e=a=0;0<=r?a<r:a>r;e=0<=r?++a:--a)s.push(this.widths.push(n));return s},t.prototype.forGlyph=function(t){return t in this.metrics?this.metrics[t]:{advance:this.metrics[this.metrics.length-1].advance,lsb:this.leftSideBearings[t-this.metrics.length]}},t}(),_e=[].slice,Pe=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="glyf",t.prototype.parse=function(){return this.cache={}},t.prototype.glyphFor=function(t){var e,n,r,i,a,o,s,u,c,l;return t in this.cache?this.cache[t]:(i=this.file.loca,e=this.file.contents,n=i.indexOf(t),0===(r=i.lengthOf(t))?this.cache[t]=null:(e.pos=this.offset+n,a=(o=new fe(e.read(r))).readShort(),u=o.readShort(),l=o.readShort(),s=o.readShort(),c=o.readShort(),this.cache[t]=-1===a?new Fe(o,u,l,s,c):new ke(o,a,u,l,s,c),this.cache[t]))},t.prototype.encode=function(t,e,n){var r,i,a,o,s;for(a=[],i=[],o=0,s=e.length;o<s;o++)r=t[e[o]],i.push(a.length),r&&(a=a.concat(r.encode(n)));return i.push(a.length),{table:a,offsets:i}},t}(),ke=function(){function t(t,e,n,r,i,a){this.raw=t,this.numberOfContours=e,this.xMin=n,this.yMin=r,this.xMax=i,this.yMax=a,this.compound=!1}return t.prototype.encode=function(){return this.raw.data},t}(),Fe=function(){function t(t,e,n,r,i){var a,o;for(this.raw=t,this.xMin=e,this.yMin=n,this.xMax=r,this.yMax=i,this.compound=!0,this.glyphIDs=[],this.glyphOffsets=[],a=this.raw;o=a.readShort(),this.glyphOffsets.push(a.pos),this.glyphIDs.push(a.readUInt16()),32&o;)a.pos+=1&o?4:2,128&o?a.pos+=8:64&o?a.pos+=4:8&o&&(a.pos+=2)}return t.prototype.encode=function(){var t,e,n;for(e=new fe(_e.call(this.raw.data)),t=0,n=this.glyphIDs.length;t<n;++t)e.pos=this.glyphOffsets[t];return e.data},t}(),Ie=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="loca",t.prototype.parse=function(t){var e,n;return t.pos=this.offset,e=this.file.head.indexToLocFormat,this.offsets=0===e?function(){var e,r;for(r=[],n=0,e=this.length;n<e;n+=2)r.push(2*t.readUInt16());return r}.call(this):function(){var e,r;for(r=[],n=0,e=this.length;n<e;n+=4)r.push(t.readUInt32());return r}.call(this)},t.prototype.indexOf=function(t){return this.offsets[t]},t.prototype.lengthOf=function(t){return this.offsets[t+1]-this.offsets[t]},t.prototype.encode=function(t,e){for(var n=new Uint32Array(this.offsets.length),r=0,i=0,a=0;a<n.length;++a)if(n[a]=r,i<e.length&&e[i]==a){++i,n[a]=r;var o=this.offsets[a],s=this.offsets[a+1]-o;s>0&&(r+=s)}for(var u=new Array(4*n.length),c=0;c<n.length;++c)u[4*c+3]=255&n[c],u[4*c+2]=(65280&n[c])>>8,u[4*c+1]=(16711680&n[c])>>16,u[4*c]=(4278190080&n[c])>>24;return u},t}(),je=function(){function t(t){this.font=t,this.subset={},this.unicodes={},this.next=33}return t.prototype.generateCmap=function(){var t,e,n,r,i;for(e in r=this.font.cmap.tables[0].codeMap,t={},i=this.subset)n=i[e],t[e]=r[n];return t},t.prototype.glyphsFor=function(t){var e,n,r,i,a,o,s;for(r={},a=0,o=t.length;a<o;a++)r[i=t[a]]=this.font.glyf.glyphFor(i);for(i in e=[],r)(null!=(n=r[i])?n.compound:void 0)&&e.push.apply(e,n.glyphIDs);if(e.length>0)for(i in s=this.glyphsFor(e))n=s[i],r[i]=n;return r},t.prototype.encode=function(t,e){var n,r,i,a,o,s,u,c,l,h,f,d,p,g,m;for(r in n=be.encode(this.generateCmap(),"unicode"),a=this.glyphsFor(t),f={0:0},m=n.charMap)f[(s=m[r]).old]=s.new;for(d in h=n.maxGlyphID,a)d in f||(f[d]=h++);return c=function(t){var e,n;for(e in n={},t)n[t[e]]=e;return n}(f),l=Object.keys(c).sort(function(t,e){return t-e}),p=function(){var t,e,n;for(n=[],t=0,e=l.length;t<e;t++)o=l[t],n.push(c[o]);return n}(),i=this.font.glyf.encode(a,p,f),u=this.font.loca.encode(i.offsets,p),g={cmap:this.font.cmap.raw(),glyf:i.table,loca:u,hmtx:this.font.hmtx.raw(),hhea:this.font.hhea.raw(),maxp:this.font.maxp.raw(),post:this.font.post.raw(),name:this.font.name.raw(),head:this.font.head.encode(e)},this.font.os2.exists&&(g["OS/2"]=this.font.os2.raw()),this.font.directory.encode(g)},t}();E.API.PDFObject=function(){var t;function e(){}return t=function(t,e){return(Array(e+1).join("0")+t).slice(-e)},e.convert=function(n){var r,i,a,o;if(Array.isArray(n))return"["+function(){var t,i,a;for(a=[],t=0,i=n.length;t<i;t++)r=n[t],a.push(e.convert(r));return a}().join(" ")+"]";if("string"==typeof n)return"/"+n;if(null!=n?n.isString:void 0)return"("+n+")";if(n instanceof Date)return"(D:"+t(n.getUTCFullYear(),4)+t(n.getUTCMonth(),2)+t(n.getUTCDate(),2)+t(n.getUTCHours(),2)+t(n.getUTCMinutes(),2)+t(n.getUTCSeconds(),2)+"Z)";if("[object Object]"==={}.toString.call(n)){for(i in a=["<<"],n)o=n[i],a.push("/"+i+" "+e.convert(o));return a.push(">>"),a.join("\n")}return""+n},e}();
 //# sourceMappingURL=jspdf.es.min.js.map
 
+
+/***/ }),
+
+/***/ 53146:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ show)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/returns/show.vue?vue&type=template&id=70247410&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', [_c('breadcrumbs', {
+    attrs: {
+      "items": _vm.breadcrumbs,
+      "current": _vm.breadcrumbsCurrent
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "row no-print mb-2"
+  }, [_c('div', {
+    staticClass: "w-100 text-right float-right"
+  }, [_vm.allData ? _c('div', {
+    staticClass: "d-flex justify-content-between"
+  }, [_c('div', {
+    staticClass: "btn-group"
+  }, [_c('ul', {
+    staticClass: "nav nav-pills"
+  }, [_c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link active",
+    attrs: {
+      "href": "#details",
+      "data-toggle": "tab"
+    },
+    on: {
+      "click": _vm.getInvoiceReturn
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-info"
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Details")))])]), _vm._v(" "), _c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "href": "#activity-log",
+      "data-toggle": "tab"
+    },
+    on: {
+      "click": _vm.getActivity
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fa fa-bell",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Activity log")))])]), _vm._v(" "), _c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "href": "#journal-entry",
+      "data-toggle": "tab"
+    },
+    on: {
+      "click": _vm.getJournalEntries
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fa fa-book",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Journal Entry")))])])])]), _vm._v(" "), _c('div', {
+    staticClass: "btn-group"
+  }, [_vm.isSaudiArabia && _vm.allData.status === 0 ? _c('a', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.sendCreditNote(_vm.allData);
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-paper-plane"
+  }), _vm._v(" " + _vm._s(_vm.$t("Send Credit Note")) + "\n          ")]) : _vm._e(), _vm._v(" "), _c('a', {
+    staticClass: "btn btn-info",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.generatePDF();
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-download"
+  }), _vm._v(" " + _vm._s(_vm.$t("download")) + "\n          ")]), _vm._v(" "), _c('a', {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.printWindow();
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-print"
+  }), _vm._v(" " + _vm._s(_vm.$t("Print")) + "\n          ")]), _vm._v(" "), _vm.$can('invoice-return-edit') && !(_vm.isSaudiArabia && _vm.allData.status === 1) ? _c('router-link', {
+    staticClass: "btn btn-info",
+    attrs: {
+      "to": {
+        name: 'invoiceReturns.edit',
+        params: {
+          slug: _vm.allData.slug
+        }
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-edit"
+  }), _vm._v(" " + _vm._s(_vm.$t("Edit")) + "\n          ")]) : _vm._e(), _vm._v(" "), _c('router-link', {
+    staticClass: "btn btn-info float-right",
+    attrs: {
+      "to": {
+        name: 'invoiceReturns.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-long-arrow-alt-left"
+  }), _vm._v(" " + _vm._s(_vm.$t("Back")) + "\n          ")])], 1)]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "tab-content"
+  }, [_c('div', {
+    staticClass: "tab-pane active",
+    attrs: {
+      "id": "details"
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "invoice p-3 mb-3 w-100",
+    attrs: {
+      "id": "content-to-pdf"
+    }
+  }, [_c('div', {
+    staticClass: "row invoice-info"
+  }, [_c('div', {
+    staticClass: "col-sm-4 invoice-col"
+  }, [_c('CompanyInfo')], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-8 invoice-col float-right text-md-right"
+  }, [_c('h5', [_vm._v(_vm._s(_vm.$t("Client Details")))]), _vm._v(" "), _vm.allData.client ? _c('div', [_vm.allData.client.companyName ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Client ID")) + ":")]), _vm._v("\n                  " + _vm._s(_vm._f("withPrefix")(_vm.allData.client.clientID, _vm.clientPrefix))), _c('br')]) : _vm._e(), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Client Name")) + ":")]), _vm._v("\n                " + _vm._s(_vm.allData.client.name)), _c('br'), _vm._v(" "), _vm.allData.client.companyName ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Company Name")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.client.companyName)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.client.email ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Email")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.client.email)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.client.contactNumber ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Contact Number")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.client.contactNumber)), _c('br')]) : _vm._e(), _vm._v(" "), _vm.allData.client.address ? _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t("Address")) + ":")]), _vm._v("\n                  " + _vm._s(_vm.allData.client.address)), _c('br')]) : _vm._e()]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "row mt-3"
+  }, [_c('div', {
+    staticClass: "col-12"
+  }, [_c('div', {
+    staticClass: "table-custom table-responsive"
+  }, [_vm.allData.invoice ? _c('table', {
+    staticClass: "table table-bordered"
+  }, [_c('thead', [_c('tr', [_vm.allData.invoice.invoiceNo ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Invoice No")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnNo ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Return No")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.invoice.invoiceDate ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Invoice Date")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnDate ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Return Date")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.reason ? _c('th', [_vm._v("\n                        " + _vm._s(_vm.$t("Return Reason")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.note ? _c('th', [_vm._v(_vm._s(_vm.$t("Note")))]) : _vm._e(), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _vm.allData.createdBy ? _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v("\n                        " + _vm._s(_vm.$t("Created By")) + "\n                      ")]) : _vm._e()])]), _vm._v(" "), _c('tbody', [_c('tr', [_vm.allData.invoice.invoiceNo ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(_vm.allData.invoice.invoiceNo, _vm.invoicePrefix)) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnNo ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(_vm.allData.returnNo, _vm.returnPrefix)) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.invoice.invoiceDate ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("moment")(_vm.allData.invoice.invoiceDate, "Do MMM, YYYY")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.returnDate ? _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("moment")(_vm.allData.returnDate, "Do MMM, YYYY")) + "\n                      ")]) : _vm._e(), _vm._v(" "), _vm.allData.reason ? _c('td', [_vm._v(_vm._s(_vm.allData.reason))]) : _vm._e(), _vm._v(" "), _vm.allData.note ? _c('td', [_vm._v(_vm._s(_vm.allData.note))]) : _vm._e(), _vm._v(" "), _c('td', [_vm.allData.status === 1 ? _c('span', {
+    staticClass: "badge bg-success"
+  }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
+    staticClass: "badge bg-danger"
+  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _vm.allData.createdBy ? _c('td', {
+    staticClass: "text-right"
+  }, [_vm._v("\n                        " + _vm._s(_vm.allData.createdBy) + "\n                      ")]) : _vm._e()])])]) : _vm._e()])])]), _vm._v(" "), _c('div', {
+    staticClass: "row position-relative mt-4 mb-4"
+  }, [_c('table-loading', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.loading,
+      expression: "loading"
+    }]
+  }), _vm._v(" "), _c('div', {
+    staticClass: "col-12"
+  }, [_c('strong', {
+    staticClass: "mt-3"
+  }, [_vm._v(_vm._s(_vm.$t("Return Products")) + ":")]), _vm._v(" "), _vm.allData.invoice ? _c('div', {
+    staticClass: "table-custom table-responsive text-center"
+  }, [_c('table', {
+    staticClass: "table table-sm invoices-create-table"
+  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Item Name")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Qty")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Price")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Discount")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total After Discount")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("VAT Type")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("VAT")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total with VAT")))])])]), _vm._v(" "), _vm.returnProducts ? _c('tbody', [_vm._l(_vm.returnProducts, function (data, i) {
+    return _c('tr', {
+      key: i
+    }, [_c('td', [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("withPrefix")(data.productCode, _vm.productPrefix)) + "\n                      ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.productName))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.returnQty) + " " + _vm._s(data.productUnit))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(data.salePrice)) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(data.salePrice * data.returnQty)) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.calculateReturnDiscount(data))) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.calculateReturnNet(data))) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getVatRate(data)) + "%")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.calculateReturnVat(data))) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.calculateReturnTotal(data))) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])])]);
+  }), _vm._v(" "), _c('tr', [_c('td', {
+    staticClass: "text-right",
+    attrs: {
+      "colspan": "5"
+    }
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Subtotal")))])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.calculateTotalReturnedProductCost())) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.calculateTotalReturnDiscount())) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.calculateTotalReturnedProductCost() - _vm.calculateTotalReturnDiscount())) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td'), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.calculateTotalReturnTax())) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.calculateTotalReturnedProductCost() - _vm.calculateTotalReturnDiscount() + _vm.calculateTotalReturnTax())) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])])])], 2) : _vm._e()])]) : _vm._e()])], 1), _vm._v(" "), _c('div', {
+    staticClass: "row mt-4",
+    attrs: {
+      "id": "page-break"
+    }
+  }, [_c('div', {
+    staticClass: "col-lg-12 col-xl-8"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-12 col-xl-4 text-lg-right mt-4"
+  }, [_c('div', {
+    staticClass: "table-responsive table-custom table-border-y-0"
+  }, [_c('table', {
+    staticClass: "table"
+  }, [_c('tbody', [_c('tr', {
+    staticClass: "bg-sub-light text-bold"
+  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Subtotal")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.calculateTotalReturnedProductCost())) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Product Discount")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm.formatToTwoDecimals(_vm.calculateTotalReturnDiscount())) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', {
+    staticClass: "bg-green-light text-bold"
+  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Total After Discount")) + ":")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.calculateTotalReturnedProductCost() - _vm.calculateTotalReturnDiscount())) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Product VAT")) + ":")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm.formatToTwoDecimals(_vm.calculateTotalReturnTax())) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', {
+    staticClass: "bg-indigo-light"
+  }, [_c('th', [_vm._v(_vm._s(_vm.$t("Total with VAT")) + ":")]), _vm._v(" "), _c('td', [_c('span', {
+    staticClass: "equal-sign"
+  }, [_vm._v("=")]), _vm._v("\n                        " + _vm._s(_vm.formatToTwoDecimals(_vm.calculateTotalReturnedProductCost() - _vm.calculateTotalReturnDiscount() + _vm.calculateTotalReturnTax())) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])])])])])])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "tab-pane",
+    attrs: {
+      "id": "activity-log"
+    }
+  }, [_c('div', {
+    staticClass: "card custom-card w-100 mt-5 no-print"
+  }, [_c('div', {
+    staticClass: "card-header setings-header"
+  }, [_c('div', {
+    staticClass: "col-xl-4 col-4"
+  }, [_c('h3', {
+    staticClass: "card-title"
+  }, [_vm._v("\n              " + _vm._s(_vm.$t("Activity log")) + "\n            ")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-xl-8 col-8 float-right text-right"
+  }, [_c('div', {
+    staticClass: "btn-group c-w-100"
+  }, [_c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Refresh'),
+      expression: "$t('Refresh')"
+    }],
+    "class": ['btn', 'btn-success', _vm.loading ? 'disabled' : ''],
+    attrs: {
+      "href": "#",
+      "aria-busy": _vm.loading ? 'true' : 'false'
+    },
+    on: {
+      "click": function click($event) {
+        $event.preventDefault();
+        !_vm.loading && _vm.refreshTable();
+      }
+    }
+  }, [!_vm.loading ? _c('i', {
+    staticClass: "fas fa-sync"
+  }) : _c('i', {
+    staticClass: "fas fa-spinner fa-spin"
+  })]), _vm._v(" "), _c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Print Table'),
+      expression: "$t('Print Table')"
+    }],
+    staticClass: "btn btn-info",
+    on: {
+      "click": _vm.print
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-print"
+  })])])])]), _vm._v(" "), _c('table-loading', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.loading,
+      expression: "loading"
+    }]
+  }), _vm._v(" "), _c('div', {
+    staticClass: "card-body position-relative"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-6 col-xl-4 mb-2"
+  }, [_c('search', {
+    on: {
+      "reset-pagination": function resetPagination($event) {
+        return _vm.resetPagination();
+      },
+      "reload": _vm.reload
+    },
+    model: {
+      value: _vm.query,
+      callback: function callback($$v) {
+        _vm.query = $$v;
+      },
+      expression: "query"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "table-responsive table-custom mt-3",
+    attrs: {
+      "id": "printMe"
+    }
+  }, [_vm._l(_vm.items, function (data, i) {
+    return _c('div', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.items.length > 0,
+        expression: "items.length > 0"
+      }],
+      key: i
+    }, [_c('div', {
+      staticClass: "card mb-0 border border-gray"
+    }, [_c('div', {
+      staticClass: "card-body py-1"
+    }, [_c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "col-1 d-flex justify-content-center align-items-center"
+    }, [data.event == 'Update' ? _c('i', {
+      staticClass: "fa fa-magic",
+      attrs: {
+        "aria-hidden": "true"
+      }
+    }) : _vm._e(), _vm._v(" "), data.event == 'Create' ? _c('i', {
+      staticClass: "fa fa-plus-circle",
+      attrs: {
+        "aria-hidden": "true"
+      }
+    }) : _vm._e(), _vm._v(" "), data.event == 'Delete' ? _c('i', {
+      staticClass: "fa fa-trash",
+      attrs: {
+        "aria-hidden": "true"
+      }
+    }) : _vm._e()]), _vm._v(" "), _c('div', {
+      staticClass: "col-11"
+    }, [_c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "col-12"
+    }, [_c('p', {
+      staticClass: "text-bold mb-0"
+    }, [_vm._v(_vm._s(data.causer_name))])]), _vm._v(" "), _c('div', {
+      staticClass: "col-12"
+    }, [_c('p', {
+      staticClass: "mb-0"
+    }, [_vm._v(_vm._s(data.description))])]), _vm._v(" "), _c('div', {
+      staticClass: "col-12"
+    }, [_c('p', {
+      staticClass: "mb-0"
+    }, [_vm._v(_vm._s(data.performedAt))])])])])])])])]);
+  }), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: !_vm.loading && !_vm.items.length,
+      expression: "!loading && !items.length"
+    }],
+    staticClass: "text-center"
+  }, [_c('EmptyTable')], 1)], 2)]), _vm._v(" "), _c('div', {
+    staticClass: "card-footer"
+  }, [_c('div', {
+    staticClass: "dtable-footer"
+  }, [_c('div', {
+    staticClass: "form-group row display-per-page"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t("per_page")) + " ")]), _vm._v(" "), _c('div', [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.perPage,
+      expression: "perPage"
+    }],
+    staticClass: "form-control form-control-sm ml-1",
+    on: {
+      "change": [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.perPage = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }, _vm.updatePerPager]
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "10"
+    }
+  }, [_vm._v("10")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "25"
+    }
+  }, [_vm._v("25")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "50"
+    }
+  }, [_vm._v("50")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "100"
+    }
+  }, [_vm._v("100")])])])]), _vm._v(" "), _vm.pagination && _vm.pagination.last_page > 1 ? _c('pagination', {
+    staticClass: "justify-flex-end",
+    attrs: {
+      "pagination": _vm.pagination,
+      "offset": 5
+    },
+    on: {
+      "paginate": _vm.paginate
+    }
+  }) : _vm._e()], 1)])], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "tab-pane",
+    attrs: {
+      "id": "journal-entry"
+    }
+  }, [_c('div', {
+    staticClass: "card custom-card w-100 mt-5 no-print"
+  }, [_c('div', {
+    staticClass: "card-header setings-header"
+  }, [_c('div', {
+    staticClass: "col-xl-4 col-4"
+  }, [_c('h3', {
+    staticClass: "card-title"
+  }, [_vm._v("\n              " + _vm._s(_vm.$t("Journal Entry Information")) + "\n            ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_vm.allData.journalEntries && _vm.allData.journalEntries.length > 0 ? _c('div', _vm._l(_vm.sortedJournalEntries, function (journalEntry, index) {
+    return _c('div', {
+      key: index,
+      staticClass: "mb-4"
+    }, [_c('div', {
+      staticClass: "row mb-3"
+    }, [_c('div', {
+      staticClass: "col-md-3"
+    }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Entry Number")) + ":")]), _vm._v(" "), _c('span', {
+      staticClass: "ml-2"
+    }, [_vm._v(_vm._s(journalEntry.formatted_entry_number))])]), _vm._v(" "), _c('div', {
+      staticClass: "col-md-3"
+    }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Entry Date")) + ":")]), _vm._v(" "), _c('span', {
+      staticClass: "ml-2"
+    }, [_vm._v(_vm._s(_vm._f("formatDate")(journalEntry.entry_date)))])]), _vm._v(" "), _c('div', {
+      staticClass: "col-md-3"
+    }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Status")) + ":")]), _vm._v(" "), _c('span', {
+      staticClass: "ml-2 badge",
+      "class": journalEntry.status === 'posted' ? 'badge-success' : 'badge-warning'
+    }, [_vm._v("\n                    " + _vm._s(journalEntry.formatted_status) + "\n                  ")])]), _vm._v(" "), _c('div', {
+      staticClass: "col-md-3"
+    }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Total Amount")) + ":")]), _vm._v(" "), _c('span', {
+      staticClass: "ml-2"
+    }, [_c('CurrencyDisplay', {
+      attrs: {
+        "amount": journalEntry.total_debit
+      }
+    })], 1)])]), _vm._v(" "), _c('div', {
+      staticClass: "row mb-3"
+    }, [_c('div', {
+      staticClass: "col-12"
+    }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Description")) + ":")]), _vm._v(" "), _c('span', {
+      staticClass: "ml-2"
+    }, [_vm._v(_vm._s(journalEntry.description))])])]), _vm._v(" "), _c('div', {
+      staticClass: "table-responsive"
+    }, [_c('table', {
+      staticClass: "table table-bordered table-sm"
+    }, [_c('thead', {
+      staticClass: "bg-light"
+    }, [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("Line")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Chart of Account")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Description")))]), _vm._v(" "), _c('th', {
+      staticClass: "text-right"
+    }, [_vm._v(_vm._s(_vm.$t("Debit")))]), _vm._v(" "), _c('th', {
+      staticClass: "text-right"
+    }, [_vm._v(_vm._s(_vm.$t("Credit")))])])]), _vm._v(" "), _c('tbody', _vm._l(journalEntry.lines, function (line, lineIndex) {
+      return _c('tr', {
+        key: lineIndex
+      }, [_c('td', [_vm._v(_vm._s(line.line_number))]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(line.chart_of_account.name))]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', {
+        staticClass: "text-muted"
+      }, [_vm._v(_vm._s(line.chart_of_account.type.name))])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(line.description))]), _vm._v(" "), _c('td', {
+        staticClass: "text-right"
+      }, [line.debit_amount > 0 ? _c('span', [_vm._v(_vm._s(line.debit_amount)), _c('span', {
+        staticClass: "saudi-riyal"
+      }, [_vm._v("ê")])]) : _c('span', {
+        staticClass: "text-muted"
+      }, [_vm._v("-")])]), _vm._v(" "), _c('td', {
+        staticClass: "text-right"
+      }, [line.credit_amount > 0 ? _c('span', [_vm._v(_vm._s(line.credit_amount) + " "), _c('span', {
+        staticClass: "saudi-riyal"
+      }, [_vm._v("ê")])]) : _c('span', {
+        staticClass: "text-muted"
+      }, [_vm._v("-")])])]);
+    }), 0), _vm._v(" "), _c('tfoot', {
+      staticClass: "bg-light"
+    }, [_c('tr', [_c('th', {
+      staticClass: "text-right",
+      attrs: {
+        "colspan": "3"
+      }
+    }, [_vm._v("\n                        " + _vm._s(_vm.$t("Total")) + ":\n                      ")]), _vm._v(" "), _c('th', {
+      staticClass: "text-right"
+    }, [_vm._v("\n                        " + _vm._s(journalEntry.total_debit) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('th', {
+      staticClass: "text-right"
+    }, [_vm._v("\n                        " + _vm._s(journalEntry.total_credit) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])])]), _vm._v(" "), _c('tr', [_c('th', {
+      staticClass: "text-right",
+      attrs: {
+        "colspan": "3"
+      }
+    }, [_vm._v("\n                        " + _vm._s(_vm.$t("Balance")) + ":\n                      ")]), _vm._v(" "), _c('th', {
+      staticClass: "text-center",
+      attrs: {
+        "colspan": "2"
+      }
+    }, [_c('span', {
+      staticClass: "badge",
+      "class": journalEntry.is_balanced ? 'badge-success' : 'badge-danger'
+    }, [_vm._v("\n                          " + _vm._s(journalEntry.is_balanced ? _vm.$t("Balanced") : _vm.$t("Unbalanced")) + "\n                        ")])])])])])])]);
+  }), 0) : _c('div', {
+    staticClass: "text-center text-muted"
+  }, [_c('p', [_vm._v("\n              " + _vm._s(_vm.$t("No journal entries found for this invoice return.")) + "\n            ")])])])])])])], 1);
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__(95353);
+// EXTERNAL MODULE: ./node_modules/html2pdf.js/dist/html2pdf.js
+var html2pdf = __webpack_require__(33833);
+// EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.js
+var sweetalert2 = __webpack_require__(94948);
+var sweetalert2_default = /*#__PURE__*/__webpack_require__.n(sweetalert2);
+// EXTERNAL MODULE: ./node_modules/izitoast/dist/js/iziToast.js
+var iziToast = __webpack_require__(69568);
+var iziToast_default = /*#__PURE__*/__webpack_require__.n(iziToast);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/returns/show.vue?vue&type=script&lang=js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+
+
+
+/* harmony default export */ const showvue_type_script_lang_js = ({
+  middleware: ["auth", "check-permissions"],
+  metaInfo: function metaInfo() {
+    return {
+      title: this.isSaudiArabia ? this.$t("Credit Note Details") : this.$t("Invoice Return Details")
+    };
+  },
+  components: {
+    CurrencyDisplay: function CurrencyDisplay() {
+      return __webpack_require__.e(/* import() */ 5448).then(__webpack_require__.bind(__webpack_require__, 75448));
+    }
+  },
+  data: function data() {
+    return {
+      breadcrumbs: [{
+        name: "Dashboard",
+        url: "home"
+      }, {
+        name: "Invoice Returns",
+        url: "invoiceReturns.index"
+      }, {
+        name: "Details",
+        url: ""
+      }],
+      allData: "",
+      invoiceSubTotal: 0,
+      invoiceReturn: 0,
+      returnProducts: [],
+      productPrefix: "",
+      invoicePrefix: "",
+      returnPrefix: "",
+      clientPrefix: "",
+      loading: false,
+      query: "",
+      perPage: 10
+    };
+  },
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["appInfo", "items", "loading", "pagination"])), {}, {
+    // Check if the country is Saudi Arabia
+    isSaudiArabia: function isSaudiArabia() {
+      return this.appInfo && this.appInfo.country === 'SA';
+    },
+    // Dynamic breadcrumb current page title
+    breadcrumbsCurrent: function breadcrumbsCurrent() {
+      return this.isSaudiArabia ? this.$t("Credit Note Details") : this.$t("Invoice Return Details");
+    },
+    // Filter products that have return quantities > 0
+    productsWithReturns: function productsWithReturns() {
+      if (!this.returnProducts || this.returnProducts.length === 0) {
+        return [];
+      }
+      return this.returnProducts.filter(function (product) {
+        return product.returnQty > 0;
+      });
+    },
+    // Sort journal entry lines with debits first, then credits
+    sortedJournalEntries: function sortedJournalEntries() {
+      var _this = this;
+      if (!this.allData || !this.allData.journalEntries) {
+        return [];
+      }
+      return this.allData.journalEntries.map(function (journalEntry) {
+        return _objectSpread(_objectSpread({}, journalEntry), {}, {
+          lines: _this.sortJournalEntryLines(journalEntry.lines || [])
+        });
+      });
+    }
+  }),
+  watch: {
+    // watch search data
+    query: function query(newQ) {
+      if (newQ === "") {
+        this.getActivity();
+      } else {
+        this.searchData();
+      }
+    }
+  },
+  created: function created() {
+    this.getInvoiceReturn();
+    this.productPrefix = this.appInfo.productPrefix;
+    this.invoicePrefix = this.appInfo.invoicePrefix;
+    this.returnPrefix = this.appInfo.invoiceReturnPrefix;
+    this.clientPrefix = this.appInfo.clientPrefix;
+  },
+  methods: {
+    // Format number to two decimal places
+    formatToTwoDecimals: function formatToTwoDecimals(value) {
+      // Handle null, undefined, or non-numeric values
+      if (value === null || value === undefined || isNaN(value)) {
+        return '0.00';
+      }
+      var numValue = Number(value);
+      if (isNaN(numValue)) {
+        return '0.00';
+      }
+      return numValue.toFixed(2);
+    },
+    // get the invoice
+    getInvoiceReturn: function getInvoiceReturn() {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var _yield$axios$get, data;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.n) {
+            case 0:
+              _this2.loading = true;
+              _context.n = 1;
+              return axios_default().get(window.location.origin + "/api/invoice-returns/" + _this2.$route.params.slug);
+            case 1:
+              _yield$axios$get = _context.v;
+              data = _yield$axios$get.data;
+              _this2.allData = data.data;
+              _this2.returnProducts = _this2.allData.invoiceReturnProducts;
+              _this2.returnProducts.sort(_this2.sortProducts);
+              _this2.calculateTotalAmount();
+              _this2.loading = false;
+            case 2:
+              return _context.a(2);
+          }
+        }, _callee);
+      }))();
+    },
+    sortProducts: function sortProducts(a, b) {
+      if (a.productCode < b.productCode) {
+        return -1;
+      }
+      if (a.productCode > b.productCode) {
+        return 1;
+      }
+      return 0;
+    },
+    // Sort journal entry lines: debits first, then credits
+    sortJournalEntryLines: function sortJournalEntryLines(lines) {
+      if (!lines || lines.length === 0) {
+        return [];
+      }
+      return _toConsumableArray(lines).sort(function (a, b) {
+        // If both are debits or both are credits, maintain original order
+        var aIsDebit = a.debit_amount > 0;
+        var bIsDebit = b.debit_amount > 0;
+        if (aIsDebit && !bIsDebit) return -1; // a is debit, b is credit - a comes first
+        if (!aIsDebit && bIsDebit) return 1; // a is credit, b is debit - b comes first
+
+        // If both are same type, maintain original order by line number
+        return a.line_number - b.line_number;
+      });
+    },
+    // Return Invoice Calculation Summary Methods (Based on Updated Formula)
+    // Get VAT rate for a product from database
+    getVatRate: function getVatRate() {
+      var product = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      if (product && product.vatRate) {
+        return product.vatRate;
+      }
+      // Fallback to first product's VAT rate or default 20%
+      if (this.returnProducts && this.returnProducts.length > 0) {
+        return this.returnProducts[0].vatRate || 20;
+      }
+      return 20; // Default VAT rate
+    },
+    // 1. Calculate Subtotal (Original Quantity × Price per Unit)
+    calculateSubtotal: function calculateSubtotal(invoiceProduct) {
+      var originalQty = parseFloat(invoiceProduct.invoiceQty) || 0;
+      var unitPrice = parseFloat(invoiceProduct.salePrice) || 0;
+      return Number((originalQty * unitPrice).toFixed(2));
+    },
+    // Calculate Subtotal with VAT (Subtotal - Discount + VAT)
+    calculateSubtotalWithVat: function calculateSubtotalWithVat(invoiceProduct) {
+      var subtotal = this.calculateSubtotal(invoiceProduct);
+      var discountAmount = parseFloat(invoiceProduct.discountAmount) || 0;
+      var taxAmount = parseFloat(invoiceProduct.taxAmount) || 0;
+      return Number((subtotal - discountAmount + taxAmount).toFixed(2));
+    },
+    // 2. Calculate Cost of Returned Products
+    // Returned Product Cost = Returned Units × Unit Price
+    calculateReturnedProductCost: function calculateReturnedProductCost(invoiceProduct) {
+      var returnedUnits = parseFloat(invoiceProduct.returnQty) || 0;
+      var unitPrice = parseFloat(invoiceProduct.salePrice) || 0;
+      return Number((returnedUnits * unitPrice).toFixed(2));
+    },
+    // Returned Product Cost including VAT = (Total Invoice Amount / Original Quantity) × Returned Units
+    calculateReturnedProductCostWithVat: function calculateReturnedProductCostWithVat(invoiceProduct) {
+      var originalQty = parseFloat(invoiceProduct.invoiceQty) || 1;
+      var returnedUnits = parseFloat(invoiceProduct.returnQty) || 0;
+      var totalInvoiceAmount = this.calculateSubtotalWithVat(invoiceProduct);
+      return originalQty > 0 ? Number((totalInvoiceAmount / originalQty * returnedUnits).toFixed(2)) : 0;
+    },
+    // 3. Calculate Return Discount
+    // Per Unit Discount = Total Discount / Original Quantity
+    calculatePerUnitDiscount: function calculatePerUnitDiscount(invoiceProduct) {
+      var originalQty = parseFloat(invoiceProduct.invoiceQty) || 1;
+      var totalDiscount = parseFloat(invoiceProduct.discountAmount) || 0;
+      return originalQty > 0 ? Number((totalDiscount / originalQty).toFixed(2)) : 0;
+    },
+    // Return Discount = Per Unit Discount × Returned Units
+    calculateReturnDiscount: function calculateReturnDiscount(invoiceProduct) {
+      var perUnitDiscount = this.calculatePerUnitDiscount(invoiceProduct);
+      var returnedUnits = parseFloat(invoiceProduct.returnQty) || 0;
+      return Number((perUnitDiscount * returnedUnits).toFixed(2));
+    },
+    // 4. Calculate Return VAT
+    // Per Unit VAT = Total VAT / Original Quantity
+    calculatePerUnitVat: function calculatePerUnitVat(invoiceProduct) {
+      var originalQty = parseFloat(invoiceProduct.invoiceQty) || 1;
+      var totalVat = parseFloat(invoiceProduct.taxAmount) || 0;
+      return originalQty > 0 ? Number((totalVat / originalQty).toFixed(2)) : 0;
+    },
+    // Return VAT = Per Unit VAT × Returned Units
+    calculateReturnVat: function calculateReturnVat(invoiceProduct) {
+      var perUnitVat = this.calculatePerUnitVat(invoiceProduct);
+      var returnedUnits = parseFloat(invoiceProduct.returnQty) || 0;
+      return Number((perUnitVat * returnedUnits).toFixed(2));
+    },
+    // 5. Calculate Remaining Discount
+    // Remaining Units = Invoice Qty - Return Qty
+    calculateRemainingUnits: function calculateRemainingUnits(invoiceProduct) {
+      var invoiceQty = parseFloat(invoiceProduct.invoiceQty) || 0;
+      var returnQty = parseFloat(invoiceProduct.returnQty) || 0;
+      return Number((invoiceQty - returnQty).toFixed(2));
+    },
+    // Remaining Discount = Per Unit Discount × Remaining Units
+    calculateRemainingDiscount: function calculateRemainingDiscount(invoiceProduct) {
+      var perUnitDiscount = this.calculatePerUnitDiscount(invoiceProduct);
+      var remainingUnits = this.calculateRemainingUnits(invoiceProduct);
+      return Number((perUnitDiscount * remainingUnits).toFixed(2));
+    },
+    // 6. Calculate Remaining Tax
+    // Tax = TotalVAT - ReturnVAT
+    calculateRemainingTax: function calculateRemainingTax(invoiceProduct) {
+      var totalVat = parseFloat(invoiceProduct.taxAmount) || 0;
+      var returnVat = this.calculateReturnVat(invoiceProduct);
+      return Number((totalVat - returnVat).toFixed(2));
+    },
+    // Legacy methods for backward compatibility
+    calculateUnitDiscount: function calculateUnitDiscount(invoiceProduct) {
+      return this.calculatePerUnitDiscount(invoiceProduct);
+    },
+    calculateUnitNet: function calculateUnitNet(invoiceProduct) {
+      var salePrice = parseFloat(invoiceProduct.salePrice) || 0;
+      var unitDiscount = this.calculatePerUnitDiscount(invoiceProduct);
+      return Number((salePrice - unitDiscount).toFixed(2));
+    },
+    calculateUnitVat: function calculateUnitVat(invoiceProduct) {
+      return this.calculatePerUnitVat(invoiceProduct);
+    },
+    calculateUnitTotal: function calculateUnitTotal(invoiceProduct) {
+      var unitNet = this.calculateUnitNet(invoiceProduct);
+      var unitVat = this.calculatePerUnitVat(invoiceProduct);
+      return Number((unitNet + unitVat).toFixed(2));
+    },
+    calculateReturnTotal: function calculateReturnTotal(invoiceProduct) {
+      var unitTotal = this.calculateUnitTotal(invoiceProduct);
+      var returnQty = parseFloat(invoiceProduct.returnQty) || 0;
+      return Number((unitTotal * returnQty).toFixed(2));
+    },
+    calculateReturnSubtotal: function calculateReturnSubtotal(invoiceProduct) {
+      return this.calculateReturnedProductCost(invoiceProduct);
+    },
+    calculateReturnNet: function calculateReturnNet(invoiceProduct) {
+      var unitNet = this.calculateUnitNet(invoiceProduct);
+      var returnQty = parseFloat(invoiceProduct.returnQty) || 0;
+      return Number((unitNet * returnQty).toFixed(2));
+    },
+    // Calculate total invoice tax (sum of tax_amount from invoice_products)
+    calculateTotalInvoiceTax: function calculateTotalInvoiceTax() {
+      if (!this.returnProducts || this.returnProducts.length === 0) {
+        return 0;
+      }
+      return this.returnProducts.reduce(function (total, product) {
+        return total + (parseFloat(product.taxAmount) || 0);
+      }, 0);
+    },
+    // Calculate total return tax (sum of return VAT for all products)
+    calculateTotalReturnTax: function calculateTotalReturnTax() {
+      var _this3 = this;
+      if (!this.productsWithReturns || this.productsWithReturns.length === 0) {
+        return 0;
+      }
+      return this.productsWithReturns.reduce(function (total, product) {
+        return total + _this3.calculateReturnVat(product);
+      }, 0);
+    },
+    // Calculate total return discount (sum of return discount for all products)
+    calculateTotalReturnDiscount: function calculateTotalReturnDiscount() {
+      var _this4 = this;
+      if (!this.productsWithReturns || this.productsWithReturns.length === 0) {
+        return 0;
+      }
+      return this.productsWithReturns.reduce(function (total, product) {
+        return total + _this4.calculateReturnDiscount(product);
+      }, 0);
+    },
+    // Calculate total remaining discount (sum of remaining discount for all products)
+    calculateTotalRemainingDiscount: function calculateTotalRemainingDiscount() {
+      var _this5 = this;
+      if (!this.returnProducts || this.returnProducts.length === 0) {
+        return 0;
+      }
+      return this.returnProducts.reduce(function (total, product) {
+        return total + _this5.calculateRemainingDiscount(product);
+      }, 0);
+    },
+    // Calculate total remaining tax (sum of remaining tax for all products)
+    calculateTotalRemainingTax: function calculateTotalRemainingTax() {
+      var _this6 = this;
+      if (!this.returnProducts || this.returnProducts.length === 0) {
+        return 0;
+      }
+      return this.returnProducts.reduce(function (total, product) {
+        return total + _this6.calculateRemainingTax(product);
+      }, 0);
+    },
+    // Calculate total cost of returned products
+    calculateTotalReturnedProductCost: function calculateTotalReturnedProductCost() {
+      var _this7 = this;
+      if (!this.productsWithReturns || this.productsWithReturns.length === 0) {
+        return 0;
+      }
+      return this.productsWithReturns.reduce(function (total, product) {
+        return total + _this7.calculateReturnedProductCost(product);
+      }, 0);
+    },
+    // Calculate total subtotal with VAT for all products
+    calculateTotalSubtotalWithVat: function calculateTotalSubtotalWithVat() {
+      var _this8 = this;
+      if (!this.returnProducts || this.returnProducts.length === 0) {
+        return 0;
+      }
+      return this.returnProducts.reduce(function (total, product) {
+        return total + _this8.calculateSubtotalWithVat(product);
+      }, 0);
+    },
+    // Calculate final total using the new formula
+    calculateFinalTotal: function calculateFinalTotal() {
+      var subtotal = parseFloat(this.allData.invoice.subTotal) || 0;
+      var returnedProductCost = this.calculateTotalReturnedProductCost();
+      var returnDiscount = this.calculateTotalReturnDiscount();
+      var returnVat = this.calculateTotalReturnTax();
+      var remainingDiscount = this.calculateTotalRemainingDiscount();
+      var remainingTax = this.calculateTotalRemainingTax();
+      var transport = parseFloat(this.allData.invoice.transport) || 0;
+
+      // Final Total = Subtotal - Cost of Returned Products - Return Discount - Return VAT - Remaining Discount + Remaining Tax + Transport
+      return Number((subtotal + returnVat -
+      // returnedProductCost -
+      returnDiscount - remainingDiscount + remainingTax + transport).toFixed(2));
+    },
+    // calculate total return using the correct formula
+    calculateTotalAmount: function calculateTotalAmount() {
+      var _this9 = this;
+      var invoiceSubTotal = 0;
+      var invoiceReturn = 0;
+      if (this.allData.invoiceReturnProducts) {
+        // Calculate invoice subtotal (original calculation)
+        invoiceSubTotal = this.allData.invoiceReturnProducts.reduce(function (prev, next) {
+          return prev + Number(next.invoiceQty) * Number(next.salePrice);
+        }, 0);
+
+        // Calculate return total using the correct formula
+        invoiceReturn = this.allData.invoiceReturnProducts.reduce(function (prev, next) {
+          if (next.returnQty > 0) {
+            // Parse quantities safely and ensure they're numbers
+            var quantity = parseFloat(next.quantity) || 1; // fallback to 1 to avoid division by zero
+            var returnQty = parseFloat(next.returnQty) || 0;
+            var discountAmount = parseFloat(next.discountAmount) || 0;
+            var salePrice = parseFloat(next.salePrice) || 0;
+
+            // unit_discount = round(discount_amount / quantity, 2)
+            var unitDiscount = quantity > 0 ? Number((discountAmount / quantity).toFixed(2)) : 0;
+
+            // unit_net = sale_price - unit_discount
+            var unitNet = Number((salePrice - unitDiscount).toFixed(2));
+
+            // unit_vat = round(unit_net * vat_rate / 100, 2)
+            var vatRate = _this9.getVatRate(next);
+            var unitVat = Number((unitNet * vatRate / 100).toFixed(2));
+
+            // unit_total = unit_net + unit_vat
+            var unitTotal = Number((unitNet + unitVat).toFixed(2));
+
+            // return_total = round(unit_total * return_qty, 2)
+            var returnTotal = Number((unitTotal * returnQty).toFixed(2));
+            return prev + returnTotal;
+          }
+          return prev;
+        }, 0);
+      }
+      this.invoiceSubTotal = invoiceSubTotal;
+      this.invoiceReturn = invoiceReturn;
+      return;
+    },
+    // print
+    printWindow: function printWindow() {
+      // Open print page in new window
+      var printUrl = "/print/invoice-return/".concat(this.$route.params.slug);
+      window.open(printUrl, '_blank');
+    },
+    // download pdf
+    generatePDF: function generatePDF() {
+      // Download PDF using the new route
+      var downloadUrl = "/print/invoice-return/".concat(this.$route.params.slug, "/pdf");
+      window.open(downloadUrl, '_blank');
+    },
+    // print table
+    print: function print() {
+      var _this0 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.n) {
+            case 0:
+              _context2.n = 1;
+              return _this0.$htmlToPaper("printMe");
+            case 1:
+              return _context2.a(2);
+          }
+        }, _callee2);
+      }))();
+    },
+    // send credit note
+    sendCreditNote: function sendCreditNote(data) {
+      var _this1 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.n) {
+            case 0:
+              sweetalert2_default().fire({
+                title: _this1.$t("Send Credit Note to ZATCA"),
+                text: _this1.$t("Do you want to send this credit note to ZATCA?"),
+                type: "question",
+                showCancelButton: true,
+                confirmButtonText: _this1.$t("Yes"),
+                cancelButtonText: _this1.$t("No"),
+                confirmButtonColor: "#28a745",
+                cancelButtonColor: "#dc3545"
+              }).then(/*#__PURE__*/function () {
+                var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(result) {
+                  var response, _error$response, _t;
+                  return _regenerator().w(function (_context3) {
+                    while (1) switch (_context3.p = _context3.n) {
+                      case 0:
+                        if (!result.value) {
+                          _context3.n = 4;
+                          break;
+                        }
+                        _context3.p = 1;
+                        sweetalert2_default().fire({
+                          title: _this1.$t("Sending..."),
+                          text: _this1.$t("Please wait while we send the credit note to ZATCA"),
+                          allowOutsideClick: false,
+                          showConfirmButton: false,
+                          willOpen: function willOpen() {
+                            sweetalert2_default().showLoading();
+                          }
+                        });
+                        _context3.n = 2;
+                        return axios_default().post("/api/invoice-returns/".concat(data.slug, "/send-to-zatca"));
+                      case 2:
+                        response = _context3.v;
+                        sweetalert2_default().close();
+                        if (response.data.success) {
+                          _this1.$toast.success(_this1.$t("Sent Successfully!"), _this1.$t("Credit note has been sent to ZATCA and journal entries have been created."));
+                          // Refresh current page data to reflect updated status
+                          _this1.getInvoiceReturn();
+                        } else {
+                          _this1.$toast.error(_this1.$t("Failed!"), response.data.message || _this1.$t("Failed to send credit note to ZATCA"));
+                        }
+                        _context3.n = 4;
+                        break;
+                      case 3:
+                        _context3.p = 3;
+                        _t = _context3.v;
+                        sweetalert2_default().close();
+                        _this1.$toast.error(_this1.$t("Error!"), ((_error$response = _t.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this1.$t("An error occurred while sending the credit note"));
+                      case 4:
+                        return _context3.a(2);
+                    }
+                  }, _callee3, null, [[1, 3]]);
+                }));
+                return function (_x) {
+                  return _ref.apply(this, arguments);
+                };
+              }());
+            case 1:
+              return _context4.a(2);
+          }
+        }, _callee4);
+      }))();
+    },
+    // get activity logs
+    getActivity: function getActivity() {
+      var _this10 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+        var currentPage, slug, modelName;
+        return _regenerator().w(function (_context5) {
+          while (1) switch (_context5.n) {
+            case 0:
+              currentPage = _this10.pagination ? _this10.pagination.current_page : 1;
+              _this10.$store.state.operations.loading = true;
+              slug = _this10.$route.params.slug;
+              modelName = "InvoiceReturn";
+              _context5.n = 1;
+              return _this10.$store.dispatch("operations/fetchSpecificLogs", {
+                path: "/api/activity-log-specific?page=",
+                currentPage: currentPage + "&perPage=" + _this10.perPage,
+                slug: slug,
+                modelName: modelName
+              });
+            case 1:
+              return _context5.a(2);
+          }
+        }, _callee5);
+      }))();
+    },
+    // search data
+    searchData: function searchData() {
+      var _this11 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+        var slug, modelName;
+        return _regenerator().w(function (_context6) {
+          while (1) switch (_context6.n) {
+            case 0:
+              _this11.$store.state.operations.loading = true;
+              slug = _this11.$route.params.slug;
+              modelName = "InvoiceReturn";
+              _context6.n = 1;
+              return _this11.$store.dispatch("operations/fetchSpecificLogs", {
+                path: "/api/activity-log-specific?page=",
+                currentPage: _this11.pagination.current_page + "&perPage=" + _this11.perPage,
+                term: _this11.query,
+                slug: slug,
+                modelName: modelName
+              });
+            case 1:
+              return _context6.a(2);
+          }
+        }, _callee6);
+      }))();
+    },
+    // pagination
+    paginate: function paginate() {
+      var _this12 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+        return _regenerator().w(function (_context7) {
+          while (1) switch (_context7.n) {
+            case 0:
+              _this12.getActivity();
+            case 1:
+              return _context7.a(2);
+          }
+        }, _callee7);
+      }))();
+    },
+    updatePerPager: function updatePerPager() {
+      this.pagination.current_page = 1;
+      this.query === "" ? this.getActivity() : this.searchData();
+    },
+    // reload after search
+    reload: function reload() {
+      var _this13 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
+        return _regenerator().w(function (_context8) {
+          while (1) switch (_context8.n) {
+            case 0:
+              _this13.query = "";
+            case 1:
+              return _context8.a(2);
+          }
+        }, _callee8);
+      }))();
+    },
+    // refresh table
+    refreshTable: function refreshTable() {
+      var _this14 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
+        var refreshedText;
+        return _regenerator().w(function (_context9) {
+          while (1) switch (_context9.n) {
+            case 0:
+              _this14.query = "";
+              if (_this14.pagination) {
+                _this14.pagination.current_page = 1;
+              }
+              _context9.n = 1;
+              return _this14.getActivity();
+            case 1:
+              refreshedText = _this14.$te && _this14.$te('Refreshed') ? _this14.$t('Refreshed') : 'Refreshed';
+              if (typeof (iziToast_default()) !== 'undefined') {
+                iziToast_default().success({
+                  title: refreshedText,
+                  message: '',
+                  position: 'topRight',
+                  timeout: 3000
+                });
+              }
+            case 2:
+              return _context9.a(2);
+          }
+        }, _callee9);
+      }))();
+    },
+    // reset pagination
+    resetPagination: function resetPagination() {
+      var _this15 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
+        return _regenerator().w(function (_context0) {
+          while (1) switch (_context0.n) {
+            case 0:
+              _this15.pagination.current_page = 1;
+            case 1:
+              return _context0.a(2);
+          }
+        }, _callee0);
+      }))();
+    },
+    // get journal entries
+    getJournalEntries: function getJournalEntries() {
+      var _this16 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1() {
+        return _regenerator().w(function (_context1) {
+          while (1) switch (_context1.n) {
+            case 0:
+              _context1.n = 1;
+              return _this16.getInvoiceReturn();
+            case 1:
+              // Debug: Log the journal entries data
+              console.log('Journal Entries:', _this16.allData.journalEntries);
+              console.log('All Data:', _this16.allData);
+            case 2:
+              return _context1.a(2);
+          }
+        }, _callee1);
+      }))();
+    }
+  }
+});
+;// ./resources/js/pages/sales/returns/show.vue?vue&type=script&lang=js
+ /* harmony default export */ const returns_showvue_type_script_lang_js = (showvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/returns/show.vue?vue&type=style&index=0&id=70247410&prod&scoped=true&lang=css
+var showvue_type_style_index_0_id_70247410_prod_scoped_true_lang_css = __webpack_require__(3625);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/returns/show.vue?vue&type=style&index=0&id=70247410&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(showvue_type_style_index_0_id_70247410_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const returns_showvue_type_style_index_0_id_70247410_prod_scoped_true_lang_css = (showvue_type_style_index_0_id_70247410_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/sales/returns/show.vue?vue&type=style&index=0&id=70247410&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/pages/sales/returns/show.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  returns_showvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "70247410",
+  null
+  
+)
+
+/* harmony default export */ const show = (component.exports);
+
+/***/ }),
+
+/***/ 69568:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
+* iziToast | v1.4.0
+* http://izitoast.marcelodolce.com
+* by Marcelo Dolce.
+*/
+(function (root, factory) {
+	if(true) {
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory(root)),
+		__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+		(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else // removed by dead control flow
+{}
+})(typeof __webpack_require__.g !== 'undefined' ? __webpack_require__.g : window || this.window || this.global, function (root) {
+
+	'use strict';
+
+	//
+	// Variables
+	//
+	var $iziToast = {},
+		PLUGIN_NAME = 'iziToast',
+		BODY = document.querySelector('body'),
+		ISMOBILE = (/Mobi/.test(navigator.userAgent)) ? true : false,
+		ISCHROME = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor),
+		ISFIREFOX = typeof InstallTrigger !== 'undefined',
+		ACCEPTSTOUCH = 'ontouchstart' in document.documentElement,
+		POSITIONS = ['bottomRight','bottomLeft','bottomCenter','topRight','topLeft','topCenter','center'],
+		THEMES = {
+			info: {
+				color: 'blue',
+				icon: 'ico-info'
+			},
+			success: {
+				color: 'green',
+				icon: 'ico-success'
+			},
+			warning: {
+				color: 'orange',
+				icon: 'ico-warning'
+			},
+			error: {
+				color: 'red',
+				icon: 'ico-error'
+			},
+			question: {
+				color: 'yellow',
+				icon: 'ico-question'
+			}
+		},
+		MOBILEWIDTH = 568,
+		CONFIG = {};
+
+	$iziToast.children = {};
+
+	// Default settings
+	var defaults = {
+		id: null, 
+		class: '',
+		title: '',
+		titleColor: '',
+		titleSize: '',
+		titleLineHeight: '',
+		message: '',
+		messageColor: '',
+		messageSize: '',
+		messageLineHeight: '',
+		backgroundColor: '',
+		theme: 'light', // dark
+		color: '', // blue, red, green, yellow
+		icon: '',
+		iconText: '',
+		iconColor: '',
+		iconUrl: null,
+		image: '',
+		imageWidth: 50,
+		maxWidth: null,
+		zindex: null,
+		layout: 1,
+		balloon: false,
+		close: true,
+		closeOnEscape: false,
+		closeOnClick: false,
+		displayMode: 0,
+		position: 'bottomRight', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
+		target: '',
+		targetFirst: true,
+		timeout: 5000,
+		rtl: false,
+		animateInside: true,
+		drag: true,
+		pauseOnHover: true,
+		resetOnHover: false,
+		progressBar: true,
+		progressBarColor: '',
+		progressBarEasing: 'linear',
+		overlay: false,
+		overlayClose: false,
+		overlayColor: 'rgba(0, 0, 0, 0.6)',
+		transitionIn: 'fadeInUp', // bounceInLeft, bounceInRight, bounceInUp, bounceInDown, fadeIn, fadeInDown, fadeInUp, fadeInLeft, fadeInRight, flipInX
+		transitionOut: 'fadeOut', // fadeOut, fadeOutUp, fadeOutDown, fadeOutLeft, fadeOutRight, flipOutX
+		transitionInMobile: 'fadeInUp',
+		transitionOutMobile: 'fadeOutDown',
+		buttons: {},
+		inputs: {},
+		onOpening: function () {},
+		onOpened: function () {},
+		onClosing: function () {},
+		onClosed: function () {}
+	};
+
+	//
+	// Methods
+	//
+
+
+	/**
+	 * Polyfill for remove() method
+	 */
+	if(!('remove' in Element.prototype)) {
+	    Element.prototype.remove = function() {
+	        if(this.parentNode) {
+	            this.parentNode.removeChild(this);
+	        }
+	    };
+	}
+
+	/*
+     * Polyfill for CustomEvent for IE >= 9
+     * https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill
+     */
+    if(typeof window.CustomEvent !== 'function') {
+        var CustomEventPolyfill = function (event, params) {
+            params = params || { bubbles: false, cancelable: false, detail: undefined };
+            var evt = document.createEvent('CustomEvent');
+            evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+            return evt;
+        };
+
+        CustomEventPolyfill.prototype = window.Event.prototype;
+
+        window.CustomEvent = CustomEventPolyfill;
+    }
+
+	/**
+	 * A simple forEach() implementation for Arrays, Objects and NodeLists
+	 * @private
+	 * @param {Array|Object|NodeList} collection Collection of items to iterate
+	 * @param {Function} callback Callback function for each iteration
+	 * @param {Array|Object|NodeList} scope Object/NodeList/Array that forEach is iterating over (aka `this`)
+	 */
+	var forEach = function (collection, callback, scope) {
+		if(Object.prototype.toString.call(collection) === '[object Object]') {
+			for (var prop in collection) {
+				if(Object.prototype.hasOwnProperty.call(collection, prop)) {
+					callback.call(scope, collection[prop], prop, collection);
+				}
+			}
+		} else {
+			if(collection){
+				for (var i = 0, len = collection.length; i < len; i++) {
+					callback.call(scope, collection[i], i, collection);
+				}
+			}
+		}
+	};
+
+	/**
+	 * Merge defaults with user options
+	 * @private
+	 * @param {Object} defaults Default settings
+	 * @param {Object} options User options
+	 * @returns {Object} Merged values of defaults and options
+	 */
+	var extend = function (defaults, options) {
+		var extended = {};
+		forEach(defaults, function (value, prop) {
+			extended[prop] = defaults[prop];
+		});
+		forEach(options, function (value, prop) {
+			extended[prop] = options[prop];
+		});
+		return extended;
+	};
+
+
+	/**
+	 * Create a fragment DOM elements
+	 * @private
+	 */
+	var createFragElem = function(htmlStr) {
+		var frag = document.createDocumentFragment(),
+			temp = document.createElement('div');
+		temp.innerHTML = htmlStr;
+		while (temp.firstChild) {
+			frag.appendChild(temp.firstChild);
+		}
+		return frag;
+	};
+
+
+	/**
+	 * Generate new ID
+	 * @private
+	 */
+	var generateId = function(params) {
+		var newId = btoa(encodeURIComponent(params));
+		return newId.replace(/=/g, "");
+	};
+
+
+	/**
+	 * Check if is a color
+	 * @private
+	 */
+	var isColor = function(color){
+		if( color.substring(0,1) == '#' || color.substring(0,3) == 'rgb' || color.substring(0,3) == 'hsl' ){
+			return true;
+		} else {
+			return false;
+		}
+	};
+
+
+	/**
+	 * Check if is a Base64 string
+	 * @private
+	 */
+	var isBase64 = function(str) {
+	    try {
+	        return btoa(atob(str)) == str;
+	    } catch (err) {
+	        return false;
+	    }
+	};
+
+
+	/**
+	 * Drag method of toasts
+	 * @private
+	 */
+	var drag = function() {
+	    
+	    return {
+	        move: function(toast, instance, settings, xpos) {
+
+	        	var opacity,
+	        		opacityRange = 0.3,
+	        		distance = 180;
+	            
+	            if(xpos !== 0){
+	            	
+	            	toast.classList.add(PLUGIN_NAME+'-dragged');
+
+	            	toast.style.transform = 'translateX('+xpos + 'px)';
+
+		            if(xpos > 0){
+		            	opacity = (distance-xpos) / distance;
+		            	if(opacity < opacityRange){
+							instance.hide(extend(settings, { transitionOut: 'fadeOutRight', transitionOutMobile: 'fadeOutRight' }), toast, 'drag');
+						}
+		            } else {
+		            	opacity = (distance+xpos) / distance;
+		            	if(opacity < opacityRange){
+							instance.hide(extend(settings, { transitionOut: 'fadeOutLeft', transitionOutMobile: 'fadeOutLeft' }), toast, 'drag');
+						}
+		            }
+					toast.style.opacity = opacity;
+			
+					if(opacity < opacityRange){
+
+						if(ISCHROME || ISFIREFOX)
+							toast.style.left = xpos+'px';
+
+						toast.parentNode.style.opacity = opacityRange;
+
+		                this.stopMoving(toast, null);
+					}
+	            }
+
+				
+	        },
+	        startMoving: function(toast, instance, settings, e) {
+
+	            e = e || window.event;
+	            var posX = ((ACCEPTSTOUCH) ? e.touches[0].clientX : e.clientX),
+	                toastLeft = toast.style.transform.replace('px)', '');
+	                toastLeft = toastLeft.replace('translateX(', '');
+	            var offsetX = posX - toastLeft;
+
+				if(settings.transitionIn){
+					toast.classList.remove(settings.transitionIn);
+				}
+				if(settings.transitionInMobile){
+					toast.classList.remove(settings.transitionInMobile);
+				}
+				toast.style.transition = '';
+
+	            if(ACCEPTSTOUCH) {
+	                document.ontouchmove = function(e) {
+	                    e.preventDefault();
+	                    e = e || window.event;
+	                    var posX = e.touches[0].clientX,
+	                        finalX = posX - offsetX;
+                        drag.move(toast, instance, settings, finalX);
+	                };
+	            } else {
+	                document.onmousemove = function(e) {
+	                    e.preventDefault();
+	                    e = e || window.event;
+	                    var posX = e.clientX,
+	                        finalX = posX - offsetX;
+                        drag.move(toast, instance, settings, finalX);
+	                };
+	            }
+
+	        },
+	        stopMoving: function(toast, e) {
+
+	            if(ACCEPTSTOUCH) {
+	                document.ontouchmove = function() {};
+	            } else {
+	            	document.onmousemove = function() {};
+	            }
+
+				toast.style.opacity = '';
+				toast.style.transform = '';
+
+	            if(toast.classList.contains(PLUGIN_NAME+'-dragged')){
+	            	
+	            	toast.classList.remove(PLUGIN_NAME+'-dragged');
+
+					toast.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
+					setTimeout(function() {
+						toast.style.transition = '';
+					}, 400);
+	            }
+
+	        }
+	    };
+
+	}();
+
+
+
+
+
+	$iziToast.setSetting = function (ref, option, value) {
+
+		$iziToast.children[ref][option] = value;
+
+	};
+
+
+	$iziToast.getSetting = function (ref, option) {
+
+		return $iziToast.children[ref][option];
+
+	};
+
+
+	/**
+	 * Destroy the current initialization.
+	 * @public
+	 */
+	$iziToast.destroy = function () {
+
+		forEach(document.querySelectorAll('.'+PLUGIN_NAME+'-overlay'), function(element, index) {
+			element.remove();
+		});
+
+		forEach(document.querySelectorAll('.'+PLUGIN_NAME+'-wrapper'), function(element, index) {
+			element.remove();
+		});
+
+		forEach(document.querySelectorAll('.'+PLUGIN_NAME), function(element, index) {
+			element.remove();
+		});
+
+		this.children = {};
+
+		// Remove event listeners
+		document.removeEventListener(PLUGIN_NAME+'-opened', {}, false);
+		document.removeEventListener(PLUGIN_NAME+'-opening', {}, false);
+		document.removeEventListener(PLUGIN_NAME+'-closing', {}, false);
+		document.removeEventListener(PLUGIN_NAME+'-closed', {}, false);
+		document.removeEventListener('keyup', {}, false);
+
+		// Reset variables
+		CONFIG = {};
+	};
+
+	/**
+	 * Initialize Plugin
+	 * @public
+	 * @param {Object} options User settings
+	 */
+	$iziToast.settings = function (options) {
+
+		// Destroy any existing initializations
+		$iziToast.destroy();
+
+		CONFIG = options;
+		defaults = extend(defaults, options || {});
+	};
+
+
+	/**
+	 * Building themes functions.
+	 * @public
+	 * @param {Object} options User settings
+	 */
+	forEach(THEMES, function (theme, name) {
+
+		$iziToast[name] = function (options) {
+
+			var settings = extend(CONFIG, options || {});
+			settings = extend(theme, settings || {});
+
+			this.show(settings);
+		};
+
+	});
+
+
+	/**
+	 * Do the calculation to move the progress bar
+	 * @private
+	 */
+	$iziToast.progress = function (options, $toast, callback) {
+
+
+		var that = this,
+			ref = $toast.getAttribute('data-iziToast-ref'),
+			settings = extend(this.children[ref], options || {}),
+			$elem = $toast.querySelector('.'+PLUGIN_NAME+'-progressbar div');
+
+	    return {
+	        start: function() {
+
+	        	if(typeof settings.time.REMAINING == 'undefined'){
+
+	        		$toast.classList.remove(PLUGIN_NAME+'-reseted');
+
+		        	if($elem !== null){
+						$elem.style.transition = 'width '+ settings.timeout +'ms '+settings.progressBarEasing;
+						$elem.style.width = '0%';
+					}
+
+		        	settings.time.START = new Date().getTime();
+		        	settings.time.END = settings.time.START + settings.timeout;
+					settings.time.TIMER = setTimeout(function() {
+
+						clearTimeout(settings.time.TIMER);
+
+						if(!$toast.classList.contains(PLUGIN_NAME+'-closing')){
+
+							that.hide(settings, $toast, 'timeout');
+
+							if(typeof callback === 'function'){
+								callback.apply(that);
+							}
+						}
+
+					}, settings.timeout);			
+		        	that.setSetting(ref, 'time', settings.time);
+	        	}
+	        },
+	        pause: function() {
+
+	        	if(typeof settings.time.START !== 'undefined' && !$toast.classList.contains(PLUGIN_NAME+'-paused') && !$toast.classList.contains(PLUGIN_NAME+'-reseted')){
+
+        			$toast.classList.add(PLUGIN_NAME+'-paused');
+
+					settings.time.REMAINING = settings.time.END - new Date().getTime();
+
+					clearTimeout(settings.time.TIMER);
+
+					that.setSetting(ref, 'time', settings.time);
+
+					if($elem !== null){
+						var computedStyle = window.getComputedStyle($elem),
+							propertyWidth = computedStyle.getPropertyValue('width');
+
+						$elem.style.transition = 'none';
+						$elem.style.width = propertyWidth;					
+					}
+
+					if(typeof callback === 'function'){
+						setTimeout(function() {
+							callback.apply(that);						
+						}, 10);
+					}
+        		}
+	        },
+	        resume: function() {
+
+				if(typeof settings.time.REMAINING !== 'undefined'){
+
+					$toast.classList.remove(PLUGIN_NAME+'-paused');
+
+		        	if($elem !== null){
+						$elem.style.transition = 'width '+ settings.time.REMAINING +'ms '+settings.progressBarEasing;
+						$elem.style.width = '0%';
+					}
+
+		        	settings.time.END = new Date().getTime() + settings.time.REMAINING;
+					settings.time.TIMER = setTimeout(function() {
+
+						clearTimeout(settings.time.TIMER);
+
+						if(!$toast.classList.contains(PLUGIN_NAME+'-closing')){
+
+							that.hide(settings, $toast, 'timeout');
+
+							if(typeof callback === 'function'){
+								callback.apply(that);
+							}
+						}
+
+
+					}, settings.time.REMAINING);
+
+					that.setSetting(ref, 'time', settings.time);
+				} else {
+					this.start();
+				}
+	        },
+	        reset: function(){
+
+				clearTimeout(settings.time.TIMER);
+
+				delete settings.time.REMAINING;
+
+				that.setSetting(ref, 'time', settings.time);
+
+				$toast.classList.add(PLUGIN_NAME+'-reseted');
+
+				$toast.classList.remove(PLUGIN_NAME+'-paused');
+
+				if($elem !== null){
+					$elem.style.transition = 'none';
+					$elem.style.width = '100%';
+				}
+
+				if(typeof callback === 'function'){
+					setTimeout(function() {
+						callback.apply(that);						
+					}, 10);
+				}
+	        }
+	    };
+
+	};
+
+
+	/**
+	 * Close the specific Toast
+	 * @public
+	 * @param {Object} options User settings
+	 */
+	$iziToast.hide = function (options, $toast, closedBy) {
+
+		if(typeof $toast != 'object'){
+			$toast = document.querySelector($toast);
+		}		
+
+		var that = this,
+			settings = extend(this.children[$toast.getAttribute('data-iziToast-ref')], options || {});
+			settings.closedBy = closedBy || null;
+
+		delete settings.time.REMAINING;
+
+		$toast.classList.add(PLUGIN_NAME+'-closing');
+
+		// Overlay
+		(function(){
+
+			var $overlay = document.querySelector('.'+PLUGIN_NAME+'-overlay');
+			if($overlay !== null){
+				var refs = $overlay.getAttribute('data-iziToast-ref');		
+					refs = refs.split(',');
+				var index = refs.indexOf(String(settings.ref));
+
+				if(index !== -1){
+					refs.splice(index, 1);			
+				}
+				$overlay.setAttribute('data-iziToast-ref', refs.join());
+
+				if(refs.length === 0){
+					$overlay.classList.remove('fadeIn');
+					$overlay.classList.add('fadeOut');
+					setTimeout(function() {
+						$overlay.remove();
+					}, 700);
+				}
+			}
+
+		})();
+
+		if(settings.transitionIn){
+			$toast.classList.remove(settings.transitionIn);
+		} 
+
+		if(settings.transitionInMobile){
+			$toast.classList.remove(settings.transitionInMobile);
+		}
+
+		if(ISMOBILE || window.innerWidth <= MOBILEWIDTH){
+			if(settings.transitionOutMobile)
+				$toast.classList.add(settings.transitionOutMobile);
+		} else {
+			if(settings.transitionOut)
+				$toast.classList.add(settings.transitionOut);
+		}
+		var H = $toast.parentNode.offsetHeight;
+				$toast.parentNode.style.height = H+'px';
+				$toast.style.pointerEvents = 'none';
+		
+		if(!ISMOBILE || window.innerWidth > MOBILEWIDTH){
+			$toast.parentNode.style.transitionDelay = '0.2s';
+		}
+
+		try {
+			var event = new CustomEvent(PLUGIN_NAME+'-closing', {detail: settings, bubbles: true, cancelable: true});
+			document.dispatchEvent(event);
+		} catch(ex){
+			console.warn(ex);
+		}
+
+		setTimeout(function() {
+			
+			$toast.parentNode.style.height = '0px';
+			$toast.parentNode.style.overflow = '';
+
+			setTimeout(function(){
+				
+				delete that.children[settings.ref];
+
+				$toast.parentNode.remove();
+
+				try {
+					var event = new CustomEvent(PLUGIN_NAME+'-closed', {detail: settings, bubbles: true, cancelable: true});
+					document.dispatchEvent(event);
+				} catch(ex){
+					console.warn(ex);
+				}
+
+				if(typeof settings.onClosed !== 'undefined'){
+					settings.onClosed.apply(null, [settings, $toast, closedBy]);
+				}
+
+			}, 1000);
+		}, 200);
+
+
+		if(typeof settings.onClosing !== 'undefined'){
+			settings.onClosing.apply(null, [settings, $toast, closedBy]);
+		}
+	};
+
+	/**
+	 * Create and show the Toast
+	 * @public
+	 * @param {Object} options User settings
+	 */
+	$iziToast.show = function (options) {
+
+		var that = this;
+
+		// Merge user options with defaults
+		var settings = extend(CONFIG, options || {});
+			settings = extend(defaults, settings);
+			settings.time = {};
+
+		if(settings.id === null){
+			settings.id = generateId(settings.title+settings.message+settings.color);
+		}
+
+		if(settings.displayMode === 1 || settings.displayMode == 'once'){
+			try {
+				if(document.querySelectorAll('.'+PLUGIN_NAME+'#'+settings.id).length > 0){
+					return false;
+				}
+			} catch (exc) {
+				console.warn('['+PLUGIN_NAME+'] Could not find an element with this selector: '+'#'+settings.id+'. Try to set an valid id.');
+			}
+		}
+
+		if(settings.displayMode === 2 || settings.displayMode == 'replace'){
+			try {
+				forEach(document.querySelectorAll('.'+PLUGIN_NAME+'#'+settings.id), function(element, index) {
+					that.hide(settings, element, 'replaced');
+				});
+			} catch (exc) {
+				console.warn('['+PLUGIN_NAME+'] Could not find an element with this selector: '+'#'+settings.id+'. Try to set an valid id.');
+			}
+		}
+
+		settings.ref = new Date().getTime() + Math.floor((Math.random() * 10000000) + 1);
+
+		$iziToast.children[settings.ref] = settings;
+
+		var $DOM = {
+			body: document.querySelector('body'),
+			overlay: document.createElement('div'),
+			toast: document.createElement('div'),
+			toastBody: document.createElement('div'),
+			toastTexts: document.createElement('div'),
+			toastCapsule: document.createElement('div'),
+			cover: document.createElement('div'),
+			buttons: document.createElement('div'),
+			inputs: document.createElement('div'),
+			icon: !settings.iconUrl ? document.createElement('i') : document.createElement('img'),
+			wrapper: null
+		};
+
+		$DOM.toast.setAttribute('data-iziToast-ref', settings.ref);
+		$DOM.toast.appendChild($DOM.toastBody);
+		$DOM.toastCapsule.appendChild($DOM.toast);
+
+		// CSS Settings
+		(function(){
+
+			$DOM.toast.classList.add(PLUGIN_NAME);
+			$DOM.toast.classList.add(PLUGIN_NAME+'-opening');
+			$DOM.toastCapsule.classList.add(PLUGIN_NAME+'-capsule');
+			$DOM.toastBody.classList.add(PLUGIN_NAME + '-body');
+			$DOM.toastTexts.classList.add(PLUGIN_NAME + '-texts');
+
+			if(ISMOBILE || window.innerWidth <= MOBILEWIDTH){
+				if(settings.transitionInMobile)
+					$DOM.toast.classList.add(settings.transitionInMobile);
+			} else {
+				if(settings.transitionIn)
+					$DOM.toast.classList.add(settings.transitionIn);
+			}
+
+			if(settings.class){
+				var classes = settings.class.split(' ');
+				forEach(classes, function (value, index) {
+					$DOM.toast.classList.add(value);
+				});
+			}
+
+			if(settings.id){ $DOM.toast.id = settings.id; }
+
+			if(settings.rtl){
+				$DOM.toast.classList.add(PLUGIN_NAME + '-rtl');
+				$DOM.toast.setAttribute('dir', 'rtl');
+			}
+
+			if(settings.layout > 1){ $DOM.toast.classList.add(PLUGIN_NAME+'-layout'+settings.layout); }
+
+			if(settings.balloon){ $DOM.toast.classList.add(PLUGIN_NAME+'-balloon'); }
+
+			if(settings.maxWidth){
+				if( !isNaN(settings.maxWidth) ){
+					$DOM.toast.style.maxWidth = settings.maxWidth+'px';
+				} else {
+					$DOM.toast.style.maxWidth = settings.maxWidth;
+				}
+			}
+
+			if(settings.theme !== '' || settings.theme !== 'light') {
+
+				$DOM.toast.classList.add(PLUGIN_NAME+'-theme-'+settings.theme);
+			}
+
+			if(settings.color) { //#, rgb, rgba, hsl
+				
+				if( isColor(settings.color) ){
+					$DOM.toast.style.background = settings.color;
+				} else {
+					$DOM.toast.classList.add(PLUGIN_NAME+'-color-'+settings.color);
+				}
+			}
+
+			if(settings.backgroundColor) {
+				$DOM.toast.style.background = settings.backgroundColor;
+				if(settings.balloon){
+					$DOM.toast.style.borderColor = settings.backgroundColor;				
+				}
+			}
+		})();
+
+		// Cover image
+		(function(){
+			if(settings.image) {
+				$DOM.cover.classList.add(PLUGIN_NAME + '-cover');
+				$DOM.cover.style.width = settings.imageWidth + 'px';
+
+				if(isBase64(settings.image.replace(/ /g,''))){
+					$DOM.cover.style.backgroundImage = 'url(data:image/png;base64,' + settings.image.replace(/ /g,'') + ')';
+				} else {
+					$DOM.cover.style.backgroundImage = 'url(' + settings.image + ')';
+				}
+
+				if(settings.rtl){
+					$DOM.toastBody.style.marginRight = (settings.imageWidth + 10) + 'px';
+				} else {
+					$DOM.toastBody.style.marginLeft = (settings.imageWidth + 10) + 'px';				
+				}
+				$DOM.toast.appendChild($DOM.cover);
+			}
+		})();
+
+		// Button close
+		(function(){
+			if(settings.close){
+				
+				$DOM.buttonClose = document.createElement('button');
+				$DOM.buttonClose.type = 'button';
+				$DOM.buttonClose.classList.add(PLUGIN_NAME + '-close');
+				$DOM.buttonClose.addEventListener('click', function (e) {
+					var button = e.target;
+					that.hide(settings, $DOM.toast, 'button');
+				});
+				$DOM.toast.appendChild($DOM.buttonClose);
+			} else {
+				if(settings.rtl){
+					$DOM.toast.style.paddingLeft = '18px';
+				} else {
+					$DOM.toast.style.paddingRight = '18px';
+				}
+			}
+		})();
+
+		// Progress Bar & Timeout
+		(function(){
+
+			if(settings.progressBar){
+				$DOM.progressBar = document.createElement('div');
+				$DOM.progressBarDiv = document.createElement('div');
+				$DOM.progressBar.classList.add(PLUGIN_NAME + '-progressbar');
+				$DOM.progressBarDiv.style.background = settings.progressBarColor;
+				$DOM.progressBar.appendChild($DOM.progressBarDiv);
+				$DOM.toast.appendChild($DOM.progressBar);
+			}
+
+			if(settings.timeout) {
+
+				if(settings.pauseOnHover && !settings.resetOnHover){
+					
+					$DOM.toast.addEventListener('mouseenter', function (e) {
+						that.progress(settings, $DOM.toast).pause();
+					});
+					$DOM.toast.addEventListener('mouseleave', function (e) {
+						that.progress(settings, $DOM.toast).resume();
+					});
+				}
+
+				if(settings.resetOnHover){
+
+					$DOM.toast.addEventListener('mouseenter', function (e) {
+						that.progress(settings, $DOM.toast).reset();
+					});
+					$DOM.toast.addEventListener('mouseleave', function (e) {
+						that.progress(settings, $DOM.toast).start();
+					});
+				}
+			}
+		})();
+
+		// Icon
+		(function(){
+
+			if(settings.iconUrl) {
+
+				$DOM.icon.setAttribute('class', PLUGIN_NAME + '-icon');
+				$DOM.icon.setAttribute('src', settings.iconUrl);
+
+			} else if(settings.icon) {
+				$DOM.icon.setAttribute('class', PLUGIN_NAME + '-icon ' + settings.icon);
+				
+				if(settings.iconText){
+					$DOM.icon.appendChild(document.createTextNode(settings.iconText));
+				}
+				
+				if(settings.iconColor){
+					$DOM.icon.style.color = settings.iconColor;
+				}				
+			}
+
+			if(settings.icon || settings.iconUrl) {
+
+				if(settings.rtl){
+					$DOM.toastBody.style.paddingRight = '33px';
+				} else {
+					$DOM.toastBody.style.paddingLeft = '33px';				
+				}
+
+				$DOM.toastBody.appendChild($DOM.icon);
+			}
+
+		})();
+
+		// Title & Message
+		(function(){
+			if(settings.title.length > 0) {
+
+				$DOM.strong = document.createElement('strong');
+				$DOM.strong.classList.add(PLUGIN_NAME + '-title');
+				$DOM.strong.appendChild(createFragElem(settings.title));
+				$DOM.toastTexts.appendChild($DOM.strong);
+
+				if(settings.titleColor) {
+					$DOM.strong.style.color = settings.titleColor;
+				}
+				if(settings.titleSize) {
+					if( !isNaN(settings.titleSize) ){
+						$DOM.strong.style.fontSize = settings.titleSize+'px';
+					} else {
+						$DOM.strong.style.fontSize = settings.titleSize;
+					}
+				}
+				if(settings.titleLineHeight) {
+					if( !isNaN(settings.titleSize) ){
+						$DOM.strong.style.lineHeight = settings.titleLineHeight+'px';
+					} else {
+						$DOM.strong.style.lineHeight = settings.titleLineHeight;
+					}
+				}
+			}
+
+			if(settings.message.length > 0) {
+
+				$DOM.p = document.createElement('p');
+				$DOM.p.classList.add(PLUGIN_NAME + '-message');
+				$DOM.p.appendChild(createFragElem(settings.message));
+				$DOM.toastTexts.appendChild($DOM.p);
+
+				if(settings.messageColor) {
+					$DOM.p.style.color = settings.messageColor;
+				}
+				if(settings.messageSize) {
+					if( !isNaN(settings.titleSize) ){
+						$DOM.p.style.fontSize = settings.messageSize+'px';
+					} else {
+						$DOM.p.style.fontSize = settings.messageSize;
+					}
+				}
+				if(settings.messageLineHeight) {
+					
+					if( !isNaN(settings.titleSize) ){
+						$DOM.p.style.lineHeight = settings.messageLineHeight+'px';
+					} else {
+						$DOM.p.style.lineHeight = settings.messageLineHeight;
+					}
+				}
+			}
+
+			if(settings.title.length > 0 && settings.message.length > 0) {
+				if(settings.rtl){
+					$DOM.strong.style.marginLeft = '10px';
+				} else if(settings.layout !== 2 && !settings.rtl) {
+					$DOM.strong.style.marginRight = '10px';	
+				}
+			}
+		})();
+
+		$DOM.toastBody.appendChild($DOM.toastTexts);
+
+		// Inputs
+		var $inputs;
+		(function(){
+			if(settings.inputs.length > 0) {
+
+				$DOM.inputs.classList.add(PLUGIN_NAME + '-inputs');
+
+				forEach(settings.inputs, function (value, index) {
+					$DOM.inputs.appendChild(createFragElem(value[0]));
+
+					$inputs = $DOM.inputs.childNodes;
+
+					$inputs[index].classList.add(PLUGIN_NAME + '-inputs-child');
+
+					if(value[3]){
+						setTimeout(function() {
+							$inputs[index].focus();
+						}, 300);
+					}
+
+					$inputs[index].addEventListener(value[1], function (e) {
+						var ts = value[2];
+						return ts(that, $DOM.toast, this, e);
+					});
+				});
+				$DOM.toastBody.appendChild($DOM.inputs);
+			}
+		})();
+
+		// Buttons
+		(function(){
+			if(settings.buttons.length > 0) {
+
+				$DOM.buttons.classList.add(PLUGIN_NAME + '-buttons');
+
+				forEach(settings.buttons, function (value, index) {
+					$DOM.buttons.appendChild(createFragElem(value[0]));
+
+					var $btns = $DOM.buttons.childNodes;
+
+					$btns[index].classList.add(PLUGIN_NAME + '-buttons-child');
+
+					if(value[2]){
+						setTimeout(function() {
+							$btns[index].focus();
+						}, 300);
+					}
+
+					$btns[index].addEventListener('click', function (e) {
+						e.preventDefault();
+						var ts = value[1];
+						return ts(that, $DOM.toast, this, e, $inputs);
+					});
+				});
+			}
+			$DOM.toastBody.appendChild($DOM.buttons);
+		})();
+
+		if(settings.message.length > 0 && (settings.inputs.length > 0 || settings.buttons.length > 0)) {
+			$DOM.p.style.marginBottom = '0';
+		}
+
+		if(settings.inputs.length > 0 || settings.buttons.length > 0){
+			if(settings.rtl){
+				$DOM.toastTexts.style.marginLeft = '10px';
+			} else {
+				$DOM.toastTexts.style.marginRight = '10px';
+			}
+			if(settings.inputs.length > 0 && settings.buttons.length > 0){
+				if(settings.rtl){
+					$DOM.inputs.style.marginLeft = '8px';
+				} else {
+					$DOM.inputs.style.marginRight = '8px';
+				}
+			}
+		}
+
+		// Wrap
+		(function(){
+			$DOM.toastCapsule.style.visibility = 'hidden';
+			setTimeout(function() {
+				var H = $DOM.toast.offsetHeight;
+				var style = $DOM.toast.currentStyle || window.getComputedStyle($DOM.toast);
+				var marginTop = style.marginTop;
+					marginTop = marginTop.split('px');
+					marginTop = parseInt(marginTop[0]);
+				var marginBottom = style.marginBottom;
+					marginBottom = marginBottom.split('px');
+					marginBottom = parseInt(marginBottom[0]);
+
+				$DOM.toastCapsule.style.visibility = '';
+				$DOM.toastCapsule.style.height = (H+marginBottom+marginTop)+'px';
+
+				setTimeout(function() {
+					$DOM.toastCapsule.style.height = 'auto';
+					if(settings.target){
+						$DOM.toastCapsule.style.overflow = 'visible';
+					}
+				}, 500);
+
+				if(settings.timeout) {
+					that.progress(settings, $DOM.toast).start();
+				}
+			}, 100);
+		})();
+
+		// Target
+		(function(){
+			var position = settings.position;
+
+			if(settings.target){
+
+				$DOM.wrapper = document.querySelector(settings.target);
+				$DOM.wrapper.classList.add(PLUGIN_NAME + '-target');
+
+				if(settings.targetFirst) {
+					$DOM.wrapper.insertBefore($DOM.toastCapsule, $DOM.wrapper.firstChild);
+				} else {
+					$DOM.wrapper.appendChild($DOM.toastCapsule);
+				}
+
+			} else {
+
+				if( POSITIONS.indexOf(settings.position) == -1 ){
+					console.warn('['+PLUGIN_NAME+'] Incorrect position.\nIt can be › ' + POSITIONS);
+					return;
+				}
+
+				if(ISMOBILE || window.innerWidth <= MOBILEWIDTH){
+					if(settings.position == 'bottomLeft' || settings.position == 'bottomRight' || settings.position == 'bottomCenter'){
+						position = PLUGIN_NAME+'-wrapper-bottomCenter';
+					}
+					else if(settings.position == 'topLeft' || settings.position == 'topRight' || settings.position == 'topCenter'){
+						position = PLUGIN_NAME+'-wrapper-topCenter';
+					}
+					else {
+						position = PLUGIN_NAME+'-wrapper-center';
+					}
+				} else {
+					position = PLUGIN_NAME+'-wrapper-'+position;
+				}
+				$DOM.wrapper = document.querySelector('.' + PLUGIN_NAME + '-wrapper.'+position);
+
+				if(!$DOM.wrapper) {
+					$DOM.wrapper = document.createElement('div');
+					$DOM.wrapper.classList.add(PLUGIN_NAME + '-wrapper');
+					$DOM.wrapper.classList.add(position);
+					document.body.appendChild($DOM.wrapper);
+				}
+				if(settings.position == 'topLeft' || settings.position == 'topCenter' || settings.position == 'topRight'){
+					$DOM.wrapper.insertBefore($DOM.toastCapsule, $DOM.wrapper.firstChild);
+				} else {
+					$DOM.wrapper.appendChild($DOM.toastCapsule);
+				}
+			}
+
+			if(!isNaN(settings.zindex)) {
+				$DOM.wrapper.style.zIndex = settings.zindex;
+			} else {
+				console.warn('['+PLUGIN_NAME+'] Invalid zIndex.');
+			}
+		})();
+
+		// Overlay
+		(function(){
+
+			if(settings.overlay) {
+
+				if( document.querySelector('.'+PLUGIN_NAME+'-overlay.fadeIn') !== null ){
+
+					$DOM.overlay = document.querySelector('.'+PLUGIN_NAME+'-overlay');
+					$DOM.overlay.setAttribute('data-iziToast-ref', $DOM.overlay.getAttribute('data-iziToast-ref') + ',' + settings.ref);
+
+					if(!isNaN(settings.zindex) && settings.zindex !== null) {
+						$DOM.overlay.style.zIndex = settings.zindex-1;
+					}
+
+				} else {
+
+					$DOM.overlay.classList.add(PLUGIN_NAME+'-overlay');
+					$DOM.overlay.classList.add('fadeIn');
+					$DOM.overlay.style.background = settings.overlayColor;
+					$DOM.overlay.setAttribute('data-iziToast-ref', settings.ref);
+					if(!isNaN(settings.zindex) && settings.zindex !== null) {
+						$DOM.overlay.style.zIndex = settings.zindex-1;
+					}
+					document.querySelector('body').appendChild($DOM.overlay);
+				}
+
+				if(settings.overlayClose) {
+
+					$DOM.overlay.removeEventListener('click', {});
+					$DOM.overlay.addEventListener('click', function (e) {
+						that.hide(settings, $DOM.toast, 'overlay');
+					});
+				} else {
+					$DOM.overlay.removeEventListener('click', {});
+				}
+			}			
+		})();
+
+		// Inside animations
+		(function(){
+			if(settings.animateInside){
+				$DOM.toast.classList.add(PLUGIN_NAME+'-animateInside');
+			
+				var animationTimes = [200, 100, 300];
+				if(settings.transitionIn == 'bounceInLeft' || settings.transitionIn == 'bounceInRight'){
+					animationTimes = [400, 200, 400];
+				}
+
+				if(settings.title.length > 0) {
+					setTimeout(function(){
+						$DOM.strong.classList.add('slideIn');
+					}, animationTimes[0]);
+				}
+
+				if(settings.message.length > 0) {
+					setTimeout(function(){
+						$DOM.p.classList.add('slideIn');
+					}, animationTimes[1]);
+				}
+
+				if(settings.icon || settings.iconUrl) {
+					setTimeout(function(){
+						$DOM.icon.classList.add('revealIn');
+					}, animationTimes[2]);
+				}
+
+				var counter = 150;
+				if(settings.buttons.length > 0 && $DOM.buttons) {
+
+					setTimeout(function(){
+
+						forEach($DOM.buttons.childNodes, function(element, index) {
+
+							setTimeout(function(){
+								element.classList.add('revealIn');
+							}, counter);
+							counter = counter + 150;
+						});
+
+					}, settings.inputs.length > 0 ? 150 : 0);
+				}
+
+				if(settings.inputs.length > 0 && $DOM.inputs) {
+					counter = 150;
+					forEach($DOM.inputs.childNodes, function(element, index) {
+
+						setTimeout(function(){
+							element.classList.add('revealIn');
+						}, counter);
+						counter = counter + 150;
+					});
+				}
+			}
+		})();
+
+		settings.onOpening.apply(null, [settings, $DOM.toast]);
+
+		try {
+			var event = new CustomEvent(PLUGIN_NAME + '-opening', {detail: settings, bubbles: true, cancelable: true});
+			document.dispatchEvent(event);
+		} catch(ex){
+			console.warn(ex);
+		}
+
+		setTimeout(function() {
+
+			$DOM.toast.classList.remove(PLUGIN_NAME+'-opening');
+			$DOM.toast.classList.add(PLUGIN_NAME+'-opened');
+
+			try {
+				var event = new CustomEvent(PLUGIN_NAME + '-opened', {detail: settings, bubbles: true, cancelable: true});
+				document.dispatchEvent(event);
+			} catch(ex){
+				console.warn(ex);
+			}
+
+			settings.onOpened.apply(null, [settings, $DOM.toast]);
+		}, 1000);
+
+		if(settings.drag){
+
+			if(ACCEPTSTOUCH) {
+
+			    $DOM.toast.addEventListener('touchstart', function(e) {
+			        drag.startMoving(this, that, settings, e);
+			    }, false);
+
+			    $DOM.toast.addEventListener('touchend', function(e) {
+			        drag.stopMoving(this, e);
+			    }, false);
+			} else {
+
+			    $DOM.toast.addEventListener('mousedown', function(e) {
+			    	e.preventDefault();
+			        drag.startMoving(this, that, settings, e);
+			    }, false);
+
+			    $DOM.toast.addEventListener('mouseup', function(e) {
+			    	e.preventDefault();
+			        drag.stopMoving(this, e);
+			    }, false);
+			}
+		}
+
+		if(settings.closeOnEscape) {
+
+			document.addEventListener('keyup', function (evt) {
+				evt = evt || window.event;
+				if(evt.keyCode == 27) {
+				    that.hide(settings, $DOM.toast, 'esc');
+				}
+			});
+		}
+
+		if(settings.closeOnClick) {
+			$DOM.toast.addEventListener('click', function (evt) {
+				that.hide(settings, $DOM.toast, 'toast');
+			});
+		}
+
+		that.toast = $DOM.toast;		
+	};
+	
+
+	return $iziToast;
+});
 
 /***/ }),
 
