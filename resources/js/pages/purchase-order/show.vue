@@ -52,6 +52,16 @@
               <i class="fas fa-edit" /> {{ $t("Edit") }}
             </router-link>
             <router-link
+              v-if="$can('purchase-create')"
+              :to="{
+                name: 'purchases.create',
+                query: { fromPurchaseOrder: allData.slug },
+              }"
+              class="btn btn-success"
+            >
+              <i class="fas fa-file-invoice" /> {{ $t("Create Purchase Invoice") }}
+            </router-link>
+            <router-link
               :to="{ name: 'purchase-order.index' }"
               class="btn btn-info float-right"
             >

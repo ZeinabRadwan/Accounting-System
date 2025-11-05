@@ -188,6 +188,12 @@
                                 {{ $t('View') }}
                               </router-link>
                             </li>
+                            <li v-if="$can('purchase-create')">
+                              <router-link :to="{ name: 'purchases.create', query: { fromPurchaseOrder: data.slug } }">
+                                <i class="fas fa-file-invoice"></i>
+                                {{ $t('Create Purchase Invoice') }}
+                              </router-link>
+                            </li>
                             <li v-if="$can('purchase-order-edit')">
                               <router-link :to="{ name: 'purchase-order.edit', params: { slug: data.slug } }">{{ $t('Edit') }}</router-link>
                             </li>

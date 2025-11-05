@@ -627,15 +627,24 @@ export default {
       }
     }
   },
-  created() {
+  async created() {
     console.log('=== Component Created ===');
     console.log('appInfo at creation:', this.appInfo);
-    this.getSuppliers();
-    this.getProducts();
-    this.getAccounts();
-    this.getTaxes();
-    this.loadCommunicationConfigStatus();
     this.prefix = this.appInfo.productPrefix;
+    
+    // Load initial data
+    await Promise.all([
+      this.getSuppliers(),
+      this.getProducts(),
+      this.getAccounts(),
+      this.getTaxes(),
+      this.loadCommunicationConfigStatus()
+    ]);
+    
+    // Load purchase order data if query parameter exists (after data is loaded)
+    if (this.$route.query.fromPurchaseOrder) {
+      await this.loadPurchaseOrderData(this.$route.query.fromPurchaseOrder);
+    }
   },
   methods: {
     // Load communication configuration status
@@ -1573,6 +1582,134 @@ export default {
     // clear temporary data
     clearTemporaryData() {
       localStorage.removeItem('purchaseTempData')
+    },
+    
+    // Load purchase order data and populate form
+    async loadPurchaseOrderData(purchaseOrderSlug) {
+      try {
+        this.$store.state.operations.loading = true;
+        
+        // Fetch purchase order data
+        const { data } = await axios.get(
+          window.location.origin + "/api/purchase-order/" + purchaseOrderSlug
+        );
+        
+        const purchaseOrder = data.data;
+        
+        // Set supplier
+        if (purchaseOrder.supplier && this.items && this.items.length > 0) {
+          const supplier = this.items.find(s => s.id === purchaseOrder.supplier.id || s.id === purchaseOrder.supplier_id);
+          if (supplier) {
+            this.form.supplier = supplier;
+            this.onSupplierChange();
+          }
+        }
+        
+        // Set purchase order reference fields
+        if (purchaseOrder.po_reference) {
+          this.form.poReference = purchaseOrder.po_reference;
+        }
+        if (purchaseOrder.payment_terms) {
+          this.form.paymentTerms = purchaseOrder.payment_terms;
+        }
+        if (purchaseOrder.po_date) {
+          this.form.poDate = purchaseOrder.po_date;
+        }
+        if (purchaseOrder.purchase_date) {
+          this.form.purchaseDate = purchaseOrder.purchase_date;
+        } else {
+          this.form.purchaseDate = new Date().toISOString().slice(0, 10);
+        }
+        if (purchaseOrder.note) {
+          this.form.note = purchaseOrder.note;
+        }
+        if (purchaseOrder.transport) {
+          this.form.transportCost = purchaseOrder.transport;
+        }
+        
+        // Map purchase order products to form products
+        if (purchaseOrder.purchase_order_products && purchaseOrder.purchase_order_products.length > 0) {
+          const selectedProducts = [];
+          
+          for (const poProduct of purchaseOrder.purchase_order_products) {
+            // Find the product in the products list
+            const product = this.products.find(p => p.id === poProduct.product_id || (poProduct.product && p.id === poProduct.product.id));
+            
+            if (product) {
+              // Find matching VAT rate
+              let selectedVatRate = null;
+              if (poProduct.tax_amount && poProduct.tax_amount > 0 && this.taxes && this.taxes.length > 0) {
+                // Try to find VAT rate by rate value (calculate from tax_amount)
+                const lineTotal = poProduct.quantity * poProduct.purchase_price;
+                const discountAmount = poProduct.discount_amount || 0;
+                const totalAfterDiscount = lineTotal - discountAmount;
+                const calculatedVatRate = totalAfterDiscount > 0 ? (poProduct.tax_amount / totalAfterDiscount) * 100 : 0;
+                
+                // Find matching VAT rate
+                selectedVatRate = this.taxes.find(tax => 
+                  Math.abs(tax.rate - calculatedVatRate) < 0.01 || 
+                  (poProduct.product && poProduct.product.productTax && this.findMatchingVatRate(poProduct.product.productTax))
+                );
+                
+                if (!selectedVatRate && poProduct.product && poProduct.product.productTax) {
+                  selectedVatRate = this.findMatchingVatRate(poProduct.product.productTax);
+                }
+              }
+              
+              // Create product object for form
+              const formProduct = {
+                id: product.id,
+                slug: product.slug,
+                name: product.name,
+                code: product.code,
+                qty: poProduct.quantity || 1,
+                unitPrice: poProduct.purchase_price || product.regularPrice,
+                originalPrice: poProduct.purchase_price || product.regularPrice,
+                discount: poProduct.discount || 0,
+                discountType: poProduct.discount_type || 'fixed',
+                discountAmount: poProduct.discount_amount || 0,
+                selectedVatRate: selectedVatRate || (this.taxes && this.taxes.length > 0 ? this.taxes[0] : null),
+                productTax: poProduct.tax_amount || 0,
+                totalTax: poProduct.tax_amount || 0,
+                unitCost: poProduct.unit_cost || poProduct.purchase_price || product.regularPrice,
+                totalPrice: (poProduct.purchase_price || product.regularPrice) * (poProduct.quantity || 1),
+                sales_account_id: product.sales_account_id,
+                purchase_account_id: product.purchase_account_id,
+              };
+              
+              selectedProducts.push(formProduct);
+            }
+          }
+          
+          // Set selected products
+          this.form.selectedProducts = selectedProducts;
+          
+          // Recalculate totals for all products (calculateProductVat already calls generateItemTotalPrice)
+          selectedProducts.forEach((product, index) => {
+            this.calculateProductDiscount(index);
+            this.calculateProductVat(index);
+          });
+          
+          // Recalculate totals
+          this.calculateSum();
+        }
+        
+        // Show success message
+        toast.fire({
+          type: "success",
+          title: this.$t("Purchase order data loaded successfully"),
+        });
+        
+        this.$store.state.operations.loading = false;
+      } catch (error) {
+        console.error('Error loading purchase order data:', error);
+        this.$store.state.operations.loading = false;
+        toast.fire({
+          type: "error",
+          title: this.$t("Failed to load purchase order data"),
+          text: error.response?.data?.message || this.$t("Please try again"),
+        });
+      }
     },
   },
   mounted() {
