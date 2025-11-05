@@ -1191,6 +1191,14 @@
                   <!--ledger-->
                   <div class="tab-pane fade print-area" id="ledger" role="tabpanel" aria-labelledby="ledger-tab">
                     <table-loading v-show="loading" />
+                    <div class="row no-print mb-3">
+                      <div class="col-6 col-xl-4 mb-2">
+                        <search
+                          v-model="ledgerSearchQuery"
+                          @reload="ledgerReload"
+                        />
+                      </div>
+                    </div>
                     <div class="table-responsive table-custom mt-3">
                        <table class="table invoices-table">
                         <thead>
@@ -1203,7 +1211,7 @@
                             <th>{{ $t("Balance") }}</th>
                         </thead>
                         <tbody>
-                          <tr v-for="(data, i) in ledgerItems" :key="i">
+                          <tr v-for="(data, i) in filteredLedgerItems" :key="i">
                             <td>{{ i + 1 }}</td>
                             <td>
                               {{ data.original_date | moment("Do MMM, YYYY") }}
@@ -1248,8 +1256,8 @@
                             <td>{{ parseFloat(data.discount || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
                             <td>{{ parseFloat(data.balance || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
                           </tr>
-                          <tr v-if="ledgerItems[ledgerItems.length - 1]">
-                            <td>{{ ledgerItems.length + 1 }}</td>
+                          <tr v-if="filteredLedgerItems[filteredLedgerItems.length - 1]">
+                            <td>{{ filteredLedgerItems.length + 1 }}</td>
                             <td>{{ date | moment("Do MMM, YYYY") }}</td>
                             <td>{{ $t("Non Invoice Due") }}</td>
                             <td>{{ (0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
@@ -1259,14 +1267,14 @@
                             <td>{{ (0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
                             <td>
                               {{
-                                (parseFloat(ledgerItems[ledgerItems.length - 1].balance || 0) +
+                                (parseFloat(filteredLedgerItems[filteredLedgerItems.length - 1].balance || 0) +
                                   parseFloat(allData.nonInvoiceCurrentDue || 0)).toFixed(2)
                               }}<span class="saudi-riyal">ê</span>
                             </td>
                           </tr>
                         </tbody>
                         <tfoot>
-                          <tr v-if="ledgerItems[ledgerItems.length - 1]">
+                          <tr v-if="filteredLedgerItems[filteredLedgerItems.length - 1]">
                             <td colspan="3">{{ $t("Summery") }}</td>
                             <td>{{ parseFloat(ledgerTotalCredit || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
                             <td>
@@ -1278,7 +1286,7 @@
                             <td>{{ parseFloat(ledgerTotalDiscount || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
                             <td>
                               {{
-                                (parseFloat(ledgerItems[ledgerItems.length - 1].balance || 0) +
+                                (parseFloat(filteredLedgerItems[filteredLedgerItems.length - 1].balance || 0) +
                                   parseFloat(allData.nonInvoiceCurrentDue || 0)).toFixed(2)
                               }}<span class="saudi-riyal">ê</span>
                               [{{ $t("Total Due") }}]
@@ -1501,6 +1509,7 @@ export default {
     allActivityLog: "",
     allActivityLogPagination: "",
     activityLoading: false,
+    ledgerSearchQuery: "",
     perPage: 10,
     minDate: moment(new Date("01-01-2021")).format("YYYY-MM-DD"),
     maxDate: moment().add(1, "days").format("YYYY-MM-DD"),
@@ -1554,6 +1563,29 @@ export default {
         weekLabel: this.$t("W"),
         customRangeLabel: this.$t("Custom Range"),
       };
+    },
+    filteredLedgerItems() {
+      if (!this.ledgerSearchQuery || this.ledgerSearchQuery.trim() === "") {
+        return this.ledgerItems;
+      }
+      const query = this.ledgerSearchQuery.toLowerCase().trim();
+      return this.ledgerItems.filter((item) => {
+        const date = item.original_date ? moment(item.original_date).format("Do MMM, YYYY").toLowerCase() : "";
+        const particulars = (item.particulars || "").toLowerCase();
+        const credit = (item.credit || 0).toString();
+        const debit = (item.debit || 0).toString();
+        const discount = (item.discount || 0).toString();
+        const balance = (item.balance || 0).toString();
+        
+        return (
+          date.includes(query) ||
+          particulars.includes(query) ||
+          credit.includes(query) ||
+          debit.includes(query) ||
+          discount.includes(query) ||
+          balance.includes(query)
+        );
+      });
     },
   },
   watch: {
@@ -2148,6 +2180,11 @@ export default {
     // reload after search
     async activityReload() {
       this.activitySearchQuery = "";
+    },
+
+    // reload ledger search
+    ledgerReload() {
+      this.ledgerSearchQuery = "";
     },
 
     // refresh activity table

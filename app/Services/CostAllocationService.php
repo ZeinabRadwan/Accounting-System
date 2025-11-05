@@ -17,6 +17,7 @@ use App\Services\BusinessTransactionJournalService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schema;
 use Exception;
 
 class CostAllocationService
@@ -231,29 +232,38 @@ class CostAllocationService
                 ]);
 
                 $lineNumber = 1;
+                
+                // Check if cost_center_id column exists
+                $hasCostCenterColumn = Schema::hasColumn('journal_entry_lines', 'cost_center_id');
 
                 // Create credit line for source cost center
-                JournalEntryLine::create([
+                $sourceLineData = [
                     'journal_entry_id' => $journalEntry->id,
                     'chart_of_account_id' => $sourceAccount->id,
-                    'cost_center_id' => $rule->source_cost_center_id,
                     'debit_amount' => 0,
                     'credit_amount' => $totalAmount,
                     'description' => "Allocation from {$rule->sourceCostCenter->name}",
                     'line_number' => $lineNumber++,
-                ]);
+                ];
+                if ($hasCostCenterColumn) {
+                    $sourceLineData['cost_center_id'] = $rule->source_cost_center_id;
+                }
+                JournalEntryLine::create($sourceLineData);
 
                 // Create debit lines for target cost centers
                 foreach ($amounts as $centerId => $data) {
-                    JournalEntryLine::create([
+                    $targetLineData = [
                         'journal_entry_id' => $journalEntry->id,
                         'chart_of_account_id' => $targetAccount->id,
-                        'cost_center_id' => $centerId,
                         'debit_amount' => $data['amount'],
                         'credit_amount' => 0,
                         'description' => "Allocation to " . CostCenter::find($centerId)->name . " ({$data['ratio']}%)",
                         'line_number' => $lineNumber++,
-                    ]);
+                    ];
+                    if ($hasCostCenterColumn) {
+                        $targetLineData['cost_center_id'] = $centerId;
+                    }
+                    JournalEntryLine::create($targetLineData);
                 }
 
                 // Update execution

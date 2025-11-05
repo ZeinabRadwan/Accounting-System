@@ -17,6 +17,7 @@ use App\Models\AccountRoutingSetting;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schema;
 use Exception;
 use App\Models\AccountTransaction;
 use App\Models\BalanceTansfer;
@@ -1145,15 +1146,24 @@ class BusinessTransactionJournalService
      */
     private function createJournalEntryLine(JournalEntry $journalEntry, int $accountId, float $debitAmount, float $creditAmount, int $lineNumber, string $description, ?int $costCenterId = null): JournalEntryLine
     {
-        return JournalEntryLine::create([
+        $data = [
             'journal_entry_id' => $journalEntry->id,
             'chart_of_account_id' => $accountId,
-            'cost_center_id' => $costCenterId,
             'debit_amount' => $debitAmount,
             'credit_amount' => $creditAmount,
             'description' => $description,
             'line_number' => $lineNumber,
-        ]);
+        ];
+        
+        // Only include cost_center_id if it's not null and the column exists
+        if ($costCenterId !== null) {
+            // Check if the column exists in the database
+            if (Schema::hasColumn('journal_entry_lines', 'cost_center_id')) {
+                $data['cost_center_id'] = $costCenterId;
+            }
+        }
+        
+        return JournalEntryLine::create($data);
     }
 
     /**

@@ -154,17 +154,23 @@
                           {{ item.code | withPrefix(prefix) }}
                         </td>
                         <td style="min-width: 200px;">
-                          <span v-if="Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product'
-                            " v-tooltip="$t('Insufficient Stock')" class="badge badge-danger p-2">
-                            <i class="fas fa-exclamation"></i>
-                          </span>
-                          <router-link v-if="$can('product-view')" :to="{
-                            name: 'products.show',
-                            params: { slug: item.slug },
-                          }">
-                            {{ item.name }}
-                          </router-link>
-                          <span v-else>{{ item.name }}</span>
+                          <div class="d-flex align-items-center">
+                            <span v-if="Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product'
+                              " v-tooltip="$t('Click to manage stock')" 
+                              class="badge badge-danger p-2 mr-2 clickable-badge" 
+                              @click="openStockAdjustmentModal(item)">
+                              <i class="fas fa-exclamation"></i>
+                            </span>
+                            <div class="flex-grow-1">
+                              <router-link v-if="$can('product-view')" :to="{
+                                name: 'products.show',
+                                params: { slug: item.slug },
+                              }">
+                                {{ item.name }}
+                              </router-link>
+                              <span v-else>{{ item.name }}</span>
+                            </div>
+                          </div>
                         </td>
                         <td style="min-width: 200px;">
                           <div class="input-group custom-qty-input">
@@ -314,6 +320,25 @@
                   </table>
                 </div>
               </div>
+              
+              <!-- Insufficient Stock Warning -->
+              <div v-if="hasInsufficientStock" class="row mt-3 mb-3">
+                <div class="col-12">
+                  <div class="alert alert-warning d-flex align-items-center" role="alert">
+                    <i class="fas fa-exclamation-triangle mr-3" style="font-size: 1.5rem;"></i>
+                    <div class="flex-grow-1">
+                      <h6 class="mb-1">{{ $t("Insufficient Stock Alert") }}</h6>
+                      <p class="mb-0">
+                        {{ $t("Some products have insufficient stock. Click on the red badges to manage stock levels.") }}
+                        <button type="button" class="btn btn-sm btn-outline-warning ml-2" @click="showAllInsufficientStock">
+                          <i class="fas fa-list mr-1"></i>
+                          {{ $t("View All") }}
+                        </button>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <!-- Discount and Tax Section -->
               <div class="row">
                 <div class="form-group col-md-4" v-if="!isSaudiArabia">
@@ -405,27 +430,15 @@
                 </div>
                                  <div class="form-group col-md-4">
                    <label for="addPayment">{{ $t("Add Payment?") }}</label>
-                   <div class="radio-group-horizontal">
-                     <div class="form-check">
-                       <input class="form-check-input" type="radio" name="addPayment" id="addPaymentYes" 
-                              value="1" v-model="form.addPayment" 
-                              @change="onAddPaymentChange"
-                              :class="{ 'is-invalid': form.errors.has('addPayment') }">
-                       <label class="form-check-label" for="addPaymentYes">
-                         {{ $t("Yes") }}
-                       </label>
-                     </div>
-                     <div class="form-check">
-                       <input class="form-check-input" type="radio" name="addPayment" id="addPaymentNo" 
-                              value="0" v-model="form.addPayment" 
-                              @change="onAddPaymentChange"
-                              :class="{ 'is-invalid': form.errors.has('addPayment') }">
-                       <label class="form-check-label" for="addPaymentNo">
-                         {{ $t("No") }}
-                       </label>
-                     </div>
-                   </div>
-
+                   <select id="addPayment" 
+                           v-model="form.addPayment" 
+                           class="form-control"
+                           :class="{ 'is-invalid': form.errors.has('addPayment') }"
+                           @change="onAddPaymentChange">
+                     <option value="">{{ $t("Select") }}</option>
+                     <option value="1">{{ $t("Yes") }}</option>
+                     <option value="0">{{ $t("No") }}</option>
+                   </select>
                    <has-error :form="form" field="addPayment" />
                  </div>
               </div>
@@ -586,6 +599,16 @@
     </div>
   </div>
   </div>
+  
+  <!-- Stock Adjustment Modal -->
+  <StockAdjustmentModal 
+    :is-open="showStockAdjustmentModal"
+    :product="selectedProductForStockAdjustment"
+    @close="closeStockAdjustmentModal"
+    @adjust-quantity="adjustProductQuantity"
+    @persist="saveTemporary"
+    @stock-updated="handleStockUpdated"
+  />
 </template>
 
 <script>
@@ -595,6 +618,7 @@ import { mapGetters } from "vuex";
 import { ToggleButton } from "vue-js-toggle-button";
 import ClientCreateModal from '~/components/ClientCreateModal'
 import ProductCreateModal from '~/components/ProductCreateModal'
+import StockAdjustmentModal from '~/components/StockAdjustmentModal'
 import RTLMixin from '~/mixins/RTLMixin'
 import { ToWords } from 'to-words';
 
@@ -608,6 +632,7 @@ export default {
     ToggleButton,
     ClientCreateModal,
     ProductCreateModal,
+    StockAdjustmentModal,
   },
   data() {
     return {
@@ -673,6 +698,10 @@ export default {
         sms_configured: false,
         loading: true,
       },
+      
+      // Stock adjustment modal
+      showStockAdjustmentModal: false,
+      selectedProductForStockAdjustment: null,
     }
   },
   computed: {
@@ -768,6 +797,25 @@ export default {
              this.accounts && 
              this.form.selectedProducts && 
              this.form.selectedProducts.length > 0;
+    },
+
+    hasInsufficientStock() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return false;
+      }
+      return this.form.selectedProducts.some(item => 
+        item.itemType === 'product' && Number(item.inventoryCount) < Number(item.qty)
+      );
+    },
+
+    // Get products with insufficient stock
+    insufficientStockProducts() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return [];
+      }
+      return this.form.selectedProducts.filter(item => 
+        item.itemType === 'product' && Number(item.inventoryCount) < Number(item.qty)
+      );
     },
   },
   watch: {
@@ -2002,6 +2050,73 @@ prev,
     clearTemporaryData() {
       localStorage.removeItem('invoiceEditTempData')
     },
+
+    // Stock adjustment modal methods
+    openStockAdjustmentModal(product) {
+      this.selectedProductForStockAdjustment = product;
+      this.showStockAdjustmentModal = true;
+    },
+
+    closeStockAdjustmentModal() {
+      this.showStockAdjustmentModal = false;
+      this.selectedProductForStockAdjustment = null;
+    },
+
+    adjustProductQuantity(product) {
+      // Find the product in the selected products array and adjust its quantity
+      const index = this.form.selectedProducts.findIndex(p => p.id === product.id);
+      if (index !== -1) {
+        // Set quantity to available stock
+        this.$set(this.form.selectedProducts[index], 'qty', product.inventoryCount);
+        this.generateItemTotal(product.inventoryCount, "qty", index, "");
+        
+        toast.fire({
+          type: "info",
+          title: this.$t("Quantity Adjusted"),
+          text: this.$t("Product quantity has been adjusted to available stock.")
+        });
+      }
+      this.closeStockAdjustmentModal();
+    },
+
+    handleStockUpdated(eventData) {
+      // Refresh products to get updated stock levels
+      this.getProducts();
+      
+      // Update the specific product in selectedProducts if it exists
+      const { product, newQuantity } = eventData;
+      const index = this.form.selectedProducts.findIndex(p => p.id === product.id);
+      if (index !== -1) {
+        this.$set(this.form.selectedProducts[index], 'inventoryCount', 
+          (this.form.selectedProducts[index].inventoryCount || 0) + newQuantity);
+        
+        // Recalculate totals
+        this.calculateSum();
+      }
+    },
+
+    showAllInsufficientStock() {
+      // Show a summary of all insufficient stock products
+      const insufficientProducts = this.insufficientStockProducts;
+      if (insufficientProducts.length === 0) return;
+      
+      let message = this.$t("Products with insufficient stock:") + "\n\n";
+      insufficientProducts.forEach((product, index) => {
+        const shortage = Number(product.qty) - Number(product.inventoryCount);
+        message += `${index + 1}. ${product.name}\n`;
+        message += `   ${this.$t("Required")}: ${product.qty}, ${this.$t("Available")}: ${product.inventoryCount}, ${this.$t("Shortage")}: ${shortage}\n\n`;
+      });
+      
+      message += this.$t("Click on the red badges next to each product to manage stock levels.");
+      
+      toast.fire({
+        type: "warning",
+        title: this.$t("Insufficient Stock Summary"),
+        text: message,
+        timer: 10000,
+        showConfirmButton: true
+      });
+    },
   },
 }
 </script>
@@ -2488,6 +2603,23 @@ prev,
   [dir="rtl"] .stock-warning-list {
     text-align: right;
   }
+}
+
+/* Clickable badge styling */
+.clickable-badge {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.clickable-badge:hover {
+  background-color: #c82333 !important;
+  transform: scale(1.05);
+  box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3);
+}
+
+.clickable-badge:active {
+  transform: scale(0.95);
 }
 
 </style>

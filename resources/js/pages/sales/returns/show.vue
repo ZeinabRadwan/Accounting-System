@@ -450,21 +450,7 @@
             </div>
             <!-- /.row -->
 
-            <!-- this row will not appear when printing -->
-            <div class="row no-print mt-5">
-              <div class="col-12">
-                <router-link
-                  :to="{ name: 'invoiceReturns.index' }"
-                  class="btn btn-info float-right"
-                >
-                  <i class="fas fa-long-arrow-alt-left" />
-                  {{ $t("Back") }}
-                </router-link>
-                <a href="#" @click="printWindow" class="btn btn-default"
-                  ><i class="fas fa-print"></i> {{ $t("Print") }}</a
-                >
-              </div>
-            </div>
+           
           </div>
           <!-- /.invoice -->
         </div>
