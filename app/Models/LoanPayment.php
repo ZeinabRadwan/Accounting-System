@@ -16,7 +16,7 @@ class LoanPayment extends Model
      * @var array
      */
     protected $fillable = [
-        'reference_no', 'slug', 'loan_id', 'transaction_id', 'amount', 'interest', 'date', 'created_by', 'note', 'status', 'image_path',
+        'reference_no', 'slug', 'loan_id', 'transaction_id', 'amount', 'interest', 'date', 'created_by', 'note', 'status', 'image_path', 'branch_id',
     ];
 
     /**

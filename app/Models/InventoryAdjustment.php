@@ -16,7 +16,7 @@ class InventoryAdjustment extends Model
      * @var array
      */
     protected $fillable = [
-        'reason', 'slug', 'code',  'date', 'created_by', 'note', 'status', 'is_paid',
+        'reason', 'slug', 'code',  'date', 'created_by', 'note', 'status', 'is_paid', 'branch_id',
     ];
 
     /**

@@ -679,6 +679,12 @@ export default {
     
     // Load the next available code number for new clients
     async loadNextCodeNumber() {
+      // Skip if this is not a new client (editing existing client)
+      if (this.initialData && this.initialData.slug && this.initialData.slug !== 'new') {
+        console.log('Skipping next code number load - editing existing client');
+        return;
+      }
+      
       try {
         console.log('=== LOADING NEXT CODE NUMBER ===');
         console.log('Current form codeNumber before API call:', this.form.codeNumber);
@@ -686,21 +692,32 @@ export default {
         const response = await axios.get('/clients/next-code');
         console.log('Next code API response:', response.data);
         
-        if (response.data.success) {
+        // Check if we have formatted_code in the response (successful response)
+        if (response.data && response.data.formatted_code) {
           this.form.codeNumber = response.data.formatted_code;
           console.log('Code number successfully loaded:', this.form.codeNumber);
           console.log('Debug info from API:', response.data.debug);
-        } else {
+        } else if (response.data && response.data.success === false) {
           console.error('API returned error:', response.data.message);
-          // Fallback to default - use a placeholder that indicates loading failed
-          this.form.codeNumber = 'Loading...';
+          // Fallback to a default code for first client
+          this.form.codeNumber = 'AC001';
           console.log('Using fallback code number:', this.form.codeNumber);
+        } else {
+          // Response structure might be different, try to extract formatted_code
+          if (response.data && response.data.formatted_code) {
+            this.form.codeNumber = response.data.formatted_code;
+          } else {
+            // Last resort fallback
+            this.form.codeNumber = 'AC001';
+            console.log('Using default fallback code number:', this.form.codeNumber);
+          }
         }
       } catch (error) {
         console.error('Error loading next code number:', error);
         console.error('Error details:', error.response?.data || error.message);
-        // Fallback to default - use a placeholder that indicates loading failed
-        this.form.codeNumber = 'Loading...';
+        // Fallback to a default code instead of 'Loading...'
+        // This ensures the form doesn't get stuck in loading state
+        this.form.codeNumber = 'AC001';
         console.log('Using fallback code number due to error:', this.form.codeNumber);
       }
     },

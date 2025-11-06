@@ -17,7 +17,7 @@ class QuotationProduct extends Model
      */
     protected $fillable = [
         'quotation_id', 'product_id', 'quantity', 'purchase_price', 'sale_price', 'unit_cost', 'tax_amount',
-        'discount', 'discount_type', 'discount_amount', 'vat_rate_id',
+        'discount', 'discount_type', 'discount_amount', 'vat_rate_id', 'branch_id',
     ];
 
     /**

@@ -16,7 +16,7 @@ class PurchaseReturnProduct extends Model
      * @var array
      */
     protected $fillable = [
-        'return_id', 'product_id', 'purchase_price', 'quantity',
+        'return_id', 'product_id', 'purchase_price', 'quantity', 'branch_id',
     ];
 
     /**
