@@ -152,7 +152,7 @@ class EmployeeController extends Controller
                 'status' => $request->status,
                 'image_path' => $imageName,
                 'user_id' => isset($user) ? $user->id : null,
-                'branch_id' => (int) $request->branch_id,
+                'branch_id' => (int) ($request->branch_id ?? Auth::user()->default_branch_id ?? 0),
             ]);
 
                         // add activity log
@@ -433,7 +433,14 @@ class EmployeeController extends Controller
      */
     public function allEmployees()
     {
-        $allEmployees = Employee::with('department')->where('status', 1)->latest()->get();
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        $allEmployees = Employee::with('department')
+            ->where('status', 1)
+            ->whereIn('branch_id', $branchIds)
+            ->latest()
+            ->get();
 
         return EmployeeResource::collection($allEmployees);
     }

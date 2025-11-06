@@ -105,6 +105,10 @@ class ProductController extends Controller
         try {
             DB::beginTransaction();
 
+            // get logged in user
+            $user = Auth::user();
+            $branchId = (int) ($user->default_branch_id ?? 0);
+
             // generate code
             $code = 1;
             if ($request->itemCode) {
@@ -218,6 +222,7 @@ class ProductController extends Controller
                 'alert_qty' => $request->alertQuantity,
                 'status' => $request->status,
                 'image_path' => $imageName,
+                'branch_id' => $branchId,
             ]);
 
             // add activity log
@@ -568,8 +573,11 @@ class ProductController extends Controller
      */
     public function searchFromPos(Request $request)
     {
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
         $term = $request->term;
-        $query = Product::with('proSubCategory.category');
+        $query = Product::with('proSubCategory.category')
+            ->whereIn('branch_id', $branchIds);
         if (isset($request->catSlug) && isset($request->subCatSlug)) {
             $subCategory = ProductSubCategory::where('slug', $request->subCatSlug)->first();
             $query = $query->where('sub_cat_id', $subCategory->id);
@@ -594,6 +602,9 @@ class ProductController extends Controller
      */
     public function allProducts()
     {
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
         $products = Product::with(
             'purchaseProducts',
             'adjustmentProducts',
@@ -602,7 +613,10 @@ class ProductController extends Controller
             'productTax',
             'salesAccount',
             'purchaseAccount'
-        )->where('status', 1)->latest()->get();
+        )->where('status', 1)
+        ->whereIn('branch_id', $branchIds)
+        ->latest()
+        ->get();
 
         return ProductSelectResource::collection($products);
     }
@@ -614,6 +628,9 @@ class ProductController extends Controller
      */
     public function allProductsNotService()
     {
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
         $products = Product::where('is_service', false)->with(
             'purchaseProducts',
             'adjustmentProducts',
@@ -622,7 +639,10 @@ class ProductController extends Controller
             'productTax',
             'salesAccount',
             'purchaseAccount'
-        )->where('status', 1)->latest()->get();
+        )->where('status', 1)
+        ->whereIn('branch_id', $branchIds)
+        ->latest()
+        ->get();
 
         return ProductSelectResource::collection($products);
     }
@@ -632,6 +652,9 @@ class ProductController extends Controller
      */
     public function allProductsPaginated()
     {
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
         $products = Product::with(
             'purchaseProducts',
             'adjustmentProducts',
@@ -640,7 +663,10 @@ class ProductController extends Controller
             'productTax',
             'salesAccount',
             'purchaseAccount'
-        )->where('status', 1)->latest()->paginate(24);
+        )->where('status', 1)
+        ->whereIn('branch_id', $branchIds)
+        ->latest()
+        ->paginate(24);
 
         return ProductSelectResource::collection($products);
     }
@@ -652,6 +678,9 @@ class ProductController extends Controller
      */
     public function allProductsForSelect()
     {
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
         $products = Product::with(
             'purchaseProducts',
             'adjustmentProducts',
@@ -660,7 +689,10 @@ class ProductController extends Controller
             'productTax',
             'salesAccount',
             'purchaseAccount'
-        )->where('status', 1)->latest()->get();
+        )->where('status', 1)
+        ->whereIn('branch_id', $branchIds)
+        ->latest()
+        ->get();
 
         return ProductSelectResource::collection($products);
     }
@@ -760,6 +792,9 @@ class ProductController extends Controller
             'file' => ['required', 'mimes:csv,txt', 'file'],
         ]);
 
+        $user = Auth::user();
+        $branchId = (int) ($user->default_branch_id ?? 0);
+
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $data = SimpleExcelReader::create($file, 'csv')->getRows();
@@ -782,9 +817,10 @@ class ProductController extends Controller
             foreach ($data as $key => $item) {
                 $validator = Validator::make($item, $rules);
                 if ($validator->passes()) {
+                    $validatedData = $validator->validated();
+                    $validatedData['branch_id'] = $branchId;
                     Product::create(
-                        $this->incrementCode() +
-                            $validator->validated()
+                        $this->incrementCode() + $validatedData
                     );
                 } else {
                     return response()->json([

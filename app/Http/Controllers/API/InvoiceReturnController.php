@@ -71,11 +71,13 @@ class InvoiceReturnController extends Controller
         try {
             DB::beginTransaction();
 
+            // get logged in user
+            $user = Auth::user();
+            $userId = $user->id;
+            $branchId = (int) ($user->default_branch_id ?? 0);
+
             // generate code
             $code = $this->generateNextReturnCode();
-
-            // get logged in user id
-            $userId = auth()->user()->id;
 
             // Get default fiscal year and accounting period from general settings
             $currentFiscalYearId = GeneralSetting::where('key', 'current_fiscal_year_id')->first()?->value;
@@ -159,6 +161,7 @@ class InvoiceReturnController extends Controller
                 'status' => $request->status,
                 'fiscal_year_id' => $currentFiscalYearId,
                 'accounting_period_id' => $currentAccountingPeriodId,
+                'branch_id' => $branchId,
             ]);
 
             // update invoice
@@ -515,12 +518,12 @@ class InvoiceReturnController extends Controller
         $term = $request->term;
         $query = InvoiceReturn::with('invoice.client', 'user', 'invoiceReturnProducts');
 
-        // Apply branch filter for non-superadmin users
+        // Apply branch filter
         $user = Auth::user();
-        if ((int) $user->account_role !== 1) {
+        // if ((int) $user->account_role !== 1) {
             $branchIds = $this->getUserBranchIds($user);
             $query->whereIn('branch_id', $branchIds);
-        }
+        // }
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('date', [$request->startDate, $request->endDate]);

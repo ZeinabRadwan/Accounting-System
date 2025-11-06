@@ -73,13 +73,16 @@ class ExpenseController extends Controller
         try {
             DB::beginTransaction();
 
+            // get logged in user
+            $user = Auth::user();
+            $userId = $user->id;
+            $branchId = (int) ($user->default_branch_id ?? 0);
+
             // upload thumbnail and set the name
             $imageName = '';
             if ($request->image) {
                 $imageName = $this->imageService->uploadImageAndGetPath($request->image, 'expenses');
             }
-
-            $userId = auth()->user()->id;
 
             // store transaction
             $transaction = $this->transactionService->createTransactionFromExpense($request, $userId);
@@ -99,6 +102,7 @@ class ExpenseController extends Controller
                 'note' => clean($request->note),
                 'image_path' => $imageName,
                 'status' => $request->status,
+                'branch_id' => $branchId,
             ]);
             
             // Debug: Log the created expense amount
@@ -389,12 +393,12 @@ class ExpenseController extends Controller
         $term = $request->term;
         $query = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user');
 
-        // Apply branch filter for non-superadmin users
+        // Apply branch filter
         $user = Auth::user();
-        if ((int) $user->account_role !== 1) {
+        // if ((int) $user->account_role !== 1) {
             $branchIds = $this->getUserBranchIds($user);
             $query->whereIn('branch_id', $branchIds);
-        }
+        // }
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('date', [$request->startDate, $request->endDate]);

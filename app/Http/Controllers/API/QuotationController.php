@@ -95,6 +95,10 @@ class QuotationController extends Controller
         try {
             DB::beginTransaction();
 
+            // get logged in user
+            $user = Auth::user();
+            $branchId = (int) ($user->default_branch_id ?? 0);
+
             // generate code
             $code = 1;
             $lastQuotation = Quotation::latest()->first();
@@ -128,6 +132,7 @@ class QuotationController extends Controller
                 'note' => clean($request->note),
                 'status' => $quotationStatus,
                 'created_by' => auth()->user()->id,
+                'branch_id' => $branchId,
             ]);
 
             // store quotation products
@@ -374,12 +379,12 @@ class QuotationController extends Controller
         $term = $request->term;
         $query = Quotation::with('client', 'user', 'quotationProducts');
 
-        // Apply branch filter for non-superadmin users
+        // Apply branch filter
         $user = Auth::user();
-        if ((int) $user->account_role !== 1) {
+        // if ((int) $user->account_role !== 1) {
             $branchIds = $this->getUserBranchIds($user);
             $query->whereIn('branch_id', $branchIds);
-        }
+        // }
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('quotation_date', [$request->startDate, $request->endDate]);

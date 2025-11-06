@@ -53,6 +53,10 @@ class AccountController extends Controller
     public function store(StoreAccountRequest $request)
     {
         try {
+            // get logged in user
+            $user = Auth::user();
+            $branchId = (int) ($user->default_branch_id ?? 0);
+            
             // Validate that chart of account is selected
             if (!$request->chartOfAccountId) {
                 return $this->responseWithError('Chart of Account is required. Please select a Chart of Account for this cashbook account.');
@@ -82,6 +86,7 @@ class AccountController extends Controller
                 'chart_of_account_id' => $request->chartOfAccountId,
                 'note' => clean($request->note),
                 'status' => $request->status,
+                'branch_id' => $branchId,
             ]);
 
             // add activity log
@@ -329,9 +334,22 @@ class AccountController extends Controller
      */
     public function allAccounts()
     {
-        $accounts = Account::where('status', 1)->with('chartOfAccount.type')->latest()->get();
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        $accounts = Account::where('status', 1)
+            ->whereIn('branch_id', $branchIds)
+            ->with('chartOfAccount.type')
+            ->latest()
+            ->get();
 
         return AccountResource::collection($accounts);
+    }
+    
+    private function getUserBranchIds($user)
+    {
+        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        return [$defaultBranchId > 0 ? $defaultBranchId : 0];
     }
 
     // return account transactions

@@ -83,6 +83,10 @@ class ClientController extends Controller
     public function store(StoreClientRequest $request)
     {
         try {
+            // get logged in user
+            $user = Auth::user();
+            $branchId = (int) ($user->default_branch_id ?? 0);
+            
             // generate code
             $code = $this->generateNextClientCode();
 
@@ -166,6 +170,7 @@ class ClientController extends Controller
                 
                 // Handle attachments if provided
                 'attachments' => $request->attachments ? json_encode($request->attachments) : null,
+                'branch_id' => $branchId,
             ];
 
             // Auto-assign Chart of Account if not provided (only for new clients)
@@ -493,7 +498,14 @@ class ClientController extends Controller
      */
     public function allClients()
     {
-        $clients = Client::with('chartOfAccount')->where('status', 1)->latest()->get();
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        $clients = Client::with('chartOfAccount')
+            ->where('status', 1)
+            ->whereIn('branch_id', $branchIds)
+            ->latest()
+            ->get();
 
         return ClientListResource::collection($clients);
     }
@@ -501,7 +513,14 @@ class ClientController extends Controller
     // return all clients for non invoice payments
     public function clientsForNonInvoicePayments()
     {
-        $clients = Client::with('chartOfAccount')->where('status', 1)->latest()->get();
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        $clients = Client::with('chartOfAccount')
+            ->where('status', 1)
+            ->whereIn('branch_id', $branchIds)
+            ->latest()
+            ->get();
 
         return ClientWithNonInvoicePaymentResource::collection($clients);
     }

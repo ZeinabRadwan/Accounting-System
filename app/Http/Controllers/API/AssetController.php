@@ -68,6 +68,10 @@ class AssetController extends Controller
         try {
             DB::beginTransaction();
 
+            // get logged in user
+            $user = Auth::user();
+            $branchId = (int) ($user->default_branch_id ?? 0);
+
             // upload thumbnail and set the name
             $imageName = '';
             if ($request->image) {
@@ -111,6 +115,7 @@ class AssetController extends Controller
                 'expire_date' => $later,
                 'created_by' => auth()->user()->id,
                 'status' => $request->status,
+                'branch_id' => $branchId,
             ]);
 
             // add activity log

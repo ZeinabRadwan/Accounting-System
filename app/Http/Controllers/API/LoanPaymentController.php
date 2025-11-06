@@ -45,7 +45,19 @@ class LoanPaymentController extends Controller
      */
     public function index(Request $request)
     {
-        return LoanPaymentResource::collection(LoanPayment::with('loan.user', 'loanPaymentTransaction.cashbookAccount', 'loan.loanPayments.loanPaymentTransaction', 'loan.loanAuthority', 'loan.loanTransaction.cashbookAccount', 'user')->latest()->paginate($request->perPage));
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        $query = LoanPayment::with('loan.user', 'loanPaymentTransaction.cashbookAccount', 'loan.loanPayments.loanPaymentTransaction', 'loan.loanAuthority', 'loan.loanTransaction.cashbookAccount', 'user')
+            ->whereIn('branch_id', $branchIds);
+        
+        return LoanPaymentResource::collection($query->latest()->paginate($request->perPage));
+    }
+    
+    private function getUserBranchIds($user)
+    {
+        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        return [$defaultBranchId > 0 ? $defaultBranchId : 0];
     }
 
     /**
@@ -60,6 +72,11 @@ class LoanPaymentController extends Controller
         try {
             DB::beginTransaction();
 
+            // get logged in user
+            $user = Auth::user();
+            $userId = $user->id;
+            $branchId = (int) ($user->default_branch_id ?? 0);
+
             // get loan
             $loan = Loan::where('slug', $request->loan['slug'])->first();
 
@@ -68,8 +85,6 @@ class LoanPaymentController extends Controller
             if ($request->image) {
                 $imageName = $this->imageService->uploadImageAndGetPath($request->image, 'loan-payments');
             }
-
-            $userId = auth()->user()->id;
 
             $transaction = $this->transactionService->createTransactionFromLoanPayment($request, $userId);
 
@@ -85,6 +100,7 @@ class LoanPaymentController extends Controller
                 'note' => $request->note,
                 'image_path' => $imageName,
                 'status' => $request->status,
+                'branch_id' => $branchId,
             ]);
 
             // Create journal entry for loan payment
@@ -268,8 +284,11 @@ class LoanPaymentController extends Controller
      */
     public function search(Request $request)
     {
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
         $term = $request->term;
-        $query = LoanPayment::with('loan', 'loanPaymentTransaction.cashbookAccount');
+        $query = LoanPayment::with('loan', 'loanPaymentTransaction.cashbookAccount')
+            ->whereIn('branch_id', $branchIds);
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('date', [$request->startDate, $request->endDate]);

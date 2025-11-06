@@ -71,7 +71,10 @@ class LoanController extends Controller
         try {
             DB::beginTransaction();
 
-            $userID = auth()->user()->id;
+            // get logged in user
+            $user = Auth::user();
+            $userID = $user->id;
+            $branchId = (int) ($user->default_branch_id ?? 0);
 
             // upload thumbnail and set the name
             $imageName = '';
@@ -97,6 +100,7 @@ class LoanController extends Controller
                 'note' => clean($request->note),
                 'image_path' => $imageName,
                 'status' => $request->status,
+                'branch_id' => $branchId,
             ]);
 
             // add activity log
@@ -272,12 +276,12 @@ class LoanController extends Controller
         $term = $request->term;
         $query = Loan::with('loanAuthority', 'loanTransaction.cashbookAccount', 'user');
 
-        // Apply branch filter for non-superadmin users
+        // Apply branch filter
         $user = Auth::user();
-        if ((int) $user->account_role !== 1) {
+        // if ((int) $user->account_role !== 1) {
             $branchIds = $this->getUserBranchIds($user);
             $query->whereIn('branch_id', $branchIds);
-        }
+        // }
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('date', [$request->startDate, $request->endDate]);

@@ -72,8 +72,10 @@ class PurchaseReturnController extends Controller
         try {
             DB::beginTransaction();
 
-            // get logged in user id
-            $userId = auth()->user()->id;
+            // get logged in user
+            $user = Auth::user();
+            $userId = $user->id;
+            $branchId = (int) ($user->default_branch_id ?? 0);
 
             // generate code
             $code = 1;
@@ -102,6 +104,7 @@ class PurchaseReturnController extends Controller
                 'note' => clean($request->note),
                 'created_by' => $userId,
                 'status' => $request->status,
+                'branch_id' => $branchId,
             ]);
 
             // Ensure the purchase return was created successfully
@@ -411,12 +414,12 @@ class PurchaseReturnController extends Controller
         $term = $request->term;
         $query = PurchaseReturn::with('purchase.supplier', 'purchase.purchaseTax', 'purchaseReturnProducts.product.productTax');
 
-        // Apply branch filter for non-superadmin users
+        // Apply branch filter
         $user = Auth::user();
-        if ((int) $user->account_role !== 1) {
+        // if ((int) $user->account_role !== 1) {
             $branchIds = $this->getUserBranchIds($user);
             $query->whereIn('branch_id', $branchIds);
-        }
+        // }
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('date', [$request->startDate, $request->endDate]);

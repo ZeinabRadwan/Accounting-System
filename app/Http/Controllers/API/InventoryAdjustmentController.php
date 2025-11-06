@@ -33,7 +33,19 @@ class InventoryAdjustmentController extends Controller
      */
     public function index(Request $request)
     {
-        return AdjustmentListResource::collection(InventoryAdjustment::with('adjustmentProducts.product.productUnit')->latest()->paginate($request->perPage));
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        $query = InventoryAdjustment::with('adjustmentProducts.product.productUnit')
+            ->whereIn('branch_id', $branchIds);
+        
+        return AdjustmentListResource::collection($query->latest()->paginate($request->perPage));
+    }
+    
+    private function getUserBranchIds($user)
+    {
+        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        return [$defaultBranchId > 0 ? $defaultBranchId : 0];
     }
 
     /**
@@ -48,15 +60,17 @@ class InventoryAdjustmentController extends Controller
         try {
             DB::beginTransaction();
 
+            // get logged in user
+            $user = Auth::user();
+            $userId = $user->id;
+            $branchId = (int) ($user->default_branch_id ?? 0);
+
             // generate code
             $code = 1;
             $prevCode = InventoryAdjustment::latest()->first();
             if ($prevCode) {
                 $code = $prevCode->code + 1;
             }
-
-            // get logged in user id
-            $userId = auth()->user()->id;
 
             // create adjustment
             $adjustment = InventoryAdjustment::create([
@@ -66,6 +80,7 @@ class InventoryAdjustmentController extends Controller
                 'note' => clean($request->note),
                 'status' => $request->status,
                 'created_by' => $userId,
+                'branch_id' => $branchId,
             ]);
 
             // store adjustment products
@@ -291,8 +306,11 @@ class InventoryAdjustmentController extends Controller
      */
     public function search(Request $request)
     {
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
         $term = $request->term;
-        $query = InventoryAdjustment::with('user', 'adjustmentProducts.product.productUnit');
+        $query = InventoryAdjustment::with('user', 'adjustmentProducts.product.productUnit')
+            ->whereIn('branch_id', $branchIds);
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('date', [$request->startDate, $request->endDate]);

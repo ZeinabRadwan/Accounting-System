@@ -31,9 +31,19 @@ class PurchaseOrderController extends Controller
      */
     public function index(Request $request)
     {
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
         return PurchaseOrder::with('supplier', 'purchaseOrderProducts.product')
+            ->whereIn('branch_id', $branchIds)
             ->latest()
             ->paginate($request->perPage ?? 10);
+    }
+    
+    private function getUserBranchIds($user)
+    {
+        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        return [$defaultBranchId > 0 ? $defaultBranchId : 0];
     }
 
     /**
@@ -77,6 +87,10 @@ class PurchaseOrderController extends Controller
         try {
             DB::beginTransaction();
 
+            // get logged in user
+            $user = Auth::user();
+            $branchId = (int) ($user->default_branch_id ?? 0);
+
             // generate purchase order number
             $purchaseOrderNo = $this->generatePurchaseOrderNo();
 
@@ -99,6 +113,7 @@ class PurchaseOrderController extends Controller
                 'is_send_email' => $request->isSendEmail ?? false,
                 'is_send_sms' => $request->isSendSMS ?? false,
                 'created_by' => Auth::id(),
+                'branch_id' => $branchId,
             ]);
 
             // create purchase order products
@@ -304,7 +319,10 @@ class PurchaseOrderController extends Controller
      */
     public function search(Request $request)
     {
-        $query = PurchaseOrder::with('supplier', 'purchaseOrderProducts.product');
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        $query = PurchaseOrder::with('supplier', 'purchaseOrderProducts.product')
+            ->whereIn('branch_id', $branchIds);
 
         if ($request->term) {
             $query->where(function ($q) use ($request) {

@@ -81,6 +81,10 @@ class SupplierController extends Controller
     public function store(SupplierStoreRequest $request)
     {
         try {
+            // get logged in user
+            $user = Auth::user();
+            $branchId = (int) ($user->default_branch_id ?? 0);
+            
             // generate code
             $code = 1;
             $prevSupplier = Supplier::latest()->first();
@@ -151,6 +155,7 @@ class SupplierController extends Controller
                 'attachments' => $request->attachments ? json_encode($request->attachments) : null,
                 'is_send_email' => $request->isSendEmail,
                 'is_send_sms' => $request->isSendSMS,
+                'branch_id' => $branchId,
             ];
 
             // Auto-assign Chart of Account if not provided (only for new suppliers)
@@ -461,7 +466,14 @@ class SupplierController extends Controller
     // return all suppliers
     public function allSuppliers()
     {
-        $suppliers = Supplier::with('chartOfAccount')->where('status', 1)->latest()->get();
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        $suppliers = Supplier::with('chartOfAccount')
+            ->where('status', 1)
+            ->whereIn('branch_id', $branchIds)
+            ->latest()
+            ->get();
 
         return SupplierListResource::collection($suppliers);
     }
@@ -469,7 +481,14 @@ class SupplierController extends Controller
     // return all suppliers
     public function suppliersForNonPurchasePayments()
     {
-        $suppliers = Supplier::with('chartOfAccount')->where('status', 1)->latest()->get();
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        $suppliers = Supplier::with('chartOfAccount')
+            ->where('status', 1)
+            ->whereIn('branch_id', $branchIds)
+            ->latest()
+            ->get();
 
         return SupplierWithNonPurchasePaymentResource::collection($suppliers);
     }
@@ -759,6 +778,9 @@ class SupplierController extends Controller
             'file' => ['required', 'mimes:csv', 'file'],
         ]);
 
+        $user = Auth::user();
+        $branchId = (int) ($user->default_branch_id ?? 0);
+
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $data = SimpleExcelReader::create($file, 'csv')->getRows();
@@ -773,9 +795,10 @@ class SupplierController extends Controller
             foreach ($data as $key => $item) {
                 $validator = Validator::make($item, $rules);
                 if ($validator->passes()) {
+                    $validatedData = $validator->validated();
+                    $validatedData['branch_id'] = $branchId;
                     Supplier::create(
-                        $this->incrementSupplierId() +
-                            $validator->validated()
+                        $this->incrementSupplierId() + $validatedData
                     );
                 } else {
                     return response()->json([

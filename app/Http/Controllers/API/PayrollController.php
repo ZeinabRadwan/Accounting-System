@@ -40,7 +40,19 @@ class PayrollController extends Controller
      */
     public function index(Request $request)
     {
-        return PayrollResource::collection(Payroll::with('employee.department', 'payrollTransaction.cashbookAccount', 'user')->latest()->paginate($request->perPage));
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        $query = Payroll::with('employee.department', 'payrollTransaction.cashbookAccount', 'user')
+            ->whereIn('branch_id', $branchIds);
+        
+        return PayrollResource::collection($query->latest()->paginate($request->perPage));
+    }
+    
+    private function getUserBranchIds($user)
+    {
+        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        return [$defaultBranchId > 0 ? $defaultBranchId : 0];
     }
 
     /**
@@ -55,13 +67,16 @@ class PayrollController extends Controller
         try {
             DB::beginTransaction();
 
+            // get logged in user
+            $user = Auth::user();
+            $userID = $user->id;
+            $branchId = (int) ($user->default_branch_id ?? 0);
+
             // upload thumbnail and set the name
             $imageName = '';
             if ($request->image) {
                 $imageName = $this->imageService->uploadImageAndGetPath($request->image, 'payroll');
             }
-
-            $userID = auth()->user()->id;
 
             $transaction = $this->transactionService->createTransactionFromPayroll($request, $userID);
 
@@ -86,6 +101,7 @@ class PayrollController extends Controller
                 'note' => $request->note,
                 'status' => $request->status,
                 'image_path' => $imageName,
+                'branch_id' => $branchId,
             ]);
 
             // add activity log
@@ -252,8 +268,11 @@ class PayrollController extends Controller
      */
     public function search(Request $request)
     {
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
         $term = $request->term;
-        $query = Payroll::with('employee', 'payrollTransaction.cashbookAccount');
+        $query = Payroll::with('employee', 'payrollTransaction.cashbookAccount')
+            ->whereIn('branch_id', $branchIds);
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('salary_date', [$request->startDate, $request->endDate]);
