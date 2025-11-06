@@ -1562,12 +1562,11 @@
           <li class="nav-header text-bold" v-if="!$isPOS()">{{ $t("Others") }}</li>
           <li
             v-if="!$isPOS() && (
-            v-if="
               $can('branches-list') ||
               $can('branches-create') ||
               $can('branches-edit') ||
               $can('branches-delete')
-            "
+            )"
             class="nav-item"
           >
             <router-link :to="{ name: 'branches.index' }" class="nav-link">

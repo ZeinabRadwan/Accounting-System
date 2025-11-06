@@ -383,6 +383,7 @@ export default {
       initialized: false,
       appInfo: null,
       currencies: [],
+      statusChecked: false,
       form: new Form({
         country: 'SA',
         company_name: '',
@@ -417,18 +418,35 @@ export default {
   },
 
   async mounted() {
+    // Prevent multiple mounts from causing issues
+    if (this._mounted) {
+      return
+    }
+    this._mounted = true
+    
+    // Mark that we're on initialization page
+    if (typeof sessionStorage !== 'undefined') {
+      sessionStorage.setItem('on_initialization_page', 'true')
+    }
+    
     await this.fetchAppInfo()
     await this.fetchCurrencies()
-    this.checkInitializationStatus()
+    await this.checkInitializationStatus()
     this.interceptLocaleChanges()
   },
-
+  
   beforeDestroy() {
+    // Clear the flag when leaving the page
+    if (typeof sessionStorage !== 'undefined') {
+      sessionStorage.removeItem('on_initialization_page')
+    }
+    
     // Clean up the event listener
     if (this.localeClickListener) {
       document.removeEventListener('click', this.localeClickListener)
     }
   },
+
 
   methods: {
     onCountryChange() {
@@ -548,7 +566,9 @@ export default {
 
     async fetchAppInfo() {
       try {
-        const response = await axios.get('/api/general-settings')
+        const response = await axios.get('/api/general-settings', {
+          timeout: 5000
+        })
         if (response.data) {
           const settings = response.data
           this.appInfo = {
@@ -558,6 +578,7 @@ export default {
         }
       } catch (error) {
         console.error('Error fetching app info:', error)
+        // Use default values - don't let this block the page
         this.appInfo = {
           blackLogo: '/images/black_logo.png',
           companyName: 'Arqam'
@@ -566,14 +587,40 @@ export default {
     },
 
     async checkInitializationStatus() {
+      // Prevent multiple simultaneous checks
+      if (this.statusChecked) {
+        return
+      }
+      
+      this.statusChecked = true
+      
       try {
-        const response = await axios.get('/api/tenant-initialization/check')
-        if (response.data && response.data.data.is_initialized) {
+        const response = await axios.get('/api/tenant-initialization/check', {
+          timeout: 5000
+        })
+        
+        if (response.data && response.data.data && response.data.data.is_initialized) {
           this.initialized = true
-          this.$router.push({ name: 'dashboard' })
+          // Clear session flags
+          if (typeof sessionStorage !== 'undefined') {
+            sessionStorage.removeItem('on_initialization_page')
+            sessionStorage.removeItem('cross_domain_login_processed')
+          }
+          // Use hard redirect to prevent middleware loops
+          // Small delay to ensure state is set
+          setTimeout(() => {
+            window.location.href = '/dashboard'
+          }, 100)
+          return
         }
+        // If not initialized, show the form (default state)
+        // Reset flag so it can be checked again if needed
+        this.statusChecked = false
       } catch (error) {
         console.error('Error checking initialization status:', error)
+        // If there's an error, assume not initialized and show the form
+        // Reset flag to allow retry
+        this.statusChecked = false
       }
     },
 
@@ -712,6 +759,12 @@ export default {
         })
 
         this.initialized = true
+        
+        // Clear any session flags that might interfere
+        if (typeof sessionStorage !== 'undefined') {
+          sessionStorage.removeItem('cross_domain_login_processed')
+          sessionStorage.removeItem('on_initialization_page')
+        }
         
         setTimeout(() => {
           window.location.href = '/dashboard'
