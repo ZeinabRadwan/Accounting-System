@@ -243,6 +243,7 @@ class BranchController extends Controller
     {
         $branchId = Session::get('current_branch_id');
         
+        // 1) Try session-stored branch first (when sessions are enabled)
         if ($branchId) {
             $branch = Branch::find($branchId);
             if ($branch) {
@@ -252,7 +253,32 @@ class BranchController extends Controller
             }
         }
 
-        // Return default branch if none set
+        // 2) Fall back to the authenticated user's default branch (works with token auth without sessions)
+        $user = Auth::user();
+        if ($user && $user->default_branch_id) {
+            $branch = Branch::find($user->default_branch_id);
+            if ($branch) {
+                return response()->json([
+                    'branch' => $branch
+                ]);
+            }
+        }
+
+        // 3) If user has assigned branches, pick the first active one
+        if ($user && method_exists($user, 'branches')) {
+            try {
+                $fallback = $user->branches()->where('is_active', true)->first();
+                if ($fallback) {
+                    return response()->json([
+                        'branch' => $fallback
+                    ]);
+                }
+            } catch (\Exception $e) {
+                // ignore and proceed to final fallback
+            }
+        }
+
+        // 4) Final fallback: main branch
         $defaultBranch = Branch::where('is_main', true)->first();
         
         return response()->json([
