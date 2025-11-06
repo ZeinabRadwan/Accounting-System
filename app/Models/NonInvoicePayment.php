@@ -16,7 +16,7 @@ class NonInvoicePayment extends Model
      * @var array
      */
     protected $fillable = [
-        'client_id', 'slug', 'amount', 'type', 'transaction_id', 'cheque_no', 'receipt_no',  'date', 'note', 'status', 'created_by',
+        'client_id', 'slug', 'amount', 'type', 'transaction_id', 'cheque_no', 'receipt_no',  'date', 'note', 'status', 'created_by', 'branch_id',
     ];
 
     /**

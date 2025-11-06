@@ -154,7 +154,9 @@ class InvoiceController extends Controller
             $code = $this->generateNextInvoiceCode();
 
             // get logged in user id
-            $userId = auth()->user()->id;
+            $user = auth()->user();
+            $userId = $user->id;
+            $branchId = (int) ($user->default_branch_id ?? 0);
 
             // Get default fiscal year and accounting period from general settings
             $currentFiscalYearId = GeneralSetting::where('key', 'current_fiscal_year_id')->first()?->value;
@@ -221,6 +223,7 @@ class InvoiceController extends Controller
                 'created_by' => $userId,
                 'fiscal_year_id' => $currentFiscalYearId,
                 'accounting_period_id' => $currentAccountingPeriodId,
+                'branch_id' => $branchId,
             ]);
 
 
@@ -311,6 +314,7 @@ class InvoiceController extends Controller
                     'receipt_no' => $request->receiptNo,
                     'created_by' => $userId,
                     'status' => $invoiceStatus,
+                    'branch_id' => $branchId,
                 ]);
 
                 // store invoice payment record
@@ -323,6 +327,7 @@ class InvoiceController extends Controller
                     'note' => clean($request->note),
                     'created_by' => $userId,
                     'status' => $invoiceStatus,
+                    'branch_id' => $branchId,
                 ]);
 
 
@@ -390,7 +395,9 @@ class InvoiceController extends Controller
             return $this->responseWithError('Cannot add payment to an inactive invoice.');
         }
         
-        $userId = auth()->id();
+        $user = auth()->user();
+        $userId = $user->id;
+        $branchId = (int) ($user->default_branch_id ?? 0);
         
         // Decode account if it's JSON string
         $account = is_string($request->account) ? json_decode($request->account, true) : $request->account;
@@ -411,6 +418,7 @@ class InvoiceController extends Controller
                 'receipt_no' => $request->receiptNo,
                 'created_by' => $userId,
                 'status' => 1,
+                'branch_id' => $branchId,
             ]);
 
             // Handle file upload if attachment is provided
@@ -434,6 +442,7 @@ class InvoiceController extends Controller
                 'attachment' => $attachmentPath,
                 'created_by' => $userId,
                 'status' => 1,
+                'branch_id' => $branchId,
             ]);
 
             // Create journal entry for invoice payment only if both invoice and payment status are active

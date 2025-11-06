@@ -55,7 +55,9 @@ class NonPurchasePaymentController extends Controller
         try {
             DB::beginTransaction();
 
-            $userId = auth()->user()->id;
+            $user = auth()->user();
+            $userId = $user->id;
+            $branchId = (int) ($user->default_branch_id ?? 0);
 
             // Create bank/cash transaction for both types (0: received, 1: sent)
             $transaction = $this->transactionService->createTransactionFromNonPurchasePayment($request, $userId);
@@ -71,6 +73,7 @@ class NonPurchasePaymentController extends Controller
                 'note' => $request->note,
                 'status' => $request->status,
                 'created_by' => $userId,
+                'branch_id' => $branchId,
             ]);
 
             // Load the supplier relationship with chart of account for journal entry creation

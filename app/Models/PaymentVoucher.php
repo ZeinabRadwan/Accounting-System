@@ -34,6 +34,7 @@ class PaymentVoucher extends Model
         'note',
         'status',
         'created_by',
+        'branch_id',
     ];
 
     /**

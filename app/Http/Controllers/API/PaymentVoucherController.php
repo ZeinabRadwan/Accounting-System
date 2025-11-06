@@ -113,7 +113,9 @@ class PaymentVoucherController extends Controller
         try {
             DB::beginTransaction();
 
-            $userId = auth()->user()->id;
+            $user = auth()->user();
+            $userId = $user->id;
+            $branchId = (int) ($user->default_branch_id ?? 0);
 
             // Get account
             $account = Account::findOrFail($request->account['id']);
@@ -202,9 +204,11 @@ class PaymentVoucherController extends Controller
                 'receipt_no' => $request->receiptNo ?? null,
                 'created_by' => $userId,
                 'status' => $request->status ?? 1,
+                'branch_id' => $branchId,
             ]);
 
             $voucherData['transaction_id'] = $transaction->id;
+            $voucherData['branch_id'] = $branchId;
 
             // Create voucher
             $voucher = PaymentVoucher::create($voucherData);
@@ -220,6 +224,7 @@ class PaymentVoucherController extends Controller
                     'note' => $request->note ? clean($request->note) : null,
                     'created_by' => $userId,
                     'status' => $request->status ?? 1,
+                    'branch_id' => $branchId,
                 ]);
 
                 // Update invoice is_paid status if fully paid
@@ -240,6 +245,7 @@ class PaymentVoucherController extends Controller
                     'note' => $request->note ? clean($request->note) : null,
                     'created_by' => $userId,
                     'status' => $request->status ?? 1,
+                    'branch_id' => $branchId,
                 ]);
 
                 // Update purchase is_paid status if fully paid

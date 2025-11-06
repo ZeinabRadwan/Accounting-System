@@ -136,7 +136,9 @@ class PurchaseController extends Controller
             }
 
             // get logged in user id
-            $userId = auth()->user()->id;
+            $user = auth()->user();
+            $userId = $user->id;
+            $branchId = (int) ($user->default_branch_id ?? 0);
 
             // Get default fiscal year and accounting period from general settings
             $currentFiscalYearId = GeneralSetting::where('key', 'current_fiscal_year_id')->first()?->value;
@@ -233,6 +235,7 @@ class PurchaseController extends Controller
                 'created_by' => $userId,
                 'fiscal_year_id' => $currentFiscalYearId,
                 'accounting_period_id' => $currentAccountingPeriodId,
+                'branch_id' => $branchId,
             ]);
 
             // store purchase products
@@ -329,6 +332,7 @@ class PurchaseController extends Controller
                     'receipt_no' => $request->receiptNo,
                     'created_by' => $userId,
                     'status' => $request->status,
+                    'branch_id' => $branchId,
                 ]);
 
                 // store purchase payment record
@@ -341,6 +345,7 @@ class PurchaseController extends Controller
                     'note' => clean($request->note),
                     'created_by' => $userId,
                     'status' => $request->status,
+                    'branch_id' => $branchId,
                 ]);
 
                 // Create journal entry for purchase payment (skip for Saudi Arabia)
@@ -747,7 +752,9 @@ class PurchaseController extends Controller
             return $this->responseWithError('Cannot add payment to an inactive purchase. You have to send the purchase first.');
         }
         
-        $userId = auth()->user()->id;
+        $user = auth()->user();
+        $userId = $user->id;
+        $branchId = (int) ($user->default_branch_id ?? 0);
         // store transaction
         $transactionID = null;
         $reason = '['.config('config.purchasePrefix').'-'.$purchase->purchase_no.'] Purchase Payment sent from ['.$request->account['accountNumber'].']';
@@ -762,6 +769,7 @@ class PurchaseController extends Controller
             'transaction_date' => $request->paymentDate,
             'created_by' => $userId,
             'status' => $request->status,
+            'branch_id' => $branchId,
         ]);
         $transactionID = $transaction->id;
 
@@ -772,6 +780,7 @@ class PurchaseController extends Controller
             'amount' => $request->paidAmount,
             'transaction_id' => $transactionID,
             'date' => $request->paymentDate,
+            'branch_id' => $branchId,
             'note' => clean($request->note),
             'created_by' => $userId,
             'status' => $request->status,

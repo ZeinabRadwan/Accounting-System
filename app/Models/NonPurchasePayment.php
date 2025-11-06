@@ -16,7 +16,7 @@ class NonPurchasePayment extends Model
      * @var array
      */
     protected $fillable = [
-        'supplier_id', 'slug', 'amount', 'type', 'transaction_id', 'date', 'note', 'status', 'created_by',
+        'supplier_id', 'slug', 'amount', 'type', 'transaction_id', 'date', 'note', 'status', 'created_by', 'branch_id',
     ];
 
     /**

@@ -79,7 +79,9 @@ class InvoicePaymentController extends Controller
             DB::beginTransaction();
 
             // get logged in user id
-            $userId = auth()->user()->id;
+            $user = auth()->user();
+            $userId = $user->id;
+            $branchId = (int) ($user->default_branch_id ?? 0);
             $invoices = array();
             $client = Client::where('slug', $request['client']['slug'])->first();
             $chartOfAccount = $client?->chartOfAccount;
@@ -125,6 +127,7 @@ class InvoicePaymentController extends Controller
                     'transaction_date' => $request->paymentDate,
                     'created_by' => $userId,
                     'status' => $request->status === 1 ? 1 : 0,
+                    'branch_id' => $branchId,
                 ]);
                 $transactionID = $transaction->id;
 
@@ -138,6 +141,7 @@ class InvoicePaymentController extends Controller
                     'created_by' => $userId,
                     'note' => clean($request->note),
                     'status' => $request->status,
+                    'branch_id' => $branchId,
                 ]);
 
                 // Create journal entry for invoice payment only if status is active

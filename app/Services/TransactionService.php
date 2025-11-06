@@ -6,6 +6,7 @@ use App\Interfaces\ITransactionService;
 use App\Models\AccountTransaction;
 use App\Models\Invoice;
 use App\Models\Purchase;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionService implements ITransactionService
 {
@@ -26,6 +27,8 @@ class TransactionService implements ITransactionService
     public function createTransactionFromExpense($request, $userId) : AccountTransaction
     {
         $reason = '['.config('config.expSubCatPrefix').'-'.$request->subCategory['code'].'] Expense payment';
+        $user = Auth::user();
+        $branchId = (int) ($user->default_branch_id ?? 0);
 
         $transactionArray = [];
         $transactionArray['account_id'] = $request->account['id'];
@@ -37,6 +40,7 @@ class TransactionService implements ITransactionService
         $transactionArray['receipt_no'] = $request->voucherNo;
         $transactionArray['created_by'] = $userId;
         $transactionArray['status'] = $request->status;
+        $transactionArray['branch_id'] = $branchId;
 
         return $this->createTransaction($transactionArray);
 
@@ -46,6 +50,8 @@ class TransactionService implements ITransactionService
     public function createTransactionFromInvoice($request, $userId, $invoice) : AccountTransaction
     {
         $reason = '['.config('config.invoicePrefix').'-'.$invoice->invoice_no.'] Invoice Payment added to ['.$request->account['accountNumber'].']';
+        $user = Auth::user();
+        $branchId = (int) ($user->default_branch_id ?? 0);
 
         $transactionArray = [];
         $transactionArray['account_id'] = $request->account['id'];
@@ -57,6 +63,7 @@ class TransactionService implements ITransactionService
         $transactionArray['receipt_no'] = $request->receiptNo;
         $transactionArray['created_by'] = $userId;
         $transactionArray['status'] = $request->status;
+        $transactionArray['branch_id'] = $branchId;
 
         return $this->createTransaction($transactionArray);
 
@@ -65,6 +72,8 @@ class TransactionService implements ITransactionService
     public function createTransactionFromInvoicePayment($request, $userId, $selectedInvoice) : AccountTransaction
     {
         $invoice = Invoice::where('slug', $selectedInvoice['slug'])->first();
+        $user = Auth::user();
+        $branchId = (int) ($user->default_branch_id ?? 0);
 
         $reason = '['.config('config.invoicePrefix').'-'.$invoice->invoice_no.'] Invoice Payment added to ['.$request->account['accountNumber'].']';
 
@@ -78,6 +87,7 @@ class TransactionService implements ITransactionService
         $transactionArray['receipt_no'] = $request->receiptNo;
         $transactionArray['created_by'] = $userId;
         $transactionArray['status'] = $request->status;
+        $transactionArray['branch_id'] = $branchId;
 
         return $this->createTransaction($transactionArray);
 
@@ -87,6 +97,8 @@ class TransactionService implements ITransactionService
     public function createTransactionFromNonInvoicePayment($request, $userId) : AccountTransaction
     {
         $isIncoming = intval($request->type) === 1;
+        $user = Auth::user();
+        $branchId = (int) ($user->default_branch_id ?? 0);
         $reason = '['.config('config.clientPrefix').'-'.$request->client['id'].'] '
             . ($isIncoming ? 'Non inovice payment added to ' : 'Non inovice payment sent from ')
             . '['.$request->account['accountNumber'].']';
@@ -102,6 +114,7 @@ class TransactionService implements ITransactionService
         $transactionArray['receipt_no'] = $request->receiptNo;
         $transactionArray['created_by'] = $userId;
         $transactionArray['status'] = $request->status;
+        $transactionArray['branch_id'] = $branchId;
 
         return $this->createTransaction($transactionArray);
     }
@@ -109,7 +122,8 @@ class TransactionService implements ITransactionService
 
     public function createTransactionFromInvoiceReturn($request, $userId, $code) : AccountTransaction
     {
-
+        $user = Auth::user();
+        $branchId = (int) ($user->default_branch_id ?? 0);
         $reason = '['.config('config.invoiceReturnPrefix').'-'.$code.'] Invoice Return payable sent from ['.$request->account['accountNumber'].']';
 
         $transactionArray = [];
@@ -122,6 +136,7 @@ class TransactionService implements ITransactionService
         $transactionArray['receipt_no'] = $request->receiptNo;
         $transactionArray['created_by'] = $userId;
         $transactionArray['status'] = $request->status;
+        $transactionArray['branch_id'] = $branchId;
 
         return $this->createTransaction($transactionArray);
 
@@ -129,7 +144,8 @@ class TransactionService implements ITransactionService
 
     public function createTransactionFromLoan($request, $userId) : AccountTransaction
     {
-
+        $user = Auth::user();
+        $branchId = (int) ($user->default_branch_id ?? 0);
         $reason = '['.$request->referenceNo.'] Loan added to ['.$request->account['accountNumber'].']';
 
         $transactionArray = [];
@@ -141,6 +157,7 @@ class TransactionService implements ITransactionService
         $transactionArray['transaction_date'] = $request->date;
         $transactionArray['created_by'] = $userId;
         $transactionArray['status'] = $request->status;
+        $transactionArray['branch_id'] = $branchId;
 
         return $this->createTransaction($transactionArray);
     }
@@ -148,7 +165,8 @@ class TransactionService implements ITransactionService
 
     public function createTransactionFromLoanPayment($request, $userId) : AccountTransaction
     {
-
+        $user = Auth::user();
+        $branchId = (int) ($user->default_branch_id ?? 0);
         $reason = '['.$request->loan['reference'].'] Loan Payment sent from ['.$request->account['accountNumber'].']';
 
         $transactionArray = [];
@@ -160,6 +178,7 @@ class TransactionService implements ITransactionService
         $transactionArray['transaction_date'] = $request->date;
         $transactionArray['created_by'] = $userId;
         $transactionArray['status'] = $request->status;
+        $transactionArray['branch_id'] = $branchId;
 
         return $this->createTransaction($transactionArray);
     }
@@ -168,6 +187,8 @@ class TransactionService implements ITransactionService
     public function createTransactionFromNonPurchasePayment($request, $userId) : AccountTransaction
     {
         $isOutgoing = intval($request->type) === 1;
+        $user = Auth::user();
+        $branchId = (int) ($user->default_branch_id ?? 0);
         $reason = '['.config('config.supplierPrefix').'-'.$request->supplier['supplierID'].'] '
             . ($isOutgoing ? 'Non purchase due sent from ' : 'Non purchase payment received to ')
             . '['.$request->account['accountNumber'].']';
@@ -183,6 +204,7 @@ class TransactionService implements ITransactionService
         $transactionArray['receipt_no'] = $request->receiptNo;
         $transactionArray['created_by'] = $userId;
         $transactionArray['status'] = $request->status;
+        $transactionArray['branch_id'] = $branchId;
 
         return $this->createTransaction($transactionArray);
     }
@@ -190,7 +212,8 @@ class TransactionService implements ITransactionService
 
     public function createTransactionFromPayroll($request, $userId) : AccountTransaction
     {
-
+        $user = Auth::user();
+        $branchId = (int) ($user->default_branch_id ?? 0);
         $reason = '['.config('config.employeePrefix').'-'.$request->employee['empID'].'] '.$request->salaryMonth.' Payroll sent from ['.$request->account['accountNumber'].']';
 
         $transactionArray = [];
@@ -204,6 +227,7 @@ class TransactionService implements ITransactionService
         $transactionArray['receipt_no'] = $request->receiptNo;
         $transactionArray['created_by'] = $userId;
         $transactionArray['status'] = $request->status;
+        $transactionArray['branch_id'] = $branchId;
 
         return $this->createTransaction($transactionArray);
     }
@@ -211,7 +235,8 @@ class TransactionService implements ITransactionService
 
     public function createTransactionFromPayment($request, $userId, $purchase) : AccountTransaction
     {
-
+        $user = Auth::user();
+        $branchId = (int) ($user->default_branch_id ?? 0);
         $reason = '['.config('config.purchasePrefix').'-'.$purchase->purchase_no.'] Purchase Payment sent from ['.$request->account['accountNumber'].']';
 
         $transactionArray = [];
@@ -225,6 +250,7 @@ class TransactionService implements ITransactionService
         $transactionArray['receipt_no'] = $request->receiptNo;
         $transactionArray['created_by'] = $userId;
         $transactionArray['status'] = $request->status;
+        $transactionArray['branch_id'] = $branchId;
 
         return $this->createTransaction($transactionArray);
     }
@@ -233,6 +259,8 @@ class TransactionService implements ITransactionService
     public function createTransactionFromPurchasePayment($request, $userId, $selectedPurchase) : AccountTransaction
     {
         $purchase = Purchase::where('slug', $selectedPurchase['slug'])->first();
+        $user = Auth::user();
+        $branchId = (int) ($user->default_branch_id ?? 0);
 
         $reason = '['.config('config.purchasePrefix').'-'.$purchase->purchase_no.'] Purchase Payment sent from ['.$request->account['accountNumber'].']';
 
@@ -247,6 +275,7 @@ class TransactionService implements ITransactionService
         $transactionArray['receipt_no'] = $request->receiptNo;
         $transactionArray['created_by'] = $userId;
         $transactionArray['status'] = $request->status;
+        $transactionArray['branch_id'] = $branchId;
 
         return $this->createTransaction($transactionArray);
     }
@@ -254,7 +283,8 @@ class TransactionService implements ITransactionService
 
     public function createTransactionFromPurchaseReturn($request, $userId, $code) : AccountTransaction
     {
-
+        $user = Auth::user();
+        $branchId = (int) ($user->default_branch_id ?? 0);
         $reason = '['.config('config.purchaseReturnPrefix').'-'.$code.'] Purchase Return receivable added to ['.$request->account['accountNumber'].']';
 
         $transactionArray = [];
@@ -268,6 +298,7 @@ class TransactionService implements ITransactionService
         $transactionArray['receipt_no'] = $request->receiptNo;
         $transactionArray['created_by'] = $userId;
         $transactionArray['status'] = $request->status;
+        $transactionArray['branch_id'] = $branchId;
 
         return $this->createTransaction($transactionArray);
     }
@@ -276,6 +307,8 @@ class TransactionService implements ITransactionService
 
     public function createTransactionFromBalanceTransfer($request, $userId, int $type) : AccountTransaction
     {
+        $user = Auth::user();
+        $branchId = (int) ($user->default_branch_id ?? 0);
         $reason = null;
         $accountId = null;
 
@@ -301,6 +334,7 @@ class TransactionService implements ITransactionService
         $transactionArray['transaction_date'] = $request->date;
         $transactionArray['created_by'] = $userId;
         $transactionArray['status'] = $request->status;
+        $transactionArray['branch_id'] = $branchId;
 
         return $this->createTransaction($transactionArray);
     }

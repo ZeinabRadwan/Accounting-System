@@ -57,9 +57,9 @@ class NonInvoicePaymentController extends Controller
         try {
             DB::beginTransaction();
 
-            $userId = auth()->user()->id;
-
-
+            $user = auth()->user();
+            $userId = $user->id;
+            $branchId = (int) ($user->default_branch_id ?? 0);
 
             $client = Client::findOrFail($request->client['id']);
            
@@ -97,6 +97,7 @@ class NonInvoicePaymentController extends Controller
                 'note' => $request->note,
                 'status' => $request->status,
                 'created_by' => $userId,
+                'branch_id' => $branchId,
             ]);
 
             // Load the client relationship with chart of account for journal entry creation
