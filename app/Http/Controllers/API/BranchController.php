@@ -216,8 +216,9 @@ class BranchController extends Controller
 
         $user = Auth::user();
         $branch = Branch::findOrFail($request->branch_id);
-        $user->default_branch_id = $branch->id;
-        $user->save();
+        $user->update([
+            'default_branch_id' => $branch->id
+        ]);
 
         // Check if user has access to this branch
         if (method_exists($user, 'branches') && !$user->branches->contains($branch)) {
