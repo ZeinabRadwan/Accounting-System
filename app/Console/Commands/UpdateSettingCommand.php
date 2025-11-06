@@ -140,7 +140,7 @@ class UpdateSettingCommand extends Command
         $work_folder = $this->working_folder;
 
         // Ensure the work_folder path is correctly quoted
-        $update_command = 'cp -R "' . $work_folder . '/repositories/Accounting-System/public/upg.php" "' . $work_folder . '/public_html/upg.php"';
+        $update_command = 'cp -R "' . $work_folder . '/repositories/Arqam-System/public/upg.php" "' . $work_folder . '/public_html/upg.php"';
         exec($update_command . ' 2>&1', $output, $return_var); // Capture errors as well
 
         // Log the output and return variable for debugging
@@ -160,7 +160,7 @@ class UpdateSettingCommand extends Command
     //     // mix-manifest.json
     //     $work_folder = $this->working_folder;
 
-    //     $manifest_command = 'cp -R "' . $work_folder . '/repositories/Accounting-System/public/mix-manifest.json" "' . $work_folder . '/public_html/mix-manifest.json"';
+    //     $manifest_command = 'cp -R "' . $work_folder . '/repositories/Arqam-System/public/mix-manifest.json" "' . $work_folder . '/public_html/mix-manifest.json"';
 
 
     //     exec($manifest_command, $output, $return_var);
@@ -174,7 +174,7 @@ class UpdateSettingCommand extends Command
     // private function updateVendor() {
     //     $work_folder = $this->working_folder;
 
-    //     $vendor_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/vendor/ ' . $work_folder . '/public_html/';
+    //     $vendor_command = 'cp -R ' . $work_folder . '/repositories/Arqam-System/public/vendor/ ' . $work_folder . '/public_html/';
     //     exec($vendor_command, $output, $return_var);
     //     if ($return_var !== 0) {
     //         return $vendor_command;
@@ -188,7 +188,7 @@ class UpdateSettingCommand extends Command
     // {
     //     $work_folder = $this->working_folder;
 
-    //     $css_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/css/ ' . $work_folder . '/public_html/';
+    //     $css_command = 'cp -R ' . $work_folder . '/repositories/Arqam-System/public/css/ ' . $work_folder . '/public_html/';
     //     exec($css_command, $output, $return_var);
     //     if ($return_var !== 0) {
     //         return $css_command;
@@ -202,16 +202,16 @@ class UpdateSettingCommand extends Command
     {
         $work_folder = $this->working_folder;
 
-        $public_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/css/ ' . $work_folder . '/public_html/';
+        $public_command = 'cp -R ' . $work_folder . '/repositories/Arqam-System/public/css/ ' . $work_folder . '/public_html/';
         exec($public_command, $output, $return_var);
 
-        $public_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/js/ ' . $work_folder . '/public_html/';
+        $public_command = 'cp -R ' . $work_folder . '/repositories/Arqam-System/public/js/ ' . $work_folder . '/public_html/';
         exec($public_command, $output, $return_var);
 
-        $public_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/mix-manifest.json' . $work_folder . '/public_html/';
+        $public_command = 'cp -R ' . $work_folder . '/repositories/Arqam-System/public/mix-manifest.json' . $work_folder . '/public_html/';
         exec($public_command, $output, $return_var);
 
-        $public_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/fonts' . $work_folder . '/public_html/';
+        $public_command = 'cp -R ' . $work_folder . '/repositories/Arqam-System/public/fonts' . $work_folder . '/public_html/';
         exec($public_command, $output, $return_var);
 
         if ($return_var !== 0) {
@@ -227,7 +227,7 @@ class UpdateSettingCommand extends Command
     {
         $work_folder = $this->working_folder;
 
-        $js_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/js/ ' . $work_folder . '/public_html/';
+        $js_command = 'cp -R ' . $work_folder . '/repositories/Arqam-System/public/js/ ' . $work_folder . '/public_html/';
         exec($js_command, $output, $return_var);
 
         if ($return_var === 0) {
@@ -323,7 +323,7 @@ class UpdateSettingCommand extends Command
     {
         $composerPath = '/opt/cpanel/composer/bin/composer';
         $homePath = $this->working_folder; // Default home path if HOME is not set
-        $workingDir = $this->working_folder . '/repositories/Accounting-System'; // Adjust this to your actual application path
+        $workingDir = $this->working_folder . '/repositories/Arqam-System'; // Adjust this to your actual application path
 
         $command = "export PATH=\"\$PATH:/opt/cpanel/composer/bin\" && export HOME=\"$homePath\" && export COMPOSER_HOME=\"$homePath\" && $composerPath update";
 
