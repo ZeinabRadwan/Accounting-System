@@ -1,25 +1,6 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[8222],{
 
-/***/ 78427:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".card[data-v-7aea7555]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-header[data-v-7aea7555]{background-color:#fff;border-bottom:1px solid #ced4da;border-radius:20px 20px 0 0;padding:1.25rem 1.25rem 0}.card-body[data-v-7aea7555]{padding:1.25rem}.card-footer[data-v-7aea7555]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.refresh-btn[data-v-7aea7555]{background:#33a0d91a!important;border:none;border-radius:10px;color:#33a0d9!important;height:44px;padding:10px 16px;width:56px}.export-excel-btn[data-v-7aea7555],.export-pdf-btn[data-v-7aea7555]{background:#f6fef4!important;color:#2ab930!important}.export-excel-btn[data-v-7aea7555],.export-pdf-btn[data-v-7aea7555],.print-btn[data-v-7aea7555]{border:none;border-radius:10px;height:44px;padding:10px 16px;width:56px}.print-btn[data-v-7aea7555]{background:#33a0d91a!important;color:#33a0d9!important}.btn-primary[data-v-7aea7555]{background:#2ab930!important;border:none!important;color:#fff!important;padding:10px 20px!important}.page-title[data-v-7aea7555]{color:#1f2937;font-size:2rem;font-weight:700;margin:0}.page-subtitle[data-v-7aea7555]{color:#6b7280;font-size:1rem;margin:.5rem 0 0}.template-list-section[data-v-7aea7555]{padding:0 0 3rem}.module-filter[data-v-7aea7555]{margin-bottom:2rem}.module-filter .btn-group .btn[data-v-7aea7555]{border-radius:6px;margin-right:.5rem}.module-filter .btn-group .btn.active[data-v-7aea7555]{background-color:#3b82f6;border-color:#3b82f6;color:#fff}.templates-grid[data-v-7aea7555]{margin-top:1rem}.template-card[data-v-7aea7555]{background:#fff;border:1px solid #e5e7eb;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);display:flex;flex-direction:column;height:100%;padding:1.5rem;transition:all .2s ease}.template-card[data-v-7aea7555]:hover{box-shadow:0 4px 8px rgba(0,0,0,.15);transform:translateY(-2px)}.template-card.is-default[data-v-7aea7555]{background:#f0fdf4;border-color:#10b981}.template-header[data-v-7aea7555]{align-items:flex-start;display:flex;justify-content:space-between;margin-bottom:1rem}.template-title[data-v-7aea7555]{flex:1}.template-name[data-v-7aea7555]{color:#1f2937;font-size:1.25rem;font-weight:700;line-height:1.3;margin:0 0 .25rem}.template-module[data-v-7aea7555]{color:#6b7280;font-size:.875rem;letter-spacing:.5px;text-transform:uppercase}.template-status[data-v-7aea7555]{margin-left:1rem}.badge-default[data-v-7aea7555]{background:#10b981;border-radius:4px;color:#fff;font-size:.75rem;font-weight:600;padding:.25rem .5rem}.template-description[data-v-7aea7555]{color:#6b7280;flex:1;font-size:.875rem;line-height:1.5;margin:0 0 1.5rem}.template-actions[data-v-7aea7555]{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:auto}.template-actions .btn[data-v-7aea7555]{border-radius:6px;font-size:.875rem;font-weight:500;padding:.5rem 1rem;transition:all .2s ease}.template-actions .btn[data-v-7aea7555]:hover{box-shadow:0 2px 4px rgba(0,0,0,.1);transform:translateY(-1px)}.empty-state[data-v-7aea7555]{padding:4rem 2rem;text-align:center}.empty-state-content[data-v-7aea7555]{margin:0 auto;max-width:400px}.empty-state-icon[data-v-7aea7555]{color:#d1d5db;font-size:4rem;margin-bottom:1.5rem}.empty-state-title[data-v-7aea7555]{color:#374151;font-size:1.5rem;font-weight:700;margin-bottom:1rem}.empty-state-description[data-v-7aea7555]{color:#6b7280;line-height:1.6;margin-bottom:2rem}.template-editor-section[data-v-7aea7555]{padding:0 0 3rem}.editor-header[data-v-7aea7555]{background:#fff;border:1px solid #e5e7eb;border-radius:8px;margin-bottom:2rem;padding:1.5rem}.editor-title[data-v-7aea7555]{color:#1f2937;font-size:1.5rem;font-weight:700;margin:0}.badge-primary[data-v-7aea7555]{background:#3b82f6;border-radius:4px;color:#fff;font-size:.75rem;font-weight:600;padding:.25rem .5rem}.editor-content[data-v-7aea7555]{min-height:60vh}.settings-card[data-v-7aea7555]{border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.04);overflow:hidden;transition:all .2s ease}.settings-card[data-v-7aea7555]:hover{border-color:#d1d5db;box-shadow:0 4px 12px rgba(0,0,0,.08)}.settings-card .card-header[data-v-7aea7555]{background:linear-gradient(135deg,#f8fafc,#f1f5f9);border-bottom:1px solid #e5e7eb;padding:1rem 1.25rem}.settings-card .card-title[data-v-7aea7555]{align-items:center;color:#1f2937;display:flex;font-size:.95rem;font-weight:600}.settings-card .card-body[data-v-7aea7555]{padding:1.25rem}.form-group[data-v-7aea7555]{margin-bottom:1.25rem}.form-group[data-v-7aea7555]:last-child{margin-bottom:0}.form-group label[data-v-7aea7555],.form-label[data-v-7aea7555]{color:#374151;display:block;font-size:.875rem;font-weight:600;margin-bottom:.5rem}.form-control-lg[data-v-7aea7555]{border:1px solid #d1d5db;border-radius:8px;font-size:1rem;padding:.75rem 1rem;transition:all .2s ease}.form-control-lg[data-v-7aea7555]:focus{border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.1)}.color-input-group[data-v-7aea7555]{align-items:center;display:flex;gap:.75rem}.color-picker[data-v-7aea7555]{border:1px solid #d1d5db!important;border-radius:8px!important;cursor:pointer;height:42px!important;padding:0!important;transition:all .2s ease;width:50px!important}.color-picker[data-v-7aea7555]:hover{border-color:#3b82f6!important;box-shadow:0 0 0 3px rgba(59,130,246,.1)}.color-text-input[data-v-7aea7555]{flex:1;font-family:Monaco,Menlo,Ubuntu Mono,monospace;font-size:.875rem}.elements-grid[data-v-7aea7555]{display:grid;gap:.75rem}.element-item[data-v-7aea7555]{border:1px solid #f3f4f6;border-radius:10px;overflow:hidden;transition:all .2s ease}.element-item[data-v-7aea7555]:hover{background:#f8fafc;border-color:#e5e7eb;box-shadow:0 2px 8px rgba(0,0,0,.06);transform:translateY(-1px)}.element-item .form-check[data-v-7aea7555]{align-items:flex-start;display:flex;gap:.75rem;margin:0;padding:1rem}.element-item .form-check-input[data-v-7aea7555]{border:2px solid #d1d5db;border-radius:4px;height:18px;margin-right:0;margin-top:.25rem;transition:all .2s ease;width:18px}.element-item .form-check-input[data-v-7aea7555]:checked{background-color:#3b82f6;border-color:#3b82f6}.element-item .form-check-input[data-v-7aea7555]:focus{box-shadow:0 0 0 3px rgba(59,130,246,.1)}.element-item .form-check-label[data-v-7aea7555]{align-items:flex-start;cursor:pointer;display:flex;flex:1;gap:.75rem;margin:0}.element-icon[data-v-7aea7555]{color:#6b7280;font-size:1.125rem;margin-top:.125rem;transition:color .2s ease}.element-item:hover .element-icon[data-v-7aea7555]{color:#3b82f6}.element-content[data-v-7aea7555]{flex:1}.element-title[data-v-7aea7555]{color:#1f2937;font-size:.875rem;font-weight:600;line-height:1.3;margin-bottom:.25rem}.element-description[data-v-7aea7555]{color:#6b7280;font-size:.75rem;line-height:1.4;margin:0}.element-item .form-check-input:checked+.form-check-label .element-title[data-v-7aea7555]{color:#1f2937}.element-item .form-check-input:checked+.form-check-label .element-icon[data-v-7aea7555]{color:#3b82f6}.invalid-feedback[data-v-7aea7555]{color:#dc2626;font-size:.75rem;font-weight:500;margin-top:.25rem}.logo-upload-container[data-v-7aea7555]{background:#f9fafb;border:2px dashed #d1d5db;border-radius:8px;padding:1.5rem;text-align:center;transition:all .2s ease}.logo-upload-container[data-v-7aea7555]:hover{background:#f8fafc;border-color:#3b82f6}.current-logo[data-v-7aea7555]{align-items:center;display:flex;flex-direction:column;gap:1rem}.logo-preview[data-v-7aea7555]{border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,.1);max-height:100px;max-width:200px;-o-object-fit:contain;object-fit:contain}.logo-actions[data-v-7aea7555]{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center}.logo-upload-placeholder[data-v-7aea7555]{color:#6b7280;cursor:pointer;padding:2rem;transition:all .2s ease}.logo-upload-placeholder[data-v-7aea7555]:hover{color:#3b82f6}.logo-upload-placeholder i[data-v-7aea7555]{display:block;font-size:2.5rem;margin-bottom:1rem}.logo-upload-placeholder p[data-v-7aea7555]{font-size:1rem;font-weight:600;margin:.5rem 0}.logo-upload-placeholder small[data-v-7aea7555]{font-size:.875rem;opacity:.8}.form-text[data-v-7aea7555]{align-items:flex-start;color:#6b7280;display:flex;font-size:.875rem;gap:.5rem;margin-top:.75rem}.form-text i[data-v-7aea7555]{flex-shrink:0;margin-top:.125rem}.preview-card[data-v-7aea7555]{border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.04);overflow:hidden;transition:all .2s ease}.preview-card[data-v-7aea7555]:hover{border-color:#d1d5db;box-shadow:0 4px 12px rgba(0,0,0,.08)}.preview-card .card-header[data-v-7aea7555]{background:linear-gradient(135deg,#f8fafc,#f1f5f9);border-bottom:1px solid #e5e7eb;padding:1rem 1.25rem}.preview-card .card-title[data-v-7aea7555]{align-items:center;color:#1f2937;display:flex;font-size:.95rem;font-weight:600}.preview-actions[data-v-7aea7555]{display:flex;gap:.5rem}.preview-actions .btn[data-v-7aea7555]{border-radius:6px;font-size:.875rem;font-weight:500;padding:.5rem .75rem;transition:all .2s ease}.preview-actions .btn[data-v-7aea7555]:hover{box-shadow:0 2px 4px rgba(0,0,0,.1);transform:translateY(-1px)}.preview-container[data-v-7aea7555]{align-items:flex-start;background:#f8fafc;display:flex;height:70vh;justify-content:center;overflow:auto;padding:1.5rem;position:relative}.preview-container[data-v-7aea7555]::-webkit-scrollbar{width:8px}.preview-container[data-v-7aea7555]::-webkit-scrollbar-track{background:#f1f5f9;border-radius:4px}.preview-container[data-v-7aea7555]::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}.preview-container[data-v-7aea7555]::-webkit-scrollbar-thumb:hover{background:#94a3b8}.preview-placeholder[data-v-7aea7555]{align-items:center;background:#f9fafb;border:2px dashed #d1d5db;border-radius:12px;color:#9ca3af;display:flex;height:100%;justify-content:center;transition:all .2s ease;width:100%}.preview-placeholder[data-v-7aea7555]:hover{background:#f8fafc;border-color:#cbd5e1}.preview-placeholder-content[data-v-7aea7555]{max-width:300px;text-align:center}.preview-icon[data-v-7aea7555]{color:#cbd5e1;font-size:3.5rem;margin-bottom:1.5rem;transition:color .2s ease}.preview-placeholder:hover .preview-icon[data-v-7aea7555]{color:#94a3b8}.preview-title[data-v-7aea7555]{color:#6b7280;font-size:1.125rem;font-weight:600;margin-bottom:.5rem}.preview-description[data-v-7aea7555]{color:#9ca3af;font-size:.875rem;line-height:1.5;margin:0}.preview-frame-container[data-v-7aea7555]{align-items:flex-start;display:flex;justify-content:center;padding:1rem 0;width:100%}.preview-frame[data-v-7aea7555]{background:#fff;border:1px solid #e5e7eb;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);margin:0;max-width:800px;min-height:600px;overflow:hidden;transform:scale(.9);transform-origin:top center;transition:transform .2s ease;width:100%}.preview-frame[data-v-7aea7555]:hover{box-shadow:0 12px 32px rgba(0,0,0,.15);transform:scale(.92)}.preview-frame *[data-v-7aea7555]{margin:0!important;padding:0!important}.preview-frame body[data-v-7aea7555]{background:#fff!important;color:#374151!important;font-family:Inter,sans-serif!important;font-size:14px!important;line-height:1.6!important;margin:0!important;padding:20mm!important}.preview-frame .document-container[data-v-7aea7555]{margin:0 auto!important;max-width:100%!important;padding:0!important}.preview-frame h1[data-v-7aea7555],.preview-frame h2[data-v-7aea7555],.preview-frame h3[data-v-7aea7555]{margin:0 0 1rem!important;padding:0!important}.preview-frame p[data-v-7aea7555]{margin:0 0 .5rem!important;padding:0!important}.preview-frame table[data-v-7aea7555]{border-collapse:collapse!important;margin:1rem 0!important;width:100%!important}.preview-frame td[data-v-7aea7555],.preview-frame th[data-v-7aea7555]{border-bottom:1px solid #e5e7eb!important;padding:.75rem!important;text-align:left!important}.preview-frame th[data-v-7aea7555]{background:#f8fafc!important;font-weight:600!important}@media (max-width:768px){.page-title[data-v-7aea7555]{font-size:1.5rem}.template-actions[data-v-7aea7555]{flex-direction:column}.template-actions .btn[data-v-7aea7555]{width:100%}.editor-header .row[data-v-7aea7555]{flex-direction:column;gap:1rem}.editor-header .col-md-4[data-v-7aea7555]{text-align:left!important}.preview-container[data-v-7aea7555]{height:40vh;padding:1rem}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
 /***/ 8222:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -31,7 +12,7 @@ __webpack_require__.d(__webpack_exports__, {
   "default": () => (/* binding */ print_templates)
 });
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/settings/print-templates.vue?vue&type=template&id=7aea7555&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/settings/print-templates.vue?vue&type=template&id=7aea7555&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -1030,16 +1011,17 @@ var vform_es = __webpack_require__(63216);
 // EXTERNAL MODULE: ./node_modules/axios/index.js
 var axios = __webpack_require__(72505);
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/settings/print-templates.vue?vue&type=script&lang=js
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/settings/print-templates.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 
 
 /* harmony default export */ const print_templatesvue_type_script_lang_js = ({
@@ -1148,40 +1130,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     // Load templates from API
     loadTemplates: function loadTemplates() {
       var _this2 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var _yield$axios$get, data;
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var _yield$axios$get, data, _t;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.p = _context.n) {
             case 0:
-              _context.prev = 0;
+              _context.p = 0;
               _this2.loading = true;
-              _context.next = 4;
+              _context.n = 1;
               return axios_default().get('/api/print-templates', {
                 params: {
                   module: _this2.selectedModule
                 }
               });
-            case 4:
-              _yield$axios$get = _context.sent;
+            case 1:
+              _yield$axios$get = _context.v;
               data = _yield$axios$get.data;
               _this2.templates = data.data || [];
-              _context.next = 14;
+              _context.n = 3;
               break;
-            case 9:
-              _context.prev = 9;
-              _context.t0 = _context["catch"](0);
-              console.error('Error loading templates:', _context.t0);
+            case 2:
+              _context.p = 2;
+              _t = _context.v;
+              console.error('Error loading templates:', _t);
               _this2.$toastr.error(_this2.$t('Failed to load templates'));
               _this2.templates = [];
-            case 14:
-              _context.prev = 14;
+            case 3:
+              _context.p = 3;
               _this2.loading = false;
-              return _context.finish(14);
-            case 17:
-            case "end":
-              return _context.stop();
+              return _context.f(3);
+            case 4:
+              return _context.a(2);
           }
-        }, _callee, null, [[0, 9, 14, 17]]);
+        }, _callee, null, [[0, 2, 3, 4]]);
       }))();
     },
     // Create new template
@@ -1277,19 +1258,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     // Save template
     saveTemplate: function saveTemplate() {
       var _this3 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var response, _error$response, errors, firstError;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var response, _error$response, errors, firstError, _t2, _t3;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.p = _context2.n) {
             case 0:
               if (!(!_this3.editingTemplate.display_name || _this3.editingTemplate.display_name.trim() === '')) {
-                _context2.next = 3;
+                _context2.n = 1;
                 break;
               }
               _this3.$toastr.error(_this3.$t('Template name is required'));
-              return _context2.abrupt("return");
-            case 3:
-              _context2.prev = 3;
+              return _context2.a(2);
+            case 1:
+              _context2.p = 1;
               _this3.saving = true;
 
               // Generate template key if new
@@ -1304,22 +1285,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this3.editingTemplate.html_template = _this3.generateHTMLTemplate();
               _this3.editingTemplate.css_styles = _this3.generateCSSTemplate();
               if (!_this3.editingTemplate.id) {
-                _context2.next = 15;
+                _context2.n = 3;
                 break;
               }
-              _context2.next = 12;
+              _context2.n = 2;
               return axios_default().put("/api/print-templates/".concat(_this3.editingTemplate.id), _this3.editingTemplate);
-            case 12:
-              _context2.t0 = _context2.sent;
-              _context2.next = 18;
+            case 2:
+              _t2 = _context2.v;
+              _context2.n = 5;
               break;
-            case 15:
-              _context2.next = 17;
+            case 3:
+              _context2.n = 4;
               return axios_default().post('/api/print-templates', _this3.editingTemplate);
-            case 17:
-              _context2.t0 = _context2.sent;
-            case 18:
-              response = _context2.t0;
+            case 4:
+              _t2 = _context2.v;
+            case 5:
+              response = _t2;
               if (response.data.status === 'success') {
                 _this3.$toastr.success(_this3.$t('Template saved successfully'));
                 _this3.cancelEdit();
@@ -1327,89 +1308,87 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               } else {
                 _this3.$toastr.error(response.data.message || _this3.$t('Failed to save template'));
               }
-              _context2.next = 26;
+              _context2.n = 7;
               break;
-            case 22:
-              _context2.prev = 22;
-              _context2.t1 = _context2["catch"](3);
-              console.error('Error saving template:', _context2.t1);
-              if (((_error$response = _context2.t1.response) === null || _error$response === void 0 ? void 0 : _error$response.status) === 422) {
+            case 6:
+              _context2.p = 6;
+              _t3 = _context2.v;
+              console.error('Error saving template:', _t3);
+              if (((_error$response = _t3.response) === null || _error$response === void 0 ? void 0 : _error$response.status) === 422) {
                 // Validation errors
-                errors = _context2.t1.response.data.errors;
+                errors = _t3.response.data.errors;
                 firstError = Object.values(errors)[0][0];
                 _this3.$toastr.error(firstError);
               } else {
                 _this3.$toastr.error(_this3.$t('Failed to save template'));
               }
-            case 26:
-              _context2.prev = 26;
+            case 7:
+              _context2.p = 7;
               _this3.saving = false;
-              return _context2.finish(26);
-            case 29:
-            case "end":
-              return _context2.stop();
+              return _context2.f(7);
+            case 8:
+              return _context2.a(2);
           }
-        }, _callee2, null, [[3, 22, 26, 29]]);
+        }, _callee2, null, [[1, 6, 7, 8]]);
       }))();
     },
     // Set as default
     setAsDefault: function setAsDefault(template) {
       var _this4 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        var response, _error$response2, _error$response3;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var response, _error$response2, _error$response3, _t4;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.p = _context3.n) {
             case 0:
-              _context3.prev = 0;
+              _context3.p = 0;
               _this4.saving = true;
-              _context3.next = 4;
+              _context3.n = 1;
               return axios_default().post("/api/print-templates/".concat(template.id, "/set-default"));
-            case 4:
-              response = _context3.sent;
+            case 1:
+              response = _context3.v;
               if (!(response.data.status === 'success')) {
-                _context3.next = 11;
+                _context3.n = 3;
                 break;
               }
               _this4.$toastr.success(_this4.$t('Template set as default'));
-              _context3.next = 9;
+              _context3.n = 2;
               return _this4.loadTemplates();
-            case 9:
-              _context3.next = 12;
+            case 2:
+              _context3.n = 4;
               break;
-            case 11:
+            case 3:
               _this4.$toastr.error(response.data.message || _this4.$t('Failed to set default template'));
-            case 12:
-              _context3.next = 18;
+            case 4:
+              _context3.n = 6;
               break;
-            case 14:
-              _context3.prev = 14;
-              _context3.t0 = _context3["catch"](0);
-              console.error('Error setting template as default:', _context3.t0);
-              if (((_error$response2 = _context3.t0.response) === null || _error$response2 === void 0 ? void 0 : _error$response2.status) === 404) {
+            case 5:
+              _context3.p = 5;
+              _t4 = _context3.v;
+              console.error('Error setting template as default:', _t4);
+              if (((_error$response2 = _t4.response) === null || _error$response2 === void 0 ? void 0 : _error$response2.status) === 404) {
                 _this4.$toastr.error(_this4.$t('Template not found'));
-              } else if (((_error$response3 = _context3.t0.response) === null || _error$response3 === void 0 ? void 0 : _error$response3.status) === 422) {
+              } else if (((_error$response3 = _t4.response) === null || _error$response3 === void 0 ? void 0 : _error$response3.status) === 422) {
                 _this4.$toastr.error(_this4.$t('Cannot set this template as default'));
               } else {
                 _this4.$toastr.error(_this4.$t('Failed to set default template'));
               }
-            case 18:
-              _context3.prev = 18;
+            case 6:
+              _context3.p = 6;
               _this4.saving = false;
-              return _context3.finish(18);
-            case 21:
-            case "end":
-              return _context3.stop();
+              return _context3.f(6);
+            case 7:
+              return _context3.a(2);
           }
-        }, _callee3, null, [[0, 14, 18, 21]]);
+        }, _callee3, null, [[0, 5, 6, 7]]);
       }))();
     },
     // Preview template
     previewTemplate: function previewTemplate(template) {
       var _this5 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
         var previewContent;
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.n) {
             case 0:
               try {
                 // Generate the full document preview
@@ -1420,8 +1399,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this5.$toastr.error(_this5.$t('Failed to generate preview'));
               }
             case 1:
-            case "end":
-              return _context4.stop();
+              return _context4.a(2);
           }
         }, _callee4);
       }))();
@@ -1610,10 +1588,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     // Download preview as PDF
     downloadPreview: function downloadPreview() {
       var _this6 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
         var htmlContent, printWindow;
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
+        return _regenerator().w(function (_context5) {
+          while (1) switch (_context5.n) {
             case 0:
               try {
                 // Generate HTML content for printing
@@ -1632,8 +1610,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this6.$toastr.error(_this6.$t('Failed to open print dialog'));
               }
             case 1:
-            case "end":
-              return _context5.stop();
+              return _context5.a(2);
           }
         }, _callee5);
       }))();
@@ -1644,45 +1621,45 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     handleLogoUpload: function handleLogoUpload(event) {
       var _this7 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
-        var file, formData, response, _error$response4, errors, firstError;
-        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-          while (1) switch (_context6.prev = _context6.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+        var file, formData, response, _error$response4, errors, firstError, _t5;
+        return _regenerator().w(function (_context6) {
+          while (1) switch (_context6.p = _context6.n) {
             case 0:
               file = event.target.files[0];
               if (file) {
-                _context6.next = 3;
+                _context6.n = 1;
                 break;
               }
-              return _context6.abrupt("return");
-            case 3:
+              return _context6.a(2);
+            case 1:
               if (file.type.startsWith('image/')) {
-                _context6.next = 6;
+                _context6.n = 2;
                 break;
               }
               _this7.$toastr.error(_this7.$t('Please select a valid image file'));
-              return _context6.abrupt("return");
-            case 6:
+              return _context6.a(2);
+            case 2:
               if (!(file.size > 2 * 1024 * 1024)) {
-                _context6.next = 9;
+                _context6.n = 3;
                 break;
               }
               _this7.$toastr.error(_this7.$t('File size must be less than 2MB'));
-              return _context6.abrupt("return");
-            case 9:
-              _context6.prev = 9;
+              return _context6.a(2);
+            case 3:
+              _context6.p = 3;
               _this7.saving = true;
               formData = new FormData();
               formData.append('custom_logo', file);
               formData.append('_method', 'PUT');
-              _context6.next = 16;
+              _context6.n = 4;
               return axios_default().post("/api/print-templates/".concat(_this7.editingTemplate.id), formData, {
                 headers: {
                   'Content-Type': 'multipart/form-data'
                 }
               });
-            case 16:
-              response = _context6.sent;
+            case 4:
+              response = _context6.v;
               if (response.data.status === 'success') {
                 _this7.editingTemplate.custom_logo = response.data.data.custom_logo;
                 _this7.editingTemplate.logo_url = response.data.data.logo_url;
@@ -1691,51 +1668,50 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               } else {
                 _this7.$toastr.error(response.data.message || _this7.$t('Failed to upload logo'));
               }
-              _context6.next = 24;
+              _context6.n = 6;
               break;
-            case 20:
-              _context6.prev = 20;
-              _context6.t0 = _context6["catch"](9);
-              console.error('Error uploading logo:', _context6.t0);
-              if (((_error$response4 = _context6.t0.response) === null || _error$response4 === void 0 ? void 0 : _error$response4.status) === 422) {
-                errors = _context6.t0.response.data.errors;
+            case 5:
+              _context6.p = 5;
+              _t5 = _context6.v;
+              console.error('Error uploading logo:', _t5);
+              if (((_error$response4 = _t5.response) === null || _error$response4 === void 0 ? void 0 : _error$response4.status) === 422) {
+                errors = _t5.response.data.errors;
                 firstError = Object.values(errors)[0][0];
                 _this7.$toastr.error(firstError);
               } else {
                 _this7.$toastr.error(_this7.$t('Failed to upload logo'));
               }
-            case 24:
-              _context6.prev = 24;
+            case 6:
+              _context6.p = 6;
               _this7.saving = false;
               // Reset file input
               event.target.value = '';
-              return _context6.finish(24);
-            case 28:
-            case "end":
-              return _context6.stop();
+              return _context6.f(6);
+            case 7:
+              return _context6.a(2);
           }
-        }, _callee6, null, [[9, 20, 24, 28]]);
+        }, _callee6, null, [[3, 5, 6, 7]]);
       }))();
     },
     removeCustomLogo: function removeCustomLogo() {
       var _this8 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-        var response;
-        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-          while (1) switch (_context7.prev = _context7.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+        var response, _t6;
+        return _regenerator().w(function (_context7) {
+          while (1) switch (_context7.p = _context7.n) {
             case 0:
               if (_this8.editingTemplate.id) {
-                _context7.next = 2;
+                _context7.n = 1;
                 break;
               }
-              return _context7.abrupt("return");
-            case 2:
-              _context7.prev = 2;
+              return _context7.a(2);
+            case 1:
+              _context7.p = 1;
               _this8.saving = true;
-              _context7.next = 6;
+              _context7.n = 2;
               return axios_default()["delete"]("/api/print-templates/".concat(_this8.editingTemplate.id, "/remove-logo"));
-            case 6:
-              response = _context7.sent;
+            case 2:
+              response = _context7.v;
               if (response.data.status === 'success') {
                 _this8.editingTemplate.custom_logo = null;
                 _this8.editingTemplate.logo_url = null;
@@ -1744,22 +1720,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               } else {
                 _this8.$toastr.error(response.data.message || _this8.$t('Failed to remove logo'));
               }
-              _context7.next = 14;
+              _context7.n = 4;
               break;
-            case 10:
-              _context7.prev = 10;
-              _context7.t0 = _context7["catch"](2);
-              console.error('Error removing logo:', _context7.t0);
+            case 3:
+              _context7.p = 3;
+              _t6 = _context7.v;
+              console.error('Error removing logo:', _t6);
               _this8.$toastr.error(_this8.$t('Failed to remove logo'));
-            case 14:
-              _context7.prev = 14;
+            case 4:
+              _context7.p = 4;
               _this8.saving = false;
-              return _context7.finish(14);
-            case 17:
-            case "end":
-              return _context7.stop();
+              return _context7.f(4);
+            case 5:
+              return _context7.a(2);
           }
-        }, _callee7, null, [[2, 10, 14, 17]]);
+        }, _callee7, null, [[1, 3, 4, 5]]);
       }))();
     },
     // Get logo URL for template
@@ -1771,14 +1746,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   }
 });
-;// CONCATENATED MODULE: ./resources/js/pages/settings/print-templates.vue?vue&type=script&lang=js
+;// ./resources/js/pages/settings/print-templates.vue?vue&type=script&lang=js
  /* harmony default export */ const settings_print_templatesvue_type_script_lang_js = (print_templatesvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
 // EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/settings/print-templates.vue?vue&type=style&index=0&id=7aea7555&prod&scoped=true&lang=css
 var print_templatesvue_type_style_index_0_id_7aea7555_prod_scoped_true_lang_css = __webpack_require__(78427);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/settings/print-templates.vue?vue&type=style&index=0&id=7aea7555&prod&scoped=true&lang=css
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/settings/print-templates.vue?vue&type=style&index=0&id=7aea7555&prod&scoped=true&lang=css
 
             
 
@@ -1792,11 +1767,11 @@ var update = injectStylesIntoStyleTag_default()(print_templatesvue_type_style_in
 
 
 /* harmony default export */ const settings_print_templatesvue_type_style_index_0_id_7aea7555_prod_scoped_true_lang_css = (print_templatesvue_type_style_index_0_id_7aea7555_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/pages/settings/print-templates.vue?vue&type=style&index=0&id=7aea7555&prod&scoped=true&lang=css
+;// ./resources/js/pages/settings/print-templates.vue?vue&type=style&index=0&id=7aea7555&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// CONCATENATED MODULE: ./resources/js/pages/settings/print-templates.vue
+;// ./resources/js/pages/settings/print-templates.vue
 
 
 
@@ -1817,6 +1792,25 @@ var component = (0,componentNormalizer/* default */.A)(
 )
 
 /* harmony default export */ const print_templates = (component.exports);
+
+/***/ }),
+
+/***/ 78427:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".card[data-v-7aea7555]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-header[data-v-7aea7555]{background-color:#fff;border-bottom:1px solid #ced4da;border-radius:20px 20px 0 0;padding:1.25rem 1.25rem 0}.card-body[data-v-7aea7555]{padding:1.25rem}.card-footer[data-v-7aea7555]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.refresh-btn[data-v-7aea7555]{background:#33a0d91a!important;border:none;border-radius:10px;color:#33a0d9!important;height:44px;padding:10px 16px;width:56px}.export-excel-btn[data-v-7aea7555],.export-pdf-btn[data-v-7aea7555]{background:#f6fef4!important;color:#2ab930!important}.export-excel-btn[data-v-7aea7555],.export-pdf-btn[data-v-7aea7555],.print-btn[data-v-7aea7555]{border:none;border-radius:10px;height:44px;padding:10px 16px;width:56px}.print-btn[data-v-7aea7555]{background:#33a0d91a!important;color:#33a0d9!important}.btn-primary[data-v-7aea7555]{background:#2ab930!important;border:none!important;color:#fff!important;padding:10px 20px!important}.page-title[data-v-7aea7555]{color:#1f2937;font-size:2rem;font-weight:700;margin:0}.page-subtitle[data-v-7aea7555]{color:#6b7280;font-size:1rem;margin:.5rem 0 0}.template-list-section[data-v-7aea7555]{padding:0 0 3rem}.module-filter[data-v-7aea7555]{margin-bottom:2rem}.module-filter .btn-group .btn[data-v-7aea7555]{border-radius:6px;margin-right:.5rem}.module-filter .btn-group .btn.active[data-v-7aea7555]{background-color:#3b82f6;border-color:#3b82f6;color:#fff}.templates-grid[data-v-7aea7555]{margin-top:1rem}.template-card[data-v-7aea7555]{background:#fff;border:1px solid #e5e7eb;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);display:flex;flex-direction:column;height:100%;padding:1.5rem;transition:all .2s ease}.template-card[data-v-7aea7555]:hover{box-shadow:0 4px 8px rgba(0,0,0,.15);transform:translateY(-2px)}.template-card.is-default[data-v-7aea7555]{background:#f0fdf4;border-color:#10b981}.template-header[data-v-7aea7555]{align-items:flex-start;display:flex;justify-content:space-between;margin-bottom:1rem}.template-title[data-v-7aea7555]{flex:1}.template-name[data-v-7aea7555]{color:#1f2937;font-size:1.25rem;font-weight:700;line-height:1.3;margin:0 0 .25rem}.template-module[data-v-7aea7555]{color:#6b7280;font-size:.875rem;letter-spacing:.5px;text-transform:uppercase}.template-status[data-v-7aea7555]{margin-left:1rem}.badge-default[data-v-7aea7555]{background:#10b981;border-radius:4px;color:#fff;font-size:.75rem;font-weight:600;padding:.25rem .5rem}.template-description[data-v-7aea7555]{color:#6b7280;flex:1;font-size:.875rem;line-height:1.5;margin:0 0 1.5rem}.template-actions[data-v-7aea7555]{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:auto}.template-actions .btn[data-v-7aea7555]{border-radius:6px;font-size:.875rem;font-weight:500;padding:.5rem 1rem;transition:all .2s ease}.template-actions .btn[data-v-7aea7555]:hover{box-shadow:0 2px 4px rgba(0,0,0,.1);transform:translateY(-1px)}.empty-state[data-v-7aea7555]{padding:4rem 2rem;text-align:center}.empty-state-content[data-v-7aea7555]{margin:0 auto;max-width:400px}.empty-state-icon[data-v-7aea7555]{color:#d1d5db;font-size:4rem;margin-bottom:1.5rem}.empty-state-title[data-v-7aea7555]{color:#374151;font-size:1.5rem;font-weight:700;margin-bottom:1rem}.empty-state-description[data-v-7aea7555]{color:#6b7280;line-height:1.6;margin-bottom:2rem}.template-editor-section[data-v-7aea7555]{padding:0 0 3rem}.editor-header[data-v-7aea7555]{background:#fff;border:1px solid #e5e7eb;border-radius:8px;margin-bottom:2rem;padding:1.5rem}.editor-title[data-v-7aea7555]{color:#1f2937;font-size:1.5rem;font-weight:700;margin:0}.badge-primary[data-v-7aea7555]{background:#3b82f6;border-radius:4px;color:#fff;font-size:.75rem;font-weight:600;padding:.25rem .5rem}.editor-content[data-v-7aea7555]{min-height:60vh}.settings-card[data-v-7aea7555]{border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.04);overflow:hidden;transition:all .2s ease}.settings-card[data-v-7aea7555]:hover{border-color:#d1d5db;box-shadow:0 4px 12px rgba(0,0,0,.08)}.settings-card .card-header[data-v-7aea7555]{background:linear-gradient(135deg,#f8fafc,#f1f5f9);border-bottom:1px solid #e5e7eb;padding:1rem 1.25rem}.settings-card .card-title[data-v-7aea7555]{align-items:center;color:#1f2937;display:flex;font-size:.95rem;font-weight:600}.settings-card .card-body[data-v-7aea7555]{padding:1.25rem}.form-group[data-v-7aea7555]{margin-bottom:1.25rem}.form-group[data-v-7aea7555]:last-child{margin-bottom:0}.form-group label[data-v-7aea7555],.form-label[data-v-7aea7555]{color:#374151;display:block;font-size:.875rem;font-weight:600;margin-bottom:.5rem}.form-control-lg[data-v-7aea7555]{border:1px solid #d1d5db;border-radius:8px;font-size:1rem;padding:.75rem 1rem;transition:all .2s ease}.form-control-lg[data-v-7aea7555]:focus{border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.1)}.color-input-group[data-v-7aea7555]{align-items:center;display:flex;gap:.75rem}.color-picker[data-v-7aea7555]{border:1px solid #d1d5db!important;border-radius:8px!important;cursor:pointer;height:42px!important;padding:0!important;transition:all .2s ease;width:50px!important}.color-picker[data-v-7aea7555]:hover{border-color:#3b82f6!important;box-shadow:0 0 0 3px rgba(59,130,246,.1)}.color-text-input[data-v-7aea7555]{flex:1;font-family:Monaco,Menlo,Ubuntu Mono,monospace;font-size:.875rem}.elements-grid[data-v-7aea7555]{display:grid;gap:.75rem}.element-item[data-v-7aea7555]{border:1px solid #f3f4f6;border-radius:10px;overflow:hidden;transition:all .2s ease}.element-item[data-v-7aea7555]:hover{background:#f8fafc;border-color:#e5e7eb;box-shadow:0 2px 8px rgba(0,0,0,.06);transform:translateY(-1px)}.element-item .form-check[data-v-7aea7555]{align-items:flex-start;display:flex;gap:.75rem;margin:0;padding:1rem}.element-item .form-check-input[data-v-7aea7555]{border:2px solid #d1d5db;border-radius:4px;height:18px;margin-right:0;margin-top:.25rem;transition:all .2s ease;width:18px}.element-item .form-check-input[data-v-7aea7555]:checked{background-color:#3b82f6;border-color:#3b82f6}.element-item .form-check-input[data-v-7aea7555]:focus{box-shadow:0 0 0 3px rgba(59,130,246,.1)}.element-item .form-check-label[data-v-7aea7555]{align-items:flex-start;cursor:pointer;display:flex;flex:1;gap:.75rem;margin:0}.element-icon[data-v-7aea7555]{color:#6b7280;font-size:1.125rem;margin-top:.125rem;transition:color .2s ease}.element-item:hover .element-icon[data-v-7aea7555]{color:#3b82f6}.element-content[data-v-7aea7555]{flex:1}.element-title[data-v-7aea7555]{color:#1f2937;font-size:.875rem;font-weight:600;line-height:1.3;margin-bottom:.25rem}.element-description[data-v-7aea7555]{color:#6b7280;font-size:.75rem;line-height:1.4;margin:0}.element-item .form-check-input:checked+.form-check-label .element-title[data-v-7aea7555]{color:#1f2937}.element-item .form-check-input:checked+.form-check-label .element-icon[data-v-7aea7555]{color:#3b82f6}.invalid-feedback[data-v-7aea7555]{color:#dc2626;font-size:.75rem;font-weight:500;margin-top:.25rem}.logo-upload-container[data-v-7aea7555]{background:#f9fafb;border:2px dashed #d1d5db;border-radius:8px;padding:1.5rem;text-align:center;transition:all .2s ease}.logo-upload-container[data-v-7aea7555]:hover{background:#f8fafc;border-color:#3b82f6}.current-logo[data-v-7aea7555]{align-items:center;display:flex;flex-direction:column;gap:1rem}.logo-preview[data-v-7aea7555]{border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,.1);max-height:100px;max-width:200px;-o-object-fit:contain;object-fit:contain}.logo-actions[data-v-7aea7555]{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center}.logo-upload-placeholder[data-v-7aea7555]{color:#6b7280;cursor:pointer;padding:2rem;transition:all .2s ease}.logo-upload-placeholder[data-v-7aea7555]:hover{color:#3b82f6}.logo-upload-placeholder i[data-v-7aea7555]{display:block;font-size:2.5rem;margin-bottom:1rem}.logo-upload-placeholder p[data-v-7aea7555]{font-size:1rem;font-weight:600;margin:.5rem 0}.logo-upload-placeholder small[data-v-7aea7555]{font-size:.875rem;opacity:.8}.form-text[data-v-7aea7555]{align-items:flex-start;color:#6b7280;display:flex;font-size:.875rem;gap:.5rem;margin-top:.75rem}.form-text i[data-v-7aea7555]{flex-shrink:0;margin-top:.125rem}.preview-card[data-v-7aea7555]{border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.04);overflow:hidden;transition:all .2s ease}.preview-card[data-v-7aea7555]:hover{border-color:#d1d5db;box-shadow:0 4px 12px rgba(0,0,0,.08)}.preview-card .card-header[data-v-7aea7555]{background:linear-gradient(135deg,#f8fafc,#f1f5f9);border-bottom:1px solid #e5e7eb;padding:1rem 1.25rem}.preview-card .card-title[data-v-7aea7555]{align-items:center;color:#1f2937;display:flex;font-size:.95rem;font-weight:600}.preview-actions[data-v-7aea7555]{display:flex;gap:.5rem}.preview-actions .btn[data-v-7aea7555]{border-radius:6px;font-size:.875rem;font-weight:500;padding:.5rem .75rem;transition:all .2s ease}.preview-actions .btn[data-v-7aea7555]:hover{box-shadow:0 2px 4px rgba(0,0,0,.1);transform:translateY(-1px)}.preview-container[data-v-7aea7555]{align-items:flex-start;background:#f8fafc;display:flex;height:70vh;justify-content:center;overflow:auto;padding:1.5rem;position:relative}.preview-container[data-v-7aea7555]::-webkit-scrollbar{width:8px}.preview-container[data-v-7aea7555]::-webkit-scrollbar-track{background:#f1f5f9;border-radius:4px}.preview-container[data-v-7aea7555]::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}.preview-container[data-v-7aea7555]::-webkit-scrollbar-thumb:hover{background:#94a3b8}.preview-placeholder[data-v-7aea7555]{align-items:center;background:#f9fafb;border:2px dashed #d1d5db;border-radius:12px;color:#9ca3af;display:flex;height:100%;justify-content:center;transition:all .2s ease;width:100%}.preview-placeholder[data-v-7aea7555]:hover{background:#f8fafc;border-color:#cbd5e1}.preview-placeholder-content[data-v-7aea7555]{max-width:300px;text-align:center}.preview-icon[data-v-7aea7555]{color:#cbd5e1;font-size:3.5rem;margin-bottom:1.5rem;transition:color .2s ease}.preview-placeholder:hover .preview-icon[data-v-7aea7555]{color:#94a3b8}.preview-title[data-v-7aea7555]{color:#6b7280;font-size:1.125rem;font-weight:600;margin-bottom:.5rem}.preview-description[data-v-7aea7555]{color:#9ca3af;font-size:.875rem;line-height:1.5;margin:0}.preview-frame-container[data-v-7aea7555]{align-items:flex-start;display:flex;justify-content:center;padding:1rem 0;width:100%}.preview-frame[data-v-7aea7555]{background:#fff;border:1px solid #e5e7eb;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);margin:0;max-width:800px;min-height:600px;overflow:hidden;transform:scale(.9);transform-origin:top center;transition:transform .2s ease;width:100%}.preview-frame[data-v-7aea7555]:hover{box-shadow:0 12px 32px rgba(0,0,0,.15);transform:scale(.92)}.preview-frame *[data-v-7aea7555]{margin:0!important;padding:0!important}.preview-frame body[data-v-7aea7555]{background:#fff!important;color:#374151!important;font-family:Inter,sans-serif!important;font-size:14px!important;line-height:1.6!important;margin:0!important;padding:20mm!important}.preview-frame .document-container[data-v-7aea7555]{margin:0 auto!important;max-width:100%!important;padding:0!important}.preview-frame h1[data-v-7aea7555],.preview-frame h2[data-v-7aea7555],.preview-frame h3[data-v-7aea7555]{margin:0 0 1rem!important;padding:0!important}.preview-frame p[data-v-7aea7555]{margin:0 0 .5rem!important;padding:0!important}.preview-frame table[data-v-7aea7555]{border-collapse:collapse!important;margin:1rem 0!important;width:100%!important}.preview-frame td[data-v-7aea7555],.preview-frame th[data-v-7aea7555]{border-bottom:1px solid #e5e7eb!important;padding:.75rem!important;text-align:left!important}.preview-frame th[data-v-7aea7555]{background:#f8fafc!important;font-weight:600!important}@media (max-width:768px){.page-title[data-v-7aea7555]{font-size:1.5rem}.template-actions[data-v-7aea7555]{flex-direction:column}.template-actions .btn[data-v-7aea7555]{width:100%}.editor-header .row[data-v-7aea7555]{flex-direction:column;gap:1rem}.editor-header .col-md-4[data-v-7aea7555]{text-align:left!important}.preview-container[data-v-7aea7555]{height:40vh;padding:1rem}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
 
 /***/ })
 
