@@ -37,6 +37,7 @@ class DemoInvoicesTableSeeder extends Seeder
                 'client_id' => 5,
                 'tax_id' => 2,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             1 => [
                 'id' => 2,
@@ -59,6 +60,7 @@ class DemoInvoicesTableSeeder extends Seeder
                 'client_id' => 4,
                 'tax_id' => 2,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             2 => [
                 'id' => 3,
@@ -81,6 +83,7 @@ class DemoInvoicesTableSeeder extends Seeder
                 'client_id' => 5,
                 'tax_id' => 2,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             3 => [
                 'id' => 4,
@@ -103,6 +106,7 @@ class DemoInvoicesTableSeeder extends Seeder
                 'client_id' => 2,
                 'tax_id' => 2,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             4 => [
                 'id' => 5,
@@ -125,6 +129,7 @@ class DemoInvoicesTableSeeder extends Seeder
                 'client_id' => 1,
                 'tax_id' => 1,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             5 => [
                 'id' => 6,
@@ -147,6 +152,7 @@ class DemoInvoicesTableSeeder extends Seeder
                 'client_id' => 3,
                 'tax_id' => 2,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
         ]);
     }

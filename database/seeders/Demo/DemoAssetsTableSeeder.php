@@ -35,6 +35,7 @@ class DemoAssetsTableSeeder extends Seeder
                 'updated_at' => '2022-05-01 05:23:40',
                 'cat_id' => 1,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             1 => [
                 'id' => 2,
@@ -55,6 +56,7 @@ class DemoAssetsTableSeeder extends Seeder
                 'updated_at' => '2022-05-01 05:25:27',
                 'cat_id' => 2,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
         ]);
     }

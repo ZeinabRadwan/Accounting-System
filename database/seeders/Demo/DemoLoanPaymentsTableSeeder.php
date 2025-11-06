@@ -31,6 +31,7 @@ class DemoLoanPaymentsTableSeeder extends Seeder
                 'loan_id' => 1,
                 'transaction_id' => 26,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             1 => [
                 'id' => 2,
@@ -47,6 +48,7 @@ class DemoLoanPaymentsTableSeeder extends Seeder
                 'loan_id' => 1,
                 'transaction_id' => 27,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             2 => [
                 'id' => 3,
@@ -63,6 +65,7 @@ class DemoLoanPaymentsTableSeeder extends Seeder
                 'loan_id' => 1,
                 'transaction_id' => 28,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             3 => [
                 'id' => 4,
@@ -79,6 +82,7 @@ class DemoLoanPaymentsTableSeeder extends Seeder
                 'loan_id' => 1,
                 'transaction_id' => 29,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
         ]);
     }

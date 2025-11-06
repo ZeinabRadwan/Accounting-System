@@ -39,6 +39,7 @@ class DemoEmployeesTableSeeder extends Seeder
                 'updated_at' => '2022-05-01 05:19:28',
                 'department_id' => 2,
                 'user_id' => 2,
+                'branch_id' => 1,
             ],
             1 => [
                 'id' => 2,
@@ -62,6 +63,7 @@ class DemoEmployeesTableSeeder extends Seeder
                 'updated_at' => '2022-05-15 10:28:43',
                 'department_id' => 1,
                 'user_id' => 4,
+                'branch_id' => 1,
             ],
             2 => [
                 'id' => 3,
@@ -85,6 +87,7 @@ class DemoEmployeesTableSeeder extends Seeder
                 'updated_at' => '2022-05-14 14:14:40',
                 'department_id' => 2,
                 'user_id' => 3,
+                'branch_id' => 1,
             ],
         ]);
     }

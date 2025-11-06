@@ -29,6 +29,7 @@ class DemoInvoicePaymentsTableSeeder extends Seeder
                 'invoice_id' => 1,
                 'transaction_id' => 14,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             1 => [
                 'id' => 2,
@@ -43,6 +44,7 @@ class DemoInvoicePaymentsTableSeeder extends Seeder
                 'invoice_id' => 5,
                 'transaction_id' => 15,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             2 => [
                 'id' => 3,
@@ -57,6 +59,7 @@ class DemoInvoicePaymentsTableSeeder extends Seeder
                 'invoice_id' => 6,
                 'transaction_id' => 16,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
         ]);
     }

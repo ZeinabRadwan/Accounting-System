@@ -38,6 +38,7 @@ class DemoProductsTableSeeder extends Seeder
                 'brand_id' => 1,
                 'unit_id' => 1,
                 'tax_id' => 2,
+                'branch_id' => 1,
             ],
             1 => [
                 'id' => 2,
@@ -61,6 +62,7 @@ class DemoProductsTableSeeder extends Seeder
                 'brand_id' => 1,
                 'unit_id' => 1,
                 'tax_id' => 2,
+                'branch_id' => 1,
             ],
             2 => [
                 'id' => 3,
@@ -84,6 +86,7 @@ class DemoProductsTableSeeder extends Seeder
                 'brand_id' => 2,
                 'unit_id' => 1,
                 'tax_id' => 3,
+                'branch_id' => 1,
             ],
         ]);
     }

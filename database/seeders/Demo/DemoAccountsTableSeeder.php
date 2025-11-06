@@ -28,6 +28,7 @@ class DemoAccountsTableSeeder extends Seeder
                 'created_at' => '2022-04-30 22:26:01',
                 'updated_at' => '2022-04-30 22:26:01',
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             1 => [
                 'id' => 2,
@@ -41,6 +42,7 @@ class DemoAccountsTableSeeder extends Seeder
                 'created_at' => '2022-04-30 22:24:29',
                 'updated_at' => '2022-04-30 22:26:19',
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             2 => [
                 'id' => 3,
@@ -54,6 +56,7 @@ class DemoAccountsTableSeeder extends Seeder
                 'created_at' => '2022-04-30 22:25:41',
                 'updated_at' => '2022-04-30 22:26:10',
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
         ]);
     }

@@ -30,6 +30,7 @@ class DemoInvoiceReturnsTableSeeder extends Seeder
                 'invoice_id' => 4,
                 'transaction_id' => null,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             1 => [
                 'id' => 2,
@@ -45,6 +46,7 @@ class DemoInvoiceReturnsTableSeeder extends Seeder
                 'invoice_id' => 6,
                 'transaction_id' => 17,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
         ]);
     }

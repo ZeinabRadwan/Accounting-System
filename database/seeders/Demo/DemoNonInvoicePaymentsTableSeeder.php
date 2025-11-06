@@ -29,6 +29,7 @@ class DemoNonInvoicePaymentsTableSeeder extends Seeder
                 'client_id' => 5,
                 'transaction_id' => 18,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             1 => [
                 'id' => 2,
@@ -43,6 +44,7 @@ class DemoNonInvoicePaymentsTableSeeder extends Seeder
                 'client_id' => 5,
                 'transaction_id' => 18,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             2 => [
                 'id' => 3,
@@ -57,6 +59,7 @@ class DemoNonInvoicePaymentsTableSeeder extends Seeder
                 'client_id' => 4,
                 'transaction_id' => 20,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             3 => [
                 'id' => 4,
@@ -71,6 +74,7 @@ class DemoNonInvoicePaymentsTableSeeder extends Seeder
                 'client_id' => 4,
                 'transaction_id' => 19,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
         ]);
     }

@@ -31,6 +31,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-05-01 05:28:33',
                 'account_id' => 4,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             1 => [
                 'id' => 2,
@@ -47,6 +48,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-05-01 05:28:24',
                 'account_id' => 3,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             2 => [
                 'id' => 3,
@@ -63,6 +65,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-05-01 05:28:15',
                 'account_id' => 2,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             3 => [
                 'id' => 4,
@@ -79,6 +82,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-04-30 22:27:56',
                 'account_id' => 4,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             4 => [
                 'id' => 5,
@@ -95,6 +99,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-04-30 22:27:56',
                 'account_id' => 3,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             5 => [
                 'id' => 6,
@@ -111,6 +116,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-04-30 22:28:30',
                 'account_id' => 4,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             6 => [
                 'id' => 7,
@@ -127,6 +133,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-04-30 22:28:30',
                 'account_id' => 2,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             7 => [
                 'id' => 8,
@@ -143,6 +150,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-04-30 22:29:48',
                 'account_id' => 4,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             8 => [
                 'id' => 9,
@@ -159,6 +167,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-04-30 22:30:56',
                 'account_id' => 3,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             9 => [
                 'id' => 10,
@@ -175,6 +184,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-04-30 22:54:03',
                 'account_id' => 3,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             10 => [
                 'id' => 11,
@@ -191,6 +201,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-04-30 22:55:52',
                 'account_id' => 4,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             11 => [
                 'id' => 12,
@@ -207,6 +218,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-04-30 22:56:59',
                 'account_id' => 2,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             12 => [
                 'id' => 13,
@@ -223,6 +235,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-04-30 22:59:28',
                 'account_id' => 4,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             13 => [
                 'id' => 14,
@@ -239,6 +252,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-04-30 23:01:29',
                 'account_id' => 4,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             14 => [
                 'id' => 15,
@@ -255,6 +269,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-05-01 04:57:44',
                 'account_id' => 4,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             15 => [
                 'id' => 16,
@@ -271,6 +286,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-05-01 05:06:05',
                 'account_id' => 2,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             16 => [
                 'id' => 17,
@@ -287,6 +303,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-05-01 05:10:01',
                 'account_id' => 4,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             17 => [
                 'id' => 18,
@@ -303,6 +320,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-05-01 05:11:07',
                 'account_id' => 3,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             18 => [
                 'id' => 19,
@@ -319,6 +337,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-05-01 05:11:35',
                 'account_id' => 2,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             19 => [
                 'id' => 20,
@@ -335,6 +354,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-05-01 05:13:22',
                 'account_id' => 2,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             20 => [
                 'id' => 21,
@@ -351,6 +371,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-05-01 05:14:00',
                 'account_id' => 3,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             21 => [
                 'id' => 22,
@@ -367,6 +388,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-05-01 05:26:29',
                 'account_id' => 4,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             22 => [
                 'id' => 23,
@@ -383,6 +405,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-05-01 05:26:57',
                 'account_id' => 3,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             23 => [
                 'id' => 24,
@@ -399,6 +422,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-05-01 05:52:00',
                 'account_id' => 2,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             24 => [
                 'id' => 25,
@@ -415,6 +439,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-05-01 05:53:06',
                 'account_id' => 3,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             25 => [
                 'id' => 26,
@@ -431,6 +456,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-05-01 05:53:39',
                 'account_id' => 2,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             26 => [
                 'id' => 27,
@@ -447,6 +473,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-05-01 05:54:08',
                 'account_id' => 2,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             27 => [
                 'id' => 28,
@@ -463,6 +490,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-05-01 05:54:33',
                 'account_id' => 2,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             28 => [
                 'id' => 29,
@@ -479,6 +507,7 @@ class DemoAccountTransactionsTableSeeder extends Seeder
                 'updated_at' => '2022-05-01 05:54:52',
                 'account_id' => 2,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
         ]);
     }

@@ -29,6 +29,7 @@ class DemoNonPurchasePaymentsTableSeeder extends Seeder
                 'supplier_id' => 1,
                 'transaction_id' => 22,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             1 => [
                 'id' => 2,
@@ -43,6 +44,7 @@ class DemoNonPurchasePaymentsTableSeeder extends Seeder
                 'supplier_id' => 1,
                 'transaction_id' => 20,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             2 => [
                 'id' => 3,
@@ -57,6 +59,7 @@ class DemoNonPurchasePaymentsTableSeeder extends Seeder
                 'supplier_id' => 2,
                 'transaction_id' => 23,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             3 => [
                 'id' => 4,
@@ -71,6 +74,7 @@ class DemoNonPurchasePaymentsTableSeeder extends Seeder
                 'supplier_id' => 2,
                 'transaction_id' => 21,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
         ]);
     }
