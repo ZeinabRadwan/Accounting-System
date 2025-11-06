@@ -29,6 +29,7 @@ use App\Models\NonInvoicePayment;
 use App\Models\NonPurchasePayment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\InvoiceReturnProduct;
 use App\Models\PurchaseReturnProduct;
@@ -374,6 +375,8 @@ class ReportController extends Controller
             'year' => 'required|integer',
         ]);
 
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
         $month = $request->month;
         $year = $request->year;
         $dateObj = DateTime::createFromFormat('!m', $month);
@@ -383,6 +386,7 @@ class ReportController extends Controller
         $expenses = Expense::select(DB::raw('SUM(account_transactions.amount) As expAmount'))
             ->leftJoin('account_transactions', 'account_transactions.id', '=', 'expenses.transaction_id')
             ->where('expenses.status', 1)
+            ->whereIn('expenses.branch_id', $branchIds)
             ->whereYear('expenses.date', '=', $year)
             ->whereMonth('expenses.date', '=', $month)
             ->first();
@@ -391,50 +395,75 @@ class ReportController extends Controller
         $payrolls = Payroll::select(DB::raw('SUM(account_transactions.amount) As payrollAmount'))
             ->leftJoin('account_transactions', 'account_transactions.id', '=', 'payrolls.transaction_id')
             ->where('payrolls.status', 1)
+            ->whereIn('payrolls.branch_id', $branchIds)
             ->where('payrolls.salary_month', '=', $monthName)
             ->whereYear('payrolls.salary_date', '=', $year)
             ->first();
 
         // loan interests for a given month and year
-        $loanInterest = LoanPayment::where('status', 1)->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->sum('interest');
+        $loanInterest = LoanPayment::where('status', 1)
+            ->whereIn('branch_id', $branchIds)
+            ->whereYear('date', '=', $year)
+            ->whereMonth('date', '=', $month)
+            ->sum('interest');
 
         $numOfDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
         $fromDate = $year . '-' . $month . '-01';
         $toDate = $year . '-' . $month . '-' . $numOfDays;
-        // assets depreciation for a given month and year
-        $assetDepriciation = DB::select('SELECT Sum( case when NumberOfDays > 0 then  new_assets.daily_depreciation * NumberOfDays else 0 end) as total_dep FROM ( SELECT daily_depreciation, ( CASE WHEN date < "' . $fromDate . '" && expire_date > "' . $toDate . '" THEN DATEDIFF("' . $toDate . '", "' . $fromDate . '") WHEN expire_date > "' . $fromDate . '" && expire_date < "' . $toDate . '" THEN DATEDIFF("' . $fromDate . '", expire_date) ELSE DATEDIFF("' . $toDate . '", date) END) AS NumberOfDays FROM assets WHERE depreciation = 1 AND status = 1 AND expire_date >= "' . $fromDate . '" ) AS new_assets');
+        
+        // assets depreciation for a given month and year - Note: Assets may not have branch_id
+        $branchIdsStr = implode(',', $branchIds);
+        $assetDepriciation = DB::select('SELECT Sum( case when NumberOfDays > 0 then  new_assets.daily_depreciation * NumberOfDays else 0 end) as total_dep FROM ( SELECT daily_depreciation, ( CASE WHEN date < "' . $fromDate . '" && expire_date > "' . $toDate . '" THEN DATEDIFF("' . $toDate . '", "' . $fromDate . '") WHEN expire_date > "' . $fromDate . '" && expire_date < "' . $toDate . '" THEN DATEDIFF("' . $fromDate . '", expire_date) ELSE DATEDIFF("' . $toDate . '", date) END) AS NumberOfDays FROM assets WHERE depreciation = 1 AND status = 1 AND expire_date >= "' . $fromDate . '" AND branch_id IN (' . $branchIdsStr . ') ) AS new_assets');
 
         // Total purchases for a given month and year
-        $purchases = Purchase::where('status', 1)->whereYear('purchase_date', '=', $year)->whereMonth('purchase_date', '=', $month)->get();
+        $purchases = Purchase::where('status', 1)
+            ->whereIn('branch_id', $branchIds)
+            ->whereYear('purchase_date', '=', $year)
+            ->whereMonth('purchase_date', '=', $month)
+            ->get();
         $totalPurchase = $purchases->sum('sub_total') - $purchases->sum('discount') + $purchases->sum('transport') + $purchases->sum('total_tax');
 
-        // opening balances for a given month and year
+        // opening balances for a given month and year - Note: Accounts may need branch filtering
+        $branchIdsStr = implode(',', $branchIds);
         $openingBalances = DB::select('SELECT A.account_number, A.bank_name, SUM(IF(`type`=1, `amount`, 0))-SUM(IF(`type`=0, `amount`, 0)) AS `current_balance`
         FROM `accounts`  as A
         LEFT  JOIN account_transactions as T ON A.id = T.account_id
-        AND T.status = 1 AND DATE(T.transaction_date) < "' . $fromDate . '"  GROUP BY A.id');
+        AND T.status = 1 AND DATE(T.transaction_date) < "' . $fromDate . '" AND A.branch_id IN (' . $branchIdsStr . ') AND (T.branch_id IN (' . $branchIdsStr . ') OR T.branch_id IS NULL) GROUP BY A.id');
 
         // closing balances for a given month and year
         $closingBalances = DB::select('SELECT A.account_number, A.bank_name, SUM(IF(`type`=1, `amount`, 0))-SUM(IF(`type`=0, `amount`, 0)) AS `current_balance`
         FROM `accounts`  as A
         LEFT  JOIN account_transactions as T ON A.id = T.account_id
-        AND T.status = 1 AND DATE(T.transaction_date) < "' . $toDate . '"  GROUP BY A.id');
+        AND T.status = 1 AND DATE(T.transaction_date) < "' . $toDate . '" AND A.branch_id IN (' . $branchIdsStr . ') AND (T.branch_id IN (' . $branchIdsStr . ') OR T.branch_id IS NULL) GROUP BY A.id');
 
         // invoice salesfor a given month and year
-        $invoiceSales = Invoice::where('status', 1)->whereYear('invoice_date', '=', $year)->whereMonth('invoice_date', '=', $month)->sum('sub_total');
+        $invoiceSales = Invoice::where('status', 1)
+            ->whereIn('branch_id', $branchIds)
+            ->whereYear('invoice_date', '=', $year)
+            ->whereMonth('invoice_date', '=', $month)
+            ->sum('sub_total');
 
         // invoice due a given month and year
-        $invoiceTotalPaid = InvoicePayment::where('status', 1)->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->sum('amount');
+        $invoiceTotalPaid = InvoicePayment::where('status', 1)
+            ->whereIn('branch_id', $branchIds)
+            ->whereYear('date', '=', $year)
+            ->whereMonth('date', '=', $month)
+            ->sum('amount');
         $invoiceDue = $invoiceSales - $invoiceTotalPaid;
 
         // account collection balances for a given month and year
+        $branchIdsStr = implode(',', $branchIds);
         $accountCollections = DB::select('SELECT accounts.account_number, accounts.bank_name, SUM(IF(`type`= 1, `amount`, 0)) AS `total_collection`
         FROM `account_transactions`
         JOIN accounts ON accounts.id = account_transactions.account_id
-        WHERE account_transactions.status = 1 AND MONTH(transaction_date)= "' . $month . '" AND YEAR(transaction_date)="' . $year . '" GROUP BY account_transactions.account_id');
+        WHERE account_transactions.status = 1 AND accounts.branch_id IN (' . $branchIdsStr . ') AND account_transactions.branch_id IN (' . $branchIdsStr . ') AND MONTH(transaction_date)= "' . $month . '" AND YEAR(transaction_date)="' . $year . '" GROUP BY account_transactions.account_id');
 
-        // balance transfer
-        $balanceTransfers = BalanceTansfer::with('debitTransaction.cashbookAccount', 'creditTransaction.cashbookAccount')->where('status', 1)->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->get();
+        // balance transfer - Note: BalanceTansfer may not have branch_id
+        $balanceTransfers = BalanceTansfer::with('debitTransaction.cashbookAccount', 'creditTransaction.cashbookAccount')
+            ->where('status', 1)
+            ->whereYear('date', '=', $year)
+            ->whereMonth('date', '=', $month)
+            ->get();
 
         return [
             'openingBalances' => $openingBalances,
@@ -1480,20 +1509,34 @@ class ReportController extends Controller
             'category' => 'required',
             'subCategory' => ($request->category && $request->category['id'] != 0) ? 'required' : 'nullable',
         ]);
+        
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
         $expenses = '';
+        
         if (isset($request->category) && isset($request->subCategory)) {
             if ($request->subCategory['id'] != 0) {
-                $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user')->where('sub_cat_id', $request->subCategory['id'])->whereBetween('date', [$request->fromDate, $request->toDate])->get();
+                $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user')
+                    ->whereIn('branch_id', $branchIds)
+                    ->where('sub_cat_id', $request->subCategory['id'])
+                    ->whereBetween('date', [$request->fromDate, $request->toDate])
+                    ->get();
             } else {
-                $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount')->whereBetween('date', [$request->fromDate, $request->toDate])
+                $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount')
+                    ->whereIn('branch_id', $branchIds)
+                    ->whereBetween('date', [$request->fromDate, $request->toDate])
                     ->whereHas('expSubCategory', function ($newQuery) use ($request) {
                         $newQuery->whereHas('expCategory', function ($newQuery) use ($request) {
                             $newQuery->where('id', $request->category['id']);
                         });
-                    })->get();
+                    })
+                    ->get();
             }
         } else {
-            $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user')->whereBetween('date', [$request->fromDate, $request->toDate])->get();
+            $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user')
+                ->whereIn('branch_id', $branchIds)
+                ->whereBetween('date', [$request->fromDate, $request->toDate])
+                ->get();
         }
 
         return ExpenseResource::collection($expenses);
@@ -1508,20 +1551,43 @@ class ReportController extends Controller
         ]);
 
         try {
-            $product = Product::where('slug', $request->productName['slug'])->with('proSubCategory.category', 'productUnit')->first();
+            $user = Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
+            
+            $product = Product::where('slug', $request->productName['slug'])
+                ->whereIn('branch_id', $branchIds)
+                ->with('proSubCategory.category', 'productUnit')
+                ->first();
+
+            if (!$product) {
+                return $this->responseWithError('Product not found');
+            }
 
             // stock ins
-            $purchaseIns = PurchaseProduct::with('purchase.supplier')->where('product_id', $product->id)->whereHas('purchase', function ($newQuery) use ($request) {
-                $newQuery->whereBetween('purchase_date', [$request->fromDate, $request->toDate]);
-            })->get();
+            $purchaseIns = PurchaseProduct::with('purchase.supplier')
+                ->where('product_id', $product->id)
+                ->whereHas('purchase', function ($newQuery) use ($request, $branchIds) {
+                    $newQuery->whereIn('branch_id', $branchIds)
+                        ->whereBetween('purchase_date', [$request->fromDate, $request->toDate]);
+                })
+                ->get();
 
-            $invoiceReturnIns = InvoiceReturnProduct::with('invoiceReturn.invoice.client')->where('product_id', $product->id)->whereHas('invoiceReturn', function ($newQuery) use ($request) {
-                $newQuery->whereBetween('date', [$request->fromDate, $request->toDate]);
-            })->get();
+            $invoiceReturnIns = InvoiceReturnProduct::with('invoiceReturn.invoice.client')
+                ->where('product_id', $product->id)
+                ->whereHas('invoiceReturn', function ($newQuery) use ($request, $branchIds) {
+                    $newQuery->whereIn('branch_id', $branchIds)
+                        ->whereBetween('date', [$request->fromDate, $request->toDate]);
+                })
+                ->get();
 
-            $adjutmentIns = AdjustmentProduct::with('inventoryAdjustment')->where('product_id', $product->id)->where('type', 1)->whereHas('inventoryAdjustment', function ($newQuery) use ($request) {
-                $newQuery->whereBetween('date', [$request->fromDate, $request->toDate]);
-            })->get();
+            $adjutmentIns = AdjustmentProduct::with('inventoryAdjustment')
+                ->where('product_id', $product->id)
+                ->where('type', 1)
+                ->whereHas('inventoryAdjustment', function ($newQuery) use ($request, $branchIds) {
+                    $newQuery->whereIn('branch_id', $branchIds)
+                        ->whereBetween('date', [$request->fromDate, $request->toDate]);
+                })
+                ->get();
 
             $stockIns = [];
             // purchases
@@ -1558,17 +1624,30 @@ class ReportController extends Controller
             }
 
             // stock outs
-            $adjutmentOuts = AdjustmentProduct::with('inventoryAdjustment')->where('product_id', $product->id)->where('type', 0)->whereHas('inventoryAdjustment', function ($newQuery) use ($request) {
-                $newQuery->whereBetween('date', [$request->fromDate, $request->toDate]);
-            })->get();
+            $adjutmentOuts = AdjustmentProduct::with('inventoryAdjustment')
+                ->where('product_id', $product->id)
+                ->where('type', 0)
+                ->whereHas('inventoryAdjustment', function ($newQuery) use ($request, $branchIds) {
+                    $newQuery->whereIn('branch_id', $branchIds)
+                        ->whereBetween('date', [$request->fromDate, $request->toDate]);
+                })
+                ->get();
 
-            $inventoryOuts = InvoiceProduct::with('invoice.client')->where('product_id', $product->id)->whereHas('invoice', function ($newQuery) use ($request) {
-                $newQuery->whereBetween('invoice_date', [$request->fromDate, $request->toDate]);
-            })->get();
+            $inventoryOuts = InvoiceProduct::with('invoice.client')
+                ->where('product_id', $product->id)
+                ->whereHas('invoice', function ($newQuery) use ($request, $branchIds) {
+                    $newQuery->whereIn('branch_id', $branchIds)
+                        ->whereBetween('invoice_date', [$request->fromDate, $request->toDate]);
+                })
+                ->get();
 
-            $purchaseReturnOuts = PurchaseReturnProduct::with('purchaseReturn.purchase.supplier')->where('product_id', $product->id)->whereHas('purchaseReturn', function ($newQuery) use ($request) {
-                $newQuery->whereBetween('date', [$request->fromDate, $request->toDate]);
-            })->get();
+            $purchaseReturnOuts = PurchaseReturnProduct::with('purchaseReturn.purchase.supplier')
+                ->where('product_id', $product->id)
+                ->whereHas('purchaseReturn', function ($newQuery) use ($request, $branchIds) {
+                    $newQuery->whereIn('branch_id', $branchIds)
+                        ->whereBetween('date', [$request->fromDate, $request->toDate]);
+                })
+                ->get();
 
             $stockOuts = [];
             // Invoice sales
@@ -1625,59 +1704,104 @@ class ReportController extends Controller
             'itemName' => 'required',
         ]);
 
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
         $allProducts = [];
+        
         if (($request->category['slug'] == 'all' && $request->subCategory['slug'] == 'all' && $request->itemName['slug'] == 'all')) {
-            $products = Product::orderBy('code', 'ASC')->get();
-            $allProducts = $this->generateItemsArray($products, $request);
+            $products = Product::whereIn('branch_id', $branchIds)
+                ->orderBy('code', 'ASC')
+                ->get();
+            $allProducts = $this->generateItemsArray($products, $request, $branchIds);
         } elseif (($request->category['slug'] != 'all' && $request->subCategory['slug'] == 'all' && $request->itemName['slug'] == 'all')) {
             $catId = $request->category['id'];
-            $products = Product::with('proSubCategory.category')->whereHas('proSubCategory', function ($newQuery) use ($catId) {
-                $newQuery->whereHas('category', function ($newQuery) use ($catId) {
-                    $newQuery->where('id', $catId);
-                });
-            })->get();
-            $allProducts = $this->generateItemsArray($products, $request);
+            $products = Product::with('proSubCategory.category')
+                ->whereIn('branch_id', $branchIds)
+                ->whereHas('proSubCategory', function ($newQuery) use ($catId) {
+                    $newQuery->whereHas('category', function ($newQuery) use ($catId) {
+                        $newQuery->where('id', $catId);
+                    });
+                })
+                ->get();
+            $allProducts = $this->generateItemsArray($products, $request, $branchIds);
         } elseif (($request->category['slug'] == 'all' && $request->subCategory['slug'] != 'all' && $request->itemName['slug'] == 'all') || ($request->category['slug'] != 'all' && $request->subCategory['slug'] != 'all' && $request->itemName['slug'] == 'all')) {
-            $products = Product::where('sub_cat_id', $request->subCategory['id'])->orderBy('code', 'ASC')->get();
-            $allProducts = $this->generateItemsArray($products, $request);
+            $products = Product::where('sub_cat_id', $request->subCategory['id'])
+                ->whereIn('branch_id', $branchIds)
+                ->orderBy('code', 'ASC')
+                ->get();
+            $allProducts = $this->generateItemsArray($products, $request, $branchIds);
         } else {
-            $products = Product::where('slug', $request->itemName['slug'])->with('proSubCategory.category', 'productUnit')->get();
-            $allProducts = $this->generateItemsArray($products, $request);
+            $products = Product::where('slug', $request->itemName['slug'])
+                ->whereIn('branch_id', $branchIds)
+                ->with('proSubCategory.category', 'productUnit')
+                ->get();
+            $allProducts = $this->generateItemsArray($products, $request, $branchIds);
         }
 
         return $allProducts;
     }
 
     // generate invetory items array
-    public function generateItemsArray($products, $request)
+    public function generateItemsArray($products, $request, $branchIds = null)
     {
+        if ($branchIds === null) {
+            $user = Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
+        }
+        
         $allProducts = [];
         foreach ($products as $key => $product) {
             // stock ins
-            $purchaseIns = PurchaseProduct::with('purchase.supplier')->where('product_id', $product->id)->whereHas('purchase', function ($newQuery) use ($request) {
-                $newQuery->whereBetween('purchase_date', [$request->fromDate, $request->toDate]);
-            })->sum('quantity');
+            $purchaseIns = PurchaseProduct::with('purchase.supplier')
+                ->where('product_id', $product->id)
+                ->whereHas('purchase', function ($newQuery) use ($request, $branchIds) {
+                    $newQuery->whereIn('branch_id', $branchIds)
+                        ->whereBetween('purchase_date', [$request->fromDate, $request->toDate]);
+                })
+                ->sum('quantity');
 
-            $invoiceReturnIns = InvoiceReturnProduct::with('invoiceReturn.invoice.client')->where('product_id', $product->id)->whereHas('invoiceReturn', function ($newQuery) use ($request) {
-                $newQuery->whereBetween('date', [$request->fromDate, $request->toDate]);
-            })->sum('quantity');
+            $invoiceReturnIns = InvoiceReturnProduct::with('invoiceReturn.invoice.client')
+                ->where('product_id', $product->id)
+                ->whereHas('invoiceReturn', function ($newQuery) use ($request, $branchIds) {
+                    $newQuery->whereIn('branch_id', $branchIds)
+                        ->whereBetween('date', [$request->fromDate, $request->toDate]);
+                })
+                ->sum('quantity');
 
-            $adjutmentIns = AdjustmentProduct::with('inventoryAdjustment')->where('product_id', $product->id)->where('type', 1)->whereHas('inventoryAdjustment', function ($newQuery) use ($request) {
-                $newQuery->whereBetween('date', [$request->fromDate, $request->toDate]);
-            })->sum('quantity');
+            $adjutmentIns = AdjustmentProduct::with('inventoryAdjustment')
+                ->where('product_id', $product->id)
+                ->where('type', 1)
+                ->whereHas('inventoryAdjustment', function ($newQuery) use ($request, $branchIds) {
+                    $newQuery->whereIn('branch_id', $branchIds)
+                        ->whereBetween('date', [$request->fromDate, $request->toDate]);
+                })
+                ->sum('quantity');
 
             // stock outs
-            $adjutmentOuts = AdjustmentProduct::with('inventoryAdjustment')->where('product_id', $product->id)->where('type', 0)->whereHas('inventoryAdjustment', function ($newQuery) use ($request) {
-                $newQuery->whereBetween('date', [$request->fromDate, $request->toDate]);
-            })->sum('quantity');
+            $adjutmentOuts = AdjustmentProduct::with('inventoryAdjustment')
+                ->where('product_id', $product->id)
+                ->where('type', 0)
+                ->whereHas('inventoryAdjustment', function ($newQuery) use ($request, $branchIds) {
+                    $newQuery->whereIn('branch_id', $branchIds)
+                        ->whereBetween('date', [$request->fromDate, $request->toDate]);
+                })
+                ->sum('quantity');
 
-            $inventoryOuts = InvoiceProduct::with('invoice.client')->where('product_id', $product->id)->whereHas('invoice', function ($newQuery) use ($request) {
-                $newQuery->whereBetween('invoice_date', [$request->fromDate, $request->toDate]);
-            })->sum('quantity');
+            $inventoryOuts = InvoiceProduct::with('invoice.client')
+                ->where('product_id', $product->id)
+                ->whereHas('invoice', function ($newQuery) use ($request, $branchIds) {
+                    $newQuery->whereIn('branch_id', $branchIds)
+                        ->whereBetween('invoice_date', [$request->fromDate, $request->toDate]);
+                })
+                ->sum('quantity');
 
-            $purchaseReturnOuts = PurchaseReturnProduct::with('purchaseReturn.purchase.supplier')->where('product_id', $product->id)->whereHas('purchaseReturn', function ($newQuery) use ($request) {
-                $newQuery->whereBetween('date', [$request->fromDate, $request->toDate]);
-            })->sum('quantity');
+            $purchaseReturnOuts = PurchaseReturnProduct::with('purchaseReturn.purchase.supplier')
+                ->where('product_id', $product->id)
+                ->whereHas('purchaseReturn', function ($newQuery) use ($request, $branchIds) {
+                    $newQuery->whereIn('branch_id', $branchIds)
+                        ->whereBetween('date', [$request->fromDate, $request->toDate]);
+                })
+                ->sum('quantity');
 
             $stockIns = $purchaseIns + $invoiceReturnIns + $adjutmentIns;
             $stockOuts = $adjutmentOuts + $inventoryOuts + $purchaseReturnOuts;
@@ -1697,7 +1821,12 @@ class ReportController extends Controller
     public function supplierDueReport(Request $request)
     {
         try {
-            $query = Supplier::with('purchases.purchaseReturn');
+            $user = Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
+            
+            $query = Supplier::with('purchases.purchaseReturn')
+                ->whereIn('branch_id', $branchIds);
+            
             return SupplierResource::collection($query->latest()->paginate($request->perPage));
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
@@ -1708,7 +1837,12 @@ class ReportController extends Controller
     public function clientDueReport(Request $request)
     {
         try {
-            $query = Client::query();
+            $user = Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
+            
+            $query = Client::query()
+                ->whereIn('branch_id', $branchIds);
+            
             return ClientResource::collection($query->latest()->paginate($request->perPage));
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
@@ -1722,7 +1856,12 @@ class ReportController extends Controller
             'user' => 'required',
         ]);
         try {
-            $query = Invoice::with('client', 'invoicePayments', 'invoiceReturn', 'user');
+            $user = Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
+            
+            $query = Invoice::with('client', 'invoicePayments', 'invoiceReturn', 'user')
+                ->whereIn('branch_id', $branchIds);
+            
             $term = $request->user['id'];
             if ($request->fromDate && $request->toDate) {
                 $query = $query->whereBetween('invoice_date', [$request->fromDate, $request->toDate]);
@@ -1750,7 +1889,12 @@ class ReportController extends Controller
         ]);
 
         try {
-            $query = InvoicePayment::with('user.employee', 'invoice', 'invoicePaymentTransaction');
+            $user = Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
+            
+            $query = InvoicePayment::with('user.employee', 'invoice', 'invoicePaymentTransaction')
+                ->whereIn('branch_id', $branchIds);
+            
             $term = $request->user['id'];
             if ($request->fromDate && $request->toDate) {
                 $query = $query->whereBetween('date', [$request->fromDate, $request->toDate]);
@@ -2959,6 +3103,8 @@ class ReportController extends Controller
                 'per_page' => 'nullable|integer|min:1|max:100',
             ]);
 
+            $user = Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
             $fiscalYearId = $request->fiscal_year_id;
             $accountingPeriodId = $request->accounting_period_id;
             $fromDate = $request->from_date;
@@ -2967,7 +3113,7 @@ class ReportController extends Controller
             $perPage = $request->per_page ?? 50; // Default to 50 clients per page
 
             // Build base query for invoices
-            $baseQuery = Invoice::query()->where('status', 1);
+            $baseQuery = Invoice::query()->where('status', 1)->whereIn('branch_id', $branchIds);
 
             // Apply filters
             if ($fiscalYearId) {
@@ -2990,7 +3136,8 @@ class ReportController extends Controller
             $totalPaid = DB::table('invoices')
                 ->join('invoice_payments', 'invoices.id', '=', 'invoice_payments.invoice_id')
                 ->where('invoices.status', 1)
-                ->where('invoice_payments.status', 1);
+                ->where('invoice_payments.status', 1)
+                ->whereIn('invoices.branch_id', $branchIds);
 
             if ($fiscalYearId) {
                 $totalPaid->where('invoices.fiscal_year_id', $fiscalYearId);
@@ -3006,7 +3153,8 @@ class ReportController extends Controller
             $returnData = DB::table('invoices')
                 ->join('invoice_returns', 'invoices.id', '=', 'invoice_returns.invoice_id')
                 ->where('invoices.status', 1)
-                ->where('invoice_returns.status', 1);
+                ->where('invoice_returns.status', 1)
+                ->whereIn('invoices.branch_id', $branchIds);
 
             if ($fiscalYearId) {
                 $returnData->where('invoices.fiscal_year_id', $fiscalYearId);
@@ -3024,7 +3172,8 @@ class ReportController extends Controller
             // Calculate tax using join with vat_rates
             $taxData = DB::table('invoices')
                 ->join('vat_rates', 'invoices.tax_id', '=', 'vat_rates.id')
-                ->where('invoices.status', 1);
+                ->where('invoices.status', 1)
+                ->whereIn('invoices.branch_id', $branchIds);
 
             if ($fiscalYearId) {
                 $taxData->where('invoices.fiscal_year_id', $fiscalYearId);
@@ -3050,7 +3199,8 @@ class ReportController extends Controller
             // Get client summary with pagination using database aggregation
             $clientSummaryQuery = DB::table('invoices')
                 ->join('clients', 'invoices.client_id', '=', 'clients.id')
-                ->where('invoices.status', 1);
+                ->where('invoices.status', 1)
+                ->whereIn('invoices.branch_id', $branchIds);
 
             if ($fiscalYearId) {
                 $clientSummaryQuery->where('invoices.fiscal_year_id', $fiscalYearId);
@@ -3391,6 +3541,8 @@ class ReportController extends Controller
                 'per_page' => 'nullable|integer|min:1|max:100',
             ]);
 
+            $user = Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
             $fiscalYearId = $request->fiscal_year_id;
             $accountingPeriodId = $request->accounting_period_id;
             $fromDate = $request->from_date;
@@ -3399,7 +3551,7 @@ class ReportController extends Controller
             $perPage = $request->per_page ?? 50; // Default to 50 suppliers per page
 
             // Build base query for purchases
-            $baseQuery = Purchase::query()->where('status', 1);
+            $baseQuery = Purchase::query()->where('status', 1)->whereIn('branch_id', $branchIds);
 
             // Apply filters
             if ($fiscalYearId) {
@@ -3422,7 +3574,8 @@ class ReportController extends Controller
             $totalPaid = DB::table('purchases')
                 ->join('purchase_payments', 'purchases.id', '=', 'purchase_payments.purchase_id')
                 ->where('purchases.status', 1)
-                ->where('purchase_payments.status', 1);
+                ->where('purchase_payments.status', 1)
+                ->whereIn('purchases.branch_id', $branchIds);
 
             if ($fiscalYearId) {
                 $totalPaid->where('purchases.fiscal_year_id', $fiscalYearId);
@@ -3438,7 +3591,8 @@ class ReportController extends Controller
             $returnData = DB::table('purchases')
                 ->join('purchase_returns', 'purchases.id', '=', 'purchase_returns.purchase_id')
                 ->where('purchases.status', 1)
-                ->where('purchase_returns.status', 1);
+                ->where('purchase_returns.status', 1)
+                ->whereIn('purchases.branch_id', $branchIds);
 
             if ($fiscalYearId) {
                 $returnData->where('purchases.fiscal_year_id', $fiscalYearId);
@@ -3456,7 +3610,8 @@ class ReportController extends Controller
             // Calculate tax using join with vat_rates
             $taxData = DB::table('purchases')
                 ->join('vat_rates', 'purchases.tax_id', '=', 'vat_rates.id')
-                ->where('purchases.status', 1);
+                ->where('purchases.status', 1)
+                ->whereIn('purchases.branch_id', $branchIds);
 
             if ($fiscalYearId) {
                 $taxData->where('purchases.fiscal_year_id', $fiscalYearId);
@@ -3481,6 +3636,7 @@ class ReportController extends Controller
 
             // Get supplier summary with pagination using database aggregation
             $supplierSummaryQuery = DB::table('purchases')
+                ->whereIn('purchases.branch_id', $branchIds)
                 ->join('suppliers', 'purchases.supplier_id', '=', 'suppliers.id')
                 ->where('purchases.status', 1);
 
@@ -4697,5 +4853,11 @@ class ReportController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
+    }
+    
+    private function getUserBranchIds($user)
+    {
+        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        return [$defaultBranchId > 0 ? $defaultBranchId : 0];
     }
 }

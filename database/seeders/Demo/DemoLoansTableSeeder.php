@@ -36,6 +36,7 @@ class DemoLoansTableSeeder extends Seeder
                 'authority_id' => 2,
                 'transaction_id' => 24,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             1 => [
                 'id' => 2,
@@ -57,6 +58,7 @@ class DemoLoansTableSeeder extends Seeder
                 'authority_id' => 1,
                 'transaction_id' => 25,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
         ]);
     }

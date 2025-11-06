@@ -30,6 +30,7 @@ class DemoPurchaseReturnsTableSeeder extends Seeder
                 'purchase_id' => 1,
                 'transaction_id' => null,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             1 => [
                 'id' => 2,
@@ -45,6 +46,7 @@ class DemoPurchaseReturnsTableSeeder extends Seeder
                 'purchase_id' => 2,
                 'transaction_id' => 13,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
         ]);
     }

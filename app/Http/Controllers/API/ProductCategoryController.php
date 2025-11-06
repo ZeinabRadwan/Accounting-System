@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\ProductCategory;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Http\Resources\ProductCategoryResource;
 use App\Http\Requests\Product\StoreProductCategoryRequest;
 use App\Http\Requests\Product\UpdateProductCategoryRequest;
@@ -29,7 +30,12 @@ class ProductCategoryController extends Controller
      */
     public function index(Request $request)
     {
-        return ProductCategoryResource::collection(ProductCategory::latest()->paginate($request->perPage));
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        $query = ProductCategory::whereIn('branch_id', $branchIds)->latest();
+        
+        return ProductCategoryResource::collection($query->paginate($request->perPage));
     }
 
     /**
@@ -41,19 +47,24 @@ class ProductCategoryController extends Controller
     public function store(StoreProductCategoryRequest $request)
     {
         try {
-            // generate code
+            // save category
+            $user = Auth::user();
+            $branchId = (int) ($user->default_branch_id ?? 0);
+            $branchIds = $this->getUserBranchIds($user);
+            
+            // generate code (filtered by branch)
             $code = 1;
-            $prevCode = ProductCategory::latest()->first();
+            $prevCode = ProductCategory::whereIn('branch_id', $branchIds)->latest()->first();
             if ($prevCode) {
                 $code = $prevCode->code + 1;
             }
-
-            // save category
+            
           $ProductCategory =  ProductCategory::create([
                 'name' => $request->name,
                 'code' => $code,
                 'note' => $request->note,
                 'status' => $request->status,
+                'branch_id' => $branchId,
             ]);
 
             // add activity log
@@ -85,7 +96,16 @@ class ProductCategoryController extends Controller
     public function show($slug)
     {
         try {
-            $category = ProductCategory::where('slug', $slug)->first();
+            $user = Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
+            
+            $category = ProductCategory::where('slug', $slug)
+                ->whereIn('branch_id', $branchIds)
+                ->first();
+
+            if (!$category) {
+                return $this->responseWithError('Category not found');
+            }
 
             return $category;
         } catch (Exception $e) {
@@ -102,7 +122,16 @@ class ProductCategoryController extends Controller
      */
     public function update(UpdateProductCategoryRequest $request, $slug)
     {
-        $category = ProductCategory::where('slug', $slug)->first();
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        $category = ProductCategory::where('slug', $slug)
+            ->whereIn('branch_id', $branchIds)
+            ->first();
+
+        if (!$category) {
+            return $this->responseWithError('Category not found');
+        }
 
         try {
             // update category
@@ -141,7 +170,16 @@ class ProductCategoryController extends Controller
     public function destroy($slug)
     {
         try {
-            $category = ProductCategory::where('slug', $slug)->first();
+            $user = Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
+            
+            $category = ProductCategory::where('slug', $slug)
+                ->whereIn('branch_id', $branchIds)
+                ->first();
+                
+            if (!$category) {
+                return $this->responseWithError('Category not found');
+            }
 
             // add activity log
             activity()
@@ -173,11 +211,17 @@ class ProductCategoryController extends Controller
     public function search(Request $request)
     {
         $term = $request->term;
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
 
-        $query = ProductCategory::where('name', 'LIKE', '%'.$term.'%')
-            ->orWhere('slug', 'LIKE', '%'.$term.'%')
-            ->orWhere('note', 'LIKE', '%'.$term.'%')
-            ->latest()->paginate($request->perPage);
+        $query = ProductCategory::whereIn('branch_id', $branchIds)
+            ->where(function($q) use ($term) {
+                $q->where('name', 'LIKE', '%'.$term.'%')
+                  ->orWhere('slug', 'LIKE', '%'.$term.'%')
+                  ->orWhere('note', 'LIKE', '%'.$term.'%');
+            })
+            ->latest()
+            ->paginate($request->perPage);
 
         return ProductCategoryResource::collection($query);
     }
@@ -189,8 +233,39 @@ class ProductCategoryController extends Controller
      */
     public function allCategories()
     {
-        $categories = ProductCategory::where('status', 1)->latest()->get();
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        $categories = ProductCategory::where('status', 1)
+            ->whereIn('branch_id', $branchIds)
+            ->latest()
+            ->get();
 
         return ProductCategoryResource::collection($categories);
+    }
+    
+    private function getUserBranchIds($user)
+    {
+
+        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        return [$defaultBranchId > 0 ? $defaultBranchId : 0];
+        // // Super admin can see all branches
+        // if ((int) $user->account_role === 1) {
+        //     return \App\Models\Branch::where('is_active', true)->pluck('id')->toArray();
+        // }
+        
+        // // Get all branch IDs from branch_user table
+        // $branchIds = DB::table('branch_user')
+        //     ->where('user_id', $user->id)
+        //     ->pluck('branch_id')
+        //     ->toArray();
+        
+        // // If no branches assigned, fall back to default_branch_id
+        // if (empty($branchIds)) {
+        //     $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        //     return $defaultBranchId > 0 ? [$defaultBranchId] : [0];
+        // }
+        
+        // return $branchIds;
     }
 }

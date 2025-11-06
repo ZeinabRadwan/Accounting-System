@@ -14,6 +14,7 @@ use App\Http\Resources\ProductSelectReource;
 use App\Http\Resources\ProductSubCategoryResource;
 use App\Http\Requests\Product\StoreProductSubCategoryRequest;
 use App\Http\Requests\Product\UpdateProductSubCategoryRequest;
+use Illuminate\Support\Facades\DB;
 
 class ProSubCatController extends Controller
 {
@@ -33,7 +34,14 @@ class ProSubCatController extends Controller
      */
     public function index(Request $request)
     {
-        return ProductSubCategoryResource::collection(ProductSubCategory::with('category')->latest()->paginate($request->perPage));
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        $query = ProductSubCategory::with('category')
+            ->whereIn('branch_id', $branchIds)
+            ->latest();
+            
+        return ProductSubCategoryResource::collection($query->paginate($request->perPage));
     }
 
     /**
@@ -45,19 +53,25 @@ class ProSubCatController extends Controller
     public function store(StoreProductSubCategoryRequest $request)
     {
         try {
-            // generate code
+            // store sub category
+            $user = Auth::user();
+            $branchId = (int) ($user->default_branch_id ?? 0);
+            $branchIds = $this->getUserBranchIds($user);
+            
+            // generate code (filtered by branch)
             $code = 1;
-            $prevCode = ProductSubCategory::latest()->first();
+            $prevCode = ProductSubCategory::whereIn('branch_id', $branchIds)->latest()->first();
             if ($prevCode) {
                 $code = $prevCode->code + 1;
             }
-            // store sub category
+            
           $ProductSubCategory =  ProductSubCategory::create([
                 'name' => $request->name,
                 'code' => $code,
                 'cat_id' => $request->category['id'],
                 'note' => clean($request->note),
                 'status' => $request->status,
+                'branch_id' => $branchId,
             ]);
 
             // add activity log
@@ -89,7 +103,17 @@ class ProSubCatController extends Controller
     public function show($slug)
     {
         try {
-            $subCategory = ProductSubCategory::with('category')->where('slug', $slug)->first();
+            $user = Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
+            
+            $subCategory = ProductSubCategory::with('category')
+                ->where('slug', $slug)
+                ->whereIn('branch_id', $branchIds)
+                ->first();
+
+            if (!$subCategory) {
+                return $this->responseWithError('Sub category not found');
+            }
 
             return new ProductSubCategoryResource($subCategory);
         } catch (Exception $e) {
@@ -106,7 +130,16 @@ class ProSubCatController extends Controller
      */
     public function update(UpdateProductSubCategoryRequest $request, $slug)
     {
-        $subCategory = ProductSubCategory::where('slug', $slug)->first();
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        $subCategory = ProductSubCategory::where('slug', $slug)
+            ->whereIn('branch_id', $branchIds)
+            ->first();
+
+        if (!$subCategory) {
+            return $this->responseWithError('Sub category not found');
+        }
 
         try {
             // update sub category
@@ -146,7 +179,16 @@ class ProSubCatController extends Controller
     public function destroy($slug)
     {
         try {
-            $subCategory = ProductSubCategory::where('slug', $slug)->first();
+            $user = Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
+            
+            $subCategory = ProductSubCategory::where('slug', $slug)
+                ->whereIn('branch_id', $branchIds)
+                ->first();
+                
+            if (!$subCategory) {
+                return $this->responseWithError('Sub category not found');
+            }
 
             // add activity log
             activity()
@@ -178,12 +220,20 @@ class ProSubCatController extends Controller
     public function search(Request $request)
     {
         $term = $request->term;
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
 
-        $query = ProductSubCategory::with('category')->where('name', 'LIKE', '%'.$term.'%')
-            ->orWhere('note', 'LIKE', '%'.$term.'%')
-            ->orWhereHas('category', function ($newQuery) use ($term) {
-                $newQuery->where('name', 'LIKE', '%'.$term.'%');
-            })->latest()->paginate($request->perPage);
+        $query = ProductSubCategory::with('category')
+            ->whereIn('branch_id', $branchIds)
+            ->where(function($q) use ($term) {
+                $q->where('name', 'LIKE', '%'.$term.'%')
+                  ->orWhere('note', 'LIKE', '%'.$term.'%')
+                  ->orWhereHas('category', function ($newQuery) use ($term) {
+                      $newQuery->where('name', 'LIKE', '%'.$term.'%');
+                  });
+            })
+            ->latest()
+            ->paginate($request->perPage);
 
         return ProductSubCategoryResource::collection($query);
     }
@@ -195,7 +245,13 @@ class ProSubCatController extends Controller
      */
     public function allSubCategories()
     {
-        $subCategories = ProductSubCategory::where('status', 1)->latest()->get();
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        $subCategories = ProductSubCategory::where('status', 1)
+            ->whereIn('branch_id', $branchIds)
+            ->latest()
+            ->get();
 
         return ProductSubCategoryResource::collection($subCategories);
     }
@@ -203,17 +259,31 @@ class ProSubCatController extends Controller
     // retun subcategories by category
     public function subCategoriesByCategory($slug)
     {
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
         if ($slug == 'all') {
-            $subCategories = ProductSubCategory::latest()->get();
-            $products = Product::latest()->get();
+            $subCategories = ProductSubCategory::whereIn('branch_id', $branchIds)->latest()->get();
+            $products = Product::whereIn('branch_id', $branchIds)->latest()->get();
         } else {
-            $category = ProductCategory::where('slug', $slug)->first();
-            $subCategories = ProductSubCategory::where('cat_id', $category->id)->latest()->get();
-            $products = Product::with('proSubCategory.category')->whereHas('proSubCategory', function ($newQuery) use ($category) {
-                $newQuery->whereHas('category', function ($newQuery) use ($category) {
-                    $newQuery->where('id', $category->id);
-                });
-            })->get();
+            $category = ProductCategory::where('slug', $slug)
+                ->whereIn('branch_id', $branchIds)
+                ->first();
+                
+            if (!$category) {
+                return $this->responseWithError('Category not found');
+            }
+            
+            $subCategories = ProductSubCategory::where('cat_id', $category->id)
+                ->whereIn('branch_id', $branchIds)
+                ->latest()
+                ->get();
+            $products = Product::with('proSubCategory.category')
+                ->whereIn('branch_id', $branchIds)
+                ->whereHas('proSubCategory', function ($newQuery) use ($category, $branchIds) {
+                    $newQuery->where('cat_id', $category->id)
+                        ->whereIn('branch_id', $branchIds);
+                })->get();
         }
 
         return [
@@ -225,22 +295,64 @@ class ProSubCatController extends Controller
     // retun subcategories by category
     public function allSubCategoriesByCategory($slug)
     {
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
         if ($slug == 'all') {
-            $subCategories = ProductSubCategory::latest()->get();
-            $products = Product::latest()->paginate(5);
+            $subCategories = ProductSubCategory::whereIn('branch_id', $branchIds)->latest()->get();
+            $products = Product::whereIn('branch_id', $branchIds)->latest()->paginate(5);
         } else {
-            $category = ProductCategory::where('slug', $slug)->first();
-            $subCategories = ProductSubCategory::where('cat_id', $category->id)->latest()->get();
-            $products = Product::with('proSubCategory.category')->whereHas('proSubCategory', function ($newQuery) use ($category) {
-                $newQuery->whereHas('category', function ($newQuery) use ($category) {
-                    $newQuery->where('id', $category->id);
-                });
-            })->paginate(5);
+            $category = ProductCategory::where('slug', $slug)
+                ->whereIn('branch_id', $branchIds)
+                ->first();
+                
+            if (!$category) {
+                return $this->responseWithError('Category not found');
+            }
+            
+            $subCategories = ProductSubCategory::where('cat_id', $category->id)
+                ->whereIn('branch_id', $branchIds)
+                ->latest()
+                ->get();
+            $products = Product::with('proSubCategory.category')
+                ->whereIn('branch_id', $branchIds)
+                ->whereHas('proSubCategory', function ($newQuery) use ($category, $branchIds) {
+                    $newQuery->where('cat_id', $category->id)
+                        ->whereIn('branch_id', $branchIds);
+                })->paginate(5);
         }
 
         return [
             'cats' => ProductSubCategoryResource::collection($subCategories),
             'products' => ProductSelectReource::collection($products),
         ];
+    }
+    
+    private function getUserBranchIds($user)
+    {
+
+
+        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        return [$defaultBranchId > 0 ? $defaultBranchId : 0];
+
+
+        // Super admin can see all branches
+        // if ((int) $user->account_role === 1) {
+        //     return \App\Models\Branch::where('is_active', true)->pluck('id')->toArray();
+        // }
+        
+        // // Get all branch IDs from branch_user table
+        // $branchIds = DB::table('branch_user')
+        //     ->where('user_id', $user->id)
+        //     ->pluck('branch_id')
+        //     ->toArray();
+        
+        // // If no branches assigned, fall back to default_branch_id
+        // if (empty($branchIds)) {
+        //     $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        //     return $defaultBranchId > 0 ? [$defaultBranchId] : [0];
+        // }
+        
+        // return $branchIds;
     }
 }

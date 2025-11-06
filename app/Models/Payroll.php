@@ -15,7 +15,7 @@ class Payroll extends Model
      * @var array
      */
     protected $fillable = [
-        'slug', 'employee_id', 'transaction_id', 'salary_month', 'deduction_reason', 'deduction_amount', 'mobile_bill', 'food_bill', 'bonus', 'commission', 'advance', 'festival_bonus', 'travel_allowance', 'others', 'salary_date', 'created_by', 'image_path', 'status', 'note',
+        'slug', 'employee_id', 'transaction_id', 'salary_month', 'deduction_reason', 'deduction_amount', 'mobile_bill', 'food_bill', 'bonus', 'commission', 'advance', 'festival_bonus', 'travel_allowance', 'others', 'salary_date', 'created_by', 'image_path', 'status', 'note', 'branch_id',
     ];
 
     /**

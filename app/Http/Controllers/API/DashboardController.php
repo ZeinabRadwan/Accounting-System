@@ -31,6 +31,7 @@ use App\Http\Resources\InvoiceListResource;
 use App\Http\Resources\PurchaseListReource;
 use App\Http\Resources\ProductListingResource;
 use App\Http\Resources\AccountTransactionResource;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -48,6 +49,12 @@ class DashboardController extends Controller
         $this->middleware('can:database-backup', ['only' => ['databaseBackup']]);
         $this->dashboardService = $dashboardService;
     }
+    
+    private function getUserBranchIds($user)
+    {
+        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        return [$defaultBranchId > 0 ? $defaultBranchId : 0];
+    }
 
     // return dashboard summery
     public function dashboardSummery($summeryType)
@@ -58,11 +65,17 @@ class DashboardController extends Controller
     // return top selling products
     public function topSellingProducts()
     {
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
         $year = date('Y');
-        if (Invoice::count() > 0) {
+        
+        if (Invoice::whereIn('branch_id', $branchIds)->count() > 0) {
             $sales = DB::table('products')
                 ->leftJoin('invoice_products', 'products.id', '=', 'invoice_products.product_id')
+                ->leftJoin('invoices', 'invoice_products.invoice_id', '=', 'invoices.id')
                 ->selectRaw('COALESCE(sum(invoice_products.quantity),0) value, products.name')
+                ->whereIn('invoices.branch_id', $branchIds)
+                ->whereIn('products.branch_id', $branchIds)
                 ->whereYear('invoice_products.created_at', '=', $year)
                 ->groupBy('products.id')
                 ->orderBy('value', 'desc')
@@ -84,25 +97,59 @@ class DashboardController extends Controller
     // return sales
     public function recentInvoices()
     {
-        return InvoiceListResource::collection(Invoice::with('client', 'invoiceTax', 'invoicePayments', 'invoiceReturn')->latest()->take(6)->get());
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        return InvoiceListResource::collection(
+            Invoice::with('client', 'invoiceTax', 'invoicePayments', 'invoiceReturn')
+                ->whereIn('branch_id', $branchIds)
+                ->latest()
+                ->take(6)
+                ->get()
+        );
     }
 
     // return purchases
     public function recentPurchases()
     {
-        return PurchaseListReource::collection(Purchase::with('supplier', 'purchasePayments', 'purchaseTax')->latest()->take(6)->get());
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        return PurchaseListReource::collection(
+            Purchase::with('supplier', 'purchasePayments', 'purchaseTax')
+                ->whereIn('branch_id', $branchIds)
+                ->latest()
+                ->take(6)
+                ->get()
+        );
     }
 
     // return expenses
     public function recentExpenses()
     {
-        return ExpenseResource::collection(Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user')->latest()->take(6)->get());
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        return ExpenseResource::collection(
+            Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user')
+                ->whereIn('branch_id', $branchIds)
+                ->latest()
+                ->take(6)
+                ->get()
+        );
     }
 
     // return transactions
     public function recentTransactions()
     {
-        $transactions = AccountTransaction::with('cashbookAccount', 'user')->latest()->take(6)->get();
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        $transactions = AccountTransaction::with('cashbookAccount', 'user')
+            ->whereIn('branch_id', $branchIds)
+            ->latest()
+            ->take(6)
+            ->get();
 
         return AccountTransactionResource::collection($transactions);
     }
@@ -110,6 +157,8 @@ class DashboardController extends Controller
     // return monthly payment sent and received
     public function monthlyPaymentSentAndReceived()
     {
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
         $year = date('Y');
         $monthNum = date('m');
         $shortMonthNames = [];
@@ -118,23 +167,63 @@ class DashboardController extends Controller
 
         while ($monthNum > 0) {
             // get the monthly payment sent amount
-            $purchasePayment = PurchasePayment::where('status', 1)->whereYear('date', $year)->whereMonth('date', $monthNum)->sum('amount');
-            $nonPurchasePayment = NonPurchasePayment::where('status', 1)->where('type', 1)->whereYear('date', $year)->whereMonth('date', $monthNum)->sum('amount');
-            $termLoanPayment = LoanPayment::with('loan')->where('status', 1)->whereYear('date', $year)->whereMonth('date', $monthNum)->whereHas('loan', function ($newQuery) {
-                $newQuery->where('loan_type', 1);
-            })->sum('amount');
-            $ccLoanPayment = LoanPayment::with('loan')->where('status', 1)->whereYear('date', $year)->whereMonth('date', $monthNum)->whereHas('loan', function ($newQuery) {
-                $newQuery->where('loan_type', 0);
-            })->sum(DB::raw('amount + interest'));
+            $purchasePayment = PurchasePayment::where('status', 1)
+                ->whereIn('branch_id', $branchIds)
+                ->whereYear('date', $year)
+                ->whereMonth('date', $monthNum)
+                ->sum('amount');
+            
+            $nonPurchasePayment = NonPurchasePayment::where('status', 1)
+                ->where('type', 1)
+                ->whereIn('branch_id', $branchIds)
+                ->whereYear('date', $year)
+                ->whereMonth('date', $monthNum)
+                ->sum('amount');
+            
+            $termLoanPayment = LoanPayment::with('loan')
+                ->where('status', 1)
+                ->whereIn('branch_id', $branchIds)
+                ->whereYear('date', $year)
+                ->whereMonth('date', $monthNum)
+                ->whereHas('loan', function ($newQuery) {
+                    $newQuery->where('loan_type', 1);
+                })
+                ->sum('amount');
+            
+            $ccLoanPayment = LoanPayment::with('loan')
+                ->where('status', 1)
+                ->whereIn('branch_id', $branchIds)
+                ->whereYear('date', $year)
+                ->whereMonth('date', $monthNum)
+                ->whereHas('loan', function ($newQuery) {
+                    $newQuery->where('loan_type', 0);
+                })
+                ->sum(DB::raw('amount + interest'));
+            
             $totalPaymentSent = $purchasePayment + $nonPurchasePayment + $termLoanPayment + $ccLoanPayment;
 
             // get the monthly received amount
-            $invoicePayment = InvoicePayment::where('status', 1)->whereYear('date', $year)->whereMonth('date', $monthNum)->sum('amount');
-            $nonInvoicePayment = NonInvoicePayment::where('type', 1)->where('status', 1)->whereYear('date', $year)->whereMonth('date', $monthNum)->sum('amount');
+            $invoicePayment = InvoicePayment::where('status', 1)
+                ->whereIn('branch_id', $branchIds)
+                ->whereYear('date', $year)
+                ->whereMonth('date', $monthNum)
+                ->sum('amount');
+            
+            $nonInvoicePayment = NonInvoicePayment::where('type', 1)
+                ->where('status', 1)
+                ->whereIn('branch_id', $branchIds)
+                ->whereYear('date', $year)
+                ->whereMonth('date', $monthNum)
+                ->sum('amount');
+            
             $loanPayment = DB::table('account_transactions')
                 ->leftJoin('loans', 'account_transactions.id', '=', 'loans.transaction_id')
-                ->where('loans.status', 1)->whereYear('loans.date', $year)->whereMonth('loans.date', $monthNum)
+                ->where('loans.status', 1)
+                ->whereIn('loans.branch_id', $branchIds)
+                ->whereYear('loans.date', $year)
+                ->whereMonth('loans.date', $monthNum)
                 ->sum('account_transactions.amount');
+            
             $totalPaymentSentReceived = $invoicePayment + $nonInvoicePayment + $loanPayment;
 
             // make the months array
@@ -160,8 +249,18 @@ class DashboardController extends Controller
     // return top clients
     public function topClients()
     {
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
         $year = date('Y');
-        $topCustomers = Invoice::with('client')->whereYear('invoice_date', '=', $year)->addSelect(DB::raw('COUNT(invoices.id) as total_invoice'), DB::raw('SUM(sub_total) as invoice_total, client_id'))->groupBy('client_id')->take(5)->orderBy('invoice_total', 'DESC')->get();
+        
+        $topCustomers = Invoice::with('client')
+            ->whereIn('branch_id', $branchIds)
+            ->whereYear('invoice_date', '=', $year)
+            ->addSelect(DB::raw('COUNT(invoices.id) as total_invoice'), DB::raw('SUM(sub_total) as invoice_total, client_id'))
+            ->groupBy('client_id')
+            ->take(5)
+            ->orderBy('invoice_total', 'DESC')
+            ->get();
 
         // Add processed image URL to each client
         $topCustomers->each(function ($item) {
@@ -176,12 +275,23 @@ class DashboardController extends Controller
     // return stock alert products
     public function stockAlert()
     {
-        return ProductResource::collection(Product::with('proSubCategory.category', 'productUnit', 'productTax', 'productBrand')->orderBy('inventory_count', 'ASC')->take(6)->get());
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        return ProductResource::collection(
+            Product::with('proSubCategory.category', 'productUnit', 'productTax', 'productBrand')
+                ->whereIn('branch_id', $branchIds)
+                ->orderBy('inventory_count', 'ASC')
+                ->take(6)
+                ->get()
+        );
     }
 
     // return monthly sales and purchases
     public function monthlySalesAndPurchases()
     {
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
         $year = date('Y');
         $monthNum = date('m');
         $shortMonthNames = [];
@@ -190,10 +300,20 @@ class DashboardController extends Controller
 
         while ($monthNum > 0) {
             // get the monthly purchase amount
-            $purchaseAmount = Purchase::where('status', 1)->whereYear('purchase_date', $year)->whereMonth('purchase_date', $monthNum)->get()->sum('calculated_total');
+            $purchaseAmount = Purchase::where('status', 1)
+                ->whereIn('branch_id', $branchIds)
+                ->whereYear('purchase_date', $year)
+                ->whereMonth('purchase_date', $monthNum)
+                ->get()
+                ->sum('calculated_total');
 
             // get the monthly sales amount
-            $salesAmount = Invoice::where('status', 1)->whereYear('invoice_date', $year)->whereMonth('invoice_date', $monthNum)->get()->sum('calculated_total');
+            $salesAmount = Invoice::where('status', 1)
+                ->whereIn('branch_id', $branchIds)
+                ->whereYear('invoice_date', $year)
+                ->whereMonth('invoice_date', $monthNum)
+                ->get()
+                ->sum('calculated_total');
 
             // make the months array
             $dateObj = DateTime::createFromFormat('!m', $monthNum);
@@ -218,21 +338,40 @@ class DashboardController extends Controller
     // get stock notification
     public function stockNotification()
     {
-        return Product::whereRaw('alert_qty > inventory_count')->count();
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        return Product::whereIn('branch_id', $branchIds)
+            ->whereRaw('alert_qty > inventory_count')
+            ->count();
     }
 
     // get products with stock alert
     public function stockAlertProducts()
     {
-        return ProductListingResource::collection(Product::whereRaw('alert_qty > inventory_count')->with('proSubCategory.category', 'productUnit', 'productTax', 'productBrand')->latest()->paginate(10));
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        return ProductListingResource::collection(
+            Product::whereIn('branch_id', $branchIds)
+                ->whereRaw('alert_qty > inventory_count')
+                ->with('proSubCategory.category', 'productUnit', 'productTax', 'productBrand')
+                ->latest()
+                ->paginate(10)
+        );
     }
 
     // get products with stock alert
     public function searchStockAlertProducts(Request $request)
     {
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
         $term = $request->term;
 
-        $products = Product::where('alert_qty', '>', 'inventory_count')->with('proSubCategory.category', 'productUnit', 'productTax', 'productBrand')->where(function ($query) use ($term) {
+        $products = Product::whereIn('branch_id', $branchIds)
+            ->where('alert_qty', '>', 'inventory_count')
+            ->with('proSubCategory.category', 'productUnit', 'productTax', 'productBrand')
+            ->where(function ($query) use ($term) {
             $query->where('name', 'LIKE', '%' . $term . '%')
                 ->orWhere('slug', 'LIKE', '%' . $term . '%')
                 ->orWhere('model', 'LIKE', '%' . $term . '%')

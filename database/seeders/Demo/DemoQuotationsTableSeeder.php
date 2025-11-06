@@ -37,6 +37,7 @@ class DemoQuotationsTableSeeder extends Seeder
                 'client_id' => 5,
                 'tax_id' => 2,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
         ]);
     }

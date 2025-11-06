@@ -26,6 +26,7 @@ class DemoProductSubCategoriesTableSeeder extends Seeder
                 'created_at' => '2022-04-30 22:46:30',
                 'updated_at' => '2022-04-30 22:46:30',
                 'cat_id' => 1,
+                'branch_id' => 1,
             ],
             1 => [
                 'id' => 2,
@@ -37,6 +38,7 @@ class DemoProductSubCategoriesTableSeeder extends Seeder
                 'created_at' => '2022-04-30 22:46:41',
                 'updated_at' => '2022-04-30 22:46:41',
                 'cat_id' => 1,
+                'branch_id' => 1,
             ],
         ]);
     }

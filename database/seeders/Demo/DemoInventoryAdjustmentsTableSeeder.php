@@ -27,6 +27,7 @@ class DemoInventoryAdjustmentsTableSeeder extends Seeder
                 'created_at' => '2022-05-01 06:04:24',
                 'updated_at' => '2022-05-01 06:04:24',
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
         ]);
     }

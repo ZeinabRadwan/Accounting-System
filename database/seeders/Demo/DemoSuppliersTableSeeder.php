@@ -31,6 +31,7 @@ class DemoSuppliersTableSeeder extends Seeder
                 'image_path' => 'avatar.png',
                 'created_at' => '2022-04-30 22:39:34',
                 'updated_at' => '2022-04-30 22:39:34',
+                'branch_id' => 1,
             ],
             1 => [
                 'id' => 2,
@@ -46,6 +47,7 @@ class DemoSuppliersTableSeeder extends Seeder
                 'image_path' => 'avatar.png',
                 'created_at' => '2022-04-30 22:40:00',
                 'updated_at' => '2022-04-30 22:40:00',
+                'branch_id' => 1,
             ],
             2 => [
                 'id' => 3,
@@ -61,6 +63,7 @@ class DemoSuppliersTableSeeder extends Seeder
                 'image_path' => 'avatar.png',
                 'created_at' => '2022-04-30 22:40:26',
                 'updated_at' => '2022-04-30 22:40:26',
+                'branch_id' => 1,
             ],
             3 => [
                 'id' => 4,
@@ -76,6 +79,7 @@ class DemoSuppliersTableSeeder extends Seeder
                 'image_path' => 'avatar.png',
                 'created_at' => '2022-04-30 22:40:47',
                 'updated_at' => '2022-04-30 22:40:55',
+                'branch_id' => 1,
             ],
             4 => [
                 'id' => 5,
@@ -91,6 +95,7 @@ class DemoSuppliersTableSeeder extends Seeder
                 'image_path' => 'avatar.png',
                 'created_at' => '2022-04-30 22:41:35',
                 'updated_at' => '2022-04-30 22:41:35',
+                'branch_id' => 1,
             ],
         ]);
     }

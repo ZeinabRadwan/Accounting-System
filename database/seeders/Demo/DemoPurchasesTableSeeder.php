@@ -35,6 +35,7 @@ class DemoPurchasesTableSeeder extends Seeder
                 'supplier_id' => 5,
                 'tax_id' => 2,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             1 => [
                 'id' => 2,
@@ -55,6 +56,7 @@ class DemoPurchasesTableSeeder extends Seeder
                 'supplier_id' => 4,
                 'tax_id' => 2,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             2 => [
                 'id' => 3,
@@ -75,6 +77,7 @@ class DemoPurchasesTableSeeder extends Seeder
                 'supplier_id' => 3,
                 'tax_id' => 2,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             3 => [
                 'id' => 4,
@@ -95,6 +98,7 @@ class DemoPurchasesTableSeeder extends Seeder
                 'supplier_id' => 2,
                 'tax_id' => 3,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             4 => [
                 'id' => 5,
@@ -115,6 +119,7 @@ class DemoPurchasesTableSeeder extends Seeder
                 'supplier_id' => 2,
                 'tax_id' => 2,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
         ]);
     }

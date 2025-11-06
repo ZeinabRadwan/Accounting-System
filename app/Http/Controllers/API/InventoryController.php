@@ -12,6 +12,7 @@ use App\Models\PurchaseProduct;
 use App\Models\PurchaseReturnProduct;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class InventoryController extends Controller
 {
@@ -25,14 +26,26 @@ class InventoryController extends Controller
     // return product inventory
     public function allInventory(Request $request)
     {
-        return ProductResource::collection(Product::with('proSubCategory.category', 'productUnit', 'productTax', 'productBrand')->orderBy('code', 'ASC')->paginate($request->perPage));
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        $query = Product::with('proSubCategory.category', 'productUnit', 'productTax', 'productBrand')
+            ->whereIn('branch_id', $branchIds)
+            ->orderBy('code', 'ASC');
+            
+        return ProductResource::collection($query->paginate($request->perPage));
     }
 
     // search product in inventory
     public function searchInventory(Request $request)
     {
         $term = $request->term;
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
         $query = Product::query();
+        
+        // Apply branch filter
+        $query->whereIn('branch_id', $branchIds);
 
         // Apply search term conditions
         if (!empty($term)) {
@@ -102,11 +115,35 @@ class InventoryController extends Controller
     public function inventoryHistoryByItem($slug)
     {
         try {
-            $product = Product::where('slug', $slug)->with('proSubCategory.category', 'productUnit')->first();
+            $user = Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
+            
+            $product = Product::where('slug', $slug)
+                ->whereIn('branch_id', $branchIds)
+                ->with('proSubCategory.category', 'productUnit')
+                ->first();
+                
+            if (!$product) {
+                return $this->responseWithError('Product not found');
+            }
+            
             // stock ins
-            $purchaseIns = PurchaseProduct::where('product_id', $product->id)->with('purchase.supplier')->get();
-            $invoiceReturnIns = InvoiceReturnProduct::where('product_id', $product->id)->with('invoiceReturn.invoice.client')->get();
-            $adjutmentIns = AdjustmentProduct::where('product_id', $product->id)->where('type', 1)->with('inventoryAdjustment')->get();
+            $purchaseIns = PurchaseProduct::where('product_id', $product->id)
+                ->whereHas('purchase', function($q) use ($branchIds) {
+                    $q->whereIn('branch_id', $branchIds);
+                })
+                ->with('purchase.supplier')->get();
+            $invoiceReturnIns = InvoiceReturnProduct::where('product_id', $product->id)
+                ->whereHas('invoiceReturn', function($q) use ($branchIds) {
+                    $q->whereIn('branch_id', $branchIds);
+                })
+                ->with('invoiceReturn.invoice.client')->get();
+            $adjutmentIns = AdjustmentProduct::where('product_id', $product->id)
+                ->where('type', 1)
+                ->whereHas('inventoryAdjustment', function($q) use ($branchIds) {
+                    $q->whereIn('branch_id', $branchIds);
+                })
+                ->with('inventoryAdjustment')->get();
 
             $stockIns = [];
             // Purchases
@@ -144,9 +181,22 @@ class InventoryController extends Controller
             }
 
             // stock outs
-            $adjutmentOuts = AdjustmentProduct::where('product_id', $product->id)->where('type', 0)->with('inventoryAdjustment')->get();
-            $inventoryOuts = InvoiceProduct::where('product_id', $product->id)->with('invoice.client')->get();
-            $purchaseReturnOuts = PurchaseReturnProduct::where('product_id', $product->id)->with('purchaseReturn.purchase.supplier')->get();
+            $adjutmentOuts = AdjustmentProduct::where('product_id', $product->id)
+                ->where('type', 0)
+                ->whereHas('inventoryAdjustment', function($q) use ($branchIds) {
+                    $q->whereIn('branch_id', $branchIds);
+                })
+                ->with('inventoryAdjustment')->get();
+            $inventoryOuts = InvoiceProduct::where('product_id', $product->id)
+                ->whereHas('invoice', function($q) use ($branchIds) {
+                    $q->whereIn('branch_id', $branchIds);
+                })
+                ->with('invoice.client')->get();
+            $purchaseReturnOuts = PurchaseReturnProduct::where('product_id', $product->id)
+                ->whereHas('purchaseReturn', function($q) use ($branchIds) {
+                    $q->whereIn('branch_id', $branchIds);
+                })
+                ->with('purchaseReturn.purchase.supplier')->get();
 
             $stockOuts = [];
             // Invoice sales
@@ -195,14 +245,26 @@ class InventoryController extends Controller
     // return inventory count data
     public function inventoryCount(Request $request)
     {
-        return ProductResource::collection(Product::with('proSubCategory.category', 'productUnit', 'productTax', 'productBrand')->orderBy('code', 'ASC')->paginate($request->perPage));
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        $query = Product::with('proSubCategory.category', 'productUnit', 'productTax', 'productBrand')
+            ->whereIn('branch_id', $branchIds)
+            ->orderBy('code', 'ASC');
+            
+        return ProductResource::collection($query->paginate($request->perPage));
     }
 
     // search inventory count data
     public function searchInventoryCount(Request $request)
     {
         $term = $request->term;
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
         $query = Product::query();
+        
+        // Apply branch filter
+        $query->whereIn('branch_id', $branchIds);
 
         // Apply search term conditions
         if (!empty($term)) {
@@ -271,11 +333,19 @@ class InventoryController extends Controller
     public function inventoryHistory(Request $request)
     {
         try {
+            $user = Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
             $perPage = $request->perPage ?? 10;
             $history = collect();
 
             // Get all purchase products
             $purchaseProducts = PurchaseProduct::with(['purchase.supplier', 'product'])
+                ->whereHas('purchase', function($q) use ($branchIds) {
+                    $q->whereIn('branch_id', $branchIds);
+                })
+                ->whereHas('product', function($q) use ($branchIds) {
+                    $q->whereIn('branch_id', $branchIds);
+                })
                 ->orderBy('created_at', 'desc')
                 ->get();
 
@@ -296,6 +366,12 @@ class InventoryController extends Controller
 
             // Get all invoice products
             $invoiceProducts = InvoiceProduct::with(['invoice.client', 'product'])
+                ->whereHas('invoice', function($q) use ($branchIds) {
+                    $q->whereIn('branch_id', $branchIds);
+                })
+                ->whereHas('product', function($q) use ($branchIds) {
+                    $q->whereIn('branch_id', $branchIds);
+                })
                 ->orderBy('created_at', 'desc')
                 ->get();
 
@@ -316,6 +392,12 @@ class InventoryController extends Controller
 
             // Get all adjustment products
             $adjustmentProducts = AdjustmentProduct::with(['inventoryAdjustment', 'product'])
+                ->whereHas('inventoryAdjustment', function($q) use ($branchIds) {
+                    $q->whereIn('branch_id', $branchIds);
+                })
+                ->whereHas('product', function($q) use ($branchIds) {
+                    $q->whereIn('branch_id', $branchIds);
+                })
                 ->orderBy('created_at', 'desc')
                 ->get();
 
@@ -339,6 +421,12 @@ class InventoryController extends Controller
 
             // Get all invoice return products
             $invoiceReturnProducts = InvoiceReturnProduct::with(['invoiceReturn.invoice.client', 'product'])
+                ->whereHas('invoiceReturn', function($q) use ($branchIds) {
+                    $q->whereIn('branch_id', $branchIds);
+                })
+                ->whereHas('product', function($q) use ($branchIds) {
+                    $q->whereIn('branch_id', $branchIds);
+                })
                 ->orderBy('created_at', 'desc')
                 ->get();
 
@@ -359,6 +447,12 @@ class InventoryController extends Controller
 
             // Get all purchase return products
             $purchaseReturnProducts = PurchaseReturnProduct::with(['purchaseReturn.purchase.supplier', 'product'])
+                ->whereHas('purchaseReturn', function($q) use ($branchIds) {
+                    $q->whereIn('branch_id', $branchIds);
+                })
+                ->whereHas('product', function($q) use ($branchIds) {
+                    $q->whereIn('branch_id', $branchIds);
+                })
                 ->orderBy('created_at', 'desc')
                 ->get();
 
@@ -440,10 +534,17 @@ class InventoryController extends Controller
     {
         $history = collect();
 
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
         // Get all purchase products
         $purchaseQuery = PurchaseProduct::with(['purchase.supplier', 'product'])
-            ->whereHas('purchase')
-            ->whereHas('product')
+            ->whereHas('purchase', function($q) use ($branchIds) {
+                $q->whereIn('branch_id', $branchIds);
+            })
+            ->whereHas('product', function($q) use ($branchIds) {
+                $q->whereIn('branch_id', $branchIds);
+            })
             ->whereHas('purchase.supplier');
         if (!empty($term)) {
             $purchaseQuery->whereHas('product', function($q) use ($term) {
@@ -488,8 +589,12 @@ class InventoryController extends Controller
 
         // Get all invoice products
         $invoiceQuery = InvoiceProduct::with(['invoice.client', 'product'])
-            ->whereHas('invoice')
-            ->whereHas('product')
+            ->whereHas('invoice', function($q) use ($branchIds) {
+                $q->whereIn('branch_id', $branchIds);
+            })
+            ->whereHas('product', function($q) use ($branchIds) {
+                $q->whereIn('branch_id', $branchIds);
+            })
             ->whereHas('invoice.client');
         if (!empty($term)) {
             $invoiceQuery->whereHas('product', function($q) use ($term) {
@@ -534,8 +639,12 @@ class InventoryController extends Controller
 
         // Get all adjustment products
         $adjustmentQuery = AdjustmentProduct::with(['inventoryAdjustment', 'product'])
-            ->whereHas('inventoryAdjustment')
-            ->whereHas('product');
+            ->whereHas('inventoryAdjustment', function($q) use ($branchIds) {
+                $q->whereIn('branch_id', $branchIds);
+            })
+            ->whereHas('product', function($q) use ($branchIds) {
+                $q->whereIn('branch_id', $branchIds);
+            });
         if (!empty($term)) {
             $adjustmentQuery->whereHas('product', function($q) use ($term) {
                 $q->where('name', 'LIKE', '%' . $term . '%')
@@ -584,8 +693,12 @@ class InventoryController extends Controller
 
         // Get all invoice return products
         $invoiceReturnQuery = InvoiceReturnProduct::with(['invoiceReturn.invoice.client', 'product'])
-            ->whereHas('invoiceReturn')
-            ->whereHas('product')
+            ->whereHas('invoiceReturn', function($q) use ($branchIds) {
+                $q->whereIn('branch_id', $branchIds);
+            })
+            ->whereHas('product', function($q) use ($branchIds) {
+                $q->whereIn('branch_id', $branchIds);
+            })
             ->whereHas('invoiceReturn.invoice')
             ->whereHas('invoiceReturn.invoice.client');
         if (!empty($term)) {
@@ -632,8 +745,12 @@ class InventoryController extends Controller
 
         // Get all purchase return products
         $purchaseReturnQuery = PurchaseReturnProduct::with(['purchaseReturn.purchase.supplier', 'product'])
-            ->whereHas('purchaseReturn')
-            ->whereHas('product')
+            ->whereHas('purchaseReturn', function($q) use ($branchIds) {
+                $q->whereIn('branch_id', $branchIds);
+            })
+            ->whereHas('product', function($q) use ($branchIds) {
+                $q->whereIn('branch_id', $branchIds);
+            })
             ->whereHas('purchaseReturn.purchase')
             ->whereHas('purchaseReturn.purchase.supplier');
         if (!empty($term)) {
@@ -680,5 +797,11 @@ class InventoryController extends Controller
 
         // Sort by operation date descending
         return $history->sortByDesc('operation_date');
+    }
+    
+    private function getUserBranchIds($user)
+    {
+        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        return [$defaultBranchId > 0 ? $defaultBranchId : 0];
     }
 }

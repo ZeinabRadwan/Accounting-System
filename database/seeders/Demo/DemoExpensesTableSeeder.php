@@ -29,6 +29,7 @@ class DemoExpensesTableSeeder extends Seeder
                 'sub_cat_id' => 2,
                 'transaction_id' => 8,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             1 => [
                 'id' => 2,
@@ -43,6 +44,7 @@ class DemoExpensesTableSeeder extends Seeder
                 'sub_cat_id' => 1,
                 'transaction_id' => 9,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
         ]);
     }

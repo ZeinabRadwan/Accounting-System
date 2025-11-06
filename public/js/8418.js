@@ -1,5 +1,127 @@
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[8418],{
 
+/***/ 72913:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".user-profile img{border-radius:100%;height:40px;width:40px}.user-profile{justify-content:center;padding:0}.dropdown-icon-center,.user-profile{align-items:center;display:flex}.dropdown-icon-center svg{margin-right:4px}body{top:0!important}body>.skiptranslate>iframe.skiptranslate{display:none!important}.country-list img{border-radius:100%}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 33802:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_11_use_1_sass_template_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89932);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;500;600;700&display=swap);"]);
+___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_11_use_1_sass_template_scss__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A);
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 89932:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4417);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _public_images_template_hero_bg_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(59458);
+/* harmony import */ var _public_images_template_hero_bg_png__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_public_images_template_hero_bg_png__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _public_images_template_start_bg_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(91972);
+/* harmony import */ var _public_images_template_start_bg_png__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_public_images_template_start_bg_png__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _public_images_template_ef_bg_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(67549);
+/* harmony import */ var _public_images_template_ef_bg_png__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_public_images_template_ef_bg_png__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _public_images_template_footer_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(70145);
+/* harmony import */ var _public_images_template_footer_png__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_public_images_template_footer_png__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _public_images_template_testimonial_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(44063);
+/* harmony import */ var _public_images_template_testimonial_png__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_public_images_template_testimonial_png__WEBPACK_IMPORTED_MODULE_6__);
+// Imports
+
+
+
+
+
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()((_public_images_template_hero_bg_png__WEBPACK_IMPORTED_MODULE_2___default()));
+var ___CSS_LOADER_URL_REPLACEMENT_1___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()((_public_images_template_start_bg_png__WEBPACK_IMPORTED_MODULE_3___default()));
+var ___CSS_LOADER_URL_REPLACEMENT_2___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()((_public_images_template_ef_bg_png__WEBPACK_IMPORTED_MODULE_4___default()));
+var ___CSS_LOADER_URL_REPLACEMENT_3___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()((_public_images_template_footer_png__WEBPACK_IMPORTED_MODULE_5___default()));
+var ___CSS_LOADER_URL_REPLACEMENT_4___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()((_public_images_template_testimonial_png__WEBPACK_IMPORTED_MODULE_6___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".landing {\r\n  font-family: \"Noto Sans Bengali\", \"Kumbh Sans\", sans-serif, Helvetica, Arial;\r\n  color: #1B1B1C;\r\n  font-size: 16px;\r\n  background-color: #fff;\r\n}\r\n.landing .nav-item{\r\n  font-size: 16px;\r\n  font-weight: 400;\r\n}\r\n\r\n.landing p {\r\n  font-family: \"Noto Sans Bengali\", \"Kumbh Sans\", sans-serif, Helvetica, Arial;\r\n  color: #1B1B1C;\r\n}\r\n\r\n.landing img {\r\n  max-width: 100%;\r\n}\r\n\r\n.landing h3 {\r\n  font-size: 2rem;\r\n  font-weight: 600;\r\n  margin-bottom: 15px;\r\n}\r\n\r\n\r\n.landing .navbar-brand img {\r\n  max-width: 150px;\r\n}\r\n\r\n.navbar-nav a{\r\n  font-weight: 500;\r\n}\r\n\r\n.hero-area {\r\n  height: 100vh;\r\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\r\n  background-repeat: no-repeat;\r\n  background-position: top right;\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n.nabar {\r\n  transition: .5s;\r\n}\r\n\r\n\r\n\r\n.menu-bg {\r\n  background: rgba(255, 255, 255, 0.75);\r\n  box-shadow: 0 8px 32px 0 rgb(31 38 135 / 27%);\r\n  backdrop-filter: blur(20px);\r\n  -webkit-backdrop-filter: blur(4px);\r\n  transition: .5s;\r\n  z-index: 999;\r\n}\r\n\r\n.nav-link {\r\n  color: #1B1B1C;\r\n}\r\n\r\nli.nav-item.active .nav-link {\r\n  color: #3865F2;\r\n}\r\n\r\n.hero-area h5 {\r\n  color: #3865f2;\r\n}\r\n\r\n.hero-area h2 {\r\n  color: #1B1B1C;\r\n  font-size: 4rem;\r\n  font-weight: 700;\r\n  margin: 0px 0px 25px;\r\n}\r\n\r\n\r\n.hero-area p {\r\n  font-size: 21px;\r\n}\r\n\r\n.hero-btn a {\r\n  margin-top: 20px;\r\n  border: 2px solid #3865f2;\r\n  padding: 12px 25px;\r\n  border-radius: 7px;\r\n  display: inline-block;\r\n  font-weight: 600;\r\n  color: #3865f2;\r\n  font-size: 16px;\r\n}\r\n\r\n.hero-btn a:first-child {\r\n  margin-right: 20px;\r\n}\r\n\r\n.hero-btn a:last-child {\r\n  background: #3865f2;\r\n  color: #fff;\r\n}\r\n\r\n\r\n.section {\r\n  padding: 100px 0px;\r\n}\r\n\r\n.section-heading {\r\n  position: relative;\r\n}\r\n\r\n.section-heading h5 {\r\n  font-size: 5rem;\r\n  text-transform: uppercase;\r\n  opacity: 0.15;\r\n  text-shadow: 1px 0 0 #3865f25e, -1px 0 0 #3865f25e, 0 1px 0 #3865f25e, 0 -1px 0 #3865f25e, 1px 1px #3865f25e, -1px -1px 0 #3865f25e, 1px -1px 0 #3865f25e, -1px 1px 0 #0000003b;\r\n  color: #fff;\r\n  font-family: initial;\r\n}\r\n\r\n.section-heading p {\r\n  position: absolute;\r\n  bottom: 0;\r\n  color: #3865F2;\r\n  font-weight: 500;\r\n  font-size: 24px;\r\n  font-family: \"Noto Sans Bengali\", \"Kumbh Sans\", sans-serif, Helvetica, Arial;\r\n}\r\n\r\n\r\n.single-ws {\r\n  background: #FFFFFF;\r\n  box-shadow: 0px 8px 16px rgb(0 0 0 / 20%);\r\n  border-radius: 10px;\r\n  padding: 20px;\r\n}\r\n\r\n.single-ws h4 {\r\n  font-size: 1.3rem;\r\n  font-weight: 800;\r\n}\r\n\r\n\r\n.single-ws img {\r\n  width: 35px;\r\n  margin-bottom: 15px;\r\n}\r\n\r\n.why-content {\r\n  grid-template-columns: 1fr 1fr;\r\n  display: grid;\r\n  grid-gap: 22px;\r\n  position: relative;\r\n}\r\n\r\n.why-content:after {\r\n  content: \"\";\r\n  position: absolute;\r\n  width: 200px;\r\n  height: 200px;\r\n  border-radius: 100%;\r\n  top: 50%;\r\n  background: rgba(212, 236, 255, 0.7);\r\n  margin-top: -100px;\r\n  left: 50%;\r\n  margin-left: -100px;\r\n  z-index: -1;\r\n}\r\n\r\n.single-ws p {\r\n  line-height: 24px;\r\n  font-size: 16px;\r\n  color: #505050;\r\n}\r\n\r\n.support-list {\r\n  margin: 0;\r\n  padding: 0;\r\n  list-style: none;\r\n}\r\n\r\n.support-list {\r\n  margin: 0;\r\n  padding: 0;\r\n  list-style: none;\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n.support-list li svg {\r\n  width: 20px;\r\n}\r\n\r\n#business-start {\r\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ");\r\n  background-repeat: no-repeat;\r\n  background-position: top center;\r\n  padding-top: 150px;\r\n  background-size: cover;\r\n  padding-bottom: 190px;\r\n}\r\n\r\n.support-list li {\r\n  margin-right: 15px;\r\n}\r\n\r\n.main-service {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr;\r\n  grid-gap: 15px;\r\n}\r\n\r\n.single-ms {\r\n  text-align: center;\r\n  box-shadow: 0px 10px 20px rgb(0 0 0 / 15%);\r\n  padding: 30px 20px;\r\n  border-radius: 5px;\r\n}\r\n\r\n.single-ms img {\r\n  width: 50px;\r\n  margin-bottom: 10px;\r\n}\r\n\r\n.single-ms h4 {\r\n  font-family: \"Noto Sans Bengali\", \"Kumbh Sans\", sans-serif, Helvetica, Arial;\r\n}\r\n\r\n.about-content ul {\r\n  margin: 20px 0 0 0px;\r\n  padding: 20px 0 0 0;\r\n  list-style: none;\r\n  font-family: \"Noto Sans Bengali\", \"Kumbh Sans\", sans-serif, Helvetica, Arial;\r\n  font-size: 18px;\r\n  border-top: 1px solid #ddd;\r\n}\r\n\r\n.about-btm {\r\n  padding-bottom: 100px;\r\n}\r\n\r\n\r\n#core-modules {\r\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ");\r\n  background-repeat: no-repeat;\r\n  background-position: top center;\r\n  padding-top: 150px;\r\n  background-size: cover;\r\n  padding-bottom: 180px;\r\n}\r\n\r\n.sec-heading {\r\n  text-align: center;\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.sec-heading span {\r\n  color: #3865f2;\r\n}\r\n\r\n.single-extra-feature {\r\n  background: #fff;\r\n  padding: 20px 20px;\r\n  box-shadow: 0px 0px 1px rgb(56 101 242 / 20%);\r\n  border-radius: 6px;\r\n  margin-bottom: 15px;\r\n  min-height: 18rem;\r\n  max-height: 18rem;\r\n}\r\n\r\n.single-extra-feature img {\r\n  width: 45px;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n.single-extra-feature p {\r\n  font-family: \"Noto Sans Bengali\", \"Kumbh Sans\", sans-serif, Helvetica, Arial;\r\n  font-size: 18px;\r\n  line-height: 28px;\r\n  color: #1b1b1cbd;\r\n}\r\n\r\n\r\n.cta-band {\r\n  background: #fff;\r\n  padding: 25px 30px;\r\n  border-radius: 10px;\r\n  box-shadow: 0px 10px 20px rgb(0 0 0 / 15%);\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  margin-top: -80px;\r\n}\r\n\r\n.cta-band p {\r\n  margin-bottom: 0px;\r\n}\r\n\r\n.cta-band > div {\r\n  padding-right: 20px;\r\n}\r\n\r\n.cta-band a {\r\n  white-space: nowrap;\r\n  padding: 15px 20px;\r\n}\r\n\r\n\r\n.carousel-3d-slide {\r\n  background-color: transparent !important;\r\n  border: none !important;\r\n  overflow: inherit !important;\r\n}\r\n\r\n.pricing-single {\r\n  box-shadow: 0px 10px 20px rgb(0 0 0 / 15%);\r\n  border-radius: 10px 10px 0px 0px;\r\n  padding: 25px;\r\n  margin-bottom: 25px;\r\n}\r\n\r\n.pricing-head {\r\n  text-align: center;\r\n}\r\n\r\n.pricing-head p {\r\n  font-size: 18px;\r\n  line-height: 28px;\r\n  margin-bottom: 0;\r\n}\r\n\r\n.price {\r\n  text-align: center;\r\n  margin: 20px 0px;\r\n  position: relative;\r\n}\r\n\r\n.price:after {\r\n  position: absolute;\r\n  content: \"\";\r\n  width: 100%;\r\n  height: 1px;\r\n  background: #1B1B1C;\r\n  left: 0;\r\n  top: 70px;\r\n}\r\n\r\n.price h4 {\r\n  font-weight: 700;\r\n  font-size: 36px;\r\n  line-height: 46px;\r\n  color: #3865F2;\r\n}\r\n\r\n.price p {\r\n  font-weight: 700;\r\n  font-size: 20px;\r\n  line-height: 27px;\r\n  font-family: \"Noto Sans Bengali\", \"Kumbh Sans\", sans-serif, Helvetica, Arial;\r\n  position: relative;\r\n  display: inline-block;\r\n  background: #Fff !important;\r\n  padding: 0px 8px;\r\n  z-index: 9;\r\n}\r\n\r\n\r\n.price-item ul {\r\n  margin: 0;\r\n  padding: 0;\r\n  list-style: none;\r\n}\r\n\r\n.price-item ul li {\r\n  font-size: 16px;\r\n  font-family: \"Noto Sans Bengali\", \"Kumbh Sans\", sans-serif, Helvetica, Arial;\r\n  margin-bottom: 10px;\r\n}\r\n\r\n.price-item a {\r\n  background: #3865F2;\r\n  border: 1px solid #3865F2;\r\n  border-radius: 5px;\r\n  padding: 8px 20px;\r\n  color: #fff;\r\n  margin-top: 22px;\r\n  display: block;\r\n  text-align: center;\r\n  transition: .4s;\r\n}\r\n\r\n\r\n.price-item a:hover {\r\n  background: #fff;\r\n  color: #3865F2 !important;\r\n\r\n}\r\n\r\n\r\n.testimonial-single {\r\n  box-shadow: 0px 10px 20px rgb(0 0 0 / 20%);\r\n  border-radius: 0px 10px 10px 0px;\r\n  background: #fff;\r\n}\r\n\r\n\r\n#newsletter {\r\n  margin-bottom: -80px;\r\n  position: relative;\r\n}\r\n\r\n\r\n.newsletter-inner {\r\n  background: #3865F2;\r\n  box-shadow: 0px 20px 40px rgb(0 0 0 / 20%);\r\n  border-radius: 10px;\r\n  padding: 30px;\r\n}\r\n\r\n.newsletter-left h2 {\r\n  font-weight: 700;\r\n  font-size: 2rem;\r\n  color: #fff;\r\n}\r\n\r\n.newsletter-left p {\r\n  margin-bottom: 0px;\r\n  font-size: 16px;\r\n  line-height: 24px;\r\n  color: #fff !important;\r\n}\r\n\r\n.newsletter-right {\r\n  position: relative;\r\n}\r\n\r\n.newsletter-right input {\r\n  background: #FFFFFF;\r\n  border-radius: 10px;\r\n  width: 100%;\r\n  border: none;\r\n  padding: 10px 20px;\r\n}\r\n\r\n.newsletter-right button {\r\n  background: #000;\r\n  position: absolute;\r\n  right: 0;\r\n  top: 0px;\r\n  padding: 2px 19px;\r\n  height: 100%;\r\n  border-top-right-radius: 10px;\r\n  border-bottom-right-radius: 10px;\r\n}\r\n\r\n.newsletter-right button img {\r\n  max-width: 25px;\r\n}\r\n\r\n#footer {\r\n  background: url(" + ___CSS_LOADER_URL_REPLACEMENT_3___ + ") center no-repeat;\r\n  background-size: cover;\r\n  background-position: center top;\r\n  padding-top: 180px;\r\n}\r\n\r\n.footer-single img {\r\n  max-width: 150px;\r\n  margin-bottom: 15px;\r\n}\r\n\r\n.footer-single {\r\n  font-weight: 400;\r\n  font-size: 18px;\r\n  line-height: 26px;\r\n}\r\n\r\n\r\n.footer-single h4 {\r\n  font-weight: 600;\r\n  font-size: 24px;\r\n  line-height: 43px;\r\n}\r\n\r\n\r\n.footer-single ul {\r\n  margin: 0;\r\n  padding: 0;\r\n  list-style: none;\r\n}\r\n\r\n.footer-single ul li {\r\n  margin-bottom: 5px;\r\n}\r\n\r\n.footer-single p,\r\n.footer-single ul li a {\r\n  color: #1B1B1C;\r\n  font-family: \"Noto Sans Bengali\", \"Kumbh Sans\", sans-serif, Helvetica, Arial;\r\n  display: flex;\r\n}\r\n\r\n\r\n.footer-single ul li a img,\r\n.footer-single ul li a svg {\r\n  margin-top: 2px;\r\n  margin-right: 4px;\r\n}\r\n\r\n\r\n.footer-social {\r\n  margin-top: 15px;\r\n}\r\n\r\n.footer-social a {\r\n  width: 40px;\r\n  height: 40px;\r\n  background: #3865f2;\r\n  display: inline-block;\r\n  text-align: center;\r\n  line-height: 35px;\r\n  border-radius: 100%;\r\n}\r\n\r\n.footer-btm {\r\n  text-align: center;\r\n  border-top: 1px solid #3865f21c;\r\n  margin-top: 50px;\r\n  padding-bottom: 30px;\r\n  padding-top: 30px;\r\n}\r\n\r\n#testimonial-area {\r\n  background-size: cover;\r\n  background: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ") no-repeat center bottom;\r\n  padding-bottom: 200px;\r\n  margin-bottom: 100px;\r\n}\r\n\r\n\r\n#testimonial-area .carousel-3d-slide {\r\n  box-shadow: none !important;\r\n}\r\n\r\n.testimonial-single {\r\n  max-width: 93%;\r\n}\r\n\r\n.testimonial-single > div {\r\n  text-align: center;\r\n  padding: 15px 15px 25px 15px;\r\n  border: 1px solid aliceblue !important;\r\n  border-left: 6px solid #007bff !important;\r\n  height: auto !important;\r\n  box-shadow: 0px 2px 4px rgb(0 0 0 / 20%) !important;\r\n  border-radius: 0px 10px 10px 0px;\r\n  background: #fff !important;\r\n}\r\n\r\n.testimonial-single img {\r\n  width: 50px !important;\r\n  height: 50px !important;\r\n  position: absolute;\r\n  right: 43%;\r\n  margin-top: -20px;\r\n}\r\n\r\n.testimonial-single span {\r\n  text-transform: uppercase;\r\n  font-weight: 800;\r\n  font-size: 16px;\r\n}\r\n\r\n.testimonial-single p {\r\n  margin-top: 8px;\r\n  font-family: \"Noto Sans Bengali\", \"Kumbh Sans\", sans-serif, Helvetica, Arial;\r\n  font-size: 15px;\r\n  color: #626262;\r\n}\r\n\r\n\r\n@media only screen and (max-width: 767px) {\r\n  .navbar-toggler {\r\n    width: 40px;\r\n    height: 40px;\r\n    border: 1px solid #3865f2;\r\n    border-radius: 100%;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: #3884f8;\r\n    background: #3865f270;\r\n  }\r\n\r\n  .navbar-collapse {\r\n    background: rgba(255, 255, 255, 0.75);\r\n    box-shadow: 0 8px 32px 0 rgb(31 38 135 / 27%);\r\n    backdrop-filter: blur(20px);\r\n    padding: 7px 15px;\r\n  }\r\n\r\n  .menu-bg .navbar-collapse {\r\n    background: transparent;\r\n    box-shadow: none !important;\r\n    backdrop-filter: inherit;\r\n    padding: 0;\r\n  }\r\n\r\n  .hero-area {\r\n    height: auto;\r\n    padding: 140px 0px;\r\n    background: #D4ECFF;\r\n  }\r\n\r\n\r\n  #about-us {\r\n    padding-bottom: 0px;\r\n  }\r\n\r\n  #why-us {\r\n    padding-top: 0px;\r\n  }\r\n\r\n\r\n  .about-content {\r\n    padding-bottom: 30px;\r\n  }\r\n\r\n  .about-right {\r\n    margin-top: 70px;\r\n    margin-bottom: 40px;\r\n  }\r\n\r\n  .bs-left {\r\n      margin-top: 40px;\r\n  }\r\n\r\n  #business-start {\r\n    padding-top: 100px;\r\n    padding-bottom: 0;\r\n  }\r\n\r\n  .main-service {\r\n    grid-template-columns: 1fr 1fr;\r\n  }\r\n\r\n  #features {\r\n    padding-bottom: 0;\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n  }\r\n\r\n  .sm-col-reverse {\r\n    flex-direction: column-reverse;\r\n  }\r\n\r\n  .about-btm {\r\n    padding-bottom: 50px;\r\n  }\r\n\r\n  #business-need {\r\n    padding-bottom: 0px;\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n  }\r\n\r\n  #extra-featrues {\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n  }\r\n\r\n  .cta-band {\r\n    display: block;\r\n  }\r\n\r\n  .cta-band a {\r\n    display: block;\r\n    margin-top: 17px;\r\n  }\r\n\r\n  #pricing-area {\r\n    padding-top: 0px;\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n  }\r\n\r\n  .pricing-single {\r\n    margin-bottom: 30px;\r\n  }\r\n\r\n  #testimonial-area {\r\n    padding-top: 0;\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n  }\r\n\r\n  #newsletter {\r\n    padding-top: 0;\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n  }\r\n\r\n  .newsletter-right {\r\n    margin-top: 25px;\r\n  }\r\n\r\n  #footer {\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n  }\r\n\r\n  .why-content{\r\n    grid-template-columns: 1fr;\r\n  }\r\n\r\n  #business-start .col-md-6 img {\r\n      margin-bottom: 70px;\r\n  }\r\n}\r\n\r\n\r\n\r\n@media only screen and (max-width: 575px){\r\n  #why-us,\r\n  #about-us,\r\n  .hero-area,\r\n  .navbar{\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n  }\r\n\r\n  .hero-area h5 {\r\n    font-size: 15px;\r\n  }\r\n\r\n  .hero-area h2 {\r\n    font-size: 3rem;\r\n    margin: 0px 0px 10px;\r\n  }\r\n\r\n  .hero-btn a {\r\n    margin-top: 10px;\r\n    border: 1px solid #3865f2;\r\n    padding: 6px 20px;\r\n    display: inline-block;\r\n    font-weight: 400;\r\n    font-size: 14px;\r\n  }\r\n\r\n  .section-heading h5 {\r\n    font-size: 4rem;\r\n  }\r\n  .section-heading p {\r\n    bottom: -8px;\r\n    font-size: 18px;\r\n  }\r\n  .landing h3{\r\n    font-size: 1.5rem;\r\n  }\r\n\r\n  .pricing-head h2 {\r\n      font-size: 20px;\r\n      font-weight: bold;\r\n  }\r\n\r\n  .support-list {\r\n      display: block;\r\n  }\r\n\r\n\r\n  .support-list li{\r\n    margin-bottom: 10px;\r\n  }\r\n\r\n  #business-need .about-btm:nth-child(even) .row {\r\n      flex-direction: column-reverse !important;\r\n  }\r\n\r\n  #core-modules {\r\n      background-position: right;\r\n      padding-top: 130px;\r\n      padding-bottom: 124px;\r\n  }\r\n\r\n  #testimonial-area {\r\n    padding-top: 60px;\r\n  }\r\n\r\n  .footer-single {\r\n      margin-top: 30px;\r\n  }\r\n\r\n  .newsletter-left h2 {\r\n      font-size: 2rem;\r\n  }\r\n\r\n  .newsletter-left p {\r\n      font-size: 19px;\r\n  }\r\n\r\n  .price p {\r\n      font-weight: 300;\r\n  }\r\n\r\n}\r\n\r\n\r\n\r\n\r\n@media only screen and (max-width: 410px){\r\n  .main-service {\r\n      grid-template-columns: 1fr;\r\n  }\r\n\r\n\r\n}\r\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 67549:
+/***/ ((module) => {
+
+module.exports = "/images/ef-bg.png?fcd77c1e553ad17555547c921399df38";
+
+/***/ }),
+
+/***/ 70145:
+/***/ ((module) => {
+
+module.exports = "/images/footer.png?a90bbdc68a3fa7640541561f054a04f8";
+
+/***/ }),
+
+/***/ 59458:
+/***/ ((module) => {
+
+module.exports = "/images/hero-bg.png?268911e75ffad2695a2cffd994f2790b";
+
+/***/ }),
+
+/***/ 91972:
+/***/ ((module) => {
+
+module.exports = "/images/start-bg.png?f6954f00074950281e75efd945d06130";
+
+/***/ }),
+
+/***/ 44063:
+/***/ ((module) => {
+
+module.exports = "/images/testimonial.png?ab9f81d50eb5368e321f13dd89c8b43b";
+
+/***/ }),
+
 /***/ 3516:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -10,7 +132,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ Footer)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/template/Footer.vue?vue&type=template&id=56689575
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/template/Footer.vue?vue&type=template&id=56689575
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -280,11 +402,11 @@ var staticRenderFns = [];
 
 // EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
 var vuex_esm = __webpack_require__(95353);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/template/Footer.vue?vue&type=script&lang=js
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/template/Footer.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
@@ -293,11 +415,11 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
   // Map Getters
   computed: _objectSpread({}, (0,vuex_esm/* mapGetters */.L8)('operations', ['appInfo']))
 });
-;// ./resources/js/components/template/Footer.vue?vue&type=script&lang=js
+;// CONCATENATED MODULE: ./resources/js/components/template/Footer.vue?vue&type=script&lang=js
  /* harmony default export */ const template_Footervue_type_script_lang_js = (Footervue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/template/Footer.vue
+;// CONCATENATED MODULE: ./resources/js/components/template/Footer.vue
 
 
 
@@ -320,192 +442,6 @@ var component = (0,componentNormalizer/* default */.A)(
 
 /***/ }),
 
-/***/ 33802:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_11_use_1_sass_template_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89932);
-// Imports
-
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;500;600;700&display=swap);"]);
-___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_11_use_1_sass_template_scss__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A);
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, "", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 44063:
-/***/ ((module) => {
-
-module.exports = "/images/testimonial.png?ab9f81d50eb5368e321f13dd89c8b43b";
-
-/***/ }),
-
-/***/ 58418:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ show)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/template/pages/show.vue?vue&type=template&id=515847c4&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "landing"
-  }, [_c('template-nav'), _vm._v(" "), _c('section', {
-    staticClass: "section"
-  }, [_c('div', {
-    staticClass: "container"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('h3', {
-    staticClass: "text-center"
-  }, [_vm._v("\n            " + _vm._s(_vm.name) + "\n          ")]), _vm._v(" "), _c('div', {
-    staticClass: "content",
-    domProps: {
-      "innerHTML": _vm._s(_vm.content && _vm.content)
-    }
-  })])])])]), _vm._v(" "), _c('template-footer')], 1);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./resources/js/components/template/Navbar.vue + 6 modules
-var Navbar = __webpack_require__(60142);
-// EXTERNAL MODULE: ./resources/js/components/template/Footer.vue + 3 modules
-var Footer = __webpack_require__(3516);
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/template/pages/show.vue?vue&type=script&lang=js
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-
-
-
-/* harmony default export */ const showvue_type_script_lang_js = ({
-  layout: "template",
-  metaInfo: function metaInfo() {
-    return {
-      title: this.$t("Dashboard")
-    };
-  },
-  components: {
-    TemplateNav: Navbar/* default */.A,
-    TemplateFooter: Footer/* default */.A
-  },
-  beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
-    next();
-    this.getData();
-  },
-  data: function data() {
-    return {
-      name: "",
-      content: ""
-    };
-  },
-  mounted: function mounted() {
-    this.getData();
-  },
-  methods: {
-    getData: function getData() {
-      var _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.n) {
-            case 0:
-              _context.n = 1;
-              return axios_default().get(window.location.origin + "/api/pages-by-slug/" + _this.$route.params.slug).then(function (_ref) {
-                var data = _ref.data;
-                _this.content = data.data.content;
-                _this.name = data.data.name;
-              })["catch"](function (error) {
-                console.log(error);
-              });
-            case 1:
-              return _context.a(2);
-          }
-        }, _callee);
-      }))();
-    }
-  }
-});
-;// ./resources/js/pages/central/template/pages/show.vue?vue&type=script&lang=js
- /* harmony default export */ const pages_showvue_type_script_lang_js = (showvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/template/pages/show.vue?vue&type=style&index=0&id=515847c4&prod&scoped=true&lang=css
-var showvue_type_style_index_0_id_515847c4_prod_scoped_true_lang_css = __webpack_require__(33802);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/template/pages/show.vue?vue&type=style&index=0&id=515847c4&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(showvue_type_style_index_0_id_515847c4_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const pages_showvue_type_style_index_0_id_515847c4_prod_scoped_true_lang_css = (showvue_type_style_index_0_id_515847c4_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/central/template/pages/show.vue?vue&type=style&index=0&id=515847c4&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/central/template/pages/show.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  pages_showvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "515847c4",
-  null
-  
-)
-
-/* harmony default export */ const show = (component.exports);
-
-/***/ }),
-
-/***/ 59458:
-/***/ ((module) => {
-
-module.exports = "/images/hero-bg.png?268911e75ffad2695a2cffd994f2790b";
-
-/***/ }),
-
 /***/ 60142:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -516,7 +452,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ Navbar)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/template/Navbar.vue?vue&type=template&id=55387c0b
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/template/Navbar.vue?vue&type=template&id=55387c0b
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -711,19 +647,18 @@ var staticRenderFns = [function () {
   })]);
 }];
 
-;// ./resources/js/components/template/Navbar.vue?vue&type=template&id=55387c0b
+;// CONCATENATED MODULE: ./resources/js/components/template/Navbar.vue?vue&type=template&id=55387c0b
 
 // EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
 var vuex_esm = __webpack_require__(95353);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/template/Navbar.vue?vue&type=script&lang=js
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/template/Navbar.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
@@ -879,19 +814,20 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     },
     logout: function logout() {
       var _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.n) {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
             case 0:
-              _context.n = 1;
+              _context.next = 2;
               return _this.$store.dispatch('auth/logout');
-            case 1:
+            case 2:
               // Redirect to login.
               _this.$router.push({
                 name: 'login'
               });
-            case 2:
-              return _context.a(2);
+            case 3:
+            case "end":
+              return _context.stop();
           }
         }, _callee);
       }))();
@@ -904,14 +840,14 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     window.removeEventListener('scroll', this.handleSCroll);
   }
 });
-;// ./resources/js/components/template/Navbar.vue?vue&type=script&lang=js
+;// CONCATENATED MODULE: ./resources/js/components/template/Navbar.vue?vue&type=script&lang=js
  /* harmony default export */ const template_Navbarvue_type_script_lang_js = (Navbarvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
 // EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/template/Navbar.vue?vue&type=style&index=0&id=55387c0b&prod&lang=css
 var Navbarvue_type_style_index_0_id_55387c0b_prod_lang_css = __webpack_require__(72913);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/template/Navbar.vue?vue&type=style&index=0&id=55387c0b&prod&lang=css
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/template/Navbar.vue?vue&type=style&index=0&id=55387c0b&prod&lang=css
 
             
 
@@ -925,11 +861,11 @@ var update = injectStylesIntoStyleTag_default()(Navbarvue_type_style_index_0_id_
 
 
 /* harmony default export */ const template_Navbarvue_type_style_index_0_id_55387c0b_prod_lang_css = (Navbarvue_type_style_index_0_id_55387c0b_prod_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/template/Navbar.vue?vue&type=style&index=0&id=55387c0b&prod&lang=css
+;// CONCATENATED MODULE: ./resources/js/components/template/Navbar.vue?vue&type=style&index=0&id=55387c0b&prod&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/template/Navbar.vue
+;// CONCATENATED MODULE: ./resources/js/components/template/Navbar.vue
 
 
 
@@ -953,87 +889,152 @@ var component = (0,componentNormalizer/* default */.A)(
 
 /***/ }),
 
-/***/ 67549:
-/***/ ((module) => {
-
-module.exports = "/images/ef-bg.png?fcd77c1e553ad17555547c921399df38";
-
-/***/ }),
-
-/***/ 70145:
-/***/ ((module) => {
-
-module.exports = "/images/footer.png?a90bbdc68a3fa7640541561f054a04f8";
-
-/***/ }),
-
-/***/ 72913:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
+/***/ 58418:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
 
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".user-profile img{border-radius:100%;height:40px;width:40px}.user-profile{justify-content:center;padding:0}.dropdown-icon-center,.user-profile{align-items:center;display:flex}.dropdown-icon-center svg{margin-right:4px}body{top:0!important}body>.skiptranslate>iframe.skiptranslate{display:none!important}.country-list img{border-radius:100%}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ show)
+});
 
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/template/pages/show.vue?vue&type=template&id=515847c4&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "landing"
+  }, [_c('template-nav'), _vm._v(" "), _c('section', {
+    staticClass: "section"
+  }, [_c('div', {
+    staticClass: "container"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('h3', {
+    staticClass: "text-center"
+  }, [_vm._v("\n            " + _vm._s(_vm.name) + "\n          ")]), _vm._v(" "), _c('div', {
+    staticClass: "content",
+    domProps: {
+      "innerHTML": _vm._s(_vm.content && _vm.content)
+    }
+  })])])])]), _vm._v(" "), _c('template-footer')], 1);
+};
+var staticRenderFns = [];
 
-/***/ }),
-
-/***/ 89932:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4417);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _public_images_template_hero_bg_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(59458);
-/* harmony import */ var _public_images_template_hero_bg_png__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_public_images_template_hero_bg_png__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _public_images_template_start_bg_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(91972);
-/* harmony import */ var _public_images_template_start_bg_png__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_public_images_template_start_bg_png__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _public_images_template_ef_bg_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(67549);
-/* harmony import */ var _public_images_template_ef_bg_png__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_public_images_template_ef_bg_png__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _public_images_template_footer_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(70145);
-/* harmony import */ var _public_images_template_footer_png__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_public_images_template_footer_png__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _public_images_template_testimonial_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(44063);
-/* harmony import */ var _public_images_template_testimonial_png__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_public_images_template_testimonial_png__WEBPACK_IMPORTED_MODULE_6__);
-// Imports
-
-
-
-
-
-
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()((_public_images_template_hero_bg_png__WEBPACK_IMPORTED_MODULE_2___default()));
-var ___CSS_LOADER_URL_REPLACEMENT_1___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()((_public_images_template_start_bg_png__WEBPACK_IMPORTED_MODULE_3___default()));
-var ___CSS_LOADER_URL_REPLACEMENT_2___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()((_public_images_template_ef_bg_png__WEBPACK_IMPORTED_MODULE_4___default()));
-var ___CSS_LOADER_URL_REPLACEMENT_3___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()((_public_images_template_footer_png__WEBPACK_IMPORTED_MODULE_5___default()));
-var ___CSS_LOADER_URL_REPLACEMENT_4___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()((_public_images_template_testimonial_png__WEBPACK_IMPORTED_MODULE_6___default()));
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".landing {\r\n  font-family: \"Noto Sans Bengali\", \"Kumbh Sans\", sans-serif, Helvetica, Arial;\r\n  color: #1B1B1C;\r\n  font-size: 16px;\r\n  background-color: #fff;\r\n}\r\n.landing .nav-item{\r\n  font-size: 16px;\r\n  font-weight: 400;\r\n}\r\n\r\n.landing p {\r\n  font-family: \"Noto Sans Bengali\", \"Kumbh Sans\", sans-serif, Helvetica, Arial;\r\n  color: #1B1B1C;\r\n}\r\n\r\n.landing img {\r\n  max-width: 100%;\r\n}\r\n\r\n.landing h3 {\r\n  font-size: 2rem;\r\n  font-weight: 600;\r\n  margin-bottom: 15px;\r\n}\r\n\r\n\r\n.landing .navbar-brand img {\r\n  max-width: 150px;\r\n}\r\n\r\n.navbar-nav a{\r\n  font-weight: 500;\r\n}\r\n\r\n.hero-area {\r\n  height: 100vh;\r\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\r\n  background-repeat: no-repeat;\r\n  background-position: top right;\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n.nabar {\r\n  transition: .5s;\r\n}\r\n\r\n\r\n\r\n.menu-bg {\r\n  background: rgba(255, 255, 255, 0.75);\r\n  box-shadow: 0 8px 32px 0 rgb(31 38 135 / 27%);\r\n  backdrop-filter: blur(20px);\r\n  -webkit-backdrop-filter: blur(4px);\r\n  transition: .5s;\r\n  z-index: 999;\r\n}\r\n\r\n.nav-link {\r\n  color: #1B1B1C;\r\n}\r\n\r\nli.nav-item.active .nav-link {\r\n  color: #3865F2;\r\n}\r\n\r\n.hero-area h5 {\r\n  color: #3865f2;\r\n}\r\n\r\n.hero-area h2 {\r\n  color: #1B1B1C;\r\n  font-size: 4rem;\r\n  font-weight: 700;\r\n  margin: 0px 0px 25px;\r\n}\r\n\r\n\r\n.hero-area p {\r\n  font-size: 21px;\r\n}\r\n\r\n.hero-btn a {\r\n  margin-top: 20px;\r\n  border: 2px solid #3865f2;\r\n  padding: 12px 25px;\r\n  border-radius: 7px;\r\n  display: inline-block;\r\n  font-weight: 600;\r\n  color: #3865f2;\r\n  font-size: 16px;\r\n}\r\n\r\n.hero-btn a:first-child {\r\n  margin-right: 20px;\r\n}\r\n\r\n.hero-btn a:last-child {\r\n  background: #3865f2;\r\n  color: #fff;\r\n}\r\n\r\n\r\n.section {\r\n  padding: 100px 0px;\r\n}\r\n\r\n.section-heading {\r\n  position: relative;\r\n}\r\n\r\n.section-heading h5 {\r\n  font-size: 5rem;\r\n  text-transform: uppercase;\r\n  opacity: 0.15;\r\n  text-shadow: 1px 0 0 #3865f25e, -1px 0 0 #3865f25e, 0 1px 0 #3865f25e, 0 -1px 0 #3865f25e, 1px 1px #3865f25e, -1px -1px 0 #3865f25e, 1px -1px 0 #3865f25e, -1px 1px 0 #0000003b;\r\n  color: #fff;\r\n  font-family: initial;\r\n}\r\n\r\n.section-heading p {\r\n  position: absolute;\r\n  bottom: 0;\r\n  color: #3865F2;\r\n  font-weight: 500;\r\n  font-size: 24px;\r\n  font-family: \"Noto Sans Bengali\", \"Kumbh Sans\", sans-serif, Helvetica, Arial;\r\n}\r\n\r\n\r\n.single-ws {\r\n  background: #FFFFFF;\r\n  box-shadow: 0px 8px 16px rgb(0 0 0 / 20%);\r\n  border-radius: 10px;\r\n  padding: 20px;\r\n}\r\n\r\n.single-ws h4 {\r\n  font-size: 1.3rem;\r\n  font-weight: 800;\r\n}\r\n\r\n\r\n.single-ws img {\r\n  width: 35px;\r\n  margin-bottom: 15px;\r\n}\r\n\r\n.why-content {\r\n  grid-template-columns: 1fr 1fr;\r\n  display: grid;\r\n  grid-gap: 22px;\r\n  position: relative;\r\n}\r\n\r\n.why-content:after {\r\n  content: \"\";\r\n  position: absolute;\r\n  width: 200px;\r\n  height: 200px;\r\n  border-radius: 100%;\r\n  top: 50%;\r\n  background: rgba(212, 236, 255, 0.7);\r\n  margin-top: -100px;\r\n  left: 50%;\r\n  margin-left: -100px;\r\n  z-index: -1;\r\n}\r\n\r\n.single-ws p {\r\n  line-height: 24px;\r\n  font-size: 16px;\r\n  color: #505050;\r\n}\r\n\r\n.support-list {\r\n  margin: 0;\r\n  padding: 0;\r\n  list-style: none;\r\n}\r\n\r\n.support-list {\r\n  margin: 0;\r\n  padding: 0;\r\n  list-style: none;\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n\r\n.support-list li svg {\r\n  width: 20px;\r\n}\r\n\r\n#business-start {\r\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ");\r\n  background-repeat: no-repeat;\r\n  background-position: top center;\r\n  padding-top: 150px;\r\n  background-size: cover;\r\n  padding-bottom: 190px;\r\n}\r\n\r\n.support-list li {\r\n  margin-right: 15px;\r\n}\r\n\r\n.main-service {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr;\r\n  grid-gap: 15px;\r\n}\r\n\r\n.single-ms {\r\n  text-align: center;\r\n  box-shadow: 0px 10px 20px rgb(0 0 0 / 15%);\r\n  padding: 30px 20px;\r\n  border-radius: 5px;\r\n}\r\n\r\n.single-ms img {\r\n  width: 50px;\r\n  margin-bottom: 10px;\r\n}\r\n\r\n.single-ms h4 {\r\n  font-family: \"Noto Sans Bengali\", \"Kumbh Sans\", sans-serif, Helvetica, Arial;\r\n}\r\n\r\n.about-content ul {\r\n  margin: 20px 0 0 0px;\r\n  padding: 20px 0 0 0;\r\n  list-style: none;\r\n  font-family: \"Noto Sans Bengali\", \"Kumbh Sans\", sans-serif, Helvetica, Arial;\r\n  font-size: 18px;\r\n  border-top: 1px solid #ddd;\r\n}\r\n\r\n.about-btm {\r\n  padding-bottom: 100px;\r\n}\r\n\r\n\r\n#core-modules {\r\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ");\r\n  background-repeat: no-repeat;\r\n  background-position: top center;\r\n  padding-top: 150px;\r\n  background-size: cover;\r\n  padding-bottom: 180px;\r\n}\r\n\r\n.sec-heading {\r\n  text-align: center;\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.sec-heading span {\r\n  color: #3865f2;\r\n}\r\n\r\n.single-extra-feature {\r\n  background: #fff;\r\n  padding: 20px 20px;\r\n  box-shadow: 0px 0px 1px rgb(56 101 242 / 20%);\r\n  border-radius: 6px;\r\n  margin-bottom: 15px;\r\n  min-height: 18rem;\r\n  max-height: 18rem;\r\n}\r\n\r\n.single-extra-feature img {\r\n  width: 45px;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n.single-extra-feature p {\r\n  font-family: \"Noto Sans Bengali\", \"Kumbh Sans\", sans-serif, Helvetica, Arial;\r\n  font-size: 18px;\r\n  line-height: 28px;\r\n  color: #1b1b1cbd;\r\n}\r\n\r\n\r\n.cta-band {\r\n  background: #fff;\r\n  padding: 25px 30px;\r\n  border-radius: 10px;\r\n  box-shadow: 0px 10px 20px rgb(0 0 0 / 15%);\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  margin-top: -80px;\r\n}\r\n\r\n.cta-band p {\r\n  margin-bottom: 0px;\r\n}\r\n\r\n.cta-band > div {\r\n  padding-right: 20px;\r\n}\r\n\r\n.cta-band a {\r\n  white-space: nowrap;\r\n  padding: 15px 20px;\r\n}\r\n\r\n\r\n.carousel-3d-slide {\r\n  background-color: transparent !important;\r\n  border: none !important;\r\n  overflow: inherit !important;\r\n}\r\n\r\n.pricing-single {\r\n  box-shadow: 0px 10px 20px rgb(0 0 0 / 15%);\r\n  border-radius: 10px 10px 0px 0px;\r\n  padding: 25px;\r\n  margin-bottom: 25px;\r\n}\r\n\r\n.pricing-head {\r\n  text-align: center;\r\n}\r\n\r\n.pricing-head p {\r\n  font-size: 18px;\r\n  line-height: 28px;\r\n  margin-bottom: 0;\r\n}\r\n\r\n.price {\r\n  text-align: center;\r\n  margin: 20px 0px;\r\n  position: relative;\r\n}\r\n\r\n.price:after {\r\n  position: absolute;\r\n  content: \"\";\r\n  width: 100%;\r\n  height: 1px;\r\n  background: #1B1B1C;\r\n  left: 0;\r\n  top: 70px;\r\n}\r\n\r\n.price h4 {\r\n  font-weight: 700;\r\n  font-size: 36px;\r\n  line-height: 46px;\r\n  color: #3865F2;\r\n}\r\n\r\n.price p {\r\n  font-weight: 700;\r\n  font-size: 20px;\r\n  line-height: 27px;\r\n  font-family: \"Noto Sans Bengali\", \"Kumbh Sans\", sans-serif, Helvetica, Arial;\r\n  position: relative;\r\n  display: inline-block;\r\n  background: #Fff !important;\r\n  padding: 0px 8px;\r\n  z-index: 9;\r\n}\r\n\r\n\r\n.price-item ul {\r\n  margin: 0;\r\n  padding: 0;\r\n  list-style: none;\r\n}\r\n\r\n.price-item ul li {\r\n  font-size: 16px;\r\n  font-family: \"Noto Sans Bengali\", \"Kumbh Sans\", sans-serif, Helvetica, Arial;\r\n  margin-bottom: 10px;\r\n}\r\n\r\n.price-item a {\r\n  background: #3865F2;\r\n  border: 1px solid #3865F2;\r\n  border-radius: 5px;\r\n  padding: 8px 20px;\r\n  color: #fff;\r\n  margin-top: 22px;\r\n  display: block;\r\n  text-align: center;\r\n  transition: .4s;\r\n}\r\n\r\n\r\n.price-item a:hover {\r\n  background: #fff;\r\n  color: #3865F2 !important;\r\n\r\n}\r\n\r\n\r\n.testimonial-single {\r\n  box-shadow: 0px 10px 20px rgb(0 0 0 / 20%);\r\n  border-radius: 0px 10px 10px 0px;\r\n  background: #fff;\r\n}\r\n\r\n\r\n#newsletter {\r\n  margin-bottom: -80px;\r\n  position: relative;\r\n}\r\n\r\n\r\n.newsletter-inner {\r\n  background: #3865F2;\r\n  box-shadow: 0px 20px 40px rgb(0 0 0 / 20%);\r\n  border-radius: 10px;\r\n  padding: 30px;\r\n}\r\n\r\n.newsletter-left h2 {\r\n  font-weight: 700;\r\n  font-size: 2rem;\r\n  color: #fff;\r\n}\r\n\r\n.newsletter-left p {\r\n  margin-bottom: 0px;\r\n  font-size: 16px;\r\n  line-height: 24px;\r\n  color: #fff !important;\r\n}\r\n\r\n.newsletter-right {\r\n  position: relative;\r\n}\r\n\r\n.newsletter-right input {\r\n  background: #FFFFFF;\r\n  border-radius: 10px;\r\n  width: 100%;\r\n  border: none;\r\n  padding: 10px 20px;\r\n}\r\n\r\n.newsletter-right button {\r\n  background: #000;\r\n  position: absolute;\r\n  right: 0;\r\n  top: 0px;\r\n  padding: 2px 19px;\r\n  height: 100%;\r\n  border-top-right-radius: 10px;\r\n  border-bottom-right-radius: 10px;\r\n}\r\n\r\n.newsletter-right button img {\r\n  max-width: 25px;\r\n}\r\n\r\n#footer {\r\n  background: url(" + ___CSS_LOADER_URL_REPLACEMENT_3___ + ") center no-repeat;\r\n  background-size: cover;\r\n  background-position: center top;\r\n  padding-top: 180px;\r\n}\r\n\r\n.footer-single img {\r\n  max-width: 150px;\r\n  margin-bottom: 15px;\r\n}\r\n\r\n.footer-single {\r\n  font-weight: 400;\r\n  font-size: 18px;\r\n  line-height: 26px;\r\n}\r\n\r\n\r\n.footer-single h4 {\r\n  font-weight: 600;\r\n  font-size: 24px;\r\n  line-height: 43px;\r\n}\r\n\r\n\r\n.footer-single ul {\r\n  margin: 0;\r\n  padding: 0;\r\n  list-style: none;\r\n}\r\n\r\n.footer-single ul li {\r\n  margin-bottom: 5px;\r\n}\r\n\r\n.footer-single p,\r\n.footer-single ul li a {\r\n  color: #1B1B1C;\r\n  font-family: \"Noto Sans Bengali\", \"Kumbh Sans\", sans-serif, Helvetica, Arial;\r\n  display: flex;\r\n}\r\n\r\n\r\n.footer-single ul li a img,\r\n.footer-single ul li a svg {\r\n  margin-top: 2px;\r\n  margin-right: 4px;\r\n}\r\n\r\n\r\n.footer-social {\r\n  margin-top: 15px;\r\n}\r\n\r\n.footer-social a {\r\n  width: 40px;\r\n  height: 40px;\r\n  background: #3865f2;\r\n  display: inline-block;\r\n  text-align: center;\r\n  line-height: 35px;\r\n  border-radius: 100%;\r\n}\r\n\r\n.footer-btm {\r\n  text-align: center;\r\n  border-top: 1px solid #3865f21c;\r\n  margin-top: 50px;\r\n  padding-bottom: 30px;\r\n  padding-top: 30px;\r\n}\r\n\r\n#testimonial-area {\r\n  background-size: cover;\r\n  background: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ") no-repeat center bottom;\r\n  padding-bottom: 200px;\r\n  margin-bottom: 100px;\r\n}\r\n\r\n\r\n#testimonial-area .carousel-3d-slide {\r\n  box-shadow: none !important;\r\n}\r\n\r\n.testimonial-single {\r\n  max-width: 93%;\r\n}\r\n\r\n.testimonial-single > div {\r\n  text-align: center;\r\n  padding: 15px 15px 25px 15px;\r\n  border: 1px solid aliceblue !important;\r\n  border-left: 6px solid #007bff !important;\r\n  height: auto !important;\r\n  box-shadow: 0px 2px 4px rgb(0 0 0 / 20%) !important;\r\n  border-radius: 0px 10px 10px 0px;\r\n  background: #fff !important;\r\n}\r\n\r\n.testimonial-single img {\r\n  width: 50px !important;\r\n  height: 50px !important;\r\n  position: absolute;\r\n  right: 43%;\r\n  margin-top: -20px;\r\n}\r\n\r\n.testimonial-single span {\r\n  text-transform: uppercase;\r\n  font-weight: 800;\r\n  font-size: 16px;\r\n}\r\n\r\n.testimonial-single p {\r\n  margin-top: 8px;\r\n  font-family: \"Noto Sans Bengali\", \"Kumbh Sans\", sans-serif, Helvetica, Arial;\r\n  font-size: 15px;\r\n  color: #626262;\r\n}\r\n\r\n\r\n@media only screen and (max-width: 767px) {\r\n  .navbar-toggler {\r\n    width: 40px;\r\n    height: 40px;\r\n    border: 1px solid #3865f2;\r\n    border-radius: 100%;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: #3884f8;\r\n    background: #3865f270;\r\n  }\r\n\r\n  .navbar-collapse {\r\n    background: rgba(255, 255, 255, 0.75);\r\n    box-shadow: 0 8px 32px 0 rgb(31 38 135 / 27%);\r\n    backdrop-filter: blur(20px);\r\n    padding: 7px 15px;\r\n  }\r\n\r\n  .menu-bg .navbar-collapse {\r\n    background: transparent;\r\n    box-shadow: none !important;\r\n    backdrop-filter: inherit;\r\n    padding: 0;\r\n  }\r\n\r\n  .hero-area {\r\n    height: auto;\r\n    padding: 140px 0px;\r\n    background: #D4ECFF;\r\n  }\r\n\r\n\r\n  #about-us {\r\n    padding-bottom: 0px;\r\n  }\r\n\r\n  #why-us {\r\n    padding-top: 0px;\r\n  }\r\n\r\n\r\n  .about-content {\r\n    padding-bottom: 30px;\r\n  }\r\n\r\n  .about-right {\r\n    margin-top: 70px;\r\n    margin-bottom: 40px;\r\n  }\r\n\r\n  .bs-left {\r\n      margin-top: 40px;\r\n  }\r\n\r\n  #business-start {\r\n    padding-top: 100px;\r\n    padding-bottom: 0;\r\n  }\r\n\r\n  .main-service {\r\n    grid-template-columns: 1fr 1fr;\r\n  }\r\n\r\n  #features {\r\n    padding-bottom: 0;\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n  }\r\n\r\n  .sm-col-reverse {\r\n    flex-direction: column-reverse;\r\n  }\r\n\r\n  .about-btm {\r\n    padding-bottom: 50px;\r\n  }\r\n\r\n  #business-need {\r\n    padding-bottom: 0px;\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n  }\r\n\r\n  #extra-featrues {\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n  }\r\n\r\n  .cta-band {\r\n    display: block;\r\n  }\r\n\r\n  .cta-band a {\r\n    display: block;\r\n    margin-top: 17px;\r\n  }\r\n\r\n  #pricing-area {\r\n    padding-top: 0px;\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n  }\r\n\r\n  .pricing-single {\r\n    margin-bottom: 30px;\r\n  }\r\n\r\n  #testimonial-area {\r\n    padding-top: 0;\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n  }\r\n\r\n  #newsletter {\r\n    padding-top: 0;\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n  }\r\n\r\n  .newsletter-right {\r\n    margin-top: 25px;\r\n  }\r\n\r\n  #footer {\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n  }\r\n\r\n  .why-content{\r\n    grid-template-columns: 1fr;\r\n  }\r\n\r\n  #business-start .col-md-6 img {\r\n      margin-bottom: 70px;\r\n  }\r\n}\r\n\r\n\r\n\r\n@media only screen and (max-width: 575px){\r\n  #why-us,\r\n  #about-us,\r\n  .hero-area,\r\n  .navbar{\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n  }\r\n\r\n  .hero-area h5 {\r\n    font-size: 15px;\r\n  }\r\n\r\n  .hero-area h2 {\r\n    font-size: 3rem;\r\n    margin: 0px 0px 10px;\r\n  }\r\n\r\n  .hero-btn a {\r\n    margin-top: 10px;\r\n    border: 1px solid #3865f2;\r\n    padding: 6px 20px;\r\n    display: inline-block;\r\n    font-weight: 400;\r\n    font-size: 14px;\r\n  }\r\n\r\n  .section-heading h5 {\r\n    font-size: 4rem;\r\n  }\r\n  .section-heading p {\r\n    bottom: -8px;\r\n    font-size: 18px;\r\n  }\r\n  .landing h3{\r\n    font-size: 1.5rem;\r\n  }\r\n\r\n  .pricing-head h2 {\r\n      font-size: 20px;\r\n      font-weight: bold;\r\n  }\r\n\r\n  .support-list {\r\n      display: block;\r\n  }\r\n\r\n\r\n  .support-list li{\r\n    margin-bottom: 10px;\r\n  }\r\n\r\n  #business-need .about-btm:nth-child(even) .row {\r\n      flex-direction: column-reverse !important;\r\n  }\r\n\r\n  #core-modules {\r\n      background-position: right;\r\n      padding-top: 130px;\r\n      padding-bottom: 124px;\r\n  }\r\n\r\n  #testimonial-area {\r\n    padding-top: 60px;\r\n  }\r\n\r\n  .footer-single {\r\n      margin-top: 30px;\r\n  }\r\n\r\n  .newsletter-left h2 {\r\n      font-size: 2rem;\r\n  }\r\n\r\n  .newsletter-left p {\r\n      font-size: 19px;\r\n  }\r\n\r\n  .price p {\r\n      font-weight: 300;\r\n  }\r\n\r\n}\r\n\r\n\r\n\r\n\r\n@media only screen and (max-width: 410px){\r\n  .main-service {\r\n      grid-template-columns: 1fr;\r\n  }\r\n\r\n\r\n}\r\n", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+// EXTERNAL MODULE: ./resources/js/components/template/Navbar.vue + 6 modules
+var Navbar = __webpack_require__(60142);
+// EXTERNAL MODULE: ./resources/js/components/template/Footer.vue + 3 modules
+var Footer = __webpack_require__(3516);
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/template/pages/show.vue?vue&type=script&lang=js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
-/***/ }),
 
-/***/ 91972:
-/***/ ((module) => {
+/* harmony default export */ const showvue_type_script_lang_js = ({
+  layout: "template",
+  metaInfo: function metaInfo() {
+    return {
+      title: this.$t("Dashboard")
+    };
+  },
+  components: {
+    TemplateNav: Navbar/* default */.A,
+    TemplateFooter: Footer/* default */.A
+  },
+  beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
+    next();
+    this.getData();
+  },
+  data: function data() {
+    return {
+      name: "",
+      content: ""
+    };
+  },
+  mounted: function mounted() {
+    this.getData();
+  },
+  methods: {
+    getData: function getData() {
+      var _this = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return axios_default().get(window.location.origin + "/api/pages-by-slug/" + _this.$route.params.slug).then(function (_ref) {
+                var data = _ref.data;
+                _this.content = data.data.content;
+                _this.name = data.data.name;
+              })["catch"](function (error) {
+                console.log(error);
+              });
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee);
+      }))();
+    }
+  }
+});
+;// CONCATENATED MODULE: ./resources/js/pages/central/template/pages/show.vue?vue&type=script&lang=js
+ /* harmony default export */ const pages_showvue_type_script_lang_js = (showvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/template/pages/show.vue?vue&type=style&index=0&id=515847c4&prod&scoped=true&lang=css
+var showvue_type_style_index_0_id_515847c4_prod_scoped_true_lang_css = __webpack_require__(33802);
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/template/pages/show.vue?vue&type=style&index=0&id=515847c4&prod&scoped=true&lang=css
 
-module.exports = "/images/start-bg.png?f6954f00074950281e75efd945d06130";
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(showvue_type_style_index_0_id_515847c4_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const pages_showvue_type_style_index_0_id_515847c4_prod_scoped_true_lang_css = (showvue_type_style_index_0_id_515847c4_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// CONCATENATED MODULE: ./resources/js/pages/central/template/pages/show.vue?vue&type=style&index=0&id=515847c4&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// CONCATENATED MODULE: ./resources/js/pages/central/template/pages/show.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  pages_showvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "515847c4",
+  null
+  
+)
+
+/* harmony default export */ const show = (component.exports);
 
 /***/ })
 

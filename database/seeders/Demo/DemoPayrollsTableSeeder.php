@@ -39,6 +39,7 @@ class DemoPayrollsTableSeeder extends Seeder
                 'employee_id' => 2,
                 'transaction_id' => 22,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
             1 => [
                 'id' => 2,
@@ -63,6 +64,7 @@ class DemoPayrollsTableSeeder extends Seeder
                 'employee_id' => 1,
                 'transaction_id' => 23,
                 'created_by' => 1,
+                'branch_id' => 1,
             ],
         ]);
     }
