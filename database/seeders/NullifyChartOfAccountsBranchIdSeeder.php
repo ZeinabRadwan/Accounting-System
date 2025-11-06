@@ -16,6 +16,8 @@ class NullifyChartOfAccountsBranchIdSeeder extends Seeder
      *
      * @return void
      */
+
+     
     public function run(): void
     {
         // Check if the table and column exist
