@@ -129,6 +129,7 @@ class UpdateSettingCommand extends Command
                 }
 
                 echo $final_text;
+                
             }
         }
     }
