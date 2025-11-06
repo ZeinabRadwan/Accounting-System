@@ -80,14 +80,14 @@ class TenantInitializationController extends Controller
                 $this->updateSetting('zatca_organization_identifier', $request->tax_number);
             }
             
-            // Handle company logo upload
+            // Handle company logo upload - store as 'logo' to match settings page
             if ($request->filled('company_logo')) {
                 $existingLogo = DB::table('general_settings')
-                    ->where('key', 'company_logo')
+                    ->where('key', 'logo')
                     ->first()?->value ?? '';
                 
-                $logoName = handleGeneralSettingsImage($request->company_logo, $existingLogo, 'company-logo');
-                $this->updateSetting('company_logo', $logoName);
+                $logoName = handleGeneralSettingsImage($request->company_logo, $existingLogo, 'logo');
+                $this->updateSetting('logo', $logoName);
             }
             
             if ($request->filled('company_tagline')) {
