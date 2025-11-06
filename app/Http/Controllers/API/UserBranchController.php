@@ -181,6 +181,8 @@ class UserBranchController extends Controller
 
         $user = Auth::user();
         $branch = Branch::findOrFail($request->branch_id);
+        $user->default_branch_id = $branch->id;
+        $user->save();
 
         // Check if user has access to this branch (skip for super admin)
         if ((int) $user->account_role !== 1) {
