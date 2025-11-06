@@ -22,12 +22,10 @@ class TransactionController extends Controller
     {
         $query = AccountTransaction::with('cashbookAccount', 'user');
         
-        // Apply branch filter for non-superadmin users
+        // Apply branch filter
         $user = Auth::user();
-        // if ((int) $user->account_role !== 1) {
-            $branchIds = $this->getUserBranchIds($user);
-            $query->whereIn('branch_id', $branchIds);
-        // }
+        $branchIds = $this->getUserBranchIds($user);
+        $query->whereIn('branch_id', $branchIds);
         
         return AccountTransactionResource::collection($query->latest()->paginate($request->perPage));
     }
@@ -44,12 +42,10 @@ class TransactionController extends Controller
         $term = $request->term;
         $query = AccountTransaction::with('cashbookAccount', 'user');
 
-        // Apply branch filter for non-superadmin users
+        // Apply branch filter
         $user = Auth::user();
-        if ((int) $user->account_role !== 1) {
-            $branchIds = $this->getUserBranchIds($user);
-            $query->whereIn('branch_id', $branchIds);
-        }
+        $branchIds = $this->getUserBranchIds($user);
+        $query->whereIn('branch_id', $branchIds);
 
         if ($request->startDate && $request->endDate) {
             $query = $query->whereBetween('transaction_date', [$request->startDate, $request->endDate]);

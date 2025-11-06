@@ -17,7 +17,7 @@ class InvoiceReturn extends Model
      * @var array
      */
     protected $fillable = [
-        'return_no', 'reason', 'slug', 'invoice_id', 'transaction_id', 'total_return', 'date', 'note', 'status', 'created_by', 'fiscal_year_id', 'accounting_period_id',
+        'return_no', 'reason', 'slug', 'invoice_id', 'transaction_id', 'total_return', 'date', 'note', 'status', 'created_by', 'fiscal_year_id', 'accounting_period_id', 'branch_id',
     ];
 
     /**

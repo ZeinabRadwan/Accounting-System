@@ -16,7 +16,7 @@ class Loan extends Model
      * @var array
      */
     protected $fillable = [
-        'reason', 'slug', 'reference_no', 'authority_id', 'transaction_id', 'loan_type', 'interest', 'payable', 'payment_type', 'duration', 'date', 'created_by', 'note', 'status', 'is_paid', 'image_path',
+        'reason', 'slug', 'reference_no', 'authority_id', 'transaction_id', 'loan_type', 'interest', 'payable', 'payment_type', 'duration', 'date', 'created_by', 'note', 'status', 'is_paid', 'image_path', 'branch_id',
     ];
 
     protected $appends = ['paid'];

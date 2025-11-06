@@ -35,7 +35,18 @@ public function __construct(BusinessTransactionJournalService $journalService)
      */
     public function index(Request $request)
     {
-        return AccountTransactionResource::collection(AccountTransaction::with('cashbookAccount', 'user')->where('reason', 'LIKE', 'Non invoice balance added%')->orWhere('reason', 'LIKE', 'Non invoice balance removed from%')->latest()->paginate($request->perPage));
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        $query = AccountTransaction::with('cashbookAccount', 'user')
+            ->whereIn('branch_id', $branchIds)
+            ->where(function($q) {
+                $q->where('reason', 'LIKE', 'Non invoice balance added%')
+                  ->orWhere('reason', 'LIKE', 'Non invoice balance removed from%');
+            })
+            ->latest();
+            
+        return AccountTransactionResource::collection($query->paginate($request->perPage));
     }
 
     /**
@@ -68,16 +79,20 @@ public function __construct(BusinessTransactionJournalService $journalService)
             }
 
             // store transaction
+            $user = auth()->user();
+            $branchId = (int) ($user->default_branch_id ?? 0);
+            
           $accountTransaction =  AccountTransaction::create([
                 'account_id' => $request->account['id'],
                 'amount' => $request->amount,
                 'reason' => $reason,
                 'type' => $request->type,
                 'transaction_date' => $request->date,
-                'created_by' => auth()->user()->id,
+                'created_by' => $user->id,
                 'note' => $request->note,
                 'status' => $request->status,
                 'second_account_id' => $request->secondAccount['id'],
+                'branch_id' => $branchId,
             ]);
 
 // Create journal entry for the balance adjustment
@@ -233,9 +248,13 @@ try {
     public function search(Request $request)
     {
         $term = $request->term;
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
 
         $allQuery = AccountTransaction::with('cashbookAccount', 'user')
-            ->where('reason', 'LIKE', 'Non invoice balance added%')->where(function ($query) use ($term) {
+            ->where('reason', 'LIKE', 'Non invoice balance added%')
+            ->whereIn('branch_id', $branchIds)
+            ->where(function ($query) use ($term) {
                 $query->orWhere('amount', 'LIKE', '%'.$term.'%')
                     ->orWhereHas('cashbookAccount', function ($newQuery) use ($term) {
                         $newQuery->where('bank_name', 'LIKE', '%'.$term.'%');
@@ -253,8 +272,20 @@ try {
      */
     public function allBalances()
     {
-        $transactions = AccountTransaction::where('status', 1)->latest()->paginate(10);
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
+        $transactions = AccountTransaction::where('status', 1)
+            ->whereIn('branch_id', $branchIds)
+            ->latest()
+            ->paginate(10);
 
         return AccountTransactionResource::collection($transactions);
+    }
+    
+    private function getUserBranchIds($user)
+    {
+        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        return [$defaultBranchId > 0 ? $defaultBranchId : 0];
     }
 }

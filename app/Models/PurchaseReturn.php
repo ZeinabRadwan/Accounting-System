@@ -17,7 +17,7 @@ class PurchaseReturn extends Model
      * @var array
      */
     protected $fillable = [
-        'reason', 'slug', 'code', 'purchase_id', 'transaction_id', 'total_return', 'date', 'note', 'status', 'created_by',
+        'reason', 'slug', 'code', 'purchase_id', 'transaction_id', 'total_return', 'date', 'note', 'status', 'created_by', 'branch_id',
     ];
 
     /**

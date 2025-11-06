@@ -16,7 +16,7 @@ class PurchaseOrder extends Model
      * @var array
      */
     protected $fillable = [
-        'purchase_no', 'slug', 'supplier_id', 'discount', 'transport', 'sub_total', 'net_total', 'total_tax', 'tax_id', 'po_reference', 'payment_terms', 'po_date', 'purchase_date', 'created_by', 'note', 'status', 'is_paid', 'is_send_email', 'is_send_sms', 'fiscal_year_id', 'accounting_period_id',
+        'purchase_no', 'slug', 'supplier_id', 'discount', 'transport', 'sub_total', 'net_total', 'total_tax', 'tax_id', 'po_reference', 'payment_terms', 'po_date', 'purchase_date', 'created_by', 'note', 'status', 'is_paid', 'is_send_email', 'is_send_sms', 'fiscal_year_id', 'accounting_period_id', 'branch_id',
     ];
 
     protected $appends = ['calculated_due', 'calculated_tax', 'calculated_total'];

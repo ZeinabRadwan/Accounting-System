@@ -17,7 +17,7 @@ class Quotation extends Model
      * @var array
      */
     protected $fillable = [
-        'quotation_no', 'slug', 'client_id', 'reference', 'transport', 'discount_type', 'discount', 'total_tax', 'sub_total', 'po_reference', 'payment_terms', 'delivery_place', 'tax_id', 'quotation_date', 'created_by', 'note', 'status',
+        'quotation_no', 'slug', 'client_id', 'reference', 'transport', 'discount_type', 'discount', 'total_tax', 'sub_total', 'po_reference', 'payment_terms', 'delivery_place', 'tax_id', 'quotation_date', 'created_by', 'note', 'status', 'branch_id',
     ];
 
     /**
