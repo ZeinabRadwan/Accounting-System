@@ -17,7 +17,7 @@ class ProductCategory extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'code', 'slug', 'note', 'status',
+        'name', 'code', 'slug', 'note', 'status', 'branch_id',
     ];
 
     /**

@@ -579,11 +579,19 @@ class ProductController extends Controller
         $query = Product::with('proSubCategory.category')
             ->whereIn('branch_id', $branchIds);
         if (isset($request->catSlug) && isset($request->subCatSlug)) {
-            $subCategory = ProductSubCategory::where('slug', $request->subCatSlug)->first();
-            $query = $query->where('sub_cat_id', $subCategory->id);
+            $subCategory = ProductSubCategory::where('slug', $request->subCatSlug)
+                ->whereIn('branch_id', $branchIds)
+                ->first();
+            if ($subCategory) {
+                $query = $query->where('sub_cat_id', $subCategory->id);
+            }
         } elseif (isset($request->catSlug) && !isset($request->subCatSlug)) {
-            $category = ProductCategory::where('slug', $request->catSlug)->firstOrFail();
-            $subCategories = ProductSubCategory::where('cat_id', $category->id)->pluck('id');
+            $category = ProductCategory::where('slug', $request->catSlug)
+                ->whereIn('branch_id', $branchIds)
+                ->firstOrFail();
+            $subCategories = ProductSubCategory::where('cat_id', $category->id)
+                ->whereIn('branch_id', $branchIds)
+                ->pluck('id');
             $query = $query->whereIn('sub_cat_id', $subCategories);
         }
         $query = $query->where(function ($query) use ($term) {
@@ -742,21 +750,38 @@ class ProductController extends Controller
     // return products by sub category
     public function productsBySubCategory($catSlug, $subCatSlug)
     {
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
         if ($catSlug == 'all' && $subCatSlug == 'all') {
-            $products = Product::latest()->get();
+            $products = Product::whereIn('branch_id', $branchIds)->latest()->get();
         } elseif ($catSlug != 'all' && $subCatSlug == 'all') {
-            $category = ProductCategory::where('slug', $catSlug)->first();
-            $products = Product::with('proSubCategory.category')->whereHas(
-                'proSubCategory',
-                function ($newQuery) use ($category) {
-                    $newQuery->whereHas('category', function ($newQuery) use ($category) {
-                        $newQuery->where('id', $category->id);
-                    });
-                }
-            )->get();
+            $category = ProductCategory::where('slug', $catSlug)
+                ->whereIn('branch_id', $branchIds)
+                ->first();
+            if (!$category) {
+                return ProductResource::collection(collect());
+            }
+            $products = Product::with('proSubCategory.category')
+                ->whereIn('branch_id', $branchIds)
+                ->whereHas(
+                    'proSubCategory',
+                    function ($newQuery) use ($category, $branchIds) {
+                        $newQuery->where('cat_id', $category->id)
+                            ->whereIn('branch_id', $branchIds);
+                    }
+                )->get();
         } else {
-            $subCat = ProductSubCategory::where('slug', $subCatSlug)->first();
-            $products = Product::where('sub_cat_id', $subCat->id)->latest()->get();
+            $subCat = ProductSubCategory::where('slug', $subCatSlug)
+                ->whereIn('branch_id', $branchIds)
+                ->first();
+            if (!$subCat) {
+                return ProductResource::collection(collect());
+            }
+            $products = Product::where('sub_cat_id', $subCat->id)
+                ->whereIn('branch_id', $branchIds)
+                ->latest()
+                ->get();
         }
 
         return ProductResource::collection($products);
@@ -765,21 +790,38 @@ class ProductController extends Controller
     // return all products by sub category
     public function allProductsBySubCategory($catSlug, $subCatSlug)
     {
+        $user = Auth::user();
+        $branchIds = $this->getUserBranchIds($user);
+        
         if ($catSlug == 'all' && $subCatSlug == 'all') {
-            $products = Product::latest()->get();
+            $products = Product::whereIn('branch_id', $branchIds)->latest()->get();
         } elseif ($catSlug != 'all' && $subCatSlug == 'all') {
-            $category = ProductCategory::where('slug', $catSlug)->first();
-            $products = Product::with('proSubCategory.category')->whereHas(
-                'proSubCategory',
-                function ($newQuery) use ($category) {
-                    $newQuery->whereHas('category', function ($newQuery) use ($category) {
-                        $newQuery->where('id', $category->id);
-                    });
-                }
-            )->get();
+            $category = ProductCategory::where('slug', $catSlug)
+                ->whereIn('branch_id', $branchIds)
+                ->first();
+            if (!$category) {
+                return ProductSelectResource::collection(collect());
+            }
+            $products = Product::with('proSubCategory.category')
+                ->whereIn('branch_id', $branchIds)
+                ->whereHas(
+                    'proSubCategory',
+                    function ($newQuery) use ($category, $branchIds) {
+                        $newQuery->where('cat_id', $category->id)
+                            ->whereIn('branch_id', $branchIds);
+                    }
+                )->get();
         } else {
-            $subCat = ProductSubCategory::where('slug', $subCatSlug)->first();
-            $products = Product::where('sub_cat_id', $subCat->id)->latest()->paginate(5);
+            $subCat = ProductSubCategory::where('slug', $subCatSlug)
+                ->whereIn('branch_id', $branchIds)
+                ->first();
+            if (!$subCat) {
+                return ProductSelectResource::collection(collect());
+            }
+            $products = Product::where('sub_cat_id', $subCat->id)
+                ->whereIn('branch_id', $branchIds)
+                ->latest()
+                ->paginate(5);
         }
 
         return ProductSelectResource::collection($products);
