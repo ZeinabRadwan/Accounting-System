@@ -15,7 +15,7 @@ class AdjustmentProduct extends Model
      * @var array
      */
     protected $fillable = [
-        'adjustment_id', 'product_id', 'type', 'purchase_price', 'quantity',
+        'adjustment_id', 'product_id', 'type', 'purchase_price', 'quantity', 'branch_id',
     ];
 
     /**

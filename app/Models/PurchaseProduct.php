@@ -19,7 +19,7 @@ class PurchaseProduct extends Model
      */
     protected $fillable = [
         'purchase_id', 'product_id', 'quantity', 'purchase_price', 'unit_cost', 'tax_amount',
-        'discount', 'discount_type', 'discount_amount'
+        'discount', 'discount_type', 'discount_amount', 'branch_id'
     ];
 
     protected $casts = [

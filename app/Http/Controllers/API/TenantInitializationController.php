@@ -45,7 +45,8 @@ class TenantInitializationController extends Controller
         $validator = Validator::make($request->all(), [
             'country' => 'required|string|max:255',
             'company_name' => 'required|string|max:255',
-            'tax_number' => 'required|string|max:255',
+            'company_logo' => 'nullable|string',
+            'tax_number' => 'nullable|string|max:255',
             'company_tagline' => 'nullable|string|max:255',
             'email_address' => 'required|email|max:255',
             'phone_number' => 'required|string|max:255',
@@ -73,7 +74,21 @@ class TenantInitializationController extends Controller
             // Store basic information
             $this->updateSetting('country', $request->country);
             $this->updateSetting('company_name', $request->company_name);
-            $this->updateSetting('zatca_organization_identifier', $request->tax_number);
+            
+            // Store tax number if provided
+            if ($request->filled('tax_number')) {
+                $this->updateSetting('zatca_organization_identifier', $request->tax_number);
+            }
+            
+            // Handle company logo upload
+            if ($request->filled('company_logo')) {
+                $existingLogo = DB::table('general_settings')
+                    ->where('key', 'company_logo')
+                    ->first()?->value ?? '';
+                
+                $logoName = handleGeneralSettingsImage($request->company_logo, $existingLogo, 'company-logo');
+                $this->updateSetting('company_logo', $logoName);
+            }
             
             if ($request->filled('company_tagline')) {
                 $this->updateSetting('company_tagline', $request->company_tagline);
