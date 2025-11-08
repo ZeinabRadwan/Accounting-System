@@ -41702,7 +41702,7 @@ function clonePath(sourcePath, opts) {
 // EXTERNAL MODULE: ./node_modules/zrender/lib/core/matrix.js
 var matrix = __webpack_require__(45587);
 // EXTERNAL MODULE: ./node_modules/zrender/lib/core/Transformable.js
-var Transformable = __webpack_require__(70455);
+var Transformable = __webpack_require__(92836);
 // EXTERNAL MODULE: ./node_modules/zrender/lib/graphic/Image.js
 var Image = __webpack_require__(90540);
 // EXTERNAL MODULE: ./node_modules/zrender/lib/graphic/Group.js
@@ -46685,7 +46685,7 @@ _util_clazz_js__WEBPACK_IMPORTED_MODULE_2__/* .enableClassManagement */ .tQ(Comp
 /* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* unused harmony export PRESERVED_NORMAL_STATE */
-/* harmony import */ var _core_Transformable_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(70455);
+/* harmony import */ var _core_Transformable_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(92836);
 /* harmony import */ var _animation_Animator_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(99807);
 /* harmony import */ var _core_BoundingRect_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(29308);
 /* harmony import */ var _core_Eventful_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(57861);
@@ -51533,7 +51533,7 @@ var Point = (function () {
 
 /***/ }),
 
-/***/ 70455:
+/***/ 92836:
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -55163,7 +55163,7 @@ var config = __webpack_require__(73098);
 // EXTERNAL MODULE: ./node_modules/zrender/lib/graphic/constants.js
 var constants = __webpack_require__(56448);
 // EXTERNAL MODULE: ./node_modules/zrender/lib/core/Transformable.js
-var Transformable = __webpack_require__(70455);
+var Transformable = __webpack_require__(92836);
 ;// CONCATENATED MODULE: ./node_modules/zrender/lib/graphic/Path.js
 
 
