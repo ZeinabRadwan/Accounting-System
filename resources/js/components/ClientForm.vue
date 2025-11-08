@@ -50,19 +50,6 @@
                   :placeholder="$t('Enter full name')" />
                 <has-error :form="form" field="fullName" />
               </div>
-            </div>
-
-            <!-- Business Client Fields -->
-            <div v-if="form.type === 'Company'">
-              <div class="form-group">
-                <label for="businessName">
-                  {{ $t("Business Name") }} <span class="required">*</span>
-                </label>
-                <input id="businessName" v-model="form.businessName" type="text" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('businessName') }" name="businessName"
-                  :placeholder="$t('Enter business name')" />
-                <has-error :form="form" field="businessName" />
-              </div>
 
               <div class="row">
                 <div class="form-group col-md-6">
@@ -79,6 +66,19 @@
                     :placeholder="$t('Enter last name')" />
                   <has-error :form="form" field="lastName" />
                 </div>
+              </div>
+            </div>
+
+            <!-- Business Client Fields -->
+            <div v-if="form.type === 'Company'">
+              <div class="form-group">
+                <label for="businessName">
+                  {{ $t("Business Name") }} <span class="required">*</span>
+                </label>
+                <input id="businessName" v-model="form.businessName" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('businessName') }" name="businessName"
+                  :placeholder="$t('Enter business name')" />
+                <has-error :form="form" field="businessName" />
               </div>
             </div>
 
@@ -188,97 +188,153 @@
       </div>
     </div>
 
-    <!-- Address Section -->
+    <!-- National Address Section -->
     <div class="row mt-4">
       <div class="col-md-12">
         <div class="form-card">
           <div class="card-header">
             <h5 class="section-title">
-              <i class="fas fa-map-marker-alt mr-2"></i>
-              {{ $t("Address Information") }}
+              <i class="fas fa-map-marked-alt mr-2"></i>
+              {{ $t("National Address") }}
             </h5>
           </div>
           <div class="card-body">
-        
-        <div class="row">
-          <div class="form-group col-md-3">
-            <label for="country">{{ $t("Country") }}</label>
-            <select id="country" v-model="form.country" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('country') }">
-              <option value="">{{ $t("Select Country") }}</option>
-              <option value="SA">{{ $t("Saudi Arabia (SA)") }}</option>
-              <option value="EG">{{ $t("Egypt (EG)") }}</option>
-              <option value="US">{{ $t("United States (US)") }}</option>
-              <option value="GB">{{ $t("United Kingdom (GB)") }}</option>
-            </select>
-            <has-error :form="form" field="country" />
-          </div>
-          <div class="form-group col-md-3">
-            <label for="state">{{ $t("State") }}</label>
-            <input id="state" v-model="form.state" type="text" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('state') }" name="state"
-              :placeholder="$t('Enter state')" />
-            <has-error :form="form" field="state" />
-          </div>
-          <div class="form-group col-md-3">
-            <label for="city">{{ $t("City") }}</label>
-            <input id="city" v-model="form.city" type="text" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('city') }" name="city"
-              :placeholder="$t('Enter city')" />
-            <has-error :form="form" field="city" />
-          </div>
-          <div class="form-group col-md-3">
-            <label for="neighbourhood">{{ $t("Neighbourhood") }}</label>
-            <input id="neighbourhood" v-model="form.neighbourhood" type="text" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('neighbourhood') }" name="neighbourhood"
-              :placeholder="$t('Enter neighbourhood')" />
-            <has-error :form="form" field="neighbourhood" />
-          </div>
-        </div>
+            <!-- Country and Region -->
+            <div class="row">
+              <div class="form-group col-md-3">
+                <label for="country">{{ $t("Country") }}</label>
+                <select id="country" v-model="form.country" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('country') }">
+                  <option value="">{{ $t("Select Country") }}</option>
+                  <option value="SA">{{ $t("Saudi Arabia (SA)") }}</option>
+                  <option value="EG">{{ $t("Egypt (EG)") }}</option>
+                  <option value="US">{{ $t("United States (US)") }}</option>
+                  <option value="GB">{{ $t("United Kingdom (GB)") }}</option>
+                </select>
+                <has-error :form="form" field="country" />
+              </div>
+              <div class="form-group col-md-3">
+                <label for="state">{{ $t("State") }}</label>
+                <input id="state" v-model="form.state" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('state') }" name="state"
+                  :placeholder="$t('Enter state')" />
+                <has-error :form="form" field="state" />
+              </div>
+              <div class="form-group col-md-3">
+                <label for="city">{{ $t("City") }}</label>
+                <input id="city" v-model="form.city" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('city') }" name="city"
+                  :placeholder="$t('Enter city')" />
+                <has-error :form="form" field="city" />
+              </div>
+              <div class="form-group col-md-3">
+                <label for="neighbourhood">{{ $t("Neighbourhood") }}</label>
+                <input id="neighbourhood" v-model="form.neighbourhood" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('neighbourhood') }" name="neighbourhood"
+                  :placeholder="$t('Enter neighbourhood')" />
+                <has-error :form="form" field="neighbourhood" />
+              </div>
+            </div>
 
-        <div class="form-group">
-          <label for="streetAddress1">{{ $t("Street Address 1") }}</label>
-          <input id="streetAddress1" v-model="form.streetAddress1" type="text" class="form-control"
-            :class="{ 'is-invalid': form.errors.has('streetAddress1') }" name="streetAddress1"
-            :placeholder="$t('Enter street address')" />
-          <has-error :form="form" field="streetAddress1" />
-        </div>
+            <!-- Street Address -->
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="streetAddress1">{{ $t("Street Address 1") }}</label>
+                <input id="streetAddress1" v-model="form.streetAddress1" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('streetAddress1') }" name="streetAddress1"
+                  :placeholder="$t('Enter street address')" />
+                <has-error :form="form" field="streetAddress1" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="streetAddress2">{{ $t("Street Address 2") }} <span class="text-muted">({{ $t("Optional") }})</span></label>
+                <input id="streetAddress2" v-model="form.streetAddress2" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('streetAddress2') }" name="streetAddress2"
+                  :placeholder="$t('Enter additional address info')" />
+                <has-error :form="form" field="streetAddress2" />
+              </div>
+            </div>
 
-        <div class="form-group">
-          <label for="streetAddress2">{{ $t("Street Address 2") }}</label>
-          <input id="streetAddress2" v-model="form.streetAddress2" type="text" class="form-control"
-            :class="{ 'is-invalid': form.errors.has('streetAddress2') }" name="streetAddress2"
-            :placeholder="$t('Enter additional address info')" />
-          <has-error :form="form" field="streetAddress2" />
-        </div>
+            <!-- Postal Code and Saudi National Address Fields -->
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="postalCode">{{ $t("Postal Code") }}</label>
+                <input id="postalCode" v-model="form.postalCode" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('postalCode') }" name="postalCode"
+                  :placeholder="$t('Enter postal code')" />
+                <has-error :form="form" field="postalCode" />
+              </div>
+              <!-- Saudi National Address Fields - Show only for Saudi Arabia -->
+              <div v-if="form.country === 'SA'" class="form-group col-md-3">
+                <label for="buildingNumber">
+                  {{ $t("Building Number") }} <span class="required">*</span>
+                </label>
+                <input id="buildingNumber" v-model="form.buildingNumber" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('buildingNumber') }" name="buildingNumber"
+                  :placeholder="$t('Enter building number')" maxlength="5" />
+                <has-error :form="form" field="buildingNumber" />
+              </div>
+              <div v-if="form.country === 'SA'" class="form-group col-md-3">
+                <label for="streetNumber">
+                  {{ $t("Street Number") }} <span class="required">*</span>
+                </label>
+                <input id="streetNumber" v-model="form.streetNumber" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('streetNumber') }" name="streetNumber"
+                  :placeholder="$t('Enter street number')" maxlength="5" />
+                <has-error :form="form" field="streetNumber" />
+              </div>
+            </div>
 
-        <div class="row">
-          <div class="form-group col-md-6">
-            <label for="postalCode">{{ $t("Postal Code") }}</label>
-            <input id="postalCode" v-model="form.postalCode" type="text" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('postalCode') }" name="postalCode"
-              :placeholder="$t('Enter postal code')" />
-            <has-error :form="form" field="postalCode" />
-          </div>
-        </div>
+            <!-- Saudi National Address Fields - Second Row -->
+            <div v-if="form.country === 'SA'" class="row">
+              <div class="form-group col-md-3">
+                <label for="districtNumber">
+                  {{ $t("District Number") }} <span class="required">*</span>
+                </label>
+                <input id="districtNumber" v-model="form.districtNumber" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('districtNumber') }" name="districtNumber"
+                  :placeholder="$t('Enter district number')" maxlength="5" />
+                <has-error :form="form" field="districtNumber" />
+              </div>
+              <div class="form-group col-md-3">
+                <label for="unitNumber">
+                  {{ $t("Unit Number") }} <span class="text-muted">({{ $t("Optional") }})</span>
+                </label>
+                <input id="unitNumber" v-model="form.unitNumber" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('unitNumber') }" name="unitNumber"
+                  :placeholder="$t('Enter unit number')" maxlength="5" />
+                <has-error :form="form" field="unitNumber" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="additionalNumber">
+                  {{ $t("Additional Number") }} <span class="text-muted">({{ $t("Optional") }})</span>
+                </label>
+                <input id="additionalNumber" v-model="form.additionalNumber" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('additionalNumber') }" name="additionalNumber"
+                  :placeholder="$t('Enter additional number')" maxlength="5" />
+                <has-error :form="form" field="additionalNumber" />
+              </div>
+            </div>
 
-        <!-- Business-specific fields -->
-        <div v-if="form.type === 'Company'" class="row">
-          <div class="form-group col-md-6">
-              <label for="commercialRegister">{{ $t("CR") }} <span class="text-muted">({{ $t("Optional") }})</span></label>
-            <input id="commercialRegister" v-model="form.commercialRegister" type="text" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('commercialRegister') }" name="commercialRegister"
-              :placeholder="$t('Enter commercial register number')" />
-            <has-error :form="form" field="commercialRegister" />
-          </div>
-          <div class="form-group col-md-6">
-            <label for="taxCard">{{ $t("Tax ID (Optional)") }}</label>
-            <input id="taxCard" v-model="form.taxCard" type="text" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('taxCard') }" name="taxCard"
-              :placeholder="$t('Enter tax ID number')" />
-            <has-error :form="form" field="taxCard" />
-          </div>
-        </div>
+            <!-- Business-specific fields -->
+            <div v-if="form.type === 'Company'" class="row mt-4">
+              <div class="col-md-12">
+                <hr style="margin: 20px 0; border-color: #e0e0e0;">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="commercialRegister">{{ $t("CR") }} <span class="text-muted">({{ $t("Optional") }})</span></label>
+                <input id="commercialRegister" v-model="form.commercialRegister" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('commercialRegister') }" name="commercialRegister"
+                  :placeholder="$t('Enter commercial register number')" />
+                <has-error :form="form" field="commercialRegister" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="taxCard">{{ $t("Tax ID (Optional)") }}</label>
+                <input id="taxCard" v-model="form.taxCard" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('taxCard') }" name="taxCard"
+                  :placeholder="$t('Enter tax ID number')" />
+                <has-error :form="form" field="taxCard" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -648,6 +704,12 @@ export default {
         neighbourhood: "",
         commercialRegister: "",
         taxCard: "",
+        // Saudi National Address Fields
+        buildingNumber: "",
+        streetNumber: "",
+        districtNumber: "",
+        unitNumber: "",
+        additionalNumber: "",
         
         // Additional Fields
         image: "",
@@ -838,6 +900,12 @@ export default {
       this.form.neighbourhood = "";
       this.form.commercialRegister = "";
       this.form.taxCard = "";
+      // Clear Saudi National Address Fields
+      this.form.buildingNumber = "";
+      this.form.streetNumber = "";
+      this.form.districtNumber = "";
+      this.form.unitNumber = "";
+      this.form.additionalNumber = "";
       this.form.attachments = []; // Clear attachments
       this.form.image = null; // Clear image
       this.form.chartOfAccountId = null; // Clear chart of account
@@ -1039,15 +1107,15 @@ export default {
     getRoutingTypeDisplayName(routingType) {
       switch (routingType) {
         case 'automatic':
-          return 'Automatic Account Routing';
+          return this.$t('Automatic Account Routing');
         case 'per_each':
-          return 'Specify Per Each';
+          return this.$t('Specify Per Each');
         case 'main_account_per_each':
-          return 'Specify Main Account Per Each';
+          return this.$t('Specify Main Account Per Each');
         case 'cancel':
-          return 'Cancel Account Routing';
+          return this.$t('Cancel Account Routing');
         default:
-          return 'Unknown';
+          return this.$t('Unknown');
       }
     },
 
@@ -1271,6 +1339,13 @@ export default {
           neighbourhood: this.form.neighbourhood,
           commercialRegister: this.form.commercialRegister,
           taxCard: this.form.taxCard,
+          
+          // Saudi National Address Fields
+          buildingNumber: this.form.buildingNumber,
+          streetNumber: this.form.streetNumber,
+          districtNumber: this.form.districtNumber,
+          unitNumber: this.form.unitNumber,
+          additionalNumber: this.form.additionalNumber,
           
           // Additional Fields
           image: this.form.image,

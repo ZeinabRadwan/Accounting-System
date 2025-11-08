@@ -158,10 +158,10 @@
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="openingStockUnitPrice">{{ $t("Stock Unit Price") }}</label>
+                    <label for="openingStockUnitPrice">{{ $t("Purchase Price") }}</label>
                     <input id="openingStockUnitPrice" v-model="form.openingStockUnitPrice" type="number" step="any" min="0" class="form-control"
                       :class="{ 'is-invalid': form.errors.has('openingStockUnitPrice') }" name="openingStockUnitPrice" 
-                      :placeholder="$t('Enter unit price')" />
+                      :placeholder="$t('Enter purchase price')" />
                     <has-error :form="form" field="openingStockUnitPrice" />
                   </div>
                 </div>
@@ -181,23 +181,6 @@
             </div>
           </div>
 
-          <div class="form-card" v-if="form.itemType === 'service'">
-            <div class="card-header">
-              <h5 class="section-title">
-                <i class="fas fa-dollar-sign mr-2"></i>
-                {{ $t("Service Details") }}
-              </h5>
-            </div>
-            <div class="card-body">
-              <div class="form-group">
-                <label for="servicePurchasePrice">{{ $t("Purchase Price") }} <span class="required">*</span></label>
-                <input id="servicePurchasePrice" v-model="form.servicePurchasePrice" type="number" step="any" min="0" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('servicePurchasePrice') }" name="servicePurchasePrice" 
-                  :placeholder="$t('Enter purchase price')" />
-                <has-error :form="form" field="servicePurchasePrice" />
-              </div>
-            </div>
-          </div>
 
           <!-- Chart of Accounts Section -->
           <div class="form-card">

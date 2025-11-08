@@ -25,6 +25,8 @@ class Client extends Model
         'full_name', 'business_name', 'first_name', 'last_name', 'company_name',
         // Address information (handle both legacy and new fields)
         'address', 'street_address1', 'street_address2', 'city', 'state', 'postal_code', 'country', 'neighbourhood',
+        // Saudi National Address fields
+        'building_number', 'street_number', 'district_number', 'unit_number', 'additional_number',
         // Business-specific fields (handle both naming conventions)
         'commercial_register', 'tax_card', 'tax_registration_number',
         // Settings and preferences

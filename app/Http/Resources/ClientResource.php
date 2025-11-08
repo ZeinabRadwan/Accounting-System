@@ -54,6 +54,13 @@ class ClientResource extends JsonResource
             'country' => $this->country,
             'neighbourhood' => $this->neighbourhood,
             
+            // Saudi National Address fields
+            'buildingNumber' => $this->building_number,
+            'streetNumber' => $this->street_number,
+            'districtNumber' => $this->district_number,
+            'unitNumber' => $this->unit_number,
+            'additionalNumber' => $this->additional_number,
+            
             // Business-specific fields
             'commercialRegister' => $this->commercial_register,
             'taxCard' => $this->tax_card ?: $this->tax_registration_number,
