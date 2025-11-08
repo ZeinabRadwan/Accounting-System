@@ -375,6 +375,11 @@ export default {
             try {
                 const { data } = await this.form.post('/api/register');
                 if (data) {
+                    // Clear any previous error messages
+                    this.message = '';
+                    this.type = null;
+                    // Clear form errors
+                    this.form.errors.clear();
                     this.verificationForm.email = data.data.tenant.email;
                 }
             } catch (error) {
