@@ -1,5 +1,5 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[5726],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[4481],{
 
 /***/ 64744:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -212,6 +212,25 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-06334d97]{background
 
 /***/ }),
 
+/***/ 82691:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".header-buttons[data-v-abf88d06]{margin-bottom:15px}.footer-buttons[data-v-abf88d06]{display:flex;gap:10px}.footer-buttons .btn[data-v-abf88d06]{margin-right:10px}.footer-buttons .btn[data-v-abf88d06]:last-child{margin-right:0}.create-btn[data-v-abf88d06]{cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-abf88d06]:hover{background-color:#e9ecef}.edit-btn[data-v-abf88d06]{background-color:#17a2b8!important;border-color:#17a2b8!important;color:#fff!important}.edit-btn[data-v-abf88d06]:hover{background-color:#138496!important;border-color:#117a8b!important}.table-custom[data-v-abf88d06]{border:none!important}.quotations-create-table[data-v-abf88d06]{border-collapse:separate;border-spacing:0}.quotations-create-table thead th[data-v-abf88d06]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.quotations-create-table thead tr[data-v-abf88d06]{border:none!important}.quotations-create-table thead th[data-v-abf88d06]:first-child{border-top-left-radius:10px}.quotations-create-table thead th[data-v-abf88d06]:last-child{border-top-right-radius:10px}[dir=rtl] .quotations-create-table thead th[data-v-abf88d06]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .quotations-create-table thead th[data-v-abf88d06]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.btn-group.c-w-100[data-v-abf88d06]{gap:10px}.card[data-v-abf88d06]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-abf88d06]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.quotations-create-table .badge.badge-danger[data-v-abf88d06]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.form-control[data-v-abf88d06]{background:#fff!important}.btn-primary[data-v-abf88d06]{background:#2ab930!important}.btn-secondary[data-v-abf88d06]{background:#33a0d9!important;border:none!important;color:#fff!important;padding:10px 20px!important}.custom-qty-input[data-v-abf88d06]{align-items:center;display:flex;margin:0 auto;width:-moz-fit-content;width:fit-content}.button-minus[data-v-abf88d06],.button-plus[data-v-abf88d06]{align-items:center;border:none;border-radius:50%;cursor:pointer;display:flex;font-size:14px;font-weight:700;height:30px;justify-content:center;transition:all .2s ease;width:30px}.button-minus[data-v-abf88d06]{background-color:#dc3545;color:#fff}.button-plus[data-v-abf88d06]{background-color:#007bff;color:#fff}.button-minus[data-v-abf88d06]:hover{background-color:#c82333;transform:scale(1.05)}.button-plus[data-v-abf88d06]:hover{background-color:#0056b3;transform:scale(1.05)}.quantity-field[data-v-abf88d06]{border:1px solid #ced4da;border-radius:5px;margin:0 5px;padding:5px;text-align:center;width:60px}.quantity-field[data-v-abf88d06]:focus{border-color:#007bff;box-shadow:0 0 0 .2rem rgba(0,123,255,.25);outline:none}[dir=rtl] .d-flex[data-v-abf88d06]{direction:rtl}[dir=rtl] .create-btn[data-v-abf88d06]{border-radius:.25rem 0 0 .25rem}[dir=ltr] .create-btn[data-v-abf88d06]{border-radius:0 .25rem .25rem 0}[dir=rtl] .rtl-select .vs__dropdown-toggle[data-v-abf88d06]{border-radius:.25rem 0 0 .25rem}[dir=ltr] .rtl-select .vs__dropdown-toggle[data-v-abf88d06]{border-radius:.25rem}[dir=rtl] .flex-grow-1.rtl-select[data-v-abf88d06]{border-right:none}[dir=ltr] .flex-grow-1.rtl-select[data-v-abf88d06]{border-right:1px solid #ced4da}.clickable-badge[data-v-abf88d06]{cursor:pointer;transition:all .3s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.clickable-badge[data-v-abf88d06]:hover{background-color:#c82333!important;box-shadow:0 2px 4px rgba(220,53,69,.3);transform:scale(1.05)}.clickable-badge[data-v-abf88d06]:active{transform:scale(.95)}.insufficient-stock-input[data-v-abf88d06]{background-color:#fff5f5!important;border:2px solid #dc3545!important;color:#dc3545!important}.insufficient-stock-input[data-v-abf88d06]:focus{border-color:#dc3545!important;box-shadow:0 0 0 .2rem rgba(220,53,69,.25)!important}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 85989:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -244,25 +263,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".modal-overlay[data-v-651d741c]{align-
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, ".form-group[data-v-3d82b5ae]{margin-bottom:1rem}.form-group label[data-v-3d82b5ae]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-3d82b5ae]{color:#dc3545;font-weight:700}.form-control[data-v-3d82b5ae]{background:#fff!important;border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-3d82b5ae]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.is-invalid[data-v-3d82b5ae]{border-color:#dc3545!important}textarea.form-control[data-v-3d82b5ae]{min-height:100px;resize:vertical}.btn-success[data-v-3d82b5ae]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-success[data-v-3d82b5ae]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-secondary[data-v-3d82b5ae]{background:#6c757d!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-secondary[data-v-3d82b5ae]:hover{background:#5a6268!important;box-shadow:0 4px 8px hsla(208,7%,46%,.3);transform:translateY(-1px)}.create-button[data-v-3d82b5ae]{cursor:pointer;text-decoration:none}.unit-code-tooltip[data-v-3d82b5ae]{transition:all .2s ease}.unit-code-tooltip[data-v-3d82b5ae]:hover{color:#33a0d9!important;transform:scale(1.1)}.form-text[data-v-3d82b5ae]{color:#6c757d;font-size:.85rem;margin-top:.25rem}@media (max-width:768px){.form-group[data-v-3d82b5ae]{margin-bottom:.75rem}.form-text[data-v-3d82b5ae]{font-size:.8rem}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 14964:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".header-buttons[data-v-16da6166]{margin-bottom:15px}.footer-buttons[data-v-16da6166]{display:flex;gap:10px}.footer-buttons .btn[data-v-16da6166]{margin-right:10px}.footer-buttons .btn[data-v-16da6166]:last-child{margin-right:0}.create-btn[data-v-16da6166]{cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-16da6166]:hover{background-color:#e9ecef}.edit-btn[data-v-16da6166]{background-color:#17a2b8!important;border-color:#17a2b8!important;color:#fff!important}.edit-btn[data-v-16da6166]:hover{background-color:#138496!important;border-color:#117a8b!important}.table-custom[data-v-16da6166]{border:none!important}.quotations-create-table[data-v-16da6166]{border-collapse:separate;border-spacing:0}.quotations-create-table thead th[data-v-16da6166]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.quotations-create-table thead tr[data-v-16da6166]{border:none!important}.quotations-create-table thead th[data-v-16da6166]:first-child{border-top-left-radius:10px}.quotations-create-table thead th[data-v-16da6166]:last-child{border-top-right-radius:10px}[dir=rtl] .quotations-create-table thead th[data-v-16da6166]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .quotations-create-table thead th[data-v-16da6166]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.btn-group.c-w-100[data-v-16da6166]{gap:10px}.card[data-v-16da6166]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-16da6166]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.quotations-create-table .badge.badge-danger[data-v-16da6166]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.form-control[data-v-16da6166]{background:#fff!important}.btn-primary[data-v-16da6166]{background:#2ab930!important}.btn-secondary[data-v-16da6166]{background:#33a0d9!important;border:none!important;color:#fff!important;padding:10px 20px!important}.custom-qty-input[data-v-16da6166]{align-items:center;display:flex;margin:0 auto;width:-moz-fit-content;width:fit-content}.button-minus[data-v-16da6166],.button-plus[data-v-16da6166]{align-items:center;border:none;border-radius:50%;cursor:pointer;display:flex;font-size:14px;font-weight:700;height:30px;justify-content:center;transition:all .2s ease;width:30px}.button-minus[data-v-16da6166]{background-color:#dc3545;color:#fff}.button-plus[data-v-16da6166]{background-color:#007bff;color:#fff}.button-minus[data-v-16da6166]:hover{background-color:#c82333;transform:scale(1.05)}.button-plus[data-v-16da6166]:hover{background-color:#0056b3;transform:scale(1.05)}.price-field[data-v-16da6166]{width:100%}.quantity-field[data-v-16da6166]{border:1px solid #ced4da;border-radius:5px;margin:0 5px;padding:5px;text-align:center;width:60px}.quantity-field[data-v-16da6166]:focus{border-color:#007bff;box-shadow:0 0 0 .2rem rgba(0,123,255,.25);outline:none}[dir=rtl] .d-flex[data-v-16da6166]{direction:rtl}[dir=rtl] .create-btn[data-v-16da6166]{border-radius:.25rem 0 0 .25rem}[dir=ltr] .create-btn[data-v-16da6166]{border-radius:0 .25rem .25rem 0}[dir=rtl] .rtl-select .vs__dropdown-toggle[data-v-16da6166]{border-radius:.25rem 0 0 .25rem}[dir=ltr] .rtl-select .vs__dropdown-toggle[data-v-16da6166]{border-radius:.25rem}[dir=rtl] .flex-grow-1.rtl-select[data-v-16da6166]{border-right:none}[dir=ltr] .flex-grow-1.rtl-select[data-v-16da6166]{border-right:1px solid #ced4da}.clickable-badge[data-v-16da6166]{cursor:pointer;transition:all .3s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.clickable-badge[data-v-16da6166]:hover{background-color:#c82333!important;box-shadow:0 2px 4px rgba(220,53,69,.3);transform:scale(1.05)}.clickable-badge[data-v-16da6166]:active{transform:scale(.95)}.insufficient-stock-input[data-v-16da6166]{background-color:#fff5f5!important;border:2px solid #dc3545!important;color:#dc3545!important}.insufficient-stock-input[data-v-16da6166]:focus{border-color:#dc3545!important;box-shadow:0 0 0 .2rem rgba(220,53,69,.25)!important}.debug-panel[data-v-16da6166]{border:2px solid #ffc107;border-radius:10px;box-shadow:0 4px 8px rgba(255,193,7,.2);display:none}.debug-panel .card-header[data-v-16da6166]{background:linear-gradient(45deg,#ffc107,#ffeb3b)!important;border-bottom:2px solid #ffc107;border-radius:8px 8px 0 0!important}.debug-item[data-v-16da6166]{background-color:#f8f9fa;border-left:4px solid #007bff!important;transition:all .3s ease}.debug-item[data-v-16da6166]:hover{background-color:#e9ecef;box-shadow:0 2px 4px rgba(0,0,0,.1);transform:translateY(-2px)}.debug-step[data-v-16da6166]{background-color:#fff;border:1px solid #dee2e6;border-radius:4px;font-family:Courier New,monospace;font-size:.9em;margin-bottom:8px;padding:4px 8px}.debug-summary[data-v-16da6166]{background-color:#f8f9fa;border:1px solid #dee2e6;border-radius:8px;padding:15px}.debug-summary ul li[data-v-16da6166]{border-bottom:1px solid #e9ecef;padding:4px 0}.debug-summary ul li[data-v-16da6166]:last-child{border-bottom:none}.debug-display[data-v-16da6166]{background:linear-gradient(135deg,#e3f2fd,#f3e5f5)!important;border:1px solid #bbdefb;font-family:Courier New,monospace}.debug-steps .step[data-v-16da6166]{background-color:#fff3cd;border:1px solid #ffeaa7;border-radius:6px;font-family:Courier New,monospace;font-size:.9em;margin-bottom:8px;padding:8px 12px}.debug-state[data-v-16da6166]{background-color:#f8f9fa;border:1px solid #dee2e6;border-radius:8px;padding:15px}.debug-state div[data-v-16da6166]{border-bottom:1px solid #e9ecef;padding:4px 0}.debug-state div[data-v-16da6166]:last-child{border-bottom:none}.debug-panel .table th[data-v-16da6166]{background-color:#f8f9fa;font-size:.85em;font-weight:600}.debug-panel .table td[data-v-16da6166]{font-size:.85em;vertical-align:middle}.debug-panel .table tbody tr[data-v-16da6166]:hover{background-color:#f8f9fa}@media (max-width:768px){.debug-panel .card-body[data-v-16da6166]{padding:15px}.debug-item .row[data-v-16da6166]{margin:0}.debug-item .col-md-6[data-v-16da6166]{padding:0 5px}.debug-step[data-v-16da6166]{font-size:.8em;padding:3px 6px}.debug-panel .table[data-v-16da6166]{font-size:.75em}}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -8675,7 +8675,7 @@ var component = (0,componentNormalizer/* default */.A)(
 
 /***/ }),
 
-/***/ 35726:
+/***/ 24481:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -8683,11 +8683,23 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ create)
+  "default": () => (/* binding */ edit)
 });
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/quotations/create.vue?vue&type=template&id=16da6166&scoped=true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/quotations/edit.vue?vue&type=template&id=153c52ce&scoped=true
 var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('QuotationForm', {
+    attrs: {
+      "mode": "edit"
+    }
+  });
+};
+var staticRenderFns = [];
+
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/QuotationForm.vue?vue&type=template&id=abf88d06&scoped=true
+var QuotationFormvue_type_template_id_abf88d06_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c('div', {
@@ -8720,20 +8732,20 @@ var render = function render() {
     staticClass: "btn btn-success",
     attrs: {
       "type": "submit",
-      "form": 'quotationCreateForm',
-      "title": "Save"
+      "form": _vm.formId,
+      "title": _vm.$t('Save')
     }
   }, [_c('i', {
     staticClass: "fas fa-save"
   })])], 1)])], 1), _vm._v(" "), _c('form', {
     attrs: {
-      "id": "quotationCreateForm",
+      "id": _vm.formId,
       "role": "form"
     },
     on: {
       "submit": function submit($event) {
         $event.preventDefault();
-        return _vm.saveQuotation.apply(null, arguments);
+        return _vm.handleSubmit.apply(null, arguments);
       },
       "keydown": function keydown($event) {
         return _vm.form.onKeydown($event);
@@ -8814,7 +8826,7 @@ var render = function render() {
       },
       expression: "form.client"
     }
-  }), _vm._v(" "), !_vm.form.client ? _c('ClientCreateModal', {
+  }), _vm._v(" "), _vm.mode === 'create' && !_vm.form.client ? _c('ClientCreateModal', {
     on: {
       "reloadClients": function reloadClients($event) {
         return _vm.getClients('latest');
@@ -8824,7 +8836,7 @@ var render = function render() {
     staticClass: "input-group-text create-btn"
   }, [_c('i', {
     staticClass: "fas fa-solid fa-plus-circle"
-  })])]) : _vm._e(), _vm._v(" "), _vm.form.client ? _c('div', {
+  })])]) : _vm._e(), _vm._v(" "), _vm.mode === 'create' && _vm.form.client ? _c('div', {
     staticClass: "input-group-text create-btn edit-btn",
     on: {
       "click": _vm.editSelectedClient
@@ -8913,7 +8925,7 @@ var render = function render() {
       },
       expression: "form.product"
     }
-  }), _vm._v(" "), _c('ProductCreateModal', {
+  }), _vm._v(" "), _vm.mode === 'create' ? _c('ProductCreateModal', {
     on: {
       "reloadProducts": _vm.getProducts,
       "productCreated": _vm.handleProductCreated
@@ -8922,7 +8934,7 @@ var render = function render() {
     staticClass: "input-group-text create-btn"
   }, [_c('i', {
     staticClass: "fas fa-solid fa-plus-circle"
-  })])])], 1), _vm._v(" "), _c('has-error', {
+  })])]) : _vm._e()], 1), _vm._v(" "), _c('has-error', {
     attrs: {
       "form": _vm.form,
       "field": "selectedProducts"
@@ -8932,122 +8944,7 @@ var render = function render() {
       "form": _vm.form,
       "field": "selectedProducts"
     }
-  })], 1)]) : _vm._e(), _vm._v(" "), _vm.hasInsufficientStock ? _c('div', {
-    staticClass: "row mt-3 mb-3"
-  }, [_c('div', {
-    staticClass: "col-12"
-  }, [_c('div', {
-    staticClass: "alert alert-warning d-flex align-items-center",
-    attrs: {
-      "role": "alert"
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-exclamation-triangle mr-3",
-    staticStyle: {
-      "font-size": "1.5rem"
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "flex-grow-1"
-  }, [_c('h6', {
-    staticClass: "mb-1"
-  }, [_vm._v(_vm._s(_vm.$t("Insufficient Stock Alert")))]), _vm._v(" "), _c('p', {
-    staticClass: "mb-0"
-  }, [_vm._v("\n                      " + _vm._s(_vm.$t("Some products have insufficient stock. Click on the red badges to manage stock levels.")) + "\n                      "), _c('button', {
-    staticClass: "btn btn-sm btn-outline-warning ml-2",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": _vm.showAllInsufficientStock
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-list mr-1"
-  }), _vm._v("\n                        " + _vm._s(_vm.$t("View All")) + "\n                      ")])])])])])]) : _vm._e(), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
-    staticClass: "row mt-3 mb-3"
-  }, [_c('div', {
-    staticClass: "col-12"
-  }, [_c('div', {
-    staticClass: "card debug-panel"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "mb-4"
-  }, [_vm._m(1), _vm._v(" "), _vm._l(_vm.form.selectedProducts, function (item, index) {
-    return _c('div', {
-      key: index,
-      staticClass: "debug-item mb-3 p-3 border rounded"
-    }, [_c('div', {
-      staticClass: "font-weight-bold text-dark mb-2"
-    }, [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('div', {
-      staticClass: "row"
-    }, [_c('div', {
-      staticClass: "col-md-6"
-    }, [_c('div', {
-      staticClass: "debug-step"
-    }, [_c('strong', [_vm._v("Subtotal:")]), _vm._v(" " + _vm._s(_vm.formatToTwoDecimals(item.unitPrice)) + " × " + _vm._s(item.qty) + " = " + _vm._s(_vm.formatToTwoDecimals(item.unitPrice * item.qty)) + "\n                            ")]), _vm._v(" "), _c('div', {
-      staticClass: "debug-step"
-    }, [_c('strong', [_vm._v("Discount:")]), _vm._v(" " + _vm._s(_vm.formatToTwoDecimals(item.discountAmount || 0)) + "\n                            ")]), _vm._v(" "), _c('div', {
-      staticClass: "debug-step"
-    }, [_c('strong', [_vm._v("After Discount:")]), _vm._v(" " + _vm._s(_vm.formatToTwoDecimals(item.unitPrice * item.qty - (item.discountAmount || 0))) + "\n                            ")])]), _vm._v(" "), _c('div', {
-      staticClass: "col-md-6"
-    }, [_c('div', {
-      staticClass: "debug-step"
-    }, [_c('strong', [_vm._v("VAT:")]), _vm._v(" " + _vm._s(_vm.formatToTwoDecimals(item.productTax || 0)) + "\n                            ")]), _vm._v(" "), _c('div', {
-      staticClass: "debug-step"
-    }, [_c('strong', [_vm._v("Total with VAT:")]), _vm._v(" " + _vm._s(_vm.formatToTwoDecimals(item.totalPrice || 0)) + "\n                            ")])])])]);
-  })], 2), _vm._v(" "), _c('div', {
-    staticClass: "mb-4"
-  }, [_vm._m(2), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "debug-summary"
-  }, [_c('strong', [_vm._v("Computed Values:")]), _vm._v(" "), _c('ul', {
-    staticClass: "list-unstyled mt-2"
-  }, [_c('li', [_vm._v("Total Unit Price: " + _vm._s(_vm.formatToTwoDecimals(_vm.totalUnitPrice)))]), _vm._v(" "), _c('li', [_vm._v("Total Discount: " + _vm._s(_vm.formatToTwoDecimals(_vm.totalProductDiscount)))]), _vm._v(" "), _c('li', [_vm._v("Total After Discount: " + _vm._s(_vm.formatToTwoDecimals(_vm.totalAfterDiscount)))]), _vm._v(" "), _c('li', [_vm._v("Total Tax: " + _vm._s(_vm.formatToTwoDecimals(_vm.totalProductTax)))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "debug-summary"
-  }, [_c('strong', [_vm._v("Form Values:")]), _vm._v(" "), _c('ul', {
-    staticClass: "list-unstyled mt-2"
-  }, [_c('li', [_vm._v("form.subTotal: " + _vm._s(_vm.formatToTwoDecimals(_vm.form.subTotal)))]), _vm._v(" "), _c('li', [_vm._v("form.totalDiscount: " + _vm._s(_vm.formatToTwoDecimals(_vm.form.totalDiscount)))]), _vm._v(" "), _c('li', [_vm._v("form.totalTax: " + _vm._s(_vm.formatToTwoDecimals(_vm.form.totalTax)))]), _vm._v(" "), _c('li', [_vm._v("form.netTotal: " + _vm._s(_vm.formatToTwoDecimals(_vm.form.netTotal)))])])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "mb-4"
-  }, [_vm._m(3), _vm._v(" "), _c('div', {
-    staticClass: "debug-display p-3 bg-light rounded"
-  }, [_c('div', [_c('strong', [_vm._v("Summary Final Total:")]), _vm._v(" " + _vm._s(_vm.formatToTwoDecimals(_vm.subtotal)))]), _vm._v(" "), _c('div', [_c('strong', [_vm._v("Amount in Words:")]), _vm._v(" " + _vm._s(_vm.toWord()))])])]), _vm._v(" "), _c('div', {
-    staticClass: "mb-4"
-  }, [_vm._m(4), _vm._v(" "), _c('div', {
-    staticClass: "debug-steps"
-  }, [_c('div', {
-    staticClass: "step"
-  }, [_vm._v("Step 1: Sum of all item totals = " + _vm._s(_vm.formatToTwoDecimals(_vm.subtotal)))]), _vm._v(" "), _c('div', {
-    staticClass: "step"
-  }, [_vm._v("Step 2: form.netTotal = " + _vm._s(_vm.formatToTwoDecimals(_vm.form.netTotal)))]), _vm._v(" "), _c('div', {
-    staticClass: "step"
-  }, [_vm._v("Step 3: Are they equal? \n                          "), _c('span', {
-    "class": _vm.subtotal === _vm.form.netTotal ? 'text-success' : 'text-danger'
-  }, [_vm._v("\n                            " + _vm._s(_vm.subtotal === _vm.form.netTotal ? '✅ YES' : '❌ NO') + "\n                          ")])])])]), _vm._v(" "), _c('div', {
-    staticClass: "mb-4"
-  }, [_vm._m(5), _vm._v(" "), _c('div', {
-    staticClass: "debug-state"
-  }, [_c('div', [_vm._v("Selected Products Count: " + _vm._s(_vm.form.selectedProducts.length))]), _vm._v(" "), _c('div', [_vm._v("Is Saudi Arabia: " + _vm._s(_vm.isSaudiArabia))]), _vm._v(" "), _c('div', [_vm._v("Debug Panel Visible: ✅ YES")])])]), _vm._v(" "), _c('div', {
-    staticClass: "mb-0"
-  }, [_vm._m(6), _vm._v(" "), _c('div', {
-    staticClass: "table-responsive"
-  }, [_c('table', {
-    staticClass: "table table-sm table-bordered"
-  }, [_vm._m(7), _vm._v(" "), _c('tbody', [_c('tr', [_c('td', [_vm._v("Subtotal")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalUnitPrice)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.form.subTotal)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalUnitPrice)))]), _vm._v(" "), _c('td', [_c('span', {
-    "class": _vm.totalUnitPrice === _vm.form.subTotal ? 'text-success' : 'text-danger'
-  }, [_vm._v("\n                                  " + _vm._s(_vm.totalUnitPrice === _vm.form.subTotal ? '✅' : '❌') + "\n                                ")])])]), _vm._v(" "), _c('tr', [_c('td', [_vm._v("Discount")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalProductDiscount)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.form.totalDiscount)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalProductDiscount)))]), _vm._v(" "), _c('td', [_c('span', {
-    "class": _vm.totalProductDiscount === _vm.form.totalDiscount ? 'text-success' : 'text-danger'
-  }, [_vm._v("\n                                  " + _vm._s(_vm.totalProductDiscount === _vm.form.totalDiscount ? '✅' : '❌') + "\n                                ")])])]), _vm._v(" "), _c('tr', [_c('td', [_vm._v("After Discount")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalAfterDiscount)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.form.subTotal - _vm.form.totalDiscount)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalAfterDiscount)))]), _vm._v(" "), _c('td', [_c('span', {
-    "class": _vm.totalAfterDiscount === _vm.form.subTotal - _vm.form.totalDiscount ? 'text-success' : 'text-danger'
-  }, [_vm._v("\n                                  " + _vm._s(_vm.totalAfterDiscount === _vm.form.subTotal - _vm.form.totalDiscount ? '✅' : '❌') + "\n                                ")])])]), _vm._v(" "), _c('tr', [_c('td', [_vm._v("Tax")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalProductTax)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.form.totalTax)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalProductTax)))]), _vm._v(" "), _c('td', [_c('span', {
-    "class": _vm.totalProductTax === _vm.form.totalTax ? 'text-success' : 'text-danger'
-  }, [_vm._v("\n                                  " + _vm._s(_vm.totalProductTax === _vm.form.totalTax ? '✅' : '❌') + "\n                                ")])])]), _vm._v(" "), _c('tr', [_c('td', [_vm._v("Final Total")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.subtotal)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.form.netTotal)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.subtotal)))]), _vm._v(" "), _c('td', [_c('span', {
-    "class": _vm.subtotal === _vm.form.netTotal ? 'text-success' : 'text-danger'
-  }, [_vm._v("\n                                  " + _vm._s(_vm.subtotal === _vm.form.netTotal ? '✅' : '❌') + "\n                                ")])])])])])])])])])])]) : _vm._e(), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
+  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
     staticClass: "row mt-3 mb-4"
   }, [_c('div', {
     staticClass: "table-responsive table-custom w-95 m-auto"
@@ -9062,7 +8959,7 @@ var render = function render() {
       staticStyle: {
         "min-width": "50px"
       }
-    }, [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', {
+    }, [_vm._v(_vm._s(i + 1))]), _vm._v(" "), _c('td', {
       staticStyle: {
         "min-width": "100px"
       }
@@ -9098,7 +8995,7 @@ var render = function render() {
           }
         }
       }
-    }, [_vm._v("\n                              " + _vm._s(item.name) + "\n                            ")]) : _c('span', [_vm._v(_vm._s(item.name))])], 1), _vm._v(" "), _c('button', {
+    }, [_vm._v("\n                              " + _vm._s(item.name) + "\n                            ")]) : _c('span', [_vm._v(_vm._s(item.name))])], 1), _vm._v(" "), _vm.mode === 'create' ? _c('button', {
       directives: [{
         name: "tooltip",
         rawName: "v-tooltip",
@@ -9116,7 +9013,7 @@ var render = function render() {
       }
     }, [_c('i', {
       staticClass: "fas fa-edit"
-    })])])]), _vm._v(" "), _c('td', {
+    })]) : _vm._e()])]), _vm._v(" "), _c('td', {
       staticStyle: {
         "min-width": "200px"
       }
@@ -9131,7 +9028,7 @@ var render = function render() {
       },
       on: {
         "click": function click($event) {
-          return _vm.generateItemTotal(item.qty, 'qty', i - 1, 'decrement');
+          return _vm.generateItemTotal(item.qty, 'qty', i, 'decrement');
         }
       }
     }), _vm._v(" "), _c('input', {
@@ -9143,13 +9040,13 @@ var render = function render() {
       }],
       staticClass: "quantity-field border-0 incrementor",
       "class": {
-        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(i - 1, ".qty")),
+        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(i, ".qty")),
         'insufficient-stock-input': Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product'
       },
       attrs: {
         "type": "number",
         "step": "any",
-        "id": "Qty-".concat(i),
+        "id": "Qty-".concat(i + 1),
         "name": "quantity",
         "required": "",
         "min": "1",
@@ -9161,16 +9058,16 @@ var render = function render() {
       },
       on: {
         "change": function change($event) {
-          return _vm.generateItemTotal($event.target.value, 'qty', i - 1, '');
+          return _vm.generateItemTotal($event.target.value, 'qty', i, '');
         },
         "keyup": function keyup($event) {
-          return _vm.generateItemTotal($event.target.value, 'qty', i - 1, '');
+          return _vm.generateItemTotal($event.target.value, 'qty', i, '');
         },
         "input": [function ($event) {
           if ($event.target.composing) return;
           _vm.$set(item, "qty", $event.target.value);
         }, function ($event) {
-          return _vm.generateItemTotal($event.target.value, 'qty', i - 1, '');
+          return _vm.generateItemTotal($event.target.value, 'qty', i, '');
         }]
       }
     }), _vm._v(" "), _c('input', {
@@ -9182,7 +9079,7 @@ var render = function render() {
       },
       on: {
         "click": function click($event) {
-          return _vm.generateItemTotal(item.qty, 'qty', i - 1, 'increment');
+          return _vm.generateItemTotal(item.qty, 'qty', i, 'increment');
         }
       }
     })])]), _vm._v(" "), _c('td', {
@@ -9206,7 +9103,7 @@ var render = function render() {
         "type": "number",
         "step": "any",
         "min": "0",
-        "id": "unitPrice-".concat(i),
+        "id": "unitPrice-".concat(i + 1),
         "name": "unitPrice",
         "required": ""
       },
@@ -9215,16 +9112,16 @@ var render = function render() {
       },
       on: {
         "change": function change($event) {
-          return _vm.generateItemTotal($event.target.value, 'price', i - 1, '');
+          return _vm.generateItemTotal($event.target.value, 'price', i, '');
         },
         "keyup": function keyup($event) {
-          return _vm.generateItemTotal($event.target.value, 'price', i - 1, '');
+          return _vm.generateItemTotal($event.target.value, 'price', i, '');
         },
         "input": [function ($event) {
           if ($event.target.composing) return;
           _vm.$set(item, "unitPrice", $event.target.value);
         }, function ($event) {
-          return _vm.generateItemTotal($event.target.value, 'price', i - 1, '');
+          return _vm.generateItemTotal($event.target.value, 'price', i, '');
         }]
       }
     })])]), _vm._v(" "), _c('td', {
@@ -9249,10 +9146,10 @@ var render = function render() {
       }],
       staticClass: "form-control form-control-sm",
       "class": {
-        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(i - 1, ".discountType"))
+        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(i, ".discountType"))
       },
       staticStyle: {
-        "width": "85px"
+        "width": "60px"
       },
       on: {
         "change": [function ($event) {
@@ -9264,7 +9161,7 @@ var render = function render() {
           });
           _vm.$set(item, "discountType", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
         }, function ($event) {
-          return _vm.calculateProductDiscount(i - 1);
+          return _vm.calculateProductDiscount(i);
         }]
       }
     }, [_c('option', {
@@ -9284,7 +9181,7 @@ var render = function render() {
       }],
       staticClass: "form-control form-control-sm",
       "class": {
-        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(i - 1, ".discount"))
+        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(i, ".discount"))
       },
       staticStyle: {
         "width": "80px"
@@ -9301,25 +9198,25 @@ var render = function render() {
       },
       on: {
         "change": function change($event) {
-          return _vm.calculateProductDiscount(i - 1);
+          return _vm.calculateProductDiscount(i);
         },
         "keyup": function keyup($event) {
-          return _vm.calculateProductDiscount(i - 1);
+          return _vm.calculateProductDiscount(i);
         },
         "input": [function ($event) {
           if ($event.target.composing) return;
           _vm.$set(item, "discount", $event.target.value);
         }, function ($event) {
-          return _vm.calculateProductDiscount(i - 1);
+          return _vm.calculateProductDiscount(i);
         }]
       }
-    })]), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(i - 1, ".discount")) || _vm.form.errors.has("selectedProducts.".concat(i - 1, ".discountType")) ? _c('div', {
+    })]), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(i, ".discount")) || _vm.form.errors.has("selectedProducts.".concat(i, ".discountType")) ? _c('div', {
       staticClass: "invalid-feedback d-block"
-    }, [_vm.form.errors.has("selectedProducts.".concat(i - 1, ".discount")) ? _c('span', {
+    }, [_vm.form.errors.has("selectedProducts.".concat(i, ".discount")) ? _c('span', {
       staticClass: "d-block"
-    }, [_vm._v(_vm._s(_vm.form.errors.get("selectedProducts.".concat(i - 1, ".discount"))))]) : _vm._e(), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(i - 1, ".discountType")) ? _c('span', {
+    }, [_vm._v(_vm._s(_vm.form.errors.get("selectedProducts.".concat(i, ".discount"))))]) : _vm._e(), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(i, ".discountType")) ? _c('span', {
       staticClass: "d-block"
-    }, [_vm._v(_vm._s(_vm.form.errors.get("selectedProducts.".concat(i - 1, ".discountType"))))]) : _vm._e()]) : _vm._e()]), _vm._v(" "), _c('td', {
+    }, [_vm._v(_vm._s(_vm.form.errors.get("selectedProducts.".concat(i, ".discountType"))))]) : _vm._e()]) : _vm._e()]), _vm._v(" "), _c('td', {
       staticClass: "no-currency",
       staticStyle: {
         "min-width": "120px"
@@ -9339,7 +9236,7 @@ var render = function render() {
       }],
       staticClass: "form-control form-control-sm",
       "class": {
-        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(i - 1, ".selectedVatRate"))
+        'is-invalid': _vm.form.errors.has("selectedProducts.".concat(i, ".selectedVatRate"))
       },
       staticStyle: {
         "min-width": "120px"
@@ -9354,7 +9251,7 @@ var render = function render() {
           });
           _vm.$set(item, "selectedVatRate", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
         }, function ($event) {
-          return _vm.calculateProductVat(i - 1);
+          return _vm.calculateProductVat(i);
         }]
       }
     }, [_c('option', {
@@ -9367,15 +9264,17 @@ var render = function render() {
         domProps: {
           "value": tax
         }
-      }, [_vm._v("\n                            " + _vm._s(tax.code) + " (" + _vm._s(tax.rate) + "%)\n                          ")]);
-    })], 2), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(i - 1, ".selectedVatRate")) ? _c('div', {
+      }, [_vm._v(_vm._s(tax.code) + " (" + _vm._s(tax.rate) + "%)")]);
+    })], 2), _vm._v(" "), _vm.form.errors.has("selectedProducts.".concat(i, ".selectedVatRate")) ? _c('div', {
       staticClass: "invalid-feedback d-block"
-    }, [_vm._v("\n                          " + _vm._s(_vm.form.errors.get("selectedProducts.".concat(i - 1, ".selectedVatRate"))) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c('td', {
+    }, [_vm._v("\n                          " + _vm._s(_vm.form.errors.get("selectedProducts.".concat(i, ".selectedVatRate"))) + "\n                        ")]) : _vm._e()]), _vm._v(" "), _c('td', {
       staticClass: "no-currency",
       staticStyle: {
         "min-width": "100px"
       }
-    }, [_vm._v("\n                          " + _vm._s(_vm.formatToTwoDecimals(item.productTax)) + "\n                        "), _c('span', {
+    }, [_c('span', {
+      staticClass: "form-control-plaintext form-control-sm text-center no-currency"
+    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.productTax)))]), _vm._v(" "), _c('span', {
       staticClass: "saudi-riyal"
     }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
       staticClass: "no-currency",
@@ -9419,7 +9318,7 @@ var render = function render() {
     staticClass: "no-currency"
   }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalAfterDiscount)))]), _vm._v(" "), _c('span', {
     staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]), _vm._v(" "), _vm._m(8), _vm._v(" "), _c('td', {
+  }, [_vm._v("ê")])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('td', {
     staticClass: "no-currency"
   }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalProductTax)))]), _vm._v(" "), _c('span', {
     staticClass: "saudi-riyal"
@@ -9585,12 +9484,13 @@ var render = function render() {
     },
     on: {
       "change": _vm.calculateSum,
+      "keyup": _vm.calculateSum,
       "input": function input($event) {
         if ($event.target.composing) return;
         _vm.$set(_vm.form, "transportCost", $event.target.value);
       }
     }
-  }), _vm._v("\n                  :placeholder=\"$t('Enter transport cost')\" @change=\"calculateSum\" @keyup=\"calculateSum\" />\n                "), _c('span', {
+  }), _vm._v(" "), _c('span', {
     staticClass: "saudi-riyal"
   }, [_vm._v("ê")]), _vm._v(" "), _c('has-error', {
     attrs: {
@@ -9848,7 +9748,7 @@ var render = function render() {
     staticClass: "ml-3"
   }, [_vm._v(_vm._s(_vm.$t("Send To Email")))]), _vm._v(" "), !_vm.communicationConfig.loading && !_vm.communicationConfig.email_configured ? _c('span', {
     staticClass: "ml-2 text-muted small"
-  }, [_vm._v("\n                  (" + _vm._s(_vm.$t("Email not configured")) + ")\n                ")]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
+  }, [_vm._v("(" + _vm._s(_vm.$t("Email not configured")) + ")")]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
     staticClass: "form-group col-12 d-flex flex-wrap"
   }, [_c('div', {
     staticClass: "pr-5 d-flex align-items-center"
@@ -9867,7 +9767,7 @@ var render = function render() {
     staticClass: "ml-3"
   }, [_vm._v(_vm._s(_vm.$t("Send To SMS")))]), _vm._v(" "), !_vm.communicationConfig.loading && !_vm.communicationConfig.sms_configured ? _c('span', {
     staticClass: "ml-2 text-muted small"
-  }, [_vm._v("\n                  (" + _vm._s(_vm.$t("SMS not configured")) + ")\n                ")]) : _vm._e()], 1)])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("(" + _vm._s(_vm.$t("SMS not configured")) + ")")]) : _vm._e()], 1)])]), _vm._v(" "), _c('div', {
     staticClass: "card-footer"
   }, [_c('div', {
     staticClass: "dtable-footer"
@@ -9892,7 +9792,7 @@ var render = function render() {
     }
   }, [_c('i', {
     staticClass: "fas fa-power-off"
-  }), _vm._v(" " + _vm._s(_vm.$t("Reset")) + "\n                ")])], 1)])])])])])]), _vm._v(" "), _c('ClientEditModal', {
+  }), _vm._v(" " + _vm._s(_vm.$t("Reset")) + "\n                ")])], 1)])])]), _vm._v(" "), _c('ClientEditModal', {
     ref: "clientEditModal",
     on: {
       "reloadClients": _vm.getClients
@@ -9911,84 +9811,17 @@ var render = function render() {
     on: {
       "close": _vm.closeStockAdjustmentModal,
       "adjust-quantity": _vm.adjustProductQuantity,
-      "persist": _vm.saveTemporary,
       "stock-updated": _vm.handleStockUpdated
     }
-  })], 1);
+  })], 1)])])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "card-header bg-warning text-dark"
-  }, [_c('h6', {
-    staticClass: "mb-0"
-  }, [_c('i', {
-    staticClass: "fas fa-bug mr-2"
-  }), _vm._v("\n                      🔍 Debug Panel - Calculation Steps\n                      "), _c('span', {
-    staticClass: "badge badge-success ml-2"
-  }, [_vm._v("DEBUG MODE ACTIVE")])])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('h6', {
-    staticClass: "text-primary"
-  }, [_c('i', {
-    staticClass: "fas fa-calculator mr-1"
-  }), _vm._v("\n                        Individual Item Calculations:\n                      ")]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('h6', {
-    staticClass: "text-success"
-  }, [_c('i', {
-    staticClass: "fas fa-chart-line mr-1"
-  }), _vm._v("\n                        Summary Totals:\n                      ")]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('h6', {
-    staticClass: "text-info"
-  }, [_c('i', {
-    staticClass: "fas fa-eye mr-1"
-  }), _vm._v("\n                        Template Display:\n                      ")]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('h6', {
-    staticClass: "text-warning"
-  }, [_c('i', {
-    staticClass: "fas fa-list-ol mr-1"
-  }), _vm._v("\n                        Calculation Steps:\n                      ")]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('h6', {
-    staticClass: "text-secondary"
-  }, [_c('i', {
-    staticClass: "fas fa-info-circle mr-1"
-  }), _vm._v("\n                        Current State:\n                      ")]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('h6', {
-    staticClass: "text-danger"
-  }, [_c('i', {
-    staticClass: "fas fa-table mr-1"
-  }), _vm._v("\n                        Summary Table Comparison:\n                      ")]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('thead', {
-    staticClass: "thead-light"
-  }, [_c('tr', [_c('th', [_vm._v("Value")]), _vm._v(" "), _c('th', [_vm._v("Computed Property")]), _vm._v(" "), _c('th', [_vm._v("Form Value")]), _vm._v(" "), _c('th', [_vm._v("Template Display")]), _vm._v(" "), _c('th', [_vm._v("Status")])])]);
-}, function () {
+var QuotationFormvue_type_template_id_abf88d06_scoped_true_staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c('td', [_c('strong')]);
 }];
 
-;// CONCATENATED MODULE: ./resources/js/pages/sales/quotations/create.vue?vue&type=template&id=16da6166&scoped=true
+;// CONCATENATED MODULE: ./resources/js/components/QuotationForm.vue?vue&type=template&id=abf88d06&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
 var vform_es = __webpack_require__(63216);
@@ -10013,7 +9846,7 @@ var StockAdjustmentModal = __webpack_require__(75528);
 var RTLMixin = __webpack_require__(64744);
 // EXTERNAL MODULE: ./node_modules/to-words/dist/ToWords.js
 var ToWords = __webpack_require__(54923);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/quotations/create.vue?vue&type=script&lang=js
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/QuotationForm.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -10040,13 +9873,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
 
 
-/* harmony default export */ const createvue_type_script_lang_js = ({
-  middleware: ["auth", "check-permissions"],
-  metaInfo: function metaInfo() {
-    return {
-      title: this.$t("Create Quotation")
-    };
-  },
+/* harmony default export */ const QuotationFormvue_type_script_lang_js = ({
+  name: 'QuotationForm',
   mixins: [RTLMixin/* default */.A],
   components: {
     ToggleButton: dist.ToggleButton,
@@ -10055,6 +9883,12 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     ProductCreateModal: ProductCreateModal/* default */.A,
     ProductEditModal: ProductEditModal/* default */.A,
     StockAdjustmentModal: StockAdjustmentModal/* default */.A
+  },
+  props: {
+    mode: {
+      type: String,
+      "default": 'create'
+    } // 'create' | 'edit'
   },
   data: function data() {
     return {
@@ -10094,78 +9928,72 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       products: "",
       taxes: "",
       prefix: "",
-      // Communication configuration status
       communicationConfig: {
         email_configured: false,
         sms_configured: false,
         loading: true
       },
-      // Stock adjustment modal
       showStockAdjustmentModal: false,
-      selectedProductForStockAdjustment: null,
-      restoredFromTemp: false
+      selectedProductForStockAdjustment: null
     };
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "appInfo"])), {}, {
-    // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
+    formId: function formId() {
+      return this.mode === 'edit' ? 'quotationEditForm' : 'quotationCreateForm';
+    },
     isSaudiArabia: function isSaudiArabia() {
       var _this$appInfo;
       return !((_this$appInfo = this.appInfo) !== null && _this$appInfo !== void 0 && _this$appInfo.country) || this.appInfo.country === 'SA';
     },
-    // Calculate total unit price (sum of all unit prices * quantities)
     totalUnitPrice: function totalUnitPrice() {
-      var total = this.form.selectedProducts.reduce(function (total, item) {
-        return total + item.unitPrice * item.qty;
-      }, 0);
-      return this.roundToTwoDecimals(total);
+      return this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (t, i) {
+        return t + i.unitPrice * i.qty;
+      }, 0));
     },
-    // Calculate total discount from all products (reactive)
     totalProductDiscount: function totalProductDiscount() {
-      var total = this.form.selectedProducts.reduce(function (total, item) {
-        return total + (item.discountAmount || 0);
-      }, 0);
-      return this.roundToTwoDecimals(total);
+      return this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (t, i) {
+        return t + (i.discountAmount || 0);
+      }, 0));
     },
-    // Calculate total after discount (reactive)
     totalAfterDiscount: function totalAfterDiscount() {
       return this.roundToTwoDecimals(this.totalUnitPrice - this.totalProductDiscount);
     },
-    // Calculate total product tax (reactive)
     totalProductTax: function totalProductTax() {
-      var total = this.form.selectedProducts.reduce(function (total, item) {
-        return total + (item.totalTax || 0);
-      }, 0);
-      return this.roundToTwoDecimals(total);
+      return this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (t, i) {
+        return t + (i.totalTax || 0);
+      }, 0));
     },
-    // Calculate subtotal (reactive) - WITH VAT for quotations
     subtotal: function subtotal() {
-      return this.roundToTwoDecimals(this.totalAfterDiscount + this.totalProductTax);
+      return this.roundToTwoDecimals(this.form.selectedProducts.reduce(function (t, i) {
+        return t + (i.totalPrice || 0);
+      }, 0));
     },
-    // Check if there are any products with insufficient stock
     hasInsufficientStock: function hasInsufficientStock() {
-      return this.form.selectedProducts.some(function (item) {
-        return item.itemType === 'product' && Number(item.inventoryCount) < Number(item.qty);
+      return this.form.selectedProducts.some(function (i) {
+        return i.itemType === 'product' && Number(i.inventoryCount) < Number(i.qty);
       });
     },
-    // Get all products with insufficient stock
     insufficientStockProducts: function insufficientStockProducts() {
-      return this.form.selectedProducts.filter(function (item) {
-        return item.itemType === 'product' && Number(item.inventoryCount) < Number(item.qty);
+      return this.form.selectedProducts.filter(function (i) {
+        return i.itemType === 'product' && Number(i.inventoryCount) < Number(i.qty);
       });
-    },
-    // Page title computed property - static to prevent reactive updates
-    pageTitle: function pageTitle() {
-      console.log('pageTitle computed property called');
-      return this.$t("Create Quotation");
     }
   }),
-  watch: {
-    // Watch for any changes and ensure title stays correct
-    '$route': function $route() {
-      this.setCorrectTitle();
-    }
-  },
   created: function created() {
+    if (this.mode === 'edit') {
+      this.breadcrumbsCurrent = "Edit Quotation";
+      this.breadcrumbs = [{
+        name: "Dashboard",
+        url: "home"
+      }, {
+        name: "Quotations",
+        url: "quotations.index"
+      }, {
+        name: "Edit",
+        url: ""
+      }];
+      this.loadQuotation();
+    }
     this.getClients();
     this.getProducts();
     this.getTaxes();
@@ -10173,196 +10001,161 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     this.prefix = this.appInfo.productPrefix;
     this.ensureDiscountProperties();
   },
-  // Persist form state when navigating away (e.g., to adjustments page) so it's restored on return
-  beforeRouteLeave: function beforeRouteLeave(to, from, next) {
-    try {
-      // Only persist when going to inventory adjustments create page
-      if (to && to.name === 'adjustments.create') {
-        this.saveTemporary();
-      } else {
-        // For any other navigation, ensure temp is cleared so data doesn't persist
-        this.clearTemporaryData();
-      }
-    } catch (e) {
-      // no-op
-    }
-    next();
-  },
   methods: {
-    // Set the correct title and prevent it from changing
-    setCorrectTitle: function setCorrectTitle() {
-      var correctTitle = this.$t("Create Quotation");
-      if (document.title !== correctTitle) {
-        console.log('Title changed, fixing it. Current:', document.title, 'Setting to:', correctTitle);
-        document.title = correctTitle;
-      }
-    },
-    // get all clients
-    getClients: function getClients() {
-      var _arguments = arguments,
-        _this = this;
+    loadQuotation: function loadQuotation() {
+      var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var selectedClient, defaultClientSlug, defaultClient;
+        var _yield$axios$get, data;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              selectedClient = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 'default';
+              _context.prev = 0;
               _context.next = 3;
-              return _this.$store.dispatch("operations/allData", {
-                path: "/api/all-clients"
-              });
+              return axios_default().get(window.location.origin + "/api/quotations/" + _this.$route.params.slug);
             case 3:
-              if (!(!_this.items || _this.items.length === 0)) {
-                _context.next = 5;
-                break;
-              }
-              return _context.abrupt("return");
-            case 5:
-              if (!(selectedClient === 'latest')) {
-                _context.next = 8;
-                break;
-              }
-              _this.form.client = _this.items[0];
-              return _context.abrupt("return");
-            case 8:
-              if (!(_this.form.client && (_this.form.client.id || _this.form.client.slug))) {
-                _context.next = 11;
-                break;
-              }
-              _this.normalizeClientSelection();
-              return _context.abrupt("return");
-            case 11:
-              // Otherwise, assign default client
-              defaultClientSlug = _this.appInfo.defaultClientSlug;
-              defaultClient = _this.items.find(function (item) {
-                return item.slug === defaultClientSlug;
-              });
-              if (defaultClient) {
-                _this.form.client = defaultClient;
-              }
-            case 14:
+              _yield$axios$get = _context.sent;
+              data = _yield$axios$get.data;
+              _this.form.client = data.data.client;
+              _this.form.reference = data.data.reference;
+              _this.form.totalTax = data.data.totalTax;
+              _this.form.orderTax = data.data.quotationTax;
+              _this.form.discount = data.data.discountType == 0 ? data.data.discount : data.data.discountPercentage;
+              _this.form.discountType = data.data.discountType;
+              _this.form.discountPercentage = data.data.discountPercentage;
+              _this.form.totalDiscount = data.data.discount;
+              _this.form.transportCost = data.data.transport;
+              _this.form.subTotal = data.data.subTotal;
+              _this.form.deliveryPlace = data.data.deliveryPlace;
+              _this.form.date = data.data.date;
+              _this.form.note = data.data.note;
+              _this.form.status = data.data.status;
+              _this.form.selectedProducts = _this.assignProducts(data.data.products);
+              _this.calculateSum();
+              _context.next = 26;
+              break;
+            case 23:
+              _context.prev = 23;
+              _context.t0 = _context["catch"](0);
+              console.error('Failed to load quotation', _context.t0);
+            case 26:
             case "end":
               return _context.stop();
           }
-        }, _callee);
+        }, _callee, null, [[0, 23]]);
       }))();
     },
-    // get products
-    getProducts: function getProducts() {
-      var _this2 = this;
+    getClients: function getClients() {
+      var _arguments = arguments,
+        _this2 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var _yield$axios$get, data;
+        var selectedClient;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.next = 2;
-              return axios_default().get(window.location.origin + "/api/all-products");
-            case 2:
-              _yield$axios$get = _context2.sent;
-              data = _yield$axios$get.data;
-              _this2.products = data.data;
-              _this2.products.sort(_this2.sortProducts);
-              // After products are loaded/refreshed, sync inventory for selected items
-              if (_this2.form.selectedProducts && _this2.form.selectedProducts.length > 0) {
-                _this2.refreshSelectedProductsInventory();
+              selectedClient = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 'default';
+              _context2.next = 3;
+              return _this2.$store.dispatch("operations/allData", {
+                path: "/api/all-clients"
+              });
+            case 3:
+              if (selectedClient === 'latest' && _this2.items && _this2.items.length > 0) {
+                _this2.form.client = _this2.items[0];
               }
-            case 7:
+            case 4:
             case "end":
               return _context2.stop();
           }
         }, _callee2);
       }))();
     },
-    // handle newly created product
-    handleProductCreated: function handleProductCreated(newProduct) {
-      // Add the new product to the products list
-      this.products.unshift(newProduct);
-      this.products.sort(this.sortProducts);
-
-      // Automatically select the newly created product
-      this.form.product = newProduct;
-
-      // Automatically add it to the selected products list
-      this.storeProduct(newProduct);
-
-      // Show success message
-      // this.$toast.success(this.$t("Product created and added to quotation successfully!"));
-    },
-    // sort products
-    sortProducts: function sortProducts(a, b) {
-      if (Number(a.code) < Number(b.code)) {
-        return -1;
-      }
-      if (Number(a.code) > Number(b.code)) {
-        return 1;
-      }
-      return 0;
-    },
-    // get taxes
-    getTaxes: function getTaxes() {
+    getProducts: function getProducts() {
       var _this3 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        var _yield$axios$get2, data, defaultVatRateSlug;
+        var _yield$axios$get2, data;
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
               _context3.next = 2;
-              return axios_default().get(window.location.origin + "/api/all-vat-rates");
+              return axios_default().get(window.location.origin + "/api/all-products");
             case 2:
               _yield$axios$get2 = _context3.sent;
               data = _yield$axios$get2.data;
-              _this3.taxes = data.data;
-              // assign default vat rate
-              if (_this3.taxes && _this3.taxes.length > 0) {
-                defaultVatRateSlug = _this3.appInfo.defaultVatRateSlug;
-                _this3.form.orderTax = _this3.taxes.find(function (tax) {
-                  return tax.slug === defaultVatRateSlug;
-                });
-              }
-              _this3.calculateSum();
-            case 7:
+              _this3.products = data.data;
+              if (Array.isArray(_this3.products)) _this3.products.sort(_this3.sortProducts);
+            case 6:
             case "end":
               return _context3.stop();
           }
         }, _callee3);
       }))();
     },
-    // Load communication configuration status
-    loadCommunicationConfigStatus: function loadCommunicationConfigStatus() {
+    getTaxes: function getTaxes() {
       var _this4 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        var response;
+        var _yield$axios$get3, data, defaultVatRateSlug;
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              _context4.prev = 0;
-              _this4.communicationConfig.loading = true;
-              _context4.next = 4;
-              return axios_default().get('/api/communication-config-status');
-            case 4:
-              response = _context4.sent;
-              _this4.communicationConfig.email_configured = response.data.email_configured;
-              _this4.communicationConfig.sms_configured = response.data.sms_configured;
-              _this4.communicationConfig.loading = false;
-              _context4.next = 16;
-              break;
-            case 10:
-              _context4.prev = 10;
-              _context4.t0 = _context4["catch"](0);
-              console.error('Error loading communication config status:', _context4.t0);
-              // Default to false if there's an error
-              _this4.communicationConfig.email_configured = false;
-              _this4.communicationConfig.sms_configured = false;
-              _this4.communicationConfig.loading = false;
-            case 16:
+              _context4.next = 2;
+              return axios_default().get(window.location.origin + "/api/all-vat-rates");
+            case 2:
+              _yield$axios$get3 = _context4.sent;
+              data = _yield$axios$get3.data;
+              _this4.taxes = data.data;
+              if (_this4.taxes && _this4.taxes.length > 0 && !_this4.form.orderTax) {
+                defaultVatRateSlug = _this4.appInfo.defaultVatRateSlug;
+                _this4.form.orderTax = _this4.taxes.find(function (t) {
+                  return t.slug === defaultVatRateSlug;
+                }) || _this4.taxes[0];
+              }
+              _this4.calculateSum();
+            case 7:
             case "end":
               return _context4.stop();
           }
-        }, _callee4, null, [[0, 10]]);
+        }, _callee4);
       }))();
     },
-    // store item in array
+    loadCommunicationConfigStatus: function loadCommunicationConfigStatus() {
+      var _this5 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.prev = 0;
+              _this5.communicationConfig.loading = true;
+              _context5.next = 4;
+              return axios_default().get('/api/communication-config-status');
+            case 4:
+              response = _context5.sent;
+              _this5.communicationConfig.email_configured = response.data.email_configured;
+              _this5.communicationConfig.sms_configured = response.data.sms_configured;
+              _context5.next = 13;
+              break;
+            case 9:
+              _context5.prev = 9;
+              _context5.t0 = _context5["catch"](0);
+              _this5.communicationConfig.email_configured = false;
+              _this5.communicationConfig.sms_configured = false;
+            case 13:
+              _context5.prev = 13;
+              _this5.communicationConfig.loading = false;
+              return _context5.finish(13);
+            case 16:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5, null, [[0, 9, 13, 16]]);
+      }))();
+    },
+    sortProducts: function sortProducts(a, b) {
+      if (Number(a.code) < Number(b.code)) return -1;
+      if (Number(a.code) > Number(b.code)) return 1;
+      return 0;
+    },
     storeProduct: function storeProduct(product) {
+      if (!product) return;
       var index = this.form.selectedProducts.findIndex(function (x) {
         return x.id == product.id;
       });
@@ -10400,234 +10193,137 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         // If product already exists, just update quantity
         this.generateItemTotal(qunatity, "qty", index, "");
       }
-      return;
     },
-    // update array
-    generateItemTotal: function generateItemTotal(value, type, index, action) {
-      var item = this.form.selectedProducts[index];
-      if (item) {
-        if (type == "qty") {
-          var newQty = Number(value) || 0;
-          if (action == "increment") {
-            newQty = Number(item.qty) + 1;
-          } else if (action == "decrement") {
-            if (Number(item.qty) > 0) {
-              newQty = Number(item.qty) - 1;
-            }
-          }
-          this.$set(item, 'qty', Number(newQty));
-        } else if (type == "price") {
-          var newPrice = Number(value) || 0;
-          if (action == "increment") {
-            newPrice = Number(item.unitPrice) + 1;
-          } else if (action == "decrement") {
-            if (Number(item.unitPrice) > 0) {
-              newPrice = Number(item.unitPrice) - 1;
-            }
-          }
-          this.$set(item, 'unitPrice', Number(newPrice));
-        }
-
-        // Recalculate discount amount when quantity or price changes
-        if (Number(item.discount) > 0) {
-          if (item.discountType === "percentage") {
-            this.$set(item, 'discountAmount', this.roundToTwoDecimals(Number(item.unitPrice) * Number(item.qty) * Number(item.discount) / 100));
-          } else {
-            this.$set(item, 'discountAmount', this.roundToTwoDecimals(Number(item.discount || 0)));
-          }
-        }
-
-        // Use the new method to calculate totals with discount and VAT
-        this.generateItemTotalPrice(index);
-      }
-      this.calculateSum();
-      return;
-    },
-    // remove item from array
-    removeItem: function removeItem(item) {
-      var index = this.form.selectedProducts.indexOf(item);
-      if (index > -1) {
-        this.form.selectedProducts.splice(index, 1);
-      }
-      this.calculateSum();
-      return;
-    },
-    // Helper function to round to two decimals
-    roundToTwoDecimals: function roundToTwoDecimals(value) {
-      return Math.round((value + Number.EPSILON) * 100) / 100;
-    },
-    // Format number to display with exactly 2 decimal places
-    formatToTwoDecimals: function formatToTwoDecimals(value) {
-      if (value === null || value === undefined || value === '') {
-        return '0.00';
-      }
-      var numValue = Number(value);
-      if (isNaN(numValue)) {
-        return '0.00';
-      }
-      return numValue.toFixed(2);
-    },
-    // Find matching VAT rate based on product tax
     findMatchingVatRate: function findMatchingVatRate(productTax) {
       if (!this.taxes || !productTax) return null;
       return this.taxes.find(function (tax) {
         return Math.abs(tax.rate - productTax) < 0.01;
       });
     },
-    // Ensure all products have discount and VAT properties
     ensureDiscountProperties: function ensureDiscountProperties() {
-      var _this5 = this;
+      var _this6 = this;
       this.form.selectedProducts.forEach(function (item) {
-        if (typeof item.discount === 'undefined') {
-          item.discount = 0;
-        }
-        if (typeof item.discountType === 'undefined') {
-          item.discountType = 'fixed';
-        }
-        if (typeof item.discountAmount === 'undefined') {
-          item.discountAmount = 0;
-        }
+        if (typeof item.discount === 'undefined') item.discount = 0;
+        if (typeof item.discountType === 'undefined') item.discountType = 'fixed';
+        if (typeof item.discountAmount === 'undefined') item.discountAmount = 0;
         if (typeof item.selectedVatRate === 'undefined') {
-          // First try to use the product's default VAT rate, then fall back to quotation default
-          if (item.taxRate) {
-            item.selectedVatRate = _this5.findMatchingVatRate(item.taxRate);
-          }
-
-          // If no match found or no taxRate, fall back to quotation default
-          if (!item.selectedVatRate) {
-            if (_this5.form.orderTax) {
-              item.selectedVatRate = _this5.form.orderTax;
-            } else if (_this5.taxes && _this5.taxes.length > 0) {
-              item.selectedVatRate = _this5.taxes[0];
-            }
-          }
+          if (item.taxRate) item.selectedVatRate = _this6.findMatchingVatRate(item.taxRate);
+          if (!item.selectedVatRate) item.selectedVatRate = _this6.form.orderTax || _this6.taxes && _this6.taxes[0];
         }
       });
     },
-    // Calculate product discount
     calculateProductDiscount: function calculateProductDiscount(index) {
       var item = this.form.selectedProducts[index];
-      if (item) {
-        if (item.discountType === "percentage") {
-          this.$set(item, 'discountAmount', this.roundToTwoDecimals(Number(item.unitPrice) * Number(item.qty) * Number(item.discount) / 100));
-        } else {
-          this.$set(item, 'discountAmount', this.roundToTwoDecimals(Number(item.discount || 0)));
-        }
-
-        // Recalculate totals
-        this.generateItemTotalPrice(index);
-        this.calculateSum();
+      if (!item) return;
+      if (item.discountType === "percentage") {
+        this.$set(item, 'discountAmount', this.roundToTwoDecimals(Number(item.unitPrice) * Number(item.qty) * Number(item.discount) / 100));
+      } else {
+        this.$set(item, 'discountAmount', this.roundToTwoDecimals(Number(item.discount || 0)));
       }
+      this.generateItemTotalPrice(index);
+      this.calculateSum();
     },
-    // Calculate product VAT
     calculateProductVat: function calculateProductVat(index) {
       var item = this.form.selectedProducts[index];
-      if (item) {
-        // Ensure the selectedVatRate is properly set
-        if (!item.selectedVatRate) {
-          if (item.taxRate) {
-            item.selectedVatRate = this.findMatchingVatRate(item.taxRate);
-          }
-          if (!item.selectedVatRate && this.taxes && this.taxes.length > 0) {
-            item.selectedVatRate = this.taxes[0];
-          }
-        }
-
-        // Recalculate totals with new VAT rate
-        this.generateItemTotalPrice(index);
-        this.calculateSum();
+      if (!item) return;
+      if (!item.selectedVatRate) {
+        if (item.taxRate) item.selectedVatRate = this.findMatchingVatRate(item.taxRate);
+        if (!item.selectedVatRate && this.taxes && this.taxes.length > 0) item.selectedVatRate = this.taxes[0];
       }
+      this.generateItemTotalPrice(index);
+      this.calculateSum();
     },
-    // Generate item total price with discount and VAT (aligned with invoice logic)
-    generateItemTotalPrice: function generateItemTotalPrice(index) {
+    generateItemTotal: function generateItemTotal(value, type, index, action) {
       var item = this.form.selectedProducts[index];
       if (item) {
-        // Ensure all values are numbers
-        var unitPrice = Number(item.unitPrice) || 0;
-        var qty = Number(item.qty) || 0;
-        var discountAmount = Number(item.discountAmount) || 0;
-
-        // Calculate price after discount
-        var priceAfterDiscount = this.roundToTwoDecimals(unitPrice * qty - discountAmount);
-
-        // Use selected VAT rate if available, otherwise fall back to product's default tax rate
-        var vatRate = 0;
-        if (item.selectedVatRate && item.selectedVatRate.rate !== undefined && item.selectedVatRate.rate !== null) {
-          vatRate = Number(item.selectedVatRate.rate);
-        } else if (item.taxRate !== undefined && item.taxRate !== null) {
-          vatRate = Number(item.taxRate);
+        if (type == "qty") {
+          var newQty = Number(value) || 0;
+          if (action == "increment") newQty = Number(item.qty) + 1;else if (action == "decrement") {
+            if (Number(item.qty) > 0) newQty = Number(item.qty) - 1;
+          }
+          this.$set(item, 'qty', Number(newQty));
+        } else if (type == "price") {
+          var newPrice = Number(value) || 0;
+          if (action == "increment") newPrice = Number(item.unitPrice) + 1;else if (action == "decrement") {
+            if (Number(item.unitPrice) > 0) newPrice = Number(item.unitPrice) - 1;
+          }
+          this.$set(item, 'unitPrice', Number(newPrice));
         }
-
-        // Ensure vatRate is a valid number
-        if (isNaN(vatRate) || vatRate < 0) {
-          vatRate = 0;
+        if (Number(item.discount) > 0) {
+          if (item.discountType === "percentage") this.$set(item, 'discountAmount', this.roundToTwoDecimals(Number(item.unitPrice) * Number(item.qty) * Number(item.discount) / 100));else this.$set(item, 'discountAmount', this.roundToTwoDecimals(Number(item.discount || 0)));
         }
-
-        // Set totalAfterDiscount for subtotal calculation (without VAT)
-        item.totalAfterDiscount = this.roundToTwoDecimals(priceAfterDiscount);
-        if (item.taxType == "Exclusive") {
-          // VAT on discounted amount
-          item.productTax = this.roundToTwoDecimals(priceAfterDiscount * (vatRate / 100));
-          item.totalTax = this.roundToTwoDecimals(item.productTax);
-          // Ensure both values are numbers before addition
-          item.totalPrice = this.roundToTwoDecimals(Number(priceAfterDiscount) + Number(item.totalTax));
-        } else {
-          // Inclusive: VAT is included in unit price; derive VAT from discounted price
-          var discountedUnitPrice = this.roundToTwoDecimals(priceAfterDiscount / qty);
-          item.unitPrice = discountedUnitPrice;
-          item.productTax = this.roundToTwoDecimals(discountedUnitPrice - discountedUnitPrice / (1 + vatRate / 100));
-          item.totalTax = this.roundToTwoDecimals(Number(item.productTax) * Number(qty));
-          item.totalPrice = this.roundToTwoDecimals(priceAfterDiscount);
-        }
-
-        // Ensure all numeric fields are numbers
-        item.unitPrice = Number(item.unitPrice);
-        item.qty = Number(item.qty);
-        item.productTax = Number(item.productTax);
-        item.totalTax = Number(item.totalTax);
-        item.totalPrice = Number(item.totalPrice);
-        item.discountAmount = Number(item.discountAmount) || 0;
-        this.form.selectedProducts[index] = item;
+        this.generateItemTotalPrice(index);
       }
+      this.calculateSum();
     },
-    // calculate sum (aligned with invoice logic)
+    generateItemTotalPrice: function generateItemTotalPrice(index) {
+      var item = this.form.selectedProducts[index];
+      if (!item) return;
+
+      // Ensure all values are numbers
+      var unitPrice = Number(item.unitPrice) || 0;
+      var qty = Number(item.qty) || 0;
+      var discountAmount = Number(item.discountAmount) || 0;
+      var priceAfterDiscount = this.roundToTwoDecimals(unitPrice * qty - discountAmount);
+      var vatRate = 0;
+      if (item.selectedVatRate && item.selectedVatRate.rate !== undefined && item.selectedVatRate.rate !== null) vatRate = Number(item.selectedVatRate.rate);else if (item.taxRate !== undefined && item.taxRate !== null) vatRate = Number(item.taxRate);
+      if (isNaN(vatRate) || vatRate < 0) vatRate = 0;
+      if (item.taxType == "Exclusive") {
+        item.productTax = this.roundToTwoDecimals(priceAfterDiscount * (vatRate / 100));
+        item.totalTax = this.roundToTwoDecimals(item.productTax);
+        // Ensure both values are numbers before addition
+        item.totalPrice = this.roundToTwoDecimals(Number(priceAfterDiscount) + Number(item.totalTax));
+      } else {
+        var discountedUnitPrice = this.roundToTwoDecimals(priceAfterDiscount / qty);
+        item.unitPrice = discountedUnitPrice;
+        item.productTax = this.roundToTwoDecimals(discountedUnitPrice - discountedUnitPrice / (1 + vatRate / 100));
+        item.totalTax = this.roundToTwoDecimals(Number(item.productTax) * Number(qty));
+        item.totalPrice = this.roundToTwoDecimals(priceAfterDiscount);
+      }
+
+      // Ensure all numeric fields are numbers
+      item.unitPrice = Number(item.unitPrice);
+      item.qty = Number(item.qty);
+      item.productTax = Number(item.productTax);
+      item.totalTax = Number(item.totalTax);
+      item.totalPrice = Number(item.totalPrice);
+      item.discountAmount = Number(item.discountAmount) || 0;
+      this.form.selectedProducts[index] = item;
+    },
+    removeItem: function removeItem(item) {
+      var index = this.form.selectedProducts.indexOf(item);
+      if (index > -1) this.form.selectedProducts.splice(index, 1);
+      this.calculateSum();
+    },
+    roundToTwoDecimals: function roundToTwoDecimals(value) {
+      return Math.round((Number(value) + Number.EPSILON) * 100) / 100;
+    },
+    formatToTwoDecimals: function formatToTwoDecimals(value) {
+      if (value === null || value === undefined || value === '') return '0.00';
+      var num = Number(value);
+      if (isNaN(num)) return '0.00';
+      return num.toFixed(2);
+    },
     calculateSum: function calculateSum() {
-      // Update form values for consistency with computed properties
       this.$set(this.form, 'subTotal', this.roundToTwoDecimals(this.subtotal));
       this.$set(this.form, 'productTotalTax', this.roundToTwoDecimals(this.totalProductTax));
       this.$set(this.form, 'totalDiscount', this.roundToTwoDecimals(this.totalProductDiscount));
-
-      // Global discount
       var globalDiscount = 0;
       if (!this.isSaudiArabia && this.form.discount > 0) {
-        if (this.form.discountType == 1) {
-          globalDiscount = this.roundToTwoDecimals(this.form.discount / 100 * this.form.subTotal);
-        } else {
-          globalDiscount = this.roundToTwoDecimals(Number(this.form.discount));
-        }
+        if (this.form.discountType == 1) globalDiscount = this.roundToTwoDecimals(this.form.discount / 100 * this.form.subTotal);else globalDiscount = this.roundToTwoDecimals(Number(this.form.discount));
       }
-
-      // Quotation-level tax computed on (subTotal - globalDiscount)
       this.$set(this.form, 'invoiceTax', 0);
       if (!this.isSaudiArabia && this.form.orderTax && this.form.orderTax.rate) {
         this.$set(this.form, 'invoiceTax', this.roundToTwoDecimals(this.form.orderTax.rate / 100 * (this.form.subTotal - globalDiscount)));
       }
-
-      // Total tax = product VAT + quotation-level tax
       this.$set(this.form, 'totalTax', this.roundToTwoDecimals(this.form.productTotalTax + this.form.invoiceTax));
-
-      // Net total
       if (this.isSaudiArabia) {
-        // For Saudi Arabia, include VAT in the final total
-        this.$set(this.form, 'netTotal', this.roundToTwoDecimals(this.subtotal));
+        this.$set(this.form, 'netTotal', this.roundToTwoDecimals(this.form.subTotal));
       } else {
         this.$set(this.form, 'netTotal', this.roundToTwoDecimals(this.form.subTotal - globalDiscount + this.form.invoiceTax + Number(this.form.transportCost || 0)));
       }
-      return;
     },
-    // edit selected client
     editSelectedClient: function editSelectedClient() {
-      // Check if a client is selected
       if (!this.form.client) {
         toast.fire({
           type: "warning",
@@ -10636,10 +10332,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         });
         return;
       }
-
-      // Check if the modal component is available
       if (!this.$refs.clientEditModal) {
-        console.error('ClientEditModal component not found');
         toast.fire({
           type: "error",
           title: this.$t("Error"),
@@ -10647,15 +10340,10 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         });
         return;
       }
-
-      // Open the client edit modal with the selected client
       this.$refs.clientEditModal.openModal(this.form.client);
     },
-    // edit product from table row
     editProductFromTable: function editProductFromTable(product) {
-      // Check if the modal component is available
       if (!this.$refs.productEditModal) {
-        console.error('ProductEditModal component not found');
         toast.fire({
           type: "error",
           title: this.$t("Error"),
@@ -10663,75 +10351,84 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         });
         return;
       }
-
-      // Open the product edit modal with the specific product from the table
       this.$refs.productEditModal.openModal(product);
     },
-    // handle product updated event
+    handleProductCreated: function handleProductCreated(newProduct) {
+      this.products.unshift(newProduct);
+      this.products.sort(this.sortProducts);
+      this.form.product = newProduct;
+      this.storeProduct(newProduct);
+    },
     handleProductUpdated: function handleProductUpdated(eventData) {
       var originalProduct = eventData.originalProduct,
         updatedData = eventData.updatedData;
-      console.log('Product updated event received:', eventData);
-
-      // Find and update the product in selectedProducts array
       var productIndex = this.form.selectedProducts.findIndex(function (p) {
         return p.id === originalProduct.id || p.slug === originalProduct.slug;
       });
       if (productIndex !== -1) {
-        // Update the product data in the selected products array
         var updatedProduct = _objectSpread({}, this.form.selectedProducts[productIndex]);
-
-        // Update relevant fields from the form data
         updatedProduct.name = updatedData.itemName || updatedProduct.name;
         updatedProduct.item_name = updatedData.itemName || updatedProduct.item_name;
         updatedProduct.regular_price = updatedData.regularPrice || updatedProduct.regular_price;
         updatedProduct.price = updatedData.regularPrice || updatedProduct.price;
         updatedProduct.discount = updatedData.discount || updatedProduct.discount;
         updatedProduct.selling_price = updatedData.sellingPrice || updatedProduct.selling_price;
-
-        // Update related objects if they have IDs
-        if (updatedData.subCategory) {
-          updatedProduct.sub_category_id = updatedData.subCategory;
-        }
-        if (updatedData.itemUnit) {
-          updatedProduct.unit_id = updatedData.itemUnit;
-        }
+        if (updatedData.subCategory) updatedProduct.sub_category_id = updatedData.subCategory;
+        if (updatedData.itemUnit) updatedProduct.unit_id = updatedData.itemUnit;
         if (updatedData.productTax) {
           updatedProduct.tax_id = updatedData.productTax;
           updatedProduct.vat_rate_id = updatedData.productTax;
         }
-        if (updatedData.brand) {
-          updatedProduct.brand_id = updatedData.brand;
-        }
-
-        // Replace the product in the array
+        if (updatedData.brand) updatedProduct.brand_id = updatedData.brand;
         this.$set(this.form.selectedProducts, productIndex, updatedProduct);
-        console.log('Updated product in selectedProducts array:', updatedProduct);
-
-        // Recalculate totals
-        this.calculateTotal();
-      } else {
-        console.warn('Could not find product to update in selectedProducts array');
+        this.calculateSum();
       }
     },
-    // return number to word with language support
+    openStockAdjustmentModal: function openStockAdjustmentModal(product) {
+      this.selectedProductForStockAdjustment = product;
+      this.showStockAdjustmentModal = true;
+    },
+    closeStockAdjustmentModal: function closeStockAdjustmentModal() {
+      this.showStockAdjustmentModal = false;
+      this.selectedProductForStockAdjustment = null;
+    },
+    adjustProductQuantity: function adjustProductQuantity(product) {
+      var index = this.form.selectedProducts.findIndex(function (p) {
+        return p.id === product.id;
+      });
+      if (index !== -1) {
+        this.$set(this.form.selectedProducts[index], 'qty', product.inventoryCount);
+        this.generateItemTotal(product.inventoryCount, "qty", index, "");
+        toast.fire({
+          type: "info",
+          title: this.$t("Quantity Adjusted"),
+          text: this.$t("Product quantity has been adjusted to available stock.")
+        });
+      }
+      this.closeStockAdjustmentModal();
+    },
+    handleStockUpdated: function handleStockUpdated(eventData) {
+      this.getProducts();
+      var product = eventData.product,
+        newQuantity = eventData.newQuantity;
+      var index = this.form.selectedProducts.findIndex(function (p) {
+        return p.id === product.id;
+      });
+      if (index !== -1) {
+        this.$set(this.form.selectedProducts[index], 'inventoryCount', (this.form.selectedProducts[index].inventoryCount || 0) + newQuantity);
+        this.calculateSum();
+      }
+    },
     toWord: function toWord() {
       var amount = this.subtotal || 0;
-
-      // Handle edge cases
       if (isNaN(amount) || amount < 0) {
         return this.isRTL && this.currentLocale === 'ar' ? 'مبلغ غير صحيح' : 'Invalid Amount';
       }
       if (amount === 0) {
         return this.isRTL && this.currentLocale === 'ar' ? 'صفر ريال فقط' : 'Zero Only';
       }
-      if (this.isRTL && this.currentLocale === 'ar') {
-        return this.convertToArabicWords(amount);
-      } else {
-        return this.convertToEnglishWords(amount);
-      }
+      return this.isRTL && this.currentLocale === 'ar' ? this.convertToArabicWords(amount) : this.convertToEnglishWords(amount);
     },
-    // Convert number to Arabic words
     convertToArabicWords: function convertToArabicWords(amount) {
       var currencyInfo = this.getCurrencyInfo();
       if (amount === 0) return "\u0635\u0641\u0631 ".concat(currencyInfo.main, " \u0641\u0642\u0637");
@@ -10741,37 +10438,16 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       if (integerPart > 0) {
         var arabicNumber = this.convertIntegerToArabic(integerPart);
         result += arabicNumber + ' ' + currencyInfo.main;
-
-        // Add proper pluralization for main currency
-        if (integerPart === 1) {
-          // Keep singular form
-        } else if (integerPart === 2) {
-          result = result.replace(currencyInfo.main, currencyInfo.main + 'ان');
-        } else if (integerPart >= 3 && integerPart <= 10) {
-          result = result.replace(currencyInfo.main, currencyInfo.main + 'ات');
-        } else {
-          // Keep plural form for larger numbers
-        }
+        if (integerPart === 2) result = result.replace(currencyInfo.main, currencyInfo.main + 'ان');else if (integerPart >= 3 && integerPart <= 10) result = result.replace(currencyInfo.main, currencyInfo.main + 'ات');
       }
       if (decimalPart > 0) {
         if (result) result += ' و ';
         var arabicDecimal = this.convertIntegerToArabic(decimalPart);
         result += arabicDecimal + ' ' + currencyInfo.sub;
-
-        // Add proper pluralization for sub currency
-        if (decimalPart === 1) {
-          // Keep singular form
-        } else if (decimalPart === 2) {
-          result = result.replace(currencyInfo.sub, currencyInfo.sub + 'ان');
-        } else if (decimalPart >= 3 && decimalPart <= 10) {
-          result = result.replace(currencyInfo.sub, currencyInfo.sub + 'ات');
-        } else {
-          // Keep plural form for larger numbers
-        }
+        if (decimalPart === 2) result = result.replace(currencyInfo.sub, currencyInfo.sub + 'ان');else if (decimalPart >= 3 && decimalPart <= 10) result = result.replace(currencyInfo.sub, currencyInfo.sub + 'ات');
       }
       return result + ' فقط';
     },
-    // Get currency information based on locale and app settings
     getCurrencyInfo: function getCurrencyInfo() {
       var _this$appInfo2, _currencyMap$currency;
       var currency = ((_this$appInfo2 = this.appInfo) === null || _this$appInfo2 === void 0 ? void 0 : _this$appInfo2.currency) || 'SAR';
@@ -10828,13 +10504,10 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       };
       return ((_currencyMap$currency = currencyMap[currency]) === null || _currencyMap$currency === void 0 ? void 0 : _currencyMap$currency[isArabic ? 'ar' : 'en']) || currencyMap['SAR'][isArabic ? 'ar' : 'en'];
     },
-    // Convert number to English words
     convertToEnglishWords: function convertToEnglishWords(amount) {
       var currencyInfo = this.getCurrencyInfo();
       var toWords = new ToWords.ToWords();
       var words = toWords.convert(amount);
-
-      // Add currency information
       var integerPart = Math.floor(amount);
       var decimalPart = Math.round((amount - integerPart) * 100);
       var result = words;
@@ -10849,7 +10522,6 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       }
       return result + ' Only';
     },
-    // Convert integer to English words (for decimal parts)
     convertIntegerToEnglish: function convertIntegerToEnglish(num) {
       if (num === 0) return 'zero';
       var ones = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
@@ -10865,7 +10537,6 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       }
       return 'number';
     },
-    // Convert integer to Arabic words
     convertIntegerToArabic: function convertIntegerToArabic(num) {
       if (num === 0) return 'صفر';
       var ones = ['', 'واحد', 'اثنان', 'ثلاثة', 'أربعة', 'خمسة', 'ستة', 'سبعة', 'ثمانية', 'تسعة'];
@@ -10910,70 +10581,93 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       }
       return 'رقم كبير جداً';
     },
-    // save quotation
-    saveQuotation: function saveQuotation() {
-      var _this6 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
+    handleSubmit: function handleSubmit() {
+      var _this7 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
             case 0:
-              _context5.next = 2;
-              return _this6.form.post(window.location.origin + "/api/quotations").then(function (_ref) {
+              if (!(_this7.mode === 'edit')) {
+                _context6.next = 5;
+                break;
+              }
+              _context6.next = 3;
+              return _this7.form.patch(window.location.origin + "/api/quotations/" + _this7.$route.params.slug).then(function (_ref) {
                 var data = _ref.data;
                 toast.fire({
                   type: "success",
-                  title: _this6.$t("Quotation added successfully")
+                  title: _this7.$t("Quotation updated successfully")
                 });
-                _this6.clearTemporaryData();
-                _this6.$router.push({
+                _this7.$router.push({
                   name: "quotations.show",
                   params: {
                     slug: data.data.slug
                   }
                 });
               })["catch"](function (error) {
-                var _error$response, _error$response2;
-                if ((error === null || error === void 0 || (_error$response = error.response) === null || _error$response === void 0 ? void 0 : _error$response.status) === 422 && (_error$response2 = error.response) !== null && _error$response2 !== void 0 && (_error$response2 = _error$response2.data) !== null && _error$response2 !== void 0 && _error$response2.errors) {
-                  var serverErrors = error.response.data.errors || {};
-                  var translatedErrors = {};
-                  Object.keys(serverErrors).forEach(function (field) {
-                    var fieldErrors = serverErrors[field] || [];
-                    translatedErrors[field] = fieldErrors.map(function (message) {
-                      return _this6.translateValidationMessage(message, field);
-                    });
-                  });
-                  _this6.form.errors.set(translatedErrors);
-                  toast.fire({
-                    type: "error",
-                    title: _this6.$t("Please check your input and try again.")
-                  });
-                } else {
-                  var _error$response3;
-                  var message = (error === null || error === void 0 || (_error$response3 = error.response) === null || _error$response3 === void 0 || (_error$response3 = _error$response3.data) === null || _error$response3 === void 0 ? void 0 : _error$response3.message) || _this6.$t("Please check your input and try again.");
-                  toast.fire({
-                    type: "error",
-                    title: message
-                  });
-                }
+                _this7.handleSubmitError(error);
               });
-            case 2:
+            case 3:
+              _context6.next = 7;
+              break;
+            case 5:
+              _context6.next = 7;
+              return _this7.form.post(window.location.origin + "/api/quotations").then(function (_ref2) {
+                var data = _ref2.data;
+                toast.fire({
+                  type: "success",
+                  title: _this7.$t("Quotation added successfully")
+                });
+                _this7.$router.push({
+                  name: "quotations.show",
+                  params: {
+                    slug: data.data.slug
+                  }
+                });
+              })["catch"](function (error) {
+                _this7.handleSubmitError(error);
+              });
+            case 7:
             case "end":
-              return _context5.stop();
+              return _context6.stop();
           }
-        }, _callee5);
+        }, _callee6);
       }))();
     },
-    // translate common validation messages coming from backend to localized messages
+    handleSubmitError: function handleSubmitError(error) {
+      var _error$response,
+        _error$response2,
+        _this8 = this;
+      if ((error === null || error === void 0 || (_error$response = error.response) === null || _error$response === void 0 ? void 0 : _error$response.status) === 422 && (_error$response2 = error.response) !== null && _error$response2 !== void 0 && (_error$response2 = _error$response2.data) !== null && _error$response2 !== void 0 && _error$response2.errors) {
+        var serverErrors = error.response.data.errors || {};
+        var translatedErrors = {};
+        Object.keys(serverErrors).forEach(function (field) {
+          var fieldErrors = serverErrors[field] || [];
+          translatedErrors[field] = fieldErrors.map(function (message) {
+            return _this8.translateValidationMessage(message, field);
+          });
+        });
+        this.form.errors.set(translatedErrors);
+        toast.fire({
+          type: "error",
+          title: this.$t("Please check your input and try again.")
+        });
+      } else {
+        var _error$response3;
+        var message = (error === null || error === void 0 || (_error$response3 = error.response) === null || _error$response3 === void 0 || (_error$response3 = _error$response3.data) === null || _error$response3 === void 0 ? void 0 : _error$response3.message) || this.$t("Please check your input and try again.");
+        toast.fire({
+          type: "error",
+          title: message
+        });
+      }
+    },
     translateValidationMessage: function translateValidationMessage(message, field) {
-      // If there is a direct translation key, use it
       var direct = this.$t(message);
       if (direct && direct !== message) return direct;
 
       // Get current locale
       var currentLocale = this.$i18n.locale || 'en';
       var isArabic = currentLocale === 'ar';
-
-      // Normalize field label (try to use translated field names)
       var fieldLabelMap = {
         client: this.$t("Client"),
         reference: this.$t("Reference"),
@@ -10991,8 +10685,6 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         transportCost: this.$t("Transport Cost")
       };
       var fieldLabel = fieldLabelMap[field] || field;
-
-      // Common Laravel validation patterns with localized messages
       var patterns = [{
         re: /The\s+.+?\s+field\s+is\s+required\.?/i,
         en: "This field is required",
@@ -11042,280 +10734,62 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         var match = message.match(re);
         if (match) {
           var text = typeof (isArabic ? ar : en) === 'function' ? (isArabic ? ar : en).apply(void 0, _toConsumableArray(match)) : isArabic ? ar : en;
-          // Prefix with field label where useful
           return "".concat(fieldLabel, ": ").concat(text);
         }
       }
-
-      // Fallback: return original message if nothing matched
       return message;
     },
-    // save form data temporarily
-    saveTemporary: function saveTemporary() {
-      var tempData = {
-        client: this.form.client,
-        reference: this.form.reference,
-        selectedProducts: this.form.selectedProducts,
-        subTotal: this.form.subTotal,
-        netTotal: this.form.netTotal,
-        transportCost: this.form.transportCost,
-        orderTax: this.form.orderTax,
-        totalProductTax: this.form.totalProductTax,
-        totalTax: this.form.totalTax,
-        discount: this.form.discount,
-        discountType: this.form.discountType,
-        poReference: this.form.poReference,
-        paymentTerms: this.form.paymentTerms,
-        addPayment: this.form.addPayment,
-        account: this.form.account,
-        paidAmount: this.form.paidAmount,
-        paymentMethod: this.form.paymentMethod,
-        chequeNo: this.form.chequeNo,
-        receiptNo: this.form.receiptNo,
-        deliveryPlace: this.form.deliveryPlace,
-        date: this.form.date,
-        note: this.form.note,
-        status: this.form.status,
-        isSendEmail: this.form.isSendEmail,
-        isSendSMS: this.form.isSendSMS,
-        timestamp: new Date().toISOString()
-      };
-      localStorage.setItem('quotationTempData', JSON.stringify(tempData));
-    },
-    // load temporary data
-    loadTemporaryData: function loadTemporaryData() {
-      var tempData = localStorage.getItem('quotationTempData');
-      if (tempData) {
-        try {
-          var data = JSON.parse(tempData);
-          this.form.client = data.client || this.form.client;
-          this.form.reference = data.reference || this.form.reference;
-          this.form.selectedProducts = data.selectedProducts || this.form.selectedProducts;
-          this.form.subTotal = data.subTotal || this.form.subTotal;
-          this.form.netTotal = data.netTotal || this.form.netTotal;
-          this.form.transportCost = data.transportCost || this.form.transportCost;
-          this.form.orderTax = data.orderTax || this.form.orderTax;
-          this.form.totalProductTax = data.totalProductTax || this.form.totalProductTax;
-          this.form.totalTax = data.totalTax || this.form.totalTax;
-          this.form.discount = data.discount || this.form.discount;
-          this.form.discountType = data.discountType || this.form.discountType;
-          this.form.poReference = data.poReference || this.form.poReference;
-          this.form.paymentTerms = data.paymentTerms || this.form.paymentTerms;
-          this.form.addPayment = data.addPayment || this.form.addPayment;
-          this.form.account = data.account || this.form.account;
-          this.form.paidAmount = data.paidAmount || this.form.paidAmount;
-          this.form.paymentMethod = data.paymentMethod || this.form.paymentMethod;
-          this.form.chequeNo = data.chequeNo || this.form.chequeNo;
-          this.form.receiptNo = data.receiptNo || this.form.receiptNo;
-          this.form.deliveryPlace = data.deliveryPlace || this.form.deliveryPlace;
-          this.form.date = data.date || this.form.date;
-          this.form.note = data.note || this.form.note;
-          this.form.status = data.status !== undefined ? data.status : this.form.status;
-          this.form.isSendEmail = data.isSendEmail || this.form.isSendEmail;
-          this.form.isSendSMS = data.isSendSMS || this.form.isSendSMS;
-          // One-time restore: clear after successful load so a refresh doesn't restore again
-          this.clearTemporaryData();
-          // Ensure product fields exist and recalculate totals after restore
-          this.ensureDiscountProperties();
-          this.calculateSum();
-          // Attempt to refresh inventory counts in case stock changed while away
-          this.refreshSelectedProductsInventory();
-          // Mark that we restored and normalize client to match current items list
-          this.restoredFromTemp = true;
-          this.normalizeClientSelection();
-        } catch (e) {
-          console.error('Error loading temporary data:', e);
-        }
-      }
-    },
-    // clear temporary data
-    clearTemporaryData: function clearTemporaryData() {
-      localStorage.removeItem('quotationTempData');
-    },
-    // Stock adjustment modal methods
-    openStockAdjustmentModal: function openStockAdjustmentModal(product) {
-      try {
-        console.log("Opening stock adjustment modal for product:", product);
-
-        // Validate product object
-        if (!product || !product.id) {
-          console.error("Invalid product object:", product);
-          toast.fire({
-            type: "error",
-            title: this.$t("Error"),
-            text: this.$t("Product information is missing. Please try again.")
-          });
-          return;
-        }
-        this.selectedProductForStockAdjustment = product;
-        this.showStockAdjustmentModal = true;
-        console.log("Modal should be open now");
-      } catch (error) {
-        console.error("Error opening stock adjustment modal:", error);
-        toast.fire({
-          type: "error",
-          title: this.$t("Error"),
-          text: this.$t("Failed to open stock adjustment modal. Please try again.")
+    assignProducts: function assignProducts(quotationProducts) {
+      if (!quotationProducts) return [];
+      var mapped = [];
+      for (var key in quotationProducts) {
+        var _ref3, _qp$salePrice, _qp$taxRate, _qp$taxAmount, _qp$unitCostTotal, _qp$unitCost, _qp$productID, _qp$productSlug, _qp$productName, _qp$productCode, _qp$inventoryCount, _qp$discount, _qp$discountType, _qp$discountAmount;
+        var qp = quotationProducts[key];
+        var qty = Number(qp.quantity || qp.qty || 1);
+        var unitPrice = Number((_ref3 = (_qp$salePrice = qp.salePrice) !== null && _qp$salePrice !== void 0 ? _qp$salePrice : qp.unitPrice) !== null && _ref3 !== void 0 ? _ref3 : 0);
+        var taxType = qp.taxType;
+        var taxRate = Number((_qp$taxRate = qp.taxRate) !== null && _qp$taxRate !== void 0 ? _qp$taxRate : 0);
+        var productTax = Number((_qp$taxAmount = qp.taxAmount) !== null && _qp$taxAmount !== void 0 ? _qp$taxAmount : 0);
+        var totalTax = productTax * qty;
+        var totalPrice = Number((_qp$unitCostTotal = qp.unitCostTotal) !== null && _qp$unitCostTotal !== void 0 ? _qp$unitCostTotal : taxType === 'Exclusive' ? qty * unitPrice + totalTax : qty * unitPrice);
+        var unitCost = Number((_qp$unitCost = qp.unitCost) !== null && _qp$unitCost !== void 0 ? _qp$unitCost : taxType === 'Exclusive' ? unitPrice + productTax : unitPrice);
+        mapped.unshift({
+          id: (_qp$productID = qp.productID) !== null && _qp$productID !== void 0 ? _qp$productID : qp.id,
+          slug: (_qp$productSlug = qp.productSlug) !== null && _qp$productSlug !== void 0 ? _qp$productSlug : qp.slug,
+          name: (_qp$productName = qp.productName) !== null && _qp$productName !== void 0 ? _qp$productName : qp.name,
+          code: (_qp$productCode = qp.productCode) !== null && _qp$productCode !== void 0 ? _qp$productCode : qp.code,
+          taxType: taxType,
+          taxRate: taxRate,
+          qty: qty,
+          avgPurchasePrice: qp.avgPurchasePrice,
+          unitPrice: unitPrice,
+          unitCost: unitCost,
+          totalPrice: totalPrice,
+          productTax: productTax,
+          totalTax: totalTax,
+          itemType: qp.itemType || 'product',
+          inventoryCount: (_qp$inventoryCount = qp.inventoryCount) !== null && _qp$inventoryCount !== void 0 ? _qp$inventoryCount : 0,
+          discount: (_qp$discount = qp.discount) !== null && _qp$discount !== void 0 ? _qp$discount : 0,
+          discountType: (_qp$discountType = qp.discountType) !== null && _qp$discountType !== void 0 ? _qp$discountType : 'fixed',
+          discountAmount: (_qp$discountAmount = qp.discountAmount) !== null && _qp$discountAmount !== void 0 ? _qp$discountAmount : 0,
+          selectedVatRate: this.findMatchingVatRate(taxRate) || this.form.orderTax || this.taxes && this.taxes[0] || null
         });
       }
-    },
-    closeStockAdjustmentModal: function closeStockAdjustmentModal() {
-      this.showStockAdjustmentModal = false;
-      this.selectedProductForStockAdjustment = null;
-    },
-    adjustProductQuantity: function adjustProductQuantity(product) {
-      // Find the product in the selected products array and adjust its quantity
-      var index = this.form.selectedProducts.findIndex(function (p) {
-        return p.id === product.id;
-      });
-      if (index !== -1) {
-        // Set quantity to available stock
-        this.$set(this.form.selectedProducts[index], 'qty', product.inventoryCount);
-        this.generateItemTotal(product.inventoryCount, "qty", index, "");
-        toast.fire({
-          type: "info",
-          title: this.$t("Quantity Adjusted"),
-          text: this.$t("Product quantity has been adjusted to available stock.")
-        });
-      }
-      this.closeStockAdjustmentModal();
-    },
-    handleStockUpdated: function handleStockUpdated(eventData) {
-      // Refresh products to get updated stock levels
-      this.getProducts();
-
-      // Update the specific product in selectedProducts if it exists
-      var product = eventData.product,
-        newQuantity = eventData.newQuantity;
-      var index = this.form.selectedProducts.findIndex(function (p) {
-        return p.id === product.id;
-      });
-      if (index !== -1) {
-        this.$set(this.form.selectedProducts[index], 'inventoryCount', (this.form.selectedProducts[index].inventoryCount || 0) + newQuantity);
-
-        // Recalculate totals
-        this.calculateSum();
-      }
-    },
-    showAllInsufficientStock: function showAllInsufficientStock() {
-      var _this7 = this;
-      // Show a summary of all insufficient stock products
-      var insufficientProducts = this.insufficientStockProducts;
-      if (insufficientProducts.length === 0) return;
-      var message = this.$t("Products with insufficient stock:") + "\n\n";
-      insufficientProducts.forEach(function (product, index) {
-        var shortage = Number(product.qty) - Number(product.inventoryCount);
-        message += "".concat(index + 1, ". ").concat(product.name, "\n");
-        message += "   ".concat(_this7.$t("Required"), ": ").concat(product.qty, ", ").concat(_this7.$t("Available"), ": ").concat(product.inventoryCount, ", ").concat(_this7.$t("Shortage"), ": ").concat(shortage, "\n\n");
-      });
-      message += this.$t("Click on the red badges next to each product to manage stock levels.");
-      toast.fire({
-        type: "warning",
-        title: this.$t("Insufficient Stock Summary"),
-        text: message,
-        timer: 10000,
-        showConfirmButton: true
-      });
-    },
-    // Sync selected products' inventoryCount with latest products list
-    refreshSelectedProductsInventory: function refreshSelectedProductsInventory() {
-      try {
-        if (!Array.isArray(this.products) || !Array.isArray(this.form.selectedProducts)) return;
-        var productById = new Map(this.products.map(function (p) {
-          return [p.id, p];
-        }));
-        this.form.selectedProducts = this.form.selectedProducts.map(function (item) {
-          var latest = productById.get(item.id);
-          if (latest) {
-            var updated = _objectSpread({}, item);
-            updated.inventoryCount = latest.inventoryCount;
-            // Optionally update name/code/taxRate to reflect latest
-            updated.name = latest.name || updated.name;
-            updated.code = latest.code || updated.code;
-            updated.taxRate = latest.taxRate !== undefined && latest.taxRate !== null ? latest.taxRate : updated.taxRate;
-            return updated;
-          }
-          return item;
-        });
-        // Recalculate to update any dependent totals
-        this.calculateSum();
-      } catch (e) {
-        // silent fail
-      }
-    },
-    // Normalize form.client to an object from items by id/slug so v-select shows it
-    normalizeClientSelection: function normalizeClientSelection() {
-      try {
-        if (!this.form.client || !this.items || this.items.length === 0) return;
-        var current = this.form.client;
-        var matched = null;
-        if (current.id) {
-          matched = this.items.find(function (i) {
-            return i.id === current.id;
-          });
-        }
-        if (!matched && current.slug) {
-          matched = this.items.find(function (i) {
-            return i.slug === current.slug;
-          });
-        }
-        if (matched) {
-          this.form.client = matched;
-        }
-      } catch (e) {
-        // silent
-      }
+      this.form.selectedProducts = mapped;
+      this.ensureDiscountProperties();
+      return mapped;
     }
   },
-  mounted: function mounted() {
-    var _this8 = this;
-    this.loadTemporaryData();
-    this.setCorrectTitle();
-
-    // Set up a periodic check to ensure title stays correct
-    this.titleCheckInterval = setInterval(function () {
-      _this8.setCorrectTitle();
-    }, 1000); // Check every second
-
-    // Set up a MutationObserver to watch for title changes
-    this.titleObserver = new MutationObserver(function (mutations) {
-      mutations.forEach(function (mutation) {
-        if (mutation.type === 'childList' && mutation.target.tagName === 'TITLE') {
-          console.log('Title element changed, fixing it');
-          _this8.setCorrectTitle();
-        }
-      });
-    });
-
-    // Observe the head element for title changes
-    var head = document.querySelector('head');
-    if (head) {
-      this.titleObserver.observe(head, {
-        childList: true,
-        subtree: true
-      });
-    }
-  },
-  beforeDestroy: function beforeDestroy() {
-    // Clean up the interval
-    if (this.titleCheckInterval) {
-      clearInterval(this.titleCheckInterval);
-    }
-
-    // Clean up the observer
-    if (this.titleObserver) {
-      this.titleObserver.disconnect();
-    }
-  }
+  mounted: function mounted() {}
 });
-;// CONCATENATED MODULE: ./resources/js/pages/sales/quotations/create.vue?vue&type=script&lang=js
- /* harmony default export */ const quotations_createvue_type_script_lang_js = (createvue_type_script_lang_js); 
+;// CONCATENATED MODULE: ./resources/js/components/QuotationForm.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_QuotationFormvue_type_script_lang_js = (QuotationFormvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/quotations/create.vue?vue&type=style&index=0&id=16da6166&prod&scoped=true&lang=css
-var createvue_type_style_index_0_id_16da6166_prod_scoped_true_lang_css = __webpack_require__(14964);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/quotations/create.vue?vue&type=style&index=0&id=16da6166&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/QuotationForm.vue?vue&type=style&index=0&id=abf88d06&prod&scoped=true&lang=css
+var QuotationFormvue_type_style_index_0_id_abf88d06_prod_scoped_true_lang_css = __webpack_require__(82691);
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/QuotationForm.vue?vue&type=style&index=0&id=abf88d06&prod&scoped=true&lang=css
 
             
 
@@ -11324,16 +10798,16 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(createvue_type_style_index_0_id_16da6166_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(QuotationFormvue_type_style_index_0_id_abf88d06_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const quotations_createvue_type_style_index_0_id_16da6166_prod_scoped_true_lang_css = (createvue_type_style_index_0_id_16da6166_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/pages/sales/quotations/create.vue?vue&type=style&index=0&id=16da6166&prod&scoped=true&lang=css
+/* harmony default export */ const components_QuotationFormvue_type_style_index_0_id_abf88d06_prod_scoped_true_lang_css = (QuotationFormvue_type_style_index_0_id_abf88d06_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// CONCATENATED MODULE: ./resources/js/components/QuotationForm.vue?vue&type=style&index=0&id=abf88d06&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// CONCATENATED MODULE: ./resources/js/pages/sales/quotations/create.vue
+;// CONCATENATED MODULE: ./resources/js/components/QuotationForm.vue
 
 
 
@@ -11343,17 +10817,52 @@ var componentNormalizer = __webpack_require__(14486);
 /* normalize component */
 
 var component = (0,componentNormalizer/* default */.A)(
-  quotations_createvue_type_script_lang_js,
-  render,
-  staticRenderFns,
+  components_QuotationFormvue_type_script_lang_js,
+  QuotationFormvue_type_template_id_abf88d06_scoped_true_render,
+  QuotationFormvue_type_template_id_abf88d06_scoped_true_staticRenderFns,
   false,
   null,
-  "16da6166",
+  "abf88d06",
   null
   
 )
 
-/* harmony default export */ const create = (component.exports);
+/* harmony default export */ const QuotationForm = (component.exports);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/quotations/edit.vue?vue&type=script&lang=js
+
+/* harmony default export */ const editvue_type_script_lang_js = ({
+  middleware: ["auth", "check-permissions"],
+  components: {
+    QuotationForm: QuotationForm
+  },
+  metaInfo: function metaInfo() {
+    return {
+      title: this.$t("Edit Quotation")
+    };
+  }
+});
+;// CONCATENATED MODULE: ./resources/js/pages/sales/quotations/edit.vue?vue&type=script&lang=js
+ /* harmony default export */ const quotations_editvue_type_script_lang_js = (editvue_type_script_lang_js); 
+;// CONCATENATED MODULE: ./resources/js/pages/sales/quotations/edit.vue
+
+
+
+
+
+/* normalize component */
+;
+var edit_component = (0,componentNormalizer/* default */.A)(
+  quotations_editvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "153c52ce",
+  null
+  
+)
+
+/* harmony default export */ const edit = (edit_component.exports);
 
 /***/ })
 
