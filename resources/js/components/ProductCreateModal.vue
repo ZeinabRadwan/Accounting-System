@@ -133,8 +133,11 @@
                     <label for="regularPrice">{{ $t("Price") }} <span class="required">*</span></label>
                     <input id="regularPrice" v-model="form.regularPrice" type="number" step="any" min="0" class="form-control"
                       :class="{ 'is-invalid': form.errors.has('regularPrice') }" name="regularPrice" 
-                      :placeholder="$t('Enter price')" @change="calculatePrice" @keyup="calculatePrice" />
+                      :placeholder="$t('Enter price')" @change="calculatePrice" @keyup="calculatePrice" @input="checkPurchasePriceWarning" @blur="checkPurchasePriceWarning" />
                     <has-error :form="form" field="regularPrice" />
+                    <small v-if="showPurchasePriceWarning" class="text-warning d-block mt-1">
+                      <i class="fas fa-exclamation-triangle"></i> {{ $t("Warning: Purchase price is greater than selling price") }}
+                    </small>
                   </div>
 
                   <div class="form-group">
@@ -181,8 +184,11 @@
                     <label for="openingStockUnitPrice">{{ $t("Purchase Price") }}</label>
                     <input id="openingStockUnitPrice" v-model="form.openingStockUnitPrice" type="number" step="any" min="0" class="form-control"
                       :class="{ 'is-invalid': form.errors.has('openingStockUnitPrice') }" name="openingStockUnitPrice" 
-                      :placeholder="$t('Enter purchase price')" />
+                      :placeholder="$t('Enter purchase price')" @input="checkPurchasePriceWarning" @change="checkPurchasePriceWarning" @blur="checkPurchasePriceWarning" />
                     <has-error :form="form" field="openingStockUnitPrice" />
+                    <small v-if="showPurchasePriceWarning" class="text-warning d-block mt-1">
+                      <i class="fas fa-exclamation-triangle"></i> {{ $t("Warning: Purchase price is greater than selling price") }}
+                    </small>
                   </div>
                 </div>
               </div>
@@ -418,6 +424,15 @@ import axios from 'axios'
 import { mapGetters } from 'vuex'
 import CategorySubcategoryCreateModal from '~/components/CategorySubcategoryCreateModal'
 import UnitCreateModal from '~/components/UnitCreateModal'
+import Swal from 'sweetalert2'
+
+const toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true
+})
 
 export default {
   components: {
@@ -469,9 +484,45 @@ export default {
     accountRoutingSettings: null,
     isSalesAccountAutomatic: false,
     isPurchaseAccountAutomatic: false,
+    showPurchasePriceWarning: false,
   }),
   computed: {
     ...mapGetters("operations", ["items", "appInfo"]),
+  },
+  watch: {
+    'form.openingStockUnitPrice': {
+      handler(newPrice) {
+        if (this.form.itemType === 'product') {
+          // Use setTimeout to ensure value is updated in form
+          setTimeout(() => {
+            this.checkPurchasePriceWarning()
+          }, 200)
+        }
+      },
+      immediate: false
+    },
+    'form.regularPrice': {
+      handler(newPrice) {
+        if (this.form.itemType === 'product') {
+          // Use setTimeout to ensure value is updated in form
+          setTimeout(() => {
+            this.checkPurchasePriceWarning()
+          }, 200)
+        }
+      },
+      immediate: false
+    },
+    'form.itemType': {
+      handler(newType) {
+        // Check when item type changes to product
+        if (newType === 'product') {
+          setTimeout(() => {
+            this.checkPurchasePriceWarning()
+          }, 200)
+        }
+      },
+      immediate: false
+    }
   },
   created() {
     this.getSubCategories();
@@ -656,6 +707,29 @@ export default {
         return;
       }
       this.form.sellingPrice = this.form.regularPrice;
+    },
+    // Check if purchase price is greater than regular price
+    checkPurchasePriceWarning() {
+      // Only check for products, not services
+      if (this.form.itemType !== 'product') {
+        this.showPurchasePriceWarning = false
+        return
+      }
+
+      // Get values directly from form
+      const purchasePriceStr = String(this.form.openingStockUnitPrice || '').trim()
+      const regularPriceStr = String(this.form.regularPrice || '').trim()
+
+      // Convert to numbers
+      const purchasePrice = purchasePriceStr ? parseFloat(purchasePriceStr) : 0
+      const regularPrice = regularPriceStr ? parseFloat(regularPriceStr) : 0
+
+      // Show warning if both prices are valid numbers and purchase price is greater than regular price
+      if (!isNaN(purchasePrice) && !isNaN(regularPrice) && purchasePrice > 0 && regularPrice > 0 && purchasePrice > regularPrice) {
+        this.showPurchasePriceWarning = true
+      } else {
+        this.showPurchasePriceWarning = false
+      }
     },
     // vue file upload
     onFileChange(e) {
