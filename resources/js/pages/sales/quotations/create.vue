@@ -415,10 +415,12 @@
                                 " />
                           </div>
                         </td>
-                        <td style="min-width: 200px;">
-                          <div class="input-group custom-qty-input">
+                        <td style="min-width: 150px;">
+                          <div class="input-group">
                             <input type="number" step="any" min="0" :id="`unitPrice-${i}`" v-model="item.unitPrice"
-                              name="unitPrice" class="price-field border-0" required @change="
+                              name="unitPrice" class="form-control form-control-sm border-0" 
+                              style="width: 100px;"
+                              required @change="
                                 generateItemTotal(
                                   $event.target.value,
                                   'price',

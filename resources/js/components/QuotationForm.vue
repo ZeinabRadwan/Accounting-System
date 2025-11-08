@@ -127,9 +127,9 @@
                             <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary" data-field="quantity" @click="generateItemTotal(item.qty, 'qty', i, 'increment')" />
                           </div>
                         </td>
-                        <td style="min-width: 200px;">
-                          <div class="input-group custom-qty-input">
-                            <input type="number" step="any" min="0" :id="`unitPrice-${i+1}`" v-model="item.unitPrice" name="unitPrice" class="quantity-field border-0" required @change="generateItemTotal($event.target.value, 'price', i, '')" @keyup="generateItemTotal($event.target.value, 'price', i, '')" @input="generateItemTotal($event.target.value, 'price', i, '')" />
+                        <td style="min-width: 150px;">
+                          <div class="input-group">
+                            <input type="number" step="any" min="0" :id="`unitPrice-${i+1}`" v-model="item.unitPrice" name="unitPrice" class="form-control form-control-sm border-0" style="width: 100px;" required @change="generateItemTotal($event.target.value, 'price', i, '')" @keyup="generateItemTotal($event.target.value, 'price', i, '')" @input="generateItemTotal($event.target.value, 'price', i, '')" />
                           </div>
                         </td>
                         <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.unitPrice * item.qty) }} <span class="saudi-riyal">ê</span></td>
