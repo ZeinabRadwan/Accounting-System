@@ -338,7 +338,11 @@ class AccountController extends Controller
         $branchIds = $this->getUserBranchIds($user);
         
         $accounts = Account::where('status', 1)
-            ->whereIn('branch_id', $branchIds)
+            ->where(function($query) use ($branchIds) {
+                $query->whereIn('branch_id', $branchIds)
+                      ->orWhereNull('branch_id')
+                      ->orWhere('branch_id', 0);
+            })
             ->with('chartOfAccount.type')
             ->latest()
             ->get();
@@ -349,7 +353,21 @@ class AccountController extends Controller
     private function getUserBranchIds($user)
     {
         $defaultBranchId = (int) ($user->default_branch_id ?? 0);
-        return [$defaultBranchId > 0 ? $defaultBranchId : 0];
+        
+        // Get all branches the user has access to
+        $userBranchIds = $user->branches()->pluck('branches.id')->toArray();
+        
+        // Combine default branch with all user branches
+        $branchIds = array_unique(array_merge([$defaultBranchId], $userBranchIds));
+        
+        // Filter out 0 if there are actual branch IDs
+        if (count($branchIds) > 1 || (count($branchIds) === 1 && $branchIds[0] !== 0)) {
+            $branchIds = array_filter($branchIds, function($id) {
+                return $id > 0;
+            });
+        }
+        
+        return $branchIds ?: [0];
     }
 
     // return account transactions
