@@ -20,7 +20,9 @@
               <i class="fas fa-code-branch"></i>
             </div>
             <div class="branch-card__content">
-              <div class="branch-card__title text-truncate" :title="branch.name">{{ branch.name }}</div>
+              <div class="branch-card__title text-truncate" :title="branch.name">
+                {{ branch.name === 'Main Branch' ? (appInfo?.companyName || branch.name) : branch.name }}
+              </div>
               <div class="branch-card__meta text-muted">{{ branch.code || $t('Branch') }}</div>
             </div>
             <div v-if="isSelected(branch)" class="branch-card__badge">
@@ -54,6 +56,7 @@
 
 <script>
 import axios from 'axios'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'SelectBranch',
@@ -65,6 +68,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('operations', ['appInfo']),
     user () { return this.$store.getters['auth/user'] || {} },
     userId () { return this.user?.id },
     selectedBranchId () { return Number(this.user?.default_branch_id || 0) }
@@ -82,6 +86,11 @@ export default {
         this.loading = true
         const { data } = await axios.get(`/api/users/${this.userId}/branches`)
         this.branches = Array.isArray(data) ? data : (data?.data || [])
+        
+        // Auto-select branch if there's only one branch and no branch is currently selected
+        if (this.branches.length === 1 && this.selectedBranchId === 0) {
+          await this.setDefault(this.branches[0])
+        }
       } catch (e) {
         // silently fail
       } finally {
@@ -95,8 +104,7 @@ export default {
       try {
         await axios.post('/api/user-branches/set-default', { branch_id: branch.id })
         await this.$store.dispatch('auth/fetchUser')
-        const intended = this.$route.query.redirect || { name: 'home' }
-        this.$router.push(intended)
+        this.$router.push({ name: 'home' })
       } catch (e) {
         // silently fail
       }

@@ -152,26 +152,13 @@
                         :placeholder="$t('enter_tax_number')"
                       />
                       <div v-if="errors.tax_number" class="invalid-feedback d-block mt-2">{{ errors.tax_number }}</div>
-                    </div>
-
-                    <div class="form-group">
-                      <label class="form-label">
-                        {{ $t('company_tagline') }} 
-                        <span class="text-muted">({{ $t('optional') }})</span>
-                      </label>
-                      <input 
-                        v-model="form.company_tagline" 
-                        type="text" 
-                        class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary" 
-                        :placeholder="$t('enter_company_tagline')"
-                      />
-                    </div>
+                    </div> 
                   </div>
 
                   <!-- Step 3: Contact Details -->
                   <div v-if="currentStep === 3" class="wizard-step">
                     <div class="form-group mb-4">
-                      <label class="form-label">{{ $t('email_address') }} <span class="text-danger">*</span></label>
+                      <label class="form-label">{{ $t('Main Eamil for the company') }} <span class="text-danger">*</span></label>
                       <input 
                         v-model="form.email_address" 
                         type="email" 
@@ -223,7 +210,7 @@
                       >
                         <option value="">{{ $t('select_currency') }}</option>
                         <option v-for="currency in currencies" :key="currency.id" :value="currency.id">
-                          {{ currency.code }} - {{ currency.name }} ({{ currency.symbol }})
+                          {{ currency.code }} - {{ currency.name }}  
                         </option>
                       </select>
                       <div v-if="errors.default_currency" class="invalid-feedback d-block mt-2">{{ errors.default_currency }}</div>

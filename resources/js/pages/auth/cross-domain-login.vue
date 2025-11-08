@@ -27,21 +27,27 @@ export default {
     WhiteScreenLoader
   },
   metaInfo() {
-    return { title: 'Logging in...' }
+    return { title: this.$t('Logging in') }
   },
-  data: () => ({
-    loading: true,
-    error: null,
-    appName: window.config.appName,
-    loadingText: 'Authenticating...',
-    subText: 'Please wait while we verify your credentials',
-    processed: false
-  }),
+  data() {
+    return {
+      loading: true,
+      error: null,
+      appName: window.config.appName,
+      loadingText: '',
+      subText: '',
+      processed: false
+    }
+  },
   // Map Getters
   computed: {
     ...mapGetters('operations', ['appInfo']),
   },
   async created() {
+    // Initialize loading texts with translations
+    this.loadingText = this.$t('Authenticating')
+    this.subText = this.$t('Please wait while we verify your credentials')
+    
     // Check if user is already authenticated
     if (this.$store.getters['auth/check']) {
       // User is already logged in, redirect immediately
@@ -68,7 +74,7 @@ export default {
         const encryptedPassword = urlParams.get('password')
 
         if (!encryptedEmail || !encryptedPassword) {
-          this.error = 'Invalid login parameters.'
+          this.error = this.$t('Invalid login parameters')
           this.loading = false
           return
         }
@@ -86,8 +92,8 @@ export default {
 
         if (response.data && response.data.token) {
           // Update loading text
-          this.loadingText = 'Setting up your session...'
-          this.subText = 'Almost there! Preparing your dashboard'
+          this.loadingText = this.$t('Setting up your session')
+          this.subText = this.$t('Almost there! Preparing your dashboard')
           
           // Save the token to the store
           await this.$store.dispatch('auth/saveToken', {
@@ -96,8 +102,8 @@ export default {
           })
 
           // Update loading text again
-          this.loadingText = 'Loading your dashboard...'
-          this.subText = 'Finalizing your login process'
+          this.loadingText = this.$t('Loading your dashboard')
+          this.subText = this.$t('Finalizing your login process')
 
           // Fetch the user
           await this.$store.dispatch('auth/fetchUser')
@@ -110,12 +116,12 @@ export default {
           // Redirect after authentication
           await this.redirectAfterAuth()
         } else {
-          this.error = 'Login failed. Please try again.'
+          this.error = this.$t('Login failed. Please try again')
           sessionStorage.removeItem('cross_domain_login_processed')
         }
       } catch (error) {
         console.error('Cross-domain login error:', error)
-        this.error = 'Login failed. Please try again.'
+        this.error = this.$t('Login failed. Please try again')
         sessionStorage.removeItem('cross_domain_login_processed')
       } finally {
         this.loading = false

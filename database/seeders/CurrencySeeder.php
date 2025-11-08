@@ -18,30 +18,21 @@ class CurrencySeeder extends Seeder
         if (DB::table('currencies')->count() == 0) {
             DB::table('currencies')->insert([
                 [
-                    'name' => 'Saudi Riyal',
+                    'name' => 'الريال السعودي',
                     'slug' => 'saudi-riyal',
                     'code' => 'SAR',
                     'symbol' => 'ê',
                     'position' => 'left',
-                    'note' => 'Official currency of Saudi Arabia with new symbol',
+                    'note' => 'العملة الرسمية للمملكة العربية السعودية',
                     'status' => 1,
                 ],
                 [
-                    'name' => 'Riyal',
-                    'slug' => 'riyal',
-                    'code' => 'RY',
-                    'symbol' => 'ر',
-                    'position' => 'right',
-                    'note' => 'Simple Riyal currency',
-                    'status' => 1,
-                ],
-                [
-                    'name' => 'United States Dollar',
+                    'name' => 'الدولار الأمريكي',
                     'slug' => 'united-states-dollar',
                     'code' => 'USD',
                     'symbol' => '$',
                     'position' => 'left',
-                    'note' => 'US Dollar currency',
+                    'note' => 'العملة الرسمية للولايات المتحدة',
                     'status' => 1,
                 ],
             ]);
