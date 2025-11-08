@@ -403,32 +403,274 @@ export default {
       this.menuItems = [];
     },
 
+    // Get all routes from Sidebar structure
+    getAllSidebarRoutes() {
+      const routes = [];
+      
+      // Helper function to add route
+      const addRoute = (routeName, translationKey, icon = null) => {
+        if (!routeName) return;
+        
+        // Get translations in both languages
+        const enTranslation = this.getTranslation('en', translationKey);
+        const arTranslation = this.getTranslation('ar', translationKey);
+        
+        routes.push({
+          route: routeName,
+          text: translationKey,
+          icon: icon,
+          enText: enTranslation,
+          arText: arTranslation
+        });
+      };
+      
+      // Dashboard
+      addRoute('home', 'Dashboard', 'fas fa-home');
+      
+      // Sales section
+      if (this.$can('invoice-list') || this.$can('invoice-create') || this.$can('quotation-list') || this.$can('quotation-create')) {
+        addRoute('pos.create', 'POS', 'fas fa-cash-register');
+        addRoute('quotations.index', 'Quotations List', 'fas fa-th-list');
+        addRoute('invoices.index', 'Invoices List', 'fas fa-file-invoice');
+        addRoute('invoiceReturns.index', 'Returns List', 'fas fa-undo-alt');
+        addRoute('clients.index', 'Clients', 'fas fa-users');
+      }
+      
+      // Purchases section
+      if (this.$can('purchase-list') || this.$can('purchase-create') || this.$can('purchase-order-list')) {
+        addRoute('purchase-order.index', 'Purchase Orders', 'fas fa-file-invoice');
+        addRoute('purchases.index', 'Purchases List', 'fas fa-truck-loading');
+        addRoute('purchaseReturns.index', 'Returns List', 'fas fa-undo-alt');
+        addRoute('suppliers.index', 'Suppliers', 'fas fa-people-carry');
+      }
+      
+      // Employees section
+      if (this.$can('employee-list') || this.$can('department-list') || this.$can('increment-list')) {
+        addRoute('departments.index', 'Departments', 'fas fa-server');
+        addRoute('employees.index', 'Employees List', 'fas fa-list-ul');
+        addRoute('increments.index', 'Increments', 'fas fa-list-ul');
+      }
+      
+      // Accounting section
+      if ((this.$can('account-list') || this.$can('chart-of-account-list') || this.$can('account-balance-list')) && 
+          (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
+        addRoute('chart-of-accounts.index', 'Chart of Accounts', 'fas fa-chart-line');
+        addRoute('accounts.index', 'Bank Accounts', 'fas fa-university');
+        addRoute('balances.index', 'Balance Adjustments', 'fas fa-sliders-h');
+        addRoute('transferBalances.index', 'Balance Transfers', 'fas fa-exchange-alt');
+        addRoute('transactions.index', 'Transaction History', 'fas fa-history');
+      }
+      
+      // Cost Centers
+      if ((this.$can('view_cost_centers') || this.$can('create_cost_center')) && 
+          (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
+        addRoute('cost-centers.index', 'All Cost Centers', 'fas fa-list');
+        addRoute('cost-centers.create', 'Create Cost Center', 'fas fa-plus');
+      }
+      
+      // Cost Allocations
+      if ((this.$can('view_cost_centers') || this.$can('create_cost_center')) && 
+          (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
+        addRoute('cost-allocations.index', 'Allocation Rules', 'fas fa-list');
+        addRoute('cost-allocations.create', 'Create Rule', 'fas fa-plus');
+      }
+      
+      // Journal Entries
+      if ((this.$can('journal-entry-list') || this.$can('journal-entry-create')) && 
+          (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
+        addRoute('journal-entries.index', 'All Entries', 'fas fa-list');
+        addRoute('journal-entries.create', 'New Entry', 'fas fa-plus');
+      }
+      
+      // Expenses
+      if (!this.$isPOS() && (this.$can('expense-list') || this.$can('expense-category-list'))) {
+        addRoute('expenseCats.index', 'Categories', 'fas fa-tags');
+        addRoute('expenseSubCats.index', 'Sub Categories', 'fas fa-code-branch');
+        addRoute('expenses.index', 'Expenses List', 'fas fa-list-ul');
+      }
+      
+      // Vouchers
+      if (!this.$isPOS() && this.$can('payment-voucher-list')) {
+        addRoute('receiveVouchers.index', 'Receive Vouchers', 'fas fa-arrow-down');
+        addRoute('sendVouchers.index', 'Send Vouchers', 'fas fa-arrow-up');
+      }
+      
+      // Payments
+      if (!this.$isPOS()) {
+        if (this.$can('invoice-payment-list') || this.$can('non-invoice-payment-list')) {
+          addRoute('invoicePayments.index', 'Invoice', 'fas fa-file-invoice');
+          addRoute('nonInvoicePayments.index', 'Non Invoice', 'fas fa-file-alt');
+        }
+        if (this.$can('purchase-payment-list') || this.$can('non-purchase-payment-list')) {
+          addRoute('purchasePayments.index', 'Purchase', 'fas fa-plane-departure');
+          addRoute('nonPurchasePayments.index', 'Non Purchase', 'fas fa-truck-pickup');
+        }
+      }
+      
+      // Loan Management
+      if (!this.$isPOS() && (this.$can('loan-list') || this.$can('loan-authority-list'))) {
+        addRoute('authorities.index', 'Authorities', 'fas fa-building');
+        addRoute('loans.index', 'Loans', 'fas fa-list-ul');
+        addRoute('loanPayments.index', 'Payments', 'fas fa-receipt');
+      }
+      
+      // Asset Management
+      if (!this.$isPOS() && (this.$can('asset-list') || this.$can('asset-type-list'))) {
+        addRoute('assetTypes.index', 'Types', 'fas fa-tags');
+        addRoute('assets.index', 'Assets', 'fas fa-list-ul');
+      }
+      
+      // Payroll
+      if (!this.$isPOS() && this.$can('payroll-list')) {
+        addRoute('payroll.index', 'Payroll', 'fas fa-clipboard-list');
+      }
+      
+      // Inventory
+      if (this.$can('product-create') || this.$can('product-category-create')) {
+        addRoute('productCats.index', 'Categories', 'fas fa-tags');
+        addRoute('productSubCats.index', 'Sub Categories', 'fas fa-code-branch');
+        addRoute('products.index', 'Item List', 'fas fa-list-ul');
+        if (this.$can('print-barcode')) {
+          addRoute('barcode.print', 'Barcode', 'fas fa-barcode');
+        }
+      }
+      
+      if (this.$can('inventory') || this.$can('adjustment-create')) {
+        addRoute('inventory.index', 'View Inventory', 'fas fa-pallet');
+        addRoute('inventory.history-general', 'Inventory History', 'fas fa-history');
+        addRoute('inventory.count', 'Inventory Count', 'fas fa-clipboard-check');
+        addRoute('adjustments.index', 'Inventory Adjustment', 'fas fa-sliders-h');
+      }
+      
+      // Reports
+      if (!this.$isPOS()) {
+        if (this.$can('account-statement')) {
+          addRoute('reports.accountStatement', 'Account Statement', 'fas fa-chart-bar');
+          addRoute('reports.groupAccountStatement', 'Group Account Statement', 'fas fa-chart-bar');
+          addRoute('reports.invoiceSummary', 'Invoice Summary', 'fas fa-chart-bar');
+          addRoute('reports.purchaseSummary', 'Purchase Summary', 'fas fa-chart-bar');
+        }
+        if (this.$can('balance-sheet') && (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
+          addRoute('reports.balanceSheet', 'Balance Sheet', 'fas fa-chart-bar');
+          addRoute('reports.trialBalance', 'Trial Balance', 'fas fa-chart-bar');
+        }
+        if (this.$can('vat-report') && (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
+          addRoute('reports.vatReport', 'VAT Report', 'fas fa-chart-bar');
+        }
+        if (this.$can('today-profit')) {
+          addRoute('reports.todayReport', 'Today Report', 'fas fa-chart-bar');
+        }
+        if (this.$can('summary-report') && (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
+          addRoute('reports.summary', 'Summary Report', 'fas fa-chart-bar');
+        }
+        if (this.$can('profit-loss') && (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
+          addRoute('reports.profitLoss', 'Profit/Loss Report', 'fas fa-chart-bar');
+        }
+        if (this.$can('expense-report')) {
+          addRoute('reports.expenses', 'Expense Report', 'fas fa-chart-bar');
+        }
+        if (this.$can('item-report')) {
+          addRoute('reports.items', 'Item Report', 'fas fa-chart-bar');
+        }
+        if (this.$can('inventory-report')) {
+          addRoute('reports.inventory', 'Inventory Report', 'fas fa-chart-bar');
+        }
+        if (this.$can('balance-sheet')) {
+          addRoute('reports.supplierPayableReport', 'Supplier Payable Report', 'fas fa-chart-bar');
+          addRoute('reports.clientReceivableReport', 'Client Receivable Report', 'fas fa-chart-bar');
+        }
+        if (this.$can('sales-by-user-report')) {
+          addRoute('reports.salesByUserReport', 'Sales By User Report', 'fas fa-chart-bar');
+        }
+        if (this.$can('collection-by-user-report')) {
+          addRoute('reports.collectionByUserReport', 'Collection By User Report', 'fas fa-chart-bar');
+        }
+      }
+      
+      // Others
+      if (!this.$isPOS()) {
+        if (this.$can('branches-list') || this.$can('branches-create')) {
+          addRoute('branches.index', 'Branches', 'fas fa-sitemap');
+        }
+        if (this.$can('role-permissions') || this.$can('units') || this.$can('currencies') || this.$can('general-settings')) {
+          addRoute('setup.index', 'Setup', 'fas fa-cogs');
+        }
+        if (this.$can('print-templates')) {
+          addRoute('print-templates', 'Print Templates', 'fas fa-print');
+        }
+        addRoute('activity.log', 'Activity log', 'fa fa-bell');
+        addRoute('settings.billing', 'Billing', 'fas fa-money-check-alt');
+        addRoute('settings.profile', 'Profile', 'fas fa-user-circle');
+        if (this.$can('domain-management')) {
+          addRoute('domains.index', 'Domain Management', 'fas fa-server');
+          addRoute('domain-requests.index', 'Domain Request', 'fas fa-file-import');
+        }
+        if (this.$can('database-backup')) {
+          addRoute('backup', 'Database Backup', 'fas fa-download');
+        }
+      }
+      
+      return routes;
+    },
+    
+    // Helper to get translation in specific language
+    getTranslation(locale, key) {
+      try {
+        const i18n = this.$i18n;
+        // Access messages directly from i18n
+        if (i18n && i18n.messages && i18n.messages[locale]) {
+          const messages = i18n.messages[locale];
+          if (messages && messages[key]) {
+            return messages[key];
+          }
+        }
+        // Fallback: try using $t with locale override
+        const originalLocale = i18n.locale;
+        i18n.locale = locale;
+        const translation = this.$t(key);
+        i18n.locale = originalLocale;
+        return translation !== key ? translation : key;
+      } catch (error) {
+        return key;
+      }
+    },
+    
+    // Search through routes
     searchMenu() {
-      const menuSearchQuery = this.menuSearchQuery;
+      const menuSearchQuery = this.menuSearchQuery.trim().toLowerCase();
       if (!menuSearchQuery) {
         this.menuItems = [];
         return;
       }
-      axios
-        .get(window.location.origin + "/api/menu-search", {
-          params: {
-            menuSearchQuery: menuSearchQuery,
-          },
-        })
-        .then((response) => {
-          const fetchedMenuItems = response.data.result.map((item) => ({
-            route: item.route,
-            text: item.text,
-            icon: item.icon,
-          }));
-          this.menuItems = fetchedMenuItems;
-        })
-        .catch(() => {
-          toast.fire({
-            type: "error",
-            title: this.$t("Please check your input and try again."),
-          });
+      
+      try {
+        // Get all available routes
+        const allRoutes = this.getAllSidebarRoutes();
+        
+        // Filter routes based on search query
+        const matchedRoutes = allRoutes.filter(route => {
+          // Search in English translation
+          const enMatch = route.enText && route.enText.toLowerCase().includes(menuSearchQuery);
+          // Search in Arabic translation
+          const arMatch = route.arText && route.arText.toLowerCase().includes(menuSearchQuery);
+          // Search in route name
+          const routeMatch = route.route && route.route.toLowerCase().includes(menuSearchQuery);
+          // Search in translation key
+          const keyMatch = route.text && route.text.toLowerCase().includes(menuSearchQuery);
+          
+          return enMatch || arMatch || routeMatch || keyMatch;
         });
+        
+        // Format results
+        this.menuItems = matchedRoutes.map(route => ({
+          route: route.route,
+          text: route.text,
+          icon: route.icon
+        }));
+      } catch (error) {
+        console.error('Search error:', error);
+        this.menuItems = [];
+      }
     },
 
     async logout() {
