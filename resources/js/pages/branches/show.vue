@@ -86,20 +86,26 @@ export default {
   data() {
     return {
       branch: null,
-      breadcrumbsCurrent: "branches.show",
-      breadcrumbs: [
-        {
-          name: this.$t("Branches"),
-          url: "branches.index"
-        },
-        {
-          name: this.$t("View"),
-          url: ""
-        }
-      ]
+      breadcrumbsCurrent: "",
+      breadcrumbs: []
     };
   },
   async mounted() {
+    this.breadcrumbsCurrent = this.$t("View Branch");
+    this.breadcrumbs = [
+      {
+        name: this.$t("Dashboard"),
+        url: "home"
+      },
+      {
+        name: this.$t("Branches"),
+        url: "branches.index"
+      },
+      {
+        name: this.$t("View Branch"),
+        url: ""
+      }
+    ];
     await this.getBranch();
   },
   methods: {
