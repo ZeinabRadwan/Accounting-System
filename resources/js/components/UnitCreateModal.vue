@@ -13,11 +13,19 @@
             <has-error :form="form" field="name" />
           </div>
           <div class="form-group">
-            <label for="unitCode">{{ $t("Code") }}
-              <span class="required">*</span></label>
+            <label for="unitCode">
+              {{ $t("Code") }}
+              <span class="required">*</span>
+              <i class="fas fa-info-circle ml-2 text-info unit-code-tooltip" 
+                 v-tooltip="$t('Unit Code Tooltip')" 
+                 style="cursor: help; font-size: 0.9rem;"></i>
+            </label>
             <input id="unitCode" v-model="form.code" type="text" class="form-control"
               :class="{ 'is-invalid': form.errors.has('code') }" name="code"
-              :placeholder="$t('Enter a code')" />
+              :placeholder="$t('Enter unit code (1-5 characters)')" 
+              maxlength="5"
+              v-tooltip="$t('Unit Code Tooltip')" />
+            <small class="form-text text-muted">{{ $t("Unit Code Helper") }}</small>
             <has-error :form="form" field="code" />
           </div>
           <div class="form-group">
@@ -203,10 +211,30 @@ textarea.form-control {
   cursor: pointer;
 }
 
+/* Unit Code Tooltip Styling */
+.unit-code-tooltip {
+  transition: all 0.2s ease;
+}
+
+.unit-code-tooltip:hover {
+  color: #33a0d9 !important;
+  transform: scale(1.1);
+}
+
+.form-text {
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  color: #6c757d;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .form-group {
     margin-bottom: 0.75rem;
+  }
+  
+  .form-text {
+    font-size: 0.8rem;
   }
 }
 </style>
