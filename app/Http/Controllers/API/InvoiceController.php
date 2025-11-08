@@ -79,7 +79,8 @@ class InvoiceController extends Controller
             return null;
         }
 
-        return ChartOfAccount::find($setting->main_account_id);
+        $branchId = Auth::user()->default_branch_id ?? null;
+        return ChartOfAccount::forBranch($branchId)->find($setting->main_account_id);
     }
 
     /**

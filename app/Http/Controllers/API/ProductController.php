@@ -257,7 +257,10 @@ class ProductController extends Controller
     public function getChartOfAccounts()
     {
         try {
+            $branchId = Auth::user()->default_branch_id ?? null;
+            
             $chartOfAccounts = ChartOfAccount::where('is_active', true)
+                ->forBranch($branchId)
                 ->with('type')
                 ->orderBy('name')
                 ->get()
@@ -1033,6 +1036,7 @@ class ProductController extends Controller
                         'parent_id' => $routing->main_account_id,
                         'is_active' => true,
                         'created_by' => Auth::id(),
+                        'branch_id' => Auth::user()->default_branch_id,
                     ]);
                     $product->update(['sales_account_id' => $newAccount->id]);
                     return response()->json([
@@ -1086,6 +1090,7 @@ class ProductController extends Controller
                         'parent_id' => $routing->main_account_id,
                         'is_active' => true,
                         'created_by' => Auth::id(),
+                        'branch_id' => Auth::user()->default_branch_id,
                     ]);
                     $product->update(['purchase_account_id' => $newAccount->id]);
                     return response()->json([
@@ -1115,13 +1120,15 @@ class ProductController extends Controller
 
     private function generateChildAccountCode($parentId)
     {
-        $parent = ChartOfAccount::find($parentId);
+        $branchId = Auth::user()->default_branch_id ?? null;
+        $parent = ChartOfAccount::forBranch($branchId)->find($parentId);
         if (!$parent) {
             return 'PRD-' . (time() % 1000000);
         }
         $baseCode = $parent->code;
         // Collect existing child codes that start with baseCode-
-        $existingCodes = ChartOfAccount::where('parent_id', $parentId)
+        $existingCodes = ChartOfAccount::forBranch($branchId)
+            ->where('parent_id', $parentId)
             ->where('code', 'like', $baseCode . '-%')
             ->pluck('code')
             ->toArray();

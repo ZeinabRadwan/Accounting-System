@@ -24,6 +24,7 @@ class ChartOfAccount extends Model
         'order',
         'is_active',
         'created_by',
+        'branch_id',
     ];
 
     protected $casts = [
@@ -369,6 +370,34 @@ class ChartOfAccount extends Model
     public function scopeOrdered($query)
     {
         return $query->orderBy('order', 'asc')->orderBy('name', 'asc');
+    }
+
+    /**
+     * Scope to filter by branch
+     * If branch_id is NULL, account is available to all branches
+     * If branch_id is not NULL, account is only available to that specific branch
+     * 
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param int|null $branchId Current branch ID (from user's default_branch_id)
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForBranch($query, $branchId = null)
+    {
+        // If no branch ID provided, try to get from authenticated user
+        if ($branchId === null && Auth::check()) {
+            $branchId = Auth::user()->default_branch_id ?? null;
+        }
+
+        // If still no branch ID, return all accounts (backward compatibility)
+        if ($branchId === null) {
+            return $query;
+        }
+
+        // Filter: branch_id IS NULL (shared) OR branch_id = current_branch_id
+        return $query->where(function($q) use ($branchId) {
+            $q->whereNull('branch_id')
+              ->orWhere('branch_id', $branchId);
+        });
     }
 
     /**

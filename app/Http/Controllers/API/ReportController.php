@@ -2238,14 +2238,19 @@ class ReportController extends Controller
             $parentAccountId = $request->parent_account_id;
             $search = $request->search;
 
+            $branchId = Auth::user()->default_branch_id ?? null;
+            
             // Get the parent account with complete hierarchy
-            $parentAccount = \App\Models\ChartOfAccount::with($this->getCompleteHierarchyEagerLoad())->findOrFail($parentAccountId);
+            $parentAccount = \App\Models\ChartOfAccount::forBranch($branchId)
+                ->with($this->getCompleteHierarchyEagerLoad())
+                ->findOrFail($parentAccountId);
             
             // Get all descendants of the parent account (complete hierarchy)
             $allDescendants = $this->getAllDescendants($parentAccount);
             
             // Build query for sub accounts (parent + all descendants)
             $query = \App\Models\ChartOfAccount::with('type')
+                ->forBranch($branchId)
                 ->whereIn('id', array_merge([$parentAccountId], $allDescendants))
                 ->where('is_active', true);
 
@@ -2321,10 +2326,15 @@ class ReportController extends Controller
 
             // Determine which account to use for the report
             $reportAccountId = $subChartOfAccountId ?: $chartOfAccountId;
+            $branchId = Auth::user()->default_branch_id ?? null;
             
             // Get chart of account details
-            $chartOfAccount = \App\Models\ChartOfAccount::with('type')->findOrFail($chartOfAccountId);
-            $reportAccount = \App\Models\ChartOfAccount::with('type')->findOrFail($reportAccountId);
+            $chartOfAccount = \App\Models\ChartOfAccount::forBranch($branchId)
+                ->with('type')
+                ->findOrFail($chartOfAccountId);
+            $reportAccount = \App\Models\ChartOfAccount::forBranch($branchId)
+                ->with('type')
+                ->findOrFail($reportAccountId);
 
             // Build date range query
             $dateQuery = \App\Models\JournalEntry::query()
@@ -2510,10 +2520,15 @@ class ReportController extends Controller
 
             // Determine which account to use for the report
             $reportAccountId = $subChartOfAccountId ?: $chartOfAccountId;
+            $branchId = Auth::user()->default_branch_id ?? null;
             
             // Get chart of account details
-            $chartOfAccount = \App\Models\ChartOfAccount::with('type')->findOrFail($chartOfAccountId);
-            $reportAccount = \App\Models\ChartOfAccount::with('type')->findOrFail($reportAccountId);
+            $chartOfAccount = \App\Models\ChartOfAccount::forBranch($branchId)
+                ->with('type')
+                ->findOrFail($chartOfAccountId);
+            $reportAccount = \App\Models\ChartOfAccount::forBranch($branchId)
+                ->with('type')
+                ->findOrFail($reportAccountId);
 
             // Build date range query - NO PAGINATION
             $dateQuery = \App\Models\JournalEntry::query()
@@ -2685,7 +2700,9 @@ class ReportController extends Controller
             $perPage = $request->per_page ?? 10; // Default to 10 rows per page
 
             // Get chart of accounts details
-            $chartOfAccounts = \App\Models\ChartOfAccount::with('type')
+            $branchId = Auth::user()->default_branch_id ?? null;
+            $chartOfAccounts = \App\Models\ChartOfAccount::forBranch($branchId)
+                ->with('type')
                 ->whereIn('id', $chartOfAccountIds)
                 ->get();
 
@@ -2903,7 +2920,9 @@ class ReportController extends Controller
             $toDate = $request->to_date;
 
             // Get chart of accounts details
-            $chartOfAccounts = \App\Models\ChartOfAccount::with('type')
+            $branchId = Auth::user()->default_branch_id ?? null;
+            $chartOfAccounts = \App\Models\ChartOfAccount::forBranch($branchId)
+                ->with('type')
                 ->whereIn('id', $chartOfAccountIds)
                 ->get();
 
@@ -3999,18 +4018,24 @@ class ReportController extends Controller
             ];
 
             // Load ALL chart of accounts first (much faster) - load complete hierarchy
-            $allAccountsQuery = \App\Models\ChartOfAccount::with($this->getCompleteHierarchyEagerLoad())
-            ->where('is_active', true)
-            ->whereNull('parent_id'); // Only get root level accounts
+            $branchId = Auth::user()->default_branch_id ?? null;
+            $allAccountsQuery = \App\Models\ChartOfAccount::forBranch($branchId)
+                ->with($this->getCompleteHierarchyEagerLoad())
+                ->where('is_active', true)
+                ->whereNull('parent_id'); // Only get root level accounts
 
             // If specific account is selected, get that account and its children
             if ($subChartOfAccountId) {
-                $selectedAccount = \App\Models\ChartOfAccount::with($this->getCompleteHierarchyEagerLoad())->findOrFail($subChartOfAccountId);
+                $selectedAccount = \App\Models\ChartOfAccount::forBranch($branchId)
+                    ->with($this->getCompleteHierarchyEagerLoad())
+                    ->findOrFail($subChartOfAccountId);
                 
                 $allAccounts = collect([$selectedAccount]);
                 $totalCount = 1;
             } elseif ($chartOfAccountId) {
-                $selectedAccount = \App\Models\ChartOfAccount::with($this->getCompleteHierarchyEagerLoad())->findOrFail($chartOfAccountId);
+                $selectedAccount = \App\Models\ChartOfAccount::forBranch($branchId)
+                    ->with($this->getCompleteHierarchyEagerLoad())
+                    ->findOrFail($chartOfAccountId);
                 
                 $allAccounts = collect([$selectedAccount]);
                 $totalCount = 1;
@@ -4103,18 +4128,24 @@ class ReportController extends Controller
             ];
 
             // Load accounts using Eloquent models (same as original trialBalance method)
-            $allAccountsQuery = \App\Models\ChartOfAccount::with($this->getCompleteHierarchyEagerLoad())
+            $branchId = Auth::user()->default_branch_id ?? null;
+            $allAccountsQuery = \App\Models\ChartOfAccount::forBranch($branchId)
+                ->with($this->getCompleteHierarchyEagerLoad())
                 ->where('is_active', true)
                 ->whereNull('parent_id'); // Only get root level accounts
 
             // If specific account is selected, get that account and its children
             if ($subChartOfAccountId) {
-                $selectedAccount = \App\Models\ChartOfAccount::with($this->getCompleteHierarchyEagerLoad())->findOrFail($subChartOfAccountId);
+                $selectedAccount = \App\Models\ChartOfAccount::forBranch($branchId)
+                    ->with($this->getCompleteHierarchyEagerLoad())
+                    ->findOrFail($subChartOfAccountId);
                 
                 $allAccounts = collect([$selectedAccount]);
                 $totalCount = 1;
             } elseif ($chartOfAccountId) {
-                $selectedAccount = \App\Models\ChartOfAccount::with($this->getCompleteHierarchyEagerLoad())->findOrFail($chartOfAccountId);
+                $selectedAccount = \App\Models\ChartOfAccount::forBranch($branchId)
+                    ->with($this->getCompleteHierarchyEagerLoad())
+                    ->findOrFail($chartOfAccountId);
                 
                 $allAccounts = collect([$selectedAccount]);
                 $totalCount = 1;
@@ -4205,7 +4236,9 @@ class ReportController extends Controller
             ];
 
             // Get the specific account
-            $account = \App\Models\ChartOfAccount::with(['type'])
+            $branchId = Auth::user()->default_branch_id ?? null;
+            $account = \App\Models\ChartOfAccount::forBranch($branchId)
+                ->with(['type'])
                 ->where('id', $accountId)
                 ->where('is_active', true)
                 ->first();

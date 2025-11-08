@@ -34,10 +34,12 @@ class ChartOfAccountController extends Controller
      */
     protected function resolveAccount($slugOrId)
     {
+        $branchId = Auth::user()->default_branch_id ?? null;
+        
         if (is_numeric($slugOrId)) {
-            return ChartOfAccount::findOrFail((int) $slugOrId);
+            return ChartOfAccount::forBranch($branchId)->findOrFail((int) $slugOrId);
         }
-        return ChartOfAccount::where('code', $slugOrId)->firstOrFail();
+        return ChartOfAccount::forBranch($branchId)->where('code', $slugOrId)->firstOrFail();
     }
 
     /**
@@ -46,8 +48,10 @@ class ChartOfAccountController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->perPage ?? 10;
+        $branchId = Auth::user()->default_branch_id ?? null;
         
         $accounts = ChartOfAccount::with(['type', 'parent'])
+            ->forBranch($branchId)
             ->ordered()
             ->paginate($perPage);
             
@@ -60,7 +64,10 @@ class ChartOfAccountController extends Controller
     public function getAll()
     {
         try {
+            $branchId = Auth::user()->default_branch_id ?? null;
+            
             $accounts = ChartOfAccount::with(['type', 'parent'])
+                ->forBranch($branchId)
                 ->ordered()
                 ->get();
                 
@@ -79,7 +86,10 @@ class ChartOfAccountController extends Controller
     public function getDropdown()
     {
         try {
+            $branchId = Auth::user()->default_branch_id ?? null;
+            
             $accounts = ChartOfAccount::where('is_active', true)
+                ->forBranch($branchId)
                 ->with(['type:id,name'])
                 ->select('id', 'name', 'code', 'type_id', 'parent_id')
                 ->orderBy('name', 'asc')
@@ -114,7 +124,10 @@ class ChartOfAccountController extends Controller
     public function tree()
     {
         try {
+            $branchId = Auth::user()->default_branch_id ?? null;
+            
             $accounts = ChartOfAccount::with(['type', 'parent'])
+                ->forBranch($branchId)
                 ->ordered()
                 ->get();
                 
@@ -171,6 +184,7 @@ class ChartOfAccountController extends Controller
                 'order' => $request->order,
                 'is_active' => $request->is_active,
                 'created_by' => Auth::id(),
+                'branch_id' => Auth::user()->default_branch_id,
             ]);
 
             // Log the created account for debugging (uncomment if needed)
@@ -205,7 +219,10 @@ class ChartOfAccountController extends Controller
     public function show($slug)
     {
         try {
+            $branchId = Auth::user()->default_branch_id ?? null;
+            
             $chartOfAccount = ChartOfAccount::with(['type', 'parent'])
+                ->forBranch($branchId)
                 ->where('code', $slug)
                 ->firstOrFail();
             return new ChartOfAccountResource($chartOfAccount);
@@ -223,7 +240,10 @@ class ChartOfAccountController extends Controller
     public function update(UpdateChartOfAccountRequest $request, $slug)
     {
         try {
-            $chartOfAccount = ChartOfAccount::where('code', $slug)->firstOrFail();
+            $branchId = Auth::user()->default_branch_id ?? null;
+            $chartOfAccount = ChartOfAccount::forBranch($branchId)
+                ->where('code', $slug)
+                ->firstOrFail();
             $chartOfAccount->update($request->validated());
 
             return response()->json([
@@ -244,7 +264,10 @@ class ChartOfAccountController extends Controller
     public function destroy($slug)
     {
         try {
-            $chartOfAccount = ChartOfAccount::where('code', $slug)->firstOrFail();
+            $branchId = Auth::user()->default_branch_id ?? null;
+            $chartOfAccount = ChartOfAccount::forBranch($branchId)
+                ->where('code', $slug)
+                ->firstOrFail();
 
             // Guard: prevent deletion if account has child accounts
             if ($chartOfAccount->children()->exists()) {
@@ -313,12 +336,16 @@ class ChartOfAccountController extends Controller
     {
         try {
             $perPage = $request->perPage ?? 10;
+            $branchId = Auth::user()->default_branch_id ?? null;
             
-            $query = ChartOfAccount::with(['type', 'parent']);
+            $query = ChartOfAccount::with(['type', 'parent'])
+                ->forBranch($branchId);
             
             if ($request->term) {
-                $query->where('name', 'like', '%' . $request->term . '%')
+                $query->where(function($q) use ($request) {
+                    $q->where('name', 'like', '%' . $request->term . '%')
                       ->orWhere('code', 'like', '%' . $request->term . '%');
+                });
             }
 
             return new ChartOfAccountResourceCollection(
@@ -348,11 +375,13 @@ class ChartOfAccountController extends Controller
             
             if ($parentId) {
                 // Generate code for child account
-                $parent = ChartOfAccount::findOrFail($parentId);
+                $branchId = Auth::user()->default_branch_id ?? null;
+                $parent = ChartOfAccount::forBranch($branchId)->findOrFail($parentId);
                 $parentCode = $parent->code;
                 
                 // Get all child codes for this parent
-                $childCodes = ChartOfAccount::where('parent_id', $parentId)
+                $childCodes = ChartOfAccount::forBranch($branchId)
+                    ->where('parent_id', $parentId)
                     ->pluck('code')
                     ->toArray();
                 
@@ -371,7 +400,9 @@ class ChartOfAccountController extends Controller
                 $newCode = $parentCode . str_pad($nextNumber, 2, '0', STR_PAD_LEFT);
             } else {
                 // Generate code for root account
-                $rootCodes = ChartOfAccount::whereNull('parent_id')
+                $branchId = Auth::user()->default_branch_id ?? null;
+                $rootCodes = ChartOfAccount::forBranch($branchId)
+                    ->whereNull('parent_id')
                     ->pluck('code')
                     ->toArray();
                 
@@ -390,9 +421,10 @@ class ChartOfAccountController extends Controller
             }
             
             // Ensure the code is unique
+            $branchId = Auth::user()->default_branch_id ?? null;
             $counter = 1;
             $originalCode = $newCode;
-            while (ChartOfAccount::where('code', $newCode)->exists()) {
+            while (ChartOfAccount::forBranch($branchId)->where('code', $newCode)->exists()) {
                 if ($parentId) {
                     $newCode = $parentCode . str_pad($nextNumber + $counter, 2, '0', STR_PAD_LEFT);
                 } else {
@@ -437,9 +469,12 @@ class ChartOfAccountController extends Controller
         try {
             $perPage = $request->perPage ?? 10;
             $search = $request->search ?? '';
+            $branchId = Auth::user()->default_branch_id ?? null;
             
             // Find the chart of account
-            $chartOfAccount = ChartOfAccount::where('code', $slug)->firstOrFail();
+            $chartOfAccount = ChartOfAccount::forBranch($branchId)
+                ->where('code', $slug)
+                ->firstOrFail();
             
             // Get journal entry lines for this account
             $query = $chartOfAccount->journalEntryLines()
@@ -507,8 +542,10 @@ class ChartOfAccountController extends Controller
     {
         $perPage = $request->perPage ?? 10;
         $locale = $request->get('locale', app()->getLocale());
+        $branchId = Auth::user()->default_branch_id ?? null;
         
         $accounts = ChartOfAccount::with(['type', 'parent', 'translations'])
+            ->forBranch($branchId)
             ->ordered()
             ->paginate($perPage);
             
@@ -536,6 +573,7 @@ class ChartOfAccountController extends Controller
 
             $accountData = collect($validated)->except('translations')->toArray();
             $accountData['created_by'] = Auth::id();
+            $accountData['branch_id'] = Auth::user()->default_branch_id;
 
             $account = ChartOfAccount::createWithTranslations($accountData, $validated['translations'] ?? []);
 
@@ -649,8 +687,10 @@ class ChartOfAccountController extends Controller
             $searchTerm = $request->get('search', '');
             $locale = $request->get('locale', app()->getLocale());
             $field = $request->get('field', 'name');
+            $branchId = Auth::user()->default_branch_id ?? null;
             
-            $query = ChartOfAccount::with(['type', 'parent', 'translations']);
+            $query = ChartOfAccount::with(['type', 'parent', 'translations'])
+                ->forBranch($branchId);
             
             if ($searchTerm) {
                 if ($field === 'name') {
@@ -690,7 +730,8 @@ class ChartOfAccountController extends Controller
     {
         try {
             $translationService = app(TranslationService::class);
-            $accounts = ChartOfAccount::all();
+            $branchId = Auth::user()->default_branch_id ?? null;
+            $accounts = ChartOfAccount::forBranch($branchId)->get();
             
             $stats = [
                 'total_accounts' => $accounts->count(),
@@ -751,8 +792,10 @@ class ChartOfAccountController extends Controller
         try {
             $format = $request->get('format', 'json');
             $accountIds = $request->get('account_ids', []);
+            $branchId = Auth::user()->default_branch_id ?? null;
             
-            $query = ChartOfAccount::with('translations');
+            $query = ChartOfAccount::with('translations')
+                ->forBranch($branchId);
             
             if (!empty($accountIds)) {
                 $query->whereIn('id', $accountIds);

@@ -39,12 +39,14 @@ class CostAllocationController extends Controller
 
             $rule = CostAllocationRule::findOrFail($request->rule_id);
 
+            $branchId = Auth::user()->default_branch_id ?? null;
+            
             $sourceAccount = $request->source_account_id 
-                ? ChartOfAccount::find($request->source_account_id)
+                ? ChartOfAccount::forBranch($branchId)->find($request->source_account_id)
                 : null;
 
             $targetAccount = $request->target_account_id
-                ? ChartOfAccount::find($request->target_account_id)
+                ? ChartOfAccount::forBranch($branchId)->find($request->target_account_id)
                 : null;
 
             $execution = $this->allocationService->executeAllocation(

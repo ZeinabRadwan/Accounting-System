@@ -700,7 +700,8 @@ class BusinessTransactionJournalService
             // Get the expense account - use selected account or fallback to default
             $expenseAccount = null;
             if ($expense->expense_account_id) {
-                $expenseAccount = \App\Models\ChartOfAccount::find($expense->expense_account_id);
+                $branchId = \Illuminate\Support\Facades\Auth::user()->default_branch_id ?? null;
+                $expenseAccount = \App\Models\ChartOfAccount::forBranch($branchId)->find($expense->expense_account_id);
             }
             
             // Fallback to default if no specific account selected
@@ -1180,11 +1181,14 @@ class BusinessTransactionJournalService
      */
     private function getDefaultAccount(string $accountName, string $typeName): ?ChartOfAccount
     {
-        return ChartOfAccount::whereHas('type', function($query) use ($typeName) {
-            $query->where('name', $typeName);
-        })->where('name', 'like', "%{$accountName}%")
-        ->where('is_active', true)
-        ->first();
+        $branchId = \Illuminate\Support\Facades\Auth::user()->default_branch_id ?? null;
+        return ChartOfAccount::forBranch($branchId)
+            ->whereHas('type', function($query) use ($typeName) {
+                $query->where('name', $typeName);
+            })
+            ->where('name', 'like', "%{$accountName}%")
+            ->where('is_active', true)
+            ->first();
     }
 
     /**
@@ -1408,7 +1412,8 @@ class BusinessTransactionJournalService
             return null;
         }
 
-        return ChartOfAccount::find($setting->main_account_id);
+        $branchId = Auth::user()->default_branch_id ?? null;
+        return ChartOfAccount::forBranch($branchId)->find($setting->main_account_id);
     }
 
     /**
@@ -1424,7 +1429,8 @@ class BusinessTransactionJournalService
             return null;
         }
 
-        return ChartOfAccount::find($setting->main_account_id);
+        $branchId = Auth::user()->default_branch_id ?? null;
+        return ChartOfAccount::forBranch($branchId)->find($setting->main_account_id);
     }
 
     /**
@@ -1582,11 +1588,13 @@ class BusinessTransactionJournalService
      */
     private function getVatAccountForPurchase(Purchase $purchase): ?ChartOfAccount
     {
+        $branchId = Auth::user()->default_branch_id ?? null;
+        
         // First try to get VAT account from the purchase's tax rate
         if ($purchase->tax_id) {
             $vatRate = $purchase->purchaseTax;
             if ($vatRate && $vatRate->chart_of_account_id) {
-                return ChartOfAccount::find($vatRate->chart_of_account_id);
+                return ChartOfAccount::forBranch($branchId)->find($vatRate->chart_of_account_id);
             }
         }
 
@@ -1599,7 +1607,7 @@ class BusinessTransactionJournalService
             return null;
         }
 
-        return ChartOfAccount::find($setting->main_account_id);
+        return ChartOfAccount::forBranch($branchId)->find($setting->main_account_id);
     }
 
     /**
@@ -1772,7 +1780,8 @@ class BusinessTransactionJournalService
             // - The selected second account from the form
             
             // Get the selected second account
-            $secondAccount = ChartOfAccount::find($accountTransaction->second_account_id);
+            $branchId = Auth::user()->default_branch_id ?? null;
+            $secondAccount = ChartOfAccount::forBranch($branchId)->find($accountTransaction->second_account_id);
             if (!$secondAccount) {
                 throw new Exception('Second account not found. Please select a valid chart of account.');
             }

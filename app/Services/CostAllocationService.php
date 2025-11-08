@@ -344,9 +344,11 @@ class CostAllocationService
     protected function getDefaultExpenseAccount(?CostCenter $costCenter = null): ChartOfAccount
     {
         // Try to find expense account
-        $account = ChartOfAccount::whereHas('type', function ($query) {
-            $query->where('name', 'like', '%expense%')
-                  ->orWhere('name', 'like', '%مصروف%');
+        $branchId = \Illuminate\Support\Facades\Auth::user()->default_branch_id ?? null;
+        $account = ChartOfAccount::forBranch($branchId)
+            ->whereHas('type', function ($query) {
+                $query->where('name', 'like', '%expense%')
+                      ->orWhere('name', 'like', '%مصروف%');
         })
         ->where('is_active', true)
         ->first();

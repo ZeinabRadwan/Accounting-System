@@ -145,7 +145,10 @@ class AccountRoutingController extends Controller
     public function getAvailableMainAccounts()
     {
         try {
+            $branchId = Auth::user()->default_branch_id ?? null;
+            
             $accounts = ChartOfAccount::where('is_active', true)
+                ->forBranch($branchId)
                 ->whereNull('parent_id') // Only top-level accounts
                 ->with('type')
                 ->orderBy('name')

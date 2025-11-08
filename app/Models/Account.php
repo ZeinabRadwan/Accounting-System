@@ -6,11 +6,32 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 use App\Models\ChartOfAccount;
 
 class Account extends Model
 {
     use Sluggable, HasFactory, SoftDeletes;
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope('forUserBranch', function ($query) {
+            $user = Auth::user();
+            if ($user && $user->default_branch_id) {
+                // Only show accounts where branch_id equals user's default branch
+                // Exclude accounts where branch_id is null
+                $query->where('branch_id', $user->default_branch_id);
+            } else {
+                // If no user or no default branch, show no accounts
+                $query->whereRaw('1 = 0');
+            }
+        });
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -140,5 +161,17 @@ class Account extends Model
     public function branch()
     {
         return $this->belongsTo(Branch::class);
+    }
+
+    /**
+     * Scope: filter accounts by branch ID
+     * This can be used to override the global scope if needed
+     */
+    public function scopeForBranch($query, $branchId)
+    {
+        if ($branchId) {
+            return $query->where('branch_id', $branchId);
+        }
+        return $query->whereRaw('1 = 0'); // Return no results if no branch ID
     }
 }
