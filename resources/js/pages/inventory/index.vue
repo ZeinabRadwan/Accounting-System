@@ -10,15 +10,15 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body position-relative">
-            <div class="row d-fex justify-content-between">
-              <div class="col-6 col-xl-4 mb-2">
+            <div class="row inventory-header-row">
+              <div class="inventory-header-section inventory-search-section">
                 <search
                   v-model="query"
                   @reset-pagination="resetPagination()"
                   @reload="reload"
                 />
               </div>
-              <div class="card-tools col-3 col-xl-2 mb-2">
+              <div class="inventory-header-section inventory-filter-section">
                 <select
                   v-model="filterType"
                   class="form-control"
@@ -54,7 +54,7 @@
                   </option>
                 </select>
               </div>
-              <div class="col-xl-6 col-3 float-right text-right">
+              <div class="inventory-header-section inventory-buttons-section">
                 <div class="btn-group c-w-100">
                   <a
                     @click="refreshTable()"
@@ -461,6 +461,57 @@ export default {
 </script>
 
 <style scoped>
+/* Inventory Header Row Layout */
+.inventory-header-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.inventory-header-section {
+  flex: 0 0 30%;
+  min-width: 0;
+}
+
+.inventory-search-section {
+  order: 1;
+}
+
+.inventory-filter-section {
+  order: 2;
+}
+
+.inventory-buttons-section {
+  order: 3;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* RTL Support */
+[dir="rtl"] .inventory-buttons-section {
+  justify-content: flex-start;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .inventory-header-section {
+    flex: 0 0 100%;
+    margin-bottom: 10px;
+  }
+  
+  .inventory-buttons-section {
+    justify-content: flex-start;
+  }
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+  .inventory-header-section {
+    flex: 0 0 30%;
+  }
+}
+
 .table-custom {
   border: none !important;
 }
@@ -718,8 +769,6 @@ export default {
 .btn-primary {
   background: #2AB930 !important;
   color: white !important;
-  padding: 10px 20px !important;
-
   border: none !important;
 }
 </style>
