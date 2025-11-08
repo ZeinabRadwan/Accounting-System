@@ -247,7 +247,10 @@ class AccountController extends Controller
     public function getChartOfAccounts()
     {
         try {
+            $branchId = Auth::user()->default_branch_id ?? null;
+            
             $chartOfAccounts = ChartOfAccount::where('is_active', true)
+                ->forBranch($branchId)
                 ->with('type')
                 ->orderBy('name')
                 ->get()
@@ -334,40 +337,13 @@ class AccountController extends Controller
      */
     public function allAccounts()
     {
-        $user = Auth::user();
-        $branchIds = $this->getUserBranchIds($user);
-        
+        // Global scope automatically filters by user's default branch
         $accounts = Account::where('status', 1)
-            ->where(function($query) use ($branchIds) {
-                $query->whereIn('branch_id', $branchIds)
-                      ->orWhereNull('branch_id')
-                      ->orWhere('branch_id', 0);
-            })
             ->with('chartOfAccount.type')
             ->latest()
             ->get();
 
         return AccountResource::collection($accounts);
-    }
-    
-    private function getUserBranchIds($user)
-    {
-        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
-        
-        // Get all branches the user has access to
-        $userBranchIds = $user->branches()->pluck('branches.id')->toArray();
-        
-        // Combine default branch with all user branches
-        $branchIds = array_unique(array_merge([$defaultBranchId], $userBranchIds));
-        
-        // Filter out 0 if there are actual branch IDs
-        if (count($branchIds) > 1 || (count($branchIds) === 1 && $branchIds[0] !== 0)) {
-            $branchIds = array_filter($branchIds, function($id) {
-                return $id > 0;
-            });
-        }
-        
-        return $branchIds ?: [0];
     }
 
     // return account transactions

@@ -242,9 +242,12 @@ class VatRateController extends Controller
             $salesVatAccounts = collect();
             $purchaseVatAccounts = collect();
 
+            $branchId = Auth::user()->default_branch_id ?? null;
+            
             // Get Sales VAT accounts from routing settings
             if ($salesVatRoutingSetting && $salesVatRoutingSetting->parent_account_id) {
                 $salesVatAccounts = \App\Models\ChartOfAccount::where('is_active', true)
+                    ->forBranch($branchId)
                     ->where(function($query) use ($salesVatRoutingSetting) {
                         $query->where('id', $salesVatRoutingSetting->parent_account_id)
                               ->orWhere('parent_id', $salesVatRoutingSetting->parent_account_id);
@@ -265,6 +268,7 @@ class VatRateController extends Controller
             // Get Purchase VAT accounts from routing settings
             if ($purchaseVatRoutingSetting && $purchaseVatRoutingSetting->parent_account_id) {
                 $purchaseVatAccounts = \App\Models\ChartOfAccount::where('is_active', true)
+                    ->forBranch($branchId)
                     ->where(function($query) use ($purchaseVatRoutingSetting) {
                         $query->where('id', $purchaseVatRoutingSetting->parent_account_id)
                               ->orWhere('parent_id', $purchaseVatRoutingSetting->parent_account_id);
@@ -285,6 +289,7 @@ class VatRateController extends Controller
             // Fallback: If no routing settings found, use the old logic
             if ($salesVatAccounts->isEmpty()) {
                 $salesVatAccounts = \App\Models\ChartOfAccount::where('is_active', true)
+                    ->forBranch($branchId)
                     ->where(function($query) {
                         $query->where('name', 'like', '%Sales VAT Payable%')
                               ->orWhere('name', 'like', '%VAT Payable%')
@@ -305,6 +310,7 @@ class VatRateController extends Controller
 
             if ($purchaseVatAccounts->isEmpty()) {
                 $purchaseVatAccounts = \App\Models\ChartOfAccount::where('is_active', true)
+                    ->forBranch($branchId)
                     ->where(function($query) {
                         $query->where('name', 'like', '%Purchase VAT Receivable%')
                               ->orWhere('name', 'like', '%VAT Receivable%')
@@ -326,6 +332,7 @@ class VatRateController extends Controller
             // Final fallback: If still no accounts found, try to get accounts by type
             if ($salesVatAccounts->isEmpty()) {
                 $salesVatAccounts = \App\Models\ChartOfAccount::where('is_active', true)
+                    ->forBranch($branchId)
                     ->whereHas('type', function($query) {
                         $query->where('name', 'Liability');
                     })
@@ -345,6 +352,7 @@ class VatRateController extends Controller
 
             if ($purchaseVatAccounts->isEmpty()) {
                 $purchaseVatAccounts = \App\Models\ChartOfAccount::where('is_active', true)
+                    ->forBranch($branchId)
                     ->whereHas('type', function($query) {
                         $query->where('name', 'Asset');
                     })

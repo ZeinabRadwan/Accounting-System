@@ -964,7 +964,9 @@ ORDER BY `date`");
             
             if (!$routingSetting || !$routingSetting->parent_account_id) {
                 // Fallback to all active accounts if routing is not configured
+                $branchId = Auth::user()->default_branch_id ?? null;
                 $accounts = \App\Models\ChartOfAccount::where('is_active', true)
+                    ->forBranch($branchId)
                     ->orderBy('name')
                     ->get();
                     
@@ -1354,6 +1356,7 @@ ORDER BY `date`");
                 'parent_id' => $routingSetting->main_account_id,
                 'is_active' => true,
                 'created_by' => Auth::id(),
+                'branch_id' => Auth::user()->default_branch_id,
             ]);
             
             \Illuminate\Support\Facades\Log::info("Created new chart of account for client", [
@@ -1388,13 +1391,15 @@ ORDER BY `date`");
     private function generateAccountCode($mainAccountId)
     {
         try {
-            $mainAccount = \App\Models\ChartOfAccount::find($mainAccountId);
+            $branchId = Auth::user()->default_branch_id ?? null;
+            $mainAccount = \App\Models\ChartOfAccount::forBranch($branchId)->find($mainAccountId);
             if (!$mainAccount) {
                 throw new \Exception("Main account not found");
             }
             
             $baseCode = $mainAccount->code;
-            $existingCodes = \App\Models\ChartOfAccount::where('code', 'like', $baseCode . '-%')
+            $existingCodes = \App\Models\ChartOfAccount::forBranch($branchId)
+                ->where('code', 'like', $baseCode . '-%')
                 ->pluck('code')
                 ->toArray();
             
@@ -1462,6 +1467,7 @@ ORDER BY `date`");
                 'type_id' => $this->getAssetAccountTypeId(),
                 'is_active' => true,
                 'created_by' => Auth::id(),
+                'branch_id' => Auth::user()->default_branch_id,
             ];
 
             // Set parent_id based on routing type

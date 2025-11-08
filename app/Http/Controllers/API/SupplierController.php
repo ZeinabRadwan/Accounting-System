@@ -933,9 +933,12 @@ ORDER BY `date`");
     public function getChartOfAccounts()
     {
         try {
+            $branchId = Auth::user()->default_branch_id ?? null;
+            
             // Get all active chart of accounts with eager loading of type relationship
             $accounts = \App\Models\ChartOfAccount::with('type')
                 ->where('is_active', true)
+                ->forBranch($branchId)
                 ->orderBy('name')
                 ->get();
             
@@ -1002,7 +1005,9 @@ ORDER BY `date`");
             
             if (!$routingSetting || !$routingSetting->main_account_id) {
                 // Fallback to all active accounts if routing is not configured
-                $query = \App\Models\ChartOfAccount::where('is_active', true);
+                $branchId = Auth::user()->default_branch_id ?? null;
+                $query = \App\Models\ChartOfAccount::where('is_active', true)
+                    ->forBranch($branchId);
                 
                 if ($search) {
                     $query->where(function($q) use ($search) {
@@ -1397,6 +1402,7 @@ ORDER BY `date`");
                 'parent_id' => $routingSetting->main_account_id,
                 'is_active' => true,
                 'created_by' => Auth::id(),
+                'branch_id' => Auth::user()->default_branch_id,
             ]);
             
             \Illuminate\Support\Facades\Log::info("Created new chart of account for supplier", [
@@ -1431,13 +1437,15 @@ ORDER BY `date`");
     private function generateSupplierAccountCode($mainAccountId)
     {
         try {
-            $mainAccount = \App\Models\ChartOfAccount::find($mainAccountId);
+            $branchId = Auth::user()->default_branch_id ?? null;
+            $mainAccount = \App\Models\ChartOfAccount::forBranch($branchId)->find($mainAccountId);
             if (!$mainAccount) {
                 throw new \Exception("Main account not found");
             }
             
             $baseCode = $mainAccount->code;
-            $existingCodes = \App\Models\ChartOfAccount::where('code', 'like', $baseCode . '-%')
+            $existingCodes = \App\Models\ChartOfAccount::forBranch($branchId)
+                ->where('code', 'like', $baseCode . '-%')
                 ->pluck('code')
                 ->toArray();
             

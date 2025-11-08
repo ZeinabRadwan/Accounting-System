@@ -371,8 +371,11 @@ class JournalEntryController extends Controller
     public function getChartOfAccounts()
     {
         try {
+            $branchId = Auth::user()->default_branch_id ?? null;
+            
             $accounts = ChartOfAccount::with('type')
                 ->where('is_active', true)
+                ->forBranch($branchId)
                 ->orderBy('code')
                 ->get()
                 ->map(function ($account) {

@@ -173,7 +173,8 @@ class VatJournalService
             return null;
         }
 
-        return ChartOfAccount::find($setting->main_account_id);
+        $branchId = \Illuminate\Support\Facades\Auth::user()->default_branch_id ?? null;
+        return ChartOfAccount::forBranch($branchId)->find($setting->main_account_id);
     }
 
     /**
@@ -189,7 +190,8 @@ class VatJournalService
             return null;
         }
 
-        return ChartOfAccount::find($setting->main_account_id);
+        $branchId = \Illuminate\Support\Facades\Auth::user()->default_branch_id ?? null;
+        return ChartOfAccount::forBranch($branchId)->find($setting->main_account_id);
     }
 
     /**
@@ -205,7 +207,8 @@ class VatJournalService
             return null;
         }
 
-        return ChartOfAccount::find($setting->main_account_id);
+        $branchId = \Illuminate\Support\Facades\Auth::user()->default_branch_id ?? null;
+        return ChartOfAccount::forBranch($branchId)->find($setting->main_account_id);
     }
 
     /**

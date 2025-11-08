@@ -66,22 +66,39 @@ class AccountRoutingSetting extends Model
      */
     public function getAllAccounts()
     {
+        $branchId = \Illuminate\Support\Facades\Auth::user()->default_branch_id ?? null;
         $accounts = collect();
         
         // Check for main account first (newer approach)
-        if ($this->mainAccount) {
-            $accounts->push($this->mainAccount);
-            $accounts = $accounts->merge($this->childAccounts);
+        if ($this->main_account_id) {
+            $mainAccount = ChartOfAccount::forBranch($branchId)->find($this->main_account_id);
+            if ($mainAccount && $mainAccount->is_active) {
+                $accounts->push($mainAccount);
+                
+                // Get child accounts
+                $childAccounts = ChartOfAccount::forBranch($branchId)
+                    ->where('parent_id', $this->main_account_id)
+                    ->where('is_active', true)
+                    ->get();
+                $accounts = $accounts->merge($childAccounts);
+            }
         }
         // Fallback to parent account (legacy approach)
-        elseif ($this->parentAccount) {
-            $accounts->push($this->parentAccount);
-            $accounts = $accounts->merge($this->parentChildAccounts);
+        elseif ($this->parent_account_id) {
+            $parentAccount = ChartOfAccount::forBranch($branchId)->find($this->parent_account_id);
+            if ($parentAccount && $parentAccount->is_active) {
+                $accounts->push($parentAccount);
+                
+                // Get child accounts
+                $childAccounts = ChartOfAccount::forBranch($branchId)
+                    ->where('parent_id', $this->parent_account_id)
+                    ->where('is_active', true)
+                    ->get();
+                $accounts = $accounts->merge($childAccounts);
+            }
         }
         
-        return $accounts->filter(function ($account) {
-            return $account->is_active;
-        });
+        return $accounts;
     }
 
     /**
