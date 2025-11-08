@@ -39,7 +39,7 @@
             <div class="card-header">
               <h5 class="section-title">
                 <i class="fas fa-info-circle mr-2"></i>
-                {{ $t("Product Details") }}
+                {{ $t("Product Details") }} 
               </h5>
             </div>
             <div class="card-body">
@@ -67,9 +67,19 @@
 
                   <div class="form-group">
                     <label for="subCategory">{{ $t("Category") }} <span class="required">*</span></label>
-                    <v-select v-model="form.subCategory" :options="categories" label="name"
-                      :class="{ 'is-invalid': form.errors.has('subCategory') }" name="subCategory"
-                      :placeholder="$t('Select a category')" />
+                    <div class="d-flex w-100">
+                      <v-select v-model="form.subCategory" :options="categories" label="name"
+                        :class="{ 
+                          'is-invalid': form.errors.has('subCategory'),
+                          'category-select': true
+                        }" name="subCategory"
+                        :placeholder="$t('Select a category')" class="flex-grow-1" />
+                      <CategorySubcategoryCreateModal @categoryCreated="handleCategoryCreated" @subcategoryCreated="handleSubcategoryCreated">
+                        <div class="input-group-text create-btn">
+                          <i class="fas fa-solid fa-plus-circle"></i>
+                        </div>
+                      </CategorySubcategoryCreateModal>
+                    </div>
                     <has-error :form="form" field="subCategory" />
                   </div>
 
@@ -396,8 +406,12 @@
 import Form from 'vform'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
+import CategorySubcategoryCreateModal from '~/components/CategorySubcategoryCreateModal'
 
 export default {
+  components: {
+    CategorySubcategoryCreateModal,
+  },
   middleware: ["auth", "check-permissions"],
   metaInfo() {
     return { title: this.$t("Create Product") };
@@ -532,6 +546,30 @@ export default {
         window.location.origin + "/api/all-product-sub-categories"
       );
       this.categories = data.data;
+    },
+    // Handle category created event
+    async handleCategoryCreated() {
+      // Refresh categories list (this includes subcategories which are what we display)
+      await this.getSubCategories();
+      // Note: Categories are parent categories, but we display subcategories in the dropdown
+      // So we just refresh the list - the new category will be available for creating subcategories
+    },
+    // Handle subcategory created event
+    async handleSubcategoryCreated(createdSubcategory) {
+      // Refresh categories list (subcategories are what we display)
+      await this.getSubCategories();
+      // Auto-select the newly created subcategory in the dropdown
+      if (createdSubcategory && createdSubcategory.name) {
+        // Use $nextTick to ensure the categories array is updated after refresh
+        await this.$nextTick();
+        // Find the newly created subcategory in the refreshed list by name
+        const newSubcategory = this.categories.find(
+          cat => cat.name === createdSubcategory.name
+        );
+        if (newSubcategory) {
+          this.form.subCategory = newSubcategory;
+        }
+      }
     },
     // get all brands
     async getBrands() {
@@ -1008,6 +1046,47 @@ export default {
 .create-button {
   text-decoration: none;
   cursor: pointer;
+}
+
+.create-btn {
+  padding: 11px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-left: none;
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+.create-btn:hover {
+  background-color: #e9ecef;
+}
+
+/* Category select with create button styling */
+.category-select {
+  margin-right: 0 !important;
+}
+
+.category-select .vs__dropdown-toggle {
+  border-right: none !important;
+  border-radius: 0.25rem 0 0 0.25rem !important;
+}
+
+[dir="rtl"] .category-select .vs__dropdown-toggle {
+  border-right: 1px solid #ced4da !important;
+  border-left: none !important;
+  border-radius: 0 0.25rem 0.25rem 0 !important;
+}
+
+/* RTL adjustments for create button */
+[dir="rtl"] .create-btn {
+  border-left: none;
+  border-right: 1px solid #ced4da;
+  border-radius: 0.25rem 0 0 0.25rem;
+}
+
+[dir="ltr"] .create-btn {
+  border-left: 1px solid #ced4da;
+  border-right: none;
+  border-radius: 0 0.25rem 0.25rem 0;
 }
 
 /* Responsive adjustments */
