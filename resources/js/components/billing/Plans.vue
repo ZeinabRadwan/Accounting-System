@@ -23,18 +23,17 @@
           <span class="price-badge">
             <template v-if="centralPlanDiscount > 0 && selectedPlanType === 'year'">
               <span class="line-through small-text">
-                {{ centralCurrency.symbol }}{{ plan.amount * 12 }} 
+                <span class="saudi-riyal">ê</span>{{ plan.amount * 12 }} 
               </span>
               <strong class="text-strong text-capitalize">
-                {{ centralCurrency.symbol
-                }}{{ getDiscountedPrice(plan.amount, centralPlanDiscount) }}
+                <span class="saudi-riyal">ê</span>{{ getDiscountedPrice(plan.amount, centralPlanDiscount) }}
               </strong>
               / {{ selectedPlanType === "year" ? "Year" : "Month" }}
             </template>
 
             <template v-else>
               <span v-if="centralCurrency">
-                {{ centralCurrency.symbol }}{{ getAdjustedPrice(plan.amount) }} /
+                <span class="saudi-riyal">ê</span>{{ getAdjustedPrice(plan.amount) }} /
                 {{ selectedPlanType === "year" ? "Year" : "Month" }}
               </span>
             </template>
