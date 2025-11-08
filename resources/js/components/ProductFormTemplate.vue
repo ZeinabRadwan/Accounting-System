@@ -196,14 +196,14 @@
         </h5>
       </div>
       <div class="card-body">
-        <!-- Create Mode: Show checkboxes for override -->
+        <!-- Create Mode: Show toggle switches for override -->
         <div v-if="!isEditMode">
-          <!-- Override Automatic Routing Checkboxes -->
+          <!-- Override Automatic Routing Toggle Switches -->
           <div v-if="isSalesAccountAutomatic || isPurchaseAccountAutomatic" class="row mb-3">
             <div class="col-12">
               <div class="alert alert-info d-flex align-items-center">
                 <i class="fas fa-info-circle mr-2"></i>
-                <span>{{ $t("Accounts will be assigned automatically based on your settings. Check the boxes below to manually select accounts for this product.") }}</span>
+                <span>{{ $t("Accounts will be assigned automatically based on your settings. Use the toggle switches below to manually select accounts for this product.") }}</span>
               </div>
             </div>
           </div>
@@ -212,21 +212,33 @@
             <div class="col-md-6">
               <!-- Sales Account -->
               <div class="form-group">
-                <div class="override-checkbox-container mb-3">
-                  <label class="form-check-label">
-                    <input 
-                      type="checkbox" 
-                      v-model="form.overrideSalesAccount" 
-                      class="form-check-input"
-                      @change="onOverrideSalesAccountChange"
-                    />
-                    <span class="checkbox-text">{{ $t("Select it manually") }}</span>
+                <div class="account-label-row">
+                  <label for="salesAccountId" class="account-label">
+                    {{ $t("Sales Account") }}
+                    <span v-if="!isSalesAccountAutomatic || form.overrideSalesAccount" class="required">*</span>
                   </label>
+                  
+                  <!-- Toggle Switch (shown when automatic routing is enabled) -->
+                  <div v-if="isSalesAccountAutomatic" class="toggle-switch-container">
+                    <label class="toggle-switch-label">
+                      <span class="toggle-switch-wrapper">
+                        <input 
+                          type="checkbox" 
+                          v-model="form.overrideSalesAccount" 
+                          class="toggle-switch-input"
+                          @change="onOverrideSalesAccountChange"
+                        />
+                        <span class="toggle-switch-slider"></span>
+                      </span>
+                      <span class="toggle-switch-text">
+                        {{ form.overrideSalesAccount ? $t("Manual") : $t("Automatic") }}
+                      </span>
+                    </label>
+                  </div>
                 </div>
                 
                 <!-- Manual Selection (shown when override is checked or not automatic) -->
                 <div v-if="!isSalesAccountAutomatic || form.overrideSalesAccount" class="form-group">
-                  <label for="salesAccountId">{{ $t("Sales Account") }} <span class="required">*</span></label>
                   <div class="d-flex align-items-center">
                     <v-select
                       v-model="form.salesAccountId"
@@ -242,35 +254,39 @@
                   </div>
                   <has-error :form="form" field="salesAccountId" />
                 </div>
-
-                <!-- Auto-assigned (shown when automatic and not overridden) -->
-                <div v-if="isSalesAccountAutomatic && !form.overrideSalesAccount" class="form-group">
-                  <label>{{ $t("Sales Account") }}</label>
-                  <div class="form-control-plaintext text-muted">
-                    <i class="fas fa-info-circle"></i> {{ $t("Auto-assigned") }}
-                  </div>
-                </div>
               </div>
             </div>
 
             <div class="col-md-6">
               <!-- Purchase Account -->
               <div class="form-group">
-                <div class="override-checkbox-container mb-3">
-                  <label class="form-check-label">
-                    <input 
-                      type="checkbox" 
-                      v-model="form.overridePurchaseAccount" 
-                      class="form-check-input"
-                      @change="onOverridePurchaseAccountChange"
-                    />
-                    <span class="checkbox-text">{{ $t("Select it manually") }}</span>
+                <div class="account-label-row">
+                  <label for="purchaseAccountId" class="account-label">
+                    {{ $t("Purchase Account") }}
+                    <span v-if="!isPurchaseAccountAutomatic || form.overridePurchaseAccount" class="required">*</span>
                   </label>
+                  
+                  <!-- Toggle Switch (shown when automatic routing is enabled) -->
+                  <div v-if="isPurchaseAccountAutomatic" class="toggle-switch-container">
+                    <label class="toggle-switch-label">
+                      <span class="toggle-switch-wrapper">
+                        <input 
+                          type="checkbox" 
+                          v-model="form.overridePurchaseAccount" 
+                          class="toggle-switch-input"
+                          @change="onOverridePurchaseAccountChange"
+                        />
+                        <span class="toggle-switch-slider"></span>
+                      </span>
+                      <span class="toggle-switch-text">
+                        {{ form.overridePurchaseAccount ? $t("Manual") : $t("Automatic") }}
+                      </span>
+                    </label>
+                  </div>
                 </div>
                 
                 <!-- Manual Selection (shown when override is checked or not automatic) -->
                 <div v-if="!isPurchaseAccountAutomatic || form.overridePurchaseAccount" class="form-group">
-                  <label for="purchaseAccountId">{{ $t("Purchase Account") }} <span class="required">*</span></label>
                   <div class="d-flex align-items-center">
                     <v-select
                       v-model="form.purchaseAccountId"
@@ -285,14 +301,6 @@
                     />
                   </div>
                   <has-error :form="form" field="purchaseAccountId" />
-                </div>
-
-                <!-- Auto-assigned (shown when automatic and not overridden) -->
-                <div v-if="isPurchaseAccountAutomatic && !form.overridePurchaseAccount" class="form-group">
-                  <label>{{ $t("Purchase Account") }}</label>
-                  <div class="form-control-plaintext text-muted">
-                    <i class="fas fa-info-circle"></i> {{ $t("Auto-assigned") }}
-                  </div>
                 </div>
               </div>
             </div>
@@ -828,6 +836,118 @@ export default {
 .override-checkbox-container .form-check-label:has(.form-check-input:checked) .checkbox-text {
   color: #155724;
   font-weight: 700;
+}
+
+/* Account Label Styling */
+.account-label-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+.account-label {
+  font-weight: 500;
+  color: #495057;
+  font-size: 0.95rem;
+  margin-bottom: 0;
+  flex: 1;
+}
+
+/* Toggle Switch Styling */
+.toggle-switch-container {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.toggle-switch-label {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  gap: 0.75rem;
+}
+
+.toggle-switch-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.toggle-switch-input {
+  position: absolute;
+  width: 50px;
+  height: 26px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #ced4da;
+  border-radius: 26px;
+  outline: none;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+}
+
+.toggle-switch-input:checked {
+  background-color: #33a0d9;
+}
+
+.toggle-switch-input:focus {
+  box-shadow: 0 0 0 0.2rem rgba(51, 160, 217, 0.25);
+}
+
+.toggle-switch-slider {
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+}
+
+.toggle-switch-label {
+  position: relative;
+}
+
+.toggle-switch-label .toggle-switch-input {
+  position: relative;
+}
+
+.toggle-switch-label .toggle-switch-input:checked + .toggle-switch-slider {
+  transform: translate(24px, -50%);
+}
+
+.toggle-switch-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #495057;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+
+.toggle-switch-input:checked ~ .toggle-switch-text,
+.toggle-switch-wrapper:has(.toggle-switch-input:checked) ~ .toggle-switch-text {
+  color: #33a0d9;
+  font-weight: 600;
+}
+
+.toggle-switch-label:has(.toggle-switch-input:checked) .toggle-switch-text {
+  color: #33a0d9;
+  font-weight: 600;
 }
 
 /* Alert styling for override info */
