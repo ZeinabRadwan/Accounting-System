@@ -188,6 +188,14 @@ export default {
           postalCode: clientData.postalCode || '',
           country: clientData.country || 'SA',
           neighbourhood: clientData.neighbourhood || '',
+          
+          // Saudi National Address fields
+          buildingNumber: clientData.buildingNumber || clientData.building_number || '',
+          streetNumber: clientData.streetNumber || clientData.street_number || '',
+          districtNumber: clientData.districtNumber || clientData.district_number || '',
+          unitNumber: clientData.unitNumber || clientData.unit_number || '',
+          additionalNumber: clientData.additionalNumber || clientData.additional_number || '',
+          
           commercialRegister: clientData.commercialRegister || clientData.taxRegistrationNumber || '',
           taxCard: clientData.taxCard || '',
           

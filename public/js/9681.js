@@ -31,7 +31,7 @@ __webpack_require__.d(__webpack_exports__, {
   "default": () => (/* binding */ permission_denied)
 });
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/permission-denied.vue?vue&type=template&id=62a1cd3e&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/permission-denied.vue?vue&type=template&id=62a1cd3e&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -50,7 +50,7 @@ var render = function render() {
 };
 var staticRenderFns = [];
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/permission-denied.vue?vue&type=script&lang=js
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/permission-denied.vue?vue&type=script&lang=js
 /* harmony default export */ const permission_deniedvue_type_script_lang_js = ({
   middleware: 'auth',
   metaInfo: function metaInfo() {
@@ -71,14 +71,14 @@ var staticRenderFns = [];
     };
   }
 });
-;// CONCATENATED MODULE: ./resources/js/pages/permission-denied.vue?vue&type=script&lang=js
+;// ./resources/js/pages/permission-denied.vue?vue&type=script&lang=js
  /* harmony default export */ const pages_permission_deniedvue_type_script_lang_js = (permission_deniedvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
 // EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/permission-denied.vue?vue&type=style&index=0&id=62a1cd3e&prod&scoped=true&lang=css
 var permission_deniedvue_type_style_index_0_id_62a1cd3e_prod_scoped_true_lang_css = __webpack_require__(67954);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/permission-denied.vue?vue&type=style&index=0&id=62a1cd3e&prod&scoped=true&lang=css
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/permission-denied.vue?vue&type=style&index=0&id=62a1cd3e&prod&scoped=true&lang=css
 
             
 
@@ -92,11 +92,11 @@ var update = injectStylesIntoStyleTag_default()(permission_deniedvue_type_style_
 
 
 /* harmony default export */ const pages_permission_deniedvue_type_style_index_0_id_62a1cd3e_prod_scoped_true_lang_css = (permission_deniedvue_type_style_index_0_id_62a1cd3e_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/pages/permission-denied.vue?vue&type=style&index=0&id=62a1cd3e&prod&scoped=true&lang=css
+;// ./resources/js/pages/permission-denied.vue?vue&type=style&index=0&id=62a1cd3e&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// CONCATENATED MODULE: ./resources/js/pages/permission-denied.vue
+;// ./resources/js/pages/permission-denied.vue
 
 
 

@@ -1449,3 +1449,72 @@ img.circle-img.circle-img--small {
 .layout-footer-fixed .wrapper .main-footer{
   z-index: 50;
 }
+
+/* Full width navbar when sidebar is hidden (select-branch page) */
+body.no-sidebar-page .main-header,
+body.no-sidebar-page .main-header:before,
+.full-width-navbar.main-header,
+.full-width-navbar.main-header:before {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Override AdminLTE specific rules */
+@media (min-width: 768px) {
+  body.no-sidebar-page:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header,
+  body.no-sidebar-page:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header:before,
+  .full-width-navbar.main-header {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+body.no-sidebar-page .content-wrapper,
+body.no-sidebar-page .main-footer,
+body.no-sidebar-page .content-wrapper:before,
+body.no-sidebar-page .main-footer:before {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* RTL support */
+[dir="rtl"] body.no-sidebar-page .main-header,
+[dir="rtl"] body.no-sidebar-page .main-header:before,
+[dir="rtl"] .full-width-navbar.main-header,
+[dir="rtl"] .full-width-navbar.main-header:before {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+@media (min-width: 768px) {
+  [dir="rtl"] body.no-sidebar-page:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header,
+  [dir="rtl"] body.no-sidebar-page:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header:before,
+  [dir="rtl"] .full-width-navbar.main-header {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+[dir="rtl"] body.no-sidebar-page .content-wrapper,
+[dir="rtl"] body.no-sidebar-page .main-footer,
+[dir="rtl"] body.no-sidebar-page .content-wrapper:before,
+[dir="rtl"] body.no-sidebar-page .main-footer:before {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}

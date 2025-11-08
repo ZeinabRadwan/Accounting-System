@@ -711,9 +711,10 @@ class ProductController extends Controller
         // Initialize variables
         $prefix = '';
         $nextCode = null;
-
+        $user = Auth::user();
         // Strategy 1: Find the highest purely numeric code and increment it
         $lastNumericCode = Product::whereRaw('code REGEXP "^[0-9]+$"')
+        ->whereIn('branch_id', $this->getUserBranchIds($user))
             ->orderBy(DB::raw('CAST(code AS UNSIGNED)'), 'desc')
             ->value('code');
 
@@ -721,7 +722,9 @@ class ProductController extends Controller
             $nextCode = (int) $lastNumericCode + 1;
         } else {
             // Strategy 2: Fallback - try to extract trailing digits from the very latest product code
-            $latestProduct = Product::latest()->first();
+            $latestProduct = Product::whereIn('branch_id', $this->getUserBranchIds($user))
+                ->latest()
+                ->first();
             if ($latestProduct && is_string($latestProduct->code)) {
                 if (preg_match('/(\d+)(?!.*\d)/', $latestProduct->code, $matches)) {
                     $nextCode = ((int) $matches[1]) + 1;

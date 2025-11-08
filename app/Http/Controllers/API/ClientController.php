@@ -164,6 +164,13 @@ class ClientController extends Controller
                 'commercial_register' => $request->commercialRegister,
                 'tax_card' => $request->taxCard,
                 
+                // Saudi National Address fields
+                'building_number' => $request->buildingNumber,
+                'street_number' => $request->streetNumber,
+                'district_number' => $request->districtNumber,
+                'unit_number' => $request->unitNumber,
+                'additional_number' => $request->additionalNumber,
+                
                 // Additional fields
                 'is_send_email' => $request->isSendEmail,
                 'is_send_sms' => $request->isSendSMS,
@@ -343,6 +350,13 @@ class ClientController extends Controller
                 'neighbourhood' => $request->neighbourhood,
                 'commercial_register' => $request->commercialRegister,
                 'tax_card' => $request->taxCard,
+                
+                // Saudi National Address fields
+                'building_number' => $request->buildingNumber,
+                'street_number' => $request->streetNumber,
+                'district_number' => $request->districtNumber,
+                'unit_number' => $request->unitNumber,
+                'additional_number' => $request->additionalNumber,
                 
                 // Additional fields
                 'is_send_email' => $request->isSendEmail,

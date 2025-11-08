@@ -51,6 +51,13 @@ class StoreClientRequest extends BaseRequest
             'commercialRegister' => ['nullable', 'string', 'max:100'],
             'taxCard' => ['nullable', 'string', 'max:100'],
             
+            // Saudi National Address fields
+            'buildingNumber' => ['nullable', 'string', 'max:5'],
+            'streetNumber' => ['nullable', 'string', 'max:5'],
+            'districtNumber' => ['nullable', 'string', 'max:5'],
+            'unitNumber' => ['nullable', 'string', 'max:5'],
+            'additionalNumber' => ['nullable', 'string', 'max:5'],
+            
             // Additional Fields
             // 'image' => ['nullable', 'string'],
             'attachments' => ['nullable', 'array'],

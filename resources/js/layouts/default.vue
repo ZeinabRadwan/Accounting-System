@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="wrapper">
+    <div class="wrapper" :class="{ 'no-sidebar': !showSidebar }">
       <navbar />
-      <sidebar />
+      <sidebar v-if="showSidebar" />
       <!-- Main content -->
       <section class="content-wrapper">
         <div v-if="demo_message" class="demo-message alert alert-danger rounded-0">
@@ -77,10 +77,46 @@ export default {
       'subscription_limit_message',
       'demo_message',
     ]),
+    showSidebar() {
+      // Hide sidebar on select-branch page
+      return this.$route.name !== 'branches.select'
+    },
   },
 
   created() {
     this.$store.dispatch('operations/fetchTenant')
+    // Add body class immediately if on select-branch page
+    if (!this.showSidebar) {
+      document.body.classList.add('no-sidebar-page')
+    }
+  },
+
+  watch: {
+    '$route'(to, from) {
+      // Update body class when route changes
+      if (to.name === 'branches.select') {
+        document.body.classList.add('no-sidebar-page')
+      } else {
+        document.body.classList.remove('no-sidebar-page')
+      }
+    },
+    showSidebar(newVal) {
+      if (!newVal) {
+        document.body.classList.add('no-sidebar-page')
+      } else {
+        document.body.classList.remove('no-sidebar-page')
+      }
+    }
+  },
+
+  mounted() {
+    if (!this.showSidebar) {
+      document.body.classList.add('no-sidebar-page')
+    }
+  },
+
+  beforeDestroy() {
+    document.body.classList.remove('no-sidebar-page')
   },
 
   methods: {
@@ -115,5 +151,47 @@ export default {
     display: block !important;
   }
 
+}
+</style>
+
+<style>
+/* Full width navbar when sidebar is hidden - Global styles */
+body.no-sidebar-page .main-header,
+.wrapper.no-sidebar .main-header,
+.full-width-navbar.main-header {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+body.no-sidebar-page .content-wrapper,
+body.no-sidebar-page .main-footer,
+.wrapper.no-sidebar .content-wrapper,
+.wrapper.no-sidebar .main-footer {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* RTL support for full width navbar */
+[dir="rtl"] body.no-sidebar-page .main-header,
+[dir="rtl"] .wrapper.no-sidebar .main-header,
+[dir="rtl"] .full-width-navbar.main-header {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+[dir="rtl"] body.no-sidebar-page .content-wrapper,
+[dir="rtl"] body.no-sidebar-page .main-footer,
+[dir="rtl"] .wrapper.no-sidebar .content-wrapper,
+[dir="rtl"] .wrapper.no-sidebar .main-footer {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 </style>

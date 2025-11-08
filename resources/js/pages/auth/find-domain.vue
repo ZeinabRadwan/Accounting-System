@@ -126,8 +126,8 @@ export default {
     appName: window.config.appName,
     host: location.host,
     isLoading: false,
-    loadingText: 'Finding your domain...',
-    subText: 'Please wait while we locate your account'
+    loadingText: '',
+    subText: ''
   }),
   // Map Getters
   computed: {
@@ -136,6 +136,10 @@ export default {
 
   created() {
     console.log('Component created, form object:', this.form);
+    
+    // Initialize loading texts with translations
+    this.loadingText = this.$t('Finding your domain')
+    this.subText = this.$t('Please wait while we locate your account')
     
     // Auto-populate email and domain from query parameters
     if (this.$route.query.email) {
@@ -172,7 +176,7 @@ export default {
       
       // Validate form before submission
       if (!this.form.domain || !this.form.email || !this.form.password) {
-        this.$toast.error('Please fill in all fields')
+        this.$toast.error(this.$t('Please fill in all fields'))
         return
       }
       
@@ -193,7 +197,7 @@ export default {
         
         if (domainResponse && domainResponse.data.success) {
           // Update loading text for redirect
-          this.loadingText = this.$t('Redirecting to your dashboard...')
+          this.loadingText = this.$t('Redirecting to your dashboard')
           this.subText = this.$t('Please wait while we take you to your account')
           
           // Small delay to show loading state before redirect
@@ -203,7 +207,7 @@ export default {
           }, 1500)
         } else {
           // Handle case where response is successful but no login URL provided
-          this.$toast.error('Domain found but login failed. Please check your credentials.')
+          this.$toast.error(this.$t('Domain found but login failed. Please check your credentials'))
           this.isLoading = false
         }
       } catch (error) {
@@ -219,14 +223,14 @@ export default {
         
         // Handle domain not found error (404)
         if (error.response && error.response.status === 404) {
-          this.$toast.error('Domain not found. Please check your domain name and try again.')
+          this.$toast.error(this.$t('Domain not found. Please check your domain name and try again'))
           this.isLoading = false
           return
         }
         
         // Handle authentication errors (401)
         if (error.response && error.response.status === 401) {
-          this.$toast.error('Invalid email or password. Please check your credentials.')
+          this.$toast.error(this.$t('Invalid email or password. Please check your credentials'))
           this.isLoading = false
           return
         }
@@ -235,7 +239,7 @@ export default {
         if (error.response && error.response.data && error.response.data.message) {
           this.$toast.error(error.response.data.message)
         } else {
-          this.$toast.error('Login failed. Please check your credentials and domain.')
+          this.$toast.error(this.$t('Login failed. Please check your credentials and domain'))
         }
         
         this.isLoading = false

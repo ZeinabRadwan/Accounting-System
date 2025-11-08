@@ -52,6 +52,8 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         'is_archived',
         'archived_at',
         'archived_by',
+        'plan_id',
+        'plan_ends_at',
     ];
 
     protected $casts = [

@@ -104,6 +104,13 @@ export default {
         country: clientData.country || 'SA',
         neighbourhood: clientData.neighbourhood || '',
         
+        // Saudi National Address fields
+        buildingNumber: clientData.buildingNumber || clientData.building_number || '',
+        streetNumber: clientData.streetNumber || clientData.street_number || '',
+        districtNumber: clientData.districtNumber || clientData.district_number || '',
+        unitNumber: clientData.unitNumber || clientData.unit_number || '',
+        additionalNumber: clientData.additionalNumber || clientData.additional_number || '',
+        
         // Business Information
         commercialRegister: clientData.commercialRegister || clientData.commercial_register || clientData.taxRegistrationNumber || clientData.tax_registration_number || '',
         taxCard: clientData.taxCard || clientData.tax_card || '',

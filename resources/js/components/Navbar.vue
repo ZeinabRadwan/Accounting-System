@@ -1,9 +1,13 @@
 <template>
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <nav 
+    class="main-header navbar navbar-expand navbar-white navbar-light" 
+    :class="{ 'full-width-navbar': isSelectBranchPage }"
+    :style="isSelectBranchPage ? { marginLeft: '0', marginRight: '0', left: '0', right: '0', width: '100%', maxWidth: '100%' } : {}"
+  >
     <!-- Left navbar links -->
     <ul class="navbar-nav">
-      <li class="nav-item">
+      <li v-if="showSidebarToggle" class="nav-item">
         <a class="nav-link custom-nav-btn" data-widget="pushmenu" href="#" role="button">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
             stroke-width="2">
@@ -14,7 +18,7 @@
     </ul>
 
     <!-- Search beside sidebar toggle -->
-    <div class="navbar-search d-none d-md-block" style="margin-left: 10px;">
+    <div class="navbar-search d-none d-md-block" :style="showSidebarToggle ? 'margin-left: 10px;' : 'margin-left: 0;'">
       <div class="search-area position-relative">
         <input ref="searchInput" type="text" v-model="menuSearchQuery" @input="searchMenu"
           class="search-input" :placeholder="`${$t('Search...')}`">
@@ -38,17 +42,17 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <li v-if="currentBranchName" class="nav-item d-flex align-items-center mr-2" v-tooltip="currentBranchName">
-        <span class="branch-pill d-inline-flex align-items-center">
+      <li v-if="currentBranchName" class="nav-item d-flex align-items-center mr-2" v-tooltip="displayBranchName">
+        <span class="branch-pill d-inline-flex align-items-center" >
           <i class="fas fa-code-branch mr-2"></i>
-          <span class="text-truncate" style="max-width: 180px;">{{ currentBranchName }}</span>
+          <a href="#" @click.prevent="goSelectBranch" class="text-truncate" style="max-width: 180px;">{{ displayBranchName }}</a>
         </span>
       </li>
-      <li class="nav-item" v-tooltip="$t('Change Branch')">
+      <!-- <li class="nav-item" v-tooltip="$t('Change Branch')">
         <a class="nav-link custom-nav-btn" href="#" @click.prevent="goSelectBranch">
           <i class="fas fa-code-branch"></i>
         </a>
-      </li>
+      </li> -->
       <li v-if="$can('today-profit')" v-tooltip="$t('Today Report')" class="nav-item">
         <a class="nav-link custom-nav-btn" :href="`#${$route.name === 'reports.todayReport' ? '' : 'reports.todayReport'}`" @click.prevent="$router.push({ name: 'reports.todayReport' })">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
@@ -239,14 +243,29 @@ export default {
     menuItems: [],
     imageError: false,
     currentBranchName: '',
+    navbarEnforcerInterval: null,
   }),
 
   computed: {
     ...mapGetters({
       user: "auth/user",
+      appInfo: "operations/appInfo",
     }),
     searchPlaceholderText() {
       return this.$t('Search...');
+    },
+    displayBranchName() {
+      if (this.currentBranchName === 'Main Branch') {
+        return this.appInfo?.companyName || this.currentBranchName;
+      }
+      return this.currentBranchName;
+    },
+    showSidebarToggle() {
+      // Hide sidebar toggle on select-branch page
+      return this.$route.name !== 'branches.select';
+    },
+    isSelectBranchPage() {
+      return this.$route.name === 'branches.select';
     }
   },
 
@@ -261,11 +280,66 @@ export default {
         this.setSearchPlaceholder();
       }, 100);
     });
+    // Force navbar full width ONLY on select-branch page
+    if (this.isSelectBranchPage) {
+      this.$nextTick(() => {
+        this.forceFullWidthNavbar();
+        // Set up interval to continuously enforce styles (in case AdminLTE overrides)
+        // Only runs on select-branch page
+        this.navbarEnforcerInterval = setInterval(() => {
+          if (this.isSelectBranchPage) {
+            this.forceFullWidthNavbar();
+          } else {
+            // If we're no longer on select-branch page, clear interval and reset
+            clearInterval(this.navbarEnforcerInterval);
+            this.navbarEnforcerInterval = null;
+            this.resetNavbarStyles();
+          }
+        }, 100);
+      });
+    } else {
+      // Make sure styles are reset on other pages
+      this.$nextTick(() => {
+        this.resetNavbarStyles();
+      });
+    }
   },
 
   watch: {
     '$i18n.locale'() {
       this.updateSearchPlaceholder();
+    },
+    '$route'(to, from) {
+      // Clear any existing interval first
+      if (this.navbarEnforcerInterval) {
+        clearInterval(this.navbarEnforcerInterval);
+        this.navbarEnforcerInterval = null;
+      }
+      
+      // Reset styles when leaving select-branch page
+      if (from && from.name === 'branches.select' && to.name !== 'branches.select') {
+        this.$nextTick(() => {
+          this.resetNavbarStyles();
+        });
+      }
+      
+      // Force navbar full width when route changes to select-branch
+      if (to.name === 'branches.select') {
+        this.$nextTick(() => {
+          this.forceFullWidthNavbar();
+          // Set up interval to continuously enforce styles (only on select-branch page)
+          this.navbarEnforcerInterval = setInterval(() => {
+            if (this.isSelectBranchPage) {
+              this.forceFullWidthNavbar();
+            } else {
+              // If we're no longer on select-branch page, clear interval and reset
+              clearInterval(this.navbarEnforcerInterval);
+              this.navbarEnforcerInterval = null;
+              this.resetNavbarStyles();
+            }
+          }, 100);
+        });
+      }
     },
     user: {
       handler() {
@@ -367,6 +441,70 @@ export default {
     sideBarControl() {
       document.body.classList.toggle("control-sidebar-slide-open");
     },
+    forceFullWidthNavbar() {
+      // Only apply on select-branch page
+      if (!this.isSelectBranchPage) {
+        this.resetNavbarStyles();
+        return;
+      }
+      
+      // Force navbar to full width by directly manipulating the DOM
+      const navbar = this.$el;
+      if (navbar) {
+        // Set styles with !important using setProperty
+        navbar.style.setProperty('margin-left', '0', 'important');
+        navbar.style.setProperty('margin-right', '0', 'important');
+        navbar.style.setProperty('left', '0', 'important');
+        navbar.style.setProperty('right', '0', 'important');
+        navbar.style.setProperty('width', '100%', 'important');
+        navbar.style.setProperty('max-width', '100%', 'important');
+        
+        // Also set on content-wrapper and footer
+        const contentWrapper = document.querySelector('.content-wrapper');
+        const mainFooter = document.querySelector('.main-footer');
+        if (contentWrapper) {
+          contentWrapper.style.setProperty('margin-left', '0', 'important');
+          contentWrapper.style.setProperty('margin-right', '0', 'important');
+        }
+        if (mainFooter) {
+          mainFooter.style.setProperty('margin-left', '0', 'important');
+          mainFooter.style.setProperty('margin-right', '0', 'important');
+        }
+      }
+    },
+    resetNavbarStyles() {
+      // Remove inline styles to let CSS take over (for other pages)
+      const navbar = this.$el;
+      if (navbar) {
+        navbar.style.removeProperty('margin-left');
+        navbar.style.removeProperty('margin-right');
+        navbar.style.removeProperty('left');
+        navbar.style.removeProperty('right');
+        navbar.style.removeProperty('width');
+        navbar.style.removeProperty('max-width');
+      }
+      
+      const contentWrapper = document.querySelector('.content-wrapper');
+      const mainFooter = document.querySelector('.main-footer');
+      if (contentWrapper) {
+        contentWrapper.style.removeProperty('margin-left');
+        contentWrapper.style.removeProperty('margin-right');
+      }
+      if (mainFooter) {
+        mainFooter.style.removeProperty('margin-left');
+        mainFooter.style.removeProperty('margin-right');
+      }
+    },
+  },
+  
+  beforeDestroy() {
+    // Clean up interval
+    if (this.navbarEnforcerInterval) {
+      clearInterval(this.navbarEnforcerInterval);
+      this.navbarEnforcerInterval = null;
+    }
+    // Reset styles when component is destroyed
+    this.resetNavbarStyles();
   },
 };
 </script>

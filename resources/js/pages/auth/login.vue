@@ -256,7 +256,7 @@ export default {
         // Show success toast
         toast.fire({
           type: "success",
-          title: "Login successful! Redirecting...",
+          title: this.$t("Login successful! Redirecting"),
         });
         
         // Quick redirect without delay
