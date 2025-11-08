@@ -1287,6 +1287,15 @@
 
                   <!--ledger-->
                   <div class="tab-pane fade print-area" id="ledger" role="tabpanel" aria-labelledby="ledger-tab">
+                    <div class="row no-print">
+                      <div class="col-6 col-xl-4 mb-2">
+                        <search
+                          v-model="ledgerSearchQuery"
+                          @reset-pagination="resetLedgerPagination()"
+                          @reload="ledgerReload"
+                        />
+                      </div>
+                    </div>
                     <table-loading v-show="loading" />
                     <div class="table-responsive table-custom mt-3">
                       <table class="table invoices-table">
@@ -1301,7 +1310,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr v-for="(data, i) in ledgerItems" :key="i">
+                          <tr v-for="(data, i) in filteredLedgerItems" :key="i">
                             <td>{{ i + 1 }}</td>
                             <td>
                               {{ data.original_date | moment("Do MMM, YYYY") }}
@@ -1346,8 +1355,8 @@
                             <td>{{ data.discount  }} <span class="saudi-riyal">ê</span></td>
                             <td>{{ data.balance  }} <span class="saudi-riyal">ê</span></td>
                           </tr>
-                          <tr v-if="ledgerItems[ledgerItems.length - 1]">
-                            <td>{{ ledgerItems.length + 1 }}</td>
+                          <tr v-if="filteredLedgerItems.length > 0 && filteredLedgerItems[filteredLedgerItems.length - 1]">
+                            <td>{{ filteredLedgerItems.length + 1 }}</td>
                             <td>{{ date | moment("Do MMM, YYYY") }}</td>
                             <td>
                               {{ $t("Non Purchase Due") }}
@@ -1359,14 +1368,14 @@
                             <td>{{ 0  }} <span class="saudi-riyal">ê</span></td>
                             <td>
                               {{
-                                (ledgerItems[ledgerItems.length - 1].balance +
+                                (filteredLedgerItems[filteredLedgerItems.length - 1].balance +
                                   allData.nonPurchaseCurrentDue)
                               }}<span class="saudi-riyal">ê</span>
                             </td>
                           </tr>
                         </tbody>
                         <tfoot>
-                          <tr v-if="ledgerItems[ledgerItems.length - 1]">
+                          <tr v-if="filteredLedgerItems.length > 0 && filteredLedgerItems[filteredLedgerItems.length - 1]">
                             <td colspan="3">{{ $t("Summery") }}</td>
                             <td>{{ ledgerTotalCredit  }} <span class="saudi-riyal">ê</span></td>
                             <td>
@@ -1378,8 +1387,10 @@
                             <td>{{ ledgerTotalDiscount  }} <span class="saudi-riyal">ê</span></td>
                             <td>
                               {{
-                                (ledgerItems[ledgerItems.length - 1].balance +
-                                  allData.nonPurchaseCurrentDue)
+                                filteredLedgerItems.length > 0
+                                  ? (filteredLedgerItems[filteredLedgerItems.length - 1].balance +
+                                      allData.nonPurchaseCurrentDue)
+                                  : allData.nonPurchaseCurrentDue
                               }}<span class="saudi-riyal">ê</span>
                               [{{ $t("Total Due") }}]
                             </td>
@@ -1625,6 +1636,7 @@ export default {
     },
 
     ledgerItems: [],
+    ledgerSearchQuery: "",
     ledgerTotalDiscount: 0,
     ledgerTotalDebit: 0,
     ledgerTotalCredit: 0,
@@ -1645,6 +1657,46 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters("operations", ["items", "loading", "pagination", "appInfo"]),
+    // Filter ledger items based on search query
+    filteredLedgerItems() {
+      if (!this.ledgerSearchQuery || this.ledgerSearchQuery.trim() === "") {
+        return this.ledgerItems;
+      }
+      
+      const query = this.ledgerSearchQuery.toLowerCase().trim();
+      
+      return this.ledgerItems.filter((item) => {
+        // Search in date (formatted)
+        const formattedDate = moment(item.original_date).format("Do MMM, YYYY").toLowerCase();
+        if (formattedDate.includes(query)) return true;
+        
+        // Search in particulars (transaction info)
+        const particulars = (item.particulars || "").toLowerCase();
+        if (particulars.includes(query)) return true;
+        
+        // Search in action type
+        const actionType = (item.action_type || "").toLowerCase();
+        if (actionType.includes(query)) return true;
+        
+        // Search in credit amount
+        const credit = String(item.credit || "").toLowerCase();
+        if (credit.includes(query)) return true;
+        
+        // Search in debit amount
+        const debit = String(item.debit || "").toLowerCase();
+        if (debit.includes(query)) return true;
+        
+        // Search in discount amount
+        const discount = String(item.discount || "").toLowerCase();
+        if (discount.includes(query)) return true;
+        
+        // Search in balance amount
+        const balance = String(item.balance || "").toLowerCase();
+        if (balance.includes(query)) return true;
+        
+        return false;
+      });
+    },
   },
   watch: {
     // watch purchase search data
@@ -2053,6 +2105,16 @@ export default {
       this.ledgerTotalCredit = data.totalCredit;
       this.finalBalance = data.finalBalance;
       this.ledgerLoading = false;
+    },
+
+    // Reset ledger pagination
+    resetLedgerPagination() {
+      // Ledger doesn't use pagination, but method is needed for search component compatibility
+    },
+
+    // Reload ledger after search
+    async ledgerReload() {
+      this.ledgerSearchQuery = "";
     },
 
     // generate pdf

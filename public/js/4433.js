@@ -155,7 +155,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".create-button[data-v-6a94e85c]{cursor
 
 /***/ }),
 
-/***/ 71760:
+/***/ 51181:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -167,7 +167,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".create-button[data-v-6a94e85c]{cursor
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-868b4adc]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-bottom:1.25rem;margin-top:20px;transition:all .2s ease}.form-card[data-v-868b4adc]:hover{box-shadow:0 .1rem .5rem 0 rgba(58,59,69,.15)}.form-card .card-header[data-v-868b4adc]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:12px 16px}.form-card .card-header .section-title[data-v-868b4adc]{border:none;color:#fff;font-size:14px;font-weight:600;margin:0;padding:0}.form-card .card-header .section-title[data-v-868b4adc]:after{display:none}.form-card .card-header .section-title i[data-v-868b4adc]{color:hsla(0,0%,100%,.8)}.form-card .card-body[data-v-868b4adc]{padding:16px}.section-title[data-v-868b4adc]{border-bottom:1px solid #e9ecef;color:#495057;font-weight:600;margin-bottom:15px;padding-bottom:8px}.form-group[data-v-868b4adc]{margin-bottom:1rem}.form-group label[data-v-868b4adc]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-868b4adc]{color:#dc3545;font-weight:700}.row[data-v-868b4adc]{margin-bottom:1rem}.row[data-v-868b4adc]:last-child{margin-bottom:0}.auto-assign-btn[data-v-868b4adc]{min-width:40px;padding:.375rem .5rem;white-space:nowrap}.auto-assign-btn[data-v-868b4adc]:disabled{cursor:not-allowed;opacity:.6}.form-text[data-v-868b4adc]{color:#6c757d;font-size:.8rem;margin-top:3px}.image-preview[data-v-868b4adc]{text-align:center}.image-preview img[data-v-868b4adc]{border:1px solid #dee2e6;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.1)}.custom-file-label[data-v-868b4adc]{background-color:#f8f9fa;border:1px dashed #dee2e6;cursor:pointer;font-size:.85rem;transition:all .2s ease}.custom-file-label[data-v-868b4adc]:hover{background-color:#e3f2fd;border-color:#007bff}.custom-file-label i[data-v-868b4adc]{color:#6c757d}.create-button[data-v-868b4adc]{cursor:pointer;text-decoration:none}.create-btn[data-v-868b4adc]{border-left:none;border-radius:0 .25rem .25rem 0;cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-868b4adc]:hover{background-color:#e9ecef}.category-select[data-v-868b4adc]{margin-right:0!important}.category-select .vs__dropdown-toggle[data-v-868b4adc]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .category-select .vs__dropdown-toggle[data-v-868b4adc]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}[dir=rtl] .create-btn[data-v-868b4adc]{border-left:none;border-radius:.25rem 0 0 .25rem;border-right:1px solid #ced4da}[dir=ltr] .create-btn[data-v-868b4adc]{border-left:1px solid #ced4da;border-radius:0 .25rem .25rem 0;border-right:none}.unit-select[data-v-868b4adc]{margin-right:0!important}.unit-select .vs__dropdown-toggle[data-v-868b4adc]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .unit-select .vs__dropdown-toggle[data-v-868b4adc]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}@media (max-width:768px){.section-title[data-v-868b4adc]{font-size:.95rem;margin-bottom:12px}.form-card .card-body[data-v-868b4adc]{padding:.75rem}.auto-assign-btn[data-v-868b4adc]{font-size:.75rem;min-width:35px}}.input-group-prepend .input-group-text[data-v-868b4adc]{background-color:#f8f9fa;border-color:#ced4da;color:#495057;font-size:.85rem}.v-select[data-v-868b4adc]{margin-bottom:0}.is-invalid[data-v-868b4adc]{border-color:#dc3545!important}.invalid-feedback[data-v-868b4adc]{color:#dc3545;display:block;font-size:75%;margin-top:.2rem;width:100%}.item-type-selector[data-v-868b4adc]{display:flex;gap:.75rem;margin-top:.5rem}.item-type-option[data-v-868b4adc]{cursor:pointer;flex:1;position:relative;transition:all .2s ease}.item-type-option input[type=radio][data-v-868b4adc]{opacity:0;pointer-events:none;position:absolute}.option-content[data-v-868b4adc]{align-items:center;background:#fff;border:2px solid #e3e6f0;border-radius:8px;display:flex;flex-direction:column;justify-content:center;min-height:70px;padding:1rem .75rem;text-align:center;transition:all .2s ease}.item-type-option:hover .option-content[data-v-868b4adc]{border-color:#33a0d9;box-shadow:0 2px 6px rgba(51,160,217,.15);transform:translateY(-1px)}.item-type-option.active .option-content[data-v-868b4adc]{background:#33a0d9;border-color:#33a0d9;box-shadow:0 3px 10px rgba(51,160,217,.25);color:#fff;transform:translateY(-1px)}.option-content i[data-v-868b4adc]{color:#6c757d;font-size:1.4rem;margin-bottom:.5rem;transition:all .2s ease}.item-type-option.active .option-content i[data-v-868b4adc]{color:hsla(0,0%,100%,.9)}.option-content span[data-v-868b4adc]{color:#495057;font-size:.9rem;font-weight:600;transition:all .2s ease}.item-type-option.active .option-content span[data-v-868b4adc]{color:#fff}@media (max-width:768px){.item-type-selector[data-v-868b4adc]{flex-direction:column;gap:.5rem}.option-content[data-v-868b4adc]{min-height:60px;padding:.75rem .5rem}.option-content i[data-v-868b4adc]{font-size:1.25rem;margin-bottom:.4rem}.option-content span[data-v-868b4adc]{font-size:.85rem}.override-checkbox-container .form-check-label[data-v-868b4adc]{min-height:44px;padding:.6rem .8rem}.checkbox-text[data-v-868b4adc]{font-size:.9rem}.form-check-input[data-v-868b4adc]{height:16px;width:16px}}.account-label-row[data-v-868b4adc]{align-items:flex-start;display:flex;flex-direction:column;gap:1rem;justify-content:space-between;margin-bottom:.5rem}.account-label[data-v-868b4adc]{color:#495057;flex:1;font-size:.95rem;font-weight:500;margin-bottom:0}.toggle-switch-container[data-v-868b4adc]{align-items:center;display:flex;flex-shrink:0}.toggle-switch-label[data-v-868b4adc]{align-items:center;cursor:pointer;display:inline-flex;gap:.75rem;-webkit-user-select:none;-moz-user-select:none;user-select:none}.toggle-switch-wrapper[data-v-868b4adc]{display:inline-block;flex-shrink:0;height:26px;position:relative;width:50px}.toggle-switch-input[data-v-868b4adc]{appearance:none;-webkit-appearance:none;-moz-appearance:none;background-color:#ced4da;border-radius:26px;cursor:pointer;height:26px;left:0;margin:0;outline:none;padding:0;position:absolute;top:0;transition:background-color .3s ease;width:50px}.toggle-switch-input[data-v-868b4adc]:checked{background-color:#33a0d9}.toggle-switch-input[data-v-868b4adc]:focus{box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.toggle-switch-slider[data-v-868b4adc]{background-color:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2);height:20px;left:3px;pointer-events:none;position:absolute;top:50%;transform:translateY(-50%);transition:transform .3s ease;width:20px}.toggle-switch-input:checked+.toggle-switch-slider[data-v-868b4adc]{transform:translate(24px,-50%)}.toggle-switch-text[data-v-868b4adc]{color:#495057;font-size:.9rem;font-weight:500;transition:color .2s ease;white-space:nowrap}.toggle-switch-label:has(.toggle-switch-input:checked) .toggle-switch-text[data-v-868b4adc]{color:#33a0d9;font-weight:600}.alert-info[data-v-868b4adc]{background-color:#d1ecf1;border-color:#bee5eb;border-radius:.375rem;font-size:.9rem;padding:.75rem 1rem}.alert-info[data-v-868b4adc],.alert-info i[data-v-868b4adc]{color:#0c5460}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-44fd96ec]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-bottom:1.25rem;margin-top:20px;transition:all .2s ease}.form-card[data-v-44fd96ec]:hover{box-shadow:0 .1rem .5rem 0 rgba(58,59,69,.15)}.form-card .card-header[data-v-44fd96ec]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:12px 16px}.form-card .card-header .section-title[data-v-44fd96ec]{border:none;color:#fff;font-size:14px;font-weight:600;margin:0;padding:0}.form-card .card-header .section-title[data-v-44fd96ec]:after{display:none}.form-card .card-header .section-title i[data-v-44fd96ec]{color:hsla(0,0%,100%,.8)}.form-card .card-body[data-v-44fd96ec]{padding:16px}.section-title[data-v-44fd96ec]{border-bottom:1px solid #e9ecef;color:#495057;font-weight:600;margin-bottom:15px;padding-bottom:8px}.form-group[data-v-44fd96ec]{margin-bottom:1rem}.form-group label[data-v-44fd96ec]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-44fd96ec]{color:#dc3545;font-weight:700}.row[data-v-44fd96ec]{margin-bottom:1rem}.row[data-v-44fd96ec]:last-child{margin-bottom:0}.auto-assign-btn[data-v-44fd96ec]{min-width:40px;padding:.375rem .5rem;white-space:nowrap}.auto-assign-btn[data-v-44fd96ec]:disabled{cursor:not-allowed;opacity:.6}.form-text[data-v-44fd96ec]{color:#6c757d;font-size:.8rem;margin-top:3px}.image-preview[data-v-44fd96ec]{text-align:center}.image-preview img[data-v-44fd96ec]{border:1px solid #dee2e6;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.1)}.custom-file-label[data-v-44fd96ec]{background-color:#f8f9fa;border:1px dashed #dee2e6;cursor:pointer;font-size:.85rem;transition:all .2s ease}.custom-file-label[data-v-44fd96ec]:hover{background-color:#e3f2fd;border-color:#007bff}.custom-file-label i[data-v-44fd96ec]{color:#6c757d}.create-button[data-v-44fd96ec]{cursor:pointer;text-decoration:none}.create-btn[data-v-44fd96ec]{border-left:none;border-radius:0 .25rem .25rem 0;cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-44fd96ec]:hover{background-color:#e9ecef}.category-select[data-v-44fd96ec]{margin-right:0!important}.category-select .vs__dropdown-toggle[data-v-44fd96ec]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .category-select .vs__dropdown-toggle[data-v-44fd96ec]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}[dir=rtl] .create-btn[data-v-44fd96ec]{border-left:none;border-radius:.25rem 0 0 .25rem;border-right:1px solid #ced4da}[dir=ltr] .create-btn[data-v-44fd96ec]{border-left:1px solid #ced4da;border-radius:0 .25rem .25rem 0;border-right:none}.unit-select[data-v-44fd96ec]{margin-right:0!important}.unit-select .vs__dropdown-toggle[data-v-44fd96ec]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .unit-select .vs__dropdown-toggle[data-v-44fd96ec]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}@media (max-width:768px){.section-title[data-v-44fd96ec]{font-size:.95rem;margin-bottom:12px}.form-card .card-body[data-v-44fd96ec]{padding:.75rem}.auto-assign-btn[data-v-44fd96ec]{font-size:.75rem;min-width:35px}}.input-group-prepend .input-group-text[data-v-44fd96ec]{background-color:#f8f9fa;border-color:#ced4da;color:#495057;font-size:.85rem}.v-select[data-v-44fd96ec]{margin-bottom:0}.is-invalid[data-v-44fd96ec]{border-color:#dc3545!important}.invalid-feedback[data-v-44fd96ec]{color:#dc3545;display:block;font-size:75%;margin-top:.2rem;width:100%}.item-type-selector[data-v-44fd96ec]{display:flex;gap:.75rem;margin-top:.5rem}.item-type-option[data-v-44fd96ec]{cursor:pointer;flex:1;position:relative;transition:all .2s ease}.item-type-option input[type=radio][data-v-44fd96ec]{opacity:0;pointer-events:none;position:absolute}.option-content[data-v-44fd96ec]{align-items:center;background:#fff;border:2px solid #e3e6f0;border-radius:8px;display:flex;flex-direction:column;justify-content:center;min-height:70px;padding:1rem .75rem;text-align:center;transition:all .2s ease}.item-type-option:hover .option-content[data-v-44fd96ec]{border-color:#33a0d9;box-shadow:0 2px 6px rgba(51,160,217,.15);transform:translateY(-1px)}.item-type-option.active .option-content[data-v-44fd96ec]{background:#33a0d9;border-color:#33a0d9;box-shadow:0 3px 10px rgba(51,160,217,.25);color:#fff;transform:translateY(-1px)}.option-content i[data-v-44fd96ec]{color:#6c757d;font-size:1.4rem;margin-bottom:.5rem;transition:all .2s ease}.item-type-option.active .option-content i[data-v-44fd96ec]{color:hsla(0,0%,100%,.9)}.option-content span[data-v-44fd96ec]{color:#495057;font-size:.9rem;font-weight:600;transition:all .2s ease}.item-type-option.active .option-content span[data-v-44fd96ec]{color:#fff}@media (max-width:768px){.item-type-selector[data-v-44fd96ec]{flex-direction:column;gap:.5rem}.option-content[data-v-44fd96ec]{min-height:60px;padding:.75rem .5rem}.option-content i[data-v-44fd96ec]{font-size:1.25rem;margin-bottom:.4rem}.option-content span[data-v-44fd96ec]{font-size:.85rem}.override-checkbox-container .form-check-label[data-v-44fd96ec]{min-height:44px;padding:.6rem .8rem}.checkbox-text[data-v-44fd96ec]{font-size:.9rem}.form-check-input[data-v-44fd96ec]{height:16px;width:16px}}.account-label-row[data-v-44fd96ec]{align-items:flex-start;display:flex;flex-direction:column;gap:1rem;justify-content:space-between;margin-bottom:.5rem}.account-label[data-v-44fd96ec]{color:#495057;flex:1;font-size:.95rem;font-weight:500;margin-bottom:0}.toggle-switch-container[data-v-44fd96ec]{align-items:center;display:flex;flex-shrink:0}.toggle-switch-label[data-v-44fd96ec]{align-items:center;cursor:pointer;display:inline-flex;gap:.75rem;-webkit-user-select:none;-moz-user-select:none;user-select:none}.toggle-switch-wrapper[data-v-44fd96ec]{display:inline-block;flex-shrink:0;height:26px;position:relative;width:50px}.toggle-switch-input[data-v-44fd96ec]{appearance:none;-webkit-appearance:none;-moz-appearance:none;background-color:#ced4da;border-radius:26px;cursor:pointer;height:26px;left:0;margin:0;outline:none;padding:0;position:absolute;top:0;transition:background-color .3s ease;width:50px}.toggle-switch-input[data-v-44fd96ec]:checked{background-color:#33a0d9}.toggle-switch-input[data-v-44fd96ec]:focus{box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.toggle-switch-slider[data-v-44fd96ec]{background-color:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2);height:20px;left:3px;pointer-events:none;position:absolute;top:50%;transform:translateY(-50%);transition:transform .3s ease;width:20px}.toggle-switch-input:checked+.toggle-switch-slider[data-v-44fd96ec]{transform:translate(24px,-50%)}.toggle-switch-text[data-v-44fd96ec]{color:#495057;font-size:.9rem;font-weight:500;transition:color .2s ease;white-space:nowrap}.toggle-switch-label:has(.toggle-switch-input:checked) .toggle-switch-text[data-v-44fd96ec]{color:#33a0d9;font-weight:600}.alert-info[data-v-44fd96ec]{background-color:#d1ecf1;border-color:#bee5eb;border-radius:.375rem;font-size:.9rem;padding:.75rem 1rem}.alert-info[data-v-44fd96ec],.alert-info i[data-v-44fd96ec]{color:#0c5460}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -3007,7 +3007,7 @@ var component = (0,componentNormalizer/* default */.A)(
 
 /***/ }),
 
-/***/ 48068:
+/***/ 8962:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -3016,7 +3016,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ ProductCreateModal)
 });
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=template&id=868b4adc&scoped=true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=template&id=44fd96ec&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -3415,22 +3415,17 @@ var render = function render() {
     on: {
       "change": _vm.calculatePrice,
       "keyup": _vm.calculatePrice,
-      "input": [function ($event) {
+      "input": function input($event) {
         if ($event.target.composing) return;
         _vm.$set(_vm.form, "regularPrice", $event.target.value);
-      }, _vm.checkPurchasePriceWarning],
-      "blur": _vm.checkPurchasePriceWarning
+      }
     }
   }), _vm._v(" "), _c('has-error', {
     attrs: {
       "form": _vm.form,
       "field": "regularPrice"
     }
-  }), _vm._v(" "), _vm.showPurchasePriceWarning ? _c('small', {
-    staticClass: "text-warning d-block mt-1"
-  }, [_c('i', {
-    staticClass: "fas fa-exclamation-triangle"
-  }), _vm._v(" " + _vm._s(_vm.$t("Warning: Purchase price is greater than selling price")) + "\n                  ")]) : _vm._e()], 1), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('label', {
     attrs: {
@@ -3592,23 +3587,17 @@ var render = function render() {
       "value": _vm.form.openingStockUnitPrice
     },
     on: {
-      "input": [function ($event) {
+      "input": function input($event) {
         if ($event.target.composing) return;
         _vm.$set(_vm.form, "openingStockUnitPrice", $event.target.value);
-      }, _vm.checkPurchasePriceWarning],
-      "change": _vm.checkPurchasePriceWarning,
-      "blur": _vm.checkPurchasePriceWarning
+      }
     }
   }), _vm._v(" "), _c('has-error', {
     attrs: {
       "form": _vm.form,
       "field": "openingStockUnitPrice"
     }
-  }), _vm._v(" "), _vm.showPurchasePriceWarning ? _c('small', {
-    staticClass: "text-warning d-block mt-1"
-  }, [_c('i', {
-    staticClass: "fas fa-exclamation-triangle"
-  }), _vm._v(" " + _vm._s(_vm.$t("Warning: Purchase price is greater than selling price")) + "\n                  ")]) : _vm._e()], 1)])]), _vm._v(" "), _c('div', {
+  })], 1)])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-md-6"
@@ -5111,9 +5100,6 @@ var UnitCreateModal_component = (0,componentNormalizer/* default */.A)(
 )
 
 /* harmony default export */ const UnitCreateModal = (UnitCreateModal_component.exports);
-// EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
-var sweetalert2_all = __webpack_require__(78465);
-var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all);
 ;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=script&lang=js
 function ProductCreateModalvue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return ProductCreateModalvue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, ProductCreateModalvue_type_script_lang_js_typeof(o); }
 function ProductCreateModalvue_type_script_lang_js_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ ProductCreateModalvue_type_script_lang_js_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == ProductCreateModalvue_type_script_lang_js_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(ProductCreateModalvue_type_script_lang_js_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
@@ -5129,14 +5115,6 @@ function ProductCreateModalvue_type_script_lang_js_toPrimitive(t, r) { if ("obje
 
 
 
-
-var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true
-});
 /* harmony default export */ const ProductCreateModalvue_type_script_lang_js = ({
   components: {
     CategorySubcategoryCreateModal: CategorySubcategoryCreateModal,
@@ -5189,49 +5167,10 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
       isAutoAssigningPurchase: false,
       accountRoutingSettings: null,
       isSalesAccountAutomatic: false,
-      isPurchaseAccountAutomatic: false,
-      showPurchasePriceWarning: false
+      isPurchaseAccountAutomatic: false
     };
   },
   computed: ProductCreateModalvue_type_script_lang_js_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "appInfo"])),
-  watch: {
-    'form.openingStockUnitPrice': {
-      handler: function handler(newPrice) {
-        var _this = this;
-        if (this.form.itemType === 'product') {
-          // Use setTimeout to ensure value is updated in form
-          setTimeout(function () {
-            _this.checkPurchasePriceWarning();
-          }, 200);
-        }
-      },
-      immediate: false
-    },
-    'form.regularPrice': {
-      handler: function handler(newPrice) {
-        var _this2 = this;
-        if (this.form.itemType === 'product') {
-          // Use setTimeout to ensure value is updated in form
-          setTimeout(function () {
-            _this2.checkPurchasePriceWarning();
-          }, 200);
-        }
-      },
-      immediate: false
-    },
-    'form.itemType': {
-      handler: function handler(newType) {
-        var _this3 = this;
-        // Check when item type changes to product
-        if (newType === 'product') {
-          setTimeout(function () {
-            _this3.checkPurchasePriceWarning();
-          }, 200);
-        }
-      },
-      immediate: false
-    }
-  },
   created: function created() {
     this.getSubCategories();
     this.getUnits();
@@ -5256,7 +5195,7 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     },
     // Load chart of accounts for sales and purchase account selection
     loadChartOfAccounts: function loadChartOfAccounts() {
-      var _this4 = this;
+      var _this = this;
       return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee() {
         var _yield$axios$get, data;
         return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee$(_context) {
@@ -5268,14 +5207,14 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
             case 3:
               _yield$axios$get = _context.sent;
               data = _yield$axios$get.data;
-              _this4.chartOfAccounts = data || [];
+              _this.chartOfAccounts = data || [];
               _context.next = 12;
               break;
             case 8:
               _context.prev = 8;
               _context.t0 = _context["catch"](0);
               console.error("Error loading chart of accounts:", _context.t0);
-              _this4.chartOfAccounts = [];
+              _this.chartOfAccounts = [];
             case 12:
             case "end":
               return _context.stop();
@@ -5285,9 +5224,9 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     },
     // Load account routing settings
     loadAccountRoutingSettings: function loadAccountRoutingSettings() {
-      var _this5 = this;
+      var _this2 = this;
       return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee2() {
-        var _this5$accountRouting, _this5$accountRouting2, _this5$accountRouting3, _this5$accountRouting4, response;
+        var _this2$accountRouting, _this2$accountRouting2, _this2$accountRouting3, _this2$accountRouting4, response;
         return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
@@ -5296,31 +5235,31 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
               return axios_default().get(window.location.origin + "/api/account-routing-settings/product-account-routing");
             case 3:
               response = _context2.sent;
-              _this5.accountRoutingSettings = response.data.data || {};
+              _this2.accountRoutingSettings = response.data.data || {};
 
               // Set flags for automatic routing
-              _this5.isSalesAccountAutomatic = _this5.accountRoutingSettings.sales && _this5.accountRoutingSettings.sales.routing_type === 'automatic';
-              _this5.isPurchaseAccountAutomatic = _this5.accountRoutingSettings.purchase && _this5.accountRoutingSettings.purchase.routing_type === 'automatic';
+              _this2.isSalesAccountAutomatic = _this2.accountRoutingSettings.sales && _this2.accountRoutingSettings.sales.routing_type === 'automatic';
+              _this2.isPurchaseAccountAutomatic = _this2.accountRoutingSettings.purchase && _this2.accountRoutingSettings.purchase.routing_type === 'automatic';
 
               // If automatic routing is enabled, set the account IDs from routing settings
-              if (_this5.isSalesAccountAutomatic && _this5.accountRoutingSettings.sales.main_account_id) {
-                _this5.form.salesAccountId = _this5.accountRoutingSettings.sales.main_account_id;
+              if (_this2.isSalesAccountAutomatic && _this2.accountRoutingSettings.sales.main_account_id) {
+                _this2.form.salesAccountId = _this2.accountRoutingSettings.sales.main_account_id;
               }
-              if (_this5.isPurchaseAccountAutomatic && _this5.accountRoutingSettings.purchase.main_account_id) {
-                _this5.form.purchaseAccountId = _this5.accountRoutingSettings.purchase.main_account_id;
+              if (_this2.isPurchaseAccountAutomatic && _this2.accountRoutingSettings.purchase.main_account_id) {
+                _this2.form.purchaseAccountId = _this2.accountRoutingSettings.purchase.main_account_id;
               }
               console.log('=== ACCOUNT ROUTING DEBUG ===');
-              console.log('Full account routing settings:', _this5.accountRoutingSettings);
-              console.log('Sales settings:', _this5.accountRoutingSettings.sales);
-              console.log('Purchase settings:', _this5.accountRoutingSettings.purchase);
-              console.log('Sales routing type:', (_this5$accountRouting = _this5.accountRoutingSettings.sales) === null || _this5$accountRouting === void 0 ? void 0 : _this5$accountRouting.routing_type);
-              console.log('Sales main_account_id:', (_this5$accountRouting2 = _this5.accountRoutingSettings.sales) === null || _this5$accountRouting2 === void 0 ? void 0 : _this5$accountRouting2.main_account_id);
-              console.log('Purchase routing type:', (_this5$accountRouting3 = _this5.accountRoutingSettings.purchase) === null || _this5$accountRouting3 === void 0 ? void 0 : _this5$accountRouting3.routing_type);
-              console.log('Purchase main_account_id:', (_this5$accountRouting4 = _this5.accountRoutingSettings.purchase) === null || _this5$accountRouting4 === void 0 ? void 0 : _this5$accountRouting4.main_account_id);
-              console.log('isSalesAccountAutomatic:', _this5.isSalesAccountAutomatic);
-              console.log('isPurchaseAccountAutomatic:', _this5.isPurchaseAccountAutomatic);
-              console.log('Form salesAccountId after auto-assignment:', _this5.form.salesAccountId);
-              console.log('Form purchaseAccountId after auto-assignment:', _this5.form.purchaseAccountId);
+              console.log('Full account routing settings:', _this2.accountRoutingSettings);
+              console.log('Sales settings:', _this2.accountRoutingSettings.sales);
+              console.log('Purchase settings:', _this2.accountRoutingSettings.purchase);
+              console.log('Sales routing type:', (_this2$accountRouting = _this2.accountRoutingSettings.sales) === null || _this2$accountRouting === void 0 ? void 0 : _this2$accountRouting.routing_type);
+              console.log('Sales main_account_id:', (_this2$accountRouting2 = _this2.accountRoutingSettings.sales) === null || _this2$accountRouting2 === void 0 ? void 0 : _this2$accountRouting2.main_account_id);
+              console.log('Purchase routing type:', (_this2$accountRouting3 = _this2.accountRoutingSettings.purchase) === null || _this2$accountRouting3 === void 0 ? void 0 : _this2$accountRouting3.routing_type);
+              console.log('Purchase main_account_id:', (_this2$accountRouting4 = _this2.accountRoutingSettings.purchase) === null || _this2$accountRouting4 === void 0 ? void 0 : _this2$accountRouting4.main_account_id);
+              console.log('isSalesAccountAutomatic:', _this2.isSalesAccountAutomatic);
+              console.log('isPurchaseAccountAutomatic:', _this2.isPurchaseAccountAutomatic);
+              console.log('Form salesAccountId after auto-assignment:', _this2.form.salesAccountId);
+              console.log('Form purchaseAccountId after auto-assignment:', _this2.form.purchaseAccountId);
               console.log('==============================');
               _context2.next = 29;
               break;
@@ -5329,8 +5268,8 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
               _context2.t0 = _context2["catch"](0);
               console.error("Error loading account routing settings:", _context2.t0);
               // Set defaults if API fails
-              _this5.isSalesAccountAutomatic = false;
-              _this5.isPurchaseAccountAutomatic = false;
+              _this2.isSalesAccountAutomatic = false;
+              _this2.isPurchaseAccountAutomatic = false;
             case 29:
             case "end":
               return _context2.stop();
@@ -5340,18 +5279,18 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     },
     // get all product categories
     getSubCategories: function getSubCategories() {
-      var _this6 = this;
+      var _this3 = this;
       return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee3() {
-        var _yield$_this6$form$ge, data;
+        var _yield$_this3$form$ge, data;
         return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
               _context3.next = 2;
-              return _this6.form.get(window.location.origin + "/api/all-product-sub-categories");
+              return _this3.form.get(window.location.origin + "/api/all-product-sub-categories");
             case 2:
-              _yield$_this6$form$ge = _context3.sent;
-              data = _yield$_this6$form$ge.data;
-              _this6.categories = data.data;
+              _yield$_this3$form$ge = _context3.sent;
+              data = _yield$_this3$form$ge.data;
+              _this3.categories = data.data;
             case 5:
             case "end":
               return _context3.stop();
@@ -5361,13 +5300,13 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     },
     // Handle category created event
     handleCategoryCreated: function handleCategoryCreated() {
-      var _this7 = this;
+      var _this4 = this;
       return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee4() {
         return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
               _context4.next = 2;
-              return _this7.getSubCategories();
+              return _this4.getSubCategories();
             case 2:
             case "end":
               return _context4.stop();
@@ -5377,28 +5316,28 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     },
     // Handle subcategory created event
     handleSubcategoryCreated: function handleSubcategoryCreated(createdSubcategory) {
-      var _this8 = this;
+      var _this5 = this;
       return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee5() {
         var newSubcategory;
         return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee5$(_context5) {
           while (1) switch (_context5.prev = _context5.next) {
             case 0:
               _context5.next = 2;
-              return _this8.getSubCategories();
+              return _this5.getSubCategories();
             case 2:
               if (!(createdSubcategory && createdSubcategory.name)) {
                 _context5.next = 7;
                 break;
               }
               _context5.next = 5;
-              return _this8.$nextTick();
+              return _this5.$nextTick();
             case 5:
               // Find the newly created subcategory in the refreshed list by name
-              newSubcategory = _this8.categories.find(function (cat) {
+              newSubcategory = _this5.categories.find(function (cat) {
                 return cat.name === createdSubcategory.name;
               });
               if (newSubcategory) {
-                _this8.form.subCategory = newSubcategory;
+                _this5.form.subCategory = newSubcategory;
               }
             case 7:
             case "end":
@@ -5409,28 +5348,28 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     },
     // Handle unit created event
     handleUnitCreated: function handleUnitCreated(createdUnit) {
-      var _this9 = this;
+      var _this6 = this;
       return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee6() {
         var newUnit;
         return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee6$(_context6) {
           while (1) switch (_context6.prev = _context6.next) {
             case 0:
               _context6.next = 2;
-              return _this9.getUnits();
+              return _this6.getUnits();
             case 2:
               if (!(createdUnit && createdUnit.name)) {
                 _context6.next = 7;
                 break;
               }
               _context6.next = 5;
-              return _this9.$nextTick();
+              return _this6.$nextTick();
             case 5:
               // Find the newly created unit in the refreshed list by name or code
-              newUnit = _this9.units.find(function (unit) {
+              newUnit = _this6.units.find(function (unit) {
                 return unit.name === createdUnit.name || unit.code === createdUnit.code;
               });
               if (newUnit) {
-                _this9.form.itemUnit = newUnit;
+                _this6.form.itemUnit = newUnit;
               }
             case 7:
             case "end":
@@ -5441,7 +5380,7 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     },
     // get all brands
     getBrands: function getBrands() {
-      var _this10 = this;
+      var _this7 = this;
       return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee7() {
         var _yield$axios$get2, data;
         return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee7$(_context7) {
@@ -5452,7 +5391,7 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
             case 2:
               _yield$axios$get2 = _context7.sent;
               data = _yield$axios$get2.data;
-              _this10.brands = data.data;
+              _this7.brands = data.data;
             case 5:
             case "end":
               return _context7.stop();
@@ -5462,7 +5401,7 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     },
     // get all units
     getUnits: function getUnits() {
-      var _this11 = this;
+      var _this8 = this;
       return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee8() {
         var _yield$axios$get3, data;
         return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee8$(_context8) {
@@ -5473,7 +5412,7 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
             case 2:
               _yield$axios$get3 = _context8.sent;
               data = _yield$axios$get3.data;
-              _this11.units = data.data;
+              _this8.units = data.data;
             case 5:
             case "end":
               return _context8.stop();
@@ -5483,7 +5422,7 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     },
     // get all taxes
     getTaxes: function getTaxes() {
-      var _this12 = this;
+      var _this9 = this;
       return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee9() {
         var _yield$axios$get4, data, defaultVatRateSlug;
         return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee9$(_context9) {
@@ -5494,15 +5433,15 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
             case 2:
               _yield$axios$get4 = _context9.sent;
               data = _yield$axios$get4.data;
-              _this12.taxes = data.data;
+              _this9.taxes = data.data;
               // assign default vat rate
-              if (_this12.taxes && _this12.taxes.length > 0) {
-                defaultVatRateSlug = _this12.appInfo.defaultVatRateSlug;
-                _this12.form.productTax = _this12.taxes.find(function (tax) {
+              if (_this9.taxes && _this9.taxes.length > 0) {
+                defaultVatRateSlug = _this9.appInfo.defaultVatRateSlug;
+                _this9.form.productTax = _this9.taxes.find(function (tax) {
                   return tax.slug === defaultVatRateSlug;
                 });
               }
-              _this12.calculatePrice();
+              _this9.calculatePrice();
             case 7:
             case "end":
               return _context9.stop();
@@ -5512,7 +5451,7 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     },
     // get item code
     getItemCode: function getItemCode() {
-      var _this13 = this;
+      var _this10 = this;
       return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee10() {
         var _yield$axios$get5, data;
         return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee10$(_context10) {
@@ -5523,8 +5462,8 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
             case 2:
               _yield$axios$get5 = _context10.sent;
               data = _yield$axios$get5.data;
-              _this13.form.itemCode = data.code;
-              _this13.prefix = data.prefix;
+              _this10.form.itemCode = data.code;
+              _this10.prefix = data.prefix;
             case 6:
             case "end":
               return _context10.stop();
@@ -5559,37 +5498,14 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
       }
       this.form.sellingPrice = this.form.regularPrice;
     },
-    // Check if purchase price is greater than regular price
-    checkPurchasePriceWarning: function checkPurchasePriceWarning() {
-      // Only check for products, not services
-      if (this.form.itemType !== 'product') {
-        this.showPurchasePriceWarning = false;
-        return;
-      }
-
-      // Get values directly from form
-      var purchasePriceStr = String(this.form.openingStockUnitPrice || '').trim();
-      var regularPriceStr = String(this.form.regularPrice || '').trim();
-
-      // Convert to numbers
-      var purchasePrice = purchasePriceStr ? parseFloat(purchasePriceStr) : 0;
-      var regularPrice = regularPriceStr ? parseFloat(regularPriceStr) : 0;
-
-      // Show warning if both prices are valid numbers and purchase price is greater than regular price
-      if (!isNaN(purchasePrice) && !isNaN(regularPrice) && purchasePrice > 0 && regularPrice > 0 && purchasePrice > regularPrice) {
-        this.showPurchasePriceWarning = true;
-      } else {
-        this.showPurchasePriceWarning = false;
-      }
-    },
     // vue file upload
     onFileChange: function onFileChange(e) {
-      var _this14 = this;
+      var _this11 = this;
       var file = e.target.files[0];
       var reader = new FileReader();
       if (file.size < 2111775 && (file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/gif")) {
         reader.onloadend = function () {
-          _this14.form.image = reader.result;
+          _this11.form.image = reader.result;
         };
         reader.readAsDataURL(file);
         this.url = URL.createObjectURL(file);
@@ -5599,73 +5515,73 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     },
     // save product
     saveProduct: function saveProduct() {
-      var _this15 = this;
+      var _this12 = this;
       return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee11() {
-        var _this15$accountRoutin, _this15$accountRoutin2;
+        var _this12$accountRoutin, _this12$accountRoutin2;
         var needsSalesAccount, needsPurchaseAccount;
         return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee11$(_context11) {
           while (1) switch (_context11.prev = _context11.next) {
             case 0:
-              if (!(_this15.form.itemType === 'service' && !_this15.form.servicePurchasePrice)) {
+              if (!(_this12.form.itemType === 'service' && !_this12.form.servicePurchasePrice)) {
                 _context11.next = 3;
                 break;
               }
-              ProductCreateModalvue_type_script_lang_js_toast.fire({
+              toast.fire({
                 type: "error",
-                title: _this15.$t("Service Purchase Price is required for services")
+                title: _this12.$t("Service Purchase Price is required for services")
               });
               return _context11.abrupt("return");
             case 3:
               // Debug: Log validation state
               console.log("Validation state:", {
-                isSalesAccountAutomatic: _this15.isSalesAccountAutomatic,
-                overrideSalesAccount: _this15.form.overrideSalesAccount,
-                salesAccountId: _this15.form.salesAccountId,
-                isPurchaseAccountAutomatic: _this15.isPurchaseAccountAutomatic,
-                overridePurchaseAccount: _this15.form.overridePurchaseAccount,
-                purchaseAccountId: _this15.form.purchaseAccountId
+                isSalesAccountAutomatic: _this12.isSalesAccountAutomatic,
+                overrideSalesAccount: _this12.form.overrideSalesAccount,
+                salesAccountId: _this12.form.salesAccountId,
+                isPurchaseAccountAutomatic: _this12.isPurchaseAccountAutomatic,
+                overridePurchaseAccount: _this12.form.overridePurchaseAccount,
+                purchaseAccountId: _this12.form.purchaseAccountId
               });
 
               // Validate sales account - required if not automatic OR if override is checked
-              needsSalesAccount = !_this15.isSalesAccountAutomatic || _this15.form.overrideSalesAccount;
-              if (!(needsSalesAccount && !_this15.form.salesAccountId)) {
+              needsSalesAccount = !_this12.isSalesAccountAutomatic || _this12.form.overrideSalesAccount;
+              if (!(needsSalesAccount && !_this12.form.salesAccountId)) {
                 _context11.next = 8;
                 break;
               }
-              ProductCreateModalvue_type_script_lang_js_toast.fire({
+              toast.fire({
                 type: "error",
-                title: _this15.$t("Sales Account is required")
+                title: _this12.$t("Sales Account is required")
               });
               return _context11.abrupt("return");
             case 8:
               // Validate purchase account - required if not automatic OR if override is checked
-              needsPurchaseAccount = !_this15.isPurchaseAccountAutomatic || _this15.form.overridePurchaseAccount;
-              if (!(needsPurchaseAccount && !_this15.form.purchaseAccountId)) {
+              needsPurchaseAccount = !_this12.isPurchaseAccountAutomatic || _this12.form.overridePurchaseAccount;
+              if (!(needsPurchaseAccount && !_this12.form.purchaseAccountId)) {
                 _context11.next = 12;
                 break;
               }
-              ProductCreateModalvue_type_script_lang_js_toast.fire({
+              toast.fire({
                 type: "error",
-                title: _this15.$t("Purchase Account is required")
+                title: _this12.$t("Purchase Account is required")
               });
               return _context11.abrupt("return");
             case 12:
               // Debug: Log form data being sent
               console.log("=== FORM SUBMISSION DEBUG ===");
-              console.log("Form data being sent:", _this15.form.data());
-              console.log("Account routing settings:", _this15.accountRoutingSettings);
-              console.log("Sales settings:", _this15.accountRoutingSettings.sales);
-              console.log("Purchase settings:", _this15.accountRoutingSettings.purchase);
-              console.log("Sales routing type:", (_this15$accountRoutin = _this15.accountRoutingSettings.sales) === null || _this15$accountRoutin === void 0 ? void 0 : _this15$accountRoutin.routing_type);
-              console.log("Sales main_account_id:", (_this15$accountRoutin2 = _this15.accountRoutingSettings.sales) === null || _this15$accountRoutin2 === void 0 ? void 0 : _this15$accountRoutin2.main_account_id);
-              console.log("Form salesAccountId:", _this15.form.salesAccountId);
-              console.log("Form purchaseAccountId:", _this15.form.purchaseAccountId);
+              console.log("Form data being sent:", _this12.form.data());
+              console.log("Account routing settings:", _this12.accountRoutingSettings);
+              console.log("Sales settings:", _this12.accountRoutingSettings.sales);
+              console.log("Purchase settings:", _this12.accountRoutingSettings.purchase);
+              console.log("Sales routing type:", (_this12$accountRoutin = _this12.accountRoutingSettings.sales) === null || _this12$accountRoutin === void 0 ? void 0 : _this12$accountRoutin.routing_type);
+              console.log("Sales main_account_id:", (_this12$accountRoutin2 = _this12.accountRoutingSettings.sales) === null || _this12$accountRoutin2 === void 0 ? void 0 : _this12$accountRoutin2.main_account_id);
+              console.log("Form salesAccountId:", _this12.form.salesAccountId);
+              console.log("Form purchaseAccountId:", _this12.form.purchaseAccountId);
               console.log("=============================");
               _context11.next = 24;
-              return _this15.form.post(window.location.origin + "/api/products").then(function (response) {
-                ProductCreateModalvue_type_script_lang_js_toast.fire({
+              return _this12.form.post(window.location.origin + "/api/products").then(function (response) {
+                toast.fire({
                   type: "success",
-                  title: _this15.$t("Product added successfully")
+                  title: _this12.$t("Product added successfully")
                 });
 
                 // Emit the newly created product data
@@ -5693,31 +5609,31 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
                     sales_account_id: newProduct.sales_account_id,
                     purchase_account_id: newProduct.purchase_account_id
                   };
-                  _this15.$emit('productCreated', formattedProduct);
+                  _this12.$emit('productCreated', formattedProduct);
                 }
 
                 // Store auto-assigned account IDs before reset
-                var autoAssignedSalesAccountId = _this15.isSalesAccountAutomatic ? _this15.form.salesAccountId : null;
-                var autoAssignedPurchaseAccountId = _this15.isPurchaseAccountAutomatic ? _this15.form.purchaseAccountId : null;
-                _this15.form.reset();
-                _this15.form.itemType = "product"; // Reset to default
-                _this15.form.overrideSalesAccount = false; // Reset override flags
-                _this15.form.overridePurchaseAccount = false;
+                var autoAssignedSalesAccountId = _this12.isSalesAccountAutomatic ? _this12.form.salesAccountId : null;
+                var autoAssignedPurchaseAccountId = _this12.isPurchaseAccountAutomatic ? _this12.form.purchaseAccountId : null;
+                _this12.form.reset();
+                _this12.form.itemType = "product"; // Reset to default
+                _this12.form.overrideSalesAccount = false; // Reset override flags
+                _this12.form.overridePurchaseAccount = false;
 
                 // Restore auto-assigned account IDs after reset
                 if (autoAssignedSalesAccountId) {
-                  _this15.form.salesAccountId = autoAssignedSalesAccountId;
+                  _this12.form.salesAccountId = autoAssignedSalesAccountId;
                 }
                 if (autoAssignedPurchaseAccountId) {
-                  _this15.form.purchaseAccountId = autoAssignedPurchaseAccountId;
+                  _this12.form.purchaseAccountId = autoAssignedPurchaseAccountId;
                 }
-                _this15.showProductCreateModal = false;
-                _this15.$emit('reloadProducts');
+                _this12.showProductCreateModal = false;
+                _this12.$emit('reloadProducts');
               })["catch"](function (error) {
                 var _error$response;
                 console.error("Error creating product:", error);
-                var errorMessage = ((_error$response = error.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this15.$t("Please check your input and try again.");
-                ProductCreateModalvue_type_script_lang_js_toast.fire({
+                var errorMessage = ((_error$response = error.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this12.$t("Please check your input and try again.");
+                toast.fire({
                   type: "error",
                   title: errorMessage
                 });
@@ -5731,66 +5647,66 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     },
     // Auto-assign sales account
     autoAssignSalesAccount: function autoAssignSalesAccount() {
-      var _this16 = this;
+      var _this13 = this;
       return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee12() {
         var defaultAccount;
         return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee12$(_context12) {
           while (1) switch (_context12.prev = _context12.next) {
             case 0:
-              if (!_this16.isAutoAssigningSales) {
+              if (!_this13.isAutoAssigningSales) {
                 _context12.next = 2;
                 break;
               }
               return _context12.abrupt("return");
             case 2:
-              _this16.isAutoAssigningSales = true;
+              _this13.isAutoAssigningSales = true;
               try {
                 // For new products, we need to simulate the auto-assignment logic
                 // since the product doesn't exist in the database yet
                 defaultAccount = null;
-                if (_this16.form.itemType === 'product') {
+                if (_this13.form.itemType === 'product') {
                   // Look for "Sales of Goods" or similar
-                  defaultAccount = _this16.chartOfAccounts.find(function (account) {
+                  defaultAccount = _this13.chartOfAccounts.find(function (account) {
                     return account.name.toLowerCase().includes('sales') && (account.name.toLowerCase().includes('goods') || account.name.toLowerCase().includes('product'));
                   });
-                } else if (_this16.form.itemType === 'service') {
+                } else if (_this13.form.itemType === 'service') {
                   // Look for "Sales of Services" or similar
-                  defaultAccount = _this16.chartOfAccounts.find(function (account) {
+                  defaultAccount = _this13.chartOfAccounts.find(function (account) {
                     return account.name.toLowerCase().includes('sales') && account.name.toLowerCase().includes('service');
                   });
                 }
 
                 // Fallback to any Sales account
                 if (!defaultAccount) {
-                  defaultAccount = _this16.chartOfAccounts.find(function (account) {
+                  defaultAccount = _this13.chartOfAccounts.find(function (account) {
                     return account.name.toLowerCase().includes('sales');
                   });
                 }
 
                 // Final fallback to any active account
-                if (!defaultAccount && _this16.chartOfAccounts.length > 0) {
-                  defaultAccount = _this16.chartOfAccounts[0];
+                if (!defaultAccount && _this13.chartOfAccounts.length > 0) {
+                  defaultAccount = _this13.chartOfAccounts[0];
                 }
                 if (defaultAccount) {
-                  _this16.form.salesAccountId = defaultAccount.id;
-                  ProductCreateModalvue_type_script_lang_js_toast.fire({
+                  _this13.form.salesAccountId = defaultAccount.id;
+                  toast.fire({
                     type: "success",
-                    title: _this16.$t("Sales Account auto-assigned successfully")
+                    title: _this13.$t("Sales Account auto-assigned successfully")
                   });
                 } else {
-                  ProductCreateModalvue_type_script_lang_js_toast.fire({
+                  toast.fire({
                     type: "error",
-                    title: _this16.$t("No suitable Sales Account found for automatic assignment")
+                    title: _this13.$t("No suitable Sales Account found for automatic assignment")
                   });
                 }
               } catch (error) {
                 console.error("Error auto-assigning sales account:", error);
-                ProductCreateModalvue_type_script_lang_js_toast.fire({
+                toast.fire({
                   type: "error",
-                  title: _this16.$t("Failed to auto-assign Sales Account")
+                  title: _this13.$t("Failed to auto-assign Sales Account")
                 });
               } finally {
-                _this16.isAutoAssigningSales = false;
+                _this13.isAutoAssigningSales = false;
               }
             case 4:
             case "end":
@@ -5801,66 +5717,66 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     },
     // Auto-assign purchase account
     autoAssignPurchaseAccount: function autoAssignPurchaseAccount() {
-      var _this17 = this;
+      var _this14 = this;
       return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee13() {
         var defaultAccount;
         return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee13$(_context13) {
           while (1) switch (_context13.prev = _context13.next) {
             case 0:
-              if (!_this17.isAutoAssigningPurchase) {
+              if (!_this14.isAutoAssigningPurchase) {
                 _context13.next = 2;
                 break;
               }
               return _context13.abrupt("return");
             case 2:
-              _this17.isAutoAssigningPurchase = true;
+              _this14.isAutoAssigningPurchase = true;
               try {
                 // For new products, we need to simulate the auto-assignment logic
                 // since the product doesn't exist in the database yet
                 defaultAccount = null;
-                if (_this17.form.itemType === 'product') {
+                if (_this14.form.itemType === 'product') {
                   // Look for "Cost of Goods Sold" or similar
-                  defaultAccount = _this17.chartOfAccounts.find(function (account) {
+                  defaultAccount = _this14.chartOfAccounts.find(function (account) {
                     return account.name.toLowerCase().includes('cost') && (account.name.toLowerCase().includes('goods') || account.name.toLowerCase().includes('product'));
                   });
-                } else if (_this17.form.itemType === 'service') {
+                } else if (_this14.form.itemType === 'service') {
                   // Look for "Cost of Services" or similar
-                  defaultAccount = _this17.chartOfAccounts.find(function (account) {
+                  defaultAccount = _this14.chartOfAccounts.find(function (account) {
                     return account.name.toLowerCase().includes('cost') && account.name.toLowerCase().includes('service');
                   });
                 }
 
                 // Fallback to any Cost account
                 if (!defaultAccount) {
-                  defaultAccount = _this17.chartOfAccounts.find(function (account) {
+                  defaultAccount = _this14.chartOfAccounts.find(function (account) {
                     return account.name.toLowerCase().includes('cost');
                   });
                 }
 
                 // Final fallback to any active account
-                if (!defaultAccount && _this17.chartOfAccounts.length > 0) {
-                  defaultAccount = _this17.chartOfAccounts[0];
+                if (!defaultAccount && _this14.chartOfAccounts.length > 0) {
+                  defaultAccount = _this14.chartOfAccounts[0];
                 }
                 if (defaultAccount) {
-                  _this17.form.purchaseAccountId = defaultAccount.id;
-                  ProductCreateModalvue_type_script_lang_js_toast.fire({
+                  _this14.form.purchaseAccountId = defaultAccount.id;
+                  toast.fire({
                     type: "success",
-                    title: _this17.$t("Purchase Account auto-assigned successfully")
+                    title: _this14.$t("Purchase Account auto-assigned successfully")
                   });
                 } else {
-                  ProductCreateModalvue_type_script_lang_js_toast.fire({
+                  toast.fire({
                     type: "error",
-                    title: _this17.$t("No suitable Purchase Account found for automatic assignment")
+                    title: _this14.$t("No suitable Purchase Account found for automatic assignment")
                   });
                 }
               } catch (error) {
                 console.error("Error auto-assigning purchase account:", error);
-                ProductCreateModalvue_type_script_lang_js_toast.fire({
+                toast.fire({
                   type: "error",
-                  title: _this17.$t("Failed to auto-assign Purchase Account")
+                  title: _this14.$t("Failed to auto-assign Purchase Account")
                 });
               } finally {
-                _this17.isAutoAssigningPurchase = false;
+                _this14.isAutoAssigningPurchase = false;
               }
             case 4:
             case "end":
@@ -5897,23 +5813,23 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
 });
 ;// CONCATENATED MODULE: ./resources/js/components/ProductCreateModal.vue?vue&type=script&lang=js
  /* harmony default export */ const components_ProductCreateModalvue_type_script_lang_js = (ProductCreateModalvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=868b4adc&prod&scoped=true&lang=css
-var ProductCreateModalvue_type_style_index_0_id_868b4adc_prod_scoped_true_lang_css = __webpack_require__(71760);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=868b4adc&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=44fd96ec&prod&scoped=true&lang=css
+var ProductCreateModalvue_type_style_index_0_id_44fd96ec_prod_scoped_true_lang_css = __webpack_require__(51181);
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=44fd96ec&prod&scoped=true&lang=css
 
             
 
-var ProductCreateModalvue_type_style_index_0_id_868b4adc_prod_scoped_true_lang_css_options = {};
+var ProductCreateModalvue_type_style_index_0_id_44fd96ec_prod_scoped_true_lang_css_options = {};
 
-ProductCreateModalvue_type_style_index_0_id_868b4adc_prod_scoped_true_lang_css_options.insert = "head";
-ProductCreateModalvue_type_style_index_0_id_868b4adc_prod_scoped_true_lang_css_options.singleton = false;
+ProductCreateModalvue_type_style_index_0_id_44fd96ec_prod_scoped_true_lang_css_options.insert = "head";
+ProductCreateModalvue_type_style_index_0_id_44fd96ec_prod_scoped_true_lang_css_options.singleton = false;
 
-var ProductCreateModalvue_type_style_index_0_id_868b4adc_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(ProductCreateModalvue_type_style_index_0_id_868b4adc_prod_scoped_true_lang_css/* default */.A, ProductCreateModalvue_type_style_index_0_id_868b4adc_prod_scoped_true_lang_css_options);
+var ProductCreateModalvue_type_style_index_0_id_44fd96ec_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(ProductCreateModalvue_type_style_index_0_id_44fd96ec_prod_scoped_true_lang_css/* default */.A, ProductCreateModalvue_type_style_index_0_id_44fd96ec_prod_scoped_true_lang_css_options);
 
 
 
-/* harmony default export */ const components_ProductCreateModalvue_type_style_index_0_id_868b4adc_prod_scoped_true_lang_css = (ProductCreateModalvue_type_style_index_0_id_868b4adc_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=868b4adc&prod&scoped=true&lang=css
+/* harmony default export */ const components_ProductCreateModalvue_type_style_index_0_id_44fd96ec_prod_scoped_true_lang_css = (ProductCreateModalvue_type_style_index_0_id_44fd96ec_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// CONCATENATED MODULE: ./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=44fd96ec&prod&scoped=true&lang=css
 
 ;// CONCATENATED MODULE: ./resources/js/components/ProductCreateModal.vue
 
@@ -5930,7 +5846,7 @@ var ProductCreateModal_component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "868b4adc",
+  "44fd96ec",
   null
   
 )
@@ -8052,7 +7968,7 @@ var dist = __webpack_require__(12616);
 // EXTERNAL MODULE: ./resources/js/components/ClientCreateModal.vue + 5 modules
 var ClientCreateModal = __webpack_require__(5181);
 // EXTERNAL MODULE: ./resources/js/components/ProductCreateModal.vue + 17 modules
-var ProductCreateModal = __webpack_require__(48068);
+var ProductCreateModal = __webpack_require__(8962);
 // EXTERNAL MODULE: ./resources/js/components/StockAdjustmentModal.vue + 6 modules
 var StockAdjustmentModal = __webpack_require__(75528);
 // EXTERNAL MODULE: ./resources/js/mixins/RTLMixin.js
