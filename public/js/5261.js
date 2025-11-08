@@ -395,6 +395,26 @@ var ErrorHandler = /*#__PURE__*/function () {
 
 /***/ }),
 
+/***/ 14445:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".nav-tabs[data-v-4e083048]{border-bottom:2px solid #dee2e6;margin-bottom:1.5rem}.nav-tabs .nav-item[data-v-4e083048]{margin-bottom:-2px}.nav-tabs .nav-link[data-v-4e083048]{background-color:transparent;border:1px solid transparent;border-top-left-radius:.25rem;border-top-right-radius:.25rem;color:#495057;cursor:pointer;font-weight:500;padding:.75rem 1.5rem;transition:all .2s ease}.nav-tabs .nav-link[data-v-4e083048]:hover{border-color:#e9ecef #e9ecef #dee2e6;color:#33a0d9}.nav-tabs .nav-link.active[data-v-4e083048]{background-color:#fff;border-color:#dee2e6 #dee2e6 transparent;color:#33a0d9;font-weight:600}.nav-tabs .nav-link i[data-v-4e083048]{margin-right:.5rem}.tab-content[data-v-4e083048]{min-height:200px}.tab-pane[data-v-4e083048]{padding:0}.form-group[data-v-4e083048]{margin-bottom:1rem}.form-group label[data-v-4e083048]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-4e083048]{color:#dc3545;font-weight:700}.form-control[data-v-4e083048]{background:#fff!important;border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-4e083048]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.is-invalid[data-v-4e083048]{border-color:#dc3545!important}textarea.form-control[data-v-4e083048]{min-height:100px;resize:vertical}.v-select[data-v-4e083048]{background:#fff!important;border:1px solid #e5e7eb;border-radius:10px}.v-select .vs__dropdown-toggle[data-v-4e083048]{background:#fff!important;border:1px solid #e5e7eb;padding:10px 16px}.btn-success[data-v-4e083048]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-success[data-v-4e083048]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-secondary[data-v-4e083048]{background:#6c757d!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-secondary[data-v-4e083048]:hover{background:#5a6268!important;box-shadow:0 4px 8px hsla(208,7%,46%,.3);transform:translateY(-1px)}.create-button[data-v-4e083048]{cursor:pointer;text-decoration:none}.row[data-v-4e083048]{margin-bottom:1rem}.row[data-v-4e083048]:last-child{margin-bottom:0}@media (max-width:768px){.nav-tabs .nav-link[data-v-4e083048]{font-size:.9rem;padding:.5rem 1rem}.tab-content[data-v-4e083048]{padding:.5rem}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 79377:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -415,7 +435,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".create-button[data-v-6a94e85c]{cursor
 
 /***/ }),
 
-/***/ 42757:
+/***/ 55909:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -428,7 +448,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".create-button[data-v-6a94e85c]{cursor
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-40376366]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-bottom:1.25rem;margin-top:20px;transition:all .2s ease}.form-card[data-v-40376366]:hover{box-shadow:0 .1rem .5rem 0 rgba(58,59,69,.15)}.form-card .card-header[data-v-40376366]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:12px 16px}.form-card .card-header .section-title[data-v-40376366]{border:none;color:#fff;font-size:14px;font-weight:600;margin:0;padding:0}.form-card .card-header .section-title[data-v-40376366]:after{display:none}.form-card .card-header .section-title i[data-v-40376366]{color:hsla(0,0%,100%,.8)}.form-card .card-body[data-v-40376366]{padding:16px}.section-title[data-v-40376366]{border-bottom:1px solid #e9ecef;color:#495057;font-weight:600;margin-bottom:15px;padding-bottom:8px}.form-group[data-v-40376366]{margin-bottom:1rem}.form-group label[data-v-40376366]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-40376366]{color:#dc3545;font-weight:700}.row[data-v-40376366]{margin-bottom:1rem}.row[data-v-40376366]:last-child{margin-bottom:0}.auto-assign-btn[data-v-40376366]{min-width:40px;padding:.375rem .5rem;white-space:nowrap}.auto-assign-btn[data-v-40376366]:disabled{cursor:not-allowed;opacity:.6}.form-text[data-v-40376366]{color:#6c757d;font-size:.8rem;margin-top:3px}.image-preview[data-v-40376366]{text-align:center}.image-preview img[data-v-40376366]{border:1px solid #dee2e6;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.1)}.custom-file-label[data-v-40376366]{background-color:#f8f9fa;border:1px dashed #dee2e6;cursor:pointer;font-size:.85rem;transition:all .2s ease}.custom-file-label[data-v-40376366]:hover{background-color:#e3f2fd;border-color:#007bff}.custom-file-label i[data-v-40376366]{color:#6c757d}.create-button[data-v-40376366]{cursor:pointer;text-decoration:none}@media (max-width:768px){.section-title[data-v-40376366]{font-size:.95rem;margin-bottom:12px}.form-card .card-body[data-v-40376366]{padding:.75rem}.auto-assign-btn[data-v-40376366]{font-size:.75rem;min-width:35px}}.input-group-prepend .input-group-text[data-v-40376366]{background-color:#f8f9fa;border-color:#ced4da;color:#495057;font-size:.85rem}.v-select[data-v-40376366]{margin-bottom:0}.is-invalid[data-v-40376366]{border-color:#dc3545!important}.invalid-feedback[data-v-40376366]{color:#dc3545;display:block;font-size:75%;margin-top:.2rem;width:100%}.item-type-selector[data-v-40376366]{display:flex;gap:.75rem;margin-top:.5rem}.item-type-option[data-v-40376366]{cursor:pointer;flex:1;position:relative;transition:all .2s ease}.item-type-option input[type=radio][data-v-40376366]{opacity:0;pointer-events:none;position:absolute}.option-content[data-v-40376366]{align-items:center;background:#fff;border:2px solid #e3e6f0;border-radius:8px;display:flex;flex-direction:column;justify-content:center;min-height:70px;padding:1rem .75rem;text-align:center;transition:all .2s ease}.item-type-option:hover .option-content[data-v-40376366]{border-color:#33a0d9;box-shadow:0 2px 6px rgba(51,160,217,.15);transform:translateY(-1px)}.item-type-option.active .option-content[data-v-40376366]{background:#33a0d9;border-color:#33a0d9;box-shadow:0 3px 10px rgba(51,160,217,.25);color:#fff;transform:translateY(-1px)}.option-content i[data-v-40376366]{color:#6c757d;font-size:1.4rem;margin-bottom:.5rem;transition:all .2s ease}.item-type-option.active .option-content i[data-v-40376366]{color:hsla(0,0%,100%,.9)}.option-content span[data-v-40376366]{color:#495057;font-size:.9rem;font-weight:600;transition:all .2s ease}.item-type-option.active .option-content span[data-v-40376366]{color:#fff}@media (max-width:768px){.item-type-selector[data-v-40376366]{flex-direction:column;gap:.5rem}.option-content[data-v-40376366]{min-height:60px;padding:.75rem .5rem}.option-content i[data-v-40376366]{font-size:1.25rem;margin-bottom:.4rem}.option-content span[data-v-40376366]{font-size:.85rem}.override-checkbox-container .form-check-label[data-v-40376366]{min-height:44px;padding:.6rem .8rem}.checkbox-text[data-v-40376366]{font-size:.9rem}.form-check-input[data-v-40376366]{height:16px;width:16px}}.account-label-row[data-v-40376366]{align-items:flex-start;display:flex;flex-direction:column;gap:1rem;justify-content:space-between;margin-bottom:.5rem}.account-label[data-v-40376366]{color:#495057;flex:1;font-size:.95rem;font-weight:500;margin-bottom:0}.toggle-switch-container[data-v-40376366]{align-items:center;display:flex;flex-shrink:0}.toggle-switch-label[data-v-40376366]{align-items:center;cursor:pointer;display:inline-flex;gap:.75rem;-webkit-user-select:none;-moz-user-select:none;user-select:none}.toggle-switch-wrapper[data-v-40376366]{display:inline-block;flex-shrink:0;height:26px;position:relative;width:50px}.toggle-switch-input[data-v-40376366]{appearance:none;-webkit-appearance:none;-moz-appearance:none;background-color:#ced4da;border-radius:26px;cursor:pointer;height:26px;left:0;margin:0;outline:none;padding:0;position:absolute;top:0;transition:background-color .3s ease;width:50px}.toggle-switch-input[data-v-40376366]:checked{background-color:#33a0d9}.toggle-switch-input[data-v-40376366]:focus{box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.toggle-switch-slider[data-v-40376366]{background-color:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2);height:20px;left:3px;pointer-events:none;position:absolute;top:50%;transform:translateY(-50%);transition:transform .3s ease;width:20px}.toggle-switch-input:checked+.toggle-switch-slider[data-v-40376366]{transform:translate(24px,-50%)}.toggle-switch-text[data-v-40376366]{color:#495057;font-size:.9rem;font-weight:500;transition:color .2s ease;white-space:nowrap}.toggle-switch-label:has(.toggle-switch-input:checked) .toggle-switch-text[data-v-40376366]{color:#33a0d9;font-weight:600}.alert-info[data-v-40376366]{background-color:#d1ecf1;border-color:#bee5eb;border-radius:.375rem;font-size:.9rem;padding:.75rem 1rem}.alert-info[data-v-40376366],.alert-info i[data-v-40376366]{color:#0c5460}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-20367a5a]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-bottom:1.25rem;margin-top:20px;transition:all .2s ease}.form-card[data-v-20367a5a]:hover{box-shadow:0 .1rem .5rem 0 rgba(58,59,69,.15)}.form-card .card-header[data-v-20367a5a]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:12px 16px}.form-card .card-header .section-title[data-v-20367a5a]{border:none;color:#fff;font-size:14px;font-weight:600;margin:0;padding:0}.form-card .card-header .section-title[data-v-20367a5a]:after{display:none}.form-card .card-header .section-title i[data-v-20367a5a]{color:hsla(0,0%,100%,.8)}.form-card .card-body[data-v-20367a5a]{padding:16px}.section-title[data-v-20367a5a]{border-bottom:1px solid #e9ecef;color:#495057;font-weight:600;margin-bottom:15px;padding-bottom:8px}.form-group[data-v-20367a5a]{margin-bottom:1rem}.form-group label[data-v-20367a5a]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-20367a5a]{color:#dc3545;font-weight:700}.row[data-v-20367a5a]{margin-bottom:1rem}.row[data-v-20367a5a]:last-child{margin-bottom:0}.auto-assign-btn[data-v-20367a5a]{min-width:40px;padding:.375rem .5rem;white-space:nowrap}.auto-assign-btn[data-v-20367a5a]:disabled{cursor:not-allowed;opacity:.6}.form-text[data-v-20367a5a]{color:#6c757d;font-size:.8rem;margin-top:3px}.image-preview[data-v-20367a5a]{text-align:center}.image-preview img[data-v-20367a5a]{border:1px solid #dee2e6;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.1)}.custom-file-label[data-v-20367a5a]{background-color:#f8f9fa;border:1px dashed #dee2e6;cursor:pointer;font-size:.85rem;transition:all .2s ease}.custom-file-label[data-v-20367a5a]:hover{background-color:#e3f2fd;border-color:#007bff}.custom-file-label i[data-v-20367a5a]{color:#6c757d}.create-button[data-v-20367a5a]{cursor:pointer;text-decoration:none}.create-btn[data-v-20367a5a]{border-left:none;border-radius:0 .25rem .25rem 0;cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-20367a5a]:hover{background-color:#e9ecef}.category-select[data-v-20367a5a]{margin-right:0!important}.category-select .vs__dropdown-toggle[data-v-20367a5a]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .category-select .vs__dropdown-toggle[data-v-20367a5a]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}[dir=rtl] .create-btn[data-v-20367a5a]{border-left:none;border-radius:.25rem 0 0 .25rem;border-right:1px solid #ced4da}[dir=ltr] .create-btn[data-v-20367a5a]{border-left:1px solid #ced4da;border-radius:0 .25rem .25rem 0;border-right:none}@media (max-width:768px){.section-title[data-v-20367a5a]{font-size:.95rem;margin-bottom:12px}.form-card .card-body[data-v-20367a5a]{padding:.75rem}.auto-assign-btn[data-v-20367a5a]{font-size:.75rem;min-width:35px}}.input-group-prepend .input-group-text[data-v-20367a5a]{background-color:#f8f9fa;border-color:#ced4da;color:#495057;font-size:.85rem}.v-select[data-v-20367a5a]{margin-bottom:0}.is-invalid[data-v-20367a5a]{border-color:#dc3545!important}.invalid-feedback[data-v-20367a5a]{color:#dc3545;display:block;font-size:75%;margin-top:.2rem;width:100%}.item-type-selector[data-v-20367a5a]{display:flex;gap:.75rem;margin-top:.5rem}.item-type-option[data-v-20367a5a]{cursor:pointer;flex:1;position:relative;transition:all .2s ease}.item-type-option input[type=radio][data-v-20367a5a]{opacity:0;pointer-events:none;position:absolute}.option-content[data-v-20367a5a]{align-items:center;background:#fff;border:2px solid #e3e6f0;border-radius:8px;display:flex;flex-direction:column;justify-content:center;min-height:70px;padding:1rem .75rem;text-align:center;transition:all .2s ease}.item-type-option:hover .option-content[data-v-20367a5a]{border-color:#33a0d9;box-shadow:0 2px 6px rgba(51,160,217,.15);transform:translateY(-1px)}.item-type-option.active .option-content[data-v-20367a5a]{background:#33a0d9;border-color:#33a0d9;box-shadow:0 3px 10px rgba(51,160,217,.25);color:#fff;transform:translateY(-1px)}.option-content i[data-v-20367a5a]{color:#6c757d;font-size:1.4rem;margin-bottom:.5rem;transition:all .2s ease}.item-type-option.active .option-content i[data-v-20367a5a]{color:hsla(0,0%,100%,.9)}.option-content span[data-v-20367a5a]{color:#495057;font-size:.9rem;font-weight:600;transition:all .2s ease}.item-type-option.active .option-content span[data-v-20367a5a]{color:#fff}@media (max-width:768px){.item-type-selector[data-v-20367a5a]{flex-direction:column;gap:.5rem}.option-content[data-v-20367a5a]{min-height:60px;padding:.75rem .5rem}.option-content i[data-v-20367a5a]{font-size:1.25rem;margin-bottom:.4rem}.option-content span[data-v-20367a5a]{font-size:.85rem}.override-checkbox-container .form-check-label[data-v-20367a5a]{min-height:44px;padding:.6rem .8rem}.checkbox-text[data-v-20367a5a]{font-size:.9rem}.form-check-input[data-v-20367a5a]{height:16px;width:16px}}.account-label-row[data-v-20367a5a]{align-items:flex-start;display:flex;flex-direction:column;gap:1rem;justify-content:space-between;margin-bottom:.5rem}.account-label[data-v-20367a5a]{color:#495057;flex:1;font-size:.95rem;font-weight:500;margin-bottom:0}.toggle-switch-container[data-v-20367a5a]{align-items:center;display:flex;flex-shrink:0}.toggle-switch-label[data-v-20367a5a]{align-items:center;cursor:pointer;display:inline-flex;gap:.75rem;-webkit-user-select:none;-moz-user-select:none;user-select:none}.toggle-switch-wrapper[data-v-20367a5a]{display:inline-block;flex-shrink:0;height:26px;position:relative;width:50px}.toggle-switch-input[data-v-20367a5a]{appearance:none;-webkit-appearance:none;-moz-appearance:none;background-color:#ced4da;border-radius:26px;cursor:pointer;height:26px;left:0;margin:0;outline:none;padding:0;position:absolute;top:0;transition:background-color .3s ease;width:50px}.toggle-switch-input[data-v-20367a5a]:checked{background-color:#33a0d9}.toggle-switch-input[data-v-20367a5a]:focus{box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.toggle-switch-slider[data-v-20367a5a]{background-color:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2);height:20px;left:3px;pointer-events:none;position:absolute;top:50%;transform:translateY(-50%);transition:transform .3s ease;width:20px}.toggle-switch-input:checked+.toggle-switch-slider[data-v-20367a5a]{transform:translate(24px,-50%)}.toggle-switch-text[data-v-20367a5a]{color:#495057;font-size:.9rem;font-weight:500;transition:color .2s ease;white-space:nowrap}.toggle-switch-label:has(.toggle-switch-input:checked) .toggle-switch-text[data-v-20367a5a]{color:#33a0d9;font-weight:600}.alert-info[data-v-20367a5a]{background-color:#d1ecf1;border-color:#bee5eb;border-radius:.375rem;font-size:.9rem;padding:.75rem 1rem}.alert-info[data-v-20367a5a],.alert-info i[data-v-20367a5a]{color:#0c5460}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -12371,7 +12391,7 @@ var component = (0,componentNormalizer/* default */.A)(
 
 /***/ }),
 
-/***/ 73753:
+/***/ 63653:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12381,7 +12401,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ ProductCreateModal)
 });
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=template&id=40376366&scoped=true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=template&id=20367a5a&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -12503,7 +12523,7 @@ var render = function render() {
     staticClass: "section-title"
   }, [_c('i', {
     staticClass: "fas fa-info-circle mr-2"
-  }), _vm._v("\n              " + _vm._s(_vm.$t("Product Details")) + "\n            ")])]), _vm._v(" "), _c('div', {
+  }), _vm._v("\n              " + _vm._s(_vm.$t("Product Details")) + " \n            ")])]), _vm._v(" "), _c('div', {
     staticClass: "card-body"
   }, [_c('div', {
     staticClass: "row"
@@ -12598,9 +12618,13 @@ var render = function render() {
     }
   }, [_vm._v(_vm._s(_vm.$t("Category")) + " "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
+  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
+    staticClass: "d-flex w-100"
+  }, [_c('v-select', {
+    staticClass: "flex-grow-1",
     "class": {
-      'is-invalid': _vm.form.errors.has('subCategory')
+      'is-invalid': _vm.form.errors.has('subCategory'),
+      'category-select': true
     },
     attrs: {
       "options": _vm.categories,
@@ -12615,7 +12639,16 @@ var render = function render() {
       },
       expression: "form.subCategory"
     }
-  }), _vm._v(" "), _c('has-error', {
+  }), _vm._v(" "), _c('CategorySubcategoryCreateModal', {
+    on: {
+      "categoryCreated": _vm.handleCategoryCreated,
+      "subcategoryCreated": _vm.handleSubcategoryCreated
+    }
+  }, [_c('div', {
+    staticClass: "input-group-text create-btn"
+  }, [_c('i', {
+    staticClass: "fas fa-solid fa-plus-circle"
+  })])])], 1), _vm._v(" "), _c('has-error', {
     attrs: {
       "form": _vm.form,
       "field": "subCategory"
@@ -13401,7 +13434,436 @@ var axios = __webpack_require__(72505);
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 // EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
 var vuex_esm = __webpack_require__(95353);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=script&lang=js
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=template&id=4e083048&scoped=true
+var CategorySubcategoryCreateModalvue_type_template_id_4e083048_scoped_true_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', [_c('VModal', {
+    on: {
+      "close": _vm.closeModal
+    },
+    scopedSlots: _vm._u([{
+      key: "title",
+      fn: function fn() {
+        return [_vm._v(_vm._s(_vm.$t("Create Category / Subcategory")))];
+      },
+      proxy: true
+    }]),
+    model: {
+      value: _vm.showModal,
+      callback: function callback($$v) {
+        _vm.showModal = $$v;
+      },
+      expression: "showModal"
+    }
+  }, [_vm._v(" "), _c('div', {
+    staticClass: "w-100",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+      }
+    }
+  }, [_c('ul', {
+    staticClass: "nav nav-tabs mb-3",
+    attrs: {
+      "role": "tablist"
+    }
+  }, [_c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link",
+    "class": {
+      active: _vm.activeTab === 'subcategory'
+    },
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": [function ($event) {
+        _vm.activeTab = 'subcategory';
+      }, function ($event) {
+        $event.preventDefault();
+      }]
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-folder-open mr-2"
+  }), _vm._v("\n              " + _vm._s(_vm.$t("Subcategory")) + "\n            ")])]), _vm._v(" "), _c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link",
+    "class": {
+      active: _vm.activeTab === 'category'
+    },
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": [function ($event) {
+        _vm.activeTab = 'category';
+      }, function ($event) {
+        $event.preventDefault();
+      }]
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-folder mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Category")) + "\n          ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "tab-content"
+  }, [_c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.activeTab === 'category',
+      expression: "activeTab === 'category'"
+    }],
+    staticClass: "tab-pane fade",
+    "class": {
+      'show active': _vm.activeTab === 'category'
+    }
+  }, [_c('form', {
+    attrs: {
+      "role": "form"
+    },
+    on: {
+      "keydown": function keydown($event) {
+        return _vm.categoryForm.onKeydown($event);
+      },
+      "submit": function submit($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+      }
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "categoryName"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Name')) + "\n                  "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.categoryForm.name,
+      expression: "categoryForm.name"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.categoryForm.errors.has('name')
+    },
+    attrs: {
+      "id": "categoryName",
+      "type": "text",
+      "name": "name",
+      "placeholder": _vm.$t('Enter a name')
+    },
+    domProps: {
+      "value": _vm.categoryForm.name
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.categoryForm, "name", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.categoryForm,
+      "field": "name"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "categoryStatus"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Status')))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.categoryForm.status,
+      expression: "categoryForm.status"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.categoryForm.errors.has('status')
+    },
+    attrs: {
+      "id": "categoryStatus"
+    },
+    on: {
+      "change": function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.categoryForm, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Active')))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Inactive')))])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.categoryForm,
+      "field": "status"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "categoryNote"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Note')))]), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.categoryForm.note,
+      expression: "categoryForm.note"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.categoryForm.errors.has('note')
+    },
+    attrs: {
+      "id": "categoryNote",
+      "placeholder": _vm.$t('Write your note here!'),
+      "rows": "3"
+    },
+    domProps: {
+      "value": _vm.categoryForm.note
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.categoryForm, "note", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.categoryForm,
+      "field": "note"
+    }
+  })], 1)])]), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.activeTab === 'subcategory',
+      expression: "activeTab === 'subcategory'"
+    }],
+    staticClass: "tab-pane fade",
+    "class": {
+      'show active': _vm.activeTab === 'subcategory'
+    }
+  }, [_c('form', {
+    attrs: {
+      "role": "form"
+    },
+    on: {
+      "keydown": function keydown($event) {
+        return _vm.subcategoryForm.onKeydown($event);
+      },
+      "submit": function submit($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+      }
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "subcategoryName"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Name')) + "\n                "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.subcategoryForm.name,
+      expression: "subcategoryForm.name"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.subcategoryForm.errors.has('name')
+    },
+    attrs: {
+      "id": "subcategoryName",
+      "type": "text",
+      "name": "name",
+      "placeholder": _vm.$t('Enter a name')
+    },
+    domProps: {
+      "value": _vm.subcategoryForm.name
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.subcategoryForm, "name", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.subcategoryForm,
+      "field": "name"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_vm.categories ? _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "subcategoryCategory"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Category Name')) + "\n                  "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
+    "class": {
+      'is-invalid': _vm.subcategoryForm.errors.has('category')
+    },
+    attrs: {
+      "options": _vm.categories,
+      "label": "name",
+      "name": "category",
+      "placeholder": _vm.$t('Select a category')
+    },
+    model: {
+      value: _vm.subcategoryForm.category,
+      callback: function callback($$v) {
+        _vm.$set(_vm.subcategoryForm, "category", $$v);
+      },
+      expression: "subcategoryForm.category"
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.subcategoryForm,
+      "field": "category"
+    }
+  })], 1) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "subcategoryStatus"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Status')))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.subcategoryForm.status,
+      expression: "subcategoryForm.status"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.subcategoryForm.errors.has('status')
+    },
+    attrs: {
+      "id": "subcategoryStatus"
+    },
+    on: {
+      "change": function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.subcategoryForm, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Active')))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Inactive')))])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.subcategoryForm,
+      "field": "status"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "subcategoryNote"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Note')))]), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.subcategoryForm.note,
+      expression: "subcategoryForm.note"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.subcategoryForm.errors.has('note')
+    },
+    attrs: {
+      "id": "subcategoryNote",
+      "placeholder": _vm.$t('Write your note here!'),
+      "rows": "3"
+    },
+    domProps: {
+      "value": _vm.subcategoryForm.note
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.subcategoryForm, "note", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.subcategoryForm,
+      "field": "note"
+    }
+  })], 1)])])])]), _vm._v(" "), _c('div', {
+    attrs: {
+      "slot": "modal-footer"
+    },
+    slot: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "loading": _vm.categoryForm.busy || _vm.subcategoryForm.busy
+    },
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.saveCurrent.apply(null, arguments);
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-save"
+  }), _vm._v(" " + _vm._s(_vm.$t("Save")) + "\n      ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-secondary ml-2",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.closeModal.apply(null, arguments);
+      }
+    }
+  }, [_vm._v("\n        " + _vm._s(_vm.$t("Cancel")) + "\n      ")])])]), _vm._v(" "), _c('a', {
+    staticClass: "create-button",
+    on: {
+      "click": _vm.toggleModal
+    }
+  }, [_vm._t("default")], 2)], 1);
+};
+var CategorySubcategoryCreateModalvue_type_template_id_4e083048_scoped_true_staticRenderFns = [];
+
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -13413,8 +13875,278 @@ function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" 
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
+/* harmony default export */ const CategorySubcategoryCreateModalvue_type_script_lang_js = ({
+  middleware: ["auth", "check-permissions"],
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items"])), {}, {
+    categories: function categories() {
+      return this.items || [];
+    }
+  }),
+  data: function data() {
+    return {
+      showModal: false,
+      activeTab: 'subcategory',
+      categoryForm: new vform_es/* default */.Ay({
+        name: '',
+        note: '',
+        status: 1
+      }),
+      subcategoryForm: new vform_es/* default */.Ay({
+        name: '',
+        note: '',
+        status: 1,
+        category: null
+      })
+    };
+  },
+  created: function created() {
+    this.getCategories();
+  },
+  methods: {
+    toggleModal: function toggleModal() {
+      this.showModal = !this.showModal;
+      if (this.showModal) {
+        // Reset forms when opening modal
+        this.resetForms();
+        this.activeTab = 'subcategory';
+        // Refresh categories list
+        this.getCategories();
+      }
+    },
+    closeModal: function closeModal(event) {
+      // Stop event propagation to prevent closing parent modals
+      if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+      this.showModal = false;
+      this.resetForms();
+    },
+    resetForms: function resetForms() {
+      this.categoryForm.reset();
+      this.subcategoryForm.reset();
+      this.categoryForm.status = 1;
+      this.subcategoryForm.status = 1;
+      this.subcategoryForm.category = null;
+    },
+    // Get all product categories for subcategory form
+    getCategories: function getCategories() {
+      var _this = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _this.$store.dispatch('operations/allData', {
+                path: '/api/all-product-categories'
+              });
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee);
+      }))();
+    },
+    // Save based on active tab
+    saveCurrent: function saveCurrent(event) {
+      var _this2 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              // Stop event propagation to prevent closing parent modals
+              if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+              }
+              if (!(_this2.activeTab === 'category')) {
+                _context2.next = 6;
+                break;
+              }
+              _context2.next = 4;
+              return _this2.saveCategory();
+            case 4:
+              _context2.next = 8;
+              break;
+            case 6:
+              _context2.next = 8;
+              return _this2.saveSubCategory();
+            case 8:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2);
+      }))();
+    },
+    // Save category
+    saveCategory: function saveCategory() {
+      var _this3 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var categoryName;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              // Store the category name before saving
+              categoryName = _this3.categoryForm.name;
+              _context4.next = 3;
+              return _this3.categoryForm.post(window.location.origin + '/api/product-categories').then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+                var createdCategory;
+                return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+                  while (1) switch (_context3.prev = _context3.next) {
+                    case 0:
+                      toast.fire({
+                        type: 'success',
+                        title: _this3.$t('Category added successfully')
+                      });
+                      // Refresh categories list for subcategory form
+                      _context3.next = 3;
+                      return _this3.getCategories();
+                    case 3:
+                      // Create a simple object with the name for parent to find it
+                      createdCategory = {
+                        name: categoryName
+                      }; // Emit event with created category data to refresh in parent
+                      _this3.$emit('categoryCreated', createdCategory);
+                      // Reset form
+                      _this3.categoryForm.reset();
+                      _this3.categoryForm.status = 1;
+                      // Close only this modal, not parent modals
+                      _this3.showModal = false;
+                      _this3.resetForms();
+                    case 9:
+                    case "end":
+                      return _context3.stop();
+                  }
+                }, _callee3);
+              })))["catch"](function () {
+                toast.fire({
+                  type: 'error',
+                  title: _this3.$t('Please check your input and try again.')
+                });
+              });
+            case 3:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4);
+      }))();
+    },
+    // Save subcategory
+    saveSubCategory: function saveSubCategory() {
+      var _this4 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        var subcategoryName;
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
+            case 0:
+              // Store the subcategory name before saving
+              subcategoryName = _this4.subcategoryForm.name;
+              _context6.next = 3;
+              return _this4.subcategoryForm.post(window.location.origin + '/api/product-sub-categories').then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+                var createdSubcategory;
+                return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+                  while (1) switch (_context5.prev = _context5.next) {
+                    case 0:
+                      toast.fire({
+                        type: 'success',
+                        title: _this4.$t('Sub category added successfully')
+                      });
+                      // Create a simple object with the name for parent to find it
+                      createdSubcategory = {
+                        name: subcategoryName
+                      }; // Emit event with created subcategory data to refresh and select in parent
+                      _this4.$emit('subcategoryCreated', createdSubcategory);
+                      // Reset form
+                      _this4.subcategoryForm.reset();
+                      _this4.subcategoryForm.status = 1;
+                      _this4.subcategoryForm.category = null;
+                      // Close only this modal, not parent modals
+                      _this4.showModal = false;
+                      _this4.resetForms();
+                    case 8:
+                    case "end":
+                      return _context5.stop();
+                  }
+                }, _callee5);
+              })))["catch"](function () {
+                toast.fire({
+                  type: 'error',
+                  title: _this4.$t('Please check your input and try again.')
+                });
+              });
+            case 3:
+            case "end":
+              return _context6.stop();
+          }
+        }, _callee6);
+      }))();
+    }
+  }
+});
+;// CONCATENATED MODULE: ./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_CategorySubcategoryCreateModalvue_type_script_lang_js = (CategorySubcategoryCreateModalvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=style&index=0&id=4e083048&prod&scoped=true&lang=css
+var CategorySubcategoryCreateModalvue_type_style_index_0_id_4e083048_prod_scoped_true_lang_css = __webpack_require__(14445);
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=style&index=0&id=4e083048&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(CategorySubcategoryCreateModalvue_type_style_index_0_id_4e083048_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_CategorySubcategoryCreateModalvue_type_style_index_0_id_4e083048_prod_scoped_true_lang_css = (CategorySubcategoryCreateModalvue_type_style_index_0_id_4e083048_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// CONCATENATED MODULE: ./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=style&index=0&id=4e083048&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// CONCATENATED MODULE: ./resources/js/components/CategorySubcategoryCreateModal.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_CategorySubcategoryCreateModalvue_type_script_lang_js,
+  CategorySubcategoryCreateModalvue_type_template_id_4e083048_scoped_true_render,
+  CategorySubcategoryCreateModalvue_type_template_id_4e083048_scoped_true_staticRenderFns,
+  false,
+  null,
+  "4e083048",
+  null
+  
+)
+
+/* harmony default export */ const CategorySubcategoryCreateModal = (component.exports);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=script&lang=js
+function ProductCreateModalvue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return ProductCreateModalvue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, ProductCreateModalvue_type_script_lang_js_typeof(o); }
+function ProductCreateModalvue_type_script_lang_js_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ ProductCreateModalvue_type_script_lang_js_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == ProductCreateModalvue_type_script_lang_js_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(ProductCreateModalvue_type_script_lang_js_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function ProductCreateModalvue_type_script_lang_js_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function ProductCreateModalvue_type_script_lang_js_ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function ProductCreateModalvue_type_script_lang_js_objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ProductCreateModalvue_type_script_lang_js_ownKeys(Object(t), !0).forEach(function (r) { ProductCreateModalvue_type_script_lang_js_defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ProductCreateModalvue_type_script_lang_js_ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function ProductCreateModalvue_type_script_lang_js_defineProperty(obj, key, value) { key = ProductCreateModalvue_type_script_lang_js_toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function ProductCreateModalvue_type_script_lang_js_toPropertyKey(t) { var i = ProductCreateModalvue_type_script_lang_js_toPrimitive(t, "string"); return "symbol" == ProductCreateModalvue_type_script_lang_js_typeof(i) ? i : i + ""; }
+function ProductCreateModalvue_type_script_lang_js_toPrimitive(t, r) { if ("object" != ProductCreateModalvue_type_script_lang_js_typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != ProductCreateModalvue_type_script_lang_js_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+
 
 /* harmony default export */ const ProductCreateModalvue_type_script_lang_js = ({
+  components: {
+    CategorySubcategoryCreateModal: CategorySubcategoryCreateModal
+  },
   middleware: ["auth", "check-permissions"],
   metaInfo: function metaInfo() {
     return {
@@ -13465,7 +14197,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       isPurchaseAccountAutomatic: false
     };
   },
-  computed: _objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "appInfo"])),
+  computed: ProductCreateModalvue_type_script_lang_js_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "appInfo"])),
   created: function created() {
     this.getSubCategories();
     this.getUnits();
@@ -13491,9 +14223,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // Load chart of accounts for sales and purchase account selection
     loadChartOfAccounts: function loadChartOfAccounts() {
       var _this = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee() {
         var _yield$axios$get, data;
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
@@ -13520,9 +14252,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // Load account routing settings
     loadAccountRoutingSettings: function loadAccountRoutingSettings() {
       var _this2 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee2() {
         var _this2$accountRouting, _this2$accountRouting2, _this2$accountRouting3, _this2$accountRouting4, response;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               _context2.prev = 0;
@@ -13575,9 +14307,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // get all product categories
     getSubCategories: function getSubCategories() {
       var _this3 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee3() {
         var _yield$_this3$form$ge, data;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
               _context3.next = 2;
@@ -13593,97 +14325,145 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         }, _callee3);
       }))();
     },
-    // get all brands
-    getBrands: function getBrands() {
+    // Handle category created event
+    handleCategoryCreated: function handleCategoryCreated() {
       var _this4 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        var _yield$axios$get2, data;
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee4() {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
               _context4.next = 2;
-              return axios_default().get(window.location.origin + "/api/all-brands");
+              return _this4.getSubCategories();
             case 2:
-              _yield$axios$get2 = _context4.sent;
-              data = _yield$axios$get2.data;
-              _this4.brands = data.data;
-            case 5:
             case "end":
               return _context4.stop();
           }
         }, _callee4);
       }))();
     },
-    // get all units
-    getUnits: function getUnits() {
+    // Handle subcategory created event
+    handleSubcategoryCreated: function handleSubcategoryCreated(createdSubcategory) {
       var _this5 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-        var _yield$axios$get3, data;
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee5() {
+        var newSubcategory;
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee5$(_context5) {
           while (1) switch (_context5.prev = _context5.next) {
             case 0:
               _context5.next = 2;
-              return axios_default().get(window.location.origin + "/api/all-units");
+              return _this5.getSubCategories();
             case 2:
-              _yield$axios$get3 = _context5.sent;
-              data = _yield$axios$get3.data;
-              _this5.units = data.data;
+              if (!(createdSubcategory && createdSubcategory.name)) {
+                _context5.next = 7;
+                break;
+              }
+              _context5.next = 5;
+              return _this5.$nextTick();
             case 5:
+              // Find the newly created subcategory in the refreshed list by name
+              newSubcategory = _this5.categories.find(function (cat) {
+                return cat.name === createdSubcategory.name;
+              });
+              if (newSubcategory) {
+                _this5.form.subCategory = newSubcategory;
+              }
+            case 7:
             case "end":
               return _context5.stop();
           }
         }, _callee5);
       }))();
     },
-    // get all taxes
-    getTaxes: function getTaxes() {
+    // get all brands
+    getBrands: function getBrands() {
       var _this6 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
-        var _yield$axios$get4, data, defaultVatRateSlug;
-        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee6() {
+        var _yield$axios$get2, data;
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee6$(_context6) {
           while (1) switch (_context6.prev = _context6.next) {
             case 0:
               _context6.next = 2;
-              return axios_default().get(window.location.origin + "/api/all-vat-rates");
+              return axios_default().get(window.location.origin + "/api/all-brands");
             case 2:
-              _yield$axios$get4 = _context6.sent;
-              data = _yield$axios$get4.data;
-              _this6.taxes = data.data;
-              // assign default vat rate
-              if (_this6.taxes && _this6.taxes.length > 0) {
-                defaultVatRateSlug = _this6.appInfo.defaultVatRateSlug;
-                _this6.form.productTax = _this6.taxes.find(function (tax) {
-                  return tax.slug === defaultVatRateSlug;
-                });
-              }
-              _this6.calculatePrice();
-            case 7:
+              _yield$axios$get2 = _context6.sent;
+              data = _yield$axios$get2.data;
+              _this6.brands = data.data;
+            case 5:
             case "end":
               return _context6.stop();
           }
         }, _callee6);
       }))();
     },
-    // get item code
-    getItemCode: function getItemCode() {
+    // get all units
+    getUnits: function getUnits() {
       var _this7 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-        var _yield$axios$get5, data;
-        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee7() {
+        var _yield$axios$get3, data;
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee7$(_context7) {
           while (1) switch (_context7.prev = _context7.next) {
             case 0:
               _context7.next = 2;
-              return axios_default().get(window.location.origin + "/api/generate-itemcode");
+              return axios_default().get(window.location.origin + "/api/all-units");
             case 2:
-              _yield$axios$get5 = _context7.sent;
-              data = _yield$axios$get5.data;
-              _this7.form.itemCode = data.code;
-              _this7.prefix = data.prefix;
-            case 6:
+              _yield$axios$get3 = _context7.sent;
+              data = _yield$axios$get3.data;
+              _this7.units = data.data;
+            case 5:
             case "end":
               return _context7.stop();
           }
         }, _callee7);
+      }))();
+    },
+    // get all taxes
+    getTaxes: function getTaxes() {
+      var _this8 = this;
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee8() {
+        var _yield$axios$get4, data, defaultVatRateSlug;
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
+            case 0:
+              _context8.next = 2;
+              return axios_default().get(window.location.origin + "/api/all-vat-rates");
+            case 2:
+              _yield$axios$get4 = _context8.sent;
+              data = _yield$axios$get4.data;
+              _this8.taxes = data.data;
+              // assign default vat rate
+              if (_this8.taxes && _this8.taxes.length > 0) {
+                defaultVatRateSlug = _this8.appInfo.defaultVatRateSlug;
+                _this8.form.productTax = _this8.taxes.find(function (tax) {
+                  return tax.slug === defaultVatRateSlug;
+                });
+              }
+              _this8.calculatePrice();
+            case 7:
+            case "end":
+              return _context8.stop();
+          }
+        }, _callee8);
+      }))();
+    },
+    // get item code
+    getItemCode: function getItemCode() {
+      var _this9 = this;
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee9() {
+        var _yield$axios$get5, data;
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee9$(_context9) {
+          while (1) switch (_context9.prev = _context9.next) {
+            case 0:
+              _context9.next = 2;
+              return axios_default().get(window.location.origin + "/api/generate-itemcode");
+            case 2:
+              _yield$axios$get5 = _context9.sent;
+              data = _yield$axios$get5.data;
+              _this9.form.itemCode = data.code;
+              _this9.prefix = data.prefix;
+            case 6:
+            case "end":
+              return _context9.stop();
+          }
+        }, _callee9);
       }))();
     },
     // calculate selling price
@@ -13715,12 +14495,12 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     },
     // vue file upload
     onFileChange: function onFileChange(e) {
-      var _this8 = this;
+      var _this10 = this;
       var file = e.target.files[0];
       var reader = new FileReader();
       if (file.size < 2111775 && (file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/gif")) {
         reader.onloadend = function () {
-          _this8.form.image = reader.result;
+          _this10.form.image = reader.result;
         };
         reader.readAsDataURL(file);
         this.url = URL.createObjectURL(file);
@@ -13730,73 +14510,73 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     },
     // save product
     saveProduct: function saveProduct() {
-      var _this9 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
-        var _this9$accountRouting, _this9$accountRouting2;
+      var _this11 = this;
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee10() {
+        var _this11$accountRoutin, _this11$accountRoutin2;
         var needsSalesAccount, needsPurchaseAccount;
-        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-          while (1) switch (_context8.prev = _context8.next) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee10$(_context10) {
+          while (1) switch (_context10.prev = _context10.next) {
             case 0:
-              if (!(_this9.form.itemType === 'service' && !_this9.form.servicePurchasePrice)) {
-                _context8.next = 3;
+              if (!(_this11.form.itemType === 'service' && !_this11.form.servicePurchasePrice)) {
+                _context10.next = 3;
                 break;
               }
               toast.fire({
                 type: "error",
-                title: _this9.$t("Service Purchase Price is required for services")
+                title: _this11.$t("Service Purchase Price is required for services")
               });
-              return _context8.abrupt("return");
+              return _context10.abrupt("return");
             case 3:
               // Debug: Log validation state
               console.log("Validation state:", {
-                isSalesAccountAutomatic: _this9.isSalesAccountAutomatic,
-                overrideSalesAccount: _this9.form.overrideSalesAccount,
-                salesAccountId: _this9.form.salesAccountId,
-                isPurchaseAccountAutomatic: _this9.isPurchaseAccountAutomatic,
-                overridePurchaseAccount: _this9.form.overridePurchaseAccount,
-                purchaseAccountId: _this9.form.purchaseAccountId
+                isSalesAccountAutomatic: _this11.isSalesAccountAutomatic,
+                overrideSalesAccount: _this11.form.overrideSalesAccount,
+                salesAccountId: _this11.form.salesAccountId,
+                isPurchaseAccountAutomatic: _this11.isPurchaseAccountAutomatic,
+                overridePurchaseAccount: _this11.form.overridePurchaseAccount,
+                purchaseAccountId: _this11.form.purchaseAccountId
               });
 
               // Validate sales account - required if not automatic OR if override is checked
-              needsSalesAccount = !_this9.isSalesAccountAutomatic || _this9.form.overrideSalesAccount;
-              if (!(needsSalesAccount && !_this9.form.salesAccountId)) {
-                _context8.next = 8;
+              needsSalesAccount = !_this11.isSalesAccountAutomatic || _this11.form.overrideSalesAccount;
+              if (!(needsSalesAccount && !_this11.form.salesAccountId)) {
+                _context10.next = 8;
                 break;
               }
               toast.fire({
                 type: "error",
-                title: _this9.$t("Sales Account is required")
+                title: _this11.$t("Sales Account is required")
               });
-              return _context8.abrupt("return");
+              return _context10.abrupt("return");
             case 8:
               // Validate purchase account - required if not automatic OR if override is checked
-              needsPurchaseAccount = !_this9.isPurchaseAccountAutomatic || _this9.form.overridePurchaseAccount;
-              if (!(needsPurchaseAccount && !_this9.form.purchaseAccountId)) {
-                _context8.next = 12;
+              needsPurchaseAccount = !_this11.isPurchaseAccountAutomatic || _this11.form.overridePurchaseAccount;
+              if (!(needsPurchaseAccount && !_this11.form.purchaseAccountId)) {
+                _context10.next = 12;
                 break;
               }
               toast.fire({
                 type: "error",
-                title: _this9.$t("Purchase Account is required")
+                title: _this11.$t("Purchase Account is required")
               });
-              return _context8.abrupt("return");
+              return _context10.abrupt("return");
             case 12:
               // Debug: Log form data being sent
               console.log("=== FORM SUBMISSION DEBUG ===");
-              console.log("Form data being sent:", _this9.form.data());
-              console.log("Account routing settings:", _this9.accountRoutingSettings);
-              console.log("Sales settings:", _this9.accountRoutingSettings.sales);
-              console.log("Purchase settings:", _this9.accountRoutingSettings.purchase);
-              console.log("Sales routing type:", (_this9$accountRouting = _this9.accountRoutingSettings.sales) === null || _this9$accountRouting === void 0 ? void 0 : _this9$accountRouting.routing_type);
-              console.log("Sales main_account_id:", (_this9$accountRouting2 = _this9.accountRoutingSettings.sales) === null || _this9$accountRouting2 === void 0 ? void 0 : _this9$accountRouting2.main_account_id);
-              console.log("Form salesAccountId:", _this9.form.salesAccountId);
-              console.log("Form purchaseAccountId:", _this9.form.purchaseAccountId);
+              console.log("Form data being sent:", _this11.form.data());
+              console.log("Account routing settings:", _this11.accountRoutingSettings);
+              console.log("Sales settings:", _this11.accountRoutingSettings.sales);
+              console.log("Purchase settings:", _this11.accountRoutingSettings.purchase);
+              console.log("Sales routing type:", (_this11$accountRoutin = _this11.accountRoutingSettings.sales) === null || _this11$accountRoutin === void 0 ? void 0 : _this11$accountRoutin.routing_type);
+              console.log("Sales main_account_id:", (_this11$accountRoutin2 = _this11.accountRoutingSettings.sales) === null || _this11$accountRoutin2 === void 0 ? void 0 : _this11$accountRoutin2.main_account_id);
+              console.log("Form salesAccountId:", _this11.form.salesAccountId);
+              console.log("Form purchaseAccountId:", _this11.form.purchaseAccountId);
               console.log("=============================");
-              _context8.next = 24;
-              return _this9.form.post(window.location.origin + "/api/products").then(function (response) {
+              _context10.next = 24;
+              return _this11.form.post(window.location.origin + "/api/products").then(function (response) {
                 toast.fire({
                   type: "success",
-                  title: _this9.$t("Product added successfully")
+                  title: _this11.$t("Product added successfully")
                 });
 
                 // Emit the newly created product data
@@ -13824,30 +14604,30 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                     sales_account_id: newProduct.sales_account_id,
                     purchase_account_id: newProduct.purchase_account_id
                   };
-                  _this9.$emit('productCreated', formattedProduct);
+                  _this11.$emit('productCreated', formattedProduct);
                 }
 
                 // Store auto-assigned account IDs before reset
-                var autoAssignedSalesAccountId = _this9.isSalesAccountAutomatic ? _this9.form.salesAccountId : null;
-                var autoAssignedPurchaseAccountId = _this9.isPurchaseAccountAutomatic ? _this9.form.purchaseAccountId : null;
-                _this9.form.reset();
-                _this9.form.itemType = "product"; // Reset to default
-                _this9.form.overrideSalesAccount = false; // Reset override flags
-                _this9.form.overridePurchaseAccount = false;
+                var autoAssignedSalesAccountId = _this11.isSalesAccountAutomatic ? _this11.form.salesAccountId : null;
+                var autoAssignedPurchaseAccountId = _this11.isPurchaseAccountAutomatic ? _this11.form.purchaseAccountId : null;
+                _this11.form.reset();
+                _this11.form.itemType = "product"; // Reset to default
+                _this11.form.overrideSalesAccount = false; // Reset override flags
+                _this11.form.overridePurchaseAccount = false;
 
                 // Restore auto-assigned account IDs after reset
                 if (autoAssignedSalesAccountId) {
-                  _this9.form.salesAccountId = autoAssignedSalesAccountId;
+                  _this11.form.salesAccountId = autoAssignedSalesAccountId;
                 }
                 if (autoAssignedPurchaseAccountId) {
-                  _this9.form.purchaseAccountId = autoAssignedPurchaseAccountId;
+                  _this11.form.purchaseAccountId = autoAssignedPurchaseAccountId;
                 }
-                _this9.showProductCreateModal = false;
-                _this9.$emit('reloadProducts');
+                _this11.showProductCreateModal = false;
+                _this11.$emit('reloadProducts');
               })["catch"](function (error) {
                 var _error$response;
                 console.error("Error creating product:", error);
-                var errorMessage = ((_error$response = error.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this9.$t("Please check your input and try again.");
+                var errorMessage = ((_error$response = error.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this11.$t("Please check your input and try again.");
                 toast.fire({
                   type: "error",
                   title: errorMessage
@@ -13855,149 +14635,149 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
               });
             case 24:
             case "end":
-              return _context8.stop();
+              return _context10.stop();
           }
-        }, _callee8);
+        }, _callee10);
       }))();
     },
     // Auto-assign sales account
     autoAssignSalesAccount: function autoAssignSalesAccount() {
-      var _this10 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+      var _this12 = this;
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee11() {
         var defaultAccount;
-        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
-          while (1) switch (_context9.prev = _context9.next) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee11$(_context11) {
+          while (1) switch (_context11.prev = _context11.next) {
             case 0:
-              if (!_this10.isAutoAssigningSales) {
-                _context9.next = 2;
+              if (!_this12.isAutoAssigningSales) {
+                _context11.next = 2;
                 break;
               }
-              return _context9.abrupt("return");
+              return _context11.abrupt("return");
             case 2:
-              _this10.isAutoAssigningSales = true;
+              _this12.isAutoAssigningSales = true;
               try {
                 // For new products, we need to simulate the auto-assignment logic
                 // since the product doesn't exist in the database yet
                 defaultAccount = null;
-                if (_this10.form.itemType === 'product') {
+                if (_this12.form.itemType === 'product') {
                   // Look for "Sales of Goods" or similar
-                  defaultAccount = _this10.chartOfAccounts.find(function (account) {
+                  defaultAccount = _this12.chartOfAccounts.find(function (account) {
                     return account.name.toLowerCase().includes('sales') && (account.name.toLowerCase().includes('goods') || account.name.toLowerCase().includes('product'));
                   });
-                } else if (_this10.form.itemType === 'service') {
+                } else if (_this12.form.itemType === 'service') {
                   // Look for "Sales of Services" or similar
-                  defaultAccount = _this10.chartOfAccounts.find(function (account) {
+                  defaultAccount = _this12.chartOfAccounts.find(function (account) {
                     return account.name.toLowerCase().includes('sales') && account.name.toLowerCase().includes('service');
                   });
                 }
 
                 // Fallback to any Sales account
                 if (!defaultAccount) {
-                  defaultAccount = _this10.chartOfAccounts.find(function (account) {
+                  defaultAccount = _this12.chartOfAccounts.find(function (account) {
                     return account.name.toLowerCase().includes('sales');
                   });
                 }
 
                 // Final fallback to any active account
-                if (!defaultAccount && _this10.chartOfAccounts.length > 0) {
-                  defaultAccount = _this10.chartOfAccounts[0];
+                if (!defaultAccount && _this12.chartOfAccounts.length > 0) {
+                  defaultAccount = _this12.chartOfAccounts[0];
                 }
                 if (defaultAccount) {
-                  _this10.form.salesAccountId = defaultAccount.id;
+                  _this12.form.salesAccountId = defaultAccount.id;
                   toast.fire({
                     type: "success",
-                    title: _this10.$t("Sales Account auto-assigned successfully")
+                    title: _this12.$t("Sales Account auto-assigned successfully")
                   });
                 } else {
                   toast.fire({
                     type: "error",
-                    title: _this10.$t("No suitable Sales Account found for automatic assignment")
+                    title: _this12.$t("No suitable Sales Account found for automatic assignment")
                   });
                 }
               } catch (error) {
                 console.error("Error auto-assigning sales account:", error);
                 toast.fire({
                   type: "error",
-                  title: _this10.$t("Failed to auto-assign Sales Account")
+                  title: _this12.$t("Failed to auto-assign Sales Account")
                 });
               } finally {
-                _this10.isAutoAssigningSales = false;
+                _this12.isAutoAssigningSales = false;
               }
             case 4:
             case "end":
-              return _context9.stop();
+              return _context11.stop();
           }
-        }, _callee9);
+        }, _callee11);
       }))();
     },
     // Auto-assign purchase account
     autoAssignPurchaseAccount: function autoAssignPurchaseAccount() {
-      var _this11 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
+      var _this13 = this;
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator( /*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee12() {
         var defaultAccount;
-        return _regeneratorRuntime().wrap(function _callee10$(_context10) {
-          while (1) switch (_context10.prev = _context10.next) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee12$(_context12) {
+          while (1) switch (_context12.prev = _context12.next) {
             case 0:
-              if (!_this11.isAutoAssigningPurchase) {
-                _context10.next = 2;
+              if (!_this13.isAutoAssigningPurchase) {
+                _context12.next = 2;
                 break;
               }
-              return _context10.abrupt("return");
+              return _context12.abrupt("return");
             case 2:
-              _this11.isAutoAssigningPurchase = true;
+              _this13.isAutoAssigningPurchase = true;
               try {
                 // For new products, we need to simulate the auto-assignment logic
                 // since the product doesn't exist in the database yet
                 defaultAccount = null;
-                if (_this11.form.itemType === 'product') {
+                if (_this13.form.itemType === 'product') {
                   // Look for "Cost of Goods Sold" or similar
-                  defaultAccount = _this11.chartOfAccounts.find(function (account) {
+                  defaultAccount = _this13.chartOfAccounts.find(function (account) {
                     return account.name.toLowerCase().includes('cost') && (account.name.toLowerCase().includes('goods') || account.name.toLowerCase().includes('product'));
                   });
-                } else if (_this11.form.itemType === 'service') {
+                } else if (_this13.form.itemType === 'service') {
                   // Look for "Cost of Services" or similar
-                  defaultAccount = _this11.chartOfAccounts.find(function (account) {
+                  defaultAccount = _this13.chartOfAccounts.find(function (account) {
                     return account.name.toLowerCase().includes('cost') && account.name.toLowerCase().includes('service');
                   });
                 }
 
                 // Fallback to any Cost account
                 if (!defaultAccount) {
-                  defaultAccount = _this11.chartOfAccounts.find(function (account) {
+                  defaultAccount = _this13.chartOfAccounts.find(function (account) {
                     return account.name.toLowerCase().includes('cost');
                   });
                 }
 
                 // Final fallback to any active account
-                if (!defaultAccount && _this11.chartOfAccounts.length > 0) {
-                  defaultAccount = _this11.chartOfAccounts[0];
+                if (!defaultAccount && _this13.chartOfAccounts.length > 0) {
+                  defaultAccount = _this13.chartOfAccounts[0];
                 }
                 if (defaultAccount) {
-                  _this11.form.purchaseAccountId = defaultAccount.id;
+                  _this13.form.purchaseAccountId = defaultAccount.id;
                   toast.fire({
                     type: "success",
-                    title: _this11.$t("Purchase Account auto-assigned successfully")
+                    title: _this13.$t("Purchase Account auto-assigned successfully")
                   });
                 } else {
                   toast.fire({
                     type: "error",
-                    title: _this11.$t("No suitable Purchase Account found for automatic assignment")
+                    title: _this13.$t("No suitable Purchase Account found for automatic assignment")
                   });
                 }
               } catch (error) {
                 console.error("Error auto-assigning purchase account:", error);
                 toast.fire({
                   type: "error",
-                  title: _this11.$t("Failed to auto-assign Purchase Account")
+                  title: _this13.$t("Failed to auto-assign Purchase Account")
                 });
               } finally {
-                _this11.isAutoAssigningPurchase = false;
+                _this13.isAutoAssigningPurchase = false;
               }
             case 4:
             case "end":
-              return _context10.stop();
+              return _context12.stop();
           }
-        }, _callee10);
+        }, _callee12);
       }))();
     },
     // Handle Select it manually checkbox change
@@ -14028,29 +14808,24 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 });
 ;// CONCATENATED MODULE: ./resources/js/components/ProductCreateModal.vue?vue&type=script&lang=js
  /* harmony default export */ const components_ProductCreateModalvue_type_script_lang_js = (ProductCreateModalvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=40376366&prod&scoped=true&lang=css
-var ProductCreateModalvue_type_style_index_0_id_40376366_prod_scoped_true_lang_css = __webpack_require__(42757);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=40376366&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=20367a5a&prod&scoped=true&lang=css
+var ProductCreateModalvue_type_style_index_0_id_20367a5a_prod_scoped_true_lang_css = __webpack_require__(55909);
+;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=20367a5a&prod&scoped=true&lang=css
 
             
 
-var options = {};
+var ProductCreateModalvue_type_style_index_0_id_20367a5a_prod_scoped_true_lang_css_options = {};
 
-options.insert = "head";
-options.singleton = false;
+ProductCreateModalvue_type_style_index_0_id_20367a5a_prod_scoped_true_lang_css_options.insert = "head";
+ProductCreateModalvue_type_style_index_0_id_20367a5a_prod_scoped_true_lang_css_options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(ProductCreateModalvue_type_style_index_0_id_40376366_prod_scoped_true_lang_css/* default */.A, options);
+var ProductCreateModalvue_type_style_index_0_id_20367a5a_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(ProductCreateModalvue_type_style_index_0_id_20367a5a_prod_scoped_true_lang_css/* default */.A, ProductCreateModalvue_type_style_index_0_id_20367a5a_prod_scoped_true_lang_css_options);
 
 
 
-/* harmony default export */ const components_ProductCreateModalvue_type_style_index_0_id_40376366_prod_scoped_true_lang_css = (ProductCreateModalvue_type_style_index_0_id_40376366_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=40376366&prod&scoped=true&lang=css
+/* harmony default export */ const components_ProductCreateModalvue_type_style_index_0_id_20367a5a_prod_scoped_true_lang_css = (ProductCreateModalvue_type_style_index_0_id_20367a5a_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// CONCATENATED MODULE: ./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=20367a5a&prod&scoped=true&lang=css
 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
 ;// CONCATENATED MODULE: ./resources/js/components/ProductCreateModal.vue
 
 
@@ -14060,18 +14835,18 @@ var componentNormalizer = __webpack_require__(14486);
 
 /* normalize component */
 
-var component = (0,componentNormalizer/* default */.A)(
+var ProductCreateModal_component = (0,componentNormalizer/* default */.A)(
   components_ProductCreateModalvue_type_script_lang_js,
   render,
   staticRenderFns,
   false,
   null,
-  "40376366",
+  "20367a5a",
   null
   
 )
 
-/* harmony default export */ const ProductCreateModal = (component.exports);
+/* harmony default export */ const ProductCreateModal = (ProductCreateModal_component.exports);
 
 /***/ }),
 
@@ -16257,8 +17032,8 @@ var vue_barcode_default = /*#__PURE__*/__webpack_require__.n(vue_barcode);
 /* harmony default export */ const beep = (__webpack_require__.p + "528a805699c4d876d449e0dfd885d261.wav");
 // EXTERNAL MODULE: ./resources/js/components/ClientCreateModal.vue + 5 modules
 var ClientCreateModal = __webpack_require__(5181);
-// EXTERNAL MODULE: ./resources/js/components/ProductCreateModal.vue + 5 modules
-var ProductCreateModal = __webpack_require__(73753);
+// EXTERNAL MODULE: ./resources/js/components/ProductCreateModal.vue + 11 modules
+var ProductCreateModal = __webpack_require__(63653);
 // EXTERNAL MODULE: ./resources/js/components/StockAdjustmentModal.vue + 6 modules
 var StockAdjustmentModal = __webpack_require__(75528);
 // EXTERNAL MODULE: ./node_modules/html2canvas/dist/html2canvas.js

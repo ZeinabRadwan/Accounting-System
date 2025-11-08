@@ -34,7 +34,7 @@
       <div class="card-header">
         <h5 class="section-title">
           <i class="fas fa-info-circle mr-2"></i>
-          {{ $t("Product Details") }}
+          {{ $t("Product Details") }} 
         </h5>
       </div>
       <div class="card-body">

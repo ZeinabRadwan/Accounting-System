@@ -90618,7 +90618,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 4755) return "js/4755.js";
 /******/ 			if (chunkId === 5448) return "js/5448.js";
 /******/ 			if (chunkId === 5307) return "js/5307.js";
-/******/ 			if (chunkId === 2780) return "js/2780.js";
+/******/ 			if (chunkId === 2406) return "js/2406.js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

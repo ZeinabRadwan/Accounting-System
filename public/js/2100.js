@@ -278,7 +278,7 @@ var toast = sweetalert2_all_default().mixin({
       return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 62171));
     },
     ProductFormTemplate: function ProductFormTemplate() {
-      return __webpack_require__.e(/* import() */ 2780).then(__webpack_require__.bind(__webpack_require__, 52780));
+      return __webpack_require__.e(/* import() */ 2406).then(__webpack_require__.bind(__webpack_require__, 92406));
     }
   },
   props: {
