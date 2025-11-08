@@ -3,15 +3,10 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="card custom-card w-100">
-          <div class="card-header setings-header">
-            <!-- breadcrumbs Start -->
-            <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-            <!-- breadcrumbs end -->
-          </div>
           <div class="card-body position-relative">
             <div class="row">
               <div class="col-md-3">
-                <card :title="$t('Billing Settings')" class="settings-card">
+                <card class="settings-card">
                   <ul class="nav flex-column nav-pills m-1">
                     <li v-for="tab in tabs" :key="tab.route" class="nav-item">
                       <router-link :to="{ name: tab.route }" class="nav-link" active-class="active" v-if="$can(tab.permission)">

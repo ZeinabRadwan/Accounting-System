@@ -43,7 +43,7 @@
                       </div>
                     </td>
                     <td>{{ subscriptionRequest.plan.name }}</td>
-                    <td>{{ subscriptionRequest.plan.amount | withCentralAdminCurrency}}</td>
+                    <td>{{ subscriptionRequest.plan.amount}} <span class="saudi-riyal">ê</span></td>
                     <td>{{ subscriptionRequest.quantity }}</td>
                     <td v-html="subscriptionRequest.status_html"></td>
                     <td>{{ subscriptionRequest.created_at | moment('Do MMM, YYYY') }}</td>

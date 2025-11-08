@@ -47,7 +47,7 @@
                       }}</span>
                     </td>
                     <td>
-                      {{ (payment.default_amount_rate * payment.quantity) | withCentralAdminCurrency }}<br>
+                      {{ (payment.default_amount_rate * payment.quantity)}} <span class="saudi-riyal">ê</span><br>
                       (${{ payment.amount * payment.quantity }})
                     </td>
                     <td class="text-center no-print">
