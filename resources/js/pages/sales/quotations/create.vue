@@ -31,14 +31,14 @@
                   <has-error :form="form" field="date" />
                 </div>
               </div>
-              <div class="row" v-if="items">
+              <div class="row" v-if="clients">
                 <div class="form-group col-md-6">
                   <label for="client">{{ $t("Client") }}
                     <span class="required">*</span></label>
                   <div class="row">
                     <div class="col">
                       <div class="d-flex w-100">
-                        <v-select class="flex-grow-1" v-model="form.client" :options="items" label="name"
+                        <v-select class="flex-grow-1" v-model="form.client" :options="clients" label="name"
                           :class="{ 
                             'is-invalid': form.errors.has('client'),
                             'rtl-select': isRTL
@@ -767,6 +767,7 @@ export default {
     products: "",
     taxes: "",
     prefix: "",
+    clients: [],
     
     // Communication configuration status
     communicationConfig: {
@@ -781,7 +782,7 @@ export default {
     restoredFromTemp: false,
   }),
   computed: {
-    ...mapGetters("operations", ["items", "appInfo"]),
+    ...mapGetters("operations", ["appInfo"]),
     
     // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
     isSaudiArabia() {
@@ -887,27 +888,33 @@ export default {
     
     // get all clients
     async getClients(selectedClient = 'default') {
-      await this.$store.dispatch("operations/allData", { path: "/api/all-clients" });
+      try {
+        const { data } = await axios.get(window.location.origin + "/api/all-clients");
+        this.clients = data.data || [];
 
-      if (!this.items || this.items.length === 0) return;
+        if (!this.clients || this.clients.length === 0) return;
 
-      // If explicitly requesting latest (e.g., after creating a client)
-      if (selectedClient === 'latest') {
-        this.form.client = this.items[0];
-        return;
-      }
+        // If explicitly requesting latest (e.g., after creating a client)
+        if (selectedClient === 'latest') {
+          this.form.client = this.clients[0];
+          return;
+        }
 
-      // If a client was restored from temp or already selected, normalize to an option from items
-      if (this.form.client && (this.form.client.id || this.form.client.slug)) {
-        this.normalizeClientSelection();
-        return;
-      }
+        // If a client was restored from temp or already selected, normalize to an option from clients
+        if (this.form.client && (this.form.client.id || this.form.client.slug)) {
+          this.normalizeClientSelection();
+          return;
+        }
 
-      // Otherwise, assign default client
-      let defaultClientSlug = this.appInfo.defaultClientSlug;
-      const defaultClient = this.items.find((item) => item.slug === defaultClientSlug);
-      if (defaultClient) {
-        this.form.client = defaultClient;
+        // Otherwise, assign default client
+        let defaultClientSlug = this.appInfo.defaultClientSlug;
+        const defaultClient = this.clients.find((item) => item.slug === defaultClientSlug);
+        if (defaultClient) {
+          this.form.client = defaultClient;
+        }
+      } catch (error) {
+        console.error('Error loading clients:', error);
+        this.clients = [];
       }
     },
 
@@ -1873,17 +1880,17 @@ export default {
         // silent fail
       }
     },
-    // Normalize form.client to an object from items by id/slug so v-select shows it
+    // Normalize form.client to an object from clients by id/slug so v-select shows it
     normalizeClientSelection() {
       try {
-        if (!this.form.client || !this.items || this.items.length === 0) return;
+        if (!this.form.client || !this.clients || this.clients.length === 0) return;
         const current = this.form.client;
         let matched = null;
         if (current.id) {
-          matched = this.items.find(i => i.id === current.id);
+          matched = this.clients.find(i => i.id === current.id);
         }
         if (!matched && current.slug) {
-          matched = this.items.find(i => i.slug === current.slug);
+          matched = this.clients.find(i => i.slug === current.slug);
         }
         if (matched) {
           this.form.client = matched;
