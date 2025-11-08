@@ -20,7 +20,7 @@
                href="#" 
                @click.prevent>
               <i class="fas fa-folder mr-2"></i>
-              {{ $t("Category") }}
+              {{ $t("Main Category") }}
             </a>
           </li>
         </ul>

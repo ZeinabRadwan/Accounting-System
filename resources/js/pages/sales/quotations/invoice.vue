@@ -1,140 +1,95 @@
 <template>
   <div>
+    <!-- breadcrumbs Start -->
+    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+    <!-- breadcrumbs end -->
     <div class="row">
       <div class="col-lg-12 col-xl-12">
-        <div class="card custom-card w-100">
-          <div class="card-header setings-header">
-            <!-- breadcrumbs Start -->
-            <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-            <!-- breadcrumbs end -->
-            <div class="col-xl-8 col-8 float-right text-right">
-              <div class="btn-group c-w-100 header-buttons">
-                <router-link :to="{ name: 'quotations.index' }" class="btn btn-info">
-                  <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
-                </router-link>
-                <button type="submit" class="btn btn-success" :form="'invoiceCreateForm'" title="Save">
-                  <i class="fas fa-save" />
-                </button>
-              </div>
-            </div>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              {{ $t('Create quotation to invoice') }}
+            </h3>
+            <router-link :to="{ name: 'quotations.index' }" class="btn btn-info float-right">
+              <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+            </router-link>
           </div>
-          
-          <div class="card-body">
-            <!-- Add the missing form element with submit handler -->
-            <form id="invoiceCreateForm" @submit.prevent="handleFormSubmit">
-              <!-- Client Selection with Auto-Assign -->
+          <!-- /.card-header -->
+            <div class="card-body">
+              <!-- Chart of Account Validation -->
+              <ChartOfAccountValidation
+                :client="form.client"
+                :products="form.selectedProducts"
+                type="invoice"
+                @chart-of-account-assigned="handleChartOfAccountAssigned"
+              />
+              <!-- form start -->
+              <form role="form" @submit.prevent="createInvoice" @keydown="form.onKeydown($event)">
               <div class="row" v-if="items">
                 <div class="form-group col-md-6">
-                  <label for="client">{{ $t("Client") }}
+                  <label for="client">{{ $t('Client') }}
                     <span class="required">*</span></label>
-                  <div class="row">
-                    <div class="col">
-                      <div class="d-flex w-100">
-                        <v-select 
-                          class="flex-grow-1" 
-                          v-model="form.client" 
-                          :options="items" 
-                          label="name"
-                          :class="{ 'is-invalid': form.errors.has('client') }" 
-                          name="client"
-                          :placeholder="$t('Select a client')"
-                          @input="onClientChange"
-                        />
-                        <ClientCreateModal @reloadClients="getClients('latest')">
-                          <div class="input-group-text create-btn">
-                            <i class="fas fa-solid fa-plus-circle"></i>
-                          </div>
-                        </ClientCreateModal>
-                      </div>
-                      
-                      <!-- Client Chart of Account Status - Keep this validation -->
-                      <div class="client-status mt-2" v-if="form.client">
-                        <div v-if="!form.client.chart_of_account_id" class="client-warning">
-                          <i class="fas fa-exclamation-triangle text-warning"></i>
-                          <span class="ml-2">{{ $t('Client needs Chart of Account') }}</span>
-                          <button 
-                            type="button" 
-                            class="btn btn-sm btn-outline-warning ml-2"
-                            @click="autoAssignClientChartOfAccount"
-                            :disabled="isAutoAssigningClient"
-                          >
-                            <i :class="isAutoAssigningClient ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
-                            {{ isAutoAssigningClient ? $t('Assigning...') : $t('Auto-Assign') }}
-                          </button>
-                        </div>
-                        
-                      </div>
-                      
-                      <has-error :form="form" field="client" />
+                  <v-select v-model="form.client" :options="items" label="name"
+                    :class="{ 'is-invalid': form.errors.has('client') }" name="client"
+                    :placeholder="$t('Select a client')" />
+                  
+                  <!-- Client Chart of Account Status -->
+                  <div class="client-status mt-2" v-if="form.client">
+                    <div v-if="!form.client.chart_of_account_id" class="client-warning">
+                      <span class="ml-2">{{ $t('Client needs Chart of Account') }}</span>
+                      <button 
+                        type="button" 
+                        class="btn btn-sm btn-outline-warning ml-2"
+                        @click="autoAssignClientChartOfAccount"
+                        :disabled="isAutoAssigningClient"
+                      >
+                        <i :class="isAutoAssigningClient ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                        {{ isAutoAssigningClient ? $t('Assigning...') : $t('Auto-Assign') }}
+                      </button>
                     </div>
                   </div>
+                  
+                  <has-error :form="form" field="client" />
                 </div>
-                
                 <div class="form-group col-md-6">
-                    <label for="reference">
-                      {{ $t("Reference") }}
-                    </label>
-                    <input id="reference" v-model="form.reference" type="text" class="form-control"
-                      :class="{ 'is-invalid': form.errors.has('reference') }" name="reference"
-                      :placeholder="$t('Enter reference')" @input="clearFieldError('reference')" />
-                    <has-error :form="form" field="reference" />
-                  </div>
+                  <label for="reference">{{ $t('Reference') }}</label>
+                  <input id="reference" v-model="form.reference" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('reference') }" name="reference"
+                    :placeholder="$t('Enter reference')" />
+                  <has-error :form="form" field="reference" />
                 </div>
-
+              </div>
               <div class="row" v-if="products">
-                <div class="form-group col-md-6">
-                  <label for="product">{{ $t("Select Items") }}
+                <div class="form-group col-md-12">
+                  <label for="product">{{ $t('Select Items') }}
                     <span class="required">*</span></label>
-                  <div class="row">
-                    <div class="col">
-                      <div class="d-flex w-100">
-                        <v-select class="flex-grow-1" v-model="form.product" :options="products" label="label" :class="{
-                          'is-invalid': form.errors.has('selectedProducts'),
-                        }" name="product" :placeholder="$t('Search Items')"
-                          @input="storeProduct(form.product)" />
-                        <ProductCreateModal @reloadProducts="getProducts" @productCreated="handleProductCreated">
-                          <div class="input-group-text create-btn">
-                            <i class="fas fa-solid fa-plus-circle"></i>
-                          </div>
-                        </ProductCreateModal>
-                      </div>
-                      
-                      <!-- Product Chart of Account Status - Similar to client validation -->
-                      <div class="product-status mt-2" v-if="form.product">
-                        <div v-if="!form.product.sales_account_id" class="product-warning">
-                          <i class="fas fa-exclamation-triangle text-warning"></i>
-                          <span class="ml-2">{{ $t('Product') }} "{{ form.product.name }}" {{ $t('needs Sales Account') }}</span>
-                          <button 
-                            type="button" 
-                            class="btn btn-sm btn-outline-warning ml-2"
-                            @click="autoAssignProductChartOfAccount(form.product, 'sales')"
-                            :disabled="isAutoAssigningProduct === form.product.id"
-                          >
-                            <i :class="isAutoAssigningProduct === form.product.id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
-                            {{ isAutoAssigningProduct === form.product.id ? $t('Assigning...') : $t('Auto-Assign') }}
-                          </button>
-                        </div>
-                        <div v-else-if="!form.product.productTax || !form.product.productTax.id" class="product-warning">
-                          <i class="fas fa-exclamation-triangle text-warning"></i>
-                          <span class="ml-2">{{ $t('Product') }} "{{ form.product.name }}" {{ $t('needs VAT Rate') }}</span>
-                        </div>
-                        <div v-else-if="form.selectedProducts && form.selectedProducts.length > 0 && form.selectedProducts[0].sales_account_id" class="product-success">
-                          <i class="fas fa-check-circle text-success"></i>
-                          <span class="ml-2">{{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('Sales Account ready') }}</span>
-                        </div>
-                      </div>
-                      
-                      <has-error :form="form" field="selectedProducts" />
-                      <div v-if="!form.selectedProducts || form.selectedProducts.length === 0" class="text-warning mt-1">
-                        <small><i class="fas fa-exclamation-triangle"></i> {{ $t('At least one product must be selected') }}</small>
-                      </div>
+                  <v-select v-model="form.product" :options="products" label="label" :class="{
+                    'is-invalid': form.errors.has('selectedProducts'),
+                  }" name="product" :placeholder="$t('Search Items')"
+                    @input="storeProduct(form.product)" />
+                  
+                  <!-- Product Chart of Account Status -->
+                  <div class="product-status mt-2" v-if="form.selectedProducts && form.selectedProducts.length > 0">
+                    <div v-if="!allProductsHaveSalesAccounts" class="product-warning">
+                      <span class="ml-2">{{ $t('Some products need Sales Accounts assigned') }}</span>
+                      <button 
+                        type="button" 
+                        class="btn btn-sm btn-outline-warning ml-2"
+                        @click="autoAssignAllProductsChartOfAccount"
+                        :disabled="isAutoAssigningProduct"
+                      >
+                        <i :class="isAutoAssigningProduct ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                        {{ isAutoAssigningProduct ? $t('Assigning...') : $t('Auto-Assign All') }}
+                      </button>
                     </div>
                   </div>
+                  
+                  <has-error :form="form" field="selectedProducts" />
                 </div>
               </div>
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">
                 <div class="table-responsive table-custom w-95 m-auto">
-                  <table class="table table-hover table-sm text-center invoices-create-table">
+                  <table class="table table-hover table-sm text-center quotations-create-table">
                     <thead>
                       <th>{{ $t("#") }}</th>
                       <th>{{ $t("Code") }}</th>
@@ -150,12 +105,12 @@
                       <th class="text-right">{{ $t("Action") }}</th>
                     </thead>
                     <tbody>
-                      <tr v-for="(item, index) in form.selectedProducts" :key="`item-${index}`">
-                        <td style="min-width: 50px;">{{ index + 1 }}</td>
-                        <td style="min-width: 100px;">
+                      <tr v-for="(item, index) in form.selectedProducts" :key="`item-${index}-${item.totalPrice}-${item.totalAfterDiscount}`">
+                        <td style="min-width: 30px;">{{ index + 1 }}</td>
+                        <td style="min-width: 60px;">
                           {{ item.code | withPrefix(prefix) }}
                         </td>
-                        <td style="min-width: 200px;">
+                        <td style="min-width: 120px;">
                           <div class="d-flex align-items-center">
                             <span v-if="Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product'
                               " v-tooltip="$t('Click to manage stock')" 
@@ -182,7 +137,7 @@
                             </button>
                           </div>
                         </td>
-                        <td style="min-width: 200px;">
+                        <td style="min-width: 120px;">
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
                               data-field="quantity" @click="
@@ -200,15 +155,8 @@
                                 'is-invalid': form.errors.has(`selectedProducts.${index}.qty`),
                                 'insufficient-stock-input': Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product'
                               }"
-                              @change="
-                                generateItemTotal(
-                                  $event.target.value,
-                                  'qty',
-                                  index,
-                                  ''
-                                )
-                                "
-                              :placeholder="$t('Quantity')" />
+                              @input="generateItemTotal(item.qty, 'qty', index, '')"
+                              placeholder="Quantity" />
 
                             <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
                               data-field="quantity" @click="
@@ -224,29 +172,24 @@
                             {{ form.errors.get(`selectedProducts.${index}.qty`) }}
                           </div>
                         </td>
-                        <td style="min-width: 200px;">
+                        <td style="min-width: 120px;">
                           <div class="input-group custom-qty-input">
-                            <input type="number" step="any" min="0" :id="`unitPrice-${index+1}`" v-model="item.unitPrice"
-                              name="unitPrice" class="quantity-field border-0" required @change="
-                                generateItemTotal(
-                                  $event.target.value,
-                                  'price',
-                                  index,
-                                  ''
-                                )
-                                " />
+                            <input type="number" step="any" :id="`unitPrice-${index+1}`" v-model.number="item.unitPrice"
+                              name="unitPrice" class="quantity-field border-0" required min="0" 
+                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.unitPrice`) }"
+                              @input="generateItemTotal(item.unitPrice, 'price', index, '')" />
                           </div>
                           <div v-if="form.errors.has(`selectedProducts.${index}.unitPrice`)" class="invalid-feedback d-block">
                             {{ form.errors.get(`selectedProducts.${index}.unitPrice`) }}
                           </div>
                         </td>
-                        <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.totalBeforeDiscount) }} <span class="saudi-riyal">ê</span></td>
-                        <td style="min-width: 180px;">
+                        <td style="min-width: 80px;">{{ item.totalBeforeDiscount }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 120px;">
                           <div class="input-group">
                             <select 
                               v-model="item.discountType" 
                               class="form-control form-control-sm" 
-                              style="width: 85px;"
+                              style="width: 60px;"
                               :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.discountType`) }"
                               @change="calculateProductDiscount(index)">
                               <option value="fixed">{{ $t("Fixed") }}</option>
@@ -262,68 +205,70 @@
                               :max="item.discountType == 'percentage' ? 100 : (item.unitPrice * item.qty)"
                               :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.discount`) }"
                               placeholder="0"
-                              @change="calculateProductDiscount(index)" />
+                              @change="calculateProductDiscount(index)"
+                              @keyup="calculateProductDiscount(index)" />
                           </div>
                           <div v-if="form.errors.has(`selectedProducts.${index}.discount`) || form.errors.has(`selectedProducts.${index}.discountType`)" class="invalid-feedback d-block">
                             <span v-if="form.errors.has(`selectedProducts.${index}.discount`)" class="d-block">{{ form.errors.get(`selectedProducts.${index}.discount`) }}</span>
                             <span v-if="form.errors.has(`selectedProducts.${index}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${index}.discountType`) }}</span>
                           </div>
                         </td>
-                        <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.totalAfterDiscount) }} <span class="saudi-riyal">ê</span></td>
-                        <td style="min-width: 150px;">
-                          <select 
-                            v-model="item.selectedVatRate" 
-                            class="form-control form-control-sm"
-                            :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.selectedVatRate`) }"
-                            @change="calculateProductVat(index)"
-                            style="min-width: 120px;">
-                            <option value="">{{ $t('Select VAT') }}</option>
-                            <option 
-                              v-for="tax in taxes" 
-                              :key="tax.id" 
-                              :value="tax">
-                              {{ tax.code }} ({{ tax.rate }}%)
-                            </option>
-                          </select>
-                          <div v-if="form.errors.has(`selectedProducts.${index}.selectedVatRate`)" class="invalid-feedback d-block">
-                            {{ form.errors.get(`selectedProducts.${index}.selectedVatRate`) }}
+                        <td style="min-width: 80px;">{{ item.totalAfterDiscount }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 100px;">
+                          <div class="d-flex align-items-center">
+                            <select 
+                              v-model="item.vat_rate_id" 
+                              class="form-control form-control-sm flex-grow-1"
+                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.vat_rate_id`) }"
+                              @change="onVatRateChange(index)"
+                              style="min-width: 80px;">
+                              <option value="">{{ $t('Select VAT') }}</option>
+                              <option 
+                                v-for="tax in taxes" 
+                                :key="tax.id" 
+                                :value="tax.id">
+                                {{ tax.code }} ({{ tax.rate }}%)
+                              </option>
+                            </select>
+                          </div>
+                          <div v-if="form.errors.has(`selectedProducts.${index}.vat_rate_id`)" class="invalid-feedback d-block">
+                            {{ form.errors.get(`selectedProducts.${index}.vat_rate_id`) }}
                           </div>
                         </td>
-                        <td class="no-currency" style="min-width: 100px;">
-                          <span class="form-control-plaintext form-control-sm text-center no-currency">
-                            {{ formatToTwoDecimals(item.productTax) }}
+                        <td style="min-width: 60px;">
+                          <span class="form-control-plaintext form-control-sm text-center">
+                            {{ item.productTax }} <span class="saudi-riyal">ê</span>
                           </span>
-                          <span class="saudi-riyal">ê</span>
                         </td>
-                        <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.totalPrice) }} <span class="saudi-riyal">ê</span></td>
-                        <td class="text-right" style="min-width: 80px;">
+                        <td style="min-width: 80px;">{{ item.totalPrice }} <span class="saudi-riyal">ê</span></td>
+                        <td class="text-right" style="min-width: 50px;">
                           <button type="button" class="btn btn-danger" @click="removeItem(item)">
                             <i class="fas fa-times"></i>
                           </button>
                         </td>
                       </tr>
                       <!-- Totals Row -->
-                      <tr :key="`totals`">
+                      <tr :key="`totals-${getSubTotal()}-${getTotalUnitPrice()}`">
                         <td colspan="5" class="text-right">
                           <strong> {{ $t("Total") }} : {{ toWord() }} </strong>
                         </td>
                         <td>
-                          <strong>{{ formatToTwoDecimals(totalUnitPrice) }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ getTotalUnitPrice() }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ formatToTwoDecimals(totalProductDiscount) }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ getTotalDiscount() }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ formatToTwoDecimals(totalAfterDiscount) }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ getTotalAfterDiscount() }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
                           <strong></strong>
                         </td>
                         <td>
-                          <strong>{{ formatToTwoDecimals(totalProductTax) }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ getProductTotalTax() }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ formatToTwoDecimals(subtotal) }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ getSubTotal() }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td></td>
                       </tr>
@@ -331,90 +276,65 @@
                   </table>
                 </div>
               </div>
-                              
-              <!-- Insufficient Stock Warning -->
-              <div v-if="hasInsufficientStock" class="row mt-3 mb-3">
-                <div class="col-12">
-                  <div class="alert alert-warning d-flex align-items-center" role="alert">
-                    <i class="fas fa-exclamation-triangle mr-3" style="font-size: 1.5rem;"></i>
-                    <div class="flex-grow-1">
-                      <h6 class="mb-1">{{ $t("Insufficient Stock Alert") }}</h6>
-                      <p class="mb-0">
-                        {{ $t("Some products have insufficient stock. Click on the red badges to manage stock levels.") }}
-                        <button type="button" class="btn btn-sm btn-outline-warning ml-2" @click="showAllInsufficientStock">
-                          <i class="fas fa-list mr-1"></i>
-                          {{ $t("View All") }}
-                        </button>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
-              <!-- Discount and Tax Section -->
               <div class="row">
                 <div class="form-group col-md-4" v-if="!isSaudiArabia">
-                  <label for="discountType">{{ $t("Discount Type") }}</label>
-                  <select id="discountType" v-model="form.discountType" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('discountType') }" name="discountType"
-                    @change="calculateSum; clearFieldError('discountType')" @keyup="calculateSum">
-                    <option value="0">{{ $t("Fixed") }}</option>
-                    <option value="1">{{ $t("Percentage") }}(%)</option>
+                  <label for="discountType">{{
+                    $t('Discount Type')
+                  }}</label>
+                  <select id="discountType" v-model="form.discountType" step="any" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('discountType') }" name="discountType" @change="calculateSum"
+                    @keyup="calculateSum">
+                    <option value="0">{{ $t('Fixed') }}</option>
+                    <option value="1">{{ $t('Percentage') }}(%)</option>
                   </select>
                   <has-error :form="form" field="discountType" />
                 </div>
-                <div class="form-group col-md-4" v-if="!isSaudiArabia">
-                  <label for="discount">{{ $t("Discount") }}
+                <div class="form-group" :class="form.discountType == 1 ? 'col-md-2' : 'col-md-4'" v-if="!isSaudiArabia">
+                  <label for="discount">{{ $t('Discount') }}
                     <span v-if="form.discountType == 1">(%)</span></label>
-                  <div class="input-group">
-                    <input id="discount" v-model="form.discount" type="number" step="any" min="0"
-                      :max="form.discountType == 1 ? 100 : form.subTotal" class="form-control"
-                      :class="{ 'is-invalid': form.errors.has('discount') }" name="discount"
-                      :placeholder="$t('Enter discount')" @change="calculateSum" @keyup="calculateSum" @input="clearFieldError('discount')" />
-                    <div v-if="form.discountType == 1" class="input-group-append">
-                      <span class="input-group-text">{{
-                        form.totalDiscount }}<span class="saudi-riyal">ê</span></span>
-                    </div>
-                  </div>
+                  <input id="discount" v-model="form.discount" type="number" step="any" min="1"
+                    :max="form.discountType == 1 ? 100 : form.netTotal" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('discount') }" name="discount"
+                    :placeholder="$t('Enter discount')" @change="calculateSum" @keyup="calculateSum" />
                   <has-error :form="form" field="discount" />
                 </div>
-                                 <div class="form-group col-md-4" v-if="!isSaudiArabia">
-                   <label for="transportCost">{{
-                     $t("Transport Cost")
-                   }}</label>
-                   <input id="transportCost" v-model="form.transportCost" type="number" step="any" min="0"
-                     class="form-control" name="transportCost"
-                     :placeholder="$t('Enter transport cost')" @change="calculateSum" @keyup="calculateSum" @input="clearFieldError('transportCost')" />
-                 </div>
-              </div>
-
-              <div class="row">
-                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-2">
-                  <label for="orderTax">{{ $t("Invoice Tax") }}
-                    <span class="required">*</span></label>
-                                     <v-select v-model="form.orderTax" :options="taxes" label="code"
-                     :class="{ 'is-invalid': form.errors.has('orderTax') }" name="orderTax" placeholder="Select a tax type"
-                     @input="calculateSum(); clearFieldError('orderTax')" />
-                  <has-error :form="form" field="orderTax" />
-                </div>
-                <div class="form-group col-md-2" v-if="!isSaudiArabia">
-                  <label for="totalDiscount">{{ $t("Product Discounts") }}</label>
-                  <input id="totalDiscount" v-model="form.totalDiscount" type="text" class="form-control"
+                <div v-if="form.discountType == 1 && !isSaudiArabia" class="form-group col-md-2">
+                  <label for="totalDiscount">{{
+                    $t('Total discount')
+                  }}</label>
+                  <input id="totalDiscount" v-model="form.totalDiscount" type="number" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('totalDiscount') }" name="totalDiscount" readonly />
                   <has-error :form="form" field="totalDiscount" />
                 </div>
-                <div class="form-group col-md-2" v-if="!isSaudiArabia">
-                  <label for="globalDiscount">{{ $t("Global Discount") }}</label>
-                  <input id="globalDiscount" v-model="globalDiscountDisplay" type="text" class="form-control" readonly />
+                <div class="form-group col-md-4" v-if="!isSaudiArabia">
+                  <label for="transportCost">{{
+                    $t('Transport Cost')
+                  }}</label>
+                  <input id="transportCost" v-model="form.transportCost" type="number" step="any" min="1"
+                    class="form-control" :class="{ 'is-invalid': form.errors.has('transportCost') }" name="transportCost"
+                    :placeholder="$t('Enter transport cost')" @change="calculateSum" @keyup="calculateSum" />
+                  <has-error :form="form" field="transportCost" />
                 </div>
-                <div v-if="taxes && !isSaudiArabia" class="form-group col-md-3">
-                  <label for="totalTax">{{ $t("Total Tax") }}</label>
+              </div>
+
+              <div class="row">
+                <div v-if="taxes" class="form-group col-md-4" style="display: none;">
+                  <label for="orderTax">{{ $t('Invoice Tax') }}
+                    <span v-if="!isSaudiArabia" class="required">*</span></label>
+                  <v-select v-model="form.orderTax" :options="taxes" label="code"
+                    :class="{ 'is-invalid': form.errors.has('orderTax') }" name="orderTax"
+                    :placeholder="$t('Select a tax type')" @input="calculateSum" />
+                  <has-error :form="form" field="orderTax" />
+                </div>
+                <div v-if="taxes" class="form-group col-md-4">
+                  <label for="totalTax">{{ $t('Total Tax') }}</label>
                   <input id="totalTax" v-model="form.totalTax" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('totalTax') }" name="totalTax" readonly />
                   <has-error :form="form" field="totalTax" />
                 </div>
-                <div class="form-group col-md-3" v-if="!isSaudiArabia">
-                  <label for="netTotal">{{ $t("Net Total") }}</label>
+                <div class="form-group col-md-4">
+                  <label for="netTotal">{{ $t('Net Total') }}</label>
                   <input id="netTotal" v-model="form.netTotal" type="number" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('netTotal') }" name="netTotal" readonly />
                   <has-error :form="form" field="netTotal" />
@@ -425,65 +345,62 @@
                   <label for="poReference">{{
                     $t('PO Reference')
                   }}</label>
-                    <input id="poReference" v-model="form.poReference" type="text" step="any" class="form-control"
+                  <input id="poReference" v-model="form.poReference" type="text" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('poReference') }" name="poReference"
-                    :placeholder="$t('Enter PO reference')" @input="clearFieldError('poReference')" />
+                    :placeholder="$t('Enter PO reference')" />
                   <has-error :form="form" field="poReference" />
                 </div>
                 <div class="form-group col-md-4">
                   <label for="paymentTerms">{{
-                    $t("Payment Terms")
+                    $t('Payment Terms')
                   }}</label>
                   <input id="paymentTerms" v-model="form.paymentTerms" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('paymentTerms') }" name="paymentTerms"
-                    :placeholder="$t('Enter payment terms')" @input="clearFieldError('paymentTerms')" />
+                    :placeholder="$t('Enter payment terms')" />
                   <has-error :form="form" field="paymentTerms" />
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="addPayment">{{ $t("Add Payment?") }}</label>
-                  <select id="addPayment" 
-                          v-model="form.addPayment" 
-                          class="form-control"
-                          :class="{ 'is-invalid': form.errors.has('addPayment') }"
-                          @change="onAddPaymentChange">
-                    <option value="">{{ $t("Select") }}</option>
-                    <option value="1">{{ $t("Yes") }}</option>
-                    <option value="0">{{ $t("No") }}</option>
+                  <label for="addPayment">{{ $t('Add Payment?') }}</label>
+                  <select id="addPayment" v-model="form.addPayment" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('addPayment') }" name="addPayment">
+                    <option value="" selected disabled>
+                      {{ $t('Select an option') }}
+                    </option>
+                    <option value="1">{{ $t('Yes') }}</option>
+                    <option value="0">{{ $t('No') }}</option>
                   </select>
                   <has-error :form="form" field="addPayment" />
                 </div>
               </div>
-              <div class="row" v-if="paymentFieldsVisible">
-                <div class="form-group col-md-4">
-                  <label for="account">{{ $t("Account") }}
+              <div class="row" v-if="form.addPayment == 1 &&
+                accounts &&
+                form.selectedProducts &&
+                form.selectedProducts.length > 0
+                ">
+                <div class="form-group col-md-6">
+                  <label for="account">{{ $t('Account') }}
                     <span class="required">*</span></label>
                   <v-select v-model="form.account" :options="accounts" label="label"
                     :class="{ 'is-invalid': form.errors.has('account') }" name="account"
-                    :placeholder="$t('Select an account')" @input="onAccountChange">
+                    :placeholder="$t('Select an account')">
                      <template slot="option" slot-scope="option">
                         <img :src="option.image" style="width: 30px; height: 30px;" />
                         {{ option.label }}
                     </template>
                   </v-select>
-                  <has-error :form="form" field="account" />
                   
-                  <!-- Payment validation hint -->
-                  <div v-if="form.addPayment == 1 && !form.account" class="text-warning mt-1">
-                    <small><i class="fas fa-exclamation-triangle"></i> {{ $t("Please choose a bank account") }}</small>
-                  </div>
-                  
-                  <!-- Bank Account Chart of Account Status -->
+                  <!-- Account Chart of Account Status -->
                   <div class="account-status mt-2" v-if="form.account">
                     <div v-if="!form.account.chartOfAccountId" class="account-warning">
-                      <i class="fas fa-exclamation-triangle text-warning"></i>
                       <span class="ml-2">{{ $t('Bank Account needs Chart of Account') }}</span>
                       <button 
                         type="button" 
                         class="btn btn-sm btn-outline-warning ml-2"
-                        @click="goToBankAccounts"
+                        @click="autoAssignBankAccountChartOfAccount"
+                        :disabled="isAutoAssigningAccount"
                       >
-                        <i class="fas fa-external-link-alt"></i>
-                        {{ $t('Go to Bank Accounts') }}
+                        <i :class="isAutoAssigningAccount ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
+                        {{ isAutoAssigningAccount ? $t('Assigning...') : $t('Auto-Assign') }}
                       </button>
                     </div>
                     <div v-else class="account-success">
@@ -491,18 +408,25 @@
                       <span class="ml-2">{{ $t('Bank Account Chart of Account ready') }}</span>
                     </div>
                   </div>
+                  
+                  <has-error :form="form" field="account" />
+                  
+                  <!-- Payment validation hint -->
+                  <div v-if="form.addPayment == 1 && !form.account" class="text-warning mt-1">
+                    <small>{{ $t("Please choose a bank account") }}</small>
+                  </div>
                 </div>
-                <div class="form-group col-md-2">
-                  <label for="paidAmount">{{ $t("Paid Amount")
+                <div class="form-group col-md-6">
+                  <label for="paidAmount">{{ $t('Paid Amount')
                   }}<span class="required">*</span></label>
                   <input id="paidAmount" v-model="form.paidAmount" type="number" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('paidAmount') }" name="paidAmount" min="1"
-                    :max="form.netTotal" :placeholder="$t('Enter an amount')" @input="onPaidAmountChange" />
+                    :max="form.netTotal" :placeholder="$t('Enter an amount')" />
                   <has-error :form="form" field="paidAmount" />
                   
                   <!-- Payment validation hint -->
                   <div v-if="form.addPayment == 1 && (!form.paidAmount || Number(form.paidAmount) <= 0)" class="text-warning mt-1">
-                    <small><i class="fas fa-exclamation-triangle"></i> {{ $t("Paid amount must be greater than 0") }}</small>
+                    <small>{{ $t("Paid amount must be greater than 0") }}</small>
                   </div>
                   
                   <!-- Due Amount Display -->
@@ -512,18 +436,18 @@
                     </small>
                   </div>
                 </div>
-                <!-- <div class="form-group col-md-3">
-                  <label for="chequeNo">{{ $t("Cheque No") }}</label>
+                <!-- <div class="form-group col-md-6">
+                  <label for="chequeNo">{{ $t('Cheque No') }}</label>
                   <input id="chequeNo" v-model="form.chequeNo" type="text" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('chequeNo') }" name="chequeNo"
-                    :placeholder="$t('Enter a cheque number')" @input="clearFieldError('chequeNo')" />
+                    :placeholder="$t('Enter a cheque number')" />
                   <has-error :form="form" field="chequeNo" />
                 </div> -->
-                <div class="form-group col-md-3">
-                  <label for="receiptNo">{{ $t("Receipt No") }}</label>
+                <div class="form-group col-md-6">
+                  <label for="receiptNo">{{ $t('Receipt No') }}</label>
                   <input id="receiptNo" v-model="form.receiptNo" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('receiptNo') }" name="receiptNo"
-                    :placeholder="$t('Enter a receipt no')" @input="clearFieldError('receiptNo')" />
+                    :placeholder="$t('Enter a receipt no')" />
                   <has-error :form="form" field="receiptNo" />
                 </div>
               </div>
@@ -534,72 +458,47 @@
                   }}</label>
                   <input id="deliveryPlace" v-model="form.deliveryPlace" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('deliveryPlace') }" name="deliveryPlace"
-                    :placeholder="$t('Enter a delivery place')" @input="clearFieldError('deliveryPlace')" />
+                    :placeholder="$t('Enter a delivery place')" />
                   <has-error :form="form" field="deliveryPlace" />
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="date">{{ $t("Date") }}</label>
+                  <label for="date">{{ $t('Date') }}</label>
                   <input id="date" v-model="form.date" type="date" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('date') }" name="date" @change="clearFieldError('date')" />
+                    :class="{ 'is-invalid': form.errors.has('date') }" name="date" />
                   <has-error :form="form" field="date" />
                 </div>
                 <div class="form-group col-md-4" v-if="!isSaudiArabia">
-                  <label for="status">{{ $t("Status") }}</label>
+                  <label for="status">{{ $t('Status') }}</label>
                   <select id="status" v-model="form.status" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('status') }" @change="clearFieldError('status')">
-                    <option value="1">{{ $t("Active") }}</option>
-                    <option value="0">{{ $t("Inactive") }}</option>
+                    :class="{ 'is-invalid': form.errors.has('status') }">
+                    <option value="1">{{ $t('Active') }}</option>
+                    <option value="0">{{ $t('Inactive') }}</option>
                   </select>
                   <has-error :form="form" field="status" />
                 </div>
               </div>
-
               <div class="form-group">
-                <label for="note">{{ $t("Note") }}</label>
+                <label for="note">{{ $t('Note') }}</label>
                 <textarea id="note" v-model="form.note" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" @input="clearFieldError('note')" />
+                  :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" />
                 <has-error :form="form" field="note" />
               </div>
-
-              <div class="form-group col-12 d-flex flex-wrap">
-                <div class="pr-5 d-flex align-items-center">
-                  <toggle-button 
-                    v-model="form.isSendEmail" 
-                    :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.email_configured" />
-                  <span class="ml-3">{{ $t("Send To Email") }}</span>
-                  <span v-if="!communicationConfig.loading && !communicationConfig.email_configured" 
-                        class="ml-2 text-muted small">
-                    ({{ $t("Email not configured") }})
-                  </span>
-                </div>
-              </div>
-              <div class="form-group col-12 d-flex flex-wrap">
-                <div class="pr-5 d-flex align-items-center">
-                  <toggle-button 
-                    v-model="form.isSendSMS" 
-                    :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.sms_configured" />
-                  <span class="ml-3">{{ $t("Send To SMS") }}</span>
-                  <span v-if="!communicationConfig.loading && !communicationConfig.sms_configured" 
-                        class="ml-2 text-muted small">
-                    ({{ $t("SMS not configured") }})
-                  </span>
-                </div>
-              </div>
               
-              <!-- Form Actions -->
-              <div class="card-footer">
-                <div class="dtable-footer">
-                  <div class="form-group row display-per-page footer-buttons d-flex justify-content-between w-100">
-                    <button :disabled="form.busy || !isFormReady" class="btn btn-success" type="submit">
-                      <i v-if="form.busy" class="fas fa-spinner fa-spin"></i>
-                      <i v-else class="fas fa-save"></i>
-                      {{ form.busy ? $t("Saving...") : $t("Save") }}
-                    </button>
-                    <button type="button" class="btn btn-secondary ml-2" @click="resetForm">
-                      <i class="fas fa-power-off" /> {{ $t("Reset") }}
-                    </button>
-                  </div>
-                </div>
+              <!-- Form buttons inside the form -->
+              <div class="form-group text-right">
+                <button 
+                  type="submit"
+                  :disabled="!isFormReady || form.busy"
+                  class="btn btn-primary"
+                  :class="{ 'btn-warning': !isFormReady }"
+                >
+                  <i v-if="form.busy" class="fas fa-spinner fa-spin"></i>
+                  <i v-else :class="isFormReady ? 'fas fa-save' : 'fas fa-times'" /> 
+                  {{ form.busy ? $t('Saving...') : (isFormReady ? $t('Save') : $t('Complete Required Fields')) }}
+                </button>
+                <button type="reset" class="btn btn-info ml-2" @click="form.reset()">
+                  <i class="fas fa-power-off" /> {{ $t('Reset') }}
+                </button>
               </div>
             </form>
             <!-- /.card-body -->
@@ -1058,36 +957,23 @@
     </div>
   </div>
   
-  <!-- Product Edit Modal -->
-    <ProductEditModal 
-      ref="productEditModal"
-      @reloadProducts="getProducts"
-      @productUpdated="handleProductUpdated"
-    />
-    
-    <!-- Stock Adjustment Modal -->
-    <StockAdjustmentModal 
-      :is-open="showStockAdjustmentModal"
-      :product="selectedProductForStockAdjustment"
-      @close="closeStockAdjustmentModal"
-      @adjust-quantity="adjustProductQuantity"
-      @stock-updated="handleStockUpdated"
-    />
+  <!-- Stock Adjustment Modal -->
+  <StockAdjustmentModal 
+    :is-open="showStockAdjustmentModal"
+    :product="selectedProductForStockAdjustment"
+    @close="closeStockAdjustmentModal"
+    @adjust-quantity="adjustProductQuantity"
+    @stock-updated="handleStockUpdated"
+  />
   </div>
 </template>
 
 <script>
-import Form from "vform";
-import axios from "axios";
-import { mapGetters } from "vuex";
-import { ToggleButton } from "vue-js-toggle-button";
-import ClientCreateModal from '~/components/ClientCreateModal'
-import ProductCreateModal from '~/components/ProductCreateModal'
-import ProductEditModal from '~/components/ProductEditModal'
+import Form from 'vform'
+import axios from 'axios'
+import { mapGetters } from 'vuex'
+import ChartOfAccountValidation from '~/components/ChartOfAccountValidation'
 import StockAdjustmentModal from '~/components/StockAdjustmentModal'
-import RTLMixin from '~/mixins/RTLMixin'
-
-import { ToWords } from 'to-words';
 import Swal from 'sweetalert2'
 
 const toast = Swal.mixin({
@@ -1099,157 +985,72 @@ const toast = Swal.mixin({
 })
 
 export default {
-  middleware: ["auth", "check-permissions"],
+  middleware: ['auth', 'check-permissions'],
   metaInfo() {
-    return { title: this.$t("Quotation To Invoice") };
+    return { title: this.$t('Quotation To Invoice') }
   },
-  mixins: [RTLMixin],
   components: {
-    ToggleButton,
-    ClientCreateModal,
-    ProductCreateModal,
-    ProductEditModal,
-    StockAdjustmentModal,
+    ChartOfAccountValidation,
+    StockAdjustmentModal
   },
-  data() {
-    return {
-      isDemoMode: window.config.isDemoMode,
-      breadcrumbsCurrent: "Quotation To Invoice",
-      isSubmitting: false, // Flag to track form submission state
-      breadcrumbs: [
-        {
-          name: "Dashboard",
-          url: "home",
-        },
-        {
-          name: "Quotations",
-          url: "quotations.index",
-        },
-        {
-          name: "Create",
-          url: "",
-        },
-      ],
-      form: new Form({
-        invoiceNo: "",
-        client: "",
-        reference: "",
-        selectedProducts: [],
-        subTotal: 0,
-        netTotal: 0,
-        transportCost: "",
-        orderTax: "",
-        totalTax: 0,
-        productTotalTax: 0,
-        invoiceTax: 0, // Add this field for Invoice Tax calculation
-        account: "",
-        totalPaid: "",
-        dueAmount: "",
-        poReference: "",
-        paymentTerms: "",
-        deliveryPlace: "",
-        addPayment: 0, // Initialize to 0 (No) by default
-        chequeNo: "",
-        receiptNo: "",
-        date: new Date().toISOString().slice(0, 10),
-        note: "",
-        status: 1,
-        isSendEmail: false,
-        isSendSMS: false,
-        discountType: 0, // 0 for fixed, 1 for percentage
-        discount: 0,
-        totalDiscount: 0,
-      }),
-      products: [],
-      accounts: [],
-      taxes: [],
-      prefix: "",
-      isUpdatingChartOfAccount: false, // Flag to prevent form submission during chart of account updates
-
-      isAutoAssigningClient: false, // Add this back for the auto-assign button
-      isAutoAssigningProduct: null, // Track which product is being auto-assigned
-      
-      // Communication configuration status
-      communicationConfig: {
-        email_configured: false,
-        sms_configured: false,
-        loading: true,
+  data: () => ({
+    breadcrumbsCurrent: 'Quotation To Invoice',
+    breadcrumbs: [
+      {
+        name: 'Dashboard',
+        url: 'home',
       },
-      
-      // Stock adjustment modal
-      showStockAdjustmentModal: false,
-      selectedProductForStockAdjustment: null,
-      
-      // Reactive totals for the table
-      reactiveTotals: {
-        totalUnitPrice: 0,
-        totalAfterDiscount: 0,
-        totalDiscount: 0,
-        productTotalTax: 0,
-        subTotal: 0
+      {
+        name: 'Quotations',
+        url: 'quotations.index',
       },
-      
-    }
-  },
+      {
+        name: 'Create',
+        url: '',
+      },
+    ],
+    form: new Form({
+      client: '',
+      reference: '',
+      selectedProducts: [],
+      subTotal: 0,
+      netTotal: 0,
+      discountType: 0,
+      discount: '',
+      totalDiscount: '',
+      orderTax: '',
+      totalTax: 0,
+      productTotalTax: 0,
+      transportCost: '',
+      date: new Date().toISOString().slice(0, 10),
+      poReference: '',
+      paymentTerms: '',
+      deliveryPlace: '',
+      addPayment: 0,
+      account: '',
+      paidAmount: '',
+      receiptNo: '',
+      note: '',
+      status: 1,
+    }),
+    products: '',
+    accounts: '',
+    taxes: '',
+    prefix: '',
+    isAutoAssigningClient: false,
+    isAutoAssigningProduct: false,
+    isAutoAssigningAccount: false,
+    isRTL: false,
+    currentLocale: 'en',
+    showStockAdjustmentModal: false,
+    selectedProductForStockAdjustment: null,
+  }),
   computed: {
     ...mapGetters('operations', ['items', 'appInfo']),
     
     // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
     isSaudiArabia() {
       return !this.appInfo?.country || this.appInfo.country === 'SA';
-    },
-    
-    // Display the calculated global discount amount
-    globalDiscountDisplay() {
-      if (this.form.discount > 0) {
-        if (this.form.discountType == 1) { // Percentage
-          return ((this.form.discount / 100) * this.form.subTotal).toFixed(2);
-        } else { // Fixed
-          return this.form.discount.toFixed(2);
-        }
-      }
-      return '0.00';
-    },
-    
-    // Calculate total unit price (sum of all unit prices)
-    totalUnitPrice() {
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
-        return 0;
-      }
-      return this.form.selectedProducts.reduce((total, item) => {
-        return total + (item.unitPrice * item.qty);
-      }, 0);
-    },
-
-    // Calculate total after discount (sum of all totalAfterDiscount values)
-    totalAfterDiscount() {
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
-        return 0;
-      }
-      return this.form.selectedProducts.reduce((total, item) => {
-        return total + (item.totalAfterDiscount || 0);
-      }, 0);
-    },
-
-    // Calculate total discount from all products (reactive)
-    totalProductDiscount() {
-      const total = this.form.selectedProducts.reduce((total, item) => {
-        return total + (item.discountAmount || 0);
-      }, 0);
-      return this.roundToTwoDecimals(total);
-    },
-    
-    // Calculate total product tax (reactive)
-    totalProductTax() {
-      const total = this.form.selectedProducts.reduce((total, item) => {
-        return total + (item.totalTax || 0);
-      }, 0);
-      return this.roundToTwoDecimals(total);
-    },
-    
-    // Calculate subtotal (reactive) - WITH VAT for invoices (matching quotation logic)
-    subtotal() {
-      return this.roundToTwoDecimals(this.totalAfterDiscount + this.totalProductTax);
     },
     
     // Add computed property to check if chart of account is assigned
@@ -1263,6 +1064,14 @@ export default {
         return true; // No products selected, so no validation needed
       }
       return this.form.selectedProducts.every(product => product.sales_account_id);
+    },
+
+    // Check if all products have VAT rates assigned
+    allProductsHaveVatRates() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return true; // No products selected, so no validation needed
+      }
+      return this.form.selectedProducts.every(product => product.vat_rate_id);
     },
 
     // Check if bank account has chart of account assigned (when payment is being added)
@@ -1285,9 +1094,24 @@ export default {
     isFormReady() {
       const basicRequirements = this.hasChartOfAccount && 
                                this.allProductsHaveSalesAccounts && 
+                               this.allProductsHaveVatRates &&
                                this.hasBankAccountChartOfAccount &&
                                this.form.selectedProducts && 
                                this.form.selectedProducts.length > 0;
+      
+      // Debug logging
+      console.log('Form validation debug:', {
+        hasChartOfAccount: this.hasChartOfAccount,
+        allProductsHaveSalesAccounts: this.allProductsHaveSalesAccounts,
+        allProductsHaveVatRates: this.allProductsHaveVatRates,
+        hasBankAccountChartOfAccount: this.hasBankAccountChartOfAccount,
+        selectedProducts: this.form.selectedProducts?.length || 0,
+        addPayment: this.form.addPayment,
+        isPaymentValid: this.isPaymentValid,
+        basicRequirements,
+        client: this.form.client,
+        products: this.form.selectedProducts
+      });
       
       // If basic requirements are not met, form is not ready
       if (!basicRequirements) {
@@ -1324,282 +1148,23 @@ export default {
       // Only check if fields have values, not their validity
       return this.form.account && this.form.paidAmount;
     },
-
-    // Check payment fields visibility conditions
-    paymentFieldsVisible() {
-      return this.form.addPayment == 1;
-    },
-
-    // Check if there are any products with insufficient stock
-    hasInsufficientStock() {
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
-        return false;
-      }
-      return this.form.selectedProducts.some(item => 
-        item.itemType === 'product' && Number(item.inventoryCount) < Number(item.qty)
-      );
-    },
-
-    // Get products with insufficient stock
-    insufficientStockProducts() {
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
-        return [];
-      }
-      return this.form.selectedProducts.filter(item => 
-        item.itemType === 'product' && Number(item.inventoryCount) < Number(item.qty)
-      );
-    },
-    
   },
   created() {
-    this.getClients();
-    this.getProducts();
-    this.getAccounts();
-    this.getTaxes();
-    this.loadCommunicationConfigStatus();
-    this.prefix = this.appInfo.productPrefix;
-    this.ensureDiscountProperties();
-    this.getQuotation(); // Load quotation data after other data is loaded
-  },
-  mounted() {
-    // Set up global error handling
-    this.setupGlobalErrorHandling();
-    // Load temporary data
-    this.loadTemporaryData();
+    this.getClients()
+    this.getProducts()
+    this.getTaxes()
+    this.getQuotation()
+    this.getAccounts()
+    this.prefix = this.appInfo.productPrefix
     
-    // Ensure VAT calculations are up to date after component is mounted
-    this.$nextTick(() => {
-      if (this.form.selectedProducts && this.form.selectedProducts.length > 0) {
-        this.form.selectedProducts.forEach((item, index) => {
-          this.generateItemTotalPrice(index);
-        });
-        this.calculateSum();
-      }
-      
-      // Initialize reactive totals
-      this.updateReactiveTotals();
-    });
-  },
-  // Persist form state when navigating away (e.g., to adjustments page) so it's restored on return
-  beforeRouteLeave(to, from, next) {
-    try {
-      // Only persist when going to inventory adjustments create page
-      if (to && to.name === 'adjustments.create') {
-        this.saveTemporary();
-      } else {
-        // For any other navigation, ensure temp is cleared so data doesn't persist
-        this.clearTemporaryData();
-      }
-    } catch (e) {
-      // no-op
+    // Set default status based on country
+    if (this.isSaudiArabia) {
+      this.form.status = 0 // Inactive for Saudi Arabia
+    } else {
+      this.form.status = 1 // Active for other countries
     }
-    next();
-  },
-  beforeDestroy() {
-    // Clean up global error handlers
-    this.cleanupGlobalErrorHandling();
   },
   methods: {
-    // Debug helpers
-    logDebug(label, payload) {
-      try {
-        // Toggle with window.__INVOICE_DEBUG (true by default)
-        if (typeof window === 'undefined' || window.__INVOICE_DEBUG === false) return;
-        console.log(`[QuotationInvoice] ${label}`, payload);
-      } catch (e) {}
-    },
-    debugBreak() {
-      try {
-        if (typeof window !== 'undefined' && window.__INVOICE_DEBUGGER) {
-          debugger; // eslint-disable-line no-debugger
-        }
-      } catch (e) {}
-    },
-
-    // Load communication configuration status
-    async loadCommunicationConfigStatus() {
-      try {
-        this.communicationConfig.loading = true;
-        
-        const response = await axios.get('/api/communication-config-status');
-        
-        this.communicationConfig.email_configured = response.data.email_configured;
-        this.communicationConfig.sms_configured = response.data.sms_configured;
-        this.communicationConfig.loading = false;
-      } catch (error) {
-        console.error('Error loading communication config status:', error);
-        // Default to false if there's an error
-        this.communicationConfig.email_configured = false;
-        this.communicationConfig.sms_configured = false;
-        this.communicationConfig.loading = false;
-      }
-    },
-
-    // Ensure discount properties exist on all products
-    ensureDiscountProperties() {
-      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
-        return;
-      }
-      this.form.selectedProducts.forEach(item => {
-        if (typeof item.discount === 'undefined') {
-          item.discount = 0;
-        }
-        if (typeof item.discountType === 'undefined') {
-          item.discountType = 'fixed';
-        }
-        if (typeof item.discountAmount === 'undefined') {
-          item.discountAmount = 0;
-        }
-        if (typeof item.selectedVatRate === 'undefined') {
-          // First try to use the product's default VAT rate, then fall back to invoice default
-          if (item.productTax) {
-            item.selectedVatRate = this.findMatchingVatRate(item.productTax);
-          }
-          
-          // If no match found or no productTax, fall back to invoice default
-          if (!item.selectedVatRate) {
-            if (this.form.orderTax) {
-              item.selectedVatRate = this.form.orderTax;
-            } else if (this.taxes && this.taxes.length > 0) {
-              item.selectedVatRate = this.taxes[0];
-            }
-          }
-        }
-      });
-    },
-
-    // Handle global errors
-    handleGlobalError(error, context = 'Unknown operation') {
-      console.error(`Global error in ${context}:`, error);
-      
-      // Show a generic error toast
-      toast.fire({
-        type: "error",
-        title: this.$t("Unexpected Error"),
-        text: this.$t("Please check your input and try again."),
-        timer: 6000,
-        timerProgressBar: true,
-      });
-    },
-
-    // Set up global error handling
-    setupGlobalErrorHandling() {
-      // Handle unhandled promise rejections
-      this.unhandledRejectionHandler = (event) => {
-        console.error('Unhandled promise rejection:', event.reason);
-        this.handleGlobalError(event.reason, 'Promise rejection');
-      };
-      
-      // Handle unhandled errors
-      this.unhandledErrorHandler = (event) => {
-        console.error('Unhandled error:', event.error);
-        this.handleGlobalError(event.error, 'JavaScript error');
-      };
-      
-      // Add event listeners
-      window.addEventListener('unhandledrejection', this.unhandledRejectionHandler);
-      window.addEventListener('error', this.unhandledErrorHandler);
-    },
-
-    // Clean up global error handlers
-    cleanupGlobalErrorHandling() {
-      if (this.unhandledRejectionHandler) {
-        window.removeEventListener('unhandledrejection', this.unhandledRejectionHandler);
-      }
-      if (this.unhandledErrorHandler) {
-        window.removeEventListener('error', this.unhandledErrorHandler);
-      }
-    },
-
-    // Save temporary data to localStorage
-    saveTemporary() {
-      const tempData = {
-        invoiceNo: this.form.invoiceNo,
-        client: this.form.client,
-        reference: this.form.reference,
-        selectedProducts: this.form.selectedProducts,
-        subTotal: this.form.subTotal,
-        netTotal: this.form.netTotal,
-        transportCost: this.form.transportCost,
-        orderTax: this.form.orderTax,
-        totalProductTax: this.form.totalProductTax,
-        totalTax: this.form.totalTax,
-        discount: this.form.discount,
-        discountType: this.form.discountType,
-        poReference: this.form.poReference,
-        paymentTerms: this.form.paymentTerms,
-        addPayment: this.form.addPayment,
-        account: this.form.account,
-        paidAmount: this.form.paidAmount,
-        chequeNo: this.form.chequeNo,
-        receiptNo: this.form.receiptNo,
-        deliveryPlace: this.form.deliveryPlace,
-        date: this.form.date,
-        note: this.form.note,
-        status: this.form.status,
-        isSendEmail: this.form.isSendEmail,
-        isSendSMS: this.form.isSendSMS,
-        timestamp: new Date().toISOString()
-      }
-      localStorage.setItem('invoiceTempData', JSON.stringify(tempData))
-    },
-
-    // Load temporary data from localStorage
-    loadTemporaryData() {
-      const tempData = localStorage.getItem('invoiceTempData')
-      if (tempData) {
-        try {
-          const data = JSON.parse(tempData)
-          this.form.invoiceNo = data.invoiceNo || ''
-          this.form.client = data.client || this.form.client
-          this.form.reference = data.reference || this.form.reference
-          this.form.selectedProducts = data.selectedProducts || this.form.selectedProducts
-          this.form.subTotal = data.subTotal || this.form.subTotal
-          this.form.netTotal = data.netTotal || this.form.netTotal
-          this.form.transportCost = data.transportCost || this.form.transportCost
-          this.form.orderTax = data.orderTax || this.form.orderTax
-          this.form.totalProductTax = data.totalProductTax || this.form.totalProductTax
-          this.form.totalTax = data.totalTax || this.form.totalTax
-          this.form.discount = data.discount || this.form.discount
-          this.form.discountType = data.discountType || this.form.discountType
-          this.form.poReference = data.poReference || this.form.poReference
-          this.form.paymentTerms = data.paymentTerms || this.form.paymentTerms
-          this.form.addPayment = data.addPayment || this.form.addPayment
-          this.form.account = data.account || this.form.account
-          this.form.paidAmount = data.paidAmount || this.form.paidAmount
-          this.form.chequeNo = data.chequeNo || this.form.chequeNo
-          this.form.receiptNo = data.receiptNo || this.form.receiptNo
-          this.form.deliveryPlace = data.deliveryPlace || this.form.deliveryPlace
-          this.form.date = data.date || this.form.date
-          this.form.note = data.note || this.form.note
-          this.form.status = data.status !== undefined ? data.status : this.form.status
-          this.form.isSendEmail = data.isSendEmail || this.form.isSendEmail
-          this.form.isSendSMS = data.isSendSMS || this.form.isSendSMS
-
-          // One-time restore: clear after successful load so a refresh doesn't restore again
-          this.clearTemporaryData();
-
-          // Ensure product fields exist and recalculate totals after restore
-          this.ensureDiscountProperties();
-          if (this.calculateSum) {
-            this.calculateSum();
-          }
-
-          // Normalize client selection to list option so v-select shows it
-          if (this.normalizeClientSelection) {
-            this.normalizeClientSelection();
-          }
-        } catch (error) {
-          console.error('Error loading temporary data:', error)
-        }
-      }
-    },
-
-    // Clear temporary data from localStorage
-    clearTemporaryData() {
-      localStorage.removeItem('invoiceTempData')
-    },
-
     // get the quotation
     async getQuotation() {
       const { data } = await axios.get(
@@ -1714,9 +1279,9 @@ export default {
       if (index === -1) {
         let productTax =
           product.taxType == 'Exclusive'
-            ? product.regularPrice * (product.taxRate / 100)
-            : product.regularPrice -
-            product.regularPrice / (1 + product.taxRate / 100)
+            ? product.priceWithDiscount * (product.taxRate / 100)
+            : product.priceWithDiscount -
+            product.priceWithDiscount / (1 + product.taxRate / 100)
         let totalTax = productTax * qunatity
 
         this.form.selectedProducts.unshift({
@@ -1729,15 +1294,15 @@ export default {
           qty: qunatity,
           inventoryCount: product.inventoryCount,
           avgPurchasePrice: product.avgPurchasePrice,
-          unitPrice: product.regularPrice,
+          unitPrice: product.priceWithDiscount,
           unitCost:
             product.taxType == 'Exclusive'
-              ? product.regularPrice + productTax
-              : product.regularPrice,
+              ? product.priceWithDiscount + productTax
+              : product.priceWithDiscount,
           totalPrice:
             product.taxType == 'Exclusive'
-              ? 1 * (product.regularPrice + totalTax)
-              : 1 * product.regularPrice,
+              ? 1 * (product.priceWithDiscount + totalTax)
+              : 1 * product.priceWithDiscount,
           productTax: product.productTax,
           totalTax: totalTax,
           sales_account_id: product.sales_account_id || null,
@@ -2069,31 +1634,8 @@ export default {
     },
 
     // create invoice
-    async handleFormSubmit(event) {
-      // Set submitting flag to prevent field resets
-      this.isSubmitting = true;
-      
-      try {
-        // Validate payment fields first if payment is enabled
-        if (this.form.addPayment == 1) {
-          const paymentValidation = this.validatePaymentFields();
-          if (!paymentValidation.isValid) {
-            event.preventDefault();
-            this.showPaymentValidationErrors();
-            return;
-          }
-        }
-        
-        // If payment validation passes, proceed with invoice creation
-        await this.saveInvoice();
-      } finally {
-        // Reset submitting flag
-        this.isSubmitting = false;
-      }
-    },
-
-    // save invoice
-    async saveInvoice() {
+    async createInvoice() {
+      console.log('createInvoice method called');
       try {
         // Ensure all monetary values are properly formatted to 2 decimal places before submission
         this.formatFormValues();
@@ -2381,66 +1923,16 @@ export default {
     handleStockUpdated(eventData) {
       // Refresh products to get updated stock levels
       this.getProducts();
-    },
-
-    handleProductUpdated(eventData) {
-      const { originalProduct, updatedData } = eventData;
       
-      // Find and update the product in selectedProducts array
-      const productIndex = this.form.selectedProducts.findIndex(p => 
-        p.id === originalProduct.id || p.slug === originalProduct.slug
-      );
-      
-      if (productIndex !== -1) {
-        // Update the product data in the selected products array
-        const updatedProduct = { ...this.form.selectedProducts[productIndex] };
-        
-        // Update relevant fields from the form data
-        updatedProduct.name = updatedData.itemName || updatedProduct.name;
-        updatedProduct.item_name = updatedData.itemName || updatedProduct.item_name;
-        updatedProduct.regular_price = updatedData.regularPrice || updatedProduct.regular_price;
-        updatedProduct.price = updatedData.regularPrice || updatedProduct.price;
-        updatedProduct.discount = updatedData.discount || updatedProduct.discount;
-        updatedProduct.selling_price = updatedData.sellingPrice || updatedProduct.selling_price;
-        
-        // Update related objects if they have IDs
-        if (updatedData.subCategory) {
-          updatedProduct.sub_category_id = updatedData.subCategory;
-        }
-        if (updatedData.itemUnit) {
-          updatedProduct.unit_id = updatedData.itemUnit;
-        }
-        if (updatedData.productTax) {
-          updatedProduct.tax_id = updatedData.productTax;
-          updatedProduct.vat_rate_id = updatedData.productTax;
-        }
-        if (updatedData.brand) {
-          updatedProduct.brand_id = updatedData.brand;
-        }
-        
-        // Replace the product in the array
-        this.$set(this.form.selectedProducts, productIndex, updatedProduct);
+      // Update the specific product in selectedProducts if it exists
+      const { product, newQuantity } = eventData;
+      const index = this.form.selectedProducts.findIndex(p => p.id === product.id);
+      if (index !== -1) {
+        this.$set(this.form.selectedProducts[index], 'inventoryCount', 
+          (this.form.selectedProducts[index].inventoryCount || 0) + newQuantity);
         
         // Recalculate totals
         this.calculateSum();
-      }
-      
-      // Also update the product in the main products array if it exists
-      const mainProductIndex = this.products.findIndex(p => 
-        p.id === originalProduct.id || p.slug === originalProduct.slug
-      );
-      
-      if (mainProductIndex !== -1) {
-        const updatedMainProduct = { ...this.products[mainProductIndex] };
-        
-        // Update relevant fields from the form data
-        updatedMainProduct.name = updatedData.itemName || updatedMainProduct.name;
-        updatedMainProduct.regular_price = updatedData.regularPrice || updatedMainProduct.regular_price;
-        updatedMainProduct.discount = updatedData.discount || updatedMainProduct.discount;
-        updatedMainProduct.selling_price = updatedData.sellingPrice || updatedMainProduct.selling_price;
-        
-        // Replace the product in the main products array
-        this.$set(this.products, mainProductIndex, updatedMainProduct);
       }
     },
 
@@ -2510,62 +2002,6 @@ export default {
     // round to two decimals
     roundToTwoDecimals(value) {
       return Math.round((value + Number.EPSILON) * 100) / 100;
-    },
-
-    formatToTwoDecimals(value) {
-      if (value === null || value === undefined || value === '') {
-        return '0.00';
-      }
-      const numValue = Number(value);
-      if (isNaN(numValue)) {
-        return '0.00';
-      }
-      return numValue.toFixed(2);
-    },
-
-    clearFieldError(field) {
-      if (this.form.errors.has(field)) {
-        this.form.errors.clear(field);
-      }
-    },
-
-    handleProductCreated(newProduct) {
-      // Add the new product to the products list
-      this.products.unshift(newProduct);
-      this.products.sort((a, b) => {
-        if (a.name < b.name) return -1;
-        if (a.name > b.name) return 1;
-        return 0;
-      });
-      
-      // Automatically select the newly created product
-      this.form.product = newProduct;
-      
-      // Automatically add it to the selected products list
-      this.storeProduct(newProduct);
-    },
-
-    showAllInsufficientStock() {
-      // Show a summary of all insufficient stock products
-      const insufficientProducts = this.form.selectedProducts.filter(item => 
-        item.itemType === 'product' && Number(item.inventoryCount) < Number(item.qty)
-      );
-      
-      if (insufficientProducts.length === 0) return;
-      
-      let message = this.$t("Products with insufficient stock:") + "\n\n";
-      insufficientProducts.forEach((product, index) => {
-        const shortage = Number(product.qty) - Number(product.inventoryCount);
-        message += `${index + 1}. ${product.name}\n`;
-        message += `   ${this.$t("Required")}: ${product.qty}, ${this.$t("Available")}: ${product.inventoryCount}, ${this.$t("Shortage")}: ${shortage}\n\n`;
-      });
-      
-      Swal.fire({
-        title: this.$t("Insufficient Stock Summary"),
-        text: message,
-        icon: "warning",
-        confirmButtonText: this.$t("OK")
-      });
     },
 
     // Methods to get totals on-demand (forces reactivity)
