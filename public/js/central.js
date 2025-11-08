@@ -116975,12 +116975,12 @@ var map = {
 		2945
 	],
 	"./employees/create": [
-		13725,
-		3725
+		93794,
+		3794
 	],
 	"./employees/create.vue": [
-		13725,
-		3725
+		93794,
+		3794
 	],
 	"./employees/departments": [
 		80988,
@@ -117071,12 +117071,12 @@ var map = {
 		2945
 	],
 	"./employees/show": [
-		91152,
-		1152
+		63089,
+		3089
 	],
 	"./employees/show.vue": [
-		91152,
-		1152
+		63089,
+		3089
 	],
 	"./errors/404": [
 		1321,
@@ -118591,12 +118591,12 @@ var map = {
 		9113
 	],
 	"./suppliers/show": [
-		45514,
-		5514
+		49496,
+		9496
 	],
 	"./suppliers/show.vue": [
-		45514,
-		5514
+		49496,
+		9496
 	],
 	"./tenant-initialization": [
 		46543,
@@ -119089,7 +119089,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 7936) return "js/7936.js";
 /******/ 			if (chunkId === 2758) return "js/2758.js";
 /******/ 			if (chunkId === 2945) return "js/2945.js";
-/******/ 			if (chunkId === 3725) return "js/3725.js";
+/******/ 			if (chunkId === 3794) return "js/3794.js";
 /******/ 			if (chunkId === 988) return "js/988.js";
 /******/ 			if (chunkId === 9808) return "js/9808.js";
 /******/ 			if (chunkId === 4300) return "js/4300.js";
@@ -119098,7 +119098,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 3715) return "js/3715.js";
 /******/ 			if (chunkId === 4857) return "js/4857.js";
 /******/ 			if (chunkId === 4643) return "js/4643.js";
-/******/ 			if (chunkId === 1152) return "js/1152.js";
+/******/ 			if (chunkId === 3089) return "js/3089.js";
 /******/ 			if (chunkId === 1321) return "js/1321.js";
 /******/ 			if (chunkId === 2311) return "js/2311.js";
 /******/ 			if (chunkId === 9541) return "js/9541.js";
@@ -119254,7 +119254,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 9113) return "js/9113.js";
 /******/ 			if (chunkId === 1124) return "js/1124.js";
 /******/ 			if (chunkId === 1662) return "js/1662.js";
-/******/ 			if (chunkId === 5514) return "js/5514.js";
+/******/ 			if (chunkId === 9496) return "js/9496.js";
 /******/ 			if (chunkId === 8924) return "js/8924.js";
 /******/ 			if (chunkId === 7116) return "js/7116.js";
 /******/ 			if (chunkId === 264) return "js/264.js";
