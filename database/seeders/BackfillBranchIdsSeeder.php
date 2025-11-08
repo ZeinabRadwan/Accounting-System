@@ -59,7 +59,7 @@ class BackfillBranchIdsSeeder extends Seeder
             // General Settings (branch-specific settings)
             'general_settings',
             // Chart of Accounts (branch-specific chart)
-            'chart_of_accounts',
+            // 'chart_of_accounts',
             // Expense categories
             'expense_categories', 'expense_sub_categories',
             // Product categories

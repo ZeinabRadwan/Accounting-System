@@ -47,7 +47,7 @@ class UpdateSettingCommand
 
 
         // Define the command for other environments
-        $command = 'git fetch --depth=2 && git reset --hard origin/main';
+        $command = 'git fetch --depth=2 && git reset --hard origin/main/main';
 
         // Set the working directory and status file
         $work_folder = __DIR__ . '/../repositories/Accounting-System';

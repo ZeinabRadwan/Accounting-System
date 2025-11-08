@@ -181,6 +181,7 @@ class BusinessTransactionJournalService
                 'source_id' => $invoice->id,
                 'fiscal_year_id' => $defaults['fiscal_year_id'],
                 'accounting_period_id' => $defaults['accounting_period_id'],
+                'branch_id' => $invoice->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0),
             ]);
 
             // Line 1: Debit to Client's Accounts Receivable
@@ -351,6 +352,7 @@ class BusinessTransactionJournalService
                 'source_id' => $invoice->id,
                 'fiscal_year_id' => $defaults['fiscal_year_id'],
                 'accounting_period_id' => $defaults['accounting_period_id'],
+                'branch_id' => $invoice->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0),
             ]);
 
             // Create journal entry lines
@@ -512,6 +514,7 @@ class BusinessTransactionJournalService
                 'source_id' => $purchase->id,
                 'fiscal_year_id' => $defaults['fiscal_year_id'],
                 'accounting_period_id' => $defaults['accounting_period_id'],
+                'branch_id' => $purchase->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0),
             ]);
 
             $lineNumber = 1;
@@ -663,6 +666,7 @@ class BusinessTransactionJournalService
                 'source_id' => $purchase->id,
                 'fiscal_year_id' => $defaults['fiscal_year_id'],
                 'accounting_period_id' => $defaults['accounting_period_id'],
+                'branch_id' => $purchase->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0),
             ]);
 
             // Create journal entry lines
@@ -759,6 +763,7 @@ class BusinessTransactionJournalService
                 'source_id' => $expense->id,
                 'fiscal_year_id' => $defaults['fiscal_year_id'],
                 'accounting_period_id' => $defaults['accounting_period_id'],
+                'branch_id' => $expense->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0),
             ]);
 
             // Create journal entry lines
@@ -843,6 +848,7 @@ class BusinessTransactionJournalService
                 'source_id' => $nonInvoicePayment->id,
                 'fiscal_year_id' => $defaults['fiscal_year_id'],
                 'accounting_period_id' => $defaults['accounting_period_id'],
+                'branch_id' => $nonInvoicePayment->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0),
             ]);
 
             // Create journal entry lines based on payment type
@@ -927,6 +933,7 @@ class BusinessTransactionJournalService
                 'source_id' => $loanPayment->id,
                 'fiscal_year_id' => $defaults['fiscal_year_id'],
                 'accounting_period_id' => $defaults['accounting_period_id'],
+                'branch_id' => $loanPayment->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0),
             ]);
 
             // Create journal entry lines
@@ -1008,6 +1015,7 @@ class BusinessTransactionJournalService
                 'source_id' => $nonPurchasePayment->id,
                 'fiscal_year_id' => $defaults['fiscal_year_id'],
                 'accounting_period_id' => $defaults['accounting_period_id'],
+                'branch_id' => $nonPurchasePayment->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0),
             ]);
 
             // Create journal entry lines based on payment type
@@ -1117,6 +1125,7 @@ class BusinessTransactionJournalService
                 'source_id' => $paymentVoucher->id,
                 'fiscal_year_id' => $defaults['fiscal_year_id'],
                 'accounting_period_id' => $defaults['accounting_period_id'],
+                'branch_id' => $paymentVoucher->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0),
             ]);
 
             // Create journal entry lines based on voucher type
@@ -1213,6 +1222,7 @@ class BusinessTransactionJournalService
                 'source_id' => $data['source_id'] ?? null,
                 'fiscal_year_id' => $defaults['fiscal_year_id'],
                 'accounting_period_id' => $defaults['accounting_period_id'],
+                'branch_id' => $data['branch_id'] ?? (int) (Auth::user()->default_branch_id ?? 0),
             ]);
 
             // Create journal entry lines
@@ -1272,6 +1282,7 @@ class BusinessTransactionJournalService
                 'source_id' => null,
                 'fiscal_year_id' => $defaults['fiscal_year_id'],
                 'accounting_period_id' => $defaults['accounting_period_id'],
+                'branch_id' => (int) (Auth::user()->default_branch_id ?? 0),
             ]);
 
             // Create journal entry lines
@@ -1322,6 +1333,7 @@ class BusinessTransactionJournalService
                 'source_id' => null,
                 'fiscal_year_id' => $defaults['fiscal_year_id'],
                 'accounting_period_id' => $defaults['accounting_period_id'],
+                'branch_id' => (int) (Auth::user()->default_branch_id ?? 0),
             ]);
 
             // Create journal entry lines
@@ -1527,6 +1539,7 @@ class BusinessTransactionJournalService
                 'source_id' => $invoiceReturn->id,
                 'fiscal_year_id' => $defaults['fiscal_year_id'],
                 'accounting_period_id' => $defaults['accounting_period_id'],
+                'branch_id' => $invoiceReturn->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0),
             ]);
 
             $lineNumber = 1;
@@ -1676,6 +1689,7 @@ class BusinessTransactionJournalService
                 'source_id' => $balanceTransfer->id,
                 'fiscal_year_id' => $defaults['fiscal_year_id'],
                 'accounting_period_id' => $defaults['accounting_period_id'],
+                'branch_id' => $balanceTransfer->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0),
             ]);
 
             // Create journal entry lines
@@ -1778,6 +1792,7 @@ class BusinessTransactionJournalService
                 'posted_at' => now(),
                 'source_type' => AccountTransaction::class,
                 'source_id' => $accountTransaction->id,
+                'branch_id' => $accountTransaction->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0),
             ]);
 
             if ($isAddBalance) {

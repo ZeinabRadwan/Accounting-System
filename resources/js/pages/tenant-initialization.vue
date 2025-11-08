@@ -109,14 +109,47 @@
                     </div>
 
                     <div class="form-group mb-4">
-                      <label class="form-label">{{ $t('tax_number') }} <span class="text-danger">*</span></label>
+                      <label class="form-label">{{ $t('company_logo') || 'شعار الشركة' }} <span class="text-muted">({{ $t('optional') }})</span></label>
+                      <div class="logo-upload-container">
+                        <div class="logo-preview mb-3" v-if="logoPreview">
+                          <img :src="logoPreview" alt="Company Logo" class="logo-preview-image" />
+                          <button type="button" class="btn btn-sm btn-danger mt-2" @click="removeLogo">
+                            <i class="fas fa-times"></i> {{ $t('Remove') }}
+                          </button>
+                        </div>
+                        <div class="file-upload-wrapper">
+                          <input 
+                            type="file" 
+                            ref="logoInput"
+                            @change="onLogoChange"
+                            accept="image/jpeg,image/png,image/gif,image/svg+xml"
+                            class="d-none"
+                            id="company-logo-upload"
+                          />
+                          <label 
+                            for="company-logo-upload" 
+                            class="btn btn-outline-primary btn-lg rounded-pill px-4 cursor-pointer"
+                          >
+                            <i class="fas fa-upload mr-2"></i>
+                            {{ logoPreview ? $t('Change Logo') : $t('Upload Logo') }}
+                          </label>
+                          <small class="d-block text-muted mt-2">{{ $t('Maximum file size: 2MB. Supported formats: JPG, PNG, GIF, SVG') }}</small>
+                        </div>
+                      </div>
+                      <div v-if="errors.company_logo" class="invalid-feedback d-block mt-2">{{ errors.company_logo }}</div>
+                    </div>
+
+                    <div class="form-group mb-4">
+                      <label class="form-label">
+                        {{ $t('tax_number') }} 
+                        <span class="text-muted">({{ $t('optional') }})</span>
+                      </label>
                       <input 
                         v-model="form.tax_number" 
                         type="text" 
                         class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary" 
                         :class="{ 'is-invalid': errors.tax_number }"
                         :placeholder="$t('enter_tax_number')"
-                        required
                       />
                       <div v-if="errors.tax_number" class="invalid-feedback d-block mt-2">{{ errors.tax_number }}</div>
                     </div>
@@ -384,9 +417,11 @@ export default {
       appInfo: null,
       currencies: [],
       statusChecked: false,
+      logoPreview: null,
       form: new Form({
         country: 'SA',
         company_name: '',
+        company_logo: '',
         tax_number: '',
         company_tagline: '',
         email_address: '',
@@ -431,6 +466,7 @@ export default {
     
     await this.fetchAppInfo()
     await this.fetchCurrencies()
+    await this.fetchTenantCompanyName()
     await this.checkInitializationStatus()
     this.interceptLocaleChanges()
   },
@@ -449,6 +485,65 @@ export default {
 
 
   methods: {
+    async fetchTenantCompanyName() {
+      try {
+        const response = await axios.get('/api/tenant/me')
+        if (response.data && response.data.data) {
+          // Pre-populate company name
+          if (response.data.data.company) {
+            this.form.company_name = response.data.data.company
+          }
+          // Pre-populate email address
+          if (response.data.data.email) {
+            this.form.email_address = response.data.data.email
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching tenant data:', error)
+      }
+    },
+
+    onLogoChange(e) {
+      const file = e.target.files[0]
+      if (!file) return
+
+      // Validate file type
+      const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml']
+      if (!validTypes.includes(file.type)) {
+        toast.fire({
+          type: 'error',
+          title: this.$t('Invalid file type'),
+          text: this.$t('Please select a valid image file (JPG, PNG, GIF, or SVG)')
+        })
+        return
+      }
+
+      // Validate file size (2MB max)
+      if (file.size > 2 * 1024 * 1024) {
+        toast.fire({
+          type: 'error',
+          title: this.$t('File too large'),
+          text: this.$t('Please select a file smaller than 2MB')
+        })
+        return
+      }
+
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        this.form.company_logo = reader.result
+        this.logoPreview = URL.createObjectURL(file)
+      }
+      reader.readAsDataURL(file)
+    },
+
+    removeLogo() {
+      this.form.company_logo = ''
+      this.logoPreview = null
+      if (this.$refs.logoInput) {
+        this.$refs.logoInput.value = ''
+      }
+    },
+
     onCountryChange() {
       // Auto-set currency to SAR if Saudi Arabia is selected
       if (this.form.country === 'SA' && this.currencies.length > 0) {
@@ -639,10 +734,6 @@ export default {
           this.errors.company_name = this.$t('company_name_required')
           return
         }
-        if (!this.form.tax_number) {
-          this.errors.tax_number = this.$t('tax_number_required')
-          return
-        }
         this.errors = {}
       }
       // Step 3: Contact Details
@@ -714,11 +805,6 @@ export default {
       }
       if (!this.form.company_name) {
         this.errors.company_name = this.$t('company_name_required')
-        if (!hasErrors) this.currentStep = 2
-        hasErrors = true
-      }
-      if (!this.form.tax_number) {
-        this.errors.tax_number = this.$t('tax_number_required')
         if (!hasErrors) this.currentStep = 2
         hasErrors = true
       }
@@ -1032,5 +1118,33 @@ export default {
 
 [dir="rtl"] .language-switcher-container.mobile {
   left: 10px;
+}
+
+.logo-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo-preview {
+  text-align: center;
+}
+
+.logo-preview-image {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  object-fit: contain;
+}
+
+.file-upload-wrapper {
+  text-align: center;
+  width: 100%;
+}
+
+.file-upload-wrapper label {
+  cursor: pointer;
+  display: inline-block;
 }
 </style>
