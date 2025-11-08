@@ -36,6 +36,16 @@ class SubscriptionRequest extends Model
 
     public function getDocumentUrlAttribute()
     {
+        if (!$this->document_path) {
+            return null;
+        }
+        
+        // If the path already starts with 'images/', it's stored in public folder
+        if (strpos($this->document_path, 'images/') === 0) {
+            return global_asset($this->document_path);
+        }
+        
+        // Fallback for old storage paths
         return Storage::disk('public')->url($this->document_path);
     }
 

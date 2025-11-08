@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Notification;
 use App\Http\Resources\SubscriptionRequestResource;
 use App\Http\Requests\StoreSubscriptionRequestRequest;
 use App\Notifications\NewSubscriptionRequestNotification;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class SubscriptionRequestController extends Controller
 {
@@ -48,7 +50,17 @@ class SubscriptionRequestController extends Controller
             $subscriptionRequestMessage = tenancy()->central(function () use ($tenant, $request) {
                 $documentPath = null;
                 if ($request->hasFile('document_path')) {
-                    $documentPath = $request->file('document_path')->store('subscription-request', 'public');
+                    $file = $request->file('document_path');
+                    $folderPathString = 'images/settings/';
+                    $folderPath = public_path($folderPathString);
+                    
+                    if (!File::exists($folderPath)) {
+                        File::makeDirectory($folderPath, 0755, true, true);
+                    }
+                    
+                    $imageName = Str::uuid() . '.' . $file->getClientOriginalExtension();
+                    $file->move($folderPath, $imageName);
+                    $documentPath = $folderPathString . $imageName;
                 }
 
                 $quantity = $request->input('quantity');

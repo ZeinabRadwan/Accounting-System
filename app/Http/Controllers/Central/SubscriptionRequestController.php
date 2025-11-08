@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PaymentController;
 use App\Http\Resources\SubscriptionRequestResource;
 use App\Notifications\SubscriptionSuccessNotification;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class SubscriptionRequestController extends Controller
 {
@@ -118,6 +120,22 @@ class SubscriptionRequestController extends Controller
     public function destroy(SubscriptionRequest $subscriptionRequest)
     {
         if ($subscriptionRequest->status === SubscriptionRequest::STATUS_PENDING) {
+            // Delete associated file if exists
+            if ($subscriptionRequest->document_path) {
+                // Check if it's stored in public/images/ (new location)
+                if (strpos($subscriptionRequest->document_path, 'images/') === 0) {
+                    $filePath = public_path($subscriptionRequest->document_path);
+                    if (File::exists($filePath)) {
+                        File::delete($filePath);
+                    }
+                } else {
+                    // Old storage path
+                    if (Storage::disk('public')->exists($subscriptionRequest->document_path)) {
+                        Storage::disk('public')->delete($subscriptionRequest->document_path);
+                    }
+                }
+            }
+            
             $subscriptionRequest->delete();
 
             return $this->responseWithSuccess('Deleted successfully.');
