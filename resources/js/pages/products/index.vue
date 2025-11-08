@@ -10,7 +10,7 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body position-relative">
-            <div class="row d-fex" style="justify-content: flex-end">
+            <div class="row d-fex">
               <div class="col-6 col-xl-4 mb-2">
                 <search v-model="query" @reset-pagination="resetPagination()" @reload="reload" />
             </div>
