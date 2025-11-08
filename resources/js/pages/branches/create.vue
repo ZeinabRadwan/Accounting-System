@@ -10,8 +10,8 @@
                 <router-link :to="{ name: 'branches.index' }" class="btn btn-info">
                   <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
-                <button type="submit" class="btn btn-success" :form="'branchCreateForm'" :title="$t('Save')">
-                  <i class="fas fa-save" />
+                <button type="submit" class="btn btn-success" :form="'branchCreateForm'">
+                  <i class="fas fa-save" /> {{ $t('Save') }}
                 </button>
               </div>
             </div>
@@ -96,17 +96,8 @@ export default {
   },
   data() {
     return {
-      breadcrumbsCurrent: "branches.create",
-      breadcrumbs: [
-        {
-          name: this.$t("Branches"),
-          url: "branches.index"
-        },
-        {
-          name: this.$t("Create"),
-          url: "branches.create"
-        }
-      ],
+      breadcrumbsCurrent: "",
+      breadcrumbs: [],
       form: new Form({
         name: "",
         code: "",
@@ -117,6 +108,23 @@ export default {
         is_active: true
       })
     };
+  },
+  mounted() {
+    this.breadcrumbsCurrent = this.$t("Create Branch");
+    this.breadcrumbs = [
+      {
+        name: this.$t("Dashboard"),
+        url: "home"
+      },
+      {
+        name: this.$t("Branches"),
+        url: "branches.index"
+      },
+      {
+        name: this.$t("Create Branch"),
+        url: "branches.create"
+      }
+    ];
   },
   methods: {
     async createBranch() {
