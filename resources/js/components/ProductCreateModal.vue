@@ -85,9 +85,19 @@
 
                   <div class="form-group">
                     <label for="itemUnit">{{ $t("Unit") }} <span class="required">*</span></label>
-                    <v-select v-model="form.itemUnit" :options="units" label="name"
-                      :class="{ 'is-invalid': form.errors.has('itemUnit') }" name="itemUnit"
-                      :placeholder="$t('Select a unit')" />
+                    <div class="d-flex w-100">
+                      <v-select v-model="form.itemUnit" :options="units" label="name"
+                        :class="{ 
+                          'is-invalid': form.errors.has('itemUnit'),
+                          'unit-select': true
+                        }" name="itemUnit"
+                        :placeholder="$t('Select a unit')" class="flex-grow-1" />
+                      <UnitCreateModal @unitCreated="handleUnitCreated">
+                        <div class="input-group-text create-btn">
+                          <i class="fas fa-solid fa-plus-circle"></i>
+                        </div>
+                      </UnitCreateModal>
+                    </div>
                     <has-error :form="form" field="itemUnit" />
                   </div>
 
@@ -407,10 +417,12 @@ import Form from 'vform'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
 import CategorySubcategoryCreateModal from '~/components/CategorySubcategoryCreateModal'
+import UnitCreateModal from '~/components/UnitCreateModal'
 
 export default {
   components: {
     CategorySubcategoryCreateModal,
+    UnitCreateModal,
   },
   middleware: ["auth", "check-permissions"],
   metaInfo() {
@@ -568,6 +580,23 @@ export default {
         );
         if (newSubcategory) {
           this.form.subCategory = newSubcategory;
+        }
+      }
+    },
+    // Handle unit created event
+    async handleUnitCreated(createdUnit) {
+      // Refresh units list
+      await this.getUnits();
+      // Auto-select the newly created unit in the dropdown
+      if (createdUnit && createdUnit.name) {
+        // Use $nextTick to ensure the units array is updated after refresh
+        await this.$nextTick();
+        // Find the newly created unit in the refreshed list by name or code
+        const newUnit = this.units.find(
+          unit => unit.name === createdUnit.name || unit.code === createdUnit.code
+        );
+        if (newUnit) {
+          this.form.itemUnit = newUnit;
         }
       }
     },
@@ -1087,6 +1116,22 @@ export default {
   border-left: 1px solid #ced4da;
   border-right: none;
   border-radius: 0 0.25rem 0.25rem 0;
+}
+
+/* Unit select with create button styling */
+.unit-select {
+  margin-right: 0 !important;
+}
+
+.unit-select .vs__dropdown-toggle {
+  border-right: none !important;
+  border-radius: 0.25rem 0 0 0.25rem !important;
+}
+
+[dir="rtl"] .unit-select .vs__dropdown-toggle {
+  border-right: 1px solid #ced4da !important;
+  border-left: none !important;
+  border-radius: 0 0.25rem 0.25rem 0 !important;
 }
 
 /* Responsive adjustments */
