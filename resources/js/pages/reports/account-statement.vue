@@ -140,14 +140,14 @@
                   >
                     <i class="fa fa-arrow-circle-down"></i>
                   </a>
-                  <!-- <a 
+                  <button 
                     v-if="reportData && entriesCount > 0" 
-                    :href="exportPdfUrl" 
+                    @click="downloadPDF" 
                     v-tooltip="$t('Export to PDF')" 
                     class="btn export-pdf-btn ml-2"
                   >
                     <i class="fas fa-file-export"></i>
-                  </a> -->
+                  </button>
                   <a 
                     v-if="reportData && entriesCount > 0" 
                     :href="printTemplateUrl" 
@@ -439,7 +439,7 @@ export default {
       if (this.filters.toDate) {
         params.append('to_date', this.filters.toDate);
       }
-      return `/account-statement/pdf?${params.toString()}`;
+      return `/print/reports/account-statement/pdf?${params.toString()}`;
     },
     
     printTemplateUrl() {
@@ -763,6 +763,33 @@ export default {
       this.currentChunk = 1;
       this.hasMoreData = true;
       this.retryCount = 0;
+    },
+    
+    downloadPDF() {
+      // Build query parameters from filters
+      const params = new URLSearchParams();
+      if (this.filters.chartOfAccount) {
+        params.append('chart_of_account_id', this.filters.chartOfAccount);
+      }
+      if (this.filters.subChartOfAccount) {
+        params.append('sub_chart_of_account_id', this.filters.subChartOfAccount);
+      }
+      if (this.filters.fiscalYear) {
+        params.append('fiscal_year_id', this.filters.fiscalYear);
+      }
+      if (this.filters.accountingPeriod) {
+        params.append('accounting_period_id', this.filters.accountingPeriod);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      
+      // Redirect to backend PDF route with query parameters
+      const pdfUrl = `/print/reports/account-statement/pdf?${params.toString()}`;
+      window.location.href = pdfUrl;
     },
     
   },

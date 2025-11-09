@@ -440,8 +440,8 @@ class PrintController extends Controller
      */
     public function printAccountStatement(Request $request)
     {
-        // Set locale for translations
-        app()->setLocale('ar');
+        // // Set locale for translations
+        // app()->setLocale('ar');
         
         // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
@@ -479,7 +479,7 @@ class PrintController extends Controller
     public function downloadAccountStatementPDF(Request $request)
     {
         // Set locale for translations
-        app()->setLocale('ar');
+        // app()->setLocale('ar');
         
         // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
