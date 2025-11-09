@@ -75,7 +75,7 @@ class Utility extends Model
         }
         
         // Handle different output types
-        if ($data['type'] == 'view') {
+        if ($data['type'] == 'preview') {
             return $pdf->inline($data['file_name']);
         } else if ($data['type'] == 'download') {
             return $pdf->download($data['file_name']);
