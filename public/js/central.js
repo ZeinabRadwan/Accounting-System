@@ -22898,12 +22898,12 @@ var map = {
 		1551
 	],
 	"./reports/account-statement": [
-		70793,
-		793
+		28964,
+		8964
 	],
 	"./reports/account-statement.vue": [
-		70793,
-		793
+		28964,
+		8964
 	],
 	"./reports/balance-sheet": [
 		82732,
@@ -119556,7 +119556,7 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/km.svg?636e9ed727bb8f64496
 /******/ 			if (chunkId === 5827) return "js/5827.js";
 /******/ 			if (chunkId === 1773) return "js/1773.js";
 /******/ 			if (chunkId === 1551) return "js/1551.js";
-/******/ 			if (chunkId === 793) return "js/793.js";
+/******/ 			if (chunkId === 8964) return "js/8964.js";
 /******/ 			if (chunkId === 2732) return "js/2732.js";
 /******/ 			if (chunkId === 249) return "js/249.js";
 /******/ 			if (chunkId === 9231) return "js/9231.js";

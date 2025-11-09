@@ -722,6 +722,7 @@ Route::middleware([
     Route::get('/print/reports/summary', [App\Http\Controllers\PrintController::class, 'printSummary'])->name('print.reports.summary');
     Route::get('/print/reports/account-statement', [App\Http\Controllers\PrintController::class, 'printAccountStatement'])->name('print.reports.account-statement');
     Route::get('/print/reports/account-statement/pdf', [App\Http\Controllers\PrintController::class, 'downloadAccountStatementPDF'])->name('print.reports.account-statement.pdf');
+    Route::get('/print/reports/account-statement/preview', [App\Http\Controllers\PrintController::class, 'previewAccountStatementPDF'])->name('print.reports.account-statement.preview');
     Route::get('/print/reports/today-report', [App\Http\Controllers\PrintController::class, 'printTodayReport'])->name('print.reports.today-report');
     Route::get('/print/reports/invoice-summary', [App\Http\Controllers\PrintController::class, 'printInvoiceSummary'])->name('print.reports.invoice-summary');
     Route::get('/print/reports/purchase-summary', [App\Http\Controllers\PrintController::class, 'printPurchaseSummary'])->name('print.reports.purchase-summary');

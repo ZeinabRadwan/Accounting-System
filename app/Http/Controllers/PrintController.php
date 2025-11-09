@@ -476,6 +476,53 @@ class PrintController extends Controller
     /**
      * Download Account Statement PDF
      */
+    public function previewAccountStatementPDF(Request $request)
+    {
+        // Set locale for translations
+        // app()->setLocale('ar');
+        
+        // Use the dedicated print method that gets ALL data without pagination
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportResponse = $reportController->accountStatementForPrint($request);
+        
+        // Handle JsonResponse
+        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportResponse->getData(true);
+        } else {
+            $reportData = $reportResponse;
+        }
+        
+        if (!$reportData['success']) {
+            abort(404, 'Report data not found');
+        }
+        
+        $accountStatementData = $reportData['data'];
+        
+        // Get the default template for reports
+        $template = PrintTemplate::byModule('reports')->default()->first();
+        
+        // Generate filename
+        $accountName = $accountStatementData['chart_of_account']['name'] ?? 'Account';
+        $fromDate = $accountStatementData['filters']['from_date'] ?? '';
+        $toDate = $accountStatementData['filters']['to_date'] ?? '';
+        $filename = 'Account-Statement-' . str_replace(' ', '-', $accountName) . '-' . $fromDate . '-to-' . $toDate . '.pdf';
+        $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
+        
+        // Use Utility::buildPdf to generate PDF
+        return \App\Models\Utility::buildPdf([
+            'view' => $template ? 'print.reports.account-statement' : 'print.account-statement-basic',
+            'view_data' => compact('accountStatementData', 'template'),
+            'type' => 'preview',
+            'file_name' => $filename,
+            'header' => '',
+            'footer' => '',
+            'header_spacing' => '2',
+            'margins' => [
+                'top' => '10mm',
+                'bottom' => '10mm',
+            ]
+        ]);
+    }
     public function downloadAccountStatementPDF(Request $request)
     {
         // Set locale for translations
