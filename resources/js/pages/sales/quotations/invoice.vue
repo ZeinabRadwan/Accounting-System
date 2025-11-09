@@ -7,9 +7,6 @@
       <div class="col-lg-12 col-xl-12">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">
-              {{ $t('Create quotation to invoice') }}
-            </h3>
             <router-link :to="{ name: 'quotations.index' }" class="btn btn-info float-right">
               <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
             </router-link>
@@ -140,7 +137,9 @@
                         <td style="min-width: 120px;">
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
-                              data-field="quantity" @click="
+                              data-field="quantity" 
+                              :disabled="item.isFromQuotation"
+                              @click="
                                 generateItemTotal(
                                   item.qty,
                                   'qty',
@@ -155,11 +154,14 @@
                                 'is-invalid': form.errors.has(`selectedProducts.${index}.qty`),
                                 'insufficient-stock-input': Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product'
                               }"
+                              :readonly="item.isFromQuotation"
                               @input="generateItemTotal(item.qty, 'qty', index, '')"
                               placeholder="Quantity" />
 
                             <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
-                              data-field="quantity" @click="
+                              data-field="quantity" 
+                              :disabled="item.isFromQuotation"
+                              @click="
                                 generateItemTotal(
                                   item.qty,
                                   'qty',
@@ -177,6 +179,7 @@
                             <input type="number" step="any" :id="`unitPrice-${index+1}`" v-model.number="item.unitPrice"
                               name="unitPrice" class="quantity-field border-0" required min="0" 
                               :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.unitPrice`) }"
+                              :readonly="item.isFromQuotation"
                               @input="generateItemTotal(item.unitPrice, 'price', index, '')" />
                           </div>
                           <div v-if="form.errors.has(`selectedProducts.${index}.unitPrice`)" class="invalid-feedback d-block">
@@ -191,6 +194,7 @@
                               class="form-control form-control-sm" 
                               style="width: 60px;"
                               :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.discountType`) }"
+                              :disabled="item.isFromQuotation"
                               @change="calculateProductDiscount(index)">
                               <option value="fixed">{{ $t("Fixed") }}</option>
                               <option value="percentage">{{ $t("%") }}</option>
@@ -204,6 +208,7 @@
                               min="0" 
                               :max="item.discountType == 'percentage' ? 100 : (item.unitPrice * item.qty)"
                               :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.discount`) }"
+                              :readonly="item.isFromQuotation"
                               placeholder="0"
                               @change="calculateProductDiscount(index)"
                               @keyup="calculateProductDiscount(index)" />
@@ -220,6 +225,7 @@
                               v-model="item.vat_rate_id" 
                               class="form-control form-control-sm flex-grow-1"
                               :class="{ 'is-invalid': form.errors.has(`selectedProducts.${index}.vat_rate_id`) }"
+                              :disabled="item.isFromQuotation"
                               @change="onVatRateChange(index)"
                               style="min-width: 80px;">
                               <option value="">{{ $t('Select VAT') }}</option>
@@ -237,7 +243,7 @@
                         </td>
                         <td style="min-width: 60px;">
                           <span class="form-control-plaintext form-control-sm text-center">
-                            {{ item.productTax }} <span class="saudi-riyal">ê</span>
+                            {{ formatToTwoDecimals(item.taxType === 'Inclusive' ? (item.totalTax || 0) : (item.productTax || 0)) }} <span class="saudi-riyal">ê</span>
                           </span>
                         </td>
                         <td style="min-width: 80px;">{{ item.totalPrice }} <span class="saudi-riyal">ê</span></td>
@@ -876,7 +882,7 @@
             </div>
 
             <!-- Summary Table Comparison -->
-            <div class="row">
+            <div class="row mb-4">
               <div class="col-12">
                 <h5 class="text-primary">Summary Table Comparison:</h5>
                 <div class="table-responsive">
@@ -948,6 +954,281 @@
                       </tr>
                     </tbody>
                   </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quotation Totals Storage -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h5 class="text-success">📊 Quotation Totals (Stored Values):</h5>
+                <div class="alert alert-info">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <strong>isQuotationLoaded:</strong> 
+                      <span :class="isQuotationLoaded ? 'badge badge-success' : 'badge badge-warning'">
+                        {{ isQuotationLoaded ? '✅ TRUE' : '❌ FALSE' }}
+                      </span>
+                    </div>
+                    <div class="col-md-4">
+                      <strong>Using Quotation Totals:</strong> 
+                      <span :class="isQuotationLoaded ? 'badge badge-success' : 'badge badge-secondary'">
+                        {{ isQuotationLoaded ? 'YES' : 'NO' }}
+                      </span>
+                    </div>
+                    <div class="col-md-4">
+                      <strong>Products from Quotation:</strong> 
+                      <span class="badge badge-info">
+                        {{ form.selectedProducts.filter(p => p.isFromQuotation).length }} / {{ form.selectedProducts.length }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-bordered table-sm">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>Field</th>
+                        <th>Quotation Total (Stored)</th>
+                        <th>Current Form Value</th>
+                        <th>Computed Value</th>
+                        <th>Match Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>subTotal</strong></td>
+                        <td>{{ quotationTotals.subTotal }}</td>
+                        <td>{{ form.subTotal }}</td>
+                        <td>{{ getTotalUnitPrice() }}</td>
+                        <td>
+                          <span :class="quotationTotals.subTotal === form.subTotal ? 'badge badge-success' : 'badge badge-danger'">
+                            {{ quotationTotals.subTotal === form.subTotal ? '✅ MATCH' : '❌ MISMATCH' }}
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>totalDiscount</strong></td>
+                        <td>{{ quotationTotals.totalDiscount }}</td>
+                        <td>{{ form.totalDiscount }}</td>
+                        <td>{{ getTotalDiscount() }}</td>
+                        <td>
+                          <span :class="quotationTotals.totalDiscount === form.totalDiscount ? 'badge badge-success' : 'badge badge-danger'">
+                            {{ quotationTotals.totalDiscount === form.totalDiscount ? '✅ MATCH' : '❌ MISMATCH' }}
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>totalAfterDiscount</strong></td>
+                        <td>{{ quotationTotals.totalAfterDiscount }}</td>
+                        <td>{{ form.subTotal - form.totalDiscount }}</td>
+                        <td>{{ getTotalAfterDiscount() }}</td>
+                        <td>
+                          <span :class="quotationTotals.totalAfterDiscount === (form.subTotal - form.totalDiscount) ? 'badge badge-success' : 'badge badge-danger'">
+                            {{ quotationTotals.totalAfterDiscount === (form.subTotal - form.totalDiscount) ? '✅ MATCH' : '❌ MISMATCH' }}
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>totalTax</strong></td>
+                        <td>{{ quotationTotals.totalTax }}</td>
+                        <td>{{ form.productTotalTax }}</td>
+                        <td>{{ getProductTotalTax() }}</td>
+                        <td>
+                          <span :class="quotationTotals.totalTax === form.productTotalTax ? 'badge badge-success' : 'badge badge-danger'">
+                            {{ quotationTotals.totalTax === form.productTotalTax ? '✅ MATCH' : '❌ MISMATCH' }}
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>totalAfterTax</strong></td>
+                        <td>{{ quotationTotals.totalAfterTax }}</td>
+                        <td>{{ quotationTotals.totalAfterDiscount + quotationTotals.totalTax }}</td>
+                        <td>{{ getSubTotal() }}</td>
+                        <td>
+                          <span :class="quotationTotals.totalAfterTax === getSubTotal() ? 'badge badge-success' : 'badge badge-danger'">
+                            {{ quotationTotals.totalAfterTax === getSubTotal() ? '✅ MATCH' : '❌ MISMATCH' }}
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>netTotal</strong></td>
+                        <td>{{ quotationTotals.netTotal }}</td>
+                        <td>{{ form.netTotal }}</td>
+                        <td>{{ getSubTotal() }}</td>
+                        <td>
+                          <span :class="quotationTotals.netTotal === form.netTotal ? 'badge badge-success' : 'badge badge-danger'">
+                            {{ quotationTotals.netTotal === form.netTotal ? '✅ MATCH' : '❌ MISMATCH' }}
+                          </span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Detailed Calculation Breakdown -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h5 class="text-danger">🔢 Detailed Calculation Breakdown:</h5>
+                <div class="card bg-light">
+                  <div class="card-body">
+                    <h6 class="text-primary mb-3">Step-by-Step Calculation Formulas:</h6>
+                    <div class="debug-steps">
+                      <div class="step">
+                        <strong>1. Subtotal (Total Unit Price):</strong><br>
+                        <code v-if="isQuotationLoaded">
+                          Using Quotation: {{ quotationTotals.subTotal }}<br>
+                          Formula: Sum of (salePrice × quantity) for all products
+                        </code>
+                        <code v-else>
+                          Formula: Sum of (unitPrice × qty) for all products<br>
+                          Calculation: {{ getCalculationBreakdown().subtotalFormula }}
+                        </code>
+                      </div>
+                      <div class="step">
+                        <strong>2. Total Discount:</strong><br>
+                        <code v-if="isQuotationLoaded">
+                          Using Quotation: {{ quotationTotals.totalDiscount }}<br>
+                          Formula: Sum of discount_amount for all products
+                        </code>
+                        <code v-else>
+                          Formula: Sum of discountAmount for all products<br>
+                          Calculation: {{ getCalculationBreakdown().discountFormula }}
+                        </code>
+                      </div>
+                      <div class="step">
+                        <strong>3. Total After Discount:</strong><br>
+                        <code v-if="isQuotationLoaded">
+                          Using Quotation: {{ quotationTotals.totalAfterDiscount }}<br>
+                          Formula: subTotal - totalDiscount
+                        </code>
+                        <code v-else>
+                          Formula: subTotal - totalDiscount<br>
+                          Calculation: {{ getCalculationBreakdown().afterDiscountFormula }}
+                        </code>
+                      </div>
+                      <div class="step">
+                        <strong>4. Total VAT/Tax:</strong><br>
+                        <code v-if="isQuotationLoaded">
+                          Using Quotation: {{ quotationTotals.totalTax }}<br>
+                          Formula: Sum of taxAmount for all products
+                        </code>
+                        <code v-else>
+                          Formula: Sum of (taxType === 'Inclusive' ? totalTax : productTax) for all products<br>
+                          Calculation: {{ getCalculationBreakdown().taxFormula }}
+                        </code>
+                      </div>
+                      <div class="step">
+                        <strong>5. Total After Tax:</strong><br>
+                        <code v-if="isQuotationLoaded">
+                          Using Quotation: {{ quotationTotals.totalAfterTax }}<br>
+                          Formula: totalAfterDiscount + totalTax
+                        </code>
+                        <code v-else>
+                          Formula: totalAfterDiscount + totalTax<br>
+                          Calculation: {{ getCalculationBreakdown().afterTaxFormula }}
+                        </code>
+                      </div>
+                      <div class="step">
+                        <strong>6. Net Total (Final):</strong><br>
+                        <code v-if="isQuotationLoaded">
+                          Using Quotation: {{ quotationTotals.netTotal }}<br>
+                          Formula: totalAfterTax (or quotation total if available)
+                        </code>
+                        <code v-else>
+                          Formula: totalAfterTax + transportCost - globalDiscount<br>
+                          Calculation: {{ getCalculationBreakdown().netTotalFormula }}
+                        </code>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product-Level Calculation Breakdown -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <h5 class="text-warning">📦 Product-Level Calculation Breakdown:</h5>
+                <div v-if="form.selectedProducts && form.selectedProducts.length > 0">
+                  <div v-for="(item, index) in form.selectedProducts" :key="`calc-${index}`" class="card mb-3">
+                    <div class="card-header bg-light">
+                      <strong>{{ item.name }} ({{ item.code }})</strong>
+                      <span v-if="item.isFromQuotation" class="badge badge-success ml-2">From Quotation</span>
+                      <span v-else class="badge badge-info ml-2">Manual Entry</span>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="debug-step">
+                            <strong>Unit Price:</strong> {{ item.unitPrice }}<br>
+                            <strong>Quantity:</strong> {{ item.qty }}<br>
+                            <strong>Total Before Discount:</strong> {{ item.totalBeforeDiscount || (item.unitPrice * item.qty) }}<br>
+                            <small class="text-muted">Formula: unitPrice × qty</small>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="debug-step">
+                            <strong>Discount Type:</strong> {{ item.discountType || 'fixed' }}<br>
+                            <strong>Discount Value:</strong> {{ item.discount || 0 }}<br>
+                            <strong>Discount Amount:</strong> {{ item.discountAmount || 0 }}<br>
+                            <small class="text-muted" v-if="item.discountType === 'percentage'">
+                              Formula: (totalBeforeDiscount × discount) / 100
+                            </small>
+                            <small class="text-muted" v-else>
+                              Formula: discount (fixed amount)
+                            </small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mt-2">
+                        <div class="col-md-6">
+                          <div class="debug-step">
+                            <strong>Total After Discount:</strong> {{ item.totalAfterDiscount || 0 }}<br>
+                            <small class="text-muted">Formula: totalBeforeDiscount - discountAmount</small>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="debug-step">
+                            <strong>Tax Type:</strong> {{ item.taxType || 'N/A' }}<br>
+                            <strong>VAT Rate ID:</strong> {{ item.vat_rate_id || 'Not Set' }}<br>
+                            <strong>VAT Code:</strong> {{ item.selectedVatRate ? item.selectedVatRate.code : 'N/A' }}<br>
+                            <strong>VAT %:</strong> {{ item.selectedVatRate ? item.selectedVatRate.rate : 0 }}%
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mt-2">
+                        <div class="col-md-6">
+                          <div class="debug-step">
+                            <strong>Product Tax (per unit):</strong> {{ item.productTax || 0 }}<br>
+                            <strong>Total Tax:</strong> {{ item.totalTax || 0 }}<br>
+                            <small class="text-muted" v-if="item.taxType === 'Inclusive'">
+                              Formula: totalTax = productTax × qty (tax included in price)
+                            </small>
+                            <small class="text-muted" v-else>
+                              Formula: productTax = tax amount, totalTax = productTax (tax added to price)
+                            </small>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="debug-step">
+                            <strong>Total Price (with VAT):</strong> {{ item.totalPrice || 0 }}<br>
+                            <small class="text-muted" v-if="item.taxType === 'Inclusive'">
+                              Formula: totalPrice = totalAfterDiscount (tax already included)
+                            </small>
+                            <small class="text-muted" v-else>
+                              Formula: totalPrice = totalAfterDiscount + totalTax
+                            </small>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div v-else class="alert alert-warning">
+                  No products selected
                 </div>
               </div>
             </div>
@@ -1044,6 +1325,15 @@ export default {
     currentLocale: 'en',
     showStockAdjustmentModal: false,
     selectedProductForStockAdjustment: null,
+    quotationTotals: {
+      subTotal: 0,
+      totalTax: 0,
+      totalDiscount: 0,
+      totalAfterDiscount: 0,
+      totalAfterTax: 0,
+      netTotal: 0,
+    },
+    isQuotationLoaded: false,
   }),
   computed: {
     ...mapGetters('operations', ['items', 'appInfo']),
@@ -1179,7 +1469,8 @@ export default {
           ? data.data.discount
           : data.data.discountPercentage
       this.form.discountPercentage = data.data.discountPercentage
-      this.form.totalDiscount = data.data.discount
+      // Note: data.data.discount is the global discount, not product discount total
+      // We'll set form.totalDiscount to product discount total later after calculating quotationTotals
       this.form.transportCost = data.data.transport
       this.form.subTotal = data.data.subTotal
       this.form.deliveryPlace = data.data.deliveryPlace
@@ -1190,18 +1481,61 @@ export default {
       } else {
         this.form.status = data.data.status || 1 // Use quotation status or default to Active
       }
+      
+      // Store quotation totals for exact matching
+      const totalUnitPrice = data.data.products.reduce((sum, p) => sum + (p.salePrice * p.quantity), 0)
+      
+      // Calculate total discount - recalculate if discount_amount is 0 but discount value exists
+      const totalProductDiscount = data.data.products.reduce((sum, p) => {
+        let discountAmount = p.discount_amount || 0
+        const discountType = p.discountType || p.discount_type || 'fixed'
+        const discountValue = p.discount || 0
+        const totalBeforeDiscount = p.salePrice * p.quantity
+        
+        // If discount value exists but discount_amount is 0, recalculate discount_amount
+        if (discountValue > 0 && discountAmount === 0 && totalBeforeDiscount > 0) {
+          if (discountType === 'percentage') {
+            discountAmount = this.roundToTwoDecimals((totalBeforeDiscount * discountValue) / 100)
+          } else {
+            discountAmount = this.roundToTwoDecimals(discountValue)
+          }
+        }
+        
+        return sum + discountAmount
+      }, 0)
+      
+      const totalAfterDiscount = totalUnitPrice - totalProductDiscount
+      const totalProductTax = data.data.products.reduce((sum, p) => sum + (p.taxAmount || 0), 0)
+      const totalAfterTax = totalAfterDiscount + totalProductTax
+      
+      this.quotationTotals = {
+        subTotal: totalUnitPrice,
+        totalTax: totalProductTax,
+        totalDiscount: totalProductDiscount,
+        totalAfterDiscount: totalAfterDiscount,
+        totalAfterTax: totalAfterTax,
+        netTotal: data.data.total || data.data.quotationTotal || totalAfterTax,
+      }
+      
       this.form.selectedProducts = this.assignProducts(data.data.products)
+      this.isQuotationLoaded = true
       
       // Set default tax if needed (for Saudi Arabia or if quotation has no tax)
       this.setDefaultTax()
       
-      // Recalculate totals after loading data
-      this.calculateSum()
+      // Use quotation totals directly instead of recalculating
+      // Note: form.totalDiscount is set to product discount total, not global discount
+      this.form.subTotal = this.quotationTotals.subTotal
+      this.form.productTotalTax = this.quotationTotals.totalTax
+      this.form.totalDiscount = this.quotationTotals.totalDiscount
+      // Set netTotal to totalAfterTax (sum of Total After Tax column) instead of netTotal from quotation
+      this.form.netTotal = Number(this.quotationTotals.totalAfterTax.toFixed(2))
       
       // Debug logging
       console.log('Quotation data loaded:', {
         client: this.form.client,
         selectedProducts: this.form.selectedProducts,
+        quotationTotals: this.quotationTotals,
         isSaudiArabia: this.isSaudiArabia,
         status: this.form.status,
         hasChartOfAccount: this.hasChartOfAccount,
@@ -1234,11 +1568,14 @@ export default {
       // Set default tax for Saudi Arabia if no tax is selected
       this.setDefaultTax()
       
-      // Recalculate VAT for all products after taxes are loaded
-      this.recalculateAllProductsVat()
-      
-      // Force update VAT rate selection for all products
-      this.forceUpdateVatRateSelection()
+      // Only recalculate if quotation is not loaded (for new products added manually)
+      if (!this.isQuotationLoaded) {
+        // Recalculate VAT for all products after taxes are loaded
+        this.recalculateAllProductsVat()
+        
+        // Force update VAT rate selection for all products
+        this.forceUpdateVatRateSelection()
+      }
       
       // Debug: Log VAT rate matching
       console.log('VAT Rate Matching Debug:', {
@@ -1323,6 +1660,10 @@ export default {
     // update array
     generateItemTotal(value, type, index, action) {
       let item = this.form.selectedProducts[index]
+      // Skip recalculation if product is from quotation
+      if (item && item.isFromQuotation) {
+        return
+      }
       if (item) {
         if (type == 'qty') {
           item.qty = value
@@ -1380,32 +1721,40 @@ export default {
 
     // calculate sum
     calculateSum() {
-      // calculate subtotal (without VAT for quotations)
-      this.form.subTotal = this.form.selectedProducts.reduce(function (
-        prev,
-        cur
-      ) {
-        return Number((prev + (cur.totalAfterDiscount || 0)).toFixed(2))
-      },
-        0)
+      // If quotation is loaded, use quotation totals directly instead of recalculating
+      if (this.isQuotationLoaded && this.quotationTotals) {
+        this.form.subTotal = this.quotationTotals.subTotal
+        this.form.productTotalTax = this.quotationTotals.totalTax
+        this.form.totalDiscount = this.quotationTotals.totalDiscount
+        // Continue with global discount and invoice tax calculations
+      } else {
+        // calculate subtotal (without VAT for quotations)
+        this.form.subTotal = this.form.selectedProducts.reduce(function (
+          prev,
+          cur
+        ) {
+          return Number((prev + (cur.totalAfterDiscount || 0)).toFixed(2))
+        },
+          0)
 
-      // calculate product tax
-      this.form.productTotalTax = this.form.selectedProducts.reduce(function (
-        prev,
-        cur
-      ) {
-        return Number((prev + cur.totalTax).toFixed(2))
-      },
-        0)
+        // calculate product tax
+        this.form.productTotalTax = this.form.selectedProducts.reduce(function (
+          prev,
+          cur
+        ) {
+          return Number((prev + cur.totalTax).toFixed(2))
+        },
+          0)
 
-      // calculate total product discount
-      this.form.totalDiscount = this.form.selectedProducts.reduce(function (
-        prev,
-        cur
-      ) {
-        return Number((prev + (cur.discountAmount || 0)).toFixed(2))
-      },
-        0)
+        // calculate total product discount
+        this.form.totalDiscount = this.form.selectedProducts.reduce(function (
+          prev,
+          cur
+        ) {
+          return Number((prev + (cur.discountAmount || 0)).toFixed(2))
+        },
+          0)
+      }
 
       // calculate global discount (skip for Saudi Arabia)
       let globalDiscount = 0
@@ -1430,7 +1779,10 @@ export default {
       }
 
       // calculate final total
-      if (this.isSaudiArabia) {
+      if (this.isQuotationLoaded && this.quotationTotals) {
+        // Use quotation totalAfterTax (sum of Total After Tax column) instead of netTotal
+        this.form.netTotal = Number(this.quotationTotals.totalAfterTax.toFixed(2))
+      } else if (this.isSaudiArabia) {
         // For Saudi Arabia: Net Total = SubTotal + Product VAT (no global discount, no invoice tax, no transport cost)
         this.form.netTotal = Number((this.form.subTotal + this.form.productTotalTax).toFixed(2))
       } else {
@@ -1445,7 +1797,7 @@ export default {
       return
     },
 
-    // get quotation products
+    // get quotation products - use exact values from quotation without recalculating
     assignProducts(quotationProducts) {
       for (var key in quotationProducts) {
         let quotationProduct = quotationProducts[key]
@@ -1453,57 +1805,58 @@ export default {
         // Find the VAT rate object based on vat_rate_id
         let vatRate = this.taxes ? this.taxes.find(tax => tax.id === quotationProduct.vat_rate_id) : null;
         
-        // Calculate VAT based on the retrieved vat_rate_id
-        let productTax = 0;
-        let totalTax = 0;
-        let totalPrice = 0;
+        // Use exact values from quotation - do not recalculate
+        const totalBeforeDiscount = quotationProduct.salePrice * quotationProduct.quantity
+        let discountAmount = quotationProduct.discount_amount || 0
+        const discountType = quotationProduct.discountType || quotationProduct.discount_type || 'fixed'
+        let discountValue = quotationProduct.discount || 0
         
-        if (vatRate && quotationProduct.vat_rate_id) {
-          // Calculate VAT based on the rate from vat_rates table
-          const totalAfterDiscount = (quotationProduct.salePrice * quotationProduct.quantity) - (quotationProduct.discount_amount || 0);
-          productTax = this.roundToTwoDecimals((totalAfterDiscount * vatRate.rate) / 100);
-          totalTax = this.roundToTwoDecimals(productTax);
-          totalPrice = this.roundToTwoDecimals(totalAfterDiscount + totalTax);
-        } else {
-          // Calculate VAT type from existing taxAmount: vat / Total After Discount
-          const totalAfterDiscount = (quotationProduct.salePrice * quotationProduct.quantity) - (quotationProduct.discount_amount || 0);
-          const existingTaxAmount = quotationProduct.taxAmount || 0;
-          
-          if (existingTaxAmount > 0 && totalAfterDiscount > 0) {
-            // Calculate VAT rate from existing tax: vat / Total After Discount
-            const calculatedVatRate = this.roundToTwoDecimals((existingTaxAmount / totalAfterDiscount) * 100);
-            
-            // Find matching VAT rate or create a temporary one
-            let matchingVatRate = this.taxes ? this.taxes.find(tax => Math.abs(tax.rate - calculatedVatRate) < 0.01) : null;
-            
-            if (!matchingVatRate && this.taxes && this.taxes.length > 0) {
-              // Use the closest VAT rate
-              matchingVatRate = this.taxes.reduce((closest, current) => {
-                const currentDiff = Math.abs(current.rate - calculatedVatRate);
-                const closestDiff = Math.abs(closest.rate - calculatedVatRate);
-                return currentDiff < closestDiff ? current : closest;
-              });
-            }
-            
-            if (matchingVatRate) {
-              productTax = this.roundToTwoDecimals((totalAfterDiscount * matchingVatRate.rate) / 100);
-              totalTax = this.roundToTwoDecimals(productTax);
-              totalPrice = this.roundToTwoDecimals(totalAfterDiscount + totalTax);
-              vatRate = matchingVatRate; // Update vatRate for later use
-              
-              // Update the quotationProduct to include the vat_rate_id
-              quotationProduct.vat_rate_id = matchingVatRate.id;
-            } else {
-              // Fallback to existing values
-              productTax = existingTaxAmount;
-              totalTax = existingTaxAmount;
-              totalPrice = quotationProduct.unitCostTotal || (totalAfterDiscount + existingTaxAmount);
-            }
+        // If discount value exists but discount_amount is 0, recalculate discount_amount for consistency
+        if (discountValue > 0 && discountAmount === 0 && totalBeforeDiscount > 0) {
+          if (discountType === 'percentage') {
+            discountAmount = this.roundToTwoDecimals((totalBeforeDiscount * discountValue) / 100)
           } else {
-            // No VAT
-            productTax = 0;
-            totalTax = 0;
-            totalPrice = totalAfterDiscount;
+            discountAmount = this.roundToTwoDecimals(discountValue)
+          }
+        }
+        
+        const totalAfterDiscount = totalBeforeDiscount - discountAmount
+        const taxAmount = quotationProduct.taxAmount || 0
+        
+        // For VAT display: use taxAmount directly (for Inclusive, it's already total; for Exclusive, it's per unit * qty)
+        // The taxAmount from API is the total tax amount for the product
+        let productTax = 0
+        let totalTax = taxAmount
+        
+        // For Inclusive tax, productTax is per unit, for Exclusive it's total
+        if (quotationProduct.taxType === 'Inclusive' && quotationProduct.quantity > 0) {
+          productTax = this.roundToTwoDecimals(taxAmount / quotationProduct.quantity)
+        } else {
+          productTax = taxAmount
+        }
+        
+        // Calculate totalPrice correctly based on tax type
+        // For Exclusive: totalPrice = totalAfterDiscount + totalTax
+        // For Inclusive: totalPrice = totalAfterDiscount (tax already included)
+        let totalPrice = 0
+        if (quotationProduct.taxType === 'Inclusive') {
+          // Tax is already included in the price
+          totalPrice = totalAfterDiscount
+        } else {
+          // Tax is added to the price
+          totalPrice = totalAfterDiscount + totalTax
+        }
+        
+        // Round to 2 decimals
+        totalPrice = this.roundToTwoDecimals(totalPrice)
+        
+        // Use discount value from quotation, or calculate from discountAmount if not provided
+        if (discountValue === 0 && discountAmount > 0 && totalBeforeDiscount > 0) {
+          // Calculate discount value if not provided but discountAmount exists
+          if (discountType === 'percentage') {
+            discountValue = this.roundToTwoDecimals((discountAmount / totalBeforeDiscount) * 100)
+          } else {
+            discountValue = discountAmount
           }
         }
         
@@ -1526,14 +1879,16 @@ export default {
           selectedVatRate: vatRate,
           vat_rate_id: quotationProduct.vat_rate_id || (vatRate ? vatRate.id : null),
           itemType: quotationProduct.itemType || 'product',
-          discountType: quotationProduct.discount_type || 'fixed',
-          discount: quotationProduct.discount_amount || 0,
-          discountAmount: quotationProduct.discount_amount || 0,
-          totalBeforeDiscount: quotationProduct.salePrice * quotationProduct.quantity,
-          totalAfterDiscount: (quotationProduct.salePrice * quotationProduct.quantity) - (quotationProduct.discount_amount || 0),
+          discountType: discountType,
+          discount: discountValue,
+          discountAmount: discountAmount,
+          totalBeforeDiscount: totalBeforeDiscount,
+          totalAfterDiscount: totalAfterDiscount,
+          // Flag to prevent recalculation
+          isFromQuotation: true,
         })
       }
-      this.calculateSum()
+      // Don't call calculateSum - use quotation totals directly
       return this.form.selectedProducts
     },
 
@@ -1611,6 +1966,10 @@ export default {
 
     // Format form values before submission
     formatFormValues() {
+      // Calculate sub_total as: subTotal - totalDiscount + totalTax
+      const calculatedSubTotal = Number((this.form.subTotal - (this.form.totalDiscount || 0) + (this.form.totalTax || this.form.productTotalTax || 0)).toFixed(2));
+      this.form.subTotal = calculatedSubTotal;
+      
       // Ensure all monetary values are properly formatted to 2 decimal places
       if (this.form.discount) {
         this.form.discount = Number(this.form.discount).toFixed(2);
@@ -1939,6 +2298,10 @@ export default {
     // calculate product discount
     calculateProductDiscount(index) {
       let item = this.form.selectedProducts[index];
+      // Skip recalculation if product is from quotation
+      if (item && item.isFromQuotation) {
+        return
+      }
       if (item) {
         // Calculate discount amount based on type
         let discountAmount;
@@ -1961,6 +2324,10 @@ export default {
     // Handle VAT rate change
     onVatRateChange(index) {
       let item = this.form.selectedProducts[index];
+      // Skip recalculation if product is from quotation
+      if (item && item.isFromQuotation) {
+        return
+      }
       if (item) {
         // Find the selected VAT rate object
         const selectedVatRate = this.taxes ? this.taxes.find(tax => tax.id === item.vat_rate_id) : null;
@@ -2003,9 +2370,20 @@ export default {
     roundToTwoDecimals(value) {
       return Math.round((value + Number.EPSILON) * 100) / 100;
     },
+    // format to two decimals for display
+    formatToTwoDecimals(value) {
+      if (value === null || value === undefined || value === '') return '0.00';
+      const num = Number(value);
+      if (isNaN(num)) return '0.00';
+      return num.toFixed(2);
+    },
 
     // Methods to get totals on-demand (forces reactivity)
     getTotalUnitPrice() {
+      // Use quotation totals if available
+      if (this.isQuotationLoaded && this.quotationTotals) {
+        return this.roundToTwoDecimals(this.quotationTotals.subTotal);
+      }
       if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
         return 0;
       }
@@ -2016,6 +2394,10 @@ export default {
     },
 
     getTotalAfterDiscount() {
+      // Use quotation totals if available
+      if (this.isQuotationLoaded && this.quotationTotals) {
+        return this.roundToTwoDecimals(this.quotationTotals.totalAfterDiscount);
+      }
       if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
         return 0;
       }
@@ -2026,6 +2408,10 @@ export default {
     },
 
     getTotalDiscount() {
+      // Use quotation totals if available
+      if (this.isQuotationLoaded && this.quotationTotals) {
+        return this.roundToTwoDecimals(this.quotationTotals.totalDiscount);
+      }
       if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
         return 0;
       }
@@ -2036,16 +2422,26 @@ export default {
     },
 
     getProductTotalTax() {
+      // Use quotation totals if available
+      if (this.isQuotationLoaded && this.quotationTotals) {
+        return this.roundToTwoDecimals(this.quotationTotals.totalTax);
+      }
       if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
         return 0;
       }
+      // Sum VAT column values (totalTax for Inclusive, productTax for Exclusive)
       const total = this.form.selectedProducts.reduce((total, item) => {
-        return total + (item.totalTax || 0);
+        const vatValue = item.taxType === 'Inclusive' ? (item.totalTax || 0) : (item.productTax || 0);
+        return total + vatValue;
       }, 0);
       return this.roundToTwoDecimals(total);
     },
 
     getSubTotal() {
+      // Use quotation totals if available
+      if (this.isQuotationLoaded && this.quotationTotals) {
+        return this.roundToTwoDecimals(this.quotationTotals.totalAfterTax);
+      }
       if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
         return 0;
       }
@@ -2170,6 +2566,11 @@ export default {
       }
       
       this.form.selectedProducts.forEach((item, index) => {
+        // Skip recalculation if product is from quotation
+        if (item.isFromQuotation) {
+          return;
+        }
+        
         // Recalculate totalBeforeDiscount and totalAfterDiscount
         item.totalBeforeDiscount = this.roundToTwoDecimals(item.unitPrice * item.qty);
         item.totalAfterDiscount = this.roundToTwoDecimals(item.totalBeforeDiscount - (item.discountAmount || 0));
@@ -2226,6 +2627,72 @@ export default {
       };
     },
 
+    // Get detailed calculation breakdown for debug display
+    getCalculationBreakdown() {
+      if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
+        return {
+          subtotalFormula: 'No products',
+          discountFormula: 'No products',
+          afterDiscountFormula: 'No products',
+          taxFormula: 'No products',
+          afterTaxFormula: 'No products',
+          netTotalFormula: 'No products'
+        };
+      }
+
+      // Build subtotal formula
+      const subtotalParts = this.form.selectedProducts.map((item) => {
+        return `${item.unitPrice || 0} × ${item.qty || 0}`;
+      });
+      const subtotalFormula = subtotalParts.join(' + ') + ` = ${this.getTotalUnitPrice()}`;
+
+      // Build discount formula
+      const discountParts = this.form.selectedProducts
+        .filter(item => item.discountAmount && item.discountAmount > 0)
+        .map((item) => {
+          return `${item.discountAmount || 0}`;
+        });
+      const discountFormula = discountParts.length > 0 
+        ? discountParts.join(' + ') + ` = ${this.getTotalDiscount()}`
+        : `0 (no discounts) = ${this.getTotalDiscount()}`;
+
+      // Build after discount formula
+      const afterDiscountFormula = `${this.getTotalUnitPrice()} - ${this.getTotalDiscount()} = ${this.getTotalAfterDiscount()}`;
+
+      // Build tax formula
+      const taxParts = this.form.selectedProducts
+        .filter(item => {
+          const vatValue = item.taxType === 'Inclusive' ? (item.totalTax || 0) : (item.productTax || 0);
+          return vatValue > 0;
+        })
+        .map((item) => {
+          const vatValue = item.taxType === 'Inclusive' ? (item.totalTax || 0) : (item.productTax || 0);
+          return `${vatValue}`;
+        });
+      const taxFormula = taxParts.length > 0
+        ? taxParts.join(' + ') + ` = ${this.getProductTotalTax()}`
+        : `0 (no tax) = ${this.getProductTotalTax()}`;
+
+      // Build after tax formula
+      const afterTaxFormula = `${this.getTotalAfterDiscount()} + ${this.getProductTotalTax()} = ${this.getSubTotal()}`;
+
+      // Build net total formula
+      const transportCost = Number(this.form.transportCost || 0);
+      const globalDiscount = this.form.discountType == 1 
+        ? (this.getTotalAfterDiscount() * Number(this.form.discount || 0)) / 100
+        : Number(this.form.discount || 0);
+      const netTotalFormula = `${this.getSubTotal()} + ${transportCost} - ${globalDiscount} = ${this.form.netTotal}`;
+
+      return {
+        subtotalFormula: subtotalFormula,
+        discountFormula: discountFormula,
+        afterDiscountFormula: afterDiscountFormula,
+        taxFormula: taxFormula,
+        afterTaxFormula: afterTaxFormula,
+        netTotalFormula: netTotalFormula
+      };
+    },
+
     // Force update VAT rate selection for all products
     forceUpdateVatRateSelection() {
       if (!this.form.selectedProducts || this.form.selectedProducts.length === 0 || !this.taxes) {
@@ -2233,6 +2700,18 @@ export default {
       }
       
       this.form.selectedProducts.forEach((item, index) => {
+        // Skip recalculation if product is from quotation
+        if (item.isFromQuotation) {
+          // Only update selectedVatRate object if vat_rate_id exists, but don't recalculate values
+          if (item.vat_rate_id) {
+            const matchingVatRate = this.taxes.find(tax => tax.id === item.vat_rate_id);
+            if (matchingVatRate) {
+              this.$set(this.form.selectedProducts[index], 'selectedVatRate', matchingVatRate);
+            }
+          }
+          return;
+        }
+        
         if (item.vat_rate_id) {
           // Find the matching VAT rate
           const matchingVatRate = this.taxes.find(tax => tax.id === item.vat_rate_id);

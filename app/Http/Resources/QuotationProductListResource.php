@@ -22,6 +22,8 @@ class QuotationProductListResource extends JsonResource
             'taxAmount' => $this->tax_amount,
             'quantity' => $this->quantity,
             'discountAmount' => $this->discount_amount,
+            'discount' => $this->discount,
+            'discountType' => $this->discount_type,
             'purchasePricetotal' => $this->quantity * $this->purchase_price,
             'unitCostTotal' => $this->quantity * $this->unit_cost,
             'taxTotal' => $this->quantity * $this->tax_amount,
@@ -36,6 +38,13 @@ class QuotationProductListResource extends JsonResource
             'taxType' => $this->product->tax_type,
             'taxRate' => $this->product->productTax?->rate,
             'sales_account_id' => $this->product->sales_account_id,
+            'vat_rate_id' => $this->vat_rate_id,
+            'vatRate' => $this->vatRate ? [
+                'id' => $this->vatRate->id,
+                'name' => $this->vatRate->name,
+                'code' => $this->vatRate->code,
+                'rate' => $this->vatRate->rate,
+            ] : null,
             'selectedVatRate' => $this->product->productTax ? [
                 'id' => $this->product->productTax->id,
                 'name' => $this->product->productTax->name,

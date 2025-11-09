@@ -123,13 +123,13 @@
                         <td style="min-width: 200px;">
                           <div class="input-group custom-qty-input">
                             <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger" data-field="quantity" @click="generateItemTotal(item.qty, 'qty', i, 'decrement')" />
-                            <input type="number" step="any" :id="`Qty-${i+1}`" v-model="item.qty" name="quantity" class="quantity-field border-0 incrementor" required min="1" :max="item.itemType == 'product' ? item.inventoryCount : null" :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i}.qty`), 'insufficient-stock-input': Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product' }" @change="generateItemTotal($event.target.value, 'qty', i, '')" @keyup="generateItemTotal($event.target.value, 'qty', i, '')" @input="generateItemTotal($event.target.value, 'qty', i, '')" :placeholder="$t('Quantity')" />
+                            <input type="number" step="any" :id="`Qty-${i+1}`" v-model="item.qty" name="quantity" class="quantity-field border-0 incrementor" required min="1" :max="item.itemType == 'product' ? item.inventoryCount : null" :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i}.qty`), 'insufficient-stock-input': Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product' }" @change="generateItemTotal($event.target.value, 'qty', i, '')" :placeholder="$t('Quantity')" />
                             <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary" data-field="quantity" @click="generateItemTotal(item.qty, 'qty', i, 'increment')" />
                           </div>
                         </td>
-                        <td style="min-width: 150px;">
-                          <div class="input-group">
-                            <input type="number" step="any" min="0" :id="`unitPrice-${i+1}`" v-model="item.unitPrice" name="unitPrice" class="form-control form-control-sm border-0" style="width: 100px;" required @change="generateItemTotal($event.target.value, 'price', i, '')" @keyup="generateItemTotal($event.target.value, 'price', i, '')" @input="generateItemTotal($event.target.value, 'price', i, '')" />
+                        <td style="min-width: 200px;">
+                          <div class="input-group custom-qty-input">
+                            <input type="number" step="any" min="0" :id="`unitPrice-${i+1}`" v-model="item.unitPrice" name="unitPrice" class="quantity-field border-0" required @change="generateItemTotal($event.target.value, 'price', i, '')" />
                           </div>
                         </td>
                         <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.unitPrice * item.qty) }} <span class="saudi-riyal">ê</span></td>
@@ -139,26 +139,32 @@
                               <option value="fixed">{{ $t("Fixed") }}</option>
                               <option value="percentage">{{ $t("%") }}</option>
                             </select>
-                            <input type="number" v-model="item.discount" class="form-control form-control-sm" style="width: 80px;" step="any" min="0" :max="item.discountType == 'percentage' ? 100 : (item.unitPrice * item.qty)" :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i}.discount`) }" placeholder="0" @change="calculateProductDiscount(i)" @keyup="calculateProductDiscount(i)" @input="calculateProductDiscount(i)" />
+                            <input type="number" v-model="item.discount" class="form-control form-control-sm" style="width: 80px;" step="any" min="0" :max="item.discountType == 'percentage' ? 100 : (item.unitPrice * item.qty)" :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i}.discount`) }" placeholder="0" @change="calculateProductDiscount(i)" />
                           </div>
                           <div v-if="form.errors.has(`selectedProducts.${i}.discount`) || form.errors.has(`selectedProducts.${i}.discountType`)" class="invalid-feedback d-block">
                             <span v-if="form.errors.has(`selectedProducts.${i}.discount`)" class="d-block">{{ form.errors.get(`selectedProducts.${i}.discount`) }}</span>
                             <span v-if="form.errors.has(`selectedProducts.${i}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${i}.discountType`) }}</span>
                           </div>
                         </td>
-                        <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals((item.unitPrice * item.qty) - (item.discountAmount || 0)) }} <span class="saudi-riyal">ê</span></td>
+                        <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.totalAfterDiscount !== undefined ? item.totalAfterDiscount : ((item.unitPrice * item.qty) - (item.discountAmount || 0))) }} <span class="saudi-riyal">ê</span></td>
                         <td style="min-width: 150px;">
                           <select v-model="item.selectedVatRate" class="form-control form-control-sm" :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i}.selectedVatRate`) }" @change="calculateProductVat(i)" style="min-width: 120px;">
                             <option value="">{{ $t('Select VAT') }}</option>
                             <option v-for="tax in taxes" :key="tax.id" :value="tax">{{ tax.code }} ({{ tax.rate }}%)</option>
                           </select>
+                          <div v-if="item.vat_rate_code" class="mt-1" style="display: none;">
+                            <small class="text-muted">
+                              <strong>{{ $t("VAT Code") }}:</strong> {{ item.vat_rate_code }}
+                            </small>
+                          </div>
                           <div v-if="form.errors.has(`selectedProducts.${i}.selectedVatRate`)" class="invalid-feedback d-block">
                             {{ form.errors.get(`selectedProducts.${i}.selectedVatRate`) }}
                           </div>
                         </td>
                         <td class="no-currency" style="min-width: 100px;">
-                          <span class="form-control-plaintext form-control-sm text-center no-currency">{{ formatToTwoDecimals(item.productTax) }}</span>
+                          <div class="form-control-plaintext form-control-sm text-center no-currency">{{ formatToTwoDecimals(item.taxType === 'Inclusive' ? (item.totalTax || 0) : (item.productTax || 0)) }}
                           <span class="saudi-riyal">ê</span>
+                        </div>
                         </td>
                         <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.totalPrice) }} <span class="saudi-riyal">ê</span></td>
                         <td class="text-right" style="min-width: 80px;">
@@ -187,7 +193,7 @@
                           <strong>{{ formatToTwoDecimals(totalProductTax) }}</strong> <span class="saudi-riyal">ê</span>
                         </td>
                         <td class="no-currency">
-                          <strong>{{ formatToTwoDecimals(subtotal) }}</strong> <span class="saudi-riyal">ê</span>
+                          <strong>{{ formatToTwoDecimals(totalAfterTax) }}</strong> <span class="saudi-riyal">ê</span>
                         </td>
                         <td></td>
                       </tr>
@@ -366,7 +372,8 @@ export default {
     totalUnitPrice() { return this.roundToTwoDecimals(this.form.selectedProducts.reduce((t, i) => t + (i.unitPrice * i.qty), 0)); },
     totalProductDiscount() { return this.roundToTwoDecimals(this.form.selectedProducts.reduce((t, i) => t + (i.discountAmount || 0), 0)); },
     totalAfterDiscount() { return this.roundToTwoDecimals(this.totalUnitPrice - this.totalProductDiscount); },
-    totalProductTax() { return this.roundToTwoDecimals(this.form.selectedProducts.reduce((t, i) => t + (i.totalTax || 0), 0)); },
+    totalProductTax() { return this.roundToTwoDecimals(this.form.selectedProducts.reduce((t, i) => t + (i.taxType === 'Inclusive' ? (i.totalTax || 0) : (i.productTax || 0)), 0)); },
+    totalAfterTax() { return this.roundToTwoDecimals(this.totalAfterDiscount + this.totalProductTax); },
     subtotal() { return this.roundToTwoDecimals(this.form.selectedProducts.reduce((t, i) => t + (i.totalPrice || 0), 0)); },
     hasInsufficientStock() { return this.form.selectedProducts.some(i => i.itemType === 'product' && Number(i.inventoryCount) < Number(i.qty)); },
     insufficientStockProducts() { return this.form.selectedProducts.filter(i => i.itemType === 'product' && Number(i.inventoryCount) < Number(i.qty)); },
@@ -427,6 +434,35 @@ export default {
         let defaultVatRateSlug = this.appInfo.defaultVatRateSlug;
         this.form.orderTax = this.taxes.find(t => t.slug === defaultVatRateSlug) || this.taxes[0];
       }
+      // Update vat_rate_code for all products after taxes are loaded
+      if (this.taxes && this.form.selectedProducts && this.form.selectedProducts.length > 0) {
+        this.form.selectedProducts.forEach((item, index) => {
+          if (item.vat_rate_id) {
+            const vatRate = this.findVatRateById(item.vat_rate_id);
+            if (vatRate) {
+              this.$set(item, 'vat_rate_code', vatRate.code);
+              // Also update selectedVatRate if it's not set or doesn't match
+              if (!item.selectedVatRate || item.selectedVatRate.id !== vatRate.id) {
+                this.$set(item, 'selectedVatRate', vatRate);
+              }
+            }
+          } else if (item.selectedVatRate && item.selectedVatRate.code) {
+            // Update vat_rate_code from selectedVatRate if vat_rate_id is not set
+            this.$set(item, 'vat_rate_code', item.selectedVatRate.code);
+            this.$set(item, 'vat_rate_id', item.selectedVatRate.id);
+          } else if (!item.selectedVatRate && item.taxRate) {
+            // If no selectedVatRate but taxRate exists, try to find matching VAT rate
+            const matchingVatRate = this.findMatchingVatRate(item.taxRate) || this.form.orderTax || (this.taxes && this.taxes[0]);
+            if (matchingVatRate) {
+              this.$set(item, 'selectedVatRate', matchingVatRate);
+              this.$set(item, 'vat_rate_code', matchingVatRate.code);
+              this.$set(item, 'vat_rate_id', matchingVatRate.id);
+            }
+          }
+          // Recalculate VAT for this item after updating VAT rate
+          this.generateItemTotalPrice(index);
+        });
+      }
       this.calculateSum();
     },
     async loadCommunicationConfigStatus() {
@@ -449,7 +485,7 @@ export default {
       const index = this.form.selectedProducts.findIndex(x => x.id == product.id);
       let qunatity = 1;
       if (index === -1) {
-        let productTax = product.taxType == "Exclusive" ? Number(product.regularPrice) * (Number(product.taxRate) / 100) : Number(product.regularPrice) - Number(product.regularPrice) / (1 + Number(product.taxRate) / 100);
+        let productTax = product.taxType == "Exclusive" ? product.regularPrice * (product.taxRate / 100) : product.regularPrice - product.regularPrice / (1 + product.taxRate / 100);
         let totalTax = productTax * qunatity;
         this.form.selectedProducts.unshift({
           id: product.id,
@@ -457,31 +493,33 @@ export default {
           name: product.name,
           code: product.code,
           taxType: product.taxType,
-          taxRate: Number(product.taxRate) || 0,
-          qty: Number(qunatity),
-          avgPurchasePrice: Number(product.avgPurchasePrice) || 0,
-          unitPrice: Number(product.regularPrice) || 0,
-          unitCost: product.taxType == "Exclusive" ? Number(product.regularPrice) + Number(productTax) : Number(product.regularPrice),
-          totalPrice: product.taxType == "Exclusive" ? Number(product.regularPrice) + Number(totalTax) : Number(product.regularPrice),
-          productTax: Number(productTax),
-          totalTax: Number(totalTax),
+          taxRate: product.taxRate,
+          qty: qunatity,
+          avgPurchasePrice: product.avgPurchasePrice,
+          unitPrice: product.regularPrice,
+          unitCost: product.taxType == "Exclusive" ? product.regularPrice + productTax : product.regularPrice,
+          totalPrice: product.taxType == "Exclusive" ? 1 * (product.regularPrice + totalTax) : 1 * product.regularPrice,
+          productTax: productTax,
+          totalTax: totalTax,
           itemType: product.itemType,
-          inventoryCount: Number(product.inventoryCount) || 0,
+          inventoryCount: product.inventoryCount,
           discount: 0,
           discountType: "fixed",
           discountAmount: 0,
+          vat_rate_id: null,
+          vat_rate_code: null,
           selectedVatRate: this.findMatchingVatRate(product.taxRate) || this.form.orderTax || this.taxes?.[0],
         });
-        
-        // Calculate totals immediately after adding the product
-        this.generateItemTotalPrice(0);
-        this.calculateSum();
-      } else {
-        // If product already exists, just update quantity
-        this.generateItemTotal(qunatity, "qty", index, "");
+        // Set vat_rate_code if selectedVatRate is set
+        if (this.form.selectedProducts[0] && this.form.selectedProducts[0].selectedVatRate) {
+          this.$set(this.form.selectedProducts[0], 'vat_rate_code', this.form.selectedProducts[0].selectedVatRate.code || null);
+          this.$set(this.form.selectedProducts[0], 'vat_rate_id', this.form.selectedProducts[0].selectedVatRate.id || null);
+        }
       }
+      this.generateItemTotal(qunatity, "qty", index === -1 ? 0 : index, "");
     },
     findMatchingVatRate(productTax) { if (!this.taxes || !productTax) return null; return this.taxes.find(tax => Math.abs(tax.rate - productTax) < 0.01); },
+    findVatRateById(vatRateId) { if (!this.taxes || !vatRateId) return null; return this.taxes.find(tax => tax.id === vatRateId); },
     ensureDiscountProperties() {
       this.form.selectedProducts.forEach(item => {
         if (typeof item.discount === 'undefined') item.discount = 0;
@@ -497,7 +535,7 @@ export default {
       let item = this.form.selectedProducts[index];
       if (!item) return;
       if (item.discountType === "percentage") {
-        this.$set(item, 'discountAmount', this.roundToTwoDecimals((Number(item.unitPrice) * Number(item.qty) * Number(item.discount)) / 100));
+        this.$set(item, 'discountAmount', this.roundToTwoDecimals((item.unitPrice * item.qty * item.discount) / 100));
       } else {
         this.$set(item, 'discountAmount', this.roundToTwoDecimals(Number(item.discount || 0)));
       }
@@ -511,6 +549,14 @@ export default {
         if (item.taxRate) item.selectedVatRate = this.findMatchingVatRate(item.taxRate);
         if (!item.selectedVatRate && this.taxes && this.taxes.length > 0) item.selectedVatRate = this.taxes[0];
       }
+      // Update vat_rate_code and vat_rate_id when selectedVatRate changes
+      if (item.selectedVatRate) {
+        this.$set(item, 'vat_rate_code', item.selectedVatRate.code || null);
+        this.$set(item, 'vat_rate_id', item.selectedVatRate.id || null);
+      } else {
+        this.$set(item, 'vat_rate_code', null);
+        this.$set(item, 'vat_rate_id', null);
+      }
       this.generateItemTotalPrice(index);
       this.calculateSum();
     },
@@ -518,16 +564,16 @@ export default {
       let item = this.form.selectedProducts[index];
       if (item) {
         if (type == "qty") {
-          let newQty = Number(value) || 0;
-          if (action == "increment") newQty = Number(item.qty) + 1; else if (action == "decrement") { if (Number(item.qty) > 0) newQty = Number(item.qty) - 1; }
-          this.$set(item, 'qty', Number(newQty));
+          let newQty = value;
+          if (action == "increment") newQty = Number(item.qty) + 1; else if (action == "decrement") { if (item.qty > 0) newQty = Number(item.qty) - 1; }
+          this.$set(item, 'qty', newQty);
         } else if (type == "price") {
-          let newPrice = Number(value) || 0;
-          if (action == "increment") newPrice = Number(item.unitPrice) + 1; else if (action == "decrement") { if (Number(item.unitPrice) > 0) newPrice = Number(item.unitPrice) - 1; }
-          this.$set(item, 'unitPrice', Number(newPrice));
+          let newPrice = value;
+          if (action == "increment") newPrice = Number(item.unitPrice) + 1; else if (action == "decrement") { if (item.unitPrice > 0) newPrice = Number(item.unitPrice) - 1; }
+          this.$set(item, 'unitPrice', newPrice);
         }
-        if (Number(item.discount) > 0) {
-          if (item.discountType === "percentage") this.$set(item, 'discountAmount', this.roundToTwoDecimals((Number(item.unitPrice) * Number(item.qty) * Number(item.discount)) / 100));
+        if (item.discount > 0) {
+          if (item.discountType === "percentage") this.$set(item, 'discountAmount', this.roundToTwoDecimals((item.unitPrice * item.qty * item.discount) / 100));
           else this.$set(item, 'discountAmount', this.roundToTwoDecimals(Number(item.discount || 0)));
         }
         this.generateItemTotalPrice(index);
@@ -537,39 +583,34 @@ export default {
     generateItemTotalPrice(index) {
       let item = this.form.selectedProducts[index];
       if (!item) return;
-      
-      // Ensure all values are numbers
-      let unitPrice = Number(item.unitPrice) || 0;
-      let qty = Number(item.qty) || 0;
-      let discountAmount = Number(item.discountAmount) || 0;
-      
-      let priceAfterDiscount = this.roundToTwoDecimals((unitPrice * qty) - discountAmount);
+      let priceAfterDiscount = this.roundToTwoDecimals((item.unitPrice * item.qty) - (item.discountAmount || 0));
       let vatRate = 0;
       if (item.selectedVatRate && item.selectedVatRate.rate !== undefined && item.selectedVatRate.rate !== null) vatRate = Number(item.selectedVatRate.rate);
       else if (item.taxRate !== undefined && item.taxRate !== null) vatRate = Number(item.taxRate);
       if (isNaN(vatRate) || vatRate < 0) vatRate = 0;
+      
+      // Set totalAfterDiscount for display consistency
+      this.$set(item, 'totalAfterDiscount', this.roundToTwoDecimals(priceAfterDiscount));
+      
       if (item.taxType == "Exclusive") {
-        item.productTax = this.roundToTwoDecimals(priceAfterDiscount * (vatRate / 100));
-        item.totalTax = this.roundToTwoDecimals(item.productTax);
-        // Ensure both values are numbers before addition
-        item.totalPrice = this.roundToTwoDecimals(Number(priceAfterDiscount) + Number(item.totalTax));
+        // VAT on discounted amount
+        const productTax = this.roundToTwoDecimals(priceAfterDiscount * (vatRate / 100));
+        const totalTax = this.roundToTwoDecimals(productTax);
+        const totalPrice = this.roundToTwoDecimals(priceAfterDiscount + totalTax);
+        this.$set(item, 'productTax', productTax);
+        this.$set(item, 'totalTax', totalTax);
+        this.$set(item, 'totalPrice', totalPrice);
       } else {
-        let discountedUnitPrice = this.roundToTwoDecimals(priceAfterDiscount / qty);
-        item.unitPrice = discountedUnitPrice;
-        item.productTax = this.roundToTwoDecimals(discountedUnitPrice - (discountedUnitPrice / (1 + vatRate / 100)));
-        item.totalTax = this.roundToTwoDecimals(Number(item.productTax) * Number(qty));
-        item.totalPrice = this.roundToTwoDecimals(priceAfterDiscount);
+        // Inclusive: VAT is included in unit price; derive VAT from discounted price
+        // Don't modify unitPrice - use a temporary variable for calculation
+        let discountedUnitPrice = this.roundToTwoDecimals(priceAfterDiscount / item.qty);
+        const productTax = this.roundToTwoDecimals(discountedUnitPrice - (discountedUnitPrice / (1 + vatRate / 100)));
+        const totalTax = this.roundToTwoDecimals(productTax * item.qty);
+        const totalPrice = this.roundToTwoDecimals(priceAfterDiscount);
+        this.$set(item, 'productTax', productTax);
+        this.$set(item, 'totalTax', totalTax);
+        this.$set(item, 'totalPrice', totalPrice);
       }
-      
-      // Ensure all numeric fields are numbers
-      item.unitPrice = Number(item.unitPrice);
-      item.qty = Number(item.qty);
-      item.productTax = Number(item.productTax);
-      item.totalTax = Number(item.totalTax);
-      item.totalPrice = Number(item.totalPrice);
-      item.discountAmount = Number(item.discountAmount) || 0;
-      
-      this.form.selectedProducts[index] = item;
     },
     removeItem(item) { let index = this.form.selectedProducts.indexOf(item); if (index > -1) this.form.selectedProducts.splice(index, 1); this.calculateSum(); },
     roundToTwoDecimals(value) { return Math.round((Number(value) + Number.EPSILON) * 100) / 100; },
@@ -804,6 +845,29 @@ export default {
         const totalPrice = Number(qp.unitCostTotal ?? (taxType === 'Exclusive' ? qty * unitPrice + totalTax : qty * unitPrice));
         const unitCost = Number(qp.unitCost ?? (taxType === 'Exclusive' ? unitPrice + productTax : unitPrice));
 
+        // Find VAT rate by vat_rate_id from quotation_products, fallback to matching by rate
+        let selectedVatRate = null;
+        let vatRateCode = null;
+        if (qp.vat_rate_id && this.taxes) {
+          selectedVatRate = this.findVatRateById(qp.vat_rate_id);
+          if (selectedVatRate) {
+            vatRateCode = selectedVatRate.code;
+          }
+        }
+        // If not found by ID, try to match by rate or use vatRate from API response
+        if (!selectedVatRate) {
+          if (qp.vatRate && qp.vatRate.code) {
+            vatRateCode = qp.vatRate.code;
+            // Try to find matching VAT rate in taxes list
+            selectedVatRate = this.findVatRateById(qp.vatRate.id) || this.findMatchingVatRate(qp.vatRate.rate);
+          } else {
+            selectedVatRate = this.findMatchingVatRate(taxRate) || this.form.orderTax || (this.taxes && this.taxes[0]) || null;
+            if (selectedVatRate) {
+              vatRateCode = selectedVatRate.code;
+            }
+          }
+        }
+
         mapped.unshift({
           id: qp.productID ?? qp.id,
           slug: qp.productSlug ?? qp.slug,
@@ -823,11 +887,22 @@ export default {
           discount: qp.discount ?? 0,
           discountType: qp.discountType ?? 'fixed',
           discountAmount: qp.discountAmount ?? 0,
-          selectedVatRate: this.findMatchingVatRate(taxRate) || this.form.orderTax || (this.taxes && this.taxes[0]) || null,
+          vat_rate_id: qp.vat_rate_id || null,
+          vat_rate_code: vatRateCode,
+          selectedVatRate: selectedVatRate,
         });
       }
       this.form.selectedProducts = mapped;
       this.ensureDiscountProperties();
+      // Recalculate discountAmount if discount is set but discountAmount is missing or zero
+      this.form.selectedProducts.forEach((item, index) => {
+        if (item.discount > 0 && (!item.discountAmount || item.discountAmount === 0)) {
+          this.calculateProductDiscount(index);
+        } else {
+          // Recalculate totals to ensure totalAfterDiscount and totalPrice are correct
+          this.generateItemTotalPrice(index);
+        }
+      });
       return mapped;
     },
   },

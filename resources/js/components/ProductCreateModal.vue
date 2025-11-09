@@ -541,9 +541,10 @@ export default {
     toggleModal() {
       this.showProductCreateModal = !this.showProductCreateModal
       
-      // When opening the modal, ensure account routing settings are loaded
+      // When opening the modal, ensure account routing settings are loaded and generate item code
       if (this.showProductCreateModal) {
         this.loadAccountRoutingSettings();
+        this.getItemCode(); // Generate product code when modal opens
       }
     },
 
@@ -744,6 +745,11 @@ export default {
     },
     // save product
     async saveProduct() {
+      // Ensure product code is generated before submission
+      if (!this.form.itemCode) {
+        await this.getItemCode();
+      }
+      
       // Ensure price calculation is up-to-date before submission
       this.calculatePrice();
       

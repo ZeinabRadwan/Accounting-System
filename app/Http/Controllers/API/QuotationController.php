@@ -201,7 +201,7 @@ class QuotationController extends Controller
     public function show($slug)
     {
         try {
-            $quotation = Quotation::with('client', 'quotationProducts.product.productUnit', 'quotationProducts.product.productTax', 'user')->where('slug', $slug)->first();
+            $quotation = Quotation::with('client', 'quotationProducts.product.productUnit', 'quotationProducts.product.productTax', 'quotationProducts.vatRate', 'user')->where('slug', $slug)->first();
 
             return new QuotationResource($quotation);
         } catch (Exception $e) {

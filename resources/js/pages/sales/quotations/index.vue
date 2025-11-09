@@ -97,7 +97,6 @@
                   <th>{{ $t("Quotation Date") }}</th>
                   <th>{{ $t("Client") }}</th>
                   <th>{{ $t("Subtotal") }}</th>
-                  <th>{{ $t("Transport") }}</th>
                   <th>{{ $t("Discount") }}</th>
                   <th>{{ $t("Tax") }}</th>
                   <th>{{ $t("Net Total") }}</th>
@@ -139,7 +138,6 @@
                     </td>
                     <td>{{ data.clientName }}</td>
                     <td>{{ parseFloat((data.subTotal || 0) - (data.totalTax || 0)).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
-                    <td>{{ parseFloat(data.transport || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
                     <td>{{ parseFloat(data.discount || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
                     <td>{{ parseFloat(data.totalTax || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
                     <td>{{ parseFloat(data.subTotal || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
@@ -201,7 +199,7 @@
                     </td>
                   </tr>
                   <tr v-show="!loading && !items.length">
-                    <td colspan="11">
+                    <td colspan="10">
                       <EmptyTable />
                     </td>
                   </tr>
