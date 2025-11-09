@@ -425,7 +425,6 @@ import Swal from 'sweetalert2'
 import { mapGetters } from 'vuex'
 import CategorySubcategoryCreateModal from '~/components/CategorySubcategoryCreateModal'
 import UnitCreateModal from '~/components/UnitCreateModal'
-import Swal from 'sweetalert2'
 
 const toast = Swal.mixin({
   toast: true,
@@ -434,14 +433,6 @@ const toast = Swal.mixin({
   timer: 3000,
   timerProgressBar: true
 })
-
-const toast = Swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true
-});
 
 export default {
   components: {
