@@ -175,24 +175,22 @@
                       <td>{{ allData.regularPrice  }} <span class="saudi-riyal">ê</span></td>
                     </tr>
                     <tr>
+                      <th>{{ $t("Discount") }}</th>
+                      <td>{{ allData.discount || 0 }} <span class="saudi-riyal">ê</span></td>
+                    </tr>
+                    <tr>
                       <th>{{ $t("Selling Price") }}</th>
                       <td>
                         <span v-if="allData.discount > 0">
                           <del>{{ allData.regularPrice  }} <span class="saudi-riyal">ê</span></del>
-                          {{ allData.sellingPrice  }} <span class="saudi-riyal">ê</span> ({{
+                          {{ calculatedSellingPrice  }} <span class="saudi-riyal">ê</span> ({{
                             allData.discount
                           }}%)
                         </span>
                         <span v-else
-                          >{{ allData.regularPrice  }} <span class="saudi-riyal">ê</span>
+                          >{{ calculatedSellingPrice  }} <span class="saudi-riyal">ê</span>
                         </span>
                       </td>
-                    </tr>
-                    <tr>
-                      <th>
-                        {{ $t("Avg. Purchase Price") }}
-                      </th>
-                      <td>{{ allData.avgPurchasePrice  }} <span class="saudi-riyal">ê</span></td>
                     </tr>
                     <tr v-if="allData.itemUnit">
                       <th>{{ $t("Stock") }}</th>
@@ -204,7 +202,7 @@
                       <th>{{ $t("Inventory Value") }}</th>
                       <td>
                         {{
-                          (allData.avgPurchasePrice * allData.availableQty)
+                          calculatedInventoryValue
                         }} <span class="saudi-riyal">ê</span>
                       </td>
                     </tr>
@@ -231,7 +229,7 @@
                         {{ allData.openingStockUnitPrice  }} <span class="saudi-riyal">ê</span>
                       </td>
                     </tr>
-                    <tr>
+                    <tr v-if="allData.note">
                       <th>{{ $t("Note") }}</th>
                       <td>{{ allData.note }}</td>
                     </tr>
@@ -437,6 +435,20 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters("operations", ["appInfo", "items", "loading", "pagination"]),
+    // Calculate selling price as regularPrice + taxAmount - discount
+    calculatedSellingPrice() {
+      if (!this.allData) return 0;
+      const regularPrice = parseFloat(this.allData.regularPrice) || 0;
+      const taxAmount = parseFloat(this.allData.taxAmount) || 0;
+      const discount = parseFloat(this.allData.discount) || 0;
+      return regularPrice + taxAmount - discount;
+    },
+    // Calculate inventory value as sellingPrice * stockQty
+    calculatedInventoryValue() {
+      if (!this.allData) return 0;
+      const stockQty = parseFloat(this.allData.availableQty) || 0;
+      return this.calculatedSellingPrice * stockQty;
+    },
   },
 
   watch: {
