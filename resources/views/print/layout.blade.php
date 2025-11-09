@@ -325,7 +325,8 @@
 </head>
 
 <body>
-    <div class="action-buttons no-print" id="action-buttons">
+    @if(!request()->is('print/reports/account-statement'))
+    <div class="action-buttons no-print">
         <button class="print-button" onclick="window.print()">
             <i class="fas fa-print"></i> @lang('print.Print Document')
         </button>
@@ -333,7 +334,7 @@
             <i class="fas fa-download"></i> @lang('print.Download PDF')
         </button>
     </div>
-
+    @endif
     <div class="document-container" id="document-container">
         <div class="template-content">
             @yield('content')
@@ -358,13 +359,6 @@
     </style>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const actionButtons = document.getElementById('action-buttons');
-            const currentPath = window.location.pathname;
-            if (currentPath.includes('/print/reports/account-statement')) {
-                actionButtons.style.display = 'none';
-            }
-        });
         function downloadPDF() {
             const currentPath = window.location.pathname;
             let pdfUrl = '';
