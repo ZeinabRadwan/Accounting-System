@@ -290,10 +290,10 @@
                           </div>
                         </td>
                         <td class="no-currency" style="min-width: 100px;">
-                          <span class="form-control-plaintext form-control-sm text-center no-currency">
+                          <div>
                             {{ formatToTwoDecimals(item.productTax) }}
-                          </span>
-                          <span class="saudi-riyal">ê</span>
+                            <span class="saudi-riyal">ê</span>
+                          </div>
                         </td>
                         <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.totalPrice) }} <span class="saudi-riyal">ê</span></td>
                         <td class="text-right" style="min-width: 80px;">

@@ -31,14 +31,14 @@
                   <has-error :form="form" field="date" />
                 </div>
               </div>
-              <div class="row" v-if="items">
+              <div class="row" v-if="clients">
                 <div class="form-group col-md-6">
                   <label for="client">{{ $t("Client") }}
                     <span class="required">*</span></label>
                   <div class="row">
                     <div class="col">
                       <div class="d-flex w-100">
-                        <v-select class="flex-grow-1" v-model="form.client" :options="items" label="name"
+                        <v-select class="flex-grow-1" v-model="form.client" :options="clients" label="name"
                           :class="{ 
                             'is-invalid': form.errors.has('client'),
                             'rtl-select': isRTL
@@ -386,6 +386,22 @@
                                   ''
                                 )
                                 "
+                              @keyup="
+                                generateItemTotal(
+                                  $event.target.value,
+                                  'qty',
+                                  i - 1,
+                                  ''
+                                )
+                                "
+                              @input="
+                                generateItemTotal(
+                                  $event.target.value,
+                                  'qty',
+                                  i - 1,
+                                  ''
+                                )
+                                "
                               :placeholder="$t('Quantity')" />
 
                             <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
@@ -399,10 +415,28 @@
                                 " />
                           </div>
                         </td>
-                        <td style="min-width: 200px;">
-                          <div class="input-group custom-qty-input">
+                        <td style="min-width: 150px;">
+                          <div class="input-group">
                             <input type="number" step="any" min="0" :id="`unitPrice-${i}`" v-model="item.unitPrice"
-                              name="unitPrice" class="price-field border-0" required @change="
+                              name="unitPrice" class="form-control form-control-sm border-0" 
+                              style="width: 100px;"
+                              required @change="
+                                generateItemTotal(
+                                  $event.target.value,
+                                  'price',
+                                  i - 1,
+                                  ''
+                                )
+                                "
+                              @keyup="
+                                generateItemTotal(
+                                  $event.target.value,
+                                  'price',
+                                  i - 1,
+                                  ''
+                                )
+                                "
+                              @input="
                                 generateItemTotal(
                                   $event.target.value,
                                   'price',
@@ -434,7 +468,9 @@
                               :max="item.discountType == 'percentage' ? 100 : (item.unitPrice * item.qty)"
                               :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.discount`) }"
                               placeholder="0"
-                              @change="calculateProductDiscount(i - 1)" />
+                              @change="calculateProductDiscount(i - 1)"
+                              @keyup="calculateProductDiscount(i - 1)"
+                              @input="calculateProductDiscount(i - 1)" />
                           </div>
                           <div v-if="form.errors.has(`selectedProducts.${i-1}.discount`) || form.errors.has(`selectedProducts.${i-1}.discountType`)" class="invalid-feedback d-block">
                             <span v-if="form.errors.has(`selectedProducts.${i-1}.discount`)" class="d-block">{{ form.errors.get(`selectedProducts.${i-1}.discount`) }}</span>
@@ -731,6 +767,7 @@ export default {
     products: "",
     taxes: "",
     prefix: "",
+    clients: [],
     
     // Communication configuration status
     communicationConfig: {
@@ -745,7 +782,7 @@ export default {
     restoredFromTemp: false,
   }),
   computed: {
-    ...mapGetters("operations", ["items", "appInfo"]),
+    ...mapGetters("operations", ["appInfo"]),
     
     // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
     isSaudiArabia() {
@@ -851,27 +888,33 @@ export default {
     
     // get all clients
     async getClients(selectedClient = 'default') {
-      await this.$store.dispatch("operations/allData", { path: "/api/all-clients" });
+      try {
+        const { data } = await axios.get(window.location.origin + "/api/all-clients");
+        this.clients = data.data || [];
 
-      if (!this.items || this.items.length === 0) return;
+        if (!this.clients || this.clients.length === 0) return;
 
-      // If explicitly requesting latest (e.g., after creating a client)
-      if (selectedClient === 'latest') {
-        this.form.client = this.items[0];
-        return;
-      }
+        // If explicitly requesting latest (e.g., after creating a client)
+        if (selectedClient === 'latest') {
+          this.form.client = this.clients[0];
+          return;
+        }
 
-      // If a client was restored from temp or already selected, normalize to an option from items
-      if (this.form.client && (this.form.client.id || this.form.client.slug)) {
-        this.normalizeClientSelection();
-        return;
-      }
+        // If a client was restored from temp or already selected, normalize to an option from clients
+        if (this.form.client && (this.form.client.id || this.form.client.slug)) {
+          this.normalizeClientSelection();
+          return;
+        }
 
-      // Otherwise, assign default client
-      let defaultClientSlug = this.appInfo.defaultClientSlug;
-      const defaultClient = this.items.find((item) => item.slug === defaultClientSlug);
-      if (defaultClient) {
-        this.form.client = defaultClient;
+        // Otherwise, assign default client
+        let defaultClientSlug = this.appInfo.defaultClientSlug;
+        const defaultClient = this.clients.find((item) => item.slug === defaultClientSlug);
+        if (defaultClient) {
+          this.form.client = defaultClient;
+        }
+      } catch (error) {
+        console.error('Error loading clients:', error);
+        this.clients = [];
       }
     },
 
@@ -959,9 +1002,9 @@ export default {
       if (index === -1) {
         let productTax =
           product.taxType == "Exclusive"
-            ? product.regularPrice * (product.taxRate / 100)
-            : product.regularPrice -
-            product.regularPrice / (1 + product.taxRate / 100);
+            ? Number(product.regularPrice) * (Number(product.taxRate) / 100)
+            : Number(product.regularPrice) -
+            Number(product.regularPrice) / (1 + Number(product.taxRate) / 100);
         let totalTax = productTax * qunatity;
 
         this.form.selectedProducts.unshift({
@@ -970,29 +1013,35 @@ export default {
           name: product.name,
           code: product.code,
           taxType: product.taxType,
-          taxRate: product.taxRate,
-          qty: qunatity,
-          avgPurchasePrice: product.avgPurchasePrice,
-          unitPrice: product.regularPrice,
+          taxRate: Number(product.taxRate) || 0,
+          qty: Number(qunatity),
+          avgPurchasePrice: Number(product.avgPurchasePrice) || 0,
+          unitPrice: Number(product.regularPrice) || 0,
           unitCost:
             product.taxType == "Exclusive"
-              ? product.regularPrice + productTax
-              : product.regularPrice,
+              ? Number(product.regularPrice) + Number(productTax)
+              : Number(product.regularPrice),
           totalPrice:
             product.taxType == "Exclusive"
-              ? 1 * (product.regularPrice + totalTax)
-              : 1 * product.regularPrice,
-          productTax: productTax,
-          totalTax: totalTax,
+              ? Number(product.regularPrice) + Number(totalTax)
+              : Number(product.regularPrice),
+          productTax: Number(productTax),
+          totalTax: Number(totalTax),
           itemType: product.itemType,
-          inventoryCount: product.inventoryCount,
+          inventoryCount: Number(product.inventoryCount) || 0,
           discount: 0,
           discountType: "fixed",
           discountAmount: 0,
           selectedVatRate: this.findMatchingVatRate(product.taxRate) || this.form.orderTax || this.taxes?.[0],
         });
+        
+        // Calculate totals immediately after adding the product
+        this.generateItemTotalPrice(0);
+        this.calculateSum();
+      } else {
+        // If product already exists, just update quantity
+        this.generateItemTotal(qunatity, "qty", index, "");
       }
-      this.generateItemTotal(qunatity, "qty", index, "");
       return;
     },
 
@@ -1001,31 +1050,31 @@ export default {
       let item = this.form.selectedProducts[index];
       if (item) {
         if (type == "qty") {
-          let newQty = value;
+          let newQty = Number(value) || 0;
           if (action == "increment") {
             newQty = Number(item.qty) + 1;
           } else if (action == "decrement") {
-            if (item.qty > 0) {
+            if (Number(item.qty) > 0) {
               newQty = Number(item.qty) - 1;
             }
           }
-          this.$set(item, 'qty', newQty);
+          this.$set(item, 'qty', Number(newQty));
         } else if (type == "price") {
-          let newPrice = value;
+          let newPrice = Number(value) || 0;
           if (action == "increment") {
             newPrice = Number(item.unitPrice) + 1;
           } else if (action == "decrement") {
-            if (item.unitPrice > 0) {
+            if (Number(item.unitPrice) > 0) {
               newPrice = Number(item.unitPrice) - 1;
             }
           }
-          this.$set(item, 'unitPrice', newPrice);
+          this.$set(item, 'unitPrice', Number(newPrice));
         }
         
         // Recalculate discount amount when quantity or price changes
-        if (item.discount > 0) {
+        if (Number(item.discount) > 0) {
           if (item.discountType === "percentage") {
-            this.$set(item, 'discountAmount', this.roundToTwoDecimals((item.unitPrice * item.qty * item.discount) / 100));
+            this.$set(item, 'discountAmount', this.roundToTwoDecimals((Number(item.unitPrice) * Number(item.qty) * Number(item.discount)) / 100));
           } else {
             this.$set(item, 'discountAmount', this.roundToTwoDecimals(Number(item.discount || 0)));
           }
@@ -1106,7 +1155,7 @@ export default {
       let item = this.form.selectedProducts[index];
       if (item) {
         if (item.discountType === "percentage") {
-          this.$set(item, 'discountAmount', this.roundToTwoDecimals((item.unitPrice * item.qty * item.discount) / 100));
+          this.$set(item, 'discountAmount', this.roundToTwoDecimals((Number(item.unitPrice) * Number(item.qty) * Number(item.discount)) / 100));
         } else {
           this.$set(item, 'discountAmount', this.roundToTwoDecimals(Number(item.discount || 0)));
         }
@@ -1142,8 +1191,13 @@ export default {
     generateItemTotalPrice(index) {
       let item = this.form.selectedProducts[index];
       if (item) {
+        // Ensure all values are numbers
+        let unitPrice = Number(item.unitPrice) || 0;
+        let qty = Number(item.qty) || 0;
+        let discountAmount = Number(item.discountAmount) || 0;
+        
         // Calculate price after discount
-        let priceAfterDiscount = this.roundToTwoDecimals((item.unitPrice * item.qty) - (item.discountAmount || 0));
+        let priceAfterDiscount = this.roundToTwoDecimals((unitPrice * qty) - discountAmount);
 
         // Use selected VAT rate if available, otherwise fall back to product's default tax rate
         let vatRate = 0;
@@ -1165,15 +1219,24 @@ export default {
           // VAT on discounted amount
           item.productTax = this.roundToTwoDecimals(priceAfterDiscount * (vatRate / 100));
           item.totalTax = this.roundToTwoDecimals(item.productTax);
-          item.totalPrice = this.roundToTwoDecimals(priceAfterDiscount + item.totalTax);
+          // Ensure both values are numbers before addition
+          item.totalPrice = this.roundToTwoDecimals(Number(priceAfterDiscount) + Number(item.totalTax));
         } else {
           // Inclusive: VAT is included in unit price; derive VAT from discounted price
-          let discountedUnitPrice = this.roundToTwoDecimals(priceAfterDiscount / item.qty);
+          let discountedUnitPrice = this.roundToTwoDecimals(priceAfterDiscount / qty);
           item.unitPrice = discountedUnitPrice;
           item.productTax = this.roundToTwoDecimals(discountedUnitPrice - (discountedUnitPrice / (1 + vatRate / 100)));
-          item.totalTax = this.roundToTwoDecimals(item.productTax * item.qty);
+          item.totalTax = this.roundToTwoDecimals(Number(item.productTax) * Number(qty));
           item.totalPrice = this.roundToTwoDecimals(priceAfterDiscount);
         }
+
+        // Ensure all numeric fields are numbers
+        item.unitPrice = Number(item.unitPrice);
+        item.qty = Number(item.qty);
+        item.productTax = Number(item.productTax);
+        item.totalTax = Number(item.totalTax);
+        item.totalPrice = Number(item.totalPrice);
+        item.discountAmount = Number(item.discountAmount) || 0;
 
         this.form.selectedProducts[index] = item;
       }
@@ -1817,17 +1880,17 @@ export default {
         // silent fail
       }
     },
-    // Normalize form.client to an object from items by id/slug so v-select shows it
+    // Normalize form.client to an object from clients by id/slug so v-select shows it
     normalizeClientSelection() {
       try {
-        if (!this.form.client || !this.items || this.items.length === 0) return;
+        if (!this.form.client || !this.clients || this.clients.length === 0) return;
         const current = this.form.client;
         let matched = null;
         if (current.id) {
-          matched = this.items.find(i => i.id === current.id);
+          matched = this.clients.find(i => i.id === current.id);
         }
         if (!matched && current.slug) {
-          matched = this.items.find(i => i.slug === current.slug);
+          matched = this.clients.find(i => i.slug === current.slug);
         }
         if (matched) {
           this.form.client = matched;

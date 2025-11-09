@@ -221,22 +221,15 @@ export default {
   metaInfo() {
     return { title: this.$t("Branches") };
   },
-  data: () => ({
-    breadcrumbsCurrent: "Branches",
-    breadcrumbs: [
-      {
-        name: "Dashboard",
-        url: "home",
-      },
-      {
-        name: "Branches",
-        url: "",
-      },
-    ],
-    query: "",
-    perPage: 10,
-    openActionIndex: null,
-  }),
+  data() {
+    return {
+      breadcrumbsCurrent: "",
+      breadcrumbs: [],
+      query: "",
+      perPage: 10,
+      openActionIndex: null,
+    }
+  },
   // Map Getters
   computed: {
     ...mapGetters("operations", ["items", "loading", "pagination"]),
@@ -259,6 +252,17 @@ export default {
     this.getData();
   },
   mounted() {
+    this.breadcrumbsCurrent = this.$t("Branches");
+    this.breadcrumbs = [
+      {
+        name: this.$t("Dashboard"),
+        url: "home",
+      },
+      {
+        name: this.$t("Branches"),
+        url: "",
+      },
+    ];
     document.addEventListener('click', this.onClickOutside);
     window.addEventListener('scroll', this.handleScroll);
     window.addEventListener('resize', this.handleResize);

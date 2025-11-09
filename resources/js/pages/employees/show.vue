@@ -230,7 +230,7 @@
                         </div>
                         <table-loading v-show="loading" />
                         <div class="table-responsive table-custom mt-3">
-                          <table class="table">
+                          <table class="table invoices-table">
                             <thead>
                               <tr>
                                 <th>{{ $t("#") }}</th>
@@ -246,6 +246,8 @@
                                     $can('payroll-delete')
                                   "
                                   class="text-right no-print"
+                                  id="element-to-hide"
+                                  data-html2canvas-ignore="true"
                                 >
                                   {{ $t("Action") }}
                                 </th>
@@ -305,7 +307,9 @@
                                     $can('payroll-view') ||
                                     $can('payroll-delete')
                                   "
-                                  class="text-right"
+                                  class="text-right no-print"
+                                  id="element-to-hide"
+                                  data-html2canvas-ignore="true"
                                 >
                                   <div class="btn-group">
                                     <router-link
@@ -403,7 +407,7 @@
                         </div>
                         <table-loading v-show="salIncreLoading" />
                         <div class="table-responsive table-custom mt-3">
-                          <table class="table">
+                          <table class="table invoices-table">
                             <thead>
                               <tr>
                                 <th>{{ $t("#") }}</th>
@@ -430,6 +434,8 @@
                                     $can('increment-delete')
                                   "
                                   class="text-right no-print"
+                                  id="element-to-hide"
+                                  data-html2canvas-ignore="true"
                                 >
                                   {{ $t("Action") }}
                                 </th>
@@ -503,7 +509,9 @@
                                     $can('increment-view') ||
                                     $can('increment-delete')
                                   "
-                                  class="text-right"
+                                  class="text-right no-print"
+                                  id="element-to-hide"
+                                  data-html2canvas-ignore="true"
                                 >
                                   <div class="btn-group">
                                     <router-link
@@ -1149,5 +1157,63 @@ export default {
   background: #ddd;
   margin: 2px;
   border-radius: 0.25rem;
+}
+
+.invoices-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.invoices-table thead th {
+  background-color: #33a0d9;
+  color: #ffffff;
+  padding: 8px;
+  border: none !important;
+  border-color: inherit !important;
+  font-weight: 400;
+}
+
+.invoices-table thead tr {
+  border: none !important;
+}
+
+.invoices-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.invoices-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+/* RTL styles for Arabic language */
+[dir="rtl"] .invoices-table thead th:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .invoices-table thead th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
+}
+
+.invoices-table .badge.bg-success {
+  background-color: #28a745 !important;
+  color: #ffffff !important;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+}
+
+.invoices-table .badge.bg-danger {
+  background-color: #dc3545 !important;
+  color: #ffffff !important;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+}
+
+.invoices-table td {
+  position: relative;
+  overflow: visible;
 }
 </style>

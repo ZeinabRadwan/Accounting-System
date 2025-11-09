@@ -109,25 +109,18 @@ export default {
   metaInfo() {
     return { title: this.$t('Assign Users to Branch') };
   },
-  data: () => ({
-    breadcrumbsCurrent: 'branches.assign-users',
-    breadcrumbs: [
-      {
-        name: 'Branches',
-        url: 'branches.index',
-      },
-      {
-        name: 'Assign Users',
-        url: '',
-      },
-    ],
-    branchUsers: [],
-    availableUsers: [],
-    loading: false,
-    showAddUserModal: false,
-    selectedUser: null,
-    role: 'member',
-  }),
+  data() {
+    return {
+      breadcrumbsCurrent: '',
+      breadcrumbs: [],
+      branchUsers: [],
+      availableUsers: [],
+      loading: false,
+      showAddUserModal: false,
+      selectedUser: null,
+      role: 'member',
+    }
+  },
   computed: {
     ...mapGetters('operations', ['items']),
     filteredAvailableUsers() {
@@ -148,6 +141,21 @@ export default {
     },
   },
   mounted() {
+    this.breadcrumbsCurrent = this.$t('Assign Users to Branch');
+    this.breadcrumbs = [
+      {
+        name: this.$t('Dashboard'),
+        url: 'home',
+      },
+      {
+        name: this.$t('Branches'),
+        url: 'branches.index',
+      },
+      {
+        name: this.$t('Assign Users to Branch'),
+        url: '',
+      },
+    ];
     this.getBranchUsers()
     this.getAvailableUsers()
   },

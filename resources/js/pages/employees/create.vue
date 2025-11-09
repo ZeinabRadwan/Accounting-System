@@ -466,9 +466,12 @@ export default {
         'employeeName': this.$t('Employee Name'),
         'department': this.$t('Department'),
         'designation': this.$t('Designation'),
-        'mobile number': this.$t('Mobile Number'),
-        'mobile_number': this.$t('Mobile Number'),
-        'mobileNumber': this.$t('Mobile Number'),
+        'mobile number': this.$t('Contact Number'),
+        'mobile_number': this.$t('Contact Number'),
+        'mobileNumber': this.$t('Contact Number'),
+        'contact number': this.$t('Contact Number'),
+        'contact_number': this.$t('Contact Number'),
+        'contactNumber': this.$t('Contact Number'),
         'phone number': this.$t('Phone'),
         'phone_number': this.$t('Phone'),
         'phone': this.$t('Phone'),
@@ -497,6 +500,10 @@ export default {
         'password': this.$t('Password'),
         'role': this.$t('Role'),
         'note': this.$t('Note'),
+        'branch': this.$t('Branch'),
+        'branch_id': this.$t('Branch'),
+        'branch id': this.$t('Branch'),
+        'branchId': this.$t('Branch'),
       }
       const fieldLabel = fieldLabelMap[field] || field
 
@@ -873,9 +880,19 @@ export default {
           ar: `الدور مطلوب` 
         },
         { 
+          re: /Branch\s+is\s+required\.?/i, 
+          en: `Branch is required`,
+          ar: `الفرع مطلوب` 
+        },
+        { 
           re: /Please\s+select\s+a\s+department\.?/i, 
           en: `Please select a department`,
           ar: `يرجى اختيار قسم` 
+        },
+        { 
+          re: /Please\s+select\s+a\s+branch\.?/i, 
+          en: `Please select a branch`,
+          ar: `يرجى اختيار فرع` 
         },
         { 
           re: /Please\s+select\s+a\s+role\.?/i, 
@@ -886,6 +903,11 @@ export default {
           re: /Mobile\s+number\s+is\s+required\.?/i, 
           en: `Mobile number is required`,
           ar: `رقم الهاتف المحمول مطلوب` 
+        },
+        { 
+          re: /Contact\s+number\s+is\s+required\.?/i, 
+          en: `Contact number is required`,
+          ar: `رقم الاتصال مطلوب` 
         },
         { 
           re: /Phone\s+number\s+is\s+required\.?/i, 

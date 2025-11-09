@@ -97,17 +97,8 @@ export default {
     return {
       branch: null,
       slug: "",
-      breadcrumbsCurrent: "branches.edit",
-      breadcrumbs: [
-        {
-          name: this.$t("Branches"),
-          url: "branches.index"
-        },
-        {
-          name: this.$t("Edit"),
-          url: ""
-        }
-      ],
+      breadcrumbsCurrent: "",
+      breadcrumbs: [],
       form: new Form({
         name: "",
         code: "",
@@ -120,6 +111,21 @@ export default {
     };
   },
   async mounted() {
+    this.breadcrumbsCurrent = this.$t("Edit Branch");
+    this.breadcrumbs = [
+      {
+        name: this.$t("Dashboard"),
+        url: "home"
+      },
+      {
+        name: this.$t("Branches"),
+        url: "branches.index"
+      },
+      {
+        name: this.$t("Edit Branch"),
+        url: ""
+      }
+    ];
     this.slug = this.$route.params.slug;
     await this.getBranch();
   },
