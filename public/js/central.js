@@ -117442,12 +117442,12 @@ var map = {
 		7189
 	],
 	"./inventory": [
-		60995,
-		995
+		11685,
+		1685
 	],
 	"./inventory/": [
-		60995,
-		995
+		11685,
+		1685
 	],
 	"./inventory/adjustments": [
 		77470,
@@ -117514,12 +117514,12 @@ var map = {
 		2115
 	],
 	"./inventory/index": [
-		60995,
-		995
+		11685,
+		1685
 	],
 	"./inventory/index.vue": [
-		60995,
-		995
+		11685,
+		1685
 	],
 	"./journal-entries": [
 		83951,
@@ -119346,7 +119346,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 1518) return "js/1518.js";
 /******/ 			if (chunkId === 1554) return "js/1554.js";
 /******/ 			if (chunkId === 7189) return "js/7189.js";
-/******/ 			if (chunkId === 995) return "js/995.js";
+/******/ 			if (chunkId === 1685) return "js/1685.js";
 /******/ 			if (chunkId === 7470) return "js/7470.js";
 /******/ 			if (chunkId === 4776) return "js/4776.js";
 /******/ 			if (chunkId === 2845) return "js/2845.js";
