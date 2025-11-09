@@ -932,11 +932,11 @@ export default {
       }
       return 0;
     },
-    // download pdf - now opens print page
+    // download pdf - directly download PDF file
     generatePDF() {
-      // Open the print page in a new window
-      const printUrl = `/print/invoice/${this.$route.params.slug}`;
-      window.open(printUrl, '_blank');
+      // Directly download the PDF from the server
+      const pdfUrl = `/print/invoice/${this.$route.params.slug}/pdf`;
+      window.open(pdfUrl, '_blank');
     },
     // notify
     async notify() {
