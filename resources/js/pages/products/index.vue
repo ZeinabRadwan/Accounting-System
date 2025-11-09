@@ -145,10 +145,10 @@
                     <td>{{ data.itemUnit ? data.itemUnit.code : '-' }}</td>
                     <td>
                       <span v-if="data.discount > 0"><del>{{ data.regularPrice }}</del>
-                        {{ data.sellingPrice  }} <span class="saudi-riyal">ê</span> ({{
+                        {{ calculateSellingPrice(data)  }} <span class="saudi-riyal">ê</span> ({{
                           data.discount
                         }}%)</span>
-                      <span v-else>{{ data.regularPrice  }} <span class="saudi-riyal">ê</span>
+                      <span v-else>{{ calculateSellingPrice(data)  }} <span class="saudi-riyal">ê</span>
                       </span>
                     </td>
                     <td>
@@ -584,6 +584,14 @@ export default {
       //   window.location.origin + '/api/product-import-template'
       // )
       // console.log(data)
+    },
+    // Calculate selling price as regularPrice + taxAmount - discount
+    calculateSellingPrice(item) {
+      if (!item) return 0;
+      const regularPrice = parseFloat(item.regularPrice) || 0;
+      const taxAmount = parseFloat(item.taxAmount) || 0;
+      const discount = parseFloat(item.discount) || 0;
+      return regularPrice + taxAmount - discount;
     },
   },
 };

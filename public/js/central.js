@@ -117442,12 +117442,12 @@ var map = {
 		7189
 	],
 	"./inventory": [
-		60995,
-		995
+		11685,
+		1685
 	],
 	"./inventory/": [
-		60995,
-		995
+		11685,
+		1685
 	],
 	"./inventory/adjustments": [
 		77470,
@@ -117514,12 +117514,12 @@ var map = {
 		2115
 	],
 	"./inventory/index": [
-		60995,
-		995
+		11685,
+		1685
 	],
 	"./inventory/index.vue": [
-		60995,
-		995
+		11685,
+		1685
 	],
 	"./journal-entries": [
 		83951,
@@ -117890,12 +117890,12 @@ var map = {
 		9681
 	],
 	"./products": [
-		30357,
-		357
+		49432,
+		7051
 	],
 	"./products/": [
-		30357,
-		357
+		49432,
+		7051
 	],
 	"./products/barcode": [
 		63709,
@@ -117978,20 +117978,20 @@ var map = {
 		698
 	],
 	"./products/index": [
-		30357,
-		357
+		49432,
+		7051
 	],
 	"./products/index.vue": [
-		30357,
-		357
+		49432,
+		7051
 	],
 	"./products/show": [
-		72810,
-		2810
+		35480,
+		3099
 	],
 	"./products/show.vue": [
-		72810,
-		2810
+		35480,
+		3099
 	],
 	"./products/sub-categories": [
 		25815,
@@ -118314,12 +118314,12 @@ var map = {
 		602
 	],
 	"./sales/invoices/show": [
-		11370,
-		1370
+		85949,
+		5949
 	],
 	"./sales/invoices/show.vue": [
-		11370,
-		1370
+		85949,
+		5949
 	],
 	"./sales/pos/create": [
 		65261,
@@ -118370,12 +118370,12 @@ var map = {
 		6386
 	],
 	"./sales/quotations/show": [
-		20656,
-		656
+		35434,
+		3053
 	],
 	"./sales/quotations/show.vue": [
-		20656,
-		656
+		35434,
+		3053
 	],
 	"./sales/returns": [
 		77109,
@@ -119346,7 +119346,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 1518) return "js/1518.js";
 /******/ 			if (chunkId === 1554) return "js/1554.js";
 /******/ 			if (chunkId === 7189) return "js/7189.js";
-/******/ 			if (chunkId === 995) return "js/995.js";
+/******/ 			if (chunkId === 1685) return "js/1685.js";
 /******/ 			if (chunkId === 7470) return "js/7470.js";
 /******/ 			if (chunkId === 4776) return "js/4776.js";
 /******/ 			if (chunkId === 2845) return "js/2845.js";
@@ -119391,7 +119391,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 6149) return "js/6149.js";
 /******/ 			if (chunkId === 3897) return "js/3897.js";
 /******/ 			if (chunkId === 9681) return "js/9681.js";
-/******/ 			if (chunkId === 357) return "js/357.js";
+/******/ 			if (chunkId === 7051) return "js/7051.js";
 /******/ 			if (chunkId === 3709) return "js/3709.js";
 /******/ 			if (chunkId === 6037) return "js/6037.js";
 /******/ 			if (chunkId === 8096) return "js/8096.js";
@@ -119401,7 +119401,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 8561) return "js/8561.js";
 /******/ 			if (chunkId === 698) return "js/698.js";
 /******/ 			if (chunkId === 2100) return "js/2100.js";
-/******/ 			if (chunkId === 2810) return "js/2810.js";
+/******/ 			if (chunkId === 3099) return "js/3099.js";
 /******/ 			if (chunkId === 5815) return "js/5815.js";
 /******/ 			if (chunkId === 9909) return "js/9909.js";
 /******/ 			if (chunkId === 3018) return "js/3018.js";
@@ -119437,13 +119437,13 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 			if (chunkId === 602) return "js/602.js";
 /******/ 			if (chunkId === 5774) return "js/5774.js";
 /******/ 			if (chunkId === 4433) return "js/4433.js";
-/******/ 			if (chunkId === 1370) return "js/1370.js";
+/******/ 			if (chunkId === 5949) return "js/5949.js";
 /******/ 			if (chunkId === 5261) return "js/5261.js";
 /******/ 			if (chunkId === 9406) return "js/9406.js";
 /******/ 			if (chunkId === 4049) return "js/4049.js";
 /******/ 			if (chunkId === 4481) return "js/4481.js";
 /******/ 			if (chunkId === 6386) return "js/6386.js";
-/******/ 			if (chunkId === 656) return "js/656.js";
+/******/ 			if (chunkId === 3053) return "js/3053.js";
 /******/ 			if (chunkId === 7109) return "js/7109.js";
 /******/ 			if (chunkId === 6139) return "js/6139.js";
 /******/ 			if (chunkId === 696) return "js/696.js";
