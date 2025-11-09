@@ -83,7 +83,7 @@ class ProductController extends Controller
         // validate request
         $this->validate($request, [
             'itemType' => 'required|string',
-            'itemName' => 'required|string|max:255|unique:products,name',
+            'itemName' => 'required|string|max:255',
             'itemCode' => 'required|unique:products,code',
             'itemModel' => 'nullable|string|min:2|max:255',
             'barcodeSymbology' => 'required|string|max:20',
@@ -321,7 +321,7 @@ class ProductController extends Controller
         // validate request
         $this->validate($request, [
             'itemType' => 'required|string',
-            'itemName' => 'required|string|max:255|unique:products,name,' . $product->id,
+            'itemName' => 'required|string|max:255',
             'itemCode' => 'required|unique:products,code,' . $product->id,
             'itemModel' => 'nullable|string|min:2|max:255',
             'barcodeSymbology' => 'required|string|max:20',
@@ -711,42 +711,54 @@ class ProductController extends Controller
         // Initialize variables
         $prefix = '';
         $nextCode = null;
+        $codeLength = 6; // Default code length
         $user = Auth::user();
-        // Strategy 1: Find the highest purely numeric code and increment it
-        $lastNumericCode = Product::whereRaw('code REGEXP "^[0-9]+$"')
-        ->whereIn('branch_id', $this->getUserBranchIds($user))
-            ->orderBy(DB::raw('CAST(code AS UNSIGNED)'), 'desc')
-            ->value('code');
-
-        if ($lastNumericCode !== null) {
-            $nextCode = (int) $lastNumericCode + 1;
-        } else {
-            // Strategy 2: Fallback - try to extract trailing digits from the very latest product code
-            $latestProduct = Product::whereIn('branch_id', $this->getUserBranchIds($user))
-                ->latest()
-                ->first();
-            if ($latestProduct && is_string($latestProduct->code)) {
-                if (preg_match('/(\d+)(?!.*\d)/', $latestProduct->code, $matches)) {
-                    $nextCode = ((int) $matches[1]) + 1;
-                }
-            }
-        }
-
-        // If nothing worked, start from 1
-        if ($nextCode === null) {
-            $nextCode = 1;
-        }
-
-        // Get the product prefix setting
+        $branchIds = $this->getUserBranchIds($user);
+        
+        // Get the product prefix setting first
         $setting = GeneralSetting::where('key', 'product_prefix')->first();
         if ($setting) {
             $prefix = $setting->value;
+        }
+        
+        // Fetch the latest product (including soft-deleted ones) ordered by id descending
+        $latestProduct = Product::withTrashed()
+            ->whereIn('branch_id', $branchIds)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        if ($latestProduct && !empty($latestProduct->code)) {
+            // Extract the numeric part from the code
+            $code = $latestProduct->code;
+            
+            // Remove prefix if it exists
+            if (!empty($prefix) && strpos($code, $prefix) === 0) {
+                $code = substr($code, strlen($prefix));
+            }
+            
+            // Extract numeric part from the code (handles codes like "000001", "00123", etc.)
+            if (preg_match('/\d+/', $code, $matches)) {
+                $numericPart = $matches[0];
+                $numericValue = (int) $numericPart;
+                $nextCode = $numericValue + 1;
+                
+                // Preserve the format (leading zeros) by determining the length
+                $codeLength = strlen($numericPart);
+                // Use the same length, or default to 6 if it's shorter
+                $codeLength = max($codeLength, 6);
+            } else {
+                // If no numeric part found, start from 1
+                $nextCode = 1;
+            }
+        } else {
+            // If no product exists, set code = "000001"
+            $nextCode = 1;
         }
 
         // Return prefix and zero-padded code
         return [
             'prefix' => $prefix,
-            'code' => str_pad((string) $nextCode, 6, '0', STR_PAD_LEFT),
+            'code' => str_pad((string) $nextCode, $codeLength, '0', STR_PAD_LEFT),
         ];
     }
 
@@ -845,7 +857,7 @@ class ProductController extends Controller
             $data = SimpleExcelReader::create($file, 'csv')->getRows();
 
             $rules = [
-                'name' => ['required', 'string', 'max:255', 'unique:products,name'],
+                'name' => ['required', 'string', 'max:255'],
                 'model' => ['nullable', 'string', 'min:2', 'max:255'],
                 'barcode_symbology' => ['required', 'string', 'max:20'],
                 'sub_cat_id' => ['required'],

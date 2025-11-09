@@ -891,16 +891,11 @@ export default {
       }
     },
 
-    // Calculate actual discount amount for a product (handles both percentage and fixed)
+    // Get discount amount directly from invoice_products.discount_amount (no calculation needed)
     calculateProductDiscountAmount(product) {
-      if (!product.productDiscount || product.productDiscount <= 0) return 0;
-      
-      // Product discounts use string values: 'percentage' or 'fixed'
-      if (product.discountType === 'percentage') {
-        return (product.salePrice * product.quantity * product.productDiscount) / 100;
-      } else {
-        return product.productDiscount;
-      }
+      // productDiscount is already the discount_amount from the database
+      // No need to multiply by quantity - just return the stored discount_amount
+      return product.productDiscount || 0;
     },
     
     // get the invoice

@@ -228,8 +228,8 @@
                         </td>
                         <td>{{ data.productName }}</td>
                         <td>{{ data.quantity }} {{ data.productUnit }}</td>
-                        <td>{{ data.salePrice }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ (data.salePrice * data.quantity) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatNumber(data.salePrice) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatNumber(data.salePrice * data.quantity) }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <span v-if="data.discountType === 'percentage'">
                             {{ data.discount }}% ({{ calculateProductDiscountAmount(data) }} <span class="saudi-riyal">ê</span>)
@@ -241,10 +241,10 @@
                             {{ $t('No Discount') }}
                           </span>
                         </td>
-                        <td>{{ ((data.salePrice * data.quantity) - calculateProductDiscountAmount(data)) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatNumber((data.salePrice * data.quantity) - parseFloat(calculateProductDiscountAmount(data))) }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <span v-if="data.taxAmount > 0">
-                            {{ data.taxAmount }} <span class="saudi-riyal">ê</span>
+                            {{ formatNumber(data.taxAmount) }} <span class="saudi-riyal">ê</span>
                             <small v-if="data.taxRate" class="text-muted d-block">
                               ({{ data.taxRate }}%)
                             </small>
@@ -253,7 +253,7 @@
                             {{ $t('No VAT') }}
                           </span>
                         </td>
-                        <td>{{ ((data.salePrice * data.quantity) - calculateProductDiscountAmount(data) + (data.taxAmount || 0)) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatNumber((data.salePrice * data.quantity) - parseFloat(calculateProductDiscountAmount(data)) + (parseFloat(data.taxAmount) || 0)) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr>
                         <td class="text-right" colspan="9">
@@ -276,29 +276,29 @@
                     <tbody>
                       <tr class="bg-sub-light text-bold">
                         <th>{{ $t("Total Price") }}:</th>
-                        <td>{{ totalPrice }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatNumber(totalPrice) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr>
                         <th>{{ $t("Product Discount") }}:</th>
                         <td>
-                          {{ totalProductDiscount }} <span class="saudi-riyal">ê</span>
+                          {{ formatNumber(totalProductDiscount) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="bg-green-light text-bold">
                         <th>{{ $t("Total After Discount") }}:</th>
-                        <td>{{ (totalPrice - totalProductDiscount) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatNumber(totalPrice - totalProductDiscount) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr>
                         <th>{{ $t("Product VAT") }}:</th>
                         <td>
-                          {{ totalProductVat }} <span class="saudi-riyal">ê</span>
+                          {{ formatNumber(totalProductVat) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="bg-indigo-light">
                         <th>{{ $t("Total with VAT") }}:</th>
                         <td>
                           <span class="equal-sign">=</span>
-                          {{ (totalPrice - totalProductDiscount + totalProductVat) }} <span class="saudi-riyal">ê</span>
+                          {{ formatNumber(totalPrice - totalProductDiscount + totalProductVat) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                     </tbody>
@@ -765,6 +765,12 @@ export default {
         return Number(data.discountAmount).toFixed(2);
       }
       return 0;
+    },
+
+    // Format number to 2 decimal places
+    formatNumber(value) {
+      if (value === null || value === undefined || isNaN(value)) return '0.00';
+      return parseFloat(value).toFixed(2);
     },
   },
 };

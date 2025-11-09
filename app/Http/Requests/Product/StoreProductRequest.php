@@ -24,7 +24,7 @@ class StoreProductRequest extends BaseRequest
     public function rules()
     {
         return [
-            'itemName' => 'required|string|max:255|unique:products,name',
+            'itemName' => 'required|string|max:255',
             'itemCode' => 'required|numeric|max:99999|unique:products,code',
             'itemModel' => 'nullable|string|min:2|max:255',
             'barcodeSymbology' => 'required|string|max:20',

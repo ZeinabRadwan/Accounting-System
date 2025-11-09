@@ -146,19 +146,25 @@
                             <span v-if="form.errors.has(`selectedProducts.${i}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${i}.discountType`) }}</span>
                           </div>
                         </td>
-                        <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals((item.unitPrice * item.qty) - (item.discountAmount || 0)) }} <span class="saudi-riyal">ê</span></td>
+                        <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.totalAfterDiscount !== undefined ? item.totalAfterDiscount : ((item.unitPrice * item.qty) - (item.discountAmount || 0))) }} <span class="saudi-riyal">ê</span></td>
                         <td style="min-width: 150px;">
                           <select v-model="item.selectedVatRate" class="form-control form-control-sm" :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i}.selectedVatRate`) }" @change="calculateProductVat(i)" style="min-width: 120px;">
                             <option value="">{{ $t('Select VAT') }}</option>
                             <option v-for="tax in taxes" :key="tax.id" :value="tax">{{ tax.code }} ({{ tax.rate }}%)</option>
                           </select>
+                          <div v-if="item.vat_rate_code" class="mt-1" style="display: none;">
+                            <small class="text-muted">
+                              <strong>{{ $t("VAT Code") }}:</strong> {{ item.vat_rate_code }}
+                            </small>
+                          </div>
                           <div v-if="form.errors.has(`selectedProducts.${i}.selectedVatRate`)" class="invalid-feedback d-block">
                             {{ form.errors.get(`selectedProducts.${i}.selectedVatRate`) }}
                           </div>
                         </td>
                         <td class="no-currency" style="min-width: 100px;">
-                          <span class="form-control-plaintext form-control-sm text-center no-currency">{{ formatToTwoDecimals(item.productTax) }}</span>
+                          <div class="form-control-plaintext form-control-sm text-center no-currency">{{ formatToTwoDecimals(item.taxType === 'Inclusive' ? (item.totalTax || 0) : (item.productTax || 0)) }}
                           <span class="saudi-riyal">ê</span>
+                        </div>
                         </td>
                         <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.totalPrice) }} <span class="saudi-riyal">ê</span></td>
                         <td class="text-right" style="min-width: 80px;">
@@ -187,7 +193,7 @@
                           <strong>{{ formatToTwoDecimals(totalProductTax) }}</strong> <span class="saudi-riyal">ê</span>
                         </td>
                         <td class="no-currency">
-                          <strong>{{ formatToTwoDecimals(subtotal) }}</strong> <span class="saudi-riyal">ê</span>
+                          <strong>{{ formatToTwoDecimals(totalAfterTax) }}</strong> <span class="saudi-riyal">ê</span>
                         </td>
                         <td></td>
                       </tr>
@@ -366,7 +372,8 @@ export default {
     totalUnitPrice() { return this.roundToTwoDecimals(this.form.selectedProducts.reduce((t, i) => t + (i.unitPrice * i.qty), 0)); },
     totalProductDiscount() { return this.roundToTwoDecimals(this.form.selectedProducts.reduce((t, i) => t + (i.discountAmount || 0), 0)); },
     totalAfterDiscount() { return this.roundToTwoDecimals(this.totalUnitPrice - this.totalProductDiscount); },
-    totalProductTax() { return this.roundToTwoDecimals(this.form.selectedProducts.reduce((t, i) => t + (i.totalTax || 0), 0)); },
+    totalProductTax() { return this.roundToTwoDecimals(this.form.selectedProducts.reduce((t, i) => t + (i.taxType === 'Inclusive' ? (i.totalTax || 0) : (i.productTax || 0)), 0)); },
+    totalAfterTax() { return this.roundToTwoDecimals(this.totalAfterDiscount + this.totalProductTax); },
     subtotal() { return this.roundToTwoDecimals(this.form.selectedProducts.reduce((t, i) => t + (i.totalPrice || 0), 0)); },
     hasInsufficientStock() { return this.form.selectedProducts.some(i => i.itemType === 'product' && Number(i.inventoryCount) < Number(i.qty)); },
     insufficientStockProducts() { return this.form.selectedProducts.filter(i => i.itemType === 'product' && Number(i.inventoryCount) < Number(i.qty)); },
@@ -427,6 +434,35 @@ export default {
         let defaultVatRateSlug = this.appInfo.defaultVatRateSlug;
         this.form.orderTax = this.taxes.find(t => t.slug === defaultVatRateSlug) || this.taxes[0];
       }
+      // Update vat_rate_code for all products after taxes are loaded
+      if (this.taxes && this.form.selectedProducts && this.form.selectedProducts.length > 0) {
+        this.form.selectedProducts.forEach((item, index) => {
+          if (item.vat_rate_id) {
+            const vatRate = this.findVatRateById(item.vat_rate_id);
+            if (vatRate) {
+              this.$set(item, 'vat_rate_code', vatRate.code);
+              // Also update selectedVatRate if it's not set or doesn't match
+              if (!item.selectedVatRate || item.selectedVatRate.id !== vatRate.id) {
+                this.$set(item, 'selectedVatRate', vatRate);
+              }
+            }
+          } else if (item.selectedVatRate && item.selectedVatRate.code) {
+            // Update vat_rate_code from selectedVatRate if vat_rate_id is not set
+            this.$set(item, 'vat_rate_code', item.selectedVatRate.code);
+            this.$set(item, 'vat_rate_id', item.selectedVatRate.id);
+          } else if (!item.selectedVatRate && item.taxRate) {
+            // If no selectedVatRate but taxRate exists, try to find matching VAT rate
+            const matchingVatRate = this.findMatchingVatRate(item.taxRate) || this.form.orderTax || (this.taxes && this.taxes[0]);
+            if (matchingVatRate) {
+              this.$set(item, 'selectedVatRate', matchingVatRate);
+              this.$set(item, 'vat_rate_code', matchingVatRate.code);
+              this.$set(item, 'vat_rate_id', matchingVatRate.id);
+            }
+          }
+          // Recalculate VAT for this item after updating VAT rate
+          this.generateItemTotalPrice(index);
+        });
+      }
       this.calculateSum();
     },
     async loadCommunicationConfigStatus() {
@@ -470,12 +506,20 @@ export default {
           discount: 0,
           discountType: "fixed",
           discountAmount: 0,
+          vat_rate_id: null,
+          vat_rate_code: null,
           selectedVatRate: this.findMatchingVatRate(product.taxRate) || this.form.orderTax || this.taxes?.[0],
         });
+        // Set vat_rate_code if selectedVatRate is set
+        if (this.form.selectedProducts[0] && this.form.selectedProducts[0].selectedVatRate) {
+          this.$set(this.form.selectedProducts[0], 'vat_rate_code', this.form.selectedProducts[0].selectedVatRate.code || null);
+          this.$set(this.form.selectedProducts[0], 'vat_rate_id', this.form.selectedProducts[0].selectedVatRate.id || null);
+        }
       }
       this.generateItemTotal(qunatity, "qty", index === -1 ? 0 : index, "");
     },
     findMatchingVatRate(productTax) { if (!this.taxes || !productTax) return null; return this.taxes.find(tax => Math.abs(tax.rate - productTax) < 0.01); },
+    findVatRateById(vatRateId) { if (!this.taxes || !vatRateId) return null; return this.taxes.find(tax => tax.id === vatRateId); },
     ensureDiscountProperties() {
       this.form.selectedProducts.forEach(item => {
         if (typeof item.discount === 'undefined') item.discount = 0;
@@ -504,6 +548,14 @@ export default {
       if (!item.selectedVatRate) {
         if (item.taxRate) item.selectedVatRate = this.findMatchingVatRate(item.taxRate);
         if (!item.selectedVatRate && this.taxes && this.taxes.length > 0) item.selectedVatRate = this.taxes[0];
+      }
+      // Update vat_rate_code and vat_rate_id when selectedVatRate changes
+      if (item.selectedVatRate) {
+        this.$set(item, 'vat_rate_code', item.selectedVatRate.code || null);
+        this.$set(item, 'vat_rate_id', item.selectedVatRate.id || null);
+      } else {
+        this.$set(item, 'vat_rate_code', null);
+        this.$set(item, 'vat_rate_id', null);
       }
       this.generateItemTotalPrice(index);
       this.calculateSum();
@@ -536,18 +588,29 @@ export default {
       if (item.selectedVatRate && item.selectedVatRate.rate !== undefined && item.selectedVatRate.rate !== null) vatRate = Number(item.selectedVatRate.rate);
       else if (item.taxRate !== undefined && item.taxRate !== null) vatRate = Number(item.taxRate);
       if (isNaN(vatRate) || vatRate < 0) vatRate = 0;
+      
+      // Set totalAfterDiscount for display consistency
+      this.$set(item, 'totalAfterDiscount', this.roundToTwoDecimals(priceAfterDiscount));
+      
       if (item.taxType == "Exclusive") {
-        item.productTax = this.roundToTwoDecimals(priceAfterDiscount * (vatRate / 100));
-        item.totalTax = this.roundToTwoDecimals(item.productTax);
-        item.totalPrice = this.roundToTwoDecimals(priceAfterDiscount + item.totalTax);
+        // VAT on discounted amount
+        const productTax = this.roundToTwoDecimals(priceAfterDiscount * (vatRate / 100));
+        const totalTax = this.roundToTwoDecimals(productTax);
+        const totalPrice = this.roundToTwoDecimals(priceAfterDiscount + totalTax);
+        this.$set(item, 'productTax', productTax);
+        this.$set(item, 'totalTax', totalTax);
+        this.$set(item, 'totalPrice', totalPrice);
       } else {
+        // Inclusive: VAT is included in unit price; derive VAT from discounted price
+        // Don't modify unitPrice - use a temporary variable for calculation
         let discountedUnitPrice = this.roundToTwoDecimals(priceAfterDiscount / item.qty);
-        item.unitPrice = discountedUnitPrice;
-        item.productTax = this.roundToTwoDecimals(discountedUnitPrice - (discountedUnitPrice / (1 + vatRate / 100)));
-        item.totalTax = this.roundToTwoDecimals(item.productTax * item.qty);
-        item.totalPrice = this.roundToTwoDecimals(priceAfterDiscount);
+        const productTax = this.roundToTwoDecimals(discountedUnitPrice - (discountedUnitPrice / (1 + vatRate / 100)));
+        const totalTax = this.roundToTwoDecimals(productTax * item.qty);
+        const totalPrice = this.roundToTwoDecimals(priceAfterDiscount);
+        this.$set(item, 'productTax', productTax);
+        this.$set(item, 'totalTax', totalTax);
+        this.$set(item, 'totalPrice', totalPrice);
       }
-      this.form.selectedProducts[index] = item;
     },
     removeItem(item) { let index = this.form.selectedProducts.indexOf(item); if (index > -1) this.form.selectedProducts.splice(index, 1); this.calculateSum(); },
     roundToTwoDecimals(value) { return Math.round((Number(value) + Number.EPSILON) * 100) / 100; },
@@ -782,6 +845,29 @@ export default {
         const totalPrice = Number(qp.unitCostTotal ?? (taxType === 'Exclusive' ? qty * unitPrice + totalTax : qty * unitPrice));
         const unitCost = Number(qp.unitCost ?? (taxType === 'Exclusive' ? unitPrice + productTax : unitPrice));
 
+        // Find VAT rate by vat_rate_id from quotation_products, fallback to matching by rate
+        let selectedVatRate = null;
+        let vatRateCode = null;
+        if (qp.vat_rate_id && this.taxes) {
+          selectedVatRate = this.findVatRateById(qp.vat_rate_id);
+          if (selectedVatRate) {
+            vatRateCode = selectedVatRate.code;
+          }
+        }
+        // If not found by ID, try to match by rate or use vatRate from API response
+        if (!selectedVatRate) {
+          if (qp.vatRate && qp.vatRate.code) {
+            vatRateCode = qp.vatRate.code;
+            // Try to find matching VAT rate in taxes list
+            selectedVatRate = this.findVatRateById(qp.vatRate.id) || this.findMatchingVatRate(qp.vatRate.rate);
+          } else {
+            selectedVatRate = this.findMatchingVatRate(taxRate) || this.form.orderTax || (this.taxes && this.taxes[0]) || null;
+            if (selectedVatRate) {
+              vatRateCode = selectedVatRate.code;
+            }
+          }
+        }
+
         mapped.unshift({
           id: qp.productID ?? qp.id,
           slug: qp.productSlug ?? qp.slug,
@@ -801,11 +887,22 @@ export default {
           discount: qp.discount ?? 0,
           discountType: qp.discountType ?? 'fixed',
           discountAmount: qp.discountAmount ?? 0,
-          selectedVatRate: this.findMatchingVatRate(taxRate) || this.form.orderTax || (this.taxes && this.taxes[0]) || null,
+          vat_rate_id: qp.vat_rate_id || null,
+          vat_rate_code: vatRateCode,
+          selectedVatRate: selectedVatRate,
         });
       }
       this.form.selectedProducts = mapped;
       this.ensureDiscountProperties();
+      // Recalculate discountAmount if discount is set but discountAmount is missing or zero
+      this.form.selectedProducts.forEach((item, index) => {
+        if (item.discount > 0 && (!item.discountAmount || item.discountAmount === 0)) {
+          this.calculateProductDiscount(index);
+        } else {
+          // Recalculate totals to ensure totalAfterDiscount and totalPrice are correct
+          this.generateItemTotalPrice(index);
+        }
+      });
       return mapped;
     },
   },
