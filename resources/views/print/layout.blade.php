@@ -325,7 +325,7 @@
 </head>
 
 <body>
-    <div class="action-buttons no-print">
+    <div class="action-buttons no-print" id="action-buttons">
         <button class="print-button" onclick="window.print()">
             <i class="fas fa-print"></i> @lang('print.Print Document')
         </button>
@@ -358,6 +358,13 @@
     </style>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const actionButtons = document.getElementById('action-buttons');
+            const currentPath = window.location.pathname;
+            if (currentPath.includes('/print/reports/account-statement')) {
+                actionButtons.style.display = 'none';
+            }
+        });
         function downloadPDF() {
             const currentPath = window.location.pathname;
             let pdfUrl = '';
