@@ -415,9 +415,18 @@
 <script>
 import Form from 'vform'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 import { mapGetters } from 'vuex'
 import CategorySubcategoryCreateModal from '~/components/CategorySubcategoryCreateModal'
 import UnitCreateModal from '~/components/UnitCreateModal'
+
+const toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true
+});
 
 export default {
   components: {
@@ -445,8 +454,11 @@ export default {
       servicePurchasePrice: "",
       openingStockCount: "",
       openingStockUnitPrice: "",
+      purchasePrice: "",
+      isOpeningStock: false,
       discount: "",
       sellingPrice: "",
+      taxAmount: "",
       note: "",
       alertQuantity: 1,
       status: 1,
@@ -629,33 +641,23 @@ export default {
     },
     // calculate selling price
     calculatePrice() {
-      if (this.form.regularPrice && this.form.productTax && this.form.taxType) {
-        let discount = 0;
-        if (this.form.discount && this.form.discount > 0) {
-          discount = (this.form.discount / 100) * this.form.regularPrice;
-        }
-        let currentPrice = this.form.regularPrice - discount;
-        let taxAmount = 0;
-        let totalTax = 0;
-        if (this.form.productTax.rate > 0) {
-          taxAmount = this.form.productTax.rate / 100;
-        }
-        if (this.form.taxType == "Exclusive") {
-          totalTax = currentPrice * taxAmount;
-        }
-        else {
-          totalTax = currentPrice - currentPrice / (1 + taxAmount);
-        }
-        if (this.form.taxType == "Exclusive") {
-          this.form.sellingPrice = this.form.regularPrice - discount + totalTax;
-        }
-        else {
-          this.form.sellingPrice =
-            (this.form.regularPrice - discount) / (1 + taxAmount) + totalTax;
-        }
+      // Reset values if required fields are missing
+      if (!this.form.regularPrice || !this.form.productTax || !this.form.productTax.rate) {
+        this.form.taxAmount = "";
+        this.form.sellingPrice = this.form.regularPrice || "";
         return;
       }
-      this.form.sellingPrice = this.form.regularPrice;
+
+      const regularPrice = parseFloat(this.form.regularPrice) || 0;
+      const taxRate = parseFloat(this.form.productTax.rate) || 0;
+
+      // Calculate taxAmount = regularPrice * (taxRate / 100)
+      const taxAmount = regularPrice * (taxRate / 100);
+      this.form.taxAmount = parseFloat(taxAmount.toFixed(2));
+
+      // Calculate sellingPrice = regularPrice + taxAmount
+      const sellingPrice = regularPrice + taxAmount;
+      this.form.sellingPrice = parseFloat(sellingPrice.toFixed(2));
     },
     // vue file upload
     onFileChange(e) {
@@ -677,6 +679,44 @@ export default {
     },
     // save product
     async saveProduct() {
+      // Ensure price calculation is up-to-date before submission
+      this.calculatePrice();
+      
+      // For products, ensure purchasePrice is set from openingStockUnitPrice
+      // This ensures purchase_price is saved correctly in the database
+      if (this.form.itemType === 'product') {
+        const openingStockUnitPrice = parseFloat(this.form.openingStockUnitPrice) || 0;
+        const openingStockCount = parseFloat(this.form.openingStockCount) || 0;
+        
+        // Set purchasePrice to openingStockUnitPrice for products
+        // The backend uses openingStockUnitPrice to set purchase_price, but we also send purchasePrice
+        // to ensure it's available in the payload for inventory adjustments
+        this.form.purchasePrice = openingStockUnitPrice;
+        
+        // IMPORTANT: Set isOpeningStock flag to true if there's a purchase price OR opening stock
+        // This ensures the backend will use openingStockUnitPrice to set purchase_price
+        // The backend only sets purchase_price from openingStockUnitPrice when isOpeningStock is true
+        // (See ProductController.php line 147-150 and 218)
+        // Note: Backend validation requires openingStockCount >= 1 when isOpeningStock is true
+        if (openingStockUnitPrice > 0) {
+          this.form.isOpeningStock = true;
+          // Ensure openingStockCount is set to at least 1 when we have a purchase price
+          // (Backend validation requires min:1 when isOpeningStock is true)
+          if (this.form.openingStockCount === "" || this.form.openingStockCount === null || openingStockCount === 0) {
+            this.form.openingStockCount = openingStockCount > 0 ? openingStockCount : 1;
+          }
+        } else if (openingStockCount > 0) {
+          this.form.isOpeningStock = true;
+          // If there's opening stock but no purchase price, set a default purchase price
+          if (!openingStockUnitPrice || openingStockUnitPrice === 0) {
+            // You might want to set a default or use regularPrice as fallback
+            // For now, we'll leave it as is and let the user enter it
+          }
+        } else {
+          this.form.isOpeningStock = false;
+        }
+      }
+      
       // Validate required fields based on item type
       if (this.form.itemType === 'service' && !this.form.servicePurchasePrice) {
         toast.fire({ 
@@ -719,6 +759,10 @@ export default {
       // Debug: Log form data being sent
       console.log("=== FORM SUBMISSION DEBUG ===");
       console.log("Form data being sent:", this.form.data());
+      console.log("Purchase Price (openingStockUnitPrice):", this.form.openingStockUnitPrice);
+      console.log("Purchase Price (purchasePrice):", this.form.purchasePrice);
+      console.log("Is Opening Stock (isOpeningStock):", this.form.isOpeningStock);
+      console.log("Opening Stock Count:", this.form.openingStockCount);
       console.log("Account routing settings:", this.accountRoutingSettings);
       console.log("Sales settings:", this.accountRoutingSettings.sales);
       console.log("Purchase settings:", this.accountRoutingSettings.purchase);
@@ -730,11 +774,17 @@ export default {
 
       await this.form
         .post(window.location.origin + "/api/products")
-        .then((response) => {
+        .then(async (response) => {
           toast.fire({
             type: "success",
             title: this.$t("Product added successfully"),
           });
+          
+          // Store opening stock values before reset
+          const openingStockCount = parseFloat(this.form.openingStockCount) || 0;
+          const openingStockUnitPrice = parseFloat(this.form.openingStockUnitPrice) || 0;
+          // Get purchasePrice from form (set before submission) or fallback to openingStockUnitPrice
+          const purchasePrice = parseFloat(this.form.purchasePrice) || openingStockUnitPrice || 0;
           
           // Emit the newly created product data
           if (response.data && response.data.data) {
@@ -762,6 +812,32 @@ export default {
               purchase_account_id: newProduct.purchase_account_id
             };
             this.$emit('productCreated', formattedProduct);
+            
+            // Create inventory adjustment if opening stock exists and item type is product
+            if (newProduct.itemType === 'product' && openingStockCount > 0 && newProduct.slug) {
+              try {
+                // Use purchasePrice (from form) or openingStockUnitPrice, with fallback to product's avgPurchasePrice
+                const adjustmentPurchasePrice = purchasePrice > 0 
+                  ? purchasePrice 
+                  : (openingStockUnitPrice > 0 
+                    ? openingStockUnitPrice 
+                    : (newProduct.avgPurchasePrice || 0));
+                
+                await this.createInventoryAdjustment({
+                  productSlug: newProduct.slug,
+                  quantity: openingStockCount,
+                  purchasePrice: adjustmentPurchasePrice
+                });
+              } catch (adjustmentError) {
+                // Log error but don't block the product creation success
+                console.error("Error creating inventory adjustment:", adjustmentError);
+                toast.fire({
+                  type: "warning",
+                  title: this.$t("Product created, but inventory adjustment failed"),
+                  text: adjustmentError.response?.data?.message || this.$t("Please create the adjustment manually.")
+                });
+              }
+            }
           }
           
           // Store auto-assigned account IDs before reset
@@ -789,6 +865,40 @@ export default {
           const errorMessage = error.response?.data?.message || this.$t("Please check your input and try again.");
           toast.fire({ type: "error", title: errorMessage });
         });
+    },
+
+    // Create inventory adjustment for opening stock
+    async createInventoryAdjustment({ productSlug, quantity, purchasePrice }) {
+      const adjustmentForm = new Form({
+        adjustmentReason: this.$t("Opening Stock"),
+        adjustmentDate: new Date().toISOString().slice(0, 10),
+        note: this.$t("Initial inventory count for new product"),
+        status: 1,
+        selectedProducts: [
+          {
+            slug: productSlug,
+            adjustType: "Increment",
+            adjustQty: quantity,
+            purchasePrice: purchasePrice
+          }
+        ]
+      });
+
+      try {
+        const response = await adjustmentForm.post(
+          window.location.origin + "/api/inventory-adjustments"
+        );
+        
+        toast.fire({
+          type: "success",
+          title: this.$t("Inventory adjustment created successfully"),
+        });
+        
+        return response;
+      } catch (error) {
+        console.error("Error creating inventory adjustment:", error);
+        throw error;
+      }
     },
 
     // Auto-assign sales account
