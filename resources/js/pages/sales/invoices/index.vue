@@ -98,6 +98,9 @@
                   <th>{{ $t("Invoice Date") }}</th>
                   <th>{{ $t("Client") }}</th>
                   <th>{{ $t("Net Total") }}</th>
+                  <th>{{ $t("Discount") }}</th>
+                  <th>{{ $t("Tax") }}</th>
+                  <th>{{ $t("Total After Tax") }}</th>
                   <th>{{ $t("Total Paid") }}</th>
                   <th>{{ $t("Total Due") }}</th>
                   <th>{{ $t("Status") }}</th>
@@ -136,6 +139,9 @@
                       }}</span>
                     </td>
                     <td>{{ data.client }}</td>
+                    <td v-html="formatCurrency(data.subTotal)"></td>
+                    <td v-html="formatCurrency(calculateDiscountAmount(data))"></td>
+                    <td v-html="formatCurrency(data.tax)"></td>
                     <td v-html="formatCurrency(data.invoiceTotal)"></td>
                     <td v-html="formatCurrency(data.totalPaid)"></td>
                     <td v-html="formatCurrency(data.due)"></td>
@@ -207,7 +213,7 @@
                     </td>
                   </tr>
                   <tr v-show="!loading && !items.length">
-                    <td colspan="13">
+                    <td colspan="12">
                       <EmptyTable />
                     </td>
                   </tr>
@@ -880,6 +886,21 @@ export default {
       
       return formatted + ' <span class="saudi-riyal">ê</span>';
     },
+    
+    // Calculate discount amount from invoice data
+    calculateDiscountAmount(data) {
+      if (!data || !data.discount || data.discount === 0) {
+        return 0;
+      }
+      
+      // If discountType is 1 (percentage), calculate percentage of subtotal
+      // If discountType is 0 (fixed), use discount value directly
+      if (data.discountType === 1) {
+        return (data.discount / 100) * (data.subTotal || 0);
+      } else {
+        return data.discount;
+      }
+    },
     // Show message for inactive invoices
     showInactiveMessage() {
       this.$toast.warning(
@@ -920,6 +941,16 @@ export default {
 
 .invoices-table thead th:last-child {
   border-top-right-radius: 10px;
+}
+
+/* Right-align numeric columns */
+.invoices-table tbody td:nth-child(5),
+.invoices-table tbody td:nth-child(6),
+.invoices-table tbody td:nth-child(7),
+.invoices-table tbody td:nth-child(8),
+.invoices-table tbody td:nth-child(9),
+.invoices-table tbody td:nth-child(10) {
+  text-align: right;
 }
 
 /* RTL styles for Arabic language */
@@ -1336,7 +1367,10 @@ export default {
   /* Right-align numeric columns */
   #printMe .invoices-table tbody td:nth-child(5),
   #printMe .invoices-table tbody td:nth-child(6),
-  #printMe .invoices-table tbody td:nth-child(7) {
+  #printMe .invoices-table tbody td:nth-child(7),
+  #printMe .invoices-table tbody td:nth-child(8),
+  #printMe .invoices-table tbody td:nth-child(9),
+  #printMe .invoices-table tbody td:nth-child(10) {
     text-align: right !important;
   }
 }

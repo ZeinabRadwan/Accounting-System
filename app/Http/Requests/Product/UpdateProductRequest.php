@@ -30,7 +30,7 @@ class UpdateProductRequest extends BaseRequest
         $product = Product::where('slug', $slug)->first();
 
         return [
-            'itemName' => 'required|string|max:255|unique:products,name,'.$product->id,
+            'itemName' => 'required|string|max:255',
             'itemCode' => 'required|numeric|max:99999|unique:products,code,'.$product->id,
             'itemModel' => 'nullable|string|min:2|max:255',
             'barcodeSymbology' => 'required|string|max:20',
