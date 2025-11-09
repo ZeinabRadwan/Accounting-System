@@ -18,6 +18,8 @@
     "dompdf/dompdf": "^1.2",
     "florianv/laravel-swap": "^2.3",
     "guzzlehttp/guzzle": "^7.5",
+    "h4cc/wkhtmltoimage-amd64": "^0.12.4",
+    "h4cc/wkhtmltopdf-amd64": "0.12.x",
     "intervention/image": "^2.7",
     "jackiedo/dotenv-editor": "^2.0",
     "laravel-notification-channels/twilio": "^3.3",

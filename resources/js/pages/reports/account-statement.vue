@@ -140,14 +140,14 @@
                   >
                     <i class="fa fa-arrow-circle-down"></i>
                   </a>
-                  <a 
+                  <!-- <a 
                     v-if="reportData && entriesCount > 0" 
                     :href="exportPdfUrl" 
                     v-tooltip="$t('Export to PDF')" 
                     class="btn export-pdf-btn ml-2"
                   >
                     <i class="fas fa-file-export"></i>
-                  </a>
+                  </a> -->
                   <a 
                     v-if="reportData && entriesCount > 0" 
                     :href="printTemplateUrl" 

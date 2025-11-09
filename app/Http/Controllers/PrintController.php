@@ -16,6 +16,7 @@ use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\Process\Process;
 use Illuminate\Support\Facades\File;
 
 class PrintController extends Controller
@@ -473,6 +474,57 @@ class PrintController extends Controller
     }
 
     /**
+     * Download Account Statement PDF
+     */
+    public function downloadAccountStatementPDF(Request $request)
+    {
+        // Set locale for translations
+        app()->setLocale('ar');
+        
+        // Use the dedicated print method that gets ALL data without pagination
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportResponse = $reportController->accountStatementForPrint($request);
+        
+        // Handle JsonResponse
+        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportResponse->getData(true);
+        } else {
+            $reportData = $reportResponse;
+        }
+        
+        if (!$reportData['success']) {
+            abort(404, 'Report data not found');
+        }
+        
+        $accountStatementData = $reportData['data'];
+        
+        // Get the default template for reports
+        $template = PrintTemplate::byModule('reports')->default()->first();
+        
+        // Generate filename
+        $accountName = $accountStatementData['chart_of_account']['name'] ?? 'Account';
+        $fromDate = $accountStatementData['filters']['from_date'] ?? '';
+        $toDate = $accountStatementData['filters']['to_date'] ?? '';
+        $filename = 'Account-Statement-' . str_replace(' ', '-', $accountName) . '-' . $fromDate . '-to-' . $toDate . '.pdf';
+        $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
+        
+        // Use Utility::buildPdf to generate PDF
+        return \App\Models\Utility::buildPdf([
+            'view' => $template ? 'print.reports.account-statement' : 'print.account-statement-basic',
+            'view_data' => compact('accountStatementData', 'template'),
+            'type' => 'download',
+            'file_name' => $filename,
+            'header' => '',
+            'footer' => '',
+            'header_spacing' => '2',
+            'margins' => [
+                'top' => '10mm',
+                'bottom' => '10mm',
+            ]
+        ]);
+    }
+
+    /**
      * Get template configuration for a specific module
      */
     private function getTemplateConfig($module)
@@ -617,6 +669,15 @@ class PrintController extends Controller
         {
             $path  = 'uploads/vouchers/pdfs';
         }
+        else if($type == 'account-statement')
+        {
+            $path  = 'uploads/reports/account-statement/pdfs';
+        }
+        else
+        {
+            // Default path for unknown types
+            $path  = 'uploads/pdfs';
+        }
 
 
         $file = $request->file('file');
@@ -640,87 +701,134 @@ class PrintController extends Controller
             'type' => $type,
         ]);
     }
+
+
+    public function generatePdf(Request $request)
+    {
+        $type = $request->type ?? 'default';
+
+        // Determine folder path
+        if($type == 'invoice') {
+            $path = 'uploads/invoices/pdfs';
+        } elseif($type == 'purchase') {
+            $path = 'uploads/purchases/pdfs';
+        } else {
+            $path = 'uploads/pdfs';
+        }
+
+        $destinationPath = public_path($path);
+        if (!File::exists($destinationPath)) {
+            File::makeDirectory($destinationPath, 0777, true);
+        }
+
+        $fileName = 'pdf_' . time() . '.pdf';
+        $fullPath = $destinationPath . '/' . $fileName;
+
+        // Generate PDF via Puppeteer (Node.js script)
+        $html = $request->html ?? '<h1>Hello PDF</h1>'; // You can pass HTML from front-end
+
+        $scriptPath = base_path('scripts/generatePdf.js');
+        $nodePath = 'C:\Program Files\nodejs\node.exe'; // adjust if different
+        $process = new Process([$nodePath, $scriptPath, $fullPath, base64_encode($html)]);
+        
+
+        if (!$process->isSuccessful()) {
+            return response()->json([
+                'success' => false,
+                'message' => $process->getErrorOutput()
+            ], 500);
+        }
+
+        return response()->json([
+            'success' => true,
+            'path' => asset($path . '/' . $fileName)
+        ]);
+    }
+
+
+
+
     /**
      * Generate PDF using DomPDF as primary method with fallbacks
      */
-    private function generatePDF($html, $filename)
-    {
-        try {
-            // Primary method: DomPDF for better compatibility and reliability
-            $pdf = Pdf::loadHTML($html)
-                ->setPaper('A4', 'portrait')
-                ->setOptions([
-                    'isHtml5ParserEnabled' => true,
-                    'isRemoteEnabled' => true,
-                    'isPhpEnabled' => true,
-                    'defaultFont' => 'DejaVu Sans',
-                    'isJavascriptEnabled' => false,
-                    'debugKeepTemp' => false,
-                    'debugCss' => false,
-                    'debugLayout' => false,
-                    'debugLayoutLines' => false,
-                    'debugLayoutBlocks' => false,
-                    'debugLayoutInline' => false,
-                ]);
+    // private function generatePDF($html, $filename)
+    // {
+    //     try {
+    //         // Primary method: DomPDF for better compatibility and reliability
+    //         $pdf = Pdf::loadHTML($html)
+    //             ->setPaper('A4', 'portrait')
+    //             ->setOptions([
+    //                 'isHtml5ParserEnabled' => true,
+    //                 'isRemoteEnabled' => true,
+    //                 'isPhpEnabled' => true,
+    //                 'defaultFont' => 'DejaVu Sans',
+    //                 'isJavascriptEnabled' => false,
+    //                 'debugKeepTemp' => false,
+    //                 'debugCss' => false,
+    //                 'debugLayout' => false,
+    //                 'debugLayoutLines' => false,
+    //                 'debugLayoutBlocks' => false,
+    //                 'debugLayoutInline' => false,
+    //             ]);
             
-            return $pdf->download($filename);
-        } catch (\Exception $e) {
-            Log::warning('DomPDF generation failed: ' . $e->getMessage());
-        }
+    //         return $pdf->download($filename);
+    //     } catch (\Exception $e) {
+    //         Log::warning('DomPDF generation failed: ' . $e->getMessage());
+    //     }
 
-        try {
-            // Fallback to SnappyPdf if available
-            $pdf = SnappyPdf::loadHTML($html)
-                ->setPaper('a4')
-                ->setOrientation('portrait')
-                ->setOption('encoding', 'UTF-8')
-                ->setOption('enable-local-file-access', true)
-                ->setOption('disable-smart-shrinking', true)
-                ->setOption('print-media-type', true)
-                ->setOption('no-background', false)
-                ->setOption('margin-top', 10)
-                ->setOption('margin-right', 10)
-                ->setOption('margin-bottom', 10)
-                ->setOption('margin-left', 10);
+    //     try {
+    //         // Fallback to SnappyPdf if available
+    //         $pdf = SnappyPdf::loadHTML($html)
+    //             ->setPaper('a4')
+    //             ->setOrientation('portrait')
+    //             ->setOption('encoding', 'UTF-8')
+    //             ->setOption('enable-local-file-access', true)
+    //             ->setOption('disable-smart-shrinking', true)
+    //             ->setOption('print-media-type', true)
+    //             ->setOption('no-background', false)
+    //             ->setOption('margin-top', 10)
+    //             ->setOption('margin-right', 10)
+    //             ->setOption('margin-bottom', 10)
+    //             ->setOption('margin-left', 10);
             
-            return $pdf->download($filename);
-        } catch (\Exception $e) {
-            Log::warning('SnappyPdf generation failed: ' . $e->getMessage());
-        }
+    //         return $pdf->download($filename);
+    //     } catch (\Exception $e) {
+    //         Log::warning('SnappyPdf generation failed: ' . $e->getMessage());
+    //     }
 
-        try {
-            // Fallback to Puppeteer
-            $result = $this->generatePDFWithPuppeteer($html, $filename);
-            if ($result['success']) {
-                return $result['response'];
-            }
-        } catch (\Exception $e) {
-            Log::warning('Puppeteer PDF generation failed: ' . $e->getMessage());
-        }
+    //     try {
+    //         // Fallback to Puppeteer
+    //         $result = $this->generatePDFWithPuppeteer($html, $filename);
+    //         if ($result['success']) {
+    //             return $result['response'];
+    //         }
+    //     } catch (\Exception $e) {
+    //         Log::warning('Puppeteer PDF generation failed: ' . $e->getMessage());
+    //     }
 
-        // Final fallback to html2pdf
-        try {
-            $html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', [0, 0, 0, 0]);
-            $html2pdf->setDefaultFont('Arial');
-            $html2pdf->writeHTML($html);
+    //     // Final fallback to html2pdf
+    //     try {
+    //         $html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', [0, 0, 0, 0]);
+    //         $html2pdf->setDefaultFont('Arial');
+    //         $html2pdf->writeHTML($html);
             
-            return response($html2pdf->output('S'), 200, [
-                'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'attachment; filename="' . $filename . '"',
-                'Cache-Control' => 'private, max-age=0, must-revalidate',
-                'Pragma' => 'public'
-            ]);
-        } catch (Html2PdfException $e) {
-            return response()->json([
-                'error' => 'PDF generation failed',
-                'message' => 'All PDF generation methods failed',
-                'dompdf_error' => 'DomPDF failed',
-                'snappy_error' => 'SnappyPdf failed',
-                'puppeteer_error' => 'Puppeteer failed',
-                'html2pdf_error' => $e->getMessage()
-            ], 500);
-        }
-    }
+    //         return response($html2pdf->output('S'), 200, [
+    //             'Content-Type' => 'application/pdf',
+    //             'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+    //             'Cache-Control' => 'private, max-age=0, must-revalidate',
+    //             'Pragma' => 'public'
+    //         ]);
+    //     } catch (Html2PdfException $e) {
+    //         return response()->json([
+    //             'error' => 'PDF generation failed',
+    //             'message' => 'All PDF generation methods failed',
+    //             'dompdf_error' => 'DomPDF failed',
+    //             'snappy_error' => 'SnappyPdf failed',
+    //             'puppeteer_error' => 'Puppeteer failed',
+    //             'html2pdf_error' => $e->getMessage()
+    //         ], 500);
+    //     }
+    // }
 
     /**
      * Generate PDF using snapshot approach (Puppeteer)

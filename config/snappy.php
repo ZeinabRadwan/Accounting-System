@@ -1,46 +1,60 @@
 <?php
 
-// Resolve wkhtmltopdf binary path across common installations
-$possiblePdfBinaries = [
-    env('WKHTMLTOPDF_BINARY'),                    // explicit env override
-    '/opt/homebrew/bin/wkhtmltopdf',              // Apple Silicon (Homebrew)
-    '/usr/local/bin/wkhtmltopdf',                 // Intel macOS/Linux (Homebrew)
-    '/usr/bin/wkhtmltopdf',                       // Debian/Ubuntu
-];
-
-$resolvedPdfBinary = null;
-foreach ($possiblePdfBinaries as $candidate) {
-    if (!empty($candidate) && file_exists($candidate)) {
-        $resolvedPdfBinary = $candidate;
-        break;
-    }
-}
-
 return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Snappy PDF / Image Configuration
+    |--------------------------------------------------------------------------
+    |
+    | This option contains settings for PDF generation.
+    |
+    | Enabled:
+    |
+    |    Whether to load PDF / Image generation.
+    |
+    | Binary:
+    |
+    |    The file path of the wkhtmltopdf / wkhtmltoimage executable.
+    |
+    | Timout:
+    |
+    |    The amount of time to wait (in seconds) before PDF / Image generation is stopped.
+    |    Setting this to false disables the timeout (unlimited processing time).
+    |
+    | Options:
+    |
+    |    The wkhtmltopdf command options. These are passed directly to wkhtmltopdf.
+    |    See https://wkhtmltopdf.org/usage/wkhtmltopdf.txt for all options.
+    |
+    | Env:
+    |
+    |    The environment variables to set while running the wkhtmltopdf process.
+    |
+    */
+
     'pdf' => [
         'enabled' => true,
-        'binary'  => $resolvedPdfBinary ?: '/usr/local/bin/wkhtmltopdf',
+        'binary' => (isset($_SERVER['HTTP_HOST']) && (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false || strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false))
+            ? base_path('vendor/h4cc/wkhtmltopdf-amd64/bin/wkhtmltopdf-amd64')  // Local development - use amd64 for Windows
+            : base_path('vendor/h4cc/wkhtmltopdf-amd64/bin/wkhtmltopdf-amd64'), // Production - use amd64
         'timeout' => false,
         'options' => [
-            'encoding' => 'UTF-8',
             'enable-local-file-access' => true,
-            'disable-smart-shrinking' => true,
-            'print-media-type' => true,
-            'no-background' => false,
-            'margin-top' => 10,
-            'margin-right' => 10,
-            'margin-bottom' => 10,
-            'margin-left' => 10,
+            'orientation' => 'portrait',
+            'encoding' => 'UTF-8',
         ],
-        'env'     => [],
+        'env' => [],
+
     ],
+
     'image' => [
         'enabled' => true,
-        'binary'  => env('WKHTMLTOIMAGE_BINARY', '/usr/local/bin/wkhtmltoimage'),
+        'binary' => env('WKHTML_IMG_BINARY', 'vendor/bin/wkhtmltoimage-amd64'),
         'timeout' => false,
         'options' => [],
-        'env'     => [],
+        'env' => [],
     ],
+
+    'debug' => true
 ];
-
-

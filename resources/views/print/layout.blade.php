@@ -43,6 +43,7 @@
 
         body {
             font-family: 'DINNextLTArabic' !important;
+            padding: 5mm !important;
             font-size:
                 {{ $template->template_config['typography']['baseFontSize'] ?? 14 }}
                 px;
@@ -249,6 +250,29 @@
             text-align: right;
         }
 
+
+        /* ✅ Prevent table rows or cells from splitting between pages */
+        .items-table,
+        .items-table tr,
+        .items-table td,
+        .items-table th {
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+        }
+
+        /* ✅ If a long table still exceeds one page, allow it to break cleanly *after* rows */
+        .items-table tr {
+            page-break-after: auto !important;
+        }
+
+        /* ✅ Optional: add spacing before page breaks so borders don’t overlap */
+        .page-break {
+            page-break-before: always !important;
+            break-before: page !important;
+        }
+
+
+
         .totals-section {
             display: flex;
             justify-content: flex-end;
@@ -335,25 +359,32 @@
 
     <script>
         function downloadPDF() {
-          
-
-
-
-            (async function () {
-                const currentPath = window.location.pathname;
+            const currentPath = window.location.pathname;
             let pdfUrl = '';
             let type = '';
-            if (currentPath.includes('/print/invoice/')) {
-                type = 'invoice';
-            } else if (currentPath.includes('/print/purchase/')) {
-              type = 'purchase'
-            } else if (currentPath.includes('/print/quotation/')) {
-                type = 'quotation';
-            } else if (currentPath.includes('/print/voucher/')) {
-                type = 'voucher';
+            
+            // For account-statement, use backend route with query parameters
+            if (currentPath.includes('/print/reports/account-statement')) {
+                // Get all query parameters from current URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const pdfUrl = '{{ route("print.reports.account-statement.pdf") }}?' + urlParams.toString();
+                window.location.href = pdfUrl;
+                return;
             }
+            
+            // For other types, use the existing html2pdf method
+            (async function () {
+                if (currentPath.includes('/print/invoice/')) {
+                    type = 'invoice';
+                } else if (currentPath.includes('/print/purchase/')) {
+                    type = 'purchase'
+                } else if (currentPath.includes('/print/quotation/')) {
+                    type = 'quotation';
+                } else if (currentPath.includes('/print/voucher/')) {
+                    type = 'voucher';
+                }
                 // const element = document.getElementById('document-container');
-                 const element = document.getElementById('pdfContent');
+                const element = document.getElementById('pdfContent');
 
                 try {
 
@@ -361,13 +392,29 @@
 
                     const fileName = (type || 'document') + '_' + Date.now() + '.pdf';
                     const options = {
-                        margin: 0, // inches
+                        margin: 0, // let your CSS handle the margins
                         filename: fileName,
                         image: { type: 'jpeg', quality: 0.98 },
-                        html2canvas: { scale: 3, useCORS: true }, // 🔥 higher scale = better text quality
-                        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
-                        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] },
+                        html2canvas: {
+                            scale: 3,
+                            useCORS: true,
+                            scrollX: 0,
+                            scrollY: 0,
+                            windowWidth: element.scrollWidth,
+                            windowHeight: element.scrollHeight,
+                        },
+                        jsPDF: {
+                            unit: 'pt',
+                            format: 'a4',
+                            orientation: 'portrait',
+                        },
+                        pagebreak: {
+                            mode: [ 'css', 'legacy'],
+                            before: '.page-break', // optional helper class
+                        },
                     };
+
+
 
                     //  Generate high-quality PDF blob
                     const pdfBlob = await html2pdf()
@@ -390,19 +437,18 @@
                         },
                         success: function (response) {
                             debugger;
-                            if(response.success == true)
-                        {
+                            if (response.success == true) {
 
-                       
-                           
-                            const savedFileUrl = response.path; // Laravel returns full URL
-                            const link = document.createElement('a');
-                            link.href = savedFileUrl;
-                            link.download = fileName;
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
-                        }
+
+
+                                const savedFileUrl = response.path; // Laravel returns full URL
+                                const link = document.createElement('a');
+                                link.href = savedFileUrl;
+                                link.download = fileName;
+                                document.body.appendChild(link);
+                                link.click();
+                                document.body.removeChild(link);
+                            }
                         },
                         error: function (xhr, status, error) {
                             console.error('Upload failed:', error);
@@ -417,6 +463,13 @@
 
         }
     </script>
+
+
+
+
+
+
+
 </body>
 
 </html>

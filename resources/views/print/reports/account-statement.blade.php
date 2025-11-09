@@ -414,26 +414,6 @@
     </style>
 
     <script>
-        // PDF Download function
-        function downloadPDF() {
-            // Get current URL parameters to maintain filters
-            const urlParams = new URLSearchParams(window.location.search);
-            
-            // Build PDF URL with same parameters
-            let pdfUrl = '/account-statement/pdf';
-            if (urlParams.toString()) {
-                pdfUrl += '?' + urlParams.toString();
-            }
-            
-            // Create a temporary link to download the PDF
-            const link = document.createElement('a');
-            link.href = pdfUrl;
-            link.download = '';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-        
         // Handle print events
         window.addEventListener('beforeprint', function() {
             console.log('Preparing to print...');
