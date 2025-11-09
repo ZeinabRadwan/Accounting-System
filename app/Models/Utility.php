@@ -17,7 +17,7 @@ class Utility extends Model
      * @param bool $headerFooter - Whether to include header/footer
      * @return mixed
      */
-    public static function buildPdf($data, $type_id = null, $type = null, $orientation = "portrait", $headerFooter = true)
+    public static function buildPdf($data, $type_id = null, $type = 'view', $orientation = "portrait", $headerFooter = true)
     {
         // Load view with data
         $pdf = PDF::loadView($data['view'], $data['view_data']);
@@ -75,7 +75,7 @@ class Utility extends Model
         }
         
         // Handle different output types
-        if ($data['type'] == 'preview') {
+        if ($data['type'] == 'view') {
             return $pdf->inline($data['file_name']);
         } else if ($data['type'] == 'download') {
             return $pdf->download($data['file_name']);
