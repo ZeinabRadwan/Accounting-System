@@ -908,8 +908,8 @@ export default {
       products: [],
       accounts: [],
       taxes: [],
-      clients: [], // Local state for clients - prevents being overridden by other API calls
       prefix: "",
+      clients: [],
       isUpdatingChartOfAccount: false, // Flag to prevent form submission during chart of account updates
 
       isAutoAssigningClient: false, // Add this back for the auto-assign button
@@ -938,7 +938,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("operations", ["items", "appInfo"]),
+    ...mapGetters("operations", ["appInfo"]),
     
     // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
     isSaudiArabia() {
@@ -1297,10 +1297,8 @@ export default {
     },
 
     // get all clients
-    // Uses local state instead of shared Vuex store to prevent being overridden by other API calls
     async getClients(selectedClient = 'default') {
       try {
-        // Fetch clients directly and store in local state
         const { data } = await axios.get(window.location.origin + "/api/all-clients");
         this.clients = data.data || [];
 
@@ -1329,7 +1327,7 @@ export default {
           }
         }
       } catch (error) {
-        console.error('Error getting clients:', error);
+        console.error('Error loading clients:', error);
         
         // Show error toast for client loading failures
         if (error.response?.status === 401) {
