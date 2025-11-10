@@ -126,15 +126,22 @@
             /* Prevent table header from repeating on each page */
             thead {
                 display: table-row-group !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
 
             thead tr {
+                display: table-row !important;
                 page-break-inside: avoid;
                 page-break-after: auto;
             }
 
             table {
                 page-break-inside: auto;
+            }
+
+            tbody {
+                display: table-row-group !important;
             }
 
             tbody tr {
