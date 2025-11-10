@@ -4,7 +4,7 @@
     "public_update": false,
     "run_migration": false,
     "run_seeder": [
-        true,
+        false,
         "TenantVatRateSeeder",
         "tenant"
     ],

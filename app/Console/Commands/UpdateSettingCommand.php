@@ -60,8 +60,17 @@ class UpdateSettingCommand extends Command
                 }
                  
 
-                if ($runMigration) {
-                    $result = $this->runMigrate();
+                if (is_array($runMigration) && $runMigration[0]) {
+                    $migrationType = isset($runMigration[1]) ? $runMigration[1] : null;
+                    $result = $this->runMigrate($migrationType);
+                    if (strpos($result, 'Error') !== false) {
+                        $errors[] = $result;
+                    } else {
+                        $final_text .= ' <br> ' . $result;
+                    }
+                } elseif ($runMigration) {
+                    // Backward compatibility: if runMigration is boolean, treat as central
+                    $result = $this->runMigrate(null);
                     if (strpos($result, 'Error') !== false) {
                         $errors[] = $result;
                     } else {
@@ -236,7 +245,7 @@ class UpdateSettingCommand extends Command
         }
     }
 
-    private function runMigrate()
+    private function runMigrate($migrationType = null)
     {
         try {
 
@@ -244,10 +253,22 @@ class UpdateSettingCommand extends Command
             Artisan::call('backup:clean');
 
             if ($backup_command === 0) {
-                $return_var = Artisan::call('migrate');
+                $return_var = 0;
+                
+                if ($migrationType === 'central') {
+                    // Run migration for central database only
+                    $return_var = Artisan::call('migrate');
+                } elseif ($migrationType === 'tenant') {
+                    // Run migration for tenant databases
+                    $return_var = Artisan::call('tenants:migrate');
+                } else {
+                    // Run migration normally (original behavior - central)
+                    $return_var = Artisan::call('migrate');
+                }
 
                 if ($return_var === 0) {
-                    return 'Migration was run Successfully';
+                    $typeInfo = $migrationType ? ' (' . $migrationType . ')' : '';
+                    return 'Migration was run Successfully' . $typeInfo;
                 } else {
                     return 'Error running migration.';
                 }

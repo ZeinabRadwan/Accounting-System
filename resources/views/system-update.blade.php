@@ -75,6 +75,10 @@
             </li>
             @foreach ($settings as $key => $value)
                 @php
+                    // Convert boolean run_migration to array format for backward compatibility
+                    if ($key === 'run_migration' && is_bool($value)) {
+                        $value = [$value, null];
+                    }
                     $isArray = is_array($value);
                     $isBool = is_bool($value);
                     $isInt = is_int($value);
@@ -112,7 +116,15 @@
                             <input type="checkbox" class="js-setting-pair-toggle" data-setting-key="{{ $key }}" @if($value[0]) checked @endif>
                             <span class="su-slider"></span>
                         </label>
+                        @if($key === 'run_migration')
+                        <select class="su-input js-setting-migration-type" data-setting-key="{{ $key }}" style="min-width: 150px;">
+                            <option value="">Select Type</option>
+                            <option value="central" @if(isset($value[1]) && $value[1] === 'central') selected @endif>Central</option>
+                            <option value="tenant" @if(isset($value[1]) && $value[1] === 'tenant') selected @endif>Tenant</option>
+                        </select>
+                        @else
                         <input type="text" class="su-input js-setting-pair-input" data-setting-key="{{ $key }}" placeholder="Value" value="{{ is_null($value[1]) ? '' : $value[1] }}">
+                        @endif
                         @if($key === 'run_seeder' && count($value) >= 3)
                         <select class="su-input js-setting-seeder-type" data-setting-key="{{ $key }}" style="min-width: 150px;">
                             <option value="">Select Type</option>
@@ -231,6 +243,11 @@
         function setMsg(text, ok){ msg.textContent = text; msg.style.color = ok ? '#9fe2b0' : '#ef9a9a'; }
         let currentSettings;
         try { currentSettings = JSON.parse(editor.value || '{}'); } catch(e) { currentSettings = {}; }
+        
+        // Convert boolean run_migration to array format for backward compatibility
+        if (currentSettings.run_migration !== undefined && typeof currentSettings.run_migration === 'boolean') {
+            currentSettings.run_migration = [currentSettings.run_migration, null];
+        }
 
         function coerceValueForToggle(originalType, isOn) {
             switch (originalType) {
@@ -287,11 +304,14 @@
                 const isOn = e.target.checked;
                 const input = document.querySelector('.js-setting-pair-input[data-setting-key="' + key + '"]');
                 const seederType = document.querySelector('.js-setting-seeder-type[data-setting-key="' + key + '"]');
+                const migrationType = document.querySelector('.js-setting-migration-type[data-setting-key="' + key + '"]');
                 const val = input ? input.value : null;
-                const type = seederType ? seederType.value : null;
+                const type = seederType ? seederType.value : (migrationType ? migrationType.value : null);
                 
                 if (key === 'run_seeder' && seederType) {
                     currentSettings[key] = [!!isOn, val === '' ? null : val, type === '' ? null : type];
+                } else if (key === 'run_migration' && migrationType) {
+                    currentSettings[key] = [!!isOn, type === '' ? null : type];
                 } else {
                     currentSettings[key] = [!!isOn, val === '' ? null : val];
                 }
@@ -305,11 +325,14 @@
                 const key = inp.getAttribute('data-setting-key');
                 const toggle = document.querySelector('.js-setting-pair-toggle[data-setting-key="' + key + '"]');
                 const seederType = document.querySelector('.js-setting-seeder-type[data-setting-key="' + key + '"]');
+                const migrationType = document.querySelector('.js-setting-migration-type[data-setting-key="' + key + '"]');
                 const isOn = !!(toggle && toggle.checked);
-                const type = seederType ? seederType.value : null;
+                const type = seederType ? seederType.value : (migrationType ? migrationType.value : null);
                 
                 if (key === 'run_seeder' && seederType) {
                     currentSettings[key] = [isOn, inp.value === '' ? null : inp.value, type === '' ? null : type];
+                } else if (key === 'run_migration' && migrationType) {
+                    currentSettings[key] = [isOn, type === '' ? null : type];
                 } else {
                     currentSettings[key] = [isOn, inp.value === '' ? null : inp.value];
                 }
@@ -336,6 +359,22 @@
                 saveSettings(currentSettings, true).catch(() => {
                     // revert selection if save fails
                     e.target.value = currentSettings[key][2] || '';
+                });
+            });
+        });
+        
+        // Migration type dropdown handler
+        document.querySelectorAll('.js-setting-migration-type').forEach(select => {
+            select.addEventListener('change', function(e){
+                const key = e.target.getAttribute('data-setting-key');
+                const toggle = document.querySelector('.js-setting-pair-toggle[data-setting-key="' + key + '"]');
+                const isOn = !!(toggle && toggle.checked);
+                const type = e.target.value;
+                
+                currentSettings[key] = [isOn, type === '' ? null : type];
+                saveSettings(currentSettings, true).catch(() => {
+                    // revert selection if save fails
+                    e.target.value = currentSettings[key][1] || '';
                 });
             });
         });
