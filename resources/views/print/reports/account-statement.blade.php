@@ -122,6 +122,25 @@
             #document-container > * {
                 position: relative !important;
             }
+
+            /* Prevent table header from repeating on each page */
+            thead {
+                display: table-row-group !important;
+            }
+
+            thead tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+
+            table {
+                page-break-inside: auto;
+            }
+
+            tbody tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
         }
     </style>
 
@@ -274,7 +293,7 @@
         @if($elements['showDataTable'] ?? true)
         <div>
             <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: {{ $typography['baseFontSize'] ?? 12 }}px;">
-                <thead>
+                <thead style="display: table-row-group !important;">
                     <tr style="background: {{ $colors['accent'] ?? '#f8fafc' }};">
                         <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; color: {{ $colors['primary'] ?? '#2563eb' }}; font-weight: 600; background: {{ $colors['accent'] ?? '#f8fafc' }};{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">
                             @lang('print.Date')
