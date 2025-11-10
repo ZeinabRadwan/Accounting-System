@@ -1317,17 +1317,13 @@ export default {
         }
 
         // Otherwise, assign default client
-        if (this.clients && this.clients.length > 0) {
-          let defaultClientSlug = this.appInfo.defaultClientSlug;
-          const defaultClient = this.clients.find(
-            (item) => item.slug === defaultClientSlug
-          );
-          if (defaultClient) {
-            this.form.client = defaultClient;
-          }
+        let defaultClientSlug = this.appInfo.defaultClientSlug;
+        const defaultClient = this.clients.find((item) => item.slug === defaultClientSlug);
+        if (defaultClient) {
+          this.form.client = defaultClient;
         }
       } catch (error) {
-        console.error('Error loading clients:', error);
+        console.error('Error getting clients:', error);
         
         // Show error toast for client loading failures
         if (error.response?.status === 401) {

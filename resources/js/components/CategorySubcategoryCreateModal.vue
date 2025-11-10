@@ -117,14 +117,19 @@
 
 <script>
 import Form from 'vform'
-import axios from 'axios'
+import { mapGetters } from 'vuex'
 
 export default {
   middleware: ["auth", "check-permissions"],
+  computed: {
+    ...mapGetters("operations", ["items"]),
+    categories() {
+      return this.items || []
+    }
+  },
   data: () => ({
     showModal: false,
     activeTab: 'subcategory',
-    categories: [], // Local state for categories - prevents overriding shared Vuex store
     categoryForm: new Form({
       name: '',
       note: '',
@@ -138,8 +143,7 @@ export default {
     }),
   }),
   created() {
-    // Don't fetch categories on created - only when modal opens
-    // This prevents interfering with other pages' data
+    this.getCategories()
   },
   methods: {
     toggleModal() {
@@ -148,7 +152,7 @@ export default {
         // Reset forms when opening modal
         this.resetForms()
         this.activeTab = 'subcategory'
-        // Refresh categories list only when modal opens
+        // Refresh categories list
         this.getCategories()
       }
     },
@@ -172,16 +176,10 @@ export default {
     },
 
     // Get all product categories for subcategory form
-    // Uses local state instead of shared Vuex store to prevent overriding other pages' data
     async getCategories() {
-      try {
-        const { data } = await axios.get(window.location.origin + '/api/all-product-categories')
-        // Store in local state instead of Vuex store
-        this.categories = data.data || []
-      } catch (error) {
-        console.error('Error fetching categories:', error)
-        this.categories = []
-      }
+      await this.$store.dispatch('operations/allData', {
+        path: '/api/all-product-categories',
+      })
     },
 
     // Save based on active tab
