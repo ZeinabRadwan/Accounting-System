@@ -17,7 +17,7 @@ class Utility extends Model
      * @param bool $headerFooter - Whether to include header/footer
      * @return mixed
      */
-    public static function buildPdf($data, $type_id = null, $type = 'view', $orientation = "portrait", $headerFooter = true)
+    public static function buildPdf($data, $orientation = "portrait", $headerFooter = true)
     {
         // Load view with data
         $pdf = PDF::loadView($data['view'], $data['view_data']);

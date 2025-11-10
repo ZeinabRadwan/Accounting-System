@@ -564,11 +564,12 @@ class PrintController extends Controller
             'header' => '',
             'footer' => '',
             'header_spacing' => '2',
+        
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
             ]
-        ]);
+        ],'landscape');
     }
 
     /**
