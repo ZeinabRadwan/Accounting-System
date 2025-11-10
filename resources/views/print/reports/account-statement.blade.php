@@ -117,7 +117,7 @@
 <body>
    
 
-    <div id="document-container" style="max-width: 800px; margin: 0 auto;">
+    <div id="document-container" style="max-width: 100%; margin: 0 auto;">
         <div style="position: relative;">
     @php
         $config = $template->template_config ?? [];
