@@ -557,6 +557,7 @@ class PrintController extends Controller
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
        
         $locale = \Auth::user()->locale ?? 'ar';
+        \App::setLocale($locale);
         // Use Utility::buildPdf to generate PDF
         // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
