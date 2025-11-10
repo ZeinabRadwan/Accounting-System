@@ -325,7 +325,6 @@
 </head>
 
 <body>
-    @if(!request()->is('print/reports/account-statement'))
     <div class="action-buttons no-print">
         <button class="print-button" onclick="window.print()">
             <i class="fas fa-print"></i> @lang('print.Print Document')
@@ -334,7 +333,7 @@
             <i class="fas fa-download"></i> @lang('print.Download PDF')
         </button>
     </div>
-    @endif
+
     <div class="document-container" id="document-container">
         <div class="template-content">
             @yield('content')

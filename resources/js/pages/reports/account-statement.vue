@@ -823,7 +823,7 @@ export default {
       }
       
       // Redirect to backend PDF route with query parameters
-      const pdfUrl = `/print/reports/account-statement/pdf?${params.toString()}`;
+      const pdfUrl = `/print/reports/account-statement/preview?${params.toString()}`;
       window.location.href = pdfUrl;
     },
     
