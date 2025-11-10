@@ -3,13 +3,13 @@
     "upg_update": false,
     "public_update": false,
     "run_migration": [
-        true,
-        "tenant"
+        false,
+        null
     ],
     "run_seeder": [
         false,
         "TenantVatRateSeeder",
-        "tenant"
+        null
     ],
     "run_command": [
         false,
