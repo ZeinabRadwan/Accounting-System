@@ -509,6 +509,7 @@ class PrintController extends Controller
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
         
         // Use Utility::buildPdf to generate PDF
+        // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.reports.account-statement' : 'print.account-statement-basic',
             'view_data' => compact('accountStatementData', 'template'),
@@ -521,7 +522,7 @@ class PrintController extends Controller
                 'top' => '10mm',
                 'bottom' => '10mm',
             ]
-        ]);
+        ], 'landscape', false);
     }
     public function downloadAccountStatementPDF(Request $request)
     {
@@ -556,6 +557,7 @@ class PrintController extends Controller
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
         
         // Use Utility::buildPdf to generate PDF
+        // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.reports.account-statement' : 'print.account-statement-basic',
             'view_data' => compact('accountStatementData', 'template'),
@@ -569,7 +571,7 @@ class PrintController extends Controller
                 'top' => '10mm',
                 'bottom' => '10mm',
             ]
-        ],'landscape');
+        ], 'landscape', false);
     }
 
     /**
