@@ -725,7 +725,9 @@ export default [
     meta: {permissions: ['transaction-history']},
   },
 
+  // Payments section hidden for now - temporarily disabled routes
   // Invoice payment routes
+  /*
   {
     path: '/payments/invoice',
     name: 'invoicePayments.index',
@@ -828,6 +830,7 @@ export default [
     component: page('payments/suppliers/non-purchase/edit.vue'),
     meta: {permissions: ['non-purchase-payment-edit']},
   },
+  */
 
   // Payment Voucher routes - Receive Vouchers (سندات قبض)
   {

@@ -844,6 +844,8 @@
             </ul>
           </li>
 
+          <!-- Payments section hidden for now -->
+          <!--
           <li
             v-if="!$isPOS() && (
               $can('non-purchase-payment-list') ||
@@ -1047,6 +1049,7 @@
               </li>
             </ul>
           </li>
+          -->
           <li
             v-if="!$isPOS() && (
               $can('loan-authority-list') ||
