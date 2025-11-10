@@ -118146,12 +118146,12 @@ var map = {
 		1551
 	],
 	"./reports/account-statement": [
-		6575,
-		6575
+		66959,
+		6959
 	],
 	"./reports/account-statement.vue": [
-		6575,
-		6575
+		66959,
+		6959
 	],
 	"./reports/balance-sheet": [
 		82732,
@@ -118314,12 +118314,12 @@ var map = {
 		2495
 	],
 	"./sales/invoices/show": [
-		31735,
-		1735
+		27257,
+		7257
 	],
 	"./sales/invoices/show.vue": [
-		31735,
-		1735
+		27257,
+		7257
 	],
 	"./sales/pos/create": [
 		65261,
@@ -118338,12 +118338,12 @@ var map = {
 		3459
 	],
 	"./sales/quotations/create": [
-		27685,
-		7685
+		74049,
+		4049
 	],
 	"./sales/quotations/create.vue": [
-		27685,
-		7685
+		74049,
+		4049
 	],
 	"./sales/quotations/edit": [
 		26989,
@@ -118370,12 +118370,12 @@ var map = {
 		2512
 	],
 	"./sales/quotations/show": [
-		29793,
-		9793
+		26013,
+		6013
 	],
 	"./sales/quotations/show.vue": [
-		29793,
-		9793
+		26013,
+		6013
 	],
 	"./sales/returns": [
 		77109,
@@ -119204,327 +119204,8 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 	(() => {
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
-/******/ 			// return url for filenames not based on template
-/******/ 			if (chunkId === 2653) return "js/2653.js";
-/******/ 			if (chunkId === 4349) return "js/4349.js";
-/******/ 			if (chunkId === 4427) return "js/4427.js";
-/******/ 			if (chunkId === 8672) return "js/8672.js";
-/******/ 			if (chunkId === 3411) return "js/3411.js";
-/******/ 			if (chunkId === 487) return "js/487.js";
-/******/ 			if (chunkId === 3005) return "js/3005.js";
-/******/ 			if (chunkId === 9791) return "js/9791.js";
-/******/ 			if (chunkId === 3961) return "js/3961.js";
-/******/ 			if (chunkId === 1286) return "js/1286.js";
-/******/ 			if (chunkId === 7428) return "js/7428.js";
-/******/ 			if (chunkId === 4724) return "js/4724.js";
-/******/ 			if (chunkId === 7919) return "js/7919.js";
-/******/ 			if (chunkId === 1724) return "js/1724.js";
-/******/ 			if (chunkId === 9459) return "js/9459.js";
-/******/ 			if (chunkId === 9257) return "js/9257.js";
-/******/ 			if (chunkId === 7880) return "js/7880.js";
-/******/ 			if (chunkId === 56) return "js/56.js";
-/******/ 			if (chunkId === 9154) return "js/9154.js";
-/******/ 			if (chunkId === 5958) return "js/5958.js";
-/******/ 			if (chunkId === 2269) return "js/2269.js";
-/******/ 			if (chunkId === 6680) return "js/6680.js";
-/******/ 			if (chunkId === 1304) return "js/1304.js";
-/******/ 			if (chunkId === 6867) return "js/6867.js";
-/******/ 			if (chunkId === 3132) return "js/3132.js";
-/******/ 			if (chunkId === 636) return "js/636.js";
-/******/ 			if (chunkId === 1129) return "js/1129.js";
-/******/ 			if (chunkId === 2533) return "js/2533.js";
-/******/ 			if (chunkId === 6543) return "js/6543.js";
-/******/ 			if (chunkId === 9800) return "js/9800.js";
-/******/ 			if (chunkId === 7851) return "js/7851.js";
-/******/ 			if (chunkId === 6934) return "js/6934.js";
-/******/ 			if (chunkId === 9806) return "js/9806.js";
-/******/ 			if (chunkId === 3135) return "js/3135.js";
-/******/ 			if (chunkId === 5434) return "js/5434.js";
-/******/ 			if (chunkId === 9582) return "js/9582.js";
-/******/ 			if (chunkId === 7602) return "js/7602.js";
-/******/ 			if (chunkId === 6243) return "js/6243.js";
-/******/ 			if (chunkId === 6137) return "js/6137.js";
-/******/ 			if (chunkId === 575) return "js/575.js";
-/******/ 			if (chunkId === 5868) return "js/5868.js";
-/******/ 			if (chunkId === 4135) return "js/4135.js";
-/******/ 			if (chunkId === 1833) return "js/1833.js";
-/******/ 			if (chunkId === 675) return "js/675.js";
-/******/ 			if (chunkId === 3061) return "js/3061.js";
-/******/ 			if (chunkId === 1613) return "js/1613.js";
-/******/ 			if (chunkId === 3058) return "js/3058.js";
-/******/ 			if (chunkId === 1079) return "js/1079.js";
-/******/ 			if (chunkId === 7536) return "js/7536.js";
-/******/ 			if (chunkId === 6869) return "js/6869.js";
-/******/ 			if (chunkId === 9797) return "js/9797.js";
-/******/ 			if (chunkId === 6513) return "js/6513.js";
-/******/ 			if (chunkId === 2947) return "js/2947.js";
-/******/ 			if (chunkId === 6269) return "js/6269.js";
-/******/ 			if (chunkId === 2447) return "js/2447.js";
-/******/ 			if (chunkId === 1904) return "js/1904.js";
-/******/ 			if (chunkId === 8172) return "js/8172.js";
-/******/ 			if (chunkId === 10) return "js/10.js";
-/******/ 			if (chunkId === 1803) return "js/1803.js";
-/******/ 			if (chunkId === 4657) return "js/4657.js";
-/******/ 			if (chunkId === 875) return "js/875.js";
-/******/ 			if (chunkId === 8677) return "js/8677.js";
-/******/ 			if (chunkId === 2372) return "js/2372.js";
-/******/ 			if (chunkId === 5552) return "js/5552.js";
-/******/ 			if (chunkId === 2992) return "js/2992.js";
-/******/ 			if (chunkId === 6272) return "js/6272.js";
-/******/ 			if (chunkId === 4170) return "js/4170.js";
-/******/ 			if (chunkId === 3003) return "js/3003.js";
-/******/ 			if (chunkId === 853) return "js/853.js";
-/******/ 			if (chunkId === 4431) return "js/4431.js";
-/******/ 			if (chunkId === 8496) return "js/8496.js";
-/******/ 			if (chunkId === 2124) return "js/2124.js";
-/******/ 			if (chunkId === 5068) return "js/5068.js";
-/******/ 			if (chunkId === 4581) return "js/4581.js";
-/******/ 			if (chunkId === 4711) return "js/4711.js";
-/******/ 			if (chunkId === 5920) return "js/5920.js";
-/******/ 			if (chunkId === 9207) return "js/9207.js";
-/******/ 			if (chunkId === 2761) return "js/2761.js";
-/******/ 			if (chunkId === 6059) return "js/6059.js";
-/******/ 			if (chunkId === 1138) return "js/1138.js";
-/******/ 			if (chunkId === 2948) return "js/2948.js";
-/******/ 			if (chunkId === 8780) return "js/8780.js";
-/******/ 			if (chunkId === 204) return "js/204.js";
-/******/ 			if (chunkId === 2077) return "js/2077.js";
-/******/ 			if (chunkId === 6347) return "js/6347.js";
-/******/ 			if (chunkId === 7609) return "js/7609.js";
-/******/ 			if (chunkId === 9930) return "js/9930.js";
-/******/ 			if (chunkId === 6045) return "js/6045.js";
-/******/ 			if (chunkId === 258) return "js/258.js";
-/******/ 			if (chunkId === 4699) return "js/4699.js";
-/******/ 			if (chunkId === 1759) return "js/1759.js";
-/******/ 			if (chunkId === 4204) return "js/4204.js";
-/******/ 			if (chunkId === 1281) return "js/1281.js";
-/******/ 			if (chunkId === 7442) return "js/7442.js";
-/******/ 			if (chunkId === 4291) return "js/4291.js";
-/******/ 			if (chunkId === 5626) return "js/5626.js";
-/******/ 			if (chunkId === 1238) return "js/1238.js";
-/******/ 			if (chunkId === 8418) return "js/8418.js";
-/******/ 			if (chunkId === 3797) return "js/3797.js";
-/******/ 			if (chunkId === 2665) return "js/2665.js";
-/******/ 			if (chunkId === 7496) return "js/7496.js";
-/******/ 			if (chunkId === 9325) return "js/9325.js";
-/******/ 			if (chunkId === 7883) return "js/7883.js";
-/******/ 			if (chunkId === 4884) return "js/4884.js";
-/******/ 			if (chunkId === 7516) return "js/7516.js";
-/******/ 			if (chunkId === 5007) return "js/5007.js";
-/******/ 			if (chunkId === 6128) return "js/6128.js";
-/******/ 			if (chunkId === 3748) return "js/3748.js";
-/******/ 			if (chunkId === 3960) return "js/3960.js";
-/******/ 			if (chunkId === 4118) return "js/4118.js";
-/******/ 			if (chunkId === 729) return "js/729.js";
-/******/ 			if (chunkId === 4923) return "js/4923.js";
-/******/ 			if (chunkId === 2712) return "js/2712.js";
-/******/ 			if (chunkId === 6773) return "js/6773.js";
-/******/ 			if (chunkId === 9503) return "js/9503.js";
-/******/ 			if (chunkId === 5360) return "js/5360.js";
-/******/ 			if (chunkId === 7936) return "js/7936.js";
-/******/ 			if (chunkId === 2758) return "js/2758.js";
-/******/ 			if (chunkId === 2945) return "js/2945.js";
-/******/ 			if (chunkId === 3794) return "js/3794.js";
-/******/ 			if (chunkId === 988) return "js/988.js";
-/******/ 			if (chunkId === 9808) return "js/9808.js";
-/******/ 			if (chunkId === 4300) return "js/4300.js";
-/******/ 			if (chunkId === 8317) return "js/8317.js";
-/******/ 			if (chunkId === 7510) return "js/7510.js";
-/******/ 			if (chunkId === 3715) return "js/3715.js";
-/******/ 			if (chunkId === 4857) return "js/4857.js";
-/******/ 			if (chunkId === 4643) return "js/4643.js";
-/******/ 			if (chunkId === 3089) return "js/3089.js";
-/******/ 			if (chunkId === 1321) return "js/1321.js";
-/******/ 			if (chunkId === 2311) return "js/2311.js";
-/******/ 			if (chunkId === 9541) return "js/9541.js";
-/******/ 			if (chunkId === 2805) return "js/2805.js";
-/******/ 			if (chunkId === 3299) return "js/3299.js";
-/******/ 			if (chunkId === 6726) return "js/6726.js";
-/******/ 			if (chunkId === 9826) return "js/9826.js";
-/******/ 			if (chunkId === 497) return "js/497.js";
-/******/ 			if (chunkId === 9765) return "js/9765.js";
-/******/ 			if (chunkId === 1518) return "js/1518.js";
-/******/ 			if (chunkId === 1554) return "js/1554.js";
-/******/ 			if (chunkId === 7189) return "js/7189.js";
-/******/ 			if (chunkId === 1685) return "js/1685.js";
-/******/ 			if (chunkId === 7470) return "js/7470.js";
-/******/ 			if (chunkId === 4776) return "js/4776.js";
-/******/ 			if (chunkId === 2845) return "js/2845.js";
-/******/ 			if (chunkId === 5512) return "js/5512.js";
-/******/ 			if (chunkId === 2961) return "js/2961.js";
-/******/ 			if (chunkId === 2115) return "js/2115.js";
-/******/ 			if (chunkId === 9581) return "js/9581.js";
-/******/ 			if (chunkId === 3951) return "js/3951.js";
-/******/ 			if (chunkId === 3985) return "js/3985.js";
-/******/ 			if (chunkId === 4958) return "js/4958.js";
-/******/ 			if (chunkId === 9947) return "js/9947.js";
-/******/ 			if (chunkId === 5950) return "js/5950.js";
-/******/ 			if (chunkId === 4171) return "js/4171.js";
-/******/ 			if (chunkId === 8884) return "js/8884.js";
-/******/ 			if (chunkId === 3014) return "js/3014.js";
-/******/ 			if (chunkId === 7718) return "js/7718.js";
-/******/ 			if (chunkId === 4020) return "js/4020.js";
-/******/ 			if (chunkId === 1711) return "js/1711.js";
-/******/ 			if (chunkId === 4252) return "js/4252.js";
-/******/ 			if (chunkId === 6400) return "js/6400.js";
-/******/ 			if (chunkId === 3882) return "js/3882.js";
-/******/ 			if (chunkId === 1580) return "js/1580.js";
-/******/ 			if (chunkId === 1236) return "js/1236.js";
-/******/ 			if (chunkId === 7481) return "js/7481.js";
-/******/ 			if (chunkId === 557) return "js/557.js";
-/******/ 			if (chunkId === 481) return "js/481.js";
-/******/ 			if (chunkId === 9660) return "js/9660.js";
-/******/ 			if (chunkId === 5495) return "js/5495.js";
-/******/ 			if (chunkId === 5547) return "js/5547.js";
-/******/ 			if (chunkId === 5671) return "js/5671.js";
-/******/ 			if (chunkId === 3603) return "js/3603.js";
-/******/ 			if (chunkId === 6583) return "js/6583.js";
-/******/ 			if (chunkId === 2069) return "js/2069.js";
-/******/ 			if (chunkId === 3355) return "js/3355.js";
-/******/ 			if (chunkId === 8790) return "js/8790.js";
-/******/ 			if (chunkId === 3594) return "js/3594.js";
-/******/ 			if (chunkId === 9980) return "js/9980.js";
-/******/ 			if (chunkId === 1466) return "js/1466.js";
-/******/ 			if (chunkId === 3666) return "js/3666.js";
-/******/ 			if (chunkId === 939) return "js/939.js";
-/******/ 			if (chunkId === 1974) return "js/1974.js";
-/******/ 			if (chunkId === 6149) return "js/6149.js";
-/******/ 			if (chunkId === 3897) return "js/3897.js";
-/******/ 			if (chunkId === 9681) return "js/9681.js";
-/******/ 			if (chunkId === 7051) return "js/7051.js";
-/******/ 			if (chunkId === 3709) return "js/3709.js";
-/******/ 			if (chunkId === 6037) return "js/6037.js";
-/******/ 			if (chunkId === 8096) return "js/8096.js";
-/******/ 			if (chunkId === 4995) return "js/4995.js";
-/******/ 			if (chunkId === 1331) return "js/1331.js";
-/******/ 			if (chunkId === 3422) return "js/3422.js";
-/******/ 			if (chunkId === 8561) return "js/8561.js";
-/******/ 			if (chunkId === 698) return "js/698.js";
-/******/ 			if (chunkId === 2100) return "js/2100.js";
-/******/ 			if (chunkId === 3099) return "js/3099.js";
-/******/ 			if (chunkId === 5815) return "js/5815.js";
-/******/ 			if (chunkId === 9909) return "js/9909.js";
-/******/ 			if (chunkId === 3018) return "js/3018.js";
-/******/ 			if (chunkId === 856) return "js/856.js";
-/******/ 			if (chunkId === 223) return "js/223.js";
-/******/ 			if (chunkId === 6171) return "js/6171.js";
-/******/ 			if (chunkId === 8321) return "js/8321.js";
-/******/ 			if (chunkId === 3148) return "js/3148.js";
-/******/ 			if (chunkId === 8690) return "js/8690.js";
-/******/ 			if (chunkId === 1731) return "js/1731.js";
-/******/ 			if (chunkId === 5073) return "js/5073.js";
-/******/ 			if (chunkId === 1211) return "js/1211.js";
-/******/ 			if (chunkId === 5827) return "js/5827.js";
-/******/ 			if (chunkId === 1773) return "js/1773.js";
-/******/ 			if (chunkId === 1551) return "js/1551.js";
-/******/ 			if (chunkId === 6575) return "js/6575.js";
-/******/ 			if (chunkId === 2732) return "js/2732.js";
-/******/ 			if (chunkId === 249) return "js/249.js";
-/******/ 			if (chunkId === 9231) return "js/9231.js";
-/******/ 			if (chunkId === 6967) return "js/6967.js";
-/******/ 			if (chunkId === 8958) return "js/8958.js";
-/******/ 			if (chunkId === 3966) return "js/3966.js";
-/******/ 			if (chunkId === 628) return "js/628.js";
-/******/ 			if (chunkId === 2867) return "js/2867.js";
-/******/ 			if (chunkId === 9432) return "js/9432.js";
-/******/ 			if (chunkId === 534) return "js/534.js";
-/******/ 			if (chunkId === 1664) return "js/1664.js";
-/******/ 			if (chunkId === 9388) return "js/9388.js";
-/******/ 			if (chunkId === 5389) return "js/5389.js";
-/******/ 			if (chunkId === 5111) return "js/5111.js";
-/******/ 			if (chunkId === 8423) return "js/8423.js";
-/******/ 			if (chunkId === 4224) return "js/4224.js";
-/******/ 			if (chunkId === 2495) return "js/2495.js";
-/******/ 			if (chunkId === 5774) return "js/5774.js";
-/******/ 			if (chunkId === 4433) return "js/4433.js";
-/******/ 			if (chunkId === 1735) return "js/1735.js";
-/******/ 			if (chunkId === 5261) return "js/5261.js";
-/******/ 			if (chunkId === 3459) return "js/3459.js";
-/******/ 			if (chunkId === 7685) return "js/7685.js";
-/******/ 			if (chunkId === 6989) return "js/6989.js";
-/******/ 			if (chunkId === 2512) return "js/2512.js";
-/******/ 			if (chunkId === 9793) return "js/9793.js";
-/******/ 			if (chunkId === 7109) return "js/7109.js";
-/******/ 			if (chunkId === 6139) return "js/6139.js";
-/******/ 			if (chunkId === 696) return "js/696.js";
-/******/ 			if (chunkId === 7982) return "js/7982.js";
-/******/ 			if (chunkId === 3146) return "js/3146.js";
-/******/ 			if (chunkId === 7241) return "js/7241.js";
-/******/ 			if (chunkId === 8237) return "js/8237.js";
-/******/ 			if (chunkId === 3321) return "js/3321.js";
-/******/ 			if (chunkId === 8222) return "js/8222.js";
-/******/ 			if (chunkId === 4665) return "js/4665.js";
-/******/ 			if (chunkId === 1011) return "js/1011.js";
-/******/ 			if (chunkId === 1892) return "js/1892.js";
-/******/ 			if (chunkId === 148) return "js/148.js";
-/******/ 			if (chunkId === 718) return "js/718.js";
-/******/ 			if (chunkId === 8114) return "js/8114.js";
-/******/ 			if (chunkId === 5131) return "js/5131.js";
-/******/ 			if (chunkId === 2366) return "js/2366.js";
-/******/ 			if (chunkId === 3179) return "js/3179.js";
-/******/ 			if (chunkId === 5996) return "js/5996.js";
-/******/ 			if (chunkId === 5324) return "js/5324.js";
-/******/ 			if (chunkId === 3546) return "js/3546.js";
-/******/ 			if (chunkId === 9000) return "js/9000.js";
-/******/ 			if (chunkId === 1864) return "js/1864.js";
-/******/ 			if (chunkId === 7830) return "js/7830.js";
-/******/ 			if (chunkId === 5667) return "js/5667.js";
-/******/ 			if (chunkId === 5895) return "js/5895.js";
-/******/ 			if (chunkId === 4920) return "js/4920.js";
-/******/ 			if (chunkId === 5823) return "js/5823.js";
-/******/ 			if (chunkId === 9437) return "js/9437.js";
-/******/ 			if (chunkId === 6524) return "js/6524.js";
-/******/ 			if (chunkId === 6757) return "js/6757.js";
-/******/ 			if (chunkId === 1340) return "js/1340.js";
-/******/ 			if (chunkId === 6382) return "js/6382.js";
-/******/ 			if (chunkId === 5507) return "js/5507.js";
-/******/ 			if (chunkId === 9237) return "js/9237.js";
-/******/ 			if (chunkId === 8353) return "js/8353.js";
-/******/ 			if (chunkId === 7853) return "js/7853.js";
-/******/ 			if (chunkId === 6112) return "js/6112.js";
-/******/ 			if (chunkId === 4957) return "js/4957.js";
-/******/ 			if (chunkId === 1489) return "js/1489.js";
-/******/ 			if (chunkId === 9836) return "js/9836.js";
-/******/ 			if (chunkId === 9948) return "js/9948.js";
-/******/ 			if (chunkId === 9113) return "js/9113.js";
-/******/ 			if (chunkId === 1124) return "js/1124.js";
-/******/ 			if (chunkId === 1662) return "js/1662.js";
-/******/ 			if (chunkId === 9496) return "js/9496.js";
-/******/ 			if (chunkId === 8924) return "js/8924.js";
-/******/ 			if (chunkId === 7116) return "js/7116.js";
-/******/ 			if (chunkId === 264) return "js/264.js";
-/******/ 			if (chunkId === 7556) return "js/7556.js";
-/******/ 			if (chunkId === 6952) return "js/6952.js";
-/******/ 			if (chunkId === 443) return "js/443.js";
-/******/ 			if (chunkId === 2934) return "js/2934.js";
-/******/ 			if (chunkId === 1828) return "js/1828.js";
-/******/ 			if (chunkId === 2554) return "js/2554.js";
-/******/ 			if (chunkId === 944) return "js/944.js";
-/******/ 			if (chunkId === 1690) return "js/1690.js";
-/******/ 			if (chunkId === 2209) return "js/2209.js";
-/******/ 			if (chunkId === 658) return "js/658.js";
-/******/ 			if (chunkId === 4282) return "js/4282.js";
-/******/ 			if (chunkId === 1225) return "js/1225.js";
-/******/ 			if (chunkId === 5937) return "js/5937.js";
-/******/ 			if (chunkId === 9146) return "js/9146.js";
-/******/ 			if (chunkId === 6812) return "js/6812.js";
-/******/ 			if (chunkId === 972) return "js/972.js";
-/******/ 			if (chunkId === 1171) return "js/1171.js";
-/******/ 			if (chunkId === 7761) return "js/7761.js";
-/******/ 			if (chunkId === 3243) return "js/3243.js";
-/******/ 			if (chunkId === 3665) return "js/3665.js";
-/******/ 			if (chunkId === 2476) return "js/2476.js";
-/******/ 			if (chunkId === 8481) return "js/8481.js";
-/******/ 			if (chunkId === 1327) return "js/1327.js";
-/******/ 			if (chunkId === 9756) return "js/9756.js";
-/******/ 			if (chunkId === 9939) return "js/9939.js";
-/******/ 			if (chunkId === 2838) return "js/2838.js";
-/******/ 			if (chunkId === 4755) return "js/4755.js";
-/******/ 			if (chunkId === 5448) return "js/5448.js";
-/******/ 			if (chunkId === 5307) return "js/5307.js";
-/******/ 			if (chunkId === 832) return "js/832.js";
 /******/ 			// return url for filenames based on template
-/******/ 			return undefined;
+/******/ 			return "" + chunkId + ".js";
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -119622,7 +119303,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp
 /******/ 	
 /******/ 	/* webpack/runtime/publicPath */
 /******/ 	(() => {
-/******/ 		__webpack_require__.p = "/";
+/******/ 		__webpack_require__.p = "/js/";
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/jsonp chunk loading */
