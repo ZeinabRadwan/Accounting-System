@@ -8,7 +8,9 @@ use App\Rules\MinTotal;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
 use App\Models\PurchasePayment;
+use App\Models\PaymentVoucher;
 use App\Models\PurchaseProduct;
+use App\Models\Account;
 use App\Rules\PurchaseTotalPaid;
 use App\Models\AccountTransaction;
 use App\Models\PurchaseJournal;
@@ -319,11 +321,34 @@ class PurchaseController extends Controller
 
             // store transaction
             if ($request->addPayment == true) {
-                $reason = '['.config('config.purchasePrefix').'-'.$purchase->purchase_no.'] Purchase Payment sent from ['.$request->account['accountNumber'].']';
+                // Get account
+                $account = Account::findOrFail($request->account['id']);
+
+                // Prepare voucher data for purchase payment
+                $voucherData = [
+                    'slug' => uniqid(),
+                    'voucher_type' => 0, // Send (صرف)
+                    'entity_type' => 'supplier',
+                    'supplier_id' => $purchase->supplier_id,
+                    'payment_method' => 'purchase',
+                    'purchase_id' => $purchase->id,
+                    'amount' => $request->totalPaid,
+                    'account_id' => $account->id,
+                    'date' => $request->purchaseDate,
+                    'cheque_no' => $request->chequeNo ?? null,
+                    'receipt_no' => $request->receiptNo ?? null,
+                    'note' => clean($request->note),
+                    'status' => $request->status,
+                    'created_by' => $userId,
+                    'branch_id' => $branchId,
+                ];
+
+                // Generate transaction reason
+                $reason = '['.config('config.purchasePrefix').'-'.$purchase->purchase_no.'] Purchase Payment sent from ['.$account->account_number.']';
 
                 // create transaction
                 $transaction = AccountTransaction::create([
-                    'account_id' => $request->account['id'],
+                    'account_id' => $account->id,
                     'amount' => $request->totalPaid,
                     'reason' => $reason,
                     'type' => 0,
@@ -335,27 +360,20 @@ class PurchaseController extends Controller
                     'branch_id' => $branchId,
                 ]);
 
-                // store purchase payment record
-                PurchasePayment::create([
-                    'slug' => uniqid(),
-                    'purchase_id' => $purchase->id,
-                    'transaction_id' => $transaction->id,
-                    'amount' => $request->totalPaid,
-                    'date' => $request->purchaseDate,
-                    'note' => clean($request->note),
-                    'created_by' => $userId,
-                    'status' => $request->status,
-                    'branch_id' => $branchId,
-                ]);
+                $voucherData['transaction_id'] = $transaction->id;
 
-                // Create journal entry for purchase payment (skip for Saudi Arabia)
-                if (!$isSaudiArabia) {
+                // Create payment voucher instead of purchase payment
+                $voucher = PaymentVoucher::create($voucherData);
+
+                // Create journal entry for payment voucher (skip for Saudi Arabia)
+                if (!$isSaudiArabia && $request->status == 1) {
                     try {
                         $journalService = new BusinessTransactionJournalService();
-                        $paymentJournalEntry = $journalService->createPurchasePaymentJournal($purchase, $request->totalPaid, $userId);
+                        $voucher->load(['supplier.chartOfAccount', 'transaction.account.chartOfAccount']);
+                        $paymentJournalEntry = $journalService->createPaymentVoucherJournal($voucher, $userId);
                     } catch (\Exception $e) {
                         // Log the error but don't fail the payment creation
-                        Log::error('Failed to create payment journal entry for purchase: ' . $e->getMessage());
+                        Log::error('Failed to create payment journal entry for voucher: ' . $e->getMessage());
                     }
                 }
 
@@ -755,12 +773,35 @@ class PurchaseController extends Controller
         $user = auth()->user();
         $userId = $user->id;
         $branchId = (int) ($user->default_branch_id ?? 0);
-        // store transaction
-        $transactionID = null;
-        $reason = '['.config('config.purchasePrefix').'-'.$purchase->purchase_no.'] Purchase Payment sent from ['.$request->account['accountNumber'].']';
+        
+        // Get account
+        $account = Account::findOrFail($request->account['id']);
+
+        // Prepare voucher data for purchase payment
+        $voucherData = [
+            'slug' => uniqid(),
+            'voucher_type' => 0, // Send (صرف)
+            'entity_type' => 'supplier',
+            'supplier_id' => $purchase->supplier_id,
+            'payment_method' => 'purchase',
+            'purchase_id' => $purchase->id,
+            'amount' => $request->paidAmount,
+            'account_id' => $account->id,
+            'date' => $request->paymentDate,
+            'cheque_no' => $request->chequeNo ?? null,
+            'receipt_no' => $request->receiptNo ?? null,
+            'note' => clean($request->note),
+            'status' => $request->status,
+            'created_by' => $userId,
+            'branch_id' => $branchId,
+        ];
+
+        // Generate transaction reason
+        $reason = '['.config('config.purchasePrefix').'-'.$purchase->purchase_no.'] Purchase Payment sent from ['.$account->account_number.']';
+        
         // create transaction
         $transaction = AccountTransaction::create([
-            'account_id' => $request->account['id'],
+            'account_id' => $account->id,
             'amount' => $request->paidAmount,
             'reason' => $reason,
             'type' => 0,
@@ -771,29 +812,21 @@ class PurchaseController extends Controller
             'status' => $request->status,
             'branch_id' => $branchId,
         ]);
-        $transactionID = $transaction->id;
 
-        // store purchase payment
-        PurchasePayment::create([
-            'slug' => uniqid(),
-            'purchase_id' => $purchase->id,
-            'amount' => $request->paidAmount,
-            'transaction_id' => $transactionID,
-            'date' => $request->paymentDate,
-            'branch_id' => $branchId,
-            'note' => clean($request->note),
-            'created_by' => $userId,
-            'status' => $request->status,
-        ]);
+        $voucherData['transaction_id'] = $transaction->id;
 
-        // Create journal entry for purchase payment (skip for Saudi Arabia)
-        if (!$isSaudiArabia) {
+        // Create payment voucher instead of purchase payment
+        $voucher = PaymentVoucher::create($voucherData);
+
+        // Create journal entry for payment voucher (skip for Saudi Arabia)
+        if (!$isSaudiArabia && $request->status == 1) {
             try {
                 $journalService = new BusinessTransactionJournalService();
-                $paymentJournalEntry = $journalService->createPurchasePaymentJournal($purchase, $request->paidAmount, $userId);
+                $voucher->load(['supplier.chartOfAccount', 'transaction.account.chartOfAccount']);
+                $paymentJournalEntry = $journalService->createPaymentVoucherJournal($voucher, $userId);
             } catch (\Exception $e) {
                 // Log the error but don't fail the payment creation
-                Log::error('Failed to create payment journal entry for purchase: ' . $e->getMessage());
+                Log::error('Failed to create payment journal entry for voucher: ' . $e->getMessage());
             }
         }
 

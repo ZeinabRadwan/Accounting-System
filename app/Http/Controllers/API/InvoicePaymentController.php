@@ -10,7 +10,9 @@ use App\Models\InvoiceJournal;
 use App\Services\BusinessTransactionJournalService;
 use Illuminate\Http\Request;
 use App\Models\InvoicePayment;
+use App\Models\PaymentVoucher;
 use App\Models\AccountTransaction;
+use App\Models\Account;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -102,6 +104,9 @@ class InvoicePaymentController extends Controller
 
 
 
+            // Get account
+            $account = Account::findOrFail($request->account['id']);
+
             foreach ($request->selectedInvoices as $key => $selectedInvoice) {
                 // get invoice
                 $invoice = Invoice::where('slug', $selectedInvoice['slug'])->first();
@@ -112,13 +117,31 @@ class InvoicePaymentController extends Controller
                 return $this->responseWithError('Cannot add payment to an inactive invoice.');
             }
 
-                // store transaction
-                $transactionID = null;
-                $reason = '[' . config('config.invoicePrefix') . '-' . $invoice->invoice_no . '] Invoice payment added to [' . $request->account['accountNumber'] . ']';
+                // Prepare voucher data for invoice payment
+                $voucherData = [
+                    'slug' => uniqid(),
+                    'voucher_type' => 1, // Receive (قبض)
+                    'entity_type' => 'client',
+                    'client_id' => $invoice->client_id,
+                    'payment_method' => 'invoice',
+                    'invoice_id' => $invoice->id,
+                    'amount' => $selectedInvoice['paidAmount'],
+                    'account_id' => $account->id,
+                    'date' => $request->paymentDate,
+                    'cheque_no' => $request->chequeNo ?? null,
+                    'receipt_no' => $request->receiptNo ?? null,
+                    'note' => clean($request->note),
+                    'status' => $request->status ?? 1,
+                    'created_by' => $userId,
+                    'branch_id' => $branchId,
+                ];
+
+                // Generate transaction reason
+                $reason = '[' . config('config.invoicePrefix') . '-' . $invoice->invoice_no . '] Invoice payment added to [' . $account->account_number . ']';
 
                 // create transaction
                 $transaction = AccountTransaction::create([
-                    'account_id' => $request->account['id'],
+                    'account_id' => $account->id,
                     'amount' => $selectedInvoice['paidAmount'],
                     'reason' => $reason,
                     'type' => 1,
@@ -129,29 +152,21 @@ class InvoicePaymentController extends Controller
                     'status' => $request->status === 1 ? 1 : 0,
                     'branch_id' => $branchId,
                 ]);
-                $transactionID = $transaction->id;
 
-                // store invoice payment record
-              $InvoicePayment = InvoicePayment::create([
-                    'slug' => uniqid(),
-                    'invoice_id' => $invoice->id,
-                    'transaction_id' => $transactionID,
-                    'amount' => $selectedInvoice['paidAmount'],
-                    'date' => $request->paymentDate,
-                    'created_by' => $userId,
-                    'note' => clean($request->note),
-                    'status' => $request->status,
-                    'branch_id' => $branchId,
-                ]);
+                $voucherData['transaction_id'] = $transaction->id;
 
-                // Create journal entry for invoice payment only if status is active
+                // Create payment voucher instead of invoice payment
+                $voucher = PaymentVoucher::create($voucherData);
+
+                // Create journal entry for payment voucher only if status is active
                 if ($request->status === 1) {
                     try {
                         $journalService = new BusinessTransactionJournalService();
-                        $paymentJournalEntry = $journalService->createInvoicePaymentJournal($transaction, $invoice, $selectedInvoice['paidAmount'], $userId);
+                        $voucher->load(['client.chartOfAccount', 'transaction.account.chartOfAccount']);
+                        $paymentJournalEntry = $journalService->createPaymentVoucherJournal($voucher, $userId);
                     } catch (\Exception $e) {
                         // Log the error but don't fail the payment creation
-                        Log::error('Failed to create payment journal entry for invoice: ' . $e->getMessage());
+                        Log::error('Failed to create payment journal entry for voucher: ' . $e->getMessage());
                     }
                 }
 
@@ -166,12 +181,12 @@ class InvoicePaymentController extends Controller
                 // add activity log
                 activity()
                     ->causedBy(Auth::user())
-                    ->performedOn($InvoicePayment)
+                    ->performedOn($voucher)
                     ->withProperties([
                         'name' => "",
                         'code' => '[' . $client->name . ']',
                         'event' => 'Create',
-                        'slug' => $InvoicePayment->slug,
+                        'slug' => $voucher->slug,
                         'routeName' => 'invoicePayments.show'
                     ])
                     ->useLog('Client Invoice Payment Created')

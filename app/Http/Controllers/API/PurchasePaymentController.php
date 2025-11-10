@@ -9,7 +9,9 @@ use App\Models\PurchaseJournal;
 use App\Services\BusinessTransactionJournalService;
 use Illuminate\Http\Request;
 use App\Models\PurchasePayment;
+use App\Models\PaymentVoucher;
 use App\Models\AccountTransaction;
+use App\Models\Account;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -80,8 +82,13 @@ class PurchasePaymentController extends Controller
 
             // get the user id
             $userId = auth()->user()->id;
+            $branchId = (int) (auth()->user()->default_branch_id ?? 0);
             $purchases = array();
             $supplier = Supplier::where('slug', $request['supplier']['slug'])->first();
+            
+            // Get account
+            $account = Account::findOrFail($request->account['id']);
+            
             foreach ($request->selectedPurchases as $key => $selectedPurchase) {
                 $purchase = Purchase::where('slug', $selectedPurchase['slug'])->first();
                 
@@ -91,12 +98,31 @@ class PurchasePaymentController extends Controller
                     return $this->responseWithError('Cannot add payment to an inactive purchase. You have to send the purchase first.');
                 }
                 
-                // store transaction
-                $transactionID = null;
-                $reason = '['.config('config.purchasePrefix').'-'.$purchase->purchase_no.'] Purchase Payment sent from ['.$request->account['accountNumber'].']';
+                // Prepare voucher data for purchase payment
+                $voucherData = [
+                    'slug' => uniqid(),
+                    'voucher_type' => 0, // Send (صرف)
+                    'entity_type' => 'supplier',
+                    'supplier_id' => $purchase->supplier_id,
+                    'payment_method' => 'purchase',
+                    'purchase_id' => $purchase->id,
+                    'amount' => $selectedPurchase['paidAmount'],
+                    'account_id' => $account->id,
+                    'date' => $request->paymentDate,
+                    'cheque_no' => $request->chequeNo ?? null,
+                    'receipt_no' => $request->receiptNo ?? null,
+                    'note' => clean($request->note),
+                    'status' => $request->status ?? 1,
+                    'created_by' => $userId,
+                    'branch_id' => $branchId,
+                ];
+
+                // Generate transaction reason
+                $reason = '['.config('config.purchasePrefix').'-'.$purchase->purchase_no.'] Purchase Payment sent from ['.$account->account_number.']';
+                
                 // create transaction
                 $transaction = AccountTransaction::create([
-                    'account_id' => $request->account['id'],
+                    'account_id' => $account->id,
                     'amount' => $selectedPurchase['paidAmount'],
                     'reason' => $reason,
                     'type' => 0,
@@ -104,29 +130,25 @@ class PurchasePaymentController extends Controller
                     'receipt_no' => $request->receiptNo,
                     'transaction_date' => $request->paymentDate,
                     'created_by' => $userId,
-                    'status' => $request->status,
-                ]);
-                $transactionID = $transaction->id;
-
-                // store purchase payment
-               $purchasePayment = PurchasePayment::create([
-                    'slug' => uniqid(),
-                    'purchase_id' => $selectedPurchase['id'],
-                    'amount' => $selectedPurchase['paidAmount'],
-                    'transaction_id' => $transactionID,
-                    'date' => $request->paymentDate,
-                    'note' => clean($request->note),
-                    'created_by' => $userId,
-                    'status' => $request->status,
+                    'status' => $request->status ?? 1,
+                    'branch_id' => $branchId,
                 ]);
 
-                // Create journal entry for purchase payment
-                try {
-                    $journalService = new BusinessTransactionJournalService();
-                    $paymentJournalEntry = $journalService->createPurchasePaymentJournal($purchase, $selectedPurchase['paidAmount'], $userId);
-                } catch (\Exception $e) {
-                    // Log the error but don't fail the payment creation
-                    Log::error('Failed to create payment journal entry for purchase: ' . $e->getMessage());
+                $voucherData['transaction_id'] = $transaction->id;
+
+                // Create payment voucher instead of purchase payment
+                $voucher = PaymentVoucher::create($voucherData);
+
+                // Create journal entry for payment voucher only if status is active
+                if ($request->status === 1) {
+                    try {
+                        $journalService = new BusinessTransactionJournalService();
+                        $voucher->load(['supplier.chartOfAccount', 'transaction.account.chartOfAccount']);
+                        $paymentJournalEntry = $journalService->createPaymentVoucherJournal($voucher, $userId);
+                    } catch (\Exception $e) {
+                        // Log the error but don't fail the payment creation
+                        Log::error('Failed to create payment journal entry for voucher: ' . $e->getMessage());
+                    }
                 }
 
                 // update purchase
@@ -140,12 +162,12 @@ class PurchasePaymentController extends Controller
                 // add activity log
                 activity()
                     ->causedBy(Auth::user())
-                    ->performedOn($purchasePayment)
+                    ->performedOn($voucher)
                     ->withProperties([
                         'name' => "",
                         'code' => '[' . $supplier->name . ']',
                         'event' => 'Create',
-                        'slug' => $purchasePayment->slug,
+                        'slug' => $voucher->slug,
                         'routeName' => 'purchasePayments.show'
                     ])
                     ->useLog('Supplier Purchase Payment Created')
