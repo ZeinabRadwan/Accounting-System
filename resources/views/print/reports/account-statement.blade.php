@@ -197,47 +197,57 @@
 
     <!-- Summary Section -->
     @if($elements['showSummary'] ?? true)
-    <div style="margin: 20px 0; display: flex; justify-content: flex-end; margin-bottom: 30px;{{ $isRTL ? ' justify-content: flex-start !important;' : '' }}">
-        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; width: 100%; {{ $isRTL ? 'flex-direction: row-reverse;' : '' }}">
-            <div style="flex: 0 0 calc(23% - 15px); max-width: calc(23% - 15px); padding: 15px; background: {{ $colors['accent'] ?? '#f8fafc' }}; border: 1px solid #e5e7eb; border-radius: 8px; text-align: center;">
-                <h4 style="margin: 0 0 8px 0; color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 14px;{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">@lang('print.Opening Balance')</h4>
-                <p style="margin: 0; font-size: 18px; font-weight: bold; color: {{ $colors['text'] ?? '#111827' }};{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">
-                    {{ number_format($accountStatementData['summary']['opening_balance'] ?? 0, 2) }} 
-                    @if(($accountStatementData['summary']['opening_balance_type'] ?? '') === 'Debit')
-                        @lang('print.Debit')
-                    @elseif(($accountStatementData['summary']['opening_balance_type'] ?? '') === 'Credit')
-                        @lang('print.Credit')
-                    @else
-                        {{ $accountStatementData['summary']['opening_balance_type'] ?? '' }}
-                    @endif
-                </p>
-            </div>
-            <div style="flex: 0 0 calc(23% - 15px); max-width: calc(23% - 15px); padding: 15px; background: {{ $colors['accent'] ?? '#f8fafc' }}; border: 1px solid #e5e7eb; border-radius: 8px; text-align: center;">
-                <h4 style="margin: 0 0 8px 0; color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 14px;{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">@lang('print.Period Debits')</h4>
-                <p style="margin: 0; font-size: 18px; font-weight: bold; color: {{ $colors['text'] ?? '#111827' }};{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">
-                    {{ number_format($accountStatementData['summary']['period_debits'] ?? 0, 2) }}
-                </p>
-            </div>
-            <div style="flex: 0 0 calc(23% - 15px); max-width: calc(23% - 15px); padding: 15px; background: {{ $colors['accent'] ?? '#f8fafc' }}; border: 1px solid #e5e7eb; border-radius: 8px; text-align: center;">
-                <h4 style="margin: 0 0 8px 0; color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 14px;{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">@lang('print.Period Credits')</h4>
-                <p style="margin: 0; font-size: 18px; font-weight: bold; color: {{ $colors['text'] ?? '#111827' }};{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">
-                    {{ number_format($accountStatementData['summary']['period_credits'] ?? 0, 2) }}
-                </p>
-            </div>
-            <div style="flex: 0 0 calc(23% - 15px); max-width: calc(23% - 15px); padding: 15px; background: {{ $colors['primary'] ?? '#2563eb' }}; border: 1px solid #e5e7eb; border-radius: 8px; text-align: center;">
-                <h4 style="margin: 0 0 8px 0; color: white; font-size: 14px;{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">@lang('print.Closing Balance')</h4>
-                <p style="margin: 0; font-size: 18px; font-weight: bold; color: white;{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">
-                    {{ number_format($accountStatementData['summary']['closing_balance'] ?? 0, 2) }} 
-                    @if(($accountStatementData['summary']['closing_balance_type'] ?? '') === 'Debit')
-                        @lang('print.Debit')
-                    @elseif(($accountStatementData['summary']['closing_balance_type'] ?? '') === 'Credit')
-                        @lang('print.Credit')
-                    @else
-                        {{ $accountStatementData['summary']['closing_balance_type'] ?? '' }}
-                    @endif
-                </p>
-            </div>
-        </div>
+    <div style="margin: 20px 0 30px 0; width: 100%;">
+        <table style="width: 100%; border-collapse: separate; border-spacing: 15px;">
+            <tr>
+                <td style="width: 22%; padding: 0; vertical-align: top;">
+                    <div style="padding: 18px; background: {{ $colors['accent'] ?? '#f8fafc' }}; border: 2px solid #e5e7eb; border-radius: 10px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                        <h4 style="margin: 0 0 10px 0; color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">@lang('print.Opening Balance')</h4>
+                        <p style="margin: 0; font-size: 20px; font-weight: bold; color: {{ $colors['text'] ?? '#111827' }};{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">
+                            {{ number_format($accountStatementData['summary']['opening_balance'] ?? 0, 2) }} 
+                            @if(($accountStatementData['summary']['opening_balance_type'] ?? '') === 'Debit')
+                                <span style="font-size: 12px; color: #6b7280;">@lang('print.Debit')</span>
+                            @elseif(($accountStatementData['summary']['opening_balance_type'] ?? '') === 'Credit')
+                                <span style="font-size: 12px; color: #6b7280;">@lang('print.Credit')</span>
+                            @else
+                                <span style="font-size: 12px; color: #6b7280;">{{ $accountStatementData['summary']['opening_balance_type'] ?? '' }}</span>
+                            @endif
+                        </p>
+                    </div>
+                </td>
+                <td style="width: 22%; padding: 0; vertical-align: top;">
+                    <div style="padding: 18px; background: {{ $colors['accent'] ?? '#f8fafc' }}; border: 2px solid #e5e7eb; border-radius: 10px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                        <h4 style="margin: 0 0 10px 0; color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">@lang('print.Period Debits')</h4>
+                        <p style="margin: 0; font-size: 20px; font-weight: bold; color: {{ $colors['text'] ?? '#111827' }};{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">
+                            {{ number_format($accountStatementData['summary']['period_debits'] ?? 0, 2) }}
+                        </p>
+                    </div>
+                </td>
+                <td style="width: 22%; padding: 0; vertical-align: top;">
+                    <div style="padding: 18px; background: {{ $colors['accent'] ?? '#f8fafc' }}; border: 2px solid #e5e7eb; border-radius: 10px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                        <h4 style="margin: 0 0 10px 0; color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">@lang('print.Period Credits')</h4>
+                        <p style="margin: 0; font-size: 20px; font-weight: bold; color: {{ $colors['text'] ?? '#111827' }};{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">
+                            {{ number_format($accountStatementData['summary']['period_credits'] ?? 0, 2) }}
+                        </p>
+                    </div>
+                </td>
+                <td style="width: 22%; padding: 0; vertical-align: top;">
+                    <div style="padding: 18px; background: {{ $colors['primary'] ?? '#2563eb' }}; border: 2px solid {{ $colors['primary'] ?? '#2563eb' }}; border-radius: 10px; text-align: center; box-shadow: 0 2px 8px rgba(37,99,235,0.3);">
+                        <h4 style="margin: 0 0 10px 0; color: white; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">@lang('print.Closing Balance')</h4>
+                        <p style="margin: 0; font-size: 20px; font-weight: bold; color: white;{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">
+                            {{ number_format($accountStatementData['summary']['closing_balance'] ?? 0, 2) }} 
+                            @if(($accountStatementData['summary']['closing_balance_type'] ?? '') === 'Debit')
+                                <span style="font-size: 12px; color: rgba(255,255,255,0.8);">@lang('print.Debit')</span>
+                            @elseif(($accountStatementData['summary']['closing_balance_type'] ?? '') === 'Credit')
+                                <span style="font-size: 12px; color: rgba(255,255,255,0.8);">@lang('print.Credit')</span>
+                            @else
+                                <span style="font-size: 12px; color: rgba(255,255,255,0.8);">{{ $accountStatementData['summary']['closing_balance_type'] ?? '' }}</span>
+                            @endif
+                        </p>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
     @endif
 
