@@ -946,9 +946,9 @@ export default {
 
     // Add payment to purchase
     addPayment() {
-      // Navigate to purchase payment create page with the purchase data
+      // Navigate to send voucher create page with the purchase data
       this.$router.push({
-        name: 'purchasePayments.create',
+        name: 'sendVouchers.create',
         query: {
           purchase: this.allData.slug,
           supplier: this.allData.supplier?.slug

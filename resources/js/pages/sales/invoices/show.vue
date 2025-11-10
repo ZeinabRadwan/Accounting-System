@@ -1104,9 +1104,9 @@ export default {
 
     // Add payment to invoice
     addPayment() {
-      // Navigate to invoice payment create page with the invoice data
+      // Navigate to receive voucher create page with the invoice data
       this.$router.push({
-        name: 'invoicePayments.create',
+        name: 'receiveVouchers.create',
         query: {
           invoice: this.allData.slug,
           client: this.allData.client?.slug

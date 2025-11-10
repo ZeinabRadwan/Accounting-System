@@ -176,14 +176,24 @@
               <div class="row" v-if="accounts">
                 <div class="form-group col-md-6">
                   <label for="account">{{ $t('Account') }}<span class="required">*</span></label>
-                  <v-select v-model="form.account" :options="accounts" label="label"
-                    :class="{ 'is-invalid': form.errors.has('account') }" name="account"
-                    :placeholder="$t('Select an account')" @input="updateBalance">
-                    <template slot="option" slot-scope="option">
-                      <img :src="option.image" style="width: 30px; height: 30px;" />
-                      {{ option.label }}
-                    </template>
-                  </v-select>
+                  <div class="d-flex w-100">
+                    <v-select v-model="form.account" :options="accounts" label="label"
+                      :class="{ 
+                        'is-invalid': form.errors.has('account'),
+                        'account-select': true
+                      }" name="account"
+                      :placeholder="$t('Select an account')" @input="updateBalance" class="flex-grow-1">
+                      <template slot="option" slot-scope="option">
+                        <img :src="option.image" style="width: 30px; height: 30px;" />
+                        {{ option.label }}
+                      </template>
+                    </v-select>
+                    <AccountCreateModal @accountCreated="handleAccountCreated">
+                      <div class="input-group-text create-btn">
+                        <i class="fas fa-solid fa-plus-circle"></i>
+                      </div>
+                    </AccountCreateModal>
+                  </div>
                   <has-error :form="form" field="account" />
                   <!-- Account Balance Display -->
                   <div v-if="form.account && form.account.availableBalance !== undefined" class="account-balance mt-2">
@@ -267,9 +277,13 @@
 import Form from 'vform'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
+import AccountCreateModal from '~/components/AccountCreateModal'
 
 export default {
   middleware: ['auth', 'check-permissions'],
+  components: {
+    AccountCreateModal,
+  },
   metaInfo() {
     return { title: this.$t('Create Receive Voucher') }
   },
@@ -327,7 +341,42 @@ export default {
   created() {
     this.getAccounts()
   },
+  mounted() {
+    this.handleQueryParams()
+  },
   methods: {
+    // Handle query parameters from invoice/purchase pages
+    async handleQueryParams() {
+      const query = this.$route.query
+      
+      // If invoice and client are provided, auto-fill the form
+      if (query.invoice && query.client) {
+        // Set entity type to client
+        this.form.entityType = 'client'
+        
+        // Get clients first
+        await this.getClients()
+        
+        // Find and set the client
+        const client = this.clients.find(c => c.slug === query.client)
+        if (client) {
+          this.form.client = client
+          // Set payment method to invoice
+          this.form.paymentMethod = 'invoice'
+          
+          // Get invoices for this client
+          await this.getInvoices()
+          
+          // Find and set the invoice
+          if (this.invoices && this.invoices.length > 0) {
+            const invoice = this.invoices.find(inv => inv.slug === query.invoice)
+            if (invoice) {
+              this.form.invoice = invoice
+            }
+          }
+        }
+      }
+    },
     // Get clients
     async getClients() {
       await this.$store.dispatch('operations/allData', {
@@ -433,6 +482,43 @@ export default {
     updateBalance() {
       // Balance is automatically displayed via v-model binding
       // This method can be used for additional logic if needed
+    },
+
+    // Handle account created event from AccountCreateModal
+    async handleAccountCreated(newAccount) {
+      // Refresh accounts list
+      await this.getAccounts()
+      
+      // Find and select the newly created account
+      // Try to find by ID first, then by account number as fallback
+      let account = this.accounts.find(acc => acc.id === newAccount.id)
+      
+      // If not found by ID, try to find by account number
+      if (!account && newAccount.accountNumber) {
+        account = this.accounts.find(acc => acc.accountNumber === newAccount.accountNumber)
+      }
+      
+      // If still not found, use the newAccount data directly (format it properly)
+      if (!account && newAccount) {
+        account = {
+          id: newAccount.id,
+          label: newAccount.label || `${newAccount.bankName} [${newAccount.accountNumber}]`,
+          bankName: newAccount.bankName,
+          accountNumber: newAccount.accountNumber,
+          availableBalance: newAccount.availableBalance || 0,
+          image: newAccount.image || null,
+        }
+        // Add it to the accounts list if not already there
+        this.accounts.push(account)
+      }
+      
+      if (account) {
+        // Use $nextTick to ensure Vue updates the form
+        this.$nextTick(() => {
+          this.form.account = account
+          this.updateBalance()
+        })
+      }
     },
 
     // Handle entity type change
@@ -878,5 +964,43 @@ export default {
   background-color: #d4edda;
   color: #155724;
   border: 1px solid #c3e6cb;
+}
+
+/* Account create button styling */
+.create-btn {
+  background-color: #33a0d9;
+  color: white;
+  border: 1px solid #33a0d9;
+  border-left: none;
+  border-radius: 0 10px 10px 0;
+  padding: 10px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.create-btn:hover {
+  background-color: #2a8bc4;
+  border-color: #2a8bc4;
+}
+
+.create-btn i {
+  font-size: 18px;
+}
+
+.account-select {
+  border-radius: 10px 0 0 10px;
+}
+
+[dir="rtl"] .create-btn {
+  border-left: 1px solid #33a0d9;
+  border-right: none;
+  border-radius: 10px 0 0 10px;
+}
+
+[dir="rtl"] .account-select {
+  border-radius: 0 10px 10px 0;
 }
 </style>

@@ -101,7 +101,10 @@ class AccountController extends Controller
                 ->useLog('Account Created')
                 ->log('Account Created');
 
-            return $this->responseWithSuccess('Account added successfully!');
+            // Load the account with relationships for response
+            $account->load('chartOfAccount.type');
+            
+            return $this->responseWithSuccess('Account added successfully!', new AccountResource($account));
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
         }

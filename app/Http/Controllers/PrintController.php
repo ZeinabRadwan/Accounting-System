@@ -501,6 +501,9 @@ class PrintController extends Controller
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
         
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+        
         // Generate filename
         $accountName = $accountStatementData['chart_of_account']['name'] ?? 'Account';
         $fromDate = $accountStatementData['filters']['from_date'] ?? '';
@@ -509,9 +512,10 @@ class PrintController extends Controller
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
         
         // Use Utility::buildPdf to generate PDF
+        // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.reports.account-statement' : 'print.account-statement-basic',
-            'view_data' => compact('accountStatementData', 'template'),
+            'view_data' => compact('accountStatementData', 'template', 'logoBase64'),
             'type' => 'preview',
             'file_name' => $filename,
             'header' => '',
@@ -521,7 +525,7 @@ class PrintController extends Controller
                 'top' => '10mm',
                 'bottom' => '10mm',
             ]
-        ]);
+        ], 'landscape', false);
     }
     public function downloadAccountStatementPDF(Request $request)
     {
@@ -548,27 +552,34 @@ class PrintController extends Controller
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
         
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+        
         // Generate filename
         $accountName = $accountStatementData['chart_of_account']['name'] ?? 'Account';
         $fromDate = $accountStatementData['filters']['from_date'] ?? '';
         $toDate = $accountStatementData['filters']['to_date'] ?? '';
         $filename = 'Account-Statement-' . str_replace(' ', '-', $accountName) . '-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-        
+       
+        $locale = \Auth::user()->locale ?? 'ar';
+        \App::setLocale($locale);
         // Use Utility::buildPdf to generate PDF
+        // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.reports.account-statement' : 'print.account-statement-basic',
-            'view_data' => compact('accountStatementData', 'template'),
+            'view_data' => compact('accountStatementData', 'template', 'locale', 'logoBase64'),
             'type' => 'download',
             'file_name' => $filename,
             'header' => '',
             'footer' => '',
             'header_spacing' => '2',
+        
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
             ]
-        ]);
+        ], 'landscape', false);
     }
 
     /**
@@ -898,39 +909,58 @@ class PrintController extends Controller
     private function getLogoAsBase64($template)
     {
         try {
-            // Try template's custom logo first
-            if ($template->custom_logo) {
-                $logoPath = public_path('images/' . $template->custom_logo);
-                if (file_exists($logoPath)) {
-                    $imageData = file_get_contents($logoPath);
-                    $mimeType = mime_content_type($logoPath);
-                    return 'data:' . $mimeType . ';base64,' . base64_encode($imageData);
-                }
+            if (!$template) {
+                Log::warning('Template is null in getLogoAsBase64');
+                return null;
             }
             
-            // Fallback to general settings logo
-            $settings = \App\Models\GeneralSetting::get();
-            $logo = $settings->where('key', 'logo')->first()?->value;
+            // Use the logo_path accessor which handles all fallbacks
+            $logoPath = $template->logo_path;
             
-            if ($logo) {
-                $logoPath = public_path('images/' . $logo);
-                if (file_exists($logoPath)) {
-                    $imageData = file_get_contents($logoPath);
-                    $mimeType = mime_content_type($logoPath);
-                    return 'data:' . $mimeType . ';base64,' . base64_encode($imageData);
-                }
+            if (!$logoPath) {
+                Log::warning('Logo path is null for template: ' . $template->id);
+                return null;
             }
             
-            // Try default logo fallback
-            $defaultLogoPath = public_path('images/white_logo.png');
-            if (file_exists($defaultLogoPath)) {
-                $imageData = file_get_contents($defaultLogoPath);
-                $mimeType = mime_content_type($defaultLogoPath);
-                return 'data:' . $mimeType . ';base64,' . base64_encode($imageData);
+            if (!file_exists($logoPath)) {
+                Log::warning('Logo file does not exist: ' . $logoPath);
+                return null;
             }
+            
+            $imageData = file_get_contents($logoPath);
+            if ($imageData === false) {
+                Log::warning('Failed to read logo file: ' . $logoPath);
+                return null;
+            }
+            
+            $mimeType = mime_content_type($logoPath);
+            if (!$mimeType) {
+                // Fallback: determine mime type from extension
+                $extension = strtolower(pathinfo($logoPath, PATHINFO_EXTENSION));
+                $mimeTypes = [
+                    'png' => 'image/png',
+                    'jpg' => 'image/jpeg',
+                    'jpeg' => 'image/jpeg',
+                    'gif' => 'image/gif',
+                    'svg' => 'image/svg+xml',
+                    'webp' => 'image/webp',
+                ];
+                $mimeType = $mimeTypes[$extension] ?? 'image/png';
+            }
+            
+            $base64 = 'data:' . $mimeType . ';base64,' . base64_encode($imageData);
+            Log::info('Logo converted to base64 successfully', [
+                'logo_path' => $logoPath,
+                'mime_type' => $mimeType,
+                'size' => strlen($base64)
+            ]);
+            
+            return $base64;
             
         } catch (\Exception $e) {
-            Log::warning('Failed to convert logo to base64: ' . $e->getMessage());
+            Log::error('Failed to convert logo to base64: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString()
+            ]);
         }
         
         return null;

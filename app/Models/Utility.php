@@ -17,7 +17,7 @@ class Utility extends Model
      * @param bool $headerFooter - Whether to include header/footer
      * @return mixed
      */
-    public static function buildPdf($data, $type_id = null, $type = 'view', $orientation = "portrait", $headerFooter = true)
+    public static function buildPdf($data, $orientation = "portrait", $headerFooter = true)
     {
         // Load view with data
         $pdf = PDF::loadView($data['view'], $data['view_data']);
@@ -30,7 +30,6 @@ class Utility extends Model
         $pdf->setOption('lowquality', false);
         $pdf->setOption('enable-local-file-access', true);
         $pdf->setOption('images', true);
-        $pdf->setOption('header-spacing', $data['header_spacing'] ?? '2');
         $pdf->setOption('encoding', 'UTF-8');
         
         // Handle footer
@@ -68,10 +67,24 @@ class Utility extends Model
         $pdf->setOption('no-header-line', true);
         $pdf->setOption('header-line', false);
         
-        // Add header and footer if enabled
-        if ($headerFooter) {
+        // Only set header and footer if they are not empty and headerFooter is enabled
+        // This prevents wkhtmltopdf from treating empty headers as repeating headers
+        if ($headerFooter && !empty($header)) {
             $pdf->setOption('header-html', $header);
+            $pdf->setOption('header-spacing', $data['header_spacing'] ?? '2');
+        } else {
+            // Explicitly disable header to prevent repetition
+            $pdf->setOption('header-html', '');
+            $pdf->setOption('header-spacing', 0);
+            // Additional options to prevent header repetition
+            $pdf->setOption('disable-smart-shrinking', false);
+        }
+        
+        if ($headerFooter && !empty($footer)) {
             $pdf->setOption('footer-html', $footer);
+        } else {
+            // Explicitly disable footer
+            $pdf->setOption('footer-html', '');
         }
         
         // Handle different output types
