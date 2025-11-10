@@ -104,6 +104,24 @@
             .avoid-break {
                 page-break-inside: avoid;
             }
+
+            .report-header {
+                page-break-inside: avoid;
+                page-break-after: avoid;
+            }
+
+            .report-header,
+            .report-header * {
+                position: relative !important;
+            }
+
+            #document-container {
+                position: relative !important;
+            }
+
+            #document-container > * {
+                position: relative !important;
+            }
         }
     </style>
 
@@ -137,7 +155,7 @@
 
     @if(($elements['showLogo'] ?? true) || ($elements['showCompanyInfo'] ?? true))
     <!-- Header -->
-    <div style="border-bottom: 2px solid #e5e7eb; margin-bottom: 30px; padding-bottom: 20px;">
+    <div class="report-header" style="border-bottom: 2px solid #e5e7eb; margin-bottom: 30px; padding-bottom: 20px; page-break-inside: avoid; page-break-after: avoid;">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; {{ $isRTL ? 'flex-direction: row-reverse;' : '' }}">
             <div>
                 @if($elements['showLogo'] ?? true)
