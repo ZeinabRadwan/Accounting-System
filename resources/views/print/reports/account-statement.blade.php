@@ -108,6 +108,9 @@
             {!! $template->css_styles !!}
         </style>
     @endif
+    <style>
+        @page { size: A4 landscape; }
+    </style>
 </head>
 
 <body>
