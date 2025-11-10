@@ -555,7 +555,8 @@ class PrintController extends Controller
         $toDate = $accountStatementData['filters']['to_date'] ?? '';
         $filename = 'Account-Statement-' . str_replace(' ', '-', $accountName) . '-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-        $locale = app()->getLocale();
+       
+        $locale = \Auth::user()->locale ?? 'ar';
         // Use Utility::buildPdf to generate PDF
         // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
