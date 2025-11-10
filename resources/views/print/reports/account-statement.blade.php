@@ -186,7 +186,7 @@
             <div style="text-align: {{ $isRTL ? 'right' : 'left' }}; {{ $isRTL ? 'direction: rtl;' : '' }}">
                 @if($elements['showLogo'] ?? true)
                 <div style="margin-bottom: 15px; text-align: {{ $isRTL ? 'right' : 'left' }};">
-                    <img src="{{ $template->logo_url }}" 
+                    <img src="{{ $logoBase64 ?? $template->logo_url ?? '' }}" 
                          alt="@lang('Company Logo')" style="max-height: 60px; margin-bottom: 15px; max-width: 80px; height: auto;">
                 </div>
                 @endif

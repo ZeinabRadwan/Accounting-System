@@ -501,6 +501,9 @@ class PrintController extends Controller
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
         
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+        
         // Generate filename
         $accountName = $accountStatementData['chart_of_account']['name'] ?? 'Account';
         $fromDate = $accountStatementData['filters']['from_date'] ?? '';
@@ -512,7 +515,7 @@ class PrintController extends Controller
         // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.reports.account-statement' : 'print.account-statement-basic',
-            'view_data' => compact('accountStatementData', 'template'),
+            'view_data' => compact('accountStatementData', 'template', 'logoBase64'),
             'type' => 'preview',
             'file_name' => $filename,
             'header' => '',
@@ -549,6 +552,9 @@ class PrintController extends Controller
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
         
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+        
         // Generate filename
         $accountName = $accountStatementData['chart_of_account']['name'] ?? 'Account';
         $fromDate = $accountStatementData['filters']['from_date'] ?? '';
@@ -562,7 +568,7 @@ class PrintController extends Controller
         // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.reports.account-statement' : 'print.account-statement-basic',
-            'view_data' => compact('accountStatementData', 'template','locale'),
+            'view_data' => compact('accountStatementData', 'template', 'locale', 'logoBase64'),
             'type' => 'download',
             'file_name' => $filename,
             'header' => '',
@@ -910,6 +916,40 @@ class PrintController extends Controller
                     $imageData = file_get_contents($logoPath);
                     $mimeType = mime_content_type($logoPath);
                     return 'data:' . $mimeType . ';base64,' . base64_encode($imageData);
+                }
+            }
+            
+            // Try template's logo_url if it's a local file
+            if ($template->logo_url) {
+                // Check if it's a URL or local path
+                if (filter_var($template->logo_url, FILTER_VALIDATE_URL)) {
+                    // It's a full URL, try to download it
+                    try {
+                        $imageData = file_get_contents($template->logo_url);
+                        if ($imageData !== false) {
+                            // Try to determine mime type from URL extension
+                            $extension = pathinfo(parse_url($template->logo_url, PHP_URL_PATH), PATHINFO_EXTENSION);
+                            $mimeTypes = [
+                                'png' => 'image/png',
+                                'jpg' => 'image/jpeg',
+                                'jpeg' => 'image/jpeg',
+                                'gif' => 'image/gif',
+                                'svg' => 'image/svg+xml',
+                            ];
+                            $mimeType = $mimeTypes[strtolower($extension)] ?? 'image/png';
+                            return 'data:' . $mimeType . ';base64,' . base64_encode($imageData);
+                        }
+                    } catch (\Exception $e) {
+                        // If URL download fails, continue to next option
+                    }
+                } else {
+                    // It's a local path
+                    $logoPath = public_path('images/' . basename($template->logo_url));
+                    if (file_exists($logoPath)) {
+                        $imageData = file_get_contents($logoPath);
+                        $mimeType = mime_content_type($logoPath);
+                        return 'data:' . $mimeType . ';base64,' . base64_encode($imageData);
+                    }
                 }
             }
             
