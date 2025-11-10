@@ -183,40 +183,40 @@
     <!-- Header -->
     <div class="report-header" style="border-bottom: 2px solid #e5e7eb; margin-bottom: 30px; padding-bottom: 20px; page-break-inside: avoid; page-break-after: avoid;">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; {{ $isRTL ? 'flex-direction: row-reverse;' : '' }}">
-            <div>
+            <div style="text-align: {{ $isRTL ? 'right' : 'left' }}; {{ $isRTL ? 'direction: rtl;' : '' }}">
                 @if($elements['showLogo'] ?? true)
-                <div style="margin-bottom: 15px;">
+                <div style="margin-bottom: 15px; text-align: {{ $isRTL ? 'right' : 'left' }};">
                     <img src="{{ $template->logo_url }}" 
                          alt="@lang('Company Logo')" style="max-height: 60px; margin-bottom: 15px; max-width: 80px; height: auto;">
                 </div>
                 @endif
                 
                 @if($elements['showCompanyInfo'] ?? true)
-                <h1 style="color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: {{ $typography['headerFontSize'] ?? 24 }}px; margin: 0 0 10px 0;{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">
+                <h1 style="color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: {{ $typography['headerFontSize'] ?? 24 }}px; margin: 0 0 10px 0; text-align: {{ $isRTL ? 'right' : 'left' }};{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl;' : '' }}">
                     {{ $companyName }}
                 </h1>
-                <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">
+                <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }}; text-align: {{ $isRTL ? 'right' : 'left' }};{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl;' : '' }}">
                     {{ $companyAddress }}
                 </p>
-                <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">
+                <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }}; text-align: {{ $isRTL ? 'right' : 'left' }};{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl;' : '' }}">
                     {{ $companyPhone }} • {{ $companyEmail }}
                 </p>
                 @endif
             </div>
-            <div style="text-align: {{ $isRTL ? 'left' : 'right' }};">
+            <div style="text-align: {{ $isRTL ? 'left' : 'right' }}; {{ $isRTL ? 'direction: ltr;' : '' }}">
                 @if($elements['showReportTitle'] ?? true)
-                <h2 style="color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 24px; margin: 0 0 15px 0;{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">
+                <h2 style="color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 24px; margin: 0 0 15px 0; text-align: {{ $isRTL ? 'left' : 'right' }};{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: ltr;' : '' }}">
                     @lang('print.Account Statement')
                 </h2>
                 @endif
                 
                 @if($elements['showAccountInfo'] ?? true)
                 <div style="margin-bottom: 10px;">
-                    <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }}; font-weight: bold;{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">
+                    <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }}; font-weight: bold; text-align: {{ $isRTL ? 'left' : 'right' }};{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: ltr;' : '' }}">
                         @lang('print.Account'): {{ $accountStatementData['chart_of_account']['code'] }} - {{ $accountStatementData['chart_of_account']['name'] }}
                     </p>
                     @if(isset($accountStatementData['report_account']) && $accountStatementData['report_account']['id'] !== $accountStatementData['chart_of_account']['id'])
-                    <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }}; font-size: 14px;{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">
+                    <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }}; font-size: 14px; text-align: {{ $isRTL ? 'left' : 'right' }};{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: ltr;' : '' }}">
                         @lang('print.Sub Account'): {{ $accountStatementData['report_account']['code'] }} - {{ $accountStatementData['report_account']['name'] }}
                     </p>
                     @endif
@@ -224,13 +224,13 @@
                 @endif
                 
                 @if($elements['showPeriod'] ?? true)
-                <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">
+                <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }}; text-align: {{ $isRTL ? 'left' : 'right' }};{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: ltr;' : '' }}">
                     @lang('print.Period'): {{ $accountStatementData['filters']['from_date'] ?? '' }} - {{ $accountStatementData['filters']['to_date'] ?? '' }}
                 </p>
                 @endif
                 
                 @if($elements['showGeneratedDate'] ?? true)
-                <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">
+                <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }}; text-align: {{ $isRTL ? 'left' : 'right' }};{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: ltr;' : '' }}">
                     @lang('print.Generated'): {{ now()->format('Y-m-d H:i:s') }}
                 </p>
                 @endif
