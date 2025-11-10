@@ -71,6 +71,10 @@
             padding: 0 3px;
         }
 
+        @page {
+            size: landscape;
+        }
+
         @media print {
             * {
                 -webkit-print-color-adjust: exact !important;
@@ -108,9 +112,6 @@
             {!! $template->css_styles !!}
         </style>
     @endif
-    <style>
-        @page { size: A4 landscape; }
-    </style>
 </head>
 
 <body>
