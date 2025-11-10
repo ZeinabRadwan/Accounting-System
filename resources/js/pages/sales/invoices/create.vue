@@ -23,7 +23,7 @@
             <!-- Add the missing form element with submit handler -->
             <form id="invoiceCreateForm" @submit.prevent="handleFormSubmit">
               <!-- Client Selection with Auto-Assign -->
-              <div class="row" v-if="clients">
+              <div class="row" v-if="items">
                 <div class="form-group col-md-6">
                   <label for="client">{{ $t("Client") }}
                     <span class="required">*</span></label>
@@ -33,7 +33,7 @@
                         <v-select 
                           class="flex-grow-1" 
                           v-model="form.client" 
-                          :options="clients" 
+                          :options="items" 
                           label="name"
                           :class="{ 'is-invalid': form.errors.has('client') }" 
                           name="client"
@@ -909,7 +909,6 @@ export default {
       accounts: [],
       taxes: [],
       prefix: "",
-      clients: [],
       isUpdatingChartOfAccount: false, // Flag to prevent form submission during chart of account updates
 
       isAutoAssigningClient: false, // Add this back for the auto-assign button
@@ -938,7 +937,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("operations", ["appInfo"]),
+    ...mapGetters("operations", ["items", "appInfo"]),
     
     // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
     isSaudiArabia() {
@@ -1299,28 +1298,33 @@ export default {
     // get all clients
     async getClients(selectedClient = 'default') {
       try {
-        const { data } = await axios.get(window.location.origin + "/api/all-clients");
-        this.clients = data.data || [];
+        await this.$store.dispatch("operations/allData", {
+          path: "/api/all-clients",
+        });
 
-        if (!this.clients || this.clients.length === 0) return;
+        if (!this.items || this.items.length === 0) return;
 
         // If explicitly requesting latest (e.g., after creating a client)
         if (selectedClient === 'latest') {
-          this.form.client = this.clients[0];
+          this.form.client = this.items[0];
           return;
         }
 
-        // If a client was restored from temp or already selected, normalize to an option from clients
+        // If a client was restored from temp or already selected, normalize to an option from items
         if (this.form.client && (this.form.client.id || this.form.client.slug)) {
           this.normalizeClientSelection();
           return;
         }
 
         // Otherwise, assign default client
-        let defaultClientSlug = this.appInfo.defaultClientSlug;
-        const defaultClient = this.clients.find((item) => item.slug === defaultClientSlug);
-        if (defaultClient) {
-          this.form.client = defaultClient;
+        if (this.items && this.items.length > 0) {
+          let defaultClientSlug = this.appInfo.defaultClientSlug;
+          const defaultClient = this.items.find(
+            (item) => item.slug === defaultClientSlug
+          );
+          if (defaultClient) {
+            this.form.client = defaultClient;
+          }
         }
       } catch (error) {
         console.error('Error getting clients:', error);
@@ -2886,10 +2890,10 @@ export default {
           const newAccountId = response.data.chart_of_account_id || (response.data.data && response.data.data.chart_of_account_id) || null;
           if (newAccountId) {
             this.form.client.chart_of_account_id = newAccountId;
-            // Also update the option in clients list to keep state consistent when switching clients
-            const idx = this.clients.findIndex(i => i.slug === currentClientSlug);
+            // Also update the option in items list to keep state consistent when switching clients
+            const idx = this.items.findIndex(i => i.slug === currentClientSlug);
             if (idx !== -1) {
-              this.$set(this.clients[idx], 'chart_of_account_id', newAccountId);
+              this.$set(this.items[idx], 'chart_of_account_id', newAccountId);
             }
           }
           
@@ -3392,17 +3396,17 @@ export default {
       }
     },
 
-    // Normalize form.client to an object from clients by id/slug so v-select shows it
+    // Normalize form.client to an object from items by id/slug so v-select shows it
     normalizeClientSelection() {
       try {
-        if (!this.form.client || !this.clients || this.clients.length === 0) return;
+        if (!this.form.client || !this.items || this.items.length === 0) return;
         const current = this.form.client;
         let matched = null;
         if (current.id) {
-          matched = this.clients.find(i => i.id === current.id);
+          matched = this.items.find(i => i.id === current.id);
         }
         if (!matched && current.slug) {
-          matched = this.clients.find(i => i.slug === current.slug);
+          matched = this.items.find(i => i.slug === current.slug);
         }
         if (matched) {
           this.form.client = matched;

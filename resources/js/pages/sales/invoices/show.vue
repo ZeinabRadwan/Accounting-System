@@ -927,11 +927,11 @@ export default {
       }
       return 0;
     },
-    // download pdf - directly download PDF file
+    // download pdf - now opens print page
     generatePDF() {
-      // Directly download the PDF from the server
-      const pdfUrl = `/print/invoice/${this.$route.params.slug}/pdf`;
-      window.open(pdfUrl, '_blank');
+      // Open the print page in a new window
+      const printUrl = `/print/invoice/${this.$route.params.slug}`;
+      window.open(printUrl, '_blank');
     },
     // notify
     async notify() {
@@ -1104,9 +1104,9 @@ export default {
 
     // Add payment to invoice
     addPayment() {
-      // Navigate to receive voucher create page with the invoice data
+      // Navigate to invoice payment create page with the invoice data
       this.$router.push({
-        name: 'receiveVouchers.create',
+        name: 'invoicePayments.create',
         query: {
           invoice: this.allData.slug,
           client: this.allData.client?.slug
