@@ -909,73 +909,58 @@ class PrintController extends Controller
     private function getLogoAsBase64($template)
     {
         try {
-            // Try template's custom logo first
-            if ($template->custom_logo) {
-                $logoPath = public_path('images/' . $template->custom_logo);
-                if (file_exists($logoPath)) {
-                    $imageData = file_get_contents($logoPath);
-                    $mimeType = mime_content_type($logoPath);
-                    return 'data:' . $mimeType . ';base64,' . base64_encode($imageData);
-                }
+            if (!$template) {
+                Log::warning('Template is null in getLogoAsBase64');
+                return null;
             }
             
-            // Try template's logo_url if it's a local file
-            if ($template->logo_url) {
-                // Check if it's a URL or local path
-                if (filter_var($template->logo_url, FILTER_VALIDATE_URL)) {
-                    // It's a full URL, try to download it
-                    try {
-                        $imageData = file_get_contents($template->logo_url);
-                        if ($imageData !== false) {
-                            // Try to determine mime type from URL extension
-                            $extension = pathinfo(parse_url($template->logo_url, PHP_URL_PATH), PATHINFO_EXTENSION);
-                            $mimeTypes = [
-                                'png' => 'image/png',
-                                'jpg' => 'image/jpeg',
-                                'jpeg' => 'image/jpeg',
-                                'gif' => 'image/gif',
-                                'svg' => 'image/svg+xml',
-                            ];
-                            $mimeType = $mimeTypes[strtolower($extension)] ?? 'image/png';
-                            return 'data:' . $mimeType . ';base64,' . base64_encode($imageData);
-                        }
-                    } catch (\Exception $e) {
-                        // If URL download fails, continue to next option
-                    }
-                } else {
-                    // It's a local path
-                    $logoPath = public_path('images/' . basename($template->logo_url));
-                    if (file_exists($logoPath)) {
-                        $imageData = file_get_contents($logoPath);
-                        $mimeType = mime_content_type($logoPath);
-                        return 'data:' . $mimeType . ';base64,' . base64_encode($imageData);
-                    }
-                }
+            // Use the logo_path accessor which handles all fallbacks
+            $logoPath = $template->logo_path;
+            
+            if (!$logoPath) {
+                Log::warning('Logo path is null for template: ' . $template->id);
+                return null;
             }
             
-            // Fallback to general settings logo
-            $settings = \App\Models\GeneralSetting::get();
-            $logo = $settings->where('key', 'logo')->first()?->value;
-            
-            if ($logo) {
-                $logoPath = public_path('images/' . $logo);
-                if (file_exists($logoPath)) {
-                    $imageData = file_get_contents($logoPath);
-                    $mimeType = mime_content_type($logoPath);
-                    return 'data:' . $mimeType . ';base64,' . base64_encode($imageData);
-                }
+            if (!file_exists($logoPath)) {
+                Log::warning('Logo file does not exist: ' . $logoPath);
+                return null;
             }
             
-            // Try default logo fallback
-            $defaultLogoPath = public_path('images/white_logo.png');
-            if (file_exists($defaultLogoPath)) {
-                $imageData = file_get_contents($defaultLogoPath);
-                $mimeType = mime_content_type($defaultLogoPath);
-                return 'data:' . $mimeType . ';base64,' . base64_encode($imageData);
+            $imageData = file_get_contents($logoPath);
+            if ($imageData === false) {
+                Log::warning('Failed to read logo file: ' . $logoPath);
+                return null;
             }
+            
+            $mimeType = mime_content_type($logoPath);
+            if (!$mimeType) {
+                // Fallback: determine mime type from extension
+                $extension = strtolower(pathinfo($logoPath, PATHINFO_EXTENSION));
+                $mimeTypes = [
+                    'png' => 'image/png',
+                    'jpg' => 'image/jpeg',
+                    'jpeg' => 'image/jpeg',
+                    'gif' => 'image/gif',
+                    'svg' => 'image/svg+xml',
+                    'webp' => 'image/webp',
+                ];
+                $mimeType = $mimeTypes[$extension] ?? 'image/png';
+            }
+            
+            $base64 = 'data:' . $mimeType . ';base64,' . base64_encode($imageData);
+            Log::info('Logo converted to base64 successfully', [
+                'logo_path' => $logoPath,
+                'mime_type' => $mimeType,
+                'size' => strlen($base64)
+            ]);
+            
+            return $base64;
             
         } catch (\Exception $e) {
-            Log::warning('Failed to convert logo to base64: ' . $e->getMessage());
+            Log::error('Failed to convert logo to base64: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString()
+            ]);
         }
         
         return null;
