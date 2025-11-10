@@ -609,10 +609,15 @@ export default {
 
     // get all product categories
     async getSubCategories() {
-      const { data } = await this.form.get(
-        window.location.origin + "/api/all-product-sub-categories"
-      );
-      this.categories = data.data;
+      try {
+        const { data } = await axios.get(
+          window.location.origin + "/api/all-product-sub-categories"
+        );
+        this.categories = data.data || [];
+      } catch (error) {
+        console.error('Error fetching subcategories:', error);
+        this.categories = [];
+      }
     },
     // Handle category created event
     async handleCategoryCreated() {
