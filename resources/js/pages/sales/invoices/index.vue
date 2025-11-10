@@ -7,6 +7,7 @@
             <!-- breadcrumbs Start -->
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
+             <!-- updated -->
           </div>
           <!-- /.card-header -->
           <div class="card-body position-relative">

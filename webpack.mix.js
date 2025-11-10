@@ -25,6 +25,10 @@ if (mix.inProduction()) {
 }
 
 mix.webpackConfig({
+  output: {
+    publicPath: '/js/',
+    chunkFilename: '[name].js'
+  },
   module: {
     rules: [
       {
