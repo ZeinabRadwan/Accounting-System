@@ -1,5 +1,5 @@
 @php
-    $currentLocale = app()->getLocale();
+    $currentLocale = $locale;
     $isRTL = $currentLocale === 'ar';
 @endphp
 <!DOCTYPE html>
