@@ -39,7 +39,7 @@
         </style>
 </head>
 
-<body style="font-family: 'Inter', sans-serif; font-size: {{ $typography['baseFontSize'] ?? 14 }}px; line-height: 1.6; color: {{ $colors['text'] ?? '#6b7280' }}; background: #ffffff; margin: 0; padding: 20mm; direction: {{ $isRTL ? 'rtl' : 'ltr' }};">
+<body style="font-family: 'DINNextLTArabic','Inter', sans-serif; font-size: {{ $typography['baseFontSize'] ?? 14 }}px; line-height: 1.6; color: {{ $colors['text'] ?? '#6b7280' }}; background: #ffffff; margin: 0; padding: 20mm; direction: {{ $isRTL ? 'rtl' : 'ltr' }};">
     <div id="document-container" style="max-width: 100%; margin: 0 auto;">
         <div style="position: relative;">
             @if(($elements['showLogo'] ?? true) || ($elements['showCompanyInfo'] ?? true))
