@@ -1651,12 +1651,12 @@ class PrintController extends Controller
     }
 
     /**
-     * Download quotation as PDF using selected template - SNAPSHOT APPROACH
+     * Preview quotation as PDF using selected template
      */
-    public function downloadQuotationPDF($slug)
+    public function previewQuotationPDF($slug)
     {
-        // Set locale for translations - force Arabic for print templates
-        app()->setLocale('ar');
+        $locale = \Auth::user()->locale ?? 'ar';
+        \App::setLocale($locale);
         
         $quotation = Quotation::where('slug', $slug)
             ->with('client', 'quotationProducts.product.productUnit', 'quotationProducts.product.productTax', 'user')
@@ -1665,39 +1665,63 @@ class PrintController extends Controller
         // Get the default template for quotations
         $template = PrintTemplate::byModule('quotation')->default()->first();
         
-        if (!$template) {
-            // Fallback to basic template if no print template is set
-            $template = new PrintTemplate();
-            $template->template_config = $this->getTemplateConfig('quotation');
-        }
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
         
-        // Generate the print view URL for snapshot
-        $printUrl = route('print.quotation', $slug);
+        // Generate filename
+        $filename = 'Quotation-' . $quotation->quotation_no . '.pdf';
         
-        // Try Puppeteer snapshot approach first
-        try {
-            $result = $this->generateSnapshotPDF($printUrl, 'Quotation-' . $quotation->quotation_no . '.pdf');
-            if ($result['success']) {
-                return $result['response'];
-            }
-        } catch (\Exception $e) {
-            Log::warning('Puppeteer snapshot PDF generation failed: ' . $e->getMessage());
-        }
+        // Use Utility::buildPdf to generate PDF
+        return \App\Models\Utility::buildPdf([
+            'view' => $template ? 'print.quotation' : 'print.quotation-basic',
+            'view_data' => compact('quotation', 'template', 'locale', 'logoBase64'),
+            'type' => 'preview',
+            'file_name' => $filename,
+            'header' => '',
+            'footer' => '',
+            'header_spacing' => '2',
+            'margins' => [
+                'top' => '10mm',
+                'bottom' => '10mm',
+            ]
+        ], 'portrait', false);
+    }
+
+    /**
+     * Download quotation as PDF using selected template
+     */
+    public function downloadQuotationPDF($slug)
+    {
+        $locale = \Auth::user()->locale ?? 'ar';
+        \App::setLocale($locale);
         
-        // Fallback to original approach if snapshot fails
-        $html = view('print.quotation', compact('quotation', 'template'))->render();
+        $quotation = Quotation::where('slug', $slug)
+            ->with('client', 'quotationProducts.product.productUnit', 'quotationProducts.product.productTax', 'user')
+            ->firstOrFail();
+
+        // Get the default template for quotations
+        $template = PrintTemplate::byModule('quotation')->default()->first();
         
         // Convert logo to base64 for PDF compatibility
-        $logoBase64 = $this->getLogoAsBase64($template);
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
         
-        // Replace logo URLs with base64 data URLs
-        if ($logoBase64) {
-            $html = str_replace('src="{{ $template->logo_url }}"', 'src="' . $logoBase64 . '"', $html);
-            $pattern = '/src="[^"]*\/images\/[^"]*\.(png|jpg|jpeg|gif)"/i';
-            $html = preg_replace($pattern, 'src="' . $logoBase64 . '"', $html);
-        }
-
-        return $this->generatePDF($html, 'Quotation-' . $quotation->quotation_no . '.pdf');
+        // Generate filename
+        $filename = 'Quotation-' . $quotation->quotation_no . '.pdf';
+        
+        // Use Utility::buildPdf to generate PDF
+        return \App\Models\Utility::buildPdf([
+            'view' => $template ? 'print.quotation' : 'print.quotation-basic',
+            'view_data' => compact('quotation', 'template', 'locale', 'logoBase64'),
+            'type' => 'download',
+            'file_name' => $filename,
+            'header' => '',
+            'footer' => '',
+            'header_spacing' => '2',
+            'margins' => [
+                'top' => '10mm',
+                'bottom' => '10mm',
+            ]
+        ], 'portrait', false);
     }
 
     /**

@@ -26035,12 +26035,12 @@ var map = {
 		2512
 	],
 	"./sales/quotations/show": [
-		26013,
-		6013
+		80424,
+		424
 	],
 	"./sales/quotations/show.vue": [
-		26013,
-		6013
+		80424,
+		424
 	],
 	"./sales/returns": [
 		77109,
