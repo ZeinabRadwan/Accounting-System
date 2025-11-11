@@ -26,8 +26,9 @@ class PrintController extends Controller
      */
     public function printInvoice($slug)
     {
-        // Set locale for translations - force Arabic for print templates
-        app()->setLocale('ar');
+        // Set locale for translations
+        $locale = \Auth::user()->locale ?? app()->getLocale();
+        \App::setLocale($locale);
         
         $invoice = Invoice::where('slug', $slug)
             ->with('client', 'invoiceProducts.invoice', 'invoicePayments.invoicePaymentTransaction.cashbookAccount', 
@@ -38,12 +39,15 @@ class PrintController extends Controller
         // Get the default template for invoices
         $template = PrintTemplate::byModule('invoice')->default()->first();
         
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+        
         if (!$template) {
             // Fallback to basic template if no print template is set
-            return view('print.invoice-basic', compact('invoice'));
+            return view('print.invoice-basic', compact('invoice', 'locale', 'logoBase64'));
         }
 
-        return view('print.invoice', compact('invoice', 'template'));
+        return view('print.invoice', compact('invoice', 'template', 'locale', 'logoBase64'));
     }
 
     /**
@@ -1392,12 +1396,12 @@ class PrintController extends Controller
     }
 
     /**
-     * Download invoice as PDF using selected template
+     * Preview invoice as PDF using selected template
      */
-    public function downloadInvoicePDF($slug)
+    public function previewInvoicePDF($slug)
     {
-        // Set locale for translations - force Arabic for print templates
-        app()->setLocale('ar');
+        $locale = \Auth::user()->locale ?? 'ar';
+        \App::setLocale($locale);
         
         $invoice = Invoice::where('slug', $slug)
             ->with('client', 'invoiceProducts.invoice', 'invoicePayments.invoicePaymentTransaction.cashbookAccount', 
@@ -1408,164 +1412,65 @@ class PrintController extends Controller
         // Get the default template for invoices
         $template = PrintTemplate::byModule('invoice')->default()->first();
         
-        if (!$template) {
-            // Fallback to basic template if no print template is set
-            if (view()->exists('print.invoice-basic')) {
-                $html = view('print.invoice-basic', compact('invoice'))->render();
-            } else {
-                // Use regular template without template config
-                $template = new PrintTemplate();
-                $template->template_config = $this->getTemplateConfig('invoice');
-                $html = view('print.invoice', compact('invoice', 'template'))->render();
-            }
-        } else {
-            $html = view('print.invoice', compact('invoice', 'template'))->render();
-        }
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+        
+        // Generate filename
+        $filename = 'Invoice-' . $invoice->invoice_no . '.pdf';
+        
+        // Use Utility::buildPdf to generate PDF
+        return \App\Models\Utility::buildPdf([
+            'view' => $template ? 'print.invoice' : 'print.invoice-basic',
+            'view_data' => compact('invoice', 'template', 'locale', 'logoBase64'),
+            'type' => 'preview',
+            'file_name' => $filename,
+            'header' => '',
+            'footer' => '',
+            'header_spacing' => '2',
+            'margins' => [
+                'top' => '10mm',
+                'bottom' => '10mm',
+            ]
+        ], 'portrait', false);
+    }
+
+    /**
+     * Download invoice as PDF using selected template
+     */
+    public function downloadInvoicePDF($slug)
+    {
+        $locale = \Auth::user()->locale ?? 'ar';
+        \App::setLocale($locale);
+        
+        $invoice = Invoice::where('slug', $slug)
+            ->with('client', 'invoiceProducts.invoice', 'invoicePayments.invoicePaymentTransaction.cashbookAccount', 
+                   'invoiceProducts.product.productUnit', 'invoiceProducts.product.productTax', 
+                   'invoiceTax', 'user')
+            ->firstOrFail();
+
+        // Get the default template for invoices
+        $template = PrintTemplate::byModule('invoice')->default()->first();
         
         // Convert logo to base64 for PDF compatibility
-        $logoBase64 = $this->getLogoAsBase64($template);
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
         
-        // Hide buttons in PDF and add Arabic support
-        // $html = str_replace('<head>', '<head>
-        //     <style>
-        //         .action-buttons { display: none !important; }
-        //         body { 
-        //             font-family: Arial, "DejaVu Sans", sans-serif; 
-        //             direction: ltr;
-        //         }
-        //         .arabic-text { 
-        //             direction: rtl; 
-        //             text-align: right; 
-        //             font-family: Arial, "DejaVu Sans", "Tahoma", sans-serif;
-        //         }
-        //         * { 
-        //             -webkit-font-smoothing: antialiased;
-        //             -moz-osx-font-smoothing: grayscale;
-        //         }
-                
-        //         /* Fix layout issues for PDF */
-        //         .document-header > div {
-        //             display: table !important;
-        //             width: 100% !important;
-        //         }
-        //         .document-header > div > div:first-child {
-        //             display: table-cell !important;
-        //             vertical-align: top !important;
-        //             width: 60% !important;
-        //         }
-        //         .document-header > div > div:last-child {
-        //             display: table-cell !important;
-        //             vertical-align: top !important;
-        //             width: 40% !important;
-        //             text-align: right !important;
-        //         }
-                
-        //         /* Fix logo display */
-        //         .company-logo {
-        //             max-height: 60px !important;
-        //             max-width: 200px !important;
-        //             height: auto !important;
-        //             width: auto !important;
-        //             display: block !important;
-        //         }
-                
-        //         /* Fix totals section layout */
-        //         .totals-section {
-        //             display: table !important;
-        //             width: 100% !important;
-        //         }
-        //         .totals-table {
-        //             display: table-cell !important;
-        //             width: 300px !important;
-        //             vertical-align: top !important;
-        //         }
-                
-        //         /* Ensure proper spacing */
-        //         .client-info, .supplier-info {
-        //             margin-bottom: 20px !important;
-        //         }
-                
-        //         /* Professional table styling for PDF - High specificity */
-        //         .document-container .items-table {
-        //             width: 100% !important;
-        //             border-collapse: collapse !important;
-        //             margin-bottom: 25px !important;
-        //             font-size: 12px !important;
-        //             border: 2px solid #374151 !important;
-        //             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
-        //         }
-        //         .document-container .items-table th,
-        //         .document-container .items-table td {
-        //             padding: 10px 8px !important;
-        //             border: 1px solid #d1d5db !important;
-        //             vertical-align: middle !important;
-        //             font-size: 11px !important;
-        //             line-height: 1.4 !important;
-        //         }
-        //         .document-container .items-table th {
-        //             background: #374151 !important;
-        //             color: #ffffff !important;
-        //             font-weight: 600 !important;
-        //             text-align: center !important;
-        //             padding: 12px 8px !important;
-        //             border-bottom: 2px solid #1f2937 !important;
-        //             text-transform: uppercase !important;
-        //             letter-spacing: 0.5px !important;
-        //         }
-        //         .document-container .items-table tbody tr {
-        //             background: #ffffff !important;
-        //         }
-        //         .document-container .items-table tbody tr:nth-child(even) {
-        //             background: #f9fafb !important;
-        //         }
-        //         .document-container .items-table tbody tr:hover {
-        //             background: #f3f4f6 !important;
-        //         }
-        //         .document-container .items-table .text-right {
-        //             text-align: right !important;
-        //             font-weight: 500 !important;
-        //         }
-        //         .document-container .items-table .text-center {
-        //             text-align: center !important;
-        //         }
-        //         .document-container .items-table tbody td {
-        //             color: #374151 !important;
-        //         }
-        //         .document-container .items-table tbody td strong {
-        //             font-weight: 600 !important;
-        //             color: #111827 !important;
-        //         }
-        //         .document-container .items-table tbody td small {
-        //             font-size: 10px !important;
-        //             color: #6b7280 !important;
-        //         }
-                
-                
-        //         /* Fix number formatting */
-        //         .items-table td {
-        //             white-space: nowrap !important;
-        //         }
-        //         .items-table td:first-child {
-        //             white-space: normal !important;
-        //         }
-        //     </style>
-        //     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">', $html);
-            
-        // Replace logo URLs with base64 data URLs
-        if ($logoBase64) {
-            // Replace both Blade template variable and actual rendered URLs
-            $html = str_replace('src="{{ $template->logo_url }}"', 'src="' . $logoBase64 . '"', $html);
-            
-            // Also replace any existing logo URLs that might be rendered
-            $pattern = '/src="[^"]*\/images\/[^"]*\.(png|jpg|jpeg|gif)"/i';
-            $html = preg_replace($pattern, 'src="' . $logoBase64 . '"', $html);
-            
-            Log::info('Logo converted to base64 successfully');
-        } else {
-            Log::warning('Logo base64 conversion failed - no logo will be displayed');
-        }
-
-        return $this->generatePDF($html, 'Invoice-' . $invoice->invoice_no . '.pdf');
+        // Generate filename
+        $filename = 'Invoice-' . $invoice->invoice_no . '.pdf';
+        
+        // Use Utility::buildPdf to generate PDF
+        return \App\Models\Utility::buildPdf([
+            'view' => $template ? 'print.invoice' : 'print.invoice-basic',
+            'view_data' => compact('invoice', 'template', 'locale', 'logoBase64'),
+            'type' => 'download',
+            'file_name' => $filename,
+            'header' => '',
+            'footer' => '',
+            'header_spacing' => '2',
+            'margins' => [
+                'top' => '10mm',
+                'bottom' => '10mm',
+            ]
+        ], 'portrait', false);
     }
 
     /**

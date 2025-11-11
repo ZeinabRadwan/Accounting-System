@@ -24836,11 +24836,11 @@ var map = {
 	],
 	"./domain-requests/create": [
 		27936,
-		5555
+		7936
 	],
 	"./domain-requests/create.vue": [
 		27936,
-		5555
+		7936
 	],
 	"./domain-requests/index": [
 		55360,
@@ -25979,12 +25979,12 @@ var map = {
 		2495
 	],
 	"./sales/invoices/show": [
-		57936,
-		7936
+		66120,
+		6120
 	],
 	"./sales/invoices/show.vue": [
-		57936,
-		7936
+		66120,
+		6120
 	],
 	"./sales/pos/create": [
 		65261,

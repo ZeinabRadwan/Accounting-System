@@ -707,6 +707,7 @@ Route::middleware([
 
     // New HTML print routes
     Route::get('/print/invoice/{slug}', [App\Http\Controllers\PrintController::class, 'printInvoice'])->name('print.invoice');
+    Route::get('/print/invoice/{slug}/preview', [App\Http\Controllers\PrintController::class, 'previewInvoicePDF'])->name('print.invoice.preview');
     Route::get('/print/purchase/{slug}', [App\Http\Controllers\PrintController::class, 'printPurchase'])->name('print.purchase');
     Route::get('/print/quotation/{slug}', [App\Http\Controllers\PrintController::class, 'printQuotation'])->name('print.quotation');
     Route::get('/print/invoice-return/{slug}', [App\Http\Controllers\PrintController::class, 'printInvoiceReturn'])->name('print.invoice-return');
