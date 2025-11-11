@@ -159,25 +159,20 @@
                       />
                     </svg>
                   </a>
-                  <a
-                    :href="exportPdfUrl"
-                    v-tooltip="$t('Export to PDF')"
+                  <button 
+                    @click="downloadPDF" 
+                    v-tooltip="$t('Export to PDF')" 
                     class="btn export-pdf-btn"
-                    title="Export to PDF"
                   >
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M21 14.2501C21 14.449 20.921 14.6398 20.7803 14.7805C20.6397 14.9211 20.4489 15.0001 20.25 15.0001H18V16.5001H19.5C19.6989 16.5001 19.8897 16.5791 20.0303 16.7198C20.171 16.8604 20.25 17.0512 20.25 17.2501C20.25 17.449 20.171 17.6398 20.0303 17.7805C19.8897 17.9211 19.6989 18.0001 19.5 18.0001H18V19.5001C18 19.699 17.921 19.8898 17.7803 20.0305C17.6397 20.1711 17.4489 20.2501 17.25 20.2501C17.0511 20.2501 16.8603 20.1711 16.7197 20.0305C16.579 19.8898 16.5 19.699 16.5 19.5001V14.2501C16.5 14.0512 16.579 13.8604 16.7197 13.7198C16.8603 13.5791 17.0511 13.5001 17.25 13.5001H20.25C20.4489 13.5001 20.6397 13.5791 20.7803 13.7198C20.921 13.8604 21 14.0512 21 14.2501ZM8.625 16.1251C8.625 16.8213 8.34844 17.489 7.85616 17.9813C7.36387 18.4736 6.69619 18.7501 6 18.7501H5.25V19.5001C5.25 19.699 5.17098 19.8898 5.03033 20.0305C4.88968 20.1711 4.69891 20.2501 4.5 20.2501C4.30109 20.2501 4.11032 20.1711 3.96967 20.0305C3.82902 19.8898 3.75 19.699 3.75 19.5001V14.2501C3.75 14.0512 3.82902 13.8604 3.96967 13.7198C4.11032 13.5791 4.30109 13.5001 4.5 13.5001H6C6.69619 13.5001 7.36387 13.7767 7.85616 14.269C8.34844 14.7612 8.625 15.4289 8.625 16.1251ZM7.125 16.1251C7.125 15.8268 7.00647 15.5406 6.7955 15.3296C6.58452 15.1186 6.29837 15.0001 6 15.0001H5.25V17.2501H6C6.29837 17.2501 6.58452 17.1316 6.7955 16.9206C7.00647 16.7096 7.125 16.4235 7.125 16.1251ZM15.375 16.8751C15.375 17.7702 15.0194 18.6287 14.3865 19.2616C13.7535 19.8945 12.8951 20.2501 12 20.2501H10.5C10.3011 20.2501 10.1103 20.1711 9.96967 20.0305C9.82902 19.8898 9.75 19.699 9.75 19.5001V14.2501C9.75 14.0512 9.82902 13.8604 9.96967 13.7198C10.1103 13.5791 10.3011 13.5001 10.5 13.5001H12C12.8951 13.5001 13.7535 13.8557 14.3865 14.4886C15.0194 15.1216 15.375 15.98 15.375 16.8751ZM13.875 16.8751C13.875 16.3778 13.6775 15.9009 13.3258 15.5493C12.9742 15.1977 12.4973 15.0001 12 15.0001H11.25V18.7501H12C12.4973 18.7501 12.9742 18.5526 13.3258 18.2009C13.6775 17.8493 13.875 17.3724 13.875 16.8751ZM3.75 10.5001V3.75012C3.75 3.3523 3.90804 2.97077 4.18934 2.68946C4.47064 2.40816 4.85218 2.25012 5.25 2.25012H14.25C14.3485 2.25004 14.4461 2.26938 14.5371 2.30702C14.6282 2.34466 14.7109 2.39987 14.7806 2.4695L20.0306 7.7195C20.1003 7.7892 20.1555 7.87194 20.1931 7.96299C20.2307 8.05403 20.2501 8.1516 20.25 8.25012V10.5001C20.25 10.699 20.171 10.8898 20.0303 11.0305C19.8897 11.1711 19.6989 11.2501 19.5 11.2501C19.3011 11.2501 19.1103 11.1711 18.9697 11.0305C18.829 10.8898 18.75 10.699 18.75 10.5001V9.00012H14.25C14.0511 9.00012 13.8603 8.9211 13.7197 8.78045C13.579 8.6398 13.5 8.44903 13.5 8.25012V3.75012H5.25V10.5001C5.25 10.699 5.17098 10.8898 5.03033 11.0305C4.88968 11.1711 4.69891 11.2501 4.5 11.2501C4.30109 11.2501 4.11032 11.1711 3.96967 11.0305C3.82902 10.8898 3.75 10.699 3.75 10.5001ZM15 7.50012H17.6897L15 4.81043V7.50012Z"
-                        fill="#2AB930"
-                      />
-                    </svg>
-                  </a>
+                    <i class="fas fa-file-export"></i>
+                  </button>
+                  <button 
+                    @click="previewPDF" 
+                    v-tooltip="$t('Preview')" 
+                    class="btn preview-btn"
+                  >
+                    <i class="fas fa-eye"></i>
+                  </button>
                   <a
                     @click="printReport"
                     v-tooltip="$t('Print Table')"
@@ -769,6 +764,48 @@ export default {
     printReport() {
       window.print();
     },
+    
+    downloadPDF() {
+      // Build query parameters from filters
+      const params = new URLSearchParams();
+      if (this.filters.fiscalYearId) {
+        params.append('fiscal_year_id', this.filters.fiscalYearId);
+      }
+      if (this.filters.accountingPeriodId) {
+        params.append('accounting_period_id', this.filters.accountingPeriodId);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      
+      // Redirect to backend PDF route with query parameters
+      const pdfUrl = `/print/reports/vat-report/pdf?${params.toString()}`;
+      window.location.href = pdfUrl;
+    },
+
+    previewPDF() {
+      // Build query parameters from filters
+      const params = new URLSearchParams();
+      if (this.filters.fiscalYearId) {
+        params.append('fiscal_year_id', this.filters.fiscalYearId);
+      }
+      if (this.filters.accountingPeriodId) {
+        params.append('accounting_period_id', this.filters.accountingPeriodId);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      
+      // Redirect to backend PDF route with query parameters
+      const pdfUrl = `/print/reports/vat-report/preview?${params.toString()}`;
+      window.location.href = pdfUrl;
+    },
 
     // refresh table
     refreshTable() {
@@ -865,6 +902,16 @@ export default {
 }
 
 .export-pdf-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.preview-btn {
   background: #f6fef4 !important;
   color: #2ab930 !important;
   width: 56px;

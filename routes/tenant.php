@@ -717,24 +717,56 @@ Route::middleware([
 
     // Reports print routes
     Route::get('/print/reports/balance-sheet', [App\Http\Controllers\PrintController::class, 'printBalanceSheet'])->name('print.reports.balance-sheet');
+    Route::get('/print/reports/balance-sheet/pdf', [App\Http\Controllers\PrintController::class, 'downloadBalanceSheetPDF'])->name('print.reports.balance-sheet.pdf');
+    Route::get('/print/reports/balance-sheet/preview', [App\Http\Controllers\PrintController::class, 'previewBalanceSheetPDF'])->name('print.reports.balance-sheet.preview');
     Route::get('/print/reports/trial-balance', [App\Http\Controllers\PrintController::class, 'printTrialBalance'])->name('print.reports.trial-balance');
+    Route::get('/print/reports/trial-balance/pdf', [App\Http\Controllers\PrintController::class, 'downloadTrialBalancePDF'])->name('print.reports.trial-balance.pdf');
+    Route::get('/print/reports/trial-balance/preview', [App\Http\Controllers\PrintController::class, 'previewTrialBalancePDF'])->name('print.reports.trial-balance.preview');
     Route::get('/print/reports/profit-loss', [App\Http\Controllers\PrintController::class, 'printProfitLoss'])->name('print.reports.profit-loss');
+    Route::get('/print/reports/profit-loss/pdf', [App\Http\Controllers\PrintController::class, 'downloadProfitLossPDF'])->name('print.reports.profit-loss.pdf');
+    Route::get('/print/reports/profit-loss/preview', [App\Http\Controllers\PrintController::class, 'previewProfitLossPDF'])->name('print.reports.profit-loss.preview');
     Route::get('/print/reports/summary', [App\Http\Controllers\PrintController::class, 'printSummary'])->name('print.reports.summary');
+    Route::get('/print/reports/summary/pdf', [App\Http\Controllers\PrintController::class, 'downloadSummaryPDF'])->name('print.reports.summary.pdf');
+    Route::get('/print/reports/summary/preview', [App\Http\Controllers\PrintController::class, 'previewSummaryPDF'])->name('print.reports.summary.preview');
     Route::get('/print/reports/account-statement', [App\Http\Controllers\PrintController::class, 'printAccountStatement'])->name('print.reports.account-statement');
     Route::get('/print/reports/account-statement/pdf', [App\Http\Controllers\PrintController::class, 'downloadAccountStatementPDF'])->name('print.reports.account-statement.pdf');
     Route::get('/print/reports/account-statement/preview', [App\Http\Controllers\PrintController::class, 'previewAccountStatementPDF'])->name('print.reports.account-statement.preview');
     Route::get('/print/reports/today-report', [App\Http\Controllers\PrintController::class, 'printTodayReport'])->name('print.reports.today-report');
+    Route::get('/print/reports/today-report/pdf', [App\Http\Controllers\PrintController::class, 'downloadTodayReportPDF'])->name('print.reports.today-report.pdf');
+    Route::get('/print/reports/today-report/preview', [App\Http\Controllers\PrintController::class, 'previewTodayReportPDF'])->name('print.reports.today-report.preview');
     Route::get('/print/reports/invoice-summary', [App\Http\Controllers\PrintController::class, 'printInvoiceSummary'])->name('print.reports.invoice-summary');
+    Route::get('/print/reports/invoice-summary/pdf', [App\Http\Controllers\PrintController::class, 'downloadInvoiceSummaryPDF'])->name('print.reports.invoice-summary.pdf');
+    Route::get('/print/reports/invoice-summary/preview', [App\Http\Controllers\PrintController::class, 'previewInvoiceSummaryPDF'])->name('print.reports.invoice-summary.preview');
     Route::get('/print/reports/purchase-summary', [App\Http\Controllers\PrintController::class, 'printPurchaseSummary'])->name('print.reports.purchase-summary');
+    Route::get('/print/reports/purchase-summary/pdf', [App\Http\Controllers\PrintController::class, 'downloadPurchaseSummaryPDF'])->name('print.reports.purchase-summary.pdf');
+    Route::get('/print/reports/purchase-summary/preview', [App\Http\Controllers\PrintController::class, 'previewPurchaseSummaryPDF'])->name('print.reports.purchase-summary.preview');
     Route::get('/print/reports/vat-report', [App\Http\Controllers\PrintController::class, 'printVatReport'])->name('print.reports.vat-report');
+    Route::get('/print/reports/vat-report/pdf', [App\Http\Controllers\PrintController::class, 'downloadVatReportPDF'])->name('print.reports.vat-report.pdf');
+    Route::get('/print/reports/vat-report/preview', [App\Http\Controllers\PrintController::class, 'previewVatReportPDF'])->name('print.reports.vat-report.preview');
     Route::get('/print/reports/inventory', [App\Http\Controllers\PrintController::class, 'printInventory'])->name('print.reports.inventory');
+    Route::get('/print/reports/inventory/pdf', [App\Http\Controllers\PrintController::class, 'downloadInventoryPDF'])->name('print.reports.inventory.pdf');
+    Route::get('/print/reports/inventory/preview', [App\Http\Controllers\PrintController::class, 'previewInventoryPDF'])->name('print.reports.inventory.preview');
     Route::get('/print/reports/items', [App\Http\Controllers\PrintController::class, 'printItems'])->name('print.reports.items');
+    Route::get('/print/reports/items/pdf', [App\Http\Controllers\PrintController::class, 'downloadItemsPDF'])->name('print.reports.items.pdf');
+    Route::get('/print/reports/items/preview', [App\Http\Controllers\PrintController::class, 'previewItemsPDF'])->name('print.reports.items.preview');
     Route::get('/print/reports/expenses', [App\Http\Controllers\PrintController::class, 'printExpenses'])->name('print.reports.expenses');
+    Route::get('/print/reports/expenses/pdf', [App\Http\Controllers\PrintController::class, 'downloadExpensesPDF'])->name('print.reports.expenses.pdf');
+    Route::get('/print/reports/expenses/preview', [App\Http\Controllers\PrintController::class, 'previewExpensesPDF'])->name('print.reports.expenses.preview');
     Route::get('/print/reports/client-receivable-report', [App\Http\Controllers\PrintController::class, 'printClientReceivableReport'])->name('print.reports.client-receivable-report');
+    Route::get('/print/reports/client-receivable-report/pdf', [App\Http\Controllers\PrintController::class, 'downloadClientReceivableReportPDF'])->name('print.reports.client-receivable-report.pdf');
+    Route::get('/print/reports/client-receivable-report/preview', [App\Http\Controllers\PrintController::class, 'previewClientReceivableReportPDF'])->name('print.reports.client-receivable-report.preview');
     Route::get('/print/reports/supplier-payable-report', [App\Http\Controllers\PrintController::class, 'printSupplierPayableReport'])->name('print.reports.supplier-payable-report');
+    Route::get('/print/reports/supplier-payable-report/pdf', [App\Http\Controllers\PrintController::class, 'downloadSupplierPayableReportPDF'])->name('print.reports.supplier-payable-report.pdf');
+    Route::get('/print/reports/supplier-payable-report/preview', [App\Http\Controllers\PrintController::class, 'previewSupplierPayableReportPDF'])->name('print.reports.supplier-payable-report.preview');
     Route::get('/print/reports/sales-by-user-report', [App\Http\Controllers\PrintController::class, 'printSalesByUserReport'])->name('print.reports.sales-by-user-report');
+    Route::get('/print/reports/sales-by-user-report/pdf', [App\Http\Controllers\PrintController::class, 'downloadSalesByUserReportPDF'])->name('print.reports.sales-by-user-report.pdf');
+    Route::get('/print/reports/sales-by-user-report/preview', [App\Http\Controllers\PrintController::class, 'previewSalesByUserReportPDF'])->name('print.reports.sales-by-user-report.preview');
     Route::get('/print/reports/collection-by-user-report', [App\Http\Controllers\PrintController::class, 'printCollectionByUserReport'])->name('print.reports.collection-by-user-report');
+    Route::get('/print/reports/collection-by-user-report/pdf', [App\Http\Controllers\PrintController::class, 'downloadCollectionByUserReportPDF'])->name('print.reports.collection-by-user-report.pdf');
+    Route::get('/print/reports/collection-by-user-report/preview', [App\Http\Controllers\PrintController::class, 'previewCollectionByUserReportPDF'])->name('print.reports.collection-by-user-report.preview');
     Route::get('/print/reports/group-account-statement', [App\Http\Controllers\PrintController::class, 'printGroupAccountStatement'])->name('print.reports.group-account-statement');
+    Route::get('/print/reports/group-account-statement/pdf', [App\Http\Controllers\PrintController::class, 'downloadGroupAccountStatementPDF'])->name('print.reports.group-account-statement.pdf');
+    Route::get('/print/reports/group-account-statement/preview', [App\Http\Controllers\PrintController::class, 'previewGroupAccountStatementPDF'])->name('print.reports.group-account-statement.preview');
 
     // PDF download routes for print templates
     Route::get('/print/invoice/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadInvoicePDF'])->name('print.invoice.pdf');

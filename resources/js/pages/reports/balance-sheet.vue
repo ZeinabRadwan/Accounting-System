@@ -97,22 +97,29 @@
               >
                 <i class="fa fa-arrow-circle-down"></i>
               </a>
-              <a 
+              <button 
                 v-if="balanceData" 
-                href="/reports/balance-sheet/pdf" 
+                @click="downloadPDF" 
                 v-tooltip="$t('Export to PDF')" 
                 class="btn export-pdf-btn ml-2"
               >
                 <i class="fas fa-file-export"></i>
-              </a>
+              </button>
+              <button 
+                v-if="balanceData" 
+                @click="previewPDF" 
+                v-tooltip="$t('Preview')" 
+                class="btn preview-btn ml-2"
+              >
+                <i class="fas fa-eye"></i>
+              </button>
               <a 
                 v-if="balanceData" 
                 :href="printTemplateUrl" 
                 target="_blank" 
-                class="btn print-btn ml-2 print-template-btn"
+                class="btn print-btn ml-2"
               >
-                <i class="fas fa-print mr-1"></i>
-                <!-- <span class="print-template-label">{{ $t('Print with Template') }}</span> -->
+                <i class="fas fa-print"></i> 
               </a>
             </div>
           </div>
@@ -512,8 +519,48 @@ export default {
       const date = new Date(dateString);
       return date.toLocaleDateString();
     },
+    
+    downloadPDF() {
+      // Build query parameters from filters
+      const params = new URLSearchParams();
+      if (this.filters.fiscalYearId) {
+        params.append('fiscal_year_id', this.filters.fiscalYearId);
+      }
+      if (this.filters.accountingPeriodId) {
+        params.append('accounting_period_id', this.filters.accountingPeriodId);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      
+      // Redirect to backend PDF route with query parameters
+      const pdfUrl = `/print/reports/balance-sheet/pdf?${params.toString()}`;
+      window.location.href = pdfUrl;
+    },
 
-    // Printing handled via server-rendered templates (see printTemplateUrl)
+    previewPDF() {
+      // Build query parameters from filters
+      const params = new URLSearchParams();
+      if (this.filters.fiscalYearId) {
+        params.append('fiscal_year_id', this.filters.fiscalYearId);
+      }
+      if (this.filters.accountingPeriodId) {
+        params.append('accounting_period_id', this.filters.accountingPeriodId);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      
+      // Redirect to backend PDF route with query parameters
+      const pdfUrl = `/print/reports/balance-sheet/preview?${params.toString()}`;
+      window.location.href = pdfUrl;
+    },
   },
 };
 </script>
@@ -591,6 +638,16 @@ export default {
 }
 
 .export-pdf-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.preview-btn {
   background: #f6fef4 !important;
   color: #2ab930 !important;
   width: 56px;

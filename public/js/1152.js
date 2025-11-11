@@ -1,75 +1,550 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[1152],{
 
-/***/ 97469:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ 10151:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  methods: {
-    /**
-     * Get avatar with fallback to default avatar if image doesn't exist
-     * @param {string|null} imagePath - The image path (can be null or empty)
-     * @param {string} directory - The directory where the image is stored (e.g., 'clients', 'suppliers', 'employees')
-     * @param {string} defaultAvatar - The default avatar filename (defaults to 'default-avatar.jpeg')
-     * @returns {string} The full URL to the avatar image
-     */
-    getAvatarWithFallback: function getAvatarWithFallback(imagePath) {
-      var directory = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-      var defaultAvatar = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'default-avatar.jpeg';
-      // If no image path provided, return default avatar
-      if (!imagePath || imagePath.trim() === '') {
-        return window.location.origin + '/images/' + defaultAvatar;
-      }
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
 
-      // Build the full image path
-      var fullImagePath = directory ? "images/".concat(directory, "/").concat(imagePath) : "images/".concat(imagePath);
-      var fullUrl = window.location.origin + '/' + fullImagePath;
+var ___CSS_LOADER_EXPORT___ = _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".mj-daterange-picker{border:1px solid var(--border-color);border-radius:4px;min-width:400px;text-align:left;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;width:var(--default-width)}.mj-daterange-picker *{-webkit-box-sizing:border-box;box-sizing:border-box}.mj-daterange-picker .panels-choices{grid-gap:10px 10px;border-bottom:1px solid var(--border-color);display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;padding:20px}.mj-daterange-picker .panels-choices .panel-button{-webkit-box-align:center;-ms-flex-align:center;-webkit-box-pack:center;-ms-flex-pack:center;align-items:center;background-color:#f2f4f5;border-radius:4px;cursor:pointer;display:-webkit-inline-box;display:-ms-inline-flexbox;display:inline-flex;font-size:12px;font-weight:700;height:32px;justify-content:center;padding:5px 15px}.mj-daterange-picker .panels-choices .panel-button.is-current,.mj-daterange-picker .panels-choices .panel-button:hover{background-color:var(--primary-color);color:#fff}.mj-daterange-picker .preset-ranges{border-bottom:1px solid var(--border-color);display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;padding:20px}.mj-daterange-picker .preset-ranges .preset{cursor:pointer;font-size:13px;height:20px;margin:5px 0;position:relative;width:50%}.mj-daterange-picker .preset-ranges .preset input{height:0;opacity:0;position:absolute;width:0}.mj-daterange-picker .preset-ranges .preset input:checked~label .check{background-color:var(--primary-color)}.mj-daterange-picker .preset-ranges .preset input:checked~label .check:after{background-color:transparent}.mj-daterange-picker .preset-ranges .preset label{-webkit-box-align:center;-ms-flex-align:center;align-items:center;display:-webkit-inline-box;display:-ms-inline-flexbox;display:inline-flex}.mj-daterange-picker .preset-ranges .preset label span+span{margin-left:10px}.mj-daterange-picker .preset-ranges .preset label .check{background-color:var(--secondary-color);border-radius:10px;display:block;height:20px;position:relative;width:20px}.mj-daterange-picker .preset-ranges .preset label .check:after{background-color:#fff;border:3px solid #fff;border-radius:100%;content:\"\";height:10px;left:50%;position:absolute;top:50%;-webkit-transform:translateX(-50%) translateY(-50%);transform:translateX(-50%) translateY(-50%);width:10px}.mj-daterange-picker .preset-ranges .preset *{cursor:pointer}.mj-calendar{background-color:var(--normal-color);color:var(--contrast-color);padding:20px}.mj-calendar .calendar-header{-webkit-box-pack:justify;-ms-flex-pack:justify;-webkit-box-align:center;-ms-flex-align:center;align-items:center;display:-webkit-box;display:-ms-flexbox;display:flex;justify-content:space-between}.mj-calendar .calendar-header .calendar-month-name{-webkit-box-flex:1;color:var(--secondary-color);-ms-flex:1;flex:1;font-size:14px;font-weight:700;text-align:center}.mj-calendar .calendar-header .calendar-arrow{fill:var(--secondary-color);cursor:pointer}.mj-calendar .calendar-months{grid-gap:10px 10px;display:grid;grid-template-columns:1fr 1fr 1fr;margin-top:20px}.mj-calendar .calendar-months .month{-webkit-box-align:center;-ms-flex-align:center;-webkit-box-pack:center;-ms-flex-pack:center;align-items:center;border:1px solid var(--border-color);border-radius:4px;display:-webkit-inline-box;display:-ms-inline-flexbox;display:inline-flex;font-size:13px;height:50px;justify-content:center;padding:10px}.mj-calendar .calendar-months .month:hover{background-color:var(--hover-range-color)}.mj-calendar .calendar-months .month.is-disabled{cursor:not-allowed;opacity:.5;pointer-events:none}.mj-calendar .calendar-months .month.is-selected{background-color:var(--primary-color);color:#fff}.mj-calendar .calendar-months .month:not(.is-disabled){cursor:pointer}.mj-calendar .calendar-quarters{margin-top:20px}.mj-calendar .calendar-quarters .quarter{grid-gap:10px 10px;-webkit-box-align:center;-ms-flex-align:center;align-items:center;display:grid;font-size:13px;grid-template-columns:1fr 3fr;margin:10px 0}.mj-calendar .calendar-quarters .quarter .months{grid-gap:10px 10px;-webkit-box-align:center;-ms-flex-align:center;align-items:center;border:1px solid var(--border-color);border-radius:4px;display:grid;grid-template-columns:1fr 1fr 1fr;height:50px;padding:10px 30px}.mj-calendar .calendar-quarters .quarter .months:hover{background-color:var(--hover-range-color)}.mj-calendar .calendar-quarters .quarter .months .month{text-align:center}.mj-calendar .calendar-quarters .quarter.is-selected .months{background-color:var(--primary-color);color:#fff}.mj-calendar .calendar-quarters .quarter.is-disabled .months{opacity:.5}.mj-calendar .calendar-quarters .quarter.is-disabled{cursor:not-allowed;pointer-events:none}.mj-calendar .calendar-quarters .quarter:not(.is-disabled) .months{cursor:pointer}.mj-calendar .calendar-years .year{-webkit-box-align:center;-ms-flex-align:center;-webkit-box-pack:center;-ms-flex-pack:center;align-items:center;border:1px solid var(--border-color);border-radius:4px;display:-webkit-box;display:-ms-flexbox;display:flex;font-size:13px;height:50px;justify-content:center;margin:10px 0;padding:10px}.mj-calendar .calendar-years .year:hover{background-color:var(--hover-range-color)}.mj-calendar .calendar-years .year.is-selected{background-color:var(--primary-color);color:#fff}.mj-calendar .calendar-years .year.is-disabled{cursor:not-allowed;opacity:.5;pointer-events:none}.mj-calendar .calendar-years .year:not(.is-disabled){cursor:pointer}.mj-calendar .calendar-days,.mj-calendar .calendar-days-name{display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap}.mj-calendar .calendar-days .day,.mj-calendar .calendar-days-name .day{-webkit-box-align:center;-ms-flex-align:center;-webkit-box-pack:center;-ms-flex-pack:center;align-items:center;display:-webkit-inline-box;display:-ms-inline-flexbox;display:inline-flex;justify-content:center;width:14.28571%}.mj-calendar .calendar-days-name .day{color:var(--ternary-color);font-size:11px;height:30px}.mj-calendar .calendar-days .day{border-bottom:2px solid #fff;border-top:2px solid #fff;font-size:13px;height:40px}.mj-calendar .calendar-days .day:not(.is-current-month){color:var(--ternary-color)}.mj-calendar .calendar-days .day.is-disabled{cursor:not-allowed;opacity:.5;pointer-events:none}.mj-calendar .calendar-days .day.is-today span{color:var(--secondary-color);font-weight:700}.mj-calendar .calendar-days .day.is-in-range{background-color:var(--hover-range-color)}.mj-calendar .calendar-days .day.is-first-range{border-bottom-left-radius:4px;border-top-left-radius:4px}.mj-calendar .calendar-days .day.is-last-range{border-bottom-right-radius:4px;border-top-right-radius:4px}.mj-calendar .calendar-days .day.is-edge-range,.mj-calendar .calendar-days .day.is-selected{background-color:var(--primary-color);color:#fff}.mj-calendar .calendar-days .day:not(.is-disabled){cursor:pointer}.mj-calendar.mj-calendar-days .calendar-days .day:not(.is-edge-range):hover{background-color:var(--hover-day-color)}.mj-daterange-picker-controls{-webkit-box-align:center;-ms-flex-align:center;-webkit-box-pack:justify;-ms-flex-pack:justify;align-items:center;border-top:1px solid var(--border-color);display:-webkit-box;display:-ms-flexbox;display:flex;justify-content:space-between;margin-top:10px;padding:20px}.mj-daterange-picker-controls .mj-daterange-picker-button{-webkit-box-align:center;-ms-flex-align:center;-webkit-box-pack:center;-ms-flex-pack:center;align-items:center;border-radius:4px;display:-webkit-inline-box;display:-ms-inline-flexbox;display:inline-flex;font-size:12px;height:36px;justify-content:center;min-width:150px;padding:5px}.mj-daterange-picker-controls .mj-daterange-picker-button:not(.is-disabled){cursor:pointer}.mj-daterange-picker-reset{border:1px solid #e6eaed}.mj-daterange-picker-submit{background-color:var(--primary-color);color:#fff}.mj-daterange-picker-submit.is-disabled{cursor:not-allowed;opacity:.5;pointer-events:none}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
-      // Return the image URL - the browser will handle 404s and show broken image icon
-      // We could implement a more sophisticated check here, but for now we'll rely on the backend
-      // to provide the correct fallback URL through the Resource classes
-      return fullUrl;
-    },
-    /**
-     * Handle image error by setting src to default avatar
-     * @param {Event} event - The error event from the img element
-     * @param {string} directory - The directory where the image is stored
-     * @param {string} defaultAvatar - The default avatar filename
-     */
-    handleImageError: function handleImageError(event) {
-      var directory = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-      var defaultAvatar = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'default-avatar.jpeg';
-      var img = event.target;
-      img.src = window.location.origin + '/images/' + defaultAvatar;
-      img.onerror = null; // Prevent infinite loop
-    },
-    /**
-     * Get avatar URL for display with error handling
-     * @param {string|null} imagePath - The image path
-     * @param {string} directory - The directory where the image is stored
-     * @param {string} defaultAvatar - The default avatar filename
-     * @returns {Object} Object with src and onerror handler
-     */
-    getAvatarProps: function getAvatarProps(imagePath) {
-      var _this = this;
-      var directory = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-      var defaultAvatar = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'default-avatar.jpeg';
-      return {
-        src: this.getAvatarWithFallback(imagePath, directory, defaultAvatar),
-        onerror: function onerror(event) {
-          return _this.handleImageError(event, directory, defaultAvatar);
-        }
-      };
-    }
-  }
-});
 
 /***/ }),
 
-/***/ 85738:
+/***/ 41152:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ collection_by_user_report)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/collection-by-user-report.vue?vue&type=template&id=7ea50628&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "mb-50"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-12"
+  }, [_c('div', {
+    staticClass: "card custom-card w-100"
+  }, [_c('div', {
+    staticClass: "card-header setings-header"
+  }, [_c('breadcrumbs', {
+    attrs: {
+      "items": _vm.breadcrumbs,
+      "current": _vm.breadcrumbsCurrent
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "card-body position-relative"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-xl-8 col-8 float-right text-right ml-auto"
+  }, [_c('div', {
+    staticClass: "btn-group c-w-100"
+  }, [_c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Refresh'),
+      expression: "$t('Refresh')"
+    }],
+    staticClass: "btn btn-success refresh-btn",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": _vm.refreshTable
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-sync"
+  })]), _vm._v(" "), _c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Export to Excel'),
+      expression: "$t('Export to Excel')"
+    }],
+    staticClass: "btn export-excel-btn",
+    attrs: {
+      "href": _vm.exportUrl,
+      "title": "Export to Excel"
+    }
+  }, [_c('svg', {
+    attrs: {
+      "width": "18",
+      "height": "19",
+      "viewBox": "0 0 18 19",
+      "fill": "none",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M11.625 17.5001C11.625 17.699 11.546 17.8898 11.4053 18.0305C11.2647 18.1711 11.0739 18.2501 10.875 18.2501H8.24998C8.05107 18.2501 7.86031 18.1711 7.71966 18.0305C7.579 17.8898 7.49998 17.699 7.49998 17.5001V12.2501C7.49998 12.0512 7.579 11.8604 7.71966 11.7198C7.86031 11.5791 8.05107 11.5001 8.24998 11.5001C8.4489 11.5001 8.63966 11.5791 8.78031 11.7198C8.92097 11.8604 8.99998 12.0512 8.99998 12.2501V16.7501H10.875C11.0739 16.7501 11.2647 16.8291 11.4053 16.9698C11.546 17.1104 11.625 17.3012 11.625 17.5001ZM5.68592 11.6398C5.60578 11.5826 5.51514 11.5417 5.41918 11.5194C5.32323 11.4972 5.22384 11.4941 5.12668 11.5103C5.02953 11.5265 4.93651 11.5617 4.85295 11.6138C4.76939 11.6659 4.69692 11.734 4.63967 11.8142L3.37498 13.5851L2.1103 11.8142C2.05509 11.7292 1.98324 11.6564 1.89909 11.5999C1.81495 11.5435 1.72024 11.5047 1.62069 11.4859C1.52114 11.4671 1.41882 11.4687 1.31988 11.4905C1.22095 11.5123 1.12747 11.554 1.04507 11.6129C0.962677 11.6719 0.893077 11.7469 0.840473 11.8335C0.787869 11.9201 0.753352 12.0164 0.739005 12.1167C0.724657 12.217 0.730776 12.3191 0.756994 12.417C0.783211 12.5148 0.828983 12.6064 0.891547 12.6861L2.45342 14.8751L0.889672 17.0642C0.784434 17.2261 0.74571 17.4224 0.781564 17.6121C0.817419 17.8019 0.925088 17.9705 1.08215 18.0829C1.23922 18.1952 1.43357 18.2427 1.62474 18.2153C1.81591 18.188 1.98916 18.088 2.10842 17.9361L3.37498 16.1651L4.63967 17.9361C4.75893 18.088 4.93219 18.188 5.12336 18.2153C5.31453 18.188 5.50888 18.1952 5.66594 18.0829C5.82301 17.9705 5.93068 17.8019 5.96653 17.6121C6.00239 17.4224 5.96366 17.2261 5.85842 17.0642L4.29655 14.8751L5.8603 12.6861C5.91755 12.6059 5.95845 12.5153 5.98067 12.4193C6.00289 12.3234 6.00599 12.224 5.9898 12.1268C5.97361 12.0297 5.93844 11.9367 5.8863 11.8531C5.83416 11.7695 5.76607 11.6971 5.68592 11.6398ZM14.9615 14.0604C14.5865 13.9517 14.1984 13.8401 13.9819 13.7004C13.8647 13.6236 13.8665 13.6067 13.8769 13.5223C13.8783 13.4541 13.896 13.3873 13.9287 13.3274C13.9613 13.2675 14.0078 13.2164 14.0644 13.1782C14.4956 12.8857 15.5025 13.017 15.9225 13.1257C16.1149 13.1763 16.3196 13.1484 16.4915 13.0481C16.6633 12.9478 16.7883 12.7834 16.8389 12.5909C16.8895 12.3985 16.8616 12.1938 16.7613 12.0219C16.661 11.8501 16.4965 11.7251 16.304 11.6745C16.1062 11.6229 14.3353 11.1851 13.2262 11.9332C12.9924 12.0913 12.796 12.2987 12.6511 12.5408C12.5061 12.783 12.416 13.054 12.3872 13.3348C12.1997 14.8236 13.6669 15.2482 14.5434 15.5014C15.674 15.8286 15.7734 15.9626 15.7415 16.2129C15.7125 16.4389 15.6234 16.5251 15.54 16.5814C15.1087 16.8682 14.1187 16.7267 13.7081 16.6142C13.516 16.5609 13.3106 16.586 13.1371 16.6841C13.0512 16.7327 12.9757 16.7977 12.9149 16.8755C12.8541 16.9532 12.8092 17.0422 12.7828 17.1373C12.7564 17.2324 12.749 17.3318 12.761 17.4298C12.773 17.5277 12.8041 17.6224 12.8527 17.7083C12.9508 17.8818 13.1138 18.0093 13.3059 18.0626C13.7708 18.1851 14.2493 18.2481 14.73 18.2501C15.2756 18.2501 15.8831 18.1564 16.3697 17.832C16.6097 17.6724 16.8114 17.4615 16.9602 17.2146C17.109 16.9678 17.2012 16.691 17.2303 16.4042C17.4375 14.7814 15.8887 14.3286 14.9615 14.0604ZM0.749985 8.50012V1.75012C0.749985 1.3523 0.90802 0.970767 1.18932 0.689462C1.47063 0.408157 1.85216 0.250122 2.24998 0.250122H11.25C11.3485 0.250045 11.4461 0.269379 11.5371 0.30702C11.6282 0.344661 11.7109 0.399872 11.7806 0.469497L17.0306 5.7195C17.1002 5.7892 17.1554 5.87194 17.1931 5.96299C17.2307 6.05403 17.2501 6.1516 17.25 6.25012V8.50012C17.25 8.69903 17.171 8.8898 17.0303 9.03045C16.8897 9.1711 16.6989 9.25012 16.5 9.25012C16.3011 9.25012 16.1103 9.1711 15.9697 9.03045C15.829 8.8898 15.75 8.69903 15.75 8.50012V7.00012H11.25C11.0511 7.00012 10.8603 6.9211 10.7197 6.78045C10.579 6.6398 10.5 6.44903 10.5 6.25012V1.75012H2.24998V8.50012C2.24998 8.69903 2.17097 8.8898 2.03031 9.03045C1.88966 9.1711 1.6989 9.25012 1.49998 9.25012C1.30107 9.25012 1.11031 9.1711 0.969655 9.03045C0.829003 8.8898 0.749985 8.69903 0.749985 8.50012ZM12 5.50012H14.6887L12 2.81043V5.50012Z",
+      "fill": "#2AB930"
+    }
+  })])]), _vm._v(" "), _c('button', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Preview PDF'),
+      expression: "$t('Preview PDF')"
+    }],
+    staticClass: "btn preview-btn",
+    attrs: {
+      "title": "Preview PDF"
+    },
+    on: {
+      "click": _vm.previewPDF
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-eye"
+  })]), _vm._v(" "), _c('button', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Export to PDF'),
+      expression: "$t('Export to PDF')"
+    }],
+    staticClass: "btn export-pdf-btn",
+    attrs: {
+      "title": "Export to PDF"
+    },
+    on: {
+      "click": _vm.downloadPDF
+    }
+  }, [_c('svg', {
+    attrs: {
+      "width": "24",
+      "height": "24",
+      "viewBox": "0 0 24 24",
+      "fill": "none",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M21 14.2501C21 14.449 20.921 14.6398 20.7803 14.7805C20.6397 14.9211 20.4489 15.0001 20.25 15.0001H18V16.5001H19.5C19.6989 16.5001 19.8897 16.5791 20.0303 16.7198C20.171 16.8604 20.25 17.0512 20.25 17.2501C20.25 17.449 20.171 17.6398 20.0303 17.7805C19.8897 17.9211 19.6989 18.0001 19.5 18.0001H18V19.5001C18 19.699 17.921 19.8898 17.7803 20.0305C17.6397 20.1711 17.4489 20.2501 17.25 20.2501C17.0511 20.2501 16.8603 20.1711 16.7197 20.0305C16.579 19.8898 16.5 19.699 16.5 19.5001V14.2501C16.5 14.0512 16.579 13.8604 16.7197 13.7198C16.8603 13.5791 17.0511 13.5001 17.25 13.5001H20.25C20.4489 13.5001 20.6397 13.5791 20.7803 13.7198C20.921 13.8604 21 14.0512 21 14.2501ZM8.625 16.1251C8.625 16.8213 8.34844 17.489 7.85616 17.9813C7.36387 18.4736 6.69619 18.7501 6 18.7501H5.25V19.5001C5.25 19.699 5.17098 19.8898 5.03033 20.0305C4.88968 20.1711 4.69891 20.2501 4.5 20.2501C4.30109 20.2501 4.11032 20.1711 3.96967 20.0305C3.82902 19.8898 3.75 19.699 3.75 19.5001V14.2501C3.75 14.0512 3.82902 13.8604 3.96967 13.7198C4.11032 13.5791 4.30109 13.5001 4.5 13.5001H6C6.69619 13.5001 7.36387 13.7767 7.85616 14.269C8.34844 14.7612 8.625 15.4289 8.625 16.1251ZM7.125 16.1251C7.125 15.8268 7.00647 15.5406 6.7955 15.3296C6.58452 15.1186 6.29837 15.0001 6 15.0001H5.25V17.2501H6C6.29837 17.2501 6.58452 17.1316 6.7955 16.9206C7.00647 16.7096 7.125 16.4235 7.125 16.1251ZM15.375 16.8751C15.375 17.7702 15.0194 18.6287 14.3865 19.2616C13.7535 19.8945 12.8951 20.2501 12 20.2501H10.5C10.3011 20.2501 10.1103 20.1711 9.96967 20.0305C9.82902 19.8898 9.75 19.699 9.75 19.5001V14.2501C9.75 14.0512 9.82902 13.8604 9.96967 13.7198C10.1103 13.5791 10.3011 13.5001 10.5 13.5001H12C12.8951 13.5001 13.7535 13.8557 14.3865 14.4886C15.0194 15.1216 15.375 15.98 15.375 16.8751ZM13.875 16.8751C13.875 16.3778 13.6775 15.9009 13.3258 15.5493C12.9742 15.1977 12.4973 15.0001 12 15.0001H11.25V18.7501H12C12.4973 18.7501 12.9742 18.5526 13.3258 18.2009C13.6775 17.8493 13.875 17.3724 13.875 16.8751ZM3.75 10.5001V3.75012C3.75 3.3523 3.90804 2.97077 4.18934 2.68946C4.47064 2.40816 4.85218 2.25012 5.25 2.25012H14.25C14.3485 2.25004 14.4461 2.26938 14.5371 2.30702C14.6282 2.34466 14.7109 2.39987 14.7806 2.4695L20.0306 7.7195C20.1003 7.7892 20.1555 7.87194 20.1931 7.96299C20.2307 8.05403 20.2501 8.1516 20.25 8.25012V10.5001C20.25 10.699 20.171 10.8898 20.0303 11.0305C19.8897 11.1711 19.6989 11.2501 19.5 11.2501C19.3011 11.2501 19.1103 11.1711 18.9697 11.0305C18.829 10.8898 18.75 10.699 18.75 10.5001V9.00012H14.25C14.0511 9.00012 13.8603 8.9211 13.7197 8.78045C13.579 8.6398 13.5 8.44903 13.5 8.25012V3.75012H5.25V10.5001C5.25 10.699 5.17098 10.8898 5.03033 11.0305C4.88968 11.1711 4.69891 11.2501 4.5 11.2501C4.30109 11.2501 4.11032 11.1711 3.96967 11.0305C3.82902 10.8898 3.75 10.699 3.75 10.5001ZM15 7.50012H17.6897L15 4.81043V7.50012Z",
+      "fill": "#2AB930"
+    }
+  })])]), _vm._v(" "), _c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Print Table'),
+      expression: "$t('Print Table')"
+    }],
+    staticClass: "btn print-btn",
+    attrs: {
+      "href": _vm.printTemplateUrl,
+      "target": "_blank"
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-print"
+  })])])])]), _vm._v(" "), _c('form', {
+    attrs: {
+      "role": "form"
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_vm.users ? _c('div', {
+    staticClass: "form-group col-md-12"
+  }, [_c('label', {
+    attrs: {
+      "for": "user"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("User")) + "\n                    "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
+    "class": {
+      'is-invalid': _vm.form.errors.has('user')
+    },
+    attrs: {
+      "options": _vm.users,
+      "label": "label",
+      "name": "user",
+      "placeholder": _vm.$t('Select User')
+    },
+    model: {
+      value: _vm.form.user,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "user", $$v);
+      },
+      expression: "form.user"
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "user"
+    }
+  })], 1) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "col-12"
+  }, [[_c('date-range-picker', {
+    attrs: {
+      "from": _vm.form.fromDate,
+      "to": _vm.form.toDate,
+      "panel": _vm.$route.query.panel
+    },
+    on: {
+      "update": _vm.update
+    }
+  })]], 2)])])])])]), _vm._v(" "), _vm.items && _vm.items.length > 0 ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-12"
+  }, [_c('div', {
+    staticClass: "card custom-card w-100"
+  }, [_c('div', {
+    staticClass: "card-body position-relative"
+  }, [_c('div', {
+    staticClass: "invoice p-3 mb-3 w-100",
+    attrs: {
+      "id": "printMe"
+    }
+  }, [_c('div', {
+    staticClass: "row mt-5 position-relative"
+  }, [_c('table-loading', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.loading,
+      expression: "loading"
+    }]
+  }), _vm._v(" "), _c('div', {
+    staticClass: "table-responsive table-custom"
+  }, [_c('table', {
+    staticClass: "table table-sm"
+  }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Sales By")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Invoice No")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Client")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Net Total")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Invoice Date")))])]), _vm._v(" "), _c('tbody', _vm._l(_vm.items, function (data, i) {
+    return _c('tr', {
+      key: i
+    }, [_c('td', [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.salesBy))]), _vm._v(" "), _c('td', [_vm.$can('invoice-view') ? _c('router-link', {
+      attrs: {
+        "to": {
+          name: 'invoices.show',
+          params: {
+            slug: data.slug
+          }
+        }
+      }
+    }, [_vm._v("\n                      " + _vm._s(data.invoiceLabel) + "\n                    ")]) : _vm._e()], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.client))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.invoiceTotal) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm._f("moment")(data.invoiceDate, "Do MMM, YYYY")))])]);
+  }), 0)])])], 1)])])])])]) : _vm.items && _vm.items.length <= 0 ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-12 col-xl-10 offset-xl-1"
+  }, [_c('EmptyTable')], 1)]) : _vm._e()]);
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
+var vform_es = __webpack_require__(63216);
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__(95353);
+// EXTERNAL MODULE: ./node_modules/vue-mj-daterangepicker/dist/vue-mj-daterangepicker.css
+var vue_mj_daterangepicker = __webpack_require__(74208);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/collection-by-user-report.vue?vue&type=script&lang=js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+
+
+/* harmony default export */ const collection_by_user_reportvue_type_script_lang_js = ({
+  middleware: ["auth", "check-permissions"],
+  metaInfo: function metaInfo() {
+    return {
+      title: this.$t("Collection By User Report")
+    };
+  },
+  data: function data() {
+    return {
+      breadcrumbsCurrent: "Collection By User Report",
+      breadcrumbs: [{
+        name: "Dashboard",
+        url: "home"
+      }, {
+        name: "Collection By User Report",
+        url: ""
+      }],
+      form: new vform_es/* default */.Ay({
+        fromDate: String(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)),
+        toDate: String(new Date()),
+        user: ""
+      }),
+      users: '',
+      items: '',
+      loading: false,
+      date: new Date()
+    };
+  },
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["appInfo"])), {}, {
+    exportUrl: function exportUrl() {
+      // Create a dynamic export URL with query parameters
+      return "/collection-by-user-report/export/excel?start_date=".concat(this.form.fromDate, "&end_date=").concat(this.form.toDate, "&term=").concat(this.form.user['id']);
+    },
+    exportPdfUrl: function exportPdfUrl() {
+      return "/collection-by-user-report/pdf?start_date=".concat(this.form.fromDate, "&end_date=").concat(this.form.toDate, "&term=").concat(this.form.user['id']);
+    },
+    printTemplateUrl: function printTemplateUrl() {
+      // Create a dynamic print template URL for collection by user report with current filters
+      var params = new URLSearchParams();
+      if (this.form.user && this.form.user.id) {
+        params.append('user[id]', this.form.user.id);
+        params.append('user[name]', this.form.user.name);
+      }
+      if (this.form.fromDate) {
+        params.append('fromDate', this.form.fromDate);
+      }
+      if (this.form.toDate) {
+        params.append('toDate', this.form.toDate);
+      }
+      return "/print/reports/collection-by-user-report?".concat(params.toString());
+    }
+  }),
+  created: function created() {
+    this.getUser();
+  },
+  methods: {
+    // get users
+    getUser: function getUser() {
+      var _this = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var _yield$axios$get, data, usersFromApi, allUsers;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.n) {
+            case 0:
+              _context.n = 1;
+              return axios_default().get(window.location.origin + '/api/all-user');
+            case 1:
+              _yield$axios$get = _context.v;
+              data = _yield$axios$get.data;
+              usersFromApi = data.data;
+              allUsers = {
+                id: 0,
+                name: "All Users",
+                label: "All Users"
+              };
+              _this.users = [allUsers].concat(_toConsumableArray(usersFromApi));
+            case 2:
+              return _context.a(2);
+          }
+        }, _callee);
+      }))();
+    },
+    // get filtered data
+    update: function update(values) {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.n) {
+            case 0:
+              _this2.loading = true;
+              _this2.form.fromDate = values.from;
+              _this2.form.toDate = values.to;
+              _context2.n = 1;
+              return _this2.form.post(window.location.origin + "/api/reports/collection-by-user-report").then(function (response) {
+                _this2.items = response.data.data;
+                _this2.loading = false;
+              })["catch"](function () {
+                toast.fire({
+                  type: "error",
+                  title: _this2.$t("There was something wrong.")
+                });
+              });
+            case 1:
+              return _context2.a(2);
+          }
+        }, _callee2);
+      }))();
+    },
+    // refresh top buttons
+    refreshTable: function refreshTable() {
+      this.update({
+        from: this.form.fromDate,
+        to: this.form.toDate
+      });
+    },
+    // download PDF
+    downloadPDF: function downloadPDF() {
+      // Validate required fields
+      if (!this.form.user || !this.form.user.id) {
+        toast.fire({
+          type: 'error',
+          title: this.$t('Please select a user')
+        });
+        return;
+      }
+      var params = new URLSearchParams();
+      if (this.form.user && this.form.user.id) {
+        params.append('user[id]', this.form.user.id);
+        params.append('user[name]', this.form.user.name);
+      }
+      if (this.form.fromDate) {
+        params.append('fromDate', this.form.fromDate);
+      }
+      if (this.form.toDate) {
+        params.append('toDate', this.form.toDate);
+      }
+      window.location.href = "/print/reports/collection-by-user-report/pdf?".concat(params.toString());
+    },
+    // preview PDF
+    previewPDF: function previewPDF() {
+      // Validate required fields
+      if (!this.form.user || !this.form.user.id) {
+        toast.fire({
+          type: 'error',
+          title: this.$t('Please select a user')
+        });
+        return;
+      }
+      var params = new URLSearchParams();
+      if (this.form.user && this.form.user.id) {
+        params.append('user[id]', this.form.user.id);
+        params.append('user[name]', this.form.user.name);
+      }
+      if (this.form.fromDate) {
+        params.append('fromDate', this.form.fromDate);
+      }
+      if (this.form.toDate) {
+        params.append('toDate', this.form.toDate);
+      }
+      window.location.href = "/print/reports/collection-by-user-report/preview?".concat(params.toString());
+    },
+    // print table area
+    print: function print() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.n) {
+            case 0:
+              if (!_this3.$htmlToPaper) {
+                _context3.n = 2;
+                break;
+              }
+              _context3.n = 1;
+              return _this3.$htmlToPaper("printMe");
+            case 1:
+              _context3.n = 3;
+              break;
+            case 2:
+              _this3.printWindow();
+            case 3:
+              return _context3.a(2);
+          }
+        }, _callee3);
+      }))();
+    },
+    // print
+    printWindow: function printWindow() {
+      window.print();
+    }
+  }
+});
+;// ./resources/js/pages/reports/collection-by-user-report.vue?vue&type=script&lang=js
+ /* harmony default export */ const reports_collection_by_user_reportvue_type_script_lang_js = (collection_by_user_reportvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/collection-by-user-report.vue?vue&type=style&index=0&id=7ea50628&prod&scoped=true&lang=css
+var collection_by_user_reportvue_type_style_index_0_id_7ea50628_prod_scoped_true_lang_css = __webpack_require__(98865);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/reports/collection-by-user-report.vue?vue&type=style&index=0&id=7ea50628&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(collection_by_user_reportvue_type_style_index_0_id_7ea50628_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const reports_collection_by_user_reportvue_type_style_index_0_id_7ea50628_prod_scoped_true_lang_css = (collection_by_user_reportvue_type_style_index_0_id_7ea50628_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/reports/collection-by-user-report.vue?vue&type=style&index=0&id=7ea50628&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/pages/reports/collection-by-user-report.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  reports_collection_by_user_reportvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "7ea50628",
+  null
+  
+)
+
+/* harmony default export */ const collection_by_user_report = (component.exports);
+
+/***/ }),
+
+/***/ 74208:
+/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
+
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(85072);
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _css_loader_dist_cjs_js_clonedRuleSet_11_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_11_use_2_vue_mj_daterangepicker_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10151);
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_clonedRuleSet_11_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_11_use_2_vue_mj_daterangepicker_css__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A, options);
+
+
+
+/* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_clonedRuleSet_11_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_11_use_2_vue_mj_daterangepicker_css__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A.locals || {});
+
+/***/ }),
+
+/***/ 98865:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -81,1393 +556,10 @@
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".nav-pills .nav-item[data-v-1d74d7ce]{background:#ddd;border-radius:.25rem;margin:2px}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".refresh-btn[data-v-7ea50628]{background:#33a0d91a!important;border:none;border-radius:10px;color:#33a0d9!important;height:44px;padding:10px 16px;width:56px}.export-excel-btn[data-v-7ea50628],.export-pdf-btn[data-v-7ea50628],.preview-btn[data-v-7ea50628]{background:#f6fef4!important;color:#2ab930!important}.export-excel-btn[data-v-7ea50628],.export-pdf-btn[data-v-7ea50628],.preview-btn[data-v-7ea50628],.print-btn[data-v-7ea50628]{border:none;border-radius:10px;height:44px;padding:10px 16px;width:56px}.print-btn[data-v-7ea50628]{background:#33a0d91a!important;color:#33a0d9!important}.btn-group.c-w-100[data-v-7ea50628]{gap:10px}.card[data-v-7ea50628]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-header[data-v-7ea50628]{background-color:#fff;border-bottom:1px solid #ced4da;border-radius:20px 20px 0 0;padding:1.25rem 1.25rem 0}.card-body[data-v-7ea50628]{padding:1.25rem}.form-control[data-v-7ea50628]{background:#fff!important}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
-
-/***/ }),
-
-/***/ 91152:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ show)
-});
-
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/show.vue?vue&type=template&id=1d74d7ce&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c('breadcrumbs', {
-    attrs: {
-      "items": _vm.breadcrumbs,
-      "current": _vm.breadcrumbsCurrent
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "row no-print mb-2"
-  }, [_c('div', {
-    staticClass: "w-100 text-right float-right"
-  }, [_vm.allData ? _c('div', {
-    staticClass: "d-flex justify-content-between"
-  }, [_c('div', {
-    staticClass: "btn-group"
-  }, [_c('ul', {
-    staticClass: "nav nav-pills"
-  }, [_c('li', {
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link active",
-    attrs: {
-      "href": "#details",
-      "data-toggle": "tab"
-    },
-    on: {
-      "click": _vm.loadInitialData
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-info"
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Details")))])]), _vm._v(" "), _c('li', {
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "href": "#activity-log",
-      "data-toggle": "tab"
-    },
-    on: {
-      "click": _vm.getActivity
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fa fa-bell",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Activity log")))])])])])]) : _vm._e()])]), _vm._v(" "), _c('div', {
-    staticClass: "tab-content"
-  }, [_c('div', {
-    staticClass: "tab-pane active",
-    attrs: {
-      "id": "details"
-    }
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-12 m-auto",
-    "class": !_vm.$can('payroll-list') && !_vm.$can('increment-list') ? 'col-lg-6' : 'col-lg-3'
-  }, [_c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-body box-profile"
-  }, [_c('div', {
-    staticClass: "text-center mb-2"
-  }, [_c('a', {
-    attrs: {
-      "href": "#",
-      "id": "show-modal"
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.previewModal(_vm.allData.image || '');
-      }
-    }
-  }, [_c('img', _vm._b({
-    staticClass: "profile-user-img img-fluid img-circle",
-    attrs: {
-      "loading": "lazy"
-    }
-  }, 'img', _vm.getAvatarProps(_vm.allData.image, 'employees'), false))])]), _vm._v(" "), _c('h3', {
-    staticClass: "profile-username text-center"
-  }, [_vm._v(_vm._s(_vm.allData.name))]), _vm._v(" "), _c('ul', {
-    staticClass: "list-group list-group-unbordered mb-3"
-  }, [_c('li', {
-    staticClass: "list-group-item"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Emp ID")))]), _vm._v(" "), _c('span', {
-    staticClass: "float-right"
-  }, [_vm._v(_vm._s(_vm._f("withPrefix")(_vm.allData.empID, _vm.employeePrefix)))])]), _vm._v(" "), _vm.allData.department ? _c('li', {
-    staticClass: "list-group-item"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Department")))]), _vm._v(" "), _c('span', {
-    staticClass: "float-right"
-  }, [_vm._v(_vm._s(_vm.allData.department.name))])]) : _vm._e(), _vm._v(" "), _vm.allData.designation ? _c('li', {
-    staticClass: "list-group-item"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Designation")))]), _vm._v(" "), _c('span', {
-    staticClass: "float-right"
-  }, [_vm._v(_vm._s(_vm.allData.designation))])]) : _vm._e(), _vm._v(" "), _vm.allData.mobileNumber ? _c('li', {
-    staticClass: "list-group-item"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Contact Number")))]), _vm._v(" "), _c('span', {
-    staticClass: "float-right"
-  }, [_vm._v(_vm._s(_vm.allData.mobileNumber))])]) : _vm._e(), _vm._v(" "), _vm.allData.email ? _c('li', {
-    staticClass: "list-group-item"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Email")))]), _vm._v(" "), _c('span', {
-    staticClass: "float-right"
-  }, [_vm._v(_vm._s(_vm.allData.email))])]) : _vm._e(), _vm._v(" "), _vm.allData.salary ? _c('li', {
-    staticClass: "list-group-item"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Basic Salary")))]), _vm._v(" "), _c('span', {
-    staticClass: "float-right"
-  }, [_vm._v(_vm._s(parseFloat(_vm.allData.salary).toFixed(2)) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]) : _vm._e(), _vm._v(" "), _vm.allData.totalSalary ? _c('li', {
-    staticClass: "list-group-item"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Current Salary")))]), _vm._v(" "), _c('span', {
-    staticClass: "float-right"
-  }, [_vm._v(_vm._s(parseFloat(_vm.allData.totalSalary).toFixed(2)) + " "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])])]) : _vm._e(), _vm._v(" "), _vm.allData.commission ? _c('li', {
-    staticClass: "list-group-item"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Commission")))]), _vm._v(" "), _c('span', {
-    staticClass: "float-right"
-  }, [_vm._v(_vm._s(_vm.allData.commission) + "%")])]) : _vm._e(), _vm._v(" "), _vm.allData.gender ? _c('li', {
-    staticClass: "list-group-item"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Gender")))]), _vm._v(" "), _c('span', {
-    staticClass: "float-right"
-  }, [_vm._v(_vm._s(_vm.allData.gender))])]) : _vm._e(), _vm._v(" "), _vm.allData.bloodGroup ? _c('li', {
-    staticClass: "list-group-item"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Blood Group")))]), _vm._v(" "), _c('span', {
-    staticClass: "float-right"
-  }, [_vm._v(_vm._s(_vm.allData.bloodGroup))])]) : _vm._e(), _vm._v(" "), _vm.allData.religion ? _c('li', {
-    staticClass: "list-group-item"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Religion")))]), _vm._v(" "), _c('span', {
-    staticClass: "float-right"
-  }, [_vm._v(_vm._s(_vm.allData.religion))])]) : _vm._e(), _vm._v(" "), _vm.allData.birthDate ? _c('li', {
-    staticClass: "list-group-item"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Birth Date")))]), _vm._v(" "), _c('span', {
-    staticClass: "float-right"
-  }, [_vm._v(_vm._s(_vm._f("moment")(_vm.allData.birthDate, "Do MMM, YYYY")))])]) : _vm._e(), _vm._v(" "), _vm.allData.joiningDate ? _c('li', {
-    staticClass: "list-group-item"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Join Date")))]), _vm._v(" "), _c('span', {
-    staticClass: "float-right"
-  }, [_vm._v(_vm._s(_vm._f("moment")(_vm.allData.joiningDate, "Do MMM, YYYY")))])]) : _vm._e(), _vm._v(" "), _vm.allData.appointmentDate ? _c('li', {
-    staticClass: "list-group-item"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Appointment Date")))]), _vm._v(" "), _c('span', {
-    staticClass: "float-right"
-  }, [_vm._v(_vm._s(_vm._f("moment")(_vm.allData.appointmentDate, "Do MMM, YYYY")))])]) : _vm._e(), _vm._v(" "), _vm.allData.address ? _c('li', {
-    staticClass: "list-group-item"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Address")))]), _vm._v(" "), _c('span', {
-    staticClass: "float-right"
-  }, [_vm._v(_vm._s(_vm.allData.address))])]) : _vm._e(), _vm._v(" "), _c('li', {
-    staticClass: "list-group-item"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Allow Employee Login")))]), _vm._v(" "), _vm.allData.user ? _c('span', {
-    staticClass: "float-right"
-  }, [_vm._v(_vm._s(_vm.$t("Yes")))]) : _c('span', {
-    staticClass: "float-right"
-  }, [_vm._v(_vm._s(_vm.$t("No")))])]), _vm._v(" "), _vm.allData.user && _vm.allData.user.role ? _c('li', {
-    staticClass: "list-group-item"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Role")))]), _vm._v(" "), _c('span', {
-    staticClass: "float-right"
-  }, [_vm._v(_vm._s(_vm.allData.user.role.name))])]) : _vm._e()]), _vm._v(" "), _vm.allData.status === 1 ? _c('span', {
-    staticClass: "btn-block btn bg-success"
-  }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
-    staticClass: "badge bg-danger"
-  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])])])]), _vm._v(" "), _vm.$can('payroll-list') || _vm.$can('increment-list') ? _c('div', {
-    staticClass: "col-md-12 col-lg-9"
-  }, [_c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header p-2"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-8"
-  }, [_c('ul', {
-    staticClass: "nav nav-pills"
-  }, [_vm.$can('payroll-list') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link active",
-    attrs: {
-      "href": "#payroll",
-      "data-toggle": "tab"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Payroll")))])]) : _vm._e(), _vm._v(" "), _vm.$can('increment-list') ? _c('li', {
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "href": "#increment",
-      "data-toggle": "tab"
-    },
-    on: {
-      "click": _vm.getEmployeeSalIncrements
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Increment History")))])]) : _vm._e()])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-4"
-  }, [_c('router-link', {
-    staticClass: "btn btn-info float-right",
-    attrs: {
-      "to": {
-        name: 'employees.index'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-long-arrow-alt-left"
-  }), _vm._v("\n                    " + _vm._s(_vm.$t("Back")) + "\n                  ")])], 1)])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "tab-content"
-  }, [_vm.$can('payroll-list') ? _c('div', {
-    staticClass: "tab-pane active",
-    attrs: {
-      "id": "payroll"
-    }
-  }, [_c('div', [_c('div', {
-    staticClass: "card-body p-0 position-relative"
-  }, [_c('div', {
-    staticClass: "col-md-12 large-serach-box"
-  }, [_c('search', {
-    on: {
-      "reset-pagination": _vm.resetPagination,
-      "reload": _vm.reload
-    },
-    model: {
-      value: _vm.query,
-      callback: function callback($$v) {
-        _vm.query = $$v;
-      },
-      expression: "query"
-    }
-  })], 1), _vm._v(" "), _c('table-loading', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.loading,
-      expression: "loading"
-    }]
-  }), _vm._v(" "), _c('div', {
-    staticClass: "table-responsive table-custom mt-3"
-  }, [_c('table', {
-    staticClass: "table"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Salary Month")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Salary Date")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Account")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total Paid")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _vm.$can('payroll-edit') || _vm.$can('payroll-view') || _vm.$can('payroll-delete') ? _c('th', {
-    staticClass: "text-right no-print"
-  }, [_vm._v("\n                                " + _vm._s(_vm.$t("Action")) + "\n                              ")]) : _vm._e()])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.items, function (data, i) {
-    return _c('tr', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.items.length,
-        expression: "items.length"
-      }],
-      key: i
-    }, [_c('td', [_vm.pagination.current_page > 1 ? _c('span', [_vm._v("\n                                  " + _vm._s(_vm.pagination.per_page * (_vm.pagination.current_page - 1) + (i + 1)) + "\n                                ")]) : _c('span', [_vm._v(_vm._s(i + 1))])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.salaryMonth))]), _vm._v(" "), _c('td', [data.salaryDate ? _c('span', [_vm._v(_vm._s(_vm._f("moment")(data.salaryDate, "Do MMM, YYYY")))]) : _vm._e()]), _vm._v(" "), _c('td', [data.transaction && data.transaction.cashbook_account ? _c('span', [_vm._v(_vm._s(data.transaction.cashbook_account.account_number))]) : _vm._e()]), _vm._v(" "), _c('td', [data.transaction ? _c('span', [_vm._v(_vm._s(data.transaction.amount) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]) : _vm._e()]), _vm._v(" "), _c('td', [data.status === 1 ? _c('span', {
-      staticClass: "badge bg-success"
-    }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
-      staticClass: "badge bg-danger"
-    }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _vm.$can('payroll-edit') || _vm.$can('payroll-view') || _vm.$can('payroll-delete') ? _c('td', {
-      staticClass: "text-right"
-    }, [_c('div', {
-      staticClass: "btn-group"
-    }, [_vm.$can('payroll-view') ? _c('router-link', {
-      directives: [{
-        name: "tooltip",
-        rawName: "v-tooltip",
-        value: _vm.$t('View'),
-        expression: "$t('View')"
-      }],
-      staticClass: "btn btn-primary btn-sm",
-      attrs: {
-        "to": {
-          name: 'payroll.show',
-          params: {
-            slug: data.slug
-          }
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-eye"
-    })]) : _vm._e(), _vm._v(" "), _vm.$can('payroll-edit') ? _c('router-link', {
-      directives: [{
-        name: "tooltip",
-        rawName: "v-tooltip",
-        value: _vm.$t('Edit'),
-        expression: "$t('Edit')"
-      }],
-      staticClass: "btn btn-info btn-sm",
-      attrs: {
-        "to": {
-          name: 'payroll.edit',
-          params: {
-            slug: data.slug
-          }
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-edit"
-    })]) : _vm._e(), _vm._v(" "), _vm.$can('payroll-delete') ? _c('a', {
-      directives: [{
-        name: "tooltip",
-        rawName: "v-tooltip",
-        value: _vm.$t('Delete'),
-        expression: "$t('Delete')"
-      }],
-      staticClass: "btn btn-danger btn-sm",
-      attrs: {
-        "href": "#"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.deletePayroll(data.slug);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-trash"
-    })]) : _vm._e()], 1)]) : _vm._e()]);
-  }), _vm._v(" "), _c('tr', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: !_vm.loading && !_vm.items.length,
-      expression: "!loading && !items.length"
-    }]
-  }, [_c('td', {
-    attrs: {
-      "colspan": "8"
-    }
-  }, [_c('EmptyTable')], 1)])], 2)])])], 1), _vm._v(" "), _vm.pagination && _vm.pagination.total > 0 ? _c('div', {
-    staticClass: "dtable-footer"
-  }, [_c('div', {
-    staticClass: "form-group row display-per-page"
-  }, [_c('label', [_vm._v(_vm._s(_vm.$t("per_page")) + " ")]), _vm._v(" "), _c('div', [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.perPage,
-      expression: "perPage"
-    }],
-    staticClass: "form-control form-control-sm ml-1",
-    on: {
-      "change": [function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.perPage = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
-      }, function ($event) {
-        return _vm.updatePerPager('payroll');
-      }]
-    }
-  }, _vm._l(_vm.options, function (option) {
-    return _c('option', {
-      domProps: {
-        "value": option.value
-      }
-    }, [_vm._v("\n                              " + _vm._s(option.text) + "\n                            ")]);
-  }), 0)])]), _vm._v(" "), _vm.pagination && _vm.pagination.last_page > 1 ? _c('pagination', {
-    staticClass: "justify-flex-end",
-    attrs: {
-      "pagination": _vm.pagination,
-      "offset": 5
-    },
-    on: {
-      "paginate": _vm.paginate
-    }
-  }) : _vm._e()], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), _vm.$can('increment-list') ? _c('div', {
-    staticClass: "tab-pane",
-    attrs: {
-      "id": "increment"
-    }
-  }, [_c('div', [_c('div', {
-    staticClass: "card-body p-0 position-relative"
-  }, [_c('div', {
-    staticClass: "col-md-12 large-serach-box"
-  }, [_c('search', {
-    on: {
-      "reset-pagination": _vm.resetSalIncrePagination,
-      "reload": _vm.salIncreReload
-    },
-    model: {
-      value: _vm.salIncreQuery,
-      callback: function callback($$v) {
-        _vm.salIncreQuery = $$v;
-      },
-      expression: "salIncreQuery"
-    }
-  })], 1), _vm._v(" "), _c('table-loading', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.salIncreLoading,
-      expression: "salIncreLoading"
-    }]
-  }), _vm._v(" "), _c('div', {
-    staticClass: "table-responsive table-custom mt-3"
-  }, [_c('table', {
-    staticClass: "table"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v("\n                                " + _vm._s(_vm.$t("Increment Reason")) + "\n                              ")]), _vm._v(" "), _c('th', [_vm._v("\n                                " + _vm._s(_vm.$t("Basic Salary")) + "\n                              ")]), _vm._v(" "), _c('th', [_vm._v("\n                                " + _vm._s(_vm.$t("Increment Amount")) + "\n                              ")]), _vm._v(" "), _c('th', [_vm._v("\n                                " + _vm._s(_vm.$t("Present Salary")) + "\n                              ")]), _vm._v(" "), _c('th', [_vm._v("\n                                " + _vm._s(_vm.$t("Increment Date")) + "\n                              ")]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _vm.$can('increment-edit') || _vm.$can('increment-view') || _vm.$can('increment-delete') ? _c('th', {
-    staticClass: "text-right no-print"
-  }, [_vm._v("\n                                " + _vm._s(_vm.$t("Action")) + "\n                              ")]) : _vm._e()])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.allIncrements, function (data, i) {
-    return _c('tr', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.allIncrements.length,
-        expression: "allIncrements.length"
-      }],
-      key: i
-    }, [_c('td', [_vm.salIncrePagination && _vm.salIncrePagination.current_page > 1 ? _c('span', [_vm._v("\n                                  " + _vm._s(_vm.salIncrePagination.per_page * (_vm.salIncrePagination.current_page - 1) + (i + 1)) + "\n                                ")]) : _c('span', [_vm._v(_vm._s(i + 1))])]), _vm._v(" "), _c('td', [_c('router-link', {
-      attrs: {
-        "to": {
-          name: 'increments.show',
-          params: {
-            slug: data.slug
-          }
-        }
-      }
-    }, [_vm._v("\n                                  " + _vm._s(data.reason) + "\n                                ")])], 1), _vm._v(" "), _c('td', [data.employee ? _c('span', [_vm._v(_vm._s(data.employee.salary) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]) : _vm._e()]), _vm._v(" "), _c('td', [_vm._v("\n                                " + _vm._s(data.incrementAmount) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [data.employee ? _c('span', [_vm._v("\n                                  " + _vm._s(data.employee.salary + data.incrementAmount) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]) : _vm._e()]), _vm._v(" "), _c('td', [data.incrementDate ? _c('span', [_vm._v(_vm._s(_vm._f("moment")(data.incrementDate, "Do MMM, YYYY")))]) : _vm._e()]), _vm._v(" "), _c('td', [data.status === 1 ? _c('span', {
-      staticClass: "badge bg-success"
-    }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
-      staticClass: "badge bg-danger"
-    }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _vm.$can('increment-edit') || _vm.$can('increment-view') || _vm.$can('increment-delete') ? _c('td', {
-      staticClass: "text-right"
-    }, [_c('div', {
-      staticClass: "btn-group"
-    }, [_vm.$can('increment-view') ? _c('router-link', {
-      directives: [{
-        name: "tooltip",
-        rawName: "v-tooltip",
-        value: _vm.$t('View'),
-        expression: "$t('View')"
-      }],
-      staticClass: "btn btn-primary btn-sm",
-      attrs: {
-        "to": {
-          name: 'increments.show',
-          params: {
-            slug: data.slug
-          }
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-eye"
-    })]) : _vm._e(), _vm._v(" "), _vm.$can('increment-edit') ? _c('router-link', {
-      directives: [{
-        name: "tooltip",
-        rawName: "v-tooltip",
-        value: _vm.$t('Edit'),
-        expression: "$t('Edit')"
-      }],
-      staticClass: "btn btn-info btn-sm",
-      attrs: {
-        "to": {
-          name: 'increments.edit',
-          params: {
-            slug: data.slug
-          }
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-edit"
-    })]) : _vm._e(), _vm._v(" "), _vm.$can('increment-delete') ? _c('a', {
-      directives: [{
-        name: "tooltip",
-        rawName: "v-tooltip",
-        value: _vm.$t('Delete'),
-        expression: "$t('Delete')"
-      }],
-      staticClass: "btn btn-danger btn-sm",
-      attrs: {
-        "href": "#"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.deleteIncrement(data.slug);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-trash"
-    })]) : _vm._e()], 1)]) : _vm._e()]);
-  }), _vm._v(" "), _c('tr', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: !_vm.loading && !_vm.allIncrements.length,
-      expression: "!loading && !allIncrements.length"
-    }]
-  }, [_c('td', {
-    attrs: {
-      "colspan": "8"
-    }
-  }, [_c('EmptyTable')], 1)])], 2)])])], 1), _vm._v(" "), _vm.salIncrePagination && _vm.salIncrePagination.total > 0 ? _c('div', {
-    staticClass: "dtable-footer"
-  }, [_c('div', {
-    staticClass: "form-group row display-per-page"
-  }, [_c('label', [_vm._v(_vm._s(_vm.$t("per_page")) + " ")]), _vm._v(" "), _c('div', [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.perPage,
-      expression: "perPage"
-    }],
-    staticClass: "form-control form-control-sm ml-1",
-    on: {
-      "change": [function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.perPage = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
-      }, function ($event) {
-        return _vm.updatePerPager('increment-history');
-      }]
-    }
-  }, _vm._l(_vm.options, function (option) {
-    return _c('option', {
-      domProps: {
-        "value": option.value
-      }
-    }, [_vm._v("\n                              " + _vm._s(option.text) + "\n                            ")]);
-  }), 0)])]), _vm._v(" "), _vm.salIncrePagination && _vm.salIncrePagination.last_page > 1 ? _c('pagination', {
-    staticClass: "justify-flex-end",
-    attrs: {
-      "pagination": _vm.salIncrePagination,
-      "offset": 5
-    },
-    on: {
-      "paginate": _vm.salIncrePaginate
-    }
-  }) : _vm._e()], 1) : _vm._e()])]) : _vm._e()])])])]) : _vm._e()])]), _vm._v(" "), _c('div', {
-    staticClass: "tab-pane",
-    attrs: {
-      "id": "activity-log"
-    }
-  }, [_c('div', {
-    staticClass: "card custom-card w-100 mt-5 no-print"
-  }, [_c('div', {
-    staticClass: "card-header setings-header"
-  }, [_c('div', {
-    staticClass: "col-xl-4 col-4"
-  }, [_c('h3', {
-    staticClass: "card-title"
-  }, [_vm._v("\n              " + _vm._s(_vm.$t("Activity log")) + "\n            ")])]), _vm._v(" "), _c('div', {
-    staticClass: "col-xl-8 col-8 float-right text-right"
-  }, [_c('div', {
-    staticClass: "btn-group c-w-100"
-  }, [_c('a', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.$t('Refresh'),
-      expression: "$t('Refresh')"
-    }],
-    staticClass: "btn btn-success",
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.refreshActivityTable();
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-sync"
-  })]), _vm._v(" "), _c('a', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.$t('Print Table'),
-      expression: "$t('Print Table')"
-    }],
-    staticClass: "btn btn-info",
-    on: {
-      "click": _vm.printActivityLog
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-print"
-  })])])])]), _vm._v(" "), _c('table-loading', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.activityLoading,
-      expression: "activityLoading"
-    }]
-  }), _vm._v(" "), _c('div', {
-    staticClass: "card-body position-relative"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-6 col-xl-4 mb-2"
-  }, [_c('search', {
-    on: {
-      "reset-pagination": function resetPagination($event) {
-        return _vm.resetActivityPagination();
-      },
-      "reload": _vm.activityReload
-    },
-    model: {
-      value: _vm.activitySearchQuery,
-      callback: function callback($$v) {
-        _vm.activitySearchQuery = $$v;
-      },
-      expression: "activitySearchQuery"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "table-responsive table-custom mt-3",
-    attrs: {
-      "id": "printMe"
-    }
-  }, [_vm._l(_vm.allActivityLog, function (data, i) {
-    return _c('div', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.allActivityLog.length > 0,
-        expression: "allActivityLog.length > 0"
-      }],
-      key: i
-    }, [_c('div', {
-      staticClass: "card mb-0 border border-gray"
-    }, [_c('div', {
-      staticClass: "card-body py-1"
-    }, [_c('div', {
-      staticClass: "row"
-    }, [_c('div', {
-      staticClass: "col-1 d-flex justify-content-center align-items-center"
-    }, [data.event == 'Update' ? _c('i', {
-      staticClass: "fa fa-magic",
-      attrs: {
-        "aria-hidden": "true"
-      }
-    }) : _vm._e(), _vm._v(" "), data.event == 'Create' ? _c('i', {
-      staticClass: "fa fa-plus-circle",
-      attrs: {
-        "aria-hidden": "true"
-      }
-    }) : _vm._e(), _vm._v(" "), data.event == 'Delete' ? _c('i', {
-      staticClass: "fa fa-trash",
-      attrs: {
-        "aria-hidden": "true"
-      }
-    }) : _vm._e()]), _vm._v(" "), _c('div', {
-      staticClass: "col-11"
-    }, [_c('div', {
-      staticClass: "row"
-    }, [_c('div', {
-      staticClass: "col-12"
-    }, [_c('p', {
-      staticClass: "text-bold mb-0"
-    }, [_vm._v(_vm._s(data.causer_name))])]), _vm._v(" "), _c('div', {
-      staticClass: "col-12"
-    }, [_c('p', {
-      staticClass: "mb-0"
-    }, [_vm._v(_vm._s(data.description))])]), _vm._v(" "), _c('div', {
-      staticClass: "col-12"
-    }, [_c('p', {
-      staticClass: "mb-0"
-    }, [_vm._v(_vm._s(data.performedAt))])])])])])])])]);
-  }), _vm._v(" "), _c('div', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: !_vm.activityLoading && !_vm.allActivityLog.length,
-      expression: "!activityLoading && !allActivityLog.length"
-    }],
-    staticClass: "text-center"
-  }, [_c('EmptyTable')], 1)], 2)]), _vm._v(" "), _c('div', {
-    staticClass: "card-footer"
-  }, [_c('div', {
-    staticClass: "dtable-footer"
-  }, [_c('div', {
-    staticClass: "form-group row display-per-page"
-  }, [_c('label', [_vm._v(_vm._s(_vm.$t("per_page")) + " ")]), _vm._v(" "), _c('div', [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.perPage,
-      expression: "perPage"
-    }],
-    staticClass: "form-control form-control-sm ml-1",
-    on: {
-      "change": [function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.perPage = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
-      }, _vm.updateActivityPerPager]
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "10"
-    }
-  }, [_vm._v("10")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "25"
-    }
-  }, [_vm._v("25")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "50"
-    }
-  }, [_vm._v("50")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "100"
-    }
-  }, [_vm._v("100")])])])]), _vm._v(" "), _vm.allActivityLogPagination && _vm.allActivityLogPagination.last_page > 1 ? _c('pagination', {
-    staticClass: "justify-flex-end",
-    attrs: {
-      "pagination": _vm.allActivityLog ? _vm.allActivityLogPagination : {
-        current_page: 1
-      },
-      "offset": 5
-    },
-    on: {
-      "paginate": _vm.activityPaginate
-    }
-  }) : _vm._e()], 1)])], 1)])]), _vm._v(" "), _vm.showModal ? _c('Modal', {
-    on: {
-      "close": function close($event) {
-        return _vm.previewModal();
-      }
-    }
-  }, [_c('h5', {
-    attrs: {
-      "slot": "header"
-    },
-    slot: "header"
-  }, [_vm._v(_vm._s(_vm.$t("Attached Image Preview")))]), _vm._v(" "), _c('div', {
-    staticClass: "w-100",
-    attrs: {
-      "slot": "body"
-    },
-    slot: "body"
-  }, [_c('img', {
-    staticClass: "rounded img-fluid",
-    attrs: {
-      "src": _vm.allData.image,
-      "loading": "lazy"
-    }
-  })])]) : _vm._e()], 1);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__(95353);
-// EXTERNAL MODULE: ./resources/js/mixins/avatarMixin.js
-var avatarMixin = __webpack_require__(97469);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/show.vue?vue&type=script&lang=js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-
-
-/* harmony default export */ const showvue_type_script_lang_js = ({
-  middleware: ["auth", "check-permissions"],
-  metaInfo: function metaInfo() {
-    return {
-      title: this.$t("Employee Details")
-    };
-  },
-  mixins: [avatarMixin/* default */.A],
-  data: function data() {
-    return {
-      breadcrumbsCurrent: "Employee Details",
-      breadcrumbs: [{
-        name: "Dashboard",
-        url: "home"
-      }, {
-        name: "Employees",
-        url: "employees.index"
-      }, {
-        name: "Details",
-        url: ""
-      }],
-      allIncrements: "",
-      salIncreLoading: false,
-      salIncrePagination: "",
-      url: null,
-      showModal: false,
-      allData: "",
-      query: "",
-      salIncreQuery: "",
-      employeePrefix: "",
-      activitySearchQuery: "",
-      allActivityLog: "",
-      allActivityLogPagination: "",
-      activityLoading: false,
-      perPage: 10,
-      options: [{
-        value: "10",
-        text: "10"
-      }, {
-        value: "25",
-        text: "25"
-      }, {
-        value: "50",
-        text: "50"
-      }, {
-        value: "100",
-        text: "100"
-      }]
-    };
-  },
-  // Map Getters
-  computed: _objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "loading", "pagination", "appInfo"])),
-  watch: {
-    // watch invoice search data
-    query: function query(newQ, oldQ) {
-      if (newQ === "") {
-        this.getEmployeePayroll();
-      } else {
-        this.searchEmployeePayroll();
-      }
-    },
-    // watch salary increment search data
-    salIncreQuery: function salIncreQuery(newQ, oldQ) {
-      if (newQ === "") {
-        this.getEmployeeSalIncrements();
-      } else {
-        this.searchEmployeeSalIncrements();
-      }
-    },
-    // watch activitySearchQuery data
-    activitySearchQuery: function activitySearchQuery(newQ, oldQ) {
-      if (newQ === "") {
-        this.getActivity();
-      } else {
-        this.searchActivity();
-      }
-    }
-  },
-  created: function created() {
-    var _this = this;
-    this.getEmployee();
-    this.getEmployeePayroll();
-    this.employeePrefix = this.appInfo.employeePrefix;
-    Fire.$on("AfterDelete", function () {
-      _this.getEmployeePayroll();
-      _this.getEmployeeSalIncrements();
-    });
-  },
-  methods: {
-    loadInitialData: function loadInitialData() {
-      var _this2 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
-            case 0:
-              _this2.getEmployee();
-              _this2.getEmployeePayroll();
-            case 2:
-            case "end":
-              return _context.stop();
-          }
-        }, _callee);
-      }))();
-    },
-    // get the employee
-    getEmployee: function getEmployee() {
-      var _this3 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var _yield$axios$get, data;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
-            case 0:
-              _context2.next = 2;
-              return axios_default().get(window.location.origin + "/api/employees/" + _this3.$route.params.slug);
-            case 2:
-              _yield$axios$get = _context2.sent;
-              data = _yield$axios$get.data;
-              _this3.allData = data.data;
-            case 5:
-            case "end":
-              return _context2.stop();
-          }
-        }, _callee2);
-      }))();
-    },
-    // update per page count
-    updatePerPager: function updatePerPager(tabName) {
-      this.pagination.current_page = 1;
-      this.salIncrePagination.hasOwnProperty("current_page") ? this.salIncrePagination.current_page = 1 : "";
-      switch (tabName) {
-        case "payroll":
-          this.query === "" ? this.getEmployeePayroll() : this.searchEmployeePayroll();
-          break;
-        case "increment-history":
-          this.query === "" ? this.getEmployeeSalIncrements() : this.searchEmployeeSalIncrements();
-          break;
-      }
-    },
-    // get the employee payroll
-    getEmployeePayroll: function getEmployeePayroll() {
-      var _this4 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
-            case 0:
-              _this4.$store.state.operations.loading = true;
-              _context3.next = 3;
-              return _this4.$store.dispatch("operations/fetchData", {
-                path: "/api/employee-payroll/" + _this4.$route.params.slug + "?page=",
-                currentPage: _this4.pagination.current_page + "&perPage=" + _this4.perPage
-              });
-            case 3:
-            case "end":
-              return _context3.stop();
-          }
-        }, _callee3);
-      }))();
-    },
-    // search employee payroll
-    searchEmployeePayroll: function searchEmployeePayroll() {
-      var _this5 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
-            case 0:
-              _this5.$store.state.operations.loading = true;
-              _context4.next = 3;
-              return _this5.$store.dispatch("operations/searchData", {
-                term: _this5.query,
-                path: "/api/employee-payroll/" + _this5.$route.params.slug + "/search/",
-                currentPage: _this5.pagination.current_page + "&perPage=" + _this5.perPage
-              });
-            case 3:
-            case "end":
-              return _context4.stop();
-          }
-        }, _callee4);
-      }))();
-    },
-    // pagination
-    paginate: function paginate() {
-      var _this6 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
-            case 0:
-              _this6.query === "" ? _this6.getEmployeePayroll() : _this6.searchEmployeePayroll();
-            case 1:
-            case "end":
-              return _context5.stop();
-          }
-        }, _callee5);
-      }))();
-    },
-    // reset purchase pagination
-    resetPagination: function resetPagination() {
-      var _this7 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
-        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-          while (1) switch (_context6.prev = _context6.next) {
-            case 0:
-              _this7.pagination.current_page = 1;
-            case 1:
-            case "end":
-              return _context6.stop();
-          }
-        }, _callee6);
-      }))();
-    },
-    // reload purchases after search
-    reload: function reload() {
-      var _this8 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-          while (1) switch (_context7.prev = _context7.next) {
-            case 0:
-              _this8.query = "";
-            case 1:
-            case "end":
-              return _context7.stop();
-          }
-        }, _callee7);
-      }))();
-    },
-    // get the employee salary increments
-    getEmployeeSalIncrements: function getEmployeeSalIncrements() {
-      var _this9 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
-        var currentPage, _yield$axios$get2, data;
-        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-          while (1) switch (_context8.prev = _context8.next) {
-            case 0:
-              _this9.salIncreLoading = true;
-              currentPage = _this9.allIncrements ? _this9.salIncrePagination.current_page : 1;
-              _context8.next = 4;
-              return axios_default().get(window.location.origin + "/api/employee-increments/" + _this9.$route.params.slug + "?page=" + currentPage + "&perPage=" + _this9.perPage);
-            case 4:
-              _yield$axios$get2 = _context8.sent;
-              data = _yield$axios$get2.data;
-              _this9.allIncrements = data.data;
-              _this9.salIncrePagination = data.meta;
-              _this9.salIncreLoading = false;
-            case 9:
-            case "end":
-              return _context8.stop();
-          }
-        }, _callee8);
-      }))();
-    },
-    // search employee salary increments
-    searchEmployeeSalIncrements: function searchEmployeeSalIncrements() {
-      var _this10 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
-        var currentPage, _yield$axios$get3, data;
-        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
-          while (1) switch (_context9.prev = _context9.next) {
-            case 0:
-              _this10.salIncreLoading = true;
-              currentPage = _this10.allIncrements ? _this10.salIncrePagination.current_page : 1;
-              _context9.next = 4;
-              return axios_default().get(window.location.origin + "/api/employee-increments/" + _this10.$route.params.slug + "/search?term=" + _this10.salIncreQuery + "&page=" + currentPage + "&perPage=" + _this10.perPage);
-            case 4:
-              _yield$axios$get3 = _context9.sent;
-              data = _yield$axios$get3.data;
-              _this10.allIncrements = data.data;
-              _this10.salIncrePagination = data.meta;
-              _this10.salIncreLoading = false;
-            case 9:
-            case "end":
-              return _context9.stop();
-          }
-        }, _callee9);
-      }))();
-    },
-    // salary increments pagination
-    salIncrePaginate: function salIncrePaginate() {
-      var _this11 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
-        return _regeneratorRuntime().wrap(function _callee10$(_context10) {
-          while (1) switch (_context10.prev = _context10.next) {
-            case 0:
-              _this11.salIncreQuery === "" ? _this11.getEmployeeSalIncrements() : _this11.searchEmployeeSalIncrements();
-            case 1:
-            case "end":
-              return _context10.stop();
-          }
-        }, _callee10);
-      }))();
-    },
-    // reset increments pagination
-    resetSalIncrePagination: function resetSalIncrePagination() {
-      var _this12 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
-        return _regeneratorRuntime().wrap(function _callee11$(_context11) {
-          while (1) switch (_context11.prev = _context11.next) {
-            case 0:
-              _this12.salIncrePagination.current_page = 1;
-            case 1:
-            case "end":
-              return _context11.stop();
-          }
-        }, _callee11);
-      }))();
-    },
-    // Reload increments after search
-    salIncreReload: function salIncreReload() {
-      var _this13 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
-        return _regeneratorRuntime().wrap(function _callee12$(_context12) {
-          while (1) switch (_context12.prev = _context12.next) {
-            case 0:
-              _this13.salIncreQuery = "";
-            case 1:
-            case "end":
-              return _context12.stop();
-          }
-        }, _callee12);
-      }))();
-    },
-    // print
-    printWindow: function printWindow() {
-      window.print();
-    },
-    // print table
-    printActivityLog: function printActivityLog() {
-      var _this14 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
-        return _regeneratorRuntime().wrap(function _callee13$(_context13) {
-          while (1) switch (_context13.prev = _context13.next) {
-            case 0:
-              _context13.next = 2;
-              return _this14.$htmlToPaper("printMe");
-            case 2:
-            case "end":
-              return _context13.stop();
-          }
-        }, _callee13);
-      }))();
-    },
-    // get activity logs
-    getActivity: function getActivity() {
-      var _this15 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee14() {
-        var currentPage, slug, modelName, baseUrl, queryParams, url, _yield$axios$get4, data;
-        return _regeneratorRuntime().wrap(function _callee14$(_context14) {
-          while (1) switch (_context14.prev = _context14.next) {
-            case 0:
-              _this15.activityLoading = true;
-              currentPage = _this15.allActivityLog ? _this15.allActivityLogPagination.current_page : 1;
-              slug = _this15.$route.params.slug;
-              modelName = "Employee";
-              baseUrl = "".concat(window.location.origin, "/api/activity-log-specific");
-              queryParams = "?page=".concat(currentPage, "&perPage=").concat(_this15.perPage, "&slug=").concat(slug, "&modelName=").concat(modelName);
-              url = baseUrl + queryParams;
-              _context14.next = 9;
-              return axios_default().get(url);
-            case 9:
-              _yield$axios$get4 = _context14.sent;
-              data = _yield$axios$get4.data;
-              _this15.allActivityLog = data.data;
-              _this15.allActivityLogPagination = data.meta;
-              _this15.activityLoading = false;
-            case 14:
-            case "end":
-              return _context14.stop();
-          }
-        }, _callee14);
-      }))();
-    },
-    // search data
-    searchActivity: function searchActivity() {
-      var _this16 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee15() {
-        var currentPage, term, slug, modelName, baseUrl, queryParams, url, _yield$axios$get5, data;
-        return _regeneratorRuntime().wrap(function _callee15$(_context15) {
-          while (1) switch (_context15.prev = _context15.next) {
-            case 0:
-              _this16.activityLoading = true;
-              currentPage = _this16.allActivityLog ? _this16.allActivityLogPagination.current_page : 1;
-              term = _this16.activitySearchQuery;
-              slug = _this16.$route.params.slug;
-              modelName = "Employee";
-              baseUrl = "".concat(window.location.origin, "/api/activity-log-specific");
-              queryParams = "?page=".concat(currentPage, "&perPage=").concat(_this16.perPage, "&term=").concat(term, "&slug=").concat(slug, "&modelName=").concat(modelName);
-              url = baseUrl + queryParams;
-              _context15.next = 10;
-              return axios_default().get(url);
-            case 10:
-              _yield$axios$get5 = _context15.sent;
-              data = _yield$axios$get5.data;
-              _this16.allActivityLog = data.data;
-              _this16.allActivityLogPagination = data.meta;
-              _this16.activityLoading = false;
-            case 15:
-            case "end":
-              return _context15.stop();
-          }
-        }, _callee15);
-      }))();
-    },
-    // activity pagination
-    activityPaginate: function activityPaginate() {
-      var _this17 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee16() {
-        return _regeneratorRuntime().wrap(function _callee16$(_context16) {
-          while (1) switch (_context16.prev = _context16.next) {
-            case 0:
-              _this17.getActivity();
-            case 1:
-            case "end":
-              return _context16.stop();
-          }
-        }, _callee16);
-      }))();
-    },
-    // update activity per page count
-    updateActivityPerPager: function updateActivityPerPager() {
-      this.allActivityLogPagination.current_page = 1;
-      this.activitySearchQuery === "" ? this.getActivity() : this.searchActivity();
-    },
-    // reload after search
-    activityReload: function activityReload() {
-      var _this18 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee17() {
-        return _regeneratorRuntime().wrap(function _callee17$(_context17) {
-          while (1) switch (_context17.prev = _context17.next) {
-            case 0:
-              _this18.activitySearchQuery = "";
-            case 1:
-            case "end":
-              return _context17.stop();
-          }
-        }, _callee17);
-      }))();
-    },
-    // refresh activity table
-    refreshActivityTable: function refreshActivityTable() {
-      this.activitySearchQuery = "";
-      this.activitySearchQuery === "" ? this.getActivity() : this.searchActivity();
-    },
-    // reset activity pagination
-    resetActivityPagination: function resetActivityPagination() {
-      var _this19 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee18() {
-        return _regeneratorRuntime().wrap(function _callee18$(_context18) {
-          while (1) switch (_context18.prev = _context18.next) {
-            case 0:
-              _this19.allActivityLogPagination.current_page = 1;
-            case 1:
-            case "end":
-              return _context18.stop();
-          }
-        }, _callee18);
-      }))();
-    },
-    // dispaly modal
-    previewModal: function previewModal(image) {
-      this.imagePath = image;
-      if (this.showModal) {
-        return this.showModal = false;
-      }
-      return this.showModal = true;
-    },
-    // calcualte total paid
-    calculateTotalPaid: function calculateTotalPaid() {
-      var totalPaid = 0;
-      this.allData.loans.forEach(function (loan) {
-        totalPaid += Number(loan.totalPaid);
-      });
-      return totalPaid;
-    },
-    // delete payroll
-    deletePayroll: function deletePayroll(slug) {
-      var _this20 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee19() {
-        return _regeneratorRuntime().wrap(function _callee19$(_context19) {
-          while (1) switch (_context19.prev = _context19.next) {
-            case 0:
-              Swal.fire({
-                title: _this20.$t("Are you sure?"),
-                text: _this20.$t("You will not be able to return to this!"),
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonText: _this20.$t("Confirm"),
-                cancelButtonText: _this20.$t("Cancel")
-              }).then(function (result) {
-                // Send request to the server
-                if (result.value) {
-                  _this20.$store.dispatch("operations/deleteData", {
-                    path: "/api/payroll/",
-                    slug: slug
-                  }).then(function (response) {
-                    if (response === true) {
-                      _this20.$toast.success(_this20.$t("Deleted!"), _this20.$t("Deleted successfully."));
-                      Fire.$emit("AfterDelete");
-                    } else {
-                      _this20.$toast.warning(_this20.$t("Failed!"), _this20.$t("There was something wrong."));
-                    }
-                  });
-                }
-              });
-            case 1:
-            case "end":
-              return _context19.stop();
-          }
-        }, _callee19);
-      }))();
-    },
-    // delete increment
-    deleteIncrement: function deleteIncrement(slug) {
-      var _this21 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee20() {
-        return _regeneratorRuntime().wrap(function _callee20$(_context20) {
-          while (1) switch (_context20.prev = _context20.next) {
-            case 0:
-              Swal.fire({
-                title: _this21.$t("Are you sure?"),
-                text: _this21.$t("You will not be able to return to this!"),
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonText: _this21.$t("Confirm"),
-                cancelButtonText: _this21.$t("Cancel")
-              }).then(function (result) {
-                // Send request to the server
-                if (result.value) {
-                  _this21.$store.dispatch("operations/deleteData", {
-                    path: "/api/increments/",
-                    slug: slug
-                  }).then(function (response) {
-                    if (response === true) {
-                      _this21.$toast.success(_this21.$t("Deleted!"), _this21.$t("Deleted successfully."));
-                      Fire.$emit("AfterDelete");
-                    } else {
-                      _this21.$toast.warning(_this21.$t("Failed!"), _this21.$t("There was something wrong."));
-                    }
-                  });
-                }
-              });
-            case 1:
-            case "end":
-              return _context20.stop();
-          }
-        }, _callee20);
-      }))();
-    }
-  }
-});
-;// CONCATENATED MODULE: ./resources/js/pages/employees/show.vue?vue&type=script&lang=js
- /* harmony default export */ const employees_showvue_type_script_lang_js = (showvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/show.vue?vue&type=style&index=0&id=1d74d7ce&prod&scoped=true&lang=css
-var showvue_type_style_index_0_id_1d74d7ce_prod_scoped_true_lang_css = __webpack_require__(85738);
-;// CONCATENATED MODULE: ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/employees/show.vue?vue&type=style&index=0&id=1d74d7ce&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(showvue_type_style_index_0_id_1d74d7ce_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const employees_showvue_type_style_index_0_id_1d74d7ce_prod_scoped_true_lang_css = (showvue_type_style_index_0_id_1d74d7ce_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// CONCATENATED MODULE: ./resources/js/pages/employees/show.vue?vue&type=style&index=0&id=1d74d7ce&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// CONCATENATED MODULE: ./resources/js/pages/employees/show.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  employees_showvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "1d74d7ce",
-  null
-  
-)
-
-/* harmony default export */ const show = (component.exports);
 
 /***/ })
 

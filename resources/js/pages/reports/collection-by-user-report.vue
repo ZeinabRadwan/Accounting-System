@@ -40,8 +40,16 @@
                       />
                     </svg>
                   </a>
-                  <a
-                    :href="exportPdfUrl"
+                  <button
+                    @click="previewPDF"
+                    v-tooltip="$t('Preview PDF')"
+                    class="btn preview-btn"
+                    title="Preview PDF"
+                  >
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button
+                    @click="downloadPDF"
                     v-tooltip="$t('Export to PDF')"
                     class="btn export-pdf-btn"
                     title="Export to PDF"
@@ -58,9 +66,10 @@
                         fill="#2AB930"
                       />
                     </svg>
-                  </a>
+                  </button>
                   <a
-                    @click="print"
+                    :href="printTemplateUrl"
+                    target="_blank"
                     v-tooltip="$t('Print Table')"
                     class="btn print-btn"
                   >
@@ -184,10 +193,10 @@
       ...mapGetters("operations", ["appInfo"]),
       exportUrl() {
         // Create a dynamic export URL with query parameters
-        return `/sales-by-user-report/export/excel?start_date=${this.form.fromDate}&end_date=${this.form.toDate}&term=${this.form.user['id']}`;
+        return `/collection-by-user-report/export/excel?start_date=${this.form.fromDate}&end_date=${this.form.toDate}&term=${this.form.user['id']}`;
       },
       exportPdfUrl() {
-        return `/sales-by-user-report/pdf?start_date=${this.form.fromDate}&end_date=${this.form.toDate}&term=${this.form.user['id']}`;
+        return `/collection-by-user-report/pdf?start_date=${this.form.fromDate}&end_date=${this.form.toDate}&term=${this.form.user['id']}`;
       },
       printTemplateUrl() {
         // Create a dynamic print template URL for collection by user report with current filters
@@ -204,7 +213,7 @@
           params.append('toDate', this.form.toDate);
         }
         
-        return `/print/reports/collection-by-user?${params.toString()}`;
+        return `/print/reports/collection-by-user-report?${params.toString()}`;
       },
     },
   
@@ -228,7 +237,7 @@
         this.form.fromDate = values.from;
         this.form.toDate = values.to;
         await this.form
-          .post(window.location.origin + "/api/reports/sales-by-user-report")
+          .post(window.location.origin + "/api/reports/collection-by-user-report")
           .then((response) => {
             this.items = response.data.data;
             this.loading = false;
@@ -237,10 +246,60 @@
             toast.fire({ type: "error", title: this.$t("There was something wrong.") });
           });
       },
-  
+
       // refresh top buttons
       refreshTable() {
         this.update({ from: this.form.fromDate, to: this.form.toDate });
+      },
+
+      // download PDF
+      downloadPDF() {
+        // Validate required fields
+        if (!this.form.user || !this.form.user.id) {
+          toast.fire({
+            type: 'error',
+            title: this.$t('Please select a user'),
+          });
+          return;
+        }
+
+        const params = new URLSearchParams();
+        if (this.form.user && this.form.user.id) {
+          params.append('user[id]', this.form.user.id);
+          params.append('user[name]', this.form.user.name);
+        }
+        if (this.form.fromDate) {
+          params.append('fromDate', this.form.fromDate);
+        }
+        if (this.form.toDate) {
+          params.append('toDate', this.form.toDate);
+        }
+        window.location.href = `/print/reports/collection-by-user-report/pdf?${params.toString()}`;
+      },
+
+      // preview PDF
+      previewPDF() {
+        // Validate required fields
+        if (!this.form.user || !this.form.user.id) {
+          toast.fire({
+            type: 'error',
+            title: this.$t('Please select a user'),
+          });
+          return;
+        }
+
+        const params = new URLSearchParams();
+        if (this.form.user && this.form.user.id) {
+          params.append('user[id]', this.form.user.id);
+          params.append('user[name]', this.form.user.name);
+        }
+        if (this.form.fromDate) {
+          params.append('fromDate', this.form.fromDate);
+        }
+        if (this.form.toDate) {
+          params.append('toDate', this.form.toDate);
+        }
+        window.location.href = `/print/reports/collection-by-user-report/preview?${params.toString()}`;
       },
 
       // print table area
@@ -272,6 +331,16 @@
   }
 
   .export-excel-btn {
+    background: #f6fef4 !important;
+    color: #2ab930 !important;
+    width: 56px;
+    height: 44px;
+    border-radius: 10px;
+    padding: 10px 16px;
+    border: none;
+  }
+
+  .preview-btn {
     background: #f6fef4 !important;
     color: #2ab930 !important;
     width: 56px;

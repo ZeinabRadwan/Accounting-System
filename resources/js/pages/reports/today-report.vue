@@ -21,14 +21,26 @@
                                 <a :href="exportUrl" v-tooltip="$t('Export to Excel')" class="btn export-excel-btn">
                                     <i class="fa fa-arrow-circle-down"></i>
                                 </a>
-                                <a href="/reports/today-report/pdf" v-tooltip="$t('Export to PDF')" class="btn export-pdf-btn">
+                                <button 
+                                    v-if="reportInfo" 
+                                    @click="downloadPDF" 
+                                    v-tooltip="$t('Export to PDF')" 
+                                    class="btn export-pdf-btn"
+                                >
                                     <i class="fas fa-file-export"></i>
-                                </a>
+                                </button>
+                                <button 
+                                    v-if="reportInfo" 
+                                    @click="previewPDF" 
+                                    v-tooltip="$t('Preview')" 
+                                    class="btn preview-btn"
+                                >
+                                    <i class="fas fa-eye"></i>
+                                </button>
                                 <a 
                                     v-if="reportInfo" 
                                     :href="printTemplateUrl" 
                                     target="_blank" 
-                                    v-tooltip="$t('Print with Template')" 
                                     class="btn print-btn"
                                 >
                                     <i class="fas fa-print"></i>
@@ -215,6 +227,18 @@ export default {
         printWindow() {
             window.print();
         },
+        
+        downloadPDF() {
+            // Redirect to backend PDF route
+            const pdfUrl = `/print/reports/today-report/pdf`;
+            window.location.href = pdfUrl;
+        },
+
+        previewPDF() {
+            // Redirect to backend PDF route
+            const pdfUrl = `/print/reports/today-report/preview`;
+            window.location.href = pdfUrl;
+        },
 
         // get data
         async getTodayReportData() {
@@ -259,6 +283,16 @@ export default {
 }
 
 .export-pdf-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.preview-btn {
   background: #f6fef4 !important;
   color: #2ab930 !important;
   width: 56px;

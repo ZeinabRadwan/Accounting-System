@@ -40,8 +40,16 @@
                       />
                     </svg>
                   </a>
-                  <a
-                    :href="exportPdfUrl"
+                  <button
+                    @click="previewPDF"
+                    v-tooltip="$t('Preview PDF')"
+                    class="btn preview-btn"
+                    title="Preview PDF"
+                  >
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button
+                    @click="downloadPDF"
                     v-tooltip="$t('Export to PDF')"
                     class="btn export-pdf-btn"
                     title="Export to PDF"
@@ -58,9 +66,10 @@
                         fill="#2AB930"
                       />
                     </svg>
-                  </a>
+                  </button>
                   <a
-                    @click="print"
+                    :href="printTemplateUrl"
+                    target="_blank"
                     v-tooltip="$t('Print Table')"
                     class="btn print-btn"
                   >
@@ -204,7 +213,7 @@ export default {
         params.append('toDate', this.form.toDate);
       }
       
-      return `/print/reports/sales-by-user?${params.toString()}`;
+      return `/print/reports/sales-by-user-report?${params.toString()}`;
     },
   },
 
@@ -249,6 +258,56 @@ export default {
       }
     },
 
+    // download PDF
+    downloadPDF() {
+      // Validate required fields
+      if (!this.form.user || !this.form.user.id) {
+        toast.fire({
+          type: 'error',
+          title: this.$t('Please select a user'),
+        });
+        return;
+      }
+
+      const params = new URLSearchParams();
+      if (this.form.user && this.form.user.id) {
+        params.append('user[id]', this.form.user.id);
+        params.append('user[name]', this.form.user.name);
+      }
+      if (this.form.fromDate) {
+        params.append('fromDate', this.form.fromDate);
+      }
+      if (this.form.toDate) {
+        params.append('toDate', this.form.toDate);
+      }
+      window.location.href = `/print/reports/sales-by-user-report/pdf?${params.toString()}`;
+    },
+
+    // preview PDF
+    previewPDF() {
+      // Validate required fields
+      if (!this.form.user || !this.form.user.id) {
+        toast.fire({
+          type: 'error',
+          title: this.$t('Please select a user'),
+        });
+        return;
+      }
+
+      const params = new URLSearchParams();
+      if (this.form.user && this.form.user.id) {
+        params.append('user[id]', this.form.user.id);
+        params.append('user[name]', this.form.user.name);
+      }
+      if (this.form.fromDate) {
+        params.append('fromDate', this.form.fromDate);
+      }
+      if (this.form.toDate) {
+        params.append('toDate', this.form.toDate);
+      }
+      window.location.href = `/print/reports/sales-by-user-report/preview?${params.toString()}`;
+    },
+
     // print table area
     async print() {
       if (this.$htmlToPaper) {
@@ -278,6 +337,16 @@ export default {
 }
 
 .export-excel-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.preview-btn {
   background: #f6fef4 !important;
   color: #2ab930 !important;
   width: 56px;

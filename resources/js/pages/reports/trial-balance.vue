@@ -172,8 +172,23 @@
                     class="btn export-excel-btn mb-3"
                     :disabled="!reportData"
                   >
-                    <i class="fas fa-file-excel me-1"></i>
-                    {{ $t("Export Excel") }}
+                    <i class="fa fa-arrow-circle-down"></i>
+                  </button>
+                  <button 
+                    v-if="reportData" 
+                    @click="downloadPDF" 
+                    v-tooltip="$t('Export to PDF')" 
+                    class="btn export-pdf-btn mb-3"
+                  >
+                    <i class="fas fa-file-export"></i>
+                  </button>
+                  <button 
+                    v-if="reportData" 
+                    @click="previewPDF" 
+                    v-tooltip="$t('Preview')" 
+                    class="btn preview-btn mb-3"
+                  >
+                    <i class="fas fa-eye"></i>
                   </button>
                   <button
                     v-if="hasMoreData"
@@ -1177,6 +1192,60 @@ export default {
       // TODO: Implement Excel export functionality
       this.$toast.info('', this.$t("Excel export functionality will be implemented soon"));
     },
+    
+    downloadPDF() {
+      // Build query parameters from filters
+      const params = new URLSearchParams();
+      if (this.filters.chartOfAccountId) {
+        params.append('chart_of_account_id', this.filters.chartOfAccountId);
+      }
+      if (this.filters.subChartOfAccountId) {
+        params.append('sub_chart_of_account_id', this.filters.subChartOfAccountId);
+      }
+      if (this.filters.fiscalYearId) {
+        params.append('fiscal_year_id', this.filters.fiscalYearId);
+      }
+      if (this.filters.accountingPeriodId) {
+        params.append('accounting_period_id', this.filters.accountingPeriodId);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      
+      // Redirect to backend PDF route with query parameters
+      const pdfUrl = `/print/reports/trial-balance/pdf?${params.toString()}`;
+      window.location.href = pdfUrl;
+    },
+
+    previewPDF() {
+      // Build query parameters from filters
+      const params = new URLSearchParams();
+      if (this.filters.chartOfAccountId) {
+        params.append('chart_of_account_id', this.filters.chartOfAccountId);
+      }
+      if (this.filters.subChartOfAccountId) {
+        params.append('sub_chart_of_account_id', this.filters.subChartOfAccountId);
+      }
+      if (this.filters.fiscalYearId) {
+        params.append('fiscal_year_id', this.filters.fiscalYearId);
+      }
+      if (this.filters.accountingPeriodId) {
+        params.append('accounting_period_id', this.filters.accountingPeriodId);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      
+      // Redirect to backend PDF route with query parameters
+      const pdfUrl = `/print/reports/trial-balance/preview?${params.toString()}`;
+      window.location.href = pdfUrl;
+    },
 
 
     getAccountRowClass(account) {
@@ -1278,6 +1347,13 @@ export default {
 }
 
 .export-pdf-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  border-radius: 10px;
+  border: none;
+}
+
+.preview-btn {
   background: #f6fef4 !important;
   color: #2ab930 !important;
   border-radius: 10px;

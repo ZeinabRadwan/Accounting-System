@@ -155,14 +155,22 @@
               >
                 <i class="fa fa-arrow-circle-down"></i>
               </a>
-              <a 
+              <button 
                 v-if="reportData && reportData.entries && reportData.entries.length > 0" 
-                :href="exportPdfUrl" 
+                @click="downloadPDF" 
                 v-tooltip="$t('Export to PDF')" 
                 class="btn export-pdf-btn ml-2"
               >
                 <i class="fas fa-file-export"></i>
-              </a>
+              </button>
+              <button 
+                v-if="reportData && reportData.entries && reportData.entries.length > 0" 
+                @click="previewPDF" 
+                v-tooltip="$t('Preview')" 
+                class="btn preview-btn ml-2"
+              >
+                <i class="fas fa-eye"></i>
+              </button>
               <a 
                 v-if="reportData && reportData.entries && reportData.entries.length > 0" 
                 :href="printTemplateUrl" 
@@ -825,6 +833,68 @@ export default {
       this.reportData = null;
       this.errors = {};
     },
+    
+    downloadPDF() {
+      // Build query parameters from filters
+      const params = new URLSearchParams();
+      if (this.filters.chartOfAccounts && this.filters.chartOfAccounts.length > 0) {
+        this.filters.chartOfAccounts.forEach(id => {
+          params.append('chart_of_account_ids[]', id);
+        });
+      }
+      if (this.filters.subChartOfAccounts && this.filters.subChartOfAccounts.length > 0) {
+        this.filters.subChartOfAccounts.forEach(id => {
+          params.append('sub_chart_of_account_ids[]', id);
+        });
+      }
+      if (this.filters.fiscalYear) {
+        params.append('fiscal_year_id', this.filters.fiscalYear);
+      }
+      if (this.filters.accountingPeriod) {
+        params.append('accounting_period_id', this.filters.accountingPeriod);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      
+      // Redirect to backend PDF route with query parameters
+      const pdfUrl = `/print/reports/group-account-statement/pdf?${params.toString()}`;
+      window.location.href = pdfUrl;
+    },
+
+    previewPDF() {
+      // Build query parameters from filters
+      const params = new URLSearchParams();
+      if (this.filters.chartOfAccounts && this.filters.chartOfAccounts.length > 0) {
+        this.filters.chartOfAccounts.forEach(id => {
+          params.append('chart_of_account_ids[]', id);
+        });
+      }
+      if (this.filters.subChartOfAccounts && this.filters.subChartOfAccounts.length > 0) {
+        this.filters.subChartOfAccounts.forEach(id => {
+          params.append('sub_chart_of_account_ids[]', id);
+        });
+      }
+      if (this.filters.fiscalYear) {
+        params.append('fiscal_year_id', this.filters.fiscalYear);
+      }
+      if (this.filters.accountingPeriod) {
+        params.append('accounting_period_id', this.filters.accountingPeriod);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      
+      // Redirect to backend PDF route with query parameters
+      const pdfUrl = `/print/reports/group-account-statement/preview?${params.toString()}`;
+      window.location.href = pdfUrl;
+    },
 
   },
 };
@@ -892,6 +962,16 @@ export default {
 }
 
 .export-pdf-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.preview-btn {
   background: #f6fef4 !important;
   color: #2ab930 !important;
   width: 56px;

@@ -57,11 +57,26 @@
                 <button type="reset" class="btn btn-secondary ml-2" @click="form.reset()">
                   <i class="fas fa-undo"></i> {{ $t('Reset') }}
                 </button>
+                <button 
+                  v-if="reportInfo" 
+                  @click="downloadPDF" 
+                  v-tooltip="$t('Export to PDF')" 
+                  class="btn export-pdf-btn ml-2"
+                >
+                  <i class="fas fa-file-export"></i>
+                </button>
+                <button 
+                  v-if="reportInfo" 
+                  @click="previewPDF" 
+                  v-tooltip="$t('Preview')" 
+                  class="btn preview-btn ml-2"
+                >
+                  <i class="fas fa-eye"></i>
+                </button>
                 <a 
                   v-if="reportInfo" 
                   :href="printTemplateUrl" 
                   target="_blank" 
-                  v-tooltip="$t('Print with Template')" 
                   class="btn print-btn ml-2"
                 >
                   <i class="fas fa-print"></i>  
@@ -404,6 +419,36 @@ export default {
     printWindow() {
       window.print();
     },
+    
+    downloadPDF() {
+      // Build query parameters from filters
+      const params = new URLSearchParams();
+      if (this.form.month) {
+        params.append('month', this.form.month);
+      }
+      if (this.form.year) {
+        params.append('year', this.form.year);
+      }
+      
+      // Redirect to backend PDF route with query parameters
+      const pdfUrl = `/print/reports/summary/pdf?${params.toString()}`;
+      window.location.href = pdfUrl;
+    },
+
+    previewPDF() {
+      // Build query parameters from filters
+      const params = new URLSearchParams();
+      if (this.form.month) {
+        params.append('month', this.form.month);
+      }
+      if (this.form.year) {
+        params.append('year', this.form.year);
+      }
+      
+      // Redirect to backend PDF route with query parameters
+      const pdfUrl = `/print/reports/summary/preview?${params.toString()}`;
+      window.location.href = pdfUrl;
+    },
   },
 };
 </script>
@@ -424,6 +469,7 @@ export default {
 .refresh-btn { background: #33a0d91a !important; color: #33a0d9 !important; border-radius: 10px; border: none; }
 .export-excel-btn { background: #f6fef4 !important; color: #2ab930 !important; border-radius: 10px; border: none; }
 .export-pdf-btn { background: #f6fef4 !important; color: #2ab930 !important; border-radius: 10px; border: none; }
+.preview-btn { background: #f6fef4 !important; color: #2ab930 !important; border-radius: 10px; border: none; }
 .print-btn { background: #33a0d91a !important; color: #33a0d9 !important; border-radius: 10px; border: none; }
 .btn-group.c-w-100 { gap: 10px; }
 .card { margin-top: 30px; border-radius: 20px; box-shadow: 0px 8px 20px 0px #00000014; border: 1px solid #CED4DA }

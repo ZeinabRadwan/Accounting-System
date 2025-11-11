@@ -40,8 +40,16 @@
                       />
                     </svg>
                   </a>
-                  <a
-                    :href="exportPdfUrl"
+                  <button
+                    @click="previewPDF"
+                    v-tooltip="$t('Preview PDF')"
+                    class="btn preview-btn"
+                    title="Preview PDF"
+                  >
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button
+                    @click="downloadPDF"
                     v-tooltip="$t('Export to PDF')"
                     class="btn export-pdf-btn"
                     title="Export to PDF"
@@ -58,9 +66,10 @@
                         fill="#2AB930"
                       />
                     </svg>
-                  </a>
+                  </button>
                   <a
-                    @click="print"
+                    :href="printTemplateUrl"
+                    target="_blank"
                     v-tooltip="$t('Print Table')"
                     class="btn print-btn"
                   >
@@ -481,6 +490,106 @@ export default {
       this.update({ from: this.form.fromDate, to: this.form.toDate });
     },
 
+    // download PDF
+    downloadPDF() {
+      // Validate required fields
+      if (!this.form.category || !this.form.category.slug) {
+        toast.fire({
+          type: 'error',
+          title: this.$t('Please select a category'),
+        });
+        return;
+      }
+      if (!this.form.subCategory || !this.form.subCategory.slug) {
+        toast.fire({
+          type: 'error',
+          title: this.$t('Please select a sub category'),
+        });
+        return;
+      }
+      if (!this.form.itemName || !this.form.itemName.slug) {
+        toast.fire({
+          type: 'error',
+          title: this.$t('Please select a product'),
+        });
+        return;
+      }
+
+      const params = new URLSearchParams();
+      if (this.form.category && this.form.category.slug) {
+        params.append('category[slug]', this.form.category.slug);
+        params.append('category[id]', this.form.category.id);
+        params.append('category[name]', this.form.category.name);
+      }
+      if (this.form.subCategory && this.form.subCategory.slug) {
+        params.append('subCategory[slug]', this.form.subCategory.slug);
+        params.append('subCategory[id]', this.form.subCategory.id);
+        params.append('subCategory[name]', this.form.subCategory.name);
+      }
+      if (this.form.itemName && this.form.itemName.slug) {
+        params.append('itemName[slug]', this.form.itemName.slug);
+        params.append('itemName[id]', this.form.itemName.id);
+        params.append('itemName[name]', this.form.itemName.name);
+      }
+      if (this.form.fromDate) {
+        params.append('fromDate', this.form.fromDate);
+      }
+      if (this.form.toDate) {
+        params.append('toDate', this.form.toDate);
+      }
+      window.location.href = `/print/reports/inventory/pdf?${params.toString()}`;
+    },
+
+    // preview PDF
+    previewPDF() {
+      // Validate required fields
+      if (!this.form.category || !this.form.category.slug) {
+        toast.fire({
+          type: 'error',
+          title: this.$t('Please select a category'),
+        });
+        return;
+      }
+      if (!this.form.subCategory || !this.form.subCategory.slug) {
+        toast.fire({
+          type: 'error',
+          title: this.$t('Please select a sub category'),
+        });
+        return;
+      }
+      if (!this.form.itemName || !this.form.itemName.slug) {
+        toast.fire({
+          type: 'error',
+          title: this.$t('Please select a product'),
+        });
+        return;
+      }
+
+      const params = new URLSearchParams();
+      if (this.form.category && this.form.category.slug) {
+        params.append('category[slug]', this.form.category.slug);
+        params.append('category[id]', this.form.category.id);
+        params.append('category[name]', this.form.category.name);
+      }
+      if (this.form.subCategory && this.form.subCategory.slug) {
+        params.append('subCategory[slug]', this.form.subCategory.slug);
+        params.append('subCategory[id]', this.form.subCategory.id);
+        params.append('subCategory[name]', this.form.subCategory.name);
+      }
+      if (this.form.itemName && this.form.itemName.slug) {
+        params.append('itemName[slug]', this.form.itemName.slug);
+        params.append('itemName[id]', this.form.itemName.id);
+        params.append('itemName[name]', this.form.itemName.name);
+      }
+      if (this.form.fromDate) {
+        params.append('fromDate', this.form.fromDate);
+      }
+      if (this.form.toDate) {
+        params.append('toDate', this.form.toDate);
+      }
+      window.location.href = `/print/reports/inventory/preview?${params.toString()}`;
+    },
+
     // print table area
     async print() {
       if (this.$htmlToPaper) {
@@ -510,6 +619,16 @@ export default {
 }
 
 .export-excel-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.preview-btn {
   background: #f6fef4 !important;
   color: #2ab930 !important;
   width: 56px;
