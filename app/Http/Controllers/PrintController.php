@@ -478,8 +478,8 @@ class PrintController extends Controller
      */
     public function previewAccountStatementPDF(Request $request)
     {
-        // Set locale for translations
-        // app()->setLocale('ar');
+        $locale = \Auth::user()->locale ?? 'ar';
+        \App::setLocale($locale);
         
         // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
@@ -515,7 +515,7 @@ class PrintController extends Controller
         // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.reports.account-statement' : 'print.account-statement-basic',
-            'view_data' => compact('accountStatementData', 'template', 'logoBase64'),
+            'view_data' => compact('accountStatementData', 'template', 'logoBase64', 'locale'),
             'type' => 'preview',
             'file_name' => $filename,
             'header' => '',
