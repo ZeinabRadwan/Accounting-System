@@ -24,50 +24,51 @@ if (mix.inProduction()) {
     })
 }
 
-mix.webpackConfig({
-  output: {
-    publicPath: '/',
-    chunkFilename: 'js/[name].js'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.wav$/i,
-        use: [
-          {
-            loader: 'file-loader',
-          },
-        ],
-      },
-      // {
-      //   test: /\.s[ac]ss$/i,
-      //   use: [
-      //     'vue-style-loader',
-      //     'css-loader',
-      //     {
-      //       loader: 'sass-loader',
-      //       options: {
-      //         api: 'modern-compiler',
-      //         sassOptions: {
-      //           api: 'modern-compiler'
-      //         }
-      //       }
-      //     }
-      //   ]
-      // }
-    ],
-  },
-  resolve: {
-    extensions: ['.js', '.json', '.vue'],
-    alias: {
-      '~': join(__dirname, './resources/js'),
-      '@': join(__dirname, './resources/js')
+mix.webpackConfig((webpack) => {
+  return {
+    output: {
+      chunkFilename: 'js/[name].js'
+    },
+    module: {
+      rules: [
+        {
+          test: /\.wav$/i,
+          use: [
+            {
+              loader: 'file-loader',
+            },
+          ],
+        },
+        // {
+        //   test: /\.s[ac]ss$/i,
+        //   use: [
+        //     'vue-style-loader',
+        //     'css-loader',
+        //     {
+        //       loader: 'sass-loader',
+        //       options: {
+        //         api: 'modern-compiler',
+        //         sassOptions: {
+        //           api: 'modern-compiler'
+        //         }
+        //       }
+        //     }
+        //   ]
+        // }
+      ],
+    },
+    resolve: {
+      extensions: ['.js', '.json', '.vue'],
+      alias: {
+        '~': join(__dirname, './resources/js'),
+        '@': join(__dirname, './resources/js')
+      }
+    },
+    optimization: {
+      minimize: false
+    },
+    performance: {
+      hints: false
     }
-  },
-  optimization: {
-    minimize: false
-  },
-  performance: {
-    hints: false
   }
 })
