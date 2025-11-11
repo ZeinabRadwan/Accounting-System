@@ -261,7 +261,7 @@
                         @if($elements['showLogo'] ?? true)
                         <div style="margin-bottom: 15px;">
                             @if($logoBase64)
-                                <img src="data:image/png;base64,{{ $logoBase64 }}" alt="@lang('print.Company Logo')" class="company-logo">
+                                <img src="{{ $logoBase64 }}" alt="@lang('print.Company Logo')" class="company-logo">
                             @elseif($template && $template->logo_path)
                                 <img src="{{ asset($template->logo_path) }}" alt="@lang('print.Company Logo')" class="company-logo">
                             @endif
