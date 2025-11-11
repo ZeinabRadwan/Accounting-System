@@ -27,7 +27,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Purchase - {{ $purchase->purchase_no }}</title>
+    <title>Purchase Return - {{ $purchaseReturn->code ?? $purchaseReturn->reason }}</title>
     <!-- Base64 font will be added here manually -->
     <!-- @font-face {
         font-family: 'DINNextLTArabic';
@@ -67,17 +67,17 @@
                     </div>
                     <div style="text-align: {{ $isRTL ? 'left' : 'right' }};">
                         <h2 style="color: {{ $colors['primary'] ?? '#2563eb' }}; font-size: 24px; margin: 0 0 15px 0;">
-                            @lang('print.Purchase')
+                            @lang('print.Purchase Return')
                         </h2>
                         <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-                            @lang('print.Purchase #'): {{ $purchase->purchase_no }}
+                            @lang('print.Return #'): {{ $purchaseReturn->code ?? __('print.N/A') }}
                         </p>
                         <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-                            @lang('print.Date'): {{ \Carbon\Carbon::parse($purchase->purchase_date)->format('M d, Y') }}
+                            @lang('print.Date'): {{ \Carbon\Carbon::parse($purchaseReturn->date)->format('M d, Y') }}
                         </p>
-                        @if($purchase->dueDate)
+                        @if($purchaseReturn->purchase)
                         <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-                            @lang('print.Due Date'): {{ \Carbon\Carbon::parse($purchase->dueDate)->format('M d, Y') }}
+                            @lang('print.Original Purchase #'): {{ $purchaseReturn->purchase->purchase_no }}
                         </p>
                         @endif
                     </div>
@@ -88,14 +88,42 @@
             @if($elements['showClientInfo'] ?? true)
             <!-- Supplier Info -->
             <div style="margin-bottom: 30px;">
-                <h3 style="color: {{ $colors['primary'] ?? '#2563eb' }}; margin-bottom: 10px;">@lang('print.Supplier'):</h3>
-                <p style="margin: 0; font-weight: 600; direction: rtl; text-align: right;">{{ $purchase->supplier->name ?? __('print.N/A') }}</p>
+                <h3 style="color: {{ $colors['primary'] ?? '#2563eb' }}; margin-bottom: 10px;">@lang('print.Return From'):</h3>
+                <p style="margin: 0; font-weight: 600; direction: rtl; text-align: right;">{{ $purchaseReturn->purchase->supplier->name ?? __('print.N/A') }}</p>
                 <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-                    {{ $purchase->supplier->address ?? __('print.N/A') }}
+                    {{ $purchaseReturn->purchase->supplier->address ?? __('print.N/A') }}
                 </p>
                 <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-                    {{ $purchase->supplier->email ?? __('print.N/A') }} • {{ $purchase->supplier->phone ?? __('print.N/A') }}
+                    {{ $purchaseReturn->purchase->supplier->email ?? __('print.N/A') }} • {{ $purchaseReturn->purchase->supplier->phone ?? __('print.N/A') }}
                 </p>
+            </div>
+            @endif
+
+            @if($elements['showReturnInfo'] ?? true)
+            <!-- Return Information -->
+            <div style="margin: 20px 0; padding: 15px; background-color: #f8f9fa; border-radius: 5px;">
+                <h4 style="color: {{ $colors['primary'] ?? '#2563eb' }}; margin-bottom: 10px;">@lang('print.Return Details')</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div>
+                        <strong>@lang('print.Reason'):</strong> {{ $purchaseReturn->reason ?? __('print.N/A') }}
+                    </div>
+                    <div>
+                        <strong>@lang('print.Status'):</strong> 
+                        <span style="color: {{ $purchaseReturn->status ? '#28a745' : '#dc3545' }};">
+                            {{ $purchaseReturn->status ? __('print.Active') : __('print.Inactive') }}
+                        </span>
+                    </div>
+                    @if($purchaseReturn->user)
+                    <div>
+                        <strong>@lang('print.Created By'):</strong> {{ $purchaseReturn->user->name ?? __('print.N/A') }}
+                    </div>
+                    @endif
+                    @if($purchaseReturn->note)
+                    <div style="grid-column: 1 / -1;">
+                        <strong>@lang('print.Note'):</strong> {{ $purchaseReturn->note }}
+                    </div>
+                    @endif
+                </div>
             </div>
             @endif
             
@@ -108,18 +136,13 @@
                             <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; background-color: #f9fafb; font-weight: 600;">@lang('print.Row Number')</th>
                             <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; background-color: #f9fafb; font-weight: 600;">@lang('print.Product Code')</th>
                             <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; background-color: #f9fafb; font-weight: 600;">@lang('print.Product Name')</th>
-                            <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; background-color: #f9fafb; font-weight: 600;">@lang('print.Quantity')</th>
                             <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; background-color: #f9fafb; font-weight: 600;">@lang('print.Return Quantity')</th>
                             <th style="padding: 12px; text-align: right; border: 1px solid #e5e7eb; background-color: #f9fafb; font-weight: 600;">@lang('print.Price')</th>
-                            <th style="padding: 12px; text-align: right; border: 1px solid #e5e7eb; background-color: #f9fafb; font-weight: 600;">@lang('print.Total')</th>
-                            <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; background-color: #f9fafb; font-weight: 600;">@lang('print.Discount')</th>
-                            <th style="padding: 12px; text-align: right; border: 1px solid #e5e7eb; background-color: #f9fafb; font-weight: 600;">@lang('print.Total After Discount')</th>
-                            <th style="padding: 12px; text-align: right; border: 1px solid #e5e7eb; background-color: #f9fafb; font-weight: 600;">@lang('print.VAT')</th>
-                            <th style="padding: 12px; text-align: right; border: 1px solid #e5e7eb; background-color: #f9fafb; font-weight: 600;">@lang('print.Total with Tax')</th>
+                            <th style="padding: 12px; text-align: right; border: 1px solid #e5e7eb; background-color: #f9fafb; font-weight: 600;">@lang('print.Return Total')</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($purchase->purchaseProducts as $index => $product)
+                        @foreach($purchaseReturn->purchaseReturnProducts as $index => $product)
                         <tr style="background-color: {{ $index % 2 == 0 ? '#f9fafb' : '#ffffff' }};">
                             <td style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;">{{ $index + 1 }}</td>
                             <td style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;">{{ $product->product->code ?? __('print.N/A') }}</td>
@@ -130,29 +153,8 @@
                                 @endif
                             </td>
                             <td style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;">{{ $product->quantity }} {{ $product->product->productUnit->name ?? __('print.Pcs') }}</td>
-                            <td style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;">{{ $product->purchaseReturnQty ?? 0 }} {{ $product->product->productUnit->name ?? __('print.Pcs') }}</td>
                             <td style="padding: 12px; text-align: right; border: 1px solid #e5e7eb;">{{ formatPdfCurrency($product->purchase_price) }}</td>
                             <td style="padding: 12px; text-align: right; border: 1px solid #e5e7eb;">{{ formatPdfCurrency($product->quantity * $product->purchase_price) }}</td>
-                            <td style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;">
-                                @if($product->discount > 0)
-                                    @if($product->discount_type === 'percentage')
-                                        {{ $product->discount }}%
-                                    @else
-                                        {{ formatPdfCurrency($product->discount) }}
-                                    @endif
-                                @else
-                                    @lang('print.No Discount')
-                                @endif
-                            </td>
-                            <td style="padding: 12px; text-align: right; border: 1px solid #e5e7eb;">{{ formatPdfCurrency($product->getTotalAfterDiscountAttribute()) }}</td>
-                            <td style="padding: 12px; text-align: right; border: 1px solid #e5e7eb;">
-                                @if($product->tax_amount > 0)
-                                    {{ formatPdfCurrency($product->tax_amount) }}
-                                @else
-                                    @lang('print.No VAT')
-                                @endif
-                            </td>
-                            <td style="padding: 12px; text-align: right; border: 1px solid #e5e7eb;">{{ formatPdfCurrency($product->getTotalAfterDiscountAttribute() + $product->tax_amount) }}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -164,25 +166,13 @@
             <!-- Totals -->
             <div style="margin-top: 30px; display: flex; justify-content: {{ $isRTL ? 'flex-start' : 'flex-end' }};">
                 <div style="width: 300px; border: 1px solid #e5e7eb; border-radius: 8px; padding: 15px; background-color: #f9fafb;">
-                    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #e5e7eb;">
-                        <span>@lang('print.Subtotal'):</span>
-                        <span>{{ formatPdfCurrency($purchase->sub_total) }}</span>
-                    </div>
-                    @if($purchase->discount > 0)
-                    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #e5e7eb;">
-                        <span>@lang('print.Discount'):</span>
-                        <span>-{{ formatPdfCurrency($purchase->discount) }}</span>
-                    </div>
-                    @endif
-                    @if($purchase->calculated_tax > 0)
-                    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #e5e7eb;">
-                        <span>@lang('print.Tax'):</span>
-                        <span>{{ formatPdfCurrency($purchase->calculated_tax) }}</span>
-                    </div>
-                    @endif
+                    @php
+                        $totalReturn = $purchaseReturn->total_return ?? 0;
+                    @endphp
+                    
                     <div style="display: flex; justify-content: space-between; padding: 8px 0; font-weight: bold; font-size: {{ ($typography['baseFontSize'] ?? 14) + 2 }}px; color: {{ $colors['primary'] ?? '#2563eb' }}; margin-top: 10px; padding-top: 10px; border-top: 2px solid {{ $colors['primary'] ?? '#2563eb' }};">
-                        <span>@lang('print.Total'):</span>
-                        <span>{{ formatPdfCurrency($purchase->calculated_total) }}</span>
+                        <span>@lang('print.Total Return'):</span>
+                        <span>{{ formatPdfCurrency($totalReturn) }}</span>
                     </div>
                 </div>
             </div>
@@ -192,7 +182,7 @@
             <!-- Footer -->
             <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e5e7eb; text-align: center;">
                 <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-                    @lang('print.Thank you for your service!')
+                    @lang('print.Thank you for your business!')
                 </p>
                 @if($purchaseFooterText)
                 <p style="margin: 10px 0 0 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">

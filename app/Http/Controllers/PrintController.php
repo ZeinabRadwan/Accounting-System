@@ -6,6 +6,8 @@ use App\Models\Invoice;
 use App\Models\InvoiceReturn;
 use App\Models\PaymentVoucher;
 use App\Models\Purchase;
+use App\Models\PurchaseReturn;
+use App\Models\PurchaseOrder;
 use App\Models\Quotation;
 use App\Models\PrintTemplate;
 use App\Models\GeneralSetting;
@@ -127,6 +129,40 @@ class PrintController extends Controller
         }
 
         return view('print.invoice-return', compact('invoiceReturn', 'template'));
+    }
+
+    /**
+     * Print purchase return using selected template
+     */
+    public function printPurchaseReturn($slug)
+    {
+        // Set locale for translations
+        $locale = \Auth::user()->locale ?? app()->getLocale();
+        \App::setLocale($locale);
+        
+        $purchaseReturn = PurchaseReturn::where('slug', $slug)
+            ->with([
+                'purchase.supplier', 
+                'purchase.purchaseProducts.product.productUnit',
+                'purchase.purchaseProducts.product.productTax',
+                'purchaseReturnProducts.product.productUnit', 
+                'purchaseReturnProducts.product.productTax', 
+                'user'
+            ])
+            ->firstOrFail();
+
+        // Get the default template for purchase returns
+        $template = PrintTemplate::byModule('purchase-return')->default()->first();
+        
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+        
+        if (!$template) {
+            // Fallback to basic template if no print template is set
+            return view('print.purchase-return-basic', compact('purchaseReturn', 'locale', 'logoBase64'));
+        }
+
+        return view('print.purchase-return', compact('purchaseReturn', 'template', 'locale', 'logoBase64'));
     }
 
     /**
@@ -1474,12 +1510,12 @@ class PrintController extends Controller
     }
 
     /**
-     * Download purchase as PDF using selected template
+     * Preview purchase as PDF using selected template
      */
-    public function downloadPurchasePDF($slug)
+    public function previewPurchasePDF($slug)
     {
-        // Set locale for translations - force Arabic for print templates
-        app()->setLocale('ar');
+        $locale = \Auth::user()->locale ?? 'ar';
+        \App::setLocale($locale);
         
         $purchase = Purchase::where('slug', $slug)
             ->with('supplier', 'purchaseProducts.purchase', 'purchasePayments.purchasePaymentTransaction.cashbookAccount', 
@@ -1490,164 +1526,65 @@ class PrintController extends Controller
         // Get the default template for purchases
         $template = PrintTemplate::byModule('purchase')->default()->first();
         
-        if (!$template) {
-            // Fallback to basic template if no print template is set
-            if (view()->exists('print.purchase-basic')) {
-                $html = view('print.purchase-basic', compact('purchase'))->render();
-            } else {
-                // Use regular template without template config
-                $template = new PrintTemplate();
-                $template->template_config = $this->getTemplateConfig('purchase');
-                $html = view('print.purchase', compact('purchase', 'template'))->render();
-            }
-        } else {
-            $html = view('print.purchase', compact('purchase', 'template'))->render();
-        }
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+        
+        // Generate filename
+        $filename = 'Purchase-' . $purchase->purchase_no . '.pdf';
+        
+        // Use Utility::buildPdf to generate PDF
+        return \App\Models\Utility::buildPdf([
+            'view' => $template ? 'print.purchase' : 'print.purchase-basic',
+            'view_data' => compact('purchase', 'template', 'locale', 'logoBase64'),
+            'type' => 'preview',
+            'file_name' => $filename,
+            'header' => '',
+            'footer' => '',
+            'header_spacing' => '2',
+            'margins' => [
+                'top' => '10mm',
+                'bottom' => '10mm',
+            ]
+        ], 'portrait', false);
+    }
+
+    /**
+     * Download purchase as PDF using selected template
+     */
+    public function downloadPurchasePDF($slug)
+    {
+        $locale = \Auth::user()->locale ?? 'ar';
+        \App::setLocale($locale);
+        
+        $purchase = Purchase::where('slug', $slug)
+            ->with('supplier', 'purchaseProducts.purchase', 'purchasePayments.purchasePaymentTransaction.cashbookAccount', 
+                   'purchaseProducts.product.productUnit', 'purchaseProducts.product.productTax', 
+                   'purchaseTax', 'user')
+            ->firstOrFail();
+
+        // Get the default template for purchases
+        $template = PrintTemplate::byModule('purchase')->default()->first();
         
         // Convert logo to base64 for PDF compatibility
-        $logoBase64 = $this->getLogoAsBase64($template);
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
         
-        // Hide buttons in PDF and add Arabic support
-        $html = str_replace('<head>', '<head>
-            <style>
-                .action-buttons { display: none !important; }
-                body { 
-                    font-family: Arial, "DejaVu Sans", sans-serif; 
-                    direction: ltr;
-                }
-                .arabic-text { 
-                    direction: rtl; 
-                    text-align: right; 
-                    font-family: Arial, "DejaVu Sans", "Tahoma", sans-serif;
-                }
-                * { 
-                    -webkit-font-smoothing: antialiased;
-                    -moz-osx-font-smoothing: grayscale;
-                }
-                
-                /* Fix layout issues for PDF */
-                .document-header > div {
-                    display: table !important;
-                    width: 100% !important;
-                }
-                .document-header > div > div:first-child {
-                    display: table-cell !important;
-                    vertical-align: top !important;
-                    width: 60% !important;
-                }
-                .document-header > div > div:last-child {
-                    display: table-cell !important;
-                    vertical-align: top !important;
-                    width: 40% !important;
-                    text-align: right !important;
-                }
-                
-                /* Fix logo display */
-                .company-logo {
-                    max-height: 60px !important;
-                    max-width: 200px !important;
-                    height: auto !important;
-                    width: auto !important;
-                    display: block !important;
-                }
-                
-                /* Fix totals section layout */
-                .totals-section {
-                    display: table !important;
-                    width: 100% !important;
-                }
-                .totals-table {
-                    display: table-cell !important;
-                    width: 300px !important;
-                    vertical-align: top !important;
-                }
-                
-                /* Ensure proper spacing */
-                .client-info, .supplier-info {
-                    margin-bottom: 20px !important;
-                }
-                
-                /* Professional table styling for PDF - High specificity */
-                .document-container .items-table {
-                    width: 100% !important;
-                    border-collapse: collapse !important;
-                    margin-bottom: 25px !important;
-                    font-size: 12px !important;
-                    border: 2px solid #374151 !important;
-                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
-                }
-                .document-container .items-table th,
-                .document-container .items-table td {
-                    padding: 10px 8px !important;
-                    border: 1px solid #d1d5db !important;
-                    vertical-align: middle !important;
-                    font-size: 11px !important;
-                    line-height: 1.4 !important;
-                }
-                .document-container .items-table th {
-                    background: #374151 !important;
-                    color: #ffffff !important;
-                    font-weight: 600 !important;
-                    text-align: center !important;
-                    padding: 12px 8px !important;
-                    border-bottom: 2px solid #1f2937 !important;
-                    text-transform: uppercase !important;
-                    letter-spacing: 0.5px !important;
-                }
-                .document-container .items-table tbody tr {
-                    background: #ffffff !important;
-                }
-                .document-container .items-table tbody tr:nth-child(even) {
-                    background: #f9fafb !important;
-                }
-                .document-container .items-table tbody tr:hover {
-                    background: #f3f4f6 !important;
-                }
-                .document-container .items-table .text-right {
-                    text-align: right !important;
-                    font-weight: 500 !important;
-                }
-                .document-container .items-table .text-center {
-                    text-align: center !important;
-                }
-                .document-container .items-table tbody td {
-                    color: #374151 !important;
-                }
-                .document-container .items-table tbody td strong {
-                    font-weight: 600 !important;
-                    color: #111827 !important;
-                }
-                .document-container .items-table tbody td small {
-                    font-size: 10px !important;
-                    color: #6b7280 !important;
-                }
-                
-                
-                /* Fix number formatting */
-                .items-table td {
-                    white-space: nowrap !important;
-                }
-                .items-table td:first-child {
-                    white-space: normal !important;
-                }
-            </style>
-            <meta http-equiv="Content-Type" content="text/html; charset=utf-8">', $html);
-            
-        // Replace logo URLs with base64 data URLs
-        if ($logoBase64) {
-            // Replace both Blade template variable and actual rendered URLs
-            $html = str_replace('src="{{ $template->logo_url }}"', 'src="' . $logoBase64 . '"', $html);
-            
-            // Also replace any existing logo URLs that might be rendered
-            $pattern = '/src="[^"]*\/images\/[^"]*\.(png|jpg|jpeg|gif)"/i';
-            $html = preg_replace($pattern, 'src="' . $logoBase64 . '"', $html);
-            
-            Log::info('Logo converted to base64 successfully');
-        } else {
-            Log::warning('Logo base64 conversion failed - no logo will be displayed');
-        }
-
-        return $this->generatePDF($html, 'Purchase-' . $purchase->purchase_no . '.pdf');
+        // Generate filename
+        $filename = 'Purchase-' . $purchase->purchase_no . '.pdf';
+        
+        // Use Utility::buildPdf to generate PDF
+        return \App\Models\Utility::buildPdf([
+            'view' => $template ? 'print.purchase' : 'print.purchase-basic',
+            'view_data' => compact('purchase', 'template', 'locale', 'logoBase64'),
+            'type' => 'download',
+            'file_name' => $filename,
+            'header' => '',
+            'footer' => '',
+            'header_spacing' => '2',
+            'margins' => [
+                'top' => '10mm',
+                'bottom' => '10mm',
+            ]
+        ], 'portrait', false);
     }
 
     /**
@@ -1725,12 +1662,12 @@ class PrintController extends Controller
     }
 
     /**
-     * Download invoice return as PDF using selected template
+     * Preview invoice return (credit note) as PDF using selected template
      */
-    public function downloadInvoiceReturnPDF($slug)
+    public function previewInvoiceReturnPDF($slug)
     {
-        // Set locale for translations - force Arabic for print templates
-        app()->setLocale('ar');
+        $locale = \Auth::user()->locale ?? 'ar';
+        \App::setLocale($locale);
         
         $invoiceReturn = InvoiceReturn::where('slug', $slug)
             ->with([
@@ -1747,122 +1684,260 @@ class PrintController extends Controller
         // Get the default template for invoice returns
         $template = PrintTemplate::byModule('invoice-return')->default()->first();
         
-        if (!$template) {
-            // Fallback to basic template if no print template is set
-            if (view()->exists('print.invoice-return-basic')) {
-                $html = view('print.invoice-return-basic', compact('invoiceReturn'))->render();
-            } else {
-                // Use regular template without template config
-                $template = new PrintTemplate();
-                $template->template_config = $this->getTemplateConfig('invoice-return');
-                $html = view('print.invoice-return', compact('invoiceReturn', 'template'))->render();
-            }
-        } else {
-            $html = view('print.invoice-return', compact('invoiceReturn', 'template'))->render();
-        }
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+        
+        // Generate filename
+        $filename = 'Invoice-Return-' . $invoiceReturn->return_no . '.pdf';
+        
+        // Use Utility::buildPdf to generate PDF
+        return \App\Models\Utility::buildPdf([
+            'view' => $template ? 'print.invoice-return' : 'print.invoice-return-basic',
+            'view_data' => compact('invoiceReturn', 'template', 'locale', 'logoBase64'),
+            'type' => 'preview',
+            'file_name' => $filename,
+            'header' => '',
+            'footer' => '',
+            'header_spacing' => '2',
+            'margins' => [
+                'top' => '10mm',
+                'bottom' => '10mm',
+            ]
+        ], 'portrait', false);
+    }
+
+    /**
+     * Download invoice return as PDF using selected template
+     */
+    public function downloadInvoiceReturnPDF($slug)
+    {
+        $locale = \Auth::user()->locale ?? 'ar';
+        \App::setLocale($locale);
+        
+        $invoiceReturn = InvoiceReturn::where('slug', $slug)
+            ->with([
+                'invoice.client', 
+                'invoice.invoiceProducts.product.productUnit',
+                'invoice.invoiceProducts.product.productTax',
+                'invoice.invoiceProducts.vatRate',
+                'invoiceReturnProducts.product.productUnit', 
+                'invoiceReturnProducts.product.productTax', 
+                'user'
+            ])
+            ->firstOrFail();
+
+        // Get the default template for invoice returns
+        $template = PrintTemplate::byModule('invoice-return')->default()->first();
         
         // Convert logo to base64 for PDF compatibility
-        $logoBase64 = $this->getLogoAsBase64($template);
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
         
-        // Hide buttons in PDF and add Arabic support
-        $html = str_replace('<head>', '<head>
-            <style>
-                .action-buttons { display: none !important; }
-                body { 
-                    font-family: Arial, "DejaVu Sans", sans-serif; 
-                    direction: ltr;
-                }
-                .arabic-text { 
-                    direction: rtl; 
-                    text-align: right; 
-                    font-family: Arial, "DejaVu Sans", "Tahoma", sans-serif;
-                }
-                * { 
-                    -webkit-font-smoothing: antialiased;
-                    -moz-osx-font-smoothing: grayscale;
-                }
-                
-                /* Fix layout issues for PDF */
-                .document-header > div {
-                    display: table !important;
-                    width: 100% !important;
-                }
-                .document-header .company-info,
-                .document-header .client-info {
-                    display: table-cell !important;
-                    vertical-align: top !important;
-                }
-                
-                /* Ensure proper spacing */
-                .invoice-header {
-                    margin-bottom: 20px;
-                }
-                
-                /* Table styling for PDF */
-                .invoice-table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    margin: 20px 0;
-                }
-                
-                .invoice-table th,
-                .invoice-table td {
-                    border: 1px solid #ddd;
-                    padding: 8px;
-                    text-align: left;
-                }
-                
-                .invoice-table th {
-                    background-color: #f5f5f5;
-                    font-weight: bold;
-                }
-                
-                /* Summary table styling */
-                .summary-table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    margin-top: 20px;
-                }
-                
-                .summary-table th,
-                .summary-table td {
-                    border: 1px solid #ddd;
-                    padding: 8px;
-                    text-align: right;
-                }
-                
-                .summary-table th {
-                    background-color: #f8f9fa;
-                    font-weight: bold;
-                }
-                
-                /* Hide print-specific elements */
-                .no-print {
-                    display: none !important;
-                }
-                
-                /* Ensure proper page breaks */
-                .page-break {
-                    page-break-before: always;
-                }
-                
-                /* Logo styling */
-                .company-logo {
-                    max-width: 150px;
-                    max-height: 80px;
-                    object-fit: contain;
-                }
-            </style>', $html);
+        // Generate filename
+        $filename = 'Invoice-Return-' . $invoiceReturn->return_no . '.pdf';
+        
+        // Use Utility::buildPdf to generate PDF
+        return \App\Models\Utility::buildPdf([
+            'view' => $template ? 'print.invoice-return' : 'print.invoice-return-basic',
+            'view_data' => compact('invoiceReturn', 'template', 'locale', 'logoBase64'),
+            'type' => 'download',
+            'file_name' => $filename,
+            'header' => '',
+            'footer' => '',
+            'header_spacing' => '2',
+            'margins' => [
+                'top' => '10mm',
+                'bottom' => '10mm',
+            ]
+        ], 'portrait', false);
+    }
 
-        // Replace logo placeholder with base64 if available
-        if ($logoBase64) {
-            $html = str_replace('{{LOGO_BASE64}}', $logoBase64, $html);
-            Log::info('Logo converted to base64 successfully');
-        } else {
-            Log::warning('Logo base64 conversion failed - no logo will be displayed');
+    /**
+     * Preview purchase return (debit note) as PDF using selected template
+     */
+    public function previewPurchaseReturnPDF($slug)
+    {
+        $locale = \Auth::user()->locale ?? 'ar';
+        \App::setLocale($locale);
+        
+        $purchaseReturn = PurchaseReturn::where('slug', $slug)
+            ->with([
+                'purchase.supplier', 
+                'purchase.purchaseProducts.product.productUnit',
+                'purchase.purchaseProducts.product.productTax',
+                'purchaseReturnProducts.product.productUnit', 
+                'purchaseReturnProducts.product.productTax', 
+                'user'
+            ])
+            ->firstOrFail();
+
+        // Get the default template for purchase returns
+        $template = PrintTemplate::byModule('purchase-return')->default()->first();
+        
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+        
+        // Generate filename
+        $filename = 'Purchase-Return-' . $purchaseReturn->return_no . '.pdf';
+        
+        // Use Utility::buildPdf to generate PDF
+        return \App\Models\Utility::buildPdf([
+            'view' => $template ? 'print.purchase-return' : 'print.purchase-return-basic',
+            'view_data' => compact('purchaseReturn', 'template', 'locale', 'logoBase64'),
+            'type' => 'preview',
+            'file_name' => $filename,
+            'header' => '',
+            'footer' => '',
+            'header_spacing' => '2',
+            'margins' => [
+                'top' => '10mm',
+                'bottom' => '10mm',
+            ]
+        ], 'portrait', false);
+    }
+
+    /**
+     * Download purchase return (debit note) as PDF using selected template
+     */
+    public function downloadPurchaseReturnPDF($slug)
+    {
+        $locale = \Auth::user()->locale ?? 'ar';
+        \App::setLocale($locale);
+        
+        $purchaseReturn = PurchaseReturn::where('slug', $slug)
+            ->with([
+                'purchase.supplier', 
+                'purchase.purchaseProducts.product.productUnit',
+                'purchase.purchaseProducts.product.productTax',
+                'purchaseReturnProducts.product.productUnit', 
+                'purchaseReturnProducts.product.productTax', 
+                'user'
+            ])
+            ->firstOrFail();
+
+        // Get the default template for purchase returns
+        $template = PrintTemplate::byModule('purchase-return')->default()->first();
+        
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+        
+        // Generate filename
+        $filename = 'Purchase-Return-' . $purchaseReturn->return_no . '.pdf';
+        
+        // Use Utility::buildPdf to generate PDF
+        return \App\Models\Utility::buildPdf([
+            'view' => $template ? 'print.purchase-return' : 'print.purchase-return-basic',
+            'view_data' => compact('purchaseReturn', 'template', 'locale', 'logoBase64'),
+            'type' => 'download',
+            'file_name' => $filename,
+            'header' => '',
+            'footer' => '',
+            'header_spacing' => '2',
+            'margins' => [
+                'top' => '10mm',
+                'bottom' => '10mm',
+            ]
+        ], 'portrait', false);
+    }
+
+    /**
+     * Print purchase order using selected template
+     */
+    public function printPurchaseOrder($slug)
+    {
+        // Set locale for translations
+        $locale = \Auth::user()->locale ?? app()->getLocale();
+        \App::setLocale($locale);
+        
+        $purchaseOrder = PurchaseOrder::where('slug', $slug)
+            ->with('supplier', 'purchaseOrderProducts.product.productUnit', 'purchaseOrderProducts.product.productTax', 'user')
+            ->firstOrFail();
+
+        // Get the default template for purchase orders
+        $template = PrintTemplate::byModule('purchase-order')->default()->first();
+        
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+        
+        if (!$template) {
+            // Fallback to basic template if no print template is set
+            return view('print.purchase-order-basic', compact('purchaseOrder', 'locale', 'logoBase64'));
         }
 
-        return $this->generatePDF($html, 'Invoice-Return-' . $invoiceReturn->return_no . '.pdf');
+        return view('print.purchase-order', compact('purchaseOrder', 'template', 'locale', 'logoBase64'));
+    }
+
+    /**
+     * Preview purchase order as PDF using selected template
+     */
+    public function previewPurchaseOrderPDF($slug)
+    {
+        $locale = \Auth::user()->locale ?? 'ar';
+        \App::setLocale($locale);
+        
+        $purchaseOrder = PurchaseOrder::where('slug', $slug)
+            ->with('supplier', 'purchaseOrderProducts.product.productUnit', 'purchaseOrderProducts.product.productTax', 'user')
+            ->firstOrFail();
+
+        // Get the default template for purchase orders
+        $template = PrintTemplate::byModule('purchase-order')->default()->first();
+        
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+        
+        // Generate filename
+        $filename = 'Purchase-Order-' . $purchaseOrder->purchase_no . '.pdf';
+        
+        // Use Utility::buildPdf to generate PDF
+        return \App\Models\Utility::buildPdf([
+            'view' => $template ? 'print.purchase-order' : 'print.purchase-order-basic',
+            'view_data' => compact('purchaseOrder', 'template', 'locale', 'logoBase64'),
+            'type' => 'preview',
+            'file_name' => $filename,
+            'header' => '',
+            'footer' => '',
+            'header_spacing' => '2',
+            'margins' => [
+                'top' => '10mm',
+                'bottom' => '10mm',
+            ]
+        ], 'portrait', false);
+    }
+
+    /**
+     * Download purchase order as PDF using selected template
+     */
+    public function downloadPurchaseOrderPDF($slug)
+    {
+        $locale = \Auth::user()->locale ?? 'ar';
+        \App::setLocale($locale);
+        
+        $purchaseOrder = PurchaseOrder::where('slug', $slug)
+            ->with('supplier', 'purchaseOrderProducts.product.productUnit', 'purchaseOrderProducts.product.productTax', 'user')
+            ->firstOrFail();
+
+        // Get the default template for purchase orders
+        $template = PrintTemplate::byModule('purchase-order')->default()->first();
+        
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+        
+        // Generate filename
+        $filename = 'Purchase-Order-' . $purchaseOrder->purchase_no . '.pdf';
+        
+        // Use Utility::buildPdf to generate PDF
+        return \App\Models\Utility::buildPdf([
+            'view' => $template ? 'print.purchase-order' : 'print.purchase-order-basic',
+            'view_data' => compact('purchaseOrder', 'template', 'locale', 'logoBase64'),
+            'type' => 'download',
+            'file_name' => $filename,
+            'header' => '',
+            'footer' => '',
+            'header_spacing' => '2',
+            'margins' => [
+                'top' => '10mm',
+                'bottom' => '10mm',
+            ]
+        ], 'portrait', false);
     }
 
     /**

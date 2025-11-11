@@ -25680,12 +25680,12 @@ var map = {
 		856
 	],
 	"./purchase-order/show": [
-		68321,
-		8321
+		32841,
+		2841
 	],
 	"./purchase-order/show.vue": [
-		68321,
-		8321
+		32841,
+		2841
 	],
 	"./purchases": [
 		33148,
@@ -25752,20 +25752,20 @@ var map = {
 		5073
 	],
 	"./purchases/returns/show": [
-		11773,
-		1773
+		63507,
+		3507
 	],
 	"./purchases/returns/show.vue": [
-		11773,
-		1773
+		63507,
+		3507
 	],
 	"./purchases/show": [
-		18930,
-		8930
+		36054,
+		6054
 	],
 	"./purchases/show.vue": [
-		18930,
-		8930
+		36054,
+		6054
 	],
 	"./reports/account-statement": [
 		66959,
@@ -26040,12 +26040,12 @@ var map = {
 		7109
 	],
 	"./sales/returns/show": [
-		53146,
-		3146
+		20477,
+		477
 	],
 	"./sales/returns/show.vue": [
-		53146,
-		3146
+		20477,
+		477
 	],
 	"./settings": [
 		67241,

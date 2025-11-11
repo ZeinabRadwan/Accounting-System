@@ -710,9 +710,18 @@ Route::middleware([
     Route::get('/print/invoice/{slug}/preview', [App\Http\Controllers\PrintController::class, 'previewInvoicePDF'])->name('print.invoice.preview');
     Route::get('/print/quotation/{slug}/preview', [App\Http\Controllers\PrintController::class, 'previewQuotationPDF'])->name('print.quotation.preview');
     Route::get('/print/purchase/{slug}', [App\Http\Controllers\PrintController::class, 'printPurchase'])->name('print.purchase');
+    Route::get('/print/purchase/{slug}/preview', [App\Http\Controllers\PrintController::class, 'previewPurchasePDF'])->name('print.purchase.preview');
+    Route::get('/print/purchase/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadPurchasePDF'])->name('print.purchase.pdf');
     Route::get('/print/quotation/{slug}', [App\Http\Controllers\PrintController::class, 'printQuotation'])->name('print.quotation');
     Route::get('/print/invoice-return/{slug}', [App\Http\Controllers\PrintController::class, 'printInvoiceReturn'])->name('print.invoice-return');
+    Route::get('/print/invoice-return/{slug}/preview', [App\Http\Controllers\PrintController::class, 'previewInvoiceReturnPDF'])->name('print.invoice-return.preview');
     Route::get('/print/invoice-return/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadInvoiceReturnPDF'])->name('print.invoice-return.pdf');
+    Route::get('/print/purchase-return/{slug}', [App\Http\Controllers\PrintController::class, 'printPurchaseReturn'])->name('print.purchase-return');
+    Route::get('/print/purchase-return/{slug}/preview', [App\Http\Controllers\PrintController::class, 'previewPurchaseReturnPDF'])->name('print.purchase-return.preview');
+    Route::get('/print/purchase-return/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadPurchaseReturnPDF'])->name('print.purchase-return.pdf');
+    Route::get('/print/purchase-order/{slug}', [App\Http\Controllers\PrintController::class, 'printPurchaseOrder'])->name('print.purchase-order');
+    Route::get('/print/purchase-order/{slug}/preview', [App\Http\Controllers\PrintController::class, 'previewPurchaseOrderPDF'])->name('print.purchase-order.preview');
+    Route::get('/print/purchase-order/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadPurchaseOrderPDF'])->name('print.purchase-order.pdf');
     // Voucher print routes
     Route::get('/print/voucher/{slug}', [App\Http\Controllers\PrintController::class, 'printVoucher'])->name('print.voucher');
     Route::get('/print/voucher/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadVoucherPDF'])->name('print.voucher.pdf');

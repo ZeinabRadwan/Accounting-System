@@ -40,11 +40,12 @@
             </ul>
           </div>
           <div class="btn-group">
-            <a @click="generatePDF()" href="#" class="btn btn-info">
-              <i class="fas fa-download"></i> {{ $t("download") }}
+            <!-- New preview and download PDF buttons -->
+            <a @click="previewPDF" href="#" class="btn btn-info">
+              <i class="fas fa-eye"></i> {{ $t("Preview PDF") }}
             </a>
-            <a @click="printWindow()" href="#" class="btn btn-secondary">
-              <i class="fas fa-print"></i> {{ $t("Print") }}
+            <a @click="downloadPDF" href="#" class="btn btn-info">
+              <i class="fas fa-download"></i> {{ $t("download") }}
             </a>
             <a 
               v-if="isSaudiArabia && allData && allData.status === 0"
@@ -857,26 +858,37 @@ export default {
     },
 
     // print
-    printWindow() {
-      window.print();
+    // Commented out - replaced with downloadPDF and previewPDF methods
+    // printWindow() {
+    //   window.print();
+    // },
+
+    // download PDF
+    downloadPDF() {
+      window.location.href = `/print/purchase-return/${this.$route.params.slug}/pdf`;
     },
 
-    // download pdf
-    generatePDF() {
-      // Get the HTML content to be converted
-      const element = document.getElementById("content-to-pdf");
-      // Options for PDF generation
-      const options = {
-        margin: 5,
-        filename: "Purchase Return Invoice-" + this.$route.params.slug + ".pdf",
-        image: { type: "jpeg", quality: 0.98 },
-        pagebreak: { mode: "avoid-all", before: "#page-break" },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: "mm", format: "a4", orientation: "landscape" },
-      };
-      // Generate PDF from HTML content
-      html2pdf().from(element).set(options).save();
+    // preview PDF
+    previewPDF() {
+      window.location.href = `/print/purchase-return/${this.$route.params.slug}/preview`;
     },
+
+    // Commented out - replaced with downloadPDF method
+    // generatePDF() {
+    //   // Get the HTML content to be converted
+    //   const element = document.getElementById("content-to-pdf");
+    //   // Options for PDF generation
+    //   const options = {
+    //     margin: 5,
+    //     filename: "Purchase Return Invoice-" + this.$route.params.slug + ".pdf",
+    //     image: { type: "jpeg", quality: 0.98 },
+    //     pagebreak: { mode: "avoid-all", before: "#page-break" },
+    //     html2canvas: { scale: 2 },
+    //     jsPDF: { unit: "mm", format: "a4", orientation: "landscape" },
+    //   };
+    //   // Generate PDF from HTML content
+    //   html2pdf().from(element).set(options).save();
+    // },
 
     // print table
     async print() {
