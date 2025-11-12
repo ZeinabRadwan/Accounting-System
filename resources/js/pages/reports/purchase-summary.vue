@@ -87,7 +87,7 @@
 
                   <!-- Action Buttons -->
                   <div class="col-12">
-                    <div class="form-group d-flex align-items-center">
+                    <div class="form-group">
                       <button 
                         type="submit" 
                         class="btn btn-primary"
@@ -101,50 +101,41 @@
                         <i class="fas fa-undo"></i>
                         {{ $t('Reset') }}
                       </button>
+                      <a 
+                        v-if="reportData && reportData.summary" 
+                        :href="exportExcelUrl" 
+                        v-tooltip="$t('Export to Excel')" 
+                        class="btn export-excel-btn ml-2"
+                      >
+                        <i class="fa fa-arrow-circle-down"></i>
+                      </a>
+                      <button 
+                        v-if="reportData && reportData.summary" 
+                        @click="downloadPDF" 
+                        v-tooltip="$t('Export to PDF')" 
+                        class="btn export-pdf-btn ml-2"
+                      >
+                        <i class="fas fa-file-export"></i>
+                      </button>
+                      <button 
+                        v-if="reportData && reportData.summary" 
+                        @click="previewPDF" 
+                        v-tooltip="$t('Preview')" 
+                        class="btn preview-btn ml-2"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <a 
+                        v-if="reportData && reportData.summary" 
+                        :href="printTemplateUrl" 
+                        target="_blank" 
+                        class="btn print-btn ml-2"
+                      >
+                        <i class="fas fa-print"></i> 
+                      </a>
                     </div>
                   </div>
                 </form>
-              </div>
-            </div>
-
-            <!-- Top Actions -->
-            <div class="row mt-2">
-              <div class="col-xl-12 text-right">
-                <div class="btn-group c-w-100">
-                  <a
-                    @click.prevent="refreshTable"
-                    href="#"
-                    v-tooltip="$t('Refresh')"
-                    class="btn btn-success refresh-btn"
-                  >
-                    <i class="fas fa-sync"></i>
-                  </a>
-                  <a
-                    v-if="reportData && reportData.summary"
-                    :href="exportExcelUrl"
-                    v-tooltip="$t('Export to Excel')"
-                    class="btn export-excel-btn"
-                    title="Export to Excel"
-                  >
-                    <i class="fas fa-file-excel"></i>
-                  </a>
-                  <a
-                    v-if="reportData && reportData.summary"
-                    :href="exportPdfUrl"
-                    v-tooltip="$t('Export to PDF')"
-                    class="btn export-pdf-btn"
-                    title="Export to PDF"
-                  >
-                    <i class="fas fa-file-pdf"></i>
-                  </a>
-                  <a
-                    @click="printReport"
-                    v-tooltip="$t('Print Table')"
-                    class="btn print-btn"
-                  >
-                    <i class="fas fa-print"></i>
-                  </a>
-                </div>
               </div>
             </div>
 
@@ -688,9 +679,47 @@ export default {
     refreshTable() {
       this.generateReport();
     },
+    
+    downloadPDF() {
+      // Build query parameters from filters
+      const params = new URLSearchParams();
+      if (this.filters.fiscalYear) {
+        params.append('fiscal_year_id', this.filters.fiscalYear);
+      }
+      if (this.filters.accountingPeriod) {
+        params.append('accounting_period_id', this.filters.accountingPeriod);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      
+      // Redirect to backend PDF route with query parameters
+      const pdfUrl = `/print/reports/purchase-summary/pdf?${params.toString()}`;
+      window.location.href = pdfUrl;
+    },
 
-    printReport() {
-      window.print();
+    previewPDF() {
+      // Build query parameters from filters
+      const params = new URLSearchParams();
+      if (this.filters.fiscalYear) {
+        params.append('fiscal_year_id', this.filters.fiscalYear);
+      }
+      if (this.filters.accountingPeriod) {
+        params.append('accounting_period_id', this.filters.accountingPeriod);
+      }
+      if (this.filters.fromDate) {
+        params.append('from_date', this.filters.fromDate);
+      }
+      if (this.filters.toDate) {
+        params.append('to_date', this.filters.toDate);
+      }
+      
+      // Redirect to backend PDF route with query parameters
+      const pdfUrl = `/print/reports/purchase-summary/preview?${params.toString()}`;
+      window.location.href = pdfUrl;
     },
   },
 };
@@ -758,6 +787,16 @@ export default {
 }
 
 .export-pdf-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.preview-btn {
   background: #f6fef4 !important;
   color: #2ab930 !important;
   width: 56px;

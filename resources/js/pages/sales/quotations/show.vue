@@ -54,11 +54,12 @@
               class="btn btn-success"
               ><i class="fas fa-paper-plane"></i> {{ $t("email") }}</a
             >
-            <a @click="generatePDF()" href="#" class="btn btn-info">
-              <i class="fas fa-download"></i> {{ $t("download") }}
+            <!-- New preview and download PDF buttons -->
+            <a @click="previewPDF" href="#" class="btn btn-info">
+              <i class="fas fa-eye"></i> {{ $t("Preview PDF") }}
             </a>
-            <a @click="printWindow()" href="#" class="btn btn-secondary">
-              <i class="fas fa-print"></i> {{ $t("Print") }}
+            <a @click="downloadPDF" href="#" class="btn btn-info">
+              <i class="fas fa-download"></i> {{ $t("download") }}
             </a>
             <router-link
               v-if="$can('quotation-to-invoice')"
@@ -603,11 +604,14 @@ export default {
       }
       return 0;
     },
-    // download pdf - directly download PDF file
-    generatePDF() {
-      // Directly download the PDF from the server
-      const pdfUrl = `/print/quotation/${this.$route.params.slug}/pdf`;
-      window.open(pdfUrl, '_blank');
+    // download PDF
+    downloadPDF() {
+      window.location.href = `/print/quotation/${this.$route.params.slug}/pdf`;
+    },
+
+    // preview PDF
+    previewPDF() {
+      window.location.href = `/print/quotation/${this.$route.params.slug}/preview`;
     },
     // notify
     async notify() {

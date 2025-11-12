@@ -48,11 +48,12 @@
             <a v-if="isSaudiArabia && allData.status === 0" @click="sendCreditNote(allData)" href="#" class="btn btn-success">
               <i class="fas fa-paper-plane"></i> {{ $t("Send Credit Note") }}
             </a>
-            <a @click="generatePDF()" href="#" class="btn btn-info">
-              <i class="fas fa-download"></i> {{ $t("download") }}
+            <!-- New preview and download PDF buttons -->
+            <a @click="previewPDF" href="#" class="btn btn-info">
+              <i class="fas fa-eye"></i> {{ $t("Preview PDF") }}
             </a>
-            <a @click="printWindow()" href="#" class="btn btn-secondary">
-              <i class="fas fa-print"></i> {{ $t("Print") }}
+            <a @click="downloadPDF" href="#" class="btn btn-info">
+              <i class="fas fa-download"></i> {{ $t("download") }}
             </a>
             <router-link
               v-if="$can('invoice-return-edit') && !(isSaudiArabia && allData.status === 1)"
@@ -1196,17 +1197,21 @@ export default {
     },
 
     // print
-    printWindow() {
-      // Open print page in new window
-      const printUrl = `/print/invoice-return/${this.$route.params.slug}`;
-      window.open(printUrl, '_blank');
+    // Commented out - replaced with downloadPDF and previewPDF methods
+    // printWindow() {
+    //   // Open print page in new window
+    //   const printUrl = `/print/invoice-return/${this.$route.params.slug}`;
+    //   window.open(printUrl, '_blank');
+    // },
+
+    // download PDF
+    downloadPDF() {
+      window.location.href = `/print/invoice-return/${this.$route.params.slug}/pdf`;
     },
 
-    // download pdf
-    generatePDF() {
-      // Download PDF using the new route
-      const downloadUrl = `/print/invoice-return/${this.$route.params.slug}/pdf`;
-      window.open(downloadUrl, '_blank');
+    // preview PDF
+    previewPDF() {
+      window.location.href = `/print/invoice-return/${this.$route.params.slug}/preview`;
     },
 
     // print table

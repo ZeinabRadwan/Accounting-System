@@ -47,8 +47,16 @@
                       />
                     </svg>
                   </a>
-                  <a
-                    href="/clients/pdf"
+                  <button
+                    @click="previewPDF"
+                    v-tooltip="$t('Preview PDF')"
+                    class="btn preview-btn"
+                    title="Preview PDF"
+                  >
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button
+                    @click="downloadPDF"
                     v-tooltip="$t('Export to PDF')"
                     class="btn export-pdf-btn"
                     title="Export to PDF"
@@ -65,9 +73,10 @@
                         fill="#2AB930"
                       />
                     </svg>
-                  </a>
+                  </button>
                   <a
-                    @click="print"
+                    :href="printTemplateUrl"
+                    target="_blank"
                     v-tooltip="$t('Print Table')"
                     class="btn print-btn"
                   >
@@ -228,6 +237,14 @@ export default {
       // Create a dynamic export URL with query parameters
       return `/client-receivable-report/export/excel?term=${this.query}`;
     },
+    printTemplateUrl() {
+      // Create a dynamic print template URL for client receivable report
+      const params = new URLSearchParams();
+      if (this.query) {
+        params.append('term', this.query);
+      }
+      return `/print/reports/client-receivable-report?${params.toString()}`;
+    },
   },
   watch: {
     // watch search data
@@ -290,6 +307,24 @@ export default {
     async reload() {
       this.query = "";
       await this.searchData();
+    },
+
+    // download PDF
+    downloadPDF() {
+      const params = new URLSearchParams();
+      if (this.query) {
+        params.append('term', this.query);
+      }
+      window.location.href = `/print/reports/client-receivable-report/pdf?${params.toString()}`;
+    },
+
+    // preview PDF
+    previewPDF() {
+      const params = new URLSearchParams();
+      if (this.query) {
+        params.append('term', this.query);
+      }
+      window.location.href = `/print/reports/client-receivable-report/preview?${params.toString()}`;
     },
 
     // print table
@@ -371,6 +406,16 @@ export default {
 }
 
 .export-excel-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.preview-btn {
   background: #f6fef4 !important;
   color: #2ab930 !important;
   width: 56px;

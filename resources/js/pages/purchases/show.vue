@@ -54,11 +54,12 @@
               class="btn btn-success"
               ><i class="fas fa-paper-plane"></i> {{ $t("email") }}</a
             >
-            <a @click="generatePDF()" href="#" class="btn btn-info">
-              <i class="fas fa-download"></i> {{ $t("download") }}
+            <!-- New preview and download PDF buttons -->
+            <a @click="previewPDF" href="#" class="btn btn-info">
+              <i class="fas fa-eye"></i> {{ $t("Preview PDF") }}
             </a>
-            <a @click="printWindow()" href="#" class="btn btn-secondary">
-              <i class="fas fa-print"></i> {{ $t("Print") }}
+            <a @click="downloadPDF" href="#" class="btn btn-info">
+              <i class="fas fa-download"></i> {{ $t("download") }}
             </a>
             <a 
               v-if="isSaudiArabia && allData && allData.status === 0"
@@ -800,11 +801,21 @@ export default {
       }
     },
 
-    // print - now opens print page
-    printWindow() {
-      // Open the print page in a new window
-      const printUrl = `/print/purchase/${this.$route.params.slug}`;
-      window.open(printUrl, '_blank');
+    // Commented out - replaced with downloadPDF method
+    // printWindow() {
+    //   // Open the print page in a new window
+    //   const printUrl = `/print/purchase/${this.$route.params.slug}`;
+    //   window.open(printUrl, '_blank');
+    // },
+    
+    // download PDF
+    downloadPDF() {
+      window.location.href = `/print/purchase/${this.$route.params.slug}/pdf`;
+    },
+
+    // preview PDF
+    previewPDF() {
+      window.location.href = `/print/purchase/${this.$route.params.slug}/preview`;
     },
 
     // print table

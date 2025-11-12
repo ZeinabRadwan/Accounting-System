@@ -52,11 +52,19 @@
               class="btn btn-success"
               ><i class="fas fa-paper-plane"></i> {{ $t("email") }}</a
             >
-            <a @click="generatePDF()" href="#" class="btn btn-info">
+            <!-- Commented out old download and print buttons -->
+            <!-- <a @click="generatePDF()" href="#" class="btn btn-info">
               <i class="fas fa-download"></i> {{ $t("download") }}
             </a>
             <a @click="printWindow()" href="#" class="btn btn-secondary">
               <i class="fas fa-print"></i> {{ $t("Print") }}
+            </a> -->
+            <!-- New preview and download PDF buttons -->
+            <a @click="previewPDF" href="#" class="btn btn-info">
+              <i class="fas fa-eye"></i> {{ $t("Preview PDF") }}
+            </a>
+            <a @click="downloadPDF" href="#" class="btn btn-info">
+              <i class="fas fa-download"></i> {{ $t("download") }}
             </a>
             <a 
               v-if="isSaudiArabia && allData && allData.status === 0"
@@ -771,6 +779,7 @@ export default {
       return result;
     },
     
+    
     // Calculate correct total based on Saudi Arabia rules
      calculatedTotal() {
        if (!this.allData) return 0;
@@ -928,10 +937,21 @@ export default {
       return 0;
     },
     // download pdf - now opens print page
-    generatePDF() {
-      // Open the print page in a new window
-      const printUrl = `/print/invoice/${this.$route.params.slug}`;
-      window.open(printUrl, '_blank');
+    // Commented out - replaced with downloadPDF method
+    // generatePDF() {
+    //   // Open the print page in a new window
+    //   const printUrl = `/print/invoice/${this.$route.params.slug}`;
+    //   window.open(printUrl, '_blank');
+    // },
+    
+    // download PDF
+    downloadPDF() {
+      window.location.href = `/print/invoice/${this.$route.params.slug}/pdf`;
+    },
+
+    // preview PDF
+    previewPDF() {
+      window.location.href = `/print/invoice/${this.$route.params.slug}/preview`;
     },
     // notify
     async notify() {
@@ -961,11 +981,12 @@ export default {
       }
     },
     // print - now opens print page
-    printWindow() {
-      // Open the print page in a new window
-      const printUrl = `/print/invoice/${this.$route.params.slug}`;
-      window.open(printUrl, '_blank');
-    },
+    // Commented out - replaced with printTemplateUrl link
+    // printWindow() {
+    //   // Open the print page in a new window
+    //   const printUrl = `/print/invoice/${this.$route.params.slug}`;
+    //   window.open(printUrl, '_blank');
+    // },
 
     // print table
     async print() {

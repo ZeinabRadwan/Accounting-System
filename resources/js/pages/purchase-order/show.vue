@@ -35,11 +35,12 @@
           </div>
 
           <div class="btn-group">
-            <a @click="generatePDF()" href="#" class="btn btn-info">
-              <i class="fas fa-download"></i> {{ $t("download") }}
+            <!-- New preview and download PDF buttons -->
+            <a @click="previewPDF" href="#" class="btn btn-info">
+              <i class="fas fa-eye"></i> {{ $t("Preview PDF") }}
             </a>
-            <a @click="printWindow()" href="#" class="btn btn-secondary">
-              <i class="fas fa-print"></i> {{ $t("Print") }}
+            <a @click="downloadPDF" href="#" class="btn btn-info">
+              <i class="fas fa-download"></i> {{ $t("download") }}
             </a>
             <router-link
               v-if="$can('purchase-order-edit')"
@@ -507,25 +508,35 @@ export default {
     },
 
     // download pdf
-    generatePDF() {
-      // Get the HTML content to be converted
-      const element = document.getElementById("content-to-pdf");
-      // Options for PDF generation
-      const options = {
-        margin: 5,
-        filename: this.$t("Purchase Order") + "-" + this.$route.params.slug + ".pdf",
-        image: { type: "jpeg", quality: 0.98 },
-        pagebreak: { mode: "avoid-all", before: "#page-break" },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: "mm", format: "a4", orientation: "landscape" },
-      };
-      // Generate PDF from HTML content
-      html2pdf().from(element).set(options).save();
+    // Commented out - replaced with downloadPDF and previewPDF methods
+    // generatePDF() {
+    //   // Get the HTML content to be converted
+    //   const element = document.getElementById("content-to-pdf");
+    //   // Options for PDF generation
+    //   const options = {
+    //     margin: 5,
+    //     filename: this.$t("Purchase Order") + "-" + this.$route.params.slug + ".pdf",
+    //     image: { type: "jpeg", quality: 0.98 },
+    //     pagebreak: { mode: "avoid-all", before: "#page-break" },
+    //     html2canvas: { scale: 2 },
+    //     jsPDF: { unit: "mm", format: "a4", orientation: "landscape" },
+    //   };
+    //   // Generate PDF from HTML content
+    //   html2pdf().from(element).set(options).save();
+    // },
+
+    // printWindow() {
+    //   window.print();
+    // },
+
+    // download PDF
+    downloadPDF() {
+      window.location.href = `/print/purchase-order/${this.$route.params.slug}/pdf`;
     },
 
-    // print
-    printWindow() {
-      window.print();
+    // preview PDF
+    previewPDF() {
+      window.location.href = `/print/purchase-order/${this.$route.params.slug}/preview`;
     },
 
     // print table

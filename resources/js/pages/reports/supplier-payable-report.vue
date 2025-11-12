@@ -27,10 +27,13 @@
                             <a :href="exportUrl" v-tooltip="$t('Export to Excel')" class="btn export-excel-btn ml-2">
                                 <i class="fa fa-arrow-circle-down"></i>
                             </a>
-                            <a href="/clients/pdf" v-tooltip="$t('Export to PDF')" class="btn export-pdf-btn ml-2">
+                            <button @click="previewPDF" v-tooltip="$t('Preview PDF')" class="btn preview-btn ml-2">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button @click="downloadPDF" v-tooltip="$t('Export to PDF')" class="btn export-pdf-btn ml-2">
                                 <i class="fas fa-file-export"></i>
-                            </a>
-                            <a @click="print" v-tooltip="$t('Print Table')" class="btn print-btn ml-2">
+                            </button>
+                            <a :href="printTemplateUrl" target="_blank" v-tooltip="$t('Print Table')" class="btn print-btn ml-2">
                                 <i class="fas fa-print"></i>
                             </a>
                         </div>
@@ -165,6 +168,14 @@ export default {
             // Create a dynamic export URL with query parameters
             return `/supplier-payable-report/export/excel?term=${this.query}`;
         },
+        printTemplateUrl() {
+            // Create a dynamic print template URL for supplier payable report
+            const params = new URLSearchParams();
+            if (this.query) {
+                params.append('term', this.query);
+            }
+            return `/print/reports/supplier-payable-report?${params.toString()}`;
+        },
     },
     watch: {
         // watch search data
@@ -230,6 +241,24 @@ export default {
         },
 
         // print table
+        // download PDF
+        downloadPDF() {
+            const params = new URLSearchParams();
+            if (this.query) {
+                params.append('term', this.query);
+            }
+            window.location.href = `/print/reports/supplier-payable-report/pdf?${params.toString()}`;
+        },
+
+        // preview PDF
+        previewPDF() {
+            const params = new URLSearchParams();
+            if (this.query) {
+                params.append('term', this.query);
+            }
+            window.location.href = `/print/reports/supplier-payable-report/preview?${params.toString()}`;
+        },
+
         async print() {
             await this.$htmlToPaper("printMe");
         },
@@ -286,6 +315,13 @@ export default {
 }
 
 .export-excel-btn {
+  background: #f6fef4 !important;
+  color: #2ab930 !important;
+  border-radius: 10px;
+  border: none;
+}
+
+.preview-btn {
   background: #f6fef4 !important;
   color: #2ab930 !important;
   border-radius: 10px;

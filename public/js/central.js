@@ -24793,11 +24793,11 @@ var map = {
 	],
 	"./domain-requests/create": [
 		27936,
-		5555
+		7936
 	],
 	"./domain-requests/create.vue": [
 		27936,
-		5555
+		7936
 	],
 	"./domain-requests/index": [
 		55360,
@@ -25513,11 +25513,11 @@ var map = {
 	],
 	"./products": [
 		49432,
-		7051
+		9432
 	],
 	"./products/": [
 		49432,
-		7051
+		9432
 	],
 	"./products/barcode": [
 		63709,
@@ -25601,11 +25601,11 @@ var map = {
 	],
 	"./products/index": [
 		49432,
-		7051
+		9432
 	],
 	"./products/index.vue": [
 		49432,
-		7051
+		9432
 	],
 	"./products/show": [
 		35480,
@@ -25680,12 +25680,12 @@ var map = {
 		856
 	],
 	"./purchase-order/show": [
-		68321,
-		8321
+		32841,
+		2841
 	],
 	"./purchase-order/show.vue": [
-		68321,
-		8321
+		32841,
+		2841
 	],
 	"./purchases": [
 		33148,
@@ -25752,20 +25752,20 @@ var map = {
 		5073
 	],
 	"./purchases/returns/show": [
-		11773,
-		1773
+		63507,
+		3507
 	],
 	"./purchases/returns/show.vue": [
-		11773,
-		1773
+		63507,
+		3507
 	],
 	"./purchases/show": [
-		18930,
-		8930
+		36054,
+		6054
 	],
 	"./purchases/show.vue": [
-		18930,
-		8930
+		36054,
+		6054
 	],
 	"./reports/account-statement": [
 		66959,
@@ -25776,60 +25776,60 @@ var map = {
 		6959
 	],
 	"./reports/balance-sheet": [
-		82732,
-		2732
+		1314,
+		1314
 	],
 	"./reports/balance-sheet.vue": [
-		82732,
-		2732
+		1314,
+		1314
 	],
 	"./reports/client-receivable-report": [
-		40249,
-		249
+		72066,
+		2066
 	],
 	"./reports/client-receivable-report.vue": [
-		40249,
-		249
+		72066,
+		2066
 	],
 	"./reports/collection-by-user-report": [
-		9231,
-		9231
+		41152,
+		1152
 	],
 	"./reports/collection-by-user-report.vue": [
-		9231,
-		9231
+		41152,
+		1152
 	],
 	"./reports/expenses": [
-		56967,
-		6967
+		21432,
+		1432
 	],
 	"./reports/expenses.vue": [
-		56967,
-		6967
+		21432,
+		1432
 	],
 	"./reports/group-account-statement": [
-		88958,
-		8958
+		45536,
+		5536
 	],
 	"./reports/group-account-statement.vue": [
-		88958,
-		8958
+		45536,
+		5536
 	],
 	"./reports/inventory": [
-		73966,
-		3966
+		65529,
+		5529
 	],
 	"./reports/inventory.vue": [
-		73966,
-		3966
+		65529,
+		5529
 	],
 	"./reports/invoice-summary": [
-		60628,
-		628
+		52993,
+		2993
 	],
 	"./reports/invoice-summary.vue": [
-		60628,
-		628
+		52993,
+		2993
 	],
 	"./reports/items": [
 		82867,
@@ -25840,68 +25840,68 @@ var map = {
 		2867
 	],
 	"./reports/profit-loss": [
-		9432,
-		9432
+		98831,
+		8831
 	],
 	"./reports/profit-loss.vue": [
-		9432,
-		9432
+		98831,
+		8831
 	],
 	"./reports/purchase-summary": [
-		534,
-		534
+		56910,
+		6910
 	],
 	"./reports/purchase-summary.vue": [
-		534,
-		534
+		56910,
+		6910
 	],
 	"./reports/sales-by-user-report": [
-		31664,
-		1664
+		26586,
+		6586
 	],
 	"./reports/sales-by-user-report.vue": [
-		31664,
-		1664
+		26586,
+		6586
 	],
 	"./reports/summary": [
-		9388,
-		9388
+		84286,
+		4286
 	],
 	"./reports/summary.vue": [
-		9388,
-		9388
+		84286,
+		4286
 	],
 	"./reports/supplier-payable-report": [
-		65389,
-		5389
+		41372,
+		1372
 	],
 	"./reports/supplier-payable-report.vue": [
-		65389,
-		5389
+		41372,
+		1372
 	],
 	"./reports/today-report": [
-		25111,
-		5111
+		17624,
+		7624
 	],
 	"./reports/today-report.vue": [
-		25111,
-		5111
+		17624,
+		7624
 	],
 	"./reports/trial-balance": [
-		58423,
-		8423
+		86176,
+		6176
 	],
 	"./reports/trial-balance.vue": [
-		58423,
-		8423
+		86176,
+		6176
 	],
 	"./reports/vat-report": [
-		84224,
-		4224
+		7564,
+		7564
 	],
 	"./reports/vat-report.vue": [
-		84224,
-		4224
+		7564,
+		7564
 	],
 	"./sales/invoices": [
 		92495,
@@ -25936,12 +25936,12 @@ var map = {
 		2495
 	],
 	"./sales/invoices/show": [
-		57936,
-		7936
+		7839,
+		7839
 	],
 	"./sales/invoices/show.vue": [
-		57936,
-		7936
+		7839,
+		7839
 	],
 	"./sales/pos/create": [
 		65261,
@@ -25992,12 +25992,12 @@ var map = {
 		2512
 	],
 	"./sales/quotations/show": [
-		26013,
-		6013
+		80424,
+		424
 	],
 	"./sales/quotations/show.vue": [
-		26013,
-		6013
+		80424,
+		424
 	],
 	"./sales/returns": [
 		77109,
@@ -26040,12 +26040,12 @@ var map = {
 		7109
 	],
 	"./sales/returns/show": [
-		53146,
-		3146
+		20477,
+		477
 	],
 	"./sales/returns/show.vue": [
-		53146,
-		3146
+		20477,
+		477
 	],
 	"./settings": [
 		67241,
@@ -119255,7 +119255,7 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/km.svg?636e9ed727bb8f64496
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "" + chunkId + ".js";
+/******/ 			return "js/" + chunkId + ".js";
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -119353,7 +119353,7 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/km.svg?636e9ed727bb8f64496
 /******/ 	
 /******/ 	/* webpack/runtime/publicPath */
 /******/ 	(() => {
-/******/ 		__webpack_require__.p = "/js/";
+/******/ 		__webpack_require__.p = "/";
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/jsonp chunk loading */
