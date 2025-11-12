@@ -1,333 +1,342 @@
 <template>
-    <div class="container-fluid">
-        <div class="row no-gutter">
-            <!-- The image half -->
-            <div class="col-md-6 d-none d-md-flex bg-image"></div>
-            <!-- The content half -->
-            <div class="col-md-6 bg-light">
-                <div class="auth-wrapper d-flex align-items-center py-5">
-                    <!-- Demo content-->
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12 col-lg-10 col-xl-8 mx-auto">
-                                <div class="text-center">
-                                    <router-link to="/">
-                                        <img
-                                            v-if="appInfo"
-                                            :src="appInfo.blackLogo"
-                                            :alt="appInfo.companyName"
-                                            class="lg-logo img-fluid logo-width"
-                                        />
-                                    </router-link>
-                                    <div
-                                        v-if="
-                                            !verificationForm.email && appInfo
-                                        "
-                                    >
-                                        <p class="text-22 mb-4 mt-2">
-                                            {{
-                                                $t(
-                                                    'Sign Up Instantly Free for'
-                                                ) +
-                                                ' ' +
-                                                appInfo.trial_day_count +
-                                                ' ' +
-                                                $t(
-                                                    'days, no credit card required'
-                                                ) +
-                                                '.'
-                                            }}
-                                        </p>
-                                    </div>
-
-                                    <div
-                                        v-if="isDemoMode"
-                                        class="alert alert-danger"
-                                    >
-                                        To prevent the creation of multiple
-                                        sub-domains, we have disabled the
-                                        registration feature for the demo. You
-                                        can access the Tenant panel
-                                        <a
-                                            href="https://john.arqam.sa/login"
-                                            >here</a
+    <div>
+        <div class="container-fluid">
+            <div class="row no-gutter">
+                <!-- The image half -->
+                <div class="col-md-6 d-none d-md-flex bg-image"></div>
+                <!-- The content half -->
+                <div class="col-md-6 bg-light">
+                    <div class="auth-wrapper d-flex align-items-center py-5">
+                        <!-- Demo content-->
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-10 col-xl-8 mx-auto">
+                                    <div class="text-center">
+                                        <router-link to="/">
+                                            <img
+                                                v-if="appInfo"
+                                                :src="appInfo.blackLogo"
+                                                :alt="appInfo.companyName"
+                                                class="lg-logo img-fluid logo-width"
+                                            />
+                                        </router-link>
+                                        <div
+                                            v-if="
+                                                !verificationForm.email && appInfo
+                                            "
                                         >
-                                    </div>
-                                </div>
-                                <form
-                                    v-if="!verificationForm.email"
-                                    @submit.prevent="tenantRegister"
-                                    @keydown="form.onKeydown($event)"
-                                >
-                                    <!-- Error Message Display -->
-                                    <div
-                                        v-if="message && type === 'danger'"
-                                        class="alert alert-danger mb-4"
-                                    >
-                                        {{ message }}
-                                    </div>
-                                    <!-- Full Name-->
-                                    <div class="form-group mb-3">
-                                        <input
-                                            id="name"
-                                            v-model="form.name"
-                                            :class="{
-                                                'is-invalid':
-                                                    form.errors.has('name'),
-                                            }"
-                                            class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
-                                            type="text"
-                                            name="name"
-                                            :placeholder="$t('Name')"
-                                        />
-                                        <has-error
-                                            :form="form"
-                                            field="name"
-                                            class="ml-4"
-                                        />
-                                    </div>
-                                    <!-- Email -->
-                                    <div class="form-group mb-3">
-                                        <input
-                                            v-model="form.email"
-                                            id="email"
-                                            name="email"
-                                            :class="{
-                                                'is-invalid':
-                                                    form.errors.has('email'),
-                                            }"
-                                            class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
-                                            type="email"
-                                            :placeholder="$t('Email')"
-                                        />
-                                        <has-error
-                                            :form="form"
-                                            field="email"
-                                            class="ml-4"
-                                        />
-                                    </div>
-                                    <!-- domain -->
-                                    <div class="form-group mb-3">
-                                        <div class="d-flex align-items-center mb-2">
-                                            <label for="domain" class="form-label mb-0">{{ $t('domain') }}</label>
-                                            <i class="fas fa-info-circle  ms-2" 
-                                               v-tooltip="$t('domain_explanation')" 
-                                               style="cursor: help; font-size: 14px;"></i>
+                                            <p class="text-22 mb-4 mt-2">
+                                                {{
+                                                    $t(
+                                                        'Sign Up Instantly Free for'
+                                                    ) +
+                                                    ' ' +
+                                                    appInfo.trial_day_count +
+                                                    ' ' +
+                                                    $t(
+                                                        'days, no credit card required'
+                                                    ) +
+                                                    '.'
+                                                }}
+                                            </p>
                                         </div>
-                                        <div class="d-flex url">
+
+                                        <div
+                                            v-if="isDemoMode"
+                                            class="alert alert-danger"
+                                        >
+                                            To prevent the creation of multiple
+                                            sub-domains, we have disabled the
+                                            registration feature for the demo. You
+                                            can access the Tenant panel
+                                            <a
+                                                href="https://john.arqam.sa/login"
+                                                >here</a
+                                            >
+                                        </div>
+                                    </div>
+                                    <form
+                                        v-if="!verificationForm.email"
+                                        @submit.prevent="tenantRegister"
+                                        @keydown="form.onKeydown($event)"
+                                    >
+                                        <!-- Error Message Display -->
+                                        <div
+                                            v-if="message && type === 'danger'"
+                                            class="alert alert-danger mb-4"
+                                        >
+                                            {{ message }}
+                                        </div>
+                                        <!-- Full Name-->
+                                        <div class="form-group mb-3">
                                             <input
-                                                v-model="form.domain"
-                                                @input="checkDomainAvailability"
-                                                id="domain"
-                                                name="domain"
+                                                id="name"
+                                                v-model="form.name"
                                                 :class="{
-                                                    'is-invalid': form.errors.has('domain') || domainValidation.error,
-                                                    'is-valid': domainValidation.valid && domainValidation.available && !domainValidation.checking
+                                                    'is-invalid':
+                                                        form.errors.has('name'),
                                                 }"
                                                 class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
                                                 type="text"
-                                                :placeholder="$t('domain')"
+                                                name="name"
+                                                :placeholder="$t('Name')"
                                             />
-                                            <span style="height: 100%; line-height: 2">{{ host }}</span>
+                                            <has-error
+                                                :form="form"
+                                                field="name"
+                                                class="ml-4"
+                                            />
                                         </div>
-                                        <!-- Domain validation feedback -->
-                                        <div v-if="domainValidation.checking" class="ml-4 text-muted small">
-                                            <i class="fas fa-spinner fa-spin me-1"></i>
-                                            {{ $t('domain_checking') }}
+                                        <!-- Email -->
+                                        <div class="form-group mb-3">
+                                            <input
+                                                v-model="form.email"
+                                                id="email"
+                                                name="email"
+                                                :class="{
+                                                    'is-invalid':
+                                                        form.errors.has('email'),
+                                                }"
+                                                class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
+                                                type="email"
+                                                :placeholder="$t('Email')"
+                                            />
+                                            <has-error
+                                                :form="form"
+                                                field="email"
+                                                class="ml-4"
+                                            />
                                         </div>
-                                        <div v-else-if="domainValidation.valid && domainValidation.available" class="ml-4 text-success small">
-                                            <i class="fas fa-check-circle me-1"></i>
-                                            {{ $t('domain_available') }}
+                                        <!-- domain -->
+                                        <div class="form-group mb-3">
+                                            <div class="d-flex align-items-center mb-2">
+                                                <label for="domain" class="form-label mb-0">{{ $t('domain') }}</label>
+                                                <i class="fas fa-info-circle  ms-2" 
+                                                   v-tooltip="$t('domain_explanation')" 
+                                                   style="cursor: help; font-size: 14px;"></i>
+                                            </div>
+                                            <div class="d-flex url">
+                                                <input
+                                                    v-model="form.domain"
+                                                    @input="checkDomainAvailability"
+                                                    id="domain"
+                                                    name="domain"
+                                                    :class="{
+                                                        'is-invalid': form.errors.has('domain') || domainValidation.error,
+                                                        'is-valid': domainValidation.valid && domainValidation.available && !domainValidation.checking
+                                                    }"
+                                                    class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
+                                                    type="text"
+                                                    :placeholder="$t('domain')"
+                                                />
+                                                <span style="height: 100%; line-height: 2">{{ host }}</span>
+                                            </div>
+                                            <!-- Domain validation feedback -->
+                                            <div v-if="domainValidation.checking" class="ml-4 text-muted small">
+                                                <i class="fas fa-spinner fa-spin me-1"></i>
+                                                {{ $t('domain_checking') }}
+                                            </div>
+                                            <div v-else-if="domainValidation.valid && domainValidation.available" class="ml-4 text-success small">
+                                                <i class="fas fa-check-circle me-1"></i>
+                                                {{ $t('domain_available') }}
+                                            </div>
+                                            <div v-else-if="domainValidation.error" class="ml-4 text-danger small">
+                                                <i class="fas fa-exclamation-circle me-1"></i>
+                                                {{ domainValidation.message }}
+                                            </div>
+                                            <has-error
+                                                :form="form"
+                                                field="domain"
+                                                class="ml-4"
+                                            />
                                         </div>
-                                        <div v-else-if="domainValidation.error" class="ml-4 text-danger small">
-                                            <i class="fas fa-exclamation-circle me-1"></i>
-                                            {{ domainValidation.message }}
+                                        <!-- Company -->
+                                        <div class="form-group mb-3">
+                                            <input
+                                                v-model="form.company"
+                                                id="company"
+                                                name="company"
+                                                :class="{
+                                                    'is-invalid':
+                                                        form.errors.has('company'),
+                                                }"
+                                                class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
+                                                type="text"
+                                                :placeholder="
+                                                    $t('Company Name')
+                                                "
+                                            />
+                                            <has-error
+                                                :form="form"
+                                                field="company"
+                                                class="ml-4"
+                                            />
                                         </div>
-                                        <has-error
-                                            :form="form"
-                                            field="domain"
-                                            class="ml-4"
-                                        />
-                                    </div>
-                                    <!-- Company -->
-                                    <div class="form-group mb-3">
-                                        <input
-                                            v-model="form.company"
-                                            id="company"
-                                            name="company"
-                                            :class="{
-                                                'is-invalid':
-                                                    form.errors.has('company'),
-                                            }"
-                                            class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
-                                            type="text"
-                                            :placeholder="
-                                                $t('Company Name')
-                                            "
-                                        />
-                                        <has-error
-                                            :form="form"
-                                            field="company"
-                                            class="ml-4"
-                                        />
-                                    </div>
-                                    <!-- Password -->
-                                    <div class="form-group mb-3">
-                                        <input
-                                            v-model="form.password"
-                                            id="password"
-                                            name="password"
-                                            :class="{
-                                                'is-invalid':
-                                                    form.errors.has('password'),
-                                            }"
-                                            class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
-                                            type="password"
-                                            :placeholder="$t('password')"
-                                        />
-                                        <has-error
-                                            :form="form"
-                                            field="password"
-                                            class="ml-4"
-                                        />
-                                    </div>
-                                    <!-- Password -->
-                                    <div class="form-group mb-3">
-                                        <input
-                                            v-model="form.password_confirmation"
-                                            id="password_confirmation"
-                                            name="password_confirmation"
-                                            :class="{
-                                                'is-invalid': form.errors.has(
-                                                    'password_confirmation'
-                                                ),
-                                            }"
-                                            class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
-                                            type="password"
-                                            :placeholder="
-                                                $t('confirm_password')
-                                            "
-                                        />
-                                        <has-error
-                                            :form="form"
-                                            field="password_confirmation"
-                                            class="ml-4"
-                                        />
-                                    </div>
+                                        <!-- Password -->
+                                        <div class="form-group mb-3">
+                                            <input
+                                                v-model="form.password"
+                                                id="password"
+                                                name="password"
+                                                :class="{
+                                                    'is-invalid':
+                                                        form.errors.has('password'),
+                                                }"
+                                                class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
+                                                type="password"
+                                                :placeholder="$t('password')"
+                                            />
+                                            <has-error
+                                                :form="form"
+                                                field="password"
+                                                class="ml-4"
+                                            />
+                                        </div>
+                                        <!-- Password -->
+                                        <div class="form-group mb-3">
+                                            <input
+                                                v-model="form.password_confirmation"
+                                                id="password_confirmation"
+                                                name="password_confirmation"
+                                                :class="{
+                                                    'is-invalid': form.errors.has(
+                                                        'password_confirmation'
+                                                    ),
+                                                }"
+                                                class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
+                                                type="password"
+                                                :placeholder="
+                                                    $t('confirm_password')
+                                                "
+                                            />
+                                            <has-error
+                                                :form="form"
+                                                field="password_confirmation"
+                                                class="ml-4"
+                                            />
+                                        </div>
 
-                                    <!-- terms and conditions -->
-                                    <div class="row mb-5 ml-2">
-                                        <checkbox
-                                            v-model="form.terms_and_conditions"
-                                            id="terms_and_conditions"
-                                            name="terms_and_conditions"
-                                            :class="{
-                                                'is-invalid': form.errors.has(
-                                                    'terms_and_conditions'
-                                                ),
-                                            }"
-                                            required
+                                        <!-- terms and conditions -->
+                                        <div class="row mb-5 ml-2">
+                                            <checkbox
+                                                v-model="form.terms_and_conditions"
+                                                id="terms_and_conditions"
+                                                name="terms_and_conditions"
+                                                :class="{
+                                                    'is-invalid': form.errors.has(
+                                                        'terms_and_conditions'
+                                                    ),
+                                                }"
+                                                required
+                                            >
+                                                {{ $t('register_policy') }}
+                                            </checkbox>
+                                            <has-error
+                                                :form="form"
+                                                field="terms_and_conditions"
+                                            />
+                                        </div>
+                                        <!-- Submit Button -->
+                                        <v-button
+                                            :loading="form.busy"
+                                            class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm"
                                         >
-                                            {{ $t('register_policy') }}
-                                        </checkbox>
-                                        <has-error
-                                            :form="form"
-                                            field="terms_and_conditions"
-                                        />
-                                    </div>
-                                    <!-- Submit Button -->
-                                    <v-button
-                                        :loading="form.busy"
-                                        class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm"
-                                    >
-                                        <i class="fas fa-sign-in-alt" />
                                         <strong>{{ $t('register') }}</strong>
-                                    </v-button>
-                                    <div class="row justify-content-between">
-                                        <router-link
-                                            :to="{ name: 'find-domain' }"
-                                            class="mx-2"
-                                        >
-                                            {{ $t('already_registered') }}
-                                        </router-link>
-                                        <router-link
-                                            :to="{ name: 'resend' }"
-                                            class="mx-2"
-                                        >
-                                            {{ $t('resend_verification_link') }}
-                                        </router-link>
-                                    </div>
-                                </form>
-
-                                <div class="mt-5" v-else>
-                                    <div
-                                        v-if="message"
-                                        class="alert"
-                                        :class="
-                                            type == 'success'
-                                                ? 'alert-success'
-                                                : 'alert-danger'
-                                        "
-                                    >
-                                        {{ message }}
-                                        <span v-if="type != 'success'">
-                                            {{ $t('please') }}
+                                        <i class="fas fa-sign-in-alt" style="transform: scaleX(-1);" />
+                                        </v-button>
+                                        <div class="row justify-content-between">
                                             <router-link
                                                 :to="{ name: 'find-domain' }"
-                                                >{{ $t('login') }}</router-link
+                                                class="mx-2"
                                             >
-                                        </span>
-                                    </div>
-                                    <h3>{{ $t('register_next_step') }}</h3>
-                                    <p class="text-22 mb-4 mt-2">
-                                        {{ $t('email_sent') }}
-                                        <span class="text-indigo">
-                                            {{ verificationForm.email }} </span
-                                        >.
-                                        {{ $t('confirm_account') }}
-                                    </p>
-                                    <p>
-                                        {{ $t('check_email') }}
-                                        <button
-                                            @click="resendVerification"
-                                            class="btn p-0 text-indigo"
+                                                {{ $t('already_registered') }}
+                                            </router-link>
+                                            <router-link
+                                                :to="{ name: 'resend' }"
+                                                class="mx-2"
+                                            >
+                                                {{ $t('resend_verification_link') }}
+                                            </router-link>
+                                        </div>
+                                    </form>
+
+                                    <div class="mt-5" v-else>
+                                        <div
+                                            v-if="message"
+                                            class="alert"
+                                            :class="
+                                                type == 'success'
+                                                    ? 'alert-success'
+                                                    : 'alert-danger'
+                                            "
                                         >
-                                            {{ $t('resend_verification_link') }}
-                                        </button>
-                                    </p>
-                                    <div class="mt-3">
-                                        <router-link
-                                            :to="{ 
-                                                name: 'find-domain', 
-                                                query: { 
-                                                    email: verificationForm.email,
-                                                    domain: form.domain 
-                                                } 
-                                            }"
-                                            class="btn btn-outline-primary btn-sm"
-                                        >
-                                            <i class="fas fa-sign-in-alt mr-1"></i>
-                                            {{ $t('go_to_login') }}
-                                        </router-link>
+                                            {{ message }}
+                                            <span v-if="type != 'success'">
+                                                {{ $t('please') }}
+                                                <router-link
+                                                    :to="{ name: 'find-domain' }"
+                                                    >{{ $t('login') }}</router-link
+                                                >
+                                            </span>
+                                        </div>
+                                        <h3>{{ $t('register_next_step') }}</h3>
+                                        <p class="text-22 mb-4 mt-2">
+                                            {{ $t('email_sent') }}
+                                            <span class="text-indigo">
+                                                {{ verificationForm.email }} </span
+                                            >.
+                                            {{ $t('confirm_account') }}
+                                        </p>
+                                        <p>
+                                            {{ $t('check_email') }}
+                                            <button
+                                                @click="resendVerification"
+                                                class="btn p-0 text-indigo"
+                                            >
+                                                {{ $t('resend_verification_link') }}
+                                            </button>
+                                        </p>
+                                        <div class="mt-3">
+                                            <router-link
+                                                :to="{ 
+                                                    name: 'find-domain', 
+                                                    query: { 
+                                                        email: verificationForm.email,
+                                                        domain: form.domain 
+                                                    } 
+                                                }"
+                                                class="btn btn-outline-primary btn-sm"
+                                            >
+                                                <i class="fas fa-sign-in-alt mr-1"></i>
+                                                {{ $t('go_to_login') }}
+                                            </router-link>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- End -->
                     </div>
-                    <!-- End -->
                 </div>
+                <!-- End -->
             </div>
-            <!-- End -->
         </div>
+        <!-- Registration Loader Modal -->
+        <registration-loader ref="registrationLoader" @cancel="handleLoaderCancel" />
     </div>
 </template>
 <script>
 import Form from 'vform';
 import { mapGetters } from 'vuex';
+import RegistrationLoader from '@/components/RegistrationLoader.vue';
+import loader from '@/utils/registrationLoader';
 
 export default {
     layout: 'basic',
     middleware: 'guest',
+    components: {
+        RegistrationLoader,
+    },
     metaInfo() {
         return { title: this.$t('register') };
     },
@@ -361,6 +370,16 @@ export default {
     computed: {
         ...mapGetters('operations', ['appInfo']),
     },
+    mounted() {
+        // Verify loader component is available
+        this.$nextTick(() => {
+            if (this.$refs.registrationLoader) {
+                console.log('RegistrationLoader component is available');
+            } else {
+                console.warn('RegistrationLoader component not found in mounted hook');
+            }
+        });
+    },
     methods: {
         async tenantRegister() {
             if (this.isDemoMode) {
@@ -371,9 +390,72 @@ export default {
                     ),
                 });
             }
-            // register the user.
+
+            // Show loader with steps
+            const steps = [
+                { label: this.$t('Validating input'), status: 'pending' },
+                { label: this.$t('Creating database'), status: 'pending' },
+                { label: this.$t('Initializing account'), status: 'pending' },
+                { label: this.$t('Setting up preferences'), status: 'pending' },
+                { label: this.$t('Finishing'), status: 'pending' },
+            ];
+
+            // Access loader component via ref
+            // Use $nextTick to ensure component is mounted
+            await this.$nextTick();
+            const loaderComponent = this.$refs.registrationLoader;
+            if (!loaderComponent) {
+                console.error('RegistrationLoader component not found. Make sure the component is in the template.');
+                // Fallback: try to continue without loader
+                try {
+                    const { data } = await this.form.post('/api/register');
+                    if (data) {
+                        this.message = '';
+                        this.type = null;
+                        this.form.errors.clear();
+                        this.verificationForm.email = data.data.tenant.email;
+                    }
+                } catch (error) {
+                    this.handleSubmitError(error);
+                }
+                return;
+            }
+
+            loaderComponent.show(steps);
+
             try {
+                // Step 1: Validating input
+                loaderComponent.update(0, 'in-progress');
+                await this.delay(300);
+                loaderComponent.update(0, 'done', this.$t('Input validated successfully'));
+
+                // Step 2: Creating database
+                loaderComponent.update(1, 'in-progress');
+                await this.delay(400);
+
+                // Step 3: Initializing account (during API call)
+                loaderComponent.update(2, 'in-progress');
+
+                // Make the registration API call
                 const { data } = await this.form.post('/api/register');
+
+                loaderComponent.update(1, 'done', this.$t('Database created successfully'));
+                loaderComponent.update(2, 'done', this.$t('Account initialized'));
+
+                // Step 4: Setting up preferences
+                loaderComponent.update(3, 'in-progress');
+                await this.delay(300);
+                loaderComponent.update(3, 'done', this.$t('Preferences configured'));
+
+                // Step 5: Finishing
+                loaderComponent.update(4, 'in-progress');
+                await this.delay(200);
+                loaderComponent.update(4, 'done', this.$t('Registration complete!'));
+
+                // Hide loader after a brief delay
+                await this.delay(500);
+                loaderComponent.hide();
+
                 if (data) {
                     // Clear any previous error messages
                     this.message = '';
@@ -383,8 +465,72 @@ export default {
                     this.verificationForm.email = data.data.tenant.email;
                 }
             } catch (error) {
+                // Mark current step as failed
+                const loaderComponent = this.$refs.registrationLoader;
+                if (loaderComponent) {
+                    const currentStep = this.getCurrentStepIndex(loaderComponent);
+                    if (currentStep >= 0) {
+                        loaderComponent.update(
+                            currentStep,
+                            'failed',
+                            this.$t('An error occurred')
+                        );
+                    }
+
+                    // Show error in loader
+                    const errorMessage = this.getErrorMessage(error);
+                    loaderComponent.setError(errorMessage);
+                }
+
+                // Also handle error normally for form display
                 this.handleSubmitError(error);
             }
+        },
+
+        getCurrentStepIndex(loaderComponent = null) {
+            const instance = loaderComponent || this.$refs.registrationLoader;
+            if (instance && instance.steps) {
+                for (let i = 0; i < instance.steps.length; i++) {
+                    if (
+                        instance.steps[i].status === 'in-progress' ||
+                        instance.steps[i].status === 'pending'
+                    ) {
+                        return i;
+                    }
+                }
+            }
+            return -1;
+        },
+
+        getErrorMessage(error) {
+            if (error?.response?.status === 422) {
+                const errorData = error.response.data;
+                if (errorData.message) {
+                    return errorData.message;
+                }
+                if (errorData.errors) {
+                    const firstError = Object.values(errorData.errors)[0];
+                    if (firstError && firstError.length > 0) {
+                        return firstError[0];
+                    }
+                }
+            }
+            if (error?.response?.data?.message) {
+                return error.response.data.message;
+            }
+            return this.$t('An error occurred during registration. Please try again.');
+        },
+
+        handleLoaderCancel() {
+            const loaderComponent = this.$refs.registrationLoader;
+            if (loaderComponent) {
+                loaderComponent.hide();
+            }
+            // Optionally reset form or show a message
+        },
+
+        delay(ms) {
+            return new Promise((resolve) => setTimeout(resolve, ms));
         },
 
         // handle form submission errors

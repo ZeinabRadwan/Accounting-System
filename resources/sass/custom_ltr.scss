@@ -373,3 +373,10 @@
   margin-left: -1px;
   margin-right: 0;
 }
+
+/* LTR Sign-in icon - keep default direction (pointing right) for LTR */
+[dir="ltr"] .fa-sign-in-alt,
+[dir="ltr"] i.fa-sign-in-alt {
+  transform: none !important;
+  display: inline-block;
+}

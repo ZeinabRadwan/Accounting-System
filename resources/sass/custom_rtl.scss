@@ -334,6 +334,13 @@
   left: 0;
 }
 
+/* RTL Sign-in icon - flip icon to point to the left for RTL */
+[dir="rtl"] .fa-sign-in-alt,
+[dir="rtl"] i.fa-sign-in-alt {
+  transform: scaleX(-1) !important;
+  display: inline-block;
+}
+
 /* ========================================
    Bootstrap Directional Classes RTL Overrides
    ======================================== */

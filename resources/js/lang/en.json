@@ -3349,5 +3349,17 @@
 "Unit Number": "Unit Number",
 "Enter unit number": "Enter unit number",
 "Additional Number": "Additional Number",
-"Enter additional number": "Enter additional number"
+"Enter additional number": "Enter additional number",
+"Creating Your Account": "Creating Your Account",
+"Validating input": "Validating input",
+"Creating database": "Creating database",
+"Initializing account": "Initializing account",
+"Setting up preferences": "Setting up preferences",
+"Finishing": "Finishing",
+"Input validated successfully": "Input validated successfully",
+"Database created successfully": "Database created successfully",
+"Account initialized": "Account initialized",
+"Preferences configured": "Preferences configured",
+"Registration complete!": "Registration complete!",
+"An error occurred": "An error occurred"
 }

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Loader Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .demo-container {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #111827;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        p {
+            color: #6b7280;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-danger {
+            background: #ef4444;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        /* Registration Loader Modal Styles */
+        .registration-loader-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .registration-loader-modal.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .loader-modal-content {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            outline: none;
+            transform: translateY(20px) scale(0.95);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .registration-loader-modal.visible .loader-modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .loader-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 24px 16px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .loader-title {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .loader-close-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            color: #6b7280;
+            border-radius: 8px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loader-close-btn:hover:not(:disabled) {
+            background-color: #f3f4f6;
+            color: #111827;
+        }
+
+        .loader-close-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .loader-body {
+            padding: 24px;
+        }
+
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px;
+            border-radius: 12px;
+            background-color: #f9fafb;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .step-item.step-pending {
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+        }
+
+        .step-item.step-in-progress {
+            background-color: #eff6ff;
+            border: 1px solid #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .step-item.step-done {
+            background-color: #f0fdf4;
+            border: 1px solid #10b981;
+        }
+
+        .step-item.step-failed {
+            background-color: #fef2f2;
+            border: 1px solid #ef4444;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            }
+            50% {
+                box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.15);
+            }
+        }
+
+        .step-icon-wrapper {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #ffffff;
+        }
+
+        .step-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .step-icon-pending {
+            color: #9ca3af;
+        }
+
+        .step-icon-spinner {
+            color: #3b82f6;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .step-icon-done {
+            color: #10b981;
+        }
+
+        .step-icon-failed {
+            color: #ef4444;
+        }
+
+        .step-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .step-label {
+            font-size: 16px;
+            font-weight: 500;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .step-message {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        .step-message.step-message-error {
+            color: #dc2626;
+            font-weight: 500;
+        }
+
+        .loader-footer {
+            padding: 16px 24px 24px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .error-message {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            color: #dc2626;
+            font-size: 14px;
+        }
+
+        .error-message svg {
+            flex-shrink: 0;
+            color: #dc2626;
+        }
+
+        .btn-cancel {
+            padding: 10px 20px;
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-cancel:hover {
+            background-color: #dc2626;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>Registration Loader Demo</h1>
+        <p>Click the button below to see the registration loader in action with a simulated flow.</p>
+        <button class="btn" onclick="startDemo()">Start Registration Flow</button>
+        <button class="btn btn-danger" onclick="startErrorDemo()">Simulate Error</button>
+    </div>
+
+    <!-- Registration Loader Modal -->
+    <div id="loaderModal" class="registration-loader-modal" role="dialog" aria-modal="true" aria-labelledby="loader-title">
+        <div class="loader-modal-content">
+            <div class="loader-header">
+                <h3 id="loader-title" class="loader-title">Creating Your Account</h3>
+                <button class="loader-close-btn" onclick="hideLoader()" aria-label="Close" id="closeBtn" disabled>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="loader-body">
+                <div class="steps-container" id="stepsContainer">
+                    <!-- Steps will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <div class="loader-footer" id="loaderFooter" style="display: none;">
+                <div class="error-message" id="errorMessage">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <path d="M10 6V10M10 14H10.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span id="errorText"></span>
+                </div>
+                <button class="btn-cancel" onclick="hideLoader()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let steps = [];
+
+        function showLoader(stepsArray) {
+            steps = stepsArray.map(step => ({
+                label: typeof step === 'string' ? step : step.label,
+                status: step.status || 'pending',
+                message: step.message || ''
+            }));
+
+            const container = document.getElementById('stepsContainer');
+            container.innerHTML = '';
+
+            steps.forEach((step, index) => {
+                const stepEl = createStepElement(step, index);
+                container.appendChild(stepEl);
+            });
+
+            const modal = document.getElementById('loaderModal');
+            modal.classList.add('visible');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function updateStep(index, status, message = '') {
+            if (steps[index]) {
+                steps[index].status = status;
+                if (message) {
+                    steps[index].message = message;
+                }
+
+                const container = document.getElementById('stepsContainer');
+                const stepEl = container.children[index];
+                if (stepEl) {
+                    stepEl.className = `step-item step-${status}`;
+                    stepEl.innerHTML = createStepHTML(steps[index], index);
+                }
+            }
+        }
+
+        function hideLoader() {
+            const modal = document.getElementById('loaderModal');
+            modal.classList.remove('visible');
+            document.body.style.overflow = '';
+            steps = [];
+        }
+
+        function setError(message) {
+            document.getElementById('errorText').textContent = message;
+            document.getElementById('loaderFooter').style.display = 'flex';
+            document.getElementById('closeBtn').disabled = false;
+        }
+
+        function createStepElement(step, index) {
+            const div = document.createElement('div');
+            div.className = `step-item step-${step.status}`;
+            div.innerHTML = createStepHTML(step, index);
+            return div;
+        }
+
+        function createStepHTML(step, index) {
+            let iconHTML = '';
+
+            if (step.status === 'pending') {
+                iconHTML = `
+                    <svg class="step-icon step-icon-pending" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                `;
+            } else if (step.status === 'in-progress') {
+                iconHTML = `
+                    <svg class="step-icon step-icon-spinner" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="31.416" stroke-dashoffset="31.416">
+                            <animate attributeName="stroke-dasharray" values="0 31.416;15.708 15.708;0 31.416;0 31.416" dur="2s" repeatCount="indefinite"/>
+                            <animate attributeName="stroke-dashoffset" values="0;-15.708;-31.416;-31.416" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                    </svg>
+                `;
+            } else if (step.status === 'done') {
+                iconHTML = `
+                    <svg class="step-icon step-icon-done" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" fill="currentColor"/>
+                        <path d="M8 12L11 15L16 9" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                `;
+            } else if (step.status === 'failed') {
+                iconHTML = `
+                    <svg class="step-icon step-icon-failed" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" fill="currentColor"/>
+                        <path d="M9 9L15 15M15 9L9 15" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                `;
+            }
+
+            return `
+                <div class="step-icon-wrapper">${iconHTML}</div>
+                <div class="step-content">
+                    <div class="step-label">${step.label}</div>
+                    ${step.message ? `<div class="step-message ${step.status === 'failed' ? 'step-message-error' : ''}">${step.message}</div>` : ''}
+                </div>
+            `;
+        }
+
+        async function startDemo() {
+            const steps = [
+                { label: 'Validating input', status: 'pending' },
+                { label: 'Creating database', status: 'pending' },
+                { label: 'Initializing account', status: 'pending' },
+                { label: 'Setting up preferences', status: 'pending' },
+                { label: 'Finishing', status: 'pending' },
+            ];
+
+            showLoader(steps);
+
+            // Step 1
+            updateStep(0, 'in-progress');
+            await delay(800);
+            updateStep(0, 'done', 'Input validated successfully');
+
+            // Step 2
+            updateStep(1, 'in-progress');
+            await delay(1200);
+            updateStep(1, 'done', 'Database created successfully');
+
+            // Step 3
+            updateStep(2, 'in-progress');
+            await delay(1000);
+            updateStep(2, 'done', 'Account initialized');
+
+            // Step 4
+            updateStep(3, 'in-progress');
+            await delay(600);
+            updateStep(3, 'done', 'Preferences configured');
+
+            // Step 5
+            updateStep(4, 'in-progress');
+            await delay(500);
+            updateStep(4, 'done', 'Registration complete!');
+
+            await delay(500);
+            hideLoader();
+        }
+
+        async function startErrorDemo() {
+            const steps = [
+                { label: 'Validating input', status: 'pending' },
+                { label: 'Creating database', status: 'pending' },
+                { label: 'Initializing account', status: 'pending' },
+            ];
+
+            showLoader(steps);
+
+            // Step 1
+            updateStep(0, 'in-progress');
+            await delay(800);
+            updateStep(0, 'done', 'Input validated successfully');
+
+            // Step 2 - fails
+            updateStep(1, 'in-progress');
+            await delay(1200);
+            updateStep(1, 'failed', 'Database connection failed');
+
+            setError('Registration failed. Please try again.');
+        }
+
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('loaderModal');
+                if (modal.classList.contains('visible')) {
+                    const closeBtn = document.getElementById('closeBtn');
+                    if (!closeBtn.disabled) {
+                        hideLoader();
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+

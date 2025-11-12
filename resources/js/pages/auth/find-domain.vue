@@ -82,9 +82,9 @@
                       :disabled="isLoading || form.busy"
                       @click="handleSubmit"
                       class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">
-                      <i v-if="isLoading || form.busy" class="fas fa-spinner fa-spin"></i>
-                      <i v-else class="fas fa-sign-in-alt"></i>
                       <strong>{{ $t('login') }}</strong>
+                      <i v-if="isLoading || form.busy" class="fas fa-spinner fa-spin"></i>
+                      <i v-else class="fas fa-sign-in-alt" style="transform: scaleX(-1);"></i>
                     </button>
                   </form>
                   <div class="row text-center">

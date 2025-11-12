@@ -4410,5 +4410,17 @@
 "Automatic Account Routing": "توجيه الحساب التلقائي",
 "Specify Per Each": "تحديد لكل واحد",
 "Specify Main Account Per Each": "تحديد الحساب الرئيسي لكل واحد",
-"Cancel Account Routing": "إلغاء توجيه الحساب"
+"Cancel Account Routing": "إلغاء توجيه الحساب",
+"Creating Your Account": "جاري إنشاء حسابك",
+"Validating input": "التحقق من المدخلات",
+"Creating database": "إنشاء قاعدة البيانات",
+"Initializing account": "تهيئة الحساب",
+"Setting up preferences": "إعداد التفضيلات",
+"Finishing": "إنهاء",
+"Input validated successfully": "تم التحقق من المدخلات بنجاح",
+"Database created successfully": "تم إنشاء قاعدة البيانات بنجاح",
+"Account initialized": "تم تهيئة الحساب",
+"Preferences configured": "تم إعداد التفضيلات",
+"Registration complete!": "اكتمل التسجيل!",
+"An error occurred": "حدث خطأ"
 }
