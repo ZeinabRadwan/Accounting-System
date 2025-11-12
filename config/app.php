@@ -96,7 +96,7 @@ return [
     'locale' => 'en',
 
     'locales' => [
-        'ar' => ['AR', 'Arabic'],
+        'ar' => ['SA', 'Arabic'],
         'en' => ['EN', 'English'],
         // 'hi' => ['HI', 'Hindi'],
         // 'bn' => ['BN', 'Bengali'],

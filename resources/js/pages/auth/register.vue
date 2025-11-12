@@ -259,59 +259,6 @@
                                             </router-link>
                                         </div>
                                     </form>
-
-                                    <div class="mt-5" v-else>
-                                        <div
-                                            v-if="message"
-                                            class="alert"
-                                            :class="
-                                                type == 'success'
-                                                    ? 'alert-success'
-                                                    : 'alert-danger'
-                                            "
-                                        >
-                                            {{ message }}
-                                            <span v-if="type != 'success'">
-                                                {{ $t('please') }}
-                                                <router-link
-                                                    :to="{ name: 'find-domain' }"
-                                                    >{{ $t('login') }}</router-link
-                                                >
-                                            </span>
-                                        </div>
-                                        <h3>{{ $t('register_next_step') }}</h3>
-                                        <p class="text-22 mb-4 mt-2">
-                                            {{ $t('email_sent') }}
-                                            <span class="text-indigo">
-                                                {{ verificationForm.email }} </span
-                                            >.
-                                            {{ $t('confirm_account') }}
-                                        </p>
-                                        <p>
-                                            {{ $t('check_email') }}
-                                            <button
-                                                @click="resendVerification"
-                                                class="btn p-0 text-indigo"
-                                            >
-                                                {{ $t('resend_verification_link') }}
-                                            </button>
-                                        </p>
-                                        <div class="mt-3">
-                                            <router-link
-                                                :to="{ 
-                                                    name: 'find-domain', 
-                                                    query: { 
-                                                        email: verificationForm.email,
-                                                        domain: form.domain 
-                                                    } 
-                                                }"
-                                                class="btn btn-outline-primary btn-sm"
-                                            >
-                                                <i class="fas fa-sign-in-alt mr-1"></i>
-                                                {{ $t('go_to_login') }}
-                                            </router-link>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -323,6 +270,7 @@
         </div>
         <!-- Registration Loader Modal -->
         <registration-loader ref="registrationLoader" @cancel="handleLoaderCancel" />
+        
     </div>
 </template>
 <script>
@@ -330,6 +278,7 @@ import Form from 'vform';
 import { mapGetters } from 'vuex';
 import RegistrationLoader from '@/components/RegistrationLoader.vue';
 import loader from '@/utils/registrationLoader';
+import Swal from 'sweetalert2';
 
 export default {
     layout: 'basic',
@@ -414,6 +363,12 @@ export default {
                         this.type = null;
                         this.form.errors.clear();
                         this.verificationForm.email = data.data.tenant.email;
+                        // Navigate to login page immediately
+                        this.goToLogin();
+                        // Show success modal after navigation
+                        setTimeout(() => {
+                            this.showSuccessModal();
+                        }, 300);
                     }
                 } catch (error) {
                     this.handleSubmitError(error);
@@ -463,6 +418,12 @@ export default {
                     // Clear form errors
                     this.form.errors.clear();
                     this.verificationForm.email = data.data.tenant.email;
+                    // Navigate to login page immediately
+                    this.goToLogin();
+                    // Show success modal after navigation
+                    setTimeout(() => {
+                        this.showSuccessModal();
+                    }, 300);
                 }
             } catch (error) {
                 // Mark current step as failed
@@ -973,13 +934,86 @@ export default {
             await this.verificationForm
                 .post('/api/email/resend')
                 .then(({ data }) => {
-                    this.message = data.message;
-                    this.type = 'success';
+                    window.toast.fire({
+                        type: 'success',
+                        title: data.message || this.$t('Verification email sent successfully'),
+                    });
                 })
                 .catch((e) => {
-                    this.message = e.response.data.message;
-                    this.type = 'danger';
+                    window.toast.fire({
+                        type: 'error',
+                        title: e.response?.data?.message || this.$t('Failed to resend verification email'),
+                    });
                 });
+        },
+        
+        showSuccessModal() {
+            const email = this.verificationForm.email;
+            
+            Swal.fire({
+                title: `<div style="text-align: right; direction: rtl;">
+                    <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+                        <i class="fas fa-check-circle text-success" style="font-size: 3rem; margin-left: 1rem;"></i>
+                        <h3 style="margin: 0; color: #28a745;">${this.$t('registration_success_title')}</h3>
+                    </div>
+                </div>`,
+                html: `<div style="text-align: right; direction: rtl; padding: 1rem;">
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <div style="position: relative; display: inline-block; margin-bottom: 1rem;">
+                            <i class="fas fa-envelope text-primary" style="font-size: 4rem;"></i>
+                            <i class="fas fa-check-circle text-success" style="position: absolute; font-size: 1.5rem; bottom: 0; right: 0; background: white; border-radius: 50%;"></i>
+                        </div>
+                        <p style="font-size: 1.1rem; line-height: 1.6; color: #6c757d; margin-bottom: 1rem;">
+                            ${this.$t('registration_success_message')}
+                        </p>
+                        <div style="background-color: #f8f9fa; border-radius: 8px; border: 1px solid #dee2e6; padding: 1rem; margin-bottom: 1rem;">
+                            <i class="fas fa-envelope me-2 text-primary"></i>
+                            <strong>${email}</strong>
+                        </div>
+                        <p style="font-size: 0.9rem; color: #6c757d; margin-bottom: 1rem;">
+                            <i class="fas fa-info-circle me-1"></i>
+                            ${this.$t('registration_success_hint')}
+                        </p>
+                    </div>
+                    <div style="text-align: center; margin-top: 1rem;">
+                        <button id="resend-verification-btn" class="btn btn-link text-primary" style="text-decoration: none; padding: 0;">
+                            <i class="fas fa-redo me-1"></i>
+                            ${this.$t('resend_verification_link')}
+                        </button>
+                    </div>
+                </div>`,
+                icon: null,
+                showCancelButton: false,
+                showConfirmButton: true,
+                confirmButtonText: `<i class="fas fa-times me-2"></i>${this.$t('Close')}`,
+                confirmButtonColor: '#6c757d',
+                customClass: {
+                    popup: 'registration-success-modal',
+                    confirmButton: 'btn btn-secondary rounded-pill py-2',
+                },
+                allowOutsideClick: true,
+                allowEscapeKey: true,
+                didOpen: () => {
+                    // Add click handler for resend button
+                    const resendBtn = document.getElementById('resend-verification-btn');
+                    if (resendBtn) {
+                        resendBtn.addEventListener('click', () => {
+                            this.resendVerification();
+                        });
+                    }
+                }
+            });
+        },
+        
+        goToLogin() {
+            // Navigate to login page immediately
+            this.$router.push({
+                name: 'find-domain',
+                query: {
+                    email: this.verificationForm.email,
+                    domain: this.form.domain
+                }
+            });
         },
 
         // Domain validation methods
@@ -1049,3 +1083,58 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.registration-success-content {
+    padding: 1.5rem 0;
+}
+
+.success-icon-wrapper {
+    font-size: 2rem;
+}
+
+.email-icon-wrapper {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
+}
+
+.email-address-box {
+    transition: all 0.3s ease;
+}
+
+.email-address-box:hover {
+    background-color: #e9ecef !important;
+    border-color: #adb5bd !important;
+}
+
+.modal-header {
+    border-bottom: 1px solid #dee2e6;
+    padding: 1.25rem;
+}
+
+.modal-footer {
+    border-top: 1px solid #dee2e6;
+    padding: 1rem 1.25rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .email-icon-wrapper i {
+        font-size: 3rem !important;
+    }
+    
+    .registration-success-content {
+        padding: 1rem 0;
+    }
+}
+</style>

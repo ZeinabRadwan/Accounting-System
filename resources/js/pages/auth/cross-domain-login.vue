@@ -1,10 +1,10 @@
 <template>
   <div>
-    <!-- White screen loader -->
-    <WhiteScreenLoader 
-      v-if="loading" 
-      :loading-text="loadingText"
-      :sub-text="subText"
+    <!-- Login Steps Modal - showing final steps -->
+    <LoginStepsModal 
+      v-if="loading && !error" 
+      :show="true" 
+      :current-step="currentStep"
     />
     
     <!-- Error state -->
@@ -18,13 +18,13 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import WhiteScreenLoader from '../../components/WhiteScreenLoader.vue'
+import LoginStepsModal from '../../components/LoginStepsModal.vue'
 
 export default {
   layout: 'blank',
   middleware: 'guest',
   components: {
-    WhiteScreenLoader
+    LoginStepsModal
   },
   metaInfo() {
     return { title: this.$t('Logging in') }
@@ -34,8 +34,7 @@ export default {
       loading: true,
       error: null,
       appName: window.config.appName,
-      loadingText: '',
-      subText: '',
+      currentStep: 3, // Start at step 3 since steps 1-2 were done in find-domain
       processed: false
     }
   },
@@ -44,13 +43,11 @@ export default {
     ...mapGetters('operations', ['appInfo']),
   },
   async created() {
-    // Initialize loading texts with translations
-    this.loadingText = this.$t('Authenticating')
-    this.subText = this.$t('Please wait while we verify your credentials')
-    
     // Check if user is already authenticated
     if (this.$store.getters['auth/check']) {
-      // User is already logged in, redirect immediately
+      // User is already logged in, go to step 4 and redirect
+      this.currentStep = 4
+      await this.delay(500)
       await this.redirectAfterAuth()
       return
     }
@@ -58,11 +55,15 @@ export default {
     // Check if we've already processed this request (prevent refresh loop)
     const processedKey = 'cross_domain_login_processed'
     if (sessionStorage.getItem(processedKey)) {
-      // Already processed, just redirect
+      // Already processed, go to step 4 and redirect
+      this.currentStep = 4
+      await this.delay(500)
       await this.redirectAfterAuth()
       return
     }
     
+    // Start at step 3 (setting up session)
+    this.currentStep = 3
     await this.handleCrossDomainLogin()
   },
   methods: {
@@ -91,9 +92,8 @@ export default {
         })
 
         if (response.data && response.data.token) {
-          // Update loading text
-          this.loadingText = this.$t('Setting up your session')
-          this.subText = this.$t('Almost there! Preparing your dashboard')
+          // Step 3: Setting up session - save token
+          this.currentStep = 3
           
           // Save the token to the store
           await this.$store.dispatch('auth/saveToken', {
@@ -101,9 +101,8 @@ export default {
             remember: false,
           })
 
-          // Update loading text again
-          this.loadingText = this.$t('Loading your dashboard')
-          this.subText = this.$t('Finalizing your login process')
+          // Small delay to show step 3
+          await this.delay(500)
 
           // Fetch the user
           await this.$store.dispatch('auth/fetchUser')
@@ -113,11 +112,16 @@ export default {
             window.history.replaceState({}, document.title, window.location.pathname)
           }
 
+          // Step 4: Redirecting
+          this.currentStep = 4
+          await this.delay(500)
+
           // Redirect after authentication
           await this.redirectAfterAuth()
         } else {
           this.error = this.$t('Login failed. Please try again')
           sessionStorage.removeItem('cross_domain_login_processed')
+          this.loading = false
         }
       } catch (error) {
         console.error('Cross-domain login error:', error)
@@ -134,6 +138,7 @@ export default {
         const isInitialized = initResponse.data && initResponse.data.data && initResponse.data.data.is_initialized
 
         // Use window.location.href for hard redirect to prevent any middleware issues
+        // Only redirect once - no multiple redirects
         if (!isInitialized) {
           window.location.href = '/tenant-initialization'
         } else {
@@ -144,6 +149,10 @@ export default {
         console.error('Error checking tenant initialization:', error)
         window.location.href = '/tenant-initialization'
       }
+    },
+    
+    delay(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms))
     }
   }
 }

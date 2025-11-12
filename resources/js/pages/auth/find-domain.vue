@@ -1,14 +1,13 @@
 <template>
   <div>
-    <!-- White screen loader -->
-    <WhiteScreenLoader 
-      v-if="isLoading" 
-      :loading-text="loadingText"
-      :sub-text="subText"
+    <!-- Login Steps Modal -->
+    <LoginStepsModal 
+      :show="showLoginModal" 
+      :current-step="currentStep"
     />
     
     <!-- Main login form -->
-    <div v-else class="container-fluid">
+    <div v-if="!showLoginModal" class="container-fluid">
       <div class="row no-gutter">
         <!-- The image half -->
         <div class="col-md-6 d-none d-md-flex bg-image"></div>
@@ -79,11 +78,11 @@
                     
                     <!-- Submit Button -->
                     <button type="button" 
-                      :disabled="isLoading || form.busy"
+                      :disabled="showLoginModal || form.busy"
                       @click="handleSubmit"
                       class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">
                       <strong>{{ $t('login') }}</strong>
-                      <i v-if="isLoading || form.busy" class="fas fa-spinner fa-spin"></i>
+                      <i v-if="showLoginModal || form.busy" class="fas fa-spinner fa-spin"></i>
                       <i v-else class="fas fa-sign-in-alt" style="transform: scaleX(-1);"></i>
                     </button>
                   </form>
@@ -106,13 +105,13 @@
 <script>
 import Form from 'vform'
 import { mapGetters } from 'vuex'
-import WhiteScreenLoader from '../../components/WhiteScreenLoader.vue'
+import LoginStepsModal from '../../components/LoginStepsModal.vue'
 
 export default {
   layout: 'basic',
   middleware: 'guest',
   components: {
-    WhiteScreenLoader
+    LoginStepsModal
   },
   metaInfo() {
     return { title: this.$t('find_domain') }
@@ -125,9 +124,8 @@ export default {
     }),
     appName: window.config.appName,
     host: location.host,
-    isLoading: false,
-    loadingText: '',
-    subText: ''
+    showLoginModal: false,
+    currentStep: 0
   }),
   // Map Getters
   computed: {
@@ -136,10 +134,6 @@ export default {
 
   created() {
     console.log('Component created, form object:', this.form);
-    
-    // Initialize loading texts with translations
-    this.loadingText = this.$t('Finding your domain')
-    this.subText = this.$t('Please wait while we locate your account')
     
     // Auto-populate email and domain from query parameters
     if (this.$route.query.email) {
@@ -166,7 +160,7 @@ export default {
 
     async findDomain() {
       // Prevent multiple submissions
-      if (this.isLoading) {
+      if (this.showLoginModal) {
         console.log('Already processing, ignoring duplicate submission')
         return
       }
@@ -180,10 +174,12 @@ export default {
         return
       }
       
-      this.isLoading = true
+      // Show modal and start step 1
+      this.showLoginModal = true
+      this.currentStep = 1
       
       try {
-        // First, find the domain and get tenant info
+        // Step 1: Find the domain and get tenant info
         console.log('Calling /api/find-domain...')
         
         // Use axios directly instead of form.post to avoid form validation issues
@@ -196,42 +192,64 @@ export default {
         console.log('Domain response:', domainResponse)
         
         if (domainResponse && domainResponse.data.success) {
-          // Update loading text for redirect
-          this.loadingText = this.$t('Redirecting to your dashboard')
-          this.subText = this.$t('Please wait while we take you to your account')
+          // Step 1 completed, move to step 2 (verifying credentials happens in the API)
+          // Since the API already verified credentials, we can move to step 3
+          this.currentStep = 2
           
-          // Small delay to show loading state before redirect
-          setTimeout(() => {
-            // Redirect to the tenant domain using the special login URL
-            window.location.href = domainResponse.data.data.login_url
-          }, 1500)
+          // Small delay to show step 2
+          await this.delay(800)
+          
+          // Step 3: Setting up session - redirect to tenant domain
+          this.currentStep = 3
+          
+          // Small delay to show step 3
+          await this.delay(800)
+          
+          // Step 4: Redirecting
+          this.currentStep = 4
+          
+          // Small delay before redirect
+          await this.delay(500)
+          
+          // Redirect to the tenant domain using the special login URL
+          // This will complete the login process on the tenant domain
+          window.location.href = domainResponse.data.data.login_url
         } else {
           // Handle case where response is successful but no login URL provided
           this.$toast.error(this.$t('Domain found but login failed. Please check your credentials'))
-          this.isLoading = false
+          this.showLoginModal = false
+          this.currentStep = 0
         }
       } catch (error) {
         console.error('Error in findDomain:', error)
+        
+        // Hide modal on error
+        this.showLoginModal = false
+        this.currentStep = 0
         
         // Handle validation errors
         if (error.response && error.response.status === 422) {
           // Validation errors are handled by the form component
           console.log('Validation errors:', error.response.data)
-          this.isLoading = false
+          if (error.response.data && error.response.data.errors) {
+            // Show first error
+            const firstError = Object.values(error.response.data.errors)[0]
+            if (firstError && firstError.length > 0) {
+              this.$toast.error(firstError[0])
+            }
+          }
           return
         }
         
         // Handle domain not found error (404)
         if (error.response && error.response.status === 404) {
           this.$toast.error(this.$t('Domain not found. Please check your domain name and try again'))
-          this.isLoading = false
           return
         }
         
         // Handle authentication errors (401)
         if (error.response && error.response.status === 401) {
           this.$toast.error(this.$t('Invalid email or password. Please check your credentials'))
-          this.isLoading = false
           return
         }
         
@@ -241,9 +259,11 @@ export default {
         } else {
           this.$toast.error(this.$t('Login failed. Please check your credentials and domain'))
         }
-        
-        this.isLoading = false
       }
+    },
+    
+    delay(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms))
     },
   }
 }

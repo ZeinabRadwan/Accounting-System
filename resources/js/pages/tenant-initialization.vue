@@ -45,50 +45,37 @@
                   <div v-if="currentStep === 1" class="wizard-step">
                     <div class="form-group">
                       <label class="form-label">{{ $t('country') }} <span class="text-danger">*</span></label>
-                      <select 
-                        v-model="form.country" 
-                        @change="onCountryChange"
-                        class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary" 
-                        :class="{ 'is-invalid': errors.country }" 
-                        required
+                      <v-select
+                        v-model="form.country"
+                        :options="countries"
+                        label="name"
+                        :reduce="option => option.code"
+                        :getOptionLabel="option => option.name"
+                        :placeholder="$t('select_country')"
+                        :searchable="true"
+                        :clearable="false"
+                        class="country-select"
+                        :class="{ 'is-invalid': errors.country }"
+                        @input="onCountryChange"
                       >
-                        <option value="">{{ $t('select_country') }}</option>
-                        <option value="US">{{ $t('United States') }}</option>
-                        <option value="GB">{{ $t('United Kingdom') }}</option>
-                        <option value="CA">{{ $t('Canada') }}</option>
-                        <option value="AU">{{ $t('Australia') }}</option>
-                        <option value="DE">{{ $t('Germany') }}</option>
-                        <option value="FR">{{ $t('France') }}</option>
-                        <option value="ES">{{ $t('Spain') }}</option>
-                        <option value="IT">{{ $t('Italy') }}</option>
-                        <option value="NL">{{ $t('Netherlands') }}</option>
-                        <option value="BE">{{ $t('Belgium') }}</option>
-                        <option value="CH">{{ $t('Switzerland') }}</option>
-                        <option value="AT">{{ $t('Austria') }}</option>
-                        <option value="SE">{{ $t('Sweden') }}</option>
-                        <option value="NO">{{ $t('Norway') }}</option>
-                        <option value="DK">{{ $t('Denmark') }}</option>
-                        <option value="FI">{{ $t('Finland') }}</option>
-                        <option value="PL">{{ $t('Poland') }}</option>
-                        <option value="IE">{{ $t('Ireland') }}</option>
-                        <option value="PT">{{ $t('Portugal') }}</option>
-                        <option value="GR">{{ $t('Greece') }}</option>
-                        <option value="LU">{{ $t('Luxembourg') }}</option>
-                        <option value="EG">{{ $t('Egypt') }}</option>
-                        <option value="SA">{{ $t('Saudi Arabia') }}</option>
-                        <option value="AE">{{ $t('United Arab Emirates') }}</option>
-                        <option value="JO">{{ $t('Jordan') }}</option>
-                        <option value="LB">{{ $t('Lebanon') }}</option>
-                        <option value="MA">{{ $t('Morocco') }}</option>
-                        <option value="TN">{{ $t('Tunisia') }}</option>
-                        <option value="DZ">{{ $t('Algeria') }}</option>
-                        <option value="KW">{{ $t('Kuwait') }}</option>
-                        <option value="QA">{{ $t('Qatar') }}</option>
-                        <option value="BH">{{ $t('Bahrain') }}</option>
-                        <option value="OM">{{ $t('Oman') }}</option>
-                        <option value="YE">{{ $t('Yemen') }}</option>
-                        <option value="IQ">{{ $t('Iraq') }}</option>
-                      </select>
+                        <template #option="{ flag, name }">
+                          <div class="country-option">
+                            <span class="country-flag">{{ flag }}</span>
+                            <span class="country-name">{{ name }}</span>
+                          </div>
+                        </template>
+                        <template #selected-option="{ flag, name }">
+                          <div class="country-selected">
+                            <span class="country-flag">{{ flag }}</span>
+                            <span class="country-name">{{ name }}</span>
+                          </div>
+                        </template>
+                        <template #no-options>
+                          <div class="text-center text-muted p-2">
+                            {{ $t('No countries found') }}
+                          </div>
+                        </template>
+                      </v-select>
                       <div v-if="errors.country" class="invalid-feedback d-block mt-2">{{ errors.country }}</div>
                     </div>
                   </div>
@@ -148,10 +135,18 @@
                         v-model="form.tax_number" 
                         type="text" 
                         class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary" 
-                        :class="{ 'is-invalid': errors.tax_number }"
-                        :placeholder="$t('enter_tax_number')"
+                        :class="{ 'is-invalid': errors.tax_number || taxNumberInvalid }"
+                        :placeholder="getTaxNumberPlaceholder()"
+                        @input="validateTaxNumber"
+                        @blur="validateTaxNumber"
                       />
                       <div v-if="errors.tax_number" class="invalid-feedback d-block mt-2">{{ errors.tax_number }}</div>
+                      <div v-else-if="taxNumberInvalid && form.tax_number" class="invalid-feedback d-block mt-2">
+                        {{ taxNumberErrorMessage }}
+                      </div>
+                      <small v-if="form.country && taxNumberFormat" class="form-text text-muted mt-1">
+                        {{ $t('Format') }}: {{ taxNumberFormat }}
+                      </small>
                     </div> 
                   </div>
 
@@ -405,6 +400,76 @@ export default {
       currencies: [],
       statusChecked: false,
       logoPreview: null,
+      countriesData: [
+        { code: 'SA', nameKey: 'Saudi Arabia', flag: '🇸🇦' },
+        { code: 'AE', nameKey: 'United Arab Emirates', flag: '🇦🇪' },
+        { code: 'EG', nameKey: 'Egypt', flag: '🇪🇬' },
+        { code: 'JO', nameKey: 'Jordan', flag: '🇯🇴' },
+        { code: 'LB', nameKey: 'Lebanon', flag: '🇱🇧' },
+        { code: 'MA', nameKey: 'Morocco', flag: '🇲🇦' },
+        { code: 'TN', nameKey: 'Tunisia', flag: '🇹🇳' },
+        { code: 'DZ', nameKey: 'Algeria', flag: '🇩🇿' },
+        { code: 'KW', nameKey: 'Kuwait', flag: '🇰🇼' },
+        { code: 'QA', nameKey: 'Qatar', flag: '🇶🇦' },
+        { code: 'BH', nameKey: 'Bahrain', flag: '🇧🇭' },
+        { code: 'OM', nameKey: 'Oman', flag: '🇴🇲' },
+        { code: 'YE', nameKey: 'Yemen', flag: '🇾🇪' },
+        { code: 'IQ', nameKey: 'Iraq', flag: '🇮🇶' },
+        { code: 'US', nameKey: 'United States', flag: '🇺🇸' },
+        { code: 'GB', nameKey: 'United Kingdom', flag: '🇬🇧' },
+        { code: 'CA', nameKey: 'Canada', flag: '🇨🇦' },
+        { code: 'AU', nameKey: 'Australia', flag: '🇦🇺' },
+        { code: 'DE', nameKey: 'Germany', flag: '🇩🇪' },
+        { code: 'FR', nameKey: 'France', flag: '🇫🇷' },
+        { code: 'ES', nameKey: 'Spain', flag: '🇪🇸' },
+        { code: 'IT', nameKey: 'Italy', flag: '🇮🇹' },
+        { code: 'NL', nameKey: 'Netherlands', flag: '🇳🇱' },
+        { code: 'BE', nameKey: 'Belgium', flag: '🇧🇪' },
+        { code: 'CH', nameKey: 'Switzerland', flag: '🇨🇭' },
+        { code: 'AT', nameKey: 'Austria', flag: '🇦🇹' },
+        { code: 'SE', nameKey: 'Sweden', flag: '🇸🇪' },
+        { code: 'NO', nameKey: 'Norway', flag: '🇳🇴' },
+        { code: 'DK', nameKey: 'Denmark', flag: '🇩🇰' },
+        { code: 'FI', nameKey: 'Finland', flag: '🇫🇮' },
+        { code: 'PL', nameKey: 'Poland', flag: '🇵🇱' },
+        { code: 'IE', nameKey: 'Ireland', flag: '🇮🇪' },
+        { code: 'PT', nameKey: 'Portugal', flag: '🇵🇹' },
+        { code: 'GR', nameKey: 'Greece', flag: '🇬🇷' },
+        { code: 'LU', nameKey: 'Luxembourg', flag: '🇱🇺' },
+        { code: 'TR', nameKey: 'Turkey', flag: '🇹🇷' },
+        { code: 'IN', nameKey: 'India', flag: '🇮🇳' },
+        { code: 'CN', nameKey: 'China', flag: '🇨🇳' },
+        { code: 'JP', nameKey: 'Japan', flag: '🇯🇵' },
+        { code: 'KR', nameKey: 'South Korea', flag: '🇰🇷' },
+        { code: 'BR', nameKey: 'Brazil', flag: '🇧🇷' },
+        { code: 'MX', nameKey: 'Mexico', flag: '🇲🇽' },
+        { code: 'AR', nameKey: 'Argentina', flag: '🇦🇷' },
+        { code: 'ZA', nameKey: 'South Africa', flag: '🇿🇦' },
+        { code: 'NG', nameKey: 'Nigeria', flag: '🇳🇬' },
+        { code: 'KE', nameKey: 'Kenya', flag: '🇰🇪' },
+        { code: 'PK', nameKey: 'Pakistan', flag: '🇵🇰' },
+        { code: 'BD', nameKey: 'Bangladesh', flag: '🇧🇩' },
+        { code: 'ID', nameKey: 'Indonesia', flag: '🇮🇩' },
+        { code: 'PH', nameKey: 'Philippines', flag: '🇵🇭' },
+        { code: 'VN', nameKey: 'Vietnam', flag: '🇻🇳' },
+        { code: 'TH', nameKey: 'Thailand', flag: '🇹🇭' },
+        { code: 'MY', nameKey: 'Malaysia', flag: '🇲🇾' },
+        { code: 'SG', nameKey: 'Singapore', flag: '🇸🇬' },
+        { code: 'NZ', nameKey: 'New Zealand', flag: '🇳🇿' },
+        { code: 'RU', nameKey: 'Russia', flag: '🇷🇺' },
+        { code: 'UA', nameKey: 'Ukraine', flag: '🇺🇦' },
+        { code: 'CZ', nameKey: 'Czech Republic', flag: '🇨🇿' },
+        { code: 'HU', nameKey: 'Hungary', flag: '🇭🇺' },
+        { code: 'RO', nameKey: 'Romania', flag: '🇷🇴' },
+        { code: 'BG', nameKey: 'Bulgaria', flag: '🇧🇬' },
+        { code: 'HR', nameKey: 'Croatia', flag: '🇭🇷' },
+        { code: 'SI', nameKey: 'Slovenia', flag: '🇸🇮' },
+        { code: 'SK', nameKey: 'Slovakia', flag: '🇸🇰' },
+        { code: 'EE', nameKey: 'Estonia', flag: '🇪🇪' },
+        { code: 'LV', nameKey: 'Latvia', flag: '🇱🇻' },
+        { code: 'LT', nameKey: 'Lithuania', flag: '🇱🇹' },
+        { code: 'IS', nameKey: 'Iceland', flag: '🇮🇸' },
+      ],
       form: new Form({
         country: 'SA',
         company_name: '',
@@ -423,19 +488,177 @@ export default {
         system_type: '',
       }),
       errors: {},
+      taxNumberInvalid: false,
+      taxNumberErrorMessage: '',
+      taxNumberFormat: '',
     }
   },
 
   computed: {
     // Make steps reactive to locale changes
     steps() {
+      // Safely check if $i18n is available, otherwise use fallback
+      let t = (key) => key
+      try {
+        if (this.$t && typeof this.$t === 'function') {
+          t = this.$t
+        }
+      } catch (e) {
+        // $i18n not available yet, use fallback
+      }
       return [
-        { title: this.$t('country') },
-        { title: this.$t('company_info') },
-        { title: this.$t('contact_details') },
-        { title: this.$t('document_currency_settings') },
-        { title: this.$t('system_type') }
+        { title: t('country') },
+        { title: t('company_info') },
+        { title: t('contact_details') },
+        { title: t('document_currency_settings') },
+        { title: t('system_type') }
       ]
+    },
+    // Countries with translated names
+    countries() {
+      // Safely check if $i18n is available, otherwise use fallback
+      let t = (key) => key
+      try {
+        if (this.$t && typeof this.$t === 'function') {
+          t = this.$t
+        }
+      } catch (e) {
+        // $i18n not available yet, use fallback
+      }
+      return this.countriesData.map(country => ({
+        ...country,
+        name: t(country.nameKey) || country.nameKey
+      }))
+    },
+    // Tax number validation rules by country
+    taxNumberRules() {
+      // Safely check if $i18n is available, otherwise use fallback
+      let t = (key) => key
+      try {
+        if (this.$t && typeof this.$t === 'function') {
+          t = this.$t
+        }
+      } catch (e) {
+        // $i18n not available yet, use fallback
+      }
+      return {
+        'SA': {
+          pattern: /^3\d{14}$/,
+          format: `3XXXXXXXXXXXXXX (${t('15 digits')})`,
+          message: t('Invalid Saudi VAT number. Must start with 3 and be 15 digits')
+        },
+        'AE': {
+          pattern: /^\d{15}$/,
+          format: `XXXXXXXXXXXXXXX (${t('15 digits')})`,
+          message: t('Invalid UAE VAT number. Must be 15 digits')
+        },
+        'EG': {
+          pattern: /^\d{9}$/,
+          format: `XXXXXXXXX (${t('9 digits')})`,
+          message: t('Invalid Egyptian tax number. Must be 9 digits')
+        },
+        'KW': {
+          pattern: /^\d{9}$/,
+          format: `XXXXXXXXX (${t('9 digits')})`,
+          message: t('Invalid Kuwait tax number. Must be 9 digits')
+        },
+        'QA': {
+          pattern: /^\d{8,9}$/,
+          format: `XXXXXXXX or XXXXXXXX (${t('8-9 digits')})`,
+          message: t('Invalid Qatari tax number. Must be 8-9 digits')
+        },
+        'BH': {
+          pattern: /^\d{9}$/,
+          format: `XXXXXXXXX (${t('9 digits')})`,
+          message: t('Invalid Bahrain tax number. Must be 9 digits')
+        },
+        'OM': {
+          pattern: /^\d{9}$/,
+          format: `XXXXXXXXX (${t('9 digits')})`,
+          message: t('Invalid Omani tax number. Must be 9 digits')
+        },
+        'GB': {
+          pattern: /^GB\d{9}(\d{3})?$/,
+          format: 'GBXXXXXXXXX or GBXXXXXXXXXXXXX',
+          message: t('Invalid UK VAT number. Must start with GB followed by 9 or 12 digits')
+        },
+        'US': {
+          pattern: /^\d{2}-?\d{7}$/,
+          format: `XX-XXXXXXX or XXXXXXXXX (${t('9 digits')})`,
+          message: t('Invalid US EIN. Must be 9 digits')
+        },
+        'CA': {
+          pattern: /^\d{9}RT\d{4}$|^\d{15}$/,
+          format: 'XXXXXXXXXRTXXXX or XXXXXXXXXXXXXXX',
+          message: t('Invalid Canadian tax number')
+        },
+        'DE': {
+          pattern: /^DE\d{9}$/,
+          format: `DEXXXXXXXXX (${t('11 characters')})`,
+          message: t('Invalid German VAT number. Must start with DE followed by 9 digits')
+        },
+        'FR': {
+          pattern: /^FR[A-Z0-9]{2}\d{9}$/,
+          format: `FRXXXXXXXXXXX (${t('11 characters')})`,
+          message: t('Invalid French VAT number. Must start with FR')
+        },
+        'ES': {
+          pattern: /^ES[A-Z0-9]\d{7}[A-Z0-9]$/,
+          format: `ESXXXXXXXXX (${t('9 characters')})`,
+          message: t('Invalid Spanish VAT number. Must start with ES')
+        },
+        'IT': {
+          pattern: /^IT\d{11}$/,
+          format: `ITXXXXXXXXXXX (${t('13 characters')})`,
+          message: t('Invalid Italian VAT number. Must start with IT followed by 11 digits')
+        },
+        'TR': {
+          pattern: /^\d{10}$/,
+          format: `XXXXXXXXXX (${t('10 digits')})`,
+          message: t('Invalid Turkish tax number. Must be 10 digits')
+        },
+        'IN': {
+          pattern: /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/,
+          format: `XXAAAAA####X#Z# (${t('15 characters')})`,
+          message: t('Invalid Indian GST number')
+        },
+        'AU': {
+          pattern: /^\d{11}$/,
+          format: `XXXXXXXXXXX (${t('11 digits')})`,
+          message: t('Invalid Australian ABN. Must be 11 digits')
+        },
+      }
+    }
+  },
+
+  watch: {
+    'form.country'(newCountry, oldCountry) {
+      if (newCountry !== oldCountry) {
+        try {
+          // Update tax number format when country changes
+          if (newCountry && this.taxNumberRules && this.taxNumberRules[newCountry]) {
+            this.taxNumberFormat = this.taxNumberRules[newCountry].format
+          } else {
+            this.taxNumberFormat = ''
+          }
+          
+          // Re-validate tax number if it exists
+          if (this.form.tax_number && this.form.tax_number.trim()) {
+            this.$nextTick(() => {
+              try {
+                this.validateTaxNumber()
+              } catch (e) {
+                // $i18n not ready yet
+                console.warn('Could not validate tax number:', e)
+              }
+            })
+          }
+        } catch (e) {
+          // $i18n not ready yet
+          console.warn('Could not update tax number format:', e)
+          this.taxNumberFormat = ''
+        }
+      }
     }
   },
 
@@ -456,6 +679,19 @@ export default {
     await this.fetchTenantCompanyName()
     await this.checkInitializationStatus()
     this.interceptLocaleChanges()
+    
+    // Initialize tax number format if country is already selected
+    // Use $nextTick to ensure $i18n is ready
+    this.$nextTick(() => {
+      try {
+        if (this.form.country && this.taxNumberRules && this.taxNumberRules[this.form.country]) {
+          this.taxNumberFormat = this.taxNumberRules[this.form.country].format
+        }
+      } catch (e) {
+        // $i18n not ready yet, will be set when country changes
+        console.warn('Could not initialize tax number format:', e)
+      }
+    })
   },
   
   beforeDestroy() {
@@ -532,13 +768,111 @@ export default {
     },
 
     onCountryChange() {
-      // Auto-set currency to SAR if Saudi Arabia is selected
-      if (this.form.country === 'SA' && this.currencies.length > 0) {
-        const sarCurrency = this.currencies.find(c => c.code === 'SAR')
-        if (sarCurrency) {
-          this.form.default_currency = sarCurrency.id
+      try {
+        // Auto-set currency to SAR if Saudi Arabia is selected
+        if (this.form.country === 'SA' && this.currencies.length > 0) {
+          const sarCurrency = this.currencies.find(c => c.code === 'SAR')
+          if (sarCurrency) {
+            this.form.default_currency = sarCurrency.id
+          }
         }
+        
+        // Reset tax number validation when country changes
+        this.taxNumberInvalid = false
+        this.taxNumberErrorMessage = ''
+        this.taxNumberFormat = ''
+        
+        // Update tax number format display
+        if (this.form.country && this.taxNumberRules && this.taxNumberRules[this.form.country]) {
+          this.taxNumberFormat = this.taxNumberRules[this.form.country].format
+        }
+        
+        // Re-validate tax number if it exists
+        if (this.form.tax_number && this.form.tax_number.trim()) {
+          this.validateTaxNumber()
+        }
+      } catch (e) {
+        // $i18n not ready yet
+        console.warn('Could not update country change:', e)
       }
+    },
+    
+    validateTaxNumber() {
+      try {
+        // If tax number is empty, it's valid (optional field)
+        if (!this.form.tax_number || !this.form.tax_number.trim()) {
+          this.taxNumberInvalid = false
+          this.taxNumberErrorMessage = ''
+          return true
+        }
+        
+        // If no country selected, skip validation
+        if (!this.form.country) {
+          this.taxNumberInvalid = false
+          this.taxNumberErrorMessage = ''
+          return true
+        }
+        
+        // Get validation rule for selected country
+        if (!this.taxNumberRules) {
+          // $i18n not ready yet, skip validation
+          this.taxNumberInvalid = false
+          this.taxNumberErrorMessage = ''
+          return true
+        }
+        
+        const rule = this.taxNumberRules[this.form.country]
+        
+        // If no rule exists for this country, allow any format
+        if (!rule) {
+          this.taxNumberInvalid = false
+          this.taxNumberErrorMessage = ''
+          this.taxNumberFormat = ''
+          return true
+        }
+        
+        // Update format display
+        this.taxNumberFormat = rule.format
+        
+        // Remove spaces and convert to uppercase for validation
+        const taxNumber = this.form.tax_number.trim().replace(/\s+/g, '').toUpperCase()
+        
+        // Test against pattern
+        if (rule.pattern.test(taxNumber)) {
+          this.taxNumberInvalid = false
+          this.taxNumberErrorMessage = ''
+          return true
+        } else {
+          this.taxNumberInvalid = true
+          this.taxNumberErrorMessage = rule.message
+          return false
+        }
+      } catch (e) {
+        // $i18n not ready yet, skip validation
+        console.warn('Could not validate tax number:', e)
+        this.taxNumberInvalid = false
+        this.taxNumberErrorMessage = ''
+        return true
+      }
+    },
+    
+    getTaxNumberPlaceholder() {
+      // Safely check if $i18n is available, otherwise use fallback
+      let t = (key) => key
+      try {
+        if (this.$t && typeof this.$t === 'function') {
+          t = this.$t
+        }
+      } catch (e) {
+        // $i18n not available yet, use fallback
+      }
+      
+      if (!this.form.country || !this.taxNumberRules || !this.taxNumberRules[this.form.country]) {
+        return t('enter_tax_number')
+      }
+      
+      const format = this.taxNumberRules[this.form.country].format
+      return `${t('enter_tax_number')} (${format})`
     },
 
     async fetchCurrencies() {
@@ -714,6 +1048,8 @@ export default {
           return
         }
         this.errors = {}
+        this.currentStep++
+        return
       }
       // Step 2: Company Info
       else if (this.currentStep === 2) {
@@ -721,7 +1057,18 @@ export default {
           this.errors.company_name = this.$t('company_name_required')
           return
         }
+        
+        // Validate tax number if provided
+        if (this.form.tax_number && this.form.tax_number.trim()) {
+          if (!this.validateTaxNumber()) {
+            this.errors.tax_number = this.taxNumberErrorMessage
+            return
+          }
+        }
+        
         this.errors = {}
+        this.currentStep++
+        return
       }
       // Step 3: Contact Details
       else if (this.currentStep === 3) {
@@ -734,6 +1081,8 @@ export default {
           return
         }
         this.errors = {}
+        this.currentStep++
+        return
       }
       // Step 4: Document Settings
       else if (this.currentStep === 4) {
@@ -762,6 +1111,8 @@ export default {
           return
         }
         this.errors = {}
+        this.currentStep++
+        return
       }
       // Step 5: System Type
       else if (this.currentStep === 5) {
@@ -770,9 +1121,8 @@ export default {
           return
         }
         this.errors = {}
+        // Don't increment on step 5, submitForm will be called
       }
-      
-      this.currentStep++
     },
 
     previousStep() {
@@ -794,6 +1144,14 @@ export default {
         this.errors.company_name = this.$t('company_name_required')
         if (!hasErrors) this.currentStep = 2
         hasErrors = true
+      }
+      // Validate tax number if provided
+      if (this.form.tax_number && this.form.tax_number.trim()) {
+        if (!this.validateTaxNumber()) {
+          this.errors.tax_number = this.taxNumberErrorMessage
+          if (!hasErrors) this.currentStep = 2
+          hasErrors = true
+        }
       }
       if (!this.form.email_address) {
         this.errors.email_address = this.$t('email_required')
@@ -1133,5 +1491,58 @@ export default {
 .file-upload-wrapper label {
   cursor: pointer;
   display: inline-block;
+}
+
+.country-select {
+  width: 100%;
+}
+
+.country-select .vs__dropdown-toggle {
+  border: 0;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  border-radius: 50px;
+  padding: 0.5rem 1rem;
+  min-height: 3rem;
+}
+
+.country-select .vs__search {
+  padding: 0;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.country-option,
+.country-selected {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.country-flag {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.country-name {
+  font-size: 1rem;
+}
+
+.country-select.is-invalid .vs__dropdown-toggle {
+  border-color: #dc3545;
+}
+
+.country-select .vs__dropdown-menu {
+  border-radius: 15px;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  margin-top: 0.5rem;
+}
+
+.country-select .vs__dropdown-option {
+  padding: 0.75rem 1rem;
+}
+
+.country-select .vs__dropdown-option--highlight {
+  background-color: #33a0d9;
+  color: white;
 }
 </style>

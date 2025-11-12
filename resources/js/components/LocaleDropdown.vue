@@ -11,9 +11,10 @@
       </span>
     </a>
     <div class="dropdown-menu dropdown-menu-sm">
-      <a v-for="(value, key) in locales" :key="key" class="dropdown-item" :title="value[1]" href="#"
+      <a v-for="(value, key) in locales" :key="key" class="dropdown-item" :title="Array.isArray(value) ? value[1] : value" href="#"
         @click.prevent="setLocale(key)" :class="{ 'disabled': isLoading }">
-        <lang-flag :iso="value[0]" />
+        <span v-if="key === 'ar'" class="fi fis fi-sa" :title="Array.isArray(value) ? value[1] : value"></span>
+        <lang-flag v-else :iso="getFlagCode(key, Array.isArray(value) ? value[0] : null)" />
         {{ $t(`languages.${key}`) }}
       </a>
     </div>
@@ -48,6 +49,20 @@ export default {
   },
 
   methods: {
+    // Get the correct flag code for a locale
+    getFlagCode(locale, defaultCode) {
+      // Use Saudi Arabia flag for Arabic
+      if (locale === 'ar') {
+        return 'SA'
+      }
+      // Ensure we always return a valid string
+      if (defaultCode && typeof defaultCode === 'string' && defaultCode.trim()) {
+        return defaultCode
+      }
+      // Fallback to locale code in uppercase
+      return locale ? locale.toUpperCase() : 'UN'
+    },
+    
     // Simple RTL utility function
     applyRTLMode(locale) {
       const rtlLanguages = ['ar', 'he', 'fa', 'ur', 'ps', 'sd', 'ku', 'yi']

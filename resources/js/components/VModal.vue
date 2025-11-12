@@ -1,5 +1,6 @@
 <template>
   <vue-final-modal
+  v-model="modelValue"
   :lock-scroll="true"
   v-slot="{ params, close }"
   v-bind="$attrs"
@@ -8,7 +9,7 @@
     v-on="$listeners">
     <span class="modal-header">
       <slot name="title"></slot>
-      <button @click="close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <button @click="handleClose(close)" type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </span>
@@ -28,7 +29,28 @@
 <script>
 export default {
   name: 'VModal',
-  inheritAttrs: false
+  inheritAttrs: false,
+  props: {
+    modelValue: {
+      type: Boolean,
+      default: false
+    }
+  },
+  emits: ['update:modelValue', 'close'],
+  watch: {
+    modelValue(newVal) {
+      if (!newVal) {
+        this.$emit('update:modelValue', false);
+      }
+    }
+  },
+  methods: {
+    handleClose(close) {
+      this.$emit('close');
+      close();
+      this.$emit('update:modelValue', false);
+    }
+  }
 }
 </script>
 
@@ -87,6 +109,19 @@ export default {
     max-width: 100%;
     margin: 0.5rem;
   }
+}
+
+/* Size variants */
+.modal-content[data-size="md"] {
+  max-width: 500px;
+}
+
+.modal-content[data-size="sm"] {
+  max-width: 400px;
+}
+
+.modal-content[data-size="lg"] {
+  max-width: 800px;
 }
 </style>
 
