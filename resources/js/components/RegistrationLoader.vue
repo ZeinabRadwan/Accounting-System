@@ -362,55 +362,36 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100vw;
-    height: 100vh;
-    background: linear-gradient(135deg, #33a0d9 0%, #33a0d9 100%);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 99999;
-    overflow: hidden;
-}
-
-.background-pattern {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
-    opacity: 0.6;
-    animation: patternMove 25s ease-in-out infinite;
-}
-
-@keyframes patternMove {
-    0%, 100% {
-        transform: translate(0, 0);
-    }
-    50% {
-        transform: translate(-30px, -30px);
-    }
+    animation: fadeIn 0.3s ease-in;
 }
 
 .loader-content {
     position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 2.5rem;
+    animation: slideUp 0.3s ease-out;
     z-index: 1;
+}
+
+.background-pattern {
+    display: none;
 }
 
 .loader-main {
     text-align: center;
-    max-width: 500px;
     width: 100%;
     animation: fadeInUp 0.6s ease-out;
 }
@@ -429,14 +410,14 @@ export default {
 .step-icon-wrapper {
     display: flex;
     justify-content: center;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .step-icon-large {
-    width: 140px;
-    height: 140px;
+    width: 100px;
+    height: 100px;
     animation: float 3s ease-in-out infinite;
-    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.25));
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.15));
 }
 
 @keyframes float {
@@ -462,107 +443,75 @@ export default {
 }
 
 .loader-title {
-    font-size: 36px;
+    font-size: 24px;
     font-weight: 700;
-    color: white;
+    color: #333;
     margin: 0 0 20px 0;
-    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
     letter-spacing: -0.5px;
 }
 
 .step-label {
-    font-size: 22px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.95);
-    margin-bottom: 16px;
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.15);
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 12px;
 }
 
 .step-message {
-    font-size: 17px;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 45px;
+    font-size: 15px;
+    color: #6c757d;
+    margin-bottom: 30px;
     line-height: 1.6;
     min-height: 26px;
     font-weight: 400;
 
     &.step-message-error {
-        color: #fee2e2;
+        color: #dc3545;
         font-weight: 500;
     }
 }
 
 .progress-container {
-    margin-top: 45px;
+    margin-top: 30px;
 }
 
 .progress-bar {
     width: 100%;
-    height: 8px;
-    background: rgba(255, 255, 255, 0.25);
+    height: 6px;
+    background: #e9ecef;
     border-radius: 10px;
     overflow: hidden;
-    margin-bottom: 18px;
-    backdrop-filter: blur(10px);
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 12px;
 }
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 100%);
+    background: linear-gradient(90deg, #007bff 0%, #0056b3 100%);
     border-radius: 10px;
     transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
     position: relative;
     overflow: hidden;
-
-    &::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-        animation: shimmer 2s infinite;
-    }
-}
-
-@keyframes shimmer {
-    0% {
-        transform: translateX(-100%);
-    }
-    100% {
-        transform: translateX(100%);
-    }
 }
 
 .progress-text {
-    font-size: 15px;
-    color: rgba(255, 255, 255, 0.85);
+    font-size: 14px;
+    color: #6c757d;
     font-weight: 500;
-    letter-spacing: 0.5px;
 }
 
 .error-container {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 500px;
-    padding: 0 40px;
+    margin-top: 30px;
     animation: slideUp 0.4s ease-out;
 }
 
 @keyframes slideUp {
     from {
         opacity: 0;
-        transform: translateX(-50%) translateY(20px);
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
-        transform: translateX(-50%) translateY(0);
+        transform: translateY(0);
     }
 }
 
@@ -572,40 +521,36 @@ export default {
     justify-content: center;
     gap: 12px;
     padding: 18px 24px;
-    background: rgba(239, 68, 68, 0.2);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(239, 68, 68, 0.4);
-    border-radius: 12px;
-    color: #fee2e2;
-    font-size: 16px;
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 8px;
+    color: #721c24;
+    font-size: 15px;
     font-weight: 500;
     margin-bottom: 16px;
-    box-shadow: 0 4px 20px rgba(239, 68, 68, 0.25);
 
     svg {
         flex-shrink: 0;
-        color: #fee2e2;
+        color: #721c24;
     }
 }
 
 .btn-cancel {
     width: 100%;
-    padding: 16px 28px;
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(10px);
+    padding: 12px 24px;
+    background: #6c757d;
     color: white;
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    border-radius: 12px;
+    border: none;
+    border-radius: 8px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 
     &:hover {
-        background: rgba(255, 255, 255, 0.35);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+        background: #5a6268;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     &:active {
@@ -616,7 +561,7 @@ export default {
 // Modal fade transition
 .modal-fade-enter-active,
 .modal-fade-leave-active {
-    transition: opacity 0.4s ease;
+    transition: opacity 0.3s ease;
 }
 
 .modal-fade-enter,
@@ -624,36 +569,37 @@ export default {
     opacity: 0;
 }
 
-// Responsive design
-@media (max-width: 640px) {
-    .loader-content {
-        padding: 20px;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
     }
+    to {
+        opacity: 1;
+    }
+}
 
-    .loader-main {
-        max-width: 100%;
+// Responsive design
+@media (max-width: 576px) {
+    .loader-content {
+        padding: 1.5rem;
+        width: 95%;
     }
 
     .step-icon-large {
-        width: 120px;
-        height: 120px;
+        width: 80px;
+        height: 80px;
     }
 
     .loader-title {
-        font-size: 28px;
-    }
-
-    .step-label {
         font-size: 20px;
     }
 
-    .step-message {
-        font-size: 15px;
+    .step-label {
+        font-size: 16px;
     }
 
-    .error-container {
-        bottom: 20px;
-        padding: 0 20px;
+    .step-message {
+        font-size: 14px;
     }
 }
 </style>

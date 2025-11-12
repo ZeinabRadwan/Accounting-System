@@ -9,42 +9,42 @@
 
         <!-- Steps Container -->
         <div class="steps-container">
-          <!-- Step 1: Searching for domain -->
+          <!-- Step 1: Account Identification -->
           <div class="step-item" :class="{ 'active': currentStep >= 1, 'completed': currentStep > 1 }">
             <div class="step-icon">
               <i v-if="currentStep > 1" class="fas fa-check-circle text-success"></i>
               <i v-else-if="currentStep === 1" class="fas fa-spinner fa-spin text-primary"></i>
-              <i v-else class="far fa-circle text-muted"></i>
+              <i v-else class="fas fa-circle pending-icon"></i>
             </div>
             <div class="step-content">
-              <h5 class="step-title">{{ $t('Searching for domain or company') }}</h5>
-              <p class="step-description">{{ $t('Please wait while we locate your account') }}</p>
+              <h5 class="step-title">{{ $t('Finding Your Account') }}</h5>
+              <p class="step-description">{{ $t('Searching for your account') }}</p>
             </div>
           </div>
 
-          <!-- Step 2: Verifying credentials -->
+          <!-- Step 2: Verifying Password -->
           <div class="step-item" :class="{ 'active': currentStep >= 2, 'completed': currentStep > 2 }">
             <div class="step-icon">
               <i v-if="currentStep > 2" class="fas fa-check-circle text-success"></i>
               <i v-else-if="currentStep === 2" class="fas fa-spinner fa-spin text-primary"></i>
-              <i v-else class="far fa-circle text-muted"></i>
+              <i v-else class="fas fa-circle pending-icon"></i>
             </div>
             <div class="step-content">
-              <h5 class="step-title">{{ $t('Verifying credentials') }}</h5>
+              <h5 class="step-title">{{ $t('Verifying Password') }}</h5>
               <p class="step-description">{{ $t('Checking your email and password') }}</p>
             </div>
           </div>
 
-          <!-- Step 3: Setting up session -->
+          <!-- Step 3: Preparing Your Account -->
           <div class="step-item" :class="{ 'active': currentStep >= 3, 'completed': currentStep > 3 }">
             <div class="step-icon">
               <i v-if="currentStep > 3" class="fas fa-check-circle text-success"></i>
               <i v-else-if="currentStep === 3" class="fas fa-spinner fa-spin text-primary"></i>
-              <i v-else class="far fa-circle text-muted"></i>
+              <i v-else class="fas fa-circle pending-icon"></i>
             </div>
             <div class="step-content">
-              <h5 class="step-title">{{ $t('Setting up your session') }}</h5>
-              <p class="step-description">{{ $t('Preparing your dashboard') }}</p>
+              <h5 class="step-title">{{ $t('Preparing Your Account') }}</h5>
+              <p class="step-description">{{ $t('Setting up your dashboard') }}</p>
             </div>
           </div>
 
@@ -53,11 +53,11 @@
             <div class="step-icon">
               <i v-if="currentStep > 4" class="fas fa-check-circle text-success"></i>
               <i v-else-if="currentStep === 4" class="fas fa-spinner fa-spin text-primary"></i>
-              <i v-else class="far fa-circle text-muted"></i>
+              <i v-else class="fas fa-circle pending-icon"></i>
             </div>
             <div class="step-content">
-              <h5 class="step-title">{{ $t('Redirecting to your dashboard') }}</h5>
-              <p class="step-description">{{ $t('Almost there!') }}</p>
+              <h5 class="step-title">{{ $t('Redirecting to Dashboard') }}</h5>
+              <p class="step-description">{{ $t('Almost done!') }}</p>
             </div>
           </div>
         </div>
@@ -149,7 +149,7 @@ export default {
   display: flex;
   align-items: flex-start;
   margin-bottom: 1.5rem;
-  opacity: 0.5;
+  opacity: 0.6;
   transition: opacity 0.3s ease;
 }
 
@@ -158,7 +158,12 @@ export default {
 }
 
 .step-item.completed {
-  opacity: 0.7;
+  opacity: 0.75;
+}
+
+.pending-icon {
+  color: #dee2e6;
+  font-size: 1.2rem;
 }
 
 .step-icon {

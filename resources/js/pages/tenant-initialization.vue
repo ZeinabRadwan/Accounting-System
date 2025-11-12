@@ -50,7 +50,6 @@
                         :options="countries"
                         label="name"
                         :reduce="option => option.code"
-                        :getOptionLabel="option => option.name"
                         :placeholder="$t('select_country')"
                         :searchable="true"
                         :clearable="false"
@@ -98,29 +97,63 @@
                     <div class="form-group mb-4">
                       <label class="form-label">{{ $t('company_logo') || 'شعار الشركة' }} <span class="text-muted">({{ $t('optional') }})</span></label>
                       <div class="logo-upload-container">
-                        <div class="logo-preview mb-3" v-if="logoPreview">
-                          <img :src="logoPreview" alt="Company Logo" class="logo-preview-image" />
-                          <button type="button" class="btn btn-sm btn-danger mt-2" @click="removeLogo">
-                            <i class="fas fa-times"></i> {{ $t('Remove') }}
-                          </button>
+                        <!-- Crop Area (shown when image is selected) -->
+                        <div v-if="cropImageSrc" class="logo-crop-wrapper mb-3">
+                          <div class="crop-container-inline">
+                            <img ref="cropImage" :src="cropImageSrc" alt="Crop" class="crop-image-inline" />
+                          </div>
+                          <div class="crop-actions mt-3">
+                            <button type="button" class="btn btn-secondary btn-sm" @click="cancelCrop">
+                              <i class="fas fa-times mr-1"></i> {{ $t('Cancel') }}
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm" @click="cropLogo">
+                              <i class="fas fa-check mr-1"></i> {{ $t('Crop & Save') }}
+                            </button>
+                          </div>
+                          <small class="d-block text-muted mt-2 text-center">{{ $t('Adjust the selection to crop your logo. Recommended size: 300x300 pixels') }}</small>
                         </div>
-                        <div class="file-upload-wrapper">
+                        
+                        <!-- Preview (shown after crop) -->
+                        <div v-else-if="logoPreview" class="logo-preview mb-3">
+                          <div class="logo-preview-wrapper">
+                            <img :src="logoPreview" alt="Company Logo" class="logo-preview-image" />
+                            <div class="logo-preview-overlay">
+                              <button type="button" class="btn btn-sm btn-danger" @click="removeLogo">
+                                <i class="fas fa-times"></i> {{ $t('Remove') }}
+                              </button>
+                            </div>
+                          </div>
+                          <small class="d-block text-muted mt-2 text-center">{{ $t('Logo size') }}: 300x300 {{ $t('pixels') }}</small>
+                        </div>
+                        
+                        <!-- Upload Area (hidden when crop is active) -->
+                        <div v-if="!cropImageSrc" class="file-upload-area" :class="{ 'has-logo': logoPreview }">
                           <input 
                             type="file" 
                             ref="logoInput"
                             @change="onLogoChange"
-                            accept="image/jpeg,image/png,image/gif,image/svg+xml"
+                            accept="image/jpeg,image/png,image/gif"
                             class="d-none"
                             id="company-logo-upload"
                           />
                           <label 
                             for="company-logo-upload" 
-                            class="btn btn-outline-primary btn-lg rounded-pill px-4 cursor-pointer"
+                            class="file-upload-label"
                           >
-                            <i class="fas fa-upload mr-2"></i>
-                            {{ logoPreview ? $t('Change Logo') : $t('Upload Logo') }}
+                            <div class="upload-icon-wrapper">
+                              <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <div class="upload-text">
+                              <span class="upload-title">{{ logoPreview ? $t('Change Logo') : $t('Upload Logo') }}</span>
+                              <span class="upload-subtitle">{{ $t('Click to upload or drag and drop') }}</span>
+                            </div>
                           </label>
-                          <small class="d-block text-muted mt-2">{{ $t('Maximum file size: 2MB. Supported formats: JPG, PNG, GIF, SVG') }}</small>
+                          <div class="upload-info">
+                            <small class="text-muted">
+                              <i class="fas fa-info-circle mr-1"></i>
+                              {{ $t('Maximum file size: 2MB. Supported formats: JPG, PNG, GIF') }}
+                            </small>
+                          </div>
                         </div>
                       </div>
                       <div v-if="errors.company_logo" class="invalid-feedback d-block mt-2">{{ errors.company_logo }}</div>
@@ -166,16 +199,14 @@
                     </div>
 
                     <div class="form-group mb-4">
-                      <label class="form-label">{{ $t('phone_number') }} <span class="text-danger">*</span></label>
-                      <input 
-                        v-model="form.phone_number" 
-                        type="text" 
-                        class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary" 
-                        :class="{ 'is-invalid': errors.phone_number }"
-                        :placeholder="$t('enter_phone_number')"
-                        required
+                      <PhoneNumberInput
+                        v-model="form.phone_number"
+                        :label="$t('phone_number')"
+                        :required="true"
+                        :country="form.country"
+                        :default-country="form.country || 'SA'"
+                        @validated="onPhoneValidated"
                       />
-                      <div v-if="errors.phone_number" class="invalid-feedback d-block mt-2">{{ errors.phone_number }}</div>
                     </div>
 
                     <div class="form-group">
@@ -380,6 +411,7 @@
 import Form from 'vform'
 import axios from 'axios'
 import LocaleDropdown from '../components/LocaleDropdown.vue'
+import PhoneNumberInput from '../components/PhoneNumberInput.vue'
 
 export default {
   name: 'TenantInitialization',
@@ -387,7 +419,8 @@ export default {
   middleware: ['auth'],
   
   components: {
-    LocaleDropdown
+    LocaleDropdown,
+    PhoneNumberInput
   },
 
   data() {
@@ -400,6 +433,8 @@ export default {
       currencies: [],
       statusChecked: false,
       logoPreview: null,
+      cropImageSrc: null,
+      cropper: null,
       countriesData: [
         { code: 'SA', nameKey: 'Saudi Arabia', flag: '🇸🇦' },
         { code: 'AE', nameKey: 'United Arab Emirates', flag: '🇦🇪' },
@@ -491,141 +526,115 @@ export default {
       taxNumberInvalid: false,
       taxNumberErrorMessage: '',
       taxNumberFormat: '',
+      phoneNumberValid: false,
     }
   },
 
   computed: {
     // Make steps reactive to locale changes
     steps() {
-      // Safely check if $i18n is available, otherwise use fallback
-      let t = (key) => key
-      try {
-        if (this.$t && typeof this.$t === 'function') {
-          t = this.$t
-        }
-      } catch (e) {
-        // $i18n not available yet, use fallback
-      }
       return [
-        { title: t('country') },
-        { title: t('company_info') },
-        { title: t('contact_details') },
-        { title: t('document_currency_settings') },
-        { title: t('system_type') }
+        { title: this.$t('country') },
+        { title: this.$t('company_info') },
+        { title: this.$t('contact_details') },
+        { title: this.$t('document_currency_settings') },
+        { title: this.$t('system_type') }
       ]
     },
     // Countries with translated names
     countries() {
-      // Safely check if $i18n is available, otherwise use fallback
-      let t = (key) => key
-      try {
-        if (this.$t && typeof this.$t === 'function') {
-          t = this.$t
-        }
-      } catch (e) {
-        // $i18n not available yet, use fallback
-      }
       return this.countriesData.map(country => ({
         ...country,
-        name: t(country.nameKey) || country.nameKey
+        name: this.$t(country.nameKey) || country.nameKey
       }))
     },
     // Tax number validation rules by country
     taxNumberRules() {
-      // Safely check if $i18n is available, otherwise use fallback
-      let t = (key) => key
-      try {
-        if (this.$t && typeof this.$t === 'function') {
-          t = this.$t
-        }
-      } catch (e) {
-        // $i18n not available yet, use fallback
-      }
       return {
         'SA': {
           pattern: /^3\d{14}$/,
-          format: `3XXXXXXXXXXXXXX (${t('15 digits')})`,
-          message: t('Invalid Saudi VAT number. Must start with 3 and be 15 digits')
+          format: '3XXXXXXXXXXXXXX (15 digits)',
+          message: this.$t ? this.$t('Invalid Saudi VAT number. Must start with 3 and be 15 digits') : 'Invalid Saudi VAT number. Must start with 3 and be 15 digits'
         },
         'AE': {
           pattern: /^\d{15}$/,
-          format: `XXXXXXXXXXXXXXX (${t('15 digits')})`,
-          message: t('Invalid UAE VAT number. Must be 15 digits')
+          format: 'XXXXXXXXXXXXXXX (15 digits)',
+          message: this.$t ? this.$t('Invalid UAE VAT number. Must be 15 digits') : 'Invalid UAE VAT number. Must be 15 digits'
         },
         'EG': {
           pattern: /^\d{9}$/,
-          format: `XXXXXXXXX (${t('9 digits')})`,
-          message: t('Invalid Egyptian tax number. Must be 9 digits')
+          format: 'XXXXXXXXX (9 digits)',
+          message: this.$t ? this.$t('Invalid Egyptian tax number. Must be 9 digits') : 'Invalid Egyptian tax number. Must be 9 digits'
         },
         'KW': {
           pattern: /^\d{9}$/,
-          format: `XXXXXXXXX (${t('9 digits')})`,
-          message: t('Invalid Kuwait tax number. Must be 9 digits')
+          format: 'XXXXXXXXX (9 digits)',
+          message: this.$t ? this.$t('Invalid Kuwait tax number. Must be 9 digits') : 'Invalid Kuwait tax number. Must be 9 digits'
         },
         'QA': {
           pattern: /^\d{8,9}$/,
-          format: `XXXXXXXX or XXXXXXXX (${t('8-9 digits')})`,
-          message: t('Invalid Qatari tax number. Must be 8-9 digits')
+          format: 'XXXXXXXX or XXXXXXXX (8-9 digits)',
+          message: this.$t ? this.$t('Invalid Qatari tax number. Must be 8-9 digits') : 'Invalid Qatari tax number. Must be 8-9 digits'
         },
         'BH': {
           pattern: /^\d{9}$/,
-          format: `XXXXXXXXX (${t('9 digits')})`,
-          message: t('Invalid Bahrain tax number. Must be 9 digits')
+          format: 'XXXXXXXXX (9 digits)',
+          message: this.$t ? this.$t('Invalid Bahrain tax number. Must be 9 digits') : 'Invalid Bahrain tax number. Must be 9 digits'
         },
         'OM': {
           pattern: /^\d{9}$/,
-          format: `XXXXXXXXX (${t('9 digits')})`,
-          message: t('Invalid Omani tax number. Must be 9 digits')
+          format: 'XXXXXXXXX (9 digits)',
+          message: this.$t ? this.$t('Invalid Omani tax number. Must be 9 digits') : 'Invalid Omani tax number. Must be 9 digits'
         },
         'GB': {
           pattern: /^GB\d{9}(\d{3})?$/,
           format: 'GBXXXXXXXXX or GBXXXXXXXXXXXXX',
-          message: t('Invalid UK VAT number. Must start with GB followed by 9 or 12 digits')
+          message: this.$t ? this.$t('Invalid UK VAT number. Must start with GB followed by 9 or 12 digits') : 'Invalid UK VAT number. Must start with GB followed by 9 or 12 digits'
         },
         'US': {
           pattern: /^\d{2}-?\d{7}$/,
-          format: `XX-XXXXXXX or XXXXXXXXX (${t('9 digits')})`,
-          message: t('Invalid US EIN. Must be 9 digits')
+          format: 'XX-XXXXXXX or XXXXXXXXX (9 digits)',
+          message: this.$t ? this.$t('Invalid US EIN. Must be 9 digits') : 'Invalid US EIN. Must be 9 digits'
         },
         'CA': {
           pattern: /^\d{9}RT\d{4}$|^\d{15}$/,
           format: 'XXXXXXXXXRTXXXX or XXXXXXXXXXXXXXX',
-          message: t('Invalid Canadian tax number')
+          message: this.$t ? this.$t('Invalid Canadian tax number') : 'Invalid Canadian tax number'
         },
         'DE': {
           pattern: /^DE\d{9}$/,
-          format: `DEXXXXXXXXX (${t('11 characters')})`,
-          message: t('Invalid German VAT number. Must start with DE followed by 9 digits')
+          format: 'DEXXXXXXXXX (11 characters)',
+          message: this.$t ? this.$t('Invalid German VAT number. Must start with DE followed by 9 digits') : 'Invalid German VAT number. Must start with DE followed by 9 digits'
         },
         'FR': {
           pattern: /^FR[A-Z0-9]{2}\d{9}$/,
-          format: `FRXXXXXXXXXXX (${t('11 characters')})`,
-          message: t('Invalid French VAT number. Must start with FR')
+          format: 'FRXXXXXXXXXXX (11 characters)',
+          message: this.$t ? this.$t('Invalid French VAT number. Must start with FR') : 'Invalid French VAT number. Must start with FR'
         },
         'ES': {
           pattern: /^ES[A-Z0-9]\d{7}[A-Z0-9]$/,
-          format: `ESXXXXXXXXX (${t('9 characters')})`,
-          message: t('Invalid Spanish VAT number. Must start with ES')
+          format: 'ESXXXXXXXXX (9 characters)',
+          message: this.$t ? this.$t('Invalid Spanish VAT number. Must start with ES') : 'Invalid Spanish VAT number. Must start with ES'
         },
         'IT': {
           pattern: /^IT\d{11}$/,
-          format: `ITXXXXXXXXXXX (${t('13 characters')})`,
-          message: t('Invalid Italian VAT number. Must start with IT followed by 11 digits')
+          format: 'ITXXXXXXXXXXX (13 characters)',
+          message: this.$t ? this.$t('Invalid Italian VAT number. Must start with IT followed by 11 digits') : 'Invalid Italian VAT number. Must start with IT followed by 11 digits'
         },
         'TR': {
           pattern: /^\d{10}$/,
-          format: `XXXXXXXXXX (${t('10 digits')})`,
-          message: t('Invalid Turkish tax number. Must be 10 digits')
+          format: 'XXXXXXXXXX (10 digits)',
+          message: this.$t ? this.$t('Invalid Turkish tax number. Must be 10 digits') : 'Invalid Turkish tax number. Must be 10 digits'
         },
         'IN': {
           pattern: /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/,
-          format: `XXAAAAA####X#Z# (${t('15 characters')})`,
-          message: t('Invalid Indian GST number')
+          format: 'XXAAAAA####X#Z# (15 characters)',
+          message: this.$t ? this.$t('Invalid Indian GST number') : 'Invalid Indian GST number'
         },
         'AU': {
           pattern: /^\d{11}$/,
-          format: `XXXXXXXXXXX (${t('11 digits')})`,
-          message: t('Invalid Australian ABN. Must be 11 digits')
+          format: 'XXXXXXXXXXX (11 digits)',
+          message: this.$t ? this.$t('Invalid Australian ABN. Must be 11 digits') : 'Invalid Australian ABN. Must be 11 digits'
         },
       }
     }
@@ -634,29 +643,18 @@ export default {
   watch: {
     'form.country'(newCountry, oldCountry) {
       if (newCountry !== oldCountry) {
-        try {
-          // Update tax number format when country changes
-          if (newCountry && this.taxNumberRules && this.taxNumberRules[newCountry]) {
-            this.taxNumberFormat = this.taxNumberRules[newCountry].format
-          } else {
-            this.taxNumberFormat = ''
-          }
-          
-          // Re-validate tax number if it exists
-          if (this.form.tax_number && this.form.tax_number.trim()) {
-            this.$nextTick(() => {
-              try {
-                this.validateTaxNumber()
-              } catch (e) {
-                // $i18n not ready yet
-                console.warn('Could not validate tax number:', e)
-              }
-            })
-          }
-        } catch (e) {
-          // $i18n not ready yet
-          console.warn('Could not update tax number format:', e)
+        // Update tax number format when country changes
+        if (newCountry && this.taxNumberRules[newCountry]) {
+          this.taxNumberFormat = this.taxNumberRules[newCountry].format
+        } else {
           this.taxNumberFormat = ''
+        }
+        
+        // Re-validate tax number if it exists
+        if (this.form.tax_number && this.form.tax_number.trim()) {
+          this.$nextTick(() => {
+            this.validateTaxNumber()
+          })
         }
       }
     }
@@ -668,6 +666,9 @@ export default {
       return
     }
     this._mounted = true
+    
+    // Load Cropper.js library
+    await this.loadCropperJS()
     
     // Mark that we're on initialization page
     if (typeof sessionStorage !== 'undefined') {
@@ -681,19 +682,11 @@ export default {
     this.interceptLocaleChanges()
     
     // Initialize tax number format if country is already selected
-    // Use $nextTick to ensure $i18n is ready
-    this.$nextTick(() => {
-      try {
-        if (this.form.country && this.taxNumberRules && this.taxNumberRules[this.form.country]) {
-          this.taxNumberFormat = this.taxNumberRules[this.form.country].format
-        }
-      } catch (e) {
-        // $i18n not ready yet, will be set when country changes
-        console.warn('Could not initialize tax number format:', e)
-      }
-    })
+    if (this.form.country && this.taxNumberRules[this.form.country]) {
+      this.taxNumberFormat = this.taxNumberRules[this.form.country].format
+    }
   },
-  
+
   beforeDestroy() {
     // Clear the flag when leaving the page
     if (typeof sessionStorage !== 'undefined') {
@@ -704,10 +697,38 @@ export default {
     if (this.localeClickListener) {
       document.removeEventListener('click', this.localeClickListener)
     }
+    
+    // Cleanup cropper
+    if (this.cropper) {
+      this.cropper.destroy()
+      this.cropper = null
+    }
   },
-
-
+  
   methods: {
+    loadCropperJS() {
+      return new Promise((resolve, reject) => {
+        // Check if Cropper is already loaded
+        if (window.Cropper) {
+          resolve()
+          return
+        }
+        
+        // Load CSS
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = 'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css'
+        document.head.appendChild(link)
+        
+        // Load JS
+        const script = document.createElement('script')
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js'
+        script.onload = () => resolve()
+        script.onerror = () => reject(new Error('Failed to load Cropper.js'))
+        document.body.appendChild(script)
+      })
+    },
+
     async fetchTenantCompanyName() {
       try {
         const response = await axios.get('/api/tenant/me')
@@ -730,13 +751,13 @@ export default {
       const file = e.target.files[0]
       if (!file) return
 
-      // Validate file type
-      const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml']
+      // Validate file type (exclude SVG as it doesn't need cropping)
+      const validTypes = ['image/jpeg', 'image/png', 'image/gif']
       if (!validTypes.includes(file.type)) {
         toast.fire({
           type: 'error',
           title: this.$t('Invalid file type'),
-          text: this.$t('Please select a valid image file (JPG, PNG, GIF, or SVG)')
+          text: this.$t('Please select a valid image file (JPG, PNG, or GIF)')
         })
         return
       }
@@ -751,12 +772,87 @@ export default {
         return
       }
 
+      // Read file and show crop area
       const reader = new FileReader()
       reader.onloadend = () => {
-        this.form.company_logo = reader.result
-        this.logoPreview = URL.createObjectURL(file)
+        this.cropImageSrc = reader.result
+        this.$nextTick(() => {
+          this.initCropper()
+        })
       }
       reader.readAsDataURL(file)
+    },
+    
+    initCropper() {
+      if (!this.$refs.cropImage) return
+      
+      // Destroy existing cropper if any
+      if (this.cropper) {
+        this.cropper.destroy()
+      }
+      
+      // Initialize cropper with fixed aspect ratio (1:1 for square logo)
+      this.cropper = new Cropper(this.$refs.cropImage, {
+        aspectRatio: 1,
+        viewMode: 1,
+        dragMode: 'move',
+        autoCropArea: 0.8,
+        restore: false,
+        guides: true,
+        center: true,
+        highlight: false,
+        cropBoxMovable: true,
+        cropBoxResizable: true,
+        toggleDragModeOnDblclick: false,
+        minCropBoxWidth: 100,
+        minCropBoxHeight: 100,
+        ready: () => {
+          // Set initial crop box size to 300x300
+          const containerData = this.cropper.getContainerData()
+          const cropBoxData = {
+            width: 300,
+            height: 300,
+            left: (containerData.width - 300) / 2,
+            top: (containerData.height - 300) / 2
+          }
+          this.cropper.setCropBoxData(cropBoxData)
+        }
+      })
+    },
+    
+    cropLogo() {
+      if (!this.cropper) return
+      
+      // Get cropped canvas
+      const canvas = this.cropper.getCroppedCanvas({
+        width: 300,
+        height: 300,
+        imageSmoothingEnabled: true,
+        imageSmoothingQuality: 'high'
+      })
+      
+      // Convert to base64
+      const croppedDataUrl = canvas.toDataURL('image/png')
+      
+      // Update form and preview
+      this.form.company_logo = croppedDataUrl
+      this.logoPreview = croppedDataUrl
+      
+      // Cleanup and reset
+      this.cancelCrop()
+    },
+    
+    cancelCrop() {
+      if (this.cropper) {
+        this.cropper.destroy()
+        this.cropper = null
+      }
+      this.cropImageSrc = null
+      
+      // Reset file input
+      if (this.$refs.logoInput) {
+        this.$refs.logoInput.value = ''
+      }
     },
 
     removeLogo() {
@@ -765,114 +861,94 @@ export default {
       if (this.$refs.logoInput) {
         this.$refs.logoInput.value = ''
       }
+      // Cleanup cropper if exists
+      if (this.cropper) {
+        this.cropper.destroy()
+        this.cropper = null
+      }
     },
 
     onCountryChange() {
-      try {
-        // Auto-set currency to SAR if Saudi Arabia is selected
-        if (this.form.country === 'SA' && this.currencies.length > 0) {
-          const sarCurrency = this.currencies.find(c => c.code === 'SAR')
-          if (sarCurrency) {
-            this.form.default_currency = sarCurrency.id
-          }
+      // Auto-set currency to SAR if Saudi Arabia is selected
+      if (this.form.country === 'SA' && this.currencies.length > 0) {
+        const sarCurrency = this.currencies.find(c => c.code === 'SAR')
+        if (sarCurrency) {
+          this.form.default_currency = sarCurrency.id
         }
-        
-        // Reset tax number validation when country changes
-        this.taxNumberInvalid = false
-        this.taxNumberErrorMessage = ''
-        this.taxNumberFormat = ''
-        
-        // Update tax number format display
-        if (this.form.country && this.taxNumberRules && this.taxNumberRules[this.form.country]) {
-          this.taxNumberFormat = this.taxNumberRules[this.form.country].format
-        }
-        
-        // Re-validate tax number if it exists
-        if (this.form.tax_number && this.form.tax_number.trim()) {
-          this.validateTaxNumber()
-        }
-      } catch (e) {
-        // $i18n not ready yet
-        console.warn('Could not update country change:', e)
+      }
+      
+      // Reset tax number validation when country changes
+      this.taxNumberInvalid = false
+      this.taxNumberErrorMessage = ''
+      this.taxNumberFormat = ''
+      
+      // Update tax number format display
+      if (this.form.country && this.taxNumberRules[this.form.country]) {
+        this.taxNumberFormat = this.taxNumberRules[this.form.country].format
+      }
+      
+      // Re-validate tax number if it exists
+      if (this.form.tax_number && this.form.tax_number.trim()) {
+        this.validateTaxNumber()
       }
     },
     
     validateTaxNumber() {
-      try {
-        // If tax number is empty, it's valid (optional field)
-        if (!this.form.tax_number || !this.form.tax_number.trim()) {
-          this.taxNumberInvalid = false
-          this.taxNumberErrorMessage = ''
-          return true
-        }
-        
-        // If no country selected, skip validation
-        if (!this.form.country) {
-          this.taxNumberInvalid = false
-          this.taxNumberErrorMessage = ''
-          return true
-        }
-        
-        // Get validation rule for selected country
-        if (!this.taxNumberRules) {
-          // $i18n not ready yet, skip validation
-          this.taxNumberInvalid = false
-          this.taxNumberErrorMessage = ''
-          return true
-        }
-        
-        const rule = this.taxNumberRules[this.form.country]
-        
-        // If no rule exists for this country, allow any format
-        if (!rule) {
-          this.taxNumberInvalid = false
-          this.taxNumberErrorMessage = ''
-          this.taxNumberFormat = ''
-          return true
-        }
-        
-        // Update format display
-        this.taxNumberFormat = rule.format
-        
-        // Remove spaces and convert to uppercase for validation
-        const taxNumber = this.form.tax_number.trim().replace(/\s+/g, '').toUpperCase()
-        
-        // Test against pattern
-        if (rule.pattern.test(taxNumber)) {
-          this.taxNumberInvalid = false
-          this.taxNumberErrorMessage = ''
-          return true
-        } else {
-          this.taxNumberInvalid = true
-          this.taxNumberErrorMessage = rule.message
-          return false
-        }
-      } catch (e) {
-        // $i18n not ready yet, skip validation
-        console.warn('Could not validate tax number:', e)
+      // If tax number is empty, it's valid (optional field)
+      if (!this.form.tax_number || !this.form.tax_number.trim()) {
         this.taxNumberInvalid = false
         this.taxNumberErrorMessage = ''
         return true
       }
+      
+      // If no country selected, skip validation
+      if (!this.form.country) {
+        this.taxNumberInvalid = false
+        this.taxNumberErrorMessage = ''
+        return true
+      }
+      
+      // Get validation rule for selected country
+      const rule = this.taxNumberRules[this.form.country]
+      
+      // If no rule exists for this country, allow any format
+      if (!rule) {
+        this.taxNumberInvalid = false
+        this.taxNumberErrorMessage = ''
+        this.taxNumberFormat = ''
+        return true
+      }
+      
+      // Update format display
+      this.taxNumberFormat = rule.format
+      
+      // Remove spaces and convert to uppercase for validation
+      const taxNumber = this.form.tax_number.trim().replace(/\s+/g, '').toUpperCase()
+      
+      // Test against pattern
+      if (rule.pattern.test(taxNumber)) {
+        this.taxNumberInvalid = false
+        this.taxNumberErrorMessage = ''
+        return true
+      } else {
+        this.taxNumberInvalid = true
+        this.taxNumberErrorMessage = rule.message
+        return false
+      }
     },
     
     getTaxNumberPlaceholder() {
-      // Safely check if $i18n is available, otherwise use fallback
-      let t = (key) => key
-      try {
-        if (this.$t && typeof this.$t === 'function') {
-          t = this.$t
+      return this.$t('enter_tax_number')
+    },
+    
+    onPhoneValidated(isValid) {
+      this.phoneNumberValid = isValid
+      if (!isValid && this.form.phone_number) {
+        // Clear the error if validation passes
+        if (this.errors.phone_number && this.errors.phone_number === this.$t('phone_invalid')) {
+          delete this.errors.phone_number
         }
-      } catch (e) {
-        // $i18n not available yet, use fallback
       }
-      
-      if (!this.form.country || !this.taxNumberRules || !this.taxNumberRules[this.form.country]) {
-        return t('enter_tax_number')
-      }
-      
-      const format = this.taxNumberRules[this.form.country].format
-      return `${t('enter_tax_number')} (${format})`
     },
 
     async fetchCurrencies() {
@@ -1048,8 +1124,6 @@ export default {
           return
         }
         this.errors = {}
-        this.currentStep++
-        return
       }
       // Step 2: Company Info
       else if (this.currentStep === 2) {
@@ -1067,8 +1141,6 @@ export default {
         }
         
         this.errors = {}
-        this.currentStep++
-        return
       }
       // Step 3: Contact Details
       else if (this.currentStep === 3) {
@@ -1080,9 +1152,11 @@ export default {
           this.errors.phone_number = this.$t('phone_required')
           return
         }
+        if (!this.phoneNumberValid) {
+          this.errors.phone_number = this.$t('phone_invalid')
+          return
+        }
         this.errors = {}
-        this.currentStep++
-        return
       }
       // Step 4: Document Settings
       else if (this.currentStep === 4) {
@@ -1111,8 +1185,6 @@ export default {
           return
         }
         this.errors = {}
-        this.currentStep++
-        return
       }
       // Step 5: System Type
       else if (this.currentStep === 5) {
@@ -1121,8 +1193,9 @@ export default {
           return
         }
         this.errors = {}
-        // Don't increment on step 5, submitForm will be called
       }
+      
+      this.currentStep++
     },
 
     previousStep() {
@@ -1160,6 +1233,10 @@ export default {
       }
       if (!this.form.phone_number) {
         this.errors.phone_number = this.$t('phone_required')
+        if (!hasErrors) this.currentStep = 3
+        hasErrors = true
+      } else if (!this.phoneNumberValid) {
+        this.errors.phone_number = this.$t('phone_invalid')
         if (!hasErrors) this.currentStep = 3
         hasErrors = true
       }
@@ -1483,14 +1560,221 @@ export default {
   object-fit: contain;
 }
 
-.file-upload-wrapper {
+/* File Upload Area */
+.file-upload-area {
+  border: 2px dashed #dee2e6;
+  border-radius: 15px;
+  padding: 40px 20px;
   text-align: center;
-  width: 100%;
+  background: #f8f9fa;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.file-upload-wrapper label {
+.file-upload-area:hover {
+  border-color: #33a0d9;
+  background: #f0f7ff;
+}
+
+.file-upload-area.has-logo {
+  padding: 20px;
+  border-color: #28a745;
+  background: #f0fff4;
+}
+
+.file-upload-label {
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+
+.file-upload-label:hover {
+  transform: translateY(-2px);
+}
+
+.upload-icon-wrapper {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #33a0d9 0%, #2b8bc4 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  box-shadow: 0 4px 15px rgba(51, 160, 217, 0.3);
+  transition: all 0.3s ease;
+}
+
+.file-upload-label:hover .upload-icon-wrapper {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(51, 160, 217, 0.4);
+}
+
+.upload-text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.upload-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.upload-subtitle {
+  font-size: 13px;
+  color: #6c757d;
+}
+
+.upload-info {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #e9ecef;
+}
+
+.upload-info small {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+}
+
+.file-upload-area.has-logo .upload-icon-wrapper {
+  background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.file-upload-area.has-logo .upload-title {
+  color: #28a745;
+}
+
+@media (max-width: 768px) {
+  .file-upload-area {
+    padding: 30px 15px;
+  }
+  
+  .upload-icon-wrapper {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+  
+  .upload-title {
+    font-size: 14px;
+  }
+  
+  .upload-subtitle {
+    font-size: 12px;
+  }
+}
+
+.logo-preview-wrapper {
+  position: relative;
   display: inline-block;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo-preview-wrapper:hover .logo-preview-overlay {
+  opacity: 1;
+}
+
+.logo-preview-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.logo-preview-image {
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+  display: block;
+  background: #f8f9fa;
+  border-radius: 10px;
+}
+
+/* Inline Crop Styles */
+.logo-crop-wrapper {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 20px;
+  border: 2px dashed #dee2e6;
+}
+
+.crop-container-inline {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  max-height: 400px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.crop-image-inline {
+  max-width: 100%;
+  display: block;
+}
+
+.crop-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.crop-actions .btn {
+  min-width: 120px;
+}
+
+/* Cropper.js overrides */
+.crop-container-inline .cropper-container {
+  max-height: 400px;
+}
+
+.crop-container-inline .cropper-view-box {
+  outline: 2px solid #33a0d9;
+  outline-offset: -2px;
+}
+
+@media (max-width: 768px) {
+  .logo-crop-wrapper {
+    padding: 15px;
+  }
+  
+  .crop-container-inline {
+    max-height: 300px;
+  }
+  
+  .crop-actions {
+    flex-direction: column;
+  }
+  
+  .crop-actions .btn {
+    width: 100%;
+  }
+  
+  .logo-preview-image {
+    width: 200px;
+    height: 200px;
+  }
 }
 
 .country-select {
