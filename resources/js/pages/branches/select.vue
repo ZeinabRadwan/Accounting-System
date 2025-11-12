@@ -1,57 +1,47 @@
 <template>
-  <div class="container py-4 branch-select-page">
-    <div class="page-head d-flex align-items-center justify-content-between mb-4">
-      <div>
-        <h2 class="page-title mb-1">{{ `${$t('Select')} ${$t('Branch')}` }}</h2>
-      </div>
+  <div class="branch-select-page">
+    <div class="page-header">
+      <h1 class="page-title">{{ `${$t('Select')} ${$t('Branch')}` }}</h1>
     </div>
 
-    <transition-group name="fade-list" tag="div" class="row">
-      <div v-for="(branch, idx) in branches" :key="branch.id" class="col-xl-4 col-lg-6 col-md-6 mb-4">
-        <div
-          class="branch-card h-100"
-          :class="cardTone(idx)"
-          @click="setDefault(branch)"
-          role="button"
-          :aria-label="`${$t('Select Branch')}: ${branch.name}`"
-        >
-          <div class="branch-card__body">
-            <div class="branch-card__icon">
-              <i class="fas fa-code-branch"></i>
-            </div>
-            <div class="branch-card__content">
-              <div class="branch-card__title text-truncate" :title="branch.name">
-                {{ branch.name === 'Main Branch' ? (appInfo?.companyName || branch.name) : branch.name }}
-              </div>
-              <div class="branch-card__meta text-muted">{{ branch.code || $t('Branch') }}</div>
-            </div>
-            <div v-if="isSelected(branch)" class="branch-card__badge">
-              <i class="fas fa-check"></i>
-              <span>{{ $t('Selected') }}</span>
-            </div>
-          </div>
-          <div class="branch-card__footer">
-            <span>{{ isSelected(branch) ? $t('Selected') : $t('Select') }}</span>
-            <i class="fas fa-arrow-right"></i>
-          </div>
+    <transition-group name="fade-list" tag="div" class="branches-grid">
+      <div
+        v-for="branch in branches"
+        :key="branch.id"
+        class="branch-card"
+        :class="{ 'is-selected': isSelected(branch) }"
+        @click="setDefault(branch)"
+        role="button"
+        tabindex="0"
+        @keyup.enter="setDefault(branch)"
+        :aria-label="`${$t('Select Branch')}: ${branch.name}`"
+      >
+        <div v-if="isSelected(branch)" class="branch-card__check">
+          <i class="fas fa-check"></i>
         </div>
+        <div class="branch-card__icon">
+          <i class="fas fa-building"></i>
+        </div>
+        <h3 class="branch-card__title" :title="branch.name">
+          {{ branch.name === 'Main Branch' ? (appInfo?.companyName || branch.name) : branch.name }}
+        </h3>
+        <p v-if="branch.code" class="branch-card__code">{{ branch.code }}</p>
       </div>
     </transition-group>
 
-    <div v-if="loading" class="row">
-      <div v-for="n in 6" :key="n" class="col-xl-3 col-lg-4 col-md-6 mb-3">
-        <div class="branch-card skeleton h-100">
-          <div class="branch-card__body"></div>
-          <div class="branch-card__footer"></div>
-        </div>
+    <div v-if="loading" class="branches-grid">
+      <div v-for="n in 6" :key="n" class="branch-card skeleton">
+        <div class="branch-card__icon"></div>
+        <div class="skeleton-line"></div>
+        <div class="skeleton-line skeleton-line--short"></div>
       </div>
     </div>
 
-    <div v-if="!loading && branches.length === 0" class="text-center text-muted py-5">
-      {{ $t('no_data_found') }}
+    <div v-if="!loading && branches.length === 0" class="empty-state">
+      <i class="fas fa-building"></i>
+      <p>{{ $t('No branches found') }}</p>
     </div>
   </div>
-  
 </template>
 
 <script>
@@ -77,10 +67,6 @@ export default {
     await this.loadBranches()
   },
   methods: {
-    cardTone (idx) {
-      const tones = ['tone-blue', 'tone-green', 'tone-teal', 'tone-navy']
-      return tones[idx % tones.length]
-    },
     async loadBranches () {
       try {
         this.loading = true
@@ -115,104 +101,211 @@ export default {
 
 <style scoped>
 .branch-select-page {
-  animation: fadeIn .3s ease;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
 }
+
+.page-header {
+  margin-bottom: 2rem;
+}
+
 .page-title {
-  font-weight: 700;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
 }
-.page-subtitle {
-  font-size: .95rem;
+
+.branches-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
 }
 
 .branch-card {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.06);
-  border: 1px solid #e9ecef;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
   cursor: pointer;
-  overflow: hidden;
-  transition: transform .2s ease, box-shadow .2s ease;
-  min-height: 160px;
-}
-.branch-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 40px rgba(0,0,0,.10);
-}
-.branch-card__body {
-  display: flex;
-  align-items: center;
-  padding: 28px 24px 18px 24px;
+  transition: all 0.2s ease;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: 180px;
 }
+
+.branch-card:hover {
+  border-color: #33a0d9;
+  box-shadow: 0 4px 12px rgba(51, 160, 217, 0.15);
+  transform: translateY(-2px);
+}
+
+.branch-card:focus {
+  outline: 2px solid #33a0d9;
+  outline-offset: 2px;
+}
+
+.branch-card.is-selected {
+  border-color: #33a0d9;
+  background: #f0f8ff;
+  box-shadow: 0 4px 12px rgba(51, 160, 217, 0.2);
+}
+
 .branch-card__icon {
-  width: 64px;
-  height: 64px;
-  border-radius: 10px;
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  background: #f5f5f5;
+  color: #666;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 10px;
-  margin-left: 10px;
-  font-size: 22px;
+  font-size: 2.5rem;
+  margin-bottom: 1.25rem;
+  transition: all 0.2s ease;
 }
-.tone-blue .branch-card__icon { background: #33a0d91a; color: #33a0d9; }
-.tone-green .branch-card__icon { background: #2ab9301a; color: #2ab930; }
-.tone-teal .branch-card__icon { background: #449eae1a; color: #449eae; }
-.tone-navy .branch-card__icon { background: #152a4a1a; color: #152a4a; }
 
-.branch-card__content { flex: 1; min-width: 0; }
-.branch-card__title { font-size: 1.2rem; font-weight: 700; color: #023033; margin-bottom: 4px; }
-.branch-card__meta { font-size: 1rem; }
+.branch-card:hover .branch-card__icon {
+  background: #e6f4fc;
+  color: #33a0d9;
+  transform: scale(1.05);
+}
 
-.branch-card__badge {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: #f6fef4;
-  color: #2ab930;
-  border: 1px solid #d7f2d9;
-  border-radius: 999px;
-  padding: 6px 10px;
-  font-size: .75rem;
+.branch-card.is-selected .branch-card__icon {
+  background: #33a0d9;
+  color: #ffffff;
+}
+
+.branch-card__title {
+  font-size: 1.125rem;
   font-weight: 600;
+  color: #333;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
-.branch-card__footer {
-  background: #f8fafc;
-  border-top: 1px solid #edf2f7;
+.branch-card.is-selected .branch-card__title {
+  color: #33a0d9;
+}
+
+.branch-card__code {
+  font-size: 0.875rem;
+  color: #999;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.branch-card.is-selected .branch-card__code {
+  color: #33a0d9;
+}
+
+.branch-card__check {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #33a0d9;
+  color: #ffffff;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 16px 18px;
+  justify-content: center;
+  font-size: 0.875rem;
   font-weight: 600;
-  color: #334155;
 }
 
 /* Skeleton loader */
 .skeleton {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(90deg, #f2f4f7 25%, #e9edf2 37%, #f2f4f7 63%);
-  background-size: 400% 100%;
-  animation: shimmer 1.2s ease infinite;
+  pointer-events: none;
+}
+
+.skeleton .branch-card__icon {
+  background: #f5f5f5;
+}
+
+.skeleton-line {
+  height: 1rem;
+  background: #f5f5f5;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+.skeleton-line--short {
+  width: 60%;
+  margin: 0 auto;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: #999;
+}
+
+.empty-state i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-state p {
+  font-size: 1rem;
+  margin: 0;
 }
 
 /* Transitions */
-.fade-list-enter-active { transition: all .25s ease; }
-.fade-list-leave-active { transition: all .2s ease; }
-.fade-list-enter, .fade-list-leave-to { opacity: 0; transform: translateY(8px); }
-
-@keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+.fade-list-enter-active {
+  transition: all 0.3s ease;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+.fade-list-leave-active {
+  transition: all 0.2s ease;
+}
+
+.fade-list-enter,
+.fade-list-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .branch-select-page {
+    padding: 1.5rem 1rem;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .branches-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .branch-card {
+    padding: 1.5rem 1rem;
+    min-height: 160px;
+  }
+
+  .branch-card__icon {
+    width: 64px;
+    height: 64px;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
 }
 </style>
 
