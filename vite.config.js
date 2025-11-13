@@ -6,6 +6,7 @@ import { join } from 'path';
 import { copyFileSync, mkdirSync, readdirSync } from 'fs';
 
 export default defineConfig({
+    base: '/build/',
     publicDir: 'public',
     plugins: [
         laravel({
