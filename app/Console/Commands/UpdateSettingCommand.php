@@ -214,6 +214,14 @@ class UpdateSettingCommand extends Command
             return 'Error updating Vite build files: '.implode("\n", $output);
         }
 
+        // Set proper permissions for build files (644 for files, 755 for directories)
+        $chmod_command = 'find "'.$work_folder.'/public_html/build" -type f -exec chmod 644 {} \; && find "'.$work_folder.'/public_html/build" -type d -exec chmod 755 {} \;';
+        exec($chmod_command.' 2>&1', $chmod_output, $chmod_return_var);
+
+        if ($chmod_return_var !== 0) {
+            return 'Vite build files updated but permissions may not be set correctly: '.implode("\n", $chmod_output);
+        }
+
         return 'Vite build files updated successfully';
     }
 
