@@ -41,7 +41,7 @@ Vue.use(SaudiRiyalSymbolPlugin)
 // Use RTL DateRangePicker Plugin
 Vue.use(rtlDaterangepickerPlugin)
 
-window.Vue = Vue
+window.Vue = import('vue').default
 
 const options = {
   name: '_blank',

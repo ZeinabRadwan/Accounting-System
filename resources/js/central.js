@@ -41,7 +41,7 @@ import { vfmPlugin } from "vue-final-modal"
 
 Vue.use(VuePageTransition)
 
-window.Vue = Vue
+window.Vue = import('vue').default
 Vue.use(Clipboard)
 
 Vue.use(VueMasonry)

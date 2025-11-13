@@ -114,42 +114,11 @@ const routeMiddleware = {
   "tenant-initialized": tenantInitialized.default || tenantInitialized,
 };
 
-/**
- * Scroll Behavior
- *
- * @link https://router.vuejs.org/en/advanced/scroll-behavior.html
- *
- * @param  {Route} to
- * @param  {Route} from
- * @param  {Object|undefined} savedPosition
- * @return {Object}
- */
-function scrollBehavior (to, from, savedPosition) {
-  if (savedPosition) {
-    return savedPosition
-  }
+const router = createRouter()
 
-  if (to.hash) {
-    return { selector: to.hash }
-  }
+sync(store, router)
 
-  // Check if router is available before accessing it
-  // Note: router is defined after createRouter() is called, but scrollBehavior
-  // is only invoked after router is fully initialized, so this should be safe
-  if (typeof router !== 'undefined' && router && router.getMatchedComponents) {
-    const [component] = router.getMatchedComponents({ ...to }).slice(-1)
-
-    if (component && component.scrollToTop === false) {
-      return {}
-    }
-  }
-
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({ x: 0, y: 0 })
-    }, 190)
-  })
-}
+export default router
 
 /**
  * Create a new router instance.
@@ -157,30 +126,24 @@ function scrollBehavior (to, from, savedPosition) {
  * @return {Router}
  */
 function createRouter () {
-  const routerInstance = new Router({
+  const router = new Router({
     scrollBehavior,
     mode: 'history',
     routes
   })
 
-  routerInstance.beforeEach(beforeEach)
-  routerInstance.afterEach(afterEach)
+  router.beforeEach(beforeEach)
+  router.afterEach(afterEach)
   
   // Add additional RTL guard that runs on every navigation
-  routerInstance.beforeResolve((to, from, next) => {
+  router.beforeResolve((to, from, next) => {
     console.log('Router: beforeResolve - Force applying RTL mode')
     forceRTLMode()
     next()
   })
 
-  return routerInstance
+  return router
 }
-
-const router = createRouter()
-
-sync(store, router)
-
-export default router
 
 /**
  * Global router guard.
@@ -327,4 +290,35 @@ function getMiddleware (components) {
   return middleware
 }
 
+/**
+ * Scroll Behavior
+ *
+ * @link https://router.vuejs.org/en/advanced/scroll-behavior.html
+ *
+ * @param  {Route} to
+ * @param  {Route} from
+ * @param  {Object|undefined} savedPosition
+ * @return {Object}
+ */
+function scrollBehavior (to, from, savedPosition) {
+  if (savedPosition) {
+    return savedPosition
+  }
+
+  if (to.hash) {
+    return { selector: to.hash }
+  }
+
+  const [component] = router.getMatchedComponents({ ...to }).slice(-1)
+
+  if (component && component.scrollToTop === false) {
+    return {}
+  }
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ x: 0, y: 0 })
+    }, 190)
+  })
+}
 
