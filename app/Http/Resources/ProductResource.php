@@ -18,13 +18,17 @@ class ProductResource extends JsonResource
             'id' => $this->id,
             'itemType' => $this->is_service == true ? 'service' : 'product',
             'name' => $this->name,
-            'label' => $this->name . ' [' . $this->code . ']',
+            'label' => $this->name.' ['.$this->code.']',
             'slug' => $this->slug,
             'code' => is_numeric($this->code) ? str_pad($this->code, 5, '0', STR_PAD_LEFT) : $this->code,
             'itemModel' => $this->model,
             'symbology' => $this->barcode_symbology,
             'subCategory' => new ProductSubCategoryResource($this->whenLoaded('proSubCategory')),
-            'category' => new ProductCategoryResource($this->proSubCategory->category),
+            'category' => $this->whenLoaded('proSubCategory', function () {
+                return $this->proSubCategory && $this->proSubCategory->category
+                    ? new ProductCategoryResource($this->proSubCategory->category)
+                    : null;
+            }),
             'itemUnit' => new UnitResource($this->productUnit),
             'itemBrand' => new BrandResource($this->productBrand),
             'itemTax' => new VatRateResource($this->productTax),
@@ -33,7 +37,7 @@ class ProductResource extends JsonResource
                     'id' => $this->salesAccount->id,
                     'name' => $this->salesAccount->name,
                     'code' => $this->salesAccount->code,
-                    'type' => $this->salesAccount->type ? $this->salesAccount->type->name : 'Unknown'
+                    'type' => $this->salesAccount->type ? $this->salesAccount->type->name : 'Unknown',
                 ];
             }),
             'purchaseAccount' => $this->whenLoaded('purchaseAccount', function () {
@@ -41,7 +45,7 @@ class ProductResource extends JsonResource
                     'id' => $this->purchaseAccount->id,
                     'name' => $this->purchaseAccount->name,
                     'code' => $this->purchaseAccount->code,
-                    'type' => $this->purchaseAccount->type ? $this->purchaseAccount->type->name : 'Unknown'
+                    'type' => $this->purchaseAccount->type ? $this->purchaseAccount->type->name : 'Unknown',
                 ];
             }),
             'taxType' => $this->tax_type,
