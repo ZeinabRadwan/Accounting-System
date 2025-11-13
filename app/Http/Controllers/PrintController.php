@@ -2877,8 +2877,16 @@ class PrintController extends Controller
             }
 
             // Structure the data for the template
+            // Convert ProductResource to array if it's a resource instance
+            $productData = $itemsData['product'] ?? null;
+            if ($productData instanceof \Illuminate\Http\Resources\Json\JsonResource) {
+                $productData = $productData->resolve();
+            } elseif (is_object($productData) && method_exists($productData, 'toArray')) {
+                $productData = $productData->toArray(request());
+            }
+
             $itemsReportData = [
-                'product' => $itemsData['product'] ?? null,
+                'product' => $productData,
                 'stockIns' => $itemsData['stockIns'] ?? [],
                 'stockOuts' => $itemsData['stockOuts'] ?? [],
                 'filters' => [
@@ -2998,8 +3006,16 @@ class PrintController extends Controller
             }
 
             // Structure the data for the template
+            // Convert ProductResource to array if it's a resource instance
+            $productData = $itemsData['product'] ?? null;
+            if ($productData instanceof \Illuminate\Http\Resources\Json\JsonResource) {
+                $productData = $productData->resolve();
+            } elseif (is_object($productData) && method_exists($productData, 'toArray')) {
+                $productData = $productData->toArray(request());
+            }
+
             $itemsReportData = [
-                'product' => $itemsData['product'] ?? null,
+                'product' => $productData,
                 'stockIns' => $itemsData['stockIns'] ?? [],
                 'stockOuts' => $itemsData['stockOuts'] ?? [],
                 'filters' => [

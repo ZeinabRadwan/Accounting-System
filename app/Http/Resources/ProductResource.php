@@ -23,15 +23,17 @@ class ProductResource extends JsonResource
             'code' => is_numeric($this->code) ? str_pad($this->code, 5, '0', STR_PAD_LEFT) : $this->code,
             'itemModel' => $this->model,
             'symbology' => $this->barcode_symbology,
-            'subCategory' => new ProductSubCategoryResource($this->whenLoaded('proSubCategory')),
+            'subCategory' => $this->whenLoaded('proSubCategory', function () {
+                return $this->proSubCategory ? new ProductSubCategoryResource($this->proSubCategory) : null;
+            }),
             'category' => $this->whenLoaded('proSubCategory', function () {
                 return $this->proSubCategory && $this->proSubCategory->category
                     ? new ProductCategoryResource($this->proSubCategory->category)
                     : null;
             }),
-            'itemUnit' => new UnitResource($this->productUnit),
-            'itemBrand' => new BrandResource($this->productBrand),
-            'itemTax' => new VatRateResource($this->productTax),
+            'itemUnit' => $this->productUnit ? new UnitResource($this->productUnit) : null,
+            'itemBrand' => $this->productBrand ? new BrandResource($this->productBrand) : null,
+            'itemTax' => $this->productTax ? new VatRateResource($this->productTax) : null,
             'salesAccount' => $this->whenLoaded('salesAccount', function () {
                 return [
                     'id' => $this->salesAccount->id,
