@@ -1,7 +1,7 @@
 <template>
   <div>
-    <!-- Language Switcher for Auth Pages -->
-    <div v-if="isAuthPage" class="language-switcher-container">
+    <!-- Language Switcher for Auth Pages - Hidden on tenant initialization -->
+    <div v-if="showLanguageSwitcher" class="language-switcher-container">
       <LocaleDropdown />
     </div>
     <child />
@@ -18,9 +18,24 @@ export default {
   },
   computed: {
     isAuthPage() {
-      // Check if current route is an auth page or initialization page
+      // Check if current route is an auth page
+      if (!this.$route || !this.$route.name) {
+        return false
+      }
       const authRoutes = ['login', 'register', 'find-domain', 'password.request', 'password.reset', 'verification.verify', 'verification.resend', 'resend', 'tenant.initialization']
       return authRoutes.includes(this.$route.name)
+    },
+    isTenantInitialization() {
+      // Hide language switcher on tenant initialization page
+      if (!this.$route || !this.$route.name) {
+        return false
+      }
+      return this.$route.name === 'tenant.initialization' || this.$route.path === '/tenant-initialization'
+    },
+    showLanguageSwitcher() {
+      // Show language switcher on all auth pages (including tenant initialization)
+      // LocaleDropdown component will handle preventing locale changes on tenant initialization
+      return this.isAuthPage
     }
   }
 }

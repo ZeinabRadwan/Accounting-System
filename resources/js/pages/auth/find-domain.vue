@@ -1,13 +1,7 @@
 <template>
   <div>
-    <!-- Login Steps Modal -->
-    <LoginStepsModal 
-      :show="showLoginModal" 
-      :current-step="currentStep"
-    />
-    
     <!-- Main login form -->
-    <div v-if="!showLoginModal" class="container-fluid">
+    <div class="container-fluid">
       <div class="row no-gutter">
         <!-- The image half -->
         <div class="col-md-6 d-none d-md-flex bg-image"></div>
@@ -78,11 +72,11 @@
                     
                     <!-- Submit Button -->
                     <button type="button" 
-                      :disabled="showLoginModal || form.busy"
+                      :disabled="form.busy"
                       @click="handleSubmit"
                       class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">
                       <strong>{{ $t('login') }}</strong>
-                      <i v-if="showLoginModal || form.busy" class="fas fa-spinner fa-spin"></i>
+                      <i v-if="form.busy" class="fas fa-spinner fa-spin"></i>
                       <i v-else class="fas fa-sign-in-alt" style="transform: scaleX(-1);"></i>
                     </button>
                   </form>
@@ -105,14 +99,10 @@
 <script>
 import Form from 'vform'
 import { mapGetters } from 'vuex'
-import LoginStepsModal from '../../components/LoginStepsModal.vue'
 
 export default {
   layout: 'basic',
   middleware: 'guest',
-  components: {
-    LoginStepsModal
-  },
   metaInfo() {
     return { title: this.$t('find_domain') }
   },
@@ -123,9 +113,7 @@ export default {
       password: '',
     }),
     appName: window.config.appName,
-    host: location.host,
-    showLoginModal: false,
-    currentStep: 0
+    host: location.host
   }),
   // Map Getters
   computed: {
@@ -160,7 +148,7 @@ export default {
 
     async findDomain() {
       // Prevent multiple submissions
-      if (this.showLoginModal) {
+      if (this.form.busy) {
         console.log('Already processing, ignoring duplicate submission')
         return
       }
@@ -174,12 +162,8 @@ export default {
         return
       }
       
-      // Show modal and start step 1
-      this.showLoginModal = true
-      this.currentStep = 1
-      
       try {
-        // Step 1: Find the domain and get tenant info
+        // Find the domain and get tenant info
         console.log('Calling /api/find-domain...')
         
         // Use axios directly instead of form.post to avoid form validation issues
@@ -192,40 +176,15 @@ export default {
         console.log('Domain response:', domainResponse)
         
         if (domainResponse && domainResponse.data.success) {
-          // Step 1 completed, move to step 2 (verifying credentials happens in the API)
-          // Since the API already verified credentials, we can move to step 3
-          this.currentStep = 2
-          
-          // Small delay to show step 2
-          await this.delay(800)
-          
-          // Step 3: Setting up session - redirect to tenant domain
-          this.currentStep = 3
-          
-          // Small delay to show step 3
-          await this.delay(800)
-          
-          // Step 4: Redirecting
-          this.currentStep = 4
-          
-          // Small delay before redirect
-          await this.delay(500)
-          
-          // Redirect to the tenant domain using the special login URL
+          // Redirect directly to the tenant domain using the special login URL
           // This will complete the login process on the tenant domain
           window.location.href = domainResponse.data.data.login_url
         } else {
           // Handle case where response is successful but no login URL provided
           this.$toast.error(this.$t('Domain found but login failed. Please check your credentials'))
-          this.showLoginModal = false
-          this.currentStep = 0
         }
       } catch (error) {
         console.error('Error in findDomain:', error)
-        
-        // Hide modal on error
-        this.showLoginModal = false
-        this.currentStep = 0
         
         // Handle validation errors
         if (error.response && error.response.status === 422) {
@@ -260,11 +219,7 @@ export default {
           this.$toast.error(this.$t('Login failed. Please check your credentials and domain'))
         }
       }
-    },
-    
-    delay(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms))
-    },
+    }
   }
 }
 </script>

@@ -91,17 +91,14 @@
                 <has-error :form="form" field="phone" />
               </div>
               <div class="form-group col-md-6">
-                <label for="phoneNumber" class="required-field">
-                  {{ $t("Mobile") }} <span class="required">*</span>
-                </label>
-                <input 
-                  id="phoneNumber"
+                <PhoneNumberInput
                   v-model="form.phoneNumber"
-                  type="tel"
-                  class="form-control required-input"
-                  :class="{ 'is-invalid': form.errors.has('phoneNumber') }"
-                  name="phoneNumber"
-                  :placeholder="$t('Enter mobile number (required)')" />
+                  :label="$t('Mobile')"
+                  :required="true"
+                  :country="form.country"
+                  :default-country="form.country || 'SA'"
+                  @validated="onPhoneValidated"
+                />
                 <has-error :form="form" field="phoneNumber" />
               </div>
             </div>
@@ -505,6 +502,7 @@
 import Form from "vform";
 import { ToggleButton } from "vue-js-toggle-button";
 import RepresentativesList from "./RepresentativesList.vue";
+import PhoneNumberInput from "./PhoneNumberInput.vue";
 
 import axios from 'axios';
 
@@ -513,6 +511,7 @@ export default {
   components: {
     ToggleButton,
     RepresentativesList,
+    PhoneNumberInput,
   },
   props: {
     // Whether to show the card-body wrapper (for create page) or not (for modal)
@@ -546,6 +545,9 @@ export default {
         sms_configured: false,
         loading: true,
       },
+      
+      // Phone number validation
+      phoneNumberValid: false,
     };
   },
   watch: {
@@ -915,6 +917,9 @@ export default {
       
       // Clear validation errors
       this.form.errors.clear();
+      
+      // Reset phone number validation
+      this.phoneNumberValid = false;
     },
 
     // Get form data for parent component
@@ -947,6 +952,20 @@ export default {
           });
         } else {
           alert(this.$t("Mobile number is required"));
+        }
+        return false;
+      }
+      
+      // Check if phone number is valid
+      if (!this.phoneNumberValid) {
+        console.log('Phone number validation failed - phoneNumberValid:', this.phoneNumberValid);
+        if (window.toast && typeof window.toast.fire === 'function') {
+          window.toast.fire({
+            type: "error",
+            title: this.$t("Invalid phone number format"),
+          });
+        } else {
+          alert(this.$t("Invalid phone number format"));
         }
         return false;
       }
@@ -1051,6 +1070,17 @@ export default {
     // Handle when representatives are changed (added, edited, deleted)
     handleRepresentativesChanged(representatives) {
       this.form.representatives = representatives;
+    },
+    
+    // Handle phone number validation
+    onPhoneValidated(isValid) {
+      this.phoneNumberValid = isValid;
+      if (!isValid && this.form.phoneNumber) {
+        // Clear the error if validation passes
+        if (this.form.errors.has('phoneNumber') && this.form.errors.get('phoneNumber') === this.$t('phone_invalid')) {
+          this.form.errors.clear('phoneNumber');
+        }
+      }
     },
 
     // Load routing settings

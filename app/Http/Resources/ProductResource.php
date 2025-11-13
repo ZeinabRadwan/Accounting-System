@@ -24,7 +24,9 @@ class ProductResource extends JsonResource
             'itemModel' => $this->model,
             'symbology' => $this->barcode_symbology,
             'subCategory' => new ProductSubCategoryResource($this->whenLoaded('proSubCategory')),
-            'category' => new ProductCategoryResource($this->proSubCategory->category),
+            'category' => $this->whenLoaded('proSubCategory.category', function () {
+                return new ProductCategoryResource($this->proSubCategory->category);
+            }),
             'itemUnit' => new UnitResource($this->productUnit),
             'itemBrand' => new BrandResource($this->productBrand),
             'itemTax' => new VatRateResource($this->productTax),
@@ -61,6 +63,10 @@ class ProductResource extends JsonResource
             'image' => getAvatarWithFallback($this->image_path, 'products'),
             // Add chart of account IDs for validation
             'sales_account_id' => $this->sales_account_id,
+            'purchase_account_id' => $this->purchase_account_id,
+        ];
+    }
+}_account_id,
             'purchase_account_id' => $this->purchase_account_id,
         ];
     }

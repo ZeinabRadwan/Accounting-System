@@ -1547,7 +1547,8 @@ class ReportController extends Controller
     {
         // validate request
         $this->validate($request, [
-            'productName' => 'required',
+            'productName' => 'required|array',
+            'productName.slug' => 'required|string',
         ]);
 
         try {
@@ -4891,6 +4892,31 @@ class ReportController extends Controller
     private function getUserBranchIds($user)
     {
         $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+     'rule_name' => $execution->rule->name,
+                        'source_cost_center' => $execution->rule->sourceCostCenter->name,
+                        'execution_date' => $execution->execution_date,
+                        'period_start' => $execution->period_start_date,
+                        'period_end' => $execution->period_end_date,
+                        'total_amount' => $execution->total_amount,
+                        'status' => $execution->status,
+                        'executed_by' => $execution->executor->name,
+                        'journal_entry_id' => $execution->journal_entry_id,
+                    ];
+                }),
+                'summary' => [
+                    'total_executions' => $executions->count(),
+                    'total_amount' => $executions->sum('total_amount'),
+                ],
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    private function getUserBranchIds($user)
+    {
+        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+
         return [$defaultBranchId > 0 ? $defaultBranchId : 0];
     }
 }

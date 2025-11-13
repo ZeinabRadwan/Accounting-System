@@ -439,7 +439,7 @@
                     :placeholder="$t('Enter payment terms')" @input="clearFieldError('paymentTerms')" />
                   <has-error :form="form" field="paymentTerms" />
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4" v-if="false">
                   <label for="addPayment">{{ $t("Add Payment?") }}</label>
                   <select id="addPayment" 
                           v-model="form.addPayment" 
@@ -453,7 +453,7 @@
                   <has-error :form="form" field="addPayment" />
                 </div>
               </div>
-              <div class="row" v-if="paymentFieldsVisible">
+              <div class="row" v-if="false">
                 <div class="form-group col-md-4">
                   <label for="account">{{ $t("Account") }}
                     <span class="required">*</span></label>

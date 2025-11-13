@@ -41,6 +41,7 @@
                     </svg>
                   </a>
                   <button 
+                    type="button"
                     @click="downloadPDF" 
                     v-tooltip="$t('Export to PDF')" 
                     class="btn export-pdf-btn"
@@ -48,6 +49,7 @@
                     <i class="fas fa-file-export"></i>
                   </button>
                   <button 
+                    type="button"
                     @click="previewPDF" 
                     v-tooltip="$t('Preview')" 
                     class="btn preview-btn"

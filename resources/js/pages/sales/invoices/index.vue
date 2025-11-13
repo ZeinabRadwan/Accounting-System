@@ -284,14 +284,21 @@
             <div class="form-group col-md-8">
               <label for="account">{{ $t("Account") }}
                 <span class="required">*</span></label>
-              <v-select v-model="form.account" :options="accounts" label="label"
-                :class="{ 'is-invalid': form.errors.has('account') }" name="account"
-                :placeholder="$t('Select an account')">
-                 <template slot="option" slot-scope="option">
-                    <img :src="option.image" style="width: 30px; height: 30px;" />
-                    {{ option.label }}
-                </template>
-              </v-select>
+              <div class="d-flex w-100">
+                <v-select v-model="form.account" :options="accounts" label="label"
+                  :class="{ 'is-invalid': form.errors.has('account') }" name="account"
+                  :placeholder="$t('Select an account')" class="flex-grow-1">
+                   <template slot="option" slot-scope="option">
+                      <img :src="option.image" style="width: 30px; height: 30px;" />
+                      {{ option.label }}
+                  </template>
+                </v-select>
+                <AccountCreateModal @accountCreated="handleAccountCreated">
+                  <div class="input-group-text create-btn">
+                    <i class="fas fa-solid fa-plus-circle"></i>
+                  </div>
+                </AccountCreateModal>
+              </div>
               <has-error :form="form" field="account" />
             </div>
           </div>
@@ -362,10 +369,15 @@
               </span>
             </div>
           </div>
-          <v-button :loading="form.busy" class="btn btn-success">
-            <i class="fas fa-save" /> {{ $t("Save") }}
-          </v-button>
         </form>
+      </div>
+      <div slot="modal-footer" class="d-flex justify-content-end w-100">
+        <v-button :loading="form.busy" class="btn btn-success mr-2" @click="savePayment">
+          <i class="fas fa-save" /> {{ $t("Save") }}
+        </v-button>
+        <button type="button" class="btn btn-secondary" @click="showModal = false">
+          {{ $t("Close") }}
+        </button>
       </div>
     </Modal>
   </div>
@@ -382,6 +394,7 @@ import { ToggleButton } from "vue-js-toggle-button";
 import Swal from "sweetalert2";
 import SwalOriginal from "sweetalert2/dist/sweetalert2";
 import html2pdf from "html2pdf.js";
+import AccountCreateModal from "~/components/AccountCreateModal";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -391,6 +404,7 @@ export default {
   components: {
     DateRangePicker,
     ToggleButton,
+    AccountCreateModal,
   },
   data: () => ({
     isDemoMode: window.config.isDemoMode,
@@ -541,6 +555,37 @@ export default {
         this.form.account = this.accounts.find(
           (account) => account.slug == defaultAccountSlug
         );
+      }
+    },
+
+    // Handle account created event
+    async handleAccountCreated(newAccount) {
+      // Refresh accounts list
+      await this.getAccounts();
+      
+      // Find and select the newly created account
+      if (newAccount && newAccount.id) {
+        // Wait for accounts to be updated
+        await this.$nextTick();
+        
+        // Find the account by id, slug, or label
+        const account = this.accounts.find(
+          (acc) => 
+            acc.id === newAccount.id || 
+            acc.slug === newAccount.slug ||
+            acc.label === newAccount.label ||
+            (acc.bankName === newAccount.bankName && acc.accountNumber === newAccount.accountNumber)
+        );
+        
+        if (account) {
+          this.form.account = account;
+        } else if (newAccount.id) {
+          // If not found by matching, try to find by id directly
+          const accountById = this.accounts.find(acc => acc.id === newAccount.id);
+          if (accountById) {
+            this.form.account = accountById;
+          }
+        }
       }
     },
     toggleAction(index) {
@@ -736,6 +781,8 @@ export default {
       this.form.selectedInvoice = item;
       this.form.invoice_id = item.id;
       this.form.netTotal = item.due;
+      // Set paid amount to total due amount as default
+      this.form.paidAmount = item.due > 0 ? item.due : 1;
       this.form.status = item.status; // Set status based on selected invoice
       this.showModal = true;
     },
@@ -1374,6 +1421,54 @@ export default {
   #printMe .invoices-table tbody td:nth-child(10) {
     text-align: right !important;
   }
+}
+
+/* Create button styling for account field */
+.create-btn {
+  padding: 11px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  background-color: #f8f9fa;
+  border: 1px solid #E5E7EB;
+  border-left: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.create-btn:hover {
+  background-color: #e9ecef;
+}
+
+.create-btn i {
+  color: #33a0d9;
+  font-size: 18px;
+}
+
+[dir="rtl"] .create-btn {
+  border-left: 1px solid #E5E7EB;
+  border-right: none;
+  border-radius: 0.25rem 0 0 0.25rem;
+}
+
+[dir="ltr"] .create-btn {
+  border-left: none;
+  border-right: 1px solid #E5E7EB;
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+/* Ensure v-select and create button align properly */
+.d-flex.w-100 .v-select {
+  flex: 1;
+}
+
+.d-flex.w-100 .v-select .vs__dropdown-toggle {
+  border-right: none;
+}
+
+[dir="rtl"] .d-flex.w-100 .v-select .vs__dropdown-toggle {
+  border-left: none;
+  border-right: 1px solid #E5E7EB;
 }
 </style>
 

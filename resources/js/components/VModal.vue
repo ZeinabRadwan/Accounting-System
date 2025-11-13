@@ -1,6 +1,7 @@
 <template>
   <vue-final-modal
-  v-model="modelValue"
+  :value="modalValue"
+  @input="handleModalInput"
   :lock-scroll="true"
   v-slot="{ params, close }"
   v-bind="$attrs"
@@ -34,21 +35,32 @@ export default {
     modelValue: {
       type: Boolean,
       default: false
+    },
+    value: {
+      type: Boolean,
+      default: false
     }
   },
-  emits: ['update:modelValue', 'close'],
-  watch: {
-    modelValue(newVal) {
-      if (!newVal) {
-        this.$emit('update:modelValue', false);
-      }
+  model: {
+    prop: 'modelValue',
+    event: 'update:modelValue'
+  },
+  emits: ['update:modelValue', 'close', 'input'],
+  computed: {
+    modalValue() {
+      return this.modelValue !== undefined ? this.modelValue : this.value;
     }
   },
   methods: {
+    handleModalInput(value) {
+      this.$emit('update:modelValue', value);
+      this.$emit('input', value);
+    },
     handleClose(close) {
       this.$emit('close');
       close();
       this.$emit('update:modelValue', false);
+      this.$emit('input', false);
     }
   }
 }

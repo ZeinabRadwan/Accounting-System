@@ -21,7 +21,7 @@ class InvoiceResource extends JsonResource
             'slug' => $this->slug,
             'reference' => $this->reference,
             'client' => new ClientListResource($this->client),
-            'invoicePayments' => InvoicePaymentListResource::collection($this->invoicePayments),
+            'invoicePayments' => PaymentVoucherListResource::collection($this->paymentVouchers),
             'invoiceProducts' => InvoiceProductResource::collection($this->invoiceProducts),
             'discountType' => $this->discount_type,
             'discount' => $this->discountAmount(),
