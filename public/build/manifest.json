@@ -6,7 +6,6 @@
   "_vue-moment.js": {
     "file": "js/vue-moment.js",
     "name": "vue-moment",
-    "isDynamicEntry": true,
     "dynamicImports": [
       "resources/js/lang/ar.json",
       "resources/js/lang/bn.json",
@@ -2764,14 +2763,11 @@
     "src": "node_modules/flag-icons/flags/4x3/zw.svg"
   },
   "resources/js/central.js": {
-    "file": "assets/central-KRj8rKjV.js",
+    "file": "assets/central-CdIl1bXN.js",
     "name": "central",
     "src": "resources/js/central.js",
     "isEntry": true,
     "imports": [
-      "_vue-moment.js"
-    ],
-    "dynamicImports": [
       "_vue-moment.js"
     ]
   },
@@ -2890,14 +2886,11 @@
     "isEntry": true
   },
   "resources/js/tenant.js": {
-    "file": "assets/tenant-D1YY_jbk.js",
+    "file": "assets/tenant-BzLJCmOD.js",
     "name": "tenant",
     "src": "resources/js/tenant.js",
     "isEntry": true,
     "imports": [
-      "_vue-moment.js"
-    ],
-    "dynamicImports": [
       "_vue-moment.js"
     ],
     "css": [
