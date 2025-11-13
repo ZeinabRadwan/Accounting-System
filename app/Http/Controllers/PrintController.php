@@ -2826,6 +2826,15 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         try {
+            // Log request data for debugging
+            Log::info('Preview Items PDF Request', [
+                'all_params' => $request->all(),
+                'productName' => $request->input('productName'),
+                'productName_slug' => $request->input('productName.slug'),
+                'fromDate' => $request->fromDate,
+                'toDate' => $request->toDate,
+            ]);
+
             // Get items report data
             $reportController = new \App\Http\Controllers\API\ReportController();
             $itemsData = $reportController->itemsReport($request);
@@ -2924,6 +2933,15 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         try {
+            // Log request data for debugging
+            Log::info('Download Items PDF Request', [
+                'all_params' => $request->all(),
+                'productName' => $request->input('productName'),
+                'productName_slug' => $request->input('productName.slug'),
+                'fromDate' => $request->fromDate,
+                'toDate' => $request->toDate,
+            ]);
+
             // Get items report data
             $reportController = new \App\Http\Controllers\API\ReportController();
             $itemsData = $reportController->itemsReport($request);

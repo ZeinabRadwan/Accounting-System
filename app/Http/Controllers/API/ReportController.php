@@ -1551,13 +1551,41 @@ class ReportController extends Controller
             $user = Auth::user();
             $branchIds = $this->getUserBranchIds($user);
 
-            $product = Product::where('slug', $request->productName['slug'])
+            // Get the product slug from the request
+            $productSlug = $request->input('productName.slug') ?? $request->productName['slug'] ?? null;
+
+            if (! $productSlug) {
+                return $this->responseWithError('Product slug is required');
+            }
+
+            // First check if product exists at all
+            $productExists = Product::where('slug', $productSlug)->exists();
+
+            if (! $productExists) {
+                Log::warning('Product not found by slug', [
+                    'slug' => $productSlug,
+                    'user_id' => $user->id,
+                    'request_data' => $request->all(),
+                ]);
+
+                return $this->responseWithError('Product not found');
+            }
+
+            // Then check if product belongs to user's branch
+            $product = Product::where('slug', $productSlug)
                 ->whereIn('branch_id', $branchIds)
                 ->with('proSubCategory.category', 'productUnit')
                 ->first();
 
             if (! $product) {
-                return $this->responseWithError('Product not found');
+                Log::warning('Product found but not in user branch', [
+                    'slug' => $productSlug,
+                    'user_id' => $user->id,
+                    'user_branches' => $branchIds,
+                    'request_data' => $request->all(),
+                ]);
+
+                return $this->responseWithError('Product not found in your branch');
             }
 
             // stock ins
