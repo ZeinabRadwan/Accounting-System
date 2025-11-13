@@ -70,7 +70,7 @@
                     <i v-else class="fas fa-file-alt"></i>
                   </div>
                   <div class="tree-item-label">
-                    <div class="account-name">{{ account.name }}</div>
+                    <div class="account-name">{{ getTranslatedName(account) }}</div>
                     <div class="account-code">{{ account.code }}</div>
                   </div>
                   <div class="tree-item-toggle" v-if="account.hasChildren">
@@ -102,10 +102,10 @@
                   <div class="d-flex align-items-center">
                     <i class="fas fa-folder-open text-primary mr-3" style="font-size: 24px;"></i>
                     <div>
-                      <h4 class="mb-1">{{ selectedAccount.name }}</h4>
+                      <h4 class="mb-1">{{ getTranslatedName(selectedAccount) }}</h4>
                       <p class="text-muted mb-0">{{ $t("Account Code") }}: {{ selectedAccount.code }}</p>
                       <p class="text-muted mb-0" v-if="selectedAccount.types">
-                        {{ $t("Type") }}: {{ selectedAccount.types.name }}
+                        {{ $t("Type") }}: {{ getTranslatedName(selectedAccount.types) }}
                       </p>
                     </div>
                   </div>
@@ -168,17 +168,17 @@
                             <div class="item-container">
                               <i class="icon fas fa-file-alt mr-3"></i>
                               <div class="details">
-                                <p class="name">{{ child.name }}</p>
+                                <p class="name">{{ getTranslatedName(child) }}</p>
                                 <p class="id">{{ child.code }}</p>
                               </div>
                             </div>
                           </div>
                         </router-link>
                         <div v-else class="chart-of-accounts-col-9-body-container-table-item">
-                          <div class="item-container">
+                            <div class="item-container">
                             <i class="icon fas fa-file-alt mr-3"></i>
                             <div class="details">
-                              <p class="name">{{ child.name }}</p>
+                              <p class="name">{{ getTranslatedName(child) }}</p>
                               <p class="id">{{ child.code }}</p>
                             </div>
                           </div>
@@ -299,6 +299,7 @@ export default {
     selectedAccount: null, // Add this
     childAccounts: [], // Add this
     openActionIndex: null,
+    currentLocale: null,
   }),
   
   // Map Getters
@@ -321,20 +322,78 @@ export default {
         this.searchData();
       }
     },
+    // watch locale changes
+    '$store.getters["lang/locale"]': async function(newLocale) {
+      if (newLocale && newLocale !== this.currentLocale) {
+        this.currentLocale = newLocale;
+        
+        // Store selected account ID before reloading
+        const selectedAccountId = this.selectedAccount ? this.selectedAccount.id : null;
+        
+        if (this.query === "") {
+          await this.getData();
+        } else {
+          await this.searchData();
+        }
+        
+        // Restore selected account after data reload
+        if (selectedAccountId) {
+          this.$nextTick(() => {
+            const account = this.allAccounts.find(acc => acc.id === selectedAccountId);
+            if (account) {
+              this.selectedAccount = account;
+              this.childAccounts = this.allAccounts.filter(acc => acc.parent_id === selectedAccountId);
+            }
+          });
+        }
+      }
+    },
+    // watch i18n locale changes as fallback
+    '$i18n.locale': async function(newLocale) {
+      if (newLocale && newLocale !== this.currentLocale) {
+        this.currentLocale = newLocale;
+        
+        // Store selected account ID before reloading
+        const selectedAccountId = this.selectedAccount ? this.selectedAccount.id : null;
+        
+        if (this.query === "") {
+          await this.getData();
+        } else {
+          await this.searchData();
+        }
+        
+        // Restore selected account after data reload
+        if (selectedAccountId) {
+          this.$nextTick(() => {
+            const account = this.allAccounts.find(acc => acc.id === selectedAccountId);
+            if (account) {
+              this.selectedAccount = account;
+              this.childAccounts = this.allAccounts.filter(acc => acc.parent_id === selectedAccountId);
+            }
+          });
+        }
+      }
+    },
   },
   
   created() {
+    this.currentLocale = this.$store?.getters?.['lang/locale'] || (window.config && window.config.locale) || 'en';
     this.getData();
   },
   mounted() {
+    // Update currentLocale from store in case it changed
+    this.currentLocale = this.$store?.getters?.['lang/locale'] || this.$i18n?.locale || (window.config && window.config.locale) || 'en';
+    
     document.addEventListener('click', this.onClickOutside);
     window.addEventListener('scroll', this.handleScroll);
     window.addEventListener('resize', this.handleResize);
+    window.addEventListener('locale-changed', this.handleLocaleChange);
   },
   beforeDestroy() {
     document.removeEventListener('click', this.onClickOutside);
     window.removeEventListener('scroll', this.handleScroll);
     window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener('locale-changed', this.handleLocaleChange);
   },
   
   methods: {
@@ -381,7 +440,15 @@ export default {
     async getData() {
       this.$store.state.operations.loading = true;
       try {
-        const response = await this.$axios.get('/api/chart-of-accounts/all');
+        const response = await this.$axios.get('/api/chart-of-accounts/translations', {
+          params: {
+            locale: this.currentLocale,
+            include_translations: true,
+            include: 'type',
+            include_type_translations: true,
+            perPage: 1000 // Get all accounts for tree view
+          }
+        });
         this.allAccounts = response.data.data || [];
         this.buildHierarchy();
       } catch (error) {
@@ -395,7 +462,17 @@ export default {
     async searchData() {
       this.$store.state.operations.loading = true;
       try {
-        const response = await this.$axios.get(`/api/chart-of-accounts/search?term=${this.query}`);
+        const response = await this.$axios.get('/api/chart-of-accounts/translations/search', {
+          params: {
+            term: this.query,
+            locale: this.currentLocale,
+            search_field: 'name',
+            include_translations: true,
+            include: 'type',
+            include_type_translations: true,
+            perPage: 1000 // Get all accounts for tree view
+          }
+        });
         this.allAccounts = response.data.data || [];
         this.buildHierarchy();
       } catch (error) {
@@ -563,6 +640,48 @@ export default {
     // get account by id
     getAccountById(id) {
       return this.allAccounts.find(account => account.id === id);
+    },
+
+    // get translated name for account or type
+    getTranslatedName(entity) {
+      if (!entity) return ''
+      const translations = entity.translations && entity.translations.name
+      const locale = this.currentLocale
+      if (translations && translations[locale] && translations[locale].trim() !== '') {
+        return translations[locale]
+      }
+      return entity.name || entity.original_name || ''
+    },
+
+    // Handle locale change event
+    async handleLocaleChange(event) {
+      if (event && event.detail && event.detail.locale) {
+        const newLocale = event.detail.locale;
+        if (newLocale !== this.currentLocale) {
+          this.currentLocale = newLocale;
+          
+          // Store selected account ID before reloading
+          const selectedAccountId = this.selectedAccount ? this.selectedAccount.id : null;
+          
+          // Reload accounts with new locale
+          if (this.query === "") {
+            await this.getData();
+          } else {
+            await this.searchData();
+          }
+          
+          // Restore selected account after data reload
+          if (selectedAccountId) {
+            this.$nextTick(() => {
+              const account = this.allAccounts.find(acc => acc.id === selectedAccountId);
+              if (account) {
+                this.selectedAccount = account;
+                this.childAccounts = this.allAccounts.filter(acc => acc.parent_id === selectedAccountId);
+              }
+            });
+          }
+        }
+      }
     },
   },
 };

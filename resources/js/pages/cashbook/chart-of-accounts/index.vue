@@ -21,6 +21,13 @@
               </div>
               <div class="col-xl-8 col-8 float-right text-right">
                 <div class="btn-group c-w-100">
+                  <router-link
+                    :to="{ name: 'chart-of-accounts.tree' }"
+                    v-tooltip="$t('Tree View')"
+                    class="btn btn-success refresh-btn"
+                  >
+                    <i class="fas fa-sitemap"></i>
+                  </router-link>
                   <a
                     @click="refreshTable()"
                     href="#"
@@ -356,8 +363,33 @@ export default {
         this.searchData();
       }
     },
+    // watch locale changes
+    '$store.getters["lang/locale"]': function(newLocale) {
+      if (newLocale && newLocale !== this.currentLocale) {
+        this.currentLocale = newLocale;
+        if (this.query === "") {
+          this.loadAccounts();
+        } else {
+          this.searchData();
+        }
+      }
+    },
+    // watch i18n locale changes as fallback
+    '$i18n.locale': function(newLocale) {
+      if (newLocale && newLocale !== this.currentLocale) {
+        this.currentLocale = newLocale;
+        if (this.query === "") {
+          this.loadAccounts();
+        } else {
+          this.searchData();
+        }
+      }
+    },
   },
   mounted() {
+    // Update currentLocale from store in case it changed
+    this.currentLocale = this.$store?.getters?.['lang/locale'] || this.$i18n?.locale || (window.config && window.config.locale) || 'en';
+    
     this.loadAccounts()
     this.loadAccountTypes()
     this.loadParentAccounts()
@@ -365,11 +397,13 @@ export default {
     document.addEventListener('click', this.onClickOutside);
     window.addEventListener('scroll', this.handleScroll);
     window.addEventListener('resize', this.handleResize);
+    window.addEventListener('locale-changed', this.handleLocaleChange);
   },
   beforeDestroy() {
     document.removeEventListener('click', this.onClickOutside);
     window.removeEventListener('scroll', this.handleScroll);
     window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener('locale-changed', this.handleLocaleChange);
   },
   methods: {
     getSystemSupportedLocales() {
@@ -674,6 +708,22 @@ export default {
 
     paginate() {
       this.loadAccounts();
+    },
+
+    // Handle locale change event
+    handleLocaleChange(event) {
+      if (event && event.detail && event.detail.locale) {
+        const newLocale = event.detail.locale;
+        if (newLocale !== this.currentLocale) {
+          this.currentLocale = newLocale;
+          // Reload accounts with new locale
+          if (this.query === "") {
+            this.loadAccounts();
+          } else {
+            this.searchData();
+          }
+        }
+      }
     }
   }
 }
