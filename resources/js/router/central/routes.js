@@ -3,7 +3,7 @@ function page(path) {
   const cleanPath = path.replace(/\.vue$/, '');
   // Use relative path: from router/central/ to pages/ is ../../pages/
   return () =>
-    import(/* @vite-ignore */ `../../pages/${cleanPath}.vue`).then(
+    import(`../../pages/${cleanPath}.vue`).then(
       m => m.default || m
     )
 }

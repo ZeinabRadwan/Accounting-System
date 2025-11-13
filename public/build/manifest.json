@@ -7,6 +7,26 @@
     "file": "js/vue-moment.js",
     "name": "vue-moment",
     "isDynamicEntry": true,
+    "dynamicImports": [
+      "resources/js/lang/ar.json",
+      "resources/js/lang/bn.json",
+      "resources/js/lang/de.json",
+      "resources/js/lang/en.json",
+      "resources/js/lang/es.json",
+      "resources/js/lang/fr.json",
+      "resources/js/lang/hi.json",
+      "resources/js/lang/id.json",
+      "resources/js/lang/it.json",
+      "resources/js/lang/ko.json",
+      "resources/js/lang/ms.json",
+      "resources/js/lang/nl.json",
+      "resources/js/lang/pt.json",
+      "resources/js/lang/ru.json",
+      "resources/js/lang/th.json",
+      "resources/js/lang/tr.json",
+      "resources/js/lang/vi.json",
+      "resources/js/lang/zh.json"
+    ],
     "css": [
       "assets/vue-moment-bzJ1jrbc.css"
     ],
@@ -2726,7 +2746,7 @@
     "src": "node_modules/flag-icons/flags/4x3/zw.svg"
   },
   "resources/js/central.js": {
-    "file": "assets/central-KRj8rKjV.js",
+    "file": "assets/central-CkGDgVUl.js",
     "name": "central",
     "src": "resources/js/central.js",
     "isEntry": true,
@@ -2734,7 +2754,203 @@
       "_vue-moment.js"
     ],
     "dynamicImports": [
+      "resources/js/pages/activity-log.vue",
+      "resources/js/pages/backup.vue",
+      "resources/js/pages/dashboard.vue",
+      "resources/js/pages/permission-denied.vue",
+      "resources/js/pages/stock-alert-products.vue",
+      "resources/js/pages/tenant-initialization.vue",
+      "resources/js/pages/welcome.vue",
       "_vue-moment.js"
+    ]
+  },
+  "resources/js/lang/ar.json": {
+    "file": "js/ar.js",
+    "name": "ar",
+    "src": "resources/js/lang/ar.json",
+    "isDynamicEntry": true
+  },
+  "resources/js/lang/bn.json": {
+    "file": "js/bn.js",
+    "name": "bn",
+    "src": "resources/js/lang/bn.json",
+    "isDynamicEntry": true
+  },
+  "resources/js/lang/de.json": {
+    "file": "js/de.js",
+    "name": "de",
+    "src": "resources/js/lang/de.json",
+    "isDynamicEntry": true
+  },
+  "resources/js/lang/en.json": {
+    "file": "js/en.js",
+    "name": "en",
+    "src": "resources/js/lang/en.json",
+    "isDynamicEntry": true
+  },
+  "resources/js/lang/es.json": {
+    "file": "js/es.js",
+    "name": "es",
+    "src": "resources/js/lang/es.json",
+    "isDynamicEntry": true
+  },
+  "resources/js/lang/fr.json": {
+    "file": "js/fr.js",
+    "name": "fr",
+    "src": "resources/js/lang/fr.json",
+    "isDynamicEntry": true
+  },
+  "resources/js/lang/hi.json": {
+    "file": "js/hi.js",
+    "name": "hi",
+    "src": "resources/js/lang/hi.json",
+    "isDynamicEntry": true
+  },
+  "resources/js/lang/id.json": {
+    "file": "js/id.js",
+    "name": "id",
+    "src": "resources/js/lang/id.json",
+    "isDynamicEntry": true
+  },
+  "resources/js/lang/it.json": {
+    "file": "js/it.js",
+    "name": "it",
+    "src": "resources/js/lang/it.json",
+    "isDynamicEntry": true
+  },
+  "resources/js/lang/ko.json": {
+    "file": "js/ko.js",
+    "name": "ko",
+    "src": "resources/js/lang/ko.json",
+    "isDynamicEntry": true
+  },
+  "resources/js/lang/ms.json": {
+    "file": "js/ms.js",
+    "name": "ms",
+    "src": "resources/js/lang/ms.json",
+    "isDynamicEntry": true
+  },
+  "resources/js/lang/nl.json": {
+    "file": "js/nl.js",
+    "name": "nl",
+    "src": "resources/js/lang/nl.json",
+    "isDynamicEntry": true
+  },
+  "resources/js/lang/pt.json": {
+    "file": "js/pt.js",
+    "name": "pt",
+    "src": "resources/js/lang/pt.json",
+    "isDynamicEntry": true
+  },
+  "resources/js/lang/ru.json": {
+    "file": "js/ru.js",
+    "name": "ru",
+    "src": "resources/js/lang/ru.json",
+    "isDynamicEntry": true
+  },
+  "resources/js/lang/th.json": {
+    "file": "js/th.js",
+    "name": "th",
+    "src": "resources/js/lang/th.json",
+    "isDynamicEntry": true
+  },
+  "resources/js/lang/tr.json": {
+    "file": "js/tr.js",
+    "name": "tr",
+    "src": "resources/js/lang/tr.json",
+    "isDynamicEntry": true
+  },
+  "resources/js/lang/vi.json": {
+    "file": "js/vi.js",
+    "name": "vi",
+    "src": "resources/js/lang/vi.json",
+    "isDynamicEntry": true
+  },
+  "resources/js/lang/zh.json": {
+    "file": "js/zh.js",
+    "name": "zh",
+    "src": "resources/js/lang/zh.json",
+    "isDynamicEntry": true
+  },
+  "resources/js/pages/activity-log.vue": {
+    "file": "js/activity-log.js",
+    "name": "activity-log",
+    "src": "resources/js/pages/activity-log.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_vue-moment.js"
+    ],
+    "css": [
+      "assets/activity-log-BwimeaVo.css"
+    ]
+  },
+  "resources/js/pages/backup.vue": {
+    "file": "js/backup.js",
+    "name": "backup",
+    "src": "resources/js/pages/backup.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_vue-moment.js"
+    ],
+    "css": [
+      "assets/backup-tn0RQdqM.css"
+    ]
+  },
+  "resources/js/pages/dashboard.vue": {
+    "file": "js/dashboard.js",
+    "name": "dashboard",
+    "src": "resources/js/pages/dashboard.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_vue-moment.js"
+    ],
+    "css": [
+      "assets/dashboard-Bkstl0FZ.css"
+    ]
+  },
+  "resources/js/pages/permission-denied.vue": {
+    "file": "js/permission-denied.js",
+    "name": "permission-denied",
+    "src": "resources/js/pages/permission-denied.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_vue-moment.js"
+    ],
+    "css": [
+      "assets/permission-denied-CWc1keAc.css"
+    ]
+  },
+  "resources/js/pages/stock-alert-products.vue": {
+    "file": "js/stock-alert-products.js",
+    "name": "stock-alert-products",
+    "src": "resources/js/pages/stock-alert-products.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_vue-moment.js"
+    ]
+  },
+  "resources/js/pages/tenant-initialization.vue": {
+    "file": "js/tenant-initialization.js",
+    "name": "tenant-initialization",
+    "src": "resources/js/pages/tenant-initialization.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_vue-moment.js"
+    ],
+    "css": [
+      "assets/tenant-initialization-DNJxK6lE.css"
+    ]
+  },
+  "resources/js/pages/welcome.vue": {
+    "file": "js/welcome.js",
+    "name": "welcome",
+    "src": "resources/js/pages/welcome.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_vue-moment.js"
+    ],
+    "css": [
+      "assets/welcome-C6jAJKMX.css"
     ]
   },
   "resources/js/rtl-manager.js": {
@@ -2744,7 +2960,7 @@
     "isEntry": true
   },
   "resources/js/tenant.js": {
-    "file": "assets/tenant-D1YY_jbk.js",
+    "file": "assets/tenant-CWhn9ur0.js",
     "name": "tenant",
     "src": "resources/js/tenant.js",
     "isEntry": true,
@@ -2752,6 +2968,13 @@
       "_vue-moment.js"
     ],
     "dynamicImports": [
+      "resources/js/pages/activity-log.vue",
+      "resources/js/pages/backup.vue",
+      "resources/js/pages/dashboard.vue",
+      "resources/js/pages/permission-denied.vue",
+      "resources/js/pages/stock-alert-products.vue",
+      "resources/js/pages/tenant-initialization.vue",
+      "resources/js/pages/welcome.vue",
       "_vue-moment.js"
     ],
     "css": [

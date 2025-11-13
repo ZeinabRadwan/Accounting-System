@@ -15,8 +15,26 @@ const i18n = new VueI18n({
  */
 export async function loadMessages (locale) {
   const loadedMessages = i18n.getLocaleMessage(locale)
-  const mod = await import(/* @vite-ignore */ `../lang/${locale}.json`)
-  const incomingMessages = mod && (mod.default || mod)
+  
+  let incomingMessages = {}
+  
+  try {
+    // Try to fetch from build directory first (works in production)
+    const response = await fetch(`/build/lang/${locale}.json`)
+    if (response.ok) {
+      incomingMessages = await response.json()
+    } else {
+      throw new Error('Fetch failed, trying dynamic import')
+    }
+  } catch (error) {
+    // Fallback to dynamic import (works in development)
+    try {
+      const mod = await import(`../lang/${locale}.json`)
+      incomingMessages = mod && (mod.default || mod)
+    } catch (fallbackError) {
+      console.error(`Failed to load messages for locale: ${locale}`, fallbackError)
+    }
+  }
 
   // Merge to ensure new keys added during development are picked up
   const nextMessages = Object.keys(loadedMessages).length

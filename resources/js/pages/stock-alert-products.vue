@@ -130,7 +130,7 @@
                   <tr v-show="!loading && !items.length">
                     <td colspan="10">
                       <div class="text-center py-8">
-                        <img src="/../../images/result-not-found.svg" class="w-64 m-auto" alt="result-not-found" />
+                        <img src="/images/empty.png" class="w-64 m-auto" alt="result-not-found" />
                         <p class="font-bold text-lg text-gray-600 dark:text-gray-200">
                           {{ $t("Sorry no data found") }}.
                         </p>
