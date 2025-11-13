@@ -494,6 +494,7 @@ import { ToggleButton } from "vue-js-toggle-button";
 import ProductCreateModal from '~/components/ProductCreateModal'
 import SupplierCreateModal from '~/components/SupplierCreateModal'
 import RTLMixin from '~/mixins/RTLMixin'
+import ErrorHandler from '~/utils/errorHandler'
 
 import { ToWords } from 'to-words';
 
@@ -1404,7 +1405,6 @@ export default {
           });
         } else {
           // Use centralized error handler
-          const ErrorHandler = require('~/utils/errorHandler').default;
           ErrorHandler.handleApiError(error, {
             showValidationErrors: true
           });

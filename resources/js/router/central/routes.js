@@ -1,6 +1,9 @@
 function page(path) {
+  // Remove .vue extension if present, then add it in the static part
+  const cleanPath = path.replace(/\.vue$/, '');
+  // Use relative path: from router/central/ to pages/ is ../../pages/
   return () =>
-    import(/* webpackChunkName: '' */ `~/pages/${path}`).then(
+    import(/* @vite-ignore */ `../../pages/${cleanPath}.vue`).then(
       m => m.default || m
     )
 }

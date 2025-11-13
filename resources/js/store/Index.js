@@ -3,20 +3,27 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-// Load store modules dynamically.
-const requireContext = require.context('./modules', false, /.*\.js$/)
+// Import store modules
+import auth from './modules/auth'
+import chartOfAccounts from './modules/chartOfAccounts'
+import lang from './modules/lang'
+import operations from './modules/operations'
+import translations from './modules/translations'
 
-const modules = requireContext.keys()
-  .map(file =>
-    [file.replace(/(^.\/)|(\.js$)/g, ''), requireContext(file)]
-  )
-  .reduce((modules, [name, module]) => {
-    if (module.namespaced === undefined) {
-      module.namespaced = true
-    }
+const modules = {
+  auth,
+  chartOfAccounts,
+  lang,
+  operations,
+  translations,
+}
 
-    return { ...modules, [name]: module }
-  }, {})
+// Ensure all modules are namespaced
+Object.keys(modules).forEach(name => {
+  if (modules[name].namespaced === undefined) {
+    modules[name].namespaced = true
+  }
+})
 
 export default new Vuex.Store({
   modules

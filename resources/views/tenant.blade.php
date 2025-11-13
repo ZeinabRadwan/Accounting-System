@@ -20,7 +20,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+    @vite(['resources/sass/app.scss', 'resources/js/tenant.js'])
 </head>
 
 <body class="hold-transition layout-footer-fixed">
@@ -37,10 +37,6 @@
         }
         window.stripe_key = "{{ config('services.stripe.key') }}";
     </script>
-
-    {{-- Load the application scripts --}}
-
-    <script src="{{ mix('/js/tenant.js') }}"></script>
 
 </body>
 
