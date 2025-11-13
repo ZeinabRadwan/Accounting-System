@@ -3,16 +3,18 @@
 namespace App\Providers;
 
 use App\Models\Currency;
-use App\Models\Permission;
 use App\Models\GeneralSetting;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Event;
-use Laravel\Dusk\DuskServiceProvider;
-use Illuminate\Database\Query\Builder;
-use Illuminate\Support\Facades\Schema;
+use App\Models\Permission;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Dusk\DuskServiceProvider;
 use Stancl\Tenancy\Events\TenancyBootstrapped;
 
 class AppServiceProvider extends ServiceProvider
@@ -90,6 +92,45 @@ class AppServiceProvider extends ServiceProvider
 
         $this->generalSettingAndPermission();
 
+        // Override @vite directive to use global_asset for build files in tenant contexts
+        if (config('tenancy.asset_helper_tenancy')) {
+            Blade::directive('vite', function ($expression) {
+                return "<?php 
+                    \$vite = \\Illuminate\\Support\\Facades\\Vite::useCspNonce(app('csp-nonce'));
+                    \$html = \$vite->toHtml($expression, false);
+                    
+                    // Replace tenant asset URLs with global asset URLs for build files
+                    \$html = preg_replace_callback(
+                        '/href=[\"\\']([^\"\\']*\\/build\\/[^\"\\']*)[\"\\']/',
+                        function (\$matches) {
+                            \$url = \$matches[1];
+                            if (str_contains(\$url, '/tenancy/assets/build/')) {
+                                \$path = str_replace('/tenancy/assets/build/', 'build/', \$url);
+                                return 'href=\"'.global_asset(\$path).'\"';
+                            }
+                            return \$matches[0];
+                        },
+                        \$html
+                    );
+                    
+                    \$html = preg_replace_callback(
+                        '/src=[\"\\']([^\"\\']*\\/build\\/[^\"\\']*)[\"\\']/',
+                        function (\$matches) {
+                            \$url = \$matches[1];
+                            if (str_contains(\$url, '/tenancy/assets/build/')) {
+                                \$path = str_replace('/tenancy/assets/build/', 'build/', \$url);
+                                return 'src=\"'.global_asset(\$path).'\"';
+                            }
+                            return \$matches[0];
+                        },
+                        \$html
+                    );
+                    
+                    echo \$html;
+                ?>";
+            });
+        }
+
         /*
          * tenant related configurations start
          */
@@ -130,7 +171,7 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(DuskServiceProvider::class);
         } else {
             $this->app->bind('path.public', function () {
-                return realpath(base_path() . '/../../public_html');
+                return realpath(base_path().'/../../public_html');
             });
         }
     }
