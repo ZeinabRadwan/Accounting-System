@@ -100,28 +100,19 @@ class AppServiceProvider extends ServiceProvider
                     \$html = \$vite->toHtml($expression, false);
                     
                     // Replace tenant asset URLs with global asset URLs for build files
+                    // Handle both absolute URLs (with domain) and relative URLs
+                    // Match href or src attributes containing /tenancy/assets/build/
                     \$html = preg_replace_callback(
-                        '/href=[\"\\']([^\"\\']*\\/build\\/[^\"\\']*)[\"\\']/',
+                        '/(href|src)=[\"\\']([^\"\\']*\\/tenancy\\/assets\\/build\\/([^\"\\']*))[\"\\']/i',
                         function (\$matches) {
-                            \$url = \$matches[1];
-                            if (str_contains(\$url, '/tenancy/assets/build/')) {
-                                \$path = str_replace('/tenancy/assets/build/', 'build/', \$url);
-                                return 'href=\"'.global_asset(\$path).'\"';
-                            }
-                            return \$matches[0];
-                        },
-                        \$html
-                    );
-                    
-                    \$html = preg_replace_callback(
-                        '/src=[\"\\']([^\"\\']*\\/build\\/[^\"\\']*)[\"\\']/',
-                        function (\$matches) {
-                            \$url = \$matches[1];
-                            if (str_contains(\$url, '/tenancy/assets/build/')) {
-                                \$path = str_replace('/tenancy/assets/build/', 'build/', \$url);
-                                return 'src=\"'.global_asset(\$path).'\"';
-                            }
-                            return \$matches[0];
+                            \$attr = \$matches[1]; // href or src
+                            \$fullUrl = \$matches[2]; // full URL with /tenancy/assets/build/
+                            \$filePath = \$matches[3]; // just the file path after /build/
+                            
+                            // Build the correct global asset path
+                            \$newPath = 'build/'.$filePath;
+                            // Use global_asset to generate the correct global URL
+                            return \$attr.'=\"'.global_asset(\$newPath).'\"';
                         },
                         \$html
                     );
