@@ -175,8 +175,9 @@ Route::get('/debug/build-lang/{locale}', function ($locale) {
         $response['file_permissions'] = substr(sprintf('%o', fileperms($filePath)), -4);
         try {
             $content = json_decode(file_get_contents($filePath), true);
-            $response['is_valid_json'] = json_last_error() === JSON_ERROR_NONE;
-            $response['keys_count'] = $is_valid_json ? count($content) : 0;
+            $isValidJson = json_last_error() === JSON_ERROR_NONE;
+            $response['is_valid_json'] = $isValidJson;
+            $response['keys_count'] = $isValidJson ? count($content) : 0;
         } catch (\Exception $e) {
             $response['read_error'] = $e->getMessage();
         }
