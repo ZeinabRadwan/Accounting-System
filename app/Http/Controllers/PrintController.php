@@ -2844,54 +2844,94 @@ class PrintController extends Controller
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
         
-        // Get items report data
-        $reportController = new \App\Http\Controllers\API\ReportController();
-        $itemsData = $reportController->itemsReport($request);
-        
-        // Handle JsonResponse
-        if ($itemsData instanceof \Illuminate\Http\JsonResponse) {
-            $itemsData = $itemsData->getData(true);
+        try {
+            // Get items report data
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $itemsData = $reportController->itemsReport($request);
+            
+            // Handle JsonResponse (error response)
+            if ($itemsData instanceof \Illuminate\Http\JsonResponse) {
+                $itemsData = $itemsData->getData(true);
+                
+                // Check if it's an error response
+                if (isset($itemsData['success']) && !$itemsData['success']) {
+                    $errorMessage = $itemsData['message'] ?? $itemsData['error'] ?? 'Unknown error';
+                    return response()->make(
+                        '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($errorMessage) . '</p></body></html>',
+                        400
+                    );
+                }
+            }
+            
+            // Check if data is empty or invalid
+            if (!is_array($itemsData) || (!isset($itemsData['product']) && !isset($itemsData['stockIns']) && !isset($itemsData['stockOuts']))) {
+                return response()->make(
+                    '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Error</h1><p>No data found for the selected filters. Please check your filters and try again.</p></body></html>',
+                    404
+                );
+            }
+            
+            // Structure the data for the template
+            $itemsReportData = [
+                'product' => $itemsData['product'] ?? null,
+                'stockIns' => $itemsData['stockIns'] ?? [],
+                'stockOuts' => $itemsData['stockOuts'] ?? [],
+                'filters' => [
+                    'from_date' => $request->fromDate,
+                    'to_date' => $request->toDate,
+                    'product_name' => $request->input('productName.label') ?? $request->input('productName.name'),
+                ]
+            ];
+            
+            // Get the default template for reports
+            $template = PrintTemplate::byModule('reports')->default()->first();
+            
+            // Convert logo to base64 for PDF compatibility
+            $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+            
+            // Generate filename
+            $fromDate = $request->fromDate ?? '';
+            $toDate = $request->toDate ?? '';
+            $productName = $itemsReportData['filters']['product_name'] ?? '';
+            $filename = 'Items-Report-' . $productName . '-' . $fromDate . '-to-' . $toDate . '.pdf';
+            $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
+            
+            // Use Utility::buildPdf to generate PDF
+            return \App\Models\Utility::buildPdf([
+                'view' => $template ? 'print.reports.items' : 'print.items-basic',
+                'view_data' => compact('itemsReportData', 'template', 'logoBase64', 'locale'),
+                'type' => 'preview',
+                'file_name' => $filename,
+                'header' => '',
+                'footer' => '',
+                'header_spacing' => '2',
+                'margins' => [
+                    'top' => '10mm',
+                    'bottom' => '10mm',
+                ]
+            ], 'landscape', false);
+            
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            $errors = $e->errors();
+            $errorMessage = 'Validation failed: ' . implode(', ', array_map(function ($fieldErrors) {
+                return implode(', ', $fieldErrors);
+            }, $errors));
+            
+            return response()->make(
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Validation Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($errorMessage) . '</p><p>Please check your filters and try again.</p></body></html>',
+                422
+            );
+        } catch (\Exception $e) {
+            Log::error('Preview Items PDF Error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'request_params' => $request->all()
+            ]);
+            
+            return response()->make(
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</p><p><em>Please check the logs for more details.</em></p></body></html>',
+                500
+            );
         }
-        
-        // Structure the data for the template
-        $itemsReportData = [
-            'product' => $itemsData['product'] ?? null,
-            'stockIns' => $itemsData['stockIns'] ?? [],
-            'stockOuts' => $itemsData['stockOuts'] ?? [],
-            'filters' => [
-                'from_date' => $request->fromDate,
-                'to_date' => $request->toDate,
-                'product_name' => $request->input('productName.label') ?? $request->input('productName.name'),
-            ]
-        ];
-        
-        // Get the default template for reports
-        $template = PrintTemplate::byModule('reports')->default()->first();
-        
-        // Convert logo to base64 for PDF compatibility
-        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-        
-        // Generate filename
-        $fromDate = $request->fromDate ?? '';
-        $toDate = $request->toDate ?? '';
-        $productName = $itemsReportData['filters']['product_name'] ?? '';
-        $filename = 'Items-Report-' . $productName . '-' . $fromDate . '-to-' . $toDate . '.pdf';
-        $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-        
-        // Use Utility::buildPdf to generate PDF
-        return \App\Models\Utility::buildPdf([
-            'view' => $template ? 'print.reports.items' : 'print.items-basic',
-            'view_data' => compact('itemsReportData', 'template', 'logoBase64', 'locale'),
-            'type' => 'preview',
-            'file_name' => $filename,
-            'header' => '',
-            'footer' => '',
-            'header_spacing' => '2',
-            'margins' => [
-                'top' => '10mm',
-                'bottom' => '10mm',
-            ]
-        ], 'landscape', false);
     }
 
     /**
@@ -2902,54 +2942,94 @@ class PrintController extends Controller
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
         
-        // Get items report data
-        $reportController = new \App\Http\Controllers\API\ReportController();
-        $itemsData = $reportController->itemsReport($request);
-        
-        // Handle JsonResponse
-        if ($itemsData instanceof \Illuminate\Http\JsonResponse) {
-            $itemsData = $itemsData->getData(true);
+        try {
+            // Get items report data
+            $reportController = new \App\Http\Controllers\API\ReportController();
+            $itemsData = $reportController->itemsReport($request);
+            
+            // Handle JsonResponse (error response)
+            if ($itemsData instanceof \Illuminate\Http\JsonResponse) {
+                $itemsData = $itemsData->getData(true);
+                
+                // Check if it's an error response
+                if (isset($itemsData['success']) && !$itemsData['success']) {
+                    $errorMessage = $itemsData['message'] ?? $itemsData['error'] ?? 'Unknown error';
+                    return response()->make(
+                        '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($errorMessage) . '</p></body></html>',
+                        400
+                    );
+                }
+            }
+            
+            // Check if data is empty or invalid
+            if (!is_array($itemsData) || (!isset($itemsData['product']) && !isset($itemsData['stockIns']) && !isset($itemsData['stockOuts']))) {
+                return response()->make(
+                    '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Error</h1><p>No data found for the selected filters. Please check your filters and try again.</p></body></html>',
+                    404
+                );
+            }
+            
+            // Structure the data for the template
+            $itemsReportData = [
+                'product' => $itemsData['product'] ?? null,
+                'stockIns' => $itemsData['stockIns'] ?? [],
+                'stockOuts' => $itemsData['stockOuts'] ?? [],
+                'filters' => [
+                    'from_date' => $request->fromDate,
+                    'to_date' => $request->toDate,
+                    'product_name' => $request->input('productName.label') ?? $request->input('productName.name'),
+                ]
+            ];
+            
+            // Get the default template for reports
+            $template = PrintTemplate::byModule('reports')->default()->first();
+            
+            // Convert logo to base64 for PDF compatibility
+            $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+            
+            // Generate filename
+            $fromDate = $request->fromDate ?? '';
+            $toDate = $request->toDate ?? '';
+            $productName = $itemsReportData['filters']['product_name'] ?? '';
+            $filename = 'Items-Report-' . $productName . '-' . $fromDate . '-to-' . $toDate . '.pdf';
+            $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
+            
+            // Use Utility::buildPdf to generate PDF
+            return \App\Models\Utility::buildPdf([
+                'view' => $template ? 'print.reports.items' : 'print.items-basic',
+                'view_data' => compact('itemsReportData', 'template', 'locale', 'logoBase64'),
+                'type' => 'download',
+                'file_name' => $filename,
+                'header' => '',
+                'footer' => '',
+                'header_spacing' => '2',
+                'margins' => [
+                    'top' => '10mm',
+                    'bottom' => '10mm',
+                ]
+            ], 'landscape', false);
+            
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            $errors = $e->errors();
+            $errorMessage = 'Validation failed: ' . implode(', ', array_map(function ($fieldErrors) {
+                return implode(', ', $fieldErrors);
+            }, $errors));
+            
+            return response()->make(
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Validation Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($errorMessage) . '</p><p>Please check your filters and try again.</p></body></html>',
+                422
+            );
+        } catch (\Exception $e) {
+            Log::error('Download Items PDF Error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'request_params' => $request->all()
+            ]);
+            
+            return response()->make(
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</p><p><em>Please check the logs for more details.</em></p></body></html>',
+                500
+            );
         }
-        
-        // Structure the data for the template
-        $itemsReportData = [
-            'product' => $itemsData['product'] ?? null,
-            'stockIns' => $itemsData['stockIns'] ?? [],
-            'stockOuts' => $itemsData['stockOuts'] ?? [],
-            'filters' => [
-                'from_date' => $request->fromDate,
-                'to_date' => $request->toDate,
-                'product_name' => $request->input('productName.label') ?? $request->input('productName.name'),
-            ]
-        ];
-        
-        // Get the default template for reports
-        $template = PrintTemplate::byModule('reports')->default()->first();
-        
-        // Convert logo to base64 for PDF compatibility
-        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-        
-        // Generate filename
-        $fromDate = $request->fromDate ?? '';
-        $toDate = $request->toDate ?? '';
-        $productName = $itemsReportData['filters']['product_name'] ?? '';
-        $filename = 'Items-Report-' . $productName . '-' . $fromDate . '-to-' . $toDate . '.pdf';
-        $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-        
-        // Use Utility::buildPdf to generate PDF
-        return \App\Models\Utility::buildPdf([
-            'view' => $template ? 'print.reports.items' : 'print.items-basic',
-            'view_data' => compact('itemsReportData', 'template', 'locale', 'logoBase64'),
-            'type' => 'download',
-            'file_name' => $filename,
-            'header' => '',
-            'footer' => '',
-            'header_spacing' => '2',
-            'margins' => [
-                'top' => '10mm',
-                'bottom' => '10mm',
-            ]
-        ], 'landscape', false);
     }
 
     /**
