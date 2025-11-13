@@ -45,19 +45,33 @@ export default async (to, from, next) => {
     applyRTLMode(storedLocale)
   }
   
-  // Check if locale was just changed by user
+  // Check if locale was just changed by user or during login
   const localeJustChanged = localStorage.getItem('locale_just_changed')
   
+  // If locale was just changed, skip all updates to prevent conflicts
+  if (localeJustChanged) {
+    console.log('Locale middleware - Skipping updates because locale was just changed')
+    await loadMessages(store.getters['lang/locale'])
+    const currentLocale = store.getters['lang/locale']
+    if (currentLocale) {
+      applyRTLMode(currentLocale)
+    }
+    return next()
+  }
+  
   // Check if user is authenticated and has a locale preference
-  if (store.getters['auth/check'] && !localeJustChanged) {
+  if (store.getters['auth/check']) {
     const user = store.getters['auth/user']
-    console.log('Locale middleware - User locale:', user?.locale)
-    
-    // Only update if there's no current locale in store AND user has a different locale
     const currentStoreLocale = store.getters['lang/locale']
-    const hasStoredLocale = localStorage.getItem('current_locale')
+    const storedLocale = localStorage.getItem('current_locale')
     
-    if (user && user.locale && user.locale !== currentStoreLocale && !hasStoredLocale) {
+    console.log('Locale middleware - User locale:', user?.locale, 'Store locale:', currentStoreLocale, 'Stored locale:', storedLocale)
+    
+    // Only update if:
+    // 1. User has a locale preference
+    // 2. Current store locale is different from user locale
+    // 3. There's no stored locale in localStorage (to avoid overriding manual changes)
+    if (user && user.locale && user.locale !== currentStoreLocale && !storedLocale) {
       try {
         console.log('Locale middleware - Updating locale from user preference:', user.locale)
         
@@ -79,10 +93,8 @@ export default async (to, from, next) => {
         console.warn('Failed to update locale from user preference:', error)
       }
     } else {
-      console.log('Locale middleware - Skipping user locale update. Current store locale:', currentStoreLocale, 'Has stored locale:', !!hasStoredLocale, 'Just changed:', !!localeJustChanged)
+      console.log('Locale middleware - Skipping user locale update. Current store locale:', currentStoreLocale, 'Has stored locale:', !!storedLocale)
     }
-  } else if (localeJustChanged) {
-    console.log('Locale middleware - Skipping user locale update because locale was just changed by user')
   }
   
   // Continue with normal locale loading

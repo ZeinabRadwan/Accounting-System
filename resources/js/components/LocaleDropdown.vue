@@ -107,9 +107,73 @@ export default {
         return
       }
 
+      // Check if we're on tenant initialization page
+      const isTenantInitialization = this.$route && (
+        this.$route.name === 'tenant.initialization' || 
+        this.$route.path === '/tenant-initialization'
+      )
+
       this.isLoading = true
 
       try {
+        // If on tenant initialization page, change locale client-side only (no API call)
+        if (isTenantInitialization) {
+          // Update client-side i18n and Vuex store
+          await loadMessages(locale)
+          this.$store.dispatch('lang/setLocale', { locale })
+          
+          // Apply RTL mode using multiple methods
+          this.applyRTLMode(locale)
+          
+          // Use global RTL manager if available
+          if (window.RTLManager) {
+            window.RTLManager.applyRTLMode(locale)
+          }
+          
+          // Force RTL mode multiple times to ensure it sticks
+          setTimeout(() => {
+            this.applyRTLMode(locale)
+          }, 100)
+          
+          setTimeout(() => {
+            this.applyRTLMode(locale)
+          }, 300)
+          
+          // Save to localStorage for persistence
+          localStorage.setItem('current_locale', locale)
+          localStorage.setItem('locale_just_changed', 'true')
+          setTimeout(() => {
+            localStorage.removeItem('locale_just_changed')
+          }, 1000)
+          
+          // Show success message
+          if (this.$toast) {
+            this.$toast.success(this.$t('Locale changed successfully'))
+          }
+          
+          // Force Vue to re-render all components with new locale
+          this.$forceUpdate()
+          
+          // Trigger a custom event for components to listen to
+          window.dispatchEvent(new CustomEvent('locale-changed', {
+            detail: { locale: locale, isRTL: this.isRTLLocale(locale) }
+          }))
+          
+          // Force re-render all components without page refresh
+          this.$nextTick(() => {
+            this.$forceUpdate()
+            // Force re-render of all child components
+            this.$children.forEach(child => {
+              if (child.$forceUpdate) {
+                child.$forceUpdate()
+              }
+            })
+          })
+          
+          this.isLoading = false
+          return
+        }
+
         // Make an API call to Laravel - use public endpoint for unauthenticated users
         const isAuthenticated = this.$store.getters['auth/check']
         const endpoint = isAuthenticated ? '/api/set-locale' : '/api/set-locale-public'

@@ -1,11 +1,11 @@
 <template>
   <div>
-    <!-- Login Steps Modal - showing final steps -->
-    <LoginStepsModal 
-      v-if="loading && !error" 
-      :show="true" 
-      :current-step="currentStep"
-    />
+    <!-- Loading state (minimal, no modal) -->
+    <div v-if="loading && !error" class="loading-container">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">{{ $t('Loading') }}...</span>
+      </div>
+    </div>
     
     <!-- Error state -->
     <div v-else-if="error" class="error-container">
@@ -18,14 +18,10 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import LoginStepsModal from '../../components/LoginStepsModal.vue'
 
 export default {
   layout: 'blank',
   middleware: 'guest',
-  components: {
-    LoginStepsModal
-  },
   metaInfo() {
     return { title: this.$t('Logging in') }
   },
@@ -34,7 +30,6 @@ export default {
       loading: true,
       error: null,
       appName: window.config.appName,
-      currentStep: 3, // Start at step 3 since steps 1-2 were done in find-domain
       processed: false
     }
   },
@@ -45,9 +40,7 @@ export default {
   async created() {
     // Check if user is already authenticated
     if (this.$store.getters['auth/check']) {
-      // User is already logged in, go to step 4 and redirect
-      this.currentStep = 4
-      await this.delay(500)
+      // User is already logged in, redirect immediately
       await this.redirectAfterAuth()
       return
     }
@@ -55,15 +48,12 @@ export default {
     // Check if we've already processed this request (prevent refresh loop)
     const processedKey = 'cross_domain_login_processed'
     if (sessionStorage.getItem(processedKey)) {
-      // Already processed, go to step 4 and redirect
-      this.currentStep = 4
-      await this.delay(500)
+      // Already processed, redirect immediately
       await this.redirectAfterAuth()
       return
     }
     
-    // Start at step 3 (setting up session)
-    this.currentStep = 3
+    // Handle cross-domain login
     await this.handleCrossDomainLogin()
   },
   methods: {
@@ -92,31 +82,32 @@ export default {
         })
 
         if (response.data && response.data.token) {
-          // Step 3: Setting up session - save token
-          this.currentStep = 3
-          
           // Save the token to the store
           await this.$store.dispatch('auth/saveToken', {
             token: response.data.token,
             remember: false,
           })
 
-          // Small delay to show step 3
-          await this.delay(500)
-
           // Fetch the user
           await this.$store.dispatch('auth/fetchUser')
+
+          // Apply locale immediately after fetching user
+          if (response.data.locale) {
+            await this.applyLocale(response.data.locale)
+          } else {
+            // Fallback to user locale from store
+            const user = this.$store.getters['auth/user']
+            if (user && user.locale) {
+              await this.applyLocale(user.locale)
+            }
+          }
 
           // Remove query parameters from URL to prevent re-processing
           if (window.history && window.history.replaceState) {
             window.history.replaceState({}, document.title, window.location.pathname)
           }
 
-          // Step 4: Redirecting
-          this.currentStep = 4
-          await this.delay(500)
-
-          // Redirect after authentication
+          // Redirect after authentication (without showing modal steps)
           await this.redirectAfterAuth()
         } else {
           this.error = this.$t('Login failed. Please try again')
@@ -131,6 +122,55 @@ export default {
         this.loading = false
       }
     },
+    async applyLocale(locale) {
+      try {
+        // RTL languages list
+        const rtlLanguages = ['ar', 'he', 'fa', 'ur', 'ps', 'sd', 'ku', 'yi']
+        const isRTL = rtlLanguages.includes(locale.toLowerCase())
+        
+        // Import loadMessages function
+        const { loadMessages } = await import('~/plugins/i18n')
+        
+        // Load messages for the locale
+        await loadMessages(locale)
+        
+        // Update the Vuex store locale
+        await this.$store.dispatch('lang/setLocale', { locale })
+        
+        // Apply RTL mode if available
+        if (window.RTLManager) {
+          window.RTLManager.applyRTLMode(locale)
+        } else {
+          // Fallback RTL implementation
+          document.documentElement.setAttribute('lang', locale)
+          document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr')
+          document.body.setAttribute('dir', isRTL ? 'rtl' : 'ltr')
+          
+          if (isRTL) {
+            document.body.classList.add('rtl')
+            document.body.classList.remove('ltr')
+          } else {
+            document.body.classList.add('ltr')
+            document.body.classList.remove('rtl')
+          }
+        }
+        
+        // Store in localStorage
+        localStorage.setItem('current_locale', locale)
+        localStorage.setItem('rtl_mode', isRTL.toString())
+        
+        // Set flag to prevent middleware from overriding
+        localStorage.setItem('locale_just_changed', 'true')
+        setTimeout(() => {
+          localStorage.removeItem('locale_just_changed')
+        }, 2000)
+        
+        console.log('Locale applied:', locale)
+      } catch (error) {
+        console.error('Error applying locale:', error)
+      }
+    },
+    
     async redirectAfterAuth() {
       try {
         // Check if tenant is initialized before redirecting
@@ -149,16 +189,13 @@ export default {
         console.error('Error checking tenant initialization:', error)
         window.location.href = '/tenant-initialization'
       }
-    },
-    
-    delay(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms))
     }
   }
 }
 </script>
 
 <style scoped>
+.loading-container,
 .error-container {
   position: fixed;
   top: 0;
@@ -177,5 +214,10 @@ export default {
 .error-container .alert {
   max-width: 400px;
   margin: 0 auto;
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
 }
 </style>

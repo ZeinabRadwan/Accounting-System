@@ -1,9 +1,9 @@
 <template>
   <div class="tenant-initialization">
-    <!-- Language Switcher -->
-    <div class="language-switcher-container">
+    <!-- Language Switcher - Hidden on tenant initialization page -->
+    <!-- <div class="language-switcher-container">
       <LocaleDropdown />
-    </div>
+    </div> -->
 
     <div class="auth-wrapper" v-if="!initialized">
       <div class="container">
@@ -380,7 +380,7 @@
                     :disabled="currentStep === 1 || loading"
                     v-if="currentStep > 1"
                   >
-                    <i class="fas fa-arrow-right mr-2"></i>
+                    <i :class="['fas', isRTL ? 'fa-arrow-right' : 'fa-arrow-left', isRTL ? 'ml-2' : 'mr-2']"></i>
                     {{ $t('previous') }}
                   </button>
                   <div v-else></div>
@@ -391,10 +391,11 @@
                     @click="currentStep === totalSteps ? submitForm() : nextStep()"
                     :disabled="loading"
                   >
-                    <span v-if="loading" class="spinner-border spinner-border-sm mr-2"></span>
+                    <span v-if="loading" class="spinner-border spinner-border-sm" :class="isRTL ? 'ml-2' : 'mr-2'"></span>
                     <template v-else>
-                      <i class="fas mr-2" :class="currentStep === totalSteps ? 'fa-check' : 'fa-arrow-left'"></i>
                       {{ currentStep === totalSteps ? $t('complete_setup') : $t('next') }}
+                      <i v-if="currentStep === totalSteps" class="fas fa-check" :class="isRTL ? 'mr-2' : 'ml-2'"></i>
+                      <i v-else :class="['fas', isRTL ? 'fa-arrow-left' : 'fa-arrow-right', isRTL ? 'mr-2' : 'ml-2']"></i>
                     </template>
                   </button>
                 </div>
@@ -410,7 +411,6 @@
 <script>
 import Form from 'vform'
 import axios from 'axios'
-import LocaleDropdown from '../components/LocaleDropdown.vue'
 import PhoneNumberInput from '../components/PhoneNumberInput.vue'
 
 export default {
@@ -419,7 +419,6 @@ export default {
   middleware: [],
   
   components: {
-    LocaleDropdown,
     PhoneNumberInput
   },
 
@@ -531,6 +530,11 @@ export default {
   },
 
   computed: {
+    // Check if current locale is RTL
+    isRTL() {
+      const rtlLanguages = ['ar', 'he', 'fa', 'ur', 'ps', 'sd', 'ku', 'yi']
+      return rtlLanguages.includes(this.$i18n.locale?.toLowerCase())
+    },
     // Make steps reactive to locale changes
     steps() {
       return [
@@ -679,7 +683,6 @@ export default {
     await this.fetchCurrencies()
     await this.fetchTenantCompanyName()
     await this.checkInitializationStatus()
-    this.interceptLocaleChanges()
     
     // Initialize tax number format if country is already selected
     if (this.form.country && this.taxNumberRules[this.form.country]) {
@@ -691,11 +694,6 @@ export default {
     // Clear the flag when leaving the page
     if (typeof sessionStorage !== 'undefined') {
       sessionStorage.removeItem('on_initialization_page')
-    }
-    
-    // Clean up the event listener
-    if (this.localeClickListener) {
-      document.removeEventListener('click', this.localeClickListener)
     }
     
     // Cleanup cropper
@@ -984,83 +982,6 @@ export default {
       }
     },
 
-    interceptLocaleChanges() {
-      // Intercept locale changes to prevent page refresh in wizard
-      this.localeClickListener = async (e) => {
-        const dropdownItem = e.target.closest('.dropdown-item')
-        
-        if (dropdownItem && e.target.closest('.language-switcher-container')) {
-          e.preventDefault()
-          e.stopPropagation()
-          e.stopImmediatePropagation()
-          
-          // Get locale from the locale text
-          const localeText = dropdownItem.textContent.trim()
-          const locales = this.$store.getters['lang/locales']
-          
-          // Find the locale key
-          let newLocale = null
-          for (const [key] of Object.entries(locales)) {
-            if (this.$t(`languages.${key}`) === localeText) {
-              newLocale = key
-              break
-            }
-          }
-          
-          if (newLocale && this.$i18n.locale !== newLocale) {
-            await this.changeLocaleWithoutRefresh(newLocale)
-          }
-          
-          // Close the dropdown
-          this.closeLanguageDropdown()
-        }
-      }
-      
-      // Add listener with high priority
-      document.addEventListener('click', this.localeClickListener, true)
-    },
-
-    closeLanguageDropdown() {
-      // Close Bootstrap dropdown programmatically
-      this.$nextTick(() => {
-        const dropdownToggle = document.querySelector('.language-switcher-container .dropdown-toggle')
-        const dropdownMenu = document.querySelector('.language-switcher-container .dropdown-menu')
-        
-        if (dropdownToggle && dropdownMenu) {
-          // Remove 'show' class from both toggle and menu
-          dropdownToggle.classList.remove('show')
-          dropdownMenu.classList.remove('show')
-          
-          // Remove 'show' attribute if present
-          dropdownToggle.removeAttribute('aria-expanded')
-          dropdownToggle.setAttribute('aria-expanded', 'false')
-        }
-      })
-    },
-
-    async changeLocaleWithoutRefresh(locale) {
-      try {
-        const { loadMessages } = await import('~/plugins/i18n')
-        await loadMessages(locale)
-        await this.$store.dispatch('lang/setLocale', { locale })
-        this.$i18n.locale = locale
-        
-        if (locale === 'ar') {
-          document.documentElement.setAttribute('dir', 'rtl')
-        } else {
-          document.documentElement.setAttribute('dir', 'ltr')
-        }
-        
-        // Force re-render to update all translations including step titles
-        this.$forceUpdate()
-        
-        // Force nextTick to ensure computed properties are updated
-        await this.$nextTick()
-        this.$forceUpdate()
-      } catch (error) {
-        console.error('Error changing locale:', error)
-      }
-    },
 
     async fetchAppInfo() {
       try {
@@ -1539,13 +1460,16 @@ export default {
   }
 }
 
-[dir="rtl"] .language-switcher-container {
-  right: auto;
-  left: 20px;
+.tenant-initialization .language-switcher-container {
+  right: 20px;
+  left: auto;
 }
 
-[dir="rtl"] .language-switcher-container.mobile {
-  left: 10px;
+@media (max-width: 768px) {
+  .tenant-initialization .language-switcher-container {
+    right: 10px;
+    left: auto;
+  }
 }
 
 .logo-upload-container {
