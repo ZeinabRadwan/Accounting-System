@@ -2,43 +2,39 @@
 
 namespace App\Http\Controllers\API;
 
-use DateTime;
-use Exception;
-use Carbon\Carbon;
-use App\Models\Asset;
-use App\Models\Client;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\ClientResource;
+use App\Http\Resources\ExpenseResource;
+use App\Http\Resources\InvoiceListResource;
+use App\Http\Resources\InvoicePaymentResource;
+use App\Http\Resources\ProductResource;
+use App\Http\Resources\SupplierResource;
 use App\Models\Account;
+use App\Models\AdjustmentProduct;
+use App\Models\Asset;
+use App\Models\BalanceTansfer;
+use App\Models\Client;
 use App\Models\Expense;
 use App\Models\Invoice;
+use App\Models\InvoicePayment;
+use App\Models\InvoiceProduct;
+use App\Models\InvoiceReturn;
+use App\Models\InvoiceReturnProduct;
+use App\Models\LoanPayment;
 use App\Models\Payroll;
 use App\Models\Product;
 use App\Models\Purchase;
-use App\Models\Supplier;
-use App\Models\LoanPayment;
-use Illuminate\Http\Request;
-use App\Models\InvoiceReturn;
-use App\Models\LoanAuthority;
-use App\Models\BalanceTansfer;
-use App\Models\InvoicePayment;
-use App\Models\InvoiceProduct;
-use App\Models\PurchaseReturn;
-use App\Models\PurchasePayment;
 use App\Models\PurchaseProduct;
-use App\Models\AdjustmentProduct;
-use App\Models\NonInvoicePayment;
-use App\Models\NonPurchasePayment;
+use App\Models\PurchaseReturn;
+use App\Models\PurchaseReturnProduct;
+use App\Models\Supplier;
+use Carbon\Carbon;
+use DateTime;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
-use App\Models\InvoiceReturnProduct;
-use App\Models\PurchaseReturnProduct;
-use App\Http\Resources\ClientResource;
-use App\Http\Resources\ExpenseResource;
-use App\Http\Resources\ProductResource;
-use App\Http\Resources\SupplierResource;
-use App\Http\Resources\InvoiceListResource;
-use App\Http\Resources\InvoicePaymentResource;
 
 class ReportController extends Controller
 {
@@ -141,19 +137,17 @@ class ReportController extends Controller
                         'liabilities' => $liabilityAccounts,
                         'equity' => $equityAccounts,
                     ],
-                    'legacy_data' => $legacyData
-                ]
+                    'legacy_data' => $legacyData,
+                ],
             ];
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to generate balance sheet',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
-
 
     /**
      * Get all account balances in a single optimized query
@@ -224,7 +218,7 @@ class ReportController extends Controller
         foreach ($chartOfAccounts as $account) {
             $accountType = $account->type->name ?? 'Unknown';
             $balance = $this->getAccountBalanceForFilters($account, $filters);
-            
+
             if (isset($balances[$accountType])) {
                 $balances[$accountType] += $balance;
             }
@@ -253,6 +247,7 @@ class ReportController extends Controller
                 ];
             }
         }
+
         return $accounts;
     }
 
@@ -262,11 +257,12 @@ class ReportController extends Controller
     private function getAccountDetailsByType($chartOfAccounts, $typeName, $filters)
     {
         return $chartOfAccounts
-            ->filter(function($account) use ($typeName) {
+            ->filter(function ($account) use ($typeName) {
                 return ($account->type->name ?? '') === $typeName;
             })
-            ->map(function($account) use ($filters) {
+            ->map(function ($account) use ($filters) {
                 $balance = $this->getAccountBalanceForFilters($account, $filters);
+
                 return [
                     'id' => $account->id,
                     'code' => $account->code,
@@ -316,6 +312,7 @@ class ReportController extends Controller
                 return round($balanceData['balance'], 2);
             }
         }
+
         return 0;
     }
 
@@ -325,11 +322,12 @@ class ReportController extends Controller
     private function getAccountBalance($chartOfAccounts, $accountName, $filters)
     {
         $account = $chartOfAccounts->firstWhere('name', $accountName);
-        if (!$account) {
+        if (! $account) {
             return 0;
         }
-        
+
         $balance = $this->getAccountBalanceForFilters($account, $filters);
+
         return round($balance, 2);
     }
 
@@ -341,7 +339,7 @@ class ReportController extends Controller
         // Build base query for journal entries
         $query = \App\Models\JournalEntry::query()
             ->where('status', 'posted')
-            ->whereHas('lines', function($query) use ($account) {
+            ->whereHas('lines', function ($query) use ($account) {
                 $query->where('chart_of_account_id', $account->id);
             });
 
@@ -355,11 +353,11 @@ class ReportController extends Controller
         }
 
         // Calculate balance
-        $debits = $query->get()->sum(function($entry) use ($account) {
+        $debits = $query->get()->sum(function ($entry) use ($account) {
             return $entry->lines->where('chart_of_account_id', $account->id)->sum('debit_amount');
         });
 
-        $credits = $query->get()->sum(function($entry) use ($account) {
+        $credits = $query->get()->sum(function ($entry) use ($account) {
             return $entry->lines->where('chart_of_account_id', $account->id)->sum('credit_amount');
         });
 
@@ -408,12 +406,12 @@ class ReportController extends Controller
             ->sum('interest');
 
         $numOfDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-        $fromDate = $year . '-' . $month . '-01';
-        $toDate = $year . '-' . $month . '-' . $numOfDays;
-        
+        $fromDate = $year.'-'.$month.'-01';
+        $toDate = $year.'-'.$month.'-'.$numOfDays;
+
         // assets depreciation for a given month and year - Note: Assets may not have branch_id
         $branchIdsStr = implode(',', $branchIds);
-        $assetDepriciation = DB::select('SELECT Sum( case when NumberOfDays > 0 then  new_assets.daily_depreciation * NumberOfDays else 0 end) as total_dep FROM ( SELECT daily_depreciation, ( CASE WHEN date < "' . $fromDate . '" && expire_date > "' . $toDate . '" THEN DATEDIFF("' . $toDate . '", "' . $fromDate . '") WHEN expire_date > "' . $fromDate . '" && expire_date < "' . $toDate . '" THEN DATEDIFF("' . $fromDate . '", expire_date) ELSE DATEDIFF("' . $toDate . '", date) END) AS NumberOfDays FROM assets WHERE depreciation = 1 AND status = 1 AND expire_date >= "' . $fromDate . '" AND branch_id IN (' . $branchIdsStr . ') ) AS new_assets');
+        $assetDepriciation = DB::select('SELECT Sum( case when NumberOfDays > 0 then  new_assets.daily_depreciation * NumberOfDays else 0 end) as total_dep FROM ( SELECT daily_depreciation, ( CASE WHEN date < "'.$fromDate.'" && expire_date > "'.$toDate.'" THEN DATEDIFF("'.$toDate.'", "'.$fromDate.'") WHEN expire_date > "'.$fromDate.'" && expire_date < "'.$toDate.'" THEN DATEDIFF("'.$fromDate.'", expire_date) ELSE DATEDIFF("'.$toDate.'", date) END) AS NumberOfDays FROM assets WHERE depreciation = 1 AND status = 1 AND expire_date >= "'.$fromDate.'" AND branch_id IN ('.$branchIdsStr.') ) AS new_assets');
 
         // Total purchases for a given month and year
         $purchases = Purchase::where('status', 1)
@@ -428,13 +426,13 @@ class ReportController extends Controller
         $openingBalances = DB::select('SELECT A.account_number, A.bank_name, SUM(IF(`type`=1, `amount`, 0))-SUM(IF(`type`=0, `amount`, 0)) AS `current_balance`
         FROM `accounts`  as A
         LEFT  JOIN account_transactions as T ON A.id = T.account_id
-        AND T.status = 1 AND DATE(T.transaction_date) < "' . $fromDate . '" AND A.branch_id IN (' . $branchIdsStr . ') AND (T.branch_id IN (' . $branchIdsStr . ') OR T.branch_id IS NULL) GROUP BY A.id');
+        AND T.status = 1 AND DATE(T.transaction_date) < "'.$fromDate.'" AND A.branch_id IN ('.$branchIdsStr.') AND (T.branch_id IN ('.$branchIdsStr.') OR T.branch_id IS NULL) GROUP BY A.id');
 
         // closing balances for a given month and year
         $closingBalances = DB::select('SELECT A.account_number, A.bank_name, SUM(IF(`type`=1, `amount`, 0))-SUM(IF(`type`=0, `amount`, 0)) AS `current_balance`
         FROM `accounts`  as A
         LEFT  JOIN account_transactions as T ON A.id = T.account_id
-        AND T.status = 1 AND DATE(T.transaction_date) < "' . $toDate . '" AND A.branch_id IN (' . $branchIdsStr . ') AND (T.branch_id IN (' . $branchIdsStr . ') OR T.branch_id IS NULL) GROUP BY A.id');
+        AND T.status = 1 AND DATE(T.transaction_date) < "'.$toDate.'" AND A.branch_id IN ('.$branchIdsStr.') AND (T.branch_id IN ('.$branchIdsStr.') OR T.branch_id IS NULL) GROUP BY A.id');
 
         // invoice salesfor a given month and year
         $invoiceSales = Invoice::where('status', 1)
@@ -456,7 +454,7 @@ class ReportController extends Controller
         $accountCollections = DB::select('SELECT accounts.account_number, accounts.bank_name, SUM(IF(`type`= 1, `amount`, 0)) AS `total_collection`
         FROM `account_transactions`
         JOIN accounts ON accounts.id = account_transactions.account_id
-        WHERE account_transactions.status = 1 AND accounts.branch_id IN (' . $branchIdsStr . ') AND account_transactions.branch_id IN (' . $branchIdsStr . ') AND MONTH(transaction_date)= "' . $month . '" AND YEAR(transaction_date)="' . $year . '" GROUP BY account_transactions.account_id');
+        WHERE account_transactions.status = 1 AND accounts.branch_id IN ('.$branchIdsStr.') AND account_transactions.branch_id IN ('.$branchIdsStr.') AND MONTH(transaction_date)= "'.$month.'" AND YEAR(transaction_date)="'.$year.'" GROUP BY account_transactions.account_id');
 
         // balance transfer - Note: BalanceTansfer may not have branch_id
         $balanceTransfers = BalanceTansfer::with('debitTransaction.cashbookAccount', 'creditTransaction.cashbookAccount')
@@ -753,7 +751,7 @@ class ReportController extends Controller
     /**
      * Get other costs - OPTIMIZED
      */
-    private function getOtherCosts($fromDate, $toDate, $fiscalYearId = null, $accountingPeriodId = null, $daysDifference)
+    private function getOtherCosts($fromDate, $toDate, $fiscalYearId, $accountingPeriodId, $daysDifference)
     {
         // Loan interest - OPTIMIZED
         $loanInterest = DB::table('loan_payments')
@@ -822,14 +820,13 @@ class ReportController extends Controller
                     'summary' => $vatSummary,
                     'transactions' => $vatTransactionsData['transactions'],
                     'pagination' => $vatTransactionsData['pagination'],
-                ]
+                ],
             ];
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to generate VAT report',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -842,11 +839,11 @@ class ReportController extends Controller
         // Increase memory limit for large datasets
         ini_set('memory_limit', '1G');
         set_time_limit(300);
-        
+
         try {
             // Debug: Log input parameters
             Log::info('VAT Report For Print - Input:', $request->all());
-            
+
             // Validate request
             $this->validate($request, [
                 'fiscal_year_id' => 'nullable|exists:fiscal_years,id',
@@ -854,7 +851,7 @@ class ReportController extends Controller
                 'from_date' => 'nullable|date',
                 'to_date' => 'nullable|date|after_or_equal:from_date',
             ]);
-            
+
             Log::info('VAT Report For Print - Validation passed');
 
             $fiscalYearId = $request->fiscal_year_id;
@@ -885,10 +882,10 @@ class ReportController extends Controller
                 'fiscal_year_id' => $fiscalYearId,
                 'accounting_period_id' => $accountingPeriodId,
                 'from_date' => $fromDate,
-                'to_date' => $toDate
+                'to_date' => $toDate,
             ]);
 
-            Log::info('VAT Report For Print - Processing complete. Total transactions: ' . count($vatTransactions));
+            Log::info('VAT Report For Print - Processing complete. Total transactions: '.count($vatTransactions));
 
             return [
                 'success' => true,
@@ -898,14 +895,13 @@ class ReportController extends Controller
                     'summary' => $vatSummary,
                     'transactions' => $vatTransactions,
                     'total_entries' => count($vatTransactions),
-                ]
+                ],
             ];
-
         } catch (\Exception $e) {
             return [
                 'success' => false,
                 'message' => 'Failed to generate VAT report for print',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ];
         }
     }
@@ -922,7 +918,7 @@ class ReportController extends Controller
         foreach ($vatRates as $vatRate) {
             // Get invoice VAT transactions
             $invoiceTransactions = $this->getInvoiceVatTransactions($filters, $vatRate->id);
-            
+
             // Get journal VAT transactions
             $journalTransactions = $this->getJournalVatTransactions($filters, $vatRate);
 
@@ -936,15 +932,15 @@ class ReportController extends Controller
         // Remove duplicates based on reference, date, type, and source
         $uniqueTransactions = [];
         foreach ($transactions as $transaction) {
-            $key = $transaction['reference'] . '|' . $transaction['date'] . '|' . $transaction['type'] . '|' . $transaction['source'];
-            if (!isset($seenTransactions[$key])) {
+            $key = $transaction['reference'].'|'.$transaction['date'].'|'.$transaction['type'].'|'.$transaction['source'];
+            if (! isset($seenTransactions[$key])) {
                 $seenTransactions[$key] = true;
                 $uniqueTransactions[] = $transaction;
             }
         }
 
         // Sort by date
-        usort($uniqueTransactions, function($a, $b) {
+        usort($uniqueTransactions, function ($a, $b) {
             return strtotime($a['date']) - strtotime($b['date']);
         });
 
@@ -988,14 +984,14 @@ class ReportController extends Controller
 
         // Get all sales VAT amounts in one query
         $salesVatData = $this->getAllSalesVatAmounts($filters, $vatRates);
-        
+
         // Get all journal VAT amounts in one query
         $journalVatData = $this->getAllJournalVatAmounts($filters, $vatRates);
 
         foreach ($vatRates as $vatRate) {
             // Get sales VAT from cached data
             $salesVat = $salesVatData[$vatRate->id] ?? 0;
-            
+
             // For purchase VAT, we'll distribute the total based on the VAT rate percentage
             // This is a simplified approach since we can't track which products use which VAT rates
             $purchaseVat = $this->calculatePurchaseVatForRate($totalPurchaseVat, $vatRate->rate, $vatRates);
@@ -1036,7 +1032,7 @@ class ReportController extends Controller
     private function getAllSalesVatAmounts($filters, $vatRates)
     {
         $vatRateIds = $vatRates->pluck('id')->toArray();
-        
+
         $query = DB::table('invoice_products')
             ->join('invoices', 'invoice_products.invoice_id', '=', 'invoices.id')
             ->where('invoices.status', 1)
@@ -1116,7 +1112,7 @@ class ReportController extends Controller
     {
         // Calculate total percentage of all VAT rates
         $totalPercentage = $vatRates->sum('rate');
-        
+
         if ($totalPercentage == 0) {
             return 0;
         }
@@ -1196,7 +1192,7 @@ class ReportController extends Controller
         $salesVatAccountId = $vatRate->sales_account_id;
         $purchaseVatAccountId = $vatRate->purchase_account_id;
 
-        if (!$salesVatAccountId && !$purchaseVatAccountId) {
+        if (! $salesVatAccountId && ! $purchaseVatAccountId) {
             return 0;
         }
 
@@ -1247,7 +1243,7 @@ class ReportController extends Controller
         foreach ($vatRates as $vatRate) {
             // Get invoice VAT transactions
             $invoiceTransactions = $this->getInvoiceVatTransactions($filters, $vatRate->id);
-            
+
             // Get journal VAT transactions
             $journalTransactions = $this->getJournalVatTransactions($filters, $vatRate);
 
@@ -1261,15 +1257,15 @@ class ReportController extends Controller
         // Remove duplicates based on reference, date, type, and source
         $uniqueTransactions = [];
         foreach ($transactions as $transaction) {
-            $key = $transaction['reference'] . '|' . $transaction['date'] . '|' . $transaction['type'] . '|' . $transaction['source'];
-            if (!isset($seenTransactions[$key])) {
+            $key = $transaction['reference'].'|'.$transaction['date'].'|'.$transaction['type'].'|'.$transaction['source'];
+            if (! isset($seenTransactions[$key])) {
                 $seenTransactions[$key] = true;
                 $uniqueTransactions[] = $transaction;
             }
         }
 
         // Sort by date
-        usort($uniqueTransactions, function($a, $b) {
+        usort($uniqueTransactions, function ($a, $b) {
             return strtotime($a['date']) - strtotime($b['date']);
         });
 
@@ -1288,7 +1284,7 @@ class ReportController extends Controller
         foreach ($vatRates as $vatRate) {
             // Get invoice VAT transactions
             $invoiceTransactions = $this->getInvoiceVatTransactions($filters, $vatRate->id);
-            
+
             // Get journal VAT transactions
             $journalTransactions = $this->getJournalVatTransactions($filters, $vatRate);
 
@@ -1302,15 +1298,15 @@ class ReportController extends Controller
         // Remove duplicates based on reference, date, type, and source
         $uniqueTransactions = [];
         foreach ($transactions as $transaction) {
-            $key = $transaction['reference'] . '|' . $transaction['date'] . '|' . $transaction['type'] . '|' . $transaction['source'];
-            if (!isset($seenTransactions[$key])) {
+            $key = $transaction['reference'].'|'.$transaction['date'].'|'.$transaction['type'].'|'.$transaction['source'];
+            if (! isset($seenTransactions[$key])) {
                 $seenTransactions[$key] = true;
                 $uniqueTransactions[] = $transaction;
             }
         }
 
         // Sort by date
-        usort($uniqueTransactions, function($a, $b) {
+        usort($uniqueTransactions, function ($a, $b) {
             return strtotime($a['date']) - strtotime($b['date']);
         });
 
@@ -1363,7 +1359,7 @@ class ReportController extends Controller
                 "Invoice" as source
             ')
             ->get()
-            ->map(function($transaction) {
+            ->map(function ($transaction) {
                 return [
                     'reference' => $transaction->reference,
                     'date' => $transaction->date,
@@ -1406,7 +1402,7 @@ class ReportController extends Controller
                 "Purchase" as source
             ')
             ->get()
-            ->map(function($transaction) {
+            ->map(function ($transaction) {
                 return [
                     'reference' => $transaction->reference,
                     'date' => $transaction->date,
@@ -1427,7 +1423,7 @@ class ReportController extends Controller
         $salesVatAccountId = $vatRate->sales_account_id;
         $purchaseVatAccountId = $vatRate->purchase_account_id;
 
-        if (!$salesVatAccountId && !$purchaseVatAccountId) {
+        if (! $salesVatAccountId && ! $purchaseVatAccountId) {
             return [];
         }
 
@@ -1509,11 +1505,11 @@ class ReportController extends Controller
             'category' => 'required',
             'subCategory' => ($request->category && $request->category['id'] != 0) ? 'required' : 'nullable',
         ]);
-        
+
         $user = Auth::user();
         $branchIds = $this->getUserBranchIds($user);
         $expenses = '';
-        
+
         if (isset($request->category) && isset($request->subCategory)) {
             if ($request->subCategory['id'] != 0) {
                 $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user')
@@ -1547,19 +1543,20 @@ class ReportController extends Controller
     {
         // validate request
         $this->validate($request, [
-            'productName' => 'required',
+            'productName' => 'required|array',
+            'productName.slug' => 'required|string',
         ]);
 
         try {
             $user = Auth::user();
             $branchIds = $this->getUserBranchIds($user);
-            
+
             $product = Product::where('slug', $request->productName['slug'])
                 ->whereIn('branch_id', $branchIds)
                 ->with('proSubCategory.category', 'productUnit')
                 ->first();
 
-            if (!$product) {
+            if (! $product) {
                 return $this->responseWithError('Product not found');
             }
 
@@ -1598,7 +1595,7 @@ class ReportController extends Controller
                 $stockIns[$key]['price'] = $inventoryIn->purchase_price;
                 $stockIns[$key]['type'] = 'Purchase';
                 $stockIns[$key]['purchaseNo'] = $inventoryIn->purchase->purchase_no;
-                $stockIns[$key]['code'] = config('config.purchasePrefix') . '-' . $inventoryIn->purchase->purchase_no;
+                $stockIns[$key]['code'] = config('config.purchasePrefix').'-'.$inventoryIn->purchase->purchase_no;
             }
 
             $length = count($stockIns);
@@ -1609,13 +1606,13 @@ class ReportController extends Controller
                 $stockIns[$length]['client'] = $inventoryIn->invoiceReturn->invoice->client->name;
                 $stockIns[$length]['price'] = $inventoryIn->purchase_price;
                 $stockIns[$length]['type'] = 'Invoice Return';
-                $stockIns[$length++]['code'] = config('config.invoiceReturnPrefix') . '-' . $inventoryIn->invoiceReturn->return_no;
+                $stockIns[$length++]['code'] = config('config.invoiceReturnPrefix').'-'.$inventoryIn->invoiceReturn->return_no;
             }
 
             $length = count($stockIns);
             // Inventory adjustments
             foreach ($adjutmentIns as $key => $inventoryIn) {
-                $stockIns[$length]['code'] = config('config.adjustmentPrefix') . '-' . $inventoryIn->inventoryAdjustment->code;
+                $stockIns[$length]['code'] = config('config.adjustmentPrefix').'-'.$inventoryIn->inventoryAdjustment->code;
                 $stockIns[$length]['quantity'] = $inventoryIn->quantity;
                 $stockIns[$length]['date'] = $inventoryIn->inventoryAdjustment->date;
                 $stockIns[$length]['reason'] = $inventoryIn->inventoryAdjustment->reason;
@@ -1657,14 +1654,14 @@ class ReportController extends Controller
                 $stockOuts[$key]['date'] = $inventoryOut->invoice->invoice_date;
                 $stockOuts[$key]['price'] = $inventoryOut->sale_price;
                 $stockOuts[$key]['client'] = $inventoryOut->invoice->client->name;
-                $stockOuts[$key]['code'] = config('config.invoicePrefix') . '-' . $inventoryOut->invoice->invoice_no;
+                $stockOuts[$key]['code'] = config('config.invoicePrefix').'-'.$inventoryOut->invoice->invoice_no;
                 $stockOuts[$key]['type'] = 'Invoice';
             }
 
             $length = count($stockOuts);
             // Inventory adjustments
             foreach ($adjutmentOuts as $key => $adjutmentOut) {
-                $stockOuts[$length]['code'] = config('config.adjustmentPrefix') . '-' . $adjutmentOut->inventoryAdjustment->code;
+                $stockOuts[$length]['code'] = config('config.adjustmentPrefix').'-'.$adjutmentOut->inventoryAdjustment->code;
                 $stockOuts[$length]['quantity'] = $adjutmentOut->quantity;
                 $stockOuts[$length]['date'] = $adjutmentOut->inventoryAdjustment->date;
                 $stockOuts[$length]['reason'] = $adjutmentOut->inventoryAdjustment->reason;
@@ -1675,7 +1672,7 @@ class ReportController extends Controller
             $length = count($stockOuts);
             // Purchase returns
             foreach ($purchaseReturnOuts as $key => $purchaseReturnOut) {
-                $stockOuts[$length]['code'] = config('config.purchaseReturnPrefix') . '-' . $purchaseReturnOut->purchaseReturn->code;
+                $stockOuts[$length]['code'] = config('config.purchaseReturnPrefix').'-'.$purchaseReturnOut->purchaseReturn->code;
                 $stockOuts[$length]['quantity'] = $purchaseReturnOut->quantity;
                 $stockOuts[$length]['date'] = $purchaseReturnOut->purchaseReturn->date;
                 $stockOuts[$length]['reason'] = $purchaseReturnOut->purchaseReturn->reason;
@@ -1707,7 +1704,7 @@ class ReportController extends Controller
         $user = Auth::user();
         $branchIds = $this->getUserBranchIds($user);
         $allProducts = [];
-        
+
         if (($request->category['slug'] == 'all' && $request->subCategory['slug'] == 'all' && $request->itemName['slug'] == 'all')) {
             $products = Product::whereIn('branch_id', $branchIds)
                 ->orderBy('code', 'ASC')
@@ -1748,7 +1745,7 @@ class ReportController extends Controller
             $user = Auth::user();
             $branchIds = $this->getUserBranchIds($user);
         }
-        
+
         $allProducts = [];
         foreach ($products as $key => $product) {
             // stock ins
@@ -1823,10 +1820,10 @@ class ReportController extends Controller
         try {
             $user = Auth::user();
             $branchIds = $this->getUserBranchIds($user);
-            
+
             $query = Supplier::with('purchases.purchaseReturn')
                 ->whereIn('branch_id', $branchIds);
-            
+
             return SupplierResource::collection($query->latest()->paginate($request->perPage));
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
@@ -1839,10 +1836,10 @@ class ReportController extends Controller
         try {
             $user = Auth::user();
             $branchIds = $this->getUserBranchIds($user);
-            
+
             $query = Client::query()
                 ->whereIn('branch_id', $branchIds);
-            
+
             return ClientResource::collection($query->latest()->paginate($request->perPage));
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
@@ -1858,10 +1855,10 @@ class ReportController extends Controller
         try {
             $user = Auth::user();
             $branchIds = $this->getUserBranchIds($user);
-            
+
             $query = Invoice::with('client', 'invoicePayments', 'invoiceReturn', 'user')
                 ->whereIn('branch_id', $branchIds);
-            
+
             $term = $request->user['id'];
             if ($request->fromDate && $request->toDate) {
                 $query = $query->whereBetween('invoice_date', [$request->fromDate, $request->toDate]);
@@ -1891,10 +1888,10 @@ class ReportController extends Controller
         try {
             $user = Auth::user();
             $branchIds = $this->getUserBranchIds($user);
-            
+
             $query = InvoicePayment::with('user.employee', 'invoice', 'invoicePaymentTransaction')
                 ->whereIn('branch_id', $branchIds);
-            
+
             $term = $request->user['id'];
             if ($request->fromDate && $request->toDate) {
                 $query = $query->whereBetween('date', [$request->fromDate, $request->toDate]);
@@ -1907,14 +1904,14 @@ class ReportController extends Controller
                     });
                 });
             }
+
             return InvoicePaymentResource::collection($query->latest()->get());
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
         }
     }
 
-
-    // get today report 
+    // get today report
     public function todayReport()
     {
         $today = Carbon::today();
@@ -1934,7 +1931,6 @@ class ReportController extends Controller
                 $productList[] = ['product_id' => $productId, 'quantity' => $quantity];
             }
         }
-
 
         $products = Product::where('status', true)->get();
         $simulatedInventoryCounts = [];
@@ -1979,7 +1975,7 @@ class ReportController extends Controller
             }
         }
 
-        // calculate the opening stock price by sale price 
+        // calculate the opening stock price by sale price
         $openingStockBySalePrice = 0;
         foreach ($simulatedInventoryCountsBySalePrice as $InventoryCountsBySalePrice) {
             $quantity = $InventoryCountsBySalePrice['quantity'] ?? 0;
@@ -1987,7 +1983,7 @@ class ReportController extends Controller
             $openingStockBySalePrice += ($quantity * $regularPrice);
         }
 
-        // calculate the opening stock price by purchase price 
+        // calculate the opening stock price by purchase price
         $openingStockByPurchasePrice = 0;
         foreach ($simulatedInventoryCounts as $InventoryCountByPurchasePrice) {
             $quantity = $InventoryCountByPurchasePrice['quantity'] ?? 0;
@@ -1995,19 +1991,17 @@ class ReportController extends Controller
             $openingStockByPurchasePrice += ($quantity * $purchasePrice);
         }
 
-        // calculate the closing stock price by purchase price 
+        // calculate the closing stock price by purchase price
         $closingStockByPurchasePrice = 0;
         foreach ($products as $product) {
             $closingStockByPurchasePrice += $product->inventory_count * $product->purchase_price;
         }
 
-        // calculate the closing stock price by sale price 
+        // calculate the closing stock price by sale price
         $closingStockBySalePrice = 0;
         foreach ($products as $product) {
             $closingStockBySalePrice += $product->inventory_count * $product->regular_price;
         }
-
-
 
         // invoice sales for current date
         $invoiceSales = Invoice::where('status', 1)->whereDate('invoice_date', DB::raw('CURDATE()'))->sum('sub_total');
@@ -2032,7 +2026,7 @@ class ReportController extends Controller
             foreach ($productRurchasePriceToSalePriceDifference->purchaseProducts as $purchaseProduct) {
                 $purchaseProducts[] = [
                     'product_id' => $purchaseProduct->product_id,
-                    'quantity' => $purchaseProduct->quantity
+                    'quantity' => $purchaseProduct->quantity,
                 ];
             }
         }
@@ -2048,7 +2042,7 @@ class ReportController extends Controller
                     $purchaseProductsDetails[] = [
                         'product_id' => $purchaseProduct['product_id'],
                         'quantity' => $purchaseProduct['quantity'],
-                        'total_difference' => $totalDifference
+                        'total_difference' => $totalDifference,
                     ];
                 }
             }
@@ -2067,14 +2061,14 @@ class ReportController extends Controller
         $purchaseReturn = PurchaseReturn::where('status', 1)->whereDate('date', now()->format('Y-m-d'))->sum('total_return');
 
         // today purchase return by sale price
-        $todayPurchaseReturns =  PurchaseReturn::with('purchaseReturnProducts')->where('status', 1)->whereDate('date', now()->format('Y-m-d'))->get();
+        $todayPurchaseReturns = PurchaseReturn::with('purchaseReturnProducts')->where('status', 1)->whereDate('date', now()->format('Y-m-d'))->get();
         if ($todayPurchaseReturns) {
             $todayPurchaseReturnProducts = [];
             foreach ($todayPurchaseReturns as $todayPurchaseReturn) {
                 foreach ($todayPurchaseReturn->purchaseReturnProducts as $purchaseReturnProduct) {
                     $todayPurchaseReturnProducts[] = [
                         'product_id' => $purchaseReturnProduct->product_id,
-                        'quantity' => $purchaseReturnProduct->quantity
+                        'quantity' => $purchaseReturnProduct->quantity,
                     ];
                 }
             }
@@ -2090,7 +2084,7 @@ class ReportController extends Controller
                     $todayPurchaseReturnProductsDetails[] = [
                         'product_id' => $todayPurchaseReturnProduct['product_id'],
                         'quantity' => $todayPurchaseReturnProduct['quantity'],
-                        'product_regular_price' => $productRegularPrice
+                        'product_regular_price' => $productRegularPrice,
                     ];
                 }
             }
@@ -2099,7 +2093,6 @@ class ReportController extends Controller
                 $todayPurchaseReturnsTotalBySalePrice += $todayPurchaseReturnProductsDetail['product_regular_price'];
             }
         }
-
 
         // general expenses for current date
         $expenses = Expense::select(DB::raw('SUM(account_transactions.amount) As expAmount'))
@@ -2118,14 +2111,14 @@ class ReportController extends Controller
         // term loan interests for current date
         $loanInterest = LoanPayment::where('status', 1)->whereDate('date', DB::raw('CURDATE()'))->sum('interest');
 
-        // daily depreciation 
+        // daily depreciation
         $assetDepriciation = Asset::where('status', 1)->where('depreciation', 1)->where('expire_date', '>=', date('Y-m-d'))->sum('daily_depreciation');
 
         // start for gross and net profit
 
         $productsForGrossProfits = [];
         $inventoryOuts = InvoiceProduct::with('invoice', 'product')->whereHas('invoice', function ($newQuery) use ($today) {
-            $newQuery->where('status', 1)->whereDate('invoice_date',  $today);
+            $newQuery->where('status', 1)->whereDate('invoice_date', $today);
         })->groupBy('product_id')
             ->selectRaw('sum(quantity) as sumQty, product_id')
             ->selectRaw('sum(purchase_price * quantity) as purchasePrice, product_id')
@@ -2160,7 +2153,6 @@ class ReportController extends Controller
             $grossProfitForToday += $productsForGrossProfit['profitOrLoss'];
         }
 
-
         $totalSales = Invoice::where('status', 1)->whereDate('invoice_date', $today)->sum('sub_total');
 
         // inventory positive adjustment
@@ -2193,34 +2185,31 @@ class ReportController extends Controller
             return $row->purchase_price * $row->quantity;
         });
 
-
         $grossProfitOrLoss = round(($totalSales + $posAdjustment - ($costOfGoodsSold + $negAdjustment)), 2);
         $inTotalExpense = round(($expenses->expAmount + $payrolls->payrollAmount + $loanInterest + $assetDepriciation), 2);
         $netProfitOrLoss = round(($grossProfitForToday - $inTotalExpense), 2);
         $openingStockByPurchasePriceFinal = ($openingStockByPurchasePrice - $returnPurchasePrice) + $purchaseReturn - $totalPurchase;
-        $openingStockBySalePriceFinal =  $openingStockBySalePrice + $todayPurchaseReturnsTotalBySalePrice - $invoiceReturn - $totalPurchase - $totalDifferenceSumOfTodayPurchaseProducts;
+        $openingStockBySalePriceFinal = $openingStockBySalePrice + $todayPurchaseReturnsTotalBySalePrice - $invoiceReturn - $totalPurchase - $totalDifferenceSumOfTodayPurchaseProducts;
 
         // end for gross and net profit
 
-
-
         return [
-            'invoiceSales'                => round($invoiceSales, 2),
-            'invoiceDiscount'             => round($invoiceDiscount, 2),
-            'invoiceReturn'               => round($invoiceReturn, 2),
-            'totalPurchase'               => round($totalPurchase, 0),
-            'purchaseReturn'              => round($purchaseReturn, 0),
-            'todayPurchaseDiscount'       => round($todayPurchaseDiscount, 0),
-            'expenses'                    => round($expenses->expAmount, 2),
-            'payrolls'                    => round($payrolls->payrollAmount, 2),
-            'loanInterest'                => round($loanInterest, 2),
-            'assetDepriciation'           => round($assetDepriciation, 2),
+            'invoiceSales' => round($invoiceSales, 2),
+            'invoiceDiscount' => round($invoiceDiscount, 2),
+            'invoiceReturn' => round($invoiceReturn, 2),
+            'totalPurchase' => round($totalPurchase, 0),
+            'purchaseReturn' => round($purchaseReturn, 0),
+            'todayPurchaseDiscount' => round($todayPurchaseDiscount, 0),
+            'expenses' => round($expenses->expAmount, 2),
+            'payrolls' => round($payrolls->payrollAmount, 2),
+            'loanInterest' => round($loanInterest, 2),
+            'assetDepriciation' => round($assetDepriciation, 2),
             'openingStockByPurchasePrice' => round($openingStockByPurchasePriceFinal, 2),
-            'openingStockBySalePrice'     => round($openingStockBySalePriceFinal, 2),
+            'openingStockBySalePrice' => round($openingStockBySalePriceFinal, 2),
             'closingStockByPurchasePrice' => round($closingStockByPurchasePrice, 2),
-            'closingStockBySalePrice'     => round($closingStockBySalePrice, 2),
-            'grossProfit'                 => round($grossProfitForToday, 2),
-            'netProfit'                   => round($netProfitOrLoss, 2),
+            'closingStockBySalePrice' => round($closingStockBySalePrice, 2),
+            'grossProfit' => round($grossProfitForToday, 2),
+            'netProfit' => round($netProfitOrLoss, 2),
         ];
     }
 
@@ -2239,15 +2228,15 @@ class ReportController extends Controller
             $search = $request->search;
 
             $branchId = Auth::user()->default_branch_id ?? null;
-            
+
             // Get the parent account with complete hierarchy
             $parentAccount = \App\Models\ChartOfAccount::forBranch($branchId)
                 ->with($this->getCompleteHierarchyEagerLoad())
                 ->findOrFail($parentAccountId);
-            
+
             // Get all descendants of the parent account (complete hierarchy)
             $allDescendants = $this->getAllDescendants($parentAccount);
-            
+
             // Build query for sub accounts (parent + all descendants)
             $query = \App\Models\ChartOfAccount::with('type')
                 ->forBranch($branchId)
@@ -2256,7 +2245,7 @@ class ReportController extends Controller
 
             // Apply search filter if provided
             if ($search) {
-                $query->where(function($q) use ($search) {
+                $query->where(function ($q) use ($search) {
                     $q->where('name', 'like', "%{$search}%")
                       ->orWhere('code', 'like', "%{$search}%");
                 });
@@ -2265,7 +2254,7 @@ class ReportController extends Controller
             $subAccounts = $query->orderBy('code')->orderBy('name')->get();
 
             // Format the response
-            $formattedAccounts = $subAccounts->map(function($account) use ($parentAccountId) {
+            $formattedAccounts = $subAccounts->map(function ($account) use ($parentAccountId) {
                 return [
                     'id' => $account->id,
                     'name' => $account->name,
@@ -2285,14 +2274,13 @@ class ReportController extends Controller
                     'name' => $parentAccount->name,
                     'code' => $parentAccount->code,
                     'type' => $parentAccount->type ? $parentAccount->type->name : 'Unknown',
-                ]
+                ],
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Error retrieving sub chart of accounts',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -2327,7 +2315,7 @@ class ReportController extends Controller
             // Determine which account to use for the report
             $reportAccountId = $subChartOfAccountId ?: $chartOfAccountId;
             $branchId = Auth::user()->default_branch_id ?? null;
-            
+
             // Get chart of account details
             $chartOfAccount = \App\Models\ChartOfAccount::forBranch($branchId)
                 ->with('type')
@@ -2339,7 +2327,7 @@ class ReportController extends Controller
             // Build date range query
             $dateQuery = \App\Models\JournalEntry::query()
                 ->where('status', 'posted')
-                ->whereHas('lines', function($query) use ($reportAccountId) {
+                ->whereHas('lines', function ($query) use ($reportAccountId) {
                     $query->where('chart_of_account_id', $reportAccountId);
                 });
 
@@ -2357,7 +2345,7 @@ class ReportController extends Controller
 
             // Get journal entries with pagination
             $journalEntries = $dateQuery
-                ->with(['lines' => function($query) use ($reportAccountId) {
+                ->with(['lines' => function ($query) use ($reportAccountId) {
                     $query->where('chart_of_account_id', $reportAccountId);
                 }])
                 ->orderBy('entry_date', 'desc')
@@ -2397,7 +2385,7 @@ class ReportController extends Controller
 
             foreach ($journalEntries as $entry) {
                 $entryLines = $entry->lines->where('chart_of_account_id', $reportAccountId);
-                
+
                 if ($entryLines->count() > 0) {
                     // If there are multiple lines for the same account, show each one separately
                     foreach ($entryLines as $entryLine) {
@@ -2407,7 +2395,7 @@ class ReportController extends Controller
                         $runningBalance += $netAmount;
 
                         $processedEntries[] = [
-                            'id' => $entry->id . '_' . $entryLine->id, // Unique ID for each line
+                            'id' => $entry->id.'_'.$entryLine->id, // Unique ID for each line
                             'entry_number' => $entry->formatted_entry_number,
                             'entry_date' => $entry->entry_date->format('Y-m-d'),
                             'reference' => $entry->reference,
@@ -2489,7 +2477,6 @@ class ReportController extends Controller
                     ],
                 ],
             ];
-
         } catch (\Exception $e) {
             return $this->responseWithError($e->getMessage());
         }
@@ -2521,7 +2508,7 @@ class ReportController extends Controller
             // Determine which account to use for the report
             $reportAccountId = $subChartOfAccountId ?: $chartOfAccountId;
             $branchId = Auth::user()->default_branch_id ?? null;
-            
+
             // Get chart of account details
             $chartOfAccount = \App\Models\ChartOfAccount::forBranch($branchId)
                 ->with('type')
@@ -2533,7 +2520,7 @@ class ReportController extends Controller
             // Build date range query - NO PAGINATION
             $dateQuery = \App\Models\JournalEntry::query()
                 ->where('status', 'posted')
-                ->whereHas('lines', function($query) use ($reportAccountId) {
+                ->whereHas('lines', function ($query) use ($reportAccountId) {
                     $query->where('chart_of_account_id', $reportAccountId);
                 });
 
@@ -2548,7 +2535,7 @@ class ReportController extends Controller
 
             // Get ALL journal entries - NO PAGINATION
             $journalEntries = $dateQuery
-                ->with(['lines' => function($query) use ($reportAccountId) {
+                ->with(['lines' => function ($query) use ($reportAccountId) {
                     $query->where('chart_of_account_id', $reportAccountId);
                 }])
                 ->orderBy('entry_date', 'desc')
@@ -2585,7 +2572,7 @@ class ReportController extends Controller
 
             foreach ($journalEntries as $entry) {
                 $entryLines = $entry->lines->where('chart_of_account_id', $reportAccountId);
-                
+
                 foreach ($entryLines as $line) {
                     $debitAmount = $line->debit_amount ?? 0;
                     $creditAmount = $line->credit_amount ?? 0;
@@ -2667,7 +2654,6 @@ class ReportController extends Controller
                     'total_entries' => count($processedEntries),
                 ],
             ];
-
         } catch (\Exception $e) {
             return $this->responseWithError($e->getMessage());
         }
@@ -2709,14 +2695,14 @@ class ReportController extends Controller
             if ($chartOfAccounts->isEmpty()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'No valid accounts found'
+                    'message' => 'No valid accounts found',
                 ], 400);
             }
 
             // Apply date filters
             $dateQuery = \App\Models\JournalEntry::query()
                 ->where('status', 'posted')
-                ->whereHas('lines', function($query) use ($chartOfAccountIds) {
+                ->whereHas('lines', function ($query) use ($chartOfAccountIds) {
                     $query->whereIn('chart_of_account_id', $chartOfAccountIds);
                 });
 
@@ -2730,10 +2716,10 @@ class ReportController extends Controller
 
             // Get total count for pagination
             $totalCount = $dateQuery->count();
-            
+
             // Get journal entries with pagination
             $journalEntries = $dateQuery
-                ->with(['lines' => function($query) use ($chartOfAccountIds) {
+                ->with(['lines' => function ($query) use ($chartOfAccountIds) {
                     $query->whereIn('chart_of_account_id', $chartOfAccountIds);
                 }])
                 ->orderBy('entry_date', 'desc')
@@ -2776,7 +2762,7 @@ class ReportController extends Controller
 
             foreach ($journalEntries as $entry) {
                 $entryLines = $entry->lines->whereIn('chart_of_account_id', $chartOfAccountIds);
-                
+
                 $totalDebit = $entryLines->sum('debit_amount');
                 $totalCredit = $entryLines->sum('credit_amount');
                 $netAmount = $totalDebit - $totalCredit;
@@ -2807,7 +2793,7 @@ class ReportController extends Controller
                     'net_amount' => round($netAmount, 2),
                     'running_balance' => round($runningBalance, 2),
                     'balance_type' => $runningBalanceType,
-                    'accounts' => $entryLines->map(function($line) {
+                    'accounts' => $entryLines->map(function ($line) {
                         return [
                             'id' => $line->chart_of_account_id,
                             'code' => $line->chartOfAccount->code,
@@ -2862,7 +2848,7 @@ class ReportController extends Controller
             return [
                 'success' => true,
                 'data' => [
-                    'chart_of_accounts' => $chartOfAccounts->map(function($account) {
+                    'chart_of_accounts' => $chartOfAccounts->map(function ($account) {
                         return [
                             'id' => $account->id,
                             'code' => $account->code,
@@ -2885,14 +2871,13 @@ class ReportController extends Controller
                         'total_pages' => ceil($totalCount / $perPage),
                         'has_more' => $page < ceil($totalCount / $perPage),
                     ],
-                ]
+                ],
             ];
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to generate group account statement',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -2929,14 +2914,14 @@ class ReportController extends Controller
             if ($chartOfAccounts->isEmpty()) {
                 return [
                     'success' => false,
-                    'message' => 'No valid accounts found'
+                    'message' => 'No valid accounts found',
                 ];
             }
 
             // Apply date filters - NO PAGINATION
             $dateQuery = \App\Models\JournalEntry::query()
                 ->where('status', 'posted')
-                ->whereHas('lines', function($query) use ($chartOfAccountIds) {
+                ->whereHas('lines', function ($query) use ($chartOfAccountIds) {
                     $query->whereIn('chart_of_account_id', $chartOfAccountIds);
                 });
 
@@ -2950,7 +2935,7 @@ class ReportController extends Controller
 
             // Get ALL journal entries - NO PAGINATION
             $journalEntries = $dateQuery
-                ->with(['lines' => function($query) use ($chartOfAccountIds) {
+                ->with(['lines' => function ($query) use ($chartOfAccountIds) {
                     $query->whereIn('chart_of_account_id', $chartOfAccountIds)
                           ->with('chartOfAccount');
                 }])
@@ -2991,7 +2976,7 @@ class ReportController extends Controller
 
             foreach ($journalEntries as $entry) {
                 $entryLines = $entry->lines->whereIn('chart_of_account_id', $chartOfAccountIds);
-                
+
                 $totalDebit = $entryLines->sum('debit_amount');
                 $totalCredit = $entryLines->sum('credit_amount');
                 $netAmount = $totalDebit - $totalCredit;
@@ -3022,7 +3007,7 @@ class ReportController extends Controller
                     'net_amount' => round($netAmount, 2),
                     'running_balance' => round($runningBalance, 2),
                     'balance_type' => $runningBalanceType,
-                    'accounts' => $entryLines->map(function($line) {
+                    'accounts' => $entryLines->map(function ($line) {
                         return [
                             'id' => $line->chart_of_account_id,
                             'code' => $line->chartOfAccount->code,
@@ -3077,7 +3062,7 @@ class ReportController extends Controller
             return [
                 'success' => true,
                 'data' => [
-                    'chart_of_accounts' => $chartOfAccounts->map(function($account) {
+                    'chart_of_accounts' => $chartOfAccounts->map(function ($account) {
                         return [
                             'id' => $account->id,
                             'code' => $account->code,
@@ -3094,14 +3079,13 @@ class ReportController extends Controller
                     'entries' => $processedEntries,
                     'summary' => $summary,
                     'total_entries' => count($processedEntries),
-                ]
+                ],
             ];
-
         } catch (\Exception $e) {
             return [
                 'success' => false,
                 'message' => 'Failed to generate group account statement for print',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ];
         }
     }
@@ -3310,7 +3294,7 @@ class ReportController extends Controller
                 $paidAmount = $clientPayments[$client->client_id] ?? 0;
                 $returnAmount = $clientReturns[$client->client_id] ?? 0;
                 $dueAmount = $client->total_amount - $paidAmount;
-                
+
                 return [
                     'client_id' => $client->client_id,
                     'client_name' => $client->client_name,
@@ -3348,7 +3332,7 @@ class ReportController extends Controller
                 ->map(function ($month) {
                     return [
                         'month' => $month->month,
-                        'month_name' => \Carbon\Carbon::parse($month->month . '-01')->format('F Y'),
+                        'month_name' => \Carbon\Carbon::parse($month->month.'-01')->format('F Y'),
                         'invoice_count' => $month->invoice_count,
                         'total_amount' => round($month->total_amount, 2),
                         'paid_amount' => 0, // Will be calculated if needed
@@ -3386,14 +3370,13 @@ class ReportController extends Controller
                         'total_pages' => ceil($totalClients / $perPage),
                         'has_more' => $page < ceil($totalClients / $perPage),
                     ],
-                ]
+                ],
             ];
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to generate invoice summary report',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -3406,11 +3389,11 @@ class ReportController extends Controller
         // Increase memory limit for large datasets
         ini_set('memory_limit', '1G');
         set_time_limit(300);
-        
+
         try {
             // Debug: Log input parameters
             Log::info('Invoice Summary For Print - Input:', $request->all());
-            
+
             // Validate request
             $this->validate($request, [
                 'fiscal_year_id' => 'nullable|exists:fiscal_years,id',
@@ -3418,7 +3401,7 @@ class ReportController extends Controller
                 'from_date' => 'nullable|date',
                 'to_date' => 'nullable|date|after_or_equal:from_date',
             ]);
-            
+
             Log::info('Invoice Summary For Print - Validation passed');
 
             $fiscalYearId = $request->fiscal_year_id;
@@ -3443,13 +3426,13 @@ class ReportController extends Controller
                 ->select('id', 'client_id', 'sub_total', 'discount', 'transport', 'invoice_date')
                 ->orderBy('invoice_date', 'desc')
                 ->get(); // Get ALL invoices
-                
+
             Log::info('Invoice Summary For Print - Query Results:', [
                 'total_invoices_found' => $invoices->count(),
                 'fiscal_year_id' => $fiscalYearId,
                 'accounting_period_id' => $accountingPeriodId,
                 'from_date' => $fromDate,
-                'to_date' => $toDate
+                'to_date' => $toDate,
             ]);
 
             // Group by client and calculate summaries
@@ -3463,8 +3446,8 @@ class ReportController extends Controller
             foreach ($invoices as $invoice) {
                 $clientId = $invoice->client_id;
                 $clientName = $invoice->client->name ?? 'Unknown Client';
-                
-                if (!isset($clientSummaries[$clientId])) {
+
+                if (! isset($clientSummaries[$clientId])) {
                     $clientSummaries[$clientId] = [
                         'client_id' => $clientId,
                         'client_name' => $clientName,
@@ -3479,11 +3462,11 @@ class ReportController extends Controller
                 $invoiceAmount = $invoice->sub_total ?? 0;
                 $invoiceDiscount = $invoice->discount ?? 0;
                 $invoiceTransport = $invoice->transport ?? 0;
-                
+
                 // Calculate tax and total (simplified calculation)
                 $invoiceTax = 0; // Will calculate from tax relationships if needed
                 $invoiceTotal = $invoiceAmount - $invoiceDiscount + $invoiceTransport + $invoiceTax;
-                
+
                 // Calculate paid amount (simplified for now - would need payment joins for accuracy)
                 $invoicePaid = 0; // Will be calculated from invoice_payments if needed
                 $invoiceDue = $invoiceTotal - $invoicePaid;
@@ -3506,7 +3489,7 @@ class ReportController extends Controller
 
             // Convert to array and sort
             $clientData = array_values($clientSummaries);
-            usort($clientData, function($a, $b) {
+            usort($clientData, function ($a, $b) {
                 return strcmp($a['client_name'], $b['client_name']);
             });
 
@@ -3532,14 +3515,13 @@ class ReportController extends Controller
                         'to_date' => $toDate,
                     ],
                     'total_entries' => count($clientData),
-                ]
+                ],
             ];
-
         } catch (\Exception $e) {
             return [
                 'success' => false,
                 'message' => 'Failed to generate invoice summary report for print',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ];
         }
     }
@@ -3748,7 +3730,7 @@ class ReportController extends Controller
                 $paidAmount = $supplierPayments[$supplier->supplier_id] ?? 0;
                 $returnAmount = $supplierReturns[$supplier->supplier_id] ?? 0;
                 $dueAmount = $supplier->total_amount - $paidAmount;
-                
+
                 return [
                     'supplier_id' => $supplier->supplier_id,
                     'supplier_name' => $supplier->supplier_name,
@@ -3786,7 +3768,7 @@ class ReportController extends Controller
                 ->map(function ($month) {
                     return [
                         'month' => $month->month,
-                        'month_name' => \Carbon\Carbon::parse($month->month . '-01')->format('F Y'),
+                        'month_name' => \Carbon\Carbon::parse($month->month.'-01')->format('F Y'),
                         'purchase_count' => $month->purchase_count,
                         'total_amount' => round($month->total_amount, 2),
                         'paid_amount' => 0, // Will be calculated if needed
@@ -3824,14 +3806,13 @@ class ReportController extends Controller
                         'total_pages' => ceil($totalSuppliers / $perPage),
                         'has_more' => $page < ceil($totalSuppliers / $perPage),
                     ],
-                ]
+                ],
             ];
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to generate purchase summary report',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -3844,11 +3825,11 @@ class ReportController extends Controller
         // Increase memory limit for large datasets
         ini_set('memory_limit', '1G');
         set_time_limit(300);
-        
+
         try {
             // Debug: Log input parameters
             Log::info('Purchase Summary For Print - Input:', $request->all());
-            
+
             // Validate request
             $this->validate($request, [
                 'fiscal_year_id' => 'nullable|exists:fiscal_years,id',
@@ -3856,7 +3837,7 @@ class ReportController extends Controller
                 'from_date' => 'nullable|date',
                 'to_date' => 'nullable|date|after_or_equal:from_date',
             ]);
-            
+
             Log::info('Purchase Summary For Print - Validation passed');
 
             $fiscalYearId = $request->fiscal_year_id;
@@ -3881,13 +3862,13 @@ class ReportController extends Controller
                 ->select('id', 'supplier_id', 'sub_total', 'discount', 'transport', 'purchase_date')
                 ->orderBy('purchase_date', 'desc')
                 ->get(); // Get ALL purchases
-                
+
             Log::info('Purchase Summary For Print - Query Results:', [
                 'total_purchases_found' => $purchases->count(),
                 'fiscal_year_id' => $fiscalYearId,
                 'accounting_period_id' => $accountingPeriodId,
                 'from_date' => $fromDate,
-                'to_date' => $toDate
+                'to_date' => $toDate,
             ]);
 
             // Group by supplier and calculate summaries
@@ -3901,8 +3882,8 @@ class ReportController extends Controller
             foreach ($purchases as $purchase) {
                 $supplierId = $purchase->supplier_id;
                 $supplierName = $purchase->supplier->name ?? 'Unknown Supplier';
-                
-                if (!isset($supplierSummaries[$supplierId])) {
+
+                if (! isset($supplierSummaries[$supplierId])) {
                     $supplierSummaries[$supplierId] = [
                         'supplier_id' => $supplierId,
                         'supplier_name' => $supplierName,
@@ -3917,11 +3898,11 @@ class ReportController extends Controller
                 $purchaseAmount = $purchase->sub_total ?? 0;
                 $purchaseDiscount = $purchase->discount ?? 0;
                 $purchaseTransport = $purchase->transport ?? 0;
-                
+
                 // Calculate tax and total (simplified calculation)
                 $purchaseTax = 0; // Will calculate from tax relationships if needed
                 $purchaseTotal = $purchaseAmount - $purchaseDiscount + $purchaseTransport + $purchaseTax;
-                
+
                 // Calculate paid amount (simplified for now - would need payment joins for accuracy)
                 $purchasePaid = 0; // Will be calculated from purchase_payments if needed
                 $purchaseDue = $purchaseTotal - $purchasePaid;
@@ -3944,7 +3925,7 @@ class ReportController extends Controller
 
             // Convert to array and sort
             $supplierData = array_values($supplierSummaries);
-            usort($supplierData, function($a, $b) {
+            usort($supplierData, function ($a, $b) {
                 return strcmp($a['supplier_name'], $b['supplier_name']);
             });
 
@@ -3970,14 +3951,13 @@ class ReportController extends Controller
                         'to_date' => $toDate,
                     ],
                     'total_entries' => count($supplierData),
-                ]
+                ],
             ];
-
         } catch (\Exception $e) {
             return [
                 'success' => false,
                 'message' => 'Failed to generate purchase summary report for print',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ];
         }
     }
@@ -4029,14 +4009,14 @@ class ReportController extends Controller
                 $selectedAccount = \App\Models\ChartOfAccount::forBranch($branchId)
                     ->with($this->getCompleteHierarchyEagerLoad())
                     ->findOrFail($subChartOfAccountId);
-                
+
                 $allAccounts = collect([$selectedAccount]);
                 $totalCount = 1;
             } elseif ($chartOfAccountId) {
                 $selectedAccount = \App\Models\ChartOfAccount::forBranch($branchId)
                     ->with($this->getCompleteHierarchyEagerLoad())
                     ->findOrFail($chartOfAccountId);
-                
+
                 $allAccounts = collect([$selectedAccount]);
                 $totalCount = 1;
             } else {
@@ -4061,7 +4041,7 @@ class ReportController extends Controller
                 'net_movement_credit' => 0,
                 'closing_debit' => 0,
                 'closing_credit' => 0,
-                'difference' => 0
+                'difference' => 0,
             ];
 
             Log::info("Trial Balance - All accounts loaded: {$totalCount} accounts with zero balances");
@@ -4073,14 +4053,13 @@ class ReportController extends Controller
                     'trial_balance' => $trialBalanceData,
                     'grand_totals' => $grandTotals,
                     'total_count' => $totalCount,
-                ]
+                ],
             ];
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to generate trial balance',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -4093,11 +4072,11 @@ class ReportController extends Controller
         // Increase memory limit for large datasets
         ini_set('memory_limit', '1G');
         set_time_limit(300);
-        
+
         try {
             // Debug: Log input parameters
             Log::info('Trial Balance For Print - Input:', $request->all());
-            
+
             // Validate request
             $this->validate($request, [
                 'chart_of_account_id' => 'nullable|exists:chart_of_accounts,id',
@@ -4107,7 +4086,7 @@ class ReportController extends Controller
                 'from_date' => 'nullable|date',
                 'to_date' => 'nullable|date|after_or_equal:from_date',
             ]);
-            
+
             Log::info('Trial Balance For Print - Validation passed');
 
             $chartOfAccountId = $request->chart_of_account_id;
@@ -4139,14 +4118,14 @@ class ReportController extends Controller
                 $selectedAccount = \App\Models\ChartOfAccount::forBranch($branchId)
                     ->with($this->getCompleteHierarchyEagerLoad())
                     ->findOrFail($subChartOfAccountId);
-                
+
                 $allAccounts = collect([$selectedAccount]);
                 $totalCount = 1;
             } elseif ($chartOfAccountId) {
                 $selectedAccount = \App\Models\ChartOfAccount::forBranch($branchId)
                     ->with($this->getCompleteHierarchyEagerLoad())
                     ->findOrFail($chartOfAccountId);
-                
+
                 $allAccounts = collect([$selectedAccount]);
                 $totalCount = 1;
             } else {
@@ -4160,23 +4139,23 @@ class ReportController extends Controller
                 'fiscal_year_id' => $fiscalYearId,
                 'accounting_period_id' => $accountingPeriodId,
                 'from_date' => $fromDate,
-                'to_date' => $toDate
+                'to_date' => $toDate,
             ]);
 
             // Build the hierarchical trial balance with REAL calculated balances
             // Note: Not passing pre-loaded data, let the method calculate balances individually
-            Log::info('Trial Balance For Print - Starting hierarchy build with ' . count($allAccounts) . ' accounts');
-            
+            Log::info('Trial Balance For Print - Starting hierarchy build with '.count($allAccounts).' accounts');
+
             try {
                 $trialBalanceData = $this->buildTrialBalanceHierarchy($allAccounts, $filters);
                 $totalCount = count($trialBalanceData);
-                
-                Log::info('Trial Balance For Print - Hierarchy build successful. Generated ' . $totalCount . ' data entries');
+
+                Log::info('Trial Balance For Print - Hierarchy build successful. Generated '.$totalCount.' data entries');
             } catch (\Exception $e) {
-                Log::error('Trial Balance For Print - Hierarchy build failed: ' . $e->getMessage(), [
+                Log::error('Trial Balance For Print - Hierarchy build failed: '.$e->getMessage(), [
                     'trace' => $e->getTraceAsString(),
                     'filters' => $filters,
-                    'account_count' => count($allAccounts)
+                    'account_count' => count($allAccounts),
                 ]);
                 throw $e;
             }
@@ -4184,7 +4163,7 @@ class ReportController extends Controller
             // Calculate grand totals from real data
             $grandTotals = $this->calculateGrandTotals($trialBalanceData);
 
-            Log::info('Trial Balance For Print - Processing complete. Total accounts: ' . $totalCount);
+            Log::info('Trial Balance For Print - Processing complete. Total accounts: '.$totalCount);
 
             return [
                 'success' => true,
@@ -4194,14 +4173,13 @@ class ReportController extends Controller
                     'grand_totals' => $grandTotals,
                     'total_count' => $totalCount,
                     'total_entries' => $totalCount,
-                ]
+                ],
             ];
-
         } catch (\Exception $e) {
             return [
                 'success' => false,
                 'message' => 'Failed to generate trial balance report for print',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ];
         }
     }
@@ -4243,17 +4221,17 @@ class ReportController extends Controller
                 ->where('is_active', true)
                 ->first();
 
-            if (!$account) {
+            if (! $account) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Account not found'
+                    'message' => 'Account not found',
                 ], 404);
             }
 
             // Calculate balance for this single account using the original method
             $balanceDetails = $this->calculateAccountBalanceDetailsOriginal($account, $filters);
-            Log::info("CalculateAccountBalance - Account {$accountId} ({$account->name}) - Filters: " . json_encode($filters));
-            Log::info("CalculateAccountBalance - Calculated balance for account {$accountId}: " . json_encode($balanceDetails));
+            Log::info("CalculateAccountBalance - Account {$accountId} ({$account->name}) - Filters: ".json_encode($filters));
+            Log::info("CalculateAccountBalance - Calculated balance for account {$accountId}: ".json_encode($balanceDetails));
 
             // Return the account with calculated balance
             $accountWithBalance = [
@@ -4269,21 +4247,20 @@ class ReportController extends Controller
                 'net_movement_credit' => $balanceDetails['net_movement_credit'],
                 'closing_debit' => $balanceDetails['closing_debit'],
                 'closing_credit' => $balanceDetails['closing_credit'],
-                'isCalculating' => false
+                'isCalculating' => false,
             ];
 
             return [
                 'success' => true,
                 'data' => [
-                    'account' => $accountWithBalance
-                ]
+                    'account' => $accountWithBalance,
+                ],
             ];
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to calculate account balance',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -4296,7 +4273,7 @@ class ReportController extends Controller
         // Build base query for journal entries
         $baseQuery = \App\Models\JournalEntry::query()
             ->where('status', 'posted')
-            ->with(['lines' => function($query) {
+            ->with(['lines' => function ($query) {
                 $query->select('id', 'journal_entry_id', 'chart_of_account_id', 'debit_amount', 'credit_amount');
             }])
             ->select('id', 'entry_date', 'fiscal_year_id', 'accounting_period_id');
@@ -4312,16 +4289,16 @@ class ReportController extends Controller
 
         // Get all journal entries
         $allEntries = $baseQuery->get();
-        Log::info("PreloadJournalEntryData - Found " . $allEntries->count() . " journal entries");
-        
+        Log::info('PreloadJournalEntryData - Found '.$allEntries->count().' journal entries');
+
         // Group by account ID for fast lookup
         $accountBalances = [];
-        
+
         foreach ($allEntries as $entry) {
             foreach ($entry->lines as $line) {
                 $accountId = $line->chart_of_account_id;
-                
-                if (!isset($accountBalances[$accountId])) {
+
+                if (! isset($accountBalances[$accountId])) {
                     $accountBalances[$accountId] = [
                         'opening_debit' => 0,
                         'opening_credit' => 0,
@@ -4329,7 +4306,7 @@ class ReportController extends Controller
                         'movement_credit' => 0,
                     ];
                 }
-                
+
                 // Determine if this is opening balance or movement
                 $isOpening = false;
                 if ($filters['fiscal_year_id']) {
@@ -4343,7 +4320,7 @@ class ReportController extends Controller
                 } else {
                     $isOpening = $entry->entry_date < now()->startOfYear();
                 }
-                
+
                 if ($isOpening) {
                     $accountBalances[$accountId]['opening_debit'] += $line->debit_amount;
                     $accountBalances[$accountId]['opening_credit'] += $line->credit_amount;
@@ -4353,8 +4330,9 @@ class ReportController extends Controller
                 }
             }
         }
-        
-        Log::info("PreloadJournalEntryData - Processed balances for " . count($accountBalances) . " accounts");
+
+        Log::info('PreloadJournalEntryData - Processed balances for '.count($accountBalances).' accounts');
+
         return $accountBalances;
     }
 
@@ -4381,7 +4359,7 @@ class ReportController extends Controller
                 'type' => $account->type ? $account->type->name : 'Unknown',
                 'level' => $level,
                 'is_parent' => $children->count() > 0,
-                
+
                 // All zero balances for immediate display
                 'opening_debit' => 0,
                 'opening_credit' => 0,
@@ -4391,7 +4369,7 @@ class ReportController extends Controller
                 'net_movement_credit' => 0,
                 'closing_debit' => 0,
                 'closing_credit' => 0,
-                
+
                 // Children totals (also zero)
                 'children_opening_debit' => 0,
                 'children_opening_credit' => 0,
@@ -4401,7 +4379,7 @@ class ReportController extends Controller
                 'children_net_movement_credit' => 0,
                 'children_closing_debit' => 0,
                 'children_closing_credit' => 0,
-                
+
                 // Total amounts (also zero)
                 'total_opening_debit' => 0,
                 'total_opening_credit' => 0,
@@ -4411,7 +4389,7 @@ class ReportController extends Controller
                 'total_net_movement_credit' => 0,
                 'total_closing_debit' => 0,
                 'total_closing_credit' => 0,
-                
+
                 'children' => $childrenData,
             ];
 
@@ -4428,10 +4406,10 @@ class ReportController extends Controller
     private function getCompleteHierarchyEagerLoad($depth = 10)
     {
         $eagerLoad = ['type'];
-        
+
         $currentLevel = 'children';
         for ($i = 0; $i < $depth; $i++) {
-            $eagerLoad[$currentLevel] = function($query) use ($i, $depth) {
+            $eagerLoad[$currentLevel] = function ($query) use ($i, $depth) {
                 $query->with('type');
                 if ($i < $depth - 1) {
                     $query->with('children');
@@ -4439,7 +4417,7 @@ class ReportController extends Controller
             };
             $currentLevel .= '.children';
         }
-        
+
         return $eagerLoad;
     }
 
@@ -4454,6 +4432,7 @@ class ReportController extends Controller
                 $descendants = $this->getAllDescendants($child, $descendants);
             }
         }
+
         return $descendants;
     }
 
@@ -4484,20 +4463,20 @@ class ReportController extends Controller
 
             if ($children->count() > 0) {
                 $childrenData = $this->buildTrialBalanceHierarchy($children, $filters, $level + 1);
-                
-            // Calculate children totals (from ALL descendants, not just direct children)
-            foreach ($childrenData as $child) {
-                // Add amounts from all descendants (recursive)
-                // Use total amounts for parent accounts, own amounts for leaf accounts
-                $childrenTotals['opening_debit'] += $child['total_opening_debit'];
-                $childrenTotals['opening_credit'] += $child['total_opening_credit'];
-                $childrenTotals['movement_debit'] += $child['total_movement_debit'];
-                $childrenTotals['movement_credit'] += $child['total_movement_credit'];
-                $childrenTotals['net_movement_debit'] += $child['total_net_movement_debit'];
-                $childrenTotals['net_movement_credit'] += $child['total_net_movement_credit'];
-                $childrenTotals['closing_debit'] += $child['total_closing_debit'];
-                $childrenTotals['closing_credit'] += $child['total_closing_credit'];
-            }
+
+                // Calculate children totals (from ALL descendants, not just direct children)
+                foreach ($childrenData as $child) {
+                    // Add amounts from all descendants (recursive)
+                    // Use total amounts for parent accounts, own amounts for leaf accounts
+                    $childrenTotals['opening_debit'] += $child['total_opening_debit'];
+                    $childrenTotals['opening_credit'] += $child['total_opening_credit'];
+                    $childrenTotals['movement_debit'] += $child['total_movement_debit'];
+                    $childrenTotals['movement_credit'] += $child['total_movement_credit'];
+                    $childrenTotals['net_movement_debit'] += $child['total_net_movement_debit'];
+                    $childrenTotals['net_movement_credit'] += $child['total_net_movement_credit'];
+                    $childrenTotals['closing_debit'] += $child['total_closing_debit'];
+                    $childrenTotals['closing_credit'] += $child['total_closing_credit'];
+                }
             }
 
             // Calculate total amounts (own + all descendants)
@@ -4517,7 +4496,7 @@ class ReportController extends Controller
                 'type' => $account->type ? $account->type->name : 'Unknown',
                 'level' => $level,
                 'is_parent' => $children->count() > 0,
-                
+
                 // Own account data
                 'opening_debit' => round($balanceData['opening_debit'], 2),
                 'opening_credit' => round($balanceData['opening_credit'], 2),
@@ -4527,7 +4506,7 @@ class ReportController extends Controller
                 'net_movement_credit' => round($balanceData['net_movement_credit'], 2),
                 'closing_debit' => round($balanceData['closing_debit'], 2),
                 'closing_credit' => round($balanceData['closing_credit'], 2),
-                
+
                 // Children totals
                 'children_opening_debit' => round($childrenTotals['opening_debit'], 2),
                 'children_opening_credit' => round($childrenTotals['opening_credit'], 2),
@@ -4537,7 +4516,7 @@ class ReportController extends Controller
                 'children_net_movement_credit' => round($childrenTotals['net_movement_credit'], 2),
                 'children_closing_debit' => round($childrenTotals['closing_debit'], 2),
                 'children_closing_credit' => round($childrenTotals['closing_credit'], 2),
-                
+
                 // Total amounts (own + children)
                 'total_opening_debit' => round($totalOpeningDebit, 2),
                 'total_opening_credit' => round($totalOpeningCredit, 2),
@@ -4547,7 +4526,7 @@ class ReportController extends Controller
                 'total_net_movement_credit' => round($totalNetMovementCredit, 2),
                 'total_closing_debit' => round($totalClosingDebit, 2),
                 'total_closing_credit' => round($totalClosingCredit, 2),
-                
+
                 'children' => $childrenData,
             ];
 
@@ -4565,7 +4544,7 @@ class ReportController extends Controller
     {
         // Check if this account has children
         $hasChildren = $account->children()->where('is_active', true)->exists();
-        
+
         // If account has children, return zero balances (parent accounts are not calculated)
         if ($hasChildren) {
             return [
@@ -4583,17 +4562,17 @@ class ReportController extends Controller
         // Use pre-loaded data if available (much faster)
         if ($journalEntryData && isset($journalEntryData[$account->id])) {
             $data = $journalEntryData[$account->id];
-            
+
             $openingBalance = $data['opening_debit'] - $data['opening_credit'];
             $openingDebit = max($openingBalance, 0);
             $openingCredit = $openingBalance < 0 ? abs($openingBalance) : 0;
-            
+
             $movementDebits = $data['movement_debit'];
             $movementCredits = $data['movement_credit'];
             $netMovement = $movementDebits - $movementCredits;
             $netMovementDebit = max($netMovement, 0);
             $netMovementCredit = $netMovement < 0 ? abs($netMovement) : 0;
-            
+
             $closingBalance = $openingBalance + $netMovement;
             $closingDebit = max($closingBalance, 0);
             $closingCredit = $closingBalance < 0 ? abs($closingBalance) : 0;
@@ -4622,7 +4601,7 @@ class ReportController extends Controller
         // Build base query for journal entries
         $baseQuery = \App\Models\JournalEntry::query()
             ->where('status', 'posted')
-            ->whereHas('lines', function($query) use ($account) {
+            ->whereHas('lines', function ($query) use ($account) {
                 $query->where('chart_of_account_id', $account->id);
             });
 
@@ -4637,7 +4616,7 @@ class ReportController extends Controller
 
         // Calculate opening balance (before the current period)
         $openingBalanceQuery = clone $baseQuery;
-        
+
         if ($filters['fiscal_year_id']) {
             $fiscalYear = \App\Models\FiscalYear::findOrFail($filters['fiscal_year_id']);
             $openingBalanceQuery->where('entry_date', '<', $fiscalYear->start_date);
@@ -4652,7 +4631,7 @@ class ReportController extends Controller
         } else {
             // Default to current year
             $openingBalanceQuery->where('entry_date', '<', now()->startOfYear());
-            Log::info("CalculateAccountBalance - Using default current year: " . now()->startOfYear());
+            Log::info('CalculateAccountBalance - Using default current year: '.now()->startOfYear());
         }
 
         // Use efficient database aggregation instead of loading all entries
@@ -4661,10 +4640,10 @@ class ReportController extends Controller
             ->where('journal_entry_lines.chart_of_account_id', $account->id)
             ->selectRaw('SUM(journal_entry_lines.debit_amount) as total_debits, SUM(journal_entry_lines.credit_amount) as total_credits')
             ->first();
-        
+
         $openingDebits = $openingTotals->total_debits ?? 0;
         $openingCredits = $openingTotals->total_credits ?? 0;
-        
+
         Log::info("CalculateAccountBalance - Opening balance for account {$account->id}: debits={$openingDebits}, credits={$openingCredits}");
 
         $openingBalance = $openingDebits - $openingCredits;
@@ -4677,10 +4656,10 @@ class ReportController extends Controller
             ->where('journal_entry_lines.chart_of_account_id', $account->id)
             ->selectRaw('SUM(journal_entry_lines.debit_amount) as total_debits, SUM(journal_entry_lines.credit_amount) as total_credits')
             ->first();
-        
+
         $movementDebits = $movementTotals->total_debits ?? 0;
         $movementCredits = $movementTotals->total_credits ?? 0;
-        
+
         Log::info("CalculateAccountBalance - Movement balance for account {$account->id}: debits={$movementDebits}, credits={$movementCredits}");
 
         $netMovement = $movementDebits - $movementCredits;
@@ -4752,7 +4731,7 @@ class ReportController extends Controller
     {
         foreach ($accounts as $account) {
             // Only add totals from leaf accounts (accounts without children)
-            if (!$account['is_parent']) {
+            if (! $account['is_parent']) {
                 $totals['opening_debit'] += $account['opening_debit'];
                 $totals['opening_credit'] += $account['opening_credit'];
                 $totals['movement_debit'] += $account['movement_debit'];
@@ -4762,9 +4741,9 @@ class ReportController extends Controller
                 $totals['closing_debit'] += $account['closing_debit'];
                 $totals['closing_credit'] += $account['closing_credit'];
             }
-            
+
             // Recursively process children
-            if (!empty($account['children'])) {
+            if (! empty($account['children'])) {
                 $this->addLeafAccountTotals($account['children'], $totals);
             }
         }
@@ -4783,18 +4762,18 @@ class ReportController extends Controller
             ]);
 
             $costCenter = \App\Models\CostCenter::with('parent')->findOrFail($request->cost_center_id);
-            
+
             $query = \App\Models\JournalEntryLine::with(['journalEntry', 'chartOfAccount'])
                 ->where('cost_center_id', $request->cost_center_id);
 
             if ($request->from_date) {
-                $query->whereHas('journalEntry', function($q) use ($request) {
+                $query->whereHas('journalEntry', function ($q) use ($request) {
                     $q->where('entry_date', '>=', $request->from_date);
                 });
             }
 
             if ($request->to_date) {
-                $query->whereHas('journalEntry', function($q) use ($request) {
+                $query->whereHas('journalEntry', function ($q) use ($request) {
                     $q->where('entry_date', '<=', $request->to_date);
                 });
             }
@@ -4818,7 +4797,7 @@ class ReportController extends Controller
                     'from_date' => $request->from_date,
                     'to_date' => $request->to_date,
                 ],
-                'lines' => $lines->map(function($line) {
+                'lines' => $lines->map(function ($line) {
                     return [
                         'date' => $line->journalEntry->entry_date,
                         'account_code' => $line->chartOfAccount->code,
@@ -4864,7 +4843,7 @@ class ReportController extends Controller
             $executions = $query->get();
 
             return response()->json([
-                'executions' => $executions->map(function($execution) {
+                'executions' => $executions->map(function ($execution) {
                     return [
                         'id' => $execution->id,
                         'rule_name' => $execution->rule->name,
@@ -4887,10 +4866,11 @@ class ReportController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
-    
+
     private function getUserBranchIds($user)
     {
         $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+
         return [$defaultBranchId > 0 ? $defaultBranchId : 0];
     }
 }
