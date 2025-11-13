@@ -1,0 +1,2046 @@
+"use strict";
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[1211],{
+
+/***/ 51211:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ create)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/create.vue?vue&type=template&id=be06455e&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "mb-50"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-12 col-xl-12"
+  }, [_c('div', {
+    staticClass: "card custom-card w-100"
+  }, [_c('div', {
+    staticClass: "card-header setings-header"
+  }, [_c('breadcrumbs', {
+    attrs: {
+      "items": _vm.dynamicBreadcrumbs,
+      "current": _vm.dynamicBreadcrumbsCurrent
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "col-xl-8 col-8 float-right text-right"
+  }, [_c('div', {
+    staticClass: "btn-group c-w-100 header-buttons"
+  }, [_c('router-link', {
+    staticClass: "btn btn-info",
+    attrs: {
+      "to": {
+        name: 'purchaseReturns.index'
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-long-arrow-alt-left"
+  }), _vm._v(" " + _vm._s(_vm.$t("Back")) + "\n              ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "type": "button",
+      "title": _vm.$t('Save')
+    },
+    on: {
+      "click": _vm.savePurchaseReturn
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-save"
+  }), _vm._v(" " + _vm._s(_vm.$t('Save')) + "\n              ")])], 1)])], 1), _vm._v(" "), _c('form', {
+    attrs: {
+      "role": "form"
+    },
+    on: {
+      "submit": function submit($event) {
+        $event.preventDefault();
+        return _vm.savePurchaseReturn.apply(null, arguments);
+      },
+      "keydown": function keydown($event) {
+        return _vm.form.onKeydown($event);
+      }
+    }
+  }, [_c('div', {
+    staticClass: "card-body"
+  }, [_vm.items ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "returnReason"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Return Reason')) + "\n                  "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.returnReason,
+      expression: "form.returnReason"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('returnReason')
+    },
+    attrs: {
+      "id": "returnReason",
+      "type": "text",
+      "name": "returnReason",
+      "placeholder": _vm.$t('Enter a reason')
+    },
+    domProps: {
+      "value": _vm.form.returnReason
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "returnReason", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "returnReason"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "supplier"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Supplier')) + "\n                  "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
+    "class": {
+      'is-invalid': _vm.form.errors.has('supplier')
+    },
+    attrs: {
+      "options": _vm.items,
+      "label": "name",
+      "name": "supplier",
+      "placeholder": _vm.$t('Select a supplier')
+    },
+    on: {
+      "input": _vm.assignPurchases
+    },
+    model: {
+      value: _vm.form.supplier,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "supplier", $$v);
+      },
+      expression: "form.supplier"
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "supplier"
+    }
+  })], 1)]) : _vm._e(), _vm._v(" "), _vm.products && !_vm.form.purchase ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-12"
+  }, [_c('label', {
+    attrs: {
+      "for": "product"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Select Products')))]), _vm._v(" "), _c('v-select', {
+    "class": {
+      'is-invalid': _vm.form.errors.has('product')
+    },
+    attrs: {
+      "disabled": _vm.form.client == '',
+      "multiple": "",
+      "options": _vm.products,
+      "label": "label",
+      "name": "product",
+      "placeholder": _vm.$t('Search products')
+    },
+    on: {
+      "input": _vm.assignPurchases
+    },
+    model: {
+      value: _vm.form.product,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "product", $$v);
+      },
+      expression: "form.product"
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "product"
+    }
+  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.supplier && _vm.supplierPurchases ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-12"
+  }, [_c('label', {
+    attrs: {
+      "for": "purchase"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Purchases')) + "\n                  "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
+    "class": {
+      'is-invalid': _vm.form.errors.has('purchase')
+    },
+    attrs: {
+      "options": _vm.supplierPurchases,
+      "label": "purchaseNo",
+      "name": "purchase",
+      "placeholder": _vm.$t('Select a purchase')
+    },
+    on: {
+      "input": _vm.storeProducts
+    },
+    model: {
+      value: _vm.form.purchase,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "purchase", $$v);
+      },
+      expression: "form.purchase"
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "purchase"
+    }
+  }), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
+    staticClass: "product-status mt-2"
+  }, _vm._l(_vm.form.selectedProducts, function (product, index) {
+    return !product.purchase_account_id ? _c('div', {
+      key: "status-".concat(product.id),
+      staticClass: "product-warning mb-2"
+    }, [_c('i', {
+      staticClass: "fas fa-exclamation-triangle text-warning"
+    }), _vm._v(" "), _c('span', {
+      staticClass: "ml-2"
+    }, [_vm._v(_vm._s(_vm.$t('Product')) + " \"" + _vm._s(product.name) + "\" " + _vm._s(_vm.$t('needs Purchase Account')))]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-sm btn-outline-warning ml-2",
+      attrs: {
+        "type": "button",
+        "disabled": _vm.isAutoAssigningProduct === product.id
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.autoAssignProductChartOfAccount(product);
+        }
+      }
+    }, [_c('i', {
+      "class": _vm.isAutoAssigningProduct === product.id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'
+    }), _vm._v("\n                      " + _vm._s(_vm.isAutoAssigningProduct === product.id ? _vm.$t('Assigning...') : _vm.$t('Auto-Assign')) + "\n                    ")])]) : _vm._e();
+  }), 0) : _vm._e()], 1)]) : _vm._e(), _vm._v(" "), _vm.form.selectedProducts && _vm.form.selectedProducts.length > 0 ? _c('div', {
+    staticClass: "row mt-3 mb-4"
+  }, [_vm.form.errors.errors && _vm.form.errors.errors.selectedProducts ? _c('div', {
+    staticClass: "w-100 m-auto"
+  }, _vm._l(_vm.form.errors.errors.selectedProducts, function (msg, i) {
+    return _c('div', {
+      key: i,
+      staticClass: "callout callout-danger"
+    }, [_c('p', [_c('i', {
+      staticClass: "icon fas fa-ban"
+    }), _vm._v(" " + _vm._s(msg))])]);
+  }), 0) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "table-responsive table-custom w-100 m-auto",
+    staticStyle: {
+      "max-width": "100%"
+    }
+  }, [_c('table', {
+    staticClass: "table table-hover table-sm text-center purchases-create-table"
+  }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t('#')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Code')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Item Name')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Qty')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Price')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Total')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Discount')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Total After Discount')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('VAT Type')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('VAT')))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t('Total with VAT')))]), _vm._v(" "), _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v(_vm._s(_vm.$t('Action')))])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.form.selectedProducts, function (item, index) {
+    return _c('tr', {
+      key: "item-".concat(index)
+    }, [_c('td', {
+      staticStyle: {
+        "min-width": "30px"
+      }
+    }, [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "min-width": "60px"
+      }
+    }, [_vm._v(_vm._s(_vm._f("withPrefix")(item.code, _vm.prefix)))]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "min-width": "120px"
+      }
+    }, [_c('div', {
+      staticClass: "d-flex align-items-center"
+    }, [_c('div', {
+      staticClass: "flex-grow-1"
+    }, [_vm.$can('product-view') ? _c('router-link', {
+      attrs: {
+        "to": {
+          name: 'products.show',
+          params: {
+            slug: item.slug
+          }
+        }
+      }
+    }, [_vm._v(_vm._s(item.name))]) : _c('span', [_vm._v(_vm._s(item.name))])], 1)])]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "min-width": "120px"
+      }
+    }, [_c('div', {
+      staticClass: "input-group custom-qty-input"
+    }, [_c('input', {
+      staticClass: "button-minus icon-shape icon-sm btn-danger",
+      attrs: {
+        "type": "button",
+        "value": "-",
+        "data-field": "quantity"
+      },
+      on: {
+        "click": function click($event) {
+          _vm.updateItem(Math.max(0, item.returnQty - 1), index);
+        }
+      }
+    }), _vm._v(" "), _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model.number",
+        value: item.returnQty,
+        expression: "item.returnQty",
+        modifiers: {
+          "number": true
+        }
+      }],
+      staticClass: "quantity-field border-0 incrementor",
+      attrs: {
+        "type": "number",
+        "step": "any",
+        "id": "returnQty-".concat(index + 1),
+        "name": "quantity",
+        "min": "0",
+        "max": item.maxQty,
+        "placeholder": "Return Qty"
+      },
+      domProps: {
+        "value": item.returnQty
+      },
+      on: {
+        "input": [function ($event) {
+          if ($event.target.composing) return;
+          _vm.$set(item, "returnQty", _vm._n($event.target.value));
+        }, function ($event) {
+          return _vm.updateItemReactively(item);
+        }],
+        "blur": function blur($event) {
+          return _vm.$forceUpdate();
+        }
+      }
+    }), _vm._v(" "), _c('input', {
+      staticClass: "button-plus icon-shape icon-sm btn-primary",
+      attrs: {
+        "type": "button",
+        "value": "+",
+        "data-field": "quantity"
+      },
+      on: {
+        "click": function click($event) {
+          _vm.updateItem(Math.min(item.maxQty, Number(item.returnQty) + 1), index);
+        }
+      }
+    })])]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "min-width": "100px"
+      }
+    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.unitCost)))]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "min-width": "80px"
+      }
+    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.totalBeforeDiscount)) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "min-width": "120px"
+      }
+    }, [_c('div', {
+      staticClass: "input-group"
+    }, [_c('select', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: item.discountType,
+        expression: "item.discountType"
+      }],
+      staticClass: "form-control form-control-sm",
+      staticStyle: {
+        "width": "85px"
+      },
+      on: {
+        "change": [function ($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
+          _vm.$set(item, "discountType", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }, function ($event) {
+          return _vm.calculateProductDiscount(index);
+        }]
+      }
+    }, [_c('option', {
+      attrs: {
+        "value": "fixed"
+      }
+    }, [_vm._v(_vm._s(_vm.$t('Fixed')))]), _vm._v(" "), _c('option', {
+      attrs: {
+        "value": "percentage"
+      }
+    }, [_vm._v(_vm._s(_vm.$t('%')))])]), _vm._v(" "), _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: item.discount,
+        expression: "item.discount"
+      }],
+      staticClass: "form-control form-control-sm",
+      staticStyle: {
+        "width": "80px"
+      },
+      attrs: {
+        "type": "number",
+        "step": "any",
+        "min": "0",
+        "max": item.discountType == 'percentage' ? 100 : item.unitCost * item.qty,
+        "placeholder": "0"
+      },
+      domProps: {
+        "value": item.discount
+      },
+      on: {
+        "change": function change($event) {
+          return _vm.calculateProductDiscount(index);
+        },
+        "keyup": function keyup($event) {
+          return _vm.calculateProductDiscount(index);
+        },
+        "input": function input($event) {
+          if ($event.target.composing) return;
+          _vm.$set(item, "discount", $event.target.value);
+        }
+      }
+    })])]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "min-width": "80px"
+      }
+    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.totalAfterDiscount)) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "min-width": "100px"
+      }
+    }, [_c('div', {
+      staticClass: "d-flex align-items-center"
+    }, [_c('select', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: item.selectedVatRate,
+        expression: "item.selectedVatRate"
+      }],
+      staticClass: "form-control form-control-sm flex-grow-1",
+      staticStyle: {
+        "min-width": "80px"
+      },
+      on: {
+        "change": [function ($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
+          _vm.$set(item, "selectedVatRate", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }, function ($event) {
+          return _vm.calculateProductVat(index);
+        }]
+      }
+    }, [_c('option', {
+      attrs: {
+        "value": ""
+      }
+    }, [_vm._v(_vm._s(_vm.$t('Select VAT')))]), _vm._v(" "), _vm._l(_vm.taxes, function (tax) {
+      return _c('option', {
+        key: tax.id,
+        domProps: {
+          "value": tax
+        }
+      }, [_vm._v(_vm._s(tax.code) + " (" + _vm._s(tax.rate) + "%)")]);
+    })], 2)])]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "min-width": "60px"
+      }
+    }, [_c('span', {
+      staticClass: "form-control-plaintext form-control-sm text-center"
+    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.productTax)) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "min-width": "80px"
+      }
+    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.totalPrice)) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
+      staticClass: "text-right",
+      staticStyle: {
+        "min-width": "50px"
+      }
+    }, [_c('button', {
+      staticClass: "btn btn-danger",
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.removeItem(item, index);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-times"
+    })])])]);
+  }), _vm._v(" "), _c('tr', {
+    key: "totals"
+  }, [_c('td', {
+    staticClass: "text-right",
+    attrs: {
+      "colspan": "4"
+    }
+  }, [_c('strong', [_vm._v(" " + _vm._s(_vm.$t('Total')) + " : " + _vm._s(_vm.toWord()) + " ")])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalUnitPrice)) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalTotal)) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalProductDiscount)) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalAfterDiscount)) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalProductTax)) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td', [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.subtotal)) + " "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])])]), _vm._v(" "), _c('td')])], 2)])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "row",
+    attrs: {
+      "id": "input-fields"
+    }
+  }, [!_vm.isSaudiArabia ? _c('div', {
+    staticClass: "form-group col-md-3"
+  }, [_c('label', {
+    attrs: {
+      "for": "totalDiscount"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Total Discount')))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.formattedTotalDiscount,
+      expression: "formattedTotalDiscount"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "totalDiscount",
+      "type": "text",
+      "name": "totalDiscount",
+      "readonly": ""
+    },
+    domProps: {
+      "value": _vm.formattedTotalDiscount
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.formattedTotalDiscount = $event.target.value;
+      }
+    }
+  })]) : _vm._e(), _vm._v(" "), !_vm.isSaudiArabia ? _c('div', {
+    staticClass: "form-group col-md-3"
+  }, [_c('label', {
+    attrs: {
+      "for": "transportCost"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Transport Cost')))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.formattedTransportCost,
+      expression: "formattedTransportCost"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "transportCost",
+      "type": "text",
+      "name": "transportCost",
+      "readonly": ""
+    },
+    domProps: {
+      "value": _vm.formattedTransportCost
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.formattedTransportCost = $event.target.value;
+      }
+    }
+  })]) : _vm._e(), _vm._v(" "), !_vm.isSaudiArabia ? _c('div', {
+    staticClass: "form-group col-md-3"
+  }, [_c('label', {
+    attrs: {
+      "for": "purchaseTax"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Purchase Tax')))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.formattedPurchaseTax,
+      expression: "formattedPurchaseTax"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "purchaseTax",
+      "type": "text",
+      "name": "purchaseTax",
+      "readonly": ""
+    },
+    domProps: {
+      "value": _vm.formattedPurchaseTax
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.formattedPurchaseTax = $event.target.value;
+      }
+    }
+  })]) : _vm._e()]), _vm._v(" "), _vm.accounts && _vm.form.returnAmount > 0 ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "account"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Account')) + "\n                  "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
+    "class": {
+      'is-invalid': _vm.form.errors.has('account')
+    },
+    attrs: {
+      "options": _vm.accounts,
+      "label": "label",
+      "name": "account",
+      "placeholder": _vm.$t('Select an account')
+    },
+    on: {
+      "input": _vm.updateBalance
+    },
+    scopedSlots: _vm._u([{
+      key: "option",
+      fn: function fn(option) {
+        return [_c('img', {
+          staticStyle: {
+            "width": "30px",
+            "height": "30px"
+          },
+          attrs: {
+            "src": option.image
+          }
+        }), _vm._v("\n                    " + _vm._s(option.label) + "\n                  ")];
+      }
+    }], null, false, 1047457195),
+    model: {
+      value: _vm.form.account,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "account", $$v);
+      },
+      expression: "form.account"
+    }
+  }), _vm._v(" "), _vm.form.account ? _c('div', {
+    staticClass: "account-status mt-2"
+  }, [!_vm.form.account.chartOfAccountId ? _c('div', {
+    staticClass: "account-warning"
+  }, [_c('i', {
+    staticClass: "fas fa-exclamation-triangle text-warning"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "ml-2"
+  }, [_vm._v(_vm._s(_vm.$t('Bank Account needs Chart of Account')))]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-sm btn-outline-warning ml-2",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.goToBankAccounts
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-external-link-alt"
+  }), _vm._v("\n                      " + _vm._s(_vm.$t('Go to Bank Accounts')) + "\n                    ")])]) : _c('div', {
+    staticClass: "account-success"
+  }, [_c('i', {
+    staticClass: "fas fa-check-circle text-success"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "ml-2"
+  }, [_vm._v(_vm._s(_vm.$t('Bank Account Chart of Account ready')))])])]) : _vm._e(), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "account"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-2"
+  }, [_c('label', {
+    attrs: {
+      "for": "availableBalance"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Available Balance')))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.formattedAvailableBalance,
+      expression: "formattedAvailableBalance"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('availableBalance')
+    },
+    attrs: {
+      "id": "availableBalance",
+      "type": "text",
+      "name": "availableBalance",
+      "readonly": ""
+    },
+    domProps: {
+      "value": _vm.formattedAvailableBalance
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.formattedAvailableBalance = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "availableBalance"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-3"
+  }, [_c('label', {
+    attrs: {
+      "for": "receiptNo"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Receipt No')))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.receiptNo,
+      expression: "form.receiptNo"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('receiptNo')
+    },
+    attrs: {
+      "id": "receiptNo",
+      "type": "text",
+      "name": "receiptNo",
+      "placeholder": _vm.$t('Enter a receipt no')
+    },
+    domProps: {
+      "value": _vm.form.receiptNo
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "receiptNo", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "receiptNo"
+    }
+  })], 1)]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "note"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Note')))]), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.note,
+      expression: "form.note"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('note')
+    },
+    attrs: {
+      "id": "note",
+      "placeholder": _vm.$t('Write your note here!')
+    },
+    domProps: {
+      "value": _vm.form.note
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "note", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "note"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "date"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Return Date')))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.date,
+      expression: "form.date"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('date')
+    },
+    attrs: {
+      "id": "date",
+      "type": "date",
+      "name": "date"
+    },
+    domProps: {
+      "value": _vm.form.date
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "date", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "date"
+    }
+  })], 1), _vm._v(" "), !_vm.isSaudiArabia ? _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "status"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Status')))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.status,
+      expression: "form.status"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('status')
+    },
+    attrs: {
+      "id": "status"
+    },
+    on: {
+      "change": function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Active')))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Inactive')))])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "status"
+    }
+  })], 1) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "card-footer"
+  }, [_c('div', {
+    staticClass: "dtable-footer"
+  }, [_c('div', {
+    staticClass: "form-group row display-per-page footer-buttons d-flex justify-content-between w-100"
+  }, [_c('v-button', {
+    attrs: {
+      "loading": _vm.form.busy,
+      "type": "success"
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-save"
+  }), _vm._v(" " + _vm._s(_vm.$t('Save')) + "\n                ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-info",
+    attrs: {
+      "type": "reset"
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.form.reset();
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-power-off"
+  }), _vm._v(" " + _vm._s(_vm.$t('Reset')) + "\n                ")])], 1)])])])])])])]);
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('td', [_c('strong')]);
+}];
+
+;// ./resources/js/pages/purchases/returns/create.vue?vue&type=template&id=be06455e&scoped=true
+
+// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
+var vform_es = __webpack_require__(63216);
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__(95353);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/create.vue?vue&type=script&lang=js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorKeys(e) { var n = Object(e), r = []; for (var t in n) r.unshift(t); return function e() { for (; r.length;) if ((t = r.pop()) in n) return e.value = t, e.done = !1, e; return e.done = !0, e; }; }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+
+/* harmony default export */ const createvue_type_script_lang_js = ({
+  middleware: ['auth', 'check-permissions'],
+  metaInfo: function metaInfo() {
+    return {
+      title: this.isSaudiArabia ? this.$t('Create Debit Note') : this.$t('Create Purchase Return')
+    };
+  },
+  data: function data() {
+    return {
+      breadcrumbsCurrent: '',
+      breadcrumbs: [{
+        name: 'Dashboard',
+        url: 'home'
+      }, {
+        name: '',
+        url: 'purchaseReturns.index'
+      }, {
+        name: 'Create',
+        url: ''
+      }],
+      isAutoAssigningProduct: null,
+      form: new vform_es/* default */.Ay({
+        returnReason: '',
+        account: '',
+        chequeNo: '',
+        receiptNo: '',
+        supplier: '',
+        purchase: '',
+        product: '',
+        selectedProducts: [],
+        totalReturn: 0,
+        date: new Date().toISOString().slice(0, 10),
+        note: '',
+        status: 1,
+        purchaseTotal: 0,
+        newSubTotal: 0,
+        purchaseTax: 0,
+        purchaseTransport: 0,
+        purchaseDiscount: 0,
+        newTax: 0,
+        taxRate: 0,
+        purchaseDue: 0,
+        newDue: 0,
+        newDueText: '',
+        returnAmount: 0,
+        returnAmountText: 0,
+        availableBalance: 0,
+        totalDiscount: 0,
+        transportCost: 0,
+        netTotal: 0,
+        taxAmount: 0,
+        discountTotal: 0
+      }),
+      products: '',
+      accounts: '',
+      supplierPurchases: '',
+      taxes: ''
+    };
+  },
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)('operations', ['items', 'appInfo'])), {}, {
+    // Check if the country is Saudi Arabia
+    isSaudiArabia: function isSaudiArabia() {
+      return this.appInfo && this.appInfo.country === 'SA';
+    },
+    // Dynamic breadcrumbs current based on country
+    dynamicBreadcrumbsCurrent: function dynamicBreadcrumbsCurrent() {
+      return this.isSaudiArabia ? this.$t('Create Debit Note') : this.$t('Create Purchase Return');
+    },
+    // Dynamic breadcrumbs based on country
+    dynamicBreadcrumbs: function dynamicBreadcrumbs() {
+      return [{
+        name: this.$t('Dashboard'),
+        url: 'home'
+      }, {
+        name: this.isSaudiArabia ? this.$t('Debit notes') : this.$t('Purchase Returns'),
+        url: 'purchaseReturns.index'
+      }, {
+        name: this.$t('Create'),
+        url: ''
+      }];
+    },
+    // Totals (same as invoice return)
+    totalUnitPrice: function totalUnitPrice() {
+      if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) return 0;
+      var total = this.form.selectedProducts.reduce(function (total, product) {
+        return total + (Number(product.totalBeforeDiscount) || 0);
+      }, 0);
+      var numValue = Number(total);
+      return isNaN(numValue) ? 0 : Number(numValue.toFixed(2));
+    },
+    totalTotal: function totalTotal() {
+      if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) return 0;
+      var total = this.form.selectedProducts.reduce(function (total, product) {
+        return total + (Number(product.totalBeforeDiscount) || 0);
+      }, 0);
+      var numValue = Number(total);
+      return isNaN(numValue) ? 0 : Number(numValue.toFixed(2));
+    },
+    totalProductDiscount: function totalProductDiscount() {
+      if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) return 0;
+      var total = this.form.selectedProducts.reduce(function (total, product) {
+        return total + (Number(product.discountAmount) || 0);
+      }, 0);
+      var numValue = Number(total);
+      return isNaN(numValue) ? 0 : Number(numValue.toFixed(2));
+    },
+    totalAfterDiscount: function totalAfterDiscount() {
+      if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) return 0;
+      var total = this.form.selectedProducts.reduce(function (total, product) {
+        return total + (Number(product.totalAfterDiscount) || 0);
+      }, 0);
+      var numValue = Number(total);
+      return isNaN(numValue) ? 0 : Number(numValue.toFixed(2));
+    },
+    totalProductTax: function totalProductTax() {
+      if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) return 0;
+      var total = this.form.selectedProducts.reduce(function (total, product) {
+        return total + (Number(product.productTax) || 0);
+      }, 0);
+      var numValue = Number(total);
+      return isNaN(numValue) ? 0 : Number(numValue.toFixed(2));
+    },
+    subtotal: function subtotal() {
+      if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) return 0;
+      var total = this.form.selectedProducts.reduce(function (total, product) {
+        return total + (Number(product.totalPrice) || 0);
+      }, 0);
+      var numValue = Number(total);
+      return isNaN(numValue) ? 0 : Number(numValue.toFixed(2));
+    },
+    formattedTotalDiscount: function formattedTotalDiscount() {
+      return this.formatToTwoDecimals(this.form.totalDiscount || 0);
+    },
+    formattedTransportCost: function formattedTransportCost() {
+      return this.formatToTwoDecimals(this.form.purchaseTransport || 0);
+    },
+    formattedPurchaseTax: function formattedPurchaseTax() {
+      return this.formatToTwoDecimals(this.form.newTax || 0);
+    },
+    formattedAvailableBalance: function formattedAvailableBalance() {
+      return this.formatToTwoDecimals(this.form.availableBalance || 0);
+    }
+  }),
+  created: function created() {
+    this.getSuppliers();
+    this.getProducts();
+    this.getAccounts();
+    this.getTaxes();
+    this.prefix = this.appInfo.productPrefix;
+    // default status by country
+    this.form.status = this.isSaudiArabia ? 0 : 1;
+  },
+  methods: {
+    formatAmount: function formatAmount(value) {
+      var num = Number(value) || 0;
+      var locale = this.$i18n && this.$i18n.locale ? this.$i18n.locale : 'en';
+      return num.toLocaleString(locale, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    },
+    // get all suppliers
+    getSuppliers: function getSuppliers() {
+      var _this = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.n) {
+            case 0:
+              _context.n = 1;
+              return _this.$store.dispatch('operations/allData', {
+                path: '/api/all-suppliers'
+              });
+            case 1:
+              return _context.a(2);
+          }
+        }, _callee);
+      }))();
+    },
+    // get products
+    getProducts: function getProducts() {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var _yield$axios$get, data;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.n) {
+            case 0:
+              _context2.n = 1;
+              return axios_default().get(window.location.origin + '/api/all-products');
+            case 1:
+              _yield$axios$get = _context2.v;
+              data = _yield$axios$get.data;
+              _this2.products = data.data;
+            case 2:
+              return _context2.a(2);
+          }
+        }, _callee2);
+      }))();
+    },
+    // get accounts
+    getAccounts: function getAccounts() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var _yield$axios$get2, data;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.n) {
+            case 0:
+              _context3.n = 1;
+              return axios_default().get(window.location.origin + '/api/all-accounts');
+            case 1:
+              _yield$axios$get2 = _context3.v;
+              data = _yield$axios$get2.data;
+              _this3.accounts = data.data;
+            case 2:
+              return _context3.a(2);
+          }
+        }, _callee3);
+      }))();
+    },
+    // get taxes
+    getTaxes: function getTaxes() {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+        var _yield$axios$get3, data, _t;
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.p = _context4.n) {
+            case 0:
+              _context4.p = 0;
+              _context4.n = 1;
+              return axios_default().get(window.location.origin + '/api/all-vat-rates');
+            case 1:
+              _yield$axios$get3 = _context4.v;
+              data = _yield$axios$get3.data;
+              _this4.taxes = data.data;
+              _context4.n = 3;
+              break;
+            case 2:
+              _context4.p = 2;
+              _t = _context4.v;
+              _this4.taxes = [];
+            case 3:
+              return _context4.a(2);
+          }
+        }, _callee4, null, [[0, 2]]);
+      }))();
+    },
+    // assign purchases
+    assignPurchases: function assignPurchases() {
+      var _this5 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+        return _regenerator().w(function (_context5) {
+          while (1) switch (_context5.n) {
+            case 0:
+              _this5.form.selectedProducts = [];
+              _this5.form.purchase = '';
+              if (_this5.form.supplier) {
+                axios_default().post(window.location.origin + '/api/supplier/filter-purchases', {
+                  products: _this5.form.product,
+                  supplierSlug: _this5.form.supplier.slug
+                }).then(function (response) {
+                  _this5.supplierPurchases = response.data.data;
+                });
+              } else {
+                _this5.form.product = '';
+                _this5.form.supplier = '';
+              }
+            case 1:
+              return _context5.a(2);
+          }
+        }, _callee5);
+      }))();
+    },
+    // store item in array
+    storeProducts: function storeProducts() {
+      var _this6 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+        var isPreSelected, key, _purchaseItem$product, _productData2, purchaseItem, productData, _productData, response, availableQty, presetReturnQty, maxQty, selectedVatRate, _this6$taxes, _this6$taxes2, totalBeforeDiscount, discountAmount, totalAfterDiscount, productTax, totalTax, totalPrice, finalPurchaseAccountId, _t2, _t3, _t4;
+        return _regenerator().w(function (_context6) {
+          while (1) switch (_context6.p = _context6.n) {
+            case 0:
+              _this6.form.selectedProducts = [];
+              _this6.form.purchaseTotal = _this6.form.purchase.purchaseTotal;
+              _this6.form.purchaseDue = _this6.form.purchase.due;
+              _this6.form.purchaseTax = _this6.form.purchase.tax;
+              _this6.form.newTax = _this6.form.purchase.tax;
+              _this6.form.taxRate = _this6.form.purchase.taxRate;
+              _this6.form.purchaseTransport = _this6.form.purchase.transport;
+              _this6.form.purchaseDiscount = _this6.form.purchase.totalDiscount;
+              _this6.form.newDue = _this6.form.purchase.due;
+              _this6.form.newDueText = _this6.form.purchase.due;
+
+              // Check if we're coming from purchase actions (pre-selected purchase)
+              isPreSelected = _this6.$route.query.purchase;
+              _t2 = _regeneratorKeys(_this6.form.purchase.purchaseProducts);
+            case 1:
+              if ((_t3 = _t2()).done) {
+                _context6.n = 6;
+                break;
+              }
+              key = _t3.value;
+              purchaseItem = _this6.form.purchase.purchaseProducts[key]; // Fetch fresh product data to get purchase_account_id
+              productData = null;
+              _context6.p = 2;
+              _context6.n = 3;
+              return axios_default().get("/api/products/".concat(purchaseItem.productSlug));
+            case 3:
+              response = _context6.v;
+              productData = response.data.data;
+              console.log('Product data for', purchaseItem.productName, ':', (_productData = productData) === null || _productData === void 0 ? void 0 : _productData.purchase_account_id);
+              _context6.n = 5;
+              break;
+            case 4:
+              _context6.p = 4;
+              _t4 = _context6.v;
+              console.warn('Could not fetch product data for:', purchaseItem.productSlug);
+            case 5:
+              availableQty = Number(purchaseItem.quantity) - Number(purchaseItem.returnQty);
+              presetReturnQty = availableQty; // Default to remaining quantity (like sales returns)
+              maxQty = availableQty; // Try to find matching VAT rate, fallback to 15% VAT rate, then first available
+              selectedVatRate = _this6.findMatchingVatRate(purchaseItem.productTax);
+              if (!selectedVatRate) {
+                // Try to find 15% VAT rate as default
+                selectedVatRate = (_this6$taxes = _this6.taxes) === null || _this6$taxes === void 0 ? void 0 : _this6$taxes.find(function (tax) {
+                  return Math.abs(tax.rate - 15) < 0.01;
+                });
+                // If 15% not found, use first available
+                if (!selectedVatRate) {
+                  selectedVatRate = (_this6$taxes2 = _this6.taxes) === null || _this6$taxes2 === void 0 ? void 0 : _this6$taxes2[0];
+                }
+              }
+              // Use purchasePrice (base price without VAT) instead of unitCost (which includes VAT)
+              totalBeforeDiscount = Number((presetReturnQty * purchaseItem.purchasePrice).toFixed(2));
+              discountAmount = 0;
+              if ((purchaseItem.discountType || 'fixed') === 'percentage') {
+                discountAmount = Number((totalBeforeDiscount * (purchaseItem.productDiscount || 0) / 100).toFixed(2));
+              } else {
+                discountAmount = Number((purchaseItem.productDiscount || 0).toFixed ? (purchaseItem.productDiscount || 0).toFixed(2) : Number(purchaseItem.productDiscount || 0));
+              }
+              totalAfterDiscount = Number((totalBeforeDiscount - discountAmount).toFixed(2));
+              productTax = 0;
+              totalTax = 0;
+              totalPrice = totalAfterDiscount;
+              if (selectedVatRate && selectedVatRate.rate) {
+                productTax = Number((totalAfterDiscount * (selectedVatRate.rate / 100)).toFixed(2));
+                totalTax = productTax;
+                totalPrice = Number((totalAfterDiscount + productTax).toFixed(2));
+              }
+              finalPurchaseAccountId = purchaseItem.purchase_account_id || ((_purchaseItem$product = purchaseItem.product) === null || _purchaseItem$product === void 0 ? void 0 : _purchaseItem$product.purchase_account_id) || ((_productData2 = productData) === null || _productData2 === void 0 ? void 0 : _productData2.purchase_account_id);
+              console.log('Final purchase_account_id for', purchaseItem.productName, ':', finalPurchaseAccountId);
+              _this6.form.selectedProducts.unshift({
+                id: purchaseItem.productID,
+                slug: purchaseItem.productSlug,
+                name: purchaseItem.productName,
+                code: purchaseItem.productCode,
+                unit: purchaseItem.productUnit,
+                oldQty: purchaseItem.quantity,
+                // Original quantity from purchase
+                qty: purchaseItem.quantity,
+                // Original quantity from purchase
+                returnQty: availableQty,
+                // Default to remaining quantity (like sales returns)
+                totalReturnQty: availableQty,
+                // Total quantity that can be returned
+                maxQty: maxQty,
+                // Maximum quantity that can be returned
+                purchasePrice: purchaseItem.purchasePrice,
+                unitCost: purchaseItem.purchasePrice,
+                totalPrice: totalPrice,
+                returnTotal: totalPrice,
+                productTax: productTax,
+                totalTax: productTax,
+                productDiscount: purchaseItem.productDiscount || 0,
+                discountType: purchaseItem.discountType || 'fixed',
+                discountAmount: discountAmount,
+                discount: purchaseItem.productDiscount || 0,
+                vatRate: purchaseItem.vatRate,
+                selectedVatRate: selectedVatRate,
+                totalBeforeDiscount: totalBeforeDiscount,
+                totalAfterDiscount: totalAfterDiscount,
+                purchase_account_id: finalPurchaseAccountId
+              });
+              _context6.n = 1;
+              break;
+            case 6:
+              _this6.calculateSum();
+              return _context6.a(2);
+          }
+        }, _callee6, null, [[2, 4]]);
+      }))();
+    },
+    // update items
+    updateItem: function updateItem(value, index) {
+      var selectedProduct = this.form.selectedProducts[index];
+      if (selectedProduct && value >= 0 && value <= selectedProduct.maxQty) {
+        selectedProduct.returnQty = Number(value);
+        // Calculate proportional return amounts based on original purchase data
+        if (selectedProduct.returnQty > 0) {
+          var originalLineTotal = parseFloat(selectedProduct.totalPrice) || 0;
+          var totalQty = parseFloat(selectedProduct.qty) || 1;
+          var returnQty = parseFloat(selectedProduct.returnQty) || 0;
+          var unitPrice = originalLineTotal / totalQty;
+          var returnTotal = Number((unitPrice * returnQty).toFixed(2));
+          selectedProduct.returnTotal = returnTotal;
+
+          // Calculate proportional discount and tax
+          var originalDiscount = parseFloat(selectedProduct.discountAmount) || 0;
+          var originalTax = parseFloat(selectedProduct.totalTax) || 0;
+          var proportionalDiscount = Number((originalDiscount / totalQty * returnQty).toFixed(2));
+          var proportionalTax = Number((originalTax / totalQty * returnQty).toFixed(2));
+          selectedProduct.totalBeforeDiscount = Number((returnTotal - proportionalDiscount).toFixed(2));
+          selectedProduct.totalAfterDiscount = selectedProduct.totalBeforeDiscount;
+          selectedProduct.productTax = proportionalTax;
+          selectedProduct.totalTax = proportionalTax;
+          selectedProduct.totalPrice = Number((selectedProduct.totalAfterDiscount + proportionalTax).toFixed(2));
+        } else {
+          selectedProduct.returnTotal = 0;
+          selectedProduct.totalBeforeDiscount = 0;
+          selectedProduct.totalAfterDiscount = 0;
+          selectedProduct.productTax = 0;
+          selectedProduct.totalTax = 0;
+          selectedProduct.totalPrice = 0;
+        }
+        this.$set(this.form.selectedProducts, index, selectedProduct);
+      }
+      this.calculateSum();
+    },
+    updateItemReactively: function updateItemReactively(item) {
+      if (item.returnQty < 0) item.returnQty = 0;else if (item.returnQty > item.maxQty) item.returnQty = item.maxQty;
+
+      // Calculate proportional return amounts based on original purchase data
+      if (item.returnQty > 0) {
+        var originalLineTotal = parseFloat(item.totalPrice) || 0;
+        var totalQty = parseFloat(item.qty) || 1;
+        var returnQty = parseFloat(item.returnQty) || 0;
+        var unitPrice = originalLineTotal / totalQty;
+        var returnTotal = Number((unitPrice * returnQty).toFixed(2));
+        item.returnTotal = returnTotal;
+
+        // Calculate proportional discount and tax
+        var originalDiscount = parseFloat(item.discountAmount) || 0;
+        var originalTax = parseFloat(item.totalTax) || 0;
+        var proportionalDiscount = Number((originalDiscount / totalQty * returnQty).toFixed(2));
+        var proportionalTax = Number((originalTax / totalQty * returnQty).toFixed(2));
+        item.totalBeforeDiscount = Number((returnTotal - proportionalDiscount).toFixed(2));
+        item.totalAfterDiscount = item.totalBeforeDiscount;
+        item.productTax = proportionalTax;
+        item.totalTax = proportionalTax;
+        item.totalPrice = Number((item.totalAfterDiscount + proportionalTax).toFixed(2));
+      } else {
+        item.returnTotal = 0;
+        item.totalBeforeDiscount = 0;
+        item.totalAfterDiscount = 0;
+        item.productTax = 0;
+        item.totalTax = 0;
+        item.totalPrice = 0;
+      }
+      this.calculateSum();
+    },
+    // discount and vat per product
+    calculateProductDiscount: function calculateProductDiscount(index) {
+      var product = this.form.selectedProducts[index];
+      if (!product) return;
+      var discountAmount = 0;
+      if (product.discountType === 'percentage') {
+        discountAmount = product.returnQty * product.purchasePrice * (product.discount / 100);
+      } else {
+        discountAmount = product.discount;
+      }
+      product.discountAmount = Number(discountAmount.toFixed(2));
+      product.totalBeforeDiscount = Number((product.returnQty * product.purchasePrice).toFixed(2));
+      product.totalAfterDiscount = Number((product.totalBeforeDiscount - discountAmount).toFixed(2));
+      this.calculateSum();
+    },
+    calculateProductVat: function calculateProductVat(index) {
+      var product = this.form.selectedProducts[index];
+      if (!product || !product.selectedVatRate) return;
+      var vatAmount = Number((product.totalAfterDiscount * (product.selectedVatRate.rate / 100)).toFixed(2));
+      product.productTax = vatAmount;
+      product.totalTax = vatAmount;
+      product.totalPrice = Number((product.totalAfterDiscount + vatAmount).toFixed(2));
+      this.calculateSum();
+    },
+    // helpers
+    findMatchingVatRate: function findMatchingVatRate(productTax) {
+      if (!this.taxes || !productTax) return null;
+
+      // If productTax is an object with id and rate properties
+      if (_typeof(productTax) === 'object' && productTax !== null) {
+        // Try to find by ID first (most reliable)
+        if (productTax.id) {
+          var matchById = this.taxes.find(function (tax) {
+            return tax.id === productTax.id;
+          });
+          if (matchById) return matchById;
+        }
+
+        // Try to find by rate
+        if (productTax.rate !== undefined) {
+          var matchByRate = this.taxes.find(function (tax) {
+            return Math.abs(tax.rate - productTax.rate) < 0.01;
+          });
+          if (matchByRate) return matchByRate;
+        }
+      }
+
+      // If productTax is a number (rate value)
+      if (typeof productTax === 'number') {
+        return this.taxes.find(function (tax) {
+          return Math.abs(tax.rate - productTax) < 0.01;
+        });
+      }
+      return null;
+    },
+    formatToTwoDecimals: function formatToTwoDecimals(value) {
+      if (value === null || value === undefined || isNaN(value)) return '0.00';
+      var numValue = Number(value);
+      if (isNaN(numValue)) return '0.00';
+      return numValue.toFixed(2);
+    },
+    toWord: function toWord() {
+      return this.$t('Total');
+    },
+    removeItem: function removeItem(item, index) {
+      if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts)) return;
+      this.form.selectedProducts.splice(index, 1);
+      this.calculateSum();
+    },
+    // update available balance
+    updateBalance: function updateBalance() {
+      this.form.availableBalance = 0;
+      if (this.form.account) this.form.availableBalance = this.form.account.availableBalance;
+      if (this.form.account && this.form.returnAmount > 0) this.validateBankAccountChartOfAccount();
+    },
+    validateBankAccountChartOfAccount: function validateBankAccountChartOfAccount() {
+      var _this7 = this;
+      if (this.form.account && !this.form.account.chartOfAccountId) {
+        toast.fire({
+          type: 'warning',
+          title: this.$t('Bank Account Chart of Account Required'),
+          text: this.$t('The selected bank account must have a Chart of Account assigned for journal entries. Please select a different account or assign a Chart of Account to this bank account.'),
+          timer: 8000,
+          timerProgressBar: true,
+          showConfirmButton: true,
+          confirmButtonText: this.$t('Go to Bank Accounts'),
+          showCancelButton: true,
+          cancelButtonText: this.$t('Close')
+        }).then(function (result) {
+          if (result.isConfirmed) _this7.goToBankAccounts();
+        });
+      }
+    },
+    goToBankAccounts: function goToBankAccounts() {
+      this.$router.push({
+        name: 'accounts.index'
+      });
+    },
+    // Auto-assign Chart of Account for a specific product
+    autoAssignProductChartOfAccount: function autoAssignProductChartOfAccount(product) {
+      var _this8 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+        var response, _t5;
+        return _regenerator().w(function (_context7) {
+          while (1) switch (_context7.p = _context7.n) {
+            case 0:
+              if (!(!product || _this8.isAutoAssigningProduct === product.id)) {
+                _context7.n = 1;
+                break;
+              }
+              return _context7.a(2);
+            case 1:
+              _this8.isAutoAssigningProduct = product.id;
+              _context7.p = 2;
+              _context7.n = 3;
+              return _this8.$http.post("/api/products/".concat(product.slug, "/auto-assign-chart-of-account"));
+            case 3:
+              response = _context7.v;
+              if (response.data.success) {
+                // Update the product data with new chart of account
+                product.purchase_account_id = response.data.purchase_account_id;
+
+                // Force Vue to re-render the component to update the UI
+                _this8.$nextTick(function () {
+                  _this8.$forceUpdate();
+                });
+
+                // Show success message
+                toast.fire({
+                  type: "success",
+                  title: _this8.$t("Chart of Account assigned successfully")
+                });
+              } else {
+                toast.fire({
+                  type: "error",
+                  title: _this8.$t("Failed to assign Chart of Account"),
+                  text: response.data.message || _this8.$t("Please try again or assign manually")
+                });
+              }
+              _context7.n = 5;
+              break;
+            case 4:
+              _context7.p = 4;
+              _t5 = _context7.v;
+              console.error('Error auto-assigning chart of account:', _t5);
+              toast.fire({
+                type: "error",
+                title: _this8.$t("An error occurred while assigning Chart of Account")
+              });
+            case 5:
+              _context7.p = 5;
+              _this8.isAutoAssigningProduct = false;
+              return _context7.f(5);
+            case 6:
+              return _context7.a(2);
+          }
+        }, _callee7, null, [[2, 4, 5, 6]]);
+      }))();
+    },
+    // calculate sum
+    calculateSum: function calculateSum() {
+      var _this$form$purchase;
+      var length = this.form.selectedProducts.length;
+      this.form.newSubTotal = this.form.totalReturn = 0;
+      var totalProductDiscount = 0;
+      var purchaseSubtotal = 0;
+      this.form.netTotal = 0;
+      this.form.taxAmount = 0;
+      this.form.discountTotal = 0;
+      for (var i = 0; i < length; i++) {
+        var p = this.form.selectedProducts[i];
+        var remainingQty = p.qty - p.returnQty;
+        // Use purchasePrice (base price without VAT) for calculations
+        var productTotal = remainingQty * p.purchasePrice;
+        purchaseSubtotal += productTotal;
+        this.form.newSubTotal += Number(productTotal.toFixed(2));
+        if (p.returnQty > 0) {
+          var originalLineTotal = parseFloat(p.totalPrice) || 0;
+          var totalQty = parseFloat(p.qty) || 1;
+          var returnQty = parseFloat(p.returnQty) || 0;
+          var unitPrice = originalLineTotal / totalQty;
+          var returnTotal = Number((unitPrice * returnQty).toFixed(2));
+          p.returnTotal = returnTotal;
+          this.form.totalReturn += returnTotal;
+          var originalDiscount = parseFloat(p.discountAmount) || 0;
+          var originalTax = parseFloat(p.totalTax) || 0;
+          var proportionalDiscount = Number((originalDiscount / totalQty * returnQty).toFixed(2));
+          var proportionalTax = Number((originalTax / totalQty * returnQty).toFixed(2));
+          var proportionalNet = Number((returnTotal - proportionalDiscount).toFixed(2));
+          this.form.netTotal += proportionalNet;
+          this.form.taxAmount += proportionalTax;
+          this.form.discountTotal += proportionalDiscount;
+        }
+        if (p.productDiscount && p.productDiscount > 0) {
+          if (p.discountType === 'percentage') {
+            var discountAmount = productTotal * p.productDiscount / 100;
+            totalProductDiscount += Number(discountAmount.toFixed(2));
+          } else {
+            var discountPerUnit = p.productDiscount / p.qty;
+            var _discountAmount = discountPerUnit * remainingQty;
+            totalProductDiscount += Number(_discountAmount.toFixed(2));
+          }
+        }
+      }
+
+      // purchase-level discount
+      var purchaseDiscountAmount = Number(this.form.purchaseDiscount || 0);
+      this.form.newSubTotal = Number((purchaseSubtotal - totalProductDiscount - purchaseDiscountAmount).toFixed(2));
+      this.form.purchaseDiscount = purchaseDiscountAmount;
+      var taxableAmount = this.form.newSubTotal;
+      if (this.form.taxRate && this.form.taxRate.rate) {
+        this.form.newTax = Number((this.form.taxRate.rate / 100 * taxableAmount).toFixed(2));
+      } else {
+        this.form.newTax = 0;
+      }
+      this.form.purchaseTotal = Number((this.form.newSubTotal + this.form.newTax + this.form.purchaseTransport - this.form.purchaseDiscount).toFixed(2));
+      this.form.purchaseDue = Number((this.form.purchaseTotal - (((_this$form$purchase = this.form.purchase) === null || _this$form$purchase === void 0 ? void 0 : _this$form$purchase.totalPaid) || 0)).toFixed(2));
+      if (this.form.purchaseDue >= 0) {
+        var _this$form$purchase2, _this$form$purchase3;
+        this.form.newDue = this.form.purchaseTotal - (((_this$form$purchase2 = this.form.purchase) === null || _this$form$purchase2 === void 0 ? void 0 : _this$form$purchase2.totalPaid) || 0);
+        this.form.newDueText = "".concat(this.form.purchaseTotal, " - ").concat(((_this$form$purchase3 = this.form.purchase) === null || _this$form$purchase3 === void 0 ? void 0 : _this$form$purchase3.totalPaid) || 0, " = ").concat(Number(this.form.newDue).toFixed(2));
+        this.form.returnAmount = 0;
+      } else {
+        var _this$form$purchase4, _this$form$purchase5;
+        this.form.returnAmount = Number(((((_this$form$purchase4 = this.form.purchase) === null || _this$form$purchase4 === void 0 ? void 0 : _this$form$purchase4.totalPaid) || 0) - this.form.purchaseTotal).toFixed(2));
+        this.form.returnAmountText = "".concat(((_this$form$purchase5 = this.form.purchase) === null || _this$form$purchase5 === void 0 ? void 0 : _this$form$purchase5.totalPaid) || 0, " - ").concat(this.form.purchaseTotal, " = ").concat(this.form.returnAmount);
+        this.form.purchaseDue = 0;
+        this.form.newDue = 0;
+      }
+    },
+    // save return
+    savePurchaseReturn: function savePurchaseReturn() {
+      var _this9 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
+        return _regenerator().w(function (_context8) {
+          while (1) switch (_context8.n) {
+            case 0:
+              _context8.n = 1;
+              return _this9.form.post(window.location.origin + '/api/purchase-returns').then(function (_ref) {
+                var data = _ref.data;
+                toast.fire({
+                  type: 'success',
+                  title: _this9.isSaudiArabia ? _this9.$t('Debit note added successfully') : _this9.$t('Purchase return added successfully')
+                });
+                _this9.clearTemporaryData();
+                _this9.$router.push({
+                  name: 'purchaseReturns.show',
+                  params: {
+                    slug: data.data.slug
+                  }
+                });
+              })["catch"](function (error) {
+                var _error$response;
+                // Extract error message from response
+                var errorMessage = null;
+                if (error !== null && error !== void 0 && (_error$response = error.response) !== null && _error$response !== void 0 && _error$response.data) {
+                  var errorData = error.response.data;
+
+                  // Check for message field
+                  if (errorData.message && typeof errorData.message === 'string') {
+                    errorMessage = errorData.message;
+                  } else if (errorData.error && typeof errorData.error === 'string') {
+                    errorMessage = errorData.error;
+                  } else if (errorData.errors && _typeof(errorData.errors) === 'object') {
+                    // If there are validation errors, try to get the first one
+                    var firstErrorKey = Object.keys(errorData.errors)[0];
+                    if (firstErrorKey && Array.isArray(errorData.errors[firstErrorKey])) {
+                      var firstError = errorData.errors[firstErrorKey][0];
+                      if (typeof firstError === 'string') {
+                        errorMessage = firstError;
+                      }
+                    } else if (firstErrorKey && typeof errorData.errors[firstErrorKey] === 'string') {
+                      errorMessage = errorData.errors[firstErrorKey];
+                    }
+                  }
+                }
+
+                // Translate and show error
+                if (errorMessage) {
+                  // Try to translate the message if it exists as a translation key
+                  var translatedMessage = _this9.$t(errorMessage);
+                  // Use translated version if available, otherwise use original (might already be localized)
+                  toast.fire({
+                    type: 'error',
+                    title: translatedMessage !== errorMessage ? translatedMessage : errorMessage
+                  });
+                } else {
+                  toast.fire({
+                    type: 'error',
+                    title: _this9.$t('Please check your input and try again.')
+                  });
+                }
+              });
+            case 1:
+              return _context8.a(2);
+          }
+        }, _callee8);
+      }))();
+    },
+    // save form data temporarily
+    saveTemporary: function saveTemporary() {
+      var tempData = {
+        returnReason: this.form.returnReason,
+        supplier: this.form.supplier,
+        selectedPurchases: this.form.selectedPurchases,
+        returnAmount: this.form.returnAmount,
+        returnDate: this.form.returnDate,
+        note: this.form.note,
+        status: this.form.status,
+        timestamp: new Date().toISOString()
+      };
+      localStorage.setItem('purchaseReturnTempData', JSON.stringify(tempData));
+    },
+    // load temporary data
+    loadTemporaryData: function loadTemporaryData() {
+      var tempData = localStorage.getItem('purchaseReturnTempData');
+      if (tempData) {
+        try {
+          var data = JSON.parse(tempData);
+          this.form.returnReason = data.returnReason || this.form.returnReason;
+          this.form.supplier = data.supplier || this.form.supplier;
+          this.form.selectedPurchases = data.selectedPurchases || this.form.selectedPurchases;
+          this.form.returnAmount = data.returnAmount || this.form.returnAmount;
+          this.form.returnDate = data.returnDate || this.form.returnDate;
+          this.form.note = data.note || this.form.note;
+          this.form.status = data.status !== undefined ? data.status : this.form.status;
+        } catch (e) {
+          console.error('Error loading temporary data:', e);
+        }
+      }
+    },
+    // clear temporary data
+    clearTemporaryData: function clearTemporaryData() {
+      localStorage.removeItem('purchaseReturnTempData');
+    },
+    // handle pre-selection from query parameters
+    handlePreSelection: function handlePreSelection() {
+      var _this0 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
+        var supplierSlug, purchaseSlug, purchaseData, response, attempts, maxAttempts, selectedSupplier, fallbackSupplier, selectedPurchase, fallbackPurchase, _selectedPurchase, _fallbackPurchase, _t6;
+        return _regenerator().w(function (_context9) {
+          while (1) switch (_context9.p = _context9.n) {
+            case 0:
+              supplierSlug = _this0.$route.query.supplier;
+              purchaseSlug = _this0.$route.query.purchase;
+              purchaseData = null;
+              if (!purchaseSlug) {
+                _context9.n = 26;
+                break;
+              }
+              _context9.p = 1;
+              if (supplierSlug) {
+                _context9.n = 3;
+                break;
+              }
+              _context9.n = 2;
+              return axios_default().get("/api/purchases/".concat(purchaseSlug));
+            case 2:
+              response = _context9.v;
+              purchaseData = response.data.data;
+              if (purchaseData && purchaseData.supplier) {
+                supplierSlug = purchaseData.supplier.slug;
+              }
+            case 3:
+              if (!supplierSlug) {
+                _context9.n = 24;
+                break;
+              }
+              // Try multiple times with increasing delays
+              attempts = 0;
+              maxAttempts = 10;
+            case 4:
+              if (!(attempts < maxAttempts)) {
+                _context9.n = 24;
+                break;
+              }
+              if (!(_this0.items && _this0.items.length > 0)) {
+                _context9.n = 22;
+                break;
+              }
+              selectedSupplier = _this0.items.find(function (supplier) {
+                return supplier.slug === supplierSlug;
+              }); // If not found by slug, try to find by ID or name as fallback
+              if (!(!selectedSupplier && purchaseData && purchaseData.supplier)) {
+                _context9.n = 13;
+                break;
+              }
+              fallbackSupplier = _this0.items.find(function (supplier) {
+                return supplier.id === purchaseData.supplier.id || supplier.name === purchaseData.supplier.name;
+              });
+              if (!fallbackSupplier) {
+                _context9.n = 13;
+                break;
+              }
+              _this0.form.supplier = fallbackSupplier;
+
+              // Trigger purchase loading for this supplier
+              _context9.n = 5;
+              return _this0.assignPurchases();
+            case 5:
+              _context9.n = 6;
+              return _this0.$nextTick();
+            case 6:
+              _context9.n = 7;
+              return new Promise(function (resolve) {
+                return setTimeout(resolve, 500);
+              });
+            case 7:
+              if (!(_this0.supplierPurchases && _this0.supplierPurchases.length > 0)) {
+                _context9.n = 13;
+                break;
+              }
+              selectedPurchase = _this0.supplierPurchases.find(function (purchase) {
+                return purchase.slug === purchaseSlug;
+              });
+              if (!selectedPurchase) {
+                _context9.n = 9;
+                break;
+              }
+              _this0.form.purchase = selectedPurchase;
+              // Trigger product loading for this purchase
+              _context9.n = 8;
+              return _this0.storeProducts();
+            case 8:
+              return _context9.a(2);
+            case 9:
+              // Try multiple fallback methods
+              fallbackPurchase = null; // Method 1: Try by ID
+              if (purchaseData && purchaseData.id) {
+                fallbackPurchase = _this0.supplierPurchases.find(function (purchase) {
+                  return purchase.id === purchaseData.id;
+                });
+              }
+
+              // Method 2: Try by purchase number
+              if (!fallbackPurchase && purchaseData && purchaseData.purchaseNo) {
+                fallbackPurchase = _this0.supplierPurchases.find(function (purchase) {
+                  return purchase.purchaseNo === purchaseData.purchaseNo;
+                });
+              }
+
+              // Method 3: Try by slug with different casing
+              if (!fallbackPurchase) {
+                fallbackPurchase = _this0.supplierPurchases.find(function (purchase) {
+                  return purchase.slug && purchase.slug.toLowerCase() === purchaseSlug.toLowerCase();
+                });
+              }
+              if (!fallbackPurchase) {
+                _context9.n = 11;
+                break;
+              }
+              _this0.form.purchase = fallbackPurchase;
+              _context9.n = 10;
+              return _this0.storeProducts();
+            case 10:
+              return _context9.a(2);
+            case 11:
+              if (!(purchaseData && purchaseData.slug === purchaseSlug)) {
+                _context9.n = 13;
+                break;
+              }
+              _this0.form.purchase = purchaseData;
+              _context9.n = 12;
+              return _this0.storeProducts();
+            case 12:
+              return _context9.a(2);
+            case 13:
+              if (!selectedSupplier) {
+                _context9.n = 22;
+                break;
+              }
+              _this0.form.supplier = selectedSupplier;
+
+              // Trigger purchase loading for this supplier
+              _context9.n = 14;
+              return _this0.assignPurchases();
+            case 14:
+              _context9.n = 15;
+              return _this0.$nextTick();
+            case 15:
+              _context9.n = 16;
+              return new Promise(function (resolve) {
+                return setTimeout(resolve, 500);
+              });
+            case 16:
+              if (!(_this0.supplierPurchases && _this0.supplierPurchases.length > 0)) {
+                _context9.n = 22;
+                break;
+              }
+              _selectedPurchase = _this0.supplierPurchases.find(function (purchase) {
+                return purchase.slug === purchaseSlug;
+              });
+              if (!_selectedPurchase) {
+                _context9.n = 18;
+                break;
+              }
+              _this0.form.purchase = _selectedPurchase;
+              // Trigger product loading for this purchase
+              _context9.n = 17;
+              return _this0.storeProducts();
+            case 17:
+              return _context9.a(2);
+            case 18:
+              // Try multiple fallback methods
+              _fallbackPurchase = null; // Method 1: Try by ID
+              if (purchaseData && purchaseData.id) {
+                _fallbackPurchase = _this0.supplierPurchases.find(function (purchase) {
+                  return purchase.id === purchaseData.id;
+                });
+              }
+
+              // Method 2: Try by purchase number
+              if (!_fallbackPurchase && purchaseData && purchaseData.purchaseNo) {
+                _fallbackPurchase = _this0.supplierPurchases.find(function (purchase) {
+                  return purchase.purchaseNo === purchaseData.purchaseNo;
+                });
+              }
+
+              // Method 3: Try by slug with different casing
+              if (!_fallbackPurchase) {
+                _fallbackPurchase = _this0.supplierPurchases.find(function (purchase) {
+                  return purchase.slug && purchase.slug.toLowerCase() === purchaseSlug.toLowerCase();
+                });
+              }
+              if (!_fallbackPurchase) {
+                _context9.n = 20;
+                break;
+              }
+              _this0.form.purchase = _fallbackPurchase;
+              _context9.n = 19;
+              return _this0.storeProducts();
+            case 19:
+              return _context9.a(2);
+            case 20:
+              if (!(purchaseData && purchaseData.slug === purchaseSlug)) {
+                _context9.n = 22;
+                break;
+              }
+              _this0.form.purchase = purchaseData;
+              _context9.n = 21;
+              return _this0.storeProducts();
+            case 21:
+              return _context9.a(2);
+            case 22:
+              attempts++;
+              if (!(attempts < maxAttempts)) {
+                _context9.n = 23;
+                break;
+              }
+              _context9.n = 23;
+              return new Promise(function (resolve) {
+                return setTimeout(resolve, 200);
+              });
+            case 23:
+              _context9.n = 4;
+              break;
+            case 24:
+              _context9.n = 26;
+              break;
+            case 25:
+              _context9.p = 25;
+              _t6 = _context9.v;
+              console.error('Error fetching purchase details:', _t6);
+            case 26:
+              return _context9.a(2);
+          }
+        }, _callee9, null, [[1, 25]]);
+      }))();
+    }
+  },
+  mounted: function mounted() {
+    this.loadTemporaryData();
+    // Handle pre-selection from query parameters after component is mounted
+    this.handlePreSelection();
+  }
+});
+;// ./resources/js/pages/purchases/returns/create.vue?vue&type=script&lang=js
+ /* harmony default export */ const returns_createvue_type_script_lang_js = (createvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/create.vue?vue&type=style&index=0&id=be06455e&prod&scoped=true&lang=css
+var createvue_type_style_index_0_id_be06455e_prod_scoped_true_lang_css = __webpack_require__(76975);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/returns/create.vue?vue&type=style&index=0&id=be06455e&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(createvue_type_style_index_0_id_be06455e_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const returns_createvue_type_style_index_0_id_be06455e_prod_scoped_true_lang_css = (createvue_type_style_index_0_id_be06455e_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/purchases/returns/create.vue?vue&type=style&index=0&id=be06455e&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/pages/purchases/returns/create.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  returns_createvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "be06455e",
+  null
+  
+)
+
+/* harmony default export */ const create = (component.exports);
+
+/***/ }),
+
+/***/ 76975:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".header-buttons[data-v-be06455e]{margin-bottom:15px}.footer-buttons[data-v-be06455e]{display:flex;gap:10px}.footer-buttons .btn[data-v-be06455e]{margin-right:10px}.footer-buttons .btn[data-v-be06455e]:last-child{margin-right:0}.btn-group.c-w-100[data-v-be06455e]{gap:10px}.card[data-v-be06455e]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-header[data-v-be06455e]{background-color:#fff;border-bottom:1px solid #ced4da;border-radius:20px 20px 0 0;padding:1.25rem 1.25rem 0}.card-body[data-v-be06455e]{padding:1.25rem}.card-footer[data-v-be06455e]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.form-control[data-v-be06455e]{background:#fff!important;border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-be06455e]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.form-group label[data-v-be06455e]{color:#374151;display:block;font-weight:500;margin-bottom:8px}.required[data-v-be06455e]{color:#dc3545;font-weight:700}.btn-primary[data-v-be06455e]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-primary[data-v-be06455e]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-secondary[data-v-be06455e]{background:#33a0d9!important;border:none!important;color:#fff!important;font-weight:500;margin-right:10px;padding:10px 20px!important}.btn-secondary[data-v-be06455e]:hover{background:#2a8bc4!important;box-shadow:0 4px 8px rgba(51,160,217,.3);transform:translateY(-1px)}.is-invalid[data-v-be06455e]{border-color:#dc3545!important}textarea.form-control[data-v-be06455e]{min-height:100px;resize:vertical}.v-select[data-v-be06455e]{background:#fff!important;border:1px solid #e5e7eb;border-radius:10px}.v-select .vs__dropdown-toggle[data-v-be06455e]{background:#fff!important;border:1px solid #e5e7eb;padding:10px 16px}.v-select .vs__search[data-v-be06455e]::-moz-placeholder{color:#6c757d}.v-select .vs__search[data-v-be06455e]::placeholder{color:#6c757d}.v-select .vs__selected[data-v-be06455e]{color:#374151}.v-select .vs__dropdown-menu[data-v-be06455e]{border-radius:10px;box-shadow:0 4px 6px -1px rgba(0,0,0,.1)}.table-custom[data-v-be06455e]{border:none!important}.purchases-create-table[data-v-be06455e]{border-collapse:separate;border-spacing:0}.purchases-create-table thead th[data-v-be06455e]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.purchases-create-table thead tr[data-v-be06455e]{border:none!important}.purchases-create-table thead th[data-v-be06455e]:first-child{border-top-left-radius:10px}.purchases-create-table thead th[data-v-be06455e]:last-child{border-top-right-radius:10px}[dir=rtl] .purchases-create-table thead th[data-v-be06455e]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .purchases-create-table thead th[data-v-be06455e]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.purchases-create-table .badge.badge-info[data-v-be06455e]{background:#e3f2fd!important;color:#1976d2!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.custom-qty-input[data-v-be06455e]{align-items:center;background:#fff;border:1px solid #e5e7eb;border-radius:10px;display:flex;overflow:hidden}.custom-qty-input .button-minus[data-v-be06455e],.custom-qty-input .button-plus[data-v-be06455e]{background:#6c757d;border:none;color:#fff;cursor:pointer;font-weight:700;padding:8px 12px;transition:background-color .3s}.custom-qty-input .button-minus[data-v-be06455e]:hover{background:#dc3545}.custom-qty-input .button-plus[data-v-be06455e]:hover{background:#2ab930}.custom-qty-input .quantity-field[data-v-be06455e]{background:transparent;border:none;font-weight:500;padding:8px 4px;text-align:center;width:60px}.custom-qty-input .quantity-field[data-v-be06455e]:focus{box-shadow:none;outline:none}.quantity-field[data-v-be06455e]{border-radius:0!important;margin:0!important;min-height:50px!important}.account-status[data-v-be06455e]{font-size:.875rem}.account-status .account-warning[data-v-be06455e]{align-items:center;background-color:#fff3cd;border:1px solid #ffeaa7;border-radius:.25rem;color:#856404;display:flex;padding:.5rem}.account-status .account-success[data-v-be06455e]{align-items:center;background-color:#d4edda;border:1px solid #c3e6cb;border-radius:.25rem;color:#155724;display:flex;padding:.5rem}.product-status[data-v-be06455e]{font-size:13px}.product-warning[data-v-be06455e]{align-items:center;background-color:#fff3cd;border:1px solid #ffeaa7;border-radius:6px;color:#856404;display:flex;font-weight:500;padding:8px 12px}.btn-outline-warning[data-v-be06455e]{border-color:#ffc107;border-radius:6px;color:#856404;font-size:12px;padding:4px 8px}.btn-outline-warning[data-v-be06455e]:hover{background-color:#ffc107;border-color:#ffc107;color:#212529}.btn-outline-warning[data-v-be06455e]:disabled{cursor:not-allowed;opacity:.6}.callout[data-v-be06455e]{border-left:4px solid;border-radius:8px;margin-bottom:16px;padding:12px 16px}.callout-danger[data-v-be06455e]{background-color:#f8d7da;border-left-color:#dc3545;color:#721c24}.callout i[data-v-be06455e]{margin-right:8px}.row[data-v-be06455e]{margin-bottom:1rem}.form-text[data-v-be06455e]{color:#6b7280;font-size:.875rem}.text-muted[data-v-be06455e]{color:#6b7280!important}@media (max-width:768px){.card-footer[data-v-be06455e]{flex-direction:column;gap:10px}.card-footer .btn[data-v-be06455e]{margin-right:0!important;width:100%}.card-footer div[data-v-be06455e]{display:flex;flex-direction:column;gap:10px;width:100%}.table-custom[data-v-be06455e]{font-size:12px}.table-custom tbody td[data-v-be06455e],.table-custom thead th[data-v-be06455e]{padding:8px 4px}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ })
+
+}]);
