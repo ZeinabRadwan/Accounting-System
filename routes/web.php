@@ -1,20 +1,20 @@
 <?php
 
-use App\Http\Controllers\SystemUpdateController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Central\ExportController;
+use App\Http\Controllers\CentralAppController;
 use App\Http\Controllers\DebugController;
+use App\Http\Controllers\NewsletterSubscriptionController;
 use App\Http\Controllers\PaypalController;
-use App\Http\Controllers\StripeController;
 use App\Http\Controllers\PaystackController;
 use App\Http\Controllers\RazorpayController;
-use App\Http\Controllers\CentralAppController;
-use App\Http\Controllers\Central\ExportController;
-use App\Http\Controllers\Auth\VerificationController;
-use App\Http\Controllers\NewsletterSubscriptionController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\SuspensionController;
-use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\SystemUpdateController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,17 +30,17 @@ use Illuminate\Support\Facades\Http;
 // System Update UI is only available if SYSTEM_UPDATE_KEY exists in env
 if (! empty(env('SYSTEM_UPDATE_KEY'))) {
     // Route::middleware(['web','auth'])->group(function () {
-        Route::get('/system-update', [SystemUpdateController::class, 'index'])->name('system.update.index');
-        Route::get('/system-update/settings', [SystemUpdateController::class, 'getSettings'])->name('system.update.settings.get');
-        Route::post('/system-update/settings', [SystemUpdateController::class, 'saveSettings'])->name('system.update.settings.save');
-        Route::post('/system-update/push', [SystemUpdateController::class, 'pushSettings'])->name('system.update.settings.push');
-        Route::post('/system-update/push-build-results', [SystemUpdateController::class, 'pushBuildResults'])->name('system.update.push.build.results');
-        Route::post('/system-update/build-only', [SystemUpdateController::class, 'buildOnly'])->name('system.update.build.only');
-        Route::get('/system-update/build-stream', [SystemUpdateController::class, 'buildStream'])->name('system.update.build.stream');
-        Route::get('/system-update/git-status', [SystemUpdateController::class, 'gitStatus'])->name('system.update.git.status');
-        Route::post('/system-update/git-pull', [SystemUpdateController::class, 'gitPull'])->name('system.update.git.pull');
-        Route::post('/system-update/git-commit', [SystemUpdateController::class, 'gitCommit'])->name('system.update.git.commit');
-        Route::post('/system-update/git-push', [SystemUpdateController::class, 'gitPush'])->name('system.update.git.push');
+    Route::get('/system-update', [SystemUpdateController::class, 'index'])->name('system.update.index');
+    Route::get('/system-update/settings', [SystemUpdateController::class, 'getSettings'])->name('system.update.settings.get');
+    Route::post('/system-update/settings', [SystemUpdateController::class, 'saveSettings'])->name('system.update.settings.save');
+    Route::post('/system-update/push', [SystemUpdateController::class, 'pushSettings'])->name('system.update.settings.push');
+    Route::post('/system-update/push-build-results', [SystemUpdateController::class, 'pushBuildResults'])->name('system.update.push.build.results');
+    Route::post('/system-update/build-only', [SystemUpdateController::class, 'buildOnly'])->name('system.update.build.only');
+    Route::get('/system-update/build-stream', [SystemUpdateController::class, 'buildStream'])->name('system.update.build.stream');
+    Route::get('/system-update/git-status', [SystemUpdateController::class, 'gitStatus'])->name('system.update.git.status');
+    Route::post('/system-update/git-pull', [SystemUpdateController::class, 'gitPull'])->name('system.update.git.pull');
+    Route::post('/system-update/git-commit', [SystemUpdateController::class, 'gitCommit'])->name('system.update.git.commit');
+    Route::post('/system-update/git-push', [SystemUpdateController::class, 'gitPush'])->name('system.update.git.push');
     // });
 }
 
@@ -59,56 +59,53 @@ Route::post('/updateSystem', function (Request $request) {
     return response()->json(['status' => 'success']);
 });
 
-
 Route::get('/test-cpanel', function () {
     $cpanelUser = env('CPANEL_USERNAME', 'accountwebsoft');
     $apiToken = env('CPANEL_API_TOKEN', 'L89Q36V64ZHU0JVEWLBO6AG71H0S4FTT');
     $cpanelHost = env('CPANEL_HOST', 'account.websoft.sa');
     $cpanelPort = env('CPANEL_PORT', '2083'); // Use regular cPanel port
-    
+
     $results = [];
-    
+
     // Test 1: Try the working API endpoint (execute/Mysql/create_database)
     try {
         $response1 = Http::withHeaders([
-            'Authorization' => "cpanel {$cpanelUser}:{$apiToken}"
+            'Authorization' => "cpanel {$cpanelUser}:{$apiToken}",
         ])->timeout(30)->get("https://{$cpanelHost}:{$cpanelPort}/execute/Mysql/create_database", [
-            'name' => 'accountw_test_' . time() // Use correct prefix
+            'name' => 'accountw_test_'.time(), // Use correct prefix
         ]);
-        
+
         $results['test1_execute_mysql'] = [
             'status' => $response1->status(),
             'body' => $response1->body(),
-            'success' => $response1->successful()
+            'success' => $response1->successful(),
         ];
     } catch (Exception $e) {
         $results['test1_execute_mysql'] = ['error' => $e->getMessage()];
     }
-    
+
     // Test 2: Try alternative API endpoint (execute2)
     try {
         $response2 = Http::withHeaders([
-            'Authorization' => "cpanel {$cpanelUser}:{$apiToken}"
+            'Authorization' => "cpanel {$cpanelUser}:{$apiToken}",
         ])->timeout(30)->get("https://{$cpanelHost}:{$cpanelPort}/execute2", [
             'cpanel_jsonapi_version' => '2',
             'cpanel_jsonapi_module' => 'Mysql',
             'cpanel_jsonapi_func' => 'create_database',
-            'name' => 'accountw_test_alt_' . time() // Use correct prefix
+            'name' => 'accountw_test_alt_'.time(), // Use correct prefix
         ]);
-        
+
         $results['test2_execute2'] = [
             'status' => $response2->status(),
             'body' => $response2->body(),
-            'success' => $response2->successful()
+            'success' => $response2->successful(),
         ];
     } catch (Exception $e) {
         $results['test2_execute2'] = ['error' => $e->getMessage()];
     }
-    
+
     return $results;
 });
-
-
 
 // display system info
 Route::get('/system-info', function () {
@@ -148,19 +145,29 @@ Route::group(['middleware' => ['is_verified', 'need_to_install']], function () {
         });
     });
 
-    // SPA Routes
-    Route::get('/{path}', CentralAppController::class)->where('path', '^(?!.*(?:api|storage)).*$');
+    // Serve Vite build assets directly (for central app)
+    Route::get('/build/{path}', function ($path) {
+        $filePath = public_path('build/'.$path);
+        if (file_exists($filePath)) {
+            return response()->file($filePath);
+        }
+
+        return response()->json(['error' => 'File not found'], 404);
+    })->where('path', '.*')->name('vite.build.asset.central');
+
+    // SPA Routes (must be last to catch all other routes)
+    Route::get('/{path}', CentralAppController::class)->where('path', '^(?!.*(?:api|storage|build)).*$');
 });
 
 // Route to serve temporary HTML files for PDF generation
 Route::get('/storage/app/temp/{filename}', function ($filename) {
-    $filePath = storage_path('app/temp/' . $filename);
-    
+    $filePath = storage_path('app/temp/'.$filename);
+
     if (file_exists($filePath)) {
         return response()->file($filePath, [
-            'Content-Type' => 'text/html; charset=utf-8'
+            'Content-Type' => 'text/html; charset=utf-8',
         ]);
     }
-    
+
     return response('File not found', 404);
 });
