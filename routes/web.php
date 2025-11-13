@@ -115,6 +115,85 @@ Route::get('/system-info', function () {
     return phpinfo();
 })->name('systemInfo');
 
+// Serve language JSON files from build directory (more reliable than static file serving)
+Route::get('/build/lang/{locale}.json', function ($locale) {
+    $filePath = public_path("build/lang/{$locale}.json");
+    
+    if (!file_exists($filePath)) {
+        return response()->json([
+            'error' => 'Language file not found',
+            'locale' => $locale,
+            'path' => $filePath
+        ], 404);
+    }
+    
+    try {
+        $content = file_get_contents($filePath);
+        $json = json_decode($content, true);
+        
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return response()->json([
+                'error' => 'Invalid JSON',
+                'locale' => $locale,
+                'json_error' => json_last_error_msg()
+            ], 500);
+        }
+        
+        return response()->json($json, 200, [
+            'Content-Type' => 'application/json; charset=utf-8',
+            'Cache-Control' => 'public, max-age=3600',
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Failed to read file',
+            'locale' => $locale,
+            'message' => $e->getMessage()
+        ], 500);
+    }
+})->name('build.lang');
+
+// Debug route to test build/lang file accessibility
+Route::get('/debug/build-lang/{locale}', function ($locale) {
+    $filePath = public_path("build/lang/{$locale}.json");
+    $exists = file_exists($filePath);
+    $readable = $exists && is_readable($filePath);
+    
+    $response = [
+        'locale' => $locale,
+        'file_path' => $filePath,
+        'exists' => $exists,
+        'readable' => $readable,
+        'url' => "/build/lang/{$locale}.json",
+        'route_url' => route('build.lang', ['locale' => $locale]),
+        'public_path' => public_path(),
+        'build_dir_exists' => is_dir(public_path('build')),
+        'lang_dir_exists' => is_dir(public_path('build/lang')),
+    ];
+    
+    if ($exists) {
+        $response['file_size'] = filesize($filePath);
+        $response['file_permissions'] = substr(sprintf('%o', fileperms($filePath)), -4);
+        try {
+            $content = json_decode(file_get_contents($filePath), true);
+            $response['is_valid_json'] = json_last_error() === JSON_ERROR_NONE;
+            $response['keys_count'] = $is_valid_json ? count($content) : 0;
+        } catch (\Exception $e) {
+            $response['read_error'] = $e->getMessage();
+        }
+    }
+    
+    // List all lang files
+    $langDir = public_path('build/lang');
+    if (is_dir($langDir)) {
+        $response['available_files'] = array_values(array_filter(
+            scandir($langDir),
+            fn($file) => pathinfo($file, PATHINFO_EXTENSION) === 'json'
+        ));
+    }
+    
+    return response()->json($response, $exists ? 200 : 404);
+})->name('debug.build.lang');
+
 Route::get('stripe/cancel', [StripeController::class, 'cancel'])->name('stripe.cancel');
 Route::get('stripe/success', [StripeController::class, 'success'])->name('stripe.success');
 
