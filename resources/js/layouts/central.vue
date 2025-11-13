@@ -9,7 +9,6 @@
           {{ demo_message }}
         </div>
         <div class="container-fluid page-padding">
-          <GlobalSaveButton v-if="!$route.path.includes('/sales/pos')" />
           <child />
         </div>
         <!-- /.container-fluid -->
@@ -35,7 +34,6 @@ import { mapGetters } from 'vuex'
 import Navbar from '~/components/central/Navbar'
 import Sidebar from '~/components/central/Sidebar'
 import SidebarControl from '~/components/central/SidebarControl'
-import GlobalSaveButton from '~/components/GlobalSaveButton'
 
 export default {
   name: 'CentralLayout',
@@ -45,8 +43,7 @@ export default {
   components: {
     Sidebar,
     Navbar,
-    SidebarControl,
-    GlobalSaveButton
+    SidebarControl
   },
   // Map Getters
   computed: {

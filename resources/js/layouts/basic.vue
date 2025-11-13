@@ -4,19 +4,16 @@
     <div v-if="isAuthPage" class="language-switcher-container">
       <LocaleDropdown />
     </div>
-    <GlobalSaveButton v-if="!$route.path.includes('/sales/pos')" />
     <child />
   </div>
 </template>
 
 <script>
-import GlobalSaveButton from '~/components/GlobalSaveButton'
 import LocaleDropdown from '../components/LocaleDropdown.vue'
 
 export default {
   name: 'BasicLayout',
   components: { 
-    GlobalSaveButton,
     LocaleDropdown
   },
   computed: {

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -21,14 +22,14 @@ return new class extends Migration
             $table->enum('classification', ['vip', 'regular', 'wholesale'])->nullable()->after('currency');
             $table->text('notes')->nullable()->after('classification');
             $table->enum('display_language', ['en', 'ar'])->nullable()->after('notes');
-            
+
             // Enhanced Supplier Details
             $table->string('full_name')->nullable()->after('type');
             $table->string('business_name')->nullable()->after('full_name');
             $table->string('first_name')->nullable()->after('business_name');
             $table->string('last_name')->nullable()->after('first_name');
             $table->string('phone_number')->nullable()->after('last_name');
-            
+
             // Enhanced Address Information
             $table->string('street_address1')->nullable()->after('address');
             $table->string('street_address2')->nullable()->after('street_address1');
@@ -39,14 +40,15 @@ return new class extends Migration
             $table->string('commercial_register')->nullable()->after('country');
             $table->string('tax_card')->nullable()->after('commercial_register');
             $table->boolean('add_secondary_address')->default(false)->after('tax_card');
-            
+
             // Additional Fields
             $table->json('attachments')->nullable()->after('image_path');
             $table->boolean('is_send_email')->default(false)->after('attachments');
             $table->boolean('is_send_sms')->default(false)->after('is_send_email');
-            
+
             // Rename existing fields for consistency
-            $table->renameColumn('phone', 'phone_legacy');
+            // Use CHANGE COLUMN for MariaDB compatibility
+            DB::statement('ALTER TABLE `suppliers` CHANGE COLUMN `phone` `phone_legacy` VARCHAR(255)');
         });
     }
 
@@ -82,11 +84,12 @@ return new class extends Migration
                 'add_secondary_address',
                 'attachments',
                 'is_send_email',
-                'is_send_sms'
+                'is_send_sms',
             ]);
-            
+
             // Restore original field names
-            $table->renameColumn('phone_legacy', 'phone');
+            // Use CHANGE COLUMN for MariaDB compatibility
+            DB::statement('ALTER TABLE `suppliers` CHANGE COLUMN `phone_legacy` `phone` VARCHAR(255)');
         });
     }
 };
