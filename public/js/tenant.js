@@ -1106,7 +1106,7 @@ function applyRTLMode(locale) {
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/function () {
   var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(to, from, next) {
-    var storedLocale, storedRTL, localeJustChanged, user, currentStoreLocale, hasStoredLocale, Cookies, currentLocale, _t;
+    var storedLocale, storedRTL, localeJustChanged, _currentLocale, user, currentStoreLocale, _storedLocale, Cookies, currentLocale, _t;
     return _regenerator().w(function (_context) {
       while (1) switch (_context.p = _context.n) {
         case 0:
@@ -1121,64 +1121,74 @@ function applyRTLMode(locale) {
             applyRTLMode(storedLocale);
           }
 
-          // Check if locale was just changed by user
-          localeJustChanged = localStorage.getItem('locale_just_changed'); // Check if user is authenticated and has a locale preference
-          if (!(_store__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getters['auth/check'] && !localeJustChanged)) {
-            _context.n = 9;
+          // Check if locale was just changed by user or during login
+          localeJustChanged = localStorage.getItem('locale_just_changed'); // If locale was just changed, skip all updates to prevent conflicts
+          if (!localeJustChanged) {
+            _context.n = 2;
+            break;
+          }
+          console.log('Locale middleware - Skipping updates because locale was just changed');
+          _context.n = 1;
+          return (0,_plugins_i18n__WEBPACK_IMPORTED_MODULE_1__.loadMessages)(_store__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getters['lang/locale']);
+        case 1:
+          _currentLocale = _store__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getters['lang/locale'];
+          if (_currentLocale) {
+            applyRTLMode(_currentLocale);
+          }
+          return _context.a(2, next());
+        case 2:
+          if (!_store__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getters['auth/check']) {
+            _context.n = 10;
             break;
           }
           user = _store__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getters['auth/user'];
-          console.log('Locale middleware - User locale:', user === null || user === void 0 ? void 0 : user.locale);
-
-          // Only update if there's no current locale in store AND user has a different locale
           currentStoreLocale = _store__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getters['lang/locale'];
-          hasStoredLocale = localStorage.getItem('current_locale');
-          if (!(user && user.locale && user.locale !== currentStoreLocale && !hasStoredLocale)) {
-            _context.n = 7;
+          _storedLocale = localStorage.getItem('current_locale');
+          console.log('Locale middleware - User locale:', user === null || user === void 0 ? void 0 : user.locale, 'Store locale:', currentStoreLocale, 'Stored locale:', _storedLocale);
+
+          // Only update if:
+          // 1. User has a locale preference
+          // 2. Current store locale is different from user locale
+          // 3. There's no stored locale in localStorage (to avoid overriding manual changes)
+          if (!(user && user.locale && user.locale !== currentStoreLocale && !_storedLocale)) {
+            _context.n = 9;
             break;
           }
-          _context.p = 1;
+          _context.p = 3;
           console.log('Locale middleware - Updating locale from user preference:', user.locale);
 
           // Load messages for the user's locale
-          _context.n = 2;
+          _context.n = 4;
           return (0,_plugins_i18n__WEBPACK_IMPORTED_MODULE_1__.loadMessages)(user.locale);
-        case 2:
-          _context.n = 3;
+        case 4:
+          _context.n = 5;
           return _store__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.dispatch('lang/setLocale', {
             locale: user.locale
           });
-        case 3:
+        case 5:
           // Apply RTL mode directly
           applyRTLMode(user.locale);
 
           // Update cookie
-          _context.n = 4;
+          _context.n = 6;
           return Promise.resolve(/* import() */).then(__webpack_require__.t.bind(__webpack_require__, 12215, 23));
-        case 4:
+        case 6:
           Cookies = _context.v;
           Cookies["default"].set('locale', user.locale, {
             expires: 365
           });
           console.log('Locale middleware - Locale updated from user preference:', user.locale);
-          _context.n = 6;
-          break;
-        case 5:
-          _context.p = 5;
-          _t = _context.v;
-          console.warn('Failed to update locale from user preference:', _t);
-        case 6:
           _context.n = 8;
           break;
         case 7:
-          console.log('Locale middleware - Skipping user locale update. Current store locale:', currentStoreLocale, 'Has stored locale:', !!hasStoredLocale, 'Just changed:', !!localeJustChanged);
+          _context.p = 7;
+          _t = _context.v;
+          console.warn('Failed to update locale from user preference:', _t);
         case 8:
           _context.n = 10;
           break;
         case 9:
-          if (localeJustChanged) {
-            console.log('Locale middleware - Skipping user locale update because locale was just changed by user');
-          }
+          console.log('Locale middleware - Skipping user locale update. Current store locale:', currentStoreLocale, 'Has stored locale:', !!_storedLocale);
         case 10:
           _context.n = 11;
           return (0,_plugins_i18n__WEBPACK_IMPORTED_MODULE_1__.loadMessages)(_store__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getters['lang/locale']);
@@ -1200,7 +1210,7 @@ function applyRTLMode(locale) {
         case 12:
           return _context.a(2);
       }
-    }, _callee, null, [[1, 5]]);
+    }, _callee, null, [[3, 7]]);
   }));
   return function (_x, _x2, _x3) {
     return _ref.apply(this, arguments);
@@ -20360,6 +20370,531 @@ module.exports = '\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u20
 
 /***/ }),
 
+/***/ 25862:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ LocaleDropdown)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LocaleDropdown.vue?vue&type=template&id=cd297cac&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', [_c('li', {
+    staticClass: "nav-item dropdown"
+  }, [_c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Language'),
+      expression: "$t('Language')"
+    }],
+    staticClass: "nav-link dropdown-toggle custom-nav-btn",
+    attrs: {
+      "href": "#",
+      "role": "button",
+      "data-toggle": "dropdown",
+      "aria-haspopup": "true",
+      "aria-expanded": "false"
+    }
+  }, [_c('svg', {
+    attrs: {
+      "width": "22",
+      "height": "19",
+      "viewBox": "0 0 22 19",
+      "fill": "none",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M21.1703 17.9144L15.9203 7.41437C15.858 7.28982 15.7623 7.18506 15.6438 7.11185C15.5253 7.03864 15.3888 6.99986 15.2495 6.99986C15.1103 6.99986 14.9737 7.03864 14.8553 7.11185C14.7368 7.18506 14.641 7.28982 14.5787 7.41437L12.5434 11.4859C10.9481 11.3962 9.41312 10.8452 8.125 9.89969C9.63633 8.28575 10.552 6.20463 10.7209 4H13C13.1989 4 13.3897 3.92098 13.5303 3.78033C13.671 3.63968 13.75 3.44891 13.75 3.25C13.75 3.05109 13.671 2.86032 13.5303 2.71967C13.3897 2.57902 13.1989 2.5 13 2.5H7.75V1C7.75 0.801088 7.67098 0.610322 7.53033 0.46967C7.38968 0.329018 7.19891 0.25 7 0.25C6.80109 0.25 6.61032 0.329018 6.46967 0.46967C6.32902 0.610322 6.25 0.801088 6.25 1V2.5H1C0.801088 2.5 0.610322 2.57902 0.46967 2.71967C0.329018 2.86032 0.25 3.05109 0.25 3.25C0.25 3.44891 0.329018 3.63968 0.46967 3.78033C0.610322 3.92098 0.801088 4 1 4H9.21531C9.04827 5.83811 8.26802 7.56667 7 8.90781C6.20984 8.07406 5.60306 7.08406 5.21875 6.00156C5.18715 5.90712 5.13705 5.81991 5.07139 5.74503C5.00572 5.67015 4.9258 5.6091 4.83629 5.56544C4.74678 5.52178 4.64946 5.49639 4.55003 5.49074C4.4506 5.48509 4.35104 5.49931 4.25715 5.53255C4.16327 5.5658 4.07695 5.61741 4.00323 5.68437C3.92951 5.75133 3.86987 5.83231 3.82778 5.92257C3.78569 6.01283 3.76199 6.11057 3.75808 6.21009C3.75417 6.3096 3.77012 6.4089 3.805 6.50219C4.25244 7.76769 4.95726 8.92674 5.875 9.90625C4.46197 10.9446 2.75353 11.5031 1 11.5C0.801088 11.5 0.610322 11.579 0.46967 11.7197C0.329018 11.8603 0.25 12.0511 0.25 12.25C0.25 12.4489 0.329018 12.6397 0.46967 12.7803C0.610322 12.921 0.801088 13 1 13C3.17555 13.0024 5.28875 12.2734 7 10.93C8.39648 12.0211 10.0635 12.7117 11.8225 12.9278L9.32875 17.9144C9.28467 18.0025 9.25838 18.0984 9.25137 18.1966C9.24436 18.2949 9.25677 18.3935 9.28789 18.487C9.35075 18.6757 9.486 18.8318 9.66391 18.9208C9.84181 19.0098 10.0478 19.0245 10.2365 18.9616C10.4253 18.8988 10.5813 18.7635 10.6703 18.5856L11.9631 16H18.5359L19.8288 18.5856C19.8911 18.7102 19.9869 18.815 20.1055 18.8882C20.2241 18.9614 20.3607 19.0001 20.5 19C20.6278 18.9999 20.7535 18.9672 20.8651 18.9049C20.9768 18.8426 21.0706 18.7528 21.1378 18.644C21.2049 18.5353 21.2432 18.4111 21.2489 18.2834C21.2546 18.1557 21.2275 18.0287 21.1703 17.9144ZM12.7131 14.5L15.25 9.42719L17.7859 14.5H12.7131Z",
+      "fill": "#33A0D9"
+    }
+  })]), _vm._v(" "), _vm.isLoading ? _c('span', {
+    staticClass: "ml-1"
+  }, [_c('i', {
+    staticClass: "fas fa-spinner fa-spin"
+  })]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "dropdown-menu dropdown-menu-sm"
+  }, _vm._l(_vm.locales, function (value, key) {
+    return _c('a', {
+      key: key,
+      staticClass: "dropdown-item",
+      "class": {
+        'disabled': _vm.isLoading
+      },
+      attrs: {
+        "title": Array.isArray(value) ? value[1] : value,
+        "href": "#"
+      },
+      on: {
+        "click": function click($event) {
+          $event.preventDefault();
+          return _vm.setLocale(key);
+        }
+      }
+    }, [key === 'ar' ? _c('span', {
+      staticClass: "fi fis fi-sa",
+      attrs: {
+        "title": Array.isArray(value) ? value[1] : value
+      }
+    }) : _c('lang-flag', {
+      attrs: {
+        "iso": _vm.getFlagCode(key, Array.isArray(value) ? value[0] : null)
+      }
+    }), _vm._v("\n      " + _vm._s(_vm.$t("languages.".concat(key))) + "\n    ")], 1);
+  }), 0)])]);
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__(95353);
+// EXTERNAL MODULE: ./resources/js/plugins/i18n.js + 1 modules
+var i18n = __webpack_require__(37225);
+;// ./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-lang-code-flags/LangFlag.vue?vue&type=template&id=2309e0f4
+var LangFlagvue_type_template_id_2309e0f4_render = function render(){var _vm=this,_c=_vm._self._c;return (_vm.iso)?_c('span',{staticClass:"fi",class:_vm.flagIconClass,attrs:{"title":_vm.title || _vm.iso}}):_vm._e()
+}
+var LangFlagvue_type_template_id_2309e0f4_staticRenderFns = []
+
+
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/flag-icons/css/flag-icons.css
+var flag_icons = __webpack_require__(66688);
+;// ./node_modules/flag-icons/css/flag-icons.css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(flag_icons/* default */.A, options);
+
+
+
+/* harmony default export */ const css_flag_icons = (flag_icons/* default */.A.locals || {});
+;// ./node_modules/vue-lang-code-flags/relation.js
+/* harmony default export */ const relation = ({
+  am: 'et',
+  ar: 'sy',
+  az: 'az',
+  bn: 'bd',
+  be: 'by',
+  ca: 'es-ct',
+  cs: 'cz',
+  de: 'de',
+  el: 'gr',
+  en: 'gb',
+  es: 'es',
+  et: 'ee',
+  fa: 'ir',
+  fr: 'fr',
+  bg: 'bg',
+  ha: 'ne',
+  hi: 'in',
+  hu: 'hu',
+  hy: 'am',
+  it: 'it',
+  id: 'id',
+  ja: 'jp',
+  jv: 'id',
+  km: 'kh',
+  ko: 'kr',
+  lv: 'lv',
+  mr: 'in',
+  ms: 'my',
+  nl: 'nl',
+  pl: 'pl',
+  pt: 'pt',
+  ro: 'ro',
+  ru: 'ru',
+  sw: 'ke',
+  ta: 'lk',
+  te: 'in',
+  th: 'th',
+  tr: 'tr',
+  uk: 'ua',
+  uz: 'uz',
+  vi: 'vn',
+  zh: 'cn',
+});
+
+;// ./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-lang-code-flags/LangFlag.vue?vue&type=script&lang=js
+
+
+
+
+/* harmony default export */ const LangFlagvue_type_script_lang_js = ({
+    name: "LangFlag",
+
+    props: {
+      iso: { type: String, required: true },
+      title: { type: String, default: null },
+      squared: { type: Boolean, default: true }
+    },
+
+    computed: {
+      flagIconClass: function () {
+        return (
+          (!!this.squared ? "fis " : "") +
+          "fi-" +
+          this.flagCode
+        );
+      },
+      flagCode: function () {
+        return relation[this.iso.toLowerCase()];
+      }
+    }
+});
+
+;// ./node_modules/vue-lang-code-flags/LangFlag.vue?vue&type=script&lang=js
+ /* harmony default export */ const vue_lang_code_flags_LangFlagvue_type_script_lang_js = (LangFlagvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./node_modules/vue-lang-code-flags/LangFlag.vue
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,componentNormalizer/* default */.A)(
+  vue_lang_code_flags_LangFlagvue_type_script_lang_js,
+  LangFlagvue_type_template_id_2309e0f4_render,
+  LangFlagvue_type_template_id_2309e0f4_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ const LangFlag = (component.exports);
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LocaleDropdown.vue?vue&type=script&lang=js
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+
+
+
+
+/* harmony default export */ const LocaleDropdownvue_type_script_lang_js = ({
+  computed: (0,vuex_esm/* mapGetters */.L8)({
+    locale: 'lang/locale',
+    locales: 'lang/locales'
+  }),
+  mounted: function mounted() {
+    // Component mounted successfully
+  },
+  components: {
+    LangFlag: LangFlag
+  },
+  data: function data() {
+    return {
+      isLoading: false
+    };
+  },
+  methods: {
+    // Get the correct flag code for a locale
+    getFlagCode: function getFlagCode(locale, defaultCode) {
+      // Use Saudi Arabia flag for Arabic
+      if (locale === 'ar') {
+        return 'SA';
+      }
+      // Ensure we always return a valid string
+      if (defaultCode && typeof defaultCode === 'string' && defaultCode.trim()) {
+        return defaultCode;
+      }
+      // Fallback to locale code in uppercase
+      return locale ? locale.toUpperCase() : 'UN';
+    },
+    // Simple RTL utility function
+    applyRTLMode: function applyRTLMode(locale) {
+      var rtlLanguages = ['ar', 'he', 'fa', 'ur', 'ps', 'sd', 'ku', 'yi'];
+      var isRTL = rtlLanguages.includes(locale.toLowerCase());
+
+      // Update document attributes
+      document.documentElement.setAttribute('lang', locale);
+      document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+      document.body.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+
+      // Update CSS classes
+      if (isRTL) {
+        document.body.classList.add('rtl');
+        document.body.classList.remove('ltr');
+      } else {
+        document.body.classList.add('ltr');
+        document.body.classList.remove('rtl');
+      }
+
+      // Store in localStorage
+      localStorage.setItem('current_locale', locale);
+      localStorage.setItem('rtl_mode', isRTL.toString());
+      console.log('LocaleDropdown: Applied RTL mode - Locale:', locale, 'RTL:', isRTL);
+    },
+    // Check if a locale is RTL
+    isRTLLocale: function isRTLLocale(locale) {
+      var rtlLanguages = ['ar', 'he', 'fa', 'ur', 'ps', 'sd', 'ku', 'yi'];
+      return rtlLanguages.includes(locale.toLowerCase());
+    },
+    setLocale: function setLocale(locale) {
+      var _this = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var isTenantInitialization, isAuthenticated, endpoint, response, _response$data, _t;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.p = _context.n) {
+            case 0:
+              if (!(_this.$i18n.locale === locale || _this.isLoading)) {
+                _context.n = 1;
+                break;
+              }
+              return _context.a(2);
+            case 1:
+              if (_this.locales[locale]) {
+                _context.n = 2;
+                break;
+              }
+              console.error('Invalid locale:', locale);
+              return _context.a(2);
+            case 2:
+              // Check if we're on tenant initialization page
+              isTenantInitialization = _this.$route && (_this.$route.name === 'tenant.initialization' || _this.$route.path === '/tenant-initialization');
+              _this.isLoading = true;
+              _context.p = 3;
+              if (!isTenantInitialization) {
+                _context.n = 5;
+                break;
+              }
+              _context.n = 4;
+              return (0,i18n.loadMessages)(locale);
+            case 4:
+              _this.$store.dispatch('lang/setLocale', {
+                locale: locale
+              });
+
+              // Apply RTL mode using multiple methods
+              _this.applyRTLMode(locale);
+
+              // Use global RTL manager if available
+              if (window.RTLManager) {
+                window.RTLManager.applyRTLMode(locale);
+              }
+
+              // Force RTL mode multiple times to ensure it sticks
+              setTimeout(function () {
+                _this.applyRTLMode(locale);
+              }, 100);
+              setTimeout(function () {
+                _this.applyRTLMode(locale);
+              }, 300);
+
+              // Save to localStorage for persistence
+              localStorage.setItem('current_locale', locale);
+              localStorage.setItem('locale_just_changed', 'true');
+              setTimeout(function () {
+                localStorage.removeItem('locale_just_changed');
+              }, 1000);
+
+              // Show success message
+              if (_this.$toast) {
+                _this.$toast.success(_this.$t('Locale changed successfully'));
+              }
+
+              // Force Vue to re-render all components with new locale
+              _this.$forceUpdate();
+
+              // Trigger a custom event for components to listen to
+              window.dispatchEvent(new CustomEvent('locale-changed', {
+                detail: {
+                  locale: locale,
+                  isRTL: _this.isRTLLocale(locale)
+                }
+              }));
+
+              // Force re-render all components without page refresh
+              _this.$nextTick(function () {
+                _this.$forceUpdate();
+                // Force re-render of all child components
+                _this.$children.forEach(function (child) {
+                  if (child.$forceUpdate) {
+                    child.$forceUpdate();
+                  }
+                });
+              });
+              _this.isLoading = false;
+              return _context.a(2);
+            case 5:
+              // Make an API call to Laravel - use public endpoint for unauthenticated users
+              isAuthenticated = _this.$store.getters['auth/check'];
+              endpoint = isAuthenticated ? '/api/set-locale' : '/api/set-locale-public';
+              _context.n = 6;
+              return axios_default().post(endpoint, {
+                locale: locale
+              });
+            case 6:
+              response = _context.v;
+              if (!(response && response.data && response.data.success)) {
+                _context.n = 8;
+                break;
+              }
+              _context.n = 7;
+              return (0,i18n.loadMessages)(locale);
+            case 7:
+              _this.$store.dispatch('lang/setLocale', {
+                locale: locale
+              });
+
+              // Apply RTL mode using multiple methods
+              _this.applyRTLMode(locale);
+
+              // Use global RTL manager if available
+              if (window.RTLManager) {
+                window.RTLManager.applyRTLMode(locale);
+              }
+
+              // Force RTL mode multiple times to ensure it sticks
+              setTimeout(function () {
+                _this.applyRTLMode(locale);
+              }, 100);
+              setTimeout(function () {
+                _this.applyRTLMode(locale);
+              }, 300);
+
+              // Set a flag to prevent middleware from overriding
+              localStorage.setItem('locale_just_changed', 'true');
+              setTimeout(function () {
+                localStorage.removeItem('locale_just_changed');
+              }, 1000);
+
+              // Show success message
+              if (_this.$toast) {
+                _this.$toast.success(_this.$t('Locale changed successfully'));
+              }
+              location.reload();
+              // Force Vue to re-render all components with new locale
+              _this.$forceUpdate();
+
+              // Trigger a custom event for components to listen to
+              window.dispatchEvent(new CustomEvent('locale-changed', {
+                detail: {
+                  locale: locale,
+                  isRTL: _this.isRTLLocale(locale)
+                }
+              }));
+
+              // Force re-render all components without page refresh
+              _this.$nextTick(function () {
+                _this.$forceUpdate();
+                // Force re-render of all child components
+                _this.$children.forEach(function (child) {
+                  if (child.$forceUpdate) {
+                    child.$forceUpdate();
+                  }
+                });
+              });
+              _context.n = 9;
+              break;
+            case 8:
+              console.error('Failed to set locale:', (response === null || response === void 0 || (_response$data = response.data) === null || _response$data === void 0 ? void 0 : _response$data.error) || 'Unknown error');
+              if (_this.$toast) {
+                _this.$toast.error(_this.$t('Failed to change locale'));
+              }
+            case 9:
+              _context.n = 11;
+              break;
+            case 10:
+              _context.p = 10;
+              _t = _context.v;
+              console.error('Error setting locale:', _t);
+
+              // Handle different types of errors
+              if (_t.response) {
+                // Server responded with error status
+                console.error('Server error:', _t.response.status, _t.response.data);
+                if (_this.$toast) {
+                  _this.$toast.error("Server error: ".concat(_t.response.status));
+                }
+              } else if (_t.request) {
+                // Request was made but no response received
+                console.error('No response received:', _t.request);
+                if (_this.$toast) {
+                  _this.$toast.error('No response from server');
+                }
+              } else {
+                // Something else happened
+                console.error('Request setup error:', _t.message);
+                if (_this.$toast) {
+                  _this.$toast.error('Request failed');
+                }
+              }
+            case 11:
+              _context.p = 11;
+              _this.isLoading = false;
+              return _context.f(11);
+            case 12:
+              return _context.a(2);
+          }
+        }, _callee, null, [[3, 10, 11, 12]]);
+      }))();
+    }
+  }
+});
+;// ./resources/js/components/LocaleDropdown.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_LocaleDropdownvue_type_script_lang_js = (LocaleDropdownvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LocaleDropdown.vue?vue&type=style&index=0&id=cd297cac&prod&scoped=true&lang=css
+var LocaleDropdownvue_type_style_index_0_id_cd297cac_prod_scoped_true_lang_css = __webpack_require__(98657);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LocaleDropdown.vue?vue&type=style&index=0&id=cd297cac&prod&scoped=true&lang=css
+
+            
+
+var LocaleDropdownvue_type_style_index_0_id_cd297cac_prod_scoped_true_lang_css_options = {};
+
+LocaleDropdownvue_type_style_index_0_id_cd297cac_prod_scoped_true_lang_css_options.insert = "head";
+LocaleDropdownvue_type_style_index_0_id_cd297cac_prod_scoped_true_lang_css_options.singleton = false;
+
+var LocaleDropdownvue_type_style_index_0_id_cd297cac_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(LocaleDropdownvue_type_style_index_0_id_cd297cac_prod_scoped_true_lang_css/* default */.A, LocaleDropdownvue_type_style_index_0_id_cd297cac_prod_scoped_true_lang_css_options);
+
+
+
+/* harmony default export */ const components_LocaleDropdownvue_type_style_index_0_id_cd297cac_prod_scoped_true_lang_css = (LocaleDropdownvue_type_style_index_0_id_cd297cac_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/LocaleDropdown.vue?vue&type=style&index=0&id=cd297cac&prod&scoped=true&lang=css
+
+;// ./resources/js/components/LocaleDropdown.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var LocaleDropdown_component = (0,componentNormalizer/* default */.A)(
+  components_LocaleDropdownvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "cd297cac",
+  null
+  
+)
+
+/* harmony default export */ const LocaleDropdown = (LocaleDropdown_component.exports);
+
+/***/ }),
+
 /***/ 25911:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -20972,20 +21507,20 @@ var map = {
 		487
 	],
 	"./auth/cross-domain-login": [
-		42720,
-		2720
+		22796,
+		2796
 	],
 	"./auth/cross-domain-login.vue": [
-		42720,
-		2720
+		22796,
+		2796
 	],
 	"./auth/find-domain": [
-		75405,
-		5405
+		54661,
+		4661
 	],
 	"./auth/find-domain.vue": [
-		75405,
-		5405
+		54661,
+		4661
 	],
 	"./auth/login": [
 		84792,
@@ -21180,12 +21715,12 @@ var map = {
 		6543
 	],
 	"./cashbook/chart-of-accounts": [
-		96934,
-		6934
+		98342,
+		8342
 	],
 	"./cashbook/chart-of-accounts/": [
-		96934,
-		6934
+		98342,
+		8342
 	],
 	"./cashbook/chart-of-accounts/create": [
 		59806,
@@ -21204,12 +21739,12 @@ var map = {
 		3135
 	],
 	"./cashbook/chart-of-accounts/index": [
-		96934,
-		6934
+		98342,
+		8342
 	],
 	"./cashbook/chart-of-accounts/index.vue": [
-		96934,
-		6934
+		98342,
+		8342
 	],
 	"./cashbook/chart-of-accounts/show": [
 		15434,
@@ -21220,12 +21755,12 @@ var map = {
 		5434
 	],
 	"./cashbook/chart-of-accounts/tree": [
-		99582,
-		9582
+		4928,
+		4928
 	],
 	"./cashbook/chart-of-accounts/tree.vue": [
-		99582,
-		9582
+		4928,
+		4928
 	],
 	"./cashbook/transactions": [
 		77602,
@@ -23652,12 +24187,12 @@ var map = {
 		9836
 	],
 	"./stock-alert-products": [
-		59948,
-		9948
+		13474,
+		3474
 	],
 	"./stock-alert-products.vue": [
-		59948,
-		9948
+		13474,
+		3474
 	],
 	"./suppliers": [
 		69113,
@@ -23700,12 +24235,12 @@ var map = {
 		9496
 	],
 	"./tenant-initialization": [
-		88112,
-		8112
+		32800,
+		2800
 	],
 	"./tenant-initialization.vue": [
-		88112,
-		8112
+		32800,
+		2800
 	],
 	"./vouchers/receive": [
 		57116,
@@ -34051,7 +34586,7 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/ne.svg?82c3626f7a2a329d139
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var map = {
-	"./basic.vue": 51330,
+	"./basic.vue": 95855,
 	"./central.vue": 98675,
 	"./default.vue": 88218,
 	"./template.vue": 8666
@@ -37516,94 +38051,6 @@ module.exports = "/images/vendor/flag-icons/flags/1x1/lv.svg?884e7f97a321e3dda41
 /***/ ((module) => {
 
 module.exports = "/images/vendor/flag-icons/flags/4x3/sg.svg?8b629e7bf137abf1643b88d0e02d9d3a";
-
-/***/ }),
-
-/***/ 51330:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ basic)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/layouts/basic.vue?vue&type=template&id=4e968399
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_vm.isAuthPage ? _c('div', {
-    staticClass: "language-switcher-container"
-  }, [_c('LocaleDropdown')], 1) : _vm._e(), _vm._v(" "), _c('child')], 1);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./resources/js/components/LocaleDropdown.vue + 11 modules
-var LocaleDropdown = __webpack_require__(61003);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/layouts/basic.vue?vue&type=script&lang=js
-
-/* harmony default export */ const basicvue_type_script_lang_js = ({
-  name: 'BasicLayout',
-  components: {
-    LocaleDropdown: LocaleDropdown/* default */.A
-  },
-  computed: {
-    isAuthPage: function isAuthPage() {
-      // Check if current route is an auth page or initialization page
-      var authRoutes = ['login', 'register', 'find-domain', 'password.request', 'password.reset', 'verification.verify', 'verification.resend', 'resend', 'tenant.initialization'];
-      return authRoutes.includes(this.$route.name);
-    }
-  }
-});
-;// ./resources/js/layouts/basic.vue?vue&type=script&lang=js
- /* harmony default export */ const layouts_basicvue_type_script_lang_js = (basicvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/layouts/basic.vue?vue&type=style&index=0&id=4e968399&prod&lang=scss
-var basicvue_type_style_index_0_id_4e968399_prod_lang_scss = __webpack_require__(59945);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/layouts/basic.vue?vue&type=style&index=0&id=4e968399&prod&lang=scss
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(basicvue_type_style_index_0_id_4e968399_prod_lang_scss/* default */.A, options);
-
-
-
-/* harmony default export */ const layouts_basicvue_type_style_index_0_id_4e968399_prod_lang_scss = (basicvue_type_style_index_0_id_4e968399_prod_lang_scss/* default */.A.locals || {});
-;// ./resources/js/layouts/basic.vue?vue&type=style&index=0&id=4e968399&prod&lang=scss
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/layouts/basic.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  layouts_basicvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ const basic = (component.exports);
 
 /***/ }),
 
@@ -47814,26 +48261,6 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/gp.svg?ca0b8d6f4d7528c9d34
 
 /***/ }),
 
-/***/ 59945:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".basic-layout{color:#636b6f;font-weight:100;height:100vh;position:relative}.basic-layout .links>a{color:#636b6f;font-size:12px;font-weight:600;letter-spacing:.1rem;padding:0 25px;text-decoration:none;text-transform:uppercase}.language-switcher-container{position:fixed;right:20px;top:20px;z-index:9999}.language-switcher-container .nav-item{list-style:none}.language-switcher-container .dropdown-menu{border:1px solid #e3e6f0;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,.1);left:auto;min-width:150px;right:0}.language-switcher-container .dropdown-item{align-items:center;display:flex;font-size:14px;gap:8px;padding:8px 16px}.language-switcher-container .dropdown-item:hover{background-color:#f8f9fa}[dir=rtl] .language-switcher-container{left:20px;right:auto}[dir=rtl] .language-switcher-container .dropdown-menu{left:0;right:auto}[dir=rtl] .url{flex-direction:row-reverse!important}[dir=rtl] .url span{order:-1!important}[dir=rtl] .form-group .url{flex-direction:row-reverse!important}[dir=rtl] .form-group .url span{order:-1!important}[dir=rtl] .d-flex.url{display:flex!important;flex-direction:row-reverse!important}[dir=rtl] .d-flex.url span{margin-left:0!important;margin-right:8px!important;order:-1!important}[dir=rtl] .d-flex.url input{order:1!important}[dir=rtl] .form-group .d-flex.url{flex-direction:row-reverse!important}[dir=rtl] .form-group .d-flex.url span{order:-1!important}[dir=rtl] .form-group .d-flex.url input{order:1!important}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
 /***/ 60187:
 /***/ ((module) => {
 
@@ -47915,466 +48342,6 @@ module.exports = "/images/vendor/flag-icons/flags/1x1/gq.svg?6c7f20b675f0fa8025d
 /***/ ((module) => {
 
 module.exports = "/images/vendor/flag-icons/flags/1x1/gn.svg?347b60cf985684d7ea4ff2ffae61c549";
-
-/***/ }),
-
-/***/ 61003:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ LocaleDropdown)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LocaleDropdown.vue?vue&type=template&id=8935f742&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c('li', {
-    staticClass: "nav-item dropdown"
-  }, [_c('a', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.$t('Language'),
-      expression: "$t('Language')"
-    }],
-    staticClass: "nav-link dropdown-toggle custom-nav-btn",
-    attrs: {
-      "href": "#",
-      "role": "button",
-      "data-toggle": "dropdown",
-      "aria-haspopup": "true",
-      "aria-expanded": "false"
-    }
-  }, [_c('svg', {
-    attrs: {
-      "width": "22",
-      "height": "19",
-      "viewBox": "0 0 22 19",
-      "fill": "none",
-      "xmlns": "http://www.w3.org/2000/svg"
-    }
-  }, [_c('path', {
-    attrs: {
-      "d": "M21.1703 17.9144L15.9203 7.41437C15.858 7.28982 15.7623 7.18506 15.6438 7.11185C15.5253 7.03864 15.3888 6.99986 15.2495 6.99986C15.1103 6.99986 14.9737 7.03864 14.8553 7.11185C14.7368 7.18506 14.641 7.28982 14.5787 7.41437L12.5434 11.4859C10.9481 11.3962 9.41312 10.8452 8.125 9.89969C9.63633 8.28575 10.552 6.20463 10.7209 4H13C13.1989 4 13.3897 3.92098 13.5303 3.78033C13.671 3.63968 13.75 3.44891 13.75 3.25C13.75 3.05109 13.671 2.86032 13.5303 2.71967C13.3897 2.57902 13.1989 2.5 13 2.5H7.75V1C7.75 0.801088 7.67098 0.610322 7.53033 0.46967C7.38968 0.329018 7.19891 0.25 7 0.25C6.80109 0.25 6.61032 0.329018 6.46967 0.46967C6.32902 0.610322 6.25 0.801088 6.25 1V2.5H1C0.801088 2.5 0.610322 2.57902 0.46967 2.71967C0.329018 2.86032 0.25 3.05109 0.25 3.25C0.25 3.44891 0.329018 3.63968 0.46967 3.78033C0.610322 3.92098 0.801088 4 1 4H9.21531C9.04827 5.83811 8.26802 7.56667 7 8.90781C6.20984 8.07406 5.60306 7.08406 5.21875 6.00156C5.18715 5.90712 5.13705 5.81991 5.07139 5.74503C5.00572 5.67015 4.9258 5.6091 4.83629 5.56544C4.74678 5.52178 4.64946 5.49639 4.55003 5.49074C4.4506 5.48509 4.35104 5.49931 4.25715 5.53255C4.16327 5.5658 4.07695 5.61741 4.00323 5.68437C3.92951 5.75133 3.86987 5.83231 3.82778 5.92257C3.78569 6.01283 3.76199 6.11057 3.75808 6.21009C3.75417 6.3096 3.77012 6.4089 3.805 6.50219C4.25244 7.76769 4.95726 8.92674 5.875 9.90625C4.46197 10.9446 2.75353 11.5031 1 11.5C0.801088 11.5 0.610322 11.579 0.46967 11.7197C0.329018 11.8603 0.25 12.0511 0.25 12.25C0.25 12.4489 0.329018 12.6397 0.46967 12.7803C0.610322 12.921 0.801088 13 1 13C3.17555 13.0024 5.28875 12.2734 7 10.93C8.39648 12.0211 10.0635 12.7117 11.8225 12.9278L9.32875 17.9144C9.28467 18.0025 9.25838 18.0984 9.25137 18.1966C9.24436 18.2949 9.25677 18.3935 9.28789 18.487C9.35075 18.6757 9.486 18.8318 9.66391 18.9208C9.84181 19.0098 10.0478 19.0245 10.2365 18.9616C10.4253 18.8988 10.5813 18.7635 10.6703 18.5856L11.9631 16H18.5359L19.8288 18.5856C19.8911 18.7102 19.9869 18.815 20.1055 18.8882C20.2241 18.9614 20.3607 19.0001 20.5 19C20.6278 18.9999 20.7535 18.9672 20.8651 18.9049C20.9768 18.8426 21.0706 18.7528 21.1378 18.644C21.2049 18.5353 21.2432 18.4111 21.2489 18.2834C21.2546 18.1557 21.2275 18.0287 21.1703 17.9144ZM12.7131 14.5L15.25 9.42719L17.7859 14.5H12.7131Z",
-      "fill": "#33A0D9"
-    }
-  })]), _vm._v(" "), _vm.isLoading ? _c('span', {
-    staticClass: "ml-1"
-  }, [_c('i', {
-    staticClass: "fas fa-spinner fa-spin"
-  })]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "dropdown-menu dropdown-menu-sm"
-  }, _vm._l(_vm.locales, function (value, key) {
-    return _c('a', {
-      key: key,
-      staticClass: "dropdown-item",
-      "class": {
-        'disabled': _vm.isLoading
-      },
-      attrs: {
-        "title": Array.isArray(value) ? value[1] : value,
-        "href": "#"
-      },
-      on: {
-        "click": function click($event) {
-          $event.preventDefault();
-          return _vm.setLocale(key);
-        }
-      }
-    }, [key === 'ar' ? _c('span', {
-      staticClass: "fi fis fi-sa",
-      attrs: {
-        "title": Array.isArray(value) ? value[1] : value
-      }
-    }) : _c('lang-flag', {
-      attrs: {
-        "iso": _vm.getFlagCode(key, Array.isArray(value) ? value[0] : null)
-      }
-    }), _vm._v("\n      " + _vm._s(_vm.$t("languages.".concat(key))) + "\n    ")], 1);
-  }), 0)])]);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__(95353);
-// EXTERNAL MODULE: ./resources/js/plugins/i18n.js + 1 modules
-var i18n = __webpack_require__(37225);
-;// ./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-lang-code-flags/LangFlag.vue?vue&type=template&id=2309e0f4
-var LangFlagvue_type_template_id_2309e0f4_render = function render(){var _vm=this,_c=_vm._self._c;return (_vm.iso)?_c('span',{staticClass:"fi",class:_vm.flagIconClass,attrs:{"title":_vm.title || _vm.iso}}):_vm._e()
-}
-var LangFlagvue_type_template_id_2309e0f4_staticRenderFns = []
-
-
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/flag-icons/css/flag-icons.css
-var flag_icons = __webpack_require__(66688);
-;// ./node_modules/flag-icons/css/flag-icons.css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(flag_icons/* default */.A, options);
-
-
-
-/* harmony default export */ const css_flag_icons = (flag_icons/* default */.A.locals || {});
-;// ./node_modules/vue-lang-code-flags/relation.js
-/* harmony default export */ const relation = ({
-  am: 'et',
-  ar: 'sy',
-  az: 'az',
-  bn: 'bd',
-  be: 'by',
-  ca: 'es-ct',
-  cs: 'cz',
-  de: 'de',
-  el: 'gr',
-  en: 'gb',
-  es: 'es',
-  et: 'ee',
-  fa: 'ir',
-  fr: 'fr',
-  bg: 'bg',
-  ha: 'ne',
-  hi: 'in',
-  hu: 'hu',
-  hy: 'am',
-  it: 'it',
-  id: 'id',
-  ja: 'jp',
-  jv: 'id',
-  km: 'kh',
-  ko: 'kr',
-  lv: 'lv',
-  mr: 'in',
-  ms: 'my',
-  nl: 'nl',
-  pl: 'pl',
-  pt: 'pt',
-  ro: 'ro',
-  ru: 'ru',
-  sw: 'ke',
-  ta: 'lk',
-  te: 'in',
-  th: 'th',
-  tr: 'tr',
-  uk: 'ua',
-  uz: 'uz',
-  vi: 'vn',
-  zh: 'cn',
-});
-
-;// ./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-lang-code-flags/LangFlag.vue?vue&type=script&lang=js
-
-
-
-
-/* harmony default export */ const LangFlagvue_type_script_lang_js = ({
-    name: "LangFlag",
-
-    props: {
-      iso: { type: String, required: true },
-      title: { type: String, default: null },
-      squared: { type: Boolean, default: true }
-    },
-
-    computed: {
-      flagIconClass: function () {
-        return (
-          (!!this.squared ? "fis " : "") +
-          "fi-" +
-          this.flagCode
-        );
-      },
-      flagCode: function () {
-        return relation[this.iso.toLowerCase()];
-      }
-    }
-});
-
-;// ./node_modules/vue-lang-code-flags/LangFlag.vue?vue&type=script&lang=js
- /* harmony default export */ const vue_lang_code_flags_LangFlagvue_type_script_lang_js = (LangFlagvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./node_modules/vue-lang-code-flags/LangFlag.vue
-
-
-
-
-
-/* normalize component */
-;
-var component = (0,componentNormalizer/* default */.A)(
-  vue_lang_code_flags_LangFlagvue_type_script_lang_js,
-  LangFlagvue_type_template_id_2309e0f4_render,
-  LangFlagvue_type_template_id_2309e0f4_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ const LangFlag = (component.exports);
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LocaleDropdown.vue?vue&type=script&lang=js
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-
-
-
-
-/* harmony default export */ const LocaleDropdownvue_type_script_lang_js = ({
-  computed: (0,vuex_esm/* mapGetters */.L8)({
-    locale: 'lang/locale',
-    locales: 'lang/locales'
-  }),
-  mounted: function mounted() {
-    // Component mounted successfully
-  },
-  components: {
-    LangFlag: LangFlag
-  },
-  data: function data() {
-    return {
-      isLoading: false
-    };
-  },
-  methods: {
-    // Get the correct flag code for a locale
-    getFlagCode: function getFlagCode(locale, defaultCode) {
-      // Use Saudi Arabia flag for Arabic
-      if (locale === 'ar') {
-        return 'SA';
-      }
-      // Ensure we always return a valid string
-      if (defaultCode && typeof defaultCode === 'string' && defaultCode.trim()) {
-        return defaultCode;
-      }
-      // Fallback to locale code in uppercase
-      return locale ? locale.toUpperCase() : 'UN';
-    },
-    // Simple RTL utility function
-    applyRTLMode: function applyRTLMode(locale) {
-      var rtlLanguages = ['ar', 'he', 'fa', 'ur', 'ps', 'sd', 'ku', 'yi'];
-      var isRTL = rtlLanguages.includes(locale.toLowerCase());
-
-      // Update document attributes
-      document.documentElement.setAttribute('lang', locale);
-      document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
-      document.body.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
-
-      // Update CSS classes
-      if (isRTL) {
-        document.body.classList.add('rtl');
-        document.body.classList.remove('ltr');
-      } else {
-        document.body.classList.add('ltr');
-        document.body.classList.remove('rtl');
-      }
-
-      // Store in localStorage
-      localStorage.setItem('current_locale', locale);
-      localStorage.setItem('rtl_mode', isRTL.toString());
-      console.log('LocaleDropdown: Applied RTL mode - Locale:', locale, 'RTL:', isRTL);
-    },
-    // Check if a locale is RTL
-    isRTLLocale: function isRTLLocale(locale) {
-      var rtlLanguages = ['ar', 'he', 'fa', 'ur', 'ps', 'sd', 'ku', 'yi'];
-      return rtlLanguages.includes(locale.toLowerCase());
-    },
-    setLocale: function setLocale(locale) {
-      var _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var isAuthenticated, endpoint, response, _response$data, _t;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
-            case 0:
-              if (!(_this.$i18n.locale === locale || _this.isLoading)) {
-                _context.n = 1;
-                break;
-              }
-              return _context.a(2);
-            case 1:
-              if (_this.locales[locale]) {
-                _context.n = 2;
-                break;
-              }
-              console.error('Invalid locale:', locale);
-              return _context.a(2);
-            case 2:
-              _this.isLoading = true;
-              _context.p = 3;
-              // Make an API call to Laravel - use public endpoint for unauthenticated users
-              isAuthenticated = _this.$store.getters['auth/check'];
-              endpoint = isAuthenticated ? '/api/set-locale' : '/api/set-locale-public';
-              _context.n = 4;
-              return axios_default().post(endpoint, {
-                locale: locale
-              });
-            case 4:
-              response = _context.v;
-              if (!(response && response.data && response.data.success)) {
-                _context.n = 6;
-                break;
-              }
-              _context.n = 5;
-              return (0,i18n.loadMessages)(locale);
-            case 5:
-              _this.$store.dispatch('lang/setLocale', {
-                locale: locale
-              });
-
-              // Apply RTL mode using multiple methods
-              _this.applyRTLMode(locale);
-
-              // Use global RTL manager if available
-              if (window.RTLManager) {
-                window.RTLManager.applyRTLMode(locale);
-              }
-
-              // Force RTL mode multiple times to ensure it sticks
-              setTimeout(function () {
-                _this.applyRTLMode(locale);
-              }, 100);
-              setTimeout(function () {
-                _this.applyRTLMode(locale);
-              }, 300);
-
-              // Set a flag to prevent middleware from overriding
-              localStorage.setItem('locale_just_changed', 'true');
-              setTimeout(function () {
-                localStorage.removeItem('locale_just_changed');
-              }, 1000);
-
-              // Show success message
-              if (_this.$toast) {
-                _this.$toast.success(_this.$t('Locale changed successfully'));
-              }
-              location.reload();
-              // Force Vue to re-render all components with new locale
-              _this.$forceUpdate();
-
-              // Trigger a custom event for components to listen to
-              window.dispatchEvent(new CustomEvent('locale-changed', {
-                detail: {
-                  locale: locale,
-                  isRTL: _this.isRTLLocale(locale)
-                }
-              }));
-
-              // Force re-render all components without page refresh
-              _this.$nextTick(function () {
-                _this.$forceUpdate();
-                // Force re-render of all child components
-                _this.$children.forEach(function (child) {
-                  if (child.$forceUpdate) {
-                    child.$forceUpdate();
-                  }
-                });
-              });
-              _context.n = 7;
-              break;
-            case 6:
-              console.error('Failed to set locale:', (response === null || response === void 0 || (_response$data = response.data) === null || _response$data === void 0 ? void 0 : _response$data.error) || 'Unknown error');
-              if (_this.$toast) {
-                _this.$toast.error(_this.$t('Failed to change locale'));
-              }
-            case 7:
-              _context.n = 9;
-              break;
-            case 8:
-              _context.p = 8;
-              _t = _context.v;
-              console.error('Error setting locale:', _t);
-
-              // Handle different types of errors
-              if (_t.response) {
-                // Server responded with error status
-                console.error('Server error:', _t.response.status, _t.response.data);
-                if (_this.$toast) {
-                  _this.$toast.error("Server error: ".concat(_t.response.status));
-                }
-              } else if (_t.request) {
-                // Request was made but no response received
-                console.error('No response received:', _t.request);
-                if (_this.$toast) {
-                  _this.$toast.error('No response from server');
-                }
-              } else {
-                // Something else happened
-                console.error('Request setup error:', _t.message);
-                if (_this.$toast) {
-                  _this.$toast.error('Request failed');
-                }
-              }
-            case 9:
-              _context.p = 9;
-              _this.isLoading = false;
-              return _context.f(9);
-            case 10:
-              return _context.a(2);
-          }
-        }, _callee, null, [[3, 8, 9, 10]]);
-      }))();
-    }
-  }
-});
-;// ./resources/js/components/LocaleDropdown.vue?vue&type=script&lang=js
- /* harmony default export */ const components_LocaleDropdownvue_type_script_lang_js = (LocaleDropdownvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LocaleDropdown.vue?vue&type=style&index=0&id=8935f742&prod&scoped=true&lang=css
-var LocaleDropdownvue_type_style_index_0_id_8935f742_prod_scoped_true_lang_css = __webpack_require__(64007);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LocaleDropdown.vue?vue&type=style&index=0&id=8935f742&prod&scoped=true&lang=css
-
-            
-
-var LocaleDropdownvue_type_style_index_0_id_8935f742_prod_scoped_true_lang_css_options = {};
-
-LocaleDropdownvue_type_style_index_0_id_8935f742_prod_scoped_true_lang_css_options.insert = "head";
-LocaleDropdownvue_type_style_index_0_id_8935f742_prod_scoped_true_lang_css_options.singleton = false;
-
-var LocaleDropdownvue_type_style_index_0_id_8935f742_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(LocaleDropdownvue_type_style_index_0_id_8935f742_prod_scoped_true_lang_css/* default */.A, LocaleDropdownvue_type_style_index_0_id_8935f742_prod_scoped_true_lang_css_options);
-
-
-
-/* harmony default export */ const components_LocaleDropdownvue_type_style_index_0_id_8935f742_prod_scoped_true_lang_css = (LocaleDropdownvue_type_style_index_0_id_8935f742_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/LocaleDropdown.vue?vue&type=style&index=0&id=8935f742&prod&scoped=true&lang=css
-
-;// ./resources/js/components/LocaleDropdown.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var LocaleDropdown_component = (0,componentNormalizer/* default */.A)(
-  components_LocaleDropdownvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "8935f742",
-  null
-  
-)
-
-/* harmony default export */ const LocaleDropdown = (LocaleDropdown_component.exports);
 
 /***/ }),
 
@@ -60321,26 +60288,6 @@ module.exports = hashDelete;
 /***/ ((module) => {
 
 module.exports = "/images/vendor/flag-icons/flags/1x1/pe.svg?b8e62fe370160622092e506955270d31";
-
-/***/ }),
-
-/***/ 64007:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".disabled[data-v-8935f742]{opacity:.6;pointer-events:none}.dropdown-item[data-v-8935f742]:hover:not(.disabled){background-color:#f8f9fa}.custom-nav-btn[data-v-8935f742]{align-items:center!important;background:#33a0d91a!important;border:none!important;border-radius:10px!important;color:#33a0d9!important;display:flex!important;height:48px!important;justify-content:center!important;margin:0 4px!important;padding:12px!important;transition:all .3s ease!important;width:48px!important}.custom-nav-btn[data-v-8935f742]:hover{background:#33a0d933!important;box-shadow:0 4px 8px rgba(51,160,217,.2)!important;color:#33a0d9!important;transform:translateY(-1px)!important}.custom-nav-btn[data-v-8935f742]:focus{background:#33a0d91a!important;box-shadow:0 0 0 2px rgba(51,160,217,.3)!important;color:#33a0d9!important}.custom-nav-btn svg[data-v-8935f742]{stroke:#33a0d9!important;color:#33a0d9!important}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
 
 /***/ }),
 
@@ -78944,6 +78891,26 @@ return jQuery;
 
 /***/ }),
 
+/***/ 75025:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".basic-layout{color:#636b6f;font-weight:100;height:100vh;position:relative}.basic-layout .links>a{color:#636b6f;font-size:12px;font-weight:600;letter-spacing:.1rem;padding:0 25px;text-decoration:none;text-transform:uppercase}.language-switcher-container{position:fixed;right:20px;top:20px;z-index:9999}.language-switcher-container .nav-item{list-style:none}.language-switcher-container .dropdown-menu{border:1px solid #e3e6f0;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,.1);left:auto;min-width:150px;right:0}.language-switcher-container .dropdown-item{align-items:center;display:flex;font-size:14px;gap:8px;padding:8px 16px}.language-switcher-container .dropdown-item:hover{background-color:#f8f9fa}[dir=rtl] .language-switcher-container{left:20px;right:auto}[dir=rtl] .language-switcher-container .dropdown-menu{left:0;right:auto}[dir=rtl] .url{flex-direction:row-reverse!important}[dir=rtl] .url span{order:-1!important}[dir=rtl] .form-group .url{flex-direction:row-reverse!important}[dir=rtl] .form-group .url span{order:-1!important}[dir=rtl] .d-flex.url{display:flex!important;flex-direction:row-reverse!important}[dir=rtl] .d-flex.url span{margin-left:0!important;margin-right:8px!important;order:-1!important}[dir=rtl] .d-flex.url input{order:1!important}[dir=rtl] .form-group .d-flex.url{flex-direction:row-reverse!important}[dir=rtl] .form-group .d-flex.url span{order:-1!important}[dir=rtl] .form-group .d-flex.url input{order:1!important}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 75288:
 /***/ ((module) => {
 
@@ -84775,7 +84742,7 @@ var Navbarvue_type_template_id_2a659b35_scoped_true_staticRenderFns = [function 
 var axios = __webpack_require__(72505);
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 // EXTERNAL MODULE: ./resources/js/components/LocaleDropdown.vue + 11 modules
-var LocaleDropdown = __webpack_require__(61003);
+var LocaleDropdown = __webpack_require__(25862);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Navbar.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
@@ -90105,6 +90072,109 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/tj.svg?7342efc96604d64ffb2
 
 /***/ }),
 
+/***/ 95855:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ basic)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/layouts/basic.vue?vue&type=template&id=5b06d738
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', [_vm.showLanguageSwitcher ? _c('div', {
+    staticClass: "language-switcher-container"
+  }, [_c('LocaleDropdown')], 1) : _vm._e(), _vm._v(" "), _c('child')], 1);
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./resources/js/components/LocaleDropdown.vue + 11 modules
+var LocaleDropdown = __webpack_require__(25862);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/layouts/basic.vue?vue&type=script&lang=js
+
+/* harmony default export */ const basicvue_type_script_lang_js = ({
+  name: 'BasicLayout',
+  components: {
+    LocaleDropdown: LocaleDropdown/* default */.A
+  },
+  computed: {
+    isAuthPage: function isAuthPage() {
+      // Check if current route is an auth page
+      if (!this.$route || !this.$route.name) {
+        return false;
+      }
+      var authRoutes = ['login', 'register', 'find-domain', 'password.request', 'password.reset', 'verification.verify', 'verification.resend', 'resend', 'tenant.initialization'];
+      return authRoutes.includes(this.$route.name);
+    },
+    isTenantInitialization: function isTenantInitialization() {
+      // Hide language switcher on tenant initialization page
+      if (!this.$route || !this.$route.name) {
+        return false;
+      }
+      return this.$route.name === 'tenant.initialization' || this.$route.path === '/tenant-initialization';
+    },
+    showLanguageSwitcher: function showLanguageSwitcher() {
+      // Show language switcher on all auth pages (including tenant initialization)
+      // LocaleDropdown component will handle preventing locale changes on tenant initialization
+      return this.isAuthPage;
+    }
+  }
+});
+;// ./resources/js/layouts/basic.vue?vue&type=script&lang=js
+ /* harmony default export */ const layouts_basicvue_type_script_lang_js = (basicvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/layouts/basic.vue?vue&type=style&index=0&id=5b06d738&prod&lang=scss
+var basicvue_type_style_index_0_id_5b06d738_prod_lang_scss = __webpack_require__(75025);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/layouts/basic.vue?vue&type=style&index=0&id=5b06d738&prod&lang=scss
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(basicvue_type_style_index_0_id_5b06d738_prod_lang_scss/* default */.A, options);
+
+
+
+/* harmony default export */ const layouts_basicvue_type_style_index_0_id_5b06d738_prod_lang_scss = (basicvue_type_style_index_0_id_5b06d738_prod_lang_scss/* default */.A.locals || {});
+;// ./resources/js/layouts/basic.vue?vue&type=style&index=0&id=5b06d738&prod&lang=scss
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/layouts/basic.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  layouts_basicvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ const basic = (component.exports);
+
+/***/ }),
+
 /***/ 95898:
 /***/ ((module) => {
 
@@ -90405,6 +90475,26 @@ module.exports = "/images/vendor/flag-icons/flags/1x1/kg.svg?29765023c004eaa5134
 
 /***/ }),
 
+/***/ 98657:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".disabled[data-v-cd297cac]{opacity:.6;pointer-events:none}.dropdown-item[data-v-cd297cac]:hover:not(.disabled){background-color:#f8f9fa}.custom-nav-btn[data-v-cd297cac]{align-items:center!important;background:#33a0d91a!important;border:none!important;border-radius:10px!important;color:#33a0d9!important;display:flex!important;height:48px!important;justify-content:center!important;margin:0 4px!important;padding:12px!important;transition:all .3s ease!important;width:48px!important}.custom-nav-btn[data-v-cd297cac]:hover{background:#33a0d933!important;box-shadow:0 4px 8px rgba(51,160,217,.2)!important;color:#33a0d9!important;transform:translateY(-1px)!important}.custom-nav-btn[data-v-cd297cac]:focus{background:#33a0d91a!important;box-shadow:0 0 0 2px rgba(51,160,217,.3)!important;color:#33a0d9!important}.custom-nav-btn svg[data-v-cd297cac]{stroke:#33a0d9!important;color:#33a0d9!important}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 98675:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -90680,7 +90770,7 @@ var Navbarvue_type_template_id_7be7c12c_scoped_true_staticRenderFns = [function 
 ;// ./resources/js/components/central/Navbar.vue?vue&type=template&id=7be7c12c&scoped=true
 
 // EXTERNAL MODULE: ./resources/js/components/LocaleDropdown.vue + 11 modules
-var LocaleDropdown = __webpack_require__(61003);
+var LocaleDropdown = __webpack_require__(25862);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/central/Navbar.vue?vue&type=script&lang=js
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
@@ -116818,8 +116908,8 @@ var StockAlert_component = (0,componentNormalizer/* default */.A)(
 /* harmony default export */ const StockAlert = (StockAlert_component.exports);
 // EXTERNAL MODULE: ./resources/js/components/Pagination.vue + 5 modules
 var Pagination = __webpack_require__(8153);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EmptyTable.vue?vue&type=template&id=2b911fee
-var EmptyTablevue_type_template_id_2b911fee_render = function render() {
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EmptyTable.vue?vue&type=template&id=6ebadd0e
+var EmptyTablevue_type_template_id_6ebadd0e_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -116827,14 +116917,14 @@ var EmptyTablevue_type_template_id_2b911fee_render = function render() {
   }, [_c('img', {
     staticClass: "w-64 m-auto",
     attrs: {
-      "src": "/../../images/empty.png",
+      "src": "/images/empty.png",
       "alt": "result-not-found"
     }
   }), _vm._v(" "), _c('p', {
     staticClass: "font-bold text-lg text-gray-600 dark:text-gray-200"
   }, [_vm._v("\n    " + _vm._s(_vm.$t('sorry')) + " 😔 " + _vm._s(_vm.$t('no_data_found')) + ".\n  ")])]);
 };
-var EmptyTablevue_type_template_id_2b911fee_staticRenderFns = [];
+var EmptyTablevue_type_template_id_6ebadd0e_staticRenderFns = [];
 
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EmptyTable.vue?vue&type=script&lang=js
 /* harmony default export */ const EmptyTablevue_type_script_lang_js = ({
@@ -116852,8 +116942,8 @@ var EmptyTablevue_type_template_id_2b911fee_staticRenderFns = [];
 ;
 var EmptyTable_component = (0,componentNormalizer/* default */.A)(
   components_EmptyTablevue_type_script_lang_js,
-  EmptyTablevue_type_template_id_2b911fee_render,
-  EmptyTablevue_type_template_id_2b911fee_staticRenderFns,
+  EmptyTablevue_type_template_id_6ebadd0e_render,
+  EmptyTablevue_type_template_id_6ebadd0e_staticRenderFns,
   false,
   null,
   null,
