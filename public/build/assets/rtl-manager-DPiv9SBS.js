@@ -1,0 +1,1 @@
+(function(){try{if(typeof document>"u")return;const t=document.currentScript;if(t&&/<\/?[a-z][\s\S]*>/i.test(t.text||""))return;const e=document.documentElement,s=document.body;(e.getAttribute("dir")||s.getAttribute("dir")||"ltr")==="rtl"?(e.classList.add("rtl"),s.classList.add("rtl")):(e.classList.remove("rtl"),s.classList.remove("rtl"))}catch{}})();
