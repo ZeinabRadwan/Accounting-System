@@ -20,19 +20,26 @@ export async function loadMessages (locale) {
   
   try {
     // Try to fetch from build directory first (works in production)
-    const response = await fetch(`/build/lang/${locale}.json`)
+    const url = `/build/lang/${locale}.json`
+    const response = await fetch(url)
+    
     if (response.ok) {
       incomingMessages = await response.json()
     } else {
-      throw new Error('Fetch failed, trying dynamic import')
+      // Log the error for debugging
+      console.warn(`Failed to fetch ${url}: ${response.status} ${response.statusText}`)
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`)
     }
   } catch (error) {
+    console.warn(`Fetch failed for locale ${locale}, trying dynamic import:`, error.message)
     // Fallback to dynamic import (works in development)
     try {
       const mod = await import(`../lang/${locale}.json`)
       incomingMessages = mod && (mod.default || mod)
     } catch (fallbackError) {
       console.error(`Failed to load messages for locale: ${locale}`, fallbackError)
+      // Return empty messages to prevent app crash
+      incomingMessages = {}
     }
   }
 

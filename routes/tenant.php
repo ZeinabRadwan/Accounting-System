@@ -936,6 +936,6 @@ Route::middleware([
         return response()->json(['error' => 'Image not found'], 404);
     })->name('profile.image');
 
-    // Tenant SPA routes
-    Route::get('{path}', SpaController::class)->where('path', '^(?!.*api).*$')->middleware('tenant.not_archived');
+    // Tenant SPA routes (exclude api, storage, and build directories)
+    Route::get('{path}', SpaController::class)->where('path', '^(?!.*(?:api|storage|build)).*$')->middleware('tenant.not_archived');
 });

@@ -148,8 +148,8 @@ Route::group(['middleware' => ['is_verified', 'need_to_install']], function () {
         });
     });
 
-    // SPA Routes
-    Route::get('/{path}', CentralAppController::class)->where('path', '^(?!.*(?:api|storage)).*$');
+    // SPA Routes (exclude api, storage, and build directories)
+    Route::get('/{path}', CentralAppController::class)->where('path', '^(?!.*(?:api|storage|build)).*$');
 });
 
 // Route to serve temporary HTML files for PDF generation
