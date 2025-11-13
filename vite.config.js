@@ -44,6 +44,34 @@ export default defineConfig({
                 }
             },
         },
+        // Plugin to clean up unwanted files from build directory
+        {
+            name: 'clean-build-files',
+            closeBundle() {
+                const { unlinkSync, existsSync } = require('fs');
+                const buildDir = join(__dirname, 'public/build');
+                
+                // Remove Laravel entry point and config files that shouldn't be in build
+                const filesToRemove = [
+                    'index.php',
+                    '.htaccess',
+                    'web.config',
+                    'robots.txt',
+                ];
+                
+                filesToRemove.forEach(file => {
+                    const filePath = join(buildDir, file);
+                    if (existsSync(filePath)) {
+                        try {
+                            unlinkSync(filePath);
+                            console.log(`Removed ${file} from build directory`);
+                        } catch (error) {
+                            console.warn(`Could not remove ${file}:`, error.message);
+                        }
+                    }
+                });
+            },
+        },
     ],
     resolve: {
         alias: {
