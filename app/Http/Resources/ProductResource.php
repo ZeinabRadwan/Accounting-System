@@ -18,28 +18,24 @@ class ProductResource extends JsonResource
             'id' => $this->id,
             'itemType' => $this->is_service == true ? 'service' : 'product',
             'name' => $this->name,
-            'label' => $this->name.' ['.$this->code.']',
+            'label' => $this->name . ' [' . $this->code . ']',
             'slug' => $this->slug,
             'code' => is_numeric($this->code) ? str_pad($this->code, 5, '0', STR_PAD_LEFT) : $this->code,
             'itemModel' => $this->model,
             'symbology' => $this->barcode_symbology,
-            'subCategory' => $this->whenLoaded('proSubCategory', function () {
-                return $this->proSubCategory ? new ProductSubCategoryResource($this->proSubCategory) : null;
+            'subCategory' => new ProductSubCategoryResource($this->whenLoaded('proSubCategory')),
+            'category' => $this->whenLoaded('proSubCategory.category', function () {
+                return new ProductCategoryResource($this->proSubCategory->category);
             }),
-            'category' => $this->whenLoaded('proSubCategory', function () {
-                return $this->proSubCategory && $this->proSubCategory->category
-                    ? new ProductCategoryResource($this->proSubCategory->category)
-                    : null;
-            }),
-            'itemUnit' => $this->productUnit ? new UnitResource($this->productUnit) : null,
-            'itemBrand' => $this->productBrand ? new BrandResource($this->productBrand) : null,
-            'itemTax' => $this->productTax ? new VatRateResource($this->productTax) : null,
+            'itemUnit' => new UnitResource($this->productUnit),
+            'itemBrand' => new BrandResource($this->productBrand),
+            'itemTax' => new VatRateResource($this->productTax),
             'salesAccount' => $this->whenLoaded('salesAccount', function () {
                 return [
                     'id' => $this->salesAccount->id,
                     'name' => $this->salesAccount->name,
                     'code' => $this->salesAccount->code,
-                    'type' => $this->salesAccount->type ? $this->salesAccount->type->name : 'Unknown',
+                    'type' => $this->salesAccount->type ? $this->salesAccount->type->name : 'Unknown'
                 ];
             }),
             'purchaseAccount' => $this->whenLoaded('purchaseAccount', function () {
@@ -47,7 +43,7 @@ class ProductResource extends JsonResource
                     'id' => $this->purchaseAccount->id,
                     'name' => $this->purchaseAccount->name,
                     'code' => $this->purchaseAccount->code,
-                    'type' => $this->purchaseAccount->type ? $this->purchaseAccount->type->name : 'Unknown',
+                    'type' => $this->purchaseAccount->type ? $this->purchaseAccount->type->name : 'Unknown'
                 ];
             }),
             'taxType' => $this->tax_type,
@@ -67,6 +63,10 @@ class ProductResource extends JsonResource
             'image' => getAvatarWithFallback($this->image_path, 'products'),
             // Add chart of account IDs for validation
             'sales_account_id' => $this->sales_account_id,
+            'purchase_account_id' => $this->purchase_account_id,
+        ];
+    }
+}_account_id,
             'purchase_account_id' => $this->purchase_account_id,
         ];
     }
