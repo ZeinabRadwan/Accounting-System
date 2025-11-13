@@ -27,12 +27,14 @@ export async function loadMessages (locale) {
   if (!isDevelopment) {
     // PRODUCTION: Try fetch from build directory (via Laravel route for reliability)
     try {
-      // First try direct file access, then fallback to Laravel route
-      const directUrl = `/build/lang/${locale}.json`
-      const routeUrl = `/build/lang/${locale}.json` // Same URL, but Laravel route handles it
+      // Use Laravel route which handles path correctly regardless of folder structure
+      // The route uses public_path() which is configured to work with public_html
+      // Use absolute URL to handle cases where app might be in a subdirectory
+      const baseUrl = window.location.origin
+      const langUrl = `${baseUrl}/build/lang/${locale}.json`
       
-      console.log(`[i18n] Attempting to fetch from: ${directUrl}`)
-      const response = await fetch(directUrl, {
+      console.log(`[i18n] Attempting to fetch from: ${langUrl}`)
+      const response = await fetch(langUrl, {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
@@ -42,7 +44,7 @@ export async function loadMessages (locale) {
       
       if (response.ok) {
         const contentType = response.headers.get('content-type')
-        console.log(`[i18n] Successfully fetched ${directUrl}, Content-Type: ${contentType}`)
+        console.log(`[i18n] Successfully fetched ${langUrl}, Content-Type: ${contentType}`)
         
         if (contentType && contentType.includes('application/json')) {
           incomingMessages = await response.json()
@@ -54,7 +56,7 @@ export async function loadMessages (locale) {
       } else {
         // Log detailed error info
         const errorText = await response.text().catch(() => 'Unable to read response')
-        console.error(`[i18n] Failed to fetch ${directUrl}:`, {
+        console.error(`[i18n] Failed to fetch ${langUrl}:`, {
           status: response.status,
           statusText: response.statusText,
           headers: Object.fromEntries(response.headers.entries()),
@@ -86,7 +88,8 @@ export async function loadMessages (locale) {
       console.warn(`[i18n] Dynamic import failed for locale ${locale}, trying fetch:`, error.message)
       // Fallback to fetch in development
       try {
-        const url = `/build/lang/${locale}.json`
+        const baseUrl = window.location.origin
+        const url = `${baseUrl}/build/lang/${locale}.json`
         const response = await fetch(url)
         if (response.ok) {
           incomingMessages = await response.json()
