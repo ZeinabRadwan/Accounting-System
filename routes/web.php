@@ -127,6 +127,38 @@ Route::get('/newsletter-confirm', [NewsletterSubscriptionController::class, 'con
 // Public set-locale endpoint for central auth pages (no authentication required)
 Route::post('api/set-locale-public', [App\Http\Controllers\LanguageController::class, 'setLocale'])->name('set.locale.public');
 
+// Serve Vite build assets directly (for central app) - MUST be public, no auth required
+Route::get('/build/{path}', function ($path) {
+    try {
+        $filePath = public_path('build/'.$path);
+        if (file_exists($filePath) && is_file($filePath)) {
+            // Set appropriate content type based on file extension
+            $extension = pathinfo($filePath, PATHINFO_EXTENSION);
+            $contentTypes = [
+                'js' => 'application/javascript',
+                'json' => 'application/json',
+                'css' => 'text/css',
+                'svg' => 'image/svg+xml',
+            ];
+            $contentType = $contentTypes[$extension] ?? null;
+
+            return response()->file($filePath, $contentType ? ['Content-Type' => $contentType] : []);
+        }
+
+        // If not in build directory, try resources/js/lang/ for language files
+        if (str_starts_with($path, 'lang/')) {
+            $langFile = resource_path('js/'.$path);
+            if (file_exists($langFile) && is_file($langFile)) {
+                return response()->file($langFile, ['Content-Type' => 'application/json']);
+            }
+        }
+
+        return response()->json(['error' => 'File not found', 'path' => $path], 404);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Server error', 'message' => $e->getMessage()], 500);
+    }
+})->where('path', '.*')->name('vite.build.asset.central');
+
 Route::group(['middleware' => ['is_verified', 'need_to_install']], function () {
     Route::get('email/verify/{tenant}', [VerificationController::class, 'verify'])->name('verification.verify');
     Route::get('/tenants/pdf', [ExportController::class, 'tenantsPdf'])->name('tenants.pdf');
@@ -144,38 +176,6 @@ Route::group(['middleware' => ['is_verified', 'need_to_install']], function () {
             Route::post('api/set-locale', [App\Http\Controllers\LanguageController::class, 'setLocale'])->name('set.locale');
         });
     });
-
-    // Serve Vite build assets directly (for central app)
-    Route::get('/build/{path}', function ($path) {
-        try {
-            $filePath = public_path('build/'.$path);
-            if (file_exists($filePath) && is_file($filePath)) {
-                // Set appropriate content type based on file extension
-                $extension = pathinfo($filePath, PATHINFO_EXTENSION);
-                $contentTypes = [
-                    'js' => 'application/javascript',
-                    'json' => 'application/json',
-                    'css' => 'text/css',
-                    'svg' => 'image/svg+xml',
-                ];
-                $contentType = $contentTypes[$extension] ?? null;
-
-                return response()->file($filePath, $contentType ? ['Content-Type' => $contentType] : []);
-            }
-
-            // If not in build directory, try resources/js/lang/ for language files
-            if (str_starts_with($path, 'lang/')) {
-                $langFile = resource_path('js/'.$path);
-                if (file_exists($langFile) && is_file($langFile)) {
-                    return response()->file($langFile, ['Content-Type' => 'application/json']);
-                }
-            }
-
-            return response()->json(['error' => 'File not found', 'path' => $path], 404);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Server error', 'message' => $e->getMessage()], 500);
-        }
-    })->where('path', '.*')->name('vite.build.asset.central');
 
     // SPA Routes (must be last to catch all other routes)
     Route::get('/{path}', CentralAppController::class)->where('path', '^(?!.*(?:api|storage|build)).*$');
