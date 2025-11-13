@@ -416,7 +416,7 @@ import PhoneNumberInput from '../components/PhoneNumberInput.vue'
 export default {
   name: 'TenantInitialization',
   layout: 'basic',
-  middleware: ['auth'],
+  middleware: [],
   
   components: {
     LocaleDropdown,
@@ -743,6 +743,12 @@ export default {
           }
         }
       } catch (error) {
+        // Silently handle 401 errors - user is not authenticated yet, which is fine
+        if (error.response && error.response.status === 401) {
+          // User is not authenticated, skip pre-populating data
+          return
+        }
+        // Only log non-401 errors
         console.error('Error fetching tenant data:', error)
       }
     },

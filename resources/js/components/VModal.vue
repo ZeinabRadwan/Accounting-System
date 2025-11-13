@@ -1,6 +1,7 @@
 <template>
   <vue-final-modal
-  v-model="modelValue"
+  :value="modelValue"
+  @input="updateValue"
   :lock-scroll="true"
   v-slot="{ params, close }"
   v-bind="$attrs"
@@ -37,14 +38,10 @@ export default {
     }
   },
   emits: ['update:modelValue', 'close'],
-  watch: {
-    modelValue(newVal) {
-      if (!newVal) {
-        this.$emit('update:modelValue', false);
-      }
-    }
-  },
   methods: {
+    updateValue(value) {
+      this.$emit('update:modelValue', value);
+    },
     handleClose(close) {
       this.$emit('close');
       close();
