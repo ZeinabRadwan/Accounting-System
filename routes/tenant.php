@@ -2,83 +2,83 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\API\AccountController;
-use App\Http\Controllers\API\AccountRoutingController;
-use App\Http\Controllers\API\ActivityLogController;
-use App\Http\Controllers\API\AssetController;
-use App\Http\Controllers\API\AssetTypeController;
-use App\Http\Controllers\API\BalanceController;
-use App\Http\Controllers\API\BrandController;
-use App\Http\Controllers\API\ChartOfAccountController;
-use App\Http\Controllers\API\ClientController;
-use App\Http\Controllers\API\ClientRepresentativeController;
-use App\Http\Controllers\API\CostAllocationController;
-use App\Http\Controllers\API\CostAllocationRuleController;
-use App\Http\Controllers\API\CostCenterController;
-use App\Http\Controllers\API\CurrencyController;
-use App\Http\Controllers\API\DashboardController;
-use App\Http\Controllers\API\DepartmentController;
-use App\Http\Controllers\API\DomainController;
-use App\Http\Controllers\API\EmployeeController;
-use App\Http\Controllers\API\EmpSalIncrementController;
-use App\Http\Controllers\API\ExpenseCatController;
-use App\Http\Controllers\API\ExpenseController;
-use App\Http\Controllers\API\ExpSubCatController;
-use App\Http\Controllers\API\GeneralController;
-use App\Http\Controllers\API\InventoryAdjustmentController;
-use App\Http\Controllers\API\InventoryController;
-use App\Http\Controllers\API\InvoiceController;
-use App\Http\Controllers\API\InvoicePaymentController;
-use App\Http\Controllers\API\InvoiceReturnController;
-use App\Http\Controllers\API\JournalEntryController;
-use App\Http\Controllers\API\LoanAuthorityController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SpaController;
+use App\Http\Controllers\ServerController;
 use App\Http\Controllers\API\LoanController;
-use App\Http\Controllers\API\LoanPaymentController;
 use App\Http\Controllers\API\MenuController;
-use App\Http\Controllers\API\NonInvoicePaymentController;
-use App\Http\Controllers\API\NonPurchasePaymentController;
-use App\Http\Controllers\API\PaymentController;
-use App\Http\Controllers\API\PaymentMethodController;
-use App\Http\Controllers\API\PaymentVoucherController;
-use App\Http\Controllers\API\PayrollController;
-use App\Http\Controllers\API\PermissionController;
-use App\Http\Controllers\API\ProductCategoryController;
-use App\Http\Controllers\API\ProductController;
-use App\Http\Controllers\API\ProSubCatController;
-use App\Http\Controllers\API\PurchaseController;
-use App\Http\Controllers\API\PurchaseOrderController;
-use App\Http\Controllers\API\PurchasePaymentController;
-use App\Http\Controllers\API\PurchaseReturnController;
-use App\Http\Controllers\API\QuotationController;
-use App\Http\Controllers\API\ReportController;
-use App\Http\Controllers\API\RichEditorController;
 use App\Http\Controllers\API\RoleController;
-use App\Http\Controllers\API\SubscriptionInvoiceController;
-use App\Http\Controllers\API\SubscriptionPaymentMethodController;
-use App\Http\Controllers\API\SupplierController;
-use App\Http\Controllers\API\SupplierRepresentativeController;
-use App\Http\Controllers\API\TenantController;
-use App\Http\Controllers\API\TransactionController;
-use App\Http\Controllers\API\TransferBalanceController;
 use App\Http\Controllers\API\UnitController;
-use App\Http\Controllers\API\VatRateController;
-use App\Http\Controllers\API\VatReportController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\API\AssetController;
+use App\Http\Controllers\API\BrandController;
+use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\API\ClientController;
+use App\Http\Controllers\API\DomainController;
+use App\Http\Controllers\API\ReportController;
+use App\Http\Controllers\API\TenantController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\OAuthController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\Auth\UserController;
-use App\Http\Controllers\PDFGeneratorController;
-use App\Http\Controllers\PrintController;
-use App\Http\Controllers\ServerController;
-use App\Http\Controllers\SpaController;
-use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\API\AccountController;
+use App\Http\Controllers\API\BalanceController;
+use App\Http\Controllers\API\ExpenseController;
+use App\Http\Controllers\API\GeneralController;
+use App\Http\Controllers\API\InvoiceController;
+use App\Http\Controllers\API\PaymentController;
+use App\Http\Controllers\API\PayrollController;
+use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\VatRateController;
 use App\Http\Controllers\TableExportController;
+use App\Http\Controllers\API\CurrencyController;
+use App\Http\Controllers\API\EmployeeController;
+use App\Http\Controllers\API\PurchaseController;
+use App\Http\Controllers\API\PurchaseOrderController;
+use App\Http\Controllers\API\SupplierController;
+use App\Http\Controllers\PDFGeneratorController;
+use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\API\AssetTypeController;
+use App\Http\Controllers\API\DashboardController;
+use App\Http\Controllers\API\ExpSubCatController;
+use App\Http\Controllers\API\InventoryController;
+use App\Http\Controllers\API\ProSubCatController;
+use App\Http\Controllers\API\QuotationController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\API\DepartmentController;
+use App\Http\Controllers\API\ExpenseCatController;
+use App\Http\Controllers\API\PermissionController;
+use App\Http\Controllers\API\RichEditorController;
+use App\Http\Controllers\API\ActivityLogController;
+use App\Http\Controllers\API\LoanPaymentController;
+use App\Http\Controllers\API\TransactionController;
+use App\Http\Controllers\API\InvoiceReturnController;
+use App\Http\Controllers\API\LoanAuthorityController;
+use App\Http\Controllers\API\PaymentMethodController;
+use App\Http\Controllers\API\InvoicePaymentController;
+use App\Http\Controllers\API\PurchaseReturnController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\API\EmpSalIncrementController;
+use App\Http\Controllers\API\ProductCategoryController;
+use App\Http\Controllers\API\PurchasePaymentController;
+use App\Http\Controllers\API\TransferBalanceController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\TenantImpersonationController;
-use Illuminate\Support\Facades\Route;
-use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
+use App\Http\Controllers\API\NonInvoicePaymentController;
+use App\Http\Controllers\API\NonPurchasePaymentController;
+use App\Http\Controllers\API\PaymentVoucherController;
+use App\Http\Controllers\API\InventoryAdjustmentController;
+use App\Http\Controllers\API\SubscriptionInvoiceController;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
+use App\Http\Controllers\API\SubscriptionPaymentMethodController;
+use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
+use App\Http\Controllers\API\ChartOfAccountController;
+use App\Http\Controllers\API\JournalEntryController;
+use App\Http\Controllers\API\AccountRoutingController;
+use App\Http\Controllers\API\VatReportController;
+use App\Http\Controllers\API\ClientRepresentativeController;
+use App\Http\Controllers\API\SupplierRepresentativeController;
+use App\Http\Controllers\API\CostCenterController;
+use App\Http\Controllers\API\CostAllocationRuleController;
+use App\Http\Controllers\API\CostAllocationController;
+use App\Http\Controllers\PrintController;
 
 /*
 |--------------------------------------------------------------------------
@@ -98,63 +98,6 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 Route::post('/upload-pdf', [PrintController::class, 'upload']);
 
-// Serve Vite build assets directly (bypass tenant asset routing)
-// IMPORTANT: These routes must be OUTSIDE the middleware group to catch requests early
-// Handle both /assets/build/ and /tenancy/assets/build/ paths
-Route::get('/assets/build/{path}', function ($path) {
-    $filePath = public_path('build/'.$path);
-    if (file_exists($filePath)) {
-        // Set appropriate content type based on file extension
-        $extension = pathinfo($filePath, PATHINFO_EXTENSION);
-        $contentTypes = [
-            'js' => 'application/javascript',
-            'json' => 'application/json',
-            'css' => 'text/css',
-            'svg' => 'image/svg+xml',
-        ];
-        $contentType = $contentTypes[$extension] ?? null;
-
-        return response()->file($filePath, $contentType ? ['Content-Type' => $contentType] : []);
-    }
-
-    // If not in build directory, try resources/js/lang/ for language files
-    if (str_starts_with($path, 'lang/')) {
-        $langFile = resource_path('js/'.$path);
-        if (file_exists($langFile)) {
-            return response()->file($langFile, ['Content-Type' => 'application/json']);
-        }
-    }
-
-    return response()->json(['error' => 'File not found'], 404);
-})->where('path', '.*')->name('vite.build.asset');
-
-// Handle /tenancy/assets/build/ requests (generated by tenancy package)
-Route::get('/tenancy/assets/build/{path}', function ($path) {
-    $filePath = public_path('build/'.$path);
-    if (file_exists($filePath)) {
-        // Set appropriate content type based on file extension
-        $extension = pathinfo($filePath, PATHINFO_EXTENSION);
-        $contentTypes = [
-            'js' => 'application/javascript',
-            'json' => 'application/json',
-            'css' => 'text/css',
-            'svg' => 'image/svg+xml',
-        ];
-        $contentType = $contentTypes[$extension] ?? null;
-
-        return response()->file($filePath, $contentType ? ['Content-Type' => $contentType] : []);
-    }
-
-    // If not in build directory, try resources/js/lang/ for language files
-    if (str_starts_with($path, 'lang/')) {
-        $langFile = resource_path('js/'.$path);
-        if (file_exists($langFile)) {
-            return response()->file($langFile, ['Content-Type' => 'application/json']);
-        }
-    }
-
-    return response()->json(['error' => 'File not found'], 404);
-})->where('path', '.*')->name('vite.build.asset.tenancy');
 
 Route::middleware([
     InitializeTenancyByDomainOrSubdomain::class,
@@ -190,6 +133,7 @@ Route::middleware([
 
     // [PROTECTED API] Tenant Routes protected by Sanctum
     Route::group(['middleware' => ['auth:sanctum', 'tenant.not_archived', 'user.tenant.not_archived', 'tenant.initialized'], 'prefix' => 'api', 'as' => 'tenant.'], function () {
+
         // routes/api.php
 
         Route::post('/set-locale', [App\Http\Controllers\LanguageController::class, 'setLocale'])->name('set.locale');
@@ -231,7 +175,7 @@ Route::middleware([
         Route::post('branches', [App\Http\Controllers\API\BranchController::class, 'store']);
         Route::put('branches/{slug}', [App\Http\Controllers\API\BranchController::class, 'update']);
         Route::delete('branches/{slug}', [App\Http\Controllers\API\BranchController::class, 'destroy']);
-
+        
         // User-Branch assignment routes
         Route::get('branches/{branchId}/users', [App\Http\Controllers\API\UserBranchController::class, 'branchUsers']);
         Route::get('users/{userId}/branches', [App\Http\Controllers\API\UserBranchController::class, 'userBranches']);
@@ -623,6 +567,7 @@ Route::middleware([
         Route::get('/all-pro-sub-categories-by-category/{slug}', [ProSubCatController::class, 'allSubCategoriesByCategory']);
         Route::apiResource('product-sub-categories', ProSubCatController::class);
 
+
         // Product routes
         Route::get('/products/search', [ProductController::class, 'search']);
         Route::get('/products/search-from-pos', [ProductController::class, 'searchFromPos']);
@@ -641,6 +586,7 @@ Route::middleware([
         Route::post('/products/{slug}/restore', [ProductController::class, 'restore']);
         Route::delete('/products/{slug}/force-delete', [ProductController::class, 'forceDelete']);
         Route::post('/product-import', [ProductController::class, 'import']);
+
 
         // Inventory route
         Route::get('/inventory', [InventoryController::class, 'allInventory']);
@@ -696,6 +642,7 @@ Route::middleware([
         Route::post('payments/download', [PaymentController::class, 'download']);
         Route::apiResource('payments', PaymentController::class)->only(['index']);
 
+
         Route::get('subscriptions/payment-methods', [SubscriptionPaymentMethodController::class, 'index']);
 
         Route::get('activity-log-specific', [ActivityLogController::class, 'specific']);
@@ -737,6 +684,7 @@ Route::middleware([
 
         Route::get('server', [ServerController::class, 'runCommand']);
 
+
         Route::post('/rich-editor-file-upload', [RichEditorController::class, 'handleUpload']);
 
         // Print Templates API routes
@@ -746,6 +694,7 @@ Route::middleware([
         Route::get('/print-templates/default/get', [App\Http\Controllers\API\PrintTemplateController::class, 'getDefault']);
         Route::delete('/print-templates/{id}/remove-logo', [App\Http\Controllers\API\PrintTemplateController::class, 'removeCustomLogo']);
     });
+
 
     // email pdf generator routes (legacy - keeping for backward compatibility)
     Route::get('/invoice/pdf/{slug}', [PDFGeneratorController::class, 'generateInvoicePDF'])->name('email.invoice.pdf');
@@ -834,6 +783,7 @@ Route::middleware([
     Route::get('/print/invoice/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadInvoicePDF'])->name('print.invoice.pdf');
     Route::get('/print/purchase/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadPurchasePDF'])->name('print.purchase.pdf');
     Route::get('/print/quotation/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadQuotationPDF'])->name('print.quotation.pdf');
+
 
     // pdf download blade routes
     Route::get('/setup/brands/pdf', [TableExportController::class, 'brandsPDF'])->name('brands.pdf');
@@ -972,7 +922,7 @@ Route::middleware([
 
     // Serve profile images
     Route::get('/images/users/{filename}', function ($filename) {
-        $path = public_path('images/users/'.$filename);
+        $path = public_path('images/users/' . $filename);
         if (file_exists($path)) {
             return response()->file($path);
         }
@@ -986,6 +936,6 @@ Route::middleware([
         return response()->json(['error' => 'Image not found'], 404);
     })->name('profile.image');
 
-    // Tenant SPA routes (must be last to catch all other routes)
-    Route::get('{path}', SpaController::class)->where('path', '^(?!.*(?:api|assets|tenancy|images)).*$')->middleware('tenant.not_archived');
+    // Tenant SPA routes
+    Route::get('{path}', SpaController::class)->where('path', '^(?!.*api).*$')->middleware('tenant.not_archived');
 });
