@@ -117,21 +117,62 @@ Route::get('/system-info', function () {
 
 // Serve language JSON files from build directory (more reliable than static file serving)
 Route::get('/build/lang/{locale}.json', function ($locale) {
-    $filePath = public_path("build/lang/{$locale}.json");
-    
-    if (!file_exists($filePath)) {
-        return response()->json([
-            'error' => 'Language file not found',
-            'locale' => $locale,
-            'path' => $filePath
-        ], 404);
-    }
-    
     try {
+        // Remove .json if it was included in the locale parameter
+        $locale = str_replace('.json', '', $locale);
+        
+        $filePath = public_path("build/lang/{$locale}.json");
+        
+        if (!file_exists($filePath)) {
+            \Log::warning("Language file not found", [
+                'locale' => $locale,
+                'path' => $filePath,
+                'public_path' => public_path()
+            ]);
+            
+            return response()->json([
+                'error' => 'Language file not found',
+                'locale' => $locale,
+                'path' => $filePath
+            ], 404);
+        }
+        
+        if (!is_readable($filePath)) {
+            \Log::error("Language file not readable", [
+                'locale' => $locale,
+                'path' => $filePath,
+                'permissions' => substr(sprintf('%o', fileperms($filePath)), -4)
+            ]);
+            
+            return response()->json([
+                'error' => 'Language file not readable',
+                'locale' => $locale
+            ], 403);
+        }
+        
         $content = file_get_contents($filePath);
+        
+        if ($content === false) {
+            \Log::error("Failed to read language file", [
+                'locale' => $locale,
+                'path' => $filePath
+            ]);
+            
+            return response()->json([
+                'error' => 'Failed to read file',
+                'locale' => $locale
+            ], 500);
+        }
+        
         $json = json_decode($content, true);
         
         if (json_last_error() !== JSON_ERROR_NONE) {
+            \Log::error("Invalid JSON in language file", [
+                'locale' => $locale,
+                'path' => $filePath,
+                'json_error' => json_last_error_msg()
+            ]);
+            
             return response()->json([
                 'error' => 'Invalid JSON',
                 'locale' => $locale,
@@ -144,13 +185,25 @@ Route::get('/build/lang/{locale}.json', function ($locale) {
             'Cache-Control' => 'public, max-age=3600',
         ]);
     } catch (\Exception $e) {
+        \Log::error("Exception in build.lang route", [
+            'locale' => $locale ?? 'unknown',
+            'message' => $e->getMessage(),
+            'trace' => $e->getTraceAsString()
+        ]);
+        
         return response()->json([
-            'error' => 'Failed to read file',
-            'locale' => $locale,
-            'message' => $e->getMessage()
+            'error' => 'Server error',
+            'locale' => $locale ?? 'unknown',
+            'message' => config('app.debug') ? $e->getMessage() : 'An error occurred'
         ], 500);
     }
 })->name('build.lang');
+
+// Also handle without .json extension for compatibility
+Route::get('/build/lang/{locale}', function ($locale) {
+    // Redirect to the .json version
+    return redirect()->route('build.lang', ['locale' => $locale], 301);
+})->where('locale', '[a-z]{2}');
 
 // Debug route to test build/lang file accessibility
 Route::get('/debug/build-lang/{locale}', function ($locale) {
