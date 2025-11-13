@@ -114,11 +114,42 @@ const routeMiddleware = {
   "tenant-initialized": tenantInitialized.default || tenantInitialized,
 };
 
-const router = createRouter()
+/**
+ * Scroll Behavior
+ *
+ * @link https://router.vuejs.org/en/advanced/scroll-behavior.html
+ *
+ * @param  {Route} to
+ * @param  {Route} from
+ * @param  {Object|undefined} savedPosition
+ * @return {Object}
+ */
+function scrollBehavior (to, from, savedPosition) {
+  if (savedPosition) {
+    return savedPosition
+  }
 
-sync(store, router)
+  if (to.hash) {
+    return { selector: to.hash }
+  }
 
-export default router
+  // Check if router is available before accessing it
+  // Note: router is defined after createRouter() is called, but scrollBehavior
+  // is only invoked after router is fully initialized, so this should be safe
+  if (typeof router !== 'undefined' && router && router.getMatchedComponents) {
+    const [component] = router.getMatchedComponents({ ...to }).slice(-1)
+
+    if (component && component.scrollToTop === false) {
+      return {}
+    }
+  }
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ x: 0, y: 0 })
+    }, 190)
+  })
+}
 
 /**
  * Create a new router instance.
@@ -126,24 +157,30 @@ export default router
  * @return {Router}
  */
 function createRouter () {
-  const router = new Router({
+  const routerInstance = new Router({
     scrollBehavior,
     mode: 'history',
     routes
   })
 
-  router.beforeEach(beforeEach)
-  router.afterEach(afterEach)
+  routerInstance.beforeEach(beforeEach)
+  routerInstance.afterEach(afterEach)
   
   // Add additional RTL guard that runs on every navigation
-  router.beforeResolve((to, from, next) => {
+  routerInstance.beforeResolve((to, from, next) => {
     console.log('Router: beforeResolve - Force applying RTL mode')
     forceRTLMode()
     next()
   })
 
-  return router
+  return routerInstance
 }
+
+const router = createRouter()
+
+sync(store, router)
+
+export default router
 
 /**
  * Global router guard.
@@ -290,35 +327,4 @@ function getMiddleware (components) {
   return middleware
 }
 
-/**
- * Scroll Behavior
- *
- * @link https://router.vuejs.org/en/advanced/scroll-behavior.html
- *
- * @param  {Route} to
- * @param  {Route} from
- * @param  {Object|undefined} savedPosition
- * @return {Object}
- */
-function scrollBehavior (to, from, savedPosition) {
-  if (savedPosition) {
-    return savedPosition
-  }
-
-  if (to.hash) {
-    return { selector: to.hash }
-  }
-
-  const [component] = router.getMatchedComponents({ ...to }).slice(-1)
-
-  if (component && component.scrollToTop === false) {
-    return {}
-  }
-
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({ x: 0, y: 0 })
-    }, 190)
-  })
-}
 

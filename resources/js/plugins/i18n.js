@@ -26,11 +26,12 @@ export async function loadMessages (locale) {
   // In production, try fetch first. In development, try dynamic import first.
   if (!isDevelopment) {
     // PRODUCTION: Try fetch from build directory (via Laravel route for reliability)
+    // Define baseUrl outside try block so it's available in catch block
+    const baseUrl = window.location.origin
     try {
       // Use Laravel route which handles path correctly regardless of folder structure
       // The route uses public_path() which is configured to work with public_html
       // Use absolute URL to handle cases where app might be in a subdirectory
-      const baseUrl = window.location.origin
       const langUrl = `${baseUrl}/build/lang/${locale}.json`
       
       console.log(`[i18n] Attempting to fetch from: ${langUrl}`)
@@ -65,7 +66,8 @@ export async function loadMessages (locale) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`)
       }
     } catch (error) {
-      console.error(`[i18n] Fetch failed for locale ${locale}:`, error)
+      const langUrl = `${baseUrl}/build/lang/${locale}.json`
+      console.error(`[i18n] Fetch failed for locale ${locale} from ${langUrl}:`, error.message || error)
       // In production, if fetch fails, we should still try dynamic import as fallback
       try {
         console.log(`[i18n] Falling back to dynamic import for ${locale}`)
@@ -98,7 +100,9 @@ export async function loadMessages (locale) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`)
         }
       } catch (fallbackError) {
-        console.error(`[i18n] Both dynamic import and fetch failed for locale: ${locale}`, fallbackError)
+        const baseUrl = window.location.origin
+        const fallbackUrl = `${baseUrl}/build/lang/${locale}.json`
+        console.error(`[i18n] Both dynamic import and fetch failed for locale: ${locale} (tried: ${fallbackUrl})`, fallbackError.message || fallbackError)
         incomingMessages = {}
       }
     }
