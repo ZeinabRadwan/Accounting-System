@@ -311,6 +311,26 @@ module.exports = "/images/vendor/flag-icons/flags/1x1/cu.svg?b92f84c54d433ddeb07
 
 /***/ }),
 
+/***/ 3132:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-4b47580e]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:20px}.form-card .card-header[data-v-4b47580e]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:22px 16px}.form-card .section-title[data-v-4b47580e]{color:#fff;font-size:14px;font-weight:600;margin:0}.form-card .card-body[data-v-4b47580e]{padding:16px}.form-control[data-v-4b47580e]{background:#fff!important}input[readonly][data-v-4b47580e]{background-color:#f8f9fa!important;border-color:#ced4da;color:#6c757d;cursor:not-allowed}.form-control[data-v-4b47580e]:focus,select.form-control[data-v-4b47580e]:focus,textarea.form-control[data-v-4b47580e]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.radio-group[data-v-4b47580e]{align-items:center;display:flex;gap:16px}.radio-group .radio-inline[data-v-4b47580e]{align-items:center;display:inline-flex;gap:6px;margin:0}.v-select .vs__dropdown-toggle[data-v-4b47580e]{border-color:#ced4da;border-radius:6px}.v-select .vs__dropdown-toggle.vs__open[data-v-4b47580e],.v-select .vs__dropdown-toggle[data-v-4b47580e]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.v-select .vs__dropdown-menu[data-v-4b47580e],.v-select .vs__search[data-v-4b47580e],.v-select .vs__selected[data-v-4b47580e]{font-size:.95rem}.custom-file-input:focus~.custom-file-label[data-v-4b47580e]{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.custom-file-label[data-v-4b47580e]{border-radius:6px}.file-upload-area[data-v-4b47580e]{background:#f8fdfe;border:2px dashed #33a0d9;border-radius:12px;padding:20px;position:relative;text-align:center}.file-upload-area .file-input[data-v-4b47580e]{cursor:pointer;height:100%;inset:0;opacity:0;position:absolute;width:100%}.file-upload-area .file-upload-content[data-v-4b47580e]{color:#33a0d9}.selected-files .selected-file-item[data-v-4b47580e]{align-items:center;background:#f5faff;border:1px solid #e3f3f7;border-radius:6px;display:inline-flex;margin-bottom:8px;margin-right:8px;padding:6px 10px}.d-flex.align-items-center span.ml-3[data-v-4b47580e]{font-weight:500}.required[data-v-4b47580e]{color:#dc3545}[dir=rtl] .form-card .card-header[data-v-4b47580e]{border-radius:20px 20px 0 0}.custom-file-label[data-v-4b47580e],[dir=rtl] .custom-file-label[data-v-4b47580e]{text-align:left!important}.btn-primary[data-v-4b47580e]{background:#33a0d9!important;border-color:#33a0d9!important}.btn-primary[data-v-4b47580e]:hover{filter:brightness(.95)}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 3191:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -4203,6 +4223,26 @@ var component = (0,componentNormalizer/* default */.A)(
 /***/ ((module) => {
 
 module.exports = "/images/vendor/flag-icons/flags/1x1/st.svg?12bfd6538546c02f033757cb90cfd472";
+
+/***/ }),
+
+/***/ 17432:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".phone-number-input[data-v-2a34c482]{position:relative}.phone-input-wrapper[data-v-2a34c482]{align-items:center;background:#fff;border:0;border-radius:50px;box-shadow:0 .125rem .25rem rgba(0,0,0,.075);display:flex;min-height:3rem;overflow:hidden;transition:all .3s ease}.phone-input-wrapper[data-v-2a34c482]:focus-within{box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.phone-input-wrapper.is-invalid[data-v-2a34c482]{border-color:#dc3545;box-shadow:0 0 0 .2rem rgba(220,53,69,.25)}.country-selector[data-v-2a34c482]{align-items:center;background:#f8f9fa;border-right:1px solid #dee2e6;cursor:pointer;display:flex;gap:8px;min-width:100px;padding:.5rem 1rem;transition:background .2s;-webkit-user-select:none;-moz-user-select:none;user-select:none}.country-selector[data-v-2a34c482]:hover{background:#e9ecef}.country-flag[data-v-2a34c482]{font-size:1.25rem;line-height:1}.country-code[data-v-2a34c482]{color:#495057;font-size:.9rem;font-weight:500}.dropdown-icon[data-v-2a34c482]{color:#6c757d;font-size:.75rem;transition:transform .2s}.country-selector:hover .dropdown-icon[data-v-2a34c482]{transform:translateY(2px)}.phone-input[data-v-2a34c482]{background:transparent;border:0;color:#33a0d9;direction:ltr;flex:1;font-size:1rem;outline:none;padding:.5rem 1rem;text-align:left}.phone-input[data-v-2a34c482]::-moz-placeholder{color:#adb5bd;text-align:left}.phone-input[data-v-2a34c482]::placeholder{color:#adb5bd;text-align:left}[dir=rtl] .phone-input[data-v-2a34c482]{text-align:right}[dir=rtl] .phone-input[data-v-2a34c482]::-moz-placeholder{text-align:right}[dir=rtl] .phone-input[data-v-2a34c482]::placeholder{text-align:right}.country-dropdown[data-v-2a34c482]{background:#fff;border-radius:15px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);display:flex;flex-direction:column;left:0;margin-top:.5rem;max-height:300px;overflow:hidden;position:absolute;right:0;top:100%;z-index:1000}.country-search[data-v-2a34c482]{border-bottom:1px solid #dee2e6;padding:.75rem}.country-search input[data-v-2a34c482]{border:1px solid #dee2e6;border-radius:10px;padding:.5rem .75rem}.country-list[data-v-2a34c482]{max-height:250px;overflow-y:auto}.country-item[data-v-2a34c482]{align-items:center;border-bottom:1px solid #f8f9fa;cursor:pointer;display:flex;gap:12px;padding:.75rem 1rem;transition:background .2s}.country-item[data-v-2a34c482]:hover{background:#f8f9fa}.country-item.active[data-v-2a34c482]{background:#e7f3ff;color:#33a0d9}.country-item .country-flag[data-v-2a34c482]{font-size:1.25rem;line-height:1;text-align:center;width:24px}.country-item .country-name[data-v-2a34c482]{flex:1;font-size:.95rem}.country-item .country-dial-code[data-v-2a34c482]{color:#6c757d;font-size:.85rem;font-weight:500}.invalid-feedback[data-v-2a34c482]{color:#dc3545;font-size:.875rem}[dir=rtl] .country-selector[data-v-2a34c482]{border-left:1px solid #dee2e6;border-right:none}[dir=rtl] .country-dropdown[data-v-2a34c482]{left:auto;right:0}@media (max-width:768px){.country-selector[data-v-2a34c482]{min-width:80px;padding:.5rem .75rem}.country-code[data-v-2a34c482]{font-size:.8rem}.country-dropdown[data-v-2a34c482]{max-height:250px}.country-list[data-v-2a34c482]{max-height:200px}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
 
 /***/ }),
 
@@ -23108,20 +23148,20 @@ var map = {
 		7564
 	],
 	"./sales/invoices": [
-		92495,
-		2495
+		83043,
+		3043
 	],
 	"./sales/invoices/": [
-		92495,
-		2495
+		83043,
+		3043
 	],
 	"./sales/invoices/create": [
-		95774,
-		5774
+		57138,
+		7138
 	],
 	"./sales/invoices/create.vue": [
-		95774,
-		5774
+		57138,
+		7138
 	],
 	"./sales/invoices/edit": [
 		4433,
@@ -23132,20 +23172,20 @@ var map = {
 		4433
 	],
 	"./sales/invoices/index": [
-		92495,
-		2495
+		83043,
+		3043
 	],
 	"./sales/invoices/index.vue": [
-		92495,
-		2495
+		83043,
+		3043
 	],
 	"./sales/invoices/show": [
-		7839,
-		7839
+		82118,
+		2118
 	],
 	"./sales/invoices/show.vue": [
-		7839,
-		7839
+		82118,
+		2118
 	],
 	"./sales/pos/create": [
 		65261,
@@ -23660,12 +23700,12 @@ var map = {
 		9496
 	],
 	"./tenant-initialization": [
-		20932,
-		932
+		88112,
+		8112
 	],
 	"./tenant-initialization.vue": [
-		20932,
-		932
+		88112,
+		8112
 	],
 	"./vouchers/receive": [
 		57116,
@@ -37206,139 +37246,6 @@ Popper.Defaults = Defaults;
 
 /***/ }),
 
-/***/ 48918:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ VModal)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/VModal.vue?vue&type=template&id=1f9b185f
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('vue-final-modal', _vm._g(_vm._b({
-    attrs: {
-      "value": _vm.modelValue,
-      "lock-scroll": true,
-      "classes": "z-50 custom-modal-dialog",
-      "content-class": "modal-content"
-    },
-    on: {
-      "input": _vm.updateValue
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function fn(_ref) {
-        var params = _ref.params,
-          close = _ref.close;
-        return [_c('span', {
-          staticClass: "modal-header"
-        }, [_vm._t("title"), _vm._v(" "), _c('button', {
-          staticClass: "close",
-          attrs: {
-            "type": "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          },
-          on: {
-            "click": function click($event) {
-              return _vm.handleClose(close);
-            }
-          }
-        }, [_c('span', {
-          attrs: {
-            "aria-hidden": "true"
-          }
-        }, [_vm._v("×")])])], 2), _vm._v(" "), _c('div', {
-          staticClass: "modal-body"
-        }, [_vm._t("default", null, {
-          "params": params
-        })], 2), _vm._v(" "), _c('div', {
-          staticClass: "modal-footer"
-        }, [_vm._t("modal-footer")], 2)];
-      }
-    }], null, true)
-  }, 'vue-final-modal', _vm.$attrs, false), _vm.$listeners));
-};
-var staticRenderFns = [];
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/VModal.vue?vue&type=script&lang=js
-/* harmony default export */ const VModalvue_type_script_lang_js = ({
-  name: 'VModal',
-  inheritAttrs: false,
-  props: {
-    modelValue: {
-      type: Boolean,
-      "default": false
-    }
-  },
-  emits: ['update:modelValue', 'close'],
-  methods: {
-    updateValue: function updateValue(value) {
-      this.$emit('update:modelValue', value);
-    },
-    handleClose: function handleClose(close) {
-      this.$emit('close');
-      close();
-      this.$emit('update:modelValue', false);
-    }
-  }
-});
-;// ./resources/js/components/VModal.vue?vue&type=script&lang=js
- /* harmony default export */ const components_VModalvue_type_script_lang_js = (VModalvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/VModal.vue?vue&type=style&index=0&id=1f9b185f&prod&lang=scss
-var VModalvue_type_style_index_0_id_1f9b185f_prod_lang_scss = __webpack_require__(54792);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/VModal.vue?vue&type=style&index=0&id=1f9b185f&prod&lang=scss
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(VModalvue_type_style_index_0_id_1f9b185f_prod_lang_scss/* default */.A, options);
-
-
-
-/* harmony default export */ const components_VModalvue_type_style_index_0_id_1f9b185f_prod_lang_scss = (VModalvue_type_style_index_0_id_1f9b185f_prod_lang_scss/* default */.A.locals || {});
-;// ./resources/js/components/VModal.vue?vue&type=style&index=0&id=1f9b185f&prod&lang=scss
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/VModal.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  components_VModalvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ const VModal = (component.exports);
-
-/***/ }),
-
 /***/ 48951:
 /***/ ((module) => {
 
@@ -42454,26 +42361,6 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/pr.svg?52e728e052169b21894
 /***/ ((module) => {
 
 module.exports = "/images/vendor/flag-icons/flags/1x1/er.svg?51a82d50a7e3633fe39cb927cfb37c80";
-
-/***/ }),
-
-/***/ 54792:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".modal-content{margin:1.75rem auto;max-width:1000px;width:100%}.custom-modal-dialog,.modal-body{overflow:auto}.modal-body{max-height:70vh}.vfm__overlay{z-index:2000!important}.vfm__container{z-index:2001!important}@media (max-width:1400px){.modal-content{max-width:900px}}@media (max-width:1300px){.modal-content{max-width:800px}}@media (max-width:1200px){.modal-content{max-width:700px}}@media (max-width:987px){.modal-content{max-width:500px}}@media (max-width:768px){.modal-content{margin:.5rem;max-width:100%}}.modal-content[data-size=md]{max-width:500px}.modal-content[data-size=sm]{max-width:400px}.modal-content[data-size=lg]{max-width:800px}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
 
 /***/ }),
 
@@ -47667,26 +47554,6 @@ module.exports = overRest;
 /***/ ((module) => {
 
 module.exports = "/images/vendor/flag-icons/flags/4x3/arab.svg?df48a3462c9c85d435122b116268b453";
-
-/***/ }),
-
-/***/ 57036:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-cd29bd14]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:20px}.form-card .card-header[data-v-cd29bd14]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:22px 16px}.form-card .section-title[data-v-cd29bd14]{color:#fff;font-size:14px;font-weight:600;margin:0}.form-card .card-body[data-v-cd29bd14]{padding:16px}.form-control[data-v-cd29bd14]{background:#fff!important}input[readonly][data-v-cd29bd14]{background-color:#f8f9fa!important;border-color:#ced4da;color:#6c757d;cursor:not-allowed}.form-control[data-v-cd29bd14]:focus,select.form-control[data-v-cd29bd14]:focus,textarea.form-control[data-v-cd29bd14]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.radio-group[data-v-cd29bd14]{align-items:center;display:flex;gap:16px}.radio-group .radio-inline[data-v-cd29bd14]{align-items:center;display:inline-flex;gap:6px;margin:0}.v-select .vs__dropdown-toggle[data-v-cd29bd14]{border-color:#ced4da;border-radius:6px}.v-select .vs__dropdown-toggle.vs__open[data-v-cd29bd14],.v-select .vs__dropdown-toggle[data-v-cd29bd14]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.v-select .vs__dropdown-menu[data-v-cd29bd14],.v-select .vs__search[data-v-cd29bd14],.v-select .vs__selected[data-v-cd29bd14]{font-size:.95rem}.custom-file-input:focus~.custom-file-label[data-v-cd29bd14]{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.custom-file-label[data-v-cd29bd14]{border-radius:6px}.file-upload-area[data-v-cd29bd14]{background:#f8fdfe;border:2px dashed #33a0d9;border-radius:12px;padding:20px;position:relative;text-align:center}.file-upload-area .file-input[data-v-cd29bd14]{cursor:pointer;height:100%;inset:0;opacity:0;position:absolute;width:100%}.file-upload-area .file-upload-content[data-v-cd29bd14]{color:#33a0d9}.selected-files .selected-file-item[data-v-cd29bd14]{align-items:center;background:#f5faff;border:1px solid #e3f3f7;border-radius:6px;display:inline-flex;margin-bottom:8px;margin-right:8px;padding:6px 10px}.d-flex.align-items-center span.ml-3[data-v-cd29bd14]{font-weight:500}.required[data-v-cd29bd14]{color:#dc3545}[dir=rtl] .form-card .card-header[data-v-cd29bd14]{border-radius:20px 20px 0 0}.custom-file-label[data-v-cd29bd14],[dir=rtl] .custom-file-label[data-v-cd29bd14]{text-align:left!important}.btn-primary[data-v-cd29bd14]{background:#33a0d9!important;border-color:#33a0d9!important}.btn-primary[data-v-cd29bd14]:hover{filter:brightness(.95)}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
 
 /***/ }),
 
@@ -60271,6 +60138,154 @@ module.exports = listCacheClear;
 
 /***/ }),
 
+/***/ 63764:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ VModal)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/VModal.vue?vue&type=template&id=67b4ca0e
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('vue-final-modal', _vm._g(_vm._b({
+    attrs: {
+      "value": _vm.modalValue,
+      "lock-scroll": true,
+      "classes": "z-50 custom-modal-dialog",
+      "content-class": "modal-content"
+    },
+    on: {
+      "input": _vm.handleModalInput
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function fn(_ref) {
+        var params = _ref.params,
+          close = _ref.close;
+        return [_c('span', {
+          staticClass: "modal-header"
+        }, [_vm._t("title"), _vm._v(" "), _c('button', {
+          staticClass: "close",
+          attrs: {
+            "type": "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          },
+          on: {
+            "click": function click($event) {
+              return _vm.handleClose(close);
+            }
+          }
+        }, [_c('span', {
+          attrs: {
+            "aria-hidden": "true"
+          }
+        }, [_vm._v("×")])])], 2), _vm._v(" "), _c('div', {
+          staticClass: "modal-body"
+        }, [_vm._t("default", null, {
+          "params": params
+        })], 2), _vm._v(" "), _c('div', {
+          staticClass: "modal-footer"
+        }, [_vm._t("modal-footer")], 2)];
+      }
+    }], null, true)
+  }, 'vue-final-modal', _vm.$attrs, false), _vm.$listeners));
+};
+var staticRenderFns = [];
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/VModal.vue?vue&type=script&lang=js
+/* harmony default export */ const VModalvue_type_script_lang_js = ({
+  name: 'VModal',
+  inheritAttrs: false,
+  props: {
+    modelValue: {
+      type: Boolean,
+      "default": false
+    },
+    value: {
+      type: Boolean,
+      "default": false
+    }
+  },
+  model: {
+    prop: 'modelValue',
+    event: 'update:modelValue'
+  },
+  emits: ['update:modelValue', 'close', 'input'],
+  computed: {
+    modalValue: function modalValue() {
+      return this.modelValue !== undefined ? this.modelValue : this.value;
+    }
+  },
+  methods: {
+    handleModalInput: function handleModalInput(value) {
+      this.$emit('update:modelValue', value);
+      this.$emit('input', value);
+    },
+    handleClose: function handleClose(close) {
+      this.$emit('close');
+      close();
+      this.$emit('update:modelValue', false);
+      this.$emit('input', false);
+    }
+  }
+});
+;// ./resources/js/components/VModal.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_VModalvue_type_script_lang_js = (VModalvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/VModal.vue?vue&type=style&index=0&id=67b4ca0e&prod&lang=scss
+var VModalvue_type_style_index_0_id_67b4ca0e_prod_lang_scss = __webpack_require__(71264);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/VModal.vue?vue&type=style&index=0&id=67b4ca0e&prod&lang=scss
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(VModalvue_type_style_index_0_id_67b4ca0e_prod_lang_scss/* default */.A, options);
+
+
+
+/* harmony default export */ const components_VModalvue_type_style_index_0_id_67b4ca0e_prod_lang_scss = (VModalvue_type_style_index_0_id_67b4ca0e_prod_lang_scss/* default */.A.locals || {});
+;// ./resources/js/components/VModal.vue?vue&type=style&index=0&id=67b4ca0e&prod&lang=scss
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/VModal.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_VModalvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ const VModal = (component.exports);
+
+/***/ }),
+
 /***/ 63811:
 /***/ ((module) => {
 
@@ -60368,7 +60383,7 @@ module.exports = "/images/vendor/flag-icons/flags/1x1/ly.svg?d183738e4b1348ff2f1
 /***/ ((module) => {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"_args":[["axios@0.21.4","C:\\\\Github\\\\Accounting-System"]],"_from":"axios@0.21.4","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"axios@0.21.4","name":"axios","escapedName":"axios","rawSpec":"0.21.4","saveSpec":null,"fetchSpec":"0.21.4"},"_requiredBy":["/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_spec":"0.21.4","_where":"C:\\\\Github\\\\Accounting-System","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
+module.exports = /*#__PURE__*/JSON.parse('{"_from":"axios@^0.21.3","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"axios@^0.21.3","name":"axios","escapedName":"axios","rawSpec":"^0.21.3","saveSpec":null,"fetchSpec":"^0.21.3"},"_requiredBy":["/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_shasum":"c67b90dc0568e5c1cf2b0b858c43ba28e2eda575","_spec":"axios@^0.21.3","_where":"/Users/mohamedselem/Desktop/Accounting-System-new","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundleDependencies":false,"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"deprecated":false,"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
 
 /***/ }),
 
@@ -63305,6 +63320,2528 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/cp.svg?f6b10f55c03f66f7401
 
 /***/ }),
 
+/***/ 68817:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ ClientForm)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientForm.vue?vue&type=template&id=4b47580e&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    "class": {
+      'card-body': _vm.showCardBody
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-user-circle mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Client Details")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "codeNumber"
+    }
+  }, [_vm._v("\n              " + _vm._s(_vm.$t("Client Number")) + "\n            ")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.codeNumber,
+      expression: "form.codeNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('codeNumber')
+    },
+    attrs: {
+      "id": "codeNumber",
+      "type": "text",
+      "name": "codeNumber",
+      "placeholder": _vm.$t('Auto-generated...'),
+      "readonly": "",
+      "aria-readonly": "true"
+    },
+    domProps: {
+      "value": _vm.form.codeNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "codeNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('small', {
+    staticClass: "form-text text-muted"
+  }, [_vm._v("\n              " + _vm._s(_vm.$t("This client number is automatically generated and cannot be changed")) + "\n            ")]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "codeNumber"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t("Client Type")))]), _vm._v(" "), _c('div', {
+    staticClass: "radio-group"
+  }, [_c('label', {
+    staticClass: "radio-inline"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.type,
+      expression: "form.type"
+    }],
+    attrs: {
+      "type": "radio",
+      "value": "Individual"
+    },
+    domProps: {
+      "checked": _vm._q(_vm.form.type, "Individual")
+    },
+    on: {
+      "change": function change($event) {
+        return _vm.$set(_vm.form, "type", "Individual");
+      }
+    }
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Individual")) + "\n              ")]), _vm._v(" "), _c('label', {
+    staticClass: "radio-inline"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.type,
+      expression: "form.type"
+    }],
+    attrs: {
+      "type": "radio",
+      "value": "Company"
+    },
+    domProps: {
+      "checked": _vm._q(_vm.form.type, "Company")
+    },
+    on: {
+      "change": function change($event) {
+        return _vm.$set(_vm.form, "type", "Company");
+      }
+    }
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Business")) + "\n              ")])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "type"
+    }
+  })], 1), _vm._v(" "), _vm.form.type === 'Individual' ? _c('div', [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "fullName"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Full Name")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.fullName,
+      expression: "form.fullName"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('fullName')
+    },
+    attrs: {
+      "id": "fullName",
+      "type": "text",
+      "name": "fullName",
+      "placeholder": _vm.$t('Enter full name')
+    },
+    domProps: {
+      "value": _vm.form.fullName
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "fullName", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "fullName"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "firstName"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("First Name")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.firstName,
+      expression: "form.firstName"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('firstName')
+    },
+    attrs: {
+      "id": "firstName",
+      "type": "text",
+      "name": "firstName",
+      "placeholder": _vm.$t('Enter first name')
+    },
+    domProps: {
+      "value": _vm.form.firstName
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "firstName", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "firstName"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "lastName"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Last Name")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.lastName,
+      expression: "form.lastName"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('lastName')
+    },
+    attrs: {
+      "id": "lastName",
+      "type": "text",
+      "name": "lastName",
+      "placeholder": _vm.$t('Enter last name')
+    },
+    domProps: {
+      "value": _vm.form.lastName
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "lastName", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "lastName"
+    }
+  })], 1)])]) : _vm._e(), _vm._v(" "), _vm.form.type === 'Company' ? _c('div', [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "businessName"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Business Name")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.businessName,
+      expression: "form.businessName"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('businessName')
+    },
+    attrs: {
+      "id": "businessName",
+      "type": "text",
+      "name": "businessName",
+      "placeholder": _vm.$t('Enter business name')
+    },
+    domProps: {
+      "value": _vm.form.businessName
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "businessName", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "businessName"
+    }
+  })], 1)]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "phone"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Telephone")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.phone,
+      expression: "form.phone"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('phone')
+    },
+    attrs: {
+      "id": "phone",
+      "type": "text",
+      "name": "phone",
+      "placeholder": _vm.$t('Enter telephone number')
+    },
+    domProps: {
+      "value": _vm.form.phone
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "phone", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "phone"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('PhoneNumberInput', {
+    attrs: {
+      "label": _vm.$t('Mobile'),
+      "required": true,
+      "country": _vm.form.country,
+      "default-country": _vm.form.country || 'SA'
+    },
+    on: {
+      "validated": _vm.onPhoneValidated
+    },
+    model: {
+      value: _vm.form.phoneNumber,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "phoneNumber", $$v);
+      },
+      expression: "form.phoneNumber"
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "phoneNumber"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "email"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Email")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.email,
+      expression: "form.email"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('email')
+    },
+    attrs: {
+      "id": "email",
+      "type": "email",
+      "name": "email",
+      "placeholder": _vm.$t('Enter your email address')
+    },
+    domProps: {
+      "value": _vm.form.email
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "email", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "email"
+    }
+  })], 1)])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-cog mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Account Details")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "displayLanguage"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Display Language")))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.displayLanguage,
+      expression: "form.displayLanguage"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('displayLanguage')
+    },
+    attrs: {
+      "id": "displayLanguage"
+    },
+    on: {
+      "change": function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "displayLanguage", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": ""
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Select Language")))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "en"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("English")))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "ar"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Arabic")))])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "displayLanguage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "status"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.status,
+      expression: "form.status"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('status')
+    },
+    attrs: {
+      "id": "status"
+    },
+    on: {
+      "change": function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Active")))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "status"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "image"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Profile Image")))]), _vm._v(" "), _c('div', {
+    staticClass: "custom-file"
+  }, [_c('input', {
+    staticClass: "custom-file-input",
+    "class": {
+      'is-invalid': _vm.form.errors.has('image')
+    },
+    attrs: {
+      "id": "image",
+      "type": "file",
+      "name": "image",
+      "accept": "image/*"
+    },
+    on: {
+      "change": _vm.onFileChange
+    }
+  }), _vm._v(" "), _c('label', {
+    staticClass: "custom-file-label",
+    attrs: {
+      "for": "image"
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-image mr-2"
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Choose file")) + "\n              ")])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "image"
+    }
+  }), _vm._v(" "), _vm.url ? _c('div', {
+    staticClass: "image-preview mt-2"
+  }, [_c('img', {
+    staticClass: "img-fluid rounded",
+    staticStyle: {
+      "max-height": "100px"
+    },
+    attrs: {
+      "src": _vm.url,
+      "alt": _vm.$t('Profile Image')
+    }
+  })]) : _vm._e()], 1)])])])]), _vm._v(" "), _vm.form.type === 'Company' ? _c('div', {
+    staticClass: "row mt-4"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-users mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Client Representative Info")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('RepresentativesList', {
+    attrs: {
+      "representatives": _vm.form.representatives || []
+    },
+    on: {
+      "representatives-changed": _vm.handleRepresentativesChanged
+    }
+  })], 1)])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "row mt-4"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-map-marked-alt mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("National Address")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-3"
+  }, [_c('label', {
+    attrs: {
+      "for": "country"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Country")))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.country,
+      expression: "form.country"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('country')
+    },
+    attrs: {
+      "id": "country"
+    },
+    on: {
+      "change": function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "country", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": ""
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Select Country")))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "SA"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Saudi Arabia (SA)")))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "EG"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Egypt (EG)")))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "US"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("United States (US)")))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "GB"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("United Kingdom (GB)")))])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "country"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-3"
+  }, [_c('label', {
+    attrs: {
+      "for": "state"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("State")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.state,
+      expression: "form.state"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('state')
+    },
+    attrs: {
+      "id": "state",
+      "type": "text",
+      "name": "state",
+      "placeholder": _vm.$t('Enter state')
+    },
+    domProps: {
+      "value": _vm.form.state
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "state", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "state"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-3"
+  }, [_c('label', {
+    attrs: {
+      "for": "city"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("City")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.city,
+      expression: "form.city"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('city')
+    },
+    attrs: {
+      "id": "city",
+      "type": "text",
+      "name": "city",
+      "placeholder": _vm.$t('Enter city')
+    },
+    domProps: {
+      "value": _vm.form.city
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "city", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "city"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-3"
+  }, [_c('label', {
+    attrs: {
+      "for": "neighbourhood"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Neighbourhood")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.neighbourhood,
+      expression: "form.neighbourhood"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('neighbourhood')
+    },
+    attrs: {
+      "id": "neighbourhood",
+      "type": "text",
+      "name": "neighbourhood",
+      "placeholder": _vm.$t('Enter neighbourhood')
+    },
+    domProps: {
+      "value": _vm.form.neighbourhood
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "neighbourhood", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "neighbourhood"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "streetAddress1"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Street Address 1")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.streetAddress1,
+      expression: "form.streetAddress1"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('streetAddress1')
+    },
+    attrs: {
+      "id": "streetAddress1",
+      "type": "text",
+      "name": "streetAddress1",
+      "placeholder": _vm.$t('Enter street address')
+    },
+    domProps: {
+      "value": _vm.form.streetAddress1
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "streetAddress1", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "streetAddress1"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "streetAddress2"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Street Address 2")) + " "), _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.streetAddress2,
+      expression: "form.streetAddress2"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('streetAddress2')
+    },
+    attrs: {
+      "id": "streetAddress2",
+      "type": "text",
+      "name": "streetAddress2",
+      "placeholder": _vm.$t('Enter additional address info')
+    },
+    domProps: {
+      "value": _vm.form.streetAddress2
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "streetAddress2", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "streetAddress2"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "postalCode"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Postal Code")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.postalCode,
+      expression: "form.postalCode"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('postalCode')
+    },
+    attrs: {
+      "id": "postalCode",
+      "type": "text",
+      "name": "postalCode",
+      "placeholder": _vm.$t('Enter postal code')
+    },
+    domProps: {
+      "value": _vm.form.postalCode
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "postalCode", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "postalCode"
+    }
+  })], 1), _vm._v(" "), _vm.form.country === 'SA' ? _c('div', {
+    staticClass: "form-group col-md-3"
+  }, [_c('label', {
+    attrs: {
+      "for": "buildingNumber"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Building Number")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.buildingNumber,
+      expression: "form.buildingNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('buildingNumber')
+    },
+    attrs: {
+      "id": "buildingNumber",
+      "type": "text",
+      "name": "buildingNumber",
+      "placeholder": _vm.$t('Enter building number'),
+      "maxlength": "5"
+    },
+    domProps: {
+      "value": _vm.form.buildingNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "buildingNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "buildingNumber"
+    }
+  })], 1) : _vm._e(), _vm._v(" "), _vm.form.country === 'SA' ? _c('div', {
+    staticClass: "form-group col-md-3"
+  }, [_c('label', {
+    attrs: {
+      "for": "streetNumber"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Street Number")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.streetNumber,
+      expression: "form.streetNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('streetNumber')
+    },
+    attrs: {
+      "id": "streetNumber",
+      "type": "text",
+      "name": "streetNumber",
+      "placeholder": _vm.$t('Enter street number'),
+      "maxlength": "5"
+    },
+    domProps: {
+      "value": _vm.form.streetNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "streetNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "streetNumber"
+    }
+  })], 1) : _vm._e()]), _vm._v(" "), _vm.form.country === 'SA' ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-3"
+  }, [_c('label', {
+    attrs: {
+      "for": "districtNumber"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("District Number")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.districtNumber,
+      expression: "form.districtNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('districtNumber')
+    },
+    attrs: {
+      "id": "districtNumber",
+      "type": "text",
+      "name": "districtNumber",
+      "placeholder": _vm.$t('Enter district number'),
+      "maxlength": "5"
+    },
+    domProps: {
+      "value": _vm.form.districtNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "districtNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "districtNumber"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-3"
+  }, [_c('label', {
+    attrs: {
+      "for": "unitNumber"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Unit Number")) + " "), _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.unitNumber,
+      expression: "form.unitNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('unitNumber')
+    },
+    attrs: {
+      "id": "unitNumber",
+      "type": "text",
+      "name": "unitNumber",
+      "placeholder": _vm.$t('Enter unit number'),
+      "maxlength": "5"
+    },
+    domProps: {
+      "value": _vm.form.unitNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "unitNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "unitNumber"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "additionalNumber"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Additional Number")) + " "), _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.additionalNumber,
+      expression: "form.additionalNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('additionalNumber')
+    },
+    attrs: {
+      "id": "additionalNumber",
+      "type": "text",
+      "name": "additionalNumber",
+      "placeholder": _vm.$t('Enter additional number'),
+      "maxlength": "5"
+    },
+    domProps: {
+      "value": _vm.form.additionalNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "additionalNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "additionalNumber"
+    }
+  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.type === 'Company' ? _c('div', {
+    staticClass: "row mt-4"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "commercialRegister"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("CR")) + " "), _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.commercialRegister,
+      expression: "form.commercialRegister"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('commercialRegister')
+    },
+    attrs: {
+      "id": "commercialRegister",
+      "type": "text",
+      "name": "commercialRegister",
+      "placeholder": _vm.$t('Enter commercial register number')
+    },
+    domProps: {
+      "value": _vm.form.commercialRegister
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "commercialRegister", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "commercialRegister"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "taxCard"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Tax ID (Optional)")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.taxCard,
+      expression: "form.taxCard"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('taxCard')
+    },
+    attrs: {
+      "id": "taxCard",
+      "type": "text",
+      "name": "taxCard",
+      "placeholder": _vm.$t('Enter tax ID number')
+    },
+    domProps: {
+      "value": _vm.form.taxCard
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "taxCard", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "taxCard"
+    }
+  })], 1)]) : _vm._e()])])])]), _vm._v(" "), _c('div', {
+    staticClass: "row mt-4"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-info-circle mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Additional Information")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "notes"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Notes")))]), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.notes,
+      expression: "form.notes"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('notes')
+    },
+    attrs: {
+      "id": "notes",
+      "rows": "3",
+      "placeholder": _vm.$t('Enter additional notes')
+    },
+    domProps: {
+      "value": _vm.form.notes
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "notes", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "notes"
+    }
+  })], 1)])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-file-alt mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Documents & Settings")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "attachments"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Attachments")))]), _vm._v(" "), _c('div', {
+    staticClass: "file-upload-area"
+  }, [_c('input', {
+    staticClass: "file-input",
+    "class": {
+      'is-invalid': _vm.form.errors.has('attachments')
+    },
+    attrs: {
+      "id": "attachments",
+      "type": "file",
+      "name": "attachments",
+      "multiple": "",
+      "accept": "image/jpeg,image/png,image/gif"
+    },
+    on: {
+      "change": _vm.onFileChange
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "file-upload-content"
+  }, [_c('i', {
+    staticClass: "fas fa-cloud-upload-alt"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Drop files here or click to browse")))]), _vm._v(" "), _c('small', {
+    staticClass: "text-muted"
+  }, [_vm._v(_vm._s(_vm.$t("Supported formats: JPEG, PNG, GIF")))])])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "attachments"
+    }
+  }), _vm._v(" "), _vm.form.attachments && _vm.form.attachments.length > 0 ? _c('div', {
+    staticClass: "selected-files mt-2"
+  }, _vm._l(_vm.form.attachments, function (file, index) {
+    return _c('div', {
+      key: index,
+      staticClass: "selected-file-item"
+    }, [_c('i', {
+      staticClass: "fas fa-file mr-2"
+    }), _vm._v(" "), _c('span', [_vm._v(_vm._s(file.name))]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-sm btn-outline-danger ml-2",
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.removeFile(index);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-times"
+    })])]);
+  }), 0) : _vm._e()], 1)])])])]), _vm._v(" "), _vm.routingSetting && _vm.routingSetting.routing_type !== 'automatic' ? _c('div', {
+    staticClass: "row mt-4"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-chart-line mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Chart of Account")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_vm.routingSetting ? _c('div', {
+    staticClass: "alert alert-info"
+  }, [_c('i', {
+    staticClass: "fas fa-info-circle mr-2"
+  }), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Current Routing Type")) + ":")]), _vm._v(" " + _vm._s(_vm.routingSetting.routing_type_display) + "\n         ")]) : _vm._e()])])])]) : _vm._e(), _vm._v(" "), _vm.routingSetting && _vm.routingSetting.routing_type === 'automatic' ? _c('div', {
+    staticClass: "row mt-4",
+    staticStyle: {
+      "display": "none"
+    }
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-chart-line mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Chart of Account")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "alert alert-success"
+  }, [_c('i', {
+    staticClass: "fas fa-check-circle mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Chart of account will be automatically assigned based on your accounting configuration.")) + "\n          ")])])])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "row mt-4"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-bell mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Communication Preferences")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('div', {
+    staticClass: "d-flex align-items-center"
+  }, [_c('toggle-button', {
+    attrs: {
+      "disabled": _vm.isDemoMode || _vm.communicationConfig.loading || !_vm.communicationConfig.email_configured
+    },
+    model: {
+      value: _vm.form.isSendEmail,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "isSendEmail", $$v);
+      },
+      expression: "form.isSendEmail"
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "ml-3"
+  }, [_vm._v(_vm._s(_vm.$t("Send Welcome Email")))]), _vm._v(" "), !_vm.communicationConfig.loading && !_vm.communicationConfig.email_configured ? _c('span', {
+    staticClass: "ml-2 text-muted small"
+  }, [_vm._v("\n              (" + _vm._s(_vm.$t("Email not configured")) + ")\n            ")]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('div', {
+    staticClass: "d-flex align-items-center"
+  }, [_c('toggle-button', {
+    attrs: {
+      "disabled": _vm.isDemoMode || _vm.communicationConfig.loading || !_vm.communicationConfig.sms_configured
+    },
+    model: {
+      value: _vm.form.isSendSMS,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "isSendSMS", $$v);
+      },
+      expression: "form.isSendSMS"
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "ml-3"
+  }, [_vm._v(_vm._s(_vm.$t("Send Welcome SMS")))]), _vm._v(" "), !_vm.communicationConfig.loading && !_vm.communicationConfig.sms_configured ? _c('span', {
+    staticClass: "ml-2 text-muted small"
+  }, [_vm._v("\n              (" + _vm._s(_vm.$t("SMS not configured")) + ")\n            ")]) : _vm._e()], 1)])])])])])])]);
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "col-md-12"
+  }, [_c('hr', {
+    staticStyle: {
+      "margin": "20px 0",
+      "border-color": "#e0e0e0"
+    }
+  })]);
+}];
+
+;// ./resources/js/components/ClientForm.vue?vue&type=template&id=4b47580e&scoped=true
+
+// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
+var vform_es = __webpack_require__(63216);
+// EXTERNAL MODULE: ./node_modules/vue-js-toggle-button/dist/index.js
+var dist = __webpack_require__(12616);
+// EXTERNAL MODULE: ./resources/js/components/RepresentativesList.vue + 11 modules
+var RepresentativesList = __webpack_require__(89812);
+// EXTERNAL MODULE: ./resources/js/components/PhoneNumberInput.vue + 5 modules
+var PhoneNumberInput = __webpack_require__(71866);
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientForm.vue?vue&type=script&lang=js
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+
+
+
+
+
+/* harmony default export */ const ClientFormvue_type_script_lang_js = ({
+  name: "ClientForm",
+  components: {
+    ToggleButton: dist.ToggleButton,
+    RepresentativesList: RepresentativesList/* default */.A,
+    PhoneNumberInput: PhoneNumberInput/* default */.A
+  },
+  props: {
+    // Whether to show the card-body wrapper (for create page) or not (for modal)
+    showCardBody: {
+      type: Boolean,
+      "default": true
+    },
+    // Initial form data (optional)
+    initialData: {
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
+    }
+  },
+  data: function data() {
+    return {
+      isDemoMode: window.config.isDemoMode,
+      loading: true,
+      url: null,
+      form: null,
+      // Will be initialized in created()
+
+      // Add missing properties
+      routingSetting: null,
+      loadingChartOfAccounts: false,
+      chartOfAccountsError: null,
+      chartOfAccounts: [],
+      isCreatingAccount: false,
+      // Communication configuration status
+      communicationConfig: {
+        email_configured: false,
+        sms_configured: false,
+        loading: true
+      },
+      // Phone number validation
+      phoneNumberValid: false
+    };
+  },
+  watch: {
+    // Watch for changes in initialData prop
+    initialData: {
+      handler: function handler(newData) {
+        var _this = this;
+        console.log('=== INITIAL DATA WATCHER TRIGGERED ===');
+        console.log('New data:', newData);
+        console.log('Form exists:', !!this.form);
+        if (newData && Object.keys(newData).length > 0) {
+          // Set form values from initial data
+          Object.keys(newData).forEach(function (key) {
+            if (Object.prototype.hasOwnProperty.call(_this.form, key)) {
+              console.log("Setting form.".concat(key, " = ").concat(newData[key]));
+              _this.form[key] = newData[key];
+            } else {
+              console.log("Form does not have property: ".concat(key));
+            }
+          });
+
+          // Handle special cases
+          if (newData.image_path) {
+            this.url = newData.image_path;
+          }
+          if (newData.attachments) {
+            this.form.attachments = Array.isArray(newData.attachments) ? newData.attachments : [];
+          }
+          console.log('Form initialized with data:', newData);
+          console.log('Form after initialization:', this.form);
+
+          // Load representatives if this is an existing client
+          if (newData.slug && newData.slug !== 'new') {
+            console.log('=== WILL LOAD REPRESENTATIVES ===');
+            console.log('Will load representatives for slug:', newData.slug);
+            console.log('Slug type:', _typeof(newData.slug));
+            console.log('Slug value:', newData.slug);
+            console.log('Full newData:', newData);
+            // Add a small delay to ensure form is fully initialized
+            setTimeout(function () {
+              console.log('Calling loadRepresentatives after timeout');
+              _this.loadRepresentatives();
+            }, 100);
+          } else {
+            console.log('=== NOT LOADING REPRESENTATIVES ===');
+            console.log('NOT loading representatives because:');
+            console.log('- newData.slug exists:', !!newData.slug);
+            console.log('- newData.slug value:', newData.slug);
+            console.log('- newData.slug !== new:', newData.slug !== 'new');
+            console.log('Full newData:', newData);
+
+            // Only load next code number for truly new clients (not when editing)
+            if (!newData.slug || newData.slug === 'new') {
+              console.log('Loading next code number for new client');
+              this.loadNextCodeNumber();
+            } else {
+              console.log('Skipping next code number load - this appears to be an edit operation');
+            }
+          }
+        }
+      },
+      immediate: true,
+      deep: true
+    },
+    // Watch for changes in phoneNumber field
+    'form.phoneNumber': {
+      handler: function handler(newValue, oldValue) {
+        console.log('Phone number changed:', {
+          old: oldValue,
+          "new": newValue
+        });
+      },
+      immediate: true
+    },
+    // Watch for changes in representatives field
+    'form.representatives': {
+      handler: function handler(newValue, oldValue) {
+        console.log('Representatives changed:', {
+          old: oldValue,
+          "new": newValue
+        });
+        console.log('New representatives length:', newValue ? newValue.length : 'undefined');
+      },
+      immediate: true
+    },
+    // Watch for routing settings changes
+    routingSetting: {
+      handler: function handler(newValue, oldValue) {
+        if (newValue && newValue.routing_type !== (oldValue === null || oldValue === void 0 ? void 0 : oldValue.routing_type)) {
+          console.log('Routing type changed, reloading chart of accounts');
+          this.loadChartOfAccounts();
+        }
+      },
+      deep: true
+    }
+  },
+  computed: {
+    // Check if this is a new client
+    isNewClient: function isNewClient() {
+      return !this.initialData || Object.keys(this.initialData).length === 0 || this.initialData.slug && this.initialData.slug === 'new';
+    }
+  },
+  created: function created() {
+    console.log('ClientForm component created');
+    this.initializeForm();
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+    console.log('ClientForm component mounted, form:', this.form);
+    console.log('Initial data in mounted:', this.initialData);
+    // Don't call loadRepresentatives here - let the watcher handle it
+
+    // Load next code number for new clients
+    this.loadNextCodeNumber();
+
+    // Load communication configuration status
+    this.loadCommunicationConfigStatus();
+
+    // Load routing settings first, then chart of accounts
+    this.loadRoutingSettings().then(function () {
+      console.log('Routing settings loaded, now loading chart of accounts...');
+      _this2.loadChartOfAccounts().then(function () {
+        console.log('Chart of accounts loading completed. Total accounts:', _this2.chartOfAccounts.length);
+        console.log('Chart of accounts data:', _this2.chartOfAccounts);
+      });
+    })["catch"](function (error) {
+      console.error('Error in mounted lifecycle:', error);
+    });
+  },
+  methods: {
+    // Initialize the form
+    initializeForm: function initializeForm() {
+      console.log('=== INITIALIZING FORM ===');
+      console.log('Initial data:', this.initialData);
+      this.form = new vform_es/* default */.Ay(_objectSpread({
+        // Account Details
+        codeNumber: "",
+        // Will be loaded from API
+        notes: "",
+        displayLanguage: "",
+        // Client Details
+        type: "Company",
+        fullName: "",
+        businessName: "",
+        firstName: "",
+        lastName: "",
+        phone: "",
+        phoneNumber: "",
+        email: "",
+        streetAddress1: "",
+        streetAddress2: "",
+        city: "",
+        state: "",
+        postalCode: "",
+        country: "SA",
+        neighbourhood: "",
+        commercialRegister: "",
+        taxCard: "",
+        // Saudi National Address Fields
+        buildingNumber: "",
+        streetNumber: "",
+        districtNumber: "",
+        unitNumber: "",
+        additionalNumber: "",
+        // Additional Fields
+        image: "",
+        attachments: [],
+        status: 1,
+        isSendEmail: false,
+        isSendSMS: false,
+        // Legacy fields for backward compatibility
+        name: "",
+        companyName: "",
+        taxRegistrationNumber: "",
+        address: "",
+        // Representatives
+        representatives: [],
+        // Chart of Account
+        chartOfAccountId: null
+      }, this.initialData || {}));
+      console.log('Form initialized:', this.form);
+      console.log('Form type:', _typeof(this.form));
+      console.log('Form methods:', Object.getOwnPropertyNames(this.form));
+    },
+    // Load the next available code number for new clients
+    loadNextCodeNumber: function loadNextCodeNumber() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var response, _error$response, _t;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.p = _context.n) {
+            case 0:
+              if (!(_this3.initialData && _this3.initialData.slug && _this3.initialData.slug !== 'new')) {
+                _context.n = 1;
+                break;
+              }
+              console.log('Skipping next code number load - editing existing client');
+              return _context.a(2);
+            case 1:
+              _context.p = 1;
+              console.log('=== LOADING NEXT CODE NUMBER ===');
+              console.log('Current form codeNumber before API call:', _this3.form.codeNumber);
+              _context.n = 2;
+              return axios_default().get('/clients/next-code');
+            case 2:
+              response = _context.v;
+              console.log('Next code API response:', response.data);
+
+              // Check if we have formatted_code in the response (successful response)
+              if (response.data && response.data.formatted_code) {
+                _this3.form.codeNumber = response.data.formatted_code;
+                console.log('Code number successfully loaded:', _this3.form.codeNumber);
+                console.log('Debug info from API:', response.data.debug);
+              } else if (response.data && response.data.success === false) {
+                console.error('API returned error:', response.data.message);
+                // Fallback to a default code for first client
+                _this3.form.codeNumber = 'AC001';
+                console.log('Using fallback code number:', _this3.form.codeNumber);
+              } else {
+                // Response structure might be different, try to extract formatted_code
+                if (response.data && response.data.formatted_code) {
+                  _this3.form.codeNumber = response.data.formatted_code;
+                } else {
+                  // Last resort fallback
+                  _this3.form.codeNumber = 'AC001';
+                  console.log('Using default fallback code number:', _this3.form.codeNumber);
+                }
+              }
+              _context.n = 4;
+              break;
+            case 3:
+              _context.p = 3;
+              _t = _context.v;
+              console.error('Error loading next code number:', _t);
+              console.error('Error details:', ((_error$response = _t.response) === null || _error$response === void 0 ? void 0 : _error$response.data) || _t.message);
+              // Fallback to a default code instead of 'Loading...'
+              // This ensures the form doesn't get stuck in loading state
+              _this3.form.codeNumber = 'AC001';
+              console.log('Using fallback code number due to error:', _this3.form.codeNumber);
+            case 4:
+              return _context.a(2);
+          }
+        }, _callee, null, [[1, 3]]);
+      }))();
+    },
+    // Load communication configuration status
+    loadCommunicationConfigStatus: function loadCommunicationConfigStatus() {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var response, _t2;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.p = _context2.n) {
+            case 0:
+              _context2.p = 0;
+              console.log('=== LOADING COMMUNICATION CONFIG STATUS ===');
+              _this4.communicationConfig.loading = true;
+              _context2.n = 1;
+              return axios_default().get('/api/communication-config-status');
+            case 1:
+              response = _context2.v;
+              console.log('Communication config response:', response.data);
+              _this4.communicationConfig.email_configured = response.data.email_configured;
+              _this4.communicationConfig.sms_configured = response.data.sms_configured;
+              _this4.communicationConfig.loading = false;
+              console.log('Communication config loaded:', _this4.communicationConfig);
+              _context2.n = 3;
+              break;
+            case 2:
+              _context2.p = 2;
+              _t2 = _context2.v;
+              console.error('Error loading communication config status:', _t2);
+              // Default to false if there's an error
+              _this4.communicationConfig.email_configured = false;
+              _this4.communicationConfig.sms_configured = false;
+              _this4.communicationConfig.loading = false;
+            case 3:
+              return _context2.a(2);
+          }
+        }, _callee2, null, [[0, 2]]);
+      }))();
+    },
+    // vue file upload
+    onFileChange: function onFileChange(e) {
+      var _this5 = this;
+      var files = Array.from(e.target.files);
+      var validFiles = [];
+      files.forEach(function (file) {
+        // Check file size (2MB limit)
+        if (file.size < 2111775) {
+          // For image, only allow image files
+          if (e.target.id === 'image') {
+            if (file.type.startsWith('image/')) {
+              validFiles.push(file);
+            } else {
+              _this5.$toast.error(_this5.$t("Error!"), _this5.$t("Please select a valid image file"));
+            }
+          } else {
+            // For attachments, only allow images to match backend validation
+            var allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            if (allowedTypes.includes(file.type)) {
+              validFiles.push(file);
+            } else {
+              _this5.$toast.error(_this5.$t("Error!"), _this5.$t("Only JPEG, PNG, and GIF files are allowed."));
+            }
+          }
+        } else {
+          _this5.$toast.error(_this5.$t("Error!"), _this5.$t("Please select a file with size less than 2 MB"));
+        }
+      });
+      if (validFiles.length > 0) {
+        // Check if this is for image or attachments
+        if (e.target.id === 'image') {
+          // Single image file
+          this.form.image = validFiles[0];
+          this.url = URL.createObjectURL(validFiles[0]);
+        } else {
+          // Multiple attachment files
+          this.form.attachments = [].concat(_toConsumableArray(this.form.attachments), validFiles);
+        }
+      }
+    },
+    // Remove a file from attachments
+    removeFile: function removeFile(index) {
+      this.form.attachments.splice(index, 1);
+    },
+    // Reset form to default values
+    resetForm: function resetForm() {
+      this.form.reset();
+
+      // Reset to default values for specific fields
+      this.form.type = "Company";
+      this.form.status = 1;
+      this.form.country = "SA";
+      this.form.isSendEmail = false;
+      this.form.isSendSMS = false;
+
+      // Load the next available code number
+      this.loadNextCodeNumber();
+
+      // Clear all other fields
+      this.form.notes = "";
+      this.form.displayLanguage = "";
+      this.form.fullName = "";
+      this.form.businessName = "";
+      this.form.firstName = "";
+      this.form.lastName = "";
+      this.form.phone = "";
+      this.form.phoneNumber = "";
+      this.form.email = "";
+      this.form.streetAddress1 = "";
+      this.form.streetAddress2 = "";
+      this.form.city = "";
+      this.form.state = "";
+      this.form.postalCode = "";
+      this.form.neighbourhood = "";
+      this.form.commercialRegister = "";
+      this.form.taxCard = "";
+      // Clear Saudi National Address Fields
+      this.form.buildingNumber = "";
+      this.form.streetNumber = "";
+      this.form.districtNumber = "";
+      this.form.unitNumber = "";
+      this.form.additionalNumber = "";
+      this.form.attachments = []; // Clear attachments
+      this.form.image = null; // Clear image
+      this.form.chartOfAccountId = null; // Clear chart of account
+
+      // Clear image preview
+      this.url = null;
+
+      // Clear validation errors
+      this.form.errors.clear();
+
+      // Reset phone number validation
+      this.phoneNumberValid = false;
+    },
+    // Get form data for parent component
+    getFormData: function getFormData() {
+      return this.form;
+    },
+    // Validate form
+    validateForm: function validateForm() {
+      var _this6 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var autoCreatedAccount;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.n) {
+            case 0:
+              console.log('=== VALIDATING FORM ===');
+              console.log('Form object:', _this6.form);
+              console.log('Form type:', _this6.form ? _this6.form.type : 'No form');
+              console.log('Form phoneNumber:', _this6.form ? _this6.form.phoneNumber : 'No form');
+              console.log('Form businessName:', _this6.form ? _this6.form.businessName : 'No form');
+              console.log('Form fullName:', _this6.form ? _this6.form.fullName : 'No form');
+
+              // Basic validation - check if form exists
+              if (_this6.form) {
+                _context3.n = 1;
+                break;
+              }
+              console.error('Form is not initialized');
+              return _context3.a(2, false);
+            case 1:
+              if (!(!_this6.form.phoneNumber || _this6.form.phoneNumber.trim() === '')) {
+                _context3.n = 2;
+                break;
+              }
+              console.log('Phone number validation failed - phoneNumber:', _this6.form.phoneNumber);
+              if (window.toast && typeof window.toast.fire === 'function') {
+                window.toast.fire({
+                  type: "error",
+                  title: _this6.$t("Mobile number is required")
+                });
+              } else {
+                alert(_this6.$t("Mobile number is required"));
+              }
+              return _context3.a(2, false);
+            case 2:
+              if (_this6.phoneNumberValid) {
+                _context3.n = 3;
+                break;
+              }
+              console.log('Phone number validation failed - phoneNumberValid:', _this6.phoneNumberValid);
+              if (window.toast && typeof window.toast.fire === 'function') {
+                window.toast.fire({
+                  type: "error",
+                  title: _this6.$t("Invalid phone number format")
+                });
+              } else {
+                alert(_this6.$t("Invalid phone number format"));
+              }
+              return _context3.a(2, false);
+            case 3:
+              if (!(_this6.form.type === 'Company' && (!_this6.form.businessName || _this6.form.businessName.trim() === ''))) {
+                _context3.n = 4;
+                break;
+              }
+              console.log('Business name validation failed - businessName:', _this6.form.businessName);
+              if (window.toast && typeof window.toast.fire === 'function') {
+                window.toast.fire({
+                  type: "error",
+                  title: _this6.$t("Business name is required for company clients")
+                });
+              } else {
+                alert(_this6.$t("Business name is required for company clients"));
+              }
+              return _context3.a(2, false);
+            case 4:
+              if (!(_this6.form.type === 'Individual' && (!_this6.form.fullName || _this6.form.fullName.trim() === ''))) {
+                _context3.n = 5;
+                break;
+              }
+              console.log('Full name validation failed - fullName:', _this6.form.fullName);
+              if (window.toast && typeof window.toast.fire === 'function') {
+                window.toast.fire({
+                  type: "error",
+                  title: _this6.$t("Full name is required for individual clients")
+                });
+              } else {
+                alert(_this6.$t("Full name is required for individual clients"));
+              }
+              return _context3.a(2, false);
+            case 5:
+              if (!(_this6.isNewClient && _this6.routingSetting && _this6.routingSetting.routing_type !== 'automatic')) {
+                _context3.n = 7;
+                break;
+              }
+              if (_this6.form.chartOfAccountId) {
+                _context3.n = 7;
+                break;
+              }
+              _context3.n = 6;
+              return _this6.autoCreateChartOfAccountForNewClient();
+            case 6:
+              autoCreatedAccount = _context3.v;
+              if (autoCreatedAccount) {
+                // Show info message about auto-creation
+                if (window.toast && typeof window.toast.fire === 'function') {
+                  window.toast.fire({
+                    type: 'info',
+                    title: _this6.$t('Chart of account automatically created for new client'),
+                    text: _this6.$t('Account will be properly created when you save the client.')
+                  });
+                }
+              }
+            case 7:
+              return _context3.a(2, true);
+          }
+        }, _callee3);
+      }))();
+    },
+    // Load representatives for existing client
+    loadRepresentatives: function loadRepresentatives() {
+      var _this7 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+        var slug, apiUrl, response, _t3;
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.p = _context4.n) {
+            case 0:
+              // Try to get slug from route params first, then from initialData
+              slug = _this7.$route.params.slug || _this7.initialData && _this7.initialData.slug;
+              console.log('=== LOADING REPRESENTATIVES ===');
+              console.log('Loading representatives for client:', slug);
+              console.log('Route params:', _this7.$route.params);
+              console.log('Initial data:', _this7.initialData);
+              console.log('Form type:', _this7.form.type);
+              console.log('Form representatives before load:', _this7.form.representatives);
+              if (!(slug && slug !== 'new')) {
+                _context4.n = 5;
+                break;
+              }
+              _context4.p = 1;
+              apiUrl = "/api/client/".concat(slug, "/representatives");
+              console.log('Making API call to:', apiUrl);
+              _context4.n = 2;
+              return _this7.$http.get(apiUrl);
+            case 2:
+              response = _context4.v;
+              console.log('Representatives API response received');
+              console.log('Response status:', response.status);
+              console.log('Response data:', response.data);
+              console.log('Response success:', response.data.success);
+              console.log('Response data.data:', response.data.data);
+              if (response.data.success) {
+                _this7.form.representatives = response.data.data;
+                console.log('Representatives loaded into form:', _this7.form.representatives);
+                console.log('Form representatives after load:', _this7.form.representatives);
+                console.log('Representatives count after load:', _this7.form.representatives.length);
+              } else {
+                console.log('API response indicates failure:', response.data);
+              }
+              _context4.n = 4;
+              break;
+            case 3:
+              _context4.p = 3;
+              _t3 = _context4.v;
+              console.error('=== ERROR LOADING REPRESENTATIVES ===');
+              console.error('Error:', _t3);
+              console.error('Error message:', _t3.message);
+              console.error('Error response:', _t3.response);
+              if (_t3.response) {
+                console.error('Error status:', _t3.response.status);
+                console.error('Error data:', _t3.response.data);
+              }
+            case 4:
+              _context4.n = 6;
+              break;
+            case 5:
+              console.log('No slug or new client, skipping representatives load');
+              console.log('Slug value:', slug);
+              console.log('Is new client:', slug === 'new');
+            case 6:
+              console.log('=== END LOADING REPRESENTATIVES ===');
+            case 7:
+              return _context4.a(2);
+          }
+        }, _callee4, null, [[1, 3]]);
+      }))();
+    },
+    // Handle when representatives are changed (added, edited, deleted)
+    handleRepresentativesChanged: function handleRepresentativesChanged(representatives) {
+      this.form.representatives = representatives;
+    },
+    // Handle phone number validation
+    onPhoneValidated: function onPhoneValidated(isValid) {
+      this.phoneNumberValid = isValid;
+      if (!isValid && this.form.phoneNumber) {
+        // Clear the error if validation passes
+        if (this.form.errors.has('phoneNumber') && this.form.errors.get('phoneNumber') === this.$t('phone_invalid')) {
+          this.form.errors.clear('phoneNumber');
+        }
+      }
+    },
+    // Load routing settings
+    loadRoutingSettings: function loadRoutingSettings() {
+      var _this8 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+        var response, _t4;
+        return _regenerator().w(function (_context5) {
+          while (1) switch (_context5.p = _context5.n) {
+            case 0:
+              _context5.p = 0;
+              console.log('Loading routing settings...');
+              // Get the specific clients_account routing setting
+              _context5.n = 1;
+              return _this8.$http.get('/api/account-routing-settings');
+            case 1:
+              response = _context5.v;
+              console.log('Routing settings response:', response);
+              if (response.data && response.data.success) {
+                console.log('Routing settings data:', response.data.data);
+                // Find the clients_account setting
+                _this8.routingSetting = response.data.data.find(function (setting) {
+                  return setting.setting_key === 'clients_account';
+                });
+                console.log('Found clients_account setting:', _this8.routingSetting);
+                if (_this8.routingSetting) {
+                  // Add routing type display name
+                  _this8.routingSetting.routing_type_display = _this8.getRoutingTypeDisplayName(_this8.routingSetting.routing_type);
+                  console.log('Routing setting with display name:', _this8.routingSetting);
+                } else {
+                  console.log('No clients_account setting found in:', response.data.data);
+                  // Set a default routing setting if none found
+                  _this8.routingSetting = {
+                    routing_type: 'per_each',
+                    routing_type_display: 'Specify Per Each',
+                    main_account_id: null
+                  };
+                  console.log('Using default routing setting:', _this8.routingSetting);
+                }
+              } else {
+                console.log('Routing settings response not successful:', response.data);
+                // Set a default routing setting if API fails
+                _this8.routingSetting = {
+                  routing_type: 'per_each',
+                  routing_type_display: 'Specify Per Each',
+                  main_account_id: null
+                };
+                console.log('Using default routing setting due to API failure:', _this8.routingSetting);
+              }
+              _context5.n = 3;
+              break;
+            case 2:
+              _context5.p = 2;
+              _t4 = _context5.v;
+              console.error('Error loading routing settings:', _t4);
+              // Set a default routing setting if error occurs
+              _this8.routingSetting = {
+                routing_type: 'per_each',
+                routing_type_display: 'Specify Per Each',
+                main_account_id: null
+              };
+              console.log('Using default routing setting due to error:', _this8.routingSetting);
+            case 3:
+              return _context5.a(2);
+          }
+        }, _callee5, null, [[0, 2]]);
+      }))();
+    },
+    // Get routing type display name
+    getRoutingTypeDisplayName: function getRoutingTypeDisplayName(routingType) {
+      switch (routingType) {
+        case 'automatic':
+          return this.$t('Automatic Account Routing');
+        case 'per_each':
+          return this.$t('Specify Per Each');
+        case 'main_account_per_each':
+          return this.$t('Specify Main Account Per Each');
+        case 'cancel':
+          return this.$t('Cancel Account Routing');
+        default:
+          return this.$t('Unknown');
+      }
+    },
+    // Load chart of accounts with search functionality
+    loadChartOfAccounts: function loadChartOfAccounts() {
+      var _this9 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+        var response, fallbackResponse, _response, altResponse, _t5, _t6, _t7;
+        return _regenerator().w(function (_context6) {
+          while (1) switch (_context6.p = _context6.n) {
+            case 0:
+              _context6.p = 0;
+              console.log('Loading chart of accounts...');
+              console.log('Current routing setting:', _this9.routingSetting);
+              _this9.loadingChartOfAccounts = true;
+              _this9.chartOfAccountsError = null;
+
+              // If routing is automatic, we don't need to load all accounts
+              if (!(_this9.routingSetting && _this9.routingSetting.routing_type === 'automatic')) {
+                _context6.n = 1;
+                break;
+              }
+              console.log('Routing type is automatic, not loading chart of accounts');
+              _this9.chartOfAccounts = [];
+              return _context6.a(2);
+            case 1:
+              if (!(_this9.routingSetting && _this9.routingSetting.main_account_id)) {
+                _context6.n = 9;
+                break;
+              }
+              console.log('Loading accounts from routing setup...');
+              _context6.p = 2;
+              _context6.n = 3;
+              return _this9.$http.get("/api/account-routing-settings/".concat(_this9.routingSetting.setting_key, "/accounts"));
+            case 3:
+              response = _context6.v;
+              console.log('Routing accounts response:', response);
+              if (!(response.data && response.data.success)) {
+                _context6.n = 4;
+                break;
+              }
+              _this9.chartOfAccounts = response.data.accounts || [];
+              console.log('Loaded accounts from routing setup:', _this9.chartOfAccounts.length);
+              _context6.n = 5;
+              break;
+            case 4:
+              throw new Error('Routing accounts response not successful');
+            case 5:
+              _context6.n = 8;
+              break;
+            case 6:
+              _context6.p = 6;
+              _t5 = _context6.v;
+              console.log('Routing accounts failed, falling back to all accounts:', _t5);
+              // Fallback to all accounts
+              _context6.n = 7;
+              return _this9.$http.get('/api/chart-of-accounts/all');
+            case 7:
+              fallbackResponse = _context6.v;
+              _this9.chartOfAccounts = fallbackResponse.data.data || fallbackResponse.data || [];
+              console.log('Loaded fallback accounts:', _this9.chartOfAccounts.length);
+            case 8:
+              _context6.n = 11;
+              break;
+            case 9:
+              console.log('No main account ID, loading all accounts as fallback');
+              // Load all active accounts as fallback
+              _context6.n = 10;
+              return _this9.$http.get('/api/chart-of-accounts/all');
+            case 10:
+              _response = _context6.v;
+              // The getAll endpoint returns a resource collection, so data is directly in response.data
+              _this9.chartOfAccounts = _response.data.data || _response.data || [];
+              console.log('Loaded all accounts as fallback:', _this9.chartOfAccounts.length);
+            case 11:
+              if (!(_this9.chartOfAccounts.length === 0)) {
+                _context6.n = 15;
+                break;
+              }
+              console.log('No accounts loaded, trying alternative endpoint...');
+              _context6.p = 12;
+              _context6.n = 13;
+              return _this9.$http.get('/api/chart-of-accounts/dropdown');
+            case 13:
+              altResponse = _context6.v;
+              _this9.chartOfAccounts = altResponse.data.data || altResponse.data || [];
+              console.log('Loaded accounts from dropdown endpoint:', _this9.chartOfAccounts.length);
+              _context6.n = 15;
+              break;
+            case 14:
+              _context6.p = 14;
+              _t6 = _context6.v;
+              console.error('Alternative endpoint also failed:', _t6);
+              // Set a minimal fallback to prevent empty dropdown
+              _this9.chartOfAccounts = [{
+                id: 'placeholder',
+                name: 'No accounts available - Please configure chart of accounts',
+                code: 'N/A',
+                type: 'Error'
+              }];
+              _this9.chartOfAccountsError = 'No chart of accounts available. Please check your configuration.';
+            case 15:
+              _context6.n = 17;
+              break;
+            case 16:
+              _context6.p = 16;
+              _t7 = _context6.v;
+              console.error('Error loading chart of accounts:', _t7);
+              _this9.chartOfAccountsError = _t7.message || 'Failed to load chart of accounts';
+            case 17:
+              _context6.p = 17;
+              _this9.loadingChartOfAccounts = false;
+              return _context6.f(17);
+            case 18:
+              return _context6.a(2);
+          }
+        }, _callee6, null, [[12, 14], [2, 6], [0, 16, 17, 18]]);
+      }))();
+    },
+    // Search chart of accounts (for v-select search)
+    searchChartOfAccounts: function searchChartOfAccounts(search) {
+      var _this0 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+        var filtered, response, apiData, fallbackFiltered, _t8;
+        return _regenerator().w(function (_context7) {
+          while (1) switch (_context7.p = _context7.n) {
+            case 0:
+              console.log('Searching for:', search);
+              if (!(!search || search.length < 2)) {
+                _context7.n = 1;
+                break;
+              }
+              console.log('Search too short, returning first 50 accounts');
+              return _context7.a(2, _this0.chartOfAccounts.slice(0, 50));
+            case 1:
+              _context7.p = 1;
+              // Filter locally first for better performance
+              filtered = _this0.chartOfAccounts.filter(function (account) {
+                return account.name.toLowerCase().includes(search.toLowerCase()) || account.code.toLowerCase().includes(search.toLowerCase());
+              });
+              console.log('Local filtered results:', filtered.length);
+
+              // If we have enough results locally, return them
+              if (!(filtered.length >= 10)) {
+                _context7.n = 2;
+                break;
+              }
+              console.log('Enough local results, returning filtered');
+              return _context7.a(2, filtered.slice(0, 50));
+            case 2:
+              // Otherwise, search from API
+              console.log('Searching from API...');
+              _context7.n = 3;
+              return _this0.$http.get('/api/chart-of-accounts/search', {
+                params: {
+                  term: search
+                }
+              });
+            case 3:
+              response = _context7.v;
+              console.log('API search response:', response);
+              if (!(response.data && (response.data.data || response.data))) {
+                _context7.n = 4;
+                break;
+              }
+              console.log('API returned data, returning results');
+              apiData = response.data.data || response.data;
+              return _context7.a(2, apiData.slice(0, 50));
+            case 4:
+              console.log('No API data, returning local filtered');
+              return _context7.a(2, filtered);
+            case 5:
+              _context7.n = 7;
+              break;
+            case 6:
+              _context7.p = 6;
+              _t8 = _context7.v;
+              console.error('Error searching chart of accounts:', _t8);
+              // Fallback to local filtering
+              fallbackFiltered = _this0.chartOfAccounts.filter(function (account) {
+                return account.name.toLowerCase().includes(search.toLowerCase()) || account.code.toLowerCase().includes(search.toLowerCase());
+              });
+              console.log('Fallback filtered results:', fallbackFiltered.length);
+              return _context7.a(2, fallbackFiltered.slice(0, 50));
+            case 7:
+              return _context7.a(2);
+          }
+        }, _callee7, null, [[1, 6]]);
+      }))();
+    },
+    // Auto-create chart of account for new client
+    autoCreateChartOfAccountForNewClient: function autoCreateChartOfAccountForNewClient() {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
+        var _t9;
+        return _regenerator().w(function (_context8) {
+          while (1) switch (_context8.p = _context8.n) {
+            case 0:
+              _context8.p = 0;
+              // This method would implement the logic to automatically create a chart of account
+              // For now, we'll return null to indicate no auto-creation
+              console.log('Auto-create chart of account method called');
+              return _context8.a(2, null);
+            case 1:
+              _context8.p = 1;
+              _t9 = _context8.v;
+              console.error('Error auto-creating chart of account:', _t9);
+              return _context8.a(2, null);
+          }
+        }, _callee8, null, [[0, 1]]);
+      }))();
+    },
+    // Submit form
+    submitForm: function submitForm() {
+      var _this1 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
+        var isValid, submitData, _t0;
+        return _regenerator().w(function (_context9) {
+          while (1) switch (_context9.p = _context9.n) {
+            case 0:
+              console.log('=== CLIENTFORM SUBMITFORM CALLED ===');
+              console.log('Form object:', _this1.form);
+              console.log('Form type:', _typeof(_this1.form));
+              console.log('Form data method:', _this1.form ? _typeof(_this1.form.data) : 'No form');
+              console.log('isNewClient:', _this1.isNewClient);
+              console.log('initialData:', _this1.initialData);
+              if (_this1.form) {
+                _context9.n = 1;
+                break;
+              }
+              console.error('Form is not initialized!');
+              if (window.toast && typeof window.toast.fire === 'function') {
+                window.toast.fire({
+                  type: "error",
+                  title: _this1.$t("Form is not ready"),
+                  text: _this1.$t("Please wait a moment and try again.")
+                });
+              } else {
+                alert(_this1.$t("Form is not ready. Please wait a moment and try again."));
+              }
+              return _context9.a(2);
+            case 1:
+              if (!(!_this1.form.data || typeof _this1.form.data !== 'function')) {
+                _context9.n = 2;
+                break;
+              }
+              console.error('Form data method is not available!');
+              if (window.toast && typeof window.toast.fire === 'function') {
+                window.toast.fire({
+                  type: "error",
+                  title: _this1.$t("Form is not properly initialized"),
+                  text: _this1.$t("Please refresh the page and try again.")
+                });
+              } else {
+                alert(_this1.$t("Form is not properly initialized. Please refresh the page and try again."));
+              }
+              return _context9.a(2);
+            case 2:
+              _context9.p = 2;
+              console.log('Validating form...');
+              _context9.n = 3;
+              return _this1.validateForm();
+            case 3:
+              isValid = _context9.v;
+              console.log('Validation result:', isValid);
+              if (isValid) {
+                _context9.n = 4;
+                break;
+              }
+              console.log('Form validation failed');
+              if (window.toast && typeof window.toast.fire === 'function') {
+                window.toast.fire({
+                  type: "error",
+                  title: _this1.$t("Please fill in all required fields correctly.")
+                });
+              }
+              return _context9.a(2);
+            case 4:
+              console.log('Form validation passed, preparing submit data...');
+
+              // Map form data to API format
+              submitData = {
+                // Explicitly include all form fields to ensure they are sent
+                codeNumber: _this1.form.codeNumber,
+                notes: _this1.form.notes,
+                displayLanguage: _this1.form.displayLanguage,
+                status: _this1.form.status,
+                // Client Details
+                type: _this1.form.type,
+                fullName: _this1.form.fullName,
+                businessName: _this1.form.businessName,
+                firstName: _this1.form.firstName,
+                lastName: _this1.form.lastName,
+                phone: _this1.form.phone,
+                phoneNumber: _this1.form.phoneNumber,
+                // Explicitly include phone number
+                email: _this1.form.email,
+                streetAddress1: _this1.form.streetAddress1,
+                streetAddress2: _this1.form.streetAddress2,
+                city: _this1.form.city,
+                state: _this1.form.state,
+                postalCode: _this1.form.postalCode,
+                country: _this1.form.country,
+                neighbourhood: _this1.form.neighbourhood,
+                commercialRegister: _this1.form.commercialRegister,
+                taxCard: _this1.form.taxCard,
+                // Saudi National Address Fields
+                buildingNumber: _this1.form.buildingNumber,
+                streetNumber: _this1.form.streetNumber,
+                districtNumber: _this1.form.districtNumber,
+                unitNumber: _this1.form.unitNumber,
+                additionalNumber: _this1.form.additionalNumber,
+                // Additional Fields
+                image: _this1.form.image,
+                attachments: _this1.form.attachments,
+                isSendEmail: _this1.form.isSendEmail,
+                isSendSMS: _this1.form.isSendSMS,
+                // Map legacy fields for backward compatibility
+                name: _this1.form.type === 'Individual' ? _this1.form.fullName : _this1.form.businessName,
+                companyName: _this1.form.businessName,
+                taxRegistrationNumber: _this1.form.taxCard,
+                address: _this1.form.streetAddress1,
+                // Include representatives data
+                representatives: _this1.form.representatives || [],
+                // Chart of Account
+                chartOfAccountId: _this1.form.chartOfAccountId
+              };
+              console.log('Emitting submit event with data...');
+
+              // Emit submit event with form data
+              _this1.$emit('submit', submitData);
+              console.log('Submit event emitted successfully');
+              _context9.n = 6;
+              break;
+            case 5:
+              _context9.p = 5;
+              _t0 = _context9.v;
+              console.error('Error in submitForm:', _t0);
+              if (window.toast && typeof window.toast.fire === 'function') {
+                window.toast.fire({
+                  type: "error",
+                  title: _this1.$t("Error submitting form"),
+                  text: _t0.message || 'Unknown error occurred'
+                });
+              } else {
+                alert("Error submitting form: ".concat(_t0.message || 'Unknown error occurred'));
+              }
+            case 6:
+              return _context9.a(2);
+          }
+        }, _callee9, null, [[2, 5]]);
+      }))();
+    },
+    // Create new chart of account
+    createNewAccount: function createNewAccount() {
+      var _this10 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
+        return _regenerator().w(function (_context0) {
+          while (1) switch (_context0.n) {
+            case 0:
+              try {
+                _this10.isCreatingAccount = true;
+
+                // This method would implement the logic to create a new chart of account
+                // For now, we'll just show a message
+                if (window.toast && typeof window.toast.fire === 'function') {
+                  window.toast.fire({
+                    type: 'info',
+                    title: _this10.$t('Create New Account'),
+                    text: _this10.$t('This feature is not yet implemented.')
+                  });
+                }
+              } catch (error) {
+                console.error('Error creating new account:', error);
+                if (window.toast && typeof window.toast.fire === 'function') {
+                  window.toast.fire({
+                    type: 'error',
+                    title: _this10.$t('Error'),
+                    text: _this10.$t('Failed to create new account')
+                  });
+                }
+              } finally {
+                _this10.isCreatingAccount = false;
+              }
+            case 1:
+              return _context0.a(2);
+          }
+        }, _callee0);
+      }))();
+    }
+  }
+});
+;// ./resources/js/components/ClientForm.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_ClientFormvue_type_script_lang_js = (ClientFormvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientForm.vue?vue&type=style&index=0&id=4b47580e&prod&scoped=true&lang=css
+var ClientFormvue_type_style_index_0_id_4b47580e_prod_scoped_true_lang_css = __webpack_require__(3132);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientForm.vue?vue&type=style&index=0&id=4b47580e&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(ClientFormvue_type_style_index_0_id_4b47580e_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_ClientFormvue_type_style_index_0_id_4b47580e_prod_scoped_true_lang_css = (ClientFormvue_type_style_index_0_id_4b47580e_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/ClientForm.vue?vue&type=style&index=0&id=4b47580e&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/ClientForm.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_ClientFormvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "4b47580e",
+  null
+  
+)
+
+/* harmony default export */ const ClientForm = (component.exports);
+
+/***/ }),
+
 /***/ 69012:
 /***/ ((module) => {
 
@@ -63583,6 +66120,26 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/zm.svg?83315fdb0c0a837ccd6
 
 /***/ }),
 
+/***/ 71264:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".modal-content{margin:1.75rem auto;max-width:1000px;width:100%}.custom-modal-dialog,.modal-body{overflow:auto}.modal-body{max-height:70vh}.vfm__overlay{z-index:2000!important}.vfm__container{z-index:2001!important}@media (max-width:1400px){.modal-content{max-width:900px}}@media (max-width:1300px){.modal-content{max-width:800px}}@media (max-width:1200px){.modal-content{max-width:700px}}@media (max-width:987px){.modal-content{max-width:500px}}@media (max-width:768px){.modal-content{margin:.5rem;max-width:100%}}.modal-content[data-size=md]{max-width:500px}.modal-content[data-size=sm]{max-width:400px}.modal-content[data-size=lg]{max-width:800px}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 71268:
 /***/ ((module) => {
 
@@ -63601,6 +66158,874 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/cg.svg?05e95e537bcdc02a69a
 /***/ ((module) => {
 
 module.exports = "/images/vendor/flag-icons/flags/1x1/pl.svg?cd835d05865e496ff6b868655a4c8856";
+
+/***/ }),
+
+/***/ 71866:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ PhoneNumberInput)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/PhoneNumberInput.vue?vue&type=template&id=2a34c482&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "phone-number-input"
+  }, [_vm.label ? _c('label', {
+    staticClass: "form-label"
+  }, [_vm._v("\n    " + _vm._s(_vm.label) + " \n    "), _vm.required ? _c('span', {
+    staticClass: "text-danger"
+  }, [_vm._v("*")]) : _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.$t('optional')) + ")")])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "phone-input-wrapper",
+    "class": {
+      'is-invalid': _vm.hasError,
+      'has-value': _vm.phoneNumber
+    }
+  }, [_c('div', {
+    staticClass: "country-selector",
+    on: {
+      "click": _vm.toggleCountryDropdown
+    }
+  }, [_c('span', {
+    staticClass: "country-flag"
+  }, [_vm._v(_vm._s(_vm.selectedCountry.flag))]), _vm._v(" "), _c('span', {
+    staticClass: "country-code"
+  }, [_vm._v("+" + _vm._s(_vm.selectedCountry.dialCode))]), _vm._v(" "), _c('i', {
+    staticClass: "fas fa-chevron-down dropdown-icon"
+  })]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.phoneNumber,
+      expression: "phoneNumber"
+    }],
+    staticClass: "phone-input",
+    "class": {
+      'is-invalid': _vm.hasError
+    },
+    attrs: {
+      "type": "tel",
+      "placeholder": _vm.placeholder || _vm.$t('enter_phone_number')
+    },
+    domProps: {
+      "value": _vm.phoneNumber
+    },
+    on: {
+      "input": [function ($event) {
+        if ($event.target.composing) return;
+        _vm.phoneNumber = $event.target.value;
+      }, _vm.onInput],
+      "blur": _vm.validatePhone,
+      "focus": _vm.onFocus
+    }
+  }), _vm._v(" "), _vm.showCountryDropdown ? _c('div', {
+    staticClass: "country-dropdown",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+      }
+    }
+  }, [_c('div', {
+    staticClass: "country-search"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.countrySearch,
+      expression: "countrySearch"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "placeholder": _vm.$t('search_country')
+    },
+    domProps: {
+      "value": _vm.countrySearch
+    },
+    on: {
+      "input": [function ($event) {
+        if ($event.target.composing) return;
+        _vm.countrySearch = $event.target.value;
+      }, _vm.filterCountries]
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "country-list"
+  }, _vm._l(_vm.filteredCountries, function (country) {
+    return _c('div', {
+      key: country.code,
+      staticClass: "country-item",
+      "class": {
+        active: _vm.selectedCountry.code === country.code
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.selectCountry(country);
+        }
+      }
+    }, [_c('span', {
+      staticClass: "country-flag"
+    }, [_vm._v(_vm._s(country.flag))]), _vm._v(" "), _c('span', {
+      staticClass: "country-name"
+    }, [_vm._v(_vm._s(country.name))]), _vm._v(" "), _c('span', {
+      staticClass: "country-dial-code"
+    }, [_vm._v("+" + _vm._s(country.dialCode))])]);
+  }), 0)]) : _vm._e()]), _vm._v(" "), _vm.hasError && _vm.errorMessage ? _c('div', {
+    staticClass: "invalid-feedback d-block mt-2"
+  }, [_vm._v("\n    " + _vm._s(_vm.errorMessage) + "\n  ")]) : _vm._e(), _vm._v(" "), _vm.showFormatHint && _vm.phoneFormat ? _c('small', {
+    staticClass: "form-text text-muted mt-1"
+  }, [_vm._v("\n    " + _vm._s(_vm.$t('Format')) + ": " + _vm._s(_vm.phoneFormat) + "\n  ")]) : _vm._e()]);
+};
+var staticRenderFns = [];
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/PhoneNumberInput.vue?vue&type=script&lang=js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t["return"] || t["return"](); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+/* harmony default export */ const PhoneNumberInputvue_type_script_lang_js = ({
+  name: 'PhoneNumberInput',
+  props: {
+    value: {
+      type: String,
+      "default": ''
+    },
+    label: {
+      type: String,
+      "default": ''
+    },
+    required: {
+      type: Boolean,
+      "default": false
+    },
+    placeholder: {
+      type: String,
+      "default": ''
+    },
+    defaultCountry: {
+      type: String,
+      "default": 'SA'
+    },
+    country: {
+      type: String,
+      "default": null
+    },
+    showFormatHint: {
+      type: Boolean,
+      "default": true
+    },
+    validateOnInput: {
+      type: Boolean,
+      "default": true
+    }
+  },
+  data: function data() {
+    return {
+      phoneNumber: '',
+      selectedCountryCode: this.country || this.defaultCountry,
+      showCountryDropdown: false,
+      countrySearch: '',
+      errorMessage: '',
+      phoneFormat: '',
+      countriesData: [{
+        code: 'SA',
+        nameKey: 'Saudi Arabia',
+        flag: '🇸🇦',
+        dialCode: '966'
+      }, {
+        code: 'AE',
+        nameKey: 'United Arab Emirates',
+        flag: '🇦🇪',
+        dialCode: '971'
+      }, {
+        code: 'EG',
+        nameKey: 'Egypt',
+        flag: '🇪🇬',
+        dialCode: '20'
+      }, {
+        code: 'JO',
+        nameKey: 'Jordan',
+        flag: '🇯🇴',
+        dialCode: '962'
+      }, {
+        code: 'LB',
+        nameKey: 'Lebanon',
+        flag: '🇱🇧',
+        dialCode: '961'
+      }, {
+        code: 'MA',
+        nameKey: 'Morocco',
+        flag: '🇲🇦',
+        dialCode: '212'
+      }, {
+        code: 'TN',
+        nameKey: 'Tunisia',
+        flag: '🇹🇳',
+        dialCode: '216'
+      }, {
+        code: 'DZ',
+        nameKey: 'Algeria',
+        flag: '🇩🇿',
+        dialCode: '213'
+      }, {
+        code: 'KW',
+        nameKey: 'Kuwait',
+        flag: '🇰🇼',
+        dialCode: '965'
+      }, {
+        code: 'QA',
+        nameKey: 'Qatar',
+        flag: '🇶🇦',
+        dialCode: '974'
+      }, {
+        code: 'BH',
+        nameKey: 'Bahrain',
+        flag: '🇧🇭',
+        dialCode: '973'
+      }, {
+        code: 'OM',
+        nameKey: 'Oman',
+        flag: '🇴🇲',
+        dialCode: '968'
+      }, {
+        code: 'YE',
+        nameKey: 'Yemen',
+        flag: '🇾🇪',
+        dialCode: '967'
+      }, {
+        code: 'IQ',
+        nameKey: 'Iraq',
+        flag: '🇮🇶',
+        dialCode: '964'
+      }, {
+        code: 'US',
+        nameKey: 'United States',
+        flag: '🇺🇸',
+        dialCode: '1'
+      }, {
+        code: 'GB',
+        nameKey: 'United Kingdom',
+        flag: '🇬🇧',
+        dialCode: '44'
+      }, {
+        code: 'CA',
+        nameKey: 'Canada',
+        flag: '🇨🇦',
+        dialCode: '1'
+      }, {
+        code: 'AU',
+        nameKey: 'Australia',
+        flag: '🇦🇺',
+        dialCode: '61'
+      }, {
+        code: 'DE',
+        nameKey: 'Germany',
+        flag: '🇩🇪',
+        dialCode: '49'
+      }, {
+        code: 'FR',
+        nameKey: 'France',
+        flag: '🇫🇷',
+        dialCode: '33'
+      }, {
+        code: 'ES',
+        nameKey: 'Spain',
+        flag: '🇪🇸',
+        dialCode: '34'
+      }, {
+        code: 'IT',
+        nameKey: 'Italy',
+        flag: '🇮🇹',
+        dialCode: '39'
+      }, {
+        code: 'NL',
+        nameKey: 'Netherlands',
+        flag: '🇳🇱',
+        dialCode: '31'
+      }, {
+        code: 'BE',
+        nameKey: 'Belgium',
+        flag: '🇧🇪',
+        dialCode: '32'
+      }, {
+        code: 'CH',
+        nameKey: 'Switzerland',
+        flag: '🇨🇭',
+        dialCode: '41'
+      }, {
+        code: 'AT',
+        nameKey: 'Austria',
+        flag: '🇦🇹',
+        dialCode: '43'
+      }, {
+        code: 'SE',
+        nameKey: 'Sweden',
+        flag: '🇸🇪',
+        dialCode: '46'
+      }, {
+        code: 'NO',
+        nameKey: 'Norway',
+        flag: '🇳🇴',
+        dialCode: '47'
+      }, {
+        code: 'DK',
+        nameKey: 'Denmark',
+        flag: '🇩🇰',
+        dialCode: '45'
+      }, {
+        code: 'FI',
+        nameKey: 'Finland',
+        flag: '🇫🇮',
+        dialCode: '358'
+      }, {
+        code: 'PL',
+        nameKey: 'Poland',
+        flag: '🇵🇱',
+        dialCode: '48'
+      }, {
+        code: 'IE',
+        nameKey: 'Ireland',
+        flag: '🇮🇪',
+        dialCode: '353'
+      }, {
+        code: 'PT',
+        nameKey: 'Portugal',
+        flag: '🇵🇹',
+        dialCode: '351'
+      }, {
+        code: 'GR',
+        nameKey: 'Greece',
+        flag: '🇬🇷',
+        dialCode: '30'
+      }, {
+        code: 'LU',
+        nameKey: 'Luxembourg',
+        flag: '🇱🇺',
+        dialCode: '352'
+      }, {
+        code: 'TR',
+        nameKey: 'Turkey',
+        flag: '🇹🇷',
+        dialCode: '90'
+      }, {
+        code: 'IN',
+        nameKey: 'India',
+        flag: '🇮🇳',
+        dialCode: '91'
+      }, {
+        code: 'CN',
+        nameKey: 'China',
+        flag: '🇨🇳',
+        dialCode: '86'
+      }, {
+        code: 'JP',
+        nameKey: 'Japan',
+        flag: '🇯🇵',
+        dialCode: '81'
+      }, {
+        code: 'KR',
+        nameKey: 'South Korea',
+        flag: '🇰🇷',
+        dialCode: '82'
+      }, {
+        code: 'BR',
+        nameKey: 'Brazil',
+        flag: '🇧🇷',
+        dialCode: '55'
+      }, {
+        code: 'MX',
+        nameKey: 'Mexico',
+        flag: '🇲🇽',
+        dialCode: '52'
+      }, {
+        code: 'AR',
+        nameKey: 'Argentina',
+        flag: '🇦🇷',
+        dialCode: '54'
+      }, {
+        code: 'ZA',
+        nameKey: 'South Africa',
+        flag: '🇿🇦',
+        dialCode: '27'
+      }, {
+        code: 'NG',
+        nameKey: 'Nigeria',
+        flag: '🇳🇬',
+        dialCode: '234'
+      }, {
+        code: 'KE',
+        nameKey: 'Kenya',
+        flag: '🇰🇪',
+        dialCode: '254'
+      }, {
+        code: 'PK',
+        nameKey: 'Pakistan',
+        flag: '🇵🇰',
+        dialCode: '92'
+      }, {
+        code: 'BD',
+        nameKey: 'Bangladesh',
+        flag: '🇧🇩',
+        dialCode: '880'
+      }, {
+        code: 'ID',
+        nameKey: 'Indonesia',
+        flag: '🇮🇩',
+        dialCode: '62'
+      }, {
+        code: 'PH',
+        nameKey: 'Philippines',
+        flag: '🇵🇭',
+        dialCode: '63'
+      }, {
+        code: 'VN',
+        nameKey: 'Vietnam',
+        flag: '🇻🇳',
+        dialCode: '84'
+      }, {
+        code: 'TH',
+        nameKey: 'Thailand',
+        flag: '🇹🇭',
+        dialCode: '66'
+      }, {
+        code: 'MY',
+        nameKey: 'Malaysia',
+        flag: '🇲🇾',
+        dialCode: '60'
+      }, {
+        code: 'SG',
+        nameKey: 'Singapore',
+        flag: '🇸🇬',
+        dialCode: '65'
+      }, {
+        code: 'NZ',
+        nameKey: 'New Zealand',
+        flag: '🇳🇿',
+        dialCode: '64'
+      }, {
+        code: 'RU',
+        nameKey: 'Russia',
+        flag: '🇷🇺',
+        dialCode: '7'
+      }, {
+        code: 'UA',
+        nameKey: 'Ukraine',
+        flag: '🇺🇦',
+        dialCode: '380'
+      }, {
+        code: 'CZ',
+        nameKey: 'Czech Republic',
+        flag: '🇨🇿',
+        dialCode: '420'
+      }, {
+        code: 'HU',
+        nameKey: 'Hungary',
+        flag: '🇭🇺',
+        dialCode: '36'
+      }, {
+        code: 'RO',
+        nameKey: 'Romania',
+        flag: '🇷🇴',
+        dialCode: '40'
+      }, {
+        code: 'BG',
+        nameKey: 'Bulgaria',
+        flag: '🇧🇬',
+        dialCode: '359'
+      }, {
+        code: 'HR',
+        nameKey: 'Croatia',
+        flag: '🇭🇷',
+        dialCode: '385'
+      }, {
+        code: 'SI',
+        nameKey: 'Slovenia',
+        flag: '🇸🇮',
+        dialCode: '386'
+      }, {
+        code: 'SK',
+        nameKey: 'Slovakia',
+        flag: '🇸🇰',
+        dialCode: '421'
+      }, {
+        code: 'EE',
+        nameKey: 'Estonia',
+        flag: '🇪🇪',
+        dialCode: '372'
+      }, {
+        code: 'LV',
+        nameKey: 'Latvia',
+        flag: '🇱🇻',
+        dialCode: '371'
+      }, {
+        code: 'LT',
+        nameKey: 'Lithuania',
+        flag: '🇱🇹',
+        dialCode: '370'
+      }, {
+        code: 'IS',
+        nameKey: 'Iceland',
+        flag: '🇮🇸',
+        dialCode: '354'
+      }]
+    };
+  },
+  computed: {
+    // Countries with translated names
+    countries: function countries() {
+      var _this = this;
+      return this.countriesData.map(function (country) {
+        return _objectSpread(_objectSpread({}, country), {}, {
+          name: _this.$t(country.nameKey) || country.nameKey
+        });
+      });
+    },
+    selectedCountry: function selectedCountry() {
+      var _this2 = this;
+      return this.countries.find(function (c) {
+        return c.code === _this2.selectedCountryCode;
+      }) || this.countries[0];
+    },
+    filteredCountries: function filteredCountries() {
+      if (!this.countrySearch) {
+        return this.countries;
+      }
+      var search = this.countrySearch.toLowerCase();
+      return this.countries.filter(function (country) {
+        return country.name.toLowerCase().includes(search) || country.dialCode.includes(search) || country.code.toLowerCase().includes(search) || country.nameKey && country.nameKey.toLowerCase().includes(search);
+      });
+    },
+    hasError: function hasError() {
+      return !!this.errorMessage;
+    },
+    phoneValidationRules: function phoneValidationRules() {
+      return {
+        'SA': {
+          pattern: /^5\d{8}$/,
+          format: '5XXXXXXXX (9 digits starting with 5)',
+          formatKey: 'phone_format_sa',
+          message: this.$t('Invalid Saudi phone number. Must be 9 digits starting with 5')
+        },
+        'AE': {
+          pattern: /^5\d{8}$/,
+          format: '5XXXXXXXX (9 digits starting with 5)',
+          formatKey: 'phone_format_ae',
+          message: this.$t('Invalid UAE phone number. Must be 9 digits starting with 5')
+        },
+        'EG': {
+          pattern: /^1\d{9}$/,
+          format: '1XXXXXXXXX (10 digits starting with 1)',
+          formatKey: 'phone_format_eg',
+          message: this.$t('Invalid Egyptian phone number. Must be 10 digits starting with 1')
+        },
+        'JO': {
+          pattern: /^7\d{8}$/,
+          format: '7XXXXXXXX (9 digits starting with 7)',
+          formatKey: 'phone_format_jo',
+          message: this.$t('Invalid Jordanian phone number. Must be 9 digits starting with 7')
+        },
+        'LB': {
+          pattern: /^[37]\d{7}$/,
+          format: '3XXXXXXX or 7XXXXXXX (8 digits)',
+          formatKey: 'phone_format_lb',
+          message: this.$t('Invalid Lebanese phone number. Must be 8 digits starting with 3 or 7')
+        },
+        'KW': {
+          pattern: /^[569]\d{7}$/,
+          format: '5XXXXXXX, 6XXXXXXX, or 9XXXXXXX (8 digits)',
+          formatKey: 'phone_format_kw',
+          message: this.$t('Invalid Kuwait phone number. Must be 8 digits starting with 5, 6, or 9')
+        },
+        'QA': {
+          pattern: /^[37]\d{7}$/,
+          format: '3XXXXXXX or 7XXXXXXX (8 digits)',
+          formatKey: 'phone_format_qa',
+          message: this.$t('Invalid Qatari phone number. Must be 8 digits starting with 3 or 7')
+        },
+        'BH': {
+          pattern: /^[367]\d{7}$/,
+          format: '3XXXXXXX, 6XXXXXXX, or 7XXXXXXX (8 digits)',
+          formatKey: 'phone_format_bh',
+          message: this.$t('Invalid Bahrain phone number. Must be 8 digits starting with 3, 6, or 7')
+        },
+        'OM': {
+          pattern: /^[79]\d{7}$/,
+          format: '7XXXXXXX or 9XXXXXXX (8 digits)',
+          formatKey: 'phone_format_om',
+          message: this.$t('Invalid Omani phone number. Must be 8 digits starting with 7 or 9')
+        },
+        'US': {
+          pattern: /^\d{10}$/,
+          format: 'XXXXXXXXXX (10 digits)',
+          formatKey: 'phone_format_us',
+          message: this.$t('Invalid US phone number. Must be 10 digits')
+        },
+        'GB': {
+          pattern: /^[1-9]\d{9,10}$/,
+          format: 'XXXXXXXXXX or XXXXXXXXXXX (10-11 digits)',
+          formatKey: 'phone_format_gb',
+          message: this.$t('Invalid UK phone number. Must be 10-11 digits')
+        },
+        'CA': {
+          pattern: /^\d{10}$/,
+          format: 'XXXXXXXXXX (10 digits)',
+          formatKey: 'phone_format_ca',
+          message: this.$t('Invalid Canadian phone number. Must be 10 digits')
+        },
+        'AU': {
+          pattern: /^[23478]\d{8}$/,
+          format: '2XXXXXXXX, 3XXXXXXXX, 4XXXXXXXX, 7XXXXXXXX, or 8XXXXXXXX (9 digits)',
+          formatKey: 'phone_format_au',
+          message: this.$t('Invalid Australian phone number. Must be 9 digits starting with 2, 3, 4, 7, or 8')
+        },
+        'DE': {
+          pattern: /^[1-9]\d{9,10}$/,
+          format: 'XXXXXXXXXX or XXXXXXXXXXX (10-11 digits)',
+          formatKey: 'phone_format_de',
+          message: this.$t('Invalid German phone number. Must be 10-11 digits')
+        },
+        'FR': {
+          pattern: /^[1-9]\d{8}$/,
+          format: 'XXXXXXXXX (9 digits)',
+          formatKey: 'phone_format_fr',
+          message: this.$t('Invalid French phone number. Must be 9 digits')
+        },
+        'ES': {
+          pattern: /^[6-9]\d{8}$/,
+          format: '6XXXXXXXX, 7XXXXXXXX, 8XXXXXXXX, or 9XXXXXXXX (9 digits)',
+          formatKey: 'phone_format_es',
+          message: this.$t('Invalid Spanish phone number. Must be 9 digits starting with 6, 7, 8, or 9')
+        },
+        'IT': {
+          pattern: /^3\d{9}$/,
+          format: '3XXXXXXXXX (10 digits starting with 3)',
+          formatKey: 'phone_format_it',
+          message: this.$t('Invalid Italian phone number. Must be 10 digits starting with 3')
+        },
+        'TR': {
+          pattern: /^5\d{9}$/,
+          format: '5XXXXXXXXX (10 digits starting with 5)',
+          formatKey: 'phone_format_tr',
+          message: this.$t('Invalid Turkish phone number. Must be 10 digits starting with 5')
+        },
+        'IN': {
+          pattern: /^[6-9]\d{9}$/,
+          format: '6XXXXXXXXX, 7XXXXXXXXX, 8XXXXXXXXX, or 9XXXXXXXXX (10 digits)',
+          formatKey: 'phone_format_in',
+          message: this.$t('Invalid Indian phone number. Must be 10 digits starting with 6, 7, 8, or 9')
+        }
+      };
+    }
+  },
+  watch: {
+    value: function value(newVal) {
+      if (newVal !== this.getFullPhoneNumber()) {
+        this.parsePhoneNumber(newVal);
+      }
+    },
+    country: function country(newCountry) {
+      if (newCountry && newCountry !== this.selectedCountryCode) {
+        this.selectedCountryCode = newCountry;
+        this.validatePhone();
+      }
+    },
+    selectedCountryCode: function selectedCountryCode() {
+      this.validatePhone();
+      this.updatePhoneFormat();
+    }
+  },
+  mounted: function mounted() {
+    // Parse initial value if provided
+    if (this.value) {
+      this.parsePhoneNumber(this.value);
+    }
+
+    // Set initial country from prop
+    if (this.country) {
+      this.selectedCountryCode = this.country;
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', this.handleClickOutside);
+
+    // Update phone format
+    this.updatePhoneFormat();
+  },
+  beforeDestroy: function beforeDestroy() {
+    document.removeEventListener('click', this.handleClickOutside);
+  },
+  methods: {
+    parsePhoneNumber: function parsePhoneNumber(phone) {
+      // Try to extract country code and number
+      if (phone.startsWith('+')) {
+        var withoutPlus = phone.substring(1);
+        // Try to match country by dial code
+        var _iterator = _createForOfIteratorHelper(this.countries),
+          _step;
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var country = _step.value;
+            if (withoutPlus.startsWith(country.dialCode)) {
+              this.selectedCountryCode = country.code;
+              this.phoneNumber = withoutPlus.substring(country.dialCode.length);
+              return;
+            }
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+      }
+      // If no country code found, use as is
+      this.phoneNumber = phone.replace(/^\+/, '');
+    },
+    getFullPhoneNumber: function getFullPhoneNumber() {
+      if (!this.phoneNumber) return '';
+      return "+".concat(this.selectedCountry.dialCode).concat(this.phoneNumber);
+    },
+    onInput: function onInput() {
+      // Remove non-digit characters
+      this.phoneNumber = this.phoneNumber.replace(/\D/g, '');
+
+      // Emit the full phone number
+      this.$emit('input', this.getFullPhoneNumber());
+
+      // Validate while typing if enabled
+      if (this.validateOnInput) {
+        this.validatePhone();
+      }
+    },
+    onFocus: function onFocus() {
+      // Validate on focus
+      this.validatePhone();
+    },
+    validatePhone: function validatePhone() {
+      // Clear previous error
+      this.errorMessage = '';
+
+      // If not required and empty, it's valid
+      if (!this.required && !this.phoneNumber) {
+        this.$emit('validated', true);
+        return true;
+      }
+
+      // If required and empty, show error
+      if (this.required && !this.phoneNumber) {
+        this.errorMessage = this.$t('phone_required');
+        this.$emit('validated', false);
+        return false;
+      }
+
+      // Get validation rule for selected country
+      var rule = this.phoneValidationRules[this.selectedCountryCode];
+
+      // If no rule exists for this country, allow any format
+      if (!rule) {
+        this.$emit('validated', true);
+        return true;
+      }
+
+      // Test against pattern
+      if (rule.pattern.test(this.phoneNumber)) {
+        this.errorMessage = '';
+        this.$emit('validated', true);
+        return true;
+      } else {
+        this.errorMessage = rule.message;
+        this.$emit('validated', false);
+        return false;
+      }
+    },
+    updatePhoneFormat: function updatePhoneFormat() {
+      var rule = this.phoneValidationRules[this.selectedCountryCode];
+      if (rule && rule.formatKey) {
+        this.phoneFormat = this.$t(rule.formatKey) || rule.format;
+      } else {
+        this.phoneFormat = rule ? rule.format : '';
+      }
+    },
+    toggleCountryDropdown: function toggleCountryDropdown() {
+      this.showCountryDropdown = !this.showCountryDropdown;
+      if (this.showCountryDropdown) {
+        this.countrySearch = '';
+      }
+    },
+    selectCountry: function selectCountry(country) {
+      this.selectedCountryCode = country.code;
+      this.showCountryDropdown = false;
+      this.countrySearch = '';
+      this.validatePhone();
+      this.$emit('country-changed', country.code);
+    },
+    filterCountries: function filterCountries() {
+      // Filtering is handled by computed property
+    },
+    handleClickOutside: function handleClickOutside(event) {
+      if (!this.$el.contains(event.target)) {
+        this.showCountryDropdown = false;
+      }
+    }
+  }
+});
+;// ./resources/js/components/PhoneNumberInput.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_PhoneNumberInputvue_type_script_lang_js = (PhoneNumberInputvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/PhoneNumberInput.vue?vue&type=style&index=0&id=2a34c482&prod&scoped=true&lang=css
+var PhoneNumberInputvue_type_style_index_0_id_2a34c482_prod_scoped_true_lang_css = __webpack_require__(17432);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/PhoneNumberInput.vue?vue&type=style&index=0&id=2a34c482&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(PhoneNumberInputvue_type_style_index_0_id_2a34c482_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_PhoneNumberInputvue_type_style_index_0_id_2a34c482_prod_scoped_true_lang_css = (PhoneNumberInputvue_type_style_index_0_id_2a34c482_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/PhoneNumberInput.vue?vue&type=style&index=0&id=2a34c482&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/PhoneNumberInput.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_PhoneNumberInputvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "2a34c482",
+  null
+  
+)
+
+/* harmony default export */ const PhoneNumberInput = (component.exports);
 
 /***/ }),
 
@@ -78743,2510 +82168,6 @@ module.exports = "/images/vendor/flag-icons/flags/1x1/gt.svg?9ac40fe72107a3c0936
 /***/ ((module) => {
 
 module.exports = "/images/vendor/flag-icons/flags/1x1/lk.svg?ab7b92bda5c7b8891f1bbe45f54811ec";
-
-/***/ }),
-
-/***/ 79100:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ ClientForm)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientForm.vue?vue&type=template&id=cd29bd14&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    "class": {
-      'card-body': _vm.showCardBody
-    }
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-user-circle mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Client Details")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "codeNumber"
-    }
-  }, [_vm._v("\n              " + _vm._s(_vm.$t("Client Number")) + "\n            ")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.codeNumber,
-      expression: "form.codeNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('codeNumber')
-    },
-    attrs: {
-      "id": "codeNumber",
-      "type": "text",
-      "name": "codeNumber",
-      "placeholder": _vm.$t('Auto-generated...'),
-      "readonly": "",
-      "aria-readonly": "true"
-    },
-    domProps: {
-      "value": _vm.form.codeNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "codeNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('small', {
-    staticClass: "form-text text-muted"
-  }, [_vm._v("\n              " + _vm._s(_vm.$t("This client number is automatically generated and cannot be changed")) + "\n            ")]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "codeNumber"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', [_vm._v(_vm._s(_vm.$t("Client Type")))]), _vm._v(" "), _c('div', {
-    staticClass: "radio-group"
-  }, [_c('label', {
-    staticClass: "radio-inline"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.type,
-      expression: "form.type"
-    }],
-    attrs: {
-      "type": "radio",
-      "value": "Individual"
-    },
-    domProps: {
-      "checked": _vm._q(_vm.form.type, "Individual")
-    },
-    on: {
-      "change": function change($event) {
-        return _vm.$set(_vm.form, "type", "Individual");
-      }
-    }
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Individual")) + "\n              ")]), _vm._v(" "), _c('label', {
-    staticClass: "radio-inline"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.type,
-      expression: "form.type"
-    }],
-    attrs: {
-      "type": "radio",
-      "value": "Company"
-    },
-    domProps: {
-      "checked": _vm._q(_vm.form.type, "Company")
-    },
-    on: {
-      "change": function change($event) {
-        return _vm.$set(_vm.form, "type", "Company");
-      }
-    }
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Business")) + "\n              ")])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "type"
-    }
-  })], 1), _vm._v(" "), _vm.form.type === 'Individual' ? _c('div', [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "fullName"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Full Name")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.fullName,
-      expression: "form.fullName"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('fullName')
-    },
-    attrs: {
-      "id": "fullName",
-      "type": "text",
-      "name": "fullName",
-      "placeholder": _vm.$t('Enter full name')
-    },
-    domProps: {
-      "value": _vm.form.fullName
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "fullName", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "fullName"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "firstName"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("First Name")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.firstName,
-      expression: "form.firstName"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('firstName')
-    },
-    attrs: {
-      "id": "firstName",
-      "type": "text",
-      "name": "firstName",
-      "placeholder": _vm.$t('Enter first name')
-    },
-    domProps: {
-      "value": _vm.form.firstName
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "firstName", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "firstName"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "lastName"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Last Name")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.lastName,
-      expression: "form.lastName"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('lastName')
-    },
-    attrs: {
-      "id": "lastName",
-      "type": "text",
-      "name": "lastName",
-      "placeholder": _vm.$t('Enter last name')
-    },
-    domProps: {
-      "value": _vm.form.lastName
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "lastName", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "lastName"
-    }
-  })], 1)])]) : _vm._e(), _vm._v(" "), _vm.form.type === 'Company' ? _c('div', [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "businessName"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Business Name")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.businessName,
-      expression: "form.businessName"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('businessName')
-    },
-    attrs: {
-      "id": "businessName",
-      "type": "text",
-      "name": "businessName",
-      "placeholder": _vm.$t('Enter business name')
-    },
-    domProps: {
-      "value": _vm.form.businessName
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "businessName", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "businessName"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "phone"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Telephone")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.phone,
-      expression: "form.phone"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('phone')
-    },
-    attrs: {
-      "id": "phone",
-      "type": "text",
-      "name": "phone",
-      "placeholder": _vm.$t('Enter telephone number')
-    },
-    domProps: {
-      "value": _vm.form.phone
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "phone", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "phone"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    staticClass: "required-field",
-    attrs: {
-      "for": "phoneNumber"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Mobile")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.phoneNumber,
-      expression: "form.phoneNumber"
-    }],
-    staticClass: "form-control required-input",
-    "class": {
-      'is-invalid': _vm.form.errors.has('phoneNumber')
-    },
-    attrs: {
-      "id": "phoneNumber",
-      "type": "tel",
-      "name": "phoneNumber",
-      "placeholder": _vm.$t('Enter mobile number (required)')
-    },
-    domProps: {
-      "value": _vm.form.phoneNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "phoneNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "phoneNumber"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "email"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Email")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.email,
-      expression: "form.email"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('email')
-    },
-    attrs: {
-      "id": "email",
-      "type": "email",
-      "name": "email",
-      "placeholder": _vm.$t('Enter your email address')
-    },
-    domProps: {
-      "value": _vm.form.email
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "email", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "email"
-    }
-  })], 1)])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-cog mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Account Details")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "displayLanguage"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Display Language")))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.displayLanguage,
-      expression: "form.displayLanguage"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('displayLanguage')
-    },
-    attrs: {
-      "id": "displayLanguage"
-    },
-    on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "displayLanguage", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Select Language")))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "en"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("English")))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "ar"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Arabic")))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "displayLanguage"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "status"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.status,
-      expression: "form.status"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('status')
-    },
-    attrs: {
-      "id": "status"
-    },
-    on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "1"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Active")))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "0"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "status"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "image"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Profile Image")))]), _vm._v(" "), _c('div', {
-    staticClass: "custom-file"
-  }, [_c('input', {
-    staticClass: "custom-file-input",
-    "class": {
-      'is-invalid': _vm.form.errors.has('image')
-    },
-    attrs: {
-      "id": "image",
-      "type": "file",
-      "name": "image",
-      "accept": "image/*"
-    },
-    on: {
-      "change": _vm.onFileChange
-    }
-  }), _vm._v(" "), _c('label', {
-    staticClass: "custom-file-label",
-    attrs: {
-      "for": "image"
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-image mr-2"
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Choose file")) + "\n              ")])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "image"
-    }
-  }), _vm._v(" "), _vm.url ? _c('div', {
-    staticClass: "image-preview mt-2"
-  }, [_c('img', {
-    staticClass: "img-fluid rounded",
-    staticStyle: {
-      "max-height": "100px"
-    },
-    attrs: {
-      "src": _vm.url,
-      "alt": _vm.$t('Profile Image')
-    }
-  })]) : _vm._e()], 1)])])])]), _vm._v(" "), _vm.form.type === 'Company' ? _c('div', {
-    staticClass: "row mt-4"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-users mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Client Representative Info")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('RepresentativesList', {
-    attrs: {
-      "representatives": _vm.form.representatives || []
-    },
-    on: {
-      "representatives-changed": _vm.handleRepresentativesChanged
-    }
-  })], 1)])])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "row mt-4"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-map-marked-alt mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("National Address")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "country"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Country")))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.country,
-      expression: "form.country"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('country')
-    },
-    attrs: {
-      "id": "country"
-    },
-    on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "country", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Select Country")))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "SA"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Saudi Arabia (SA)")))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "EG"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Egypt (EG)")))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "US"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("United States (US)")))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "GB"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("United Kingdom (GB)")))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "country"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "state"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("State")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.state,
-      expression: "form.state"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('state')
-    },
-    attrs: {
-      "id": "state",
-      "type": "text",
-      "name": "state",
-      "placeholder": _vm.$t('Enter state')
-    },
-    domProps: {
-      "value": _vm.form.state
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "state", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "state"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "city"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("City")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.city,
-      expression: "form.city"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('city')
-    },
-    attrs: {
-      "id": "city",
-      "type": "text",
-      "name": "city",
-      "placeholder": _vm.$t('Enter city')
-    },
-    domProps: {
-      "value": _vm.form.city
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "city", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "city"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "neighbourhood"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Neighbourhood")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.neighbourhood,
-      expression: "form.neighbourhood"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('neighbourhood')
-    },
-    attrs: {
-      "id": "neighbourhood",
-      "type": "text",
-      "name": "neighbourhood",
-      "placeholder": _vm.$t('Enter neighbourhood')
-    },
-    domProps: {
-      "value": _vm.form.neighbourhood
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "neighbourhood", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "neighbourhood"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "streetAddress1"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Street Address 1")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.streetAddress1,
-      expression: "form.streetAddress1"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('streetAddress1')
-    },
-    attrs: {
-      "id": "streetAddress1",
-      "type": "text",
-      "name": "streetAddress1",
-      "placeholder": _vm.$t('Enter street address')
-    },
-    domProps: {
-      "value": _vm.form.streetAddress1
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "streetAddress1", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "streetAddress1"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "streetAddress2"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Street Address 2")) + " "), _c('span', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.streetAddress2,
-      expression: "form.streetAddress2"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('streetAddress2')
-    },
-    attrs: {
-      "id": "streetAddress2",
-      "type": "text",
-      "name": "streetAddress2",
-      "placeholder": _vm.$t('Enter additional address info')
-    },
-    domProps: {
-      "value": _vm.form.streetAddress2
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "streetAddress2", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "streetAddress2"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "postalCode"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Postal Code")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.postalCode,
-      expression: "form.postalCode"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('postalCode')
-    },
-    attrs: {
-      "id": "postalCode",
-      "type": "text",
-      "name": "postalCode",
-      "placeholder": _vm.$t('Enter postal code')
-    },
-    domProps: {
-      "value": _vm.form.postalCode
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "postalCode", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "postalCode"
-    }
-  })], 1), _vm._v(" "), _vm.form.country === 'SA' ? _c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "buildingNumber"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Building Number")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.buildingNumber,
-      expression: "form.buildingNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('buildingNumber')
-    },
-    attrs: {
-      "id": "buildingNumber",
-      "type": "text",
-      "name": "buildingNumber",
-      "placeholder": _vm.$t('Enter building number'),
-      "maxlength": "5"
-    },
-    domProps: {
-      "value": _vm.form.buildingNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "buildingNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "buildingNumber"
-    }
-  })], 1) : _vm._e(), _vm._v(" "), _vm.form.country === 'SA' ? _c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "streetNumber"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Street Number")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.streetNumber,
-      expression: "form.streetNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('streetNumber')
-    },
-    attrs: {
-      "id": "streetNumber",
-      "type": "text",
-      "name": "streetNumber",
-      "placeholder": _vm.$t('Enter street number'),
-      "maxlength": "5"
-    },
-    domProps: {
-      "value": _vm.form.streetNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "streetNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "streetNumber"
-    }
-  })], 1) : _vm._e()]), _vm._v(" "), _vm.form.country === 'SA' ? _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "districtNumber"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("District Number")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.districtNumber,
-      expression: "form.districtNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('districtNumber')
-    },
-    attrs: {
-      "id": "districtNumber",
-      "type": "text",
-      "name": "districtNumber",
-      "placeholder": _vm.$t('Enter district number'),
-      "maxlength": "5"
-    },
-    domProps: {
-      "value": _vm.form.districtNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "districtNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "districtNumber"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "unitNumber"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Unit Number")) + " "), _c('span', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.unitNumber,
-      expression: "form.unitNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('unitNumber')
-    },
-    attrs: {
-      "id": "unitNumber",
-      "type": "text",
-      "name": "unitNumber",
-      "placeholder": _vm.$t('Enter unit number'),
-      "maxlength": "5"
-    },
-    domProps: {
-      "value": _vm.form.unitNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "unitNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "unitNumber"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "additionalNumber"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Additional Number")) + " "), _c('span', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.additionalNumber,
-      expression: "form.additionalNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('additionalNumber')
-    },
-    attrs: {
-      "id": "additionalNumber",
-      "type": "text",
-      "name": "additionalNumber",
-      "placeholder": _vm.$t('Enter additional number'),
-      "maxlength": "5"
-    },
-    domProps: {
-      "value": _vm.form.additionalNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "additionalNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "additionalNumber"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.type === 'Company' ? _c('div', {
-    staticClass: "row mt-4"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "commercialRegister"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("CR")) + " "), _c('span', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.commercialRegister,
-      expression: "form.commercialRegister"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('commercialRegister')
-    },
-    attrs: {
-      "id": "commercialRegister",
-      "type": "text",
-      "name": "commercialRegister",
-      "placeholder": _vm.$t('Enter commercial register number')
-    },
-    domProps: {
-      "value": _vm.form.commercialRegister
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "commercialRegister", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "commercialRegister"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "taxCard"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Tax ID (Optional)")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.taxCard,
-      expression: "form.taxCard"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('taxCard')
-    },
-    attrs: {
-      "id": "taxCard",
-      "type": "text",
-      "name": "taxCard",
-      "placeholder": _vm.$t('Enter tax ID number')
-    },
-    domProps: {
-      "value": _vm.form.taxCard
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "taxCard", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "taxCard"
-    }
-  })], 1)]) : _vm._e()])])])]), _vm._v(" "), _c('div', {
-    staticClass: "row mt-4"
-  }, [_c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-info-circle mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Additional Information")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "notes"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Notes")))]), _vm._v(" "), _c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.notes,
-      expression: "form.notes"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('notes')
-    },
-    attrs: {
-      "id": "notes",
-      "rows": "3",
-      "placeholder": _vm.$t('Enter additional notes')
-    },
-    domProps: {
-      "value": _vm.form.notes
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "notes", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "notes"
-    }
-  })], 1)])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-file-alt mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Documents & Settings")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "attachments"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Attachments")))]), _vm._v(" "), _c('div', {
-    staticClass: "file-upload-area"
-  }, [_c('input', {
-    staticClass: "file-input",
-    "class": {
-      'is-invalid': _vm.form.errors.has('attachments')
-    },
-    attrs: {
-      "id": "attachments",
-      "type": "file",
-      "name": "attachments",
-      "multiple": "",
-      "accept": "image/jpeg,image/png,image/gif"
-    },
-    on: {
-      "change": _vm.onFileChange
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "file-upload-content"
-  }, [_c('i', {
-    staticClass: "fas fa-cloud-upload-alt"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Drop files here or click to browse")))]), _vm._v(" "), _c('small', {
-    staticClass: "text-muted"
-  }, [_vm._v(_vm._s(_vm.$t("Supported formats: JPEG, PNG, GIF")))])])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "attachments"
-    }
-  }), _vm._v(" "), _vm.form.attachments && _vm.form.attachments.length > 0 ? _c('div', {
-    staticClass: "selected-files mt-2"
-  }, _vm._l(_vm.form.attachments, function (file, index) {
-    return _c('div', {
-      key: index,
-      staticClass: "selected-file-item"
-    }, [_c('i', {
-      staticClass: "fas fa-file mr-2"
-    }), _vm._v(" "), _c('span', [_vm._v(_vm._s(file.name))]), _vm._v(" "), _c('button', {
-      staticClass: "btn btn-sm btn-outline-danger ml-2",
-      attrs: {
-        "type": "button"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.removeFile(index);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-times"
-    })])]);
-  }), 0) : _vm._e()], 1)])])])]), _vm._v(" "), _vm.routingSetting && _vm.routingSetting.routing_type !== 'automatic' ? _c('div', {
-    staticClass: "row mt-4"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-chart-line mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Chart of Account")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_vm.routingSetting ? _c('div', {
-    staticClass: "alert alert-info"
-  }, [_c('i', {
-    staticClass: "fas fa-info-circle mr-2"
-  }), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Current Routing Type")) + ":")]), _vm._v(" " + _vm._s(_vm.routingSetting.routing_type_display) + "\n         ")]) : _vm._e()])])])]) : _vm._e(), _vm._v(" "), _vm.routingSetting && _vm.routingSetting.routing_type === 'automatic' ? _c('div', {
-    staticClass: "row mt-4",
-    staticStyle: {
-      "display": "none"
-    }
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-chart-line mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Chart of Account")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "alert alert-success"
-  }, [_c('i', {
-    staticClass: "fas fa-check-circle mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Chart of account will be automatically assigned based on your accounting configuration.")) + "\n          ")])])])])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "row mt-4"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-bell mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Communication Preferences")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('div', {
-    staticClass: "d-flex align-items-center"
-  }, [_c('toggle-button', {
-    attrs: {
-      "disabled": _vm.isDemoMode || _vm.communicationConfig.loading || !_vm.communicationConfig.email_configured
-    },
-    model: {
-      value: _vm.form.isSendEmail,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "isSendEmail", $$v);
-      },
-      expression: "form.isSendEmail"
-    }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "ml-3"
-  }, [_vm._v(_vm._s(_vm.$t("Send Welcome Email")))]), _vm._v(" "), !_vm.communicationConfig.loading && !_vm.communicationConfig.email_configured ? _c('span', {
-    staticClass: "ml-2 text-muted small"
-  }, [_vm._v("\n              (" + _vm._s(_vm.$t("Email not configured")) + ")\n            ")]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('div', {
-    staticClass: "d-flex align-items-center"
-  }, [_c('toggle-button', {
-    attrs: {
-      "disabled": _vm.isDemoMode || _vm.communicationConfig.loading || !_vm.communicationConfig.sms_configured
-    },
-    model: {
-      value: _vm.form.isSendSMS,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "isSendSMS", $$v);
-      },
-      expression: "form.isSendSMS"
-    }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "ml-3"
-  }, [_vm._v(_vm._s(_vm.$t("Send Welcome SMS")))]), _vm._v(" "), !_vm.communicationConfig.loading && !_vm.communicationConfig.sms_configured ? _c('span', {
-    staticClass: "ml-2 text-muted small"
-  }, [_vm._v("\n              (" + _vm._s(_vm.$t("SMS not configured")) + ")\n            ")]) : _vm._e()], 1)])])])])])])]);
-};
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "col-md-12"
-  }, [_c('hr', {
-    staticStyle: {
-      "margin": "20px 0",
-      "border-color": "#e0e0e0"
-    }
-  })]);
-}];
-
-;// ./resources/js/components/ClientForm.vue?vue&type=template&id=cd29bd14&scoped=true
-
-// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
-var vform_es = __webpack_require__(63216);
-// EXTERNAL MODULE: ./node_modules/vue-js-toggle-button/dist/index.js
-var dist = __webpack_require__(12616);
-// EXTERNAL MODULE: ./resources/js/components/RepresentativesList.vue + 11 modules
-var RepresentativesList = __webpack_require__(89812);
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientForm.vue?vue&type=script&lang=js
-function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
-function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-
-
-
-
-/* harmony default export */ const ClientFormvue_type_script_lang_js = ({
-  name: "ClientForm",
-  components: {
-    ToggleButton: dist.ToggleButton,
-    RepresentativesList: RepresentativesList/* default */.A
-  },
-  props: {
-    // Whether to show the card-body wrapper (for create page) or not (for modal)
-    showCardBody: {
-      type: Boolean,
-      "default": true
-    },
-    // Initial form data (optional)
-    initialData: {
-      type: Object,
-      "default": function _default() {
-        return {};
-      }
-    }
-  },
-  data: function data() {
-    return {
-      isDemoMode: window.config.isDemoMode,
-      loading: true,
-      url: null,
-      form: null,
-      // Will be initialized in created()
-
-      // Add missing properties
-      routingSetting: null,
-      loadingChartOfAccounts: false,
-      chartOfAccountsError: null,
-      chartOfAccounts: [],
-      isCreatingAccount: false,
-      // Communication configuration status
-      communicationConfig: {
-        email_configured: false,
-        sms_configured: false,
-        loading: true
-      }
-    };
-  },
-  watch: {
-    // Watch for changes in initialData prop
-    initialData: {
-      handler: function handler(newData) {
-        var _this = this;
-        console.log('=== INITIAL DATA WATCHER TRIGGERED ===');
-        console.log('New data:', newData);
-        console.log('Form exists:', !!this.form);
-        if (newData && Object.keys(newData).length > 0) {
-          // Set form values from initial data
-          Object.keys(newData).forEach(function (key) {
-            if (Object.prototype.hasOwnProperty.call(_this.form, key)) {
-              console.log("Setting form.".concat(key, " = ").concat(newData[key]));
-              _this.form[key] = newData[key];
-            } else {
-              console.log("Form does not have property: ".concat(key));
-            }
-          });
-
-          // Handle special cases
-          if (newData.image_path) {
-            this.url = newData.image_path;
-          }
-          if (newData.attachments) {
-            this.form.attachments = Array.isArray(newData.attachments) ? newData.attachments : [];
-          }
-          console.log('Form initialized with data:', newData);
-          console.log('Form after initialization:', this.form);
-
-          // Load representatives if this is an existing client
-          if (newData.slug && newData.slug !== 'new') {
-            console.log('=== WILL LOAD REPRESENTATIVES ===');
-            console.log('Will load representatives for slug:', newData.slug);
-            console.log('Slug type:', _typeof(newData.slug));
-            console.log('Slug value:', newData.slug);
-            console.log('Full newData:', newData);
-            // Add a small delay to ensure form is fully initialized
-            setTimeout(function () {
-              console.log('Calling loadRepresentatives after timeout');
-              _this.loadRepresentatives();
-            }, 100);
-          } else {
-            console.log('=== NOT LOADING REPRESENTATIVES ===');
-            console.log('NOT loading representatives because:');
-            console.log('- newData.slug exists:', !!newData.slug);
-            console.log('- newData.slug value:', newData.slug);
-            console.log('- newData.slug !== new:', newData.slug !== 'new');
-            console.log('Full newData:', newData);
-
-            // Only load next code number for truly new clients (not when editing)
-            if (!newData.slug || newData.slug === 'new') {
-              console.log('Loading next code number for new client');
-              this.loadNextCodeNumber();
-            } else {
-              console.log('Skipping next code number load - this appears to be an edit operation');
-            }
-          }
-        }
-      },
-      immediate: true,
-      deep: true
-    },
-    // Watch for changes in phoneNumber field
-    'form.phoneNumber': {
-      handler: function handler(newValue, oldValue) {
-        console.log('Phone number changed:', {
-          old: oldValue,
-          "new": newValue
-        });
-      },
-      immediate: true
-    },
-    // Watch for changes in representatives field
-    'form.representatives': {
-      handler: function handler(newValue, oldValue) {
-        console.log('Representatives changed:', {
-          old: oldValue,
-          "new": newValue
-        });
-        console.log('New representatives length:', newValue ? newValue.length : 'undefined');
-      },
-      immediate: true
-    },
-    // Watch for routing settings changes
-    routingSetting: {
-      handler: function handler(newValue, oldValue) {
-        if (newValue && newValue.routing_type !== (oldValue === null || oldValue === void 0 ? void 0 : oldValue.routing_type)) {
-          console.log('Routing type changed, reloading chart of accounts');
-          this.loadChartOfAccounts();
-        }
-      },
-      deep: true
-    }
-  },
-  computed: {
-    // Check if this is a new client
-    isNewClient: function isNewClient() {
-      return !this.initialData || Object.keys(this.initialData).length === 0 || this.initialData.slug && this.initialData.slug === 'new';
-    }
-  },
-  created: function created() {
-    console.log('ClientForm component created');
-    this.initializeForm();
-  },
-  mounted: function mounted() {
-    var _this2 = this;
-    console.log('ClientForm component mounted, form:', this.form);
-    console.log('Initial data in mounted:', this.initialData);
-    // Don't call loadRepresentatives here - let the watcher handle it
-
-    // Load next code number for new clients
-    this.loadNextCodeNumber();
-
-    // Load communication configuration status
-    this.loadCommunicationConfigStatus();
-
-    // Load routing settings first, then chart of accounts
-    this.loadRoutingSettings().then(function () {
-      console.log('Routing settings loaded, now loading chart of accounts...');
-      _this2.loadChartOfAccounts().then(function () {
-        console.log('Chart of accounts loading completed. Total accounts:', _this2.chartOfAccounts.length);
-        console.log('Chart of accounts data:', _this2.chartOfAccounts);
-      });
-    })["catch"](function (error) {
-      console.error('Error in mounted lifecycle:', error);
-    });
-  },
-  methods: {
-    // Initialize the form
-    initializeForm: function initializeForm() {
-      console.log('=== INITIALIZING FORM ===');
-      console.log('Initial data:', this.initialData);
-      this.form = new vform_es/* default */.Ay(_objectSpread({
-        // Account Details
-        codeNumber: "",
-        // Will be loaded from API
-        notes: "",
-        displayLanguage: "",
-        // Client Details
-        type: "Company",
-        fullName: "",
-        businessName: "",
-        firstName: "",
-        lastName: "",
-        phone: "",
-        phoneNumber: "",
-        email: "",
-        streetAddress1: "",
-        streetAddress2: "",
-        city: "",
-        state: "",
-        postalCode: "",
-        country: "SA",
-        neighbourhood: "",
-        commercialRegister: "",
-        taxCard: "",
-        // Saudi National Address Fields
-        buildingNumber: "",
-        streetNumber: "",
-        districtNumber: "",
-        unitNumber: "",
-        additionalNumber: "",
-        // Additional Fields
-        image: "",
-        attachments: [],
-        status: 1,
-        isSendEmail: false,
-        isSendSMS: false,
-        // Legacy fields for backward compatibility
-        name: "",
-        companyName: "",
-        taxRegistrationNumber: "",
-        address: "",
-        // Representatives
-        representatives: [],
-        // Chart of Account
-        chartOfAccountId: null
-      }, this.initialData || {}));
-      console.log('Form initialized:', this.form);
-      console.log('Form type:', _typeof(this.form));
-      console.log('Form methods:', Object.getOwnPropertyNames(this.form));
-    },
-    // Load the next available code number for new clients
-    loadNextCodeNumber: function loadNextCodeNumber() {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var response, _error$response, _t;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
-            case 0:
-              if (!(_this3.initialData && _this3.initialData.slug && _this3.initialData.slug !== 'new')) {
-                _context.n = 1;
-                break;
-              }
-              console.log('Skipping next code number load - editing existing client');
-              return _context.a(2);
-            case 1:
-              _context.p = 1;
-              console.log('=== LOADING NEXT CODE NUMBER ===');
-              console.log('Current form codeNumber before API call:', _this3.form.codeNumber);
-              _context.n = 2;
-              return axios_default().get('/clients/next-code');
-            case 2:
-              response = _context.v;
-              console.log('Next code API response:', response.data);
-
-              // Check if we have formatted_code in the response (successful response)
-              if (response.data && response.data.formatted_code) {
-                _this3.form.codeNumber = response.data.formatted_code;
-                console.log('Code number successfully loaded:', _this3.form.codeNumber);
-                console.log('Debug info from API:', response.data.debug);
-              } else if (response.data && response.data.success === false) {
-                console.error('API returned error:', response.data.message);
-                // Fallback to a default code for first client
-                _this3.form.codeNumber = 'AC001';
-                console.log('Using fallback code number:', _this3.form.codeNumber);
-              } else {
-                // Response structure might be different, try to extract formatted_code
-                if (response.data && response.data.formatted_code) {
-                  _this3.form.codeNumber = response.data.formatted_code;
-                } else {
-                  // Last resort fallback
-                  _this3.form.codeNumber = 'AC001';
-                  console.log('Using default fallback code number:', _this3.form.codeNumber);
-                }
-              }
-              _context.n = 4;
-              break;
-            case 3:
-              _context.p = 3;
-              _t = _context.v;
-              console.error('Error loading next code number:', _t);
-              console.error('Error details:', ((_error$response = _t.response) === null || _error$response === void 0 ? void 0 : _error$response.data) || _t.message);
-              // Fallback to a default code instead of 'Loading...'
-              // This ensures the form doesn't get stuck in loading state
-              _this3.form.codeNumber = 'AC001';
-              console.log('Using fallback code number due to error:', _this3.form.codeNumber);
-            case 4:
-              return _context.a(2);
-          }
-        }, _callee, null, [[1, 3]]);
-      }))();
-    },
-    // Load communication configuration status
-    loadCommunicationConfigStatus: function loadCommunicationConfigStatus() {
-      var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        var response, _t2;
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.p = _context2.n) {
-            case 0:
-              _context2.p = 0;
-              console.log('=== LOADING COMMUNICATION CONFIG STATUS ===');
-              _this4.communicationConfig.loading = true;
-              _context2.n = 1;
-              return axios_default().get('/api/communication-config-status');
-            case 1:
-              response = _context2.v;
-              console.log('Communication config response:', response.data);
-              _this4.communicationConfig.email_configured = response.data.email_configured;
-              _this4.communicationConfig.sms_configured = response.data.sms_configured;
-              _this4.communicationConfig.loading = false;
-              console.log('Communication config loaded:', _this4.communicationConfig);
-              _context2.n = 3;
-              break;
-            case 2:
-              _context2.p = 2;
-              _t2 = _context2.v;
-              console.error('Error loading communication config status:', _t2);
-              // Default to false if there's an error
-              _this4.communicationConfig.email_configured = false;
-              _this4.communicationConfig.sms_configured = false;
-              _this4.communicationConfig.loading = false;
-            case 3:
-              return _context2.a(2);
-          }
-        }, _callee2, null, [[0, 2]]);
-      }))();
-    },
-    // vue file upload
-    onFileChange: function onFileChange(e) {
-      var _this5 = this;
-      var files = Array.from(e.target.files);
-      var validFiles = [];
-      files.forEach(function (file) {
-        // Check file size (2MB limit)
-        if (file.size < 2111775) {
-          // For image, only allow image files
-          if (e.target.id === 'image') {
-            if (file.type.startsWith('image/')) {
-              validFiles.push(file);
-            } else {
-              _this5.$toast.error(_this5.$t("Error!"), _this5.$t("Please select a valid image file"));
-            }
-          } else {
-            // For attachments, only allow images to match backend validation
-            var allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-            if (allowedTypes.includes(file.type)) {
-              validFiles.push(file);
-            } else {
-              _this5.$toast.error(_this5.$t("Error!"), _this5.$t("Only JPEG, PNG, and GIF files are allowed."));
-            }
-          }
-        } else {
-          _this5.$toast.error(_this5.$t("Error!"), _this5.$t("Please select a file with size less than 2 MB"));
-        }
-      });
-      if (validFiles.length > 0) {
-        // Check if this is for image or attachments
-        if (e.target.id === 'image') {
-          // Single image file
-          this.form.image = validFiles[0];
-          this.url = URL.createObjectURL(validFiles[0]);
-        } else {
-          // Multiple attachment files
-          this.form.attachments = [].concat(_toConsumableArray(this.form.attachments), validFiles);
-        }
-      }
-    },
-    // Remove a file from attachments
-    removeFile: function removeFile(index) {
-      this.form.attachments.splice(index, 1);
-    },
-    // Reset form to default values
-    resetForm: function resetForm() {
-      this.form.reset();
-
-      // Reset to default values for specific fields
-      this.form.type = "Company";
-      this.form.status = 1;
-      this.form.country = "SA";
-      this.form.isSendEmail = false;
-      this.form.isSendSMS = false;
-
-      // Load the next available code number
-      this.loadNextCodeNumber();
-
-      // Clear all other fields
-      this.form.notes = "";
-      this.form.displayLanguage = "";
-      this.form.fullName = "";
-      this.form.businessName = "";
-      this.form.firstName = "";
-      this.form.lastName = "";
-      this.form.phone = "";
-      this.form.phoneNumber = "";
-      this.form.email = "";
-      this.form.streetAddress1 = "";
-      this.form.streetAddress2 = "";
-      this.form.city = "";
-      this.form.state = "";
-      this.form.postalCode = "";
-      this.form.neighbourhood = "";
-      this.form.commercialRegister = "";
-      this.form.taxCard = "";
-      // Clear Saudi National Address Fields
-      this.form.buildingNumber = "";
-      this.form.streetNumber = "";
-      this.form.districtNumber = "";
-      this.form.unitNumber = "";
-      this.form.additionalNumber = "";
-      this.form.attachments = []; // Clear attachments
-      this.form.image = null; // Clear image
-      this.form.chartOfAccountId = null; // Clear chart of account
-
-      // Clear image preview
-      this.url = null;
-
-      // Clear validation errors
-      this.form.errors.clear();
-    },
-    // Get form data for parent component
-    getFormData: function getFormData() {
-      return this.form;
-    },
-    // Validate form
-    validateForm: function validateForm() {
-      var _this6 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-        var autoCreatedAccount;
-        return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.n) {
-            case 0:
-              console.log('=== VALIDATING FORM ===');
-              console.log('Form object:', _this6.form);
-              console.log('Form type:', _this6.form ? _this6.form.type : 'No form');
-              console.log('Form phoneNumber:', _this6.form ? _this6.form.phoneNumber : 'No form');
-              console.log('Form businessName:', _this6.form ? _this6.form.businessName : 'No form');
-              console.log('Form fullName:', _this6.form ? _this6.form.fullName : 'No form');
-
-              // Basic validation - check if form exists
-              if (_this6.form) {
-                _context3.n = 1;
-                break;
-              }
-              console.error('Form is not initialized');
-              return _context3.a(2, false);
-            case 1:
-              if (!(!_this6.form.phoneNumber || _this6.form.phoneNumber.trim() === '')) {
-                _context3.n = 2;
-                break;
-              }
-              console.log('Phone number validation failed - phoneNumber:', _this6.form.phoneNumber);
-              if (window.toast && typeof window.toast.fire === 'function') {
-                window.toast.fire({
-                  type: "error",
-                  title: _this6.$t("Mobile number is required")
-                });
-              } else {
-                alert(_this6.$t("Mobile number is required"));
-              }
-              return _context3.a(2, false);
-            case 2:
-              if (!(_this6.form.type === 'Company' && (!_this6.form.businessName || _this6.form.businessName.trim() === ''))) {
-                _context3.n = 3;
-                break;
-              }
-              console.log('Business name validation failed - businessName:', _this6.form.businessName);
-              if (window.toast && typeof window.toast.fire === 'function') {
-                window.toast.fire({
-                  type: "error",
-                  title: _this6.$t("Business name is required for company clients")
-                });
-              } else {
-                alert(_this6.$t("Business name is required for company clients"));
-              }
-              return _context3.a(2, false);
-            case 3:
-              if (!(_this6.form.type === 'Individual' && (!_this6.form.fullName || _this6.form.fullName.trim() === ''))) {
-                _context3.n = 4;
-                break;
-              }
-              console.log('Full name validation failed - fullName:', _this6.form.fullName);
-              if (window.toast && typeof window.toast.fire === 'function') {
-                window.toast.fire({
-                  type: "error",
-                  title: _this6.$t("Full name is required for individual clients")
-                });
-              } else {
-                alert(_this6.$t("Full name is required for individual clients"));
-              }
-              return _context3.a(2, false);
-            case 4:
-              if (!(_this6.isNewClient && _this6.routingSetting && _this6.routingSetting.routing_type !== 'automatic')) {
-                _context3.n = 6;
-                break;
-              }
-              if (_this6.form.chartOfAccountId) {
-                _context3.n = 6;
-                break;
-              }
-              _context3.n = 5;
-              return _this6.autoCreateChartOfAccountForNewClient();
-            case 5:
-              autoCreatedAccount = _context3.v;
-              if (autoCreatedAccount) {
-                // Show info message about auto-creation
-                if (window.toast && typeof window.toast.fire === 'function') {
-                  window.toast.fire({
-                    type: 'info',
-                    title: _this6.$t('Chart of account automatically created for new client'),
-                    text: _this6.$t('Account will be properly created when you save the client.')
-                  });
-                }
-              }
-            case 6:
-              return _context3.a(2, true);
-          }
-        }, _callee3);
-      }))();
-    },
-    // Load representatives for existing client
-    loadRepresentatives: function loadRepresentatives() {
-      var _this7 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-        var slug, apiUrl, response, _t3;
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.p = _context4.n) {
-            case 0:
-              // Try to get slug from route params first, then from initialData
-              slug = _this7.$route.params.slug || _this7.initialData && _this7.initialData.slug;
-              console.log('=== LOADING REPRESENTATIVES ===');
-              console.log('Loading representatives for client:', slug);
-              console.log('Route params:', _this7.$route.params);
-              console.log('Initial data:', _this7.initialData);
-              console.log('Form type:', _this7.form.type);
-              console.log('Form representatives before load:', _this7.form.representatives);
-              if (!(slug && slug !== 'new')) {
-                _context4.n = 5;
-                break;
-              }
-              _context4.p = 1;
-              apiUrl = "/api/client/".concat(slug, "/representatives");
-              console.log('Making API call to:', apiUrl);
-              _context4.n = 2;
-              return _this7.$http.get(apiUrl);
-            case 2:
-              response = _context4.v;
-              console.log('Representatives API response received');
-              console.log('Response status:', response.status);
-              console.log('Response data:', response.data);
-              console.log('Response success:', response.data.success);
-              console.log('Response data.data:', response.data.data);
-              if (response.data.success) {
-                _this7.form.representatives = response.data.data;
-                console.log('Representatives loaded into form:', _this7.form.representatives);
-                console.log('Form representatives after load:', _this7.form.representatives);
-                console.log('Representatives count after load:', _this7.form.representatives.length);
-              } else {
-                console.log('API response indicates failure:', response.data);
-              }
-              _context4.n = 4;
-              break;
-            case 3:
-              _context4.p = 3;
-              _t3 = _context4.v;
-              console.error('=== ERROR LOADING REPRESENTATIVES ===');
-              console.error('Error:', _t3);
-              console.error('Error message:', _t3.message);
-              console.error('Error response:', _t3.response);
-              if (_t3.response) {
-                console.error('Error status:', _t3.response.status);
-                console.error('Error data:', _t3.response.data);
-              }
-            case 4:
-              _context4.n = 6;
-              break;
-            case 5:
-              console.log('No slug or new client, skipping representatives load');
-              console.log('Slug value:', slug);
-              console.log('Is new client:', slug === 'new');
-            case 6:
-              console.log('=== END LOADING REPRESENTATIVES ===');
-            case 7:
-              return _context4.a(2);
-          }
-        }, _callee4, null, [[1, 3]]);
-      }))();
-    },
-    // Handle when representatives are changed (added, edited, deleted)
-    handleRepresentativesChanged: function handleRepresentativesChanged(representatives) {
-      this.form.representatives = representatives;
-    },
-    // Load routing settings
-    loadRoutingSettings: function loadRoutingSettings() {
-      var _this8 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-        var response, _t4;
-        return _regenerator().w(function (_context5) {
-          while (1) switch (_context5.p = _context5.n) {
-            case 0:
-              _context5.p = 0;
-              console.log('Loading routing settings...');
-              // Get the specific clients_account routing setting
-              _context5.n = 1;
-              return _this8.$http.get('/api/account-routing-settings');
-            case 1:
-              response = _context5.v;
-              console.log('Routing settings response:', response);
-              if (response.data && response.data.success) {
-                console.log('Routing settings data:', response.data.data);
-                // Find the clients_account setting
-                _this8.routingSetting = response.data.data.find(function (setting) {
-                  return setting.setting_key === 'clients_account';
-                });
-                console.log('Found clients_account setting:', _this8.routingSetting);
-                if (_this8.routingSetting) {
-                  // Add routing type display name
-                  _this8.routingSetting.routing_type_display = _this8.getRoutingTypeDisplayName(_this8.routingSetting.routing_type);
-                  console.log('Routing setting with display name:', _this8.routingSetting);
-                } else {
-                  console.log('No clients_account setting found in:', response.data.data);
-                  // Set a default routing setting if none found
-                  _this8.routingSetting = {
-                    routing_type: 'per_each',
-                    routing_type_display: 'Specify Per Each',
-                    main_account_id: null
-                  };
-                  console.log('Using default routing setting:', _this8.routingSetting);
-                }
-              } else {
-                console.log('Routing settings response not successful:', response.data);
-                // Set a default routing setting if API fails
-                _this8.routingSetting = {
-                  routing_type: 'per_each',
-                  routing_type_display: 'Specify Per Each',
-                  main_account_id: null
-                };
-                console.log('Using default routing setting due to API failure:', _this8.routingSetting);
-              }
-              _context5.n = 3;
-              break;
-            case 2:
-              _context5.p = 2;
-              _t4 = _context5.v;
-              console.error('Error loading routing settings:', _t4);
-              // Set a default routing setting if error occurs
-              _this8.routingSetting = {
-                routing_type: 'per_each',
-                routing_type_display: 'Specify Per Each',
-                main_account_id: null
-              };
-              console.log('Using default routing setting due to error:', _this8.routingSetting);
-            case 3:
-              return _context5.a(2);
-          }
-        }, _callee5, null, [[0, 2]]);
-      }))();
-    },
-    // Get routing type display name
-    getRoutingTypeDisplayName: function getRoutingTypeDisplayName(routingType) {
-      switch (routingType) {
-        case 'automatic':
-          return this.$t('Automatic Account Routing');
-        case 'per_each':
-          return this.$t('Specify Per Each');
-        case 'main_account_per_each':
-          return this.$t('Specify Main Account Per Each');
-        case 'cancel':
-          return this.$t('Cancel Account Routing');
-        default:
-          return this.$t('Unknown');
-      }
-    },
-    // Load chart of accounts with search functionality
-    loadChartOfAccounts: function loadChartOfAccounts() {
-      var _this9 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
-        var response, fallbackResponse, _response, altResponse, _t5, _t6, _t7;
-        return _regenerator().w(function (_context6) {
-          while (1) switch (_context6.p = _context6.n) {
-            case 0:
-              _context6.p = 0;
-              console.log('Loading chart of accounts...');
-              console.log('Current routing setting:', _this9.routingSetting);
-              _this9.loadingChartOfAccounts = true;
-              _this9.chartOfAccountsError = null;
-
-              // If routing is automatic, we don't need to load all accounts
-              if (!(_this9.routingSetting && _this9.routingSetting.routing_type === 'automatic')) {
-                _context6.n = 1;
-                break;
-              }
-              console.log('Routing type is automatic, not loading chart of accounts');
-              _this9.chartOfAccounts = [];
-              return _context6.a(2);
-            case 1:
-              if (!(_this9.routingSetting && _this9.routingSetting.main_account_id)) {
-                _context6.n = 9;
-                break;
-              }
-              console.log('Loading accounts from routing setup...');
-              _context6.p = 2;
-              _context6.n = 3;
-              return _this9.$http.get("/api/account-routing-settings/".concat(_this9.routingSetting.setting_key, "/accounts"));
-            case 3:
-              response = _context6.v;
-              console.log('Routing accounts response:', response);
-              if (!(response.data && response.data.success)) {
-                _context6.n = 4;
-                break;
-              }
-              _this9.chartOfAccounts = response.data.accounts || [];
-              console.log('Loaded accounts from routing setup:', _this9.chartOfAccounts.length);
-              _context6.n = 5;
-              break;
-            case 4:
-              throw new Error('Routing accounts response not successful');
-            case 5:
-              _context6.n = 8;
-              break;
-            case 6:
-              _context6.p = 6;
-              _t5 = _context6.v;
-              console.log('Routing accounts failed, falling back to all accounts:', _t5);
-              // Fallback to all accounts
-              _context6.n = 7;
-              return _this9.$http.get('/api/chart-of-accounts/all');
-            case 7:
-              fallbackResponse = _context6.v;
-              _this9.chartOfAccounts = fallbackResponse.data.data || fallbackResponse.data || [];
-              console.log('Loaded fallback accounts:', _this9.chartOfAccounts.length);
-            case 8:
-              _context6.n = 11;
-              break;
-            case 9:
-              console.log('No main account ID, loading all accounts as fallback');
-              // Load all active accounts as fallback
-              _context6.n = 10;
-              return _this9.$http.get('/api/chart-of-accounts/all');
-            case 10:
-              _response = _context6.v;
-              // The getAll endpoint returns a resource collection, so data is directly in response.data
-              _this9.chartOfAccounts = _response.data.data || _response.data || [];
-              console.log('Loaded all accounts as fallback:', _this9.chartOfAccounts.length);
-            case 11:
-              if (!(_this9.chartOfAccounts.length === 0)) {
-                _context6.n = 15;
-                break;
-              }
-              console.log('No accounts loaded, trying alternative endpoint...');
-              _context6.p = 12;
-              _context6.n = 13;
-              return _this9.$http.get('/api/chart-of-accounts/dropdown');
-            case 13:
-              altResponse = _context6.v;
-              _this9.chartOfAccounts = altResponse.data.data || altResponse.data || [];
-              console.log('Loaded accounts from dropdown endpoint:', _this9.chartOfAccounts.length);
-              _context6.n = 15;
-              break;
-            case 14:
-              _context6.p = 14;
-              _t6 = _context6.v;
-              console.error('Alternative endpoint also failed:', _t6);
-              // Set a minimal fallback to prevent empty dropdown
-              _this9.chartOfAccounts = [{
-                id: 'placeholder',
-                name: 'No accounts available - Please configure chart of accounts',
-                code: 'N/A',
-                type: 'Error'
-              }];
-              _this9.chartOfAccountsError = 'No chart of accounts available. Please check your configuration.';
-            case 15:
-              _context6.n = 17;
-              break;
-            case 16:
-              _context6.p = 16;
-              _t7 = _context6.v;
-              console.error('Error loading chart of accounts:', _t7);
-              _this9.chartOfAccountsError = _t7.message || 'Failed to load chart of accounts';
-            case 17:
-              _context6.p = 17;
-              _this9.loadingChartOfAccounts = false;
-              return _context6.f(17);
-            case 18:
-              return _context6.a(2);
-          }
-        }, _callee6, null, [[12, 14], [2, 6], [0, 16, 17, 18]]);
-      }))();
-    },
-    // Search chart of accounts (for v-select search)
-    searchChartOfAccounts: function searchChartOfAccounts(search) {
-      var _this0 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
-        var filtered, response, apiData, fallbackFiltered, _t8;
-        return _regenerator().w(function (_context7) {
-          while (1) switch (_context7.p = _context7.n) {
-            case 0:
-              console.log('Searching for:', search);
-              if (!(!search || search.length < 2)) {
-                _context7.n = 1;
-                break;
-              }
-              console.log('Search too short, returning first 50 accounts');
-              return _context7.a(2, _this0.chartOfAccounts.slice(0, 50));
-            case 1:
-              _context7.p = 1;
-              // Filter locally first for better performance
-              filtered = _this0.chartOfAccounts.filter(function (account) {
-                return account.name.toLowerCase().includes(search.toLowerCase()) || account.code.toLowerCase().includes(search.toLowerCase());
-              });
-              console.log('Local filtered results:', filtered.length);
-
-              // If we have enough results locally, return them
-              if (!(filtered.length >= 10)) {
-                _context7.n = 2;
-                break;
-              }
-              console.log('Enough local results, returning filtered');
-              return _context7.a(2, filtered.slice(0, 50));
-            case 2:
-              // Otherwise, search from API
-              console.log('Searching from API...');
-              _context7.n = 3;
-              return _this0.$http.get('/api/chart-of-accounts/search', {
-                params: {
-                  term: search
-                }
-              });
-            case 3:
-              response = _context7.v;
-              console.log('API search response:', response);
-              if (!(response.data && (response.data.data || response.data))) {
-                _context7.n = 4;
-                break;
-              }
-              console.log('API returned data, returning results');
-              apiData = response.data.data || response.data;
-              return _context7.a(2, apiData.slice(0, 50));
-            case 4:
-              console.log('No API data, returning local filtered');
-              return _context7.a(2, filtered);
-            case 5:
-              _context7.n = 7;
-              break;
-            case 6:
-              _context7.p = 6;
-              _t8 = _context7.v;
-              console.error('Error searching chart of accounts:', _t8);
-              // Fallback to local filtering
-              fallbackFiltered = _this0.chartOfAccounts.filter(function (account) {
-                return account.name.toLowerCase().includes(search.toLowerCase()) || account.code.toLowerCase().includes(search.toLowerCase());
-              });
-              console.log('Fallback filtered results:', fallbackFiltered.length);
-              return _context7.a(2, fallbackFiltered.slice(0, 50));
-            case 7:
-              return _context7.a(2);
-          }
-        }, _callee7, null, [[1, 6]]);
-      }))();
-    },
-    // Auto-create chart of account for new client
-    autoCreateChartOfAccountForNewClient: function autoCreateChartOfAccountForNewClient() {
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
-        var _t9;
-        return _regenerator().w(function (_context8) {
-          while (1) switch (_context8.p = _context8.n) {
-            case 0:
-              _context8.p = 0;
-              // This method would implement the logic to automatically create a chart of account
-              // For now, we'll return null to indicate no auto-creation
-              console.log('Auto-create chart of account method called');
-              return _context8.a(2, null);
-            case 1:
-              _context8.p = 1;
-              _t9 = _context8.v;
-              console.error('Error auto-creating chart of account:', _t9);
-              return _context8.a(2, null);
-          }
-        }, _callee8, null, [[0, 1]]);
-      }))();
-    },
-    // Submit form
-    submitForm: function submitForm() {
-      var _this1 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
-        var isValid, submitData, _t0;
-        return _regenerator().w(function (_context9) {
-          while (1) switch (_context9.p = _context9.n) {
-            case 0:
-              console.log('=== CLIENTFORM SUBMITFORM CALLED ===');
-              console.log('Form object:', _this1.form);
-              console.log('Form type:', _typeof(_this1.form));
-              console.log('Form data method:', _this1.form ? _typeof(_this1.form.data) : 'No form');
-              console.log('isNewClient:', _this1.isNewClient);
-              console.log('initialData:', _this1.initialData);
-              if (_this1.form) {
-                _context9.n = 1;
-                break;
-              }
-              console.error('Form is not initialized!');
-              if (window.toast && typeof window.toast.fire === 'function') {
-                window.toast.fire({
-                  type: "error",
-                  title: _this1.$t("Form is not ready"),
-                  text: _this1.$t("Please wait a moment and try again.")
-                });
-              } else {
-                alert(_this1.$t("Form is not ready. Please wait a moment and try again."));
-              }
-              return _context9.a(2);
-            case 1:
-              if (!(!_this1.form.data || typeof _this1.form.data !== 'function')) {
-                _context9.n = 2;
-                break;
-              }
-              console.error('Form data method is not available!');
-              if (window.toast && typeof window.toast.fire === 'function') {
-                window.toast.fire({
-                  type: "error",
-                  title: _this1.$t("Form is not properly initialized"),
-                  text: _this1.$t("Please refresh the page and try again.")
-                });
-              } else {
-                alert(_this1.$t("Form is not properly initialized. Please refresh the page and try again."));
-              }
-              return _context9.a(2);
-            case 2:
-              _context9.p = 2;
-              console.log('Validating form...');
-              _context9.n = 3;
-              return _this1.validateForm();
-            case 3:
-              isValid = _context9.v;
-              console.log('Validation result:', isValid);
-              if (isValid) {
-                _context9.n = 4;
-                break;
-              }
-              console.log('Form validation failed');
-              if (window.toast && typeof window.toast.fire === 'function') {
-                window.toast.fire({
-                  type: "error",
-                  title: _this1.$t("Please fill in all required fields correctly.")
-                });
-              }
-              return _context9.a(2);
-            case 4:
-              console.log('Form validation passed, preparing submit data...');
-
-              // Map form data to API format
-              submitData = {
-                // Explicitly include all form fields to ensure they are sent
-                codeNumber: _this1.form.codeNumber,
-                notes: _this1.form.notes,
-                displayLanguage: _this1.form.displayLanguage,
-                status: _this1.form.status,
-                // Client Details
-                type: _this1.form.type,
-                fullName: _this1.form.fullName,
-                businessName: _this1.form.businessName,
-                firstName: _this1.form.firstName,
-                lastName: _this1.form.lastName,
-                phone: _this1.form.phone,
-                phoneNumber: _this1.form.phoneNumber,
-                // Explicitly include phone number
-                email: _this1.form.email,
-                streetAddress1: _this1.form.streetAddress1,
-                streetAddress2: _this1.form.streetAddress2,
-                city: _this1.form.city,
-                state: _this1.form.state,
-                postalCode: _this1.form.postalCode,
-                country: _this1.form.country,
-                neighbourhood: _this1.form.neighbourhood,
-                commercialRegister: _this1.form.commercialRegister,
-                taxCard: _this1.form.taxCard,
-                // Saudi National Address Fields
-                buildingNumber: _this1.form.buildingNumber,
-                streetNumber: _this1.form.streetNumber,
-                districtNumber: _this1.form.districtNumber,
-                unitNumber: _this1.form.unitNumber,
-                additionalNumber: _this1.form.additionalNumber,
-                // Additional Fields
-                image: _this1.form.image,
-                attachments: _this1.form.attachments,
-                isSendEmail: _this1.form.isSendEmail,
-                isSendSMS: _this1.form.isSendSMS,
-                // Map legacy fields for backward compatibility
-                name: _this1.form.type === 'Individual' ? _this1.form.fullName : _this1.form.businessName,
-                companyName: _this1.form.businessName,
-                taxRegistrationNumber: _this1.form.taxCard,
-                address: _this1.form.streetAddress1,
-                // Include representatives data
-                representatives: _this1.form.representatives || [],
-                // Chart of Account
-                chartOfAccountId: _this1.form.chartOfAccountId
-              };
-              console.log('Emitting submit event with data...');
-
-              // Emit submit event with form data
-              _this1.$emit('submit', submitData);
-              console.log('Submit event emitted successfully');
-              _context9.n = 6;
-              break;
-            case 5:
-              _context9.p = 5;
-              _t0 = _context9.v;
-              console.error('Error in submitForm:', _t0);
-              if (window.toast && typeof window.toast.fire === 'function') {
-                window.toast.fire({
-                  type: "error",
-                  title: _this1.$t("Error submitting form"),
-                  text: _t0.message || 'Unknown error occurred'
-                });
-              } else {
-                alert("Error submitting form: ".concat(_t0.message || 'Unknown error occurred'));
-              }
-            case 6:
-              return _context9.a(2);
-          }
-        }, _callee9, null, [[2, 5]]);
-      }))();
-    },
-    // Create new chart of account
-    createNewAccount: function createNewAccount() {
-      var _this10 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
-        return _regenerator().w(function (_context0) {
-          while (1) switch (_context0.n) {
-            case 0:
-              try {
-                _this10.isCreatingAccount = true;
-
-                // This method would implement the logic to create a new chart of account
-                // For now, we'll just show a message
-                if (window.toast && typeof window.toast.fire === 'function') {
-                  window.toast.fire({
-                    type: 'info',
-                    title: _this10.$t('Create New Account'),
-                    text: _this10.$t('This feature is not yet implemented.')
-                  });
-                }
-              } catch (error) {
-                console.error('Error creating new account:', error);
-                if (window.toast && typeof window.toast.fire === 'function') {
-                  window.toast.fire({
-                    type: 'error',
-                    title: _this10.$t('Error'),
-                    text: _this10.$t('Failed to create new account')
-                  });
-                }
-              } finally {
-                _this10.isCreatingAccount = false;
-              }
-            case 1:
-              return _context0.a(2);
-          }
-        }, _callee0);
-      }))();
-    }
-  }
-});
-;// ./resources/js/components/ClientForm.vue?vue&type=script&lang=js
- /* harmony default export */ const components_ClientFormvue_type_script_lang_js = (ClientFormvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientForm.vue?vue&type=style&index=0&id=cd29bd14&prod&scoped=true&lang=css
-var ClientFormvue_type_style_index_0_id_cd29bd14_prod_scoped_true_lang_css = __webpack_require__(57036);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientForm.vue?vue&type=style&index=0&id=cd29bd14&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(ClientFormvue_type_style_index_0_id_cd29bd14_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const components_ClientFormvue_type_style_index_0_id_cd29bd14_prod_scoped_true_lang_css = (ClientFormvue_type_style_index_0_id_cd29bd14_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/ClientForm.vue?vue&type=style&index=0&id=cd29bd14&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/ClientForm.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  components_ClientFormvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "cd29bd14",
-  null
-  
-)
-
-/* harmony default export */ const ClientForm = (component.exports);
 
 /***/ }),
 
@@ -110771,108 +111692,125 @@ function page(path) {
 },
 // Payments section hidden for now - temporarily disabled routes
 // Invoice payment routes
-/*
 {
   path: '/payments/invoice',
   name: 'invoicePayments.index',
   component: page('payments/clients/invoice/index.vue'),
-  meta: {permissions: ['invoice-payment-list']},
-},
-{
+  meta: {
+    permissions: ['invoice-payment-list']
+  }
+}, {
   path: '/payments/invoice/create',
   name: 'invoicePayments.create',
   component: page('payments/clients/invoice/create.vue'),
-  meta: {permissions: ['invoice-payment-create']},
-},
-{
+  meta: {
+    permissions: ['invoice-payment-create']
+  }
+}, {
   path: '/payments/invoice/:slug',
   name: 'invoicePayments.show',
   component: page('payments/clients/invoice/show.vue'),
-  meta: {permissions: ['invoice-payment-view']},
-},
-{
+  meta: {
+    permissions: ['invoice-payment-view']
+  }
+}, {
   path: '/payments/invoice/edit/:slug',
   name: 'invoicePayments.edit',
   component: page('payments/clients/invoice/edit.vue'),
-  meta: {permissions: ['invoice-payment-edit']},
+  meta: {
+    permissions: ['invoice-payment-edit']
+  }
 },
-  // Non invoice payment routes
+// Non invoice payment routes
 {
   path: '/payments/non-invoice',
   name: 'nonInvoicePayments.index',
   component: page('payments/clients/non-invoice/index.vue'),
-  meta: {permissions: ['non-invoice-payment-list']},
-},
-{
+  meta: {
+    permissions: ['non-invoice-payment-list']
+  }
+}, {
   path: '/payments/non-invoice/create',
   name: 'nonInvoicePayments.create',
   component: page('payments/clients/non-invoice/create.vue'),
-  meta: {permissions: ['non-invoice-payment-create']},
-},
-{
+  meta: {
+    permissions: ['non-invoice-payment-create']
+  }
+}, {
   path: '/payments/non-invoice/:slug',
   name: 'nonInvoicePayments.show',
   component: page('payments/clients/non-invoice/show.vue'),
-  meta: {permissions: ['non-invoice-payment-view']},
-},
-{
+  meta: {
+    permissions: ['non-invoice-payment-view']
+  }
+}, {
   path: '/payments/non-invoice/edit/:slug',
   name: 'nonInvoicePayments.edit',
   component: page('payments/clients/non-invoice/edit.vue'),
-  meta: {permissions: ['non-invoice-payment-delete']},
+  meta: {
+    permissions: ['non-invoice-payment-delete']
+  }
 },
-  // Purchase payment routes
+// Purchase payment routes
 {
   path: '/payments/purchase',
   name: 'purchasePayments.index',
   component: page('payments/suppliers/purchase/index.vue'),
-  meta: {permissions: ['purchase-payment-list']},
-},
-{
+  meta: {
+    permissions: ['purchase-payment-list']
+  }
+}, {
   path: '/payments/purchase/create',
   name: 'purchasePayments.create',
   component: page('payments/suppliers/purchase/create.vue'),
-  meta: {permissions: ['purchase-payment-create']},
-},
-{
+  meta: {
+    permissions: ['purchase-payment-create']
+  }
+}, {
   path: '/payments/purchase/:slug',
   name: 'purchasePayments.show',
   component: page('payments/suppliers/purchase/show.vue'),
-  meta: {permissions: ['purchase-payment-view']},
-},
-{
+  meta: {
+    permissions: ['purchase-payment-view']
+  }
+}, {
   path: '/payments/purchase/edit/:slug',
   name: 'purchasePayments.edit',
   component: page('payments/suppliers/purchase/edit.vue'),
-  meta: {permissions: ['purchase-payment-edit']},
+  meta: {
+    permissions: ['purchase-payment-edit']
+  }
 },
-  // Non purchase payment routes
+// Non purchase payment routes
 {
   path: '/payments/non-purchase',
   name: 'nonPurchasePayments.index',
   component: page('payments/suppliers/non-purchase/index.vue'),
-  meta: {permissions: ['non-purchase-payment-list']},
-},
-{
+  meta: {
+    permissions: ['non-purchase-payment-list']
+  }
+}, {
   path: '/payments/non-purchase/create',
   name: 'nonPurchasePayments.create',
   component: page('payments/suppliers/non-purchase/create.vue'),
-  meta: {permissions: ['non-purchase-payment-create']},
-},
-{
+  meta: {
+    permissions: ['non-purchase-payment-create']
+  }
+}, {
   path: '/payments/non-purchase/:slug',
   name: 'nonPurchasePayments.show',
   component: page('payments/suppliers/non-purchase/show.vue'),
-  meta: {permissions: ['non-purchase-payment-show']},
-},
-{
+  meta: {
+    permissions: ['non-purchase-payment-show']
+  }
+}, {
   path: '/payments/non-purchase/edit/:slug',
   name: 'nonPurchasePayments.edit',
   component: page('payments/suppliers/non-purchase/edit.vue'),
-  meta: {permissions: ['non-purchase-payment-edit']},
+  meta: {
+    permissions: ['non-purchase-payment-edit']
+  }
 },
-*/
-
 // Payment Voucher routes - Receive Vouchers (سندات قبض)
 {
   path: '/vouchers/receive',
@@ -116464,9 +117402,9 @@ var RecentActivities_component = (0,componentNormalizer/* default */.A)(
 // EXTERNAL MODULE: ./resources/js/components/SettingsSidebar.vue + 3 modules
 var SettingsSidebar = __webpack_require__(21524);
 // EXTERNAL MODULE: ./resources/js/components/VModal.vue + 5 modules
-var VModal = __webpack_require__(48918);
+var VModal = __webpack_require__(63764);
 // EXTERNAL MODULE: ./resources/js/components/ClientForm.vue + 6 modules
-var ClientForm = __webpack_require__(79100);
+var ClientForm = __webpack_require__(68817);
 ;// ./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vform/src/components/bootstrap4/AlertError.vue?vue&type=template&id=96b49df0
 var AlertErrorvue_type_template_id_96b49df0_render = function render(){var _vm=this,_c=_vm._self._c;return (_vm.form.errors.any())?_c('div',{staticClass:"alert alert-danger alert-dismissible",attrs:{"role":"alert"}},[(_vm.dismissible)?_c('button',{staticClass:"close",attrs:{"type":"button","aria-label":"Dismiss"},on:{"click":_vm.dismiss}},[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("×")])]):_vm._e(),_vm._v(" "),_vm._t("default",function(){return [(_vm.form.errors.has('error'))?_c('div',{domProps:{"innerHTML":_vm._s(_vm.form.errors.get('error'))}}):(_vm.form.errors.has('message'))?_c('div',{domProps:{"innerHTML":_vm._s(_vm.form.errors.get('message'))}}):_c('div',{domProps:{"innerHTML":_vm._s(_vm.message)}})]})],2):_vm._e()
 }

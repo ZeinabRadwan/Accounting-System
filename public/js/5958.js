@@ -166,7 +166,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 /* harmony default export */ const assign_usersvue_type_script_lang_js = ({
   components: {
     VModal: function VModal() {
-      return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 48918));
+      return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 63764));
     }
   },
   middleware: ['auth', 'check-permissions'],

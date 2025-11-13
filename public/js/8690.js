@@ -447,7 +447,7 @@ var render = function render() {
 var staticRenderFns = [];
 
 // EXTERNAL MODULE: ./resources/js/components/VModal.vue + 5 modules
-var VModal = __webpack_require__(48918);
+var VModal = __webpack_require__(63764);
 // EXTERNAL MODULE: ./resources/js/components/SupplierForm.vue + 5 modules
 var SupplierForm = __webpack_require__(47085);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierCreateModal.vue?vue&type=script&lang=js
