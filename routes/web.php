@@ -130,7 +130,15 @@ Route::post('api/set-locale-public', [App\Http\Controllers\LanguageController::c
 // Serve Vite build assets directly (for central app) - MUST be public, no auth required
 Route::get('/build/{path}', function ($path) {
     try {
-        $filePath = public_path('build/'.$path);
+        // Normalize path to prevent directory traversal
+        $path = str_replace('..', '', $path);
+        $path = ltrim($path, '/');
+
+        // Get the public path (handles both local and server configurations)
+        $publicPath = public_path();
+        $filePath = $publicPath.'/build/'.$path;
+
+        // Check if file exists
         if (file_exists($filePath) && is_file($filePath)) {
             // Set appropriate content type based on file extension
             $extension = pathinfo($filePath, PATHINFO_EXTENSION);
@@ -153,9 +161,21 @@ Route::get('/build/{path}', function ($path) {
             }
         }
 
-        return response()->json(['error' => 'File not found', 'path' => $path], 404);
+        // Return detailed error for debugging
+        return response()->json([
+            'error' => 'File not found',
+            'path' => $path,
+            'searched' => $filePath,
+            'public_path' => $publicPath,
+            'exists' => file_exists($filePath),
+        ], 404);
     } catch (\Exception $e) {
-        return response()->json(['error' => 'Server error', 'message' => $e->getMessage()], 500);
+        return response()->json([
+            'error' => 'Server error',
+            'message' => $e->getMessage(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine(),
+        ], 500);
     }
 })->where('path', '.*')->name('vite.build.asset.central');
 
