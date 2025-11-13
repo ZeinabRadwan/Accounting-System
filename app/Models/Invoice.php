@@ -208,11 +208,17 @@ class Invoice extends Model
     public function invoiceTotalPaid()
     {
         $totalPaid = 0;
-        // payements
-        $invoicePayments = $this->invoicePayments;
+        // Use payment vouchers instead of invoice payments
+        $paymentVouchers = $this->paymentVouchers;
         // total paid
-        if (isset($invoicePayments)) {
-            $totalPaid = $invoicePayments->sum('amount');
+        if (isset($paymentVouchers) && $paymentVouchers->count() > 0) {
+            $totalPaid = $paymentVouchers->sum('amount');
+        } else {
+            // Fallback to old invoice payments for backward compatibility
+            $invoicePayments = $this->invoicePayments;
+            if (isset($invoicePayments)) {
+                $totalPaid = $invoicePayments->sum('amount');
+            }
         }
 
         return $totalPaid;
@@ -302,6 +308,14 @@ class Invoice extends Model
     public function invoicePayments()
     {
         return $this->hasMany(InvoicePayment::class, 'invoice_id');
+    }
+
+    /**
+     * Get the payment vouchers for this invoice.
+     */
+    public function paymentVouchers()
+    {
+        return $this->hasMany(PaymentVoucher::class, 'invoice_id')->where('payment_method', 'invoice');
     }
 
     /**

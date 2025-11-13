@@ -28,8 +28,15 @@ class PaymentVoucherListResource extends JsonResource
             'invoice' => $this->when($this->invoice, $this->invoice),
             'purchase' => $this->when($this->purchase, $this->purchase),
             'account' => $transaction && $transaction->cashbookAccount ? new AccountResource($transaction->cashbookAccount) : null,
+            'transaction' => $transaction ? [
+                'id' => $transaction->id,
+                'cheque_no' => $transaction->cheque_no,
+                'receipt_no' => $transaction->receipt_no,
+            ] : null,
             'amount' => $this->amount,
             'date' => $this->date,
+            'chequeNo' => $this->cheque_no,
+            'receiptNo' => $this->receipt_no,
             'note' => $this->note,
             'status' => (int) $this->status,
         ];

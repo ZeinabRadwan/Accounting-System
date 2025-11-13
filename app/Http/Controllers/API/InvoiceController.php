@@ -522,7 +522,17 @@ class InvoiceController extends Controller
     public function show($slug)
     {
         try {
-            $invoice = Invoice::where('slug', $slug)->with('client', 'invoiceProducts.invoice', 'invoicePayments.invoicePaymentTransaction.cashbookAccount', 'invoiceProducts.product.productUnit', 'invoiceProducts.product.productTax', 'invoiceProducts.product.salesAccount', 'invoiceTax', 'user')->first();
+            $invoice = Invoice::where('slug', $slug)->with([
+                'client', 
+                'invoiceProducts.invoice', 
+                'paymentVouchers.transaction.cashbookAccount',
+                'invoicePayments.invoicePaymentTransaction.cashbookAccount', // Keep for backward compatibility
+                'invoiceProducts.product.productUnit', 
+                'invoiceProducts.product.productTax', 
+                'invoiceProducts.product.salesAccount', 
+                'invoiceTax', 
+                'user'
+            ])->first();
             return new InvoiceResource($invoice);
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());

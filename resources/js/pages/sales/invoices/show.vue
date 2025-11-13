@@ -437,11 +437,11 @@
                               data.account.label
                             }}</span>
                           </td>
-                          <td v-if="data.transaction">
-                            {{ data.transaction.cheque_no }}
+                          <td>
+                            {{ data.transaction?.cheque_no || data.chequeNo || '-' }}
                           </td>
-                          <td v-if="data.transaction">
-                            {{ data.transaction.receipt_no }}
+                          <td>
+                            {{ data.transaction?.receipt_no || data.receiptNo || '-' }}
                           </td>
                           <td class="text-right">
                             <span
@@ -716,6 +716,123 @@
         </div>
       </div>
     </div>
+    <Modal v-if="showPaymentModal" @close="showPaymentModal = false">
+      <h5 slot="header">
+        {{ $t("Create invoice payment") }} :
+        {{ allData.invoiceNo | withPrefix(invoicePrefix) }}
+      </h5>
+      <div slot="body" class="row">
+        <form role="form" @submit.prevent="savePayment" @keydown="paymentForm.onKeydown($event)" class="w-100">
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="clientInvoiceTotal">{{
+                $t("Invoice Total")
+              }}</label>
+              <input type="text" class="form-control" readonly :value="formatNumber(calculatedTotal)" />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="clientInvoiceDue">{{
+                $t("Invoice Due")
+              }}</label>
+              <input type="text" class="form-control" readonly :value="formatNumber(calculateDueAmount)" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label for="paidAmount">{{ $t("Paid Amount") }}</label>
+              <input type="number" step="any" class="form-control" :placeholder="$t('Enter an amount')"
+                required min="1" v-model="paymentForm.paidAmount" :max="calculateDueAmount" />
+            </div>
+            <div class="form-group col-md-8">
+              <label for="account">{{ $t("Account") }}
+                <span class="required">*</span></label>
+              <div class="d-flex w-100">
+                <v-select v-model="paymentForm.account" :options="accounts" label="label"
+                  :class="{ 'is-invalid': paymentForm.errors.has('account') }" name="account"
+                  :placeholder="$t('Select an account')" class="flex-grow-1">
+                   <template slot="option" slot-scope="option">
+                      <img :src="option.image" style="width: 30px; height: 30px;" />
+                      {{ option.label }}
+                  </template>
+                </v-select>
+                <AccountCreateModal @accountCreated="handleAccountCreated">
+                  <div class="input-group-text create-btn">
+                    <i class="fas fa-solid fa-plus-circle"></i>
+                  </div>
+                </AccountCreateModal>
+              </div>
+              <has-error :form="paymentForm" field="account" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="receiptNo">{{ $t("Receipt No") }}</label>
+              <input type="text" v-model="paymentForm.receiptNo" class="form-control"
+                :class="{ 'is-invalid': paymentForm.errors.has('receiptNo') }" id="receiptNo"
+                :placeholder="$t('Enter a receipt no')" />
+              <has-error :form="paymentForm" field="receiptNo" />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="paymentDate">{{ $t("Payment Date") }}</label>
+              <input id="paymentDate" v-model="paymentForm.paymentDate" type="date" class="form-control"
+                :class="{ 'is-invalid': paymentForm.errors.has('paymentDate') }" name="paymentDate" />
+              <has-error :form="paymentForm" field="paymentDate" />
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="status">{{ $t("Status") }}</label>
+              <select id="status" v-model="paymentForm.status" class="form-control"
+                :class="{ 'is-invalid': paymentForm.errors.has('status') }"
+                :disabled="allData && allData.status === 0">
+                <option v-if="!allData || allData.status === 1" value="1">{{ $t("Active") }}</option>
+                <option value="0">{{ $t("Inactive") }}</option>
+              </select>
+              <has-error :form="paymentForm" field="status" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="note">{{ $t("Note") }}</label>
+            <textarea id="note" v-model="paymentForm.note" class="form-control"
+              :class="{ 'is-invalid': paymentForm.errors.has('note') }" :placeholder="$t('Write your note here!')" />
+            <has-error :form="paymentForm" field="note" />
+          </div>
+          <div class="form-group col-12 d-flex flex-wrap">
+            <div class="pr-5 d-flex align-items-center">
+              <toggle-button 
+                v-model="paymentForm.isSendEmail" 
+                :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.email_configured" />
+              <span class="ml-3">{{ $t("Send Email Notification") }}</span>
+              <span v-if="!communicationConfig.loading && !communicationConfig.email_configured" 
+                    class="ml-2 text-muted small">
+                ({{ $t("Email not configured") }})
+              </span>
+            </div>
+          </div>
+          <div class="form-group col-12 d-flex flex-wrap">
+            <div class="pr-5 d-flex align-items-center">
+              <toggle-button 
+                v-model="paymentForm.isSendSMS" 
+                :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.sms_configured" />
+              <span class="ml-3">{{ $t("Send SMS Notification") }}</span>
+              <span v-if="!communicationConfig.loading && !communicationConfig.sms_configured" 
+                    class="ml-2 text-muted small">
+                ({{ $t("SMS not configured") }})
+              </span>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div slot="modal-footer" class="d-flex justify-content-end w-100">
+        <v-button :loading="paymentForm.busy" class="btn btn-success mr-2" @click="savePayment">
+          <i class="fas fa-save" /> {{ $t("Save") }}
+        </v-button>
+        <button type="button" class="btn btn-secondary" @click="showPaymentModal = false">
+          {{ $t("Close") }}
+        </button>
+      </div>
+    </Modal>
   </div>
 </template>
 
@@ -726,11 +843,17 @@ import { mapGetters } from "vuex";
 import html2pdf from "html2pdf.js";
 import Swal from "sweetalert2";
 import SwalOriginal from "sweetalert2/dist/sweetalert2";
+import { ToggleButton } from "vue-js-toggle-button";
+import AccountCreateModal from "~/components/AccountCreateModal";
 
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
     return { title: this.$t("Invoice Details") };
+  },
+  components: {
+    ToggleButton,
+    AccountCreateModal,
   },
   data: () => ({
     allData: "",
@@ -767,6 +890,19 @@ export default {
       sms_configured: false,
       loading: true,
     },
+    showPaymentModal: false,
+    accounts: [],
+    paymentForm: new Form({
+      invoice_id: "",
+      paidAmount: 1,
+      paymentDate: new Date().toISOString().slice(0, 10),
+      account: "",
+      receiptNo: "",
+      note: "",
+      status: 1,
+      isSendEmail: false,
+      isSendSMS: false,
+    }),
   }),
   // Map Getters
   computed: {
@@ -870,6 +1006,7 @@ export default {
   created() {
     this.getInvoice();
     this.loadCommunicationConfigStatus();
+    this.getAccounts();
     this.productPrefix = this.appInfo.productPrefix;
     this.clientPrefix = this.appInfo.clientPrefix;
     this.invoicePrefix = this.appInfo.invoicePrefix;
@@ -1125,14 +1262,134 @@ export default {
 
     // Add payment to invoice
     addPayment() {
-      // Navigate to invoice payment create page with the invoice data
-      this.$router.push({
-        name: 'invoicePayments.create',
-        query: {
-          invoice: this.allData.slug,
-          client: this.allData.client?.slug
+      // Open payment modal instead of navigating
+      this.handlePaymentModal();
+    },
+
+    // Handle payment modal
+    handlePaymentModal() {
+      if (!this.allData) {
+        return;
+      }
+      
+      // Set invoice data
+      this.paymentForm.invoice_id = this.allData.id;
+      const dueAmount = this.calculateDueAmount;
+      // Set paid amount to total due amount as default
+      this.paymentForm.paidAmount = dueAmount > 0 ? dueAmount : 1;
+      this.paymentForm.status = this.allData.status === 0 ? 0 : 1;
+      
+      // Set default account if available
+      if (this.accounts && this.accounts.length > 0 && !this.paymentForm.account) {
+        let defaultAccountSlug = this.appInfo.defaultAccountSlug;
+        this.paymentForm.account = this.accounts.find(
+          (account) => account.slug == defaultAccountSlug
+        ) || this.accounts[0];
+      }
+      
+      this.showPaymentModal = true;
+    },
+
+    // Get accounts
+    async getAccounts() {
+      const { data } = await axios.get(
+        window.location.origin + "/api/all-accounts"
+      );
+      this.accounts = data.data;
+
+      // assign default account
+      if (this.accounts && this.accounts.length > 0) {
+        let defaultAccountSlug = this.appInfo.defaultAccountSlug;
+        this.paymentForm.account = this.accounts.find(
+          (account) => account.slug == defaultAccountSlug
+        );
+      }
+    },
+
+    // Handle account created event
+    async handleAccountCreated(newAccount) {
+      // Refresh accounts list
+      await this.getAccounts();
+      
+      // Find and select the newly created account
+      if (newAccount && newAccount.id) {
+        // Wait for accounts to be updated
+        await this.$nextTick();
+        
+        // Find the account by id, slug, or label
+        const account = this.accounts.find(
+          (acc) => 
+            acc.id === newAccount.id || 
+            acc.slug === newAccount.slug ||
+            acc.label === newAccount.label ||
+            (acc.bankName === newAccount.bankName && acc.accountNumber === newAccount.accountNumber)
+        );
+        
+        if (account) {
+          this.paymentForm.account = account;
+        } else if (newAccount.id) {
+          // If not found by matching, try to find by id directly
+          const accountById = this.accounts.find(acc => acc.id === newAccount.id);
+          if (accountById) {
+            this.paymentForm.account = accountById;
+          }
         }
-      });
+      }
+    },
+
+    // Save payment
+    async savePayment() {
+      if (!this.paymentForm.account || !this.paymentForm.account.id) {
+        this.$toast.error(
+          this.$t("Error"),
+          this.$t("Please select an account")
+        );
+        return;
+      }
+
+      // Prepare form data matching API expectations
+      const formData = {
+        invoice_id: this.paymentForm.invoice_id,
+        paidAmount: parseFloat(this.paymentForm.paidAmount),
+        account: this.paymentForm.account,
+        receiptNo: this.paymentForm.receiptNo || '',
+        date: this.paymentForm.paymentDate || new Date().toISOString().slice(0, 10),
+        note: this.paymentForm.note || '',
+        netTotal: this.calculateDueAmount,
+        isSendEmail: this.paymentForm.isSendEmail || false,
+        isSendSMS: this.paymentForm.isSendSMS || false,
+      };
+
+      await axios
+        .post(window.location.origin + "/api/invoices-pay", formData)
+        .then(() => {
+          this.$toast.success(
+            this.$t("Success!"),
+            this.$t("Invoice payment added successfully")
+          );
+          this.showPaymentModal = false;
+          this.paymentForm.reset();
+          this.paymentForm.paymentDate = new Date().toISOString().slice(0, 10);
+          this.paymentForm.status = 1;
+          // Refresh invoice data to show updated payment
+          this.getInvoice();
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 422 && error.response.data && error.response.data.errors) {
+            const errors = error.response.data.errors;
+            this.paymentForm.errors.set(errors);
+            const messages = Object.values(errors).flat();
+            this.$toast.error(
+              this.$t('Validation Error'),
+              messages.join('\n')
+            );
+          } else {
+            this.$toast.error(
+              this.$t("Error"),
+              error.response?.data?.message || this.$t("Please check your input and try again.")
+            );
+          }
+        });
     },
   },
 };
@@ -1142,5 +1399,53 @@ export default {
   background: #ddd;
   margin: 2px;
   border-radius: 0.25rem;
+}
+
+/* Create button styling for account field */
+.create-btn {
+  padding: 11px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  background-color: #f8f9fa;
+  border: 1px solid #E5E7EB;
+  border-left: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.create-btn:hover {
+  background-color: #e9ecef;
+}
+
+.create-btn i {
+  color: #33a0d9;
+  font-size: 18px;
+}
+
+[dir="rtl"] .create-btn {
+  border-left: 1px solid #E5E7EB;
+  border-right: none;
+  border-radius: 0.25rem 0 0 0.25rem;
+}
+
+[dir="ltr"] .create-btn {
+  border-left: none;
+  border-right: 1px solid #E5E7EB;
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+/* Ensure v-select and create button align properly */
+.d-flex.w-100 .v-select {
+  flex: 1;
+}
+
+.d-flex.w-100 .v-select .vs__dropdown-toggle {
+  border-right: none;
+}
+
+[dir="rtl"] .d-flex.w-100 .v-select .vs__dropdown-toggle {
+  border-left: none;
+  border-right: 1px solid #E5E7EB;
 }
 </style>

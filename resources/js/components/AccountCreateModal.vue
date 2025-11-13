@@ -173,6 +173,7 @@ export default {
           // AccountResource already provides bankName, accountNumber, label, etc.
           const newAccount = {
             id: accountData.id,
+            slug: accountData.slug,
             label: accountData.label || `${accountData.bankName} [${accountData.accountNumber}]`,
             bankName: accountData.bankName,
             accountNumber: accountData.accountNumber,
