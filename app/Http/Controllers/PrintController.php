@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\GeneralSetting;
 use App\Models\Invoice;
 use App\Models\InvoiceReturn;
 use App\Models\PaymentVoucher;
-use App\Models\PrintTemplate;
 use App\Models\Purchase;
-use App\Models\PurchaseOrder;
 use App\Models\PurchaseReturn;
+use App\Models\PurchaseOrder;
 use App\Models\Quotation;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Barryvdh\Snappy\Facades\SnappyPdf;
+use App\Models\PrintTemplate;
+use App\Models\GeneralSetting;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Log;
-use Spipu\Html2Pdf\Exception\Html2PdfException;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Spipu\Html2Pdf\Html2Pdf;
+use Spipu\Html2Pdf\Exception\Html2PdfException;
+use Spipu\Html2Pdf\Exception\ExceptionFormatter;
+use Barryvdh\Snappy\Facades\SnappyPdf;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\Process\Process;
+use Illuminate\Support\Facades\File;
 
 class PrintController extends Controller
 {
@@ -30,20 +31,20 @@ class PrintController extends Controller
         // Set locale for translations
         $locale = \Auth::user()->locale ?? app()->getLocale();
         \App::setLocale($locale);
-
+        
         $invoice = Invoice::where('slug', $slug)
-            ->with('client', 'invoiceProducts.invoice', 'invoicePayments.invoicePaymentTransaction.cashbookAccount',
-                'invoiceProducts.product.productUnit', 'invoiceProducts.product.productTax',
-                'invoiceTax', 'user')
+            ->with('client', 'invoiceProducts.invoice', 'invoicePayments.invoicePaymentTransaction.cashbookAccount', 
+                   'invoiceProducts.product.productUnit', 'invoiceProducts.product.productTax', 
+                   'invoiceTax', 'user')
             ->firstOrFail();
 
         // Get the default template for invoices
         $template = PrintTemplate::byModule('invoice')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
-        if (! $template) {
+        
+        if (!$template) {
             // Fallback to basic template if no print template is set
             return view('print.invoice-basic', compact('invoice', 'locale', 'logoBase64'));
         }
@@ -58,17 +59,17 @@ class PrintController extends Controller
     {
         // Set locale for translations - force Arabic for print templates
         app()->setLocale('ar');
-
+        
         $purchase = Purchase::where('slug', $slug)
-            ->with('supplier', 'purchaseProducts.purchase', 'purchasePayments.purchasePaymentTransaction.cashbookAccount',
-                'purchaseProducts.product.productUnit', 'purchaseProducts.product.productTax',
-                'purchaseTax', 'user')
+            ->with('supplier', 'purchaseProducts.purchase', 'purchasePayments.purchasePaymentTransaction.cashbookAccount', 
+                   'purchaseProducts.product.productUnit', 'purchaseProducts.product.productTax', 
+                   'purchaseTax', 'user')
             ->firstOrFail();
 
         // Get the default template for purchases
         $template = PrintTemplate::byModule('purchase')->default()->first();
-
-        if (! $template) {
+        
+        if (!$template) {
             // Fallback to basic template if no print template is set
             return view('print.purchase-basic', compact('purchase'));
         }
@@ -83,15 +84,15 @@ class PrintController extends Controller
     {
         // Set locale for translations - force Arabic for print templates
         app()->setLocale('ar');
-
+        
         $quotation = Quotation::where('slug', $slug)
             ->with('client', 'quotationProducts.product.productUnit', 'quotationProducts.product.productTax', 'user')
             ->firstOrFail();
 
         // Get the default template for quotations
         $template = PrintTemplate::byModule('quotation')->default()->first();
-
-        if (! $template) {
+        
+        if (!$template) {
             // Fallback to basic template if no print template is set
             return view('print.quotation-basic', compact('quotation'));
         }
@@ -106,23 +107,23 @@ class PrintController extends Controller
     {
         // Set locale for translations - force Arabic for print templates
         app()->setLocale('ar');
-
+        
         $invoiceReturn = InvoiceReturn::where('slug', $slug)
             ->with([
-                'invoice.client',
+                'invoice.client', 
                 'invoice.invoiceProducts.product.productUnit',
                 'invoice.invoiceProducts.product.productTax',
                 'invoice.invoiceProducts.vatRate',
-                'invoiceReturnProducts.product.productUnit',
-                'invoiceReturnProducts.product.productTax',
-                'user',
+                'invoiceReturnProducts.product.productUnit', 
+                'invoiceReturnProducts.product.productTax', 
+                'user'
             ])
             ->firstOrFail();
 
         // Get the default template for invoice returns
         $template = PrintTemplate::byModule('invoice-return')->default()->first();
-
-        if (! $template) {
+        
+        if (!$template) {
             // Fallback to basic template if no print template is set
             return view('print.invoice-return-basic', compact('invoiceReturn'));
         }
@@ -138,25 +139,25 @@ class PrintController extends Controller
         // Set locale for translations
         $locale = \Auth::user()->locale ?? app()->getLocale();
         \App::setLocale($locale);
-
+        
         $purchaseReturn = PurchaseReturn::where('slug', $slug)
             ->with([
-                'purchase.supplier',
+                'purchase.supplier', 
                 'purchase.purchaseProducts.product.productUnit',
                 'purchase.purchaseProducts.product.productTax',
-                'purchaseReturnProducts.product.productUnit',
-                'purchaseReturnProducts.product.productTax',
-                'user',
+                'purchaseReturnProducts.product.productUnit', 
+                'purchaseReturnProducts.product.productTax', 
+                'user'
             ])
             ->firstOrFail();
 
         // Get the default template for purchase returns
         $template = PrintTemplate::byModule('purchase-return')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
-        if (! $template) {
+        
+        if (!$template) {
             // Fallback to basic template if no print template is set
             return view('print.purchase-return-basic', compact('purchaseReturn', 'locale', 'logoBase64'));
         }
@@ -178,7 +179,7 @@ class PrintController extends Controller
 
         // Get the default template for vouchers; fallback to invoice template config
         $template = PrintTemplate::byModule('voucher')->default()->first();
-        if (! $template) {
+        if (!$template) {
             // Fallback to basic template if no print template is set
             if (view()->exists('print.voucher-basic')) {
                 return view('print.voucher-basic', compact('voucher'));
@@ -206,7 +207,7 @@ class PrintController extends Controller
         // Get the default template for vouchers; fallback appropriately
         $template = PrintTemplate::byModule('voucher')->default()->first();
 
-        if (! $template) {
+        if (!$template) {
             if (view()->exists('print.voucher-basic')) {
                 $html = view('print.voucher-basic', compact('voucher'))->render();
             } else {
@@ -250,8 +251,7 @@ class PrintController extends Controller
 
         $fileLabel = $voucher->isReceive() ? 'Receive-Voucher' : 'Send-Voucher';
         $fileNumber = $voucher->receipt_no ?: ($voucher->cheque_no ?: $voucher->id);
-
-        return $this->generatePDF($html, $fileLabel.'-'.$fileNumber.'.pdf');
+        return $this->generatePDF($html, $fileLabel . '-' . $fileNumber . '.pdf');
     }
 
     /**
@@ -262,23 +262,23 @@ class PrintController extends Controller
         // Increase memory limit for large datasets
         ini_set('memory_limit', '1G');
         set_time_limit(300);
-
+        
         // Set locale for translations
         $locale = \Auth::user()->locale ?? app()->getLocale();
         \App::setLocale($locale);
-
+        
         try {
-            // Get report data from the API
-            $reportController = new \App\Http\Controllers\API\ReportController();
-            $reportResponse = $reportController->balanceSheet($request);
-
-            // Handle JsonResponse
-            if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
-                $reportData = $reportResponse->getData(true);
-            } else {
-                $reportData = $reportResponse;
-            }
-
+        // Get report data from the API
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportResponse = $reportController->balanceSheet($request);
+        
+        // Handle JsonResponse
+        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportResponse->getData(true);
+        } else {
+            $reportData = $reportResponse;
+        }
+        
             // Debug: Log the response structure
             Log::info('Balance Sheet Response Debug:', [
                 'response_type' => gettype($reportResponse),
@@ -287,40 +287,40 @@ class PrintController extends Controller
                 'report_data_keys' => is_array($reportData) ? array_keys($reportData) : 'not array',
                 'success_key_exists' => isset($reportData['success']),
                 'success_value' => $reportData['success'] ?? 'key not found',
-                'request_params' => $request->all(),
+                'request_params' => $request->all()
             ]);
-
-            if (! isset($reportData['success']) || ! $reportData['success']) {
+            
+            if (!isset($reportData['success']) || !$reportData['success']) {
                 $errorMessage = $reportData['message'] ?? 'Unknown error';
                 $errorDetail = $reportData['error'] ?? 'No error details';
-
-                return response()->make('<html><body><h1>Debug Error</h1><p><strong>Message:</strong> '.htmlspecialchars($errorMessage).'</p><p><strong>Detail:</strong> '.htmlspecialchars($errorDetail).'</p><p><strong>Response:</strong> '.htmlspecialchars(json_encode($reportData, JSON_PRETTY_PRINT)).'</p></body></html>', 500);
+                return response()->make('<html><body><h1>Debug Error</h1><p><strong>Message:</strong> ' . htmlspecialchars($errorMessage) . '</p><p><strong>Detail:</strong> ' . htmlspecialchars($errorDetail) . '</p><p><strong>Response:</strong> ' . htmlspecialchars(json_encode($reportData, JSON_PRETTY_PRINT)) . '</p></body></html>', 500);
             }
-
+            
             $balanceData = $reportData['data'];
+            
+            Log::info("Print Balance Sheet - Report generated successfully");
+        
+        // Get the default template for reports
+        $template = PrintTemplate::byModule('reports')->default()->first();
+        
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+        
+        if (!$template) {
+            return view('print.balance-sheet-basic', compact('balanceData'));
+        }
 
-            Log::info('Print Balance Sheet - Report generated successfully');
-
-            // Get the default template for reports
-            $template = PrintTemplate::byModule('reports')->default()->first();
-
-            // Convert logo to base64 for PDF compatibility
-            $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
-            if (! $template) {
-                return view('print.balance-sheet-basic', compact('balanceData'));
-            }
-
-            return view('print.reports.balance-sheet', compact('balanceData', 'template', 'logoBase64', 'locale'));
+        return view('print.reports.balance-sheet', compact('balanceData', 'template', 'logoBase64', 'locale'));
+            
         } catch (\Exception $e) {
-            Log::error('Print Balance Sheet Error: '.$e->getMessage(), [
+            Log::error('Print Balance Sheet Error: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'request_params' => $request->all(),
+                'request_params' => $request->all()
             ]);
-
+            
             // Return simple HTML error response (no view dependency)
             return response()->make(
-                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> '.htmlspecialchars($e->getMessage()).'</p><p><em>Please check the logs for more details.</em></p></body></html>',
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</p><p><em>Please check the logs for more details.</em></p></body></html>',
                 500
             );
         }
@@ -333,36 +333,36 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Get report data from the API
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportResponse = $reportController->balanceSheet($request);
-
+        
         // Handle JsonResponse
         if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportResponse->getData(true);
         } else {
             $reportData = $reportResponse;
         }
-
-        if (! isset($reportData['success']) || ! $reportData['success']) {
+        
+        if (!isset($reportData['success']) || !$reportData['success']) {
             abort(404, 'Report data not found');
         }
-
+        
         $balanceData = $reportData['data'];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $fromDate = $balanceData['filters']['from_date'] ?? '';
         $toDate = $balanceData['filters']['to_date'] ?? '';
-        $filename = 'Balance-Sheet-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'Balance-Sheet-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+        
         // Use Utility::buildPdf to generate PDF
         // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
@@ -376,7 +376,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -387,36 +387,36 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Get report data from the API
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportResponse = $reportController->balanceSheet($request);
-
+        
         // Handle JsonResponse
         if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportResponse->getData(true);
         } else {
             $reportData = $reportResponse;
         }
-
-        if (! isset($reportData['success']) || ! $reportData['success']) {
+        
+        if (!isset($reportData['success']) || !$reportData['success']) {
             abort(404, 'Report data not found');
         }
-
+        
         $balanceData = $reportData['data'];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $fromDate = $balanceData['filters']['from_date'] ?? '';
         $toDate = $balanceData['filters']['to_date'] ?? '';
-        $filename = 'Balance-Sheet-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'Balance-Sheet-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+        
         // Use Utility::buildPdf to generate PDF
         // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
@@ -430,7 +430,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -442,23 +442,23 @@ class PrintController extends Controller
         // Increase memory limit for large datasets
         ini_set('memory_limit', '1G');
         set_time_limit(300);
-
+        
         // Set locale for translations
         $locale = \Auth::user()->locale ?? app()->getLocale();
         \App::setLocale($locale);
-
+        
         try {
             // Use the dedicated print method that gets ALL data without pagination
-            $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportController = new \App\Http\Controllers\API\ReportController();
             $reportResponse = $reportController->trialBalanceForPrint($request);
-
-            // Handle JsonResponse
-            if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
-                $reportData = $reportResponse->getData(true);
-            } else {
-                $reportData = $reportResponse;
-            }
-
+        
+        // Handle JsonResponse
+        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportResponse->getData(true);
+        } else {
+            $reportData = $reportResponse;
+        }
+        
             // Debug: Log the response structure
             Log::info('Trial Balance Response Debug:', [
                 'response_type' => gettype($reportResponse),
@@ -467,40 +467,40 @@ class PrintController extends Controller
                 'report_data_keys' => is_array($reportData) ? array_keys($reportData) : 'not array',
                 'success_key_exists' => isset($reportData['success']),
                 'success_value' => $reportData['success'] ?? 'key not found',
-                'request_params' => $request->all(),
+                'request_params' => $request->all()
             ]);
-
-            if (! isset($reportData['success']) || ! $reportData['success']) {
+            
+            if (!isset($reportData['success']) || !$reportData['success']) {
                 $errorMessage = $reportData['message'] ?? 'Unknown error';
                 $errorDetail = $reportData['error'] ?? 'No error details';
+                return response()->make('<html><body><h1>Debug Error</h1><p><strong>Message:</strong> ' . htmlspecialchars($errorMessage) . '</p><p><strong>Detail:</strong> ' . htmlspecialchars($errorDetail) . '</p><p><strong>Response:</strong> ' . htmlspecialchars(json_encode($reportData, JSON_PRETTY_PRINT)) . '</p></body></html>', 500);
+        }
+        
+        $trialBalanceData = $reportData['data'];
+            
+            Log::info("Print Trial Balance - Report generated successfully");
+        
+        // Get the default template for reports
+        $template = PrintTemplate::byModule('reports')->default()->first();
+        
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+        
+        if (!$template) {
+            return view('print.trial-balance-basic', compact('trialBalanceData'));
+        }
 
-                return response()->make('<html><body><h1>Debug Error</h1><p><strong>Message:</strong> '.htmlspecialchars($errorMessage).'</p><p><strong>Detail:</strong> '.htmlspecialchars($errorDetail).'</p><p><strong>Response:</strong> '.htmlspecialchars(json_encode($reportData, JSON_PRETTY_PRINT)).'</p></body></html>', 500);
-            }
-
-            $trialBalanceData = $reportData['data'];
-
-            Log::info('Print Trial Balance - Report generated successfully');
-
-            // Get the default template for reports
-            $template = PrintTemplate::byModule('reports')->default()->first();
-
-            // Convert logo to base64 for PDF compatibility
-            $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
-            if (! $template) {
-                return view('print.trial-balance-basic', compact('trialBalanceData'));
-            }
-
-            return view('print.reports.trial-balance', compact('trialBalanceData', 'template', 'logoBase64', 'locale'));
+        return view('print.reports.trial-balance', compact('trialBalanceData', 'template', 'logoBase64', 'locale'));
+            
         } catch (\Exception $e) {
-            Log::error('Print Trial Balance Error: '.$e->getMessage(), [
+            Log::error('Print Trial Balance Error: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'request_params' => $request->all(),
+                'request_params' => $request->all()
             ]);
-
+            
             // Return simple HTML error response (no view dependency)
             return response()->make(
-                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> '.htmlspecialchars($e->getMessage()).'</p><p><em>Please check the logs for more details.</em></p></body></html>',
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</p><p><em>Please check the logs for more details.</em></p></body></html>',
                 500
             );
         }
@@ -513,36 +513,36 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Get report data from the API
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportResponse = $reportController->trialBalanceForPrint($request);
-
+        
         // Handle JsonResponse
         if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportResponse->getData(true);
         } else {
             $reportData = $reportResponse;
         }
-
-        if (! isset($reportData['success']) || ! $reportData['success']) {
+        
+        if (!isset($reportData['success']) || !$reportData['success']) {
             abort(404, 'Report data not found');
         }
-
+        
         $trialBalanceData = $reportData['data'];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $fromDate = $trialBalanceData['filters']['from_date'] ?? '';
         $toDate = $trialBalanceData['filters']['to_date'] ?? '';
-        $filename = 'Trial-Balance-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'Trial-Balance-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+        
         // Use Utility::buildPdf to generate PDF
         // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
@@ -556,7 +556,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -567,36 +567,36 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Get report data from the API
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportResponse = $reportController->trialBalanceForPrint($request);
-
+        
         // Handle JsonResponse
         if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportResponse->getData(true);
         } else {
             $reportData = $reportResponse;
         }
-
-        if (! isset($reportData['success']) || ! $reportData['success']) {
+        
+        if (!isset($reportData['success']) || !$reportData['success']) {
             abort(404, 'Report data not found');
         }
-
+        
         $trialBalanceData = $reportData['data'];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $fromDate = $trialBalanceData['filters']['from_date'] ?? '';
         $toDate = $trialBalanceData['filters']['to_date'] ?? '';
-        $filename = 'Trial-Balance-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'Trial-Balance-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+        
         // Use Utility::buildPdf to generate PDF
         // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
@@ -610,7 +610,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -622,39 +622,39 @@ class PrintController extends Controller
         // Increase memory limit for large datasets
         ini_set('memory_limit', '1G');
         set_time_limit(300);
-
+        
         // Set locale for translations
         $locale = \Auth::user()->locale ?? app()->getLocale();
         \App::setLocale($locale);
-
+        
         try {
-            // Get report data from the API
-            $reportController = new \App\Http\Controllers\API\ReportController();
-            $reportResponse = $reportController->profitLossReport($request);
-
-            // Handle JsonResponse
-            if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
-                $reportData = $reportResponse->getData(true);
-            } else {
-                $reportData = $reportResponse;
-            }
-
+        // Get report data from the API
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $reportResponse = $reportController->profitLossReport($request);
+        
+        // Handle JsonResponse
+        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportResponse->getData(true);
+        } else {
+            $reportData = $reportResponse;
+        }
+        
             // The profit loss API returns data directly without success wrapper
-            if (! $reportData || ! isset($reportData['type'])) {
+            if (!$reportData || !isset($reportData['type'])) {
                 Log::error('Profit Loss Print Error: Invalid response structure', [
                     'response' => $reportData,
-                    'request_params' => $request->all(),
+                    'request_params' => $request->all()
                 ]);
-
+                
                 return response()->make(
-                    '<html><body><h1>Debug Error</h1><p><strong>Message:</strong>Invalid profit loss data structure</p><p><strong>Detail:</strong>Expected type and reportData keys</p><p><strong>Response:</strong>'.htmlspecialchars(json_encode($reportData, JSON_PRETTY_PRINT)).'</p></body></html>',
+                    '<html><body><h1>Debug Error</h1><p><strong>Message:</strong>Invalid profit loss data structure</p><p><strong>Detail:</strong>Expected type and reportData keys</p><p><strong>Response:</strong>' . htmlspecialchars(json_encode($reportData, JSON_PRETTY_PRINT)) . '</p></body></html>', 
                     500
                 );
             }
-
+            
             // Prepare data structure to match what templates expect
             $filters = $request->all();
-
+            
             // Normalize date field names to match what the template expects
             if (isset($filters['fromDate'])) {
                 $filters['from_date'] = $filters['fromDate'];
@@ -662,14 +662,14 @@ class PrintController extends Controller
             if (isset($filters['toDate'])) {
                 $filters['to_date'] = $filters['toDate'];
             }
-
+            
             $profitLossData = [
                 'type' => $reportData['type'],
                 'reportData' => $reportData['reportData'],
-                'filters' => $filters,
+                'filters' => $filters
             ];
-
-            Log::info('Print Profit Loss - Report generated successfully', [
+            
+            Log::info("Print Profit Loss - Report generated successfully", [
                 'type' => $profitLossData['type'],
                 'data_count' => count($profitLossData['reportData'] ?? []),
                 'filters' => $profitLossData['filters'],
@@ -677,26 +677,27 @@ class PrintController extends Controller
                 'raw_response_structure' => array_keys($reportData),
                 'reportData_is_array' => is_array($profitLossData['reportData']),
             ]);
+        
+        // Get the default template for reports
+        $template = PrintTemplate::byModule('reports')->default()->first();
+        
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+        
+        if (!$template) {
+            return view('print.profit-loss-basic', compact('profitLossData'));
+        }
 
-            // Get the default template for reports
-            $template = PrintTemplate::byModule('reports')->default()->first();
-
-            // Convert logo to base64 for PDF compatibility
-            $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
-            if (! $template) {
-                return view('print.profit-loss-basic', compact('profitLossData'));
-            }
-
-            return view('print.reports.profit-loss', compact('profitLossData', 'template', 'logoBase64', 'locale'));
+        return view('print.reports.profit-loss', compact('profitLossData', 'template', 'logoBase64', 'locale'));
+            
         } catch (\Exception $e) {
-            Log::error('Print Profit Loss Error: '.$e->getMessage(), [
+            Log::error('Print Profit Loss Error: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'request_params' => $request->all(),
+                'request_params' => $request->all()
             ]);
-
+            
             return response()->make(
-                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> '.htmlspecialchars($e->getMessage()).'</p></body></html>',
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</p></body></html>',
                 500
             );
         }
@@ -709,22 +710,22 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Get report data from the API
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportResponse = $reportController->profitLossReport($request);
-
+        
         // Handle JsonResponse
         if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportResponse->getData(true);
         } else {
             $reportData = $reportResponse;
         }
-
-        if (! $reportData || ! isset($reportData['type'])) {
+        
+        if (!$reportData || !isset($reportData['type'])) {
             abort(404, 'Report data not found');
         }
-
+        
         // Prepare data structure
         $filters = $request->all();
         if (isset($filters['fromDate'])) {
@@ -733,25 +734,25 @@ class PrintController extends Controller
         if (isset($filters['toDate'])) {
             $filters['to_date'] = $filters['toDate'];
         }
-
+        
         $profitLossData = [
             'type' => $reportData['type'],
             'reportData' => $reportData['reportData'],
-            'filters' => $filters,
+            'filters' => $filters
         ];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $fromDate = $filters['from_date'] ?? '';
         $toDate = $filters['to_date'] ?? '';
-        $filename = 'Profit-Loss-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'Profit-Loss-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.reports.profit-loss' : 'print.profit-loss-basic',
@@ -764,7 +765,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -775,22 +776,22 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Get report data from the API
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportResponse = $reportController->profitLossReport($request);
-
+        
         // Handle JsonResponse
         if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportResponse->getData(true);
         } else {
             $reportData = $reportResponse;
         }
-
-        if (! $reportData || ! isset($reportData['type'])) {
+        
+        if (!$reportData || !isset($reportData['type'])) {
             abort(404, 'Report data not found');
         }
-
+        
         // Prepare data structure
         $filters = $request->all();
         if (isset($filters['fromDate'])) {
@@ -799,25 +800,25 @@ class PrintController extends Controller
         if (isset($filters['toDate'])) {
             $filters['to_date'] = $filters['toDate'];
         }
-
+        
         $profitLossData = [
             'type' => $reportData['type'],
             'reportData' => $reportData['reportData'],
-            'filters' => $filters,
+            'filters' => $filters
         ];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $fromDate = $filters['from_date'] ?? '';
         $toDate = $filters['to_date'] ?? '';
-        $filename = 'Profit-Loss-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'Profit-Loss-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.reports.profit-loss' : 'print.profit-loss-basic',
@@ -830,7 +831,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -841,30 +842,30 @@ class PrintController extends Controller
     {
         // // Set locale for translations
         // app()->setLocale('ar');
-
+        
         // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportResponse = $reportController->accountStatementForPrint($request);
-
+        
         // Handle JsonResponse
         if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportResponse->getData(true);
         } else {
             $reportData = $reportResponse;
         }
-
-        if (! $reportData['success']) {
+        
+        if (!$reportData['success']) {
             abort(404, 'Report data not found');
         }
-
+        
         $accountStatementData = $reportData['data'];
-
-        Log::info('Print Account Statement - Total entries: '.count($accountStatementData['entries']));
-
+        
+        Log::info("Print Account Statement - Total entries: " . count($accountStatementData['entries']));
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
-        if (! $template) {
+        
+        if (!$template) {
             // Fallback to basic template if no print template is set
             return view('print.account-statement-basic', compact('accountStatementData'));
         }
@@ -879,37 +880,37 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportResponse = $reportController->accountStatementForPrint($request);
-
+        
         // Handle JsonResponse
         if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportResponse->getData(true);
         } else {
             $reportData = $reportResponse;
         }
-
-        if (! $reportData['success']) {
+        
+        if (!$reportData['success']) {
             abort(404, 'Report data not found');
         }
-
+        
         $accountStatementData = $reportData['data'];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $accountName = $accountStatementData['chart_of_account']['name'] ?? 'Account';
         $fromDate = $accountStatementData['filters']['from_date'] ?? '';
         $toDate = $accountStatementData['filters']['to_date'] ?? '';
-        $filename = 'Account-Statement-'.str_replace(' ', '-', $accountName).'-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'Account-Statement-' . str_replace(' ', '-', $accountName) . '-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+        
         // Use Utility::buildPdf to generate PDF
         // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
@@ -923,45 +924,44 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
-
     public function downloadAccountStatementPDF(Request $request)
     {
         // Set locale for translations
         // app()->setLocale('ar');
-
+        
         // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportResponse = $reportController->accountStatementForPrint($request);
-
+        
         // Handle JsonResponse
         if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportResponse->getData(true);
         } else {
             $reportData = $reportResponse;
         }
-
-        if (! $reportData['success']) {
+        
+        if (!$reportData['success']) {
             abort(404, 'Report data not found');
         }
-
+        
         $accountStatementData = $reportData['data'];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $accountName = $accountStatementData['chart_of_account']['name'] ?? 'Account';
         $fromDate = $accountStatementData['filters']['from_date'] ?? '';
         $toDate = $accountStatementData['filters']['to_date'] ?? '';
-        $filename = 'Account-Statement-'.str_replace(' ', '-', $accountName).'-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'Account-Statement-' . str_replace(' ', '-', $accountName) . '-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+       
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
         // Use Utility::buildPdf to generate PDF
@@ -974,11 +974,11 @@ class PrintController extends Controller
             'header' => '',
             'footer' => '',
             'header_spacing' => '2',
-
+        
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -988,23 +988,23 @@ class PrintController extends Controller
     private function getTemplateConfig($module)
     {
         $template = PrintTemplate::byModule($module)->default()->first();
-
-        if (! $template) {
+        
+        if (!$template) {
             return [
                 'colors' => [
                     'primary' => '#2563eb',
                     'secondary' => '#6b7280',
-                    'background' => '#ffffff',
+                    'background' => '#ffffff'
                 ],
                 'typography' => [
                     'fontFamily' => 'Inter, sans-serif',
                     'baseFontSize' => 14,
-                    'headerFontSize' => 24,
+                    'headerFontSize' => 24
                 ],
                 'layout' => [
                     'paperSize' => 'A4',
                     'orientation' => 'portrait',
-                    'margins' => 20,
+                    'margins' => 20
                 ],
                 'elements' => [
                     'showLogo' => true,
@@ -1012,8 +1012,8 @@ class PrintController extends Controller
                     'showClientInfo' => true,
                     'showItemsTable' => true,
                     'showTotals' => true,
-                    'showFooter' => true,
-                ],
+                    'showFooter' => true
+                ]
             ];
         }
 
@@ -1026,10 +1026,10 @@ class PrintController extends Controller
     private function prepareTemplateData($data, $module)
     {
         $templateData = [];
-
+        
         // Get settings from GeneralSetting model
         $settings = GeneralSetting::get();
-
+        
         // Common data
         $templateData['company'] = [
             'name' => $settings->where('key', 'company_name')->first()?->value ?? 'Company Name',
@@ -1099,70 +1099,88 @@ class PrintController extends Controller
         return $templateData;
     }
 
+
+
     public function upload(Request $request)
     {
-        if (! $request->hasFile('file')) {
+        if (!$request->hasFile('file')) {
             return response()->json(['error' => 'No file uploaded'], 400);
         }
+        
 
         $type = $request->type;
 
-        if ($type == 'invoice') {
-            $path = 'uploads/invoices/pdfs';
-        } elseif ($type == 'purchase') {
-            $path = 'uploads/purchases/pdfs';
-        } elseif ($type == 'quotation') {
-            $path = 'uploads/quotations/pdfs';
-        } elseif ($type == 'voucher') {
-            $path = 'uploads/vouchers/pdfs';
-        } elseif ($type == 'account-statement') {
-            $path = 'uploads/reports/account-statement/pdfs';
-        } else {
-            // Default path for unknown types
-            $path = 'uploads/pdfs';
+
+        if($type == 'invoice')
+        {
+            $path  = 'uploads/invoices/pdfs';
         }
+        else if($type == 'purchase')
+        {
+            $path  = 'uploads/purchases/pdfs';
+        }
+        else if($type == 'quotation')
+        {
+            $path  = 'uploads/quotations/pdfs';
+        }
+        else if($type == 'voucher')
+        {
+            $path  = 'uploads/vouchers/pdfs';
+        }
+        else if($type == 'account-statement')
+        {
+            $path  = 'uploads/reports/account-statement/pdfs';
+        }
+        else
+        {
+            // Default path for unknown types
+            $path  = 'uploads/pdfs';
+        }
+
 
         $file = $request->file('file');
         $fileName = $file->getClientOriginalName();
 
         // ✅ Make sure folder exists (public/pdfs)
         $destinationPath = public_path($path);
-        if (! File::exists($destinationPath)) {
+        if (!File::exists($destinationPath)) {
             File::makeDirectory($destinationPath, 0777, true);
         }
 
         // ✅ Move uploaded PDF into /public/pdfs
         $file->move($destinationPath, $fileName);
 
-        $fullPath = asset($path.'/'.$fileName);
+        $fullPath = asset($path.'/' . $fileName);
+        
 
         return response()->json([
             'success' => true,
-            'path' => $fullPath,
+            'path' =>  $fullPath,
             'type' => $type,
         ]);
     }
+
 
     public function generatePdf(Request $request)
     {
         $type = $request->type ?? 'default';
 
         // Determine folder path
-        if ($type == 'invoice') {
+        if($type == 'invoice') {
             $path = 'uploads/invoices/pdfs';
-        } elseif ($type == 'purchase') {
+        } elseif($type == 'purchase') {
             $path = 'uploads/purchases/pdfs';
         } else {
             $path = 'uploads/pdfs';
         }
 
         $destinationPath = public_path($path);
-        if (! File::exists($destinationPath)) {
+        if (!File::exists($destinationPath)) {
             File::makeDirectory($destinationPath, 0777, true);
         }
 
-        $fileName = 'pdf_'.time().'.pdf';
-        $fullPath = $destinationPath.'/'.$fileName;
+        $fileName = 'pdf_' . time() . '.pdf';
+        $fullPath = $destinationPath . '/' . $fileName;
 
         // Generate PDF via Puppeteer (Node.js script)
         $html = $request->html ?? '<h1>Hello PDF</h1>'; // You can pass HTML from front-end
@@ -1170,19 +1188,23 @@ class PrintController extends Controller
         $scriptPath = base_path('scripts/generatePdf.js');
         $nodePath = 'C:\Program Files\nodejs\node.exe'; // adjust if different
         $process = new Process([$nodePath, $scriptPath, $fullPath, base64_encode($html)]);
+        
 
-        if (! $process->isSuccessful()) {
+        if (!$process->isSuccessful()) {
             return response()->json([
                 'success' => false,
-                'message' => $process->getErrorOutput(),
+                'message' => $process->getErrorOutput()
             ], 500);
         }
 
         return response()->json([
             'success' => true,
-            'path' => asset($path.'/'.$fileName),
+            'path' => asset($path . '/' . $fileName)
         ]);
     }
+
+
+
 
     /**
      * Generate PDF using DomPDF as primary method with fallbacks
@@ -1206,7 +1228,7 @@ class PrintController extends Controller
     //                 'debugLayoutBlocks' => false,
     //                 'debugLayoutInline' => false,
     //             ]);
-
+            
     //         return $pdf->download($filename);
     //     } catch (\Exception $e) {
     //         Log::warning('DomPDF generation failed: ' . $e->getMessage());
@@ -1226,7 +1248,7 @@ class PrintController extends Controller
     //             ->setOption('margin-right', 10)
     //             ->setOption('margin-bottom', 10)
     //             ->setOption('margin-left', 10);
-
+            
     //         return $pdf->download($filename);
     //     } catch (\Exception $e) {
     //         Log::warning('SnappyPdf generation failed: ' . $e->getMessage());
@@ -1247,7 +1269,7 @@ class PrintController extends Controller
     //         $html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', [0, 0, 0, 0]);
     //         $html2pdf->setDefaultFont('Arial');
     //         $html2pdf->writeHTML($html);
-
+            
     //         return response($html2pdf->output('S'), 200, [
     //             'Content-Type' => 'application/pdf',
     //             'Content-Disposition' => 'attachment; filename="' . $filename . '"',
@@ -1274,11 +1296,9 @@ class PrintController extends Controller
         try {
             // Use Puppeteer to take a snapshot of the print view
             $result = $this->generatePDFWithPuppeteer($url, $filename, true);
-
             return $result;
         } catch (\Exception $e) {
-            Log::error('Snapshot PDF generation failed: '.$e->getMessage());
-
+            Log::error('Snapshot PDF generation failed: ' . $e->getMessage());
             return ['success' => false, 'error' => $e->getMessage()];
         }
     }
@@ -1289,36 +1309,32 @@ class PrintController extends Controller
     private function getLogoAsBase64($template)
     {
         try {
-            if (! $template) {
+            if (!$template) {
                 Log::warning('Template is null in getLogoAsBase64');
-
                 return null;
             }
-
+            
             // Use the logo_path accessor which handles all fallbacks
             $logoPath = $template->logo_path;
-
-            if (! $logoPath) {
-                Log::warning('Logo path is null for template: '.$template->id);
-
+            
+            if (!$logoPath) {
+                Log::warning('Logo path is null for template: ' . $template->id);
                 return null;
             }
-
-            if (! file_exists($logoPath)) {
-                Log::warning('Logo file does not exist: '.$logoPath);
-
+            
+            if (!file_exists($logoPath)) {
+                Log::warning('Logo file does not exist: ' . $logoPath);
                 return null;
             }
-
+            
             $imageData = file_get_contents($logoPath);
             if ($imageData === false) {
-                Log::warning('Failed to read logo file: '.$logoPath);
-
+                Log::warning('Failed to read logo file: ' . $logoPath);
                 return null;
             }
-
+            
             $mimeType = mime_content_type($logoPath);
-            if (! $mimeType) {
+            if (!$mimeType) {
                 // Fallback: determine mime type from extension
                 $extension = strtolower(pathinfo($logoPath, PATHINFO_EXTENSION));
                 $mimeTypes = [
@@ -1331,21 +1347,22 @@ class PrintController extends Controller
                 ];
                 $mimeType = $mimeTypes[$extension] ?? 'image/png';
             }
-
-            $base64 = 'data:'.$mimeType.';base64,'.base64_encode($imageData);
+            
+            $base64 = 'data:' . $mimeType . ';base64,' . base64_encode($imageData);
             Log::info('Logo converted to base64 successfully', [
                 'logo_path' => $logoPath,
                 'mime_type' => $mimeType,
-                'size' => strlen($base64),
+                'size' => strlen($base64)
             ]);
-
+            
             return $base64;
+            
         } catch (\Exception $e) {
-            Log::error('Failed to convert logo to base64: '.$e->getMessage(), [
-                'trace' => $e->getTraceAsString(),
+            Log::error('Failed to convert logo to base64: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString()
             ]);
         }
-
+        
         return null;
     }
 
@@ -1355,7 +1372,7 @@ class PrintController extends Controller
     private function generatePDFWithPuppeteer($input, $filename, $isUrl = false)
     {
         $tempDir = storage_path('app/temp');
-        if (! file_exists($tempDir)) {
+        if (!file_exists($tempDir)) {
             mkdir($tempDir, 0755, true);
         }
 
@@ -1363,40 +1380,40 @@ class PrintController extends Controller
         $tempHtmlFile = null;
 
         // If input is HTML content, create temporary file
-        if (! $isUrl) {
-            $tempHtmlFile = $tempDir.'/temp_'.uniqid().'.html';
+        if (!$isUrl) {
+            $tempHtmlFile = $tempDir . '/temp_' . uniqid() . '.html';
             file_put_contents($tempHtmlFile, $input);
-            $url = url('storage/app/temp/'.basename($tempHtmlFile));
+            $url = url('storage/app/temp/' . basename($tempHtmlFile));
         }
-
+        
         // Output PDF path
-        $outputPath = $tempDir.'/'.$filename;
-
+        $outputPath = $tempDir . '/' . $filename;
+        
         // Run the Node.js script
         $nodeScript = base_path('generate-pdf.js');
         $command = "node \"$nodeScript\" \"$url\" \"$outputPath\" \"$filename\" 2>&1";
-
+        
         $output = [];
         $returnCode = 0;
         exec($command, $output, $returnCode);
-
+        
         if ($returnCode === 0 && file_exists($outputPath)) {
             $pdfContent = file_get_contents($outputPath);
-
+            
             // Clean up temporary files
             if ($tempHtmlFile && file_exists($tempHtmlFile)) {
                 unlink($tempHtmlFile);
             }
             unlink($outputPath);
-
+            
             return [
                 'success' => true,
                 'response' => response($pdfContent, 200, [
                     'Content-Type' => 'application/pdf',
-                    'Content-Disposition' => 'attachment; filename="'.$filename.'"',
+                    'Content-Disposition' => 'attachment; filename="' . $filename . '"',
                     'Cache-Control' => 'private, max-age=0, must-revalidate',
-                    'Pragma' => 'public',
-                ]),
+                    'Pragma' => 'public'
+                ])
             ];
         } else {
             // Clean up temporary files
@@ -1406,10 +1423,10 @@ class PrintController extends Controller
             if (file_exists($outputPath)) {
                 unlink($outputPath);
             }
-
+            
             return [
                 'success' => false,
-                'error' => 'Puppeteer failed: '.implode("\n", $output),
+                'error' => 'Puppeteer failed: ' . implode("\n", $output)
             ];
         }
     }
@@ -1421,22 +1438,22 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         $invoice = Invoice::where('slug', $slug)
-            ->with('client', 'invoiceProducts.invoice', 'invoicePayments.invoicePaymentTransaction.cashbookAccount',
-                'invoiceProducts.product.productUnit', 'invoiceProducts.product.productTax',
-                'invoiceTax', 'user')
+            ->with('client', 'invoiceProducts.invoice', 'invoicePayments.invoicePaymentTransaction.cashbookAccount', 
+                   'invoiceProducts.product.productUnit', 'invoiceProducts.product.productTax', 
+                   'invoiceTax', 'user')
             ->firstOrFail();
 
         // Get the default template for invoices
         $template = PrintTemplate::byModule('invoice')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
-        $filename = 'Invoice-'.$invoice->invoice_no.'.pdf';
-
+        $filename = 'Invoice-' . $invoice->invoice_no . '.pdf';
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.invoice' : 'print.invoice-basic',
@@ -1449,7 +1466,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'portrait', false);
     }
 
@@ -1460,22 +1477,22 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         $invoice = Invoice::where('slug', $slug)
-            ->with('client', 'invoiceProducts.invoice', 'invoicePayments.invoicePaymentTransaction.cashbookAccount',
-                'invoiceProducts.product.productUnit', 'invoiceProducts.product.productTax',
-                'invoiceTax', 'user')
+            ->with('client', 'invoiceProducts.invoice', 'invoicePayments.invoicePaymentTransaction.cashbookAccount', 
+                   'invoiceProducts.product.productUnit', 'invoiceProducts.product.productTax', 
+                   'invoiceTax', 'user')
             ->firstOrFail();
 
         // Get the default template for invoices
         $template = PrintTemplate::byModule('invoice')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
-        $filename = 'Invoice-'.$invoice->invoice_no.'.pdf';
-
+        $filename = 'Invoice-' . $invoice->invoice_no . '.pdf';
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.invoice' : 'print.invoice-basic',
@@ -1488,7 +1505,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'portrait', false);
     }
 
@@ -1499,22 +1516,22 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         $purchase = Purchase::where('slug', $slug)
-            ->with('supplier', 'purchaseProducts.purchase', 'purchasePayments.purchasePaymentTransaction.cashbookAccount',
-                'purchaseProducts.product.productUnit', 'purchaseProducts.product.productTax',
-                'purchaseTax', 'user')
+            ->with('supplier', 'purchaseProducts.purchase', 'purchasePayments.purchasePaymentTransaction.cashbookAccount', 
+                   'purchaseProducts.product.productUnit', 'purchaseProducts.product.productTax', 
+                   'purchaseTax', 'user')
             ->firstOrFail();
 
         // Get the default template for purchases
         $template = PrintTemplate::byModule('purchase')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
-        $filename = 'Purchase-'.$purchase->purchase_no.'.pdf';
-
+        $filename = 'Purchase-' . $purchase->purchase_no . '.pdf';
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.purchase' : 'print.purchase-basic',
@@ -1527,7 +1544,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'portrait', false);
     }
 
@@ -1538,22 +1555,22 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         $purchase = Purchase::where('slug', $slug)
-            ->with('supplier', 'purchaseProducts.purchase', 'purchasePayments.purchasePaymentTransaction.cashbookAccount',
-                'purchaseProducts.product.productUnit', 'purchaseProducts.product.productTax',
-                'purchaseTax', 'user')
+            ->with('supplier', 'purchaseProducts.purchase', 'purchasePayments.purchasePaymentTransaction.cashbookAccount', 
+                   'purchaseProducts.product.productUnit', 'purchaseProducts.product.productTax', 
+                   'purchaseTax', 'user')
             ->firstOrFail();
 
         // Get the default template for purchases
         $template = PrintTemplate::byModule('purchase')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
-        $filename = 'Purchase-'.$purchase->purchase_no.'.pdf';
-
+        $filename = 'Purchase-' . $purchase->purchase_no . '.pdf';
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.purchase' : 'print.purchase-basic',
@@ -1566,7 +1583,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'portrait', false);
     }
 
@@ -1577,20 +1594,20 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         $quotation = Quotation::where('slug', $slug)
             ->with('client', 'quotationProducts.product.productUnit', 'quotationProducts.product.productTax', 'user')
             ->firstOrFail();
 
         // Get the default template for quotations
         $template = PrintTemplate::byModule('quotation')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
-        $filename = 'Quotation-'.$quotation->quotation_no.'.pdf';
-
+        $filename = 'Quotation-' . $quotation->quotation_no . '.pdf';
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.quotation' : 'print.quotation-basic',
@@ -1603,7 +1620,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'portrait', false);
     }
 
@@ -1614,20 +1631,20 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         $quotation = Quotation::where('slug', $slug)
             ->with('client', 'quotationProducts.product.productUnit', 'quotationProducts.product.productTax', 'user')
             ->firstOrFail();
 
         // Get the default template for quotations
         $template = PrintTemplate::byModule('quotation')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
-        $filename = 'Quotation-'.$quotation->quotation_no.'.pdf';
-
+        $filename = 'Quotation-' . $quotation->quotation_no . '.pdf';
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.quotation' : 'print.quotation-basic',
@@ -1640,7 +1657,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'portrait', false);
     }
 
@@ -1651,28 +1668,28 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         $invoiceReturn = InvoiceReturn::where('slug', $slug)
             ->with([
-                'invoice.client',
+                'invoice.client', 
                 'invoice.invoiceProducts.product.productUnit',
                 'invoice.invoiceProducts.product.productTax',
                 'invoice.invoiceProducts.vatRate',
-                'invoiceReturnProducts.product.productUnit',
-                'invoiceReturnProducts.product.productTax',
-                'user',
+                'invoiceReturnProducts.product.productUnit', 
+                'invoiceReturnProducts.product.productTax', 
+                'user'
             ])
             ->firstOrFail();
 
         // Get the default template for invoice returns
         $template = PrintTemplate::byModule('invoice-return')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
-        $filename = 'Invoice-Return-'.$invoiceReturn->return_no.'.pdf';
-
+        $filename = 'Invoice-Return-' . $invoiceReturn->return_no . '.pdf';
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.invoice-return' : 'print.invoice-return-basic',
@@ -1685,7 +1702,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'portrait', false);
     }
 
@@ -1696,28 +1713,28 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         $invoiceReturn = InvoiceReturn::where('slug', $slug)
             ->with([
-                'invoice.client',
+                'invoice.client', 
                 'invoice.invoiceProducts.product.productUnit',
                 'invoice.invoiceProducts.product.productTax',
                 'invoice.invoiceProducts.vatRate',
-                'invoiceReturnProducts.product.productUnit',
-                'invoiceReturnProducts.product.productTax',
-                'user',
+                'invoiceReturnProducts.product.productUnit', 
+                'invoiceReturnProducts.product.productTax', 
+                'user'
             ])
             ->firstOrFail();
 
         // Get the default template for invoice returns
         $template = PrintTemplate::byModule('invoice-return')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
-        $filename = 'Invoice-Return-'.$invoiceReturn->return_no.'.pdf';
-
+        $filename = 'Invoice-Return-' . $invoiceReturn->return_no . '.pdf';
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.invoice-return' : 'print.invoice-return-basic',
@@ -1730,7 +1747,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'portrait', false);
     }
 
@@ -1741,27 +1758,27 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         $purchaseReturn = PurchaseReturn::where('slug', $slug)
             ->with([
-                'purchase.supplier',
+                'purchase.supplier', 
                 'purchase.purchaseProducts.product.productUnit',
                 'purchase.purchaseProducts.product.productTax',
-                'purchaseReturnProducts.product.productUnit',
-                'purchaseReturnProducts.product.productTax',
-                'user',
+                'purchaseReturnProducts.product.productUnit', 
+                'purchaseReturnProducts.product.productTax', 
+                'user'
             ])
             ->firstOrFail();
 
         // Get the default template for purchase returns
         $template = PrintTemplate::byModule('purchase-return')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
-        $filename = 'Purchase-Return-'.$purchaseReturn->return_no.'.pdf';
-
+        $filename = 'Purchase-Return-' . $purchaseReturn->return_no . '.pdf';
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.purchase-return' : 'print.purchase-return-basic',
@@ -1774,7 +1791,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'portrait', false);
     }
 
@@ -1785,27 +1802,27 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         $purchaseReturn = PurchaseReturn::where('slug', $slug)
             ->with([
-                'purchase.supplier',
+                'purchase.supplier', 
                 'purchase.purchaseProducts.product.productUnit',
                 'purchase.purchaseProducts.product.productTax',
-                'purchaseReturnProducts.product.productUnit',
-                'purchaseReturnProducts.product.productTax',
-                'user',
+                'purchaseReturnProducts.product.productUnit', 
+                'purchaseReturnProducts.product.productTax', 
+                'user'
             ])
             ->firstOrFail();
 
         // Get the default template for purchase returns
         $template = PrintTemplate::byModule('purchase-return')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
-        $filename = 'Purchase-Return-'.$purchaseReturn->return_no.'.pdf';
-
+        $filename = 'Purchase-Return-' . $purchaseReturn->return_no . '.pdf';
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.purchase-return' : 'print.purchase-return-basic',
@@ -1818,7 +1835,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'portrait', false);
     }
 
@@ -1830,18 +1847,18 @@ class PrintController extends Controller
         // Set locale for translations
         $locale = \Auth::user()->locale ?? app()->getLocale();
         \App::setLocale($locale);
-
+        
         $purchaseOrder = PurchaseOrder::where('slug', $slug)
             ->with('supplier', 'purchaseOrderProducts.product.productUnit', 'purchaseOrderProducts.product.productTax', 'user')
             ->firstOrFail();
 
         // Get the default template for purchase orders
         $template = PrintTemplate::byModule('purchase-order')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
-        if (! $template) {
+        
+        if (!$template) {
             // Fallback to basic template if no print template is set
             return view('print.purchase-order-basic', compact('purchaseOrder', 'locale', 'logoBase64'));
         }
@@ -1856,20 +1873,20 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         $purchaseOrder = PurchaseOrder::where('slug', $slug)
             ->with('supplier', 'purchaseOrderProducts.product.productUnit', 'purchaseOrderProducts.product.productTax', 'user')
             ->firstOrFail();
 
         // Get the default template for purchase orders
         $template = PrintTemplate::byModule('purchase-order')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
-        $filename = 'Purchase-Order-'.$purchaseOrder->purchase_no.'.pdf';
-
+        $filename = 'Purchase-Order-' . $purchaseOrder->purchase_no . '.pdf';
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.purchase-order' : 'print.purchase-order-basic',
@@ -1882,7 +1899,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'portrait', false);
     }
 
@@ -1893,20 +1910,20 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         $purchaseOrder = PurchaseOrder::where('slug', $slug)
             ->with('supplier', 'purchaseOrderProducts.product.productUnit', 'purchaseOrderProducts.product.productTax', 'user')
             ->firstOrFail();
 
         // Get the default template for purchase orders
         $template = PrintTemplate::byModule('purchase-order')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
-        $filename = 'Purchase-Order-'.$purchaseOrder->purchase_no.'.pdf';
-
+        $filename = 'Purchase-Order-' . $purchaseOrder->purchase_no . '.pdf';
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.purchase-order' : 'print.purchase-order-basic',
@@ -1919,7 +1936,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'portrait', false);
     }
 
@@ -1931,22 +1948,22 @@ class PrintController extends Controller
         // Set locale for translations
         $locale = \Auth::user()->locale ?? app()->getLocale();
         \App::setLocale($locale);
-
+        
         // Get today's report data
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportData = $reportController->todayReport($request);
-
+        
         if ($reportData instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportData->getData(true);
         }
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
-        if (! $template) {
+        
+        if (!$template) {
             return view('print.today-report-basic', compact('reportData'));
         }
 
@@ -1960,24 +1977,24 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Get today's report data
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportData = $reportController->todayReport($request);
-
+        
         if ($reportData instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportData->getData(true);
         }
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
-        $filename = 'Today-Report-'.date('Y-m-d').'.pdf';
-
+        $filename = 'Today-Report-' . date('Y-m-d') . '.pdf';
+        
         // Use Utility::buildPdf to generate PDF
         // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
@@ -1991,7 +2008,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -2002,24 +2019,24 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Get today's report data
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportData = $reportController->todayReport($request);
-
+        
         if ($reportData instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportData->getData(true);
         }
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
-        $filename = 'Today-Report-'.date('Y-m-d').'.pdf';
-
+        $filename = 'Today-Report-' . date('Y-m-d') . '.pdf';
+        
         // Use Utility::buildPdf to generate PDF
         // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
@@ -2033,7 +2050,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -2045,23 +2062,23 @@ class PrintController extends Controller
         // Increase memory limit for large datasets
         ini_set('memory_limit', '1G');
         set_time_limit(300);
-
+        
         // Set locale for translations
         $locale = \Auth::user()->locale ?? app()->getLocale();
         \App::setLocale($locale);
-
+        
         try {
             // Use the dedicated print method that gets ALL data without pagination
             $reportController = new \App\Http\Controllers\API\ReportController();
             $reportResponse = $reportController->invoiceSummaryForPrint($request);
-
+            
             // Handle JsonResponse
             if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
                 $reportData = $reportResponse->getData(true);
             } else {
                 $reportData = $reportResponse;
             }
-
+            
             // Debug: Log the response structure
             Log::info('Invoice Summary Response Debug:', [
                 'response_type' => gettype($reportResponse),
@@ -2070,24 +2087,23 @@ class PrintController extends Controller
                 'report_data_keys' => is_array($reportData) ? array_keys($reportData) : 'not array',
                 'success_key_exists' => isset($reportData['success']),
                 'success_value' => $reportData['success'] ?? 'key not found',
-                'request_params' => $request->all(),
+                'request_params' => $request->all()
             ]);
-
-            if (! isset($reportData['success']) || ! $reportData['success']) {
+            
+            if (!isset($reportData['success']) || !$reportData['success']) {
                 $errorMessage = $reportData['message'] ?? 'Unknown error';
                 $errorDetail = $reportData['error'] ?? 'No error details';
-
-                return response()->make('<html><body><h1>Debug Error</h1><p><strong>Message:</strong> '.htmlspecialchars($errorMessage).'</p><p><strong>Detail:</strong> '.htmlspecialchars($errorDetail).'</p><p><strong>Response:</strong> '.htmlspecialchars(json_encode($reportData, JSON_PRETTY_PRINT)).'</p></body></html>', 500);
+                return response()->make('<html><body><h1>Debug Error</h1><p><strong>Message:</strong> ' . htmlspecialchars($errorMessage) . '</p><p><strong>Detail:</strong> ' . htmlspecialchars($errorDetail) . '</p><p><strong>Response:</strong> ' . htmlspecialchars(json_encode($reportData, JSON_PRETTY_PRINT)) . '</p></body></html>', 500);
             }
-
+            
             $invoiceSummaryData = $reportData['data'];
-
-            Log::info('Print Invoice Summary - Total clients: '.count($invoiceSummaryData['clients']));
-
+            
+            Log::info("Print Invoice Summary - Total clients: " . count($invoiceSummaryData['clients']));
+            
             // Get the default template for reports
             $template = PrintTemplate::byModule('reports')->default()->first();
-
-            if (! $template) {
+            
+            if (!$template) {
                 return view('print.invoice-summary-basic', compact('invoiceSummaryData'));
             }
 
@@ -2095,15 +2111,16 @@ class PrintController extends Controller
             $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
 
             return view('print.reports.invoice-summary', compact('invoiceSummaryData', 'template', 'logoBase64', 'locale'));
+            
         } catch (\Exception $e) {
-            Log::error('Print Invoice Summary Error: '.$e->getMessage(), [
+            Log::error('Print Invoice Summary Error: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'request_params' => $request->all(),
+                'request_params' => $request->all()
             ]);
-
+            
             // Return simple HTML error response (no view dependency)
             return response()->make(
-                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> '.htmlspecialchars($e->getMessage()).'</p><p><em>Please check the logs for more details.</em></p></body></html>',
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</p><p><em>Please check the logs for more details.</em></p></body></html>',
                 500
             );
         }
@@ -2116,36 +2133,36 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportResponse = $reportController->invoiceSummaryForPrint($request);
-
+        
         // Handle JsonResponse
         if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportResponse->getData(true);
         } else {
             $reportData = $reportResponse;
         }
-
-        if (! $reportData['success']) {
+        
+        if (!$reportData['success']) {
             abort(404, 'Report data not found');
         }
-
+        
         $invoiceSummaryData = $reportData['data'];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $fromDate = $invoiceSummaryData['filters']['from_date'] ?? '';
         $toDate = $invoiceSummaryData['filters']['to_date'] ?? '';
-        $filename = 'Invoice-Summary-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'Invoice-Summary-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+        
         // Use Utility::buildPdf to generate PDF
         // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
@@ -2159,7 +2176,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -2170,36 +2187,36 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportResponse = $reportController->invoiceSummaryForPrint($request);
-
+        
         // Handle JsonResponse
         if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportResponse->getData(true);
         } else {
             $reportData = $reportResponse;
         }
-
-        if (! $reportData['success']) {
+        
+        if (!$reportData['success']) {
             abort(404, 'Report data not found');
         }
-
+        
         $invoiceSummaryData = $reportData['data'];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $fromDate = $invoiceSummaryData['filters']['from_date'] ?? '';
         $toDate = $invoiceSummaryData['filters']['to_date'] ?? '';
-        $filename = 'Invoice-Summary-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'Invoice-Summary-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+        
         // Use Utility::buildPdf to generate PDF
         // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
@@ -2213,7 +2230,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -2225,23 +2242,23 @@ class PrintController extends Controller
         // Increase memory limit for large datasets
         ini_set('memory_limit', '1G');
         set_time_limit(300);
-
+        
         // Set locale for translations
         $locale = \Auth::user()->locale ?? app()->getLocale();
         \App::setLocale($locale);
-
+        
         try {
             // Use the dedicated print method that gets ALL data without pagination
             $reportController = new \App\Http\Controllers\API\ReportController();
             $reportResponse = $reportController->purchaseSummaryForPrint($request);
-
+            
             // Handle JsonResponse
             if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
                 $reportData = $reportResponse->getData(true);
             } else {
                 $reportData = $reportResponse;
             }
-
+            
             // Debug: Log the response structure
             Log::info('Purchase Summary Response Debug:', [
                 'response_type' => gettype($reportResponse),
@@ -2250,40 +2267,40 @@ class PrintController extends Controller
                 'report_data_keys' => is_array($reportData) ? array_keys($reportData) : 'not array',
                 'success_key_exists' => isset($reportData['success']),
                 'success_value' => $reportData['success'] ?? 'key not found',
-                'request_params' => $request->all(),
+                'request_params' => $request->all()
             ]);
-
-            if (! isset($reportData['success']) || ! $reportData['success']) {
+            
+            if (!isset($reportData['success']) || !$reportData['success']) {
                 $errorMessage = $reportData['message'] ?? 'Unknown error';
                 $errorDetail = $reportData['error'] ?? 'No error details';
-
-                return response()->make('<html><body><h1>Debug Error</h1><p><strong>Message:</strong> '.htmlspecialchars($errorMessage).'</p><p><strong>Detail:</strong> '.htmlspecialchars($errorDetail).'</p><p><strong>Response:</strong> '.htmlspecialchars(json_encode($reportData, JSON_PRETTY_PRINT)).'</p></body></html>', 500);
+                return response()->make('<html><body><h1>Debug Error</h1><p><strong>Message:</strong> ' . htmlspecialchars($errorMessage) . '</p><p><strong>Detail:</strong> ' . htmlspecialchars($errorDetail) . '</p><p><strong>Response:</strong> ' . htmlspecialchars(json_encode($reportData, JSON_PRETTY_PRINT)) . '</p></body></html>', 500);
             }
-
+            
             $purchaseSummaryData = $reportData['data'];
-
-            Log::info('Print Purchase Summary - Total suppliers: '.count($purchaseSummaryData['suppliers']));
-
+            
+            Log::info("Print Purchase Summary - Total suppliers: " . count($purchaseSummaryData['suppliers']));
+            
             // Get the default template for reports
             $template = PrintTemplate::byModule('reports')->default()->first();
-
+            
             // Convert logo to base64 for PDF compatibility
             $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
 
-            if (! $template) {
+            if (!$template) {
                 return view('print.purchase-summary-basic', compact('purchaseSummaryData'));
             }
 
             return view('print.reports.purchase-summary', compact('purchaseSummaryData', 'template', 'logoBase64', 'locale'));
+            
         } catch (\Exception $e) {
-            Log::error('Print Purchase Summary Error: '.$e->getMessage(), [
+            Log::error('Print Purchase Summary Error: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'request_params' => $request->all(),
+                'request_params' => $request->all()
             ]);
-
+            
             // Return simple HTML error response (no view dependency)
             return response()->make(
-                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> '.htmlspecialchars($e->getMessage()).'</p><p><em>Please check the logs for more details.</em></p></body></html>',
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</p><p><em>Please check the logs for more details.</em></p></body></html>',
                 500
             );
         }
@@ -2296,36 +2313,36 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportResponse = $reportController->purchaseSummaryForPrint($request);
-
+        
         // Handle JsonResponse
         if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportResponse->getData(true);
         } else {
             $reportData = $reportResponse;
         }
-
-        if (! $reportData['success']) {
+        
+        if (!$reportData['success']) {
             abort(404, 'Report data not found');
         }
-
+        
         $purchaseSummaryData = $reportData['data'];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $fromDate = $purchaseSummaryData['filters']['from_date'] ?? '';
         $toDate = $purchaseSummaryData['filters']['to_date'] ?? '';
-        $filename = 'Purchase-Summary-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'Purchase-Summary-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+        
         // Use Utility::buildPdf to generate PDF
         // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
@@ -2339,7 +2356,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -2350,36 +2367,36 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportResponse = $reportController->purchaseSummaryForPrint($request);
-
+        
         // Handle JsonResponse
         if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportResponse->getData(true);
         } else {
             $reportData = $reportResponse;
         }
-
-        if (! $reportData['success']) {
+        
+        if (!$reportData['success']) {
             abort(404, 'Report data not found');
         }
-
+        
         $purchaseSummaryData = $reportData['data'];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $fromDate = $purchaseSummaryData['filters']['from_date'] ?? '';
         $toDate = $purchaseSummaryData['filters']['to_date'] ?? '';
-        $filename = 'Purchase-Summary-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'Purchase-Summary-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+        
         // Use Utility::buildPdf to generate PDF
         // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
@@ -2393,7 +2410,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -2405,23 +2422,23 @@ class PrintController extends Controller
         // Increase memory limit for large datasets
         ini_set('memory_limit', '1G');
         set_time_limit(300);
-
+        
         // Set locale for translations
         $locale = \Auth::user()->locale ?? app()->getLocale();
         \App::setLocale($locale);
-
+        
         try {
             // Use the dedicated print method that gets ALL data without pagination
             $reportController = new \App\Http\Controllers\API\ReportController();
             $reportResponse = $reportController->vatReportForPrint($request);
-
+            
             // Handle JsonResponse
             if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
                 $reportData = $reportResponse->getData(true);
             } else {
                 $reportData = $reportResponse;
             }
-
+            
             // Debug: Log the response structure
             Log::info('VAT Report Response Debug:', [
                 'response_type' => gettype($reportResponse),
@@ -2430,40 +2447,40 @@ class PrintController extends Controller
                 'report_data_keys' => is_array($reportData) ? array_keys($reportData) : 'not array',
                 'success_key_exists' => isset($reportData['success']),
                 'success_value' => $reportData['success'] ?? 'key not found',
-                'request_params' => $request->all(),
+                'request_params' => $request->all()
             ]);
-
-            if (! isset($reportData['success']) || ! $reportData['success']) {
+            
+            if (!isset($reportData['success']) || !$reportData['success']) {
                 $errorMessage = $reportData['message'] ?? 'Unknown error';
                 $errorDetail = $reportData['error'] ?? 'No error details';
-
-                return response()->make('<html><body><h1>Debug Error</h1><p><strong>Message:</strong> '.htmlspecialchars($errorMessage).'</p><p><strong>Detail:</strong> '.htmlspecialchars($errorDetail).'</p><p><strong>Response:</strong> '.htmlspecialchars(json_encode($reportData, JSON_PRETTY_PRINT)).'</p></body></html>', 500);
+                return response()->make('<html><body><h1>Debug Error</h1><p><strong>Message:</strong> ' . htmlspecialchars($errorMessage) . '</p><p><strong>Detail:</strong> ' . htmlspecialchars($errorDetail) . '</p><p><strong>Response:</strong> ' . htmlspecialchars(json_encode($reportData, JSON_PRETTY_PRINT)) . '</p></body></html>', 500);
             }
-
+            
             $vatReportData = $reportData['data'];
-
-            Log::info('Print VAT Report - Data generated successfully');
-
+            
+            Log::info("Print VAT Report - Data generated successfully");
+            
             // Get the default template for reports
             $template = PrintTemplate::byModule('reports')->default()->first();
-
+            
             // Convert logo to base64 for PDF compatibility
             $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
-            if (! $template) {
+            
+            if (!$template) {
                 return view('print.vat-report-basic', compact('vatReportData'));
             }
 
             return view('print.reports.vat-report', compact('vatReportData', 'template', 'logoBase64', 'locale'));
+            
         } catch (\Exception $e) {
-            Log::error('Print VAT Report Error: '.$e->getMessage(), [
+            Log::error('Print VAT Report Error: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'request_params' => $request->all(),
+                'request_params' => $request->all()
             ]);
-
+            
             // Return simple HTML error response (no view dependency)
             return response()->make(
-                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> '.htmlspecialchars($e->getMessage()).'</p><p><em>Please check the logs for more details.</em></p></body></html>',
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</p><p><em>Please check the logs for more details.</em></p></body></html>',
                 500
             );
         }
@@ -2476,36 +2493,36 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Get report data from the API
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportResponse = $reportController->vatReportForPrint($request);
-
+        
         // Handle JsonResponse
         if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportResponse->getData(true);
         } else {
             $reportData = $reportResponse;
         }
-
-        if (! isset($reportData['success']) || ! $reportData['success']) {
+        
+        if (!isset($reportData['success']) || !$reportData['success']) {
             abort(404, 'Report data not found');
         }
-
+        
         $vatReportData = $reportData['data'];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $fromDate = $vatReportData['filters']['from_date'] ?? '';
         $toDate = $vatReportData['filters']['to_date'] ?? '';
-        $filename = 'VAT-Report-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'VAT-Report-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+        
         // Use Utility::buildPdf to generate PDF
         // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
@@ -2519,7 +2536,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -2530,36 +2547,36 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Get report data from the API
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportResponse = $reportController->vatReportForPrint($request);
-
+        
         // Handle JsonResponse
         if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportResponse->getData(true);
         } else {
             $reportData = $reportResponse;
         }
-
-        if (! isset($reportData['success']) || ! $reportData['success']) {
+        
+        if (!isset($reportData['success']) || !$reportData['success']) {
             abort(404, 'Report data not found');
         }
-
+        
         $vatReportData = $reportData['data'];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $fromDate = $vatReportData['filters']['from_date'] ?? '';
         $toDate = $vatReportData['filters']['to_date'] ?? '';
-        $filename = 'VAT-Report-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'VAT-Report-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+        
         // Use Utility::buildPdf to generate PDF
         // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
@@ -2573,7 +2590,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -2585,17 +2602,17 @@ class PrintController extends Controller
         // Set locale for translations
         $locale = \Auth::user()->locale ?? app()->getLocale();
         \App::setLocale($locale);
-
+        
         try {
             // Get inventory report data
             $reportController = new \App\Http\Controllers\API\ReportController();
             $inventoryData = $reportController->inventoryReport($request);
-
+            
             // Handle JsonResponse (the inventory API returns array of products)
             if ($inventoryData instanceof \Illuminate\Http\JsonResponse) {
                 $inventoryData = $inventoryData->getData(true);
             }
-
+            
             // Structure the data for the template
             $inventoryReportData = [
                 'data' => $inventoryData,
@@ -2605,34 +2622,35 @@ class PrintController extends Controller
                     'category' => $request->input('category.name'),
                     'sub_category' => $request->input('subCategory.name'),
                     'item_name' => $request->input('itemName.name'),
-                ],
+                ]
             ];
-
-            Log::info('Print Inventory Report - Data generated successfully', [
+            
+            Log::info("Print Inventory Report - Data generated successfully", [
                 'data_count' => count($inventoryData ?? []),
-                'filters' => $inventoryReportData['filters'],
+                'filters' => $inventoryReportData['filters']
             ]);
-
+            
             // Get the default template for reports
             $template = PrintTemplate::byModule('reports')->default()->first();
-
+            
             // Convert logo to base64 for PDF compatibility
             $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
-            if (! $template) {
+            
+            if (!$template) {
                 return view('print.inventory-basic', compact('inventoryReportData'));
             }
 
             return view('print.reports.inventory', compact('inventoryReportData', 'template', 'logoBase64', 'locale'));
+            
         } catch (\Exception $e) {
-            Log::error('Print Inventory Report Error: '.$e->getMessage(), [
+            Log::error('Print Inventory Report Error: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'request_params' => $request->all(),
+                'request_params' => $request->all()
             ]);
-
+            
             // Return simple HTML error response (no view dependency)
             return response()->make(
-                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> '.htmlspecialchars($e->getMessage()).'</p><p><em>Please check the logs for more details.</em></p></body></html>',
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</p><p><em>Please check the logs for more details.</em></p></body></html>',
                 500
             );
         }
@@ -2645,16 +2663,16 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Get inventory report data
         $reportController = new \App\Http\Controllers\API\ReportController();
         $inventoryData = $reportController->inventoryReport($request);
-
+        
         // Handle JsonResponse
         if ($inventoryData instanceof \Illuminate\Http\JsonResponse) {
             $inventoryData = $inventoryData->getData(true);
         }
-
+        
         // Structure the data for the template
         $inventoryReportData = [
             'data' => $inventoryData,
@@ -2664,22 +2682,22 @@ class PrintController extends Controller
                 'category' => $request->input('category.name'),
                 'sub_category' => $request->input('subCategory.name'),
                 'item_name' => $request->input('itemName.name'),
-            ],
+            ]
         ];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $fromDate = $request->fromDate ?? '';
         $toDate = $request->toDate ?? '';
         $category = $request->input('category.name') ?? '';
-        $filename = 'Inventory-Report-'.$category.'-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'Inventory-Report-' . $category . '-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.reports.inventory' : 'print.inventory-basic',
@@ -2692,7 +2710,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -2703,16 +2721,16 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Get inventory report data
         $reportController = new \App\Http\Controllers\API\ReportController();
         $inventoryData = $reportController->inventoryReport($request);
-
+        
         // Handle JsonResponse
         if ($inventoryData instanceof \Illuminate\Http\JsonResponse) {
             $inventoryData = $inventoryData->getData(true);
         }
-
+        
         // Structure the data for the template
         $inventoryReportData = [
             'data' => $inventoryData,
@@ -2722,22 +2740,22 @@ class PrintController extends Controller
                 'category' => $request->input('category.name'),
                 'sub_category' => $request->input('subCategory.name'),
                 'item_name' => $request->input('itemName.name'),
-            ],
+            ]
         ];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $fromDate = $request->fromDate ?? '';
         $toDate = $request->toDate ?? '';
         $category = $request->input('category.name') ?? '';
-        $filename = 'Inventory-Report-'.$category.'-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'Inventory-Report-' . $category . '-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.reports.inventory' : 'print.inventory-basic',
@@ -2750,7 +2768,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -2762,17 +2780,17 @@ class PrintController extends Controller
         // Set locale for translations
         $locale = \Auth::user()->locale ?? app()->getLocale();
         \App::setLocale($locale);
-
+        
         try {
             // Get items report data
             $reportController = new \App\Http\Controllers\API\ReportController();
             $itemsData = $reportController->itemsReport($request);
-
+            
             // Handle JsonResponse (the items API returns array with product, stockIns, stockOuts)
             if ($itemsData instanceof \Illuminate\Http\JsonResponse) {
                 $itemsData = $itemsData->getData(true);
             }
-
+            
             // Structure the data for the template
             $itemsReportData = [
                 'product' => $itemsData['product'] ?? null,
@@ -2782,36 +2800,37 @@ class PrintController extends Controller
                     'from_date' => $request->fromDate,
                     'to_date' => $request->toDate,
                     'product_name' => $request->input('productName.label') ?? $request->input('productName.name'),
-                ],
+                ]
             ];
-
-            Log::info('Print Items Report - Data generated successfully', [
+            
+            Log::info("Print Items Report - Data generated successfully", [
                 'product' => $itemsReportData['product']['name'] ?? 'Unknown',
                 'stockIns_count' => count($itemsReportData['stockIns']),
                 'stockOuts_count' => count($itemsReportData['stockOuts']),
-                'filters' => $itemsReportData['filters'],
+                'filters' => $itemsReportData['filters']
             ]);
-
+            
             // Get the default template for reports
             $template = PrintTemplate::byModule('reports')->default()->first();
-
+            
             // Convert logo to base64 for PDF compatibility
             $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
-            if (! $template) {
+            
+            if (!$template) {
                 return view('print.items-basic', compact('itemsReportData'));
             }
 
             return view('print.reports.items', compact('itemsReportData', 'template', 'logoBase64', 'locale'));
+            
         } catch (\Exception $e) {
-            Log::error('Print Items Report Error: '.$e->getMessage(), [
+            Log::error('Print Items Report Error: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'request_params' => $request->all(),
+                'request_params' => $request->all()
             ]);
-
+            
             // Return simple HTML error response (no view dependency)
             return response()->make(
-                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> '.htmlspecialchars($e->getMessage()).'</p><p><em>Please check the logs for more details.</em></p></body></html>',
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</p><p><em>Please check the logs for more details.</em></p></body></html>',
                 500
             );
         }
@@ -2824,35 +2843,34 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         try {
             // Get items report data
             $reportController = new \App\Http\Controllers\API\ReportController();
             $itemsData = $reportController->itemsReport($request);
-
+            
             // Handle JsonResponse (error response)
             if ($itemsData instanceof \Illuminate\Http\JsonResponse) {
                 $itemsData = $itemsData->getData(true);
-
+                
                 // Check if it's an error response (both 'error: true' and 'success: false' formats)
-                if ((isset($itemsData['error']) && $itemsData['error']) || (isset($itemsData['success']) && ! $itemsData['success'])) {
+                if ((isset($itemsData['error']) && $itemsData['error']) || (isset($itemsData['success']) && !$itemsData['success'])) {
                     $errorMessage = $itemsData['message'] ?? $itemsData['error'] ?? 'Unknown error';
-
                     return response()->make(
-                        '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Error</h1><p><strong>Error:</strong> '.htmlspecialchars($errorMessage).'</p></body></html>',
+                        '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($errorMessage) . '</p></body></html>',
                         400
                     );
                 }
             }
-
+            
             // Check if data is empty or invalid
-            if (! is_array($itemsData) || (! isset($itemsData['product']) && ! isset($itemsData['stockIns']) && ! isset($itemsData['stockOuts']))) {
+            if (!is_array($itemsData) || (!isset($itemsData['product']) && !isset($itemsData['stockIns']) && !isset($itemsData['stockOuts']))) {
                 return response()->make(
                     '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Error</h1><p>No data found for the selected filters. Please check your filters and try again.</p></body></html>',
                     404
                 );
             }
-
+            
             // Structure the data for the template
             $itemsReportData = [
                 'product' => $itemsData['product'] ?? null,
@@ -2862,22 +2880,22 @@ class PrintController extends Controller
                     'from_date' => $request->fromDate,
                     'to_date' => $request->toDate,
                     'product_name' => $request->input('productName.label') ?? $request->input('productName.name'),
-                ],
+                ]
             ];
-
+            
             // Get the default template for reports
             $template = PrintTemplate::byModule('reports')->default()->first();
-
+            
             // Convert logo to base64 for PDF compatibility
             $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+            
             // Generate filename
             $fromDate = $request->fromDate ?? '';
             $toDate = $request->toDate ?? '';
             $productName = $itemsReportData['filters']['product_name'] ?? '';
-            $filename = 'Items-Report-'.$productName.'-'.$fromDate.'-to-'.$toDate.'.pdf';
+            $filename = 'Items-Report-' . $productName . '-' . $fromDate . '-to-' . $toDate . '.pdf';
             $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+            
             // Use Utility::buildPdf to generate PDF
             return \App\Models\Utility::buildPdf([
                 'view' => $template ? 'print.reports.items' : 'print.items-basic',
@@ -2890,26 +2908,27 @@ class PrintController extends Controller
                 'margins' => [
                     'top' => '10mm',
                     'bottom' => '10mm',
-                ],
+                ]
             ], 'landscape', false);
+            
         } catch (\Illuminate\Validation\ValidationException $e) {
             $errors = $e->errors();
-            $errorMessage = 'Validation failed: '.implode(', ', array_map(function ($fieldErrors) {
+            $errorMessage = 'Validation failed: ' . implode(', ', array_map(function ($fieldErrors) {
                 return implode(', ', $fieldErrors);
             }, $errors));
-
+            
             return response()->make(
-                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Validation Error</h1><p><strong>Error:</strong> '.htmlspecialchars($errorMessage).'</p><p>Please check your filters and try again.</p></body></html>',
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Validation Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($errorMessage) . '</p><p>Please check your filters and try again.</p></body></html>',
                 422
             );
         } catch (\Exception $e) {
-            Log::error('Preview Items PDF Error: '.$e->getMessage(), [
+            Log::error('Preview Items PDF Error: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'request_params' => $request->all(),
+                'request_params' => $request->all()
             ]);
-
+            
             return response()->make(
-                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Error</h1><p><strong>Error:</strong> '.htmlspecialchars($e->getMessage()).'</p><p><em>Please check the logs for more details.</em></p></body></html>',
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</p><p><em>Please check the logs for more details.</em></p></body></html>',
                 500
             );
         }
@@ -2922,35 +2941,34 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         try {
             // Get items report data
             $reportController = new \App\Http\Controllers\API\ReportController();
             $itemsData = $reportController->itemsReport($request);
-
+            
             // Handle JsonResponse (error response)
             if ($itemsData instanceof \Illuminate\Http\JsonResponse) {
                 $itemsData = $itemsData->getData(true);
-
+                
                 // Check if it's an error response (both 'error: true' and 'success: false' formats)
-                if ((isset($itemsData['error']) && $itemsData['error']) || (isset($itemsData['success']) && ! $itemsData['success'])) {
+                if ((isset($itemsData['error']) && $itemsData['error']) || (isset($itemsData['success']) && !$itemsData['success'])) {
                     $errorMessage = $itemsData['message'] ?? $itemsData['error'] ?? 'Unknown error';
-
                     return response()->make(
-                        '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Error</h1><p><strong>Error:</strong> '.htmlspecialchars($errorMessage).'</p></body></html>',
+                        '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($errorMessage) . '</p></body></html>',
                         400
                     );
                 }
             }
-
+            
             // Check if data is empty or invalid
-            if (! is_array($itemsData) || (! isset($itemsData['product']) && ! isset($itemsData['stockIns']) && ! isset($itemsData['stockOuts']))) {
+            if (!is_array($itemsData) || (!isset($itemsData['product']) && !isset($itemsData['stockIns']) && !isset($itemsData['stockOuts']))) {
                 return response()->make(
                     '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Error</h1><p>No data found for the selected filters. Please check your filters and try again.</p></body></html>',
                     404
                 );
             }
-
+            
             // Structure the data for the template
             $itemsReportData = [
                 'product' => $itemsData['product'] ?? null,
@@ -2960,22 +2978,22 @@ class PrintController extends Controller
                     'from_date' => $request->fromDate,
                     'to_date' => $request->toDate,
                     'product_name' => $request->input('productName.label') ?? $request->input('productName.name'),
-                ],
+                ]
             ];
-
+            
             // Get the default template for reports
             $template = PrintTemplate::byModule('reports')->default()->first();
-
+            
             // Convert logo to base64 for PDF compatibility
             $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+            
             // Generate filename
             $fromDate = $request->fromDate ?? '';
             $toDate = $request->toDate ?? '';
             $productName = $itemsReportData['filters']['product_name'] ?? '';
-            $filename = 'Items-Report-'.$productName.'-'.$fromDate.'-to-'.$toDate.'.pdf';
+            $filename = 'Items-Report-' . $productName . '-' . $fromDate . '-to-' . $toDate . '.pdf';
             $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+            
             // Use Utility::buildPdf to generate PDF
             return \App\Models\Utility::buildPdf([
                 'view' => $template ? 'print.reports.items' : 'print.items-basic',
@@ -2988,26 +3006,27 @@ class PrintController extends Controller
                 'margins' => [
                     'top' => '10mm',
                     'bottom' => '10mm',
-                ],
+                ]
             ], 'landscape', false);
+            
         } catch (\Illuminate\Validation\ValidationException $e) {
             $errors = $e->errors();
-            $errorMessage = 'Validation failed: '.implode(', ', array_map(function ($fieldErrors) {
+            $errorMessage = 'Validation failed: ' . implode(', ', array_map(function ($fieldErrors) {
                 return implode(', ', $fieldErrors);
             }, $errors));
-
+            
             return response()->make(
-                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Validation Error</h1><p><strong>Error:</strong> '.htmlspecialchars($errorMessage).'</p><p>Please check your filters and try again.</p></body></html>',
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Validation Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($errorMessage) . '</p><p>Please check your filters and try again.</p></body></html>',
                 422
             );
         } catch (\Exception $e) {
-            Log::error('Download Items PDF Error: '.$e->getMessage(), [
+            Log::error('Download Items PDF Error: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'request_params' => $request->all(),
+                'request_params' => $request->all()
             ]);
-
+            
             return response()->make(
-                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Error</h1><p><strong>Error:</strong> '.htmlspecialchars($e->getMessage()).'</p><p><em>Please check the logs for more details.</em></p></body></html>',
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</p><p><em>Please check the logs for more details.</em></p></body></html>',
                 500
             );
         }
@@ -3021,17 +3040,17 @@ class PrintController extends Controller
         // Set locale for translations
         $locale = \Auth::user()->locale ?? app()->getLocale();
         \App::setLocale($locale);
-
+        
         try {
             // Get expenses report data
             $reportController = new \App\Http\Controllers\API\ReportController();
             $expensesData = $reportController->expenseReport($request);
-
+            
             // Handle JsonResponse (the expenses API returns a collection resource)
             if ($expensesData instanceof \Illuminate\Http\JsonResponse) {
                 $expensesData = $expensesData->getData(true);
             }
-
+            
             // Structure the data for the template
             $expensesReportData = [
                 'data' => $expensesData,
@@ -3040,34 +3059,35 @@ class PrintController extends Controller
                     'to_date' => $request->toDate,
                     'category' => $request->input('category.name'),
                     'sub_category' => $request->input('subCategory.name'),
-                ],
+                ]
             ];
-
-            Log::info('Print Expenses Report - Data generated successfully', [
+            
+            Log::info("Print Expenses Report - Data generated successfully", [
                 'data_count' => count($expensesData ?? []),
-                'filters' => $expensesReportData['filters'],
+                'filters' => $expensesReportData['filters']
             ]);
-
+            
             // Get the default template for reports
             $template = PrintTemplate::byModule('reports')->default()->first();
-
+            
             // Convert logo to base64 for PDF compatibility
             $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
-            if (! $template) {
+            
+            if (!$template) {
                 return view('print.expenses-basic', compact('expensesReportData'));
             }
 
             return view('print.reports.expenses', compact('expensesReportData', 'template', 'logoBase64', 'locale'));
+            
         } catch (\Exception $e) {
-            Log::error('Print Expenses Report Error: '.$e->getMessage(), [
+            Log::error('Print Expenses Report Error: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'request_params' => $request->all(),
+                'request_params' => $request->all()
             ]);
-
+            
             // Return simple HTML error response (no view dependency)
             return response()->make(
-                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> '.htmlspecialchars($e->getMessage()).'</p><p><em>Please check the logs for more details.</em></p></body></html>',
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</p><p><em>Please check the logs for more details.</em></p></body></html>',
                 500
             );
         }
@@ -3080,16 +3100,16 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Get expenses report data
         $reportController = new \App\Http\Controllers\API\ReportController();
         $expensesData = $reportController->expenseReport($request);
-
+        
         // Handle JsonResponse
         if ($expensesData instanceof \Illuminate\Http\JsonResponse) {
             $expensesData = $expensesData->getData(true);
         }
-
+        
         // Structure the data for the template
         $expensesReportData = [
             'data' => $expensesData,
@@ -3098,21 +3118,21 @@ class PrintController extends Controller
                 'to_date' => $request->toDate,
                 'category' => $request->input('category.name'),
                 'sub_category' => $request->input('subCategory.name'),
-            ],
+            ]
         ];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $fromDate = $request->fromDate ?? '';
         $toDate = $request->toDate ?? '';
-        $filename = 'Expenses-Report-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'Expenses-Report-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.reports.expenses' : 'print.expenses-basic',
@@ -3125,7 +3145,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -3136,16 +3156,16 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Get expenses report data
         $reportController = new \App\Http\Controllers\API\ReportController();
         $expensesData = $reportController->expenseReport($request);
-
+        
         // Handle JsonResponse
         if ($expensesData instanceof \Illuminate\Http\JsonResponse) {
             $expensesData = $expensesData->getData(true);
         }
-
+        
         // Structure the data for the template
         $expensesReportData = [
             'data' => $expensesData,
@@ -3154,21 +3174,21 @@ class PrintController extends Controller
                 'to_date' => $request->toDate,
                 'category' => $request->input('category.name'),
                 'sub_category' => $request->input('subCategory.name'),
-            ],
+            ]
         ];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $fromDate = $request->fromDate ?? '';
         $toDate = $request->toDate ?? '';
-        $filename = 'Expenses-Report-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'Expenses-Report-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.reports.expenses' : 'print.expenses-basic',
@@ -3181,7 +3201,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -3193,22 +3213,22 @@ class PrintController extends Controller
         // Set locale for translations
         $locale = \Auth::user()->locale ?? app()->getLocale();
         \App::setLocale($locale);
-
+        
         // Get client receivable report data
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportData = $reportController->clientDueReport($request);
-
+        
         if ($reportData instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportData->getData(true);
         }
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
-        if (! $template) {
+        
+        if (!$template) {
             return view('print.client-receivable-report-basic', compact('reportData'));
         }
 
@@ -3222,24 +3242,24 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Get client receivable report data
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportData = $reportController->clientDueReport($request);
-
+        
         if ($reportData instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportData->getData(true);
         }
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
-        $filename = 'Client-Receivable-Report-'.date('Y-m-d').'.pdf';
-
+        $filename = 'Client-Receivable-Report-' . date('Y-m-d') . '.pdf';
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.reports.client-receivable-report' : 'print.client-receivable-report-basic',
@@ -3252,7 +3272,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -3263,24 +3283,24 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Get client receivable report data
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportData = $reportController->clientDueReport($request);
-
+        
         if ($reportData instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportData->getData(true);
         }
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
-        $filename = 'Client-Receivable-Report-'.date('Y-m-d').'.pdf';
-
+        $filename = 'Client-Receivable-Report-' . date('Y-m-d') . '.pdf';
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.reports.client-receivable-report' : 'print.client-receivable-report-basic',
@@ -3293,7 +3313,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -3305,22 +3325,22 @@ class PrintController extends Controller
         // Set locale for translations
         $locale = \Auth::user()->locale ?? app()->getLocale();
         \App::setLocale($locale);
-
+        
         // Get supplier payable report data
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportData = $reportController->supplierDueReport($request);
-
+        
         if ($reportData instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportData->getData(true);
         }
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
-        if (! $template) {
+        
+        if (!$template) {
             return view('print.supplier-payable-report-basic', compact('reportData'));
         }
 
@@ -3334,24 +3354,24 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Get supplier payable report data
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportData = $reportController->supplierDueReport($request);
-
+        
         if ($reportData instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportData->getData(true);
         }
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
-        $filename = 'Supplier-Payable-Report-'.date('Y-m-d').'.pdf';
-
+        $filename = 'Supplier-Payable-Report-' . date('Y-m-d') . '.pdf';
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.reports.supplier-payable-report' : 'print.supplier-payable-report-basic',
@@ -3364,7 +3384,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -3375,24 +3395,24 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Get supplier payable report data
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportData = $reportController->supplierDueReport($request);
-
+        
         if ($reportData instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportData->getData(true);
         }
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
-        $filename = 'Supplier-Payable-Report-'.date('Y-m-d').'.pdf';
-
+        $filename = 'Supplier-Payable-Report-' . date('Y-m-d') . '.pdf';
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.reports.supplier-payable-report' : 'print.supplier-payable-report-basic',
@@ -3405,7 +3425,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -3417,17 +3437,17 @@ class PrintController extends Controller
         // Set locale for translations
         $locale = \Auth::user()->locale ?? app()->getLocale();
         \App::setLocale($locale);
-
+        
         try {
             // Get sales by user report data
             $reportController = new \App\Http\Controllers\API\ReportController();
             $salesData = $reportController->salesByUserReport($request);
-
+            
             // Handle JsonResponse (the sales by user API returns a collection resource)
             if ($salesData instanceof \Illuminate\Http\JsonResponse) {
                 $salesData = $salesData->getData(true);
             }
-
+            
             // Structure the data for the template
             $salesByUserReportData = [
                 'data' => $salesData,
@@ -3435,34 +3455,35 @@ class PrintController extends Controller
                     'from_date' => $request->fromDate,
                     'to_date' => $request->toDate,
                     'user' => $request->input('user.name'),
-                ],
+                ]
             ];
-
-            Log::info('Print Sales By User Report - Data generated successfully', [
+            
+            Log::info("Print Sales By User Report - Data generated successfully", [
                 'data_count' => count($salesData ?? []),
-                'filters' => $salesByUserReportData['filters'],
+                'filters' => $salesByUserReportData['filters']
             ]);
-
+            
             // Get the default template for reports
             $template = PrintTemplate::byModule('reports')->default()->first();
-
+            
             // Convert logo to base64 for PDF compatibility
             $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
-            if (! $template) {
+            
+            if (!$template) {
                 return view('print.sales-by-user-basic', compact('salesByUserReportData'));
             }
 
             return view('print.reports.sales-by-user', compact('salesByUserReportData', 'template', 'logoBase64', 'locale'));
+            
         } catch (\Exception $e) {
-            Log::error('Print Sales By User Report Error: '.$e->getMessage(), [
+            Log::error('Print Sales By User Report Error: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'request_params' => $request->all(),
+                'request_params' => $request->all()
             ]);
-
+            
             // Return simple HTML error response (no view dependency)
             return response()->make(
-                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> '.htmlspecialchars($e->getMessage()).'</p><p><em>Please check the logs for more details.</em></p></body></html>',
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</p><p><em>Please check the logs for more details.</em></p></body></html>',
                 500
             );
         }
@@ -3475,16 +3496,16 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Get sales by user report data
         $reportController = new \App\Http\Controllers\API\ReportController();
         $salesData = $reportController->salesByUserReport($request);
-
+        
         // Handle JsonResponse
         if ($salesData instanceof \Illuminate\Http\JsonResponse) {
             $salesData = $salesData->getData(true);
         }
-
+        
         // Structure the data for the template
         $salesByUserReportData = [
             'data' => $salesData,
@@ -3492,22 +3513,22 @@ class PrintController extends Controller
                 'from_date' => $request->fromDate,
                 'to_date' => $request->toDate,
                 'user' => $request->input('user.name'),
-            ],
+            ]
         ];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $fromDate = $request->fromDate ?? '';
         $toDate = $request->toDate ?? '';
         $user = $request->input('user.name') ?? '';
-        $filename = 'Sales-By-User-Report-'.$user.'-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'Sales-By-User-Report-' . $user . '-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.reports.sales-by-user' : 'print.sales-by-user-basic',
@@ -3520,7 +3541,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -3531,16 +3552,16 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Get sales by user report data
         $reportController = new \App\Http\Controllers\API\ReportController();
         $salesData = $reportController->salesByUserReport($request);
-
+        
         // Handle JsonResponse
         if ($salesData instanceof \Illuminate\Http\JsonResponse) {
             $salesData = $salesData->getData(true);
         }
-
+        
         // Structure the data for the template
         $salesByUserReportData = [
             'data' => $salesData,
@@ -3548,22 +3569,22 @@ class PrintController extends Controller
                 'from_date' => $request->fromDate,
                 'to_date' => $request->toDate,
                 'user' => $request->input('user.name'),
-            ],
+            ]
         ];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $fromDate = $request->fromDate ?? '';
         $toDate = $request->toDate ?? '';
         $user = $request->input('user.name') ?? '';
-        $filename = 'Sales-By-User-Report-'.$user.'-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'Sales-By-User-Report-' . $user . '-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.reports.sales-by-user' : 'print.sales-by-user-basic',
@@ -3576,7 +3597,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -3588,17 +3609,17 @@ class PrintController extends Controller
         // Set locale for translations
         $locale = \Auth::user()->locale ?? app()->getLocale();
         \App::setLocale($locale);
-
+        
         try {
             // Get collection by user report data
             $reportController = new \App\Http\Controllers\API\ReportController();
             $collectionData = $reportController->collectionByUserReport($request);
-
+            
             // Handle JsonResponse (the collection by user API returns a collection resource)
             if ($collectionData instanceof \Illuminate\Http\JsonResponse) {
                 $collectionData = $collectionData->getData(true);
             }
-
+            
             // Structure the data for the template
             $collectionByUserReportData = [
                 'data' => $collectionData,
@@ -3606,34 +3627,35 @@ class PrintController extends Controller
                     'from_date' => $request->fromDate,
                     'to_date' => $request->toDate,
                     'user' => $request->input('user.name'),
-                ],
+                ]
             ];
-
-            Log::info('Print Collection By User Report - Data generated successfully', [
+            
+            Log::info("Print Collection By User Report - Data generated successfully", [
                 'data_count' => count($collectionData ?? []),
-                'filters' => $collectionByUserReportData['filters'],
+                'filters' => $collectionByUserReportData['filters']
             ]);
-
+            
             // Get the default template for reports
             $template = PrintTemplate::byModule('reports')->default()->first();
-
+            
             // Convert logo to base64 for PDF compatibility
             $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
-            if (! $template) {
+            
+            if (!$template) {
                 return view('print.collection-by-user-basic', compact('collectionByUserReportData'));
             }
 
             return view('print.reports.collection-by-user', compact('collectionByUserReportData', 'template', 'logoBase64', 'locale'));
+            
         } catch (\Exception $e) {
-            Log::error('Print Collection By User Report Error: '.$e->getMessage(), [
+            Log::error('Print Collection By User Report Error: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'request_params' => $request->all(),
+                'request_params' => $request->all()
             ]);
-
+            
             // Return simple HTML error response (no view dependency)
             return response()->make(
-                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> '.htmlspecialchars($e->getMessage()).'</p><p><em>Please check the logs for more details.</em></p></body></html>',
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</p><p><em>Please check the logs for more details.</em></p></body></html>',
                 500
             );
         }
@@ -3646,16 +3668,16 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Get collection by user report data
         $reportController = new \App\Http\Controllers\API\ReportController();
         $collectionData = $reportController->collectionByUserReport($request);
-
+        
         // Handle JsonResponse
         if ($collectionData instanceof \Illuminate\Http\JsonResponse) {
             $collectionData = $collectionData->getData(true);
         }
-
+        
         // Structure the data for the template
         $collectionByUserReportData = [
             'data' => $collectionData,
@@ -3663,22 +3685,22 @@ class PrintController extends Controller
                 'from_date' => $request->fromDate,
                 'to_date' => $request->toDate,
                 'user' => $request->input('user.name'),
-            ],
+            ]
         ];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $fromDate = $request->fromDate ?? '';
         $toDate = $request->toDate ?? '';
         $user = $request->input('user.name') ?? '';
-        $filename = 'Collection-By-User-Report-'.$user.'-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'Collection-By-User-Report-' . $user . '-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.reports.collection-by-user' : 'print.collection-by-user-basic',
@@ -3691,7 +3713,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -3702,16 +3724,16 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Get collection by user report data
         $reportController = new \App\Http\Controllers\API\ReportController();
         $collectionData = $reportController->collectionByUserReport($request);
-
+        
         // Handle JsonResponse
         if ($collectionData instanceof \Illuminate\Http\JsonResponse) {
             $collectionData = $collectionData->getData(true);
         }
-
+        
         // Structure the data for the template
         $collectionByUserReportData = [
             'data' => $collectionData,
@@ -3719,22 +3741,22 @@ class PrintController extends Controller
                 'from_date' => $request->fromDate,
                 'to_date' => $request->toDate,
                 'user' => $request->input('user.name'),
-            ],
+            ]
         ];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $fromDate = $request->fromDate ?? '';
         $toDate = $request->toDate ?? '';
         $user = $request->input('user.name') ?? '';
-        $filename = 'Collection-By-User-Report-'.$user.'-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'Collection-By-User-Report-' . $user . '-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+        
         // Use Utility::buildPdf to generate PDF
         return \App\Models\Utility::buildPdf([
             'view' => $template ? 'print.reports.collection-by-user' : 'print.collection-by-user-basic',
@@ -3747,7 +3769,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -3759,33 +3781,33 @@ class PrintController extends Controller
         // Set locale for translations
         $locale = \Auth::user()->locale ?? app()->getLocale();
         \App::setLocale($locale);
-
+        
         // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportResponse = $reportController->groupAccountStatementForPrint($request);
-
+        
         // Handle JsonResponse
         if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportResponse->getData(true);
         } else {
             $reportData = $reportResponse;
         }
-
-        if (! $reportData['success']) {
+        
+        if (!$reportData['success']) {
             abort(404, 'Report data not found');
         }
-
+        
         $groupStatementData = $reportData['data'];
-
-        Log::info('Print Group Account Statement - Total entries: '.count($groupStatementData['entries']));
-
+        
+        Log::info("Print Group Account Statement - Total entries: " . count($groupStatementData['entries']));
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
-        if (! $template) {
+        
+        if (!$template) {
             return view('print.group-account-statement-basic', compact('groupStatementData'));
         }
 
@@ -3799,37 +3821,37 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportResponse = $reportController->groupAccountStatementForPrint($request);
-
+        
         // Handle JsonResponse
         if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportResponse->getData(true);
         } else {
             $reportData = $reportResponse;
         }
-
-        if (! $reportData['success']) {
+        
+        if (!$reportData['success']) {
             abort(404, 'Report data not found');
         }
-
+        
         $groupStatementData = $reportData['data'];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $fromDate = $groupStatementData['filters']['from_date'] ?? '';
         $toDate = $groupStatementData['filters']['to_date'] ?? '';
         $accountCount = count($groupStatementData['chart_of_accounts'] ?? []);
-        $filename = 'Group-Account-Statement-'.$accountCount.'-Accounts-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'Group-Account-Statement-' . $accountCount . '-Accounts-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+        
         // Use Utility::buildPdf to generate PDF
         // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
@@ -3843,7 +3865,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -3854,37 +3876,37 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportResponse = $reportController->groupAccountStatementForPrint($request);
-
+        
         // Handle JsonResponse
         if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportResponse->getData(true);
         } else {
             $reportData = $reportResponse;
         }
-
-        if (! $reportData['success']) {
+        
+        if (!$reportData['success']) {
             abort(404, 'Report data not found');
         }
-
+        
         $groupStatementData = $reportData['data'];
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
+        
         // Generate filename
         $fromDate = $groupStatementData['filters']['from_date'] ?? '';
         $toDate = $groupStatementData['filters']['to_date'] ?? '';
         $accountCount = count($groupStatementData['chart_of_accounts'] ?? []);
-        $filename = 'Group-Account-Statement-'.$accountCount.'-Accounts-'.$fromDate.'-to-'.$toDate.'.pdf';
+        $filename = 'Group-Account-Statement-' . $accountCount . '-Accounts-' . $fromDate . '-to-' . $toDate . '.pdf';
         $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
+        
         // Use Utility::buildPdf to generate PDF
         // Pass headerFooter as false since header/footer are empty to prevent repetition
         return \App\Models\Utility::buildPdf([
@@ -3898,7 +3920,7 @@ class PrintController extends Controller
             'margins' => [
                 'top' => '10mm',
                 'bottom' => '10mm',
-            ],
+            ]
         ], 'landscape', false);
     }
 
@@ -3910,38 +3932,39 @@ class PrintController extends Controller
         // Set locale for translations
         $locale = \Auth::user()->locale ?? app()->getLocale();
         \App::setLocale($locale);
-
+        
         try {
             // Get summary report data
             $reportController = new \App\Http\Controllers\API\ReportController();
             $summaryData = $reportController->summeryReport($request);
-
+            
             if ($summaryData instanceof \Illuminate\Http\JsonResponse) {
                 $summaryData = $summaryData->getData(true);
             }
-
-            Log::info('Print Summary Report - Data generated successfully');
-
+            
+            Log::info("Print Summary Report - Data generated successfully");
+            
             // Get the default template for reports
             $template = PrintTemplate::byModule('reports')->default()->first();
-
+            
             // Convert logo to base64 for PDF compatibility
             $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
-            if (! $template) {
+            
+            if (!$template) {
                 return view('print.summary-basic', compact('summaryData'));
             }
 
             return view('print.reports.summary', compact('summaryData', 'template', 'logoBase64', 'locale'));
+            
         } catch (\Exception $e) {
-            Log::error('Print Summary Report Error: '.$e->getMessage(), [
+            Log::error('Print Summary Report Error: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'request_params' => $request->all(),
+                'request_params' => $request->all()
             ]);
-
+            
             // Return simple HTML error response (no view dependency)
             return response()->make(
-                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> '.htmlspecialchars($e->getMessage()).'</p><p><em>Please check the logs for more details.</em></p></body></html>',
+                '<html><body style="font-family: Arial, sans-serif; padding: 20px;"><h1 style="color: #dc3545;">Print Error</h1><p><strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '</p><p><em>Please check the logs for more details.</em></p></body></html>',
                 500
             );
         }
@@ -3954,19 +3977,89 @@ class PrintController extends Controller
     {
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
+        
         // Get summary report data
         $reportController = new \App\Http\Controllers\API\ReportController();
         $summaryData = $reportController->summeryReport($request);
-
+        
         if ($summaryData instanceof \Illuminate\Http\JsonResponse) {
             $summaryData = $summaryData->getData(true);
         }
-
+        
         // Get the default template for reports
         $template = PrintTemplate::byModule('reports')->default()->first();
-
+        
         // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+        
+        // Generate filename
+        $month = $request->month ?? '';
+        $year = $request->year ?? '';
+        $filename = 'Summary-Report-' . $month . '-' . $year . '.pdf';
+        $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
+        
+        // Use Utility::buildPdf to generate PDF
+        return \App\Models\Utility::buildPdf([
+            'view' => $template ? 'print.reports.summary' : 'print.summary-basic',
+            'view_data' => compact('summaryData', 'template', 'logoBase64', 'locale'),
+            'type' => 'preview',
+            'file_name' => $filename,
+            'header' => '',
+            'footer' => '',
+            'header_spacing' => '2',
+            'margins' => [
+                'top' => '10mm',
+                'bottom' => '10mm',
+            ]
+        ], 'landscape', false);
+    }
+
+    /**
+     * Download Summary PDF
+     */
+    public function downloadSummaryPDF(Request $request)
+    {
+        $locale = \Auth::user()->locale ?? 'ar';
+        \App::setLocale($locale);
+        
+        // Get summary report data
+        $reportController = new \App\Http\Controllers\API\ReportController();
+        $summaryData = $reportController->summeryReport($request);
+        
+        if ($summaryData instanceof \Illuminate\Http\JsonResponse) {
+            $summaryData = $summaryData->getData(true);
+        }
+        
+        // Get the default template for reports
+        $template = PrintTemplate::byModule('reports')->default()->first();
+        
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+        
+        // Generate filename
+        $month = $request->month ?? '';
+        $year = $request->year ?? '';
+        $filename = 'Summary-Report-' . $month . '-' . $year . '.pdf';
+        $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
+        
+        // Use Utility::buildPdf to generate PDF
+        return \App\Models\Utility::buildPdf([
+            'view' => $template ? 'print.reports.summary' : 'print.summary-basic',
+            'view_data' => compact('summaryData', 'template', 'locale', 'logoBase64'),
+            'type' => 'download',
+            'file_name' => $filename,
+            'header' => '',
+            'footer' => '',
+            'header_spacing' => '2',
+            'margins' => [
+                'top' => '10mm',
+                'bottom' => '10mm',
+            ]
+        ], 'landscape', false);
+    }
+
+
+/ Convert logo to base64 for PDF compatibility
         $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
 
         // Generate filename

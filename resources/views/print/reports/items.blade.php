@@ -203,15 +203,15 @@
                     </tr>
                     <tr style="border: 1px solid #e5e7eb;">
                         <th style="padding: 8px 12px; border: 1px solid #e5e7eb; background: {{ $colors['accent'] ?? '#f8fafc' }}; text-align: {{ $isRTL ? 'right' : 'left' }}; font-weight: 600;{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl;' : '' }}">@lang('print.Category')</th>
-                        <td style="padding: 8px 12px; border: 1px solid #e5e7eb; font-size: {{ $typography['baseFontSize'] ?? 12 }}px;{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">{{ $itemsReportData['product']['pro_sub_category']['category']['name'] ?? '' }}</td>
+                        <td style="padding: 8px 12px; border: 1px solid #e5e7eb; font-size: {{ $typography['baseFontSize'] ?? 12 }}px;{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">{{ $itemsReportData['product']['category']['name'] ?? '' }}</td>
                     </tr>
                     <tr style="border: 1px solid #e5e7eb;">
                         <th style="padding: 8px 12px; border: 1px solid #e5e7eb; background: {{ $colors['accent'] ?? '#f8fafc' }}; text-align: {{ $isRTL ? 'right' : 'left' }}; font-weight: 600;{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl;' : '' }}">@lang('print.Sub Category')</th>
-                        <td style="padding: 8px 12px; border: 1px solid #e5e7eb; font-size: {{ $typography['baseFontSize'] ?? 12 }}px;{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">{{ $itemsReportData['product']['pro_sub_category']['name'] ?? '' }}</td>
+                        <td style="padding: 8px 12px; border: 1px solid #e5e7eb; font-size: {{ $typography['baseFontSize'] ?? 12 }}px;{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">{{ $itemsReportData['product']['subCategory']['name'] ?? '' }}</td>
                     </tr>
                     <tr style="border: 1px solid #e5e7eb;">
                         <th style="padding: 8px 12px; border: 1px solid #e5e7eb; background: {{ $colors['accent'] ?? '#f8fafc' }}; text-align: {{ $isRTL ? 'right' : 'left' }}; font-weight: 600;{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl;' : '' }}">@lang('print.Available Stock')</th>
-                        <td style="padding: 8px 12px; border: 1px solid #e5e7eb; font-size: {{ $typography['baseFontSize'] ?? 12 }}px;{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">{{ $itemsReportData['product']['available_qty'] ?? 0 }} {{ $itemsReportData['product']['product_unit']['code'] ?? '' }}</td>
+                        <td style="padding: 8px 12px; border: 1px solid #e5e7eb; font-size: {{ $typography['baseFontSize'] ?? 12 }}px;{{ app()->getLocale() === 'ar' ? ' font-family: DINNextLTArabic !important; direction: rtl; text-align: right;' : '' }}">{{ $itemsReportData['product']['availableQty'] ?? 0 }} {{ $itemsReportData['product']['itemUnit']['code'] ?? '' }}</td>
                     </tr>
                 </tbody>
             </table>
