@@ -15,7 +15,7 @@ const i18n = new VueI18n({
  */
 export async function loadMessages (locale) {
   const loadedMessages = i18n.getLocaleMessage(locale)
-  const mod = await import(/* webpackChunkName: '' */ `~/lang/${locale}`)
+  const mod = await import(/* @vite-ignore */ `../lang/${locale}.json`)
   const incomingMessages = mod && (mod.default || mod)
 
   // Merge to ensure new keys added during development are picked up

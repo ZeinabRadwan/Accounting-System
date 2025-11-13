@@ -840,6 +840,7 @@ import ProductCreateModal from '~/components/ProductCreateModal'
 import ProductEditModal from '~/components/ProductEditModal'
 import StockAdjustmentModal from '~/components/StockAdjustmentModal'
 import RTLMixin from '~/mixins/RTLMixin'
+import ErrorHandler from '~/utils/errorHandler'
 
 import { ToWords } from 'to-words';
 
@@ -2656,7 +2657,6 @@ export default {
           
         } else {
           // Use centralized error handler for any remaining errors
-          const ErrorHandler = require('~/utils/errorHandler').default;
           ErrorHandler.handleApiError(error, {
             showValidationErrors: false
           });
@@ -2838,7 +2838,6 @@ export default {
           this.url = null;
         })
         .catch((error) => {
-          const ErrorHandler = require('~/utils/errorHandler').default;
           ErrorHandler.handleApiError(error, {
             showValidationErrors: false
           });

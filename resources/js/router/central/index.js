@@ -87,10 +87,32 @@ function forceRTLMode() {
 // The middleware for every page of the application.
 const globalMiddleware = ['locale', 'check-auth']
 
-// Load middleware modules dynamically.
-const routeMiddleware = resolveMiddleware(
-  require.context('~/middleware', false, /.*\.js$/)
-)
+// Import middleware modules
+import admin from "~/middleware/admin";
+import auth from "~/middleware/auth";
+import checkAuth from "~/middleware/check-auth";
+import checkBranch from "~/middleware/check-branch";
+import checkPermissions from "~/middleware/check-permissions";
+import checkSystemType from "~/middleware/check-system-type";
+import guest from "~/middleware/guest";
+import isSubscribed from "~/middleware/is-subscribed";
+import locale from "~/middleware/locale";
+import role from "~/middleware/role";
+import tenantInitialized from "~/middleware/tenant-initialized";
+
+const routeMiddleware = {
+  admin: admin.default || admin,
+  auth: auth.default || auth,
+  "check-auth": checkAuth.default || checkAuth,
+  "check-branch": checkBranch.default || checkBranch,
+  "check-permissions": checkPermissions.default || checkPermissions,
+  "check-system-type": checkSystemType.default || checkSystemType,
+  guest: guest.default || guest,
+  "is-subscribed": isSubscribed.default || isSubscribed,
+  locale: locale.default || locale,
+  role: role.default || role,
+  "tenant-initialized": tenantInitialized.default || tenantInitialized,
+};
 
 const router = createRouter()
 
@@ -178,7 +200,7 @@ async function beforeEach (to, from, next) {
  * @param {Route} from
  * @param {Function} next
  */
-async function afterEach (to, from, next) {
+async function afterEach () {
   await router.app.$nextTick()
 
   router.app.$loading.finish()
@@ -293,23 +315,10 @@ function scrollBehavior (to, from, savedPosition) {
     return {}
   }
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       resolve({ x: 0, y: 0 })
     }, 190)
   })
 }
 
-/**
- * @param  {Object} requireContext
- * @return {Object}
- */
-function resolveMiddleware (requireContext) {
-  return requireContext.keys()
-    .map(file =>
-      [file.replace(/(^.\/)|(\.js$)/g, ''), requireContext(file)]
-    )
-    .reduce((guards, [name, guard]) => (
-      { ...guards, [name]: guard.default }
-    ), {})
-}

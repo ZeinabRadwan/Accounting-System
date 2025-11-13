@@ -29,7 +29,7 @@
   <link rel="preconnect" href="//fonts.gstatic.com" crossorigin>
   <link href="//fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap"
         rel="stylesheet">
-  <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+  @vite(['resources/sass/app.scss'])
 </head>
 
 <body class="hold-transition layout-footer-fixed">

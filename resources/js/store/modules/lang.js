@@ -44,3 +44,11 @@ function getLocale (locales, fallback) {
   }
   return fallback
 }
+
+export default {
+  namespaced: true,
+  state,
+  getters,
+  mutations,
+  actions
+}
