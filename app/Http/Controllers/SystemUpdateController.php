@@ -177,7 +177,7 @@ class SystemUpdateController extends Controller
             @chdir($repoPath);
 
             $steps = [
-                'git add system_update_setting.json public/mix-manifest.json public/css public/js',
+                'git add system_update_setting.json public/build',
                 'git commit -m "chore(system-update): build assets via UI"',
                 'git push'
             ];
