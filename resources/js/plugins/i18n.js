@@ -54,7 +54,7 @@ export async function loadMessages (locale) {
       } else {
         // Log detailed error info
         const errorText = await response.text().catch(() => 'Unable to read response')
-        console.error(`[i18n] Failed to fetch ${url}:`, {
+        console.error(`[i18n] Failed to fetch ${directUrl}:`, {
           status: response.status,
           statusText: response.statusText,
           headers: Object.fromEntries(response.headers.entries()),
