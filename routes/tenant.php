@@ -104,7 +104,25 @@ Route::post('/upload-pdf', [PrintController::class, 'upload']);
 Route::get('/assets/build/{path}', function ($path) {
     $filePath = public_path('build/'.$path);
     if (file_exists($filePath)) {
-        return response()->file($filePath);
+        // Set appropriate content type based on file extension
+        $extension = pathinfo($filePath, PATHINFO_EXTENSION);
+        $contentTypes = [
+            'js' => 'application/javascript',
+            'json' => 'application/json',
+            'css' => 'text/css',
+            'svg' => 'image/svg+xml',
+        ];
+        $contentType = $contentTypes[$extension] ?? null;
+
+        return response()->file($filePath, $contentType ? ['Content-Type' => $contentType] : []);
+    }
+
+    // If not in build directory, try resources/js/lang/ for language files
+    if (str_starts_with($path, 'lang/')) {
+        $langFile = resource_path('js/'.$path);
+        if (file_exists($langFile)) {
+            return response()->file($langFile, ['Content-Type' => 'application/json']);
+        }
     }
 
     return response()->json(['error' => 'File not found'], 404);
@@ -114,7 +132,25 @@ Route::get('/assets/build/{path}', function ($path) {
 Route::get('/tenancy/assets/build/{path}', function ($path) {
     $filePath = public_path('build/'.$path);
     if (file_exists($filePath)) {
-        return response()->file($filePath);
+        // Set appropriate content type based on file extension
+        $extension = pathinfo($filePath, PATHINFO_EXTENSION);
+        $contentTypes = [
+            'js' => 'application/javascript',
+            'json' => 'application/json',
+            'css' => 'text/css',
+            'svg' => 'image/svg+xml',
+        ];
+        $contentType = $contentTypes[$extension] ?? null;
+
+        return response()->file($filePath, $contentType ? ['Content-Type' => $contentType] : []);
+    }
+
+    // If not in build directory, try resources/js/lang/ for language files
+    if (str_starts_with($path, 'lang/')) {
+        $langFile = resource_path('js/'.$path);
+        if (file_exists($langFile)) {
+            return response()->file($langFile, ['Content-Type' => 'application/json']);
+        }
     }
 
     return response()->json(['error' => 'File not found'], 404);
