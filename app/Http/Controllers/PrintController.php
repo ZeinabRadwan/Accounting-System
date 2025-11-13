@@ -2826,6 +2826,20 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         try {
+            // Normalize request data to match what the submit button sends
+            // When coming from query parameters, we need to construct productName as an array
+            $productSlug = $request->input('productName.slug') ?? ($request->input('productName')['slug'] ?? null);
+
+            // Merge normalized productName array into the existing request
+            // This ensures the data format matches what the submit button sends (POST body)
+            $request->merge([
+                'productName' => [
+                    'slug' => $productSlug,
+                    'label' => $request->input('productName.label') ?? ($request->input('productName')['label'] ?? null),
+                    'name' => $request->input('productName.name') ?? ($request->input('productName')['name'] ?? null),
+                ],
+            ]);
+
             // Log request data for debugging
             Log::info('Preview Items PDF Request', [
                 'all_params' => $request->all(),
@@ -2933,6 +2947,20 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         try {
+            // Normalize request data to match what the submit button sends
+            // When coming from query parameters, we need to construct productName as an array
+            $productSlug = $request->input('productName.slug') ?? ($request->input('productName')['slug'] ?? null);
+
+            // Merge normalized productName array into the existing request
+            // This ensures the data format matches what the submit button sends (POST body)
+            $request->merge([
+                'productName' => [
+                    'slug' => $productSlug,
+                    'label' => $request->input('productName.label') ?? ($request->input('productName')['label'] ?? null),
+                    'name' => $request->input('productName.name') ?? ($request->input('productName')['name'] ?? null),
+                ],
+            ]);
+
             // Log request data for debugging
             Log::info('Download Items PDF Request', [
                 'all_params' => $request->all(),
