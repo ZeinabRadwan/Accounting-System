@@ -226,11 +226,3 @@ export const actions = {
     commit(types.FETCH_DATA, { items: data })
   },
 }
-
-export default {
-  namespaced: true,
-  state,
-  getters,
-  mutations,
-  actions
-}

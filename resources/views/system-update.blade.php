@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>System Update</title>
-    @vite(['resources/sass/app.scss', 'resources/js/tenant.js'])
+    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <style>
         :root { --su-bg:#0b1325; --su-card:#111a2e; --su-soft:#1a2540; --su-text:#e6ecff; --su-muted:#9fb0d8; --su-accent:#4f7cff; --su-accent-2:#22d3ee; --su-danger:#ef4444; }
         body { background: radial-gradient(1200px 600px at 20% -10%, #14244d 0%, transparent 60%), radial-gradient(1000px 600px at 120% 10%, #0f2a5a 0%, transparent 60%), var(--su-bg); color: var(--su-text); }
@@ -672,6 +672,7 @@
         });
     })();
 </script>
+<script src="{{ mix('/js/tenant.js') }}" defer></script>
 </body>
 </html>
 

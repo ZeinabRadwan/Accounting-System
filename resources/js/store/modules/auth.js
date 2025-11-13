@@ -98,11 +98,3 @@ export const actions = {
     return data.url
   }
 }
-
-export default {
-  namespaced: true,
-  state,
-  getters,
-  mutations,
-  actions
-}

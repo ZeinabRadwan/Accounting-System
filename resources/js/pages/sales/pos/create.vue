@@ -976,7 +976,6 @@ import ClientCreateModal from "~/components/ClientCreateModal";
 import ProductCreateModal from "~/components/ProductCreateModal";
 import StockAdjustmentModal from "~/components/StockAdjustmentModal";
 import html2canvas from "html2canvas";
-import ErrorHandler from "~/utils/errorHandler";
 
 export default {
   middleware: ["auth"],
@@ -1822,6 +1821,7 @@ export default {
           }
         })
         .catch((error) => {
+          const ErrorHandler = require("~/utils/errorHandler").default;
           ErrorHandler.handleApiError(error, {
             showValidationErrors: false,
           });
@@ -1869,11 +1869,13 @@ export default {
             this.againDefaultSettings();
           })
           .catch((error) => {
+            const ErrorHandler = require("~/utils/errorHandler").default;
             ErrorHandler.handleApiError(error, {
               showValidationErrors: false,
             });
           });
       } else {
+        const ErrorHandler = require("~/utils/errorHandler").default;
         ErrorHandler.showError(this.$t("Error"), this.$t("Please try again"));
       }
     },

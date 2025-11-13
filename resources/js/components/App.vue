@@ -12,18 +12,16 @@ import Loading from './Loading'
 import store from '../store'
 import rtlService from '~/services/RTLService'
 
-// Import layout components
-import basic from '~/layouts/basic'
-import central from '~/layouts/central'
-import defaultLayout from '~/layouts/default'
-import template from '~/layouts/template'
+// Load layout components dynamically.
+const requireContext = require.context('~/layouts', false, /.*\.vue$/)
 
-const layouts = {
-  basic: basic.default || basic,
-  central: central.default || central,
-  default: defaultLayout.default || defaultLayout,
-  template: template.default || template,
-}
+const layouts = requireContext
+  .keys()
+  .map((file) => [file.replace(/(^.\/)|(\.vue$)/g, ''), requireContext(file)])
+  .reduce((components, [name, component]) => {
+    components[name] = component.default || component
+    return components
+  }, {})
 
 export default {
   el: '#app',
