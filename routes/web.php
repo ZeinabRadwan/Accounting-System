@@ -147,30 +147,34 @@ Route::group(['middleware' => ['is_verified', 'need_to_install']], function () {
 
     // Serve Vite build assets directly (for central app)
     Route::get('/build/{path}', function ($path) {
-        $filePath = public_path('build/'.$path);
-        if (file_exists($filePath)) {
-            // Set appropriate content type based on file extension
-            $extension = pathinfo($filePath, PATHINFO_EXTENSION);
-            $contentTypes = [
-                'js' => 'application/javascript',
-                'json' => 'application/json',
-                'css' => 'text/css',
-                'svg' => 'image/svg+xml',
-            ];
-            $contentType = $contentTypes[$extension] ?? null;
+        try {
+            $filePath = public_path('build/'.$path);
+            if (file_exists($filePath) && is_file($filePath)) {
+                // Set appropriate content type based on file extension
+                $extension = pathinfo($filePath, PATHINFO_EXTENSION);
+                $contentTypes = [
+                    'js' => 'application/javascript',
+                    'json' => 'application/json',
+                    'css' => 'text/css',
+                    'svg' => 'image/svg+xml',
+                ];
+                $contentType = $contentTypes[$extension] ?? null;
 
-            return response()->file($filePath, $contentType ? ['Content-Type' => $contentType] : []);
-        }
-
-        // If not in build directory, try resources/js/lang/ for language files
-        if (str_starts_with($path, 'lang/')) {
-            $langFile = resource_path('js/'.$path);
-            if (file_exists($langFile)) {
-                return response()->file($langFile, ['Content-Type' => 'application/json']);
+                return response()->file($filePath, $contentType ? ['Content-Type' => $contentType] : []);
             }
-        }
 
-        return response()->json(['error' => 'File not found'], 404);
+            // If not in build directory, try resources/js/lang/ for language files
+            if (str_starts_with($path, 'lang/')) {
+                $langFile = resource_path('js/'.$path);
+                if (file_exists($langFile) && is_file($langFile)) {
+                    return response()->file($langFile, ['Content-Type' => 'application/json']);
+                }
+            }
+
+            return response()->json(['error' => 'File not found', 'path' => $path], 404);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Server error', 'message' => $e->getMessage()], 500);
+        }
     })->where('path', '.*')->name('vite.build.asset.central');
 
     // SPA Routes (must be last to catch all other routes)
