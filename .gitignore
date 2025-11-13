@@ -96,7 +96,7 @@ public/hot
 
 # Ignore build artifacts
 /public/fonts
-/public/mix-manifest.json
+# /public/mix-manifest.json
 /public/images
 !/public/images/default-avatar.jpeg
 /public/fonts
