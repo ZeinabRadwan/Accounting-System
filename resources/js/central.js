@@ -35,6 +35,7 @@ import vSelect from 'vue-select'
 // vue tooltip
 import VTooltip from 'v-tooltip'
 import axios from 'axios'
+import { vfmPlugin } from "vue-final-modal"
 
 
 
@@ -44,6 +45,7 @@ window.Vue = import('vue').default
 Vue.use(Clipboard)
 
 Vue.use(VueMasonry)
+Vue.use(vfmPlugin)
 
 const options = {
   name: '_blank',
