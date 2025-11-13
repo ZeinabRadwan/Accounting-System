@@ -66,7 +66,6 @@
     "@babel/preset-env": "^7.20.2",
     "@rollup/plugin-dynamic-import-vars": "^2.1.5",
     "@vitejs/plugin-vue2": "^2.3.4",
-    "@vue/composition-api": "^1.7.0",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.26.0",
