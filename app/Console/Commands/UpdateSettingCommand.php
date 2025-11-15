@@ -210,12 +210,16 @@ class UpdateSettingCommand extends Command
     {
         $work_folder = $this->working_folder;
 
-        // Copy Vite build directory (replaces old Laravel Mix public/js and public/css)
-        $public_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/build/ ' . $work_folder . '/public_html/';
+        $public_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/css/ ' . $work_folder . '/public_html/';
         exec($public_command, $output, $return_var);
 
-        // Copy fonts if they exist
-        $public_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/fonts ' . $work_folder . '/public_html/';
+        $public_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/js/ ' . $work_folder . '/public_html/';
+        exec($public_command, $output, $return_var);
+
+        $public_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/mix-manifest.json' . $work_folder . '/public_html/';
+        exec($public_command, $output, $return_var);
+
+        $public_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/fonts' . $work_folder . '/public_html/';
         exec($public_command, $output, $return_var);
 
         if ($return_var !== 0) {
@@ -231,14 +235,13 @@ class UpdateSettingCommand extends Command
     {
         $work_folder = $this->working_folder;
 
-        // Copy Vite build directory (replaces old Laravel Mix public/js)
-        $js_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/build/ ' . $work_folder . '/public_html/';
+        $js_command = 'cp -R ' . $work_folder . '/repositories/Accounting-System/public/js/ ' . $work_folder . '/public_html/';
         exec($js_command, $output, $return_var);
 
         if ($return_var === 0) {
-            return 'Build files updated successfully';
+            return 'JS Files Updated Successfully';
         } else {
-            return 'Error updating build files: ' . implode("\n", $output);
+            return 'Error updating JS files: ' . implode("\n", $output);
         }
     }
 
