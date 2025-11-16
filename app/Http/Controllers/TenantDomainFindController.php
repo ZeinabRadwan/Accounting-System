@@ -102,7 +102,7 @@ class TenantDomainFindController extends Controller
         $user = User::where('email', $request->input('email'))->first();
 
         if (!$user || !Hash::check($request->input('password'), $user->password)) {
-            return $this->responseWithError('The provided credentials are incorrect.', [], 401);
+            return $this->responseWithError(__('The provided credentials are incorrect.'), [], 401);
         }
 
         // Set user locale

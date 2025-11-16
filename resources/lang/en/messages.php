@@ -27,4 +27,7 @@ return [
     'Transfer deleted successfully' => 'Transfer deleted successfully',
     // General / Shared
     'posted_journal_delete_error' => 'This transaction is linked to a posted journal entry and cannot be deleted.',
+    
+    // Authentication Messages
+    'The provided credentials are incorrect.' => 'The provided credentials are incorrect.',
 ];
