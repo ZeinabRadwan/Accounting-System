@@ -2,101 +2,101 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Loan;
-use App\Models\Role;
-use App\Models\Unit;
-use App\Models\Asset;
-use App\Models\Brand;
-use App\Models\Client;
-use App\Models\Account;
-use App\Models\Expense;
-use App\Models\Invoice;
-use App\Models\Payroll;
-use App\Models\Product;
-use App\Models\VatRate;
-use App\Models\Currency;
-use App\Models\Employee;
-use App\Models\Purchase;
-use App\Models\PurchaseOrder;
-use App\Models\Supplier;
-use App\Models\AssetType;
-use App\Models\Quotation;
-use App\Models\Department;
-use App\Exports\ExportLoan;
-use App\Models\LoanPayment;
-use App\Exports\ExportAsset;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use App\Exports\ExportClient;
-use App\Models\InvoiceReturn;
-use App\Models\LoanAuthority;
-use App\Models\PaymentMethod;
-use App\Exports\ExpenseExport;
-use App\Exports\ExportPayroll;
-use App\Exports\ExportProduct;
-use App\Exports\InvoiceExport;
-use App\Models\BalanceTansfer;
-use App\Models\InvoicePayment;
-use App\Models\PurchaseReturn;
-use App\Exports\ExportAccounts;
-use App\Exports\ExportEmployee;
-use App\Exports\ExportPurchase;
-use App\Exports\ExportSupplier;
-use App\Models\ExpenseCategory;
-use App\Models\ProductCategory;
-use App\Models\PurchasePayment;
-use App\Models\SalaryIncrement;
-use Barryvdh\DomPDF\Facade\Pdf as PDF;
-use Barryvdh\Snappy\Facades\SnappyPdf;
-use App\Exports\ExportAssetType;
-use App\Exports\ExportInventory;
-use App\Exports\ExportInventoryCount;
-use App\Exports\ExportInventoryHistory;
-use App\Exports\ExportQuotation;
-use App\Models\NonInvoicePayment;
 use App\Exports\ExpCategoryExport;
-use App\Exports\ExportLoanPayment;
-use App\Models\AccountTransaction;
-use App\Models\ExpenseSubCategory;
-use App\Models\NonPurchasePayment;
-use App\Models\ProductSubCategory;
-use App\Models\InventoryAdjustment;
-use App\Exports\ExportInvoiceReturn;
-use App\Exports\ExportLoanAuthority;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\ExportPurchaseReturn;
-use App\Exports\ExportPurchaseOrder;
-use App\Exports\ExpSubCategoryExport;
-use App\Exports\ExportBalanceTransfer;
-use App\Exports\ExportProductCategory;
-use App\Exports\ExportSalaryIncrement;
-use App\Exports\ExportSalesByUserReport;
+use App\Exports\ExpenseExport;
+use App\Exports\ExportAccounts;
+use App\Exports\ExportAccountStatement;
 use App\Exports\ExportAccountTransaction;
-use App\Exports\ExportExployeeDepartment;
-use App\Exports\ExportProductSubCategory;
-use App\Exports\ExportInventoryAdjustment;
+use App\Exports\ExportAccountTransactionHistory;
+use App\Exports\ExportAsset;
+use App\Exports\ExportAssetType;
+use App\Exports\ExportBalanceSheet;
+use App\Exports\ExportBalanceTransfer;
+use App\Exports\ExportBranch;
+use App\Exports\ExportChartOfAccounts;
+use App\Exports\ExportClient;
 use App\Exports\ExportClientInvoicePayment;
-use App\Exports\ExportSupplierPayableReport;
+use App\Exports\ExportClientNonInvoicePayment;
 use App\Exports\ExportClientReceivableReport;
 use App\Exports\ExportCollectionByUserReport;
-use App\Exports\ExportClientNonInvoicePayment;
-use App\Exports\ExportSupplierPurchasePayment;
-use App\Exports\ExportAccountTransactionHistory;
-use App\Exports\ExportSupplierNonPurchasePayment;
-use App\Exports\ExportTodayReport;
-use App\Exports\ExportBalanceSheet;
-use App\Exports\ExportProfitLoss;
+use App\Exports\ExportEmployee;
 use App\Exports\ExportExpensesReport;
-use App\Exports\ExportAccountStatement;
+use App\Exports\ExportExployeeDepartment;
 use App\Exports\ExportGroupAccountStatement;
-use App\Exports\ExportInvoiceSummary;
-use App\Exports\ExportPurchaseSummary;
-use App\Exports\ExportVatReport;
-use App\Exports\ExportChartOfAccounts;
-use App\Exports\ExportJournalEntries;
-use App\Exports\ExportItems;
+use App\Exports\ExportInventory;
+use App\Exports\ExportInventoryAdjustment;
+use App\Exports\ExportInventoryCount;
+use App\Exports\ExportInventoryHistory;
 use App\Exports\ExportInventoryReport;
-
+use App\Exports\ExportInvoiceReturn;
+use App\Exports\ExportInvoiceSummary;
+use App\Exports\ExportItems;
+use App\Exports\ExportJournalEntries;
+use App\Exports\ExportLoan;
+use App\Exports\ExportLoanAuthority;
+use App\Exports\ExportLoanPayment;
+use App\Exports\ExportPayroll;
+use App\Exports\ExportProduct;
+use App\Exports\ExportProductCategory;
+use App\Exports\ExportProductSubCategory;
+use App\Exports\ExportProfitLoss;
+use App\Exports\ExportPurchase;
+use App\Exports\ExportPurchaseOrder;
+use App\Exports\ExportPurchaseReturn;
+use App\Exports\ExportPurchaseSummary;
+use App\Exports\ExportQuotation;
+use App\Exports\ExportSalaryIncrement;
+use App\Exports\ExportSalesByUserReport;
+use App\Exports\ExportSupplier;
+use App\Exports\ExportSupplierNonPurchasePayment;
+use App\Exports\ExportSupplierPayableReport;
+use App\Exports\ExportSupplierPurchasePayment;
+use App\Exports\ExportTodayReport;
+use App\Exports\ExportVatReport;
+use App\Exports\ExpSubCategoryExport;
+use App\Exports\InvoiceExport;
+use App\Models\Account;
+use App\Models\AccountTransaction;
+use App\Models\Asset;
+use App\Models\AssetType;
+use App\Models\BalanceTansfer;
+use App\Models\Brand;
+use App\Models\Client;
+use App\Models\Currency;
+use App\Models\Department;
+use App\Models\Employee;
+use App\Models\Expense;
+use App\Models\ExpenseCategory;
+use App\Models\ExpenseSubCategory;
+use App\Models\InventoryAdjustment;
+use App\Models\Invoice;
+use App\Models\InvoicePayment;
+use App\Models\InvoiceReturn;
+use App\Models\Loan;
+use App\Models\LoanAuthority;
+use App\Models\LoanPayment;
+use App\Models\NonInvoicePayment;
+use App\Models\NonPurchasePayment;
+use App\Models\PaymentMethod;
+use App\Models\Payroll;
+use App\Models\Product;
+use App\Models\ProductCategory;
+use App\Models\ProductSubCategory;
+use App\Models\Purchase;
+use App\Models\PurchaseOrder;
+use App\Models\PurchasePayment;
+use App\Models\PurchaseReturn;
+use App\Models\Quotation;
+use App\Models\Role;
+use App\Models\SalaryIncrement;
+use App\Models\Supplier;
+use App\Models\Unit;
+use App\Models\VatRate;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Barryvdh\Snappy\Facades\SnappyPdf;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TableExportController extends Controller
 {
@@ -110,14 +110,14 @@ class TableExportController extends Controller
                 'view' => $view,
                 'data_keys' => array_keys($data),
                 'paper' => $paper,
-                'orientation' => $orientation
+                'orientation' => $orientation,
             ]);
-            
+
             // For quotations PDF, use SnappyPdf for better Arabic support
             if ($view === 'pdf.quotations') {
                 return $this->generateQuotationsPDFWithSnappy($view, $data, $filename);
             }
-            
+
             $pdf = PDF::loadView($view, $data)
                 ->setPaper($paper, $orientation)
                 ->setOptions([
@@ -133,32 +133,32 @@ class TableExportController extends Controller
                     'debugLayoutBlocks' => false,
                     'debugLayoutInline' => false,
                 ]);
-            
+
             Log::info("PDF generated successfully: {$filename}");
+
             return $pdf->download($filename);
-            
         } catch (\Exception $e) {
             Log::error("PDF generation failed: {$filename}", [
                 'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+                'trace' => $e->getTraceAsString(),
             ]);
             throw $e;
         }
     }
-    
+
     private function generateQuotationsPDFWithSnappy($view, $data, $filename)
     {
         try {
             // Render the view to HTML
             $html = view($view, $data)->render();
-            
+
             // Add Arabic support CSS to the HTML
             $html = str_replace('<head>', '<head>
                 <meta charset="UTF-8">
                 <style>
                     body {
                         font-family: Arial, "DejaVu Sans", "Tahoma", sans-serif;
-                        direction: ' . ($data['locale'] === 'ar' ? 'rtl' : 'ltr') . ';
+                        direction: '.($data['locale'] === 'ar' ? 'rtl' : 'ltr').';
                         margin: 0;
                         padding: 10px;
                     }
@@ -187,11 +187,11 @@ class TableExportController extends Controller
                         font-weight: bold;
                     }
                     h3 {
-                        text-align: ' . ($data['locale'] === 'ar' ? 'right' : 'left') . ';
+                        text-align: '.($data['locale'] === 'ar' ? 'right' : 'left').';
                         margin-bottom: 10px;
                     }
                 </style>', $html);
-            
+
             // Use SnappyPdf (wkhtmltopdf) for better Arabic support
             $pdf = SnappyPdf::loadHTML($html)
                 ->setPaper('a4')
@@ -205,15 +205,14 @@ class TableExportController extends Controller
                 ->setOption('margin-right', 10)
                 ->setOption('margin-bottom', 10)
                 ->setOption('margin-left', 10);
-            
+
             return $pdf->download($filename);
-            
         } catch (\Exception $e) {
             Log::error("Html2Pdf generation failed: {$filename}", [
                 'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+                'trace' => $e->getTraceAsString(),
             ]);
-            
+
             // Fallback to DomPDF with Cairo font
             $pdf = PDF::loadView($view, $data)
                 ->setPaper('a4', 'landscape')
@@ -224,14 +223,14 @@ class TableExportController extends Controller
                     'isPhpEnabled' => false,
                     'isJavascriptEnabled' => false,
                 ]);
-            
+
             return $pdf->download($filename);
         } catch (\Exception $e) {
             Log::error("PDF generation failed: {$filename}", [
                 'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+                'trace' => $e->getTraceAsString(),
             ]);
-            
+
             // Final fallback with basic settings
             $pdf = PDF::loadView($view, $data)
                 ->setPaper('a4', 'landscape')
@@ -242,10 +241,11 @@ class TableExportController extends Controller
                     'isPhpEnabled' => false,
                     'isJavascriptEnabled' => false,
                 ]);
-            
+
             return $pdf->download($filename);
         }
     }
+
     // return all brands pdf
     public function brandsPDF()
     {
@@ -253,6 +253,7 @@ class TableExportController extends Controller
         $data = Brand::latest()->get()->toArray();
         // share data to view
         view()->share('brands', $data);
+
         return $this->generatePDF('pdf.brands', $data, 'brands-list.pdf');
     }
 
@@ -332,6 +333,7 @@ class TableExportController extends Controller
     public function expCategoriesExportExcel(Request $request)
     {
         $term = $request->input('term');
+
         return Excel::download(new ExpCategoryExport($term), 'ExpenseCategories.xlsx');
     }
 
@@ -351,6 +353,7 @@ class TableExportController extends Controller
     public function expSubCategoriesExportExcel(Request $request)
     {
         $term = $request->input('term');
+
         return Excel::download(new ExpSubCategoryExport($term), 'ExpenseSubCategories.xlsx');
     }
 
@@ -361,6 +364,7 @@ class TableExportController extends Controller
         $data = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount')->latest()->get()->toArray();
         // share data to view
         view()->share('expenses', $data);
+
         return $this->generatePDF('pdf.expenses', $data, 'expenses-list.pdf', 'a4', 'landscape');
     }
 
@@ -381,6 +385,7 @@ class TableExportController extends Controller
         $data = Purchase::with('supplier')->latest()->get()->toArray();
         // share data to view
         view()->share('purchases', $data);
+
         return $this->generatePDF('pdf.purchases', $data, 'purchases-list.pdf', 'a4', 'landscape');
     }
 
@@ -411,6 +416,7 @@ class TableExportController extends Controller
         $data = PurchaseOrder::with('supplier')->latest()->get()->toArray();
         // share data to view
         view()->share('purchaseOrders', $data);
+
         return $this->generatePDF('pdf.purchase-orders', $data, 'purchase-orders-list.pdf', 'a4', 'landscape');
     }
 
@@ -441,21 +447,22 @@ class TableExportController extends Controller
     {
         // Get locale from request parameter, fallback to session, then app locale
         $locale = $request->input('locale', session('locale', app()->getLocale()));
-        
+
         // Set the locale for translations
         app()->setLocale($locale);
-        
+
         // retrieve all records from db
         $quotations = Quotation::with('client')->latest()->get()->toArray();
-        
+
         // Pass data to the view with locale
         $data = [
             'quotations' => $quotations,
-            'locale' => $locale
+            'locale' => $locale,
         ];
-        
+
         // share data to view
         view()->share('quotations', $quotations);
+
         return $this->generatePDF('pdf.quotations', $data, 'quotation-list.pdf', 'a4', 'landscape');
     }
 
@@ -477,6 +484,7 @@ class TableExportController extends Controller
         $data = Invoice::with('client', 'invoicePayments')->latest()->get()->toArray();
         // share data to view
         view()->share('invoices', $data);
+
         return $this->generatePDF('pdf.invoices', $data, 'invoice-list.pdf', 'a4', 'landscape');
     }
 
@@ -561,8 +569,8 @@ class TableExportController extends Controller
     public function accountTransactionsPDF($slug)
     {
         $account = Account::where('slug', $slug)->first();
-        if (!$account) {
-           abort(404);
+        if (! $account) {
+            abort(404);
         }
         $data = AccountTransaction::with('cashbookAccount', 'user')->where('account_id', $account->id)->orderBy('created_at', 'asc')->get()->toArray();
         // share data to view
@@ -591,6 +599,7 @@ class TableExportController extends Controller
     public function nonInvoiceBalancesExportExcel(Request $request)
     {
         $term = $request->input('term');
+
         return Excel::download(new ExportAccountTransaction($term), 'BalanceAdjustments.xlsx');
     }
 
@@ -736,6 +745,7 @@ class TableExportController extends Controller
     public function loanAuthoritiesExportExcel(Request $request)
     {
         $term = $request->input('term');
+
         return Excel::download(new ExportLoanAuthority($term), 'LoanAuthorities .xlsx');
     }
 
@@ -799,6 +809,7 @@ class TableExportController extends Controller
     public function assetTypesExportExcel(Request $request)
     {
         $term = $request->input('term');
+
         return Excel::download(new ExportAssetType($term), 'AssetTypes.xlsx');
     }
 
@@ -853,6 +864,7 @@ class TableExportController extends Controller
         $data = Client::latest()->get()->toArray();
         // share data to view
         view()->share('clients', $data);
+
         return $this->generatePDF('pdf.clients', $data, 'client-list.pdf', 'a4', 'landscape');
     }
 
@@ -890,6 +902,14 @@ class TableExportController extends Controller
         return Excel::download(new ExportSupplier($startDate, $endDate, $term, $type), 'Suppliers.xlsx');
     }
 
+    // return branches export
+    public function branchesExportExcel(Request $request)
+    {
+        $term = $request->input('term');
+
+        return Excel::download(new ExportBranch($term), 'Branches.xlsx');
+    }
+
     // return departments pdf
     public function departmentsPDF()
     {
@@ -906,6 +926,7 @@ class TableExportController extends Controller
     public function departmentsExportExcel(Request $request)
     {
         $term = $request->input('term');
+
         return Excel::download(new ExportExployeeDepartment($term), 'EmpDepartment.xlsx');
     }
 
@@ -969,8 +990,9 @@ class TableExportController extends Controller
     public function productCategoriesExportExcel(Request $request)
     {
         $term = $request->input('term');
+
         return Excel::download(new ExportProductCategory($term), 'ProductCategories.xlsx');
-    }  
+    }
 
     // return product sub categories pdf
     public function productSubCategoriesPDF()
@@ -988,6 +1010,7 @@ class TableExportController extends Controller
     public function productSubCategoriesExportExcel(Request $request)
     {
         $term = $request->input('term');
+
         return Excel::download(new ExportProductSubCategory($term), 'ProductSubCategory.xlsx');
     }
 
@@ -1007,6 +1030,7 @@ class TableExportController extends Controller
     public function productsExportExcel(Request $request)
     {
         $term = $request->input('term');
+
         return Excel::download(new ExportProduct($term), 'Products.xlsx');
     }
 
@@ -1033,9 +1057,10 @@ class TableExportController extends Controller
     }
 
     // return inventory excel
-    public function inventoryExcel (Request $request)
+    public function inventoryExcel(Request $request)
     {
         $term = $request->input('term');
+
         return Excel::download(new ExportInventory($term), 'Inventory.xlsx');
     }
 
@@ -1045,7 +1070,7 @@ class TableExportController extends Controller
         $term = $request->input('term', '');
         $filterType = $request->input('filterType', 'default');
         $locale = $request->input('locale', session('locale', app()->getLocale()));
-        
+
         return Excel::download(new ExportInventoryHistory($term, $filterType, $locale), 'InventoryHistory.xlsx');
     }
 
@@ -1054,7 +1079,7 @@ class TableExportController extends Controller
     {
         $term = $request->input('term', '');
         $filterType = $request->input('filterType', 'default');
-        
+
         return Excel::download(new ExportInventoryCount($term, $filterType), 'InventoryCount.xlsx');
     }
 
@@ -1065,60 +1090,61 @@ class TableExportController extends Controller
             // Get locale from request parameter
             $locale = $request->input('locale', session('locale', app()->getLocale()));
             app()->setLocale($locale);
-            
+
             $term = $request->input('term', '');
             $filterType = $request->input('filterType', 'default');
-            
+
             // Get history data using the same logic as search but without pagination
             $history = $this->getInventoryHistoryData($term, $filterType);
-            
+
             // share data to view
             view()->share('history', $history);
             view()->share('locale', $locale);
-            
+
             return $this->generatePDF('pdf.inventory-history', ['history' => $history, 'locale' => $locale], 'inventory-history.pdf', 'a4', 'landscape');
-            
         } catch (\Exception $e) {
-            Log::error('Inventory History PDF Error: ' . $e->getMessage());
-            Log::error('Stack trace: ' . $e->getTraceAsString());
-            
+            Log::error('Inventory History PDF Error: '.$e->getMessage());
+            Log::error('Stack trace: '.$e->getTraceAsString());
+
             return response()->json([
                 'error' => true,
-                'message' => 'Failed to generate PDF: ' . $e->getMessage()
+                'message' => 'Failed to generate PDF: '.$e->getMessage(),
             ], 500);
         }
     }
-    
+
     /**
      * Get inventory history data (helper method for exports)
      */
     private function getInventoryHistoryData($term = '', $filterType = 'default')
     {
         $history = collect();
-        
+
         // Use the same model classes
         $purchaseQuery = \App\Models\PurchaseProduct::with(['purchase.supplier', 'product'])
             ->whereHas('purchase')
             ->whereHas('product')
             ->whereHas('purchase.supplier');
-        if (!empty($term)) {
-            $purchaseQuery->whereHas('product', function($q) use ($term) {
-                $q->where('name', 'LIKE', '%' . $term . '%')
-                  ->orWhere('code', 'LIKE', '%' . $term . '%');
+        if (! empty($term)) {
+            $purchaseQuery->whereHas('product', function ($q) use ($term) {
+                $q->where('name', 'LIKE', '%'.$term.'%')
+                  ->orWhere('code', 'LIKE', '%'.$term.'%');
             });
         }
         $purchaseProducts = $purchaseQuery->orderBy('created_at', 'desc')->get();
 
         foreach ($purchaseProducts as $item) {
             try {
-                if (!$item || !isset($item->id)) continue;
-                
+                if (! $item || ! isset($item->id)) {
+                    continue;
+                }
+
                 if (($filterType === 'default' || $filterType === 'purchase' || $filterType === 'stock_in')) {
                     $purchase = optional($item)->purchase;
                     $supplier = optional($purchase)->supplier;
                     $product = optional($item)->product;
-                    
-                    if ($purchase && $supplier && $product && 
+
+                    if ($purchase && $supplier && $product &&
                         isset($purchase->purchase_date) && isset($purchase->purchase_no) &&
                         isset($supplier->name) && isset($product->name) && isset($product->code)) {
                         $history->push([
@@ -1128,8 +1154,8 @@ class TableExportController extends Controller
                             'operation_type' => 'Purchase',
                             'price' => $item->purchase_price ?? 0,
                             'quantity_change' => $item->quantity ?? 0,
-                            'notes' => 'Purchase from ' . $supplier->name,
-                            'reference_code' => config('config.purchasePrefix') . '-' . $purchase->purchase_no,
+                            'notes' => 'Purchase from '.$supplier->name,
+                            'reference_code' => config('config.purchasePrefix').'-'.$purchase->purchase_no,
                         ]);
                     }
                 }
@@ -1143,23 +1169,25 @@ class TableExportController extends Controller
             ->whereHas('invoice')
             ->whereHas('product')
             ->whereHas('invoice.client');
-        if (!empty($term)) {
-            $invoiceQuery->whereHas('product', function($q) use ($term) {
-                $q->where('name', 'LIKE', '%' . $term . '%')
-                  ->orWhere('code', 'LIKE', '%' . $term . '%');
+        if (! empty($term)) {
+            $invoiceQuery->whereHas('product', function ($q) use ($term) {
+                $q->where('name', 'LIKE', '%'.$term.'%')
+                  ->orWhere('code', 'LIKE', '%'.$term.'%');
             });
         }
         $invoiceProducts = $invoiceQuery->orderBy('created_at', 'desc')->get();
 
         foreach ($invoiceProducts as $item) {
             try {
-                if (!$item || !isset($item->id)) continue;
-                
+                if (! $item || ! isset($item->id)) {
+                    continue;
+                }
+
                 if (($filterType === 'default' || $filterType === 'invoice' || $filterType === 'stock_out')) {
                     $invoice = optional($item)->invoice;
                     $client = optional($invoice)->client;
                     $product = optional($item)->product;
-                    
+
                     if ($invoice && $client && $product &&
                         isset($invoice->invoice_date) && isset($invoice->invoice_no) &&
                         isset($client->name) && isset($product->name) && isset($product->code)) {
@@ -1170,8 +1198,8 @@ class TableExportController extends Controller
                             'operation_type' => 'Invoice',
                             'price' => $item->sale_price ?? 0,
                             'quantity_change' => -($item->quantity ?? 0),
-                            'notes' => 'Sale to ' . $client->name,
-                            'reference_code' => config('config.invoicePrefix') . '-' . $invoice->invoice_no,
+                            'notes' => 'Sale to '.$client->name,
+                            'reference_code' => config('config.invoicePrefix').'-'.$invoice->invoice_no,
                         ]);
                     }
                 }
@@ -1184,31 +1212,33 @@ class TableExportController extends Controller
         $adjustmentQuery = \App\Models\AdjustmentProduct::with(['inventoryAdjustment', 'product'])
             ->whereHas('inventoryAdjustment')
             ->whereHas('product');
-        if (!empty($term)) {
-            $adjustmentQuery->whereHas('product', function($q) use ($term) {
-                $q->where('name', 'LIKE', '%' . $term . '%')
-                  ->orWhere('code', 'LIKE', '%' . $term . '%');
+        if (! empty($term)) {
+            $adjustmentQuery->whereHas('product', function ($q) use ($term) {
+                $q->where('name', 'LIKE', '%'.$term.'%')
+                  ->orWhere('code', 'LIKE', '%'.$term.'%');
             });
         }
         $adjustmentProducts = $adjustmentQuery->orderBy('created_at', 'desc')->get();
 
         foreach ($adjustmentProducts as $item) {
             try {
-                if (!$item || !isset($item->id)) continue;
-                
+                if (! $item || ! isset($item->id)) {
+                    continue;
+                }
+
                 $itemType = $item->type ?? null;
-                if (($filterType === 'default' || $filterType === 'adjustment' || 
-                    ($filterType === 'stock_in' && $itemType == 1) || 
+                if (($filterType === 'default' || $filterType === 'adjustment' ||
+                    ($filterType === 'stock_in' && $itemType == 1) ||
                     ($filterType === 'stock_out' && $itemType == 0))) {
                     $adjustment = optional($item)->inventoryAdjustment;
                     $product = optional($item)->product;
-                    
+
                     if ($adjustment && $product &&
                         isset($adjustment->date) && isset($adjustment->code) &&
                         isset($product->name) && isset($product->code)) {
                         $quantityChange = ($itemType == 1) ? ($item->quantity ?? 0) : -($item->quantity ?? 0);
                         $operationType = ($itemType == 1) ? 'Stock In' : 'Stock Out';
-                        
+
                         $history->push([
                             'operation_date' => $adjustment->date,
                             'product_name' => $product->name,
@@ -1217,7 +1247,7 @@ class TableExportController extends Controller
                             'price' => $item->purchase_price ?? 0,
                             'quantity_change' => $quantityChange,
                             'notes' => $adjustment->reason ?? 'Adjustment',
-                            'reference_code' => config('config.adjustmentPrefix') . '-' . $adjustment->code,
+                            'reference_code' => config('config.adjustmentPrefix').'-'.$adjustment->code,
                         ]);
                     }
                 }
@@ -1232,24 +1262,26 @@ class TableExportController extends Controller
             ->whereHas('product')
             ->whereHas('invoiceReturn.invoice')
             ->whereHas('invoiceReturn.invoice.client');
-        if (!empty($term)) {
-            $invoiceReturnQuery->whereHas('product', function($q) use ($term) {
-                $q->where('name', 'LIKE', '%' . $term . '%')
-                  ->orWhere('code', 'LIKE', '%' . $term . '%');
+        if (! empty($term)) {
+            $invoiceReturnQuery->whereHas('product', function ($q) use ($term) {
+                $q->where('name', 'LIKE', '%'.$term.'%')
+                  ->orWhere('code', 'LIKE', '%'.$term.'%');
             });
         }
         $invoiceReturnProducts = $invoiceReturnQuery->orderBy('created_at', 'desc')->get();
 
         foreach ($invoiceReturnProducts as $item) {
             try {
-                if (!$item || !isset($item->id)) continue;
-                
+                if (! $item || ! isset($item->id)) {
+                    continue;
+                }
+
                 if (($filterType === 'default' || $filterType === 'invoice_return' || $filterType === 'stock_in')) {
                     $invoiceReturn = optional($item)->invoiceReturn;
                     $invoice = optional($invoiceReturn)->invoice;
                     $client = optional($invoice)->client;
                     $product = optional($item)->product;
-                    
+
                     if ($invoiceReturn && $invoice && $client && $product &&
                         isset($invoiceReturn->date) && isset($invoiceReturn->return_no) &&
                         isset($client->name) && isset($product->name) && isset($product->code)) {
@@ -1260,8 +1292,8 @@ class TableExportController extends Controller
                             'operation_type' => 'Invoice Return',
                             'price' => $product->purchase_price ?? 0,
                             'quantity_change' => $item->quantity ?? 0,
-                            'notes' => 'Return from ' . $client->name,
-                            'reference_code' => config('config.invoiceReturnPrefix') . '-' . $invoiceReturn->return_no,
+                            'notes' => 'Return from '.$client->name,
+                            'reference_code' => config('config.invoiceReturnPrefix').'-'.$invoiceReturn->return_no,
                         ]);
                     }
                 }
@@ -1276,24 +1308,26 @@ class TableExportController extends Controller
             ->whereHas('product')
             ->whereHas('purchaseReturn.purchase')
             ->whereHas('purchaseReturn.purchase.supplier');
-        if (!empty($term)) {
-            $purchaseReturnQuery->whereHas('product', function($q) use ($term) {
-                $q->where('name', 'LIKE', '%' . $term . '%')
-                  ->orWhere('code', 'LIKE', '%' . $term . '%');
+        if (! empty($term)) {
+            $purchaseReturnQuery->whereHas('product', function ($q) use ($term) {
+                $q->where('name', 'LIKE', '%'.$term.'%')
+                  ->orWhere('code', 'LIKE', '%'.$term.'%');
             });
         }
         $purchaseReturnProducts = $purchaseReturnQuery->orderBy('created_at', 'desc')->get();
 
         foreach ($purchaseReturnProducts as $item) {
             try {
-                if (!$item || !isset($item->id)) continue;
-                
+                if (! $item || ! isset($item->id)) {
+                    continue;
+                }
+
                 if (($filterType === 'default' || $filterType === 'purchase_return' || $filterType === 'stock_out')) {
                     $purchaseReturn = optional($item)->purchaseReturn;
                     $purchase = optional($purchaseReturn)->purchase;
                     $supplier = optional($purchase)->supplier;
                     $product = optional($item)->product;
-                    
+
                     if ($purchaseReturn && $purchase && $supplier && $product &&
                         isset($purchaseReturn->date) && isset($purchaseReturn->code) &&
                         isset($supplier->name) && isset($product->name) && isset($product->code)) {
@@ -1304,8 +1338,8 @@ class TableExportController extends Controller
                             'operation_type' => 'Purchase Return',
                             'price' => $item->purchase_price ?? 0,
                             'quantity_change' => -($item->quantity ?? 0),
-                            'notes' => 'Return to ' . $supplier->name,
-                            'reference_code' => config('config.purchaseReturnPrefix') . '-' . $purchaseReturn->code,
+                            'notes' => 'Return to '.$supplier->name,
+                            'reference_code' => config('config.purchaseReturnPrefix').'-'.$purchaseReturn->code,
                         ]);
                     }
                 }
@@ -1328,18 +1362,21 @@ class TableExportController extends Controller
         $pdf = PDF::loadView('pdf.non-zero-inventory', compact('data'))->setPaper('a4', 'landscape');
         // download PDF file with download method
         return $pdf->download('non-zero-inventory-list.pdf');
-
     }
 
     // return supplier payable report export
-    public function supplierPayableReportExportExcel(Request $request){
+    public function supplierPayableReportExportExcel(Request $request)
+    {
         $term = $request->input('term');
+
         return Excel::download(new ExportSupplierPayableReport($term), 'SupplierPayableReport.xlsx');
     }
 
     // return client receivable report export
-    public function clientReceivableReportExportExcel(Request $request){
+    public function clientReceivableReportExportExcel(Request $request)
+    {
         $term = $request->input('term');
+
         return Excel::download(new ExportClientReceivableReport($term), 'ClientReceivableReport.xlsx');
     }
 
@@ -1347,33 +1384,33 @@ class TableExportController extends Controller
     public function clientReceivableReportPDF(Request $request)
     {
         $term = $request->input('term');
-        
+
         // Get the same data as the Excel export
         $query = \App\Models\Client::query();
-        
+
         if ($term) {
             $query->where(function ($query) use ($term) {
-                $query->where('name', 'Like', '%' . $term . '%')
-                    ->orWhere('client_id', 'Like', '%' . $term . '%')
-                    ->orWhere('email', 'Like', '%' . $term . '%')
-                    ->orWhere('phone', 'Like', '%' . $term . '%')
-                    ->orWhere('company_name', 'Like', '%' . $term . '%');
+                $query->where('name', 'Like', '%'.$term.'%')
+                    ->orWhere('client_id', 'Like', '%'.$term.'%')
+                    ->orWhere('email', 'Like', '%'.$term.'%')
+                    ->orWhere('phone', 'Like', '%'.$term.'%')
+                    ->orWhere('company_name', 'Like', '%'.$term.'%');
             });
         }
-        
+
         $clients = $query->latest()->get();
-        
+
         // Calculate totals
         $totalInvoiceDue = $clients->sum(function ($client) {
             return $client->clientDue() ?: 0;
         });
-        
+
         $totalNonInvoiceDue = $clients->sum(function ($client) {
             return $client->nonInvoiceCurrentDue() ?: 0;
         });
-        
+
         $totalDue = $totalInvoiceDue + $totalNonInvoiceDue;
-        
+
         // Prepare data for the view
         $data = [
             'clients' => $clients,
@@ -1389,19 +1426,19 @@ class TableExportController extends Controller
             'companyVatNumber' => getGeneralSettingsInfo()['company_vat_number'],
             'companyLogo' => getGeneralSettingsInfo()['company_logo'],
         ];
-        
+
         // Share data to view
         view()->share('data', $data);
-        
+
         // Generate PDF using the Saudi Professional template
         $pdf = PDF::loadView('pdf.client-receivable-report-saudi', $data)
             ->setPaper('a4', 'portrait')
             ->setOptions([
                 'isHtml5ParserEnabled' => true,
                 'isRemoteEnabled' => true,
-                'defaultFont' => 'Cairo'
+                'defaultFont' => 'Cairo',
             ]);
-        
+
         return $pdf->download('client-receivable-report.pdf');
     }
 
@@ -1431,12 +1468,13 @@ class TableExportController extends Controller
         // Get today's report data
         $reportController = new \App\Http\Controllers\API\ReportController();
         $data = $reportController->todayReport();
-        
+
         // Add current date to data
         $data['reportDate'] = now()->format('Y-m-d');
-        
+
         // share data to view
         view()->share('reportData', $data);
+
         return $this->generatePDF('pdf.today-report', $data, 'today-report.pdf');
     }
 
@@ -1451,31 +1489,31 @@ class TableExportController extends Controller
     {
         // Disable Telescope for this request to avoid database issues
         \Laravel\Telescope\Telescope::stopRecording();
-        
+
         // Increase memory limit for large PDFs with all entries
         ini_set('memory_limit', '1G'); // 1GB for very large datasets
         set_time_limit(300); // 5 minutes for processing
-        
+
         try {
             // Get balance sheet data using the same filters
             $reportController = new \App\Http\Controllers\API\ReportController();
             $response = $reportController->balanceSheet($request);
-            
+
             // Handle JsonResponse
             if ($response instanceof \Illuminate\Http\JsonResponse) {
                 $reportData = $response->getData(true);
             } else {
                 $reportData = $response;
             }
-            
-            if (!$reportData['success']) {
+
+            if (! $reportData['success']) {
                 abort(404, 'Report data not found');
             }
-            
+
             $data = $reportData['data'];
-            
+
             Log::info('Balance Sheet PDF - Processing balance sheet data');
-            
+
             // Add filters to data for template - merge with existing filters if they exist
             $data['filters'] = array_merge($data['filters'] ?? [], [
                 'from_date' => $request->input('from_date'),
@@ -1483,7 +1521,7 @@ class TableExportController extends Controller
                 'fiscal_year_id' => $request->input('fiscal_year_id'),
                 'accounting_period_id' => $request->input('accounting_period_id'),
             ]);
-            
+
             // Log the data structure for debugging
             Log::info('Balance Sheet PDF Data Structure:', [
                 'has_accounts' => isset($data['accounts']),
@@ -1492,20 +1530,20 @@ class TableExportController extends Controller
                 'liabilities_count' => isset($data['accounts']['liabilities']) ? count($data['accounts']['liabilities']) : 0,
                 'equity_count' => isset($data['accounts']['equity']) ? count($data['accounts']['equity']) : 0,
             ]);
-            
+
             // share data to view
             view()->share('balanceData', $data);
+
             return $this->generatePDF('pdf.balance-sheet', $data, 'balance-sheet.pdf', 'a4', 'landscape');
-            
         } catch (\Exception $e) {
-            Log::error('Balance Sheet PDF Error: ' . $e->getMessage(), [
+            Log::error('Balance Sheet PDF Error: '.$e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'request_params' => $request->all()
+                'request_params' => $request->all(),
             ]);
-            
+
             // Return error response
             return response()->json([
-                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+                'error' => 'Failed to generate PDF: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -1514,6 +1552,7 @@ class TableExportController extends Controller
     public function balanceSheetExportExcel(Request $request)
     {
         $filters = $request->all();
+
         return Excel::download(new ExportBalanceSheet($filters), 'BalanceSheet.xlsx');
     }
 
@@ -1523,14 +1562,14 @@ class TableExportController extends Controller
         // Get profit loss data using the same filters
         $reportController = new \App\Http\Controllers\API\ReportController();
         $response = $reportController->profitLossReport($request);
-        
-        if (!$response) {
+
+        if (! $response) {
             abort(500, 'Failed to generate profit loss data');
         }
-        
+
         // Ensure filters are properly structured
         $filters = $request->all();
-        
+
         // Normalize date field names to match what the template expects
         if (isset($filters['fromDate'])) {
             $filters['from_date'] = $filters['fromDate'];
@@ -1538,15 +1577,16 @@ class TableExportController extends Controller
         if (isset($filters['toDate'])) {
             $filters['to_date'] = $filters['toDate'];
         }
-        
+
         $data = [
             'type' => $response['type'],
             'reportData' => $response['reportData'],
-            'filters' => $filters
+            'filters' => $filters,
         ];
-        
+
         // share data to view
         view()->share('profitLossData', $data);
+
         return $this->generatePDF('pdf.profit-loss', $data, 'profit-loss.pdf', 'a4', 'landscape');
     }
 
@@ -1554,6 +1594,7 @@ class TableExportController extends Controller
     public function profitLossExportExcel(Request $request)
     {
         $filters = $request->all();
+
         return Excel::download(new ExportProfitLoss($filters), 'ProfitLoss.xlsx');
     }
 
@@ -1564,7 +1605,7 @@ class TableExportController extends Controller
         $mappedRequest = new \Illuminate\Http\Request([
             'fromDate' => $request->input('start_date'),
             'toDate' => $request->input('end_date'),
-            'user' => [ 'id' => (int) $request->input('term') ],
+            'user' => ['id' => (int) $request->input('term')],
         ]);
 
         // Get sales by user report data using the same filters
@@ -1581,17 +1622,18 @@ class TableExportController extends Controller
                 'invoiceDate' => $row['invoiceDate'] ?? null,
             ];
         }, $raw);
-        $data = [ 'items' => $plainItems ];
-        
+        $data = ['items' => $plainItems];
+
         // Add filters to data for template
         $data['filters'] = [
             'start_date' => $request->input('start_date'),
             'end_date' => $request->input('end_date'),
             'term' => $request->input('term'),
         ];
-        
+
         // share data to view
         view()->share('salesByUserData', $data);
+
         return $this->generatePDF('pdf.sales-by-user-report', $data, 'sales-by-user-report.pdf', 'a4', 'landscape');
     }
 
@@ -1602,7 +1644,7 @@ class TableExportController extends Controller
         $mappedRequest = new \Illuminate\Http\Request([
             'fromDate' => $request->input('start_date'),
             'toDate' => $request->input('end_date'),
-            'user' => [ 'id' => (int) $request->input('term') ],
+            'user' => ['id' => (int) $request->input('term')],
         ]);
 
         // Get collection by user report data using the same filters
@@ -1621,17 +1663,18 @@ class TableExportController extends Controller
                 'transactionDate' => $row['transaction']['transaction_date'] ?? null,
             ];
         }, $raw);
-        $data = [ 'items' => $plainItems ];
-        
+        $data = ['items' => $plainItems];
+
         // Add filters to data for template
         $data['filters'] = [
             'start_date' => $request->input('start_date'),
             'end_date' => $request->input('end_date'),
             'term' => $request->input('term'),
         ];
-        
+
         // share data to view
         view()->share('collectionByUserData', $data);
+
         return $this->generatePDF('pdf.collection-by-user-report', $data, 'collection-by-user-report.pdf', 'a4', 'landscape');
     }
 
@@ -1640,34 +1683,34 @@ class TableExportController extends Controller
     {
         // Disable Telescope for this request to avoid database issues
         \Laravel\Telescope\Telescope::stopRecording();
-        
+
         // Increase memory limit for large PDFs with all entries
         ini_set('memory_limit', '1G'); // 1GB for very large datasets
         set_time_limit(300); // 5 minutes for processing
-        
+
         try {
             // Use the dedicated print method that gets ALL data without pagination
             $reportController = new \App\Http\Controllers\API\ReportController();
             $response = $reportController->accountStatementForPrint($request);
-            
+
             // Handle JsonResponse
             if ($response instanceof \Illuminate\Http\JsonResponse) {
                 $reportData = $response->getData(true);
             } else {
                 $reportData = $response;
             }
-            
-            if (!$reportData['success']) {
+
+            if (! $reportData['success']) {
                 abort(404, 'Report data not found');
             }
-            
+
             $data = $reportData['data'];
-            
+
             // Log entry count for debugging
             if (isset($data['entries'])) {
-                Log::info('Account Statement PDF - Processing all entries. Total: ' . count($data['entries']));
+                Log::info('Account Statement PDF - Processing all entries. Total: '.count($data['entries']));
             }
-            
+
             // Add filters to data for template - merge with existing filters if they exist
             $data['filters'] = array_merge($data['filters'] ?? [], [
                 'from_date' => $request->input('from_date'),
@@ -1677,7 +1720,7 @@ class TableExportController extends Controller
                 'fiscal_year_id' => $request->input('fiscal_year_id'),
                 'accounting_period_id' => $request->input('accounting_period_id'),
             ]);
-            
+
             // Log the data structure for debugging
             Log::info('Account Statement PDF Data Structure:', [
                 'has_chart_of_account' => isset($data['chart_of_account']),
@@ -1688,25 +1731,25 @@ class TableExportController extends Controller
                 'chart_of_account_keys' => isset($data['chart_of_account']) ? array_keys($data['chart_of_account']) : [],
                 'summary_keys' => isset($data['summary']) ? array_keys($data['summary']) : [],
             ]);
-            
+
             // For debugging purposes, temporarily return HTML instead of PDF
             if ($request->has('debug')) {
                 return view('pdf.account-statement', ['reportData' => $data]);
             }
-            
+
             // share data to view
             view()->share('reportData', $data);
+
             return $this->generatePDF('pdf.account-statement', $data, 'account-statement.pdf');
-            
         } catch (\Exception $e) {
-            Log::error('Account Statement PDF Error: ' . $e->getMessage(), [
+            Log::error('Account Statement PDF Error: '.$e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'request_params' => $request->all()
+                'request_params' => $request->all(),
             ]);
-            
+
             // Return error response
             return response()->json([
-                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+                'error' => 'Failed to generate PDF: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -1715,6 +1758,7 @@ class TableExportController extends Controller
     public function accountStatementExportExcel(Request $request)
     {
         $filters = $request->all();
+
         return Excel::download(new ExportAccountStatement($filters), 'AccountStatement.xlsx');
     }
 
@@ -1723,29 +1767,29 @@ class TableExportController extends Controller
     {
         // Disable Telescope for this request to avoid database issues
         \Laravel\Telescope\Telescope::stopRecording();
-        
+
         // Increase memory limit for large PDFs with all entries
         ini_set('memory_limit', '1G'); // 1GB for very large datasets
         set_time_limit(300); // 5 minutes for processing
-        
+
         try {
             // Use the dedicated print method that gets ALL data without pagination
             $reportController = new \App\Http\Controllers\API\ReportController();
             $response = $reportController->groupAccountStatementForPrint($request);
-            
+
             // Handle JsonResponse
             if ($response instanceof \Illuminate\Http\JsonResponse) {
                 $reportData = $response->getData(true);
             } else {
                 $reportData = $response;
             }
-            
-            if (!$reportData['success']) {
+
+            if (! $reportData['success']) {
                 abort(404, 'Report data not found');
             }
-            
+
             $data = $reportData['data'];
-            
+
             // Add filters to data for template - merge with existing filters if they exist
             $data['filters'] = array_merge($data['filters'] ?? [], [
                 'from_date' => $request->input('from_date'),
@@ -1755,7 +1799,7 @@ class TableExportController extends Controller
                 'fiscal_year_id' => $request->input('fiscal_year_id'),
                 'accounting_period_id' => $request->input('accounting_period_id'),
             ]);
-            
+
             // Log the data structure for debugging
             Log::info('Group Account Statement PDF Data Structure:', [
                 'has_chart_of_accounts' => isset($data['chart_of_accounts']),
@@ -1765,20 +1809,20 @@ class TableExportController extends Controller
                 'chart_of_accounts_count' => isset($data['chart_of_accounts']) ? count($data['chart_of_accounts']) : 0,
                 'summary_keys' => isset($data['summary']) ? array_keys($data['summary']) : [],
             ]);
-            
+
             // share data to view
             view()->share('reportData', $data);
+
             return $this->generatePDF('pdf.group-account-statement', $data, 'group-account-statement.pdf');
-            
         } catch (\Exception $e) {
-            Log::error('Group Account Statement PDF Error: ' . $e->getMessage(), [
+            Log::error('Group Account Statement PDF Error: '.$e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'request_params' => $request->all()
+                'request_params' => $request->all(),
             ]);
-            
+
             // Return error response
             return response()->json([
-                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+                'error' => 'Failed to generate PDF: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -1787,30 +1831,31 @@ class TableExportController extends Controller
     public function groupAccountStatementExportExcel(Request $request)
     {
         $filters = $request->all();
+
         return Excel::download(new ExportGroupAccountStatement($filters), 'GroupAccountStatement.xlsx');
     }
-
 
     // return invoice summary excel
     public function invoiceSummaryExportExcel(Request $request)
     {
         $filters = $request->all();
+
         return Excel::download(new ExportInvoiceSummary($filters), 'InvoiceSummary.xlsx');
     }
-
 
     // return purchase summary excel
     public function purchaseSummaryExportExcel(Request $request)
     {
         $filters = $request->all();
+
         return Excel::download(new ExportPurchaseSummary($filters), 'PurchaseSummary.xlsx');
     }
-
 
     // return vat report excel
     public function vatReportExportExcel(Request $request)
     {
         $filters = $request->all();
+
         return Excel::download(new ExportVatReport($filters), 'VatReport.xlsx');
     }
 
@@ -1819,34 +1864,34 @@ class TableExportController extends Controller
     {
         // Disable Telescope for this request to avoid database issues
         \Laravel\Telescope\Telescope::stopRecording();
-        
+
         // Increase memory limit for large PDFs with all entries
         ini_set('memory_limit', '1G'); // 1GB for very large datasets
         set_time_limit(300); // 5 minutes for processing
-        
+
         try {
             // Use the dedicated print method that gets ALL data without pagination
             $reportController = new \App\Http\Controllers\API\ReportController();
             $response = $reportController->invoiceSummaryForPrint($request);
-            
+
             // Handle JsonResponse
             if ($response instanceof \Illuminate\Http\JsonResponse) {
                 $reportData = $response->getData(true);
             } else {
                 $reportData = $response;
             }
-            
-            if (!$reportData['success']) {
+
+            if (! $reportData['success']) {
                 abort(404, 'Report data not found');
             }
-            
+
             $data = $reportData['data'];
-            
+
             // Log entry count for debugging
             if (isset($data['clients'])) {
-                Log::info('Invoice Summary PDF - Processing all clients. Total: ' . count($data['clients']));
+                Log::info('Invoice Summary PDF - Processing all clients. Total: '.count($data['clients']));
             }
-            
+
             // Add filters to data for template - merge with existing filters if they exist
             $data['filters'] = array_merge($data['filters'] ?? [], [
                 'from_date' => $request->input('from_date'),
@@ -1854,7 +1899,7 @@ class TableExportController extends Controller
                 'fiscal_year_id' => $request->input('fiscal_year_id'),
                 'accounting_period_id' => $request->input('accounting_period_id'),
             ]);
-            
+
             // Log the data structure for debugging
             Log::info('Invoice Summary PDF Data Structure:', [
                 'has_summary' => isset($data['summary']),
@@ -1862,20 +1907,20 @@ class TableExportController extends Controller
                 'clients_count' => isset($data['clients']) ? count($data['clients']) : 0,
                 'summary_keys' => isset($data['summary']) ? array_keys($data['summary']) : [],
             ]);
-            
+
             // share data to view
             view()->share('reportData', $data);
+
             return $this->generatePDF('pdf.invoice-summary', $data, 'invoice-summary.pdf');
-            
         } catch (\Exception $e) {
-            Log::error('Invoice Summary PDF Error: ' . $e->getMessage(), [
+            Log::error('Invoice Summary PDF Error: '.$e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'request_params' => $request->all()
+                'request_params' => $request->all(),
             ]);
-            
+
             // Return error response
             return response()->json([
-                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+                'error' => 'Failed to generate PDF: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -1885,34 +1930,34 @@ class TableExportController extends Controller
     {
         // Disable Telescope for this request to avoid database issues
         \Laravel\Telescope\Telescope::stopRecording();
-        
+
         // Increase memory limit for large PDFs with all entries
         ini_set('memory_limit', '1G'); // 1GB for very large datasets
         set_time_limit(300); // 5 minutes for processing
-        
+
         try {
             // Use the dedicated print method that gets ALL data without pagination
             $reportController = new \App\Http\Controllers\API\ReportController();
             $response = $reportController->purchaseSummaryForPrint($request);
-            
+
             // Handle JsonResponse
             if ($response instanceof \Illuminate\Http\JsonResponse) {
                 $reportData = $response->getData(true);
             } else {
                 $reportData = $response;
             }
-            
-            if (!$reportData['success']) {
+
+            if (! $reportData['success']) {
                 abort(404, 'Report data not found');
             }
-            
+
             $data = $reportData['data'];
-            
+
             // Log entry count for debugging
             if (isset($data['suppliers'])) {
-                Log::info('Purchase Summary PDF - Processing all suppliers. Total: ' . count($data['suppliers']));
+                Log::info('Purchase Summary PDF - Processing all suppliers. Total: '.count($data['suppliers']));
             }
-            
+
             // Add filters to data for template - merge with existing filters if they exist
             $data['filters'] = array_merge($data['filters'] ?? [], [
                 'from_date' => $request->input('from_date'),
@@ -1920,7 +1965,7 @@ class TableExportController extends Controller
                 'fiscal_year_id' => $request->input('fiscal_year_id'),
                 'accounting_period_id' => $request->input('accounting_period_id'),
             ]);
-            
+
             // Log the data structure for debugging
             Log::info('Purchase Summary PDF Data Structure:', [
                 'has_summary' => isset($data['summary']),
@@ -1928,20 +1973,20 @@ class TableExportController extends Controller
                 'suppliers_count' => isset($data['suppliers']) ? count($data['suppliers']) : 0,
                 'summary_keys' => isset($data['summary']) ? array_keys($data['summary']) : [],
             ]);
-            
+
             // share data to view
             view()->share('reportData', $data);
+
             return $this->generatePDF('pdf.purchase-summary', $data, 'purchase-summary.pdf');
-            
         } catch (\Exception $e) {
-            Log::error('Purchase Summary PDF Error: ' . $e->getMessage(), [
+            Log::error('Purchase Summary PDF Error: '.$e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'request_params' => $request->all()
+                'request_params' => $request->all(),
             ]);
-            
+
             // Return error response
             return response()->json([
-                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+                'error' => 'Failed to generate PDF: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -1951,34 +1996,34 @@ class TableExportController extends Controller
     {
         // Disable Telescope for this request to avoid database issues
         \Laravel\Telescope\Telescope::stopRecording();
-        
+
         // Increase memory limit for large PDFs
         ini_set('memory_limit', '1G');
         set_time_limit(300);
-        
+
         try {
             // Use the dedicated print method that gets ALL data without pagination
             $reportController = new \App\Http\Controllers\API\ReportController();
             $response = $reportController->trialBalanceForPrint($request);
-            
+
             // Handle JsonResponse
             if ($response instanceof \Illuminate\Http\JsonResponse) {
                 $reportData = $response->getData(true);
             } else {
                 $reportData = $response;
             }
-            
-            if (!$reportData['success']) {
+
+            if (! $reportData['success']) {
                 abort(404, 'Report data not found');
             }
-            
+
             $data = $reportData['data'];
-            
+
             // Log entry count for debugging
             if (isset($data['trial_balance'])) {
-                Log::info('Trial Balance PDF - Processing all accounts. Total: ' . count($data['trial_balance']));
+                Log::info('Trial Balance PDF - Processing all accounts. Total: '.count($data['trial_balance']));
             }
-            
+
             // Add filters to data for template - merge with existing filters if they exist
             $data['filters'] = array_merge($data['filters'] ?? [], [
                 'from_date' => $request->input('from_date'),
@@ -1988,7 +2033,7 @@ class TableExportController extends Controller
                 'chart_of_account_id' => $request->input('chart_of_account_id'),
                 'sub_chart_of_account_id' => $request->input('sub_chart_of_account_id'),
             ]);
-            
+
             // Log the data structure for debugging
             Log::info('Trial Balance PDF Data Structure:', [
                 'has_trial_balance' => isset($data['trial_balance']),
@@ -1996,19 +2041,19 @@ class TableExportController extends Controller
                 'accounts_count' => isset($data['trial_balance']) ? count($data['trial_balance']) : 0,
                 'total_count' => $data['total_count'] ?? 0,
             ]);
-            
+
             // share data to view
             view()->share('reportData', $data);
+
             return $this->generatePDF('pdf.trial-balance', $data, 'trial-balance.pdf');
-            
         } catch (\Exception $e) {
-            Log::error('Trial Balance PDF Error: ' . $e->getMessage(), [
+            Log::error('Trial Balance PDF Error: '.$e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'request_params' => $request->all()
+                'request_params' => $request->all(),
             ]);
-            
+
             return response()->json([
-                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+                'error' => 'Failed to generate PDF: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -2018,34 +2063,34 @@ class TableExportController extends Controller
     {
         // Disable Telescope for this request to avoid database issues
         \Laravel\Telescope\Telescope::stopRecording();
-        
+
         // Increase memory limit for large PDFs
         ini_set('memory_limit', '1G');
         set_time_limit(300);
-        
+
         try {
             // Get inventory report data
             $reportController = new \App\Http\Controllers\API\ReportController();
             $response = $reportController->inventoryReport($request);
-            
+
             // Handle JsonResponse
             if ($response instanceof \Illuminate\Http\JsonResponse) {
                 $reportData = $response->getData(true);
             } else {
                 $reportData = $response;
             }
-            
+
             $data = $reportData;
-            
+
             // share data to view
             view()->share('reportData', $data);
+
             return $this->generatePDF('pdf.inventory-report', $data, 'inventory-report.pdf');
-            
         } catch (\Exception $e) {
-            Log::error('Inventory Report PDF Error: ' . $e->getMessage());
-            
+            Log::error('Inventory Report PDF Error: '.$e->getMessage());
+
             return response()->json([
-                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+                'error' => 'Failed to generate PDF: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -2054,6 +2099,7 @@ class TableExportController extends Controller
     public function inventoryReportExportExcel(Request $request)
     {
         $filters = $request->all();
+
         return Excel::download(new ExportInventoryReport($filters), 'InventoryReport.xlsx');
     }
 
@@ -2062,34 +2108,34 @@ class TableExportController extends Controller
     {
         // Disable Telescope for this request to avoid database issues
         \Laravel\Telescope\Telescope::stopRecording();
-        
+
         // Increase memory limit for large PDFs
         ini_set('memory_limit', '1G');
         set_time_limit(300);
-        
+
         try {
             // Get items report data
             $reportController = new \App\Http\Controllers\API\ReportController();
             $response = $reportController->itemsReport($request);
-            
+
             // Handle JsonResponse
             if ($response instanceof \Illuminate\Http\JsonResponse) {
                 $reportData = $response->getData(true);
             } else {
                 $reportData = $response;
             }
-            
+
             $data = $reportData;
-            
+
             // share data to view
             view()->share('reportData', $data);
+
             return $this->generatePDF('pdf.items-report', $data, 'items-report.pdf');
-            
         } catch (\Exception $e) {
-            Log::error('Items Report PDF Error: ' . $e->getMessage());
-            
+            Log::error('Items Report PDF Error: '.$e->getMessage());
+
             return response()->json([
-                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+                'error' => 'Failed to generate PDF: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -2098,6 +2144,7 @@ class TableExportController extends Controller
     public function itemsReportExportExcel(Request $request)
     {
         $filters = $request->all();
+
         return Excel::download(new ExportItems($filters), 'ItemsReport.xlsx');
     }
 
@@ -2106,34 +2153,34 @@ class TableExportController extends Controller
     {
         // Disable Telescope for this request to avoid database issues
         \Laravel\Telescope\Telescope::stopRecording();
-        
+
         // Increase memory limit for large PDFs
         ini_set('memory_limit', '1G');
         set_time_limit(300);
-        
+
         try {
             // Get expenses report data
             $reportController = new \App\Http\Controllers\API\ReportController();
             $response = $reportController->expenseReport($request);
-            
+
             // Handle JsonResponse
             if ($response instanceof \Illuminate\Http\JsonResponse) {
                 $reportData = $response->getData(true);
             } else {
                 $reportData = $response;
             }
-            
+
             $data = $reportData;
-            
+
             // share data to view
             view()->share('reportData', $data);
+
             return $this->generatePDF('pdf.expenses-report', $data, 'expenses-report.pdf');
-            
         } catch (\Exception $e) {
-            Log::error('Expenses Report PDF Error: ' . $e->getMessage());
-            
+            Log::error('Expenses Report PDF Error: '.$e->getMessage());
+
             return response()->json([
-                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+                'error' => 'Failed to generate PDF: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -2142,6 +2189,7 @@ class TableExportController extends Controller
     public function expensesReportExportExcel(Request $request)
     {
         $filters = $request->all();
+
         return Excel::download(new ExportExpensesReport($filters), 'ExpensesReport.xlsx');
     }
 
@@ -2150,34 +2198,34 @@ class TableExportController extends Controller
     {
         // Disable Telescope for this request to avoid database issues
         \Laravel\Telescope\Telescope::stopRecording();
-        
+
         // Increase memory limit for large PDFs
         ini_set('memory_limit', '1G');
         set_time_limit(300);
-        
+
         try {
             // Get supplier payable report data
             $reportController = new \App\Http\Controllers\API\ReportController();
             $response = $reportController->supplierDueReport($request);
-            
+
             // Handle JsonResponse
             if ($response instanceof \Illuminate\Http\JsonResponse) {
                 $reportData = $response->getData(true);
             } else {
                 $reportData = $response;
             }
-            
+
             $data = $reportData;
-            
+
             // share data to view
             view()->share('reportData', $data);
+
             return $this->generatePDF('pdf.supplier-payable-report', $data, 'supplier-payable-report.pdf');
-            
         } catch (\Exception $e) {
-            Log::error('Supplier Payable Report PDF Error: ' . $e->getMessage());
-            
+            Log::error('Supplier Payable Report PDF Error: '.$e->getMessage());
+
             return response()->json([
-                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+                'error' => 'Failed to generate PDF: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -2187,34 +2235,34 @@ class TableExportController extends Controller
     {
         // Disable Telescope for this request to avoid database issues
         \Laravel\Telescope\Telescope::stopRecording();
-        
+
         // Increase memory limit for large PDFs with all entries
         ini_set('memory_limit', '1G'); // 1GB for very large datasets
         set_time_limit(300); // 5 minutes for processing
-        
+
         try {
             // Use the dedicated print method that gets ALL data without pagination
             $reportController = new \App\Http\Controllers\API\ReportController();
             $response = $reportController->vatReportForPrint($request);
-            
+
             // Handle JsonResponse
             if ($response instanceof \Illuminate\Http\JsonResponse) {
                 $reportData = $response->getData(true);
             } else {
                 $reportData = $response;
             }
-            
-            if (!$reportData['success']) {
+
+            if (! $reportData['success']) {
                 abort(404, 'Report data not found');
             }
-            
+
             $data = $reportData['data'];
-            
+
             // Log entry count for debugging
             if (isset($data['transactions'])) {
-                Log::info('VAT Report PDF - Processing all transactions. Total: ' . count($data['transactions']));
+                Log::info('VAT Report PDF - Processing all transactions. Total: '.count($data['transactions']));
             }
-            
+
             // Add filters to data for template - merge with existing filters if they exist
             $data['filters'] = array_merge($data['filters'] ?? [], [
                 'from_date' => $request->input('from_date'),
@@ -2222,7 +2270,7 @@ class TableExportController extends Controller
                 'fiscal_year_id' => $request->input('fiscal_year_id'),
                 'accounting_period_id' => $request->input('accounting_period_id'),
             ]);
-            
+
             // Log the data structure for debugging
             Log::info('VAT Report PDF Data Structure:', [
                 'has_summary' => isset($data['summary']),
@@ -2231,20 +2279,20 @@ class TableExportController extends Controller
                 'summary_count' => isset($data['summary']) ? count($data['summary']) : 0,
                 'transactions_count' => isset($data['transactions']) ? count($data['transactions']) : 0,
             ]);
-            
+
             // share data to view
             view()->share('reportData', $data);
+
             return $this->generatePDF('pdf.vat-report', $data, 'vat-report.pdf');
-            
         } catch (\Exception $e) {
-            Log::error('VAT Report PDF Error: ' . $e->getMessage(), [
+            Log::error('VAT Report PDF Error: '.$e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'request_params' => $request->all()
+                'request_params' => $request->all(),
             ]);
-            
+
             // Return error response
             return response()->json([
-                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+                'error' => 'Failed to generate PDF: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -2254,45 +2302,44 @@ class TableExportController extends Controller
     {
         // Disable Telescope for this request to avoid database issues
         \Laravel\Telescope\Telescope::stopRecording();
-        
+
         // Increase memory limit for large PDFs
         ini_set('memory_limit', '1G');
         set_time_limit(300);
-        
+
         try {
             // Get summary report data
             $reportController = new \App\Http\Controllers\API\ReportController();
             $summaryData = $reportController->summeryReport($request);
-            
+
             // Handle JsonResponse
             if ($summaryData instanceof \Illuminate\Http\JsonResponse) {
                 $summaryData = $summaryData->getData(true);
             }
-            
+
             // Log the data structure for debugging
             Log::info('Summary Report PDF Data Structure:', [
-                'has_data' => !empty($summaryData),
+                'has_data' => ! empty($summaryData),
                 'data_count' => count($summaryData),
                 'data_keys' => is_array($summaryData) ? array_keys($summaryData) : 'not array',
             ]);
-            
+
             // share data to view
             view()->share('reportData', $summaryData);
+
             return $this->generatePDF('pdf.summary', $summaryData, 'summary-report.pdf');
-            
         } catch (\Exception $e) {
-            Log::error('Summary Report PDF Error: ' . $e->getMessage(), [
+            Log::error('Summary Report PDF Error: '.$e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
-                'request_params' => $request->all()
+                'request_params' => $request->all(),
             ]);
-            
+
             // Return error response
             return response()->json([
-                'error' => 'Failed to generate PDF: ' . $e->getMessage()
+                'error' => 'Failed to generate PDF: '.$e->getMessage(),
             ], 500);
         }
     }
-
 
     // Note: Other missing PDF methods (invoiceSummaryPDF, etc.) already exist in the codebase
 
@@ -2308,12 +2355,13 @@ class TableExportController extends Controller
                 'to_date' => $request->input('to_date'),
             ];
 
-            return Excel::download(new ExportJournalEntries($filters), 'journal-entries-' . date('Y-m-d') . '.xlsx');
+            return Excel::download(new ExportJournalEntries($filters), 'journal-entries-'.date('Y-m-d').'.xlsx');
         } catch (\Exception $e) {
-            Log::error('Journal Entries Excel Export Error: ' . $e->getMessage());
+            Log::error('Journal Entries Excel Export Error: '.$e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to export journal entries: ' . $e->getMessage()
+                'message' => 'Failed to export journal entries: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -2351,12 +2399,13 @@ class TableExportController extends Controller
                 'company' => \App\Models\GeneralSetting::first(),
             ];
 
-            return $this->generatePDF('pdf.journal-entries', $data, 'journal-entries-' . date('Y-m-d') . '.pdf');
+            return $this->generatePDF('pdf.journal-entries', $data, 'journal-entries-'.date('Y-m-d').'.pdf');
         } catch (\Exception $e) {
-            Log::error('Journal Entries PDF Export Error: ' . $e->getMessage());
+            Log::error('Journal Entries PDF Export Error: '.$e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to export journal entries: ' . $e->getMessage()
+                'message' => 'Failed to export journal entries: '.$e->getMessage(),
             ], 500);
         }
     }
