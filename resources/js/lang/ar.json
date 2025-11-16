@@ -2993,6 +2993,7 @@
 "Failed to create journal entries: " : "فشل في إنشاء المدفوعات: ",
 "Actions" : "الإجراءات",
 "download" : "تحميل",
+"Preview PDF" : "معاينة PDF",
 "Product Discount" : "الخصم",
 "Product VAT" : "ضريبة الأصناف",
 "Qty" : "الكمية",
@@ -3043,6 +3044,7 @@
 "Some products have insufficient stock. Click on the red badges to manage stock levels.": "بعض المنتجات لديها مخزون غير كافٍ. انقر على الشارات الحمراء لإدارة مستويات المخزون.",
 "Product created and added to quotation successfully!": "تم إنشاء المنتج وإضافته إلى العرض بنجاح!",
 "Validation Error": "خطأ في التحقق",
+"Please check the form for errors and try again.": "يرجى التحقق من النموذج للأخطاء والمحاولة مرة أخرى.",
 "Business Rule Violation": "انتهاك القاعدة التجارية",
 "Validation Summary": "ملخص التحقق",
 "Please fix the following issues:": "يرجى إصلاح المشاكل التالية:",
@@ -4543,5 +4545,10 @@
 "Account initialized": "تم تهيئة الحساب",
 "Preferences configured": "تم إعداد التفضيلات",
 "Registration complete!": "اكتمل التسجيل!",
+"Street Name": "اسم الشارع",
+"Enter street name": "أدخل اسم الشارع",
+"Region": "المنطقة",
+"Select Region": "اختر المنطقة",
+"Select City" : "اختر المدينة",
 "An error occurred": "حدث خطأ"
 }

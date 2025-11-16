@@ -192,7 +192,7 @@
                                 <br><small style="color: {{ $colors['secondary'] ?? '#6b7280' }};">{{ $product->product->description }}</small>
                                 @endif
                             </td>
-                            <td style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;{{ $index % 2 == 0 ? ' background-color: #f9fafb;' : '' }}">{{ $product->quantity }} {{ $product->product->productUnit->name ?? __('print.Pcs') }}</td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;{{ $index % 2 == 0 ? ' background-color: #f9fafb;' : '' }}">{{ $product->quantity }}</td>
                             <td style="padding: 12px; text-align: right; border: 1px solid #e5e7eb;{{ $index % 2 == 0 ? ' background-color: #f9fafb;' : '' }}">{{ formatPdfCurrency($product->sale_price) }}</td>
                             <td style="padding: 12px; text-align: right; border: 1px solid #e5e7eb;{{ $index % 2 == 0 ? ' background-color: #f9fafb;' : '' }}">{{ formatPdfCurrency($product->quantity * $product->sale_price) }}</td>
                             <td style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;{{ $index % 2 == 0 ? ' background-color: #f9fafb;' : '' }}">

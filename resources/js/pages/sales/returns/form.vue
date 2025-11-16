@@ -10,7 +10,32 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'invoiceReturns.index' }" class="btn btn-info">
-                  <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+                  <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+
+                    {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+
+                  </template>
+
+                  <template v-else>
+
+                    <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+
+
+                      {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+
+
+                    </template>
+
+
+                    <template v-else>
+
+
+                      <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+
+
+                    </template>
+
+                  </template>
                 </router-link>
                 <button type="submit" class="btn btn-success" :form="formId" :title="isEdit ? $t('Save changes') : $t('Save')">
                   <i class="fas fa-save" />
@@ -930,6 +955,37 @@ export default {
 .btn-primary { background: #2AB930 !important; }
 .btn-secondary { background: #33a0d9 !important; color: white !important; padding: 10px 20px !important; border: none !important; }
 .quantity-field { border-radius: 0 !important; min-height: 50px !important; margin: 0 !important; }
+.custom-qty-input { display: flex; align-items: center; width: fit-content; margin: 0 auto; }
+.button-minus,
+.button-plus {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.button-minus {
+  background-color: #dc3545;
+  color: white;
+}
+.button-plus {
+  background-color: #007bff;
+  color: white;
+}
+.button-minus:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+}
+.button-plus:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
 .account-status { font-size: 0.875rem; }
 .account-status .account-warning { color: #856404; background-color: #fff3cd; border: 1px solid #ffeaa7; border-radius: 0.25rem; padding: 0.5rem; display: flex; align-items: center; }
 .account-status .account-success { color: #155724; background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 0.25rem; padding: 0.5rem; display: flex; align-items: center; }

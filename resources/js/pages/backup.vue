@@ -14,8 +14,32 @@
                             :to="{ name: 'home' }"
                             class="btn btn-info float-right"
                         >
-                            <i class="fas fa-long-arrow-alt-left" />
-                            {{ $t('Back') }}
+                            <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+
+                              {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+
+                            </template>
+
+                            <template v-else>
+
+                              <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+
+
+                                {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+
+
+                              </template>
+
+
+                              <template v-else>
+
+
+                                <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+
+
+                              </template>
+
+                            </template>
                         </router-link>
                     </div>
                     <div class="card-body">

@@ -18,8 +18,32 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group">
                 <router-link :to="{ name: 'brands.index' }" class="btn btn-info float-right">
-                  <i class="fas fa-long-arrow-alt-left" />
-                  {{ $t("Back") }}
+                  <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+
+                    {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+
+                  </template>
+
+                  <template v-else>
+
+                    <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+
+
+                      {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+
+
+                    </template>
+
+
+                    <template v-else>
+
+
+                      <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+
+
+                    </template>
+
+                  </template>
                 </router-link>
                 <a href="#" @click="printWindow" class="btn btn-default"><i class="fas fa-print"></i> {{
                   $t("Print") }}</a>

@@ -85,7 +85,12 @@
               :to="{ name: 'quotations.index' }"
               class="btn btn-info float-right"
             >
-              <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
+              <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                {{ $t("Back") }} <i class="fas fa-long-arrow-alt-left" />
+              </template>
+              <template v-else>
+                <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
+              </template>
             </router-link>
           </div>
         </div>
@@ -228,7 +233,7 @@
                           {{ data.productCode | withPrefix(productPrefix) }}
                         </td>
                         <td>{{ data.productName }}</td>
-                        <td>{{ data.quantity }} {{ data.productUnit }}</td>
+                        <td>{{ data.quantity }}</td>
                         <td>{{ formatNumber(data.salePrice) }} <span class="saudi-riyal">ê</span></td>
                         <td>{{ formatNumber(data.salePrice * data.quantity) }} <span class="saudi-riyal">ê</span></td>
                         <td>

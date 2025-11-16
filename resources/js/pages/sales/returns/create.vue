@@ -10,7 +10,32 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'invoiceReturns.index' }" class="btn btn-info">
-                  <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+                  <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+
+                    {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+
+                  </template>
+
+                  <template v-else>
+
+                    <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+
+
+                      {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+
+
+                    </template>
+
+
+                    <template v-else>
+
+
+                      <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+
+
+                    </template>
+
+                  </template>
                 </router-link>
                 <button type="submit" class="btn btn-success" :form="'invoiceReturnCreateForm'" title="Save">
                   <i class="fas fa-save" />
@@ -1684,15 +1709,15 @@ export default {
 
 .button-minus,
 .button-plus {
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
 }

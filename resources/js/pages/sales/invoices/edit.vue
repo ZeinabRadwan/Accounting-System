@@ -13,7 +13,32 @@
             </h3>
             <div class="float-right header-buttons">
               <router-link :to="{ name: 'invoices.index' }" class="btn btn-info">
-                <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
+                <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+
+                  {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+
+                </template>
+
+                <template v-else>
+
+                  <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+
+
+                    {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+
+
+                  </template>
+
+
+                  <template v-else>
+
+
+                    <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+
+
+                  </template>
+
+                </template>
               </router-link>
               <button type="submit" class="btn btn-success ml-2" :form="'invoiceEditForm'" title="Save">
                 <i class="fas fa-save" />

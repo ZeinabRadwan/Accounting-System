@@ -10,7 +10,37 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'invoices.index' }" class="btn btn-info">
-                  <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
+                  <template v-if="isRTL">
+                    {{ $t("Back") }} <i class="fas fa-long-arrow-alt-left" />
+                  </template>
+                  <template v-else>
+                    <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+
+                      {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+
+                    </template>
+
+                    <template v-else>
+
+                      <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+
+
+                        {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+
+
+                      </template>
+
+
+                      <template v-else>
+
+
+                        <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+
+
+                      </template>
+
+                    </template>
+                  </template>
                 </router-link>
                 <button type="submit" class="btn btn-success" :form="'invoiceCreateForm'" title="Save">
                   <i class="fas fa-save" />
@@ -1206,6 +1236,41 @@ export default {
       }
     },
 
+    // Watch for items changes to ensure they are clients, not categories
+    items: {
+      handler(newItems, oldItems) {
+        if (!newItems || newItems.length === 0) return;
+        
+        // Skip if items haven't actually changed (prevent infinite loop)
+        if (oldItems && newItems.length === oldItems.length && 
+            newItems[0]?.id === oldItems[0]?.id) {
+          return;
+        }
+        
+        // Check if items are actually clients
+        const firstItem = newItems[0];
+        if (firstItem && typeof firstItem === 'object') {
+          const hasClientProperties = firstItem.hasOwnProperty('clientTotalAdvance') || 
+                                      firstItem.hasOwnProperty('email') || 
+                                      firstItem.hasOwnProperty('phone');
+          const hasCategoryProperties = firstItem.hasOwnProperty('sub_categories');
+          
+          // If items look like categories instead of clients, reload clients
+          if (hasCategoryProperties && !hasClientProperties) {
+            console.warn('Detected categories in items instead of clients, reloading clients...');
+            // Use a flag to prevent infinite loop
+            if (!this._reloadingClients) {
+              this._reloadingClients = true;
+              this.getClients().finally(() => {
+                this._reloadingClients = false;
+              });
+            }
+          }
+        }
+      },
+      immediate: false
+    },
+
 
 
 
@@ -1301,6 +1366,46 @@ export default {
         await this.$store.dispatch("operations/allData", {
           path: "/api/all-clients",
         });
+
+        // Wait for store to update
+        await this.$nextTick();
+
+        // Verify that items are actually clients (not categories or other data)
+        // Clients should have properties like 'name', 'slug', and typically 'clientTotalAdvance' or 'email'
+        // Categories would have different structure (e.g., 'sub_categories', 'note' as category-specific)
+        const items = this.items || [];
+        
+        // Check if items look like clients
+        // Clients typically have: name, slug, and may have clientTotalAdvance, email, phone
+        // Categories typically have: name, slug, but may have sub_categories or different structure
+        const areClients = items.length === 0 || items.some(item => {
+          if (!item || typeof item !== 'object') return false;
+          
+          // Check for client-specific properties
+          const hasClientProperties = item.hasOwnProperty('clientTotalAdvance') || 
+                                      item.hasOwnProperty('email') || 
+                                      item.hasOwnProperty('phone') ||
+                                      item.hasOwnProperty('address');
+          
+          // Check that it doesn't have category-specific properties
+          const hasCategoryProperties = item.hasOwnProperty('sub_categories') ||
+                                       (item.note && typeof item.note === 'string' && item.note.length > 100);
+          
+          // If it has client properties and not category properties, it's likely a client
+          return item.name && item.slug && (hasClientProperties || !hasCategoryProperties);
+        });
+
+        if (!areClients && items.length > 0) {
+          // If items don't look like clients, force reload
+          console.warn('Items do not appear to be clients, force reloading clients...');
+          // Clear the store first
+          this.$store.commit('operations/FETCH_DATA', { items: { data: [] }, loading: false });
+          // Then reload
+          await this.$store.dispatch("operations/allData", {
+            path: "/api/all-clients",
+          });
+          await this.$nextTick();
+        }
 
         if (!this.items || this.items.length === 0) return;
 

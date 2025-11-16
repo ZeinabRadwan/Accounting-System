@@ -18,6 +18,47 @@ class UpdateClientRequest extends BaseRequest
     }
 
     /**
+     * Prepare the data for validation.
+     * This ensures phoneNumber is properly read from FormData
+     */
+    protected function prepareForValidation()
+    {
+        // Debug: Log all input data
+        \Log::info('UpdateClientRequest - All input:', $this->all());
+        \Log::info('UpdateClientRequest - All request data:', $this->request->all());
+        \Log::info('UpdateClientRequest - phoneNumber from input:', ['phoneNumber' => $this->input('phoneNumber')]);
+        \Log::info('UpdateClientRequest - phoneNumber from get:', ['phoneNumber' => $this->get('phoneNumber')]);
+        \Log::info('UpdateClientRequest - phoneNumber from request:', ['phoneNumber' => $this->request->get('phoneNumber')]);
+        \Log::info('UpdateClientRequest - Has phoneNumber:', ['has' => $this->has('phoneNumber')]);
+        \Log::info('UpdateClientRequest - Request has phoneNumber:', ['has' => $this->request->has('phoneNumber')]);
+        
+        // Ensure phoneNumber is read correctly from FormData
+        // Try multiple ways to get phoneNumber
+        $phoneNumber = $this->input('phoneNumber') 
+                    ?? $this->get('phoneNumber') 
+                    ?? $this->request->get('phoneNumber')
+                    ?? $this->request->input('phoneNumber')
+                    ?? null;
+        
+        // Also check if it's in the request data array directly
+        if ($phoneNumber === null && is_array($this->request->all())) {
+            $allData = $this->request->all();
+            $phoneNumber = $allData['phoneNumber'] ?? null;
+        }
+        
+        \Log::info('UpdateClientRequest - Final phoneNumber:', ['phoneNumber' => $phoneNumber]);
+        
+        // Always merge phoneNumber if we found it, or set it to empty string if not found
+        // This ensures validation can check it properly
+        if ($phoneNumber !== null) {
+            $this->merge(['phoneNumber' => $phoneNumber]);
+        } else {
+            // If phoneNumber is not found, set it to empty string so validation can check it
+            $this->merge(['phoneNumber' => '']);
+        }
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, mixed>

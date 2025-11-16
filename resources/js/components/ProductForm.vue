@@ -11,7 +11,37 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'products.index' }" class="btn btn-info">
-                  <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+                  <template v-if="$i18n.locale === 'ar' || document.documentElement.getAttribute('dir') === 'rtl'">
+                    {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+                  </template>
+                  <template v-else>
+                    <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+
+                      {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+
+                    </template>
+
+                    <template v-else>
+
+                      <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+
+
+                        {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+
+
+                      </template>
+
+
+                      <template v-else>
+
+
+                        <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+
+
+                      </template>
+
+                    </template>
+                  </template>
                 </router-link>
                 <button type="button" class="btn btn-success" :disabled="form.busy" @click="submitForm" title="Save">
                   <i class="fas fa-save" />
@@ -646,15 +676,39 @@ export default {
           data: error.response?.data
         })
         
+        // Check if this is a validation error (status 422)
+        const status = error && error.response && error.response.status
+        const serverErrors = error && error.response && error.response.data && error.response.data.errors
+        
         // Handle validation errors
         if (error.response && error.response.data && error.response.data.errors) {
           this.form.errors.set(error.response.data.errors)
           console.log('ProductForm: Validation errors set:', error.response.data.errors)
         }
         
-        const errorMessage = error.response?.data?.message || "Please check your input and try again."
-        console.log('ProductForm: Error message:', errorMessage)
-        toast.fire({ type: "error", title: String(errorMessage) })
+        if (status === 422 && serverErrors) {
+          // Show toast notification for validation errors
+          toast.fire({
+            type: 'error',
+            title: this.$t('Validation Error'),
+            text: this.$t('Please check the form for errors and try again.'),
+          })
+          
+          // Scroll to the first invalid input after DOM updates
+          this.$nextTick(() => {
+            // Wait a bit more to ensure vform has added the is-invalid class
+            setTimeout(() => {
+              const invalid = this.$el.querySelector('.is-invalid')
+              if (invalid && typeof invalid.scrollIntoView === 'function') {
+                invalid.scrollIntoView({ behavior: 'smooth', block: 'center' })
+              }
+            }, 100)
+          })
+        } else {
+          // For other errors, show generic error message
+          const errorMessage = error.response?.data?.message || this.$t("Please check your input and try again.")
+          toast.fire({ type: "error", title: String(errorMessage) })
+        }
         
         // Reset form busy state
         this.form.busy = false

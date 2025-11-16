@@ -271,6 +271,11 @@ class ClientController extends Controller
     public function update(UpdateClientRequest $request, $slug)
     {
         try {
+            // Debug: Log request data before validation
+            \Log::info('ClientController update - Request all:', $request->all());
+            \Log::info('ClientController update - phoneNumber from request:', ['phoneNumber' => $request->input('phoneNumber')]);
+            \Log::info('ClientController update - phoneNumber from get:', ['phoneNumber' => $request->get('phoneNumber')]);
+            
             // get client
             $client = Client::where('slug', $slug)->first();
 

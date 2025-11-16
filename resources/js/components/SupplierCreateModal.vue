@@ -2,21 +2,20 @@
   <div>
     <VModal v-model="showSupplierCreateModal" @close="showSupplierCreateModal = false">
       <template v-slot:title>{{ $t("Create Supplier") }}</template>
-      <div class="w-100">
+      <template>
         <SupplierForm 
           ref="supplierForm"
-          :showCardBody="false" 
-          @submit="createSupplier"
+          :showCardBody="false"
+          @submit="saveSupplier"
         />
-      </div>
-      <div slot="modal-footer">
-        <button @click="showSupplierCreateModal = false" class="btn btn-secondary mr-2">
-          <i class="fas fa-times" /> {{ $t("Cancel") }}
-        </button>
-        <button @click="createSupplier" :disabled="loading" class="btn btn-success">
-          <i class="fas fa-save" /> {{ $t("Save") }}
-        </button>
-      </div>
+        <div slot="modal-footer">
+          <button @click="submitItem($event)" :disabled="isSubmitting" class="btn btn-success">
+            <i v-if="isSubmitting" class="fas fa-spinner fa-spin"></i>
+            <i v-else class="fas fa-save"></i> 
+            {{ isSubmitting ? $t("Saving...") : $t("Save") }}
+          </button>
+        </div>
+      </template>
     </VModal>
     <a @click="toggleModal" class="create-button">
       <slot></slot>
@@ -25,94 +24,186 @@
 </template>
 
 <script>
-import VModal from "./VModal.vue";
 import SupplierForm from "./SupplierForm.vue";
 
 export default {
   name: "SupplierCreateModal",
   middleware: ["auth", "check-permissions"],
   components: {
-    VModal,
     SupplierForm,
   },
-
   data: () => ({
-    isDemoMode: window.config.isDemoMode,
     showSupplierCreateModal: false,
-    loading: false,
+    form: null,
+    isSubmitting: false,
   }),
   methods: {
-    // Create supplier
-    async createSupplier() {
+    // save supplier
+    async saveSupplier() {
+      if (this.isSubmitting) return;
+      
+      this.isSubmitting = true;
+      
       try {
-        this.loading = true;
+        // Validate the form
+        if (!this.$refs.supplierForm.validateForm()) {
+          this.isSubmitting = false;
+          return;
+        }
+
+        // Get the form data from the SupplierForm component
+        const formData = this.$refs.supplierForm.getFormData();
         
-        // Get form data from SupplierForm component
-        const formData = this.$refs.supplierForm ? this.$refs.supplierForm.getFormData().data() : {};
-        
-        console.log('Raw form data:', formData);
-        
-        // Map to API format
-        const submitData = {
-          ...formData,
-          // Map legacy fields for backward compatibility
-          name: formData.type === 'Individual' ? formData.fullName : formData.businessName,
-          companyName: formData.businessName,
-          taxRegistrationNumber: formData.taxCard,
-          address: formData.streetAddress1,
+        // Build multipart/form-data to properly send files and handle boolean conversion
+        const fd = new FormData();
+
+        const appendIfDefined = (key, value) => {
+          if (value !== undefined && value !== null && value !== '') {
+            fd.append(key, value);
+          }
         };
+
+        // Simple scalar fields
+        appendIfDefined('codeNumber', formData.codeNumber);
+        appendIfDefined('notes', formData.notes);
+        appendIfDefined('displayLanguage', formData.displayLanguage);
+        appendIfDefined('type', formData.type);
+        appendIfDefined('fullName', formData.fullName);
+        appendIfDefined('businessName', formData.businessName);
+        appendIfDefined('firstName', formData.firstName);
+        appendIfDefined('lastName', formData.lastName);
+        appendIfDefined('phone', formData.phone);
+        appendIfDefined('phoneNumber', formData.phoneNumber);
+        appendIfDefined('email', formData.email);
+        appendIfDefined('streetAddress1', formData.streetAddress1);
+        appendIfDefined('streetAddress2', formData.streetAddress2);
+        appendIfDefined('city', formData.city);
+        appendIfDefined('state', formData.state);
+        appendIfDefined('postalCode', formData.postalCode);
+        appendIfDefined('country', formData.country);
+        appendIfDefined('neighbourhood', formData.neighbourhood);
+        appendIfDefined('commercialRegister', formData.commercialRegister);
+        appendIfDefined('taxCard', formData.taxCard);
+        appendIfDefined('status', formData.status);
         
-        console.log('Submit data:', submitData);
-        
-        // Make API call to create supplier
-        const response = await this.$http.post("/api/suppliers", submitData);
+        // Convert boolean values to integers for Laravel validation
+        appendIfDefined('isSendEmail', formData.isSendEmail ? 1 : 0);
+        appendIfDefined('isSendSMS', formData.isSendSMS ? 1 : 0);
+
+        // Chart of account id (number or object)
+        if (formData.chartOfAccountId && typeof formData.chartOfAccountId === 'object' && formData.chartOfAccountId.id) {
+          appendIfDefined('chartOfAccountId', formData.chartOfAccountId.id);
+        } else {
+          appendIfDefined('chartOfAccountId', formData.chartOfAccountId);
+        }
+
+        // Image file
+        if (formData.image instanceof File) {
+          fd.append('image', formData.image);
+        }
+
+        // Attachments as files
+        if (Array.isArray(formData.attachments)) {
+          formData.attachments.forEach((file, idx) => {
+            if (file instanceof File) {
+              fd.append(`attachments[${idx}]`, file);
+            }
+          });
+        }
+
+        // Representatives array (as nested fields)
+        if (Array.isArray(formData.representatives)) {
+          formData.representatives.forEach((rep, i) => {
+            if (!rep) return;
+            if (rep.name !== undefined && rep.name !== null) fd.append(`representatives[${i}][name]`, rep.name);
+            if (rep.email) fd.append(`representatives[${i}][email]`, rep.email);
+            if (rep.phone) fd.append(`representatives[${i}][phone]`, rep.phone);
+            if (rep.position) fd.append(`representatives[${i}][position]`, rep.position);
+            if (rep.is_primary !== undefined && rep.is_primary !== null) fd.append(`representatives[${i}][is_primary]`, rep.is_primary ? 1 : 0);
+            if (rep.notes) fd.append(`representatives[${i}][notes]`, rep.notes);
+          });
+        }
+
+        const response = await this.$http.post("/api/suppliers", fd, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
         
         if (response.data.success) {
-          // Show success message
           toast.fire({
             type: "success",
             title: this.$t("Supplier added successfully"),
           });
-          
-          // Emit events
-          this.$emit("supplierCreated", response.data.data);
           this.$emit("reloadSuppliers");
-          
-          // Close modal
+          this.$refs.supplierForm.resetForm();
           this.showSupplierCreateModal = false;
+          this.form = null; // Reset form reference
         } else {
-          throw new Error(response.data.message || "Failed to create supplier");
+          throw new Error(response.data.message || 'Failed to create supplier');
         }
       } catch (error) {
         console.error("Error creating supplier:", error);
-        toast.fire({
-          type: "error",
-          title: this.$t("Please check your input and try again."),
-        });
+        const status = error && error.response && error.response.status;
+        const serverErrors = error && error.response && error.response.data && error.response.data.errors;
+        
+        if (status === 422 && serverErrors && this.$refs.supplierForm && this.$refs.supplierForm.getFormData) {
+          // Map backend validation errors into SupplierForm's vform errors
+          const form = this.$refs.supplierForm.getFormData();
+          const mapped = {};
+          Object.keys(serverErrors).forEach((key) => {
+            const messages = serverErrors[key];
+            if (Array.isArray(messages) && messages.length > 0) {
+              mapped[key] = messages[0];
+              // Also map attachments.* to attachments field for UI display
+              if (key.startsWith('attachments.')) {
+                if (!mapped.attachments) {
+                  mapped.attachments = messages[0];
+                }
+              }
+            }
+          });
+          if (form && form.errors && typeof form.errors.record === 'function') {
+            form.errors.record(mapped);
+          }
+          // Show toast notification for validation errors
+          toast.fire({
+            type: "error",
+            title: this.$t("Validation Error"),
+            text: this.$t("Please check the form for errors and try again.")
+          });
+        } else {
+          const errorMessage = error.response?.data?.message || this.$t("Please check your input and try again.");
+          toast.fire({ type: "error", title: errorMessage });
+        }
       } finally {
-        this.loading = false;
+        this.isSubmitting = false;
       }
     },
 
-    // toggle modal
     toggleModal() {
       this.showSupplierCreateModal = !this.showSupplierCreateModal;
+      // Reset form when opening modal
+      if (this.showSupplierCreateModal) {
+        this.form = null;
+        this.isSubmitting = false;
+      }
+    },
+
+    submitItem(evt) {
+      evt.preventDefault();
+      this.saveSupplier();
     },
   },
 };
 </script>
-<style src="vue-tel-input/dist/vue-tel-input.css"></style>
 <style scoped>
 .create-button {
   text-decoration: none;
   cursor: pointer;
 }
 
-.vue-tel-input {
-  padding: 3px;
-}
-
-.ti__dropdown-list {
-  z-index: 2;
+/* Make modal wider */
+.modal-content {
+  max-width: 1000px;
+  margin: 1.75rem auto;
 }
 </style>

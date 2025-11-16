@@ -8,7 +8,32 @@
         <div class="card">
           <div class="card-header">
             <router-link :to="{ name: 'quotations.index' }" class="btn btn-info float-right">
-              <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+              <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+
+                {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+
+              </template>
+
+              <template v-else>
+
+                <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+
+
+                  {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+
+
+                </template>
+
+
+                <template v-else>
+
+
+                  <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+
+
+                </template>
+
+              </template>
             </router-link>
           </div>
           <!-- /.card-header -->
@@ -1246,6 +1271,13 @@
     @adjust-quantity="adjustProductQuantity"
     @stock-updated="handleStockUpdated"
   />
+  
+  <!-- Product Edit Modal -->
+  <ProductEditModal 
+    ref="productEditModal"
+    @reloadProducts="getProducts"
+    @productUpdated="handleProductUpdated"
+  />
   </div>
 </template>
 
@@ -1255,6 +1287,7 @@ import axios from 'axios'
 import { mapGetters } from 'vuex'
 import ChartOfAccountValidation from '~/components/ChartOfAccountValidation'
 import StockAdjustmentModal from '~/components/StockAdjustmentModal'
+import ProductEditModal from '~/components/ProductEditModal'
 import Swal from 'sweetalert2'
 
 const toast = Swal.mixin({
@@ -1272,7 +1305,8 @@ export default {
   },
   components: {
     ChartOfAccountValidation,
-    StockAdjustmentModal
+    StockAdjustmentModal,
+    ProductEditModal
   },
   data: () => ({
     breadcrumbsCurrent: 'Quotation To Invoice',
@@ -2244,11 +2278,71 @@ export default {
 
     // Edit product from table
     editProductFromTable(item) {
-      // Open product edit modal or navigate to product edit page
-      this.$router.push({
-        name: 'products.edit',
-        params: { slug: item.slug }
-      });
+      // Check if the modal component is available
+      if (!this.$refs.productEditModal) {
+        console.error('ProductEditModal component not found');
+        toast.fire({
+          type: "error",
+          title: this.$t("Error"),
+          text: this.$t("Edit modal not available. Please refresh the page."),
+        });
+        return;
+      }
+      
+      // Open the product edit modal with the specific product from the table
+      this.$refs.productEditModal.openModal(item);
+    },
+
+    // handle product updated event
+    handleProductUpdated(eventData) {
+      const { originalProduct, updatedData } = eventData;
+      
+      console.log('Product updated event received:', eventData);
+      
+      // Find and update the product in selectedProducts array
+      const productIndex = this.form.selectedProducts.findIndex(p => 
+        p.id === originalProduct.id || p.slug === originalProduct.slug
+      );
+      
+      if (productIndex !== -1) {
+        // Update the product data in the selected products array
+        const updatedProduct = { ...this.form.selectedProducts[productIndex] };
+        
+        // Update relevant fields from the form data
+        updatedProduct.name = updatedData.itemName || updatedProduct.name;
+        updatedProduct.item_name = updatedData.itemName || updatedProduct.item_name;
+        updatedProduct.regular_price = updatedData.regularPrice || updatedProduct.regular_price;
+        updatedProduct.price = updatedData.regularPrice || updatedProduct.price;
+        updatedProduct.unitPrice = updatedData.regularPrice || updatedProduct.unitPrice;
+        updatedProduct.discount = updatedData.discount || updatedProduct.discount;
+        updatedProduct.selling_price = updatedData.sellingPrice || updatedProduct.selling_price;
+        
+        // Update related objects if they have IDs
+        if (updatedData.subCategory) {
+          updatedProduct.sub_category_id = updatedData.subCategory;
+        }
+        if (updatedData.itemUnit) {
+          updatedProduct.unit_id = updatedData.itemUnit;
+        }
+        if (updatedData.productTax) {
+          updatedProduct.tax_id = updatedData.productTax;
+          updatedProduct.vat_rate_id = updatedData.productTax;
+        }
+        if (updatedData.brand) {
+          updatedProduct.brand_id = updatedData.brand;
+        }
+        
+        // Replace the product in the array
+        this.$set(this.form.selectedProducts, productIndex, updatedProduct);
+        
+        console.log('Updated product in selectedProducts array:', updatedProduct);
+        
+        // Recalculate totals for the updated product
+        this.generateItemTotal(updatedProduct.unitPrice, 'price', productIndex, '');
+        this.calculateSum();
+      } else {
+        console.warn('Could not find product to update in selectedProducts array');
+      }
     },
 
     // Open stock adjustment modal

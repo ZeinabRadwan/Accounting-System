@@ -933,8 +933,34 @@ export default {
         })
         .catch((error) => {
           console.error("Error creating product:", error);
-          const errorMessage = error.response?.data?.message || this.$t("Please check your input and try again.");
-          toast.fire({ type: "error", title: errorMessage });
+          
+          // Check if this is a validation error (status 422)
+          const status = error && error.response && error.response.status
+          const serverErrors = error && error.response && error.response.data && error.response.data.errors
+          
+          if (status === 422 && serverErrors) {
+            // Show toast notification for validation errors
+            toast.fire({
+              type: 'error',
+              title: this.$t('Validation Error'),
+              text: this.$t('Please check the form for errors and try again.'),
+            })
+            
+            // Scroll to the first invalid input after DOM updates
+            this.$nextTick(() => {
+              // Wait a bit more to ensure vform has added the is-invalid class
+              setTimeout(() => {
+                const invalid = this.$el.querySelector('.is-invalid')
+                if (invalid && typeof invalid.scrollIntoView === 'function') {
+                  invalid.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                }
+              }, 100)
+            })
+          } else {
+            // For other errors, show generic error message
+            const errorMessage = error.response?.data?.message || this.$t("Please check your input and try again.");
+            toast.fire({ type: "error", title: errorMessage });
+          }
         });
     },
 

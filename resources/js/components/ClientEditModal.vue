@@ -157,29 +157,174 @@ export default {
         this.form = this.$refs.clientForm.getFormData();
         
         // Validate the form
-        if (!this.$refs.clientForm.validateForm()) {
+        if (!await this.$refs.clientForm.validateForm()) {
           this.isSubmitting = false;
           return;
         }
 
-        // Update the client - use the client data passed to the modal
+        // Get form data directly from ClientForm component
+        const formData = this.$refs.clientForm.getFormData();
+        
+        // Build the submit data manually (same as ClientForm.submitForm does)
+        const submitData = {
+          codeNumber: formData.codeNumber,
+          notes: formData.notes,
+          displayLanguage: formData.displayLanguage,
+          status: formData.status,
+          type: formData.type,
+          fullName: formData.fullName,
+          businessName: formData.businessName,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          phone: formData.phone,
+          phoneNumber: formData.phoneNumber || '', // Explicitly include phone number
+          email: formData.email,
+          streetAddress1: formData.streetAddress1,
+          city: formData.city,
+          state: formData.state,
+          postalCode: formData.postalCode,
+          country: formData.country,
+          neighbourhood: formData.neighbourhood,
+          commercialRegister: formData.commercialRegister,
+          taxCard: formData.taxCard,
+          buildingNumber: formData.buildingNumber,
+          unitNumber: formData.unitNumber,
+          additionalNumber: formData.additionalNumber,
+          image: formData.image,
+          attachments: formData.attachments,
+          isSendEmail: formData.isSendEmail,
+          isSendSMS: formData.isSendSMS,
+          name: formData.type === 'Individual' ? formData.fullName : formData.businessName,
+          companyName: formData.businessName,
+          taxRegistrationNumber: formData.taxCard,
+          address: formData.streetAddress1,
+          representatives: formData.representatives || [],
+          chartOfAccountId: formData.chartOfAccountId,
+        };
+        
+        // Check if we have files (image or attachments) - if so, use FormData
+        const hasFiles = (submitData.image && submitData.image instanceof File) || 
+                        (Array.isArray(submitData.attachments) && submitData.attachments.some(f => f instanceof File));
+        
         const clientSlug = this.clientData.slug || this.client.slug;
-        await this.form.put(`/api/clients/${clientSlug}`);
+        let response;
         
-        toast.fire({
-          type: "success",
-          title: this.$t("Client updated successfully"),
-        });
+        if (hasFiles) {
+          // Build multipart/form-data to properly send files (image, attachments)
+          const fd = new FormData();
+
+          const appendIfDefined = (key, value) => {
+            if (value !== undefined && value !== null && value !== '') {
+              fd.append(key, value);
+            }
+          };
+
+          // Simple scalar fields
+          appendIfDefined('codeNumber', submitData.codeNumber);
+          appendIfDefined('notes', submitData.notes);
+          appendIfDefined('displayLanguage', submitData.displayLanguage);
+          appendIfDefined('type', submitData.type);
+          appendIfDefined('fullName', submitData.fullName);
+          appendIfDefined('businessName', submitData.businessName);
+          appendIfDefined('firstName', submitData.firstName);
+          appendIfDefined('lastName', submitData.lastName);
+          appendIfDefined('phone', submitData.phone);
+          
+          // Phone number is required - always include it
+          let phoneNumberValue = submitData.phoneNumber;
+          if (phoneNumberValue === undefined || phoneNumberValue === null) {
+            if (this.$refs.clientForm && this.$refs.clientForm.form) {
+              phoneNumberValue = this.$refs.clientForm.form.phoneNumber;
+            }
+          }
+          phoneNumberValue = phoneNumberValue || '';
+          console.log('ClientEditModal - Adding phoneNumber to FormData:', phoneNumberValue);
+          console.log('ClientEditModal - phoneNumber type:', typeof phoneNumberValue);
+          console.log('ClientEditModal - phoneNumber length:', phoneNumberValue ? phoneNumberValue.length : 0);
+          // Use explicit string conversion and ensure it's not null/undefined
+          const phoneNumberToSend = phoneNumberValue ? String(phoneNumberValue).trim() : '';
+          console.log('ClientEditModal - phoneNumberToSend:', phoneNumberToSend);
+          fd.append('phoneNumber', phoneNumberToSend);
+          
+          // Debug: Log all FormData entries
+          console.log('ClientEditModal - FormData entries:');
+          for (let pair of fd.entries()) {
+            console.log(pair[0] + ': ' + pair[1]);
+          }
+          
+          appendIfDefined('email', submitData.email);
+          appendIfDefined('streetAddress1', submitData.streetAddress1);
+          appendIfDefined('city', submitData.city);
+          appendIfDefined('state', submitData.state);
+          appendIfDefined('postalCode', submitData.postalCode);
+          appendIfDefined('country', submitData.country);
+          appendIfDefined('neighbourhood', submitData.neighbourhood);
+          appendIfDefined('commercialRegister', submitData.commercialRegister);
+          appendIfDefined('taxCard', submitData.taxCard);
+          appendIfDefined('status', submitData.status);
+          appendIfDefined('isSendEmail', submitData.isSendEmail ? 1 : 0);
+          appendIfDefined('isSendSMS', submitData.isSendSMS ? 1 : 0);
+          
+          // Saudi National Address Fields
+          appendIfDefined('buildingNumber', submitData.buildingNumber);
+          appendIfDefined('unitNumber', submitData.unitNumber);
+          appendIfDefined('additionalNumber', submitData.additionalNumber);
+          
+          // Chart of Account
+          if (submitData.chartOfAccountId) {
+            fd.append('chartOfAccountId', submitData.chartOfAccountId);
+          }
+          
+          // Image file
+          if (submitData.image instanceof File) {
+            fd.append('image', submitData.image);
+          }
+          
+          // Attachments array
+          if (Array.isArray(submitData.attachments)) {
+            submitData.attachments.forEach((file, idx) => {
+              if (file instanceof File) {
+                fd.append(`attachments[${idx}]`, file);
+              }
+            });
+          }
+          
+          // Representatives array (as nested fields)
+          if (Array.isArray(submitData.representatives)) {
+            submitData.representatives.forEach((rep, i) => {
+              if (!rep) return;
+              if (rep.name !== undefined && rep.name !== null) fd.append(`representatives[${i}][name]`, rep.name);
+              if (rep.email) fd.append(`representatives[${i}][email]`, rep.email);
+              if (rep.phone) fd.append(`representatives[${i}][phone]`, rep.phone);
+              if (rep.position) fd.append(`representatives[${i}][position]`, rep.position);
+            });
+          }
+          
+          response = await this.$http.put(`/api/clients/${clientSlug}`, fd, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+          });
+        } else {
+          // No files, use JSON
+          response = await this.$http.put(`/api/clients/${clientSlug}`, submitData);
+        }
         
-        this.$emit("reloadClients");
-        this.closeModal();
-        this.form = null; // Reset form reference
+        if (response.data.success) {
+          toast.fire({
+            type: "success",
+            title: this.$t("Client updated successfully"),
+          });
+          
+          this.$emit("reloadClients");
+          this.closeModal();
+          this.form = null; // Reset form reference
+        } else {
+          throw new Error(response.data.message || 'Update failed');
+        }
         
       } catch (error) {
-        console.error("Error updating client:", error);
+        console.error("Error in editClient:", error);
         const errorMessage = error.response?.data?.message || this.$t("Please check your input and try again.");
         toast.fire({ type: "error", title: errorMessage });
-      } finally {
         this.isSubmitting = false;
       }
     },

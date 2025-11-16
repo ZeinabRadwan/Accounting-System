@@ -10,7 +10,37 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'clients.index' }" class="btn btn-info">
-                  <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+                  <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                    {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+                  </template>
+                  <template v-else>
+                    <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+
+                      {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+
+                    </template>
+
+                    <template v-else>
+
+                      <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+
+
+                        {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+
+
+                      </template>
+
+
+                      <template v-else>
+
+
+                        <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+
+
+                      </template>
+
+                    </template>
+                  </template>
                 </router-link>
                 <button type="button" class="btn btn-success" @click="submitForm" :title="$t('Save')">
                   <i class="fas fa-save" />
@@ -298,10 +328,125 @@ export default {
       this.isSubmitting = true;
       
       try {
-        // Use the form data directly from the submit event
-        console.log('Sending update request with data:', formData);
+        // Check if we have files (image or attachments) - if so, use FormData
+        const hasFiles = (formData.image && formData.image instanceof File) || 
+                        (Array.isArray(formData.attachments) && formData.attachments.some(f => f instanceof File));
         
-        const response = await this.$http.put(`/api/clients/${this.clientData.slug}`, formData);
+        console.log('Has files:', hasFiles);
+        console.log('FormData phoneNumber:', formData.phoneNumber);
+        console.log('FormData attachments:', formData.attachments);
+        
+        let requestData;
+        let config = {};
+        
+        if (hasFiles) {
+          // Build multipart/form-data to properly send files (image, attachments)
+          const fd = new FormData();
+
+          const appendIfDefined = (key, value) => {
+            if (value !== undefined && value !== null && value !== '') {
+              fd.append(key, value);
+            }
+          };
+
+          // Simple scalar fields
+          appendIfDefined('codeNumber', formData.codeNumber);
+          appendIfDefined('notes', formData.notes);
+          appendIfDefined('displayLanguage', formData.displayLanguage);
+          appendIfDefined('type', formData.type);
+          appendIfDefined('fullName', formData.fullName);
+          appendIfDefined('businessName', formData.businessName);
+          appendIfDefined('firstName', formData.firstName);
+          appendIfDefined('lastName', formData.lastName);
+          appendIfDefined('phone', formData.phone);
+          
+          // Phone number is required - always include it
+          // Get phoneNumber from formData, or try to get it from the form directly
+          let phoneNumberValue = formData.phoneNumber;
+          if (phoneNumberValue === undefined || phoneNumberValue === null) {
+            // Try to get from form directly
+            if (this.$refs.clientForm && this.$refs.clientForm.form) {
+              phoneNumberValue = this.$refs.clientForm.form.phoneNumber;
+            }
+          }
+          // Ensure we have a string value (even if empty)
+          phoneNumberValue = phoneNumberValue || '';
+          console.log('Adding phoneNumber to FormData:', phoneNumberValue);
+          console.log('phoneNumber type:', typeof phoneNumberValue);
+          console.log('phoneNumber length:', phoneNumberValue ? phoneNumberValue.length : 0);
+          // Always append phoneNumber, even if empty string
+          // Use explicit string conversion and ensure it's not null/undefined
+          const phoneNumberToSend = phoneNumberValue ? String(phoneNumberValue).trim() : '';
+          console.log('phoneNumberToSend:', phoneNumberToSend);
+          fd.append('phoneNumber', phoneNumberToSend);
+          
+          // Debug: Log all FormData entries
+          console.log('FormData entries:');
+          for (let pair of fd.entries()) {
+            console.log(pair[0] + ': ' + pair[1]);
+          }
+          appendIfDefined('email', formData.email);
+          appendIfDefined('streetAddress1', formData.streetAddress1);
+          appendIfDefined('city', formData.city);
+          appendIfDefined('state', formData.state);
+          appendIfDefined('postalCode', formData.postalCode);
+          appendIfDefined('country', formData.country);
+          appendIfDefined('neighbourhood', formData.neighbourhood);
+          appendIfDefined('commercialRegister', formData.commercialRegister);
+          appendIfDefined('taxCard', formData.taxCard);
+          appendIfDefined('status', formData.status);
+          appendIfDefined('isSendEmail', formData.isSendEmail ? 1 : 0);
+          appendIfDefined('isSendSMS', formData.isSendSMS ? 1 : 0);
+          
+          // Saudi National Address Fields
+          appendIfDefined('buildingNumber', formData.buildingNumber);
+          appendIfDefined('unitNumber', formData.unitNumber);
+          appendIfDefined('additionalNumber', formData.additionalNumber);
+          
+          // Chart of Account
+          if (formData.chartOfAccountId) {
+            fd.append('chartOfAccountId', formData.chartOfAccountId);
+          }
+          
+          // Image file
+          if (formData.image instanceof File) {
+            fd.append('image', formData.image);
+          }
+          
+          // Attachments array
+          if (Array.isArray(formData.attachments)) {
+            formData.attachments.forEach((file, idx) => {
+              if (file instanceof File) {
+                fd.append(`attachments[${idx}]`, file);
+              }
+            });
+          }
+          
+          // Representatives array (as nested fields)
+          if (Array.isArray(formData.representatives)) {
+            formData.representatives.forEach((rep, i) => {
+              if (!rep) return;
+              if (rep.name !== undefined && rep.name !== null) fd.append(`representatives[${i}][name]`, rep.name);
+              if (rep.email) fd.append(`representatives[${i}][email]`, rep.email);
+              if (rep.phone) fd.append(`representatives[${i}][phone]`, rep.phone);
+              if (rep.position) fd.append(`representatives[${i}][position]`, rep.position);
+            });
+          }
+          
+          requestData = fd;
+          config = {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          };
+        } else {
+          // No files, use JSON
+          requestData = formData;
+        }
+        
+        console.log('Sending update request with data:', requestData);
+        
+        const response = await this.$http.put(`/api/clients/${this.clientData.slug}`, requestData, config);
         
         console.log('API response received:', response);
         
@@ -408,71 +553,6 @@ export default {
     },
   },
 };
-</script>
-
-<style scoped>
-/* Space between action buttons */
-.btn-group.c-w-100 {
-  gap: 10px;
-}
-
-/* Header buttons styling */
-.header-buttons {
-  margin-bottom: 15px;
-}
-
-/* Footer buttons styling */
-.footer-buttons {
-  gap: 10px;
-  display: flex;
-}
-
-.footer-buttons .btn {
-  margin-right: 10px;
-}
-
-.footer-buttons .btn:last-child {
-  margin-right: 0;
-}
-
-
-
-.card {
-  margin-top: 30px;
-  border-radius: 20px;
-  box-shadow: 0px 8px 20px 0px #00000014;
-  border: 1px solid #CED4DA
-}
-
-.card-footer {
-  background-color: white;
-  border-top: 1px solid #CED4DA;
-  padding: 0 1.25rem 0.625rem 1.25rem;
-  border-radius: 0 0 20px 20px;
-}
-
-/* Search Input Background Override */
-.form-control{
-  background: #fff !important;
-}
-
-.btn-primary {
-  background: #2AB930 !important;
-  color: white !important;
-  padding: 10px 20px !important;
-
-  border: none !important;
-}
-
-.btn-secondary {
-  background: #33a0d9 !important;
-  color: white !important;
-  padding: 10px 20px !important;
-
-  border: none !important;
-}
-</style>
-
 </script>
 
 <style scoped>

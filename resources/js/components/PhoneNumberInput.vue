@@ -371,6 +371,11 @@ export default {
     
     // Update phone format
     this.updatePhoneFormat()
+    
+    // Validate phone number after component is mounted
+    this.$nextTick(() => {
+      this.validatePhone()
+    })
   },
   
   beforeDestroy() {
@@ -387,12 +392,20 @@ export default {
           if (withoutPlus.startsWith(country.dialCode)) {
             this.selectedCountryCode = country.code
             this.phoneNumber = withoutPlus.substring(country.dialCode.length)
+            // Validate after parsing
+            this.$nextTick(() => {
+              this.validatePhone()
+            })
             return
           }
         }
       }
       // If no country code found, use as is
       this.phoneNumber = phone.replace(/^\+/, '')
+      // Validate after parsing
+      this.$nextTick(() => {
+        this.validatePhone()
+      })
     },
     
     getFullPhoneNumber() {

@@ -105,8 +105,8 @@
                         <br><small style="color: {{ $colors['secondary'] ?? '#6b7280' }};">{{ $product->product->description }}</small>
                         @endif
                     </td>
-                    <td class="text-center">{{ $product->quantity }} {{ $product->product->productUnit->name ?? __('print.Pcs') }}</td>
-                    <td class="text-center">{{ $product->quotationReturnQty ?? 0 }} {{ $product->product->productUnit->name ?? __('print.Pcs') }}</td>
+                    <td class="text-center">{{ $product->quantity }}</td>
+                    <td class="text-center">{{ $product->quotationReturnQty ?? 0 }}</td>
                     <td class="text-right">{!! centralCurrencySymbolFormat($product->sale_price) !!}</td>
                     <td class="text-right">{!! centralCurrencySymbolFormat($product->quantity * $product->sale_price) !!}</td>
                     <td class="text-center">

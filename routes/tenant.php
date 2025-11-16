@@ -129,6 +129,12 @@ Route::middleware([
 
         // Allow fetching currencies during initialization (without auth)
         Route::get('all-currencies', [CurrencyController::class, 'allCurrencies']);
+        
+        // Location routes (available without auth for easier access)
+        Route::get('locations/saudi/regions', [App\Http\Controllers\API\LocationController::class, 'getRegions']);
+        Route::get('locations/saudi/cities', [App\Http\Controllers\API\LocationController::class, 'getAllCities']);
+        Route::get('locations/saudi/cities-by-region', [App\Http\Controllers\API\LocationController::class, 'getCitiesByRegion']);
+        Route::get('locations/saudi/districts-by-city', [App\Http\Controllers\API\LocationController::class, 'getDistrictsByCity']);
     });
 
     // [PROTECTED API] Tenant Routes protected by Sanctum
