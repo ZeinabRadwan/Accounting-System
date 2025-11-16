@@ -66,8 +66,4 @@ class ProductResource extends JsonResource
             'purchase_account_id' => $this->purchase_account_id,
         ];
     }
-}_account_id,
-            'purchase_account_id' => $this->purchase_account_id,
-        ];
-    }
 }
