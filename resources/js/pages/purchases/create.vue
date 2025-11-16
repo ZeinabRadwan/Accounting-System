@@ -75,7 +75,7 @@
                   <has-error :form="form" field="poReference" />
                 </div>
               </div>
-              <div class="row" v-if="items && products">
+              <div class="row" v-if="products">
                 <div class="form-group col-md-6">
                   <label for="product">{{ $t("Select Products") }}
                     <span class="required">*</span></label>
