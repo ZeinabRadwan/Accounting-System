@@ -1,20 +1,12 @@
 <template>
   <div class="container-fluid">
+    <!-- breadcrumbs Start -->
+    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+    <!-- breadcrumbs end -->
+    
     <!-- Page Header -->
     <div class="page-header">
       <div class="row align-items-center">
-        <div class="col">
-          <h3 class="page-title">{{ $t('Journal Entry Details') }}</h3>
-          <ul class="breadcrumb">
-            <li class="breadcrumb-item">
-              <router-link to="/home">{{ $t('Dashboard') }}</router-link>
-            </li>
-            <li class="breadcrumb-item">
-              <router-link to="/journal-entries">{{ $t('Journal Entries') }}</router-link>
-            </li>
-            <li class="breadcrumb-item active">{{ $t('View') }}</li>
-          </ul>
-        </div>
         <div class="col-auto float-right ml-auto">
           <router-link
             v-if="journalEntry && journalEntry.status === 'draft'"
@@ -38,7 +30,12 @@
             <i class="fa fa-ban"></i> {{ $t('Void Entry') }}
           </button>
           <router-link to="/journal-entries" class="btn btn-secondary ml-2">
-            <i class="fa fa-arrow-left"></i> {{ $t('Back') }}
+            <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+              {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+            </template>
+            <template v-else>
+              <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+            </template>
           </router-link>
         </div>
       </div>
@@ -309,6 +306,21 @@ export default {
   },
   data() {
     return {
+      breadcrumbsCurrent: 'Journal Entry Details',
+      breadcrumbs: [
+        {
+          name: 'Dashboard',
+          url: 'home',
+        },
+        {
+          name: 'Journal Entries',
+          url: 'journal-entries.index',
+        },
+        {
+          name: 'View',
+          url: '',
+        },
+      ],
       journalEntry: null,
       loading: true
     }
@@ -373,16 +385,25 @@ export default {
     },
 
     async voidEntry() {
-      if (!confirm(this.$t('Are you sure you want to void this journal entry?'))) return
-
-      try {
-        await this.$axios.post(`/api/journal-entries/${this.journalEntry.id}/void`)
-        window.toast.success(this.$t('Journal entry voided successfully'))
-        await this.loadJournalEntry()
-      } catch (error) {
-        console.error('Error voiding journal entry:', error)
-        window.toast.error(this.$t('Error voiding journal entry'))
-      }
+      Swal.fire({
+        title: this.$t('Are you sure?'),
+        text: this.$t('Are you sure you want to void this journal entry?'),
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: this.$t('Confirm'),
+        cancelButtonText: this.$t('Cancel'),
+      }).then(async (result) => {
+        if (result.value) {
+          try {
+            await this.$axios.post(`/api/journal-entries/${this.journalEntry.id}/void`)
+            window.toast.success(this.$t('Journal entry voided successfully'))
+            await this.loadJournalEntry()
+          } catch (error) {
+            console.error('Error voiding journal entry:', error)
+            window.toast.error(this.$t('Error voiding journal entry'))
+          }
+        }
+      })
     },
 
     formatDate(date) {
@@ -423,16 +444,6 @@ export default {
 <style scoped>
 .page-header {
   margin-bottom: 20px;
-}
-
-.breadcrumb {
-  background: none;
-  padding: 0;
-  margin: 0;
-}
-
-.breadcrumb-item + .breadcrumb-item::before {
-  content: ">";
 }
 
 .form-control-plaintext {

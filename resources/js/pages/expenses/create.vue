@@ -244,6 +244,7 @@ export default {
       image: '',
     }),
     url: null,
+    imageFile: null, // Store the actual file object
     accounts: '',
     expenseAccounts: '',
   }),
@@ -375,49 +376,77 @@ export default {
     // vue file upload
     onFileChange(e) {
       const file = e.target.files[0]
-      const reader = new FileReader()
-      if (
-        file.size < 2111775 &&
-        (file.type === 'image/jpeg' ||
-          file.type === 'image/png' ||
-          file.type === 'image/gif')
-      ) {
-        reader.onloadend = () => {
-          this.form.image = reader.result
-        }
-        reader.readAsDataURL(file)
-        this.url = URL.createObjectURL(file)
-      } else {
+      if (!file) {
+        return
+      }
+      
+      // Validate file size (2MB = 2097152 bytes)
+      if (file.size > 2097152) {
         this.$toast.error(
           this.$t('Error!'),
           this.$t('Please select a valid thumbnail with size less than 2 MB')
         )
+        e.target.value = '' // Clear the input
+        this.url = null
+        this.imageFile = null
+        this.form.image = ''
+        return
       }
+      
+      // Validate file type
+      const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif']
+      if (!validTypes.includes(file.type)) {
+        this.$toast.error(
+          this.$t('Error!'),
+          this.$t('Please select a valid image file (jpeg, png, jpg, gif)')
+        )
+        e.target.value = '' // Clear the input
+        this.url = null
+        this.imageFile = null
+        this.form.image = ''
+        return
+      }
+      
+      // Store the file object for sending
+      this.imageFile = file
+      
+      // Create preview URL
+      this.url = URL.createObjectURL(file)
+      
+      // Also store base64 for preview (optional, not used for sending)
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        this.form.image = reader.result
+      }
+      reader.readAsDataURL(file)
     },
 
     // save expense
     async saveExpense() {
       // Ensure we have the required data in the correct format
       if (!this.form.account || !this.form.account.id) {
-        toast.fire({
-          type: 'error',
-          title: this.$t('Please select a payment account')
+        Swal.fire({
+          icon: 'error',
+          title: this.$t('Error'),
+          text: this.$t('Please select a payment account')
         })
         return
       }
       
       if (!this.form.expenseAccount || !this.form.expenseAccount.id) {
-        toast.fire({
-          type: 'error',
-          title: this.$t('Please select an expense account')
+        Swal.fire({
+          icon: 'error',
+          title: this.$t('Error'),
+          text: this.$t('Please select an expense account')
         })
         return
       }
       
       if (!this.form.subCategory || !this.form.subCategory.id) {
-        toast.fire({
-          type: 'error',
-          title: this.$t('Please select a sub category')
+        Swal.fire({
+          icon: 'error',
+          title: this.$t('Error'),
+          text: this.$t('Please select a sub category')
         })
         return
       }
@@ -445,8 +474,9 @@ export default {
       formData.append('date', this.form.date)
       formData.append('note', this.form.note || '')
       formData.append('status', this.form.status)
-      if (this.form.image) {
-        formData.append('image', this.form.image)
+      // Append the actual file object, not base64 string
+      if (this.imageFile && this.imageFile instanceof File) {
+        formData.append('image', this.imageFile)
       }
       
       // Debug: Log the form data being sent
@@ -455,50 +485,75 @@ export default {
         console.log(key, ':', value)
       }
       
-      await axios.post(window.location.origin + '/api/expenses', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
+      try {
+        const response = await axios.post(window.location.origin + '/api/expenses', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+        
+        if (response.data.success) {
+          // Clear temporary data after successful save
+          this.clearTemporaryData()
+          Swal.fire({
+            icon: 'success',
+            title: this.$t('Success'),
+            text: this.$t('Expense added successfully'),
+            timer: 2000,
+            showConfirmButton: false
+          })
+          this.$router.push({ name: 'expenses.index' })
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: this.$t('Error'),
+            text: response.data.message || this.$t('Please check your input and try again.')
+          })
         }
-      })
-        .then((response) => {
-          if (response.data.success) {
-            // Clear temporary data after successful save
-            this.clearTemporaryData()
-            toast.fire({
-              type: 'success',
-              title: this.$t('Expense added successfully'),
+      } catch (error) {
+        console.error('Error details:', error.response?.data)
+        
+        // Handle validation errors (422)
+        if (error.response?.status === 422 && error.response?.data?.errors) {
+          const errors = error.response.data.errors
+          
+          // Set form errors to display under fields
+          this.form.errors.set(errors)
+          
+          // Build error message for toast
+          let errorMessages = []
+          Object.keys(errors).forEach(field => {
+            errors[field].forEach(msg => {
+              errorMessages.push(`• ${msg}`)
             })
-            this.$router.push({ name: 'expenses.index' })
-          } else {
-            toast.fire({
-              type: 'error',
-              title: this.$t('Error'),
-              text: response.data.message || this.$t('Please check your input and try again.')
-            })
-          }
-        })
-        .catch((error) => {
-          console.error('Error details:', error.response?.data)
-          if (error.response?.status === 422 && error.response?.data?.errors) {
-            // Handle validation errors
-            const errors = error.response.data.errors
-            let errorMessage = this.$t('Validation errors:')
-            Object.keys(errors).forEach(field => {
-              errorMessage += `\n${field}: ${errors[field].join(', ')}`
-            })
-            toast.fire({
-              type: 'error',
-              title: this.$t('Validation Error'),
-              text: errorMessage
-            })
-          } else {
-            toast.fire({ 
-              type: 'error', 
-              title: this.$t('Error'),
-              text: error.response?.data?.message || this.$t('Please check your input and try again.')
-            })
-          }
-        })
+          })
+          
+          // Show detailed error message
+          Swal.fire({
+            icon: 'error',
+            title: this.$t('Validation Error'),
+            html: `<div style="text-align: right; direction: rtl;">${errorMessages.join('<br>')}</div>`,
+            confirmButtonText: this.$t('OK')
+          })
+          
+          // Scroll to first error field
+          this.$nextTick(() => {
+            setTimeout(() => {
+              const firstError = this.$el.querySelector('.is-invalid')
+              if (firstError) {
+                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' })
+              }
+            }, 100)
+          })
+        } else {
+          // Handle other errors
+          Swal.fire({
+            icon: 'error',
+            title: this.$t('Error'),
+            text: error.response?.data?.message || this.$t('Please check your input and try again.')
+          })
+        }
+      }
     },
     // save form data temporarily
     saveTemporary() {

@@ -51,8 +51,8 @@
                   <has-error :form="form" field="code" />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="name">{{ $t('Name') }} <span class="required">*</span></label>
-                  <input id="name" v-model="form.name" type="text" class="form-control"
+                  <label for="name_ar">{{ $t('Name (Arabic)') }} <span class="required">*</span></label>
+                  <input id="name_ar" v-model="form.name" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('name') }" name="name" required />
                   <has-error :form="form" field="name" />
                 </div>

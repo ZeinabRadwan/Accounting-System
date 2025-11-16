@@ -440,18 +440,88 @@ if (typeof window !== 'undefined') {
 //   test()
 // }, 1000)
 
+// Create toastr-compatible object with .s and .e methods
+// Note: toastr.s(message) and toastr.e(message) treat message as the message text
+const toastr = {
+  s: (message, title = '') => {
+    // If only one argument, treat it as message
+    if (title === '') {
+      return toast.success('', message)
+    }
+    // If two arguments, first is message, second is title
+    return toast.success(title, message)
+  },
+  e: (message, title = '') => {
+    // If only one argument, treat it as message
+    if (title === '') {
+      return toast.error('', message)
+    }
+    // If two arguments, first is message, second is title
+    return toast.error(title, message)
+  },
+  success: (message, title = '') => {
+    // If only one argument, treat it as message
+    if (title === '') {
+      return toast.success('', message)
+    }
+    // If two arguments, first is message, second is title
+    return toast.success(title, message)
+  },
+  error: (message, title = '') => {
+    // If only one argument, treat it as message
+    if (title === '') {
+      return toast.error('', message)
+    }
+    // If two arguments, first is message, second is title
+    return toast.error(title, message)
+  },
+  warning: (message, title = '') => {
+    // If only one argument, treat it as message
+    if (title === '') {
+      return toast.warning('', message)
+    }
+    // If two arguments, first is message, second is title
+    return toast.warning(title, message)
+  },
+  info: (message, title = '') => {
+    // If only one argument, treat it as message
+    if (title === '') {
+      return toast.info('', message)
+    }
+    // If two arguments, first is message, second is title
+    return toast.info(title, message)
+  }
+}
+
+// Make toastr available globally immediately
+if (typeof window !== 'undefined') {
+  window.toastr = toastr
+  console.log('Toastr assigned to window.toastr')
+  console.log('Toastr methods:', Object.keys(window.toastr))
+}
+
 // Create Vue plugin
 const customToastPlugin = {
   install(Vue, options) {
     console.log('Installing Custom Toast Vue plugin...')
+    console.log('Toast available:', !!toast)
+    console.log('Toastr available:', !!toastr)
     Vue.prototype.$toast = toast
+    Vue.prototype.$toastr = toastr
     Vue.toast = toast
+    Vue.toastr = toastr
     console.log('Custom Toast Vue plugin installed')
+    console.log('Vue.prototype.$toastr:', typeof Vue.prototype.$toastr)
   }
 }
 
-// Use the plugin
-Vue.use(customToastPlugin)
+// Use the plugin - ensure Vue is available
+if (Vue && typeof Vue.use === 'function') {
+  Vue.use(customToastPlugin)
+  console.log('Custom Toast plugin registered with Vue')
+} else {
+  console.error('Vue is not available when trying to register Custom Toast plugin')
+}
 
 // Listen for RTL changes
 window.addEventListener('rtl-changed', () => {

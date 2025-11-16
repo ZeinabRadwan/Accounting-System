@@ -30,7 +30,7 @@ return [
         'array' => ':attribute يجب أن يحتوي على بين :min و :max عنصر.',
     ],
     'boolean' => 'حقل :attribute يجب أن يكون صحيح أو خطأ.',
-    'confirmed' => 'تأكيد :attribute غير متطابق.',
+    'confirmed' => 'قيمة تأكيد :attribute غير متطابقة.',
     'date' => ':attribute ليس تاريخ صحيح.',
     'date_equals' => ':attribute يجب أن يكون تاريخ يساوي :date.',
     'date_format' => ':attribute لا يطابق التنسيق :format.',
@@ -160,6 +160,9 @@ return [
             'string' => 'الملاحظة يجب أن تكون نصاً.',
             'max' => 'الملاحظة لا يجب أن تتجاوز 255 حرفاً.',
         ],
+        'password' => [
+            'confirmed' => 'قيمة تأكيد كلمة المرور غير متطابقة مع كلمة المرور.',
+        ],
     ],
 
     /*
@@ -269,6 +272,8 @@ return [
         'ccLoanLimit' => 'حد قرض السحب على المكشوف (CC)',
         'address' => 'العنوان',
         'domain' => 'النطاق',
+        'password' => 'كلمة المرور',
+        'password_confirmation' => 'تأكيد كلمة المرور',
         'adjustment reason' => 'سبب التعديل',
         'adjustmentReason' => 'سبب التعديل',
     ],

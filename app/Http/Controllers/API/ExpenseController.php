@@ -80,7 +80,11 @@ class ExpenseController extends Controller
 
             // upload thumbnail and set the name
             $imageName = '';
-            if ($request->image) {
+            if ($request->hasFile('image')) {
+                // File is uploaded as actual file (UploadedFile)
+                $imageName = $this->imageService->uploadImageFileAndGetPath($request->file('image'), 'expenses');
+            } elseif ($request->image && is_string($request->image) && strpos($request->image, 'data:image') === 0) {
+                // File is sent as base64 string
                 $imageName = $this->imageService->uploadImageAndGetPath($request->image, 'expenses');
             }
 
@@ -295,9 +299,14 @@ class ExpenseController extends Controller
             DB::beginTransaction();
 
             $imageName = $expense->image_path;
-            if ($request->image) {
+            if ($request->hasFile('image')) {
+                // File is uploaded as actual file (UploadedFile)
+                $imageName = $this->imageService->uploadImageFileAndGetPath($request->file('image'), 'expenses');
+                $this->imageService->checkImageExistsAndDelete($expense->image_path, 'expenses');
+            } elseif ($request->image && is_string($request->image) && strpos($request->image, 'data:image') === 0) {
+                // File is sent as base64 string
                 $imageName = $this->imageService->uploadImageAndGetPath($request->image, 'expenses');
-                $this->imageService->checkImageExistsAndDelete($expense->image_path,'expenses');
+                $this->imageService->checkImageExistsAndDelete($expense->image_path, 'expenses');
             }
 
             // update transaction

@@ -124,10 +124,16 @@
                       <span v-else>{{ i + 1 }}</span>
                     </td>
                     <td>
-                      <a v-if="data.image" href="#" id="show-modal" @click="previewModal(data.image)">
-                        <img :src="data.image" class="rounded preview-sm" loading="lazy" />
+                      <a v-if="data.image" href="#" id="show-modal" @click.prevent="previewModal(data.image)" class="d-inline-block">
+                        <img 
+                          :src="data.image" 
+                          class="rounded preview-sm d-block m-auto" 
+                          loading="lazy"
+                          @error="handleImageError($event)"
+                          alt="Expense Image"
+                        />
                       </a>
-                      <div v-else class="bg-secondary rounded no-preview-sm">
+                      <div v-else class="bg-secondary rounded no-preview-sm d-flex align-items-center justify-content-center m-auto">
                         <small>{{ $t("No Preview") }}</small>
                       </div>
                     </td>
@@ -258,8 +264,14 @@
     </div>
     <Modal v-if="showModal" @close="previewModal()">
       <h5 slot="header">{{ $t("Attached Image Preview") }}</h5>
-      <div class="w-100" slot="body">
-        <img :src="imagePath" class="rounded img-fluid" loading="lazy" />
+      <div class="w-100 text-center" slot="body">
+        <img 
+          :src="imagePath" 
+          class="rounded img-fluid" 
+          loading="lazy"
+          @error="handleModalImageError($event)"
+          alt="Expense Image Preview"
+        />
       </div>
     </Modal>
   </div>
@@ -486,6 +498,30 @@ export default {
         return (this.showModal = false);
       }
       return (this.showModal = true);
+    },
+
+    // handle image error in table
+    handleImageError(event) {
+      event.target.style.display = 'none';
+      const parent = event.target.parentElement;
+      if (parent && parent.tagName === 'A') {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'bg-secondary rounded no-preview-sm d-flex align-items-center justify-content-center m-auto';
+        errorDiv.innerHTML = `<small>${this.$t("No Preview")}</small>`;
+        parent.replaceWith(errorDiv);
+      }
+    },
+
+    // handle image error in modal
+    handleModalImageError(event) {
+      event.target.style.display = 'none';
+      const parent = event.target.parentElement;
+      if (parent) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'alert alert-warning text-center';
+        errorDiv.innerHTML = `<small>${this.$t("Image could not be loaded")}</small>`;
+        parent.appendChild(errorDiv);
+      }
     },
 
     // print table
@@ -786,6 +822,12 @@ export default {
   width: 40px;
   height: 40px;
   object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.preview-sm:hover {
+  transform: scale(1.1);
 }
 
 .no-preview-sm {
@@ -795,6 +837,11 @@ export default {
   align-items: center;
   justify-content: center;
   font-size: 10px;
+  margin: 0 auto;
+}
+
+.expenses-table td {
+  vertical-align: middle;
 }
 </style>
 

@@ -39,47 +39,73 @@ export default {
 </script>
 
 <style>
+.search-area {
+  position: relative;
+}
+
 .search-area input {
   border-radius: 5px;
 }
 
 [dir="ltr"] .search-area input {
-  padding: 5px 35px 5px 35px;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 [dir="rtl"] .search-area input {
-  padding: 5px 35px 5px 35px;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 /* Search icon positioning */
+.search-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6c757d;
+}
+
+.search-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
 [dir="ltr"] .search-icon {
   position: absolute;
-  left: 90%;
-  top: 25%;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  pointer-events: none;
 }
 
 [dir="rtl"] .search-icon {
   position: absolute;
-  right: 90%;
-  top: 25%;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  pointer-events: none;
+  right: auto;
 }
 
 /* Clear button positioning */
 [dir="ltr"] .search-clear {
   position: absolute !important;
-  right: 5% !important;
-  top: 25% !important;
+  right: 12px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  z-index: 1;
+  cursor: pointer;
 }
 
 [dir="rtl"] .search-clear {
   position: absolute !important;
-  left: 5% !important;
-  top: 25% !important;
-}
-
-/* Additional RTL specific positioning */
-[dir="rtl"] .search-area .search-clear {
-  left: 8% !important;
-  right: auto !important;
+  right: 12px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  z-index: 1;
+  cursor: pointer;
+  left: auto;
 }
 </style>

@@ -6,25 +6,27 @@
       <span v-else class="text-muted">({{ $t('optional') }})</span>
     </label>
     
-    <div class="phone-input-wrapper" :class="{ 'is-invalid': hasError, 'has-value': phoneNumber }">
-      <!-- Country Selector -->
-      <div class="country-selector" @click="toggleCountryDropdown">
-        <span class="country-flag">{{ selectedCountry.flag }}</span>
-        <span class="country-code">+{{ selectedCountry.dialCode }}</span>
-        <i class="fas fa-chevron-down dropdown-icon"></i>
+    <div class="phone-input-container">
+      <div class="phone-input-wrapper" :class="{ 'is-invalid': hasError, 'has-value': phoneNumber }">
+        <!-- Country Selector -->
+        <div class="country-selector" @click="toggleCountryDropdown">
+          <span class="country-flag">{{ selectedCountry.flag }}</span>
+          <span class="country-code">+{{ selectedCountry.dialCode }}</span>
+          <i class="fas fa-chevron-down dropdown-icon"></i>
+        </div>
+        
+        <!-- Phone Number Input -->
+        <input
+          v-model="phoneNumber"
+          type="tel"
+          class="phone-input"
+          :class="{ 'is-invalid': hasError }"
+          :placeholder="placeholder || $t('enter_phone_number')"
+          @input="onInput"
+          @blur="validatePhone"
+          @focus="onFocus"
+        />
       </div>
-      
-      <!-- Phone Number Input -->
-      <input
-        v-model="phoneNumber"
-        type="tel"
-        class="phone-input"
-        :class="{ 'is-invalid': hasError }"
-        :placeholder="placeholder || $t('enter_phone_number')"
-        @input="onInput"
-        @blur="validatePhone"
-        @focus="onFocus"
-      />
       
       <!-- Country Dropdown -->
       <div v-if="showCountryDropdown" class="country-dropdown" @click.stop>
@@ -511,6 +513,10 @@ export default {
   position: relative;
 }
 
+.phone-input-container {
+  position: relative;
+}
+
 .phone-input-wrapper {
   display: flex;
   align-items: center;
@@ -521,6 +527,8 @@ export default {
   overflow: hidden;
   transition: all 0.3s ease;
   min-height: 3rem;
+  position: relative;
+  z-index: 1;
 }
 
 .phone-input-wrapper:focus-within {
@@ -597,13 +605,12 @@ export default {
 
 .country-dropdown {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 0.5rem);
   left: 0;
   right: 0;
   background: white;
   border-radius: 15px;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  margin-top: 0.5rem;
   z-index: 1000;
   max-height: 300px;
   overflow: hidden;
