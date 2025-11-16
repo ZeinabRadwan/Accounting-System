@@ -4059,72 +4059,9 @@ class PrintController extends Controller
     }
 
 
-/ Convert logo to base64 for PDF compatibility
-        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+      
 
-        // Generate filename
-        $month = $request->month ?? '';
-        $year = $request->year ?? '';
-        $filename = 'Summary-Report-'.$month.'-'.$year.'.pdf';
-        $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
+         
 
-        // Use Utility::buildPdf to generate PDF
-        return \App\Models\Utility::buildPdf([
-            'view' => $template ? 'print.reports.summary' : 'print.summary-basic',
-            'view_data' => compact('summaryData', 'template', 'logoBase64', 'locale'),
-            'type' => 'preview',
-            'file_name' => $filename,
-            'header' => '',
-            'footer' => '',
-            'header_spacing' => '2',
-            'margins' => [
-                'top' => '10mm',
-                'bottom' => '10mm',
-            ],
-        ], 'landscape', false);
-    }
-
-    /**
-     * Download Summary PDF
-     */
-    public function downloadSummaryPDF(Request $request)
-    {
-        $locale = \Auth::user()->locale ?? 'ar';
-        \App::setLocale($locale);
-
-        // Get summary report data
-        $reportController = new \App\Http\Controllers\API\ReportController();
-        $summaryData = $reportController->summeryReport($request);
-
-        if ($summaryData instanceof \Illuminate\Http\JsonResponse) {
-            $summaryData = $summaryData->getData(true);
-        }
-
-        // Get the default template for reports
-        $template = PrintTemplate::byModule('reports')->default()->first();
-
-        // Convert logo to base64 for PDF compatibility
-        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
-
-        // Generate filename
-        $month = $request->month ?? '';
-        $year = $request->year ?? '';
-        $filename = 'Summary-Report-'.$month.'-'.$year.'.pdf';
-        $filename = preg_replace('/[^a-zA-Z0-9\-_\.]/', '', $filename);
-
-        // Use Utility::buildPdf to generate PDF
-        return \App\Models\Utility::buildPdf([
-            'view' => $template ? 'print.reports.summary' : 'print.summary-basic',
-            'view_data' => compact('summaryData', 'template', 'locale', 'logoBase64'),
-            'type' => 'download',
-            'file_name' => $filename,
-            'header' => '',
-            'footer' => '',
-            'header_spacing' => '2',
-            'margins' => [
-                'top' => '10mm',
-                'bottom' => '10mm',
-            ],
-        ], 'landscape', false);
-    }
+   
 }
