@@ -23,18 +23,10 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label for="chart_of_account_id">{{ $t("Chart of Account") }}</label>
-                    <v-select
-                      v-model="filters.chartOfAccountId"
-                      :options="chartOfAccounts"
-                      :reduce="account => account.id"
-                      label="display_name"
-                      :placeholder="$t('Select Chart of Account')"
-                      :searchable="true"
-                      :clearable="true"
-                      :loading="loadingChartOfAccounts"
-                      @search="searchChartOfAccounts"
-                      @input="onChartOfAccountChange"
-                    />
+                    <v-select v-model="filters.chartOfAccountId" :options="chartOfAccounts"
+                      :reduce="account => account.id" label="display_name" :placeholder="$t('Select Chart of Account')"
+                      :searchable="true" :clearable="true" :loading="loadingChartOfAccounts"
+                      @search="searchChartOfAccounts" @input="onChartOfAccountChange" />
                   </div>
                 </div>
 
@@ -42,18 +34,10 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label for="sub_chart_of_account_id">{{ $t("Sub Account") }}</label>
-                    <v-select
-                      v-model="filters.subChartOfAccountId"
-                      :options="subChartOfAccounts"
-                      :reduce="account => account.id"
-                      label="display_name"
-                      :placeholder="$t('Select Sub Account')"
-                      :searchable="true"
-                      :clearable="true"
-                      :loading="loadingSubChartOfAccounts"
-                      :disabled="!filters.chartOfAccountId"
-                      @search="searchSubChartOfAccounts"
-                    />
+                    <v-select v-model="filters.subChartOfAccountId" :options="subChartOfAccounts"
+                      :reduce="account => account.id" label="display_name" :placeholder="$t('Select Sub Account')"
+                      :searchable="true" :clearable="true" :loading="loadingSubChartOfAccounts"
+                      :disabled="!filters.chartOfAccountId" @search="searchSubChartOfAccounts" />
                   </div>
                 </div>
 
@@ -61,18 +45,9 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label for="fiscal_year_id">{{ $t("Fiscal Year") }}</label>
-                    <v-select
-                      v-model="filters.fiscalYearId"
-                      :options="fiscalYears"
-                      :reduce="year => year.id"
-                      label="name"
-                      :placeholder="$t('Select Fiscal Year')"
-                      :searchable="true"
-                      :clearable="true"
-                      :loading="loadingFiscalYears"
-                      @search="searchFiscalYears"
-                      @input="onFiscalYearChange"
-                    />
+                    <v-select v-model="filters.fiscalYearId" :options="fiscalYears" :reduce="year => year.id"
+                      label="name" :placeholder="$t('Select Fiscal Year')" :searchable="true" :clearable="true"
+                      :loading="loadingFiscalYears" @search="searchFiscalYears" @input="onFiscalYearChange" />
                   </div>
                 </div>
 
@@ -80,19 +55,11 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label for="accounting_period_id">{{ $t("Accounting Period") }}</label>
-                    <v-select
-                      v-model="filters.accountingPeriodId"
-                      :options="accountingPeriods"
-                      :reduce="period => period.id"
-                      label="name"
-                      :placeholder="$t('Select Accounting Period')"
-                      :searchable="true"
-                      :clearable="true"
-                      :loading="loadingAccountingPeriods"
-                      :disabled="!filters.fiscalYearId"
-                      @search="searchAccountingPeriods"
-                      @input="onAccountingPeriodChange"
-                    />
+                    <v-select v-model="filters.accountingPeriodId" :options="accountingPeriods"
+                      :reduce="period => period.id" label="name" :placeholder="$t('Select Accounting Period')"
+                      :searchable="true" :clearable="true" :loading="loadingAccountingPeriods"
+                      :disabled="!filters.fiscalYearId" @search="searchAccountingPeriods"
+                      @input="onAccountingPeriodChange" />
                   </div>
                 </div>
               </div>
@@ -102,110 +69,62 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label for="from_date">{{ $t("From Date") }}</label>
-                    <input
-                      type="date"
-                      v-model="filters.fromDate"
-                      class="form-control"
-                      :placeholder="$t('From Date')"
-                    />
+                    <input type="date" v-model="filters.fromDate" class="form-control" :placeholder="$t('From Date')" />
                   </div>
                 </div>
 
                 <div class="col-md-3">
                   <div class="form-group">
                     <label for="to_date">{{ $t("To Date") }}</label>
-                    <input
-                      type="date"
-                      v-model="filters.toDate"
-                      class="form-control"
-                      :placeholder="$t('To Date')"
-                    />
+                    <input type="date" v-model="filters.toDate" class="form-control" :placeholder="$t('To Date')" />
                   </div>
                 </div>
 
                 <div class="col-md-6" style="margin-top: 32px;">
-                  <button
-                    @click="generateReport()"
-                    class="btn btn-primary mb-3"
-                    :disabled="loading"
-                  >
+                  <button @click="generateReport()" class="btn btn-primary mb-3" :disabled="loading">
                     <i class="fas fa-search me-1"></i>
                     {{ loading ? $t("Generating...") : $t("Generate Report") }}
                   </button>
-                  <button
+                  <!-- <button
                     @click="printReport"
                     class="btn btn-success mb-3"
                     :disabled="!reportData"
                   >
                     <i class="fas fa-print me-1"></i>
                     {{ $t("Print") }}
-                  </button>
-                  <a
-                    :href="printTemplateUrl"
-                    target="_blank"
-                    class="btn print-btn mb-3"
-                    :disabled="!reportData"
-                  >
+                  </button> -->
+                  <a :href="printTemplateUrl" target="_blank" class="btn print-btn mb-3" :disabled="!reportData">
                     <i class="fas fa-print me-1"></i>
-                    
+
                   </a>
-                  <button
-                    v-if="reportData && reportData.trial_balance && reportData.trial_balance.length > 0"
-                    @click="expandAll"
-                    class="btn btn-outline-success mb-3"
-                    :disabled="loading"
-                  >
+                  <!-- <button v-if="reportData && reportData.trial_balance && reportData.trial_balance.length > 0"
+                    @click="expandAll" class="btn btn-outline-success mb-3" :disabled="loading">
                     <i class="fas fa-expand-arrows-alt me-1"></i>
                     {{ $t("Expand All") }}
                   </button>
-                  <button
-                    v-if="reportData && reportData.trial_balance && reportData.trial_balance.length > 0"
-                    @click="collapseAll"
-                    class="btn btn-outline-warning mb-3"
-                    :disabled="loading"
-                  >
+                  <button v-if="reportData && reportData.trial_balance && reportData.trial_balance.length > 0"
+                    @click="collapseAll" class="btn btn-outline-warning mb-3" :disabled="loading">
                     <i class="fas fa-compress-arrows-alt me-1"></i>
                     {{ $t("Collapse All") }}
-                  </button>
-                  <button
-                    @click="exportToExcel"
-                    class="btn export-excel-btn mb-3"
-                    :disabled="!reportData"
-                  >
+                  </button> -->
+                  <button @click="exportToExcel" class="btn export-excel-btn mb-3" :disabled="!reportData">
                     <i class="fa fa-arrow-circle-down"></i>
                   </button>
-                  <button 
-                    v-if="reportData" 
-                    @click="downloadPDF" 
-                    v-tooltip="$t('Export to PDF')" 
-                    class="btn export-pdf-btn mb-3"
-                  >
+                  <button v-if="reportData" @click="downloadPDF" v-tooltip="$t('Export to PDF')"
+                    class="btn export-pdf-btn mb-3">
                     <i class="fas fa-file-export"></i>
                   </button>
-                  <button 
-                    v-if="reportData" 
-                    @click="previewPDF" 
-                    v-tooltip="$t('Preview')" 
-                    class="btn preview-btn mb-3"
-                  >
+                  <button v-if="reportData" @click="previewPDF" v-tooltip="$t('Preview')" class="btn preview-btn mb-3">
                     <i class="fas fa-eye"></i>
                   </button>
-                  <button
-                    v-if="hasMoreData"
-                    @click="toggleAutoLoad"
-                    class="mb-3"
+                  <button v-if="hasMoreData" @click="toggleAutoLoad" class="mb-3"
                     :class="['btn', autoLoadMore ? 'btn-success' : 'btn-outline-success']"
-                    :disabled="loading || loadingMore"
-                  >
+                    :disabled="loading || loadingMore">
                     <i :class="['fas', autoLoadMore ? 'fa-pause' : 'fa-play']" class="me-1"></i>
                     {{ autoLoadMore ? $t("Stop Calculating") : $t("Auto-Calculate Balances") }}
                   </button>
-                  <button
-                    v-if="hasMoreData && !autoLoadMore"
-                    @click="loadMoreData"
-                    class="btn btn-primary mb-3"
-                    :disabled="loading || loadingMore"
-                  >
+                  <button v-if="hasMoreData && !autoLoadMore" @click="loadMoreData" class="btn btn-primary mb-3"
+                    :disabled="loading || loadingMore">
                     <i class="fas fa-calculator me-1" v-if="!loadingMore"></i>
                     <i class="fas fa-spinner fa-spin me-1" v-if="loadingMore"></i>
                     {{ loadingMore ? $t("Calculating...") : $t("Calculate Balances") }}
@@ -264,94 +183,98 @@
             <div class="table-responsive">
               <table class="table table-bordered table-striped table-sm trial-balance-table">
                 <thead class="table-header">
-                    <th class="text-center header-code">{{ $t("Code") }}</th>
-                    <th class="header-account">{{ $t("Account Name") }}</th>
-                    <th class="text-right header-amount">{{ $t("Opening Balance") }} {{ $t("Debit") }}</th>
-                    <th class="text-right header-amount">{{ $t("Opening Balance") }} {{ $t("Credit") }}</th>
-                    <th class="text-right header-amount">{{ $t("Movements") }} {{ $t("Debit") }}</th>
-                    <th class="text-right header-amount">{{ $t("Movements") }} {{ $t("Credit") }}</th>
-                    <th class="text-right header-amount">{{ $t("Net Movement") }} {{ $t("Debit") }}</th>
-                    <th class="text-right header-amount">{{ $t("Net Movement") }} {{ $t("Credit") }}</th>
-                    <th class="text-right header-amount">{{ $t("Closing Balance") }} {{ $t("Debit") }}</th>
-                    <th class="text-right header-amount">{{ $t("Closing Balance") }} {{ $t("Credit") }}</th>
+                  <th class="text-center header-code">{{ $t("Code") }}</th>
+                  <th class="header-account">{{ $t("Account Name") }}</th>
+                  <th class="text-right header-amount">{{ $t("Opening Balance") }} {{ $t("Debit") }}</th>
+                  <th class="text-right header-amount">{{ $t("Opening Balance") }} {{ $t("Credit") }}</th>
+                  <th class="text-right header-amount">{{ $t("Movements") }} {{ $t("Debit") }}</th>
+                  <th class="text-right header-amount">{{ $t("Movements") }} {{ $t("Credit") }}</th>
+                  <th class="text-right header-amount">{{ $t("Net Movement") }} {{ $t("Debit") }}</th>
+                  <th class="text-right header-amount">{{ $t("Net Movement") }} {{ $t("Credit") }}</th>
+                  <th class="text-right header-amount">{{ $t("Closing Balance") }} {{ $t("Debit") }}</th>
+                  <th class="text-right header-amount">{{ $t("Closing Balance") }} {{ $t("Credit") }}</th>
                 </thead>
                 <tbody>
                   <tr v-for="account in hierarchicalAccounts" :key="account.id" :class="getAccountRowClass(account)">
-                      <td class="text-center cell-code">
-                        <span class="account-code-badge">{{ account.code }}</span>
-                      </td>
-                      <td class="cell-account">
-                        <div class="account-name-container" :style="{ paddingLeft: (account.level * 20) + 'px' }">
-                          <button
-                            v-if="account.hasChildren && !account.isTotalRow"
-                            @click="toggleNode(account.id)"
-                            class="expand-btn"
-                          >
-                            <i :class="account.expanded ? 'fas fa-chevron-down' : (isRTL ? 'fas fa-chevron-left' : 'fas fa-chevron-right')"></i>
-                          </button>
-                          <span v-else-if="!account.isTotalRow" class="expand-spacer"></span>
-                          <i v-if="account.hasChildren && !account.isTotalRow" class="account-icon" :class="account.expanded ? 'fa-folder-open' : 'fa-folder'"></i>
-                          <i v-else-if="!account.isTotalRow" class="account-icon fa-file"></i>
-                          <i v-if="account.isTotalRow" class="account-icon fa-calculator"></i>
-                          <span class="account-name" :class="{ 'total-row-name': account.isTotalRow }">
-                            {{ account.name }}
-                            <i v-if="isAccountCalculating(account.id)" class="fas fa-spinner fa-spin ms-2 text-warning" :title="$t('Calculating balance...')"></i>
-                          </span>
-                        </div>
-                      </td>
-                      <!-- Opening Balance -->
-                      <td class="text-right cell-amount">
-                        <span v-if="getDisplayAmount(account, 'opening_debit') > 0" class="amount-value debit-amount">
-                          <CurrencyDisplay :amount="getDisplayAmount(account, 'opening_debit')" />
+                    <td class="text-center cell-code">
+                      <span class="account-code-badge">{{ account.code }}</span>
+                    </td>
+                    <td class="cell-account">
+                      <div class="account-name-container" :style="{ paddingLeft: (account.level * 20) + 'px' }">
+                        <button v-if="account.hasChildren && !account.isTotalRow" @click="toggleNode(account.id)"
+                          class="expand-btn">
+                          <i
+                            :class="account.expanded ? 'fas fa-chevron-down' : (isRTL ? 'fas fa-chevron-left' : 'fas fa-chevron-right')"></i>
+                        </button>
+                        <span v-else-if="!account.isTotalRow" class="expand-spacer"></span>
+                        <i v-if="account.hasChildren && !account.isTotalRow" class="account-icon"
+                          :class="account.expanded ? 'fa-folder-open' : 'fa-folder'"></i>
+                        <i v-else-if="!account.isTotalRow" class="account-icon fa-file"></i>
+                        <i v-if="account.isTotalRow" class="account-icon fa-calculator"></i>
+                        <span class="account-name" :class="{ 'total-row-name': account.isTotalRow }">
+                          {{ account.name }}
+                          <i v-if="isAccountCalculating(account.id)" class="fas fa-spinner fa-spin ms-2 text-warning"
+                            :title="$t('Calculating balance...')"></i>
                         </span>
-                        <span v-else class="amount-empty">-</span>
-                      </td>
-                      <td class="text-right cell-amount">
-                        <span v-if="getDisplayAmount(account, 'opening_credit') > 0" class="amount-value credit-amount">
-                          <CurrencyDisplay :amount="getDisplayAmount(account, 'opening_credit')" />
-                        </span>
-                        <span v-else class="amount-empty">-</span>
-                      </td>
-                      <!-- Movements -->
-                      <td class="text-right cell-amount">
-                        <span v-if="getDisplayAmount(account, 'movement_debit') > 0" class="amount-value debit-amount">
-                          <CurrencyDisplay :amount="getDisplayAmount(account, 'movement_debit')" />
-                        </span>
-                        <span v-else class="amount-empty">-</span>
-                      </td>
-                      <td class="text-right cell-amount">
-                        <span v-if="getDisplayAmount(account, 'movement_credit') > 0" class="amount-value credit-amount">
-                          <CurrencyDisplay :amount="getDisplayAmount(account, 'movement_credit')" />
-                        </span>
-                        <span v-else class="amount-empty">-</span>
-                      </td>
-                      <!-- Net Movement -->
-                      <td class="text-right cell-amount">
-                        <span v-if="getDisplayAmount(account, 'net_movement_debit') > 0" class="amount-value debit-amount">
-                          <CurrencyDisplay :amount="getDisplayAmount(account, 'net_movement_debit')" />
-                        </span>
-                        <span v-else class="amount-empty">-</span>
-                      </td>
-                      <td class="text-right cell-amount">
-                        <span v-if="getDisplayAmount(account, 'net_movement_credit') > 0" class="amount-value credit-amount">
-                          <CurrencyDisplay :amount="getDisplayAmount(account, 'net_movement_credit')" />
-                        </span>
-                        <span v-else class="amount-empty">-</span>
-                      </td>
-                      <!-- Closing Balance -->
-                      <td class="text-right cell-amount">
-                        <span v-if="getDisplayAmount(account, 'closing_debit') > 0" class="amount-value debit-amount closing-amount">
-                          <CurrencyDisplay :amount="getDisplayAmount(account, 'closing_debit')" />
-                        </span>
-                        <span v-else class="amount-empty">-</span>
-                      </td>
-                      <td class="text-right cell-amount">
-                        <span v-if="getDisplayAmount(account, 'closing_credit') > 0" class="amount-value credit-amount closing-amount">
-                          <CurrencyDisplay :amount="getDisplayAmount(account, 'closing_credit')" />
-                        </span>
-                        <span v-else class="amount-empty">-</span>
-                      </td>
-                    </tr>
+                      </div>
+                    </td>
+                    <!-- Opening Balance -->
+                    <td class="text-right cell-amount">
+                      <span v-if="getDisplayAmount(account, 'opening_debit') > 0" class="amount-value debit-amount">
+                        <CurrencyDisplay :amount="getDisplayAmount(account, 'opening_debit')" />
+                      </span>
+                      <span v-else class="amount-empty">-</span>
+                    </td>
+                    <td class="text-right cell-amount">
+                      <span v-if="getDisplayAmount(account, 'opening_credit') > 0" class="amount-value credit-amount">
+                        <CurrencyDisplay :amount="getDisplayAmount(account, 'opening_credit')" />
+                      </span>
+                      <span v-else class="amount-empty">-</span>
+                    </td>
+                    <!-- Movements -->
+                    <td class="text-right cell-amount">
+                      <span v-if="getDisplayAmount(account, 'movement_debit') > 0" class="amount-value debit-amount">
+                        <CurrencyDisplay :amount="getDisplayAmount(account, 'movement_debit')" />
+                      </span>
+                      <span v-else class="amount-empty">-</span>
+                    </td>
+                    <td class="text-right cell-amount">
+                      <span v-if="getDisplayAmount(account, 'movement_credit') > 0" class="amount-value credit-amount">
+                        <CurrencyDisplay :amount="getDisplayAmount(account, 'movement_credit')" />
+                      </span>
+                      <span v-else class="amount-empty">-</span>
+                    </td>
+                    <!-- Net Movement -->
+                    <td class="text-right cell-amount">
+                      <span v-if="getDisplayAmount(account, 'net_movement_debit') > 0"
+                        class="amount-value debit-amount">
+                        <CurrencyDisplay :amount="getDisplayAmount(account, 'net_movement_debit')" />
+                      </span>
+                      <span v-else class="amount-empty">-</span>
+                    </td>
+                    <td class="text-right cell-amount">
+                      <span v-if="getDisplayAmount(account, 'net_movement_credit') > 0"
+                        class="amount-value credit-amount">
+                        <CurrencyDisplay :amount="getDisplayAmount(account, 'net_movement_credit')" />
+                      </span>
+                      <span v-else class="amount-empty">-</span>
+                    </td>
+                    <!-- Closing Balance -->
+                    <td class="text-right cell-amount">
+                      <span v-if="getDisplayAmount(account, 'closing_debit') > 0"
+                        class="amount-value debit-amount closing-amount">
+                        <CurrencyDisplay :amount="getDisplayAmount(account, 'closing_debit')" />
+                      </span>
+                      <span v-else class="amount-empty">-</span>
+                    </td>
+                    <td class="text-right cell-amount">
+                      <span v-if="getDisplayAmount(account, 'closing_credit') > 0"
+                        class="amount-value credit-amount closing-amount">
+                        <CurrencyDisplay :amount="getDisplayAmount(account, 'closing_credit')" />
+                      </span>
+                      <span v-else class="amount-empty">-</span>
+                    </td>
+                  </tr>
                 </tbody>
                 <tfoot v-if="reportData.grand_totals" class="table-footer">
                   <tr class="grand-total-row">
@@ -409,11 +332,7 @@
 
             <!-- Load More Button -->
             <div v-if="hasMoreData && reportData && !autoLoadMore" class="text-center mt-3">
-              <button
-                @click="loadMoreData"
-                class="btn btn-outline-primary"
-                :disabled="loadingMore"
-              >
+              <button @click="loadMoreData" class="btn btn-outline-primary" :disabled="loadingMore">
                 <i v-if="loadingMore" class="fas fa-spinner fa-spin me-1"></i>
                 <i v-else class="fas fa-plus me-1"></i>
                 {{ loadingMore ? $t("Loading...") : $t("Load More Data") }}
@@ -534,9 +453,9 @@ export default {
       if (!this.reportData || !this.reportData.filters) {
         return this.$t('All Data');
       }
-      
+
       const filters = this.reportData.filters;
-      
+
       if (filters.fiscal_year_id) {
         // Find the fiscal year name from the loaded fiscal years
         const fiscalYear = this.fiscalYears.find(fy => fy.id === filters.fiscal_year_id);
@@ -554,7 +473,7 @@ export default {
     printTemplateUrl() {
       // Create a dynamic print template URL for trial balance with current filters
       const params = new URLSearchParams();
-      
+
       if (this.filters.chartOfAccountId) {
         params.append('chart_of_account_id', this.filters.chartOfAccountId);
       }
@@ -573,7 +492,7 @@ export default {
       if (this.filters.toDate) {
         params.append('to_date', this.filters.toDate);
       }
-      
+
       return `/print/reports/trial-balance?${params.toString()}`;
     },
     isRTL() {
@@ -672,7 +591,7 @@ export default {
 
     async searchSubChartOfAccounts(search, loading) {
       if (!this.filters.chartOfAccountId) return;
-      
+
       loading(true);
       try {
         const { data } = await axios.get(`/api/reports/sub-chart-of-accounts?parent_account_id=${this.filters.chartOfAccountId}&search=${search}`);
@@ -701,7 +620,7 @@ export default {
 
     async searchAccountingPeriods(search, loading) {
       if (!this.filters.fiscalYearId) return;
-      
+
       loading(true);
       try {
         const { data } = await axios.get(`/api/accounting-periods?fiscal_year_id=${this.filters.fiscalYearId}&search=${search}`);
@@ -741,7 +660,7 @@ export default {
 
       try {
         const params = new URLSearchParams();
-        
+
         if (this.filters.chartOfAccountId) {
           params.append('chart_of_account_id', this.filters.chartOfAccountId);
         }
@@ -764,15 +683,15 @@ export default {
         console.log('🌐 Loading all accounts with zero balances...');
         const response = await axios.get(`/api/reports/trial-balance?${params.toString()}`);
         console.log('📡 API Response:', response);
-        
+
         if (response.data && response.data.success === true) {
           // Load all accounts with zero balances
           this.reportData = response.data.data;
           this.allAccounts = [...(response.data.data?.trial_balance || [])];
           this.$toast.success('', this.$t("Trial balance structure loaded. Calculating balances..."));
-          
+
           console.log('✅ All accounts loaded:', this.allAccounts.length);
-          
+
           // Start calculating balances in chunks
           if (this.allAccounts.length > 0) {
             this.startBalanceCalculations();
@@ -785,7 +704,7 @@ export default {
       } catch (error) {
         console.error('Trial Balance Error:', error);
         let errorMessage = this.$t("Failed to generate trial balance report");
-        
+
         if (error && typeof error === 'object') {
           if (error.response && error.response.data && error.response.data.message) {
             errorMessage = error.response.data.message;
@@ -793,7 +712,7 @@ export default {
             errorMessage = error.message;
           }
         }
-        
+
         this.$toast.error('', errorMessage);
       } finally {
         this.loading = false;
@@ -802,26 +721,26 @@ export default {
 
     startBalanceCalculations() {
       console.log('🚀 Starting balance calculations for', this.allAccounts.length, 'accounts');
-      
+
       // Get all account IDs
       const allAccountIds = this.getAllAccountIds(this.allAccounts);
       console.log('📋 Account IDs to calculate:', allAccountIds);
-      
+
       // Mark all accounts as calculating
       allAccountIds.forEach(accountId => {
         this.calculatingAccounts.add(accountId);
       });
-      
+
       // Update accounts to show calculating state
       this.updateAccountsCalculatingState(allAccountIds, true);
-      
+
       // Calculate balances in chunks
       this.calculateBalancesInChunks(allAccountIds);
     },
 
     getAllAccountIds(accounts) {
       const accountIds = [];
-      
+
       const extractIds = (accountList) => {
         accountList.forEach(account => {
           accountIds.push(account.id);
@@ -830,7 +749,7 @@ export default {
           }
         });
       };
-      
+
       extractIds(accounts);
       return accountIds;
     },
@@ -846,20 +765,20 @@ export default {
           }
         });
       };
-      
+
       updateAccount(this.allAccounts);
     },
 
     async calculateBalancesInChunks(accountIds) {
       console.log(`📊 Processing ${accountIds.length} accounts one by one`);
-      
+
       for (let i = 0; i < accountIds.length; i++) {
         const accountId = accountIds[i];
         console.log(`🔄 Processing account ${i + 1}/${accountIds.length} (ID: ${accountId})`);
-        
+
         try {
           await this.calculateSingleAccountBalance(accountId);
-          
+
           // Small delay between accounts to prevent overwhelming the server
           if (i < accountIds.length - 1) {
             await new Promise(resolve => setTimeout(resolve, 50));
@@ -868,7 +787,7 @@ export default {
           console.error(`❌ Error processing account ${accountId}:`, error);
         }
       }
-      
+
       console.log('✅ All balance calculations completed');
       // Calculate totals after all accounts are loaded
       this.calculateGrandTotals();
@@ -886,7 +805,7 @@ export default {
 
         console.log('🌐 Calculating balance for account:', accountId);
         const response = await axios.post('/api/reports/calculate-account-balances', requestData);
-        
+
         if (response.data && response.data.success === true) {
           console.log('✅ Balance calculation successful for account', accountId);
           this.updateSingleAccountBalance(response.data.data.account);
@@ -901,22 +820,22 @@ export default {
     updateSingleAccountBalance(calculatedAccount) {
       console.log('🔄 Updating single account balance:', calculatedAccount.id, calculatedAccount.name);
       console.log('📊 Calculated account data:', calculatedAccount);
-      
+
       // Find and update the account in the hierarchy
       const updated = this.updateAccountInHierarchy(this.allAccounts, calculatedAccount);
-      
+
       if (updated) {
         // Remove from calculating set
         this.calculatingAccounts.delete(calculatedAccount.id);
-        
+
         // Update the report data to keep both in sync
         if (this.reportData) {
           this.reportData.trial_balance = [...this.allAccounts];
         }
-        
+
         // Force Vue reactivity update
         this.$forceUpdate();
-        
+
         console.log('✅ Account balance updated successfully');
         console.log('📊 Updated account in allAccounts:', this.findAccountById(this.allAccounts, calculatedAccount.id));
       } else {
@@ -940,25 +859,25 @@ export default {
 
     updateAccountInHierarchy(accounts, calculatedAccount) {
       console.log('🔍 Searching for account ID:', calculatedAccount.id, 'in', accounts.length, 'accounts');
-      
+
       for (let i = 0; i < accounts.length; i++) {
         console.log('🔍 Checking account:', accounts[i].id, accounts[i].name);
-        
+
         if (accounts[i].id === calculatedAccount.id) {
           console.log('✅ Found matching account, updating...');
           console.log('📊 Before update:', accounts[i]);
-          
+
           // Update the account with calculated data
           accounts[i] = {
             ...accounts[i],
             ...calculatedAccount,
             isCalculating: false
           };
-          
+
           console.log('📊 After update:', accounts[i]);
           return true;
         }
-        
+
         // Check children recursively
         if (accounts[i].children && accounts[i].children.length > 0) {
           console.log('🔍 Checking children of account:', accounts[i].id, '(', accounts[i].children.length, 'children)');
@@ -967,14 +886,14 @@ export default {
           }
         }
       }
-      
+
       console.log('❌ Account not found in this level of hierarchy');
       return false;
     },
 
     calculateGrandTotals() {
       console.log('🧮 Calculating grand totals...');
-      
+
       let totalMovementDebit = 0;
       let totalMovementCredit = 0;
       let totalNetMovementDebit = 0;
@@ -999,12 +918,12 @@ export default {
             const openingCredit = parseFloat(account.opening_credit || 0);
             const closingDebit = parseFloat(account.closing_debit || 0);
             const closingCredit = parseFloat(account.closing_credit || 0);
-            
+
             // Log non-zero values to see what's contributing to grand totals
             if (movementDebit > 0 || movementCredit > 0 || netMovementDebit > 0 || netMovementCredit > 0 || openingDebit > 0 || openingCredit > 0 || closingDebit > 0 || closingCredit > 0) {
               console.log(`💰 Non-zero account: ${account.name} (${account.id}) - Movement: ${movementDebit}/${movementCredit}, Net: ${netMovementDebit}/${netMovementCredit}, Opening: ${openingDebit}/${openingCredit}, Closing: ${closingDebit}/${closingCredit}`);
             }
-            
+
             totalMovementDebit += movementDebit;
             totalMovementCredit += movementCredit;
             totalNetMovementDebit += netMovementDebit;
@@ -1066,7 +985,7 @@ export default {
     // Build hierarchical list for expand/collapse functionality
     buildHierarchicalList(accounts, level = 0) {
       const result = [];
-      
+
       accounts.forEach(account => {
         const accountWithLevel = {
           ...account,
@@ -1076,14 +995,14 @@ export default {
           isParent: account.children && account.children.length > 0,
           isLeaf: !account.children || account.children.length === 0
         };
-        
+
         result.push(accountWithLevel);
-        
+
         // Add children if expanded - recursively show ALL descendants
         if (accountWithLevel.expanded && account.children && account.children.length > 0) {
           const children = this.buildHierarchicalList(account.children, level + 1);
           result.push(...children);
-          
+
           // Add total row for this account's children
           if (children.length > 0) {
             // Calculate totals from direct children only (not their children)
@@ -1099,13 +1018,13 @@ export default {
               closing_debit: 0,
               closing_credit: 0,
             };
-            
+
             // Sum amounts from direct children only (their own amounts, not totals)
             directChildren.forEach(child => {
               // For parent accounts, use their total amounts
               // For leaf accounts, use their own amounts
               const amountField = child.isParent ? 'total_' : '';
-              
+
               childrenTotals.opening_debit += child[`${amountField}opening_debit`] || 0;
               childrenTotals.opening_credit += child[`${amountField}opening_credit`] || 0;
               childrenTotals.movement_debit += child[`${amountField}movement_debit`] || 0;
@@ -1115,7 +1034,7 @@ export default {
               childrenTotals.closing_debit += child[`${amountField}closing_debit`] || 0;
               childrenTotals.closing_credit += child[`${amountField}closing_credit`] || 0;
             });
-            
+
             const totalRow = {
               id: `total-${account.id}`,
               code: '',
@@ -1142,7 +1061,7 @@ export default {
           }
         }
       });
-      
+
       return result;
     },
 
@@ -1159,10 +1078,10 @@ export default {
     // Expand all nodes
     expandAll() {
       if (!this.reportData || !this.reportData.trial_balance) return;
-      
+
       // Use the current allAccounts data to ensure we're working with the latest updates
       this.addAllAccountIds(this.allAccounts);
-      
+
       // Force Vue reactivity update to show expanded view with updated data
       this.$forceUpdate();
     },
@@ -1192,7 +1111,7 @@ export default {
       // TODO: Implement Excel export functionality
       this.$toast.info('', this.$t("Excel export functionality will be implemented soon"));
     },
-    
+
     downloadPDF() {
       // Build query parameters from filters
       const params = new URLSearchParams();
@@ -1214,7 +1133,7 @@ export default {
       if (this.filters.toDate) {
         params.append('to_date', this.filters.toDate);
       }
-      
+
       // Redirect to backend PDF route with query parameters
       const pdfUrl = `/print/reports/trial-balance/pdf?${params.toString()}`;
       window.location.href = pdfUrl;
@@ -1241,7 +1160,7 @@ export default {
       if (this.filters.toDate) {
         params.append('to_date', this.filters.toDate);
       }
-      
+
       // Redirect to backend PDF route with query parameters
       const pdfUrl = `/print/reports/trial-balance/preview?${params.toString()}`;
       window.location.href = pdfUrl;
@@ -1267,20 +1186,20 @@ export default {
         console.log(`💰 Total row ${account.name} ${field}:`, value);
         return value;
       }
-      
+
       // Parent accounts should show empty cells (no amounts displayed)
       if (account.isParent && !account.isTotalRow) {
         console.log(`💰 Parent account ${account.name} ${field}: null (parent)`);
         return null;
       }
-      
+
       // Leaf accounts (individual accounts) should show their own amounts
       if (account.isLeaf) {
         const value = account[field] || 0;
         console.log(`💰 Leaf account ${account.name} ${field}:`, value, '(from account data)');
         return value;
       }
-      
+
       // Fallback to the field value
       const value = account[field] || 0;
       console.log(`💰 Fallback ${account.name} ${field}:`, value);
@@ -1367,7 +1286,9 @@ export default {
   border: none;
 }
 
-.btn-group.c-w-100 { gap: 10px; }
+.btn-group.c-w-100 {
+  gap: 10px;
+}
 
 .card {
   margin-top: 30px;
@@ -1382,6 +1303,7 @@ export default {
   padding: 0 1.25rem 0.625rem 1.25rem;
   border-radius: 0 0 20px 20px;
 }
+
 .overlay {
   position: fixed;
   top: 0;
@@ -1510,7 +1432,7 @@ export default {
 }
 
 /* Button alignment and spacing */
-.gap-2 > * + * {
+.gap-2>*+* {
   margin-left: 0.5rem;
 }
 
@@ -1519,8 +1441,8 @@ export default {
     flex-direction: column;
     align-items: stretch;
   }
-  
-  .gap-2 > * + * {
+
+  .gap-2>*+* {
     margin-left: 0;
     margin-top: 0.5rem;
   }
@@ -1759,16 +1681,16 @@ export default {
   .no-print {
     display: none !important;
   }
-  
+
   .card {
     border: none !important;
     box-shadow: none !important;
   }
-  
+
   .table {
     font-size: 16px;
   }
-  
+
   .table-responsive {
     overflow: visible;
   }
