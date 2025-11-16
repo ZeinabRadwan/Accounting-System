@@ -5,6 +5,20 @@
     <!-- breadcrumbs end -->
     <div class="row no-print mb-2">
       <div class="w-100 text-right float-right">
+        <div class="mb-3 no-print" v-if="allData">
+          <label class="mr-2">{{ $t('Filter by Operation Type') }}:</label>
+          <select
+            v-model="selectedOperationType"
+            class="form-control d-inline-block"
+            style="width: auto; min-width: 200px;"
+          >
+            <option value="all">{{ $t('All Types') }}</option>
+            <option value="Purchase">{{ $t('Purchase') }}</option>
+            <option value="Invoice Return">{{ $t('Invoice Return') }}</option>
+            <option value="Invoice">{{ $t('Invoice') }}</option>
+            <option value="Purchase Return">{{ $t('Purchase Return') }}</option>
+          </select>
+        </div>
         <div class="btn-group" v-if="allData">
           <a
             :href="exportUrl"
@@ -132,7 +146,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(data, i) in allData.stockIns" :key="i">
+                  <tr v-for="(data, i) in filteredStockIns" :key="i">
                     <td>{{ i + 1 }}</td>
                     <td>{{ data.date | moment('Do MMM, YYYY') }}</td>
                     <td>{{ data.quantity }}</td>
@@ -154,8 +168,8 @@
                     <td colspan="2" align="right">
                       <strong>{{ $t('Total Quantity') }}</strong>
                     </td>
-                    <td v-if="allData.stockIns" colspan="5">
-                      <strong>{{ stockInQty(allData.stockIns) }}</strong>
+                    <td v-if="filteredStockIns" colspan="5">
+                      <strong>{{ stockInQty(filteredStockIns) }}</strong>
                     </td>
                   </tr>
                 </tbody>
@@ -183,7 +197,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(data, i) in allData.stockOuts" :key="i">
+                  <tr v-for="(data, i) in filteredStockOuts" :key="i">
                     <td>{{ i + 1 }}</td>
                     <td>{{ data.date | moment('Do MMM, YYYY') }}</td>
                     <td>-{{ data.quantity }}</td>
@@ -205,8 +219,8 @@
                     <td colspan="2" align="right">
                       <b><i>{{ $t('Total Quantity') }}: </i></b>
                     </td>
-                    <td v-if="allData.stockOuts" colspan="5">
-                      <b><i>- {{ stockOutQty(allData.stockOuts) }} </i></b>
+                    <td v-if="filteredStockOuts" colspan="5">
+                      <b><i>- {{ stockOutQty(filteredStockOuts) }} </i></b>
                     </td>
                   </tr>
                 </tbody>
@@ -249,6 +263,7 @@ export default {
     date: new Date(),
     loading: false,
     productPrefix: '',
+    selectedOperationType: 'all',
   }),
   // Map Getters
   computed: {
@@ -262,6 +277,28 @@ export default {
       // Use PDF export URL with product slug and locale
       const locale = this.$i18n.locale;
       return `/inventory-history/${this.$route.params.slug}/pdf?locale=${locale}`;
+    },
+    filteredStockIns() {
+      if (!this.allData || !this.allData.stockIns) {
+        return [];
+      }
+      if (this.selectedOperationType === 'all') {
+        return this.allData.stockIns;
+      }
+      return this.allData.stockIns.filter(
+        (item) => item.type === this.selectedOperationType
+      );
+    },
+    filteredStockOuts() {
+      if (!this.allData || !this.allData.stockOuts) {
+        return [];
+      }
+      if (this.selectedOperationType === 'all') {
+        return this.allData.stockOuts;
+      }
+      return this.allData.stockOuts.filter(
+        (item) => item.type === this.selectedOperationType
+      );
     },
   },
   created() {

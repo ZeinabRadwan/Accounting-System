@@ -403,4 +403,10 @@ export default {
 .form-control {
   background: #fff !important;
 }
+
+@media (max-width: 1300px) {
+  .info-box {
+    padding: 0;
+  }
+}
 </style>

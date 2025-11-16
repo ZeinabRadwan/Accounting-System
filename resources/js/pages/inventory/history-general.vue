@@ -124,11 +124,11 @@
                   <th>{{ $t("Notes") }}</th>
                 </thead>
                 <tbody>
-                  <tr v-show="items.length" v-for="(data, i) in items" :key="i">
+                  <tr v-show="paginatedItems.length" v-for="(data, i) in paginatedItems" :key="data.id || i">
                     <td>
-                      <span v-if="pagination && pagination.current_page > 1">
+                      <span v-if="currentPage > 1">
                         {{
-                          pagination.per_page * (pagination.current_page - 1) +
+                          perPage * (currentPage - 1) +
                           (i + 1)
                         }}
                       </span>
@@ -155,7 +155,7 @@
                     </td>
                     <td>{{ data.notes || '-' }}</td>
                   </tr>
-                  <tr v-show="!loading && !items.length">
+                  <tr v-show="!loading && !paginatedItems.length">
                     <td colspan="7">
                       <EmptyTable />
                     </td>
@@ -221,8 +221,7 @@ export default {
     prefix: "",
     currency: "",
     loading: false,
-    items: [], // Store current page items from server
-    pagination: null, // Store pagination info from server
+    originalHistoryList: [], // Keep untouched copy of all data
     currentPage: 1,
     startDate: "",
     endDate: "",
@@ -241,69 +240,96 @@ export default {
       const locale = this.$i18n.locale;
       return `/inventory-history/pdf?term=${this.query}&filterType=${this.filterType}&locale=${locale}`;
     },
+    
+    // Front-end filtering logic
+    filteredHistory() {
+      let list = this.originalHistoryList;
+      
+      // Operation type filter
+      if (this.filterType && this.filterType !== 'default') {
+        const operationTypeMap = {
+          'purchase': 'Purchase',
+          'invoice': 'Invoice',
+          'adjustment': 'Adjustment',
+          'purchase_return': 'Purchase Return',
+          'invoice_return': 'Invoice Return',
+          'stock_in': (item) => item.quantity_change > 0,
+          'stock_out': (item) => item.quantity_change < 0,
+        };
+        
+        const filterValue = operationTypeMap[this.filterType];
+        if (typeof filterValue === 'function') {
+          list = list.filter(filterValue);
+        } else if (filterValue) {
+          list = list.filter(item => item.operation_type === filterValue);
+        }
+      }
+      
+      // Product search filter
+      if (this.query && this.query.trim() !== '') {
+        const searchTerm = this.query.toLowerCase();
+        list = list.filter(item =>
+          item.product_name?.toLowerCase().includes(searchTerm) ||
+          item.product_code?.toLowerCase().includes(searchTerm)
+        );
+      }
+      
+      return list;
+    },
+    
+    // Front-end pagination
+    paginatedItems() {
+      const start = (this.currentPage - 1) * this.perPage;
+      const end = start + this.perPage;
+      return this.filteredHistory.slice(start, end);
+    },
+    
+    // Computed pagination object for pagination component
+    pagination() {
+      const total = this.filteredHistory.length;
+      const lastPage = Math.ceil(total / this.perPage) || 1;
+      return {
+        current_page: this.currentPage,
+        per_page: this.perPage,
+        total: total,
+        last_page: lastPage,
+        from: total > 0 ? (this.currentPage - 1) * this.perPage + 1 : 0,
+        to: Math.min(this.currentPage * this.perPage, total),
+      };
+    },
   },
   watch: {
-    // Watch for filter changes - reload data from server
+    // Reset to first page when filters change (front-end only, no API call)
     query() {
       this.currentPage = 1;
-      this.loadData();
     },
     filterType() {
       this.currentPage = 1;
-      this.loadData();
-    },
-    startDate() {
-      this.currentPage = 1;
-      this.loadData();
-    },
-    endDate() {
-      this.currentPage = 1;
-      this.loadData();
     },
     perPage() {
       this.currentPage = 1;
-      this.loadData();
     },
   },
   async created() {
-    await this.loadData();
+    await this.fetchAllHistory();
     this.prefix = this.appInfo.productPrefix;
     this.currency = this.appInfo.currency;
   },
   methods: {
-    // Load inventory history data from server with pagination
-    async loadData() {
+    // Fetch all inventory history data ONCE - no pagination, no search endpoint
+    async fetchAllHistory() {
       this.loading = true;
       try {
-        // Use search endpoint if there's a search term or filter, otherwise use default endpoint
-        const hasSearchOrFilter = (this.query && this.query.trim() !== '') || this.filterType !== 'default';
-        const endpoint = hasSearchOrFilter ? '/api/inventory-history/search' : '/api/inventory-history';
+        // Fetch all data from the base endpoint with a very large perPage to get all records
+        // The API defaults to perPage=10, so we request a large number to get everything
+        const response = await axios.get(`${window.location.origin}/api/inventory-history`, {
+          params: {
+            page: 1,
+            perPage: 999999, // Request all records in one call
+          }
+        });
         
-        // Ensure currentPage is a valid number
-        const page = parseInt(this.currentPage) || 1;
-        
-        // Build query string manually to ensure all params are included
-        // Always include page parameter
-        const queryParams = new URLSearchParams();
-        queryParams.append('page', page.toString());
-        queryParams.append('perPage', this.perPage.toString());
-        queryParams.append('term', this.query || '');
-        queryParams.append('filterType', this.filterType || 'default');
-        queryParams.append('startDate', this.startDate || '');
-        queryParams.append('endDate', this.endDate || '');
-        
-        const queryString = queryParams.toString();
-        const fullUrl = `${window.location.origin}${endpoint}?${queryString}`;
-        
-        console.log('Loading page:', page, 'Full URL:', fullUrl);
-        
-        const response = await axios.get(fullUrl);
-        
-        // Debug: log the response to see structure
-        console.log('API Response:', response.data);
-        
-        // Ensure we get the data array properly
-        // Handle both nested data.data and direct data array
+        // Handle response structure - API returns { data: [...], current_page, per_page, total, ... }
         let responseData = null;
         if (response.data && response.data.data) {
           responseData = response.data.data;
@@ -315,36 +341,12 @@ export default {
           responseData = [];
         }
         
-        this.items = Array.isArray(responseData) ? responseData : [];
-        console.log('Items loaded:', this.items.length);
-        
-        // Parse pagination info (convert strings to numbers if needed)
-        const data = response.data || {};
-        const serverPage = parseInt(data.current_page) || parseInt(this.currentPage) || 1;
-        
-        this.pagination = {
-          current_page: serverPage,
-          per_page: parseInt(data.per_page) || parseInt(this.perPage) || 10,
-          total: parseInt(data.total) || 0,
-          last_page: parseInt(data.last_page) || 1,
-          from: parseInt(data.from) || 0,
-          to: parseInt(data.to) || 0,
-        };
-        
-        // Update currentPage to match server response
-        this.currentPage = serverPage;
+        // Store all data in originalHistoryList (untouched copy)
+        this.originalHistoryList = Array.isArray(responseData) ? responseData : [];
         
       } catch (error) {
-        console.error('Error loading inventory history:', error);
-        this.items = [];
-        this.pagination = {
-          current_page: 1,
-          per_page: this.perPage,
-          total: 0,
-          last_page: 1,
-          from: 0,
-          to: 0,
-        };
+        console.error('Error fetching inventory history:', error);
+        this.originalHistoryList = [];
         // Show error message
         this.$toastr.e(this.$t('Failed to load inventory history data'));
       } finally {
@@ -352,22 +354,17 @@ export default {
       }
     },
     
-    // update per page count
+    // update per page count (front-end only, no API call)
     updatePerPager() {
       this.currentPage = 1;
-      this.loadData();
     },
     
-    // Pagination handler
+    // Pagination handler (front-end only)
     paginate() {
       // The pagination component updates pagination.current_page directly
       // Read the page from the pagination object
       const page = this.pagination ? this.pagination.current_page : this.currentPage;
-      console.log('Paginate called, pagination object:', this.pagination);
-      console.log('Page from pagination:', page);
       this.currentPage = parseInt(page) || 1;
-      console.log('Current page set to:', this.currentPage);
-      this.loadData();
       // Scroll to top of table
       this.$nextTick(() => {
         const table = document.querySelector('.inventory-history-table');
@@ -377,20 +374,18 @@ export default {
       });
     },
     
-    // Reset pagination
+    // Reset pagination (front-end only)
     resetPagination() {
       this.currentPage = 1;
-      this.loadData();
     },
     
-    // Reload after search - refresh data from server
-    async reload() {
+    // Reload after search - reset filters (front-end only, no API call)
+    reload() {
       this.query = "";
       this.filterType = "default";
       this.startDate = "";
       this.endDate = "";
       this.currentPage = 1;
-      await this.loadData();
     },
     
     // print table
@@ -398,14 +393,14 @@ export default {
       await this.$htmlToPaper("printMe");
     },
     
-    // Refresh table - reload data from server
+    // Refresh table - refetch all data from server
     async refreshTable() {
       this.query = "";
       this.filterType = "default";
       this.startDate = "";
       this.endDate = "";
       this.currentPage = 1;
-      await this.loadData();
+      await this.fetchAllHistory();
     },
     
     // Get operation type badge class

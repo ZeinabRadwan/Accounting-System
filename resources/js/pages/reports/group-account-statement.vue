@@ -1066,4 +1066,10 @@ export default {
   padding: 10px 20px !important;
   border: none !important;
 }
+
+@media (max-width: 1300px) {
+  .info-box {
+    padding: 0;
+  }
+}
 </style>
