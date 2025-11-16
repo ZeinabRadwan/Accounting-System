@@ -246,7 +246,7 @@ export default {
           // Server responded with error status
           console.error('Server error:', error.response.status, error.response.data)
           if (this.$toast) {
-            this.$toast.error(`Server error: ${error.response.status}`)
+            this.$toast.error(this.$t('Server error: {status}', { status: error.response.status }))
           }
         } else if (error.request) {
           // Request was made but no response received

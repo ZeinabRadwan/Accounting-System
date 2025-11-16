@@ -2,6 +2,7 @@
 
 return [
     'Row Number' => '#',
+    '#' => '#',
     'Product Code' => 'Code',
     'Product Name' => 'Product Name',
     'Quantity' => 'Qty',
@@ -58,17 +59,22 @@ return [
     'Total Due' => 'Total Due',
     'Client Name' => 'Client Name',
     'Client Details' => 'Client Details',
+    'Client Receivable Report' => 'Client Receivable Report',
     'Report Filters' => 'Report Filters',
     'No clients found for the selected period.' => 'No clients found for the selected period.',
+    'No client data found.' => 'No client data found.',
     'Total clients' => 'Total clients',
     
     // Purchase Summary
     'Purchase Summary' => 'Purchase Summary',
     'Total Suppliers' => 'Total Suppliers',
     'Total Purchases' => 'Total Purchases',
+    'Total Amount' => 'Total Amount',
     'Supplier Name' => 'Supplier Name',
     'Supplier Details' => 'Supplier Details',
+    'Supplier Payable Report' => 'Supplier Payable Report',
     'No suppliers found for the selected period.' => 'No suppliers found for the selected period.',
+    'No supplier data found.' => 'No supplier data found.',
     'Total suppliers' => 'Total suppliers',
     
     // Balance Sheet
@@ -81,6 +87,7 @@ return [
     'Total Equity' => 'Total Equity',
     'Account Name' => 'Account Name',
     'Balance' => 'Balance',
+    'No data available for the selected period' => 'No data available for the selected period',
     
     // Trial Balance
     'Trial Balance' => 'Trial Balance',
@@ -113,6 +120,7 @@ return [
     'Today Report' => 'Today Report',
     'Report Date' => 'Report Date',
     'Opening Stock Information' => 'Opening Stock Information',
+    'Opening Stock' => 'Opening Stock',
     'Sales & Purchase Information' => 'Sales & Purchase Information',
     'Expenses Information' => 'Expenses Information',
     'By purchase price' => 'By purchase price',
@@ -137,6 +145,7 @@ return [
     'Monthly Summary' => 'Monthly Summary',
     'Particulars' => 'Particulars',
     'Collections' => 'Collections',
+    'Expenses' => 'Expenses',
     'General Expenses' => 'General Expenses',
     'Payrolls' => 'Payrolls',
     'Loan Interest' => 'Loan Interest',

@@ -294,7 +294,7 @@
                     @else
                         <tr>
                             <td colspan="4" style="padding: 20px; text-align: center; color: {{ $colors['secondary'] ?? '#6b7280' }}; border: 1px solid #e5e7eb;">
-                                @lang('No data available for the selected period')
+                                @lang('print.No data available for the selected period')
                             </td>
                         </tr>
                     @endif

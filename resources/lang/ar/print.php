@@ -2,6 +2,7 @@
 
 return [
     'Row Number' => '#',
+    '#' => '#',
     'Product Code' => 'الرمز',
     'Product Name' => 'اسم الصنف',
     'Quantity' => 'الكمية',
@@ -58,17 +59,22 @@ return [
     'Total Due' => 'إجمالي المستحق',
     'Client Name' => 'اسم العميل',
     'Client Details' => 'تفاصيل العملاء',
+    'Client Receivable Report' => 'تقرير مستحقات العملاء',
     'Report Filters' => 'مرشحات التقرير',
     'No clients found for the selected period.' => 'لم يتم العثور على عملاء للفترة المحددة.',
+    'No client data found.' => 'لم يتم العثور على بيانات العملاء.',
     'Total clients' => 'إجمالي العملاء',
     
     // Purchase Summary
     'Purchase Summary' => 'ملخص المشتريات',
     'Total Suppliers' => 'إجمالي الموردين',
     'Total Purchases' => 'إجمالي المشتريات',
+    'Total Amount' => 'إجمالي المبلغ',
     'Supplier Name' => 'اسم المورد',
     'Supplier Details' => 'تفاصيل الموردين',
+    'Supplier Payable Report' => 'تقرير مستحقات الموردين',
     'No suppliers found for the selected period.' => 'لم يتم العثور على موردين للفترة المحددة.',
+    'No supplier data found.' => 'لم يتم العثور على بيانات الموردين.',
     'Total suppliers' => 'إجمالي الموردين',
     
     // Balance Sheet
@@ -81,6 +87,7 @@ return [
     'Total Equity' => 'إجمالي حقوق الملكية',
     'Account Name' => 'اسم الحساب',
     'Balance' => 'الرصيد',
+    'No data available for the selected period' => 'لا توجد بيانات متاحة للفترة المحددة',
     
     // Trial Balance
     'Trial Balance' => 'ميزان المراجعة',
@@ -113,6 +120,7 @@ return [
     'Today Report' => 'تقرير اليوم',
     'Report Date' => 'تاريخ التقرير',
     'Opening Stock Information' => 'معلومات المخزون الافتتاحي',
+    'Opening Stock' => 'المخزون الافتتاحي',
     'Sales & Purchase Information' => 'معلومات المبيعات والمشتريات',
     'Expenses Information' => 'معلومات المصروفات',
     'By purchase price' => 'بسعر الشراء',
@@ -137,6 +145,7 @@ return [
     'Monthly Summary' => 'الملخص الشهري',
     'Particulars' => 'التفاصيل',
     'Collections' => 'التحصيلات',
+    'Expenses' => 'المصروفات',
     'General Expenses' => 'المصروفات العامة',
     'Payrolls' => 'كشوف المرتبات',
     'Loan Interest' => 'فوائد القروض',
