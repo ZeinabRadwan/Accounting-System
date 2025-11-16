@@ -76,13 +76,12 @@
 
               <div class="row">
                 <div class="form-group col-md-4">
-                  <label for="mobileNumber">{{ $t("Contact Number") }}
-                    <span class="required">*</span></label>
-                  <vue-tel-input :class="{ 'is-invalid': form.errors.has('mobileNumber') }" v-model="form.mobileNumber"
-                    :inputOptions="{
-                      showDialCode: true,
-                    }"
-                    defaultCountry="sa"></vue-tel-input>
+                  <PhoneNumberInput
+                    v-model="form.mobileNumber"
+                    :label="$t('Contact Number')"
+                    :required="true"
+                    :default-country="'SA'"
+                  />
                   <has-error :form="form" field="mobileNumber" />
                 </div>
                 <div class="form-group col-md-4">
@@ -305,7 +304,7 @@
 import Form from "vform";
 import axios from "axios";
 import { mapGetters } from "vuex";
-import { VueTelInput } from "vue-tel-input";
+import PhoneNumberInput from "@/components/PhoneNumberInput.vue";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -313,7 +312,7 @@ export default {
     return { title: this.$t("Create Employee") };
   },
   components: {
-    VueTelInput,
+    PhoneNumberInput,
   },
   data: () => ({
     breadcrumbsCurrent: "Create Employee",
@@ -1064,7 +1063,6 @@ export default {
   },
 };
 </script>
-<style src="vue-tel-input/dist/vue-tel-input.css"></style>
 <style scoped>
 /* Space between action buttons */
 .btn-group.c-w-100 {
@@ -1235,59 +1233,6 @@ textarea.form-control {
   border-radius: 10px;
   padding: 10px;
   border: 1px solid #E5E7EB;
-}
-
-/* VueTelInput Styling */
-.vue-tel-input {
-  padding: 3px;
-  background: #fff !important;
-  border: 1px solid #E5E7EB;
-  border-radius: 10px;
-}
-
-.vue-tel-input:focus-within {
-  border-color: #33a0d9;
-  box-shadow: 0 0 0 0.2rem rgba(51, 160, 217, 0.25);
-}
-
-.vue-tel-input.is-invalid {
-  border-color: #DC3545 !important;
-}
-
-/* VueTelInput RTL Styling - Keep country code on the left */
-[dir="rtl"] .vue-tel-input .vti__input-container,
-html[dir="rtl"] .vue-tel-input .vti__input-container,
-body[dir="rtl"] .vue-tel-input .vti__input-container,
-.rtl .vue-tel-input .vti__input-container {
-  flex-direction: row-reverse !important;
-  direction: ltr !important;
-}
-
-[dir="rtl"] .vue-tel-input .vti__selection,
-html[dir="rtl"] .vue-tel-input .vti__selection,
-body[dir="rtl"] .vue-tel-input .vti__selection,
-.rtl .vue-tel-input .vti__selection {
-  order: 1 !important;
-  margin-right: 0 !important;
-  margin-left: 8px !important;
-}
-
-[dir="rtl"] .vue-tel-input .vti__input,
-html[dir="rtl"] .vue-tel-input .vti__input,
-body[dir="rtl"] .vue-tel-input .vti__input,
-.rtl .vue-tel-input .vti__input {
-  order: 2 !important;
-  text-align: left !important;
-  direction: ltr !important;
-}
-
-[dir="rtl"] .vue-tel-input .vti__dropdown,
-html[dir="rtl"] .vue-tel-input .vti__dropdown,
-body[dir="rtl"] .vue-tel-input .vti__dropdown,
-.rtl .vue-tel-input .vti__dropdown {
-  order: 1 !important;
-  margin-right: 0 !important;
-  margin-left: 8px !important;
 }
 
 /* Form Check Styling */

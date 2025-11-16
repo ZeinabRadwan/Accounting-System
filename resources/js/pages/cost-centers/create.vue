@@ -52,10 +52,10 @@
                   <has-error :form="form" field="code" />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="name">{{ $t('Name') }} <span class="required">*</span></label>
-                  <input id="name" v-model="form.name" type="text" class="form-control"
+                  <label for="name_ar">{{ $t('Name (Arabic)') }} <span class="required">*</span></label>
+                  <input id="name_ar" v-model="form.name" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('name') }" name="name"
-                    :placeholder="$t('Enter cost center name')" required />
+                    :placeholder="$t('Enter cost center name in Arabic')" required />
                   <has-error :form="form" field="name" />
                 </div>
               </div>
@@ -140,11 +140,29 @@ export default {
       await this.form
         .post('/api/cost-centers')
         .then(({ data }) => {
-          this.$toastr.s(this.$t('Cost center created successfully'))
+          const message = this.$t('Cost center created successfully')
+          if (this.$toastr && this.$toastr.s) {
+            this.$toastr.s(message)
+          } else if (window.toastr && window.toastr.s) {
+            window.toastr.s(message)
+          } else if (this.$toast && this.$toast.success) {
+            this.$toast.success('', message)
+          } else {
+            console.log('Success:', message)
+          }
           this.$router.push({ name: 'cost-centers.index' })
         })
         .catch(() => {
-          this.$toastr.e(this.$t('Failed to create cost center'))
+          const message = this.$t('Failed to create cost center')
+          if (this.$toastr && this.$toastr.e) {
+            this.$toastr.e(message)
+          } else if (window.toastr && window.toastr.e) {
+            window.toastr.e(message)
+          } else if (this.$toast && this.$toast.error) {
+            this.$toast.error('', message)
+          } else {
+            console.error('Error:', message)
+          }
         })
     }
   }
