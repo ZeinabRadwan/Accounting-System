@@ -889,4 +889,10 @@ export default {
   font-weight: 600;
   color: #495057;
 }
+
+@media (max-width: 1300px) {
+  .info-box {
+    padding: 0;
+  }
+}
 </style>

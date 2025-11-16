@@ -476,4 +476,10 @@ export default {
 .card-footer { background-color: white; border-top: 1px solid #CED4DA; padding: 0 1.25rem 0.625rem 1.25rem; border-radius: 0 0 20px 20px; }
 .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; z-index: 9999; }
 .btn-primary { background: #2AB930 !important; color: white !important; padding: 10px 20px !important; border: none !important; }
+
+@media (max-width: 1300px) {
+  .info-box {
+    padding: 0;
+  }
+}
 </style>

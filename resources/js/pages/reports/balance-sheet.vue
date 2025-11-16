@@ -735,4 +735,10 @@ export default {
 
 .red { color: #dc3545; }
 .font-weight-bold { font-weight: bold; }
+
+@media (max-width: 1300px) {
+  .info-box {
+    padding: 0;
+  }
+}
 </style>

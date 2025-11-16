@@ -997,4 +997,10 @@ export default {
     display: none !important;
   }
 }
+
+@media (max-width: 1300px) {
+  .info-box {
+    padding: 0;
+  }
+}
 </style>
