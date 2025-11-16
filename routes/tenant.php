@@ -867,6 +867,8 @@ Route::middleware([
     Route::get('/suppliers/pdf', [TableExportController::class, 'suppliersPDF'])->name('suppliers.pdf');
     Route::get('/suppliers/export/excel', [TableExportController::class, 'suppliersExportExcel'])->name('suppliers.export.excel');
 
+    Route::get('/branches/export/excel', [TableExportController::class, 'branchesExportExcel'])->name('branches.export.excel');
+
     Route::get('/departments/pdf', [TableExportController::class, 'departmentsPDF'])->name('departments.pdf');
     Route::get('/departments/export/excel', [TableExportController::class, 'departmentsExportExcel'])->name('departments.export.excel');
     Route::get('/employees/pdf', [TableExportController::class, 'employeesPDF'])->name('employees.pdf');
