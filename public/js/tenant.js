@@ -1905,889 +1905,6 @@ module.exports = "/images/vendor/flag-icons/flags/1x1/cx.svg?37843d5d0d2c289e8bf
 
 /***/ }),
 
-/***/ 7987:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ PhoneNumberInput)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/PhoneNumberInput.vue?vue&type=template&id=97a4fb60&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "phone-number-input"
-  }, [_vm.label ? _c('label', {
-    staticClass: "form-label"
-  }, [_vm._v("\n    " + _vm._s(_vm.label) + " \n    "), _vm.required ? _c('span', {
-    staticClass: "text-danger"
-  }, [_vm._v("*")]) : _c('span', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.$t('optional')) + ")")])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "phone-input-wrapper",
-    "class": {
-      'is-invalid': _vm.hasError,
-      'has-value': _vm.phoneNumber
-    }
-  }, [_c('div', {
-    staticClass: "country-selector",
-    on: {
-      "click": _vm.toggleCountryDropdown
-    }
-  }, [_c('span', {
-    staticClass: "country-flag"
-  }, [_vm._v(_vm._s(_vm.selectedCountry.flag))]), _vm._v(" "), _c('span', {
-    staticClass: "country-code"
-  }, [_vm._v("+" + _vm._s(_vm.selectedCountry.dialCode))]), _vm._v(" "), _c('i', {
-    staticClass: "fas fa-chevron-down dropdown-icon"
-  })]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.phoneNumber,
-      expression: "phoneNumber"
-    }],
-    staticClass: "phone-input",
-    "class": {
-      'is-invalid': _vm.hasError
-    },
-    attrs: {
-      "type": "tel",
-      "placeholder": _vm.placeholder || _vm.$t('enter_phone_number')
-    },
-    domProps: {
-      "value": _vm.phoneNumber
-    },
-    on: {
-      "input": [function ($event) {
-        if ($event.target.composing) return;
-        _vm.phoneNumber = $event.target.value;
-      }, _vm.onInput],
-      "blur": _vm.validatePhone,
-      "focus": _vm.onFocus
-    }
-  }), _vm._v(" "), _vm.showCountryDropdown ? _c('div', {
-    staticClass: "country-dropdown",
-    on: {
-      "click": function click($event) {
-        $event.stopPropagation();
-      }
-    }
-  }, [_c('div', {
-    staticClass: "country-search"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.countrySearch,
-      expression: "countrySearch"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      "type": "text",
-      "placeholder": _vm.$t('search_country')
-    },
-    domProps: {
-      "value": _vm.countrySearch
-    },
-    on: {
-      "input": [function ($event) {
-        if ($event.target.composing) return;
-        _vm.countrySearch = $event.target.value;
-      }, _vm.filterCountries]
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "country-list"
-  }, _vm._l(_vm.filteredCountries, function (country) {
-    return _c('div', {
-      key: country.code,
-      staticClass: "country-item",
-      "class": {
-        active: _vm.selectedCountry.code === country.code
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.selectCountry(country);
-        }
-      }
-    }, [_c('span', {
-      staticClass: "country-flag"
-    }, [_vm._v(_vm._s(country.flag))]), _vm._v(" "), _c('span', {
-      staticClass: "country-name"
-    }, [_vm._v(_vm._s(country.name))]), _vm._v(" "), _c('span', {
-      staticClass: "country-dial-code"
-    }, [_vm._v("+" + _vm._s(country.dialCode))])]);
-  }), 0)]) : _vm._e()]), _vm._v(" "), _vm.hasError && _vm.errorMessage ? _c('div', {
-    staticClass: "invalid-feedback d-block mt-2"
-  }, [_vm._v("\n    " + _vm._s(_vm.errorMessage) + "\n  ")]) : _vm._e(), _vm._v(" "), _vm.showFormatHint && _vm.phoneFormat ? _c('small', {
-    staticClass: "form-text text-muted mt-1"
-  }, [_vm._v("\n    " + _vm._s(_vm.$t('Format')) + ": " + _vm._s(_vm.phoneFormat) + "\n  ")]) : _vm._e()]);
-};
-var staticRenderFns = [];
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/PhoneNumberInput.vue?vue&type=script&lang=js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t["return"] || t["return"](); } finally { if (u) throw o; } } }; }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-/* harmony default export */ const PhoneNumberInputvue_type_script_lang_js = ({
-  name: 'PhoneNumberInput',
-  props: {
-    value: {
-      type: String,
-      "default": ''
-    },
-    label: {
-      type: String,
-      "default": ''
-    },
-    required: {
-      type: Boolean,
-      "default": false
-    },
-    placeholder: {
-      type: String,
-      "default": ''
-    },
-    defaultCountry: {
-      type: String,
-      "default": 'SA'
-    },
-    country: {
-      type: String,
-      "default": null
-    },
-    showFormatHint: {
-      type: Boolean,
-      "default": true
-    },
-    validateOnInput: {
-      type: Boolean,
-      "default": true
-    }
-  },
-  data: function data() {
-    return {
-      phoneNumber: '',
-      selectedCountryCode: this.country || this.defaultCountry,
-      showCountryDropdown: false,
-      countrySearch: '',
-      errorMessage: '',
-      phoneFormat: '',
-      countriesData: [{
-        code: 'SA',
-        nameKey: 'Saudi Arabia',
-        flag: '🇸🇦',
-        dialCode: '966'
-      }, {
-        code: 'AE',
-        nameKey: 'United Arab Emirates',
-        flag: '🇦🇪',
-        dialCode: '971'
-      }, {
-        code: 'EG',
-        nameKey: 'Egypt',
-        flag: '🇪🇬',
-        dialCode: '20'
-      }, {
-        code: 'JO',
-        nameKey: 'Jordan',
-        flag: '🇯🇴',
-        dialCode: '962'
-      }, {
-        code: 'LB',
-        nameKey: 'Lebanon',
-        flag: '🇱🇧',
-        dialCode: '961'
-      }, {
-        code: 'MA',
-        nameKey: 'Morocco',
-        flag: '🇲🇦',
-        dialCode: '212'
-      }, {
-        code: 'TN',
-        nameKey: 'Tunisia',
-        flag: '🇹🇳',
-        dialCode: '216'
-      }, {
-        code: 'DZ',
-        nameKey: 'Algeria',
-        flag: '🇩🇿',
-        dialCode: '213'
-      }, {
-        code: 'KW',
-        nameKey: 'Kuwait',
-        flag: '🇰🇼',
-        dialCode: '965'
-      }, {
-        code: 'QA',
-        nameKey: 'Qatar',
-        flag: '🇶🇦',
-        dialCode: '974'
-      }, {
-        code: 'BH',
-        nameKey: 'Bahrain',
-        flag: '🇧🇭',
-        dialCode: '973'
-      }, {
-        code: 'OM',
-        nameKey: 'Oman',
-        flag: '🇴🇲',
-        dialCode: '968'
-      }, {
-        code: 'YE',
-        nameKey: 'Yemen',
-        flag: '🇾🇪',
-        dialCode: '967'
-      }, {
-        code: 'IQ',
-        nameKey: 'Iraq',
-        flag: '🇮🇶',
-        dialCode: '964'
-      }, {
-        code: 'US',
-        nameKey: 'United States',
-        flag: '🇺🇸',
-        dialCode: '1'
-      }, {
-        code: 'GB',
-        nameKey: 'United Kingdom',
-        flag: '🇬🇧',
-        dialCode: '44'
-      }, {
-        code: 'CA',
-        nameKey: 'Canada',
-        flag: '🇨🇦',
-        dialCode: '1'
-      }, {
-        code: 'AU',
-        nameKey: 'Australia',
-        flag: '🇦🇺',
-        dialCode: '61'
-      }, {
-        code: 'DE',
-        nameKey: 'Germany',
-        flag: '🇩🇪',
-        dialCode: '49'
-      }, {
-        code: 'FR',
-        nameKey: 'France',
-        flag: '🇫🇷',
-        dialCode: '33'
-      }, {
-        code: 'ES',
-        nameKey: 'Spain',
-        flag: '🇪🇸',
-        dialCode: '34'
-      }, {
-        code: 'IT',
-        nameKey: 'Italy',
-        flag: '🇮🇹',
-        dialCode: '39'
-      }, {
-        code: 'NL',
-        nameKey: 'Netherlands',
-        flag: '🇳🇱',
-        dialCode: '31'
-      }, {
-        code: 'BE',
-        nameKey: 'Belgium',
-        flag: '🇧🇪',
-        dialCode: '32'
-      }, {
-        code: 'CH',
-        nameKey: 'Switzerland',
-        flag: '🇨🇭',
-        dialCode: '41'
-      }, {
-        code: 'AT',
-        nameKey: 'Austria',
-        flag: '🇦🇹',
-        dialCode: '43'
-      }, {
-        code: 'SE',
-        nameKey: 'Sweden',
-        flag: '🇸🇪',
-        dialCode: '46'
-      }, {
-        code: 'NO',
-        nameKey: 'Norway',
-        flag: '🇳🇴',
-        dialCode: '47'
-      }, {
-        code: 'DK',
-        nameKey: 'Denmark',
-        flag: '🇩🇰',
-        dialCode: '45'
-      }, {
-        code: 'FI',
-        nameKey: 'Finland',
-        flag: '🇫🇮',
-        dialCode: '358'
-      }, {
-        code: 'PL',
-        nameKey: 'Poland',
-        flag: '🇵🇱',
-        dialCode: '48'
-      }, {
-        code: 'IE',
-        nameKey: 'Ireland',
-        flag: '🇮🇪',
-        dialCode: '353'
-      }, {
-        code: 'PT',
-        nameKey: 'Portugal',
-        flag: '🇵🇹',
-        dialCode: '351'
-      }, {
-        code: 'GR',
-        nameKey: 'Greece',
-        flag: '🇬🇷',
-        dialCode: '30'
-      }, {
-        code: 'LU',
-        nameKey: 'Luxembourg',
-        flag: '🇱🇺',
-        dialCode: '352'
-      }, {
-        code: 'TR',
-        nameKey: 'Turkey',
-        flag: '🇹🇷',
-        dialCode: '90'
-      }, {
-        code: 'IN',
-        nameKey: 'India',
-        flag: '🇮🇳',
-        dialCode: '91'
-      }, {
-        code: 'CN',
-        nameKey: 'China',
-        flag: '🇨🇳',
-        dialCode: '86'
-      }, {
-        code: 'JP',
-        nameKey: 'Japan',
-        flag: '🇯🇵',
-        dialCode: '81'
-      }, {
-        code: 'KR',
-        nameKey: 'South Korea',
-        flag: '🇰🇷',
-        dialCode: '82'
-      }, {
-        code: 'BR',
-        nameKey: 'Brazil',
-        flag: '🇧🇷',
-        dialCode: '55'
-      }, {
-        code: 'MX',
-        nameKey: 'Mexico',
-        flag: '🇲🇽',
-        dialCode: '52'
-      }, {
-        code: 'AR',
-        nameKey: 'Argentina',
-        flag: '🇦🇷',
-        dialCode: '54'
-      }, {
-        code: 'ZA',
-        nameKey: 'South Africa',
-        flag: '🇿🇦',
-        dialCode: '27'
-      }, {
-        code: 'NG',
-        nameKey: 'Nigeria',
-        flag: '🇳🇬',
-        dialCode: '234'
-      }, {
-        code: 'KE',
-        nameKey: 'Kenya',
-        flag: '🇰🇪',
-        dialCode: '254'
-      }, {
-        code: 'PK',
-        nameKey: 'Pakistan',
-        flag: '🇵🇰',
-        dialCode: '92'
-      }, {
-        code: 'BD',
-        nameKey: 'Bangladesh',
-        flag: '🇧🇩',
-        dialCode: '880'
-      }, {
-        code: 'ID',
-        nameKey: 'Indonesia',
-        flag: '🇮🇩',
-        dialCode: '62'
-      }, {
-        code: 'PH',
-        nameKey: 'Philippines',
-        flag: '🇵🇭',
-        dialCode: '63'
-      }, {
-        code: 'VN',
-        nameKey: 'Vietnam',
-        flag: '🇻🇳',
-        dialCode: '84'
-      }, {
-        code: 'TH',
-        nameKey: 'Thailand',
-        flag: '🇹🇭',
-        dialCode: '66'
-      }, {
-        code: 'MY',
-        nameKey: 'Malaysia',
-        flag: '🇲🇾',
-        dialCode: '60'
-      }, {
-        code: 'SG',
-        nameKey: 'Singapore',
-        flag: '🇸🇬',
-        dialCode: '65'
-      }, {
-        code: 'NZ',
-        nameKey: 'New Zealand',
-        flag: '🇳🇿',
-        dialCode: '64'
-      }, {
-        code: 'RU',
-        nameKey: 'Russia',
-        flag: '🇷🇺',
-        dialCode: '7'
-      }, {
-        code: 'UA',
-        nameKey: 'Ukraine',
-        flag: '🇺🇦',
-        dialCode: '380'
-      }, {
-        code: 'CZ',
-        nameKey: 'Czech Republic',
-        flag: '🇨🇿',
-        dialCode: '420'
-      }, {
-        code: 'HU',
-        nameKey: 'Hungary',
-        flag: '🇭🇺',
-        dialCode: '36'
-      }, {
-        code: 'RO',
-        nameKey: 'Romania',
-        flag: '🇷🇴',
-        dialCode: '40'
-      }, {
-        code: 'BG',
-        nameKey: 'Bulgaria',
-        flag: '🇧🇬',
-        dialCode: '359'
-      }, {
-        code: 'HR',
-        nameKey: 'Croatia',
-        flag: '🇭🇷',
-        dialCode: '385'
-      }, {
-        code: 'SI',
-        nameKey: 'Slovenia',
-        flag: '🇸🇮',
-        dialCode: '386'
-      }, {
-        code: 'SK',
-        nameKey: 'Slovakia',
-        flag: '🇸🇰',
-        dialCode: '421'
-      }, {
-        code: 'EE',
-        nameKey: 'Estonia',
-        flag: '🇪🇪',
-        dialCode: '372'
-      }, {
-        code: 'LV',
-        nameKey: 'Latvia',
-        flag: '🇱🇻',
-        dialCode: '371'
-      }, {
-        code: 'LT',
-        nameKey: 'Lithuania',
-        flag: '🇱🇹',
-        dialCode: '370'
-      }, {
-        code: 'IS',
-        nameKey: 'Iceland',
-        flag: '🇮🇸',
-        dialCode: '354'
-      }]
-    };
-  },
-  computed: {
-    // Countries with translated names
-    countries: function countries() {
-      var _this = this;
-      return this.countriesData.map(function (country) {
-        return _objectSpread(_objectSpread({}, country), {}, {
-          name: _this.$t(country.nameKey) || country.nameKey
-        });
-      });
-    },
-    selectedCountry: function selectedCountry() {
-      var _this2 = this;
-      return this.countries.find(function (c) {
-        return c.code === _this2.selectedCountryCode;
-      }) || this.countries[0];
-    },
-    filteredCountries: function filteredCountries() {
-      if (!this.countrySearch) {
-        return this.countries;
-      }
-      var search = this.countrySearch.toLowerCase();
-      return this.countries.filter(function (country) {
-        return country.name.toLowerCase().includes(search) || country.dialCode.includes(search) || country.code.toLowerCase().includes(search) || country.nameKey && country.nameKey.toLowerCase().includes(search);
-      });
-    },
-    hasError: function hasError() {
-      return !!this.errorMessage;
-    },
-    phoneValidationRules: function phoneValidationRules() {
-      return {
-        'SA': {
-          pattern: /^5\d{8}$/,
-          format: '5XXXXXXXX (9 digits starting with 5)',
-          formatKey: 'phone_format_sa',
-          message: this.$t('Invalid Saudi phone number. Must be 9 digits starting with 5')
-        },
-        'AE': {
-          pattern: /^5\d{8}$/,
-          format: '5XXXXXXXX (9 digits starting with 5)',
-          formatKey: 'phone_format_ae',
-          message: this.$t('Invalid UAE phone number. Must be 9 digits starting with 5')
-        },
-        'EG': {
-          pattern: /^1\d{9}$/,
-          format: '1XXXXXXXXX (10 digits starting with 1)',
-          formatKey: 'phone_format_eg',
-          message: this.$t('Invalid Egyptian phone number. Must be 10 digits starting with 1')
-        },
-        'JO': {
-          pattern: /^7\d{8}$/,
-          format: '7XXXXXXXX (9 digits starting with 7)',
-          formatKey: 'phone_format_jo',
-          message: this.$t('Invalid Jordanian phone number. Must be 9 digits starting with 7')
-        },
-        'LB': {
-          pattern: /^[37]\d{7}$/,
-          format: '3XXXXXXX or 7XXXXXXX (8 digits)',
-          formatKey: 'phone_format_lb',
-          message: this.$t('Invalid Lebanese phone number. Must be 8 digits starting with 3 or 7')
-        },
-        'KW': {
-          pattern: /^[569]\d{7}$/,
-          format: '5XXXXXXX, 6XXXXXXX, or 9XXXXXXX (8 digits)',
-          formatKey: 'phone_format_kw',
-          message: this.$t('Invalid Kuwait phone number. Must be 8 digits starting with 5, 6, or 9')
-        },
-        'QA': {
-          pattern: /^[37]\d{7}$/,
-          format: '3XXXXXXX or 7XXXXXXX (8 digits)',
-          formatKey: 'phone_format_qa',
-          message: this.$t('Invalid Qatari phone number. Must be 8 digits starting with 3 or 7')
-        },
-        'BH': {
-          pattern: /^[367]\d{7}$/,
-          format: '3XXXXXXX, 6XXXXXXX, or 7XXXXXXX (8 digits)',
-          formatKey: 'phone_format_bh',
-          message: this.$t('Invalid Bahrain phone number. Must be 8 digits starting with 3, 6, or 7')
-        },
-        'OM': {
-          pattern: /^[79]\d{7}$/,
-          format: '7XXXXXXX or 9XXXXXXX (8 digits)',
-          formatKey: 'phone_format_om',
-          message: this.$t('Invalid Omani phone number. Must be 8 digits starting with 7 or 9')
-        },
-        'US': {
-          pattern: /^\d{10}$/,
-          format: 'XXXXXXXXXX (10 digits)',
-          formatKey: 'phone_format_us',
-          message: this.$t('Invalid US phone number. Must be 10 digits')
-        },
-        'GB': {
-          pattern: /^[1-9]\d{9,10}$/,
-          format: 'XXXXXXXXXX or XXXXXXXXXXX (10-11 digits)',
-          formatKey: 'phone_format_gb',
-          message: this.$t('Invalid UK phone number. Must be 10-11 digits')
-        },
-        'CA': {
-          pattern: /^\d{10}$/,
-          format: 'XXXXXXXXXX (10 digits)',
-          formatKey: 'phone_format_ca',
-          message: this.$t('Invalid Canadian phone number. Must be 10 digits')
-        },
-        'AU': {
-          pattern: /^[23478]\d{8}$/,
-          format: '2XXXXXXXX, 3XXXXXXXX, 4XXXXXXXX, 7XXXXXXXX, or 8XXXXXXXX (9 digits)',
-          formatKey: 'phone_format_au',
-          message: this.$t('Invalid Australian phone number. Must be 9 digits starting with 2, 3, 4, 7, or 8')
-        },
-        'DE': {
-          pattern: /^[1-9]\d{9,10}$/,
-          format: 'XXXXXXXXXX or XXXXXXXXXXX (10-11 digits)',
-          formatKey: 'phone_format_de',
-          message: this.$t('Invalid German phone number. Must be 10-11 digits')
-        },
-        'FR': {
-          pattern: /^[1-9]\d{8}$/,
-          format: 'XXXXXXXXX (9 digits)',
-          formatKey: 'phone_format_fr',
-          message: this.$t('Invalid French phone number. Must be 9 digits')
-        },
-        'ES': {
-          pattern: /^[6-9]\d{8}$/,
-          format: '6XXXXXXXX, 7XXXXXXXX, 8XXXXXXXX, or 9XXXXXXXX (9 digits)',
-          formatKey: 'phone_format_es',
-          message: this.$t('Invalid Spanish phone number. Must be 9 digits starting with 6, 7, 8, or 9')
-        },
-        'IT': {
-          pattern: /^3\d{9}$/,
-          format: '3XXXXXXXXX (10 digits starting with 3)',
-          formatKey: 'phone_format_it',
-          message: this.$t('Invalid Italian phone number. Must be 10 digits starting with 3')
-        },
-        'TR': {
-          pattern: /^5\d{9}$/,
-          format: '5XXXXXXXXX (10 digits starting with 5)',
-          formatKey: 'phone_format_tr',
-          message: this.$t('Invalid Turkish phone number. Must be 10 digits starting with 5')
-        },
-        'IN': {
-          pattern: /^[6-9]\d{9}$/,
-          format: '6XXXXXXXXX, 7XXXXXXXXX, 8XXXXXXXXX, or 9XXXXXXXXX (10 digits)',
-          formatKey: 'phone_format_in',
-          message: this.$t('Invalid Indian phone number. Must be 10 digits starting with 6, 7, 8, or 9')
-        }
-      };
-    }
-  },
-  watch: {
-    value: function value(newVal) {
-      if (newVal !== this.getFullPhoneNumber()) {
-        this.parsePhoneNumber(newVal);
-      }
-    },
-    country: function country(newCountry) {
-      if (newCountry && newCountry !== this.selectedCountryCode) {
-        this.selectedCountryCode = newCountry;
-        this.validatePhone();
-      }
-    },
-    selectedCountryCode: function selectedCountryCode() {
-      this.validatePhone();
-      this.updatePhoneFormat();
-    }
-  },
-  mounted: function mounted() {
-    var _this3 = this;
-    // Parse initial value if provided
-    if (this.value) {
-      this.parsePhoneNumber(this.value);
-    }
-
-    // Set initial country from prop
-    if (this.country) {
-      this.selectedCountryCode = this.country;
-    }
-
-    // Close dropdown when clicking outside
-    document.addEventListener('click', this.handleClickOutside);
-
-    // Update phone format
-    this.updatePhoneFormat();
-
-    // Validate phone number after component is mounted
-    this.$nextTick(function () {
-      _this3.validatePhone();
-    });
-  },
-  beforeDestroy: function beforeDestroy() {
-    document.removeEventListener('click', this.handleClickOutside);
-  },
-  methods: {
-    parsePhoneNumber: function parsePhoneNumber(phone) {
-      var _this4 = this;
-      // Try to extract country code and number
-      if (phone.startsWith('+')) {
-        var withoutPlus = phone.substring(1);
-        // Try to match country by dial code
-        var _iterator = _createForOfIteratorHelper(this.countries),
-          _step;
-        try {
-          for (_iterator.s(); !(_step = _iterator.n()).done;) {
-            var country = _step.value;
-            if (withoutPlus.startsWith(country.dialCode)) {
-              this.selectedCountryCode = country.code;
-              this.phoneNumber = withoutPlus.substring(country.dialCode.length);
-              // Validate after parsing
-              this.$nextTick(function () {
-                _this4.validatePhone();
-              });
-              return;
-            }
-          }
-        } catch (err) {
-          _iterator.e(err);
-        } finally {
-          _iterator.f();
-        }
-      }
-      // If no country code found, use as is
-      this.phoneNumber = phone.replace(/^\+/, '');
-      // Validate after parsing
-      this.$nextTick(function () {
-        _this4.validatePhone();
-      });
-    },
-    getFullPhoneNumber: function getFullPhoneNumber() {
-      if (!this.phoneNumber) return '';
-      return "+".concat(this.selectedCountry.dialCode).concat(this.phoneNumber);
-    },
-    onInput: function onInput() {
-      // Remove non-digit characters
-      this.phoneNumber = this.phoneNumber.replace(/\D/g, '');
-
-      // Emit the full phone number
-      this.$emit('input', this.getFullPhoneNumber());
-
-      // Validate while typing if enabled
-      if (this.validateOnInput) {
-        this.validatePhone();
-      }
-    },
-    onFocus: function onFocus() {
-      // Validate on focus
-      this.validatePhone();
-    },
-    validatePhone: function validatePhone() {
-      // Clear previous error
-      this.errorMessage = '';
-
-      // If not required and empty, it's valid
-      if (!this.required && !this.phoneNumber) {
-        this.$emit('validated', true);
-        return true;
-      }
-
-      // If required and empty, show error
-      if (this.required && !this.phoneNumber) {
-        this.errorMessage = this.$t('phone_required');
-        this.$emit('validated', false);
-        return false;
-      }
-
-      // Get validation rule for selected country
-      var rule = this.phoneValidationRules[this.selectedCountryCode];
-
-      // If no rule exists for this country, allow any format
-      if (!rule) {
-        this.$emit('validated', true);
-        return true;
-      }
-
-      // Test against pattern
-      if (rule.pattern.test(this.phoneNumber)) {
-        this.errorMessage = '';
-        this.$emit('validated', true);
-        return true;
-      } else {
-        this.errorMessage = rule.message;
-        this.$emit('validated', false);
-        return false;
-      }
-    },
-    updatePhoneFormat: function updatePhoneFormat() {
-      var rule = this.phoneValidationRules[this.selectedCountryCode];
-      if (rule && rule.formatKey) {
-        this.phoneFormat = this.$t(rule.formatKey) || rule.format;
-      } else {
-        this.phoneFormat = rule ? rule.format : '';
-      }
-    },
-    toggleCountryDropdown: function toggleCountryDropdown() {
-      this.showCountryDropdown = !this.showCountryDropdown;
-      if (this.showCountryDropdown) {
-        this.countrySearch = '';
-      }
-    },
-    selectCountry: function selectCountry(country) {
-      this.selectedCountryCode = country.code;
-      this.showCountryDropdown = false;
-      this.countrySearch = '';
-      this.validatePhone();
-      this.$emit('country-changed', country.code);
-    },
-    filterCountries: function filterCountries() {
-      // Filtering is handled by computed property
-    },
-    handleClickOutside: function handleClickOutside(event) {
-      if (!this.$el.contains(event.target)) {
-        this.showCountryDropdown = false;
-      }
-    }
-  }
-});
-;// ./resources/js/components/PhoneNumberInput.vue?vue&type=script&lang=js
- /* harmony default export */ const components_PhoneNumberInputvue_type_script_lang_js = (PhoneNumberInputvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/PhoneNumberInput.vue?vue&type=style&index=0&id=97a4fb60&prod&scoped=true&lang=css
-var PhoneNumberInputvue_type_style_index_0_id_97a4fb60_prod_scoped_true_lang_css = __webpack_require__(43280);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/PhoneNumberInput.vue?vue&type=style&index=0&id=97a4fb60&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(PhoneNumberInputvue_type_style_index_0_id_97a4fb60_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const components_PhoneNumberInputvue_type_style_index_0_id_97a4fb60_prod_scoped_true_lang_css = (PhoneNumberInputvue_type_style_index_0_id_97a4fb60_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/PhoneNumberInput.vue?vue&type=style&index=0&id=97a4fb60&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/PhoneNumberInput.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  components_PhoneNumberInputvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "97a4fb60",
-  null
-  
-)
-
-/* harmony default export */ const PhoneNumberInput = (component.exports);
-
-/***/ }),
-
 /***/ 8088:
 /***/ ((module) => {
 
@@ -7539,26 +6656,6 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/dz.svg?0f0875827805c6719ab
 /***/ ((module) => {
 
 module.exports = "/images/vendor/flag-icons/flags/4x3/tg.svg?ae395581590b44c50c4019a8e8ba55fc";
-
-/***/ }),
-
-/***/ 22783:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".search-area input{border-radius:5px}[dir=ltr] .search-area input,[dir=rtl] .search-area input{padding:5px 35px}[dir=ltr] .search-icon{left:90%;position:absolute;top:25%}[dir=rtl] .search-icon{position:absolute;right:90%;top:25%}[dir=ltr] .search-clear{position:absolute!important;right:5%!important;top:25%!important}[dir=rtl] .search-clear{left:5%!important;position:absolute!important;top:25%!important}[dir=rtl] .search-area .search-clear{left:8%!important;right:auto!important}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
 
 /***/ }),
 
@@ -22568,12 +21665,12 @@ var map = {
 		5694
 	],
 	"./cashbook/balances": [
-		86543,
-		6543
+		79872,
+		9872
 	],
 	"./cashbook/balances/": [
-		86543,
-		6543
+		79872,
+		9872
 	],
 	"./cashbook/balances/create": [
 		58646,
@@ -22592,12 +21689,12 @@ var map = {
 		664
 	],
 	"./cashbook/balances/index": [
-		86543,
-		6543
+		79872,
+		9872
 	],
 	"./cashbook/balances/index.vue": [
-		86543,
-		6543
+		79872,
+		9872
 	],
 	"./cashbook/chart-of-accounts": [
 		98342,
@@ -23408,20 +22505,20 @@ var map = {
 		729
 	],
 	"./cost-centers/create": [
-		88905,
-		8905
+		7926,
+		7926
 	],
 	"./cost-centers/create.vue": [
-		88905,
-		8905
+		7926,
+		7926
 	],
 	"./cost-centers/edit": [
-		3086,
-		3086
+		94229,
+		4229
 	],
 	"./cost-centers/edit.vue": [
-		3086,
-		3086
+		94229,
+		4229
 	],
 	"./cost-centers/index": [
 		40729,
@@ -23496,12 +22593,12 @@ var map = {
 		2945
 	],
 	"./employees/create": [
-		29942,
-		9942
+		60657,
+		657
 	],
 	"./employees/create.vue": [
-		29942,
-		9942
+		60657,
+		657
 	],
 	"./employees/departments": [
 		80988,
@@ -23608,12 +22705,12 @@ var map = {
 		1321
 	],
 	"./expenses": [
-		82311,
-		2311
+		93084,
+		3084
 	],
 	"./expenses/": [
-		82311,
-		2311
+		93084,
+		3084
 	],
 	"./expenses/categories": [
 		89541,
@@ -23648,12 +22745,12 @@ var map = {
 		9541
 	],
 	"./expenses/create": [
-		93355,
-		3355
+		17290,
+		7290
 	],
 	"./expenses/create.vue": [
-		93355,
-		3355
+		17290,
+		7290
 	],
 	"./expenses/edit": [
 		66613,
@@ -23664,12 +22761,12 @@ var map = {
 		6613
 	],
 	"./expenses/index": [
-		82311,
-		2311
+		93084,
+		3084
 	],
 	"./expenses/index.vue": [
-		82311,
-		2311
+		93084,
+		3084
 	],
 	"./expenses/show": [
 		48826,
@@ -23776,12 +22873,12 @@ var map = {
 		377
 	],
 	"./inventory/count": [
-		52961,
-		2961
+		66700,
+		6700
 	],
 	"./inventory/count.vue": [
-		52961,
-		2961
+		66700,
+		6700
 	],
 	"./inventory/history": [
 		85242,
@@ -23808,12 +22905,12 @@ var map = {
 		1685
 	],
 	"./journal-entries": [
-		83951,
-		3951
+		87860,
+		7860
 	],
 	"./journal-entries/": [
-		83951,
-		3951
+		87860,
+		7860
 	],
 	"./journal-entries/create": [
 		12416,
@@ -23832,20 +22929,20 @@ var map = {
 		3756
 	],
 	"./journal-entries/index": [
-		83951,
-		3951
+		87860,
+		7860
 	],
 	"./journal-entries/index.vue": [
-		83951,
-		3951
+		87860,
+		7860
 	],
 	"./journal-entries/show": [
-		39947,
-		9947
+		19868,
+		9868
 	],
 	"./journal-entries/show.vue": [
-		39947,
-		9947
+		19868,
+		9868
 	],
 	"./loans": [
 		55950,
@@ -24360,12 +23457,12 @@ var map = {
 		3148
 	],
 	"./purchases/create": [
-		70199,
-		199
+		1564,
+		1564
 	],
 	"./purchases/create.vue": [
-		70199,
-		199
+		1564,
+		1564
 	],
 	"./purchases/edit": [
 		36594,
@@ -24552,20 +23649,20 @@ var map = {
 		4741
 	],
 	"./reports/trial-balance": [
-		49002,
-		9002
+		53387,
+		3387
 	],
 	"./reports/trial-balance.vue": [
-		49002,
-		9002
+		53387,
+		3387
 	],
 	"./reports/vat-report": [
-		76331,
-		6331
+		52792,
+		2792
 	],
 	"./reports/vat-report.vue": [
-		76331,
-		6331
+		52792,
+		2792
 	],
 	"./sales/invoices": [
 		83043,
@@ -25088,12 +24185,12 @@ var map = {
 		3328
 	],
 	"./suppliers/create": [
-		9202,
-		9202
+		67193,
+		7193
 	],
 	"./suppliers/create.vue": [
-		9202,
-		9202
+		67193,
+		7193
 	],
 	"./suppliers/edit": [
 		44907,
@@ -29293,6 +28390,26 @@ module.exports = "/images/vendor/flag-icons/flags/1x1/aq.svg?0aff28faa2b3abc8e49
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, "[dir=rtl],[dir=rtl] body{direction:rtl;text-align:right}[dir=rtl] .content-wrapper,[dir=rtl] .wrapper{direction:rtl}[dir=rtl] .main-sidebar{left:auto;right:0}[dir=rtl] .main-sidebar .sidebar{direction:rtl}[dir=rtl] .main-sidebar .nav-treeview{padding-left:0;padding-right:1rem}[dir=rtl] .main-sidebar .nav-item .nav-link{text-align:right}[dir=rtl] .main-sidebar .nav-item .nav-link i,[dir=rtl] .main-sidebar .nav-item .nav-link p{margin-left:.5rem;margin-right:0}[dir=rtl] .main-header .navbar-nav{margin-right:0}[dir=rtl] .main-header .navbar-nav .nav-link{padding-left:.75rem;padding-right:.75rem}[dir=rtl] .main-header .navbar-nav .dropdown-menu{left:auto;right:0;text-align:right}[dir=rtl] .form-control,[dir=rtl] .form-group label{text-align:right}[dir=rtl] .form-group input[type=file]{text-align:left}[dir=rtl] .input-group-text{border-radius:.25rem 0 0 .25rem}[dir=rtl] .vs__dropdown-toggle{border-bottom-left-radius:0;border-top-left-radius:0}[dir=rtl] .input-group>.form-control:not(:last-child){border-radius:0 .25rem .25rem 0}[dir=rtl] .btn-group>.btn:last-child:not(:first-child),[dir=rtl] .input-group>.form-control:not(:first-child){border-radius:.25rem 0 0 .25rem}[dir=rtl] .btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle){border-radius:0 .25rem .25rem 0}[dir=rtl] .table td,[dir=rtl] .table th{text-align:right}[dir=rtl] .table .text-left{text-align:right!important}[dir=rtl] .table .text-right{text-align:left!important}[dir=rtl] .card-header{align-items:center;flex-direction:row-reverse;text-align:right}.card-tools{flex-shrink:0;min-width:150px}.card-tools select{min-width:140px;overflow:visible;padding-right:25px;text-overflow:unset;white-space:nowrap;width:auto}.form-control{height:auto!important}[dir=rtl] .card-title{float:none;margin:0;order:2}[dir=rtl] .card-tools{flex-shrink:0;margin-left:0;margin-right:auto;min-width:150px;order:1}[dir=rtl] .card-tools select{padding-left:25px;padding-right:8px}[dir=rtl] .card-body{text-align:right}[dir=rtl] .modal-header .close{margin:-1rem auto -1rem -1rem}[dir=rtl] .modal-footer{text-align:left}[dir=rtl] .alert,[dir=rtl] .dropdown-item,[dir=rtl] .dropdown-menu{text-align:right}[dir=rtl] .alert-dismissible .close{left:0;right:auto}[dir=rtl] .badge{margin-left:.25rem;margin-right:0}[dir=rtl] .pagination .page-item:first-child .page-link{border-radius:0 .25rem .25rem 0}[dir=rtl] .pagination .page-item:last-child .page-link{border-radius:.25rem 0 0 .25rem}[dir=rtl] .pagination{flex-direction:row-reverse}[dir=rtl] .pagination.float-right{float:left!important}[dir=rtl] .pagination .fa-angle-double-left,[dir=rtl] .pagination .fa-angle-double-right,[dir=rtl] .pagination .fa-angle-left,[dir=rtl] .pagination .fa-angle-right{transform:rotate(180deg)}[dir=rtl] .breadcrumb{direction:rtl;float:left!important;text-align:left}[dir=rtl] .breadcrumb-item{float:right}[dir=rtl] .breadcrumb-item+.breadcrumb-item:before{content:\"<\";float:right;padding-left:.5rem;padding-right:0}[dir=rtl] .breadcrumb-item+.breadcrumb-item{padding-left:0;padding-right:.5rem}[dir=rtl] .breadcrumb-item:first-child{padding-right:0}[dir=rtl] .breadcrumb-item:last-child{padding-left:0}[dir=rtl] .breadcrumbs-style .row{direction:rtl}[dir=rtl] .breadcrumbs-style h3{text-align:right}[dir=rtl] .breadcrumbs-style .col-sm-6:last-child{text-align:left}[dir=rtl] .breadcrumbs-style .col-sm-6:first-child{text-align:right}@media (max-width:575.98px){[dir=rtl] .breadcrumbs-style .col-sm-6:first-child,[dir=rtl] .breadcrumbs-style .col-sm-6:last-child{text-align:center}[dir=rtl] .breadcrumb{float:none!important;margin-top:1rem;text-align:center}[dir=rtl] .breadcrumb-item{display:inline-block;float:none}}[dir=rtl] .list-group-item,[dir=rtl] .nav-tabs .nav-link{text-align:right}[dir=rtl] .progress-bar{float:right}[dir=rtl] .popover,[dir=rtl] .tooltip .tooltip-inner{text-align:right}[dir=rtl] .select2-container--default .select2-selection--single .select2-selection__rendered{padding-left:20px;padding-right:6px}[dir=rtl] .select2-container--default .select2-selection--single .select2-selection__arrow{left:1px;right:auto}[dir=rtl] .daterangepicker{direction:rtl;font-family:inherit;text-align:right}[dir=rtl] .daterangepicker .calendars-container{flex-direction:row-reverse}[dir=rtl] .daterangepicker .drp-calendar.left{border-left:none;border-right:1px solid #ddd;clear:right;margin-left:0;margin-right:0}[dir=rtl] .daterangepicker .drp-calendar.left .calendar-table{border-bottom-left-radius:0;border-bottom-right-radius:4px;border-top-left-radius:0;border-top-right-radius:4px}[dir=rtl] .daterangepicker .drp-calendar.right{border-left:1px solid #ddd;border-right:none;margin-left:0;margin-right:0}[dir=rtl] .daterangepicker .drp-calendar.right .calendar-table{border-bottom-left-radius:4px;border-bottom-right-radius:0;border-top-left-radius:4px;border-top-right-radius:0}[dir=rtl] .daterangepicker .calendar-table{direction:rtl}[dir=rtl] .daterangepicker .calendar-table td,[dir=rtl] .daterangepicker .calendar-table th,[dir=rtl] .daterangepicker .monthselect,[dir=rtl] .daterangepicker .yearselect,[dir=rtl] .daterangepicker th.month{text-align:center}[dir=rtl] .daterangepicker .calendar-table .prev{float:right}[dir=rtl] .daterangepicker .calendar-table .next{float:left}[dir=rtl] .daterangepicker .calendar-table .prev span{transform:rotate(-45deg)}[dir=rtl] .daterangepicker .calendar-table .next span{transform:rotate(135deg)}[dir=rtl] .daterangepicker td.start-date{border-radius:0 4px 4px 0}[dir=rtl] .daterangepicker td.end-date{border-radius:4px 0 0 4px}[dir=rtl] .daterangepicker td.start-date.end-date{border-radius:4px}[dir=rtl] .daterangepicker .ranges{border-left:1px solid #ddd;border-right:none;text-align:right}[dir=rtl] .daterangepicker .ranges ul{text-align:right}[dir=rtl] .daterangepicker .ranges li{padding:8px 12px 8px 8px;text-align:right}[dir=rtl] .daterangepicker .drp-buttons{border-top:1px solid #ddd;text-align:left}[dir=rtl] .daterangepicker .drp-buttons .btn{margin-left:0;margin-right:8px}[dir=rtl] .daterangepicker .drp-buttons .btn:last-child{margin-right:0}[dir=rtl] .daterangepicker .drp-selected{padding-left:8px;padding-right:0}[dir=rtl] .daterangepicker .calendar-time,[dir=rtl] .daterangepicker .calendar-time select{text-align:center}@media (max-width:564px){[dir=rtl] .daterangepicker .calendars-container{flex-direction:column}[dir=rtl] .daterangepicker .drp-calendar.left{border-bottom:1px solid #ddd;border-radius:4px 4px 0 0;border-right:none}[dir=rtl] .daterangepicker .drp-calendar.right{border-left:none;border-radius:0 0 4px 4px;border-top:none}[dir=rtl] .daterangepicker .ranges{border-left:none;border-top:1px solid #ddd;width:100%}}[dir=rtl] .daterangepicker.show-weeknumbers .drp-calendar .calendar-table td.week{text-align:center}[dir=rtl] .daterangepicker.single .drp-calendar.left{border:none;border-radius:4px}[dir=rtl] .daterangepicker.drop-up.opensleft:before{right:9px}[dir=rtl] .daterangepicker.drop-up.opensleft:after{right:10px}[dir=rtl] .daterangepicker.drop-up.opensright:before{left:9px}[dir=rtl] .daterangepicker.drop-up.opensright:after{left:10px}[dir=rtl] .daterangepicker,[dir=rtl] .daterangepicker.ltr,[dir=rtl] .daterangepicker.rtl{direction:rtl!important}[dir=rtl] .swal2-popup{direction:rtl;text-align:right}[dir=rtl] .swal2-close{left:0;right:auto}[dir=rtl] .v-select .vs__dropdown-toggle{direction:rtl;text-align:right}[dir=rtl] .v-select .vs__selected-options{direction:rtl}[dir=rtl] .v-select .vs__selected{text-align:right}[dir=rtl] .v-select .vs__search{direction:rtl;text-align:right}[dir=rtl] .v-select .vs__search::-moz-placeholder{text-align:right}[dir=rtl] .v-select .vs__search::placeholder{text-align:right}[dir=rtl] .v-select .vs__actions{left:0;padding:0 6px 0 3px;position:absolute;right:auto;top:50%;transform:translateY(-50%)}[dir=rtl] .v-select .vs__clear,[dir=rtl] .v-select .vs__open-indicator{left:0;position:relative;right:auto}[dir=rtl] .v-select .vs__clear{margin-left:0;margin-right:6px}[dir=rtl] .v-select .vs__deselect{left:0;margin-left:0;margin-right:2px;position:relative;right:auto}[dir=rtl] .v-select .vs__dropdown-menu{direction:rtl;text-align:right}[dir=rtl] .v-select .vs__dropdown-option{text-align:right}[dir=rtl] .rtl-select .vs__dropdown-toggle{padding-left:30px;padding-right:8px;position:relative}[dir=rtl] .rtl-select .vs__selected-options{margin-left:0;margin-right:0;padding-left:30px;padding-right:8px}[dir=rtl] .rtl-select .vs__search{margin-left:0;margin-right:0;padding-left:0;padding-right:0}[dir=rtl] .rtl-select .vs__actions{align-items:center;display:flex;left:4px;position:absolute;right:auto;top:50%;transform:translateY(-50%)}[dir=rtl] .rtl-select .vs__clear,[dir=rtl] .rtl-select .vs__open-indicator{left:auto;position:static;right:auto}[dir=rtl] .rtl-select .vs__clear{margin-left:4px;margin-right:0}[dir=rtl] .rtl-text-right{text-align:right!important}[dir=rtl] .rtl-text-left{text-align:left!important}[dir=rtl] .rtl-float-right{float:right!important}[dir=rtl] .rtl-float-left{float:left!important}[dir=rtl] .rtl-mr-auto{margin-right:auto!important}[dir=rtl] .rtl-ml-auto{margin-left:auto!important}[dir=rtl] .rtl-pr-0{padding-right:0!important}[dir=rtl] .rtl-pl-0{padding-left:0!important}[dir=rtl] .me-0,[dir=rtl] .ml-0,[dir=rtl] .mr-0,[dir=rtl] .ms-0{margin-left:0!important;margin-right:0!important}[dir=rtl] .ml-1{margin-left:0!important;margin-right:.25rem!important}[dir=rtl] .mr-1{margin-left:.25rem!important;margin-right:0!important}[dir=rtl] .ms-1{margin-left:0!important;margin-right:.25rem!important}[dir=rtl] .me-1{margin-left:.25rem!important;margin-right:0!important}[dir=rtl] .ml-2{margin-left:0!important;margin-right:.5rem!important}[dir=rtl] .mr-2{margin-left:.5rem!important;margin-right:0!important}[dir=rtl] .ms-2{margin-left:0!important;margin-right:.5rem!important}[dir=rtl] .me-2{margin-left:.5rem!important;margin-right:0!important}[dir=rtl] .ml-3{margin-left:0!important;margin-right:1rem!important}[dir=rtl] .mr-3{margin-left:1rem!important;margin-right:0!important}[dir=rtl] .ms-3{margin-left:0!important;margin-right:1rem!important}[dir=rtl] .me-3{margin-left:1rem!important;margin-right:0!important}[dir=rtl] .ml-4{margin-left:0!important;margin-right:1.5rem!important}[dir=rtl] .mr-4{margin-left:1.5rem!important;margin-right:0!important}[dir=rtl] .ms-4{margin-left:0!important;margin-right:1.5rem!important}[dir=rtl] .me-4{margin-left:1.5rem!important;margin-right:0!important}[dir=rtl] .ml-5{margin-left:0!important;margin-right:3rem!important}[dir=rtl] .mr-5{margin-left:3rem!important;margin-right:0!important}[dir=rtl] .ms-5{margin-left:0!important;margin-right:3rem!important}[dir=rtl] .me-5{margin-left:3rem!important;margin-right:0!important}[dir=rtl] .ml-n1{margin-left:0!important;margin-right:-.25rem!important}[dir=rtl] .mr-n1{margin-left:-.25rem!important;margin-right:0!important}[dir=rtl] .ms-n1{margin-left:0!important;margin-right:-.25rem!important}[dir=rtl] .me-n1{margin-left:-.25rem!important;margin-right:0!important}[dir=rtl] .ml-n2{margin-left:0!important;margin-right:-.5rem!important}[dir=rtl] .mr-n2{margin-left:-.5rem!important;margin-right:0!important}[dir=rtl] .ms-n2{margin-left:0!important;margin-right:-.5rem!important}[dir=rtl] .me-n2{margin-left:-.5rem!important;margin-right:0!important}[dir=rtl] .ml-n3{margin-left:0!important;margin-right:-1rem!important}[dir=rtl] .mr-n3{margin-left:-1rem!important;margin-right:0!important}[dir=rtl] .ms-n3{margin-left:0!important;margin-right:-1rem!important}[dir=rtl] .me-n3{margin-left:-1rem!important;margin-right:0!important}[dir=rtl] .ml-n4{margin-left:0!important;margin-right:-1.5rem!important}[dir=rtl] .mr-n4{margin-left:-1.5rem!important;margin-right:0!important}[dir=rtl] .ms-n4{margin-left:0!important;margin-right:-1.5rem!important}[dir=rtl] .me-n4{margin-left:-1.5rem!important;margin-right:0!important}[dir=rtl] .ml-n5{margin-left:0!important;margin-right:-3rem!important}[dir=rtl] .mr-n5{margin-left:-3rem!important;margin-right:0!important}[dir=rtl] .ms-n5{margin-left:0!important;margin-right:-3rem!important}[dir=rtl] .me-n5{margin-left:-3rem!important;margin-right:0!important}@media (min-width:576px){[dir=rtl] .me-sm-0,[dir=rtl] .ml-sm-0,[dir=rtl] .mr-sm-0,[dir=rtl] .ms-sm-0{margin-left:0!important;margin-right:0!important}[dir=rtl] .ml-sm-1{margin-left:0!important;margin-right:.25rem!important}[dir=rtl] .mr-sm-1{margin-left:.25rem!important;margin-right:0!important}[dir=rtl] .ms-sm-1{margin-left:0!important;margin-right:.25rem!important}[dir=rtl] .me-sm-1{margin-left:.25rem!important;margin-right:0!important}[dir=rtl] .ml-sm-2{margin-left:0!important;margin-right:.5rem!important}[dir=rtl] .mr-sm-2{margin-left:.5rem!important;margin-right:0!important}[dir=rtl] .ms-sm-2{margin-left:0!important;margin-right:.5rem!important}[dir=rtl] .me-sm-2{margin-left:.5rem!important;margin-right:0!important}[dir=rtl] .ml-sm-3{margin-left:0!important;margin-right:1rem!important}[dir=rtl] .mr-sm-3{margin-left:1rem!important;margin-right:0!important}[dir=rtl] .ms-sm-3{margin-left:0!important;margin-right:1rem!important}[dir=rtl] .me-sm-3{margin-left:1rem!important;margin-right:0!important}[dir=rtl] .ml-sm-4{margin-left:0!important;margin-right:1.5rem!important}[dir=rtl] .mr-sm-4{margin-left:1.5rem!important;margin-right:0!important}[dir=rtl] .ms-sm-4{margin-left:0!important;margin-right:1.5rem!important}[dir=rtl] .me-sm-4{margin-left:1.5rem!important;margin-right:0!important}[dir=rtl] .ml-sm-5{margin-left:0!important;margin-right:3rem!important}[dir=rtl] .mr-sm-5{margin-left:3rem!important;margin-right:0!important}[dir=rtl] .ms-sm-5{margin-left:0!important;margin-right:3rem!important}[dir=rtl] .me-sm-5{margin-left:3rem!important;margin-right:0!important}}@media (min-width:768px){[dir=rtl] .me-md-0,[dir=rtl] .ml-md-0,[dir=rtl] .mr-md-0,[dir=rtl] .ms-md-0{margin-left:0!important;margin-right:0!important}[dir=rtl] .ml-md-1{margin-left:0!important;margin-right:.25rem!important}[dir=rtl] .mr-md-1{margin-left:.25rem!important;margin-right:0!important}[dir=rtl] .ms-md-1{margin-left:0!important;margin-right:.25rem!important}[dir=rtl] .me-md-1{margin-left:.25rem!important;margin-right:0!important}[dir=rtl] .ml-md-2{margin-left:0!important;margin-right:.5rem!important}[dir=rtl] .mr-md-2{margin-left:.5rem!important;margin-right:0!important}[dir=rtl] .ms-md-2{margin-left:0!important;margin-right:.5rem!important}[dir=rtl] .me-md-2{margin-left:.5rem!important;margin-right:0!important}[dir=rtl] .ml-md-3{margin-left:0!important;margin-right:1rem!important}[dir=rtl] .mr-md-3{margin-left:1rem!important;margin-right:0!important}[dir=rtl] .ms-md-3{margin-left:0!important;margin-right:1rem!important}[dir=rtl] .me-md-3{margin-left:1rem!important;margin-right:0!important}[dir=rtl] .ml-md-4{margin-left:0!important;margin-right:1.5rem!important}[dir=rtl] .mr-md-4{margin-left:1.5rem!important;margin-right:0!important}[dir=rtl] .ms-md-4{margin-left:0!important;margin-right:1.5rem!important}[dir=rtl] .me-md-4{margin-left:1.5rem!important;margin-right:0!important}[dir=rtl] .ml-md-5{margin-left:0!important;margin-right:3rem!important}[dir=rtl] .mr-md-5{margin-left:3rem!important;margin-right:0!important}[dir=rtl] .ms-md-5{margin-left:0!important;margin-right:3rem!important}[dir=rtl] .me-md-5{margin-left:3rem!important;margin-right:0!important}}@media (min-width:992px){[dir=rtl] .me-lg-0,[dir=rtl] .ml-lg-0,[dir=rtl] .mr-lg-0,[dir=rtl] .ms-lg-0{margin-left:0!important;margin-right:0!important}[dir=rtl] .ml-lg-1{margin-left:0!important;margin-right:.25rem!important}[dir=rtl] .mr-lg-1{margin-left:.25rem!important;margin-right:0!important}[dir=rtl] .ms-lg-1{margin-left:0!important;margin-right:.25rem!important}[dir=rtl] .me-lg-1{margin-left:.25rem!important;margin-right:0!important}[dir=rtl] .ml-lg-2{margin-left:0!important;margin-right:.5rem!important}[dir=rtl] .mr-lg-2{margin-left:.5rem!important;margin-right:0!important}[dir=rtl] .ms-lg-2{margin-left:0!important;margin-right:.5rem!important}[dir=rtl] .me-lg-2{margin-left:.5rem!important;margin-right:0!important}[dir=rtl] .ml-lg-3{margin-left:0!important;margin-right:1rem!important}[dir=rtl] .mr-lg-3{margin-left:1rem!important;margin-right:0!important}[dir=rtl] .ms-lg-3{margin-left:0!important;margin-right:1rem!important}[dir=rtl] .me-lg-3{margin-left:1rem!important;margin-right:0!important}[dir=rtl] .ml-lg-4{margin-left:0!important;margin-right:1.5rem!important}[dir=rtl] .mr-lg-4{margin-left:1.5rem!important;margin-right:0!important}[dir=rtl] .ms-lg-4{margin-left:0!important;margin-right:1.5rem!important}[dir=rtl] .me-lg-4{margin-left:1.5rem!important;margin-right:0!important}[dir=rtl] .ml-lg-5{margin-left:0!important;margin-right:3rem!important}[dir=rtl] .mr-lg-5{margin-left:3rem!important;margin-right:0!important}[dir=rtl] .ms-lg-5{margin-left:0!important;margin-right:3rem!important}[dir=rtl] .me-lg-5{margin-left:3rem!important;margin-right:0!important}}@media (min-width:1200px){[dir=rtl] .me-xl-0,[dir=rtl] .ml-xl-0,[dir=rtl] .mr-xl-0,[dir=rtl] .ms-xl-0{margin-left:0!important;margin-right:0!important}[dir=rtl] .ml-xl-1{margin-left:0!important;margin-right:.25rem!important}[dir=rtl] .mr-xl-1{margin-left:.25rem!important;margin-right:0!important}[dir=rtl] .ms-xl-1{margin-left:0!important;margin-right:.25rem!important}[dir=rtl] .me-xl-1{margin-left:.25rem!important;margin-right:0!important}[dir=rtl] .ml-xl-2{margin-left:0!important;margin-right:.5rem!important}[dir=rtl] .mr-xl-2{margin-left:.5rem!important;margin-right:0!important}[dir=rtl] .ms-xl-2{margin-left:0!important;margin-right:.5rem!important}[dir=rtl] .me-xl-2{margin-left:.5rem!important;margin-right:0!important}[dir=rtl] .ml-xl-3{margin-left:0!important;margin-right:1rem!important}[dir=rtl] .mr-xl-3{margin-left:1rem!important;margin-right:0!important}[dir=rtl] .ms-xl-3{margin-left:0!important;margin-right:1rem!important}[dir=rtl] .me-xl-3{margin-left:1rem!important;margin-right:0!important}[dir=rtl] .ml-xl-4{margin-left:0!important;margin-right:1.5rem!important}[dir=rtl] .mr-xl-4{margin-left:1.5rem!important;margin-right:0!important}[dir=rtl] .ms-xl-4{margin-left:0!important;margin-right:1.5rem!important}[dir=rtl] .me-xl-4{margin-left:1.5rem!important;margin-right:0!important}[dir=rtl] .ml-xl-5{margin-left:0!important;margin-right:3rem!important}[dir=rtl] .mr-xl-5{margin-left:3rem!important;margin-right:0!important}[dir=rtl] .ms-xl-5{margin-left:0!important;margin-right:3rem!important}[dir=rtl] .me-xl-5{margin-left:3rem!important;margin-right:0!important}}@media (min-width:1400px){[dir=rtl] .me-xxl-0,[dir=rtl] .ml-xxl-0,[dir=rtl] .mr-xxl-0,[dir=rtl] .ms-xxl-0{margin-left:0!important;margin-right:0!important}[dir=rtl] .ml-xxl-1{margin-left:0!important;margin-right:.25rem!important}[dir=rtl] .mr-xxl-1{margin-left:.25rem!important;margin-right:0!important}[dir=rtl] .ms-xxl-1{margin-left:0!important;margin-right:.25rem!important}[dir=rtl] .me-xxl-1{margin-left:.25rem!important;margin-right:0!important}[dir=rtl] .ml-xxl-2{margin-left:0!important;margin-right:.5rem!important}[dir=rtl] .mr-xxl-2{margin-left:.5rem!important;margin-right:0!important}[dir=rtl] .ms-xxl-2{margin-left:0!important;margin-right:.5rem!important}[dir=rtl] .me-xxl-2{margin-left:.5rem!important;margin-right:0!important}[dir=rtl] .ml-xxl-3{margin-left:0!important;margin-right:1rem!important}[dir=rtl] .mr-xxl-3{margin-left:1rem!important;margin-right:0!important}[dir=rtl] .ms-xxl-3{margin-left:0!important;margin-right:1rem!important}[dir=rtl] .me-xxl-3{margin-left:1rem!important;margin-right:0!important}[dir=rtl] .ml-xxl-4{margin-left:0!important;margin-right:1.5rem!important}[dir=rtl] .mr-xxl-4{margin-left:1.5rem!important;margin-right:0!important}[dir=rtl] .ms-xxl-4{margin-left:0!important;margin-right:1.5rem!important}[dir=rtl] .me-xxl-4{margin-left:1.5rem!important;margin-right:0!important}[dir=rtl] .ml-xxl-5{margin-left:0!important;margin-right:3rem!important}[dir=rtl] .mr-xxl-5{margin-left:3rem!important;margin-right:0!important}[dir=rtl] .ms-xxl-5{margin-left:0!important;margin-right:3rem!important}[dir=rtl] .me-xxl-5{margin-left:3rem!important;margin-right:0!important}}[dir=rtl] .pe-0,[dir=rtl] .pl-0,[dir=rtl] .pr-0,[dir=rtl] .ps-0{padding-left:0!important;padding-right:0!important}[dir=rtl] .pl-1{padding-left:0!important;padding-right:.25rem!important}[dir=rtl] .pr-1{padding-left:.25rem!important;padding-right:0!important}[dir=rtl] .ps-1{padding-left:0!important;padding-right:.25rem!important}[dir=rtl] .pe-1{padding-left:.25rem!important;padding-right:0!important}[dir=rtl] .pl-2{padding-left:0!important;padding-right:.5rem!important}[dir=rtl] .pr-2{padding-left:.5rem!important;padding-right:0!important}[dir=rtl] .ps-2{padding-left:0!important;padding-right:.5rem!important}[dir=rtl] .pe-2{padding-left:.5rem!important;padding-right:0!important}[dir=rtl] .pl-3{padding-left:0!important;padding-right:1rem!important}[dir=rtl] .pr-3{padding-left:1rem!important;padding-right:0!important}[dir=rtl] .ps-3{padding-left:0!important;padding-right:1rem!important}[dir=rtl] .pe-3{padding-left:1rem!important;padding-right:0!important}[dir=rtl] .pl-4{padding-left:0!important;padding-right:1.5rem!important}[dir=rtl] .pr-4{padding-left:1.5rem!important;padding-right:0!important}[dir=rtl] .ps-4{padding-left:0!important;padding-right:1.5rem!important}[dir=rtl] .pe-4{padding-left:1.5rem!important;padding-right:0!important}[dir=rtl] .pl-5{padding-left:0!important;padding-right:3rem!important}[dir=rtl] .pr-5{padding-left:3rem!important;padding-right:0!important}[dir=rtl] .ps-5{padding-left:0!important;padding-right:3rem!important}[dir=rtl] .pe-5{padding-left:3rem!important;padding-right:0!important}@media (min-width:576px){[dir=rtl] .pe-sm-0,[dir=rtl] .pl-sm-0,[dir=rtl] .pr-sm-0,[dir=rtl] .ps-sm-0{padding-left:0!important;padding-right:0!important}[dir=rtl] .pl-sm-1{padding-left:0!important;padding-right:.25rem!important}[dir=rtl] .pr-sm-1{padding-left:.25rem!important;padding-right:0!important}[dir=rtl] .ps-sm-1{padding-left:0!important;padding-right:.25rem!important}[dir=rtl] .pe-sm-1{padding-left:.25rem!important;padding-right:0!important}[dir=rtl] .pl-sm-2{padding-left:0!important;padding-right:.5rem!important}[dir=rtl] .pr-sm-2{padding-left:.5rem!important;padding-right:0!important}[dir=rtl] .ps-sm-2{padding-left:0!important;padding-right:.5rem!important}[dir=rtl] .pe-sm-2{padding-left:.5rem!important;padding-right:0!important}[dir=rtl] .pl-sm-3{padding-left:0!important;padding-right:1rem!important}[dir=rtl] .pr-sm-3{padding-left:1rem!important;padding-right:0!important}[dir=rtl] .ps-sm-3{padding-left:0!important;padding-right:1rem!important}[dir=rtl] .pe-sm-3{padding-left:1rem!important;padding-right:0!important}[dir=rtl] .pl-sm-4{padding-left:0!important;padding-right:1.5rem!important}[dir=rtl] .pr-sm-4{padding-left:1.5rem!important;padding-right:0!important}[dir=rtl] .ps-sm-4{padding-left:0!important;padding-right:1.5rem!important}[dir=rtl] .pe-sm-4{padding-left:1.5rem!important;padding-right:0!important}[dir=rtl] .pl-sm-5{padding-left:0!important;padding-right:3rem!important}[dir=rtl] .pr-sm-5{padding-left:3rem!important;padding-right:0!important}[dir=rtl] .ps-sm-5{padding-left:0!important;padding-right:3rem!important}[dir=rtl] .pe-sm-5{padding-left:3rem!important;padding-right:0!important}}@media (min-width:768px){[dir=rtl] .pe-md-0,[dir=rtl] .pl-md-0,[dir=rtl] .pr-md-0,[dir=rtl] .ps-md-0{padding-left:0!important;padding-right:0!important}[dir=rtl] .pl-md-1{padding-left:0!important;padding-right:.25rem!important}[dir=rtl] .pr-md-1{padding-left:.25rem!important;padding-right:0!important}[dir=rtl] .ps-md-1{padding-left:0!important;padding-right:.25rem!important}[dir=rtl] .pe-md-1{padding-left:.25rem!important;padding-right:0!important}[dir=rtl] .pl-md-2{padding-left:0!important;padding-right:.5rem!important}[dir=rtl] .pr-md-2{padding-left:.5rem!important;padding-right:0!important}[dir=rtl] .ps-md-2{padding-left:0!important;padding-right:.5rem!important}[dir=rtl] .pe-md-2{padding-left:.5rem!important;padding-right:0!important}[dir=rtl] .pl-md-3{padding-left:0!important;padding-right:1rem!important}[dir=rtl] .pr-md-3{padding-left:1rem!important;padding-right:0!important}[dir=rtl] .ps-md-3{padding-left:0!important;padding-right:1rem!important}[dir=rtl] .pe-md-3{padding-left:1rem!important;padding-right:0!important}[dir=rtl] .pl-md-4{padding-left:0!important;padding-right:1.5rem!important}[dir=rtl] .pr-md-4{padding-left:1.5rem!important;padding-right:0!important}[dir=rtl] .ps-md-4{padding-left:0!important;padding-right:1.5rem!important}[dir=rtl] .pe-md-4{padding-left:1.5rem!important;padding-right:0!important}[dir=rtl] .pl-md-5{padding-left:0!important;padding-right:3rem!important}[dir=rtl] .pr-md-5{padding-left:3rem!important;padding-right:0!important}[dir=rtl] .ps-md-5{padding-left:0!important;padding-right:3rem!important}[dir=rtl] .pe-md-5{padding-left:3rem!important;padding-right:0!important}}@media (min-width:992px){[dir=rtl] .pe-lg-0,[dir=rtl] .pl-lg-0,[dir=rtl] .pr-lg-0,[dir=rtl] .ps-lg-0{padding-left:0!important;padding-right:0!important}[dir=rtl] .pl-lg-1{padding-left:0!important;padding-right:.25rem!important}[dir=rtl] .pr-lg-1{padding-left:.25rem!important;padding-right:0!important}[dir=rtl] .ps-lg-1{padding-left:0!important;padding-right:.25rem!important}[dir=rtl] .pe-lg-1{padding-left:.25rem!important;padding-right:0!important}[dir=rtl] .pl-lg-2{padding-left:0!important;padding-right:.5rem!important}[dir=rtl] .pr-lg-2{padding-left:.5rem!important;padding-right:0!important}[dir=rtl] .ps-lg-2{padding-left:0!important;padding-right:.5rem!important}[dir=rtl] .pe-lg-2{padding-left:.5rem!important;padding-right:0!important}[dir=rtl] .pl-lg-3{padding-left:0!important;padding-right:1rem!important}[dir=rtl] .pr-lg-3{padding-left:1rem!important;padding-right:0!important}[dir=rtl] .ps-lg-3{padding-left:0!important;padding-right:1rem!important}[dir=rtl] .pe-lg-3{padding-left:1rem!important;padding-right:0!important}[dir=rtl] .pl-lg-4{padding-left:0!important;padding-right:1.5rem!important}[dir=rtl] .pr-lg-4{padding-left:1.5rem!important;padding-right:0!important}[dir=rtl] .ps-lg-4{padding-left:0!important;padding-right:1.5rem!important}[dir=rtl] .pe-lg-4{padding-left:1.5rem!important;padding-right:0!important}[dir=rtl] .pl-lg-5{padding-left:0!important;padding-right:3rem!important}[dir=rtl] .pr-lg-5{padding-left:3rem!important;padding-right:0!important}[dir=rtl] .ps-lg-5{padding-left:0!important;padding-right:3rem!important}[dir=rtl] .pe-lg-5{padding-left:3rem!important;padding-right:0!important}}@media (min-width:1200px){[dir=rtl] .pe-xl-0,[dir=rtl] .pl-xl-0,[dir=rtl] .pr-xl-0,[dir=rtl] .ps-xl-0{padding-left:0!important;padding-right:0!important}[dir=rtl] .pl-xl-1{padding-left:0!important;padding-right:.25rem!important}[dir=rtl] .pr-xl-1{padding-left:.25rem!important;padding-right:0!important}[dir=rtl] .ps-xl-1{padding-left:0!important;padding-right:.25rem!important}[dir=rtl] .pe-xl-1{padding-left:.25rem!important;padding-right:0!important}[dir=rtl] .pl-xl-2{padding-left:0!important;padding-right:.5rem!important}[dir=rtl] .pr-xl-2{padding-left:.5rem!important;padding-right:0!important}[dir=rtl] .ps-xl-2{padding-left:0!important;padding-right:.5rem!important}[dir=rtl] .pe-xl-2{padding-left:.5rem!important;padding-right:0!important}[dir=rtl] .pl-xl-3{padding-left:0!important;padding-right:1rem!important}[dir=rtl] .pr-xl-3{padding-left:1rem!important;padding-right:0!important}[dir=rtl] .ps-xl-3{padding-left:0!important;padding-right:1rem!important}[dir=rtl] .pe-xl-3{padding-left:1rem!important;padding-right:0!important}[dir=rtl] .pl-xl-4{padding-left:0!important;padding-right:1.5rem!important}[dir=rtl] .pr-xl-4{padding-left:1.5rem!important;padding-right:0!important}[dir=rtl] .ps-xl-4{padding-left:0!important;padding-right:1.5rem!important}[dir=rtl] .pe-xl-4{padding-left:1.5rem!important;padding-right:0!important}[dir=rtl] .pl-xl-5{padding-left:0!important;padding-right:3rem!important}[dir=rtl] .pr-xl-5{padding-left:3rem!important;padding-right:0!important}[dir=rtl] .ps-xl-5{padding-left:0!important;padding-right:3rem!important}[dir=rtl] .pe-xl-5{padding-left:3rem!important;padding-right:0!important}}@media (min-width:1400px){[dir=rtl] .pe-xxl-0,[dir=rtl] .pl-xxl-0,[dir=rtl] .pr-xxl-0,[dir=rtl] .ps-xxl-0{padding-left:0!important;padding-right:0!important}[dir=rtl] .pl-xxl-1{padding-left:0!important;padding-right:.25rem!important}[dir=rtl] .pr-xxl-1{padding-left:.25rem!important;padding-right:0!important}[dir=rtl] .ps-xxl-1{padding-left:0!important;padding-right:.25rem!important}[dir=rtl] .pe-xxl-1{padding-left:.25rem!important;padding-right:0!important}[dir=rtl] .pl-xxl-2{padding-left:0!important;padding-right:.5rem!important}[dir=rtl] .pr-xxl-2{padding-left:.5rem!important;padding-right:0!important}[dir=rtl] .ps-xxl-2{padding-left:0!important;padding-right:.5rem!important}[dir=rtl] .pe-xxl-2{padding-left:.5rem!important;padding-right:0!important}[dir=rtl] .pl-xxl-3{padding-left:0!important;padding-right:1rem!important}[dir=rtl] .pr-xxl-3{padding-left:1rem!important;padding-right:0!important}[dir=rtl] .ps-xxl-3{padding-left:0!important;padding-right:1rem!important}[dir=rtl] .pe-xxl-3{padding-left:1rem!important;padding-right:0!important}[dir=rtl] .pl-xxl-4{padding-left:0!important;padding-right:1.5rem!important}[dir=rtl] .pr-xxl-4{padding-left:1.5rem!important;padding-right:0!important}[dir=rtl] .ps-xxl-4{padding-left:0!important;padding-right:1.5rem!important}[dir=rtl] .pe-xxl-4{padding-left:1.5rem!important;padding-right:0!important}[dir=rtl] .pl-xxl-5{padding-left:0!important;padding-right:3rem!important}[dir=rtl] .pr-xxl-5{padding-left:3rem!important;padding-right:0!important}[dir=rtl] .ps-xxl-5{padding-left:0!important;padding-right:3rem!important}[dir=rtl] .pe-xxl-5{padding-left:3rem!important;padding-right:0!important}}@media (max-width:767.98px){[dir=rtl] .main-sidebar{transform:translate3d(100%,0,0)}[dir=rtl] .sidebar-open .main-sidebar{transform:translateZ(0)}[dir=rtl] .main-header,[dir=rtl] .main-sidebar{display:block!important}[dir=rtl] .card-header{align-items:flex-start;flex-direction:column;gap:.5rem}[dir=rtl] .card-title{order:1}[dir=rtl] .card-tools{margin-right:0;order:2}[dir=rtl] .card-tools,[dir=rtl] .card-tools select{min-width:auto;width:100%}.card-tools{min-width:120px}.card-tools select{min-width:110px}}@media (min-width:768px){[dir=rtl] .main-sidebar{transition:margin .3s ease-in-out,transform .3s ease-in-out}[dir=rtl].sidebar-collapse .main-sidebar{margin-right:-250px}[dir=rtl].sidebar-collapse .content-wrapper,[dir=rtl].sidebar-collapse .main-footer,[dir=rtl].sidebar-collapse .main-header{margin-right:0}}[dir=rtl] .page-enter-active,[dir=rtl] .page-leave-active{transition:transform .3s ease-in-out}[dir=rtl] .page-enter{transform:translateX(100%)}[dir=rtl] .page-leave-to{transform:translateX(-100%)}@media print{[dir=rtl]{direction:rtl;text-align:right}[dir=rtl] .main-header,[dir=rtl] .main-sidebar{display:none}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 40617:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".search-area{position:relative}.search-area input{border-radius:5px}[dir=ltr] .search-area input,[dir=rtl] .search-area input{padding-left:40px;padding-right:40px}.search-icon{align-items:center;color:#6c757d;display:flex;justify-content:center}.search-icon svg{height:18px;width:18px}[dir=ltr] .search-icon,[dir=rtl] .search-icon{left:12px;pointer-events:none;position:absolute;top:50%;transform:translateY(-50%);z-index:1}[dir=rtl] .search-icon{right:auto}[dir=ltr] .search-clear,[dir=rtl] .search-clear{cursor:pointer;position:absolute!important;right:12px!important;top:50%!important;transform:translateY(-50%)!important;z-index:1}[dir=rtl] .search-clear{left:auto}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -35425,26 +34542,6 @@ module.exports = baseMergeDeep;
 /***/ ((module) => {
 
 module.exports = "/images/vendor/flag-icons/flags/4x3/ls.svg?1656b1dc3d7ad3685ca49742447a3326";
-
-/***/ }),
-
-/***/ 43280:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".phone-number-input[data-v-97a4fb60]{position:relative}.phone-input-wrapper[data-v-97a4fb60]{align-items:center;background:#fff;border:0;border-radius:50px;box-shadow:0 .125rem .25rem rgba(0,0,0,.075);display:flex;min-height:3rem;overflow:hidden;transition:all .3s ease}.phone-input-wrapper[data-v-97a4fb60]:focus-within{box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.phone-input-wrapper.is-invalid[data-v-97a4fb60]{border-color:#dc3545;box-shadow:0 0 0 .2rem rgba(220,53,69,.25)}.country-selector[data-v-97a4fb60]{align-items:center;background:#f8f9fa;border-right:1px solid #dee2e6;cursor:pointer;display:flex;gap:8px;min-width:100px;padding:.5rem 1rem;transition:background .2s;-webkit-user-select:none;-moz-user-select:none;user-select:none}.country-selector[data-v-97a4fb60]:hover{background:#e9ecef}.country-flag[data-v-97a4fb60]{font-size:1.25rem;line-height:1}.country-code[data-v-97a4fb60]{color:#495057;font-size:.9rem;font-weight:500}.dropdown-icon[data-v-97a4fb60]{color:#6c757d;font-size:.75rem;transition:transform .2s}.country-selector:hover .dropdown-icon[data-v-97a4fb60]{transform:translateY(2px)}.phone-input[data-v-97a4fb60]{background:transparent;border:0;color:#33a0d9;direction:ltr;flex:1;font-size:1rem;outline:none;padding:.5rem 1rem;text-align:left}.phone-input[data-v-97a4fb60]::-moz-placeholder{color:#adb5bd;text-align:left}.phone-input[data-v-97a4fb60]::placeholder{color:#adb5bd;text-align:left}[dir=rtl] .phone-input[data-v-97a4fb60]{text-align:right}[dir=rtl] .phone-input[data-v-97a4fb60]::-moz-placeholder{text-align:right}[dir=rtl] .phone-input[data-v-97a4fb60]::placeholder{text-align:right}.country-dropdown[data-v-97a4fb60]{background:#fff;border-radius:15px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);display:flex;flex-direction:column;left:0;margin-top:.5rem;max-height:300px;overflow:hidden;position:absolute;right:0;top:100%;z-index:1000}.country-search[data-v-97a4fb60]{border-bottom:1px solid #dee2e6;padding:.75rem}.country-search input[data-v-97a4fb60]{border:1px solid #dee2e6;border-radius:10px;padding:.5rem .75rem}.country-list[data-v-97a4fb60]{max-height:250px;overflow-y:auto}.country-item[data-v-97a4fb60]{align-items:center;border-bottom:1px solid #f8f9fa;cursor:pointer;display:flex;gap:12px;padding:.75rem 1rem;transition:background .2s}.country-item[data-v-97a4fb60]:hover{background:#f8f9fa}.country-item.active[data-v-97a4fb60]{background:#e7f3ff;color:#33a0d9}.country-item .country-flag[data-v-97a4fb60]{font-size:1.25rem;line-height:1;text-align:center;width:24px}.country-item .country-name[data-v-97a4fb60]{flex:1;font-size:.95rem}.country-item .country-dial-code[data-v-97a4fb60]{color:#6c757d;font-size:.85rem;font-weight:500}.invalid-feedback[data-v-97a4fb60]{color:#dc3545;font-size:.875rem}[dir=rtl] .country-selector[data-v-97a4fb60]{border-left:1px solid #dee2e6;border-right:none}[dir=rtl] .country-dropdown[data-v-97a4fb60]{left:auto;right:0}@media (max-width:768px){.country-selector[data-v-97a4fb60]{min-width:80px;padding:.5rem .75rem}.country-code[data-v-97a4fb60]{font-size:.8rem}.country-dropdown[data-v-97a4fb60]{max-height:250px}.country-list[data-v-97a4fb60]{max-height:200px}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
 
 /***/ }),
 
@@ -48933,6 +48030,891 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".card[data-v-46f650ba]{background:#fff
 /***/ ((module) => {
 
 module.exports = "/images/vendor/flag-icons/flags/1x1/tv.svg?57ef8775a287d9d53d50261e049fb49a";
+
+/***/ }),
+
+/***/ 57683:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ PhoneNumberInput)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/PhoneNumberInput.vue?vue&type=template&id=6f975a8b&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "phone-number-input"
+  }, [_vm.label ? _c('label', {
+    staticClass: "form-label"
+  }, [_vm._v("\n    " + _vm._s(_vm.label) + " \n    "), _vm.required ? _c('span', {
+    staticClass: "text-danger"
+  }, [_vm._v("*")]) : _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.$t('optional')) + ")")])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "phone-input-container"
+  }, [_c('div', {
+    staticClass: "phone-input-wrapper",
+    "class": {
+      'is-invalid': _vm.hasError,
+      'has-value': _vm.phoneNumber
+    }
+  }, [_c('div', {
+    staticClass: "country-selector",
+    on: {
+      "click": _vm.toggleCountryDropdown
+    }
+  }, [_c('span', {
+    staticClass: "country-flag"
+  }, [_vm._v(_vm._s(_vm.selectedCountry.flag))]), _vm._v(" "), _c('span', {
+    staticClass: "country-code"
+  }, [_vm._v("+" + _vm._s(_vm.selectedCountry.dialCode))]), _vm._v(" "), _c('i', {
+    staticClass: "fas fa-chevron-down dropdown-icon"
+  })]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.phoneNumber,
+      expression: "phoneNumber"
+    }],
+    staticClass: "phone-input",
+    "class": {
+      'is-invalid': _vm.hasError
+    },
+    attrs: {
+      "type": "tel",
+      "placeholder": _vm.placeholder || _vm.$t('enter_phone_number')
+    },
+    domProps: {
+      "value": _vm.phoneNumber
+    },
+    on: {
+      "input": [function ($event) {
+        if ($event.target.composing) return;
+        _vm.phoneNumber = $event.target.value;
+      }, _vm.onInput],
+      "blur": _vm.validatePhone,
+      "focus": _vm.onFocus
+    }
+  })]), _vm._v(" "), _vm.showCountryDropdown ? _c('div', {
+    staticClass: "country-dropdown",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+      }
+    }
+  }, [_c('div', {
+    staticClass: "country-search"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.countrySearch,
+      expression: "countrySearch"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "placeholder": _vm.$t('search_country')
+    },
+    domProps: {
+      "value": _vm.countrySearch
+    },
+    on: {
+      "input": [function ($event) {
+        if ($event.target.composing) return;
+        _vm.countrySearch = $event.target.value;
+      }, _vm.filterCountries]
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "country-list"
+  }, _vm._l(_vm.filteredCountries, function (country) {
+    return _c('div', {
+      key: country.code,
+      staticClass: "country-item",
+      "class": {
+        active: _vm.selectedCountry.code === country.code
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.selectCountry(country);
+        }
+      }
+    }, [_c('span', {
+      staticClass: "country-flag"
+    }, [_vm._v(_vm._s(country.flag))]), _vm._v(" "), _c('span', {
+      staticClass: "country-name"
+    }, [_vm._v(_vm._s(country.name))]), _vm._v(" "), _c('span', {
+      staticClass: "country-dial-code"
+    }, [_vm._v("+" + _vm._s(country.dialCode))])]);
+  }), 0)]) : _vm._e()]), _vm._v(" "), _vm.hasError && _vm.errorMessage ? _c('div', {
+    staticClass: "invalid-feedback d-block mt-2"
+  }, [_vm._v("\n    " + _vm._s(_vm.errorMessage) + "\n  ")]) : _vm._e(), _vm._v(" "), _vm.showFormatHint && _vm.phoneFormat ? _c('small', {
+    staticClass: "form-text text-muted mt-1"
+  }, [_vm._v("\n    " + _vm._s(_vm.$t('Format')) + ": " + _vm._s(_vm.phoneFormat) + "\n  ")]) : _vm._e()]);
+};
+var staticRenderFns = [];
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/PhoneNumberInput.vue?vue&type=script&lang=js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t["return"] || t["return"](); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+/* harmony default export */ const PhoneNumberInputvue_type_script_lang_js = ({
+  name: 'PhoneNumberInput',
+  props: {
+    value: {
+      type: String,
+      "default": ''
+    },
+    label: {
+      type: String,
+      "default": ''
+    },
+    required: {
+      type: Boolean,
+      "default": false
+    },
+    placeholder: {
+      type: String,
+      "default": ''
+    },
+    defaultCountry: {
+      type: String,
+      "default": 'SA'
+    },
+    country: {
+      type: String,
+      "default": null
+    },
+    showFormatHint: {
+      type: Boolean,
+      "default": true
+    },
+    validateOnInput: {
+      type: Boolean,
+      "default": true
+    }
+  },
+  data: function data() {
+    return {
+      phoneNumber: '',
+      selectedCountryCode: this.country || this.defaultCountry,
+      showCountryDropdown: false,
+      countrySearch: '',
+      errorMessage: '',
+      phoneFormat: '',
+      countriesData: [{
+        code: 'SA',
+        nameKey: 'Saudi Arabia',
+        flag: '🇸🇦',
+        dialCode: '966'
+      }, {
+        code: 'AE',
+        nameKey: 'United Arab Emirates',
+        flag: '🇦🇪',
+        dialCode: '971'
+      }, {
+        code: 'EG',
+        nameKey: 'Egypt',
+        flag: '🇪🇬',
+        dialCode: '20'
+      }, {
+        code: 'JO',
+        nameKey: 'Jordan',
+        flag: '🇯🇴',
+        dialCode: '962'
+      }, {
+        code: 'LB',
+        nameKey: 'Lebanon',
+        flag: '🇱🇧',
+        dialCode: '961'
+      }, {
+        code: 'MA',
+        nameKey: 'Morocco',
+        flag: '🇲🇦',
+        dialCode: '212'
+      }, {
+        code: 'TN',
+        nameKey: 'Tunisia',
+        flag: '🇹🇳',
+        dialCode: '216'
+      }, {
+        code: 'DZ',
+        nameKey: 'Algeria',
+        flag: '🇩🇿',
+        dialCode: '213'
+      }, {
+        code: 'KW',
+        nameKey: 'Kuwait',
+        flag: '🇰🇼',
+        dialCode: '965'
+      }, {
+        code: 'QA',
+        nameKey: 'Qatar',
+        flag: '🇶🇦',
+        dialCode: '974'
+      }, {
+        code: 'BH',
+        nameKey: 'Bahrain',
+        flag: '🇧🇭',
+        dialCode: '973'
+      }, {
+        code: 'OM',
+        nameKey: 'Oman',
+        flag: '🇴🇲',
+        dialCode: '968'
+      }, {
+        code: 'YE',
+        nameKey: 'Yemen',
+        flag: '🇾🇪',
+        dialCode: '967'
+      }, {
+        code: 'IQ',
+        nameKey: 'Iraq',
+        flag: '🇮🇶',
+        dialCode: '964'
+      }, {
+        code: 'US',
+        nameKey: 'United States',
+        flag: '🇺🇸',
+        dialCode: '1'
+      }, {
+        code: 'GB',
+        nameKey: 'United Kingdom',
+        flag: '🇬🇧',
+        dialCode: '44'
+      }, {
+        code: 'CA',
+        nameKey: 'Canada',
+        flag: '🇨🇦',
+        dialCode: '1'
+      }, {
+        code: 'AU',
+        nameKey: 'Australia',
+        flag: '🇦🇺',
+        dialCode: '61'
+      }, {
+        code: 'DE',
+        nameKey: 'Germany',
+        flag: '🇩🇪',
+        dialCode: '49'
+      }, {
+        code: 'FR',
+        nameKey: 'France',
+        flag: '🇫🇷',
+        dialCode: '33'
+      }, {
+        code: 'ES',
+        nameKey: 'Spain',
+        flag: '🇪🇸',
+        dialCode: '34'
+      }, {
+        code: 'IT',
+        nameKey: 'Italy',
+        flag: '🇮🇹',
+        dialCode: '39'
+      }, {
+        code: 'NL',
+        nameKey: 'Netherlands',
+        flag: '🇳🇱',
+        dialCode: '31'
+      }, {
+        code: 'BE',
+        nameKey: 'Belgium',
+        flag: '🇧🇪',
+        dialCode: '32'
+      }, {
+        code: 'CH',
+        nameKey: 'Switzerland',
+        flag: '🇨🇭',
+        dialCode: '41'
+      }, {
+        code: 'AT',
+        nameKey: 'Austria',
+        flag: '🇦🇹',
+        dialCode: '43'
+      }, {
+        code: 'SE',
+        nameKey: 'Sweden',
+        flag: '🇸🇪',
+        dialCode: '46'
+      }, {
+        code: 'NO',
+        nameKey: 'Norway',
+        flag: '🇳🇴',
+        dialCode: '47'
+      }, {
+        code: 'DK',
+        nameKey: 'Denmark',
+        flag: '🇩🇰',
+        dialCode: '45'
+      }, {
+        code: 'FI',
+        nameKey: 'Finland',
+        flag: '🇫🇮',
+        dialCode: '358'
+      }, {
+        code: 'PL',
+        nameKey: 'Poland',
+        flag: '🇵🇱',
+        dialCode: '48'
+      }, {
+        code: 'IE',
+        nameKey: 'Ireland',
+        flag: '🇮🇪',
+        dialCode: '353'
+      }, {
+        code: 'PT',
+        nameKey: 'Portugal',
+        flag: '🇵🇹',
+        dialCode: '351'
+      }, {
+        code: 'GR',
+        nameKey: 'Greece',
+        flag: '🇬🇷',
+        dialCode: '30'
+      }, {
+        code: 'LU',
+        nameKey: 'Luxembourg',
+        flag: '🇱🇺',
+        dialCode: '352'
+      }, {
+        code: 'TR',
+        nameKey: 'Turkey',
+        flag: '🇹🇷',
+        dialCode: '90'
+      }, {
+        code: 'IN',
+        nameKey: 'India',
+        flag: '🇮🇳',
+        dialCode: '91'
+      }, {
+        code: 'CN',
+        nameKey: 'China',
+        flag: '🇨🇳',
+        dialCode: '86'
+      }, {
+        code: 'JP',
+        nameKey: 'Japan',
+        flag: '🇯🇵',
+        dialCode: '81'
+      }, {
+        code: 'KR',
+        nameKey: 'South Korea',
+        flag: '🇰🇷',
+        dialCode: '82'
+      }, {
+        code: 'BR',
+        nameKey: 'Brazil',
+        flag: '🇧🇷',
+        dialCode: '55'
+      }, {
+        code: 'MX',
+        nameKey: 'Mexico',
+        flag: '🇲🇽',
+        dialCode: '52'
+      }, {
+        code: 'AR',
+        nameKey: 'Argentina',
+        flag: '🇦🇷',
+        dialCode: '54'
+      }, {
+        code: 'ZA',
+        nameKey: 'South Africa',
+        flag: '🇿🇦',
+        dialCode: '27'
+      }, {
+        code: 'NG',
+        nameKey: 'Nigeria',
+        flag: '🇳🇬',
+        dialCode: '234'
+      }, {
+        code: 'KE',
+        nameKey: 'Kenya',
+        flag: '🇰🇪',
+        dialCode: '254'
+      }, {
+        code: 'PK',
+        nameKey: 'Pakistan',
+        flag: '🇵🇰',
+        dialCode: '92'
+      }, {
+        code: 'BD',
+        nameKey: 'Bangladesh',
+        flag: '🇧🇩',
+        dialCode: '880'
+      }, {
+        code: 'ID',
+        nameKey: 'Indonesia',
+        flag: '🇮🇩',
+        dialCode: '62'
+      }, {
+        code: 'PH',
+        nameKey: 'Philippines',
+        flag: '🇵🇭',
+        dialCode: '63'
+      }, {
+        code: 'VN',
+        nameKey: 'Vietnam',
+        flag: '🇻🇳',
+        dialCode: '84'
+      }, {
+        code: 'TH',
+        nameKey: 'Thailand',
+        flag: '🇹🇭',
+        dialCode: '66'
+      }, {
+        code: 'MY',
+        nameKey: 'Malaysia',
+        flag: '🇲🇾',
+        dialCode: '60'
+      }, {
+        code: 'SG',
+        nameKey: 'Singapore',
+        flag: '🇸🇬',
+        dialCode: '65'
+      }, {
+        code: 'NZ',
+        nameKey: 'New Zealand',
+        flag: '🇳🇿',
+        dialCode: '64'
+      }, {
+        code: 'RU',
+        nameKey: 'Russia',
+        flag: '🇷🇺',
+        dialCode: '7'
+      }, {
+        code: 'UA',
+        nameKey: 'Ukraine',
+        flag: '🇺🇦',
+        dialCode: '380'
+      }, {
+        code: 'CZ',
+        nameKey: 'Czech Republic',
+        flag: '🇨🇿',
+        dialCode: '420'
+      }, {
+        code: 'HU',
+        nameKey: 'Hungary',
+        flag: '🇭🇺',
+        dialCode: '36'
+      }, {
+        code: 'RO',
+        nameKey: 'Romania',
+        flag: '🇷🇴',
+        dialCode: '40'
+      }, {
+        code: 'BG',
+        nameKey: 'Bulgaria',
+        flag: '🇧🇬',
+        dialCode: '359'
+      }, {
+        code: 'HR',
+        nameKey: 'Croatia',
+        flag: '🇭🇷',
+        dialCode: '385'
+      }, {
+        code: 'SI',
+        nameKey: 'Slovenia',
+        flag: '🇸🇮',
+        dialCode: '386'
+      }, {
+        code: 'SK',
+        nameKey: 'Slovakia',
+        flag: '🇸🇰',
+        dialCode: '421'
+      }, {
+        code: 'EE',
+        nameKey: 'Estonia',
+        flag: '🇪🇪',
+        dialCode: '372'
+      }, {
+        code: 'LV',
+        nameKey: 'Latvia',
+        flag: '🇱🇻',
+        dialCode: '371'
+      }, {
+        code: 'LT',
+        nameKey: 'Lithuania',
+        flag: '🇱🇹',
+        dialCode: '370'
+      }, {
+        code: 'IS',
+        nameKey: 'Iceland',
+        flag: '🇮🇸',
+        dialCode: '354'
+      }]
+    };
+  },
+  computed: {
+    // Countries with translated names
+    countries: function countries() {
+      var _this = this;
+      return this.countriesData.map(function (country) {
+        return _objectSpread(_objectSpread({}, country), {}, {
+          name: _this.$t(country.nameKey) || country.nameKey
+        });
+      });
+    },
+    selectedCountry: function selectedCountry() {
+      var _this2 = this;
+      return this.countries.find(function (c) {
+        return c.code === _this2.selectedCountryCode;
+      }) || this.countries[0];
+    },
+    filteredCountries: function filteredCountries() {
+      if (!this.countrySearch) {
+        return this.countries;
+      }
+      var search = this.countrySearch.toLowerCase();
+      return this.countries.filter(function (country) {
+        return country.name.toLowerCase().includes(search) || country.dialCode.includes(search) || country.code.toLowerCase().includes(search) || country.nameKey && country.nameKey.toLowerCase().includes(search);
+      });
+    },
+    hasError: function hasError() {
+      return !!this.errorMessage;
+    },
+    phoneValidationRules: function phoneValidationRules() {
+      return {
+        'SA': {
+          pattern: /^5\d{8}$/,
+          format: '5XXXXXXXX (9 digits starting with 5)',
+          formatKey: 'phone_format_sa',
+          message: this.$t('Invalid Saudi phone number. Must be 9 digits starting with 5')
+        },
+        'AE': {
+          pattern: /^5\d{8}$/,
+          format: '5XXXXXXXX (9 digits starting with 5)',
+          formatKey: 'phone_format_ae',
+          message: this.$t('Invalid UAE phone number. Must be 9 digits starting with 5')
+        },
+        'EG': {
+          pattern: /^1\d{9}$/,
+          format: '1XXXXXXXXX (10 digits starting with 1)',
+          formatKey: 'phone_format_eg',
+          message: this.$t('Invalid Egyptian phone number. Must be 10 digits starting with 1')
+        },
+        'JO': {
+          pattern: /^7\d{8}$/,
+          format: '7XXXXXXXX (9 digits starting with 7)',
+          formatKey: 'phone_format_jo',
+          message: this.$t('Invalid Jordanian phone number. Must be 9 digits starting with 7')
+        },
+        'LB': {
+          pattern: /^[37]\d{7}$/,
+          format: '3XXXXXXX or 7XXXXXXX (8 digits)',
+          formatKey: 'phone_format_lb',
+          message: this.$t('Invalid Lebanese phone number. Must be 8 digits starting with 3 or 7')
+        },
+        'KW': {
+          pattern: /^[569]\d{7}$/,
+          format: '5XXXXXXX, 6XXXXXXX, or 9XXXXXXX (8 digits)',
+          formatKey: 'phone_format_kw',
+          message: this.$t('Invalid Kuwait phone number. Must be 8 digits starting with 5, 6, or 9')
+        },
+        'QA': {
+          pattern: /^[37]\d{7}$/,
+          format: '3XXXXXXX or 7XXXXXXX (8 digits)',
+          formatKey: 'phone_format_qa',
+          message: this.$t('Invalid Qatari phone number. Must be 8 digits starting with 3 or 7')
+        },
+        'BH': {
+          pattern: /^[367]\d{7}$/,
+          format: '3XXXXXXX, 6XXXXXXX, or 7XXXXXXX (8 digits)',
+          formatKey: 'phone_format_bh',
+          message: this.$t('Invalid Bahrain phone number. Must be 8 digits starting with 3, 6, or 7')
+        },
+        'OM': {
+          pattern: /^[79]\d{7}$/,
+          format: '7XXXXXXX or 9XXXXXXX (8 digits)',
+          formatKey: 'phone_format_om',
+          message: this.$t('Invalid Omani phone number. Must be 8 digits starting with 7 or 9')
+        },
+        'US': {
+          pattern: /^\d{10}$/,
+          format: 'XXXXXXXXXX (10 digits)',
+          formatKey: 'phone_format_us',
+          message: this.$t('Invalid US phone number. Must be 10 digits')
+        },
+        'GB': {
+          pattern: /^[1-9]\d{9,10}$/,
+          format: 'XXXXXXXXXX or XXXXXXXXXXX (10-11 digits)',
+          formatKey: 'phone_format_gb',
+          message: this.$t('Invalid UK phone number. Must be 10-11 digits')
+        },
+        'CA': {
+          pattern: /^\d{10}$/,
+          format: 'XXXXXXXXXX (10 digits)',
+          formatKey: 'phone_format_ca',
+          message: this.$t('Invalid Canadian phone number. Must be 10 digits')
+        },
+        'AU': {
+          pattern: /^[23478]\d{8}$/,
+          format: '2XXXXXXXX, 3XXXXXXXX, 4XXXXXXXX, 7XXXXXXXX, or 8XXXXXXXX (9 digits)',
+          formatKey: 'phone_format_au',
+          message: this.$t('Invalid Australian phone number. Must be 9 digits starting with 2, 3, 4, 7, or 8')
+        },
+        'DE': {
+          pattern: /^[1-9]\d{9,10}$/,
+          format: 'XXXXXXXXXX or XXXXXXXXXXX (10-11 digits)',
+          formatKey: 'phone_format_de',
+          message: this.$t('Invalid German phone number. Must be 10-11 digits')
+        },
+        'FR': {
+          pattern: /^[1-9]\d{8}$/,
+          format: 'XXXXXXXXX (9 digits)',
+          formatKey: 'phone_format_fr',
+          message: this.$t('Invalid French phone number. Must be 9 digits')
+        },
+        'ES': {
+          pattern: /^[6-9]\d{8}$/,
+          format: '6XXXXXXXX, 7XXXXXXXX, 8XXXXXXXX, or 9XXXXXXXX (9 digits)',
+          formatKey: 'phone_format_es',
+          message: this.$t('Invalid Spanish phone number. Must be 9 digits starting with 6, 7, 8, or 9')
+        },
+        'IT': {
+          pattern: /^3\d{9}$/,
+          format: '3XXXXXXXXX (10 digits starting with 3)',
+          formatKey: 'phone_format_it',
+          message: this.$t('Invalid Italian phone number. Must be 10 digits starting with 3')
+        },
+        'TR': {
+          pattern: /^5\d{9}$/,
+          format: '5XXXXXXXXX (10 digits starting with 5)',
+          formatKey: 'phone_format_tr',
+          message: this.$t('Invalid Turkish phone number. Must be 10 digits starting with 5')
+        },
+        'IN': {
+          pattern: /^[6-9]\d{9}$/,
+          format: '6XXXXXXXXX, 7XXXXXXXXX, 8XXXXXXXXX, or 9XXXXXXXXX (10 digits)',
+          formatKey: 'phone_format_in',
+          message: this.$t('Invalid Indian phone number. Must be 10 digits starting with 6, 7, 8, or 9')
+        }
+      };
+    }
+  },
+  watch: {
+    value: function value(newVal) {
+      if (newVal !== this.getFullPhoneNumber()) {
+        this.parsePhoneNumber(newVal);
+      }
+    },
+    country: function country(newCountry) {
+      if (newCountry && newCountry !== this.selectedCountryCode) {
+        this.selectedCountryCode = newCountry;
+        this.validatePhone();
+      }
+    },
+    selectedCountryCode: function selectedCountryCode() {
+      this.validatePhone();
+      this.updatePhoneFormat();
+    }
+  },
+  mounted: function mounted() {
+    var _this3 = this;
+    // Parse initial value if provided
+    if (this.value) {
+      this.parsePhoneNumber(this.value);
+    }
+
+    // Set initial country from prop
+    if (this.country) {
+      this.selectedCountryCode = this.country;
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', this.handleClickOutside);
+
+    // Update phone format
+    this.updatePhoneFormat();
+
+    // Validate phone number after component is mounted
+    this.$nextTick(function () {
+      _this3.validatePhone();
+    });
+  },
+  beforeDestroy: function beforeDestroy() {
+    document.removeEventListener('click', this.handleClickOutside);
+  },
+  methods: {
+    parsePhoneNumber: function parsePhoneNumber(phone) {
+      var _this4 = this;
+      // Try to extract country code and number
+      if (phone.startsWith('+')) {
+        var withoutPlus = phone.substring(1);
+        // Try to match country by dial code
+        var _iterator = _createForOfIteratorHelper(this.countries),
+          _step;
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var country = _step.value;
+            if (withoutPlus.startsWith(country.dialCode)) {
+              this.selectedCountryCode = country.code;
+              this.phoneNumber = withoutPlus.substring(country.dialCode.length);
+              // Validate after parsing
+              this.$nextTick(function () {
+                _this4.validatePhone();
+              });
+              return;
+            }
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+      }
+      // If no country code found, use as is
+      this.phoneNumber = phone.replace(/^\+/, '');
+      // Validate after parsing
+      this.$nextTick(function () {
+        _this4.validatePhone();
+      });
+    },
+    getFullPhoneNumber: function getFullPhoneNumber() {
+      if (!this.phoneNumber) return '';
+      return "+".concat(this.selectedCountry.dialCode).concat(this.phoneNumber);
+    },
+    onInput: function onInput() {
+      // Remove non-digit characters
+      this.phoneNumber = this.phoneNumber.replace(/\D/g, '');
+
+      // Emit the full phone number
+      this.$emit('input', this.getFullPhoneNumber());
+
+      // Validate while typing if enabled
+      if (this.validateOnInput) {
+        this.validatePhone();
+      }
+    },
+    onFocus: function onFocus() {
+      // Validate on focus
+      this.validatePhone();
+    },
+    validatePhone: function validatePhone() {
+      // Clear previous error
+      this.errorMessage = '';
+
+      // If not required and empty, it's valid
+      if (!this.required && !this.phoneNumber) {
+        this.$emit('validated', true);
+        return true;
+      }
+
+      // If required and empty, show error
+      if (this.required && !this.phoneNumber) {
+        this.errorMessage = this.$t('phone_required');
+        this.$emit('validated', false);
+        return false;
+      }
+
+      // Get validation rule for selected country
+      var rule = this.phoneValidationRules[this.selectedCountryCode];
+
+      // If no rule exists for this country, allow any format
+      if (!rule) {
+        this.$emit('validated', true);
+        return true;
+      }
+
+      // Test against pattern
+      if (rule.pattern.test(this.phoneNumber)) {
+        this.errorMessage = '';
+        this.$emit('validated', true);
+        return true;
+      } else {
+        this.errorMessage = rule.message;
+        this.$emit('validated', false);
+        return false;
+      }
+    },
+    updatePhoneFormat: function updatePhoneFormat() {
+      var rule = this.phoneValidationRules[this.selectedCountryCode];
+      if (rule && rule.formatKey) {
+        this.phoneFormat = this.$t(rule.formatKey) || rule.format;
+      } else {
+        this.phoneFormat = rule ? rule.format : '';
+      }
+    },
+    toggleCountryDropdown: function toggleCountryDropdown() {
+      this.showCountryDropdown = !this.showCountryDropdown;
+      if (this.showCountryDropdown) {
+        this.countrySearch = '';
+      }
+    },
+    selectCountry: function selectCountry(country) {
+      this.selectedCountryCode = country.code;
+      this.showCountryDropdown = false;
+      this.countrySearch = '';
+      this.validatePhone();
+      this.$emit('country-changed', country.code);
+    },
+    filterCountries: function filterCountries() {
+      // Filtering is handled by computed property
+    },
+    handleClickOutside: function handleClickOutside(event) {
+      if (!this.$el.contains(event.target)) {
+        this.showCountryDropdown = false;
+      }
+    }
+  }
+});
+;// ./resources/js/components/PhoneNumberInput.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_PhoneNumberInputvue_type_script_lang_js = (PhoneNumberInputvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/PhoneNumberInput.vue?vue&type=style&index=0&id=6f975a8b&prod&scoped=true&lang=css
+var PhoneNumberInputvue_type_style_index_0_id_6f975a8b_prod_scoped_true_lang_css = __webpack_require__(77945);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/PhoneNumberInput.vue?vue&type=style&index=0&id=6f975a8b&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(PhoneNumberInputvue_type_style_index_0_id_6f975a8b_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_PhoneNumberInputvue_type_style_index_0_id_6f975a8b_prod_scoped_true_lang_css = (PhoneNumberInputvue_type_style_index_0_id_6f975a8b_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/PhoneNumberInput.vue?vue&type=style&index=0&id=6f975a8b&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/PhoneNumberInput.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_PhoneNumberInputvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "6f975a8b",
+  null
+  
+)
+
+/* harmony default export */ const PhoneNumberInput = (component.exports);
 
 /***/ }),
 
@@ -76627,6 +76609,26 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/no.svg?b9cc4fcdf51eb234607
 
 /***/ }),
 
+/***/ 77945:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".phone-input-container[data-v-6f975a8b],.phone-number-input[data-v-6f975a8b]{position:relative}.phone-input-wrapper[data-v-6f975a8b]{align-items:center;background:#fff;border:0;border-radius:50px;box-shadow:0 .125rem .25rem rgba(0,0,0,.075);display:flex;min-height:3rem;overflow:hidden;position:relative;transition:all .3s ease;z-index:1}.phone-input-wrapper[data-v-6f975a8b]:focus-within{box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.phone-input-wrapper.is-invalid[data-v-6f975a8b]{border-color:#dc3545;box-shadow:0 0 0 .2rem rgba(220,53,69,.25)}.country-selector[data-v-6f975a8b]{align-items:center;background:#f8f9fa;border-right:1px solid #dee2e6;cursor:pointer;display:flex;gap:8px;min-width:100px;padding:.5rem 1rem;transition:background .2s;-webkit-user-select:none;-moz-user-select:none;user-select:none}.country-selector[data-v-6f975a8b]:hover{background:#e9ecef}.country-flag[data-v-6f975a8b]{font-size:1.25rem;line-height:1}.country-code[data-v-6f975a8b]{color:#495057;font-size:.9rem;font-weight:500}.dropdown-icon[data-v-6f975a8b]{color:#6c757d;font-size:.75rem;transition:transform .2s}.country-selector:hover .dropdown-icon[data-v-6f975a8b]{transform:translateY(2px)}.phone-input[data-v-6f975a8b]{background:transparent;border:0;color:#33a0d9;direction:ltr;flex:1;font-size:1rem;outline:none;padding:.5rem 1rem;text-align:left}.phone-input[data-v-6f975a8b]::-moz-placeholder{color:#adb5bd;text-align:left}.phone-input[data-v-6f975a8b]::placeholder{color:#adb5bd;text-align:left}[dir=rtl] .phone-input[data-v-6f975a8b]{text-align:right}[dir=rtl] .phone-input[data-v-6f975a8b]::-moz-placeholder{text-align:right}[dir=rtl] .phone-input[data-v-6f975a8b]::placeholder{text-align:right}.country-dropdown[data-v-6f975a8b]{background:#fff;border-radius:15px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);display:flex;flex-direction:column;left:0;max-height:300px;overflow:hidden;position:absolute;right:0;top:calc(100% + .5rem);z-index:1000}.country-search[data-v-6f975a8b]{border-bottom:1px solid #dee2e6;padding:.75rem}.country-search input[data-v-6f975a8b]{border:1px solid #dee2e6;border-radius:10px;padding:.5rem .75rem}.country-list[data-v-6f975a8b]{max-height:250px;overflow-y:auto}.country-item[data-v-6f975a8b]{align-items:center;border-bottom:1px solid #f8f9fa;cursor:pointer;display:flex;gap:12px;padding:.75rem 1rem;transition:background .2s}.country-item[data-v-6f975a8b]:hover{background:#f8f9fa}.country-item.active[data-v-6f975a8b]{background:#e7f3ff;color:#33a0d9}.country-item .country-flag[data-v-6f975a8b]{font-size:1.25rem;line-height:1;text-align:center;width:24px}.country-item .country-name[data-v-6f975a8b]{flex:1;font-size:.95rem}.country-item .country-dial-code[data-v-6f975a8b]{color:#6c757d;font-size:.85rem;font-weight:500}.invalid-feedback[data-v-6f975a8b]{color:#dc3545;font-size:.875rem}[dir=rtl] .country-selector[data-v-6f975a8b]{border-left:1px solid #dee2e6;border-right:none}[dir=rtl] .country-dropdown[data-v-6f975a8b]{left:auto;right:0}@media (max-width:768px){.country-selector[data-v-6f975a8b]{min-width:80px;padding:.5rem .75rem}.country-code[data-v-6f975a8b]{font-size:.8rem}.country-dropdown[data-v-6f975a8b]{max-height:250px}.country-list[data-v-6f975a8b]{max-height:200px}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 78059:
 /***/ ((module) => {
 
@@ -86038,7 +86040,7 @@ var dist = __webpack_require__(12616);
 // EXTERNAL MODULE: ./resources/js/components/RepresentativesList.vue + 11 modules
 var RepresentativesList = __webpack_require__(89812);
 // EXTERNAL MODULE: ./resources/js/components/PhoneNumberInput.vue + 5 modules
-var PhoneNumberInput = __webpack_require__(7987);
+var PhoneNumberInput = __webpack_require__(57683);
 // EXTERNAL MODULE: ./node_modules/axios/index.js
 var axios = __webpack_require__(72505);
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
@@ -109052,6 +109054,7 @@ vue_esm["default"].use((dist_default()));
 ;// ./resources/js/plugins/custom-toast.js
 var custom_toast_excluded = ["duration"],
   _excluded2 = ["type", "title", "message"];
+function custom_toast_typeof(o) { "@babel/helpers - typeof"; return custom_toast_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, custom_toast_typeof(o); }
 function custom_toast_objectWithoutProperties(e, t) { if (null == e) return {}; var o, r, i = custom_toast_objectWithoutPropertiesLoose(e, t); if (Object.getOwnPropertySymbols) { var n = Object.getOwnPropertySymbols(e); for (r = 0; r < n.length; r++) o = n[r], -1 === t.indexOf(o) && {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]); } return i; }
 function custom_toast_objectWithoutPropertiesLoose(r, e) { if (null == r) return {}; var t = {}; for (var n in r) if ({}.hasOwnProperty.call(r, n)) { if (-1 !== e.indexOf(n)) continue; t[n] = r[n]; } return t; }
 
@@ -109322,18 +109325,94 @@ if (typeof window !== 'undefined') {
 //   test()
 // }, 1000)
 
+// Create toastr-compatible object with .s and .e methods
+// Note: toastr.s(message) and toastr.e(message) treat message as the message text
+var toastr = {
+  s: function s(message) {
+    var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+    // If only one argument, treat it as message
+    if (title === '') {
+      return tenant_toast.success('', message);
+    }
+    // If two arguments, first is message, second is title
+    return tenant_toast.success(title, message);
+  },
+  e: function e(message) {
+    var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+    // If only one argument, treat it as message
+    if (title === '') {
+      return tenant_toast.error('', message);
+    }
+    // If two arguments, first is message, second is title
+    return tenant_toast.error(title, message);
+  },
+  success: function success(message) {
+    var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+    // If only one argument, treat it as message
+    if (title === '') {
+      return tenant_toast.success('', message);
+    }
+    // If two arguments, first is message, second is title
+    return tenant_toast.success(title, message);
+  },
+  error: function error(message) {
+    var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+    // If only one argument, treat it as message
+    if (title === '') {
+      return tenant_toast.error('', message);
+    }
+    // If two arguments, first is message, second is title
+    return tenant_toast.error(title, message);
+  },
+  warning: function warning(message) {
+    var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+    // If only one argument, treat it as message
+    if (title === '') {
+      return tenant_toast.warning('', message);
+    }
+    // If two arguments, first is message, second is title
+    return tenant_toast.warning(title, message);
+  },
+  info: function info(message) {
+    var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+    // If only one argument, treat it as message
+    if (title === '') {
+      return tenant_toast.info('', message);
+    }
+    // If two arguments, first is message, second is title
+    return tenant_toast.info(title, message);
+  }
+};
+
+// Make toastr available globally immediately
+if (typeof window !== 'undefined') {
+  window.toastr = toastr;
+  console.log('Toastr assigned to window.toastr');
+  console.log('Toastr methods:', Object.keys(window.toastr));
+}
+
 // Create Vue plugin
 var customToastPlugin = {
   install: function install(Vue, options) {
     console.log('Installing Custom Toast Vue plugin...');
+    console.log('Toast available:', !!tenant_toast);
+    console.log('Toastr available:', !!toastr);
     Vue.prototype.$toast = tenant_toast;
+    Vue.prototype.$toastr = toastr;
     Vue.toast = tenant_toast;
+    Vue.toastr = toastr;
     console.log('Custom Toast Vue plugin installed');
+    console.log('Vue.prototype.$toastr:', custom_toast_typeof(Vue.prototype.$toastr));
   }
 };
 
-// Use the plugin
-vue_esm["default"].use(customToastPlugin);
+// Use the plugin - ensure Vue is available
+if (vue_esm["default"] && typeof vue_esm["default"].use === 'function') {
+  vue_esm["default"].use(customToastPlugin);
+  console.log('Custom Toast plugin registered with Vue');
+} else {
+  console.error('Vue is not available when trying to register Custom Toast plugin');
+}
 
 // Listen for RTL changes
 window.addEventListener('rtl-changed', function () {
@@ -116868,8 +116947,8 @@ var Child_component = (0,componentNormalizer/* default */.A)(
 /* harmony default export */ const Child = (Child_component.exports);
 // EXTERNAL MODULE: ./resources/js/components/Modal.vue + 5 modules
 var Modal = __webpack_require__(81343);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Search.vue?vue&type=template&id=65d83172
-var Searchvue_type_template_id_65d83172_render = function render() {
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Search.vue?vue&type=template&id=546aa038
+var Searchvue_type_template_id_546aa038_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -116919,7 +116998,7 @@ var Searchvue_type_template_id_65d83172_render = function render() {
     staticClass: "fas fa-times"
   })])]);
 };
-var Searchvue_type_template_id_65d83172_staticRenderFns = [];
+var Searchvue_type_template_id_546aa038_staticRenderFns = [];
 
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Search.vue?vue&type=script&lang=js
 /* harmony default export */ const Searchvue_type_script_lang_js = ({
@@ -116949,9 +117028,9 @@ var Searchvue_type_template_id_65d83172_staticRenderFns = [];
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Search.vue?vue&type=style&index=0&id=65d83172&prod&lang=css
-var Searchvue_type_style_index_0_id_65d83172_prod_lang_css = __webpack_require__(22783);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Search.vue?vue&type=style&index=0&id=65d83172&prod&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Search.vue?vue&type=style&index=0&id=546aa038&prod&lang=css
+var Searchvue_type_style_index_0_id_546aa038_prod_lang_css = __webpack_require__(40617);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Search.vue?vue&type=style&index=0&id=546aa038&prod&lang=css
 
             
 
@@ -116960,12 +117039,12 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(Searchvue_type_style_index_0_id_65d83172_prod_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(Searchvue_type_style_index_0_id_546aa038_prod_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const components_Searchvue_type_style_index_0_id_65d83172_prod_lang_css = (Searchvue_type_style_index_0_id_65d83172_prod_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/Search.vue?vue&type=style&index=0&id=65d83172&prod&lang=css
+/* harmony default export */ const components_Searchvue_type_style_index_0_id_546aa038_prod_lang_css = (Searchvue_type_style_index_0_id_546aa038_prod_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/Search.vue?vue&type=style&index=0&id=546aa038&prod&lang=css
 
 ;// ./resources/js/components/Search.vue
 
@@ -116978,8 +117057,8 @@ var update = injectStylesIntoStyleTag_default()(Searchvue_type_style_index_0_id_
 
 var Search_component = (0,componentNormalizer/* default */.A)(
   components_Searchvue_type_script_lang_js,
-  Searchvue_type_template_id_65d83172_render,
-  Searchvue_type_template_id_65d83172_staticRenderFns,
+  Searchvue_type_template_id_546aa038_render,
+  Searchvue_type_template_id_546aa038_staticRenderFns,
   false,
   null,
   null,
