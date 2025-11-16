@@ -104,19 +104,19 @@ var render = function render() {
 };
 var staticRenderFns = [];
 
-// EXTERNAL MODULE: ./resources/js/components/SupplierForm.vue + 5 modules
-var SupplierForm = __webpack_require__(47085);
+// EXTERNAL MODULE: ./resources/js/components/SupplierForm.vue + 6 modules
+var SupplierForm = __webpack_require__(48801);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/suppliers/create.vue?vue&type=script&lang=js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 
 /* harmony default export */ const createvue_type_script_lang_js = ({
   middleware: ["auth", "check-permissions"],
@@ -162,25 +162,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     // save supplier
     saveSupplier: function saveSupplier(formData) {
       var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var response;
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var response, _t;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.p = _context.n) {
             case 0:
               if (!_this2.isSubmitting) {
-                _context.next = 2;
+                _context.n = 1;
                 break;
               }
-              return _context.abrupt("return");
-            case 2:
+              return _context.a(2);
+            case 1:
               _this2.isSubmitting = true;
-              _context.prev = 3;
-              _context.next = 6;
+              _context.p = 2;
+              _context.n = 3;
               return _this2.$http.post("/api/suppliers", formData);
-            case 6:
-              response = _context.sent;
+            case 3:
+              response = _context.v;
               if (!response.data.success) {
-                _context.next = 13;
+                _context.n = 4;
                 break;
               }
               toast.fire({
@@ -191,26 +191,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this2.$router.push({
                 name: "suppliers.index"
               });
-              _context.next = 14;
+              _context.n = 5;
               break;
-            case 13:
+            case 4:
               throw new Error(response.data.message || 'Failed to create supplier');
-            case 14:
-              _context.next = 19;
+            case 5:
+              _context.n = 7;
               break;
-            case 16:
-              _context.prev = 16;
-              _context.t0 = _context["catch"](3);
-              _this2.handleSubmitError(_context.t0);
-            case 19:
-              _context.prev = 19;
+            case 6:
+              _context.p = 6;
+              _t = _context.v;
+              _this2.handleSubmitError(_t);
+            case 7:
+              _context.p = 7;
               _this2.isSubmitting = false;
-              return _context.finish(19);
-            case 22:
-            case "end":
-              return _context.stop();
+              return _context.f(7);
+            case 8:
+              return _context.a(2);
           }
-        }, _callee, null, [[3, 16, 19, 22]]);
+        }, _callee, null, [[2, 6, 7, 8]]);
       }))();
     },
     // handle form submission errors
@@ -843,7 +842,7 @@ var update = injectStylesIntoStyleTag_default()(vue_tel_inputvue_type_style_inde
 
 /***/ }),
 
-/***/ 47085:
+/***/ 48801:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -852,7 +851,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ SupplierForm)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=template&id=b75b6ede&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=template&id=a7f6ad54&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -1005,45 +1004,6 @@ var render = function render() {
       "form": _vm.form,
       "field": "fullName"
     }
-  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.type === 'Company' ? _c('div', [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "businessName"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Business Name")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.businessName,
-      expression: "form.businessName"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('businessName')
-    },
-    attrs: {
-      "id": "businessName",
-      "type": "text",
-      "name": "businessName",
-      "placeholder": _vm.$t('Enter business name')
-    },
-    domProps: {
-      "value": _vm.form.businessName
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "businessName", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "businessName"
-    }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
@@ -1120,7 +1080,46 @@ var render = function render() {
       "form": _vm.form,
       "field": "lastName"
     }
-  })], 1)])]) : _vm._e(), _vm._v(" "), _c('div', {
+  })], 1)])]) : _vm._e(), _vm._v(" "), _vm.form.type === 'Company' ? _c('div', [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "businessName"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Business Name")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.businessName,
+      expression: "form.businessName"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('businessName')
+    },
+    attrs: {
+      "id": "businessName",
+      "type": "text",
+      "name": "businessName",
+      "placeholder": _vm.$t('Enter business name')
+    },
+    domProps: {
+      "value": _vm.form.businessName
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "businessName", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "businessName"
+    }
+  })], 1)]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "form-group col-md-6"
@@ -1161,38 +1160,22 @@ var render = function render() {
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    staticClass: "required-field",
+  }, [_c('PhoneNumberInput', {
     attrs: {
-      "for": "phoneNumber"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Mobile")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.phoneNumber,
-      expression: "form.phoneNumber"
-    }],
-    staticClass: "form-control required-input",
-    "class": {
-      'is-invalid': _vm.form.errors.has('phoneNumber')
-    },
-    attrs: {
-      "id": "phoneNumber",
-      "type": "tel",
-      "name": "phoneNumber",
-      "placeholder": _vm.$t('Enter mobile number (required)')
-    },
-    domProps: {
-      "value": _vm.form.phoneNumber
+      "label": _vm.$t('Mobile'),
+      "required": true,
+      "country": _vm.form.country,
+      "default-country": _vm.form.country || 'SA'
     },
     on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "phoneNumber", $event.target.value);
-      }
+      "validated": _vm.onPhoneValidated
+    },
+    model: {
+      value: _vm.form.phoneNumber,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "phoneNumber", $$v);
+      },
+      expression: "form.phoneNumber"
     }
   }), _vm._v(" "), _c('has-error', {
     attrs: {
@@ -1417,8 +1400,8 @@ var render = function render() {
   }, [_c('h5', {
     staticClass: "section-title"
   }, [_c('i', {
-    staticClass: "fas fa-map-marker-alt mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Address Information")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "fas fa-map-marked-alt mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("National Address")) + "\n          ")])]), _vm._v(" "), _c('div', {
     staticClass: "card-body"
   }, [_c('div', {
     staticClass: "row"
@@ -1428,57 +1411,72 @@ var render = function render() {
     attrs: {
       "for": "country"
     }
-  }, [_vm._v(_vm._s(_vm.$t("Country")))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.country,
-      expression: "form.country"
-    }],
-    staticClass: "form-control",
+  }, [_vm._v(_vm._s(_vm.$t("Country")))]), _vm._v(" "), _c('v-select', {
+    staticClass: "country-select",
     "class": {
       'is-invalid': _vm.form.errors.has('country')
     },
     attrs: {
-      "id": "country"
+      "options": _vm.countries,
+      "label": "name",
+      "reduce": function reduce(option) {
+        return option.code;
+      },
+      "placeholder": _vm.$t('Select Country'),
+      "searchable": true,
+      "clearable": false
     },
     on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "country", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      "input": _vm.onCountryChange
+    },
+    scopedSlots: _vm._u([{
+      key: "option",
+      fn: function fn(_ref) {
+        var flag = _ref.flag,
+          name = _ref.name;
+        return [_c('div', {
+          staticClass: "country-option"
+        }, [_c('span', {
+          staticClass: "country-flag"
+        }, [_vm._v(_vm._s(flag))]), _vm._v(" "), _c('span', {
+          staticClass: "country-name"
+        }, [_vm._v(_vm._s(name))])])];
       }
+    }, {
+      key: "selected-option",
+      fn: function fn(_ref2) {
+        var flag = _ref2.flag,
+          name = _ref2.name;
+        return [_c('div', {
+          staticClass: "country-selected"
+        }, [_c('span', {
+          staticClass: "country-flag"
+        }, [_vm._v(_vm._s(flag))]), _vm._v(" "), _c('span', {
+          staticClass: "country-name"
+        }, [_vm._v(_vm._s(name))])])];
+      }
+    }, {
+      key: "no-options",
+      fn: function fn() {
+        return [_c('div', {
+          staticClass: "text-center text-muted p-2"
+        }, [_vm._v("\n                    " + _vm._s(_vm.$t('No countries found')) + "\n                  ")])];
+      },
+      proxy: true
+    }]),
+    model: {
+      value: _vm.form.country,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "country", $$v);
+      },
+      expression: "form.country"
     }
-  }, [_c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Select Country")))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "SA"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Saudi Arabia (SA)")))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "EG"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Egypt (EG)")))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "US"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("United States (US)")))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "GB"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("United Kingdom (GB)")))])]), _vm._v(" "), _c('has-error', {
+  }), _vm._v(" "), _c('has-error', {
     attrs: {
       "form": _vm.form,
       "field": "country"
     }
-  })], 1), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _vm.form.country !== 'SA' ? _c('div', {
     staticClass: "form-group col-md-3"
   }, [_c('label', {
     attrs: {
@@ -1515,7 +1513,171 @@ var render = function render() {
       "form": _vm.form,
       "field": "state"
     }
+  })], 1) : _vm._e(), _vm._v(" "), _vm.form.country === 'SA' ? [_c('div', {
+    staticClass: "form-group col-md-3"
+  }, [_c('label', {
+    attrs: {
+      "for": "saudi_region"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Region")))]), _vm._v(" "), _c('v-select', {
+    staticClass: "saudi-location-select",
+    "class": {
+      'is-invalid': _vm.form.errors.has('saudi_region')
+    },
+    attrs: {
+      "options": _vm.saudiRegions,
+      "label": "name",
+      "reduce": function reduce(option) {
+        return option.id;
+      },
+      "placeholder": _vm.$t('Select Region'),
+      "searchable": true,
+      "clearable": false
+    },
+    on: {
+      "input": _vm.onSaudiRegionChange
+    },
+    scopedSlots: _vm._u([{
+      key: "option",
+      fn: function fn(_ref3) {
+        var name_ar = _ref3.name_ar,
+          name_en = _ref3.name_en;
+        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
+      }
+    }, {
+      key: "selected-option",
+      fn: function fn(_ref4) {
+        var name_ar = _ref4.name_ar,
+          name_en = _ref4.name_en;
+        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
+      }
+    }], null, false, 2274166349),
+    model: {
+      value: _vm.form.saudi_region,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "saudi_region", $$v);
+      },
+      expression: "form.saudi_region"
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "saudi_region"
+    }
   })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-3"
+  }, [_c('label', {
+    attrs: {
+      "for": "city"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("City")))]), _vm._v(" "), _vm.saudiCities.length > 0 ? _c('v-select', {
+    staticClass: "saudi-location-select",
+    "class": {
+      'is-invalid': _vm.form.errors.has('city')
+    },
+    attrs: {
+      "options": _vm.saudiCities,
+      "label": "name",
+      "reduce": function reduce(option) {
+        return option.name;
+      },
+      "placeholder": _vm.$t('Select City'),
+      "searchable": true,
+      "clearable": false,
+      "disabled": !_vm.form.saudi_region
+    },
+    scopedSlots: _vm._u([{
+      key: "option",
+      fn: function fn(_ref5) {
+        var name_ar = _ref5.name_ar,
+          name_en = _ref5.name_en;
+        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
+      }
+    }, {
+      key: "selected-option",
+      fn: function fn(_ref6) {
+        var name_ar = _ref6.name_ar,
+          name_en = _ref6.name_en;
+        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
+      }
+    }], null, false, 2274166349),
+    model: {
+      value: _vm.form.city,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "city", $$v);
+      },
+      expression: "form.city"
+    }
+  }) : _vm.form.saudi_region ? _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.city,
+      expression: "form.city"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('city')
+    },
+    attrs: {
+      "id": "city",
+      "type": "text",
+      "name": "city",
+      "placeholder": _vm.$t('Enter city name'),
+      "disabled": !_vm.form.saudi_region
+    },
+    domProps: {
+      "value": _vm.form.city
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "city", $event.target.value);
+      }
+    }
+  }) : _vm._e(), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "city"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-3"
+  }, [_c('label', {
+    attrs: {
+      "for": "neighbourhood"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Neighbourhood")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.neighbourhood,
+      expression: "form.neighbourhood"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('neighbourhood')
+    },
+    attrs: {
+      "id": "neighbourhood",
+      "type": "text",
+      "name": "neighbourhood",
+      "placeholder": _vm.$t('Enter neighbourhood')
+    },
+    domProps: {
+      "value": _vm.form.neighbourhood
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "neighbourhood", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "neighbourhood"
+    }
+  })], 1)] : _vm._e(), _vm._v(" "), _vm.form.country !== 'SA' ? [_c('div', {
     staticClass: "form-group col-md-3"
   }, [_c('label', {
     attrs: {
@@ -1589,13 +1751,15 @@ var render = function render() {
       "form": _vm.form,
       "field": "neighbourhood"
     }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
+  })], 1)] : _vm._e()], 2), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
   }, [_c('label', {
     attrs: {
       "for": "streetAddress1"
     }
-  }, [_vm._v(_vm._s(_vm.$t("Street Address 1")))]), _vm._v(" "), _c('input', {
+  }, [_vm._v(_vm._s(_vm.$t("Street Name")))]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -1610,7 +1774,7 @@ var render = function render() {
       "id": "streetAddress1",
       "type": "text",
       "name": "streetAddress1",
-      "placeholder": _vm.$t('Enter street address')
+      "placeholder": _vm.$t('Enter street name')
     },
     domProps: {
       "value": _vm.form.streetAddress1
@@ -1627,46 +1791,7 @@ var render = function render() {
       "field": "streetAddress1"
     }
   })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "streetAddress2"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Street Address 2")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.streetAddress2,
-      expression: "form.streetAddress2"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('streetAddress2')
-    },
-    attrs: {
-      "id": "streetAddress2",
-      "type": "text",
-      "name": "streetAddress2",
-      "placeholder": _vm.$t('Enter additional address info')
-    },
-    domProps: {
-      "value": _vm.form.streetAddress2
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "streetAddress2", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "streetAddress2"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
+    staticClass: "form-group col-md-3"
   }, [_c('label', {
     attrs: {
       "for": "postalCode"
@@ -1702,9 +1827,131 @@ var render = function render() {
       "form": _vm.form,
       "field": "postalCode"
     }
-  })], 1)]), _vm._v(" "), _vm.form.type === 'Company' ? _c('div', {
+  })], 1), _vm._v(" "), _vm.form.country === 'SA' ? _c('div', {
+    staticClass: "form-group col-md-3"
+  }, [_c('label', {
+    attrs: {
+      "for": "buildingNumber"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Building Number")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.buildingNumber,
+      expression: "form.buildingNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('buildingNumber')
+    },
+    attrs: {
+      "id": "buildingNumber",
+      "type": "text",
+      "name": "buildingNumber",
+      "placeholder": _vm.$t('Enter building number'),
+      "maxlength": "5"
+    },
+    domProps: {
+      "value": _vm.form.buildingNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "buildingNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "buildingNumber"
+    }
+  })], 1) : _vm._e()]), _vm._v(" "), _vm.form.country === 'SA' ? _c('div', {
     staticClass: "row"
   }, [_c('div', {
+    staticClass: "form-group col-md-3"
+  }, [_c('label', {
+    attrs: {
+      "for": "unitNumber"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Unit Number")) + " "), _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.unitNumber,
+      expression: "form.unitNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('unitNumber')
+    },
+    attrs: {
+      "id": "unitNumber",
+      "type": "text",
+      "name": "unitNumber",
+      "placeholder": _vm.$t('Enter unit number'),
+      "maxlength": "5"
+    },
+    domProps: {
+      "value": _vm.form.unitNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "unitNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "unitNumber"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-3"
+  }, [_c('label', {
+    attrs: {
+      "for": "additionalNumber"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Additional Number")) + " "), _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.additionalNumber,
+      expression: "form.additionalNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('additionalNumber')
+    },
+    attrs: {
+      "id": "additionalNumber",
+      "type": "text",
+      "name": "additionalNumber",
+      "placeholder": _vm.$t('Enter additional number'),
+      "maxlength": "5"
+    },
+    domProps: {
+      "value": _vm.form.additionalNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "additionalNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "additionalNumber"
+    }
+  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.type === 'Company' ? _c('div', {
+    staticClass: "row mt-4"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "form-group col-md-6"
   }, [_c('label', {
     attrs: {
@@ -1995,7 +2242,20 @@ var render = function render() {
     staticClass: "ml-2 text-muted small"
   }, [_vm._v("\n              (" + _vm._s(_vm.$t("SMS not configured")) + ")\n            ")]) : _vm._e()], 1)])])])])])])]);
 };
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "col-md-12"
+  }, [_c('hr', {
+    staticStyle: {
+      "margin": "20px 0",
+      "border-color": "#e0e0e0"
+    }
+  })]);
+}];
+
+;// ./resources/js/components/SupplierForm.vue?vue&type=template&id=a7f6ad54&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
 var vform_es = __webpack_require__(63216);
@@ -2003,27 +2263,31 @@ var vform_es = __webpack_require__(63216);
 var dist = __webpack_require__(12616);
 // EXTERNAL MODULE: ./resources/js/components/RepresentativesList.vue + 11 modules
 var RepresentativesList = __webpack_require__(89812);
+// EXTERNAL MODULE: ./resources/js/components/PhoneNumberInput.vue + 5 modules
+var PhoneNumberInput = __webpack_require__(7987);
 // EXTERNAL MODULE: ./node_modules/axios/index.js
 var axios = __webpack_require__(72505);
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 // EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
 var sweetalert2_all = __webpack_require__(78465);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=script&lang=js
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 
@@ -2033,7 +2297,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   name: "SupplierForm",
   components: {
     ToggleButton: dist.ToggleButton,
-    RepresentativesList: RepresentativesList/* default */.A
+    RepresentativesList: RepresentativesList/* default */.A,
+    PhoneNumberInput: PhoneNumberInput/* default */.A
   },
   props: {
     // Whether to show the card-body wrapper (for create page) or not (for modal)
@@ -2069,10 +2334,300 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         email_configured: false,
         sms_configured: false,
         loading: true
-      }
+      },
+      // Phone number validation
+      phoneNumberValid: false,
+      // Saudi Arabia location data
+      saudiRegions: [],
+      saudiCities: [],
+      loadingRegions: false,
+      loadingCities: false,
+      // Countries data with flags (same as ClientForm)
+      countriesData: [{
+        code: 'SA',
+        nameKey: 'Saudi Arabia',
+        flag: '🇸🇦'
+      }, {
+        code: 'AE',
+        nameKey: 'United Arab Emirates',
+        flag: '🇦🇪'
+      }, {
+        code: 'EG',
+        nameKey: 'Egypt',
+        flag: '🇪🇬'
+      }, {
+        code: 'JO',
+        nameKey: 'Jordan',
+        flag: '🇯🇴'
+      }, {
+        code: 'LB',
+        nameKey: 'Lebanon',
+        flag: '🇱🇧'
+      }, {
+        code: 'MA',
+        nameKey: 'Morocco',
+        flag: '🇲🇦'
+      }, {
+        code: 'TN',
+        nameKey: 'Tunisia',
+        flag: '🇹🇳'
+      }, {
+        code: 'DZ',
+        nameKey: 'Algeria',
+        flag: '🇩🇿'
+      }, {
+        code: 'KW',
+        nameKey: 'Kuwait',
+        flag: '🇰🇼'
+      }, {
+        code: 'QA',
+        nameKey: 'Qatar',
+        flag: '🇶🇦'
+      }, {
+        code: 'BH',
+        nameKey: 'Bahrain',
+        flag: '🇧🇭'
+      }, {
+        code: 'OM',
+        nameKey: 'Oman',
+        flag: '🇴🇲'
+      }, {
+        code: 'YE',
+        nameKey: 'Yemen',
+        flag: '🇾🇪'
+      }, {
+        code: 'IQ',
+        nameKey: 'Iraq',
+        flag: '🇮🇶'
+      }, {
+        code: 'US',
+        nameKey: 'United States',
+        flag: '🇺🇸'
+      }, {
+        code: 'GB',
+        nameKey: 'United Kingdom',
+        flag: '🇬🇧'
+      }, {
+        code: 'CA',
+        nameKey: 'Canada',
+        flag: '🇨🇦'
+      }, {
+        code: 'AU',
+        nameKey: 'Australia',
+        flag: '🇦🇺'
+      }, {
+        code: 'DE',
+        nameKey: 'Germany',
+        flag: '🇩🇪'
+      }, {
+        code: 'FR',
+        nameKey: 'France',
+        flag: '🇫🇷'
+      }, {
+        code: 'ES',
+        nameKey: 'Spain',
+        flag: '🇪🇸'
+      }, {
+        code: 'IT',
+        nameKey: 'Italy',
+        flag: '🇮🇹'
+      }, {
+        code: 'NL',
+        nameKey: 'Netherlands',
+        flag: '🇳🇱'
+      }, {
+        code: 'BE',
+        nameKey: 'Belgium',
+        flag: '🇧🇪'
+      }, {
+        code: 'CH',
+        nameKey: 'Switzerland',
+        flag: '🇨🇭'
+      }, {
+        code: 'AT',
+        nameKey: 'Austria',
+        flag: '🇦🇹'
+      }, {
+        code: 'SE',
+        nameKey: 'Sweden',
+        flag: '🇸🇪'
+      }, {
+        code: 'NO',
+        nameKey: 'Norway',
+        flag: '🇳🇴'
+      }, {
+        code: 'DK',
+        nameKey: 'Denmark',
+        flag: '🇩🇰'
+      }, {
+        code: 'FI',
+        nameKey: 'Finland',
+        flag: '🇫🇮'
+      }, {
+        code: 'PL',
+        nameKey: 'Poland',
+        flag: '🇵🇱'
+      }, {
+        code: 'IE',
+        nameKey: 'Ireland',
+        flag: '🇮🇪'
+      }, {
+        code: 'PT',
+        nameKey: 'Portugal',
+        flag: '🇵🇹'
+      }, {
+        code: 'GR',
+        nameKey: 'Greece',
+        flag: '🇬🇷'
+      }, {
+        code: 'LU',
+        nameKey: 'Luxembourg',
+        flag: '🇱🇺'
+      }, {
+        code: 'TR',
+        nameKey: 'Turkey',
+        flag: '🇹🇷'
+      }, {
+        code: 'IN',
+        nameKey: 'India',
+        flag: '🇮🇳'
+      }, {
+        code: 'CN',
+        nameKey: 'China',
+        flag: '🇨🇳'
+      }, {
+        code: 'JP',
+        nameKey: 'Japan',
+        flag: '🇯🇵'
+      }, {
+        code: 'KR',
+        nameKey: 'South Korea',
+        flag: '🇰🇷'
+      }, {
+        code: 'BR',
+        nameKey: 'Brazil',
+        flag: '🇧🇷'
+      }, {
+        code: 'MX',
+        nameKey: 'Mexico',
+        flag: '🇲🇽'
+      }, {
+        code: 'AR',
+        nameKey: 'Argentina',
+        flag: '🇦🇷'
+      }, {
+        code: 'ZA',
+        nameKey: 'South Africa',
+        flag: '🇿🇦'
+      }, {
+        code: 'NG',
+        nameKey: 'Nigeria',
+        flag: '🇳🇬'
+      }, {
+        code: 'KE',
+        nameKey: 'Kenya',
+        flag: '🇰🇪'
+      }, {
+        code: 'PK',
+        nameKey: 'Pakistan',
+        flag: '🇵🇰'
+      }, {
+        code: 'BD',
+        nameKey: 'Bangladesh',
+        flag: '🇧🇩'
+      }, {
+        code: 'ID',
+        nameKey: 'Indonesia',
+        flag: '🇮🇩'
+      }, {
+        code: 'PH',
+        nameKey: 'Philippines',
+        flag: '🇵🇭'
+      }, {
+        code: 'VN',
+        nameKey: 'Vietnam',
+        flag: '🇻🇳'
+      }, {
+        code: 'TH',
+        nameKey: 'Thailand',
+        flag: '🇹🇭'
+      }, {
+        code: 'MY',
+        nameKey: 'Malaysia',
+        flag: '🇲🇾'
+      }, {
+        code: 'SG',
+        nameKey: 'Singapore',
+        flag: '🇸🇬'
+      }, {
+        code: 'NZ',
+        nameKey: 'New Zealand',
+        flag: '🇳🇿'
+      }, {
+        code: 'RU',
+        nameKey: 'Russia',
+        flag: '🇷🇺'
+      }, {
+        code: 'UA',
+        nameKey: 'Ukraine',
+        flag: '🇺🇦'
+      }, {
+        code: 'CZ',
+        nameKey: 'Czech Republic',
+        flag: '🇨🇿'
+      }, {
+        code: 'HU',
+        nameKey: 'Hungary',
+        flag: '🇭🇺'
+      }, {
+        code: 'RO',
+        nameKey: 'Romania',
+        flag: '🇷🇴'
+      }, {
+        code: 'BG',
+        nameKey: 'Bulgaria',
+        flag: '🇧🇬'
+      }, {
+        code: 'HR',
+        nameKey: 'Croatia',
+        flag: '🇭🇷'
+      }, {
+        code: 'SI',
+        nameKey: 'Slovenia',
+        flag: '🇸🇮'
+      }, {
+        code: 'SK',
+        nameKey: 'Slovakia',
+        flag: '🇸🇰'
+      }, {
+        code: 'EE',
+        nameKey: 'Estonia',
+        flag: '🇪🇪'
+      }, {
+        code: 'LV',
+        nameKey: 'Latvia',
+        flag: '🇱🇻'
+      }, {
+        code: 'LT',
+        nameKey: 'Lithuania',
+        flag: '🇱🇹'
+      }, {
+        code: 'IS',
+        nameKey: 'Iceland',
+        flag: '🇮🇸'
+      }]
     };
   },
   computed: {
+    // Countries with translated names
+    countries: function countries() {
+      var _this = this;
+      return this.countriesData.map(function (country) {
+        return _objectSpread(_objectSpread({}, country), {}, {
+          name: _this.$t(country.nameKey) || country.nameKey
+        });
+      });
+    },
     // Check if this is edit mode (has initial data with slug)
     isEditMode: function isEditMode() {
       return this.initialData && this.initialData.slug && this.initialData.slug !== 'new';
@@ -2082,16 +2637,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     // Watch for changes in initialData prop
     initialData: {
       handler: function handler(newData) {
-        var _this = this;
+        var _this2 = this;
         console.log('InitialData watcher triggered:', newData);
         if (newData && Object.keys(newData).length > 0) {
           console.log('Form before setting values:', this.form);
 
           // Set form values from initial data
           Object.keys(newData).forEach(function (key) {
-            if (_this.form && Object.prototype.hasOwnProperty.call(_this.form, key)) {
+            if (_this2.form && Object.prototype.hasOwnProperty.call(_this2.form, key)) {
               console.log("Setting form.".concat(key, " ="), newData[key]);
-              _this.form[key] = newData[key];
+              _this2.form[key] = newData[key];
             } else {
               console.log("Form field ".concat(key, " not found or form not initialized"));
             }
@@ -2121,6 +2676,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       immediate: true,
       deep: true
+    },
+    // Watch for country changes - clear state when Saudi Arabia is selected
+    'form.country': {
+      handler: function handler(newValue, oldValue) {
+        if (newValue === 'SA') {
+          // Clear state field when Saudi Arabia is selected
+          this.form.state = '';
+          // Load Saudi regions
+          this.loadSaudiRegions();
+        } else {
+          // Clear Saudi-specific fields when switching away from SA
+          this.form.saudi_region = null;
+          this.saudiCities = [];
+        }
+      },
+      immediate: true
+    },
+    // Watch for Saudi region changes - load cities
+    'form.saudi_region': {
+      handler: function handler(newValue) {
+        if (newValue && this.form.country === 'SA') {
+          this.loadSaudiCities(newValue);
+        } else {
+          this.saudiCities = [];
+          this.form.city = '';
+        }
+      }
+    },
+    // Watch for changes in phoneNumber field
+    'form.phoneNumber': {
+      handler: function handler(newValue, oldValue) {
+        console.log('Phone number changed:', {
+          old: oldValue,
+          "new": newValue
+        });
+      },
+      immediate: true
     }
   },
   created: function created() {
@@ -2128,7 +2720,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.initializeForm();
   },
   mounted: function mounted() {
-    var _this2 = this;
+    var _this3 = this;
     console.log('SupplierForm component mounted, form:', this.form);
     console.log('Form data in mounted:', this.form ? Object.keys(this.form) : 'No form');
 
@@ -2141,45 +2733,49 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     // Load routing settings first, then chart of accounts
     this.loadRoutingSettings().then(function () {
-      _this2.loadChartOfAccounts();
+      _this3.loadChartOfAccounts();
     });
 
     // Load communication configuration status
     this.loadCommunicationConfigStatus();
+
+    // Load Saudi regions if country is SA
+    if (this.form.country === 'SA') {
+      this.loadSaudiRegions();
+    }
   },
   methods: {
     // Load communication configuration status
     loadCommunicationConfigStatus: function loadCommunicationConfigStatus() {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var response;
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var response, _t;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.p = _context.n) {
             case 0:
-              _context.prev = 0;
-              _this3.communicationConfig.loading = true;
-              _context.next = 4;
+              _context.p = 0;
+              _this4.communicationConfig.loading = true;
+              _context.n = 1;
               return axios_default().get('/api/communication-config-status');
-            case 4:
-              response = _context.sent;
-              _this3.communicationConfig.email_configured = response.data.email_configured;
-              _this3.communicationConfig.sms_configured = response.data.sms_configured;
-              _this3.communicationConfig.loading = false;
-              _context.next = 16;
+            case 1:
+              response = _context.v;
+              _this4.communicationConfig.email_configured = response.data.email_configured;
+              _this4.communicationConfig.sms_configured = response.data.sms_configured;
+              _this4.communicationConfig.loading = false;
+              _context.n = 3;
               break;
-            case 10:
-              _context.prev = 10;
-              _context.t0 = _context["catch"](0);
-              console.error('Error loading communication config status:', _context.t0);
+            case 2:
+              _context.p = 2;
+              _t = _context.v;
+              console.error('Error loading communication config status:', _t);
               // Default to false if there's an error
-              _this3.communicationConfig.email_configured = false;
-              _this3.communicationConfig.sms_configured = false;
-              _this3.communicationConfig.loading = false;
-            case 16:
-            case "end":
-              return _context.stop();
+              _this4.communicationConfig.email_configured = false;
+              _this4.communicationConfig.sms_configured = false;
+              _this4.communicationConfig.loading = false;
+            case 3:
+              return _context.a(2);
           }
-        }, _callee, null, [[0, 10]]);
+        }, _callee, null, [[0, 2]]);
       }))();
     },
     // Initialize the form
@@ -2199,14 +2795,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         phoneNumber: "",
         email: "",
         streetAddress1: "",
-        streetAddress2: "",
         city: "",
         state: "",
         postalCode: "",
         country: "SA",
+        saudi_region: null,
         neighbourhood: "",
         commercialRegister: "",
         taxCard: "",
+        // Saudi National Address Fields
+        buildingNumber: "",
+        unitNumber: "",
+        additionalNumber: "",
         // Additional Fields
         image: "",
         attachments: [],
@@ -2229,47 +2829,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     // Load the next available code number for new suppliers
     loadNextCodeNumber: function loadNextCodeNumber() {
-      var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var response;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
+      var _this5 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var response, _t2;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.p = _context2.n) {
             case 0:
-              _context2.prev = 0;
-              if (!(!_this4.initialData || Object.keys(_this4.initialData).length === 0)) {
-                _context2.next = 6;
+              _context2.p = 0;
+              if (!(!_this5.initialData || Object.keys(_this5.initialData).length === 0)) {
+                _context2.n = 2;
                 break;
               }
-              _context2.next = 4;
+              _context2.n = 1;
               return axios_default().get('/api/suppliers/next-code');
-            case 4:
-              response = _context2.sent;
+            case 1:
+              response = _context2.v;
               if (response.data.success) {
-                _this4.form.codeNumber = response.data.formatted_code;
+                _this5.form.codeNumber = response.data.formatted_code;
               } else {
                 console.error('Failed to load next code number:', response.data.message);
                 // Fallback to default
-                _this4.form.codeNumber = '000001';
+                _this5.form.codeNumber = '000001';
               }
-            case 6:
-              _context2.next = 12;
+            case 2:
+              _context2.n = 4;
               break;
-            case 8:
-              _context2.prev = 8;
-              _context2.t0 = _context2["catch"](0);
-              console.error('Error loading next code number:', _context2.t0);
+            case 3:
+              _context2.p = 3;
+              _t2 = _context2.v;
+              console.error('Error loading next code number:', _t2);
               // Fallback to default
-              _this4.form.codeNumber = '000001';
-            case 12:
-            case "end":
-              return _context2.stop();
+              _this5.form.codeNumber = '000001';
+            case 4:
+              return _context2.a(2);
           }
-        }, _callee2, null, [[0, 8]]);
+        }, _callee2, null, [[0, 3]]);
       }))();
     },
     // vue file upload
     onFileChange: function onFileChange(e) {
-      var _this5 = this;
+      var _this6 = this;
       var files = Array.from(e.target.files);
       var validFiles = [];
       files.forEach(function (file) {
@@ -2280,7 +2879,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             if (file.type.startsWith('image/')) {
               validFiles.push(file);
             } else {
-              _this5.$toast.error("Error!", "Please select a valid image file");
+              _this6.$toast.error("Error!", "Please select a valid image file");
             }
           } else {
             // For attachments, allow various document types
@@ -2288,11 +2887,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             if (allowedTypes.includes(file.type)) {
               validFiles.push(file);
             } else {
-              _this5.$toast.error("Error!", "Please select a valid file type");
+              _this6.$toast.error("Error!", "Please select a valid file type");
             }
           }
         } else {
-          _this5.$toast.error("Error!", "Please select a file with size less than 2 MB");
+          _this6.$toast.error("Error!", "Please select a file with size less than 2 MB");
         }
       });
       if (validFiles.length > 0) {
@@ -2309,7 +2908,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     // Handle attachment file changes
     onAttachmentChange: function onAttachmentChange(e) {
-      var _this6 = this;
+      var _this7 = this;
       var files = Array.from(e.target.files);
       var validFiles = [];
       files.forEach(function (file) {
@@ -2320,10 +2919,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           if (allowedTypes.includes(file.type)) {
             validFiles.push(file);
           } else {
-            _this6.$toast.error(_this6.$t("Error!"), _this6.$t("Please select a valid file type"));
+            _this7.$toast.error(_this7.$t("Error!"), _this7.$t("Please select a valid file type"));
           }
         } else {
-          _this6.$toast.error(_this6.$t("Error!"), _this6.$t("Please select a file with size less than 2 MB"));
+          _this7.$toast.error(_this7.$t("Error!"), _this7.$t("Please select a file with size less than 2 MB"));
         }
       });
 
@@ -2360,7 +2959,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       // Required field validations
       if (!this.form.phoneNumber || this.form.phoneNumber.trim() === '') {
         console.log('Phone number validation failed');
-        this.form.errors.set('phoneNumber', this.$t('Mobile number is required'));
+        if (window.toast && typeof window.toast.fire === 'function') {
+          window.toast.fire({
+            type: "error",
+            title: this.$t("Mobile number is required")
+          });
+        } else {
+          alert(this.$t("Mobile number is required"));
+        }
+        isValid = false;
+      }
+
+      // Check if phone number is valid
+      if (!this.phoneNumberValid) {
+        console.log('Phone number validation failed - phoneNumberValid:', this.phoneNumberValid);
+        if (window.toast && typeof window.toast.fire === 'function') {
+          window.toast.fire({
+            type: "error",
+            title: this.$t("Invalid phone number format")
+          });
+        } else {
+          alert(this.$t("Invalid phone number format"));
+        }
         isValid = false;
       }
       if (this.form.type === 'Individual' && (!this.form.fullName || this.form.fullName.trim() === '')) {
@@ -2381,42 +3001,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     // Submit form
     submitForm: function submitForm() {
-      var _this7 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+      var _this8 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
         var submitData;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.n) {
             case 0:
-              if (_this7.validateForm()) {
-                _context3.next = 3;
+              if (_this8.validateForm()) {
+                _context3.n = 1;
                 break;
               }
               // Provide clear feedback if validation fails
-              if (_this7.$toast) {
-                _this7.$toast.fire({
+              if (_this8.$toast) {
+                _this8.$toast.fire({
                   type: 'error',
-                  title: _this7.$t('Please fix the highlighted errors and try again')
+                  title: _this8.$t('Please fix the highlighted errors and try again')
                 });
               }
-              return _context3.abrupt("return");
-            case 3:
+              return _context3.a(2);
+            case 1:
               // Map form data to API format
-              submitData = _objectSpread(_objectSpread({}, _this7.form.data()), {}, {
+              submitData = _objectSpread(_objectSpread({}, _this8.form.data()), {}, {
                 // Map legacy fields for backward compatibility
-                name: _this7.form.type === 'Individual' ? _this7.form.fullName : _this7.form.businessName,
-                companyName: _this7.form.businessName,
-                taxRegistrationNumber: _this7.form.taxCard,
-                address: _this7.form.streetAddress1,
+                name: _this8.form.type === 'Individual' ? _this8.form.fullName : _this8.form.businessName,
+                companyName: _this8.form.businessName,
+                taxRegistrationNumber: _this8.form.taxCard,
+                address: _this8.form.streetAddress1,
                 // Include representatives data
-                representatives: _this7.form.representatives && Array.isArray(_this7.form.representatives) ? _this7.form.representatives : [],
+                representatives: _this8.form.representatives && Array.isArray(_this8.form.representatives) ? _this8.form.representatives : [],
                 // Ensure phone field is included
-                phone: _this7.form.phone,
-                phoneNumber: _this7.form.phoneNumber
+                phone: _this8.form.phone,
+                phoneNumber: _this8.form.phoneNumber,
+                // Saudi region
+                saudi_region: _this8.form.saudi_region
               }); // Emit submit event with form data
-              _this7.$emit('submit', submitData);
-            case 5:
-            case "end":
-              return _context3.stop();
+              _this8.$emit('submit', submitData);
+            case 2:
+              return _context3.a(2);
           }
         }, _callee3);
       }))();
@@ -2451,129 +3072,324 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.form.phoneNumber = "";
       this.form.email = "";
       this.form.streetAddress1 = "";
-      this.form.streetAddress2 = "";
       this.form.city = "";
       this.form.state = "";
       this.form.postalCode = "";
       this.form.neighbourhood = "";
       this.form.commercialRegister = "";
       this.form.taxCard = "";
+      // Clear Saudi National Address Fields
+      this.form.buildingNumber = "";
+      this.form.unitNumber = "";
+      this.form.additionalNumber = "";
+      this.form.saudi_region = null;
       this.form.notes = "";
       this.form.displayLanguage = "";
       this.form.representatives = [];
+      this.form.chartOfAccountId = null; // Clear chart of account
+
+      // Clear image preview
+      this.url = null;
+
+      // Clear validation errors
+      this.form.errors.clear();
+
+      // Reset phone number validation
+      this.phoneNumberValid = false;
     },
     // Load representatives for existing supplier
     loadRepresentatives: function loadRepresentatives() {
-      var _this8 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        var slug, response;
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
+      var _this9 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+        var slug, response, _t3;
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.p = _context4.n) {
             case 0:
               // Try to get slug from route params first, then from initialData
-              slug = _this8.$route && _this8.$route.params && _this8.$route.params.slug || _this8.initialData && _this8.initialData.slug;
+              slug = _this9.$route && _this9.$route.params && _this9.$route.params.slug || _this9.initialData && _this9.initialData.slug;
               console.log('Loading representatives for supplier:', slug);
               if (!(slug && slug !== 'new')) {
-                _context4.next = 16;
+                _context4.n = 5;
                 break;
               }
-              _context4.prev = 3;
-              _context4.next = 6;
+              _context4.p = 1;
+              _context4.n = 2;
               return axios_default().get("/api/supplier/".concat(slug, "/representatives"));
-            case 6:
-              response = _context4.sent;
+            case 2:
+              response = _context4.v;
               console.log('Representatives API response:', response.data);
               if (response.data.success) {
-                _this8.form.representatives = response.data.data;
-                console.log('Representatives loaded:', _this8.form.representatives);
+                _this9.form.representatives = response.data.data;
+                console.log('Representatives loaded:', _this9.form.representatives);
               }
-              _context4.next = 14;
+              _context4.n = 4;
               break;
-            case 11:
-              _context4.prev = 11;
-              _context4.t0 = _context4["catch"](3);
-              console.error('Error loading representatives:', _context4.t0);
-            case 14:
-              _context4.next = 17;
+            case 3:
+              _context4.p = 3;
+              _t3 = _context4.v;
+              console.error('Error loading representatives:', _t3);
+            case 4:
+              _context4.n = 6;
               break;
-            case 16:
+            case 5:
               console.log('No slug or new supplier, skipping representatives load');
-            case 17:
-            case "end":
-              return _context4.stop();
+            case 6:
+              return _context4.a(2);
           }
-        }, _callee4, null, [[3, 11]]);
+        }, _callee4, null, [[1, 3]]);
       }))();
     },
     // Handle when representatives are changed (added, edited, deleted)
     handleRepresentativesChanged: function handleRepresentativesChanged(representatives) {
       this.form.representatives = representatives;
     },
+    // Handle country change
+    onCountryChange: function onCountryChange() {
+      // Clear state field when Saudi Arabia is selected (handled by watcher)
+      // This method can be used for additional country-specific logic
+    },
+    // Load Saudi Arabia regions
+    loadSaudiRegions: function loadSaudiRegions() {
+      var _this0 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+        var response, _t4;
+        return _regenerator().w(function (_context5) {
+          while (1) switch (_context5.p = _context5.n) {
+            case 0:
+              if (!_this0.loadingRegions) {
+                _context5.n = 1;
+                break;
+              }
+              return _context5.a(2);
+            case 1:
+              _this0.loadingRegions = true;
+              _context5.p = 2;
+              _context5.n = 3;
+              return axios_default().get('/api/locations/saudi/regions');
+            case 3:
+              response = _context5.v;
+              if (response.data.success) {
+                _this0.saudiRegions = response.data.data.map(function (region) {
+                  return {
+                    id: region.id,
+                    name: _this0.$i18n.locale === 'ar' ? region.name_ar : region.name_en,
+                    name_ar: region.name_ar,
+                    name_en: region.name_en,
+                    code: region.code
+                  };
+                });
+              }
+              _context5.n = 5;
+              break;
+            case 4:
+              _context5.p = 4;
+              _t4 = _context5.v;
+              console.error('Error loading Saudi regions:', _t4);
+              _this0.$toast.error(_this0.$t('Error loading regions'));
+            case 5:
+              _context5.p = 5;
+              _this0.loadingRegions = false;
+              return _context5.f(5);
+            case 6:
+              return _context5.a(2);
+          }
+        }, _callee5, null, [[2, 4, 5, 6]]);
+      }))();
+    },
+    // Load Saudi Arabia cities by region
+    loadSaudiCities: function loadSaudiCities(regionId) {
+      var _this1 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+        var response, cities, selectedRegion, _selectedRegion, _selectedRegion2, _t5;
+        return _regenerator().w(function (_context6) {
+          while (1) switch (_context6.p = _context6.n) {
+            case 0:
+              if (regionId) {
+                _context6.n = 1;
+                break;
+              }
+              _this1.saudiCities = [];
+              return _context6.a(2);
+            case 1:
+              if (!_this1.loadingCities) {
+                _context6.n = 2;
+                break;
+              }
+              return _context6.a(2);
+            case 2:
+              _this1.loadingCities = true;
+              _context6.p = 3;
+              _context6.n = 4;
+              return axios_default().get('/api/locations/saudi/cities-by-region', {
+                params: {
+                  region_id: regionId
+                }
+              });
+            case 4:
+              response = _context6.v;
+              if (response.data.success) {
+                cities = response.data.data || [];
+                _this1.saudiCities = cities.map(function (city) {
+                  return {
+                    id: city.id,
+                    name: _this1.$i18n.locale === 'ar' ? city.name_ar : city.name_en,
+                    name_ar: city.name_ar,
+                    name_en: city.name_en,
+                    region_id: city.region_id
+                  };
+                });
+
+                // If no cities found, add the region name as a city option
+                if (_this1.saudiCities.length === 0) {
+                  selectedRegion = _this1.saudiRegions.find(function (region) {
+                    return region.id === regionId;
+                  });
+                  if (selectedRegion) {
+                    _this1.saudiCities = [{
+                      id: "region_".concat(regionId),
+                      name: selectedRegion.name,
+                      name_ar: selectedRegion.name_ar,
+                      name_en: selectedRegion.name_en,
+                      region_id: regionId,
+                      is_region: true
+                    }];
+                  }
+                }
+              } else {
+                // If API call failed, add region name as fallback
+                _selectedRegion = _this1.saudiRegions.find(function (region) {
+                  return region.id === regionId;
+                });
+                if (_selectedRegion) {
+                  _this1.saudiCities = [{
+                    id: "region_".concat(regionId),
+                    name: _selectedRegion.name,
+                    name_ar: _selectedRegion.name_ar,
+                    name_en: _selectedRegion.name_en,
+                    region_id: regionId,
+                    is_region: true
+                  }];
+                } else {
+                  _this1.saudiCities = [];
+                }
+              }
+              _context6.n = 6;
+              break;
+            case 5:
+              _context6.p = 5;
+              _t5 = _context6.v;
+              console.error('Error loading Saudi cities:', _t5);
+              // If error occurred, add region name as fallback
+              _selectedRegion2 = _this1.saudiRegions.find(function (region) {
+                return region.id === regionId;
+              });
+              if (_selectedRegion2) {
+                _this1.saudiCities = [{
+                  id: "region_".concat(regionId),
+                  name: _selectedRegion2.name,
+                  name_ar: _selectedRegion2.name_ar,
+                  name_en: _selectedRegion2.name_en,
+                  region_id: regionId,
+                  is_region: true
+                }];
+              } else {
+                _this1.saudiCities = [];
+              }
+              // Don't show error toast for empty cities - it's normal for some regions
+              if (_t5.response && _t5.response.status !== 404) {
+                _this1.$toast.error(_this1.$t('Error loading cities'));
+              }
+            case 6:
+              _context6.p = 6;
+              _this1.loadingCities = false;
+              return _context6.f(6);
+            case 7:
+              return _context6.a(2);
+          }
+        }, _callee6, null, [[3, 5, 6, 7]]);
+      }))();
+    },
+    // Handle Saudi region change
+    onSaudiRegionChange: function onSaudiRegionChange() {
+      // Clear city when region changes
+      this.form.city = '';
+      this.saudiCities = [];
+      // Cities will be loaded by watcher
+    },
+    // Handle phone number validation
+    onPhoneValidated: function onPhoneValidated(isValid) {
+      this.phoneNumberValid = isValid;
+      if (!isValid && this.form.phoneNumber) {
+        // Clear the error if validation passes
+        if (this.form.errors.has('phoneNumber') && this.form.errors.get('phoneNumber') === this.$t('phone_invalid')) {
+          this.form.errors.clear('phoneNumber');
+        }
+      }
+    },
     // Load routing settings
     loadRoutingSettings: function loadRoutingSettings() {
-      var _this9 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-        var response;
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
+      var _this10 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+        var response, _t6;
+        return _regenerator().w(function (_context7) {
+          while (1) switch (_context7.p = _context7.n) {
             case 0:
-              _context5.prev = 0;
+              _context7.p = 0;
               console.log('Loading routing settings...');
               // Get the specific suppliers_account routing setting
-              _context5.next = 4;
-              return _this9.$http.get('/api/account-routing-settings');
-            case 4:
-              response = _context5.sent;
+              _context7.n = 1;
+              return _this10.$http.get('/api/account-routing-settings');
+            case 1:
+              response = _context7.v;
               console.log('Routing settings response:', response);
               if (response.data && response.data.success) {
                 console.log('Routing settings data:', response.data.data);
                 // Find the suppliers_account setting
-                _this9.routingSetting = response.data.data.find(function (setting) {
+                _this10.routingSetting = response.data.data.find(function (setting) {
                   return setting.setting_key === 'suppliers_account';
                 });
-                console.log('Found suppliers_account setting:', _this9.routingSetting);
-                if (_this9.routingSetting) {
+                console.log('Found suppliers_account setting:', _this10.routingSetting);
+                if (_this10.routingSetting) {
                   // Add routing type display name
-                  _this9.routingSetting.routing_type_display = _this9.getRoutingTypeDisplayName(_this9.routingSetting.routing_type);
-                  console.log('Routing setting with display name:', _this9.routingSetting);
+                  _this10.routingSetting.routing_type_display = _this10.getRoutingTypeDisplayName(_this10.routingSetting.routing_type);
+                  console.log('Routing setting with display name:', _this10.routingSetting);
                 } else {
                   console.log('No suppliers_account setting found in:', response.data.data);
                   // Set a default routing setting if none found
-                  _this9.routingSetting = {
+                  _this10.routingSetting = {
                     routing_type: 'per_each',
                     routing_type_display: 'Specify Per Each',
                     main_account_id: null
                   };
-                  console.log('Using default routing setting:', _this9.routingSetting);
+                  console.log('Using default routing setting:', _this10.routingSetting);
                 }
               } else {
                 console.log('Routing settings response not successful:', response.data);
                 // Set a default routing setting if API fails
-                _this9.routingSetting = {
+                _this10.routingSetting = {
                   routing_type: 'per_each',
                   routing_type_display: 'Specify Per Each',
                   main_account_id: null
                 };
-                console.log('Using default routing setting due to API failure:', _this9.routingSetting);
+                console.log('Using default routing setting due to API failure:', _this10.routingSetting);
               }
-              _context5.next = 14;
+              _context7.n = 3;
               break;
-            case 9:
-              _context5.prev = 9;
-              _context5.t0 = _context5["catch"](0);
-              console.error('Error loading routing settings:', _context5.t0);
+            case 2:
+              _context7.p = 2;
+              _t6 = _context7.v;
+              console.error('Error loading routing settings:', _t6);
               // Set a default routing setting if error occurs
-              _this9.routingSetting = {
+              _this10.routingSetting = {
                 routing_type: 'per_each',
                 routing_type_display: 'Specify Per Each',
                 main_account_id: null
               };
-              console.log('Using default routing setting due to error:', _this9.routingSetting);
-            case 14:
-            case "end":
-              return _context5.stop();
+              console.log('Using default routing setting due to error:', _this10.routingSetting);
+            case 3:
+              return _context7.a(2);
           }
-        }, _callee5, null, [[0, 9]]);
+        }, _callee7, null, [[0, 2]]);
       }))();
     },
     // Set default routing setting
@@ -2597,125 +3413,124 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     // Load chart of accounts
     loadChartOfAccounts: function loadChartOfAccounts() {
-      var _this0 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
-        var response, fallbackResponse, _response, altResponse;
-        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-          while (1) switch (_context6.prev = _context6.next) {
+      var _this11 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
+        var response, fallbackResponse, _response, altResponse, _t7, _t8, _t9;
+        return _regenerator().w(function (_context8) {
+          while (1) switch (_context8.p = _context8.n) {
             case 0:
-              _context6.prev = 0;
+              _context8.p = 0;
               console.log('Loading chart of accounts...');
-              console.log('Current routing setting:', _this0.routingSetting);
-              _this0.loadingChartOfAccounts = true;
-              _this0.chartOfAccountsError = null;
+              console.log('Current routing setting:', _this11.routingSetting);
+              _this11.loadingChartOfAccounts = true;
+              _this11.chartOfAccountsError = null;
 
               // If routing is automatic, we don't need to load all accounts
-              if (!(_this0.routingSetting && _this0.routingSetting.routing_type === 'automatic')) {
-                _context6.next = 10;
+              if (!(_this11.routingSetting && _this11.routingSetting.routing_type === 'automatic')) {
+                _context8.n = 1;
                 break;
               }
               console.log('Routing type is automatic, not loading chart of accounts');
-              _this0.chartOfAccounts = [];
-              _this0.loadingChartOfAccounts = false;
-              return _context6.abrupt("return");
-            case 10:
-              if (!(_this0.routingSetting && _this0.routingSetting.main_account_id)) {
-                _context6.next = 35;
+              _this11.chartOfAccounts = [];
+              _this11.loadingChartOfAccounts = false;
+              return _context8.a(2);
+            case 1:
+              if (!(_this11.routingSetting && _this11.routingSetting.main_account_id)) {
+                _context8.n = 9;
                 break;
               }
               console.log('Loading accounts from routing setup...');
-              _context6.prev = 12;
-              _context6.next = 15;
-              return _this0.$http.get("/api/account-routing-settings/".concat(_this0.routingSetting.setting_key, "/accounts"));
-            case 15:
-              response = _context6.sent;
+              _context8.p = 2;
+              _context8.n = 3;
+              return _this11.$http.get("/api/account-routing-settings/".concat(_this11.routingSetting.setting_key, "/accounts"));
+            case 3:
+              response = _context8.v;
               console.log('Routing accounts response:', response);
               if (!(response.data && response.data.success)) {
-                _context6.next = 22;
+                _context8.n = 4;
                 break;
               }
-              _this0.chartOfAccounts = response.data.accounts || [];
-              console.log('Loaded accounts from routing setup:', _this0.chartOfAccounts.length);
-              _context6.next = 23;
+              _this11.chartOfAccounts = response.data.accounts || [];
+              console.log('Loaded accounts from routing setup:', _this11.chartOfAccounts.length);
+              _context8.n = 5;
               break;
-            case 22:
+            case 4:
               throw new Error('Routing accounts response not successful');
-            case 23:
-              _context6.next = 33;
+            case 5:
+              _context8.n = 8;
               break;
-            case 25:
-              _context6.prev = 25;
-              _context6.t0 = _context6["catch"](12);
-              console.log('Routing accounts failed, falling back to all accounts:', _context6.t0);
+            case 6:
+              _context8.p = 6;
+              _t7 = _context8.v;
+              console.log('Routing accounts failed, falling back to all accounts:', _t7);
               // Fallback to all accounts
-              _context6.next = 30;
-              return _this0.$http.get('/api/suppliers/chart-of-accounts');
-            case 30:
-              fallbackResponse = _context6.sent;
-              _this0.chartOfAccounts = fallbackResponse.data || [];
-              console.log('Loaded fallback accounts:', _this0.chartOfAccounts.length);
-            case 33:
-              _context6.next = 41;
+              _context8.n = 7;
+              return _this11.$http.get('/api/suppliers/chart-of-accounts');
+            case 7:
+              fallbackResponse = _context8.v;
+              _this11.chartOfAccounts = fallbackResponse.data || [];
+              console.log('Loaded fallback accounts:', _this11.chartOfAccounts.length);
+            case 8:
+              _context8.n = 11;
               break;
-            case 35:
+            case 9:
               console.log('No main account ID, loading all accounts as fallback');
               // Load all active accounts as fallback
-              _context6.next = 38;
-              return _this0.$http.get('/api/suppliers/chart-of-accounts');
-            case 38:
-              _response = _context6.sent;
-              _this0.chartOfAccounts = _response.data || [];
-              console.log('Loaded all accounts as fallback:', _this0.chartOfAccounts.length);
-            case 41:
-              if (!(_this0.chartOfAccounts.length === 0)) {
-                _context6.next = 56;
+              _context8.n = 10;
+              return _this11.$http.get('/api/suppliers/chart-of-accounts');
+            case 10:
+              _response = _context8.v;
+              _this11.chartOfAccounts = _response.data || [];
+              console.log('Loaded all accounts as fallback:', _this11.chartOfAccounts.length);
+            case 11:
+              if (!(_this11.chartOfAccounts.length === 0)) {
+                _context8.n = 15;
                 break;
               }
               console.log('No accounts loaded, trying alternative endpoint...');
-              _context6.prev = 43;
-              _context6.next = 46;
-              return _this0.$http.get('/api/chart-of-accounts/dropdown');
-            case 46:
-              altResponse = _context6.sent;
-              _this0.chartOfAccounts = altResponse.data.data || altResponse.data || [];
-              console.log('Loaded accounts from dropdown endpoint:', _this0.chartOfAccounts.length);
-              _context6.next = 56;
+              _context8.p = 12;
+              _context8.n = 13;
+              return _this11.$http.get('/api/chart-of-accounts/dropdown');
+            case 13:
+              altResponse = _context8.v;
+              _this11.chartOfAccounts = altResponse.data.data || altResponse.data || [];
+              console.log('Loaded accounts from dropdown endpoint:', _this11.chartOfAccounts.length);
+              _context8.n = 15;
               break;
-            case 51:
-              _context6.prev = 51;
-              _context6.t1 = _context6["catch"](43);
-              console.error('Alternative endpoint also failed:', _context6.t1);
+            case 14:
+              _context8.p = 14;
+              _t8 = _context8.v;
+              console.error('Alternative endpoint also failed:', _t8);
               // Set a minimal fallback to prevent empty dropdown
-              _this0.chartOfAccounts = [{
+              _this11.chartOfAccounts = [{
                 id: 'placeholder',
                 name: 'No accounts available - Please configure chart of accounts',
                 code: 'N/A',
                 type: 'Error'
               }];
-              _this0.chartOfAccountsError = 'No chart of accounts available. Please check your configuration.';
-            case 56:
-              _context6.next = 63;
+              _this11.chartOfAccountsError = 'No chart of accounts available. Please check your configuration.';
+            case 15:
+              _context8.n = 17;
               break;
-            case 58:
-              _context6.prev = 58;
-              _context6.t2 = _context6["catch"](0);
-              console.error('Error loading chart of accounts:', _context6.t2);
-              _this0.chartOfAccountsError = _context6.t2.message || 'Failed to load chart of accounts';
-              _this0.chartOfAccounts = [];
-            case 63:
-              _context6.prev = 63;
-              _this0.loadingChartOfAccounts = false;
-              return _context6.finish(63);
-            case 66:
-            case "end":
-              return _context6.stop();
+            case 16:
+              _context8.p = 16;
+              _t9 = _context8.v;
+              console.error('Error loading chart of accounts:', _t9);
+              _this11.chartOfAccountsError = _t9.message || 'Failed to load chart of accounts';
+              _this11.chartOfAccounts = [];
+            case 17:
+              _context8.p = 17;
+              _this11.loadingChartOfAccounts = false;
+              return _context8.f(17);
+            case 18:
+              return _context8.a(2);
           }
-        }, _callee6, null, [[0, 58, 63, 66], [12, 25], [43, 51]]);
+        }, _callee8, null, [[12, 14], [2, 6], [0, 16, 17, 18]]);
       }))();
     },
     // Search chart of accounts (for v-select search)
     searchChartOfAccounts: function searchChartOfAccounts(search, loading) {
-      var _this1 = this;
+      var _this12 = this;
       console.log('Searching for:', search);
       if (!search || search.length < 2) {
         console.log('Search too short, returning first 50 accounts');
@@ -2723,90 +3538,89 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         loading(false);
         return Promise.resolve(result);
       }
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-        var filtered, response, apiData, _filtered;
-        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-          while (1) switch (_context7.prev = _context7.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
+        var filtered, response, apiData, _filtered, _t0;
+        return _regenerator().w(function (_context9) {
+          while (1) switch (_context9.p = _context9.n) {
             case 0:
-              _context7.prev = 0;
+              _context9.p = 0;
               // Filter locally first for better performance
-              filtered = _this1.chartOfAccounts.filter(function (account) {
+              filtered = _this12.chartOfAccounts.filter(function (account) {
                 return account.name.toLowerCase().includes(search.toLowerCase()) || account.code.toLowerCase().includes(search.toLowerCase());
               });
               console.log('Local filtered results:', filtered.length);
 
               // If we have enough results locally, return them
               if (!(filtered.length >= 10)) {
-                _context7.next = 6;
+                _context9.n = 1;
                 break;
               }
               console.log('Enough local results, returning filtered');
-              return _context7.abrupt("return", filtered.slice(0, 50));
-            case 6:
+              return _context9.a(2, filtered.slice(0, 50));
+            case 1:
               // Otherwise, search from API
               console.log('Searching from API...');
-              _context7.next = 9;
-              return _this1.$http.get('/api/chart-of-accounts/search', {
+              _context9.n = 2;
+              return _this12.$http.get('/api/chart-of-accounts/search', {
                 params: {
                   term: search
                 }
               });
-            case 9:
-              response = _context7.sent;
+            case 2:
+              response = _context9.v;
               console.log('API search response:', response);
               if (!(response.data && (response.data.data || response.data))) {
-                _context7.next = 17;
+                _context9.n = 3;
                 break;
               }
               console.log('API returned data, returning results');
               apiData = response.data.data || response.data;
-              return _context7.abrupt("return", apiData.slice(0, 50));
-            case 17:
+              return _context9.a(2, apiData.slice(0, 50));
+            case 3:
               console.log('API returned no data, returning local filtered');
-              return _context7.abrupt("return", filtered.slice(0, 50));
-            case 19:
-              _context7.next = 26;
+              return _context9.a(2, filtered.slice(0, 50));
+            case 4:
+              _context9.n = 6;
               break;
-            case 21:
-              _context7.prev = 21;
-              _context7.t0 = _context7["catch"](0);
-              console.error('Search error:', _context7.t0);
+            case 5:
+              _context9.p = 5;
+              _t0 = _context9.v;
+              console.error('Search error:', _t0);
               // Return local filtered results on error
-              _filtered = _this1.chartOfAccounts.filter(function (account) {
+              _filtered = _this12.chartOfAccounts.filter(function (account) {
                 return account.name.toLowerCase().includes(search.toLowerCase()) || account.code.toLowerCase().includes(search.toLowerCase());
               });
-              return _context7.abrupt("return", _filtered.slice(0, 50));
-            case 26:
-              _context7.prev = 26;
+              return _context9.a(2, _filtered.slice(0, 50));
+            case 6:
+              _context9.p = 6;
               loading(false);
-              return _context7.finish(26);
-            case 29:
-            case "end":
-              return _context7.stop();
+              return _context9.f(6);
+            case 7:
+              return _context9.a(2);
           }
-        }, _callee7, null, [[0, 21, 26, 29]]);
+        }, _callee9, null, [[0, 5, 6, 7]]);
       }))();
     },
     // Create new chart of account
     createNewAccount: function createNewAccount() {
-      var _this10 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
-        var assetTypeResponse, typeId, assetType, parentId, codeResponse, accountCode, response, _newAccount$type, newAccount, errorMessage;
-        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-          while (1) switch (_context8.prev = _context8.next) {
+      var _this13 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
+        var assetTypeResponse, typeId, assetType, parentId, codeResponse, accountCode, response, _newAccount$type, newAccount, errorMessage, _t1;
+        return _regenerator().w(function (_context0) {
+          while (1) switch (_context0.p = _context0.n) {
             case 0:
-              if (!_this10.isCreatingAccount) {
-                _context8.next = 2;
+              if (!_this13.isCreatingAccount) {
+                _context0.n = 1;
                 break;
               }
-              return _context8.abrupt("return");
-            case 2:
-              _this10.isCreatingAccount = true;
-              _context8.prev = 3;
-              _context8.next = 6;
+              return _context0.a(2);
+            case 1:
+              _this13.isCreatingAccount = true;
+              _context0.p = 2;
+              _context0.n = 3;
               return axios_default().get('/api/chart-of-account-types');
-            case 6:
-              assetTypeResponse = _context8.sent;
+            case 3:
+              assetTypeResponse = _context0.v;
               typeId = 1; // Default fallback
               if (assetTypeResponse.data && assetTypeResponse.data.data) {
                 assetType = assetTypeResponse.data.data.find(function (type) {
@@ -2819,36 +3633,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               // Determine parent_id based on routing settings
               parentId = null;
-              if (_this10.routingSetting && _this10.routingSetting.routing_type === 'main_account_per_each' && _this10.routingSetting.main_account_id) {
-                parentId = _this10.routingSetting.main_account_id;
+              if (_this13.routingSetting && _this13.routingSetting.routing_type === 'main_account_per_each' && _this13.routingSetting.main_account_id) {
+                parentId = _this13.routingSetting.main_account_id;
               }
 
               // Generate account code
-              _context8.next = 13;
+              _context0.n = 4;
               return axios_default().post('/api/chart-of-accounts/generate-code', {
                 parent_id: parentId
               });
-            case 13:
-              codeResponse = _context8.sent;
+            case 4:
+              codeResponse = _context0.v;
               accountCode = codeResponse.data.code || '1000';
-              _context8.next = 17;
+              _context0.n = 5;
               return axios_default().post('/api/chart-of-accounts', {
-                name: _this10.form.type === 'Individual' ? _this10.form.fullName : _this10.form.businessName,
+                name: _this13.form.type === 'Individual' ? _this13.form.fullName : _this13.form.businessName,
                 code: accountCode,
                 type_id: typeId,
                 parent_id: parentId,
                 order: 0,
                 is_active: true
               });
-            case 17:
-              response = _context8.sent;
+            case 5:
+              response = _context0.v;
               if (!(response.data && response.data.data)) {
-                _context8.next = 25;
+                _context0.n = 6;
                 break;
               }
               // Add to local chartOfAccounts array
               newAccount = response.data.data;
-              _this10.chartOfAccounts.push({
+              _this13.chartOfAccounts.push({
                 id: newAccount.id,
                 name: newAccount.name,
                 code: newAccount.code,
@@ -2856,112 +3670,110 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               });
 
               // Set as selected
-              _this10.form.chartOfAccountId = newAccount.id;
-              _this10.$toast.success("Success!", "New chart of account created successfully.");
-              _context8.next = 26;
+              _this13.form.chartOfAccountId = newAccount.id;
+              _this13.$toast.success("Success!", "New chart of account created successfully.");
+              _context0.n = 7;
               break;
-            case 25:
+            case 6:
               throw new Error(response.data.message || "Failed to create new chart of account.");
-            case 26:
-              _context8.next = 34;
+            case 7:
+              _context0.n = 9;
               break;
-            case 28:
-              _context8.prev = 28;
-              _context8.t0 = _context8["catch"](3);
-              console.error('Error creating chart of account:', _context8.t0);
+            case 8:
+              _context0.p = 8;
+              _t1 = _context0.v;
+              console.error('Error creating chart of account:', _t1);
               errorMessage = "Failed to create new chart of account.";
-              if (_context8.t0.response && _context8.t0.response.data) {
-                if (_context8.t0.response.data.message) {
-                  errorMessage = _context8.t0.response.data.message;
-                } else if (_context8.t0.response.data.error) {
-                  errorMessage = _context8.t0.response.data.error;
+              if (_t1.response && _t1.response.data) {
+                if (_t1.response.data.message) {
+                  errorMessage = _t1.response.data.message;
+                } else if (_t1.response.data.error) {
+                  errorMessage = _t1.response.data.error;
                 }
-              } else if (_context8.t0.message) {
-                errorMessage = _context8.t0.message;
+              } else if (_t1.message) {
+                errorMessage = _t1.message;
               }
-              _this10.$toast.error("Error!", errorMessage);
-            case 34:
-              _context8.prev = 34;
-              _this10.isCreatingAccount = false;
-              return _context8.finish(34);
-            case 37:
-            case "end":
-              return _context8.stop();
+              _this13.$toast.error("Error!", errorMessage);
+            case 9:
+              _context0.p = 9;
+              _this13.isCreatingAccount = false;
+              return _context0.f(9);
+            case 10:
+              return _context0.a(2);
           }
-        }, _callee8, null, [[3, 28, 34, 37]]);
+        }, _callee0, null, [[2, 8, 9, 10]]);
       }))();
     },
     // Auto-assign Chart of Account for supplier
     autoAssignSupplierChartOfAccount: function autoAssignSupplierChartOfAccount() {
-      var _this11 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
-        var supplierSlug, response;
-        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
-          while (1) switch (_context9.prev = _context9.next) {
+      var _this14 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1() {
+        var supplierSlug, response, _t10;
+        return _regenerator().w(function (_context1) {
+          while (1) switch (_context1.p = _context1.n) {
             case 0:
-              if (!(!_this11.form || _this11.isAutoAssigningSupplier)) {
-                _context9.next = 2;
+              if (!(!_this14.form || _this14.isAutoAssigningSupplier)) {
+                _context1.n = 1;
                 break;
               }
-              return _context9.abrupt("return");
-            case 2:
-              _this11.isAutoAssigningSupplier = true;
-              _context9.prev = 3;
+              return _context1.a(2);
+            case 1:
+              _this14.isAutoAssigningSupplier = true;
+              _context1.p = 2;
               // Get the current supplier slug from the form or route
-              supplierSlug = _this11.form.slug || _this11.$route && _this11.$route.params && _this11.$route.params.slug;
+              supplierSlug = _this14.form.slug || _this14.$route && _this14.$route.params && _this14.$route.params.slug;
               if (!(!supplierSlug || supplierSlug === 'new')) {
-                _context9.next = 8;
+                _context1.n = 3;
                 break;
               }
               console.log('No supplier slug available for auto-assign');
-              return _context9.abrupt("return");
-            case 8:
-              _context9.next = 10;
-              return _this11.$http.post("/api/suppliers/".concat(supplierSlug, "/auto-assign-chart-of-account"));
-            case 10:
-              response = _context9.sent;
+              return _context1.a(2);
+            case 3:
+              _context1.n = 4;
+              return _this14.$http.post("/api/suppliers/".concat(supplierSlug, "/auto-assign-chart-of-account"));
+            case 4:
+              response = _context1.v;
               if (response.data.success) {
                 console.log('Auto-assign response:', response.data);
 
                 // Update the form with new chart of account
-                _this11.form.chartOfAccountId = response.data.chart_of_account_id;
+                _this14.form.chartOfAccountId = response.data.chart_of_account_id;
 
                 // Force Vue to re-render the component to update the UI
-                _this11.$nextTick(function () {
-                  _this11.$forceUpdate();
+                _this14.$nextTick(function () {
+                  _this14.$forceUpdate();
                 });
 
                 // Show success message
-                _this11.$toast.fire({
+                _this14.$toast.fire({
                   type: "success",
-                  title: _this11.$t("Chart of Account assigned successfully")
+                  title: _this14.$t("Chart of Account assigned successfully")
                 });
               } else {
-                _this11.$toast.fire({
+                _this14.$toast.fire({
                   type: "error",
-                  title: _this11.$t("Failed to assign Chart of Account"),
-                  text: response.data.message || _this11.$t("Please try again or assign manually")
+                  title: _this14.$t("Failed to assign Chart of Account"),
+                  text: response.data.message || _this14.$t("Please try again or assign manually")
                 });
               }
-              _context9.next = 18;
+              _context1.n = 6;
               break;
-            case 14:
-              _context9.prev = 14;
-              _context9.t0 = _context9["catch"](3);
-              console.error('Error auto-assigning chart of account:', _context9.t0);
-              _this11.$toast.fire({
+            case 5:
+              _context1.p = 5;
+              _t10 = _context1.v;
+              console.error('Error auto-assigning chart of account:', _t10);
+              _this14.$toast.fire({
                 type: "error",
-                title: _this11.$t("An error occurred while assigning Chart of Account")
+                title: _this14.$t("An error occurred while assigning Chart of Account")
               });
-            case 18:
-              _context9.prev = 18;
-              _this11.isAutoAssigningSupplier = false;
-              return _context9.finish(18);
-            case 21:
-            case "end":
-              return _context9.stop();
+            case 6:
+              _context1.p = 6;
+              _this14.isAutoAssigningSupplier = false;
+              return _context1.f(6);
+            case 7:
+              return _context1.a(2);
           }
-        }, _callee9, null, [[3, 14, 18, 21]]);
+        }, _callee1, null, [[2, 5, 6, 7]]);
       }))();
     }
   }
@@ -2971,9 +3783,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=b75b6ede&prod&scoped=true&lang=css
-var SupplierFormvue_type_style_index_0_id_b75b6ede_prod_scoped_true_lang_css = __webpack_require__(56626);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=b75b6ede&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=a7f6ad54&prod&scoped=true&lang=css
+var SupplierFormvue_type_style_index_0_id_a7f6ad54_prod_scoped_true_lang_css = __webpack_require__(56916);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=a7f6ad54&prod&scoped=true&lang=css
 
             
 
@@ -2982,12 +3794,12 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(SupplierFormvue_type_style_index_0_id_b75b6ede_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(SupplierFormvue_type_style_index_0_id_a7f6ad54_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const components_SupplierFormvue_type_style_index_0_id_b75b6ede_prod_scoped_true_lang_css = (SupplierFormvue_type_style_index_0_id_b75b6ede_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=b75b6ede&prod&scoped=true&lang=css
+/* harmony default export */ const components_SupplierFormvue_type_style_index_0_id_a7f6ad54_prod_scoped_true_lang_css = (SupplierFormvue_type_style_index_0_id_a7f6ad54_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=a7f6ad54&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
@@ -3006,7 +3818,7 @@ var component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "b75b6ede",
+  "a7f6ad54",
   null
   
 )
@@ -3015,7 +3827,7 @@ var component = (0,componentNormalizer/* default */.A)(
 
 /***/ }),
 
-/***/ 56626:
+/***/ 56916:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -3027,7 +3839,7 @@ var component = (0,componentNormalizer/* default */.A)(
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-b75b6ede]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:20px}.form-card .card-header[data-v-b75b6ede]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:22px 16px}.form-card .section-title[data-v-b75b6ede]{color:#fff;font-size:14px;font-weight:600;margin:0}.form-card .card-body[data-v-b75b6ede]{padding:16px}.form-control[data-v-b75b6ede]{background:#fff!important}input[readonly][data-v-b75b6ede]{background-color:#f8f9fa!important;border-color:#ced4da;color:#6c757d;cursor:not-allowed}.form-control[data-v-b75b6ede]:focus,select.form-control[data-v-b75b6ede]:focus,textarea.form-control[data-v-b75b6ede]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.radio-group[data-v-b75b6ede]{align-items:center;display:flex;gap:16px}.radio-group .radio-inline[data-v-b75b6ede]{align-items:center;display:inline-flex;gap:6px;margin:0}.v-select .vs__dropdown-toggle[data-v-b75b6ede]{border-color:#ced4da;border-radius:6px}.v-select .vs__dropdown-toggle.vs__open[data-v-b75b6ede],.v-select .vs__dropdown-toggle[data-v-b75b6ede]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.v-select .vs__dropdown-menu[data-v-b75b6ede],.v-select .vs__search[data-v-b75b6ede],.v-select .vs__selected[data-v-b75b6ede]{font-size:.95rem}.custom-file-input:focus~.custom-file-label[data-v-b75b6ede]{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.custom-file-label[data-v-b75b6ede]{border-radius:6px}.file-upload-area[data-v-b75b6ede]{background:#f8fdfe;border:2px dashed #33a0d9;border-radius:12px;padding:20px;position:relative;text-align:center}.file-upload-area .file-input[data-v-b75b6ede]{cursor:pointer;height:100%;inset:0;opacity:0;position:absolute;width:100%}.file-upload-area .file-upload-content[data-v-b75b6ede]{color:#33a0d9}.selected-files .selected-file-item[data-v-b75b6ede]{align-items:center;background:#f5faff;border:1px solid #e3f3f7;border-radius:6px;display:inline-flex;margin-bottom:8px;margin-right:8px;padding:6px 10px}.d-flex.align-items-center span.ml-3[data-v-b75b6ede]{font-weight:500}.required[data-v-b75b6ede]{color:#dc3545}[dir=rtl] .form-card .card-header[data-v-b75b6ede]{border-radius:20px 20px 0 0}.custom-file-label[data-v-b75b6ede],[dir=rtl] .custom-file-label[data-v-b75b6ede]{text-align:left!important}.btn-primary[data-v-b75b6ede]{background:#33a0d9!important;border-color:#33a0d9!important}.btn-primary[data-v-b75b6ede]:hover{filter:brightness(.95)}.equal-height>[class*=\" col-\"][data-v-b75b6ede],.equal-height>[class^=col-][data-v-b75b6ede]{display:flex}.equal-height .form-card[data-v-b75b6ede]{display:flex;flex-direction:column;width:100%}.equal-height .form-card .card-body[data-v-b75b6ede]{flex:1 1 auto}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-a7f6ad54]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:20px}.form-card .card-header[data-v-a7f6ad54]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:22px 16px}.form-card .section-title[data-v-a7f6ad54]{color:#fff;font-size:14px;font-weight:600;margin:0}.form-card .card-body[data-v-a7f6ad54]{padding:16px}.form-control[data-v-a7f6ad54]{background:#fff!important}input[readonly][data-v-a7f6ad54]{background-color:#f8f9fa!important;border-color:#ced4da;color:#6c757d;cursor:not-allowed}.form-control[data-v-a7f6ad54]:focus,select.form-control[data-v-a7f6ad54]:focus,textarea.form-control[data-v-a7f6ad54]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.radio-group[data-v-a7f6ad54]{align-items:center;display:flex;gap:16px}.radio-group .radio-inline[data-v-a7f6ad54]{align-items:center;display:inline-flex;gap:6px;margin:0}.v-select .vs__dropdown-toggle[data-v-a7f6ad54]{border-color:#ced4da;border-radius:6px}.v-select .vs__dropdown-toggle.vs__open[data-v-a7f6ad54],.v-select .vs__dropdown-toggle[data-v-a7f6ad54]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.v-select .vs__dropdown-menu[data-v-a7f6ad54],.v-select .vs__search[data-v-a7f6ad54],.v-select .vs__selected[data-v-a7f6ad54]{font-size:.95rem}.custom-file-input:focus~.custom-file-label[data-v-a7f6ad54]{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.custom-file-label[data-v-a7f6ad54]{border-radius:6px}.file-upload-area[data-v-a7f6ad54]{background:#f8fdfe;border:2px dashed #33a0d9;border-radius:12px;padding:20px;position:relative;text-align:center}.file-upload-area .file-input[data-v-a7f6ad54]{cursor:pointer;height:100%;inset:0;opacity:0;position:absolute;width:100%}.file-upload-area .file-upload-content[data-v-a7f6ad54]{color:#33a0d9}.selected-files .selected-file-item[data-v-a7f6ad54]{align-items:center;background:#f5faff;border:1px solid #e3f3f7;border-radius:6px;display:inline-flex;margin-bottom:8px;margin-right:8px;padding:6px 10px}.d-flex.align-items-center span.ml-3[data-v-a7f6ad54]{font-weight:500}.required[data-v-a7f6ad54]{color:#dc3545}[dir=rtl] .form-card .card-header[data-v-a7f6ad54]{border-radius:20px 20px 0 0}.custom-file-label[data-v-a7f6ad54],[dir=rtl] .custom-file-label[data-v-a7f6ad54]{text-align:left!important}.btn-primary[data-v-a7f6ad54]{background:#33a0d9!important;border-color:#33a0d9!important}.btn-primary[data-v-a7f6ad54]:hover{filter:brightness(.95)}.equal-height>[class*=\" col-\"][data-v-a7f6ad54],.equal-height>[class^=col-][data-v-a7f6ad54]{display:flex}.equal-height .form-card[data-v-a7f6ad54]{display:flex;flex-direction:column;width:100%}.equal-height .form-card .card-body[data-v-a7f6ad54]{flex:1 1 auto}.country-select[data-v-a7f6ad54]{width:100%}.country-select .vs__dropdown-toggle[data-v-a7f6ad54]{border:1px solid #ced4da;border-radius:6px;max-width:100%;min-height:2.5rem;overflow:hidden;padding:.5rem 1rem}.country-select .vs__search[data-v-a7f6ad54]{font-size:.95rem;margin:0;padding:0}.country-select .vs__selected[data-v-a7f6ad54]{align-items:center;display:flex;gap:.5rem;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.country-option[data-v-a7f6ad54],.country-selected[data-v-a7f6ad54]{align-items:center;display:flex;gap:.5rem;min-width:0}.country-flag[data-v-a7f6ad54]{flex-shrink:0;font-size:1.25rem;line-height:1}.country-name[data-v-a7f6ad54]{flex:1;font-size:.95rem;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.country-select.is-invalid .vs__dropdown-toggle[data-v-a7f6ad54]{border-color:#dc3545}.country-select .vs__dropdown-menu[data-v-a7f6ad54]{border-radius:6px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);margin-top:.5rem}.country-select .vs__dropdown-option[data-v-a7f6ad54]{padding:.75rem 1rem}.country-select .vs__dropdown-option--highlight[data-v-a7f6ad54]{background-color:#33a0d9;color:#fff}.saudi-location-select[data-v-a7f6ad54]{width:100%}.saudi-location-select .vs__dropdown-toggle[data-v-a7f6ad54]{background-color:#fff;border:1px solid #ced4da;border-radius:6px;min-height:2.5rem;padding:.375rem .75rem}.saudi-location-select .vs__dropdown-toggle.vs__open[data-v-a7f6ad54],.saudi-location-select .vs__dropdown-toggle[data-v-a7f6ad54]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15);outline:none}.saudi-location-select.is-invalid .vs__dropdown-toggle[data-v-a7f6ad54]{border-color:#dc3545}.saudi-location-select .vs__search[data-v-a7f6ad54]{font-size:.95rem;margin:0;padding:0}.saudi-location-select .vs__dropdown-menu[data-v-a7f6ad54]{border-radius:6px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);margin-top:.5rem}.saudi-location-select .vs__dropdown-option[data-v-a7f6ad54]{padding:.75rem 1rem}.saudi-location-select .vs__dropdown-option--highlight[data-v-a7f6ad54]{background-color:#33a0d9;color:#fff}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
