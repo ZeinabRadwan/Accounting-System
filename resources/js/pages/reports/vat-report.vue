@@ -123,14 +123,7 @@
 
             <!-- Action Buttons -->
             <div class="row">
-              <div class="col-6 col-xl-4 mb-2">
-                <search
-                  v-model="query"
-                  @reset-pagination="resetPagination()"
-                  @reload="reload"
-                />
-              </div>
-              <div class="col-xl-8 col-8 float-right text-right">
+              <div class="col-xl-12 col-12 float-right text-right">
                 <div class="btn-group c-w-100">
                   <a
                     @click="refreshTable()"
