@@ -15,17 +15,18 @@ if (mix.inProduction()) {
   mix.disableNotifications()
     .version();
 } else {
-  mix.sourceMaps()
+  mix.sourceMaps('eval-cheap-module-source-map')
     .options({
       hmrOptions: {
         host: 'localhost',
         port: 8081
-      }
+      },
+      processCssUrls: false
     })
 }
 
 mix.webpackConfig((webpack) => {
-  return {
+  const config = {
     output: {
       chunkFilename: 'js/[name].js'
     },
@@ -62,13 +63,35 @@ mix.webpackConfig((webpack) => {
       alias: {
         '~': join(__dirname, './resources/js'),
         '@': join(__dirname, './resources/js')
-      }
+      },
+      symlinks: false
     },
     optimization: {
-      minimize: false
+      minimize: false,
+      removeAvailableModules: false,
+      removeEmptyChunks: false,
+      splitChunks: false
     },
     performance: {
       hints: false
+    },
+    cache: {
+      type: 'filesystem',
+      buildDependencies: {
+        config: [__filename]
+      }
     }
   }
+
+  // Development-only optimizations
+  if (!mix.inProduction()) {
+    config.watchOptions = {
+      ignored: /node_modules/,
+      aggregateTimeout: 300,
+      poll: false
+    }
+    config.resolve.cacheWithContext = false
+  }
+
+  return config
 })

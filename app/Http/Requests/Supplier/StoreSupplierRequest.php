@@ -24,10 +24,10 @@ class StoreSupplierRequest extends BaseRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => 'required_if:type,Individual|nullable|string|max:255',
             'phoneNumber' => 'required|string|max:20|min:3',
             'email' => 'nullable|email|max:255|min:3|unique:suppliers,email',
-            'companyName' => 'nullable|string|max:100|min:2',
+            'companyName' => 'required_if:type,Company|nullable|string|max:100|min:2',
             'address' => 'nullable|string|max:255',
             'type' => 'required|string|in:Company,Individual',
             'chartOfAccountId' => 'nullable|integer|exists:chart_of_accounts,id',

@@ -91,6 +91,7 @@ export default {
         state: supplierData.state || '',
         postalCode: supplierData.postalCode || supplierData.postal_code || '',
         country: supplierData.country || 'SA',
+        saudi_region: supplierData.saudi_region || supplierData.saudi_region_id || null,
         neighbourhood: supplierData.neighbourhood || '',
         
         // Saudi National Address fields
@@ -169,6 +170,7 @@ export default {
           state: formData.state,
           postalCode: formData.postalCode,
           country: formData.country,
+          saudi_region: formData.saudi_region,
           neighbourhood: formData.neighbourhood,
           commercialRegister: formData.commercialRegister,
           taxCard: formData.taxCard,
@@ -211,6 +213,7 @@ export default {
           appendIfDefined('type', submitData.type);
           appendIfDefined('fullName', submitData.fullName);
           appendIfDefined('businessName', submitData.businessName);
+          appendIfDefined('companyName', submitData.businessName);
           appendIfDefined('firstName', submitData.firstName);
           appendIfDefined('lastName', submitData.lastName);
           appendIfDefined('phone', submitData.phone);
@@ -232,6 +235,7 @@ export default {
           appendIfDefined('state', submitData.state);
           appendIfDefined('postalCode', submitData.postalCode);
           appendIfDefined('country', submitData.country);
+          appendIfDefined('saudi_region', submitData.saudi_region);
           appendIfDefined('neighbourhood', submitData.neighbourhood);
           appendIfDefined('commercialRegister', submitData.commercialRegister);
           appendIfDefined('taxCard', submitData.taxCard);

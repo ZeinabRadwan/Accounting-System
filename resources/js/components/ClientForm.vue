@@ -268,6 +268,7 @@
                 <div class="form-group col-md-3">
                   <label for="city">{{ $t("City") }}</label>
                   <v-select
+                    v-if="saudiCities.length > 0"
                     v-model="form.city"
                     :options="saudiCities"
                     label="name"
@@ -286,6 +287,17 @@
                       <div>{{ $i18n.locale === 'ar' ? name_ar : name_en }}</div>
                     </template>
                   </v-select>
+                  <input
+                    v-else-if="form.saudi_region"
+                    id="city"
+                    v-model="form.city"
+                    type="text"
+                    class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('city') }"
+                    name="city"
+                    :placeholder="$t('Enter city name')"
+                    :disabled="!form.saudi_region"
+                  />
                   <has-error :form="form" field="city" />
                 </div>
                 <div class="form-group col-md-3">
@@ -1129,17 +1141,65 @@ export default {
           params: { region_id: regionId }
         });
         if (response.data.success) {
-          this.saudiCities = response.data.data.map(city => ({
+          const cities = response.data.data || [];
+          this.saudiCities = cities.map(city => ({
             id: city.id,
             name: this.$i18n.locale === 'ar' ? city.name_ar : city.name_en,
             name_ar: city.name_ar,
             name_en: city.name_en,
             region_id: city.region_id
           }));
+          
+          // If no cities found, add the region name as a city option
+          if (this.saudiCities.length === 0) {
+            const selectedRegion = this.saudiRegions.find(region => region.id === regionId);
+            if (selectedRegion) {
+              this.saudiCities = [{
+                id: `region_${regionId}`,
+                name: selectedRegion.name,
+                name_ar: selectedRegion.name_ar,
+                name_en: selectedRegion.name_en,
+                region_id: regionId,
+                is_region: true
+              }];
+            }
+          }
+        } else {
+          // If API call failed, add region name as fallback
+          const selectedRegion = this.saudiRegions.find(region => region.id === regionId);
+          if (selectedRegion) {
+            this.saudiCities = [{
+              id: `region_${regionId}`,
+              name: selectedRegion.name,
+              name_ar: selectedRegion.name_ar,
+              name_en: selectedRegion.name_en,
+              region_id: regionId,
+              is_region: true
+            }];
+          } else {
+            this.saudiCities = [];
+          }
         }
       } catch (error) {
         console.error('Error loading Saudi cities:', error);
-        this.$toast.error(this.$t('Error loading cities'));
+        // If error occurred, add region name as fallback
+        const selectedRegion = this.saudiRegions.find(region => region.id === regionId);
+        if (selectedRegion) {
+          this.saudiCities = [{
+            id: `region_${regionId}`,
+            name: selectedRegion.name,
+            name_ar: selectedRegion.name_ar,
+            name_en: selectedRegion.name_en,
+            region_id: regionId,
+            is_region: true
+          }];
+        } else {
+          this.saudiCities = [];
+        }
+        // Don't show error toast for empty cities - it's normal for some regions
+        if (error.response && error.response.status !== 404) {
+          this.$toast.error(this.$t('Error loading cities'));
+        }
       } finally {
         this.loadingCities = false;
       }

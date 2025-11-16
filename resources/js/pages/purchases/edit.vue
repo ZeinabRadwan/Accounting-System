@@ -47,11 +47,11 @@
           <!-- form start -->
           <form id="purchaseEditForm" role="form" @submit.prevent="updatePurchase" @keydown="form.onKeydown($event)">
             <div class="card-body">
-              <div class="row" v-if="items && products">
+              <div class="row" v-if="suppliers && products">
                 <div class="form-group col-md-12 col-xl-3">
                   <label for="supplier">{{ $t('Supplier') }}
                     <span class="required">*</span></label>
-                  <v-select v-model="form.supplier" :options="items" label="name"
+                  <v-select v-model="form.supplier" :options="suppliers" label="name"
                     :class="{ 'is-invalid': form.errors.has('supplier') }" name="supplier"
                     :placeholder="$t('Select a supplier')" @input="onSupplierChange" />
                   
@@ -424,6 +424,7 @@ export default {
         url: '',
       },
     ],
+    suppliers: [], // Local suppliers array instead of using shared items
     form: new Form({
       supplier: '',
       purchaseNo: '',
@@ -460,7 +461,7 @@ export default {
     })
   },
   computed: {
-    ...mapGetters('operations', ['items', 'appInfo']),
+    ...mapGetters('operations', ['appInfo']),
     
     // Check if the country is Saudi Arabia
     isSaudiArabia() {
@@ -512,9 +513,8 @@ export default {
 
     // get all local suppliers
     async getSuppliers() {
-      await this.$store.dispatch('operations/allData', {
-        path: '/api/all-suppliers',
-      })
+      const { data } = await axios.get(window.location.origin + '/api/all-suppliers');
+      this.suppliers = data.data || [];
     },
 
     // get products
@@ -797,8 +797,8 @@ export default {
         await this.getSuppliers();
         
         // If we have a selected supplier, update it with the new data
-        if (this.form.supplier && this.items && this.items.length > 0) {
-          const updatedSupplier = this.items.find(s => s.id === this.form.supplier.id);
+        if (this.form.supplier && this.suppliers && this.suppliers.length > 0) {
+          const updatedSupplier = this.suppliers.find(s => s.id === this.form.supplier.id);
           if (updatedSupplier) {
             this.form.supplier = updatedSupplier;
           }
@@ -927,8 +927,8 @@ export default {
       
       // If a supplier is selected, ensure we have the latest data including Chart of Account
       if (this.form.supplier && this.form.supplier.id) {
-        // Find the supplier in the items list to get the most up-to-date data
-        const updatedSupplier = this.items.find(s => s.id === this.form.supplier.id);
+        // Find the supplier in the suppliers list to get the most up-to-date data
+        const updatedSupplier = this.suppliers.find(s => s.id === this.form.supplier.id);
         if (updatedSupplier) {
           // Update the form supplier with all the latest data
           this.form.supplier = { ...updatedSupplier };

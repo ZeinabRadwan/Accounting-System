@@ -50,19 +50,6 @@
                   :placeholder="$t('Enter full name')" />
                 <has-error :form="form" field="fullName" />
               </div>
-            </div>
-
-            <!-- Business Supplier Fields -->
-            <div v-if="form.type === 'Company'">
-              <div class="form-group">
-                <label for="businessName">
-                  {{ $t("Business Name") }} <span class="required">*</span>
-                </label>
-                <input id="businessName" v-model="form.businessName" type="text" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('businessName') }" name="businessName"
-                  :placeholder="$t('Enter business name')" />
-                <has-error :form="form" field="businessName" />
-              </div>
 
               <div class="row">
                 <div class="form-group col-md-6">
@@ -82,6 +69,19 @@
               </div>
             </div>
 
+            <!-- Business Supplier Fields -->
+            <div v-if="form.type === 'Company'">
+              <div class="form-group">
+                <label for="businessName">
+                  {{ $t("Business Name") }} <span class="required">*</span>
+                </label>
+                <input id="businessName" v-model="form.businessName" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('businessName') }" name="businessName"
+                  :placeholder="$t('Enter business name')" />
+                <has-error :form="form" field="businessName" />
+              </div>
+            </div>
+
             <div class="row">
               <div class="form-group col-md-6">
                 <label for="phone">{{ $t("Telephone") }}</label>
@@ -91,17 +91,14 @@
                 <has-error :form="form" field="phone" />
               </div>
               <div class="form-group col-md-6">
-                <label for="phoneNumber" class="required-field">
-                  {{ $t("Mobile") }} <span class="required">*</span>
-                </label>
-                <input 
-                  id="phoneNumber"
+                <PhoneNumberInput
                   v-model="form.phoneNumber"
-                  type="tel"
-                  class="form-control required-input"
-                  :class="{ 'is-invalid': form.errors.has('phoneNumber') }"
-                  name="phoneNumber"
-                  :placeholder="$t('Enter mobile number (required)')" />
+                  :label="$t('Mobile')"
+                  :required="true"
+                  :country="form.country"
+                  :default-country="form.country || 'SA'"
+                  @validated="onPhoneValidated"
+                />
                 <has-error :form="form" field="phoneNumber" />
               </div>
             </div>
@@ -188,97 +185,218 @@
       </div>
     </div>
 
-    <!-- Address Section -->
+    <!-- National Address Section -->
     <div class="row mt-4">
       <div class="col-md-12">
         <div class="form-card">
           <div class="card-header">
             <h5 class="section-title">
-              <i class="fas fa-map-marker-alt mr-2"></i>
-              {{ $t("Address Information") }}
+              <i class="fas fa-map-marked-alt mr-2"></i>
+              {{ $t("National Address") }}
             </h5>
           </div>
           <div class="card-body">
-        
-        <div class="row">
-          <div class="form-group col-md-3">
-            <label for="country">{{ $t("Country") }}</label>
-            <select id="country" v-model="form.country" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('country') }">
-              <option value="">{{ $t("Select Country") }}</option>
-              <option value="SA">{{ $t("Saudi Arabia (SA)") }}</option>
-              <option value="EG">{{ $t("Egypt (EG)") }}</option>
-              <option value="US">{{ $t("United States (US)") }}</option>
-              <option value="GB">{{ $t("United Kingdom (GB)") }}</option>
-            </select>
-            <has-error :form="form" field="country" />
-          </div>
-          <div class="form-group col-md-3">
-            <label for="state">{{ $t("State") }}</label>
-            <input id="state" v-model="form.state" type="text" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('state') }" name="state"
-              :placeholder="$t('Enter state')" />
-            <has-error :form="form" field="state" />
-          </div>
-          <div class="form-group col-md-3">
-            <label for="city">{{ $t("City") }}</label>
-            <input id="city" v-model="form.city" type="text" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('city') }" name="city"
-              :placeholder="$t('Enter city')" />
-            <has-error :form="form" field="city" />
-          </div>
-          <div class="form-group col-md-3">
-            <label for="neighbourhood">{{ $t("Neighbourhood") }}</label>
-            <input id="neighbourhood" v-model="form.neighbourhood" type="text" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('neighbourhood') }" name="neighbourhood"
-              :placeholder="$t('Enter neighbourhood')" />
-            <has-error :form="form" field="neighbourhood" />
-          </div>
-        </div>
+            <!-- Country and Region -->
+            <div class="row">
+              <div class="form-group col-md-3">
+                <label for="country">{{ $t("Country") }}</label>
+                <v-select
+                  v-model="form.country"
+                  :options="countries"
+                  label="name"
+                  :reduce="option => option.code"
+                  :placeholder="$t('Select Country')"
+                  :searchable="true"
+                  :clearable="false"
+                  class="country-select"
+                  :class="{ 'is-invalid': form.errors.has('country') }"
+                  @input="onCountryChange"
+                >
+                  <template #option="{ flag, name }">
+                    <div class="country-option">
+                      <span class="country-flag">{{ flag }}</span>
+                      <span class="country-name">{{ name }}</span>
+                    </div>
+                  </template>
+                  <template #selected-option="{ flag, name }">
+                    <div class="country-selected">
+                      <span class="country-flag">{{ flag }}</span>
+                      <span class="country-name">{{ name }}</span>
+                    </div>
+                  </template>
+                  <template #no-options>
+                    <div class="text-center text-muted p-2">
+                      {{ $t('No countries found') }}
+                    </div>
+                  </template>
+                </v-select>
+                <has-error :form="form" field="country" />
+              </div>
+              <div v-if="form.country !== 'SA'" class="form-group col-md-3">
+                <label for="state">{{ $t("State") }}</label>
+                <input id="state" v-model="form.state" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('state') }" name="state"
+                  :placeholder="$t('Enter state')" />
+                <has-error :form="form" field="state" />
+              </div>
+              
+              <!-- Saudi Arabia Region, City and Neighbourhood -->
+              <template v-if="form.country === 'SA'">
+                <div class="form-group col-md-3">
+                  <label for="saudi_region">{{ $t("Region") }}</label>
+                  <v-select
+                    v-model="form.saudi_region"
+                    :options="saudiRegions"
+                    label="name"
+                    :reduce="option => option.id"
+                    :placeholder="$t('Select Region')"
+                    :searchable="true"
+                    :clearable="false"
+                    class="saudi-location-select"
+                    :class="{ 'is-invalid': form.errors.has('saudi_region') }"
+                    @input="onSaudiRegionChange"
+                  >
+                    <template #option="{ name_ar, name_en }">
+                      <div>{{ $i18n.locale === 'ar' ? name_ar : name_en }}</div>
+                    </template>
+                    <template #selected-option="{ name_ar, name_en }">
+                      <div>{{ $i18n.locale === 'ar' ? name_ar : name_en }}</div>
+                    </template>
+                  </v-select>
+                  <has-error :form="form" field="saudi_region" />
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="city">{{ $t("City") }}</label>
+                  <v-select
+                    v-if="saudiCities.length > 0"
+                    v-model="form.city"
+                    :options="saudiCities"
+                    label="name"
+                    :reduce="option => option.name"
+                    :placeholder="$t('Select City')"
+                    :searchable="true"
+                    :clearable="false"
+                    class="saudi-location-select"
+                    :class="{ 'is-invalid': form.errors.has('city') }"
+                    :disabled="!form.saudi_region"
+                  >
+                    <template #option="{ name_ar, name_en }">
+                      <div>{{ $i18n.locale === 'ar' ? name_ar : name_en }}</div>
+                    </template>
+                    <template #selected-option="{ name_ar, name_en }">
+                      <div>{{ $i18n.locale === 'ar' ? name_ar : name_en }}</div>
+                    </template>
+                  </v-select>
+                  <input
+                    v-else-if="form.saudi_region"
+                    id="city"
+                    v-model="form.city"
+                    type="text"
+                    class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('city') }"
+                    name="city"
+                    :placeholder="$t('Enter city name')"
+                    :disabled="!form.saudi_region"
+                  />
+                  <has-error :form="form" field="city" />
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="neighbourhood">{{ $t("Neighbourhood") }}</label>
+                  <input id="neighbourhood" v-model="form.neighbourhood" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('neighbourhood') }" name="neighbourhood"
+                    :placeholder="$t('Enter neighbourhood')" />
+                  <has-error :form="form" field="neighbourhood" />
+                </div>
+              </template>
+              
+              <!-- Regular City and Neighbourhood Input for Non-Saudi Countries -->
+              <template v-if="form.country !== 'SA'">
+                <div class="form-group col-md-3">
+                  <label for="city">{{ $t("City") }}</label>
+                  <input id="city" v-model="form.city" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('city') }" name="city"
+                    :placeholder="$t('Enter city')" />
+                  <has-error :form="form" field="city" />
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="neighbourhood">{{ $t("Neighbourhood") }}</label>
+                  <input id="neighbourhood" v-model="form.neighbourhood" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('neighbourhood') }" name="neighbourhood"
+                    :placeholder="$t('Enter neighbourhood')" />
+                  <has-error :form="form" field="neighbourhood" />
+                </div>
+              </template>
+            </div>
 
-        <div class="form-group">
-          <label for="streetAddress1">{{ $t("Street Address 1") }}</label>
-          <input id="streetAddress1" v-model="form.streetAddress1" type="text" class="form-control"
-            :class="{ 'is-invalid': form.errors.has('streetAddress1') }" name="streetAddress1"
-            :placeholder="$t('Enter street address')" />
-          <has-error :form="form" field="streetAddress1" />
-        </div>
+            <!-- Street Name and Postal Code -->
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="streetAddress1">{{ $t("Street Name") }}</label>
+                <input id="streetAddress1" v-model="form.streetAddress1" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('streetAddress1') }" name="streetAddress1"
+                  :placeholder="$t('Enter street name')" />
+                <has-error :form="form" field="streetAddress1" />
+              </div>
+              <div class="form-group col-md-3">
+                <label for="postalCode">{{ $t("Postal Code") }}</label>
+                <input id="postalCode" v-model="form.postalCode" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('postalCode') }" name="postalCode"
+                  :placeholder="$t('Enter postal code')" />
+                <has-error :form="form" field="postalCode" />
+              </div>
+              <div v-if="form.country === 'SA'" class="form-group col-md-3">
+                <label for="buildingNumber">
+                  {{ $t("Building Number") }} <span class="required">*</span>
+                </label>
+                <input id="buildingNumber" v-model="form.buildingNumber" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('buildingNumber') }" name="buildingNumber"
+                  :placeholder="$t('Enter building number')" maxlength="5" />
+                <has-error :form="form" field="buildingNumber" />
+              </div>
+            </div>
 
-        <div class="form-group">
-          <label for="streetAddress2">{{ $t("Street Address 2") }}</label>
-          <input id="streetAddress2" v-model="form.streetAddress2" type="text" class="form-control"
-            :class="{ 'is-invalid': form.errors.has('streetAddress2') }" name="streetAddress2"
-            :placeholder="$t('Enter additional address info')" />
-          <has-error :form="form" field="streetAddress2" />
-        </div>
+            <!-- Saudi National Address Fields - Additional Numbers -->
+            <div v-if="form.country === 'SA'" class="row">
+              <div class="form-group col-md-3">
+                <label for="unitNumber">
+                  {{ $t("Unit Number") }} <span class="text-muted">({{ $t("Optional") }})</span>
+                </label>
+                <input id="unitNumber" v-model="form.unitNumber" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('unitNumber') }" name="unitNumber"
+                  :placeholder="$t('Enter unit number')" maxlength="5" />
+                <has-error :form="form" field="unitNumber" />
+              </div>
+              <div class="form-group col-md-3">
+                <label for="additionalNumber">
+                  {{ $t("Additional Number") }} <span class="text-muted">({{ $t("Optional") }})</span>
+                </label>
+                <input id="additionalNumber" v-model="form.additionalNumber" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('additionalNumber') }" name="additionalNumber"
+                  :placeholder="$t('Enter additional number')" maxlength="5" />
+                <has-error :form="form" field="additionalNumber" />
+              </div>
+            </div>
 
-        <div class="row">
-          <div class="form-group col-md-6">
-            <label for="postalCode">{{ $t("Postal Code") }}</label>
-            <input id="postalCode" v-model="form.postalCode" type="text" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('postalCode') }" name="postalCode"
-              :placeholder="$t('Enter postal code')" />
-            <has-error :form="form" field="postalCode" />
-          </div>
-        </div>
-
-        <!-- Business-specific fields -->
-        <div v-if="form.type === 'Company'" class="row">
-          <div class="form-group col-md-6">
-              <label for="commercialRegister">{{ $t("CR") }} <span class="text-muted">({{ $t("Optional") }})</span></label>
-            <input id="commercialRegister" v-model="form.commercialRegister" type="text" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('commercialRegister') }" name="commercialRegister"
-              :placeholder="$t('Enter commercial register number')" />
-            <has-error :form="form" field="commercialRegister" />
-          </div>
-          <div class="form-group col-md-6">
-            <label for="taxCard">{{ $t("Tax ID (Optional)") }}</label>
-            <input id="taxCard" v-model="form.taxCard" type="text" class="form-control"
-              :class="{ 'is-invalid': form.errors.has('taxCard') }" name="taxCard"
-              :placeholder="$t('Enter tax ID number')" />
-            <has-error :form="form" field="taxCard" />
-          </div>
-        </div>
+            <!-- Business-specific fields -->
+            <div v-if="form.type === 'Company'" class="row mt-4">
+              <div class="col-md-12">
+                <hr style="margin: 20px 0; border-color: #e0e0e0;">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="commercialRegister">{{ $t("CR") }} <span class="text-muted">({{ $t("Optional") }})</span></label>
+                <input id="commercialRegister" v-model="form.commercialRegister" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('commercialRegister') }" name="commercialRegister"
+                  :placeholder="$t('Enter commercial register number')" />
+                <has-error :form="form" field="commercialRegister" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="taxCard">{{ $t("Tax ID (Optional)") }}</label>
+                <input id="taxCard" v-model="form.taxCard" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('taxCard') }" name="taxCard"
+                  :placeholder="$t('Enter tax ID number')" />
+                <has-error :form="form" field="taxCard" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -440,6 +558,7 @@ import Form from "vform";
 
 import { ToggleButton } from "vue-js-toggle-button";
 import RepresentativesList from "./RepresentativesList.vue";
+import PhoneNumberInput from "./PhoneNumberInput.vue";
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
@@ -448,6 +567,7 @@ export default {
   components: {
     ToggleButton,
     RepresentativesList,
+    PhoneNumberInput,
   },
   props: {
     // Whether to show the card-body wrapper (for create page) or not (for modal)
@@ -482,9 +602,97 @@ export default {
         sms_configured: false,
         loading: true,
       },
+      
+      // Phone number validation
+      phoneNumberValid: false,
+      
+      // Saudi Arabia location data
+      saudiRegions: [],
+      saudiCities: [],
+      loadingRegions: false,
+      loadingCities: false,
+      
+      // Countries data with flags (same as ClientForm)
+      countriesData: [
+        { code: 'SA', nameKey: 'Saudi Arabia', flag: '🇸🇦' },
+        { code: 'AE', nameKey: 'United Arab Emirates', flag: '🇦🇪' },
+        { code: 'EG', nameKey: 'Egypt', flag: '🇪🇬' },
+        { code: 'JO', nameKey: 'Jordan', flag: '🇯🇴' },
+        { code: 'LB', nameKey: 'Lebanon', flag: '🇱🇧' },
+        { code: 'MA', nameKey: 'Morocco', flag: '🇲🇦' },
+        { code: 'TN', nameKey: 'Tunisia', flag: '🇹🇳' },
+        { code: 'DZ', nameKey: 'Algeria', flag: '🇩🇿' },
+        { code: 'KW', nameKey: 'Kuwait', flag: '🇰🇼' },
+        { code: 'QA', nameKey: 'Qatar', flag: '🇶🇦' },
+        { code: 'BH', nameKey: 'Bahrain', flag: '🇧🇭' },
+        { code: 'OM', nameKey: 'Oman', flag: '🇴🇲' },
+        { code: 'YE', nameKey: 'Yemen', flag: '🇾🇪' },
+        { code: 'IQ', nameKey: 'Iraq', flag: '🇮🇶' },
+        { code: 'US', nameKey: 'United States', flag: '🇺🇸' },
+        { code: 'GB', nameKey: 'United Kingdom', flag: '🇬🇧' },
+        { code: 'CA', nameKey: 'Canada', flag: '🇨🇦' },
+        { code: 'AU', nameKey: 'Australia', flag: '🇦🇺' },
+        { code: 'DE', nameKey: 'Germany', flag: '🇩🇪' },
+        { code: 'FR', nameKey: 'France', flag: '🇫🇷' },
+        { code: 'ES', nameKey: 'Spain', flag: '🇪🇸' },
+        { code: 'IT', nameKey: 'Italy', flag: '🇮🇹' },
+        { code: 'NL', nameKey: 'Netherlands', flag: '🇳🇱' },
+        { code: 'BE', nameKey: 'Belgium', flag: '🇧🇪' },
+        { code: 'CH', nameKey: 'Switzerland', flag: '🇨🇭' },
+        { code: 'AT', nameKey: 'Austria', flag: '🇦🇹' },
+        { code: 'SE', nameKey: 'Sweden', flag: '🇸🇪' },
+        { code: 'NO', nameKey: 'Norway', flag: '🇳🇴' },
+        { code: 'DK', nameKey: 'Denmark', flag: '🇩🇰' },
+        { code: 'FI', nameKey: 'Finland', flag: '🇫🇮' },
+        { code: 'PL', nameKey: 'Poland', flag: '🇵🇱' },
+        { code: 'IE', nameKey: 'Ireland', flag: '🇮🇪' },
+        { code: 'PT', nameKey: 'Portugal', flag: '🇵🇹' },
+        { code: 'GR', nameKey: 'Greece', flag: '🇬🇷' },
+        { code: 'LU', nameKey: 'Luxembourg', flag: '🇱🇺' },
+        { code: 'TR', nameKey: 'Turkey', flag: '🇹🇷' },
+        { code: 'IN', nameKey: 'India', flag: '🇮🇳' },
+        { code: 'CN', nameKey: 'China', flag: '🇨🇳' },
+        { code: 'JP', nameKey: 'Japan', flag: '🇯🇵' },
+        { code: 'KR', nameKey: 'South Korea', flag: '🇰🇷' },
+        { code: 'BR', nameKey: 'Brazil', flag: '🇧🇷' },
+        { code: 'MX', nameKey: 'Mexico', flag: '🇲🇽' },
+        { code: 'AR', nameKey: 'Argentina', flag: '🇦🇷' },
+        { code: 'ZA', nameKey: 'South Africa', flag: '🇿🇦' },
+        { code: 'NG', nameKey: 'Nigeria', flag: '🇳🇬' },
+        { code: 'KE', nameKey: 'Kenya', flag: '🇰🇪' },
+        { code: 'PK', nameKey: 'Pakistan', flag: '🇵🇰' },
+        { code: 'BD', nameKey: 'Bangladesh', flag: '🇧🇩' },
+        { code: 'ID', nameKey: 'Indonesia', flag: '🇮🇩' },
+        { code: 'PH', nameKey: 'Philippines', flag: '🇵🇭' },
+        { code: 'VN', nameKey: 'Vietnam', flag: '🇻🇳' },
+        { code: 'TH', nameKey: 'Thailand', flag: '🇹🇭' },
+        { code: 'MY', nameKey: 'Malaysia', flag: '🇲🇾' },
+        { code: 'SG', nameKey: 'Singapore', flag: '🇸🇬' },
+        { code: 'NZ', nameKey: 'New Zealand', flag: '🇳🇿' },
+        { code: 'RU', nameKey: 'Russia', flag: '🇷🇺' },
+        { code: 'UA', nameKey: 'Ukraine', flag: '🇺🇦' },
+        { code: 'CZ', nameKey: 'Czech Republic', flag: '🇨🇿' },
+        { code: 'HU', nameKey: 'Hungary', flag: '🇭🇺' },
+        { code: 'RO', nameKey: 'Romania', flag: '🇷🇴' },
+        { code: 'BG', nameKey: 'Bulgaria', flag: '🇧🇬' },
+        { code: 'HR', nameKey: 'Croatia', flag: '🇭🇷' },
+        { code: 'SI', nameKey: 'Slovenia', flag: '🇸🇮' },
+        { code: 'SK', nameKey: 'Slovakia', flag: '🇸🇰' },
+        { code: 'EE', nameKey: 'Estonia', flag: '🇪🇪' },
+        { code: 'LV', nameKey: 'Latvia', flag: '🇱🇻' },
+        { code: 'LT', nameKey: 'Lithuania', flag: '🇱🇹' },
+        { code: 'IS', nameKey: 'Iceland', flag: '🇮🇸' },
+      ],
     };
   },
   computed: {
+    // Countries with translated names
+    countries() {
+      return this.countriesData.map(country => ({
+        ...country,
+        name: this.$t(country.nameKey) || country.nameKey
+      }));
+    },
     // Check if this is edit mode (has initial data with slug)
     isEditMode() {
       return this.initialData && this.initialData.slug && this.initialData.slug !== 'new';
@@ -534,7 +742,44 @@ export default {
       },
       immediate: true,
       deep: true
-    }
+    },
+    
+    // Watch for country changes - clear state when Saudi Arabia is selected
+    'form.country': {
+      handler(newValue, oldValue) {
+        if (newValue === 'SA') {
+          // Clear state field when Saudi Arabia is selected
+          this.form.state = '';
+          // Load Saudi regions
+          this.loadSaudiRegions();
+        } else {
+          // Clear Saudi-specific fields when switching away from SA
+          this.form.saudi_region = null;
+          this.saudiCities = [];
+        }
+      },
+      immediate: true
+    },
+    
+    // Watch for Saudi region changes - load cities
+    'form.saudi_region': {
+      handler(newValue) {
+        if (newValue && this.form.country === 'SA') {
+          this.loadSaudiCities(newValue);
+        } else {
+          this.saudiCities = [];
+          this.form.city = '';
+        }
+      }
+    },
+    
+    // Watch for changes in phoneNumber field
+    'form.phoneNumber': {
+      handler(newValue, oldValue) {
+        console.log('Phone number changed:', { old: oldValue, new: newValue });
+      },
+      immediate: true
+    },
   },
   created() {
     console.log('SupplierForm component created');
@@ -558,6 +803,11 @@ export default {
     
     // Load communication configuration status
     this.loadCommunicationConfigStatus();
+    
+    // Load Saudi regions if country is SA
+    if (this.form.country === 'SA') {
+      this.loadSaudiRegions();
+    }
   },
   methods: {
     // Load communication configuration status
@@ -597,14 +847,18 @@ export default {
         phoneNumber: "",
         email: "",
         streetAddress1: "",
-        streetAddress2: "",
         city: "",
         state: "",
         postalCode: "",
         country: "SA",
+        saudi_region: null,
         neighbourhood: "",
         commercialRegister: "",
         taxCard: "",
+        // Saudi National Address Fields
+        buildingNumber: "",
+        unitNumber: "",
+        additionalNumber: "",
         
         // Additional Fields
         image: "",
@@ -791,7 +1045,28 @@ export default {
       // Required field validations
       if (!this.form.phoneNumber || this.form.phoneNumber.trim() === '') {
         console.log('Phone number validation failed');
-        this.form.errors.set('phoneNumber', this.$t('Mobile number is required'));
+        if (window.toast && typeof window.toast.fire === 'function') {
+          window.toast.fire({
+            type: "error",
+            title: this.$t("Mobile number is required"),
+          });
+        } else {
+          alert(this.$t("Mobile number is required"));
+        }
+        isValid = false;
+      }
+      
+      // Check if phone number is valid
+      if (!this.phoneNumberValid) {
+        console.log('Phone number validation failed - phoneNumberValid:', this.phoneNumberValid);
+        if (window.toast && typeof window.toast.fire === 'function') {
+          window.toast.fire({
+            type: "error",
+            title: this.$t("Invalid phone number format"),
+          });
+        } else {
+          alert(this.$t("Invalid phone number format"));
+        }
         isValid = false;
       }
       
@@ -839,6 +1114,8 @@ export default {
         // Ensure phone field is included
         phone: this.form.phone,
         phoneNumber: this.form.phoneNumber,
+        // Saudi region
+        saudi_region: this.form.saudi_region,
       };
       
       // Emit submit event with form data
@@ -876,16 +1153,30 @@ export default {
       this.form.phoneNumber = "";
       this.form.email = "";
       this.form.streetAddress1 = "";
-      this.form.streetAddress2 = "";
       this.form.city = "";
       this.form.state = "";
       this.form.postalCode = "";
       this.form.neighbourhood = "";
       this.form.commercialRegister = "";
       this.form.taxCard = "";
+      // Clear Saudi National Address Fields
+      this.form.buildingNumber = "";
+      this.form.unitNumber = "";
+      this.form.additionalNumber = "";
+      this.form.saudi_region = null;
       this.form.notes = "";
       this.form.displayLanguage = "";
       this.form.representatives = [];
+      this.form.chartOfAccountId = null; // Clear chart of account
+      
+      // Clear image preview
+      this.url = null;
+      
+      // Clear validation errors
+      this.form.errors.clear();
+      
+      // Reset phone number validation
+      this.phoneNumberValid = false;
     },
 
     // Load representatives for existing supplier
@@ -913,6 +1204,134 @@ export default {
     // Handle when representatives are changed (added, edited, deleted)
     handleRepresentativesChanged(representatives) {
       this.form.representatives = representatives;
+    },
+    
+    // Handle country change
+    onCountryChange() {
+      // Clear state field when Saudi Arabia is selected (handled by watcher)
+      // This method can be used for additional country-specific logic
+    },
+    
+    // Load Saudi Arabia regions
+    async loadSaudiRegions() {
+      if (this.loadingRegions) return;
+      
+      this.loadingRegions = true;
+      try {
+        const response = await axios.get('/api/locations/saudi/regions');
+        if (response.data.success) {
+          this.saudiRegions = response.data.data.map(region => ({
+            id: region.id,
+            name: this.$i18n.locale === 'ar' ? region.name_ar : region.name_en,
+            name_ar: region.name_ar,
+            name_en: region.name_en,
+            code: region.code
+          }));
+        }
+      } catch (error) {
+        console.error('Error loading Saudi regions:', error);
+        this.$toast.error(this.$t('Error loading regions'));
+      } finally {
+        this.loadingRegions = false;
+      }
+    },
+    
+    // Load Saudi Arabia cities by region
+    async loadSaudiCities(regionId) {
+      if (!regionId) {
+        this.saudiCities = [];
+        return;
+      }
+      
+      if (this.loadingCities) return;
+      
+      this.loadingCities = true;
+      try {
+        const response = await axios.get('/api/locations/saudi/cities-by-region', {
+          params: { region_id: regionId }
+        });
+        if (response.data.success) {
+          const cities = response.data.data || [];
+          this.saudiCities = cities.map(city => ({
+            id: city.id,
+            name: this.$i18n.locale === 'ar' ? city.name_ar : city.name_en,
+            name_ar: city.name_ar,
+            name_en: city.name_en,
+            region_id: city.region_id
+          }));
+          
+          // If no cities found, add the region name as a city option
+          if (this.saudiCities.length === 0) {
+            const selectedRegion = this.saudiRegions.find(region => region.id === regionId);
+            if (selectedRegion) {
+              this.saudiCities = [{
+                id: `region_${regionId}`,
+                name: selectedRegion.name,
+                name_ar: selectedRegion.name_ar,
+                name_en: selectedRegion.name_en,
+                region_id: regionId,
+                is_region: true
+              }];
+            }
+          }
+        } else {
+          // If API call failed, add region name as fallback
+          const selectedRegion = this.saudiRegions.find(region => region.id === regionId);
+          if (selectedRegion) {
+            this.saudiCities = [{
+              id: `region_${regionId}`,
+              name: selectedRegion.name,
+              name_ar: selectedRegion.name_ar,
+              name_en: selectedRegion.name_en,
+              region_id: regionId,
+              is_region: true
+            }];
+          } else {
+            this.saudiCities = [];
+          }
+        }
+      } catch (error) {
+        console.error('Error loading Saudi cities:', error);
+        // If error occurred, add region name as fallback
+        const selectedRegion = this.saudiRegions.find(region => region.id === regionId);
+        if (selectedRegion) {
+          this.saudiCities = [{
+            id: `region_${regionId}`,
+            name: selectedRegion.name,
+            name_ar: selectedRegion.name_ar,
+            name_en: selectedRegion.name_en,
+            region_id: regionId,
+            is_region: true
+          }];
+        } else {
+          this.saudiCities = [];
+        }
+        // Don't show error toast for empty cities - it's normal for some regions
+        if (error.response && error.response.status !== 404) {
+          this.$toast.error(this.$t('Error loading cities'));
+        }
+      } finally {
+        this.loadingCities = false;
+      }
+    },
+    
+    // Handle Saudi region change
+    onSaudiRegionChange() {
+      // Clear city when region changes
+      this.form.city = '';
+      this.saudiCities = [];
+      // Cities will be loaded by watcher
+    },
+    
+    // Handle phone number validation
+    onPhoneValidated(isValid) {
+      this.phoneNumberValid = isValid;
+      if (!isValid && this.form.phoneNumber) {
+        // Clear the error if validation passes
+        if (this.form.errors.has('phoneNumber') && this.form.errors.get('phoneNumber') === this.$t('phone_invalid')) {
+          this.form.errors.clear('phoneNumber');
+        }
+      }
     },
 
     // Load routing settings
@@ -1434,5 +1853,122 @@ textarea.form-control:focus {
 
 .equal-height .form-card .card-body {
   flex: 1 1 auto;
+}
+
+/* Country select styles */
+.country-select {
+  width: 100%;
+}
+
+.country-select .vs__dropdown-toggle {
+  border: 1px solid #CED4DA;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  min-height: 2.5rem;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.country-select .vs__search {
+  padding: 0;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.country-select .vs__selected {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.country-option,
+.country-selected {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.country-flag {
+  font-size: 1.25rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.country-name {
+  font-size: 0.95rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  flex: 1;
+}
+
+.country-select.is-invalid .vs__dropdown-toggle {
+  border-color: #dc3545;
+}
+
+.country-select .vs__dropdown-menu {
+  border-radius: 6px;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  margin-top: 0.5rem;
+}
+
+.country-select .vs__dropdown-option {
+  padding: 0.75rem 1rem;
+}
+
+.country-select .vs__dropdown-option--highlight {
+  background-color: #33a0d9;
+  color: white;
+}
+
+/* Saudi location select styles - remove double border */
+.saudi-location-select {
+  width: 100%;
+}
+
+.saudi-location-select .vs__dropdown-toggle {
+  border: 1px solid #CED4DA;
+  border-radius: 6px;
+  padding: 0.375rem 0.75rem;
+  min-height: 2.5rem;
+  background-color: #fff;
+}
+
+.saudi-location-select .vs__dropdown-toggle:focus,
+.saudi-location-select .vs__dropdown-toggle.vs__open {
+  border-color: #33a0d9;
+  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.15);
+  outline: none;
+}
+
+.saudi-location-select.is-invalid .vs__dropdown-toggle {
+  border-color: #dc3545;
+}
+
+.saudi-location-select .vs__search {
+  padding: 0;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.saudi-location-select .vs__dropdown-menu {
+  border-radius: 6px;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  margin-top: 0.5rem;
+}
+
+.saudi-location-select .vs__dropdown-option {
+  padding: 0.75rem 1rem;
+}
+
+.saudi-location-select .vs__dropdown-option--highlight {
+  background-color: #33a0d9;
+  color: white;
 }
 </style>

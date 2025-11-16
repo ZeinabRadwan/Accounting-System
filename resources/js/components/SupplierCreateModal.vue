@@ -70,6 +70,7 @@ export default {
         appendIfDefined('type', formData.type);
         appendIfDefined('fullName', formData.fullName);
         appendIfDefined('businessName', formData.businessName);
+        appendIfDefined('companyName', formData.businessName);
         appendIfDefined('firstName', formData.firstName);
         appendIfDefined('lastName', formData.lastName);
         appendIfDefined('phone', formData.phone);
@@ -81,10 +82,16 @@ export default {
         appendIfDefined('state', formData.state);
         appendIfDefined('postalCode', formData.postalCode);
         appendIfDefined('country', formData.country);
+        appendIfDefined('saudi_region', formData.saudi_region);
         appendIfDefined('neighbourhood', formData.neighbourhood);
         appendIfDefined('commercialRegister', formData.commercialRegister);
         appendIfDefined('taxCard', formData.taxCard);
         appendIfDefined('status', formData.status);
+        
+        // Saudi National Address Fields
+        appendIfDefined('buildingNumber', formData.buildingNumber);
+        appendIfDefined('unitNumber', formData.unitNumber);
+        appendIfDefined('additionalNumber', formData.additionalNumber);
         
         // Convert boolean values to integers for Laravel validation
         appendIfDefined('isSendEmail', formData.isSendEmail ? 1 : 0);

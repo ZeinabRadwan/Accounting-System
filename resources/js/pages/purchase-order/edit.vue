@@ -62,13 +62,13 @@
               </div>
 
               <!-- Supplier + PO Reference -->
-              <div class="row" v-if="items && products">
+              <div class="row" v-if="suppliers && products">
                 <div class="form-group col-md-6">
                   <label for="supplier">{{ $t("Supplier") }} <span class="required">*</span></label>
                   <div class="row">
                     <div class="col">
                       <div class="d-flex w-100">
-                        <v-select class="flex-grow-1" v-model="form.supplier" :options="items" label="name" :clearable="false" :class="{ 'is-invalid': form.errors.has('supplier') }" name="supplier" :placeholder="$t('Select a supplier')" @input="onSupplierChange" />
+                        <v-select class="flex-grow-1" v-model="form.supplier" :options="suppliers" label="name" :clearable="false" :class="{ 'is-invalid': form.errors.has('supplier') }" name="supplier" :placeholder="$t('Select a supplier')" @input="onSupplierChange" />
                       </div>
                       <has-error :form="form" field="supplier" />
                     </div>
@@ -259,6 +259,7 @@ export default {
       { name: "Purchase Orders", url: "purchase-order.index" },
       { name: "Edit", url: "" },
     ],
+    suppliers: [], // Local suppliers array instead of using shared items
     form: new Form({
       supplier: null,
       selectedProducts: [],
@@ -283,7 +284,7 @@ export default {
     prefix: "",
   }),
   computed: {
-    ...mapGetters("operations", ["items", "appInfo"]),
+    ...mapGetters("operations", ["appInfo"]),
     totalUnitPrice() {
       if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) return 0;
       return this.form.selectedProducts.reduce((total, item) => total + ((item.originalPrice || item.unitPrice) * item.qty), 0);
@@ -298,7 +299,8 @@ export default {
   },
   methods: {
     async getSuppliers() {
-      await this.$store.dispatch("operations/allData", { path: "/api/all-suppliers" });
+      const { data } = await axios.get(window.location.origin + "/api/all-suppliers");
+      this.suppliers = data.data || [];
     },
     async getProducts() {
       const { data } = await axios.get(window.location.origin + "/api/all-products-not-service");

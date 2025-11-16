@@ -47,14 +47,14 @@
           <div class="card-body">
             <!-- form start -->
             <form id="purchaseOrderCreateForm" role="form" @submit.prevent="savePurchaseOrder" @keydown="form.onKeydown($event)">
-              <div class="row" v-if="items && products">
+              <div class="row" v-if="suppliers && products">
                 <div class="form-group col-md-6">
                   <label for="supplier">{{ $t("Supplier") }}
                     <span class="required">*</span></label>
                   <div class="row">
                     <div class="col">
                       <div class="d-flex w-100">
-                        <v-select class="flex-grow-1" v-model="form.supplier" :options="items" label="name" :clearable="false"
+                        <v-select class="flex-grow-1" v-model="form.supplier" :options="suppliers" label="name" :clearable="false"
                           :class="{ 'is-invalid': form.errors.has('supplier') }" name="supplier"
                           :placeholder="$t('Select a supplier')" @input="onSupplierChange" />
                         <SupplierCreateModal @reloadSuppliers="getSuppliers">
@@ -482,6 +482,7 @@ export default {
     ],
     isAutoAssigningSupplier: false,
     isAutoAssigningProduct: null,
+    suppliers: [], // Local suppliers array instead of using shared items
     form: new Form({
       supplier: "",
       selectedProducts: [],
@@ -513,7 +514,7 @@ export default {
     },
   }),
   computed: {
-    ...mapGetters("operations", ["items", "appInfo"]),
+    ...mapGetters("operations", ["appInfo"]),
     
     // Calculate total unit price (sum of all unit prices)
     totalUnitPrice() {
@@ -612,22 +613,23 @@ export default {
       // Store the current supplier ID if one is selected
       const currentSupplierId = this.form.supplier ? this.form.supplier.id : null;
       
-      await this.$store.dispatch("operations/allData", {
-        path: "/api/all-suppliers",
-      });
+      const { data } = await axios.get(window.location.origin + "/api/all-suppliers");
+      this.suppliers = data.data || [];
       
       // If we had a supplier selected, find and restore it
-      if (currentSupplierId && this.items && this.items.length > 0) {
-        const currentSupplier = this.items.find(s => s.id === currentSupplierId);
+      if (currentSupplierId && this.suppliers && this.suppliers.length > 0) {
+        const currentSupplier = this.suppliers.find(s => s.id === currentSupplierId);
         if (currentSupplier) {
           this.form.supplier = currentSupplier;
         } else {
           // Fallback to first supplier if current one not found
-          this.form.supplier = this.items[0];
+          this.form.supplier = this.suppliers[0];
         }
       } else {
         // No supplier was selected, use first one
-        this.form.supplier = this.items[0];
+        if (this.suppliers && this.suppliers.length > 0) {
+          this.form.supplier = this.suppliers[0];
+        }
       }
     },
     // get products
@@ -1500,8 +1502,8 @@ export default {
       
       // If a supplier is selected, ensure we have the latest data including Chart of Account
       if (this.form.supplier && this.form.supplier.id) {
-        // Find the supplier in the items list to get the most up-to-date data
-        const updatedSupplier = this.items.find(s => s.id === this.form.supplier.id);
+        // Find the supplier in the suppliers list to get the most up-to-date data
+        const updatedSupplier = this.suppliers.find(s => s.id === this.form.supplier.id);
         if (updatedSupplier) {
           // Update the form supplier with all the latest data
           this.form.supplier = { ...updatedSupplier };
