@@ -1436,7 +1436,7 @@
                       </span>
                     </td>
                     <td>{{ data.causer_name }}</td>
-                    <td>{{ data.description }}</td>
+                    <td>{{ $t(data.description) }}</td>
                     <td>{{ data.performedAt }}</td>
                   </tr>
                   <tr v-show="!activityLoading && !allActivityLog.length">

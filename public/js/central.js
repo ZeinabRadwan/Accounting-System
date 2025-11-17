@@ -64520,12 +64520,12 @@ var map = {
 		4884
 	],
 	"./clients/show": [
-		17283,
-		7283
+		46704,
+		6704
 	],
 	"./clients/show.vue": [
-		17283,
-		7283
+		46704,
+		6704
 	],
 	"./cost-allocations": [
 		43748,
@@ -65432,12 +65432,12 @@ var map = {
 		9432
 	],
 	"./products/show": [
-		96463,
-		6463
+		92580,
+		2580
 	],
 	"./products/show.vue": [
-		96463,
-		6463
+		92580,
+		2580
 	],
 	"./products/sub-categories": [
 		25815,
@@ -65504,12 +65504,12 @@ var map = {
 		856
 	],
 	"./purchase-order/show": [
-		8258,
-		8258
+		2885,
+		5266
 	],
 	"./purchase-order/show.vue": [
-		8258,
-		8258
+		2885,
+		5266
 	],
 	"./purchases": [
 		33148,
@@ -65576,20 +65576,20 @@ var map = {
 		5073
 	],
 	"./purchases/returns/show": [
-		74705,
-		4705
+		78454,
+		8454
 	],
 	"./purchases/returns/show.vue": [
-		74705,
-		4705
+		78454,
+		8454
 	],
 	"./purchases/show": [
-		39431,
-		9431
+		76862,
+		6862
 	],
 	"./purchases/show.vue": [
-		39431,
-		9431
+		76862,
+		6862
 	],
 	"./reports/account-statement": [
 		22464,
@@ -65760,12 +65760,12 @@ var map = {
 		3043
 	],
 	"./sales/invoices/show": [
-		17452,
-		7452
+		92681,
+		2681
 	],
 	"./sales/invoices/show.vue": [
-		17452,
-		7452
+		92681,
+		2681
 	],
 	"./sales/pos/create": [
 		65261,
@@ -65816,12 +65816,12 @@ var map = {
 		2665
 	],
 	"./sales/quotations/show": [
-		92694,
-		2694
+		55232,
+		5232
 	],
 	"./sales/quotations/show.vue": [
-		92694,
-		2694
+		55232,
+		5232
 	],
 	"./sales/returns": [
 		77109,
@@ -65864,12 +65864,12 @@ var map = {
 		7109
 	],
 	"./sales/returns/show": [
-		50055,
-		55
+		92875,
+		2875
 	],
 	"./sales/returns/show.vue": [
-		50055,
-		55
+		92875,
+		2875
 	],
 	"./settings": [
 		67241,
@@ -66272,12 +66272,12 @@ var map = {
 		3328
 	],
 	"./suppliers/show": [
-		99290,
-		9290
+		10643,
+		643
 	],
 	"./suppliers/show.vue": [
-		99290,
-		9290
+		10643,
+		643
 	],
 	"./tenant-initialization": [
 		32800,
@@ -66320,12 +66320,12 @@ var map = {
 		7116
 	],
 	"./vouchers/receive/show": [
-		13650,
-		3650
+		6384,
+		6384
 	],
 	"./vouchers/receive/show.vue": [
-		13650,
-		3650
+		6384,
+		6384
 	],
 	"./vouchers/send": [
 		80443,
@@ -66360,12 +66360,12 @@ var map = {
 		443
 	],
 	"./vouchers/send/show": [
-		5227,
-		5227
+		82020,
+		2020
 	],
 	"./vouchers/send/show.vue": [
-		5227,
-		5227
+		82020,
+		2020
 	],
 	"./welcome": [
 		20944,

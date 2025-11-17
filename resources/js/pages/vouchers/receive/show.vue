@@ -8,9 +8,20 @@
           <div class="btn-group">
             <ul class="nav nav-pills">
               <li class="nav-item">
-                <a class="nav-link active" href="#details" data-toggle="tab">
+                <a class="nav-link active" href="#details" data-toggle="tab" @click="getVoucher">
                   <i class="fa fa-info" /> {{ $t('Details') }}
                 </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  @click="getActivity"
+                  class="nav-link"
+                  href="#activity-log"
+                  data-toggle="tab"
+                >
+                  <i class="nav-icon fa fa-bell" aria-hidden="true"></i>
+                  {{ $t("Activity log") }}</a
+                >
               </li>
             </ul>
           </div>
@@ -107,6 +118,127 @@
           </div>
         </div>
       </div>
+
+      <!--  activity logs -->
+      <div class="tab-pane" id="activity-log">
+        <div class="card custom-card w-100 mt-5 no-print">
+          <div class="card-header setings-header">
+            <div class="col-xl-4 col-4">
+              <h3 class="card-title">
+                {{ $t("Activity log") }}
+              </h3>
+            </div>
+            <div class="col-xl-8 col-8 float-right text-right">
+              <div class="btn-group c-w-100">
+                <a
+                  @click="refreshTable()"
+                  href="#"
+                  v-tooltip="$t('Refresh')"
+                  class="btn btn-success"
+                >
+                  <i class="fas fa-sync"></i>
+                </a>
+                <a
+                  @click="print"
+                  v-tooltip="$t('Print Table')"
+                  class="btn btn-info"
+                >
+                  <i class="fas fa-print"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <table-loading v-show="loading" />
+          <div class="card-body position-relative">
+            <div class="row">
+              <div class="col-6 col-xl-4 mb-2">
+                <search
+                  v-model="query"
+                  @reset-pagination="resetPagination()"
+                  @reload="reload"
+                />
+              </div>
+            </div>
+            <div id="printMe" class="table-responsive table-custom mt-3">
+              <div
+                v-show="items.length > 0"
+                v-for="(data, i) in items"
+                :key="i"
+              >
+                <div class="card mb-0 border border-gray">
+                  <div class="card-body py-1">
+                    <div class="row">
+                      <div
+                        class="col-1 d-flex justify-content-center align-items-center"
+                      >
+                        <i
+                          v-if="data.event == 'Update'"
+                          class="fa fa-magic"
+                          aria-hidden="true"
+                        ></i>
+                        <i
+                          v-if="data.event == 'Create'"
+                          class="fa fa-plus-circle"
+                          aria-hidden="true"
+                        ></i>
+                        <i
+                          v-if="data.event == 'Delete'"
+                          class="fa fa-trash"
+                          aria-hidden="true"
+                        ></i>
+                      </div>
+                      <div class="col-11">
+                        <div class="row">
+                          <div class="col-12">
+                            <p class="text-bold mb-0">{{ data.causer_name }}</p>
+                          </div>
+                          <div class="col-12">
+                            <p class="mb-0">{{ $t(data.description) }}</p>
+                          </div>
+                          <div class="col-12">
+                            <p class="mb-0">{{ data.performedAt }}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center" v-show="!loading && !items.length">
+                <EmptyTable />
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="dtable-footer">
+              <div class="form-group row display-per-page">
+                <label>{{ $t("per_page") }} </label>
+                <div>
+                  <select
+                    @change="updatePerPager"
+                    v-model="perPage"
+                    class="form-control form-control-sm ml-1"
+                  >
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </select>
+                </div>
+              </div>
+              <!-- pagination-start -->
+              <pagination
+                v-if="pagination && pagination.last_page > 1"
+                :pagination="pagination"
+                :offset="5"
+                class="justify-flex-end"
+                @paginate="paginate"
+              />
+              <!-- pagination-end -->
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   
@@ -133,16 +265,29 @@ export default {
         { name: this.$t('Details'), active: true },
       ],
       voucher: null,
+      loading: false,
+      query: "",
+      perPage: 10,
     }
   },
   computed: {
-    ...mapGetters('operations', ['appInfo']),
+    ...mapGetters('operations', ['appInfo', 'items', 'pagination']),
     readablePaymentMethod() {
       if (!this.voucher) return ''
       if (this.voucher.paymentMethod === 'direct') return this.$t('Direct Payment')
       if (this.voucher.paymentMethod === 'invoice') return this.$t('Invoice Payment')
       if (this.voucher.paymentMethod === 'purchase') return this.$t('Purchase Payment')
       return this.voucher.paymentMethod
+    },
+  },
+  watch: {
+    // watch search data
+    query: function (newQ) {
+      if (newQ === "") {
+        this.getActivity();
+      } else {
+        this.searchData();
+      }
     },
   },
   created() {
@@ -155,6 +300,9 @@ export default {
       )
       this.voucher = data.data
     },
+    getVoucher() {
+      this.fetchVoucher()
+    },
     printWindow() {
       const printUrl = `/print/voucher/${this.$route.params.slug}`
       window.open(printUrl, '_blank')
@@ -162,6 +310,57 @@ export default {
     generatePDF() {
       const printUrl = `/print/voucher/${this.$route.params.slug}`
       window.open(printUrl, '_blank')
+    },
+    // get activity logs
+    async getActivity() {
+      let currentPage = this.pagination ? this.pagination.current_page : 1;
+      this.$store.state.operations.loading = true;
+      let slug = this.$route.params.slug;
+      let modelName = "PaymentVoucher";
+      await this.$store.dispatch("operations/fetchSpecificLogs", {
+        path: "/api/activity-log-specific?page=",
+        currentPage: currentPage + "&perPage=" + this.perPage,
+        slug: slug,
+        modelName: modelName,
+      });
+    },
+    // search data
+    async searchData() {
+      this.$store.state.operations.loading = true;
+      let slug = this.$route.params.slug;
+      let modelName = "PaymentVoucher";
+      await this.$store.dispatch("operations/fetchSpecificLogs", {
+        path: "/api/activity-log-specific?page=",
+        currentPage: this.pagination.current_page + "&perPage=" + this.perPage,
+        term: this.query,
+        slug: slug,
+        modelName: modelName,
+      });
+    },
+    // pagination
+    async paginate() {
+      this.getActivity();
+    },
+    updatePerPager() {
+      this.pagination.current_page = 1;
+      this.query === "" ? this.getActivity() : this.searchData();
+    },
+    // reload after search
+    async reload() {
+      this.query = "";
+    },
+    // refresh table
+    refreshTable() {
+      this.query = "";
+      this.query === "" ? this.getActivity() : this.searchData();
+    },
+    // reset pagination
+    async resetPagination() {
+      this.pagination.current_page = 1;
+    },
+    // print table
+    async print() {
+      await this.$htmlToPaper("printMe");
     },
   },
 }
