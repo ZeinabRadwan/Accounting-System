@@ -4560,6 +4560,7 @@
 "Failed to remove user": "فشل في إزالة المستخدم",
 "Failed to load users": "فشل في تحميل المستخدمين",
 "Failed to load available users": "فشل في تحميل المستخدمين المتاحين",
+"Failed to load purchase order data": "فشل في تحميل بيانات أمر الشراء",
 "Are you sure you want to remove this user from the branch?": "هل أنت متأكد من أنك تريد إزالة هذا المستخدم من الفرع؟",
 "Admin": "مدير",
 "Member": "عضو",

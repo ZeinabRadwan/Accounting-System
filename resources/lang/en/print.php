@@ -231,4 +231,8 @@ return [
     // Invoice Print Template - Additional keys
     'Product VAT' => 'Product VAT',
     'VAT Type' => 'VAT Type',
+    
+    // Purchase Order Print Template
+    'Purchase Order' => 'Purchase Order',
+    'Purchase Order #' => 'Purchase Order #',
 ];

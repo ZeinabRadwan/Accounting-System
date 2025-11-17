@@ -283,4 +283,8 @@ return [
     'VAT Type' => 'نوع الضريبة',
     'Total After Discount' => 'الإجمالي بعد الخصم',
     'Created By' => 'تم الإنشاء بواسطة',
+    
+    // Purchase Order Print Template
+    'Purchase Order' => 'أمر الشراء',
+    'Purchase Order #' => 'رقم أمر الشراء',
 ];

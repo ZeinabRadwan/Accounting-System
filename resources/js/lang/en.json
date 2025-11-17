@@ -3445,6 +3445,7 @@
 "Failed to remove user": "Failed to remove user",
 "Failed to load users": "Failed to load users",
 "Failed to load available users": "Failed to load available users",
+"Failed to load purchase order data": "Failed to load purchase order data",
 "Are you sure you want to remove this user from the branch?": "Are you sure you want to remove this user from the branch?",
 "Admin": "Admin",
 "Member": "Member",
