@@ -51,14 +51,16 @@
                     <label 
                       class="tax-status-card-compact" 
                       :class="{ 'active': form.taxStatus === 'taxable', 'border-primary': form.taxStatus === 'taxable' }"
-                      @click="form.taxStatus = 'taxable'"
+                      @click="setTaxStatus('taxable')"
                     >
                       <div class="tax-status-header-compact">
                         <input 
                           type="radio" 
-                          v-model="form.taxStatus" 
+                          :checked="form.taxStatus === 'taxable'"
                           value="taxable" 
                           class="tax-status-radio"
+                          @change="setTaxStatus('taxable')"
+                          @click.stop="setTaxStatus('taxable')"
                         />
                         <div class="tax-status-icon-compact taxable-icon">
                           <i class="fas fa-file-invoice-dollar"></i>
@@ -71,14 +73,16 @@
                     <label 
                       class="tax-status-card-compact" 
                       :class="{ 'active': form.taxStatus === 'non_taxable', 'border-success': form.taxStatus === 'non_taxable' }"
-                      @click="form.taxStatus = 'non_taxable'"
+                      @click="setTaxStatus('non_taxable')"
                     >
                       <div class="tax-status-header-compact">
                         <input 
                           type="radio" 
-                          v-model="form.taxStatus" 
+                          :checked="form.taxStatus === 'non_taxable'"
                           value="non_taxable" 
                           class="tax-status-radio"
+                          @change="setTaxStatus('non_taxable')"
+                          @click.stop="setTaxStatus('non_taxable')"
                         />
                         <div class="tax-status-icon-compact non-taxable-icon">
                           <i class="fas fa-file-invoice"></i>
@@ -180,7 +184,10 @@
             <!-- Country and Region -->
             <div class="row">
               <div class="form-group col-md-6">
-                <label for="country">{{ $t("Country") }}</label>
+                <label for="country">
+                  {{ $t("Country") }} 
+                  <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                </label>
                 <v-select
                   v-model="form.country"
                   :options="countries"
@@ -253,7 +260,10 @@
             <div class="row">
               <template v-if="form.country === 'SA'">
                 <div class="form-group col-md-6">
-                  <label for="city">{{ $t("City") }}</label>
+                  <label for="city">
+                    {{ $t("City") }} 
+                    <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                  </label>
                   <v-select
                     v-if="saudiCities.length > 0"
                     v-model="form.city"
@@ -288,7 +298,10 @@
                   <has-error :form="form" field="city" />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="neighbourhood">{{ $t("Neighbourhood") }}</label>
+                  <label for="neighbourhood">
+                    {{ $t("Neighbourhood") }} 
+                    <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                  </label>
                   <input id="neighbourhood" v-model="form.neighbourhood" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('neighbourhood') }" name="neighbourhood"
                     :placeholder="$t('Enter neighbourhood')" />
@@ -299,14 +312,20 @@
               <!-- Regular City and Neighbourhood Input for Non-Saudi Countries -->
               <template v-if="form.country !== 'SA'">
                 <div class="form-group col-md-6">
-                  <label for="city">{{ $t("City") }}</label>
+                  <label for="city">
+                    {{ $t("City") }} 
+                    <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                  </label>
                   <input id="city" v-model="form.city" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('city') }" name="city"
                     :placeholder="$t('Enter city')" />
                   <has-error :form="form" field="city" />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="neighbourhood">{{ $t("Neighbourhood") }}</label>
+                  <label for="neighbourhood">
+                    {{ $t("Neighbourhood") }} 
+                    <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                  </label>
                   <input id="neighbourhood" v-model="form.neighbourhood" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('neighbourhood') }" name="neighbourhood"
                     :placeholder="$t('Enter neighbourhood')" />
@@ -318,14 +337,20 @@
             <!-- Street Name and Postal Code -->
             <div class="row">
               <div class="form-group col-md-6">
-                <label for="streetAddress1">{{ $t("Street Name") }}</label>
+                <label for="streetAddress1">
+                  {{ $t("Street Name") }} 
+                  <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                </label>
                 <input id="streetAddress1" v-model="form.streetAddress1" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('streetAddress1') }" name="streetAddress1"
                   :placeholder="$t('Enter street name')" />
                 <has-error :form="form" field="streetAddress1" />
               </div>
               <div class="form-group col-md-6">
-                <label for="postalCode">{{ $t("Postal Code") }}</label>
+                <label for="postalCode">
+                  {{ $t("Postal Code") }} 
+                  <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                </label>
                 <input id="postalCode" v-model="form.postalCode" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('postalCode') }" name="postalCode"
                   :placeholder="$t('Enter postal code')" />
@@ -657,14 +682,20 @@
             <!-- Street Name and Postal Code -->
             <div class="row">
               <div class="form-group col-md-6">
-                <label for="streetAddress1">{{ $t("Street Name") }}</label>
+                <label for="streetAddress1">
+                  {{ $t("Street Name") }} 
+                  <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                </label>
                 <input id="streetAddress1" v-model="form.streetAddress1" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('streetAddress1') }" name="streetAddress1"
                   :placeholder="$t('Enter street name')" />
                 <has-error :form="form" field="streetAddress1" />
               </div>
               <div class="form-group col-md-3">
-                <label for="postalCode">{{ $t("Postal Code") }}</label>
+                <label for="postalCode">
+                  {{ $t("Postal Code") }} 
+                  <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                </label>
                 <input id="postalCode" v-model="form.postalCode" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('postalCode') }" name="postalCode"
                   :placeholder="$t('Enter postal code')" />
@@ -1391,6 +1422,39 @@ export default {
       }
     },
 
+    // Set tax status explicitly to ensure it's reactive
+    setTaxStatus(status) {
+      console.log('Setting taxStatus to:', status);
+      console.log('form.taxStatus before:', this.form.taxStatus);
+      
+      // CRITICAL: Use form object's method to set the value if available
+      // Otherwise, use Vue.set or direct assignment
+      if (this.form && typeof this.form.taxStatus !== 'undefined') {
+        // Direct assignment
+        this.form.taxStatus = status;
+        
+        // Also try to update via form's internal data if it exists
+        if (this.form.$data && this.form.$data.taxStatus !== undefined) {
+          this.form.$data.taxStatus = status;
+        }
+      } else {
+        // Fallback: use Vue.set
+        if (this.$set) {
+          this.$set(this.form, 'taxStatus', status);
+        } else {
+          this.form.taxStatus = status;
+        }
+      }
+      
+      // Force update
+      this.$forceUpdate();
+      
+      // Verify the value was set
+      console.log('taxStatus after setting:', this.form.taxStatus);
+      console.log('form object keys:', Object.keys(this.form));
+      console.log('form.data() taxStatus:', this.form.data ? this.form.data().taxStatus : 'N/A');
+    },
+    
     // Validate form before submission
     validateForm() {
       console.log('=== VALIDATING SUPPLIER FORM ===');
@@ -1461,6 +1525,15 @@ export default {
 
     // Submit form
     async submitForm() {
+      // Debug: Log form.taxStatus before validation
+      console.log('SupplierForm submitForm - form.taxStatus before validation:', this.form.taxStatus);
+      console.log('SupplierForm submitForm - form object:', {
+        taxStatus: this.form.taxStatus,
+        type: this.form.type,
+        businessName: this.form.businessName,
+        phoneNumber: this.form.phoneNumber
+      });
+      
       if (!this.validateForm()) {
         // Provide clear feedback if validation fails
         if (this.$toast) {
@@ -1472,29 +1545,100 @@ export default {
         return;
       }
       
-      // Map form data to API format
+      // CRITICAL: Ensure taxStatus is set on form object before getting data
+      if (!this.form.taxStatus) {
+        this.form.taxStatus = 'non_taxable';
+      }
+      
+      // Get form data first
+      const formDataObj = this.form.data();
+      
+      // Debug: Log formDataObj.taxStatus
+      console.log('SupplierForm submitForm - formDataObj.taxStatus:', formDataObj.taxStatus);
+      console.log('SupplierForm submitForm - form.taxStatus after check:', this.form.taxStatus);
+      
+      // Map form data to API format - explicitly include all fields
+      // CRITICAL: Always use this.form.taxStatus directly, not from formDataObj
+      const taxStatusValue = this.form.taxStatus || 'non_taxable';
+      
       const submitData = {
-        ...this.form.data(),
-        // Map legacy fields for backward compatibility
-        name: this.form.type === 'Individual' ? this.form.fullName : this.form.businessName,
-        companyName: this.form.businessName,
-        taxStatus: this.form.taxStatus || 'non_taxable',
-        taxRegistrationNumber: this.form.taxRegistrationNumber || this.form.taxCard,
-        address: this.form.streetAddress1,
+        // Account Details
+        codeNumber: this.form.codeNumber || formDataObj.codeNumber,
+        notes: this.form.notes || formDataObj.notes,
+        displayLanguage: this.form.displayLanguage || formDataObj.displayLanguage,
+        
+        // Supplier Details - CRITICAL: taxStatus must be explicitly set from form object
+        type: this.form.type || formDataObj.type,
+        taxStatus: taxStatusValue, // Always use form.taxStatus directly
+        tax_status: taxStatusValue, // Also send as snake_case
+        fullName: this.form.fullName || formDataObj.fullName,
+        businessName: this.form.businessName || formDataObj.businessName,
+        firstName: this.form.firstName || formDataObj.firstName,
+        lastName: this.form.lastName || formDataObj.lastName,
+        phone: this.form.phone || formDataObj.phone,
+        phoneNumber: this.form.phoneNumber || formDataObj.phoneNumber,
+        email: this.form.email || formDataObj.email,
+        streetAddress1: this.form.streetAddress1 || formDataObj.streetAddress1,
+        streetAddress2: this.form.streetAddress2 || formDataObj.streetAddress2,
+        city: this.form.city || formDataObj.city,
+        state: this.form.state || formDataObj.state,
+        postalCode: this.form.postalCode || formDataObj.postalCode,
+        country: this.form.country || formDataObj.country,
+        neighbourhood: this.form.neighbourhood || formDataObj.neighbourhood,
+        commercialRegister: this.form.commercialRegister || formDataObj.commercialRegister,
+        taxCard: this.form.taxCard || formDataObj.taxCard,
+        
         // Saudi National Address Fields
-        buildingNumber: this.form.buildingNumber,
-        streetNumber: this.form.streetNumber,
-        districtNumber: this.form.districtNumber,
-        unitNumber: this.form.unitNumber,
-        additionalNumber: this.form.additionalNumber,
+        buildingNumber: this.form.buildingNumber || formDataObj.buildingNumber,
+        streetNumber: this.form.streetNumber || formDataObj.streetNumber,
+        districtNumber: this.form.districtNumber || formDataObj.districtNumber,
+        unitNumber: this.form.unitNumber || formDataObj.unitNumber,
+        additionalNumber: this.form.additionalNumber || formDataObj.additionalNumber,
+        taxRegistrationNumber: this.form.taxRegistrationNumber || this.form.taxCard || formDataObj.taxRegistrationNumber,
+        
+        // Additional Fields
+        image: this.form.image || formDataObj.image,
+        attachments: this.form.attachments || formDataObj.attachments || [],
+        status: this.form.status !== undefined ? this.form.status : (formDataObj.status !== undefined ? formDataObj.status : 1),
+        isSendEmail: this.form.isSendEmail !== undefined ? this.form.isSendEmail : (formDataObj.isSendEmail !== undefined ? formDataObj.isSendEmail : false),
+        isSendSMS: this.form.isSendSMS !== undefined ? this.form.isSendSMS : (formDataObj.isSendSMS !== undefined ? formDataObj.isSendSMS : false),
+        chartOfAccountId: this.form.chartOfAccountId || formDataObj.chartOfAccountId,
+        saudi_region: this.form.saudi_region || formDataObj.saudi_region,
+        
+        // Map legacy fields for backward compatibility
+        name: this.form.type === 'Individual' ? (this.form.fullName || formDataObj.fullName) : (this.form.businessName || formDataObj.businessName),
+        companyName: this.form.businessName || formDataObj.businessName,
+        address: this.form.streetAddress1 || formDataObj.streetAddress1,
+        
         // Include representatives data
-        representatives: this.form.representatives && Array.isArray(this.form.representatives) ? this.form.representatives : [],
-        // Ensure phone field is included
-        phone: this.form.phone,
-        phoneNumber: this.form.phoneNumber,
-        // Saudi region
-        saudi_region: this.form.saudi_region,
+        representatives: (this.form.representatives && Array.isArray(this.form.representatives)) 
+          ? this.form.representatives 
+          : (formDataObj.representatives && Array.isArray(formDataObj.representatives) ? formDataObj.representatives : []),
       };
+      
+      // Debug logging - CRITICAL
+      console.log('SupplierForm - Submitting data:', {
+        taxStatus: submitData.taxStatus,
+        tax_status: submitData.tax_status,
+        formTaxStatus: this.form.taxStatus,
+        formDataObjTaxStatus: formDataObj.taxStatus,
+        taxStatusValue: taxStatusValue,
+        allData: submitData
+      });
+      
+      // CRITICAL: Ensure taxStatus is always in submitData
+      if (!submitData.taxStatus) {
+        console.warn('WARNING: taxStatus is missing in submitData! Setting to:', taxStatusValue);
+        submitData.taxStatus = taxStatusValue;
+        submitData.tax_status = taxStatusValue;
+      }
+      
+      console.log('SupplierForm - Final submitData with taxStatus:', {
+        taxStatus: submitData.taxStatus,
+        tax_status: submitData.tax_status,
+        hasTaxStatus: 'taxStatus' in submitData,
+        hasTax_status: 'tax_status' in submitData
+      });
       
       // Emit submit event with form data
       this.$emit('submit', submitData);

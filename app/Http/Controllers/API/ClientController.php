@@ -83,6 +83,21 @@ class ClientController extends Controller
     public function store(StoreClientRequest $request)
     {
         try {
+            // Debug: Log request data before validation - check all possible ways to get taxStatus
+            \Log::info('ClientController store - Request data:', [
+                'taxStatus' => $request->taxStatus,
+                'tax_status' => $request->tax_status,
+                'taxStatus_input' => $request->input('taxStatus'),
+                'tax_status_input' => $request->input('tax_status'),
+                'taxStatus_get' => $request->get('taxStatus'),
+                'tax_status_get' => $request->get('tax_status'),
+                'all_input' => $request->all(),
+                'all_request' => $request->request->all(),
+                'request_method' => $request->method(),
+                'content_type' => $request->header('Content-Type'),
+                'has_taxStatus' => $request->has('taxStatus'),
+                'has_tax_status' => $request->has('tax_status'),
+            ]);
             // get logged in user
             $user = Auth::user();
             $branchId = (int) ($user->default_branch_id ?? 0);

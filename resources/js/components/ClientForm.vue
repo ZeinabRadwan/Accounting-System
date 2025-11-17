@@ -180,7 +180,10 @@
             <!-- Country and Region -->
             <div class="row">
               <div class="form-group col-md-6">
-                <label for="country">{{ $t("Country") }}</label>
+                <label for="country">
+                  {{ $t("Country") }} 
+                  <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                </label>
                 <v-select
                   v-model="form.country"
                   :options="countries"
@@ -253,7 +256,10 @@
             <div class="row">
               <template v-if="form.country === 'SA'">
                 <div class="form-group col-md-6">
-                  <label for="city">{{ $t("City") }}</label>
+                  <label for="city">
+                    {{ $t("City") }} 
+                    <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                  </label>
                   <v-select
                     v-if="saudiCities.length > 0"
                     v-model="form.city"
@@ -288,7 +294,10 @@
                   <has-error :form="form" field="city" />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="neighbourhood">{{ $t("Neighbourhood") }}</label>
+                  <label for="neighbourhood">
+                    {{ $t("Neighbourhood") }} 
+                    <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                  </label>
                   <input id="neighbourhood" v-model="form.neighbourhood" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('neighbourhood') }" name="neighbourhood"
                     :placeholder="$t('Enter neighbourhood')" />
@@ -299,14 +308,20 @@
               <!-- Regular City and Neighbourhood Input for Non-Saudi Countries -->
               <template v-if="form.country !== 'SA'">
                 <div class="form-group col-md-6">
-                  <label for="city">{{ $t("City") }}</label>
+                  <label for="city">
+                    {{ $t("City") }} 
+                    <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                  </label>
                   <input id="city" v-model="form.city" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('city') }" name="city"
                     :placeholder="$t('Enter city')" />
                   <has-error :form="form" field="city" />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="neighbourhood">{{ $t("Neighbourhood") }}</label>
+                  <label for="neighbourhood">
+                    {{ $t("Neighbourhood") }} 
+                    <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                  </label>
                   <input id="neighbourhood" v-model="form.neighbourhood" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('neighbourhood') }" name="neighbourhood"
                     :placeholder="$t('Enter neighbourhood')" />
@@ -318,14 +333,20 @@
             <!-- Street Name and Postal Code -->
             <div class="row">
               <div class="form-group col-md-6">
-                <label for="streetAddress1">{{ $t("Street Name") }}</label>
+                <label for="streetAddress1">
+                  {{ $t("Street Name") }} 
+                  <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                </label>
                 <input id="streetAddress1" v-model="form.streetAddress1" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('streetAddress1') }" name="streetAddress1"
                   :placeholder="$t('Enter street name')" />
                 <has-error :form="form" field="streetAddress1" />
               </div>
               <div class="form-group col-md-6">
-                <label for="postalCode">{{ $t("Postal Code") }}</label>
+                <label for="postalCode">
+                  {{ $t("Postal Code") }} 
+                  <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                </label>
                 <input id="postalCode" v-model="form.postalCode" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('postalCode') }" name="postalCode"
                   :placeholder="$t('Enter postal code')" />
@@ -1757,6 +1778,7 @@ export default {
           // Client Details
           type: this.form.type,
           taxStatus: this.form.taxStatus || 'non_taxable',
+          tax_status: this.form.taxStatus || 'non_taxable', // Also send as snake_case
           fullName: this.form.fullName,
           businessName: this.form.businessName,
           firstName: this.form.firstName,
@@ -1765,11 +1787,13 @@ export default {
           phoneNumber: this.form.phoneNumber || '', // Explicitly include phone number, default to empty string
           email: this.form.email,
           streetAddress1: this.form.streetAddress1,
+          streetAddress2: this.form.streetAddress2,
           city: this.form.city,
           state: this.form.state,
           postalCode: this.form.postalCode,
           country: this.form.country,
           neighbourhood: this.form.neighbourhood,
+          saudi_region: this.form.saudi_region,
           commercialRegister: this.form.commercialRegister,
           taxCard: this.form.taxCard,
           

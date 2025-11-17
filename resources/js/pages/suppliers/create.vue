@@ -125,8 +125,159 @@ export default {
       this.isSubmitting = true;
       
       try {
-        // Use the submitted form data directly
-        const response = await this.$http.post("/api/suppliers", formData);
+        // Build FormData to properly send all fields including taxStatus
+        const fd = new FormData();
+        
+        const appendIfDefined = (key, value) => {
+          if (value !== undefined && value !== null && value !== '') {
+            fd.append(key, value);
+          }
+        };
+        
+        // Debug: Log formData before building FormData - CRITICAL
+        console.log('=== SUPPLIER CREATE - FORM DATA RECEIVED ===');
+        console.log('Supplier Create - formData received:', {
+          taxStatus: formData.taxStatus,
+          tax_status: formData.tax_status,
+          allFormData: formData
+        });
+        console.log('Supplier Create - formData keys:', Object.keys(formData || {}));
+        console.log('Supplier Create - formData.taxStatus type:', typeof formData.taxStatus);
+        console.log('Supplier Create - formData.taxStatus value:', formData.taxStatus);
+        console.log('Supplier Create - formData.tax_status value:', formData.tax_status);
+        console.log('Supplier Create - $refs.supplierForm exists:', !!this.$refs.supplierForm);
+        console.log('Supplier Create - $refs.supplierForm.form exists:', !!(this.$refs.supplierForm && this.$refs.supplierForm.form));
+        if (this.$refs.supplierForm && this.$refs.supplierForm.form) {
+          console.log('Supplier Create - form.taxStatus:', this.$refs.supplierForm.form.taxStatus);
+          console.log('Supplier Create - form.data() taxStatus:', this.$refs.supplierForm.form.data ? this.$refs.supplierForm.form.data().taxStatus : 'N/A');
+        }
+        
+        // Explicitly append all fields to ensure taxStatus is sent
+        appendIfDefined('codeNumber', formData.codeNumber);
+        appendIfDefined('notes', formData.notes);
+        appendIfDefined('displayLanguage', formData.displayLanguage);
+        appendIfDefined('type', formData.type);
+        
+        // CRITICAL: Always append taxStatus - don't use appendIfDefined to ensure it's always sent
+        // Get taxStatus from formData, or try to get it from form object if available
+        let taxStatusValue = formData.taxStatus || formData.tax_status;
+        
+        console.log('Supplier Create - Initial taxStatus check:', {
+          formDataTaxStatus: formData.taxStatus,
+          formDataTax_status: formData.tax_status,
+          currentTaxStatusValue: taxStatusValue
+        });
+        
+        // If still not found, try to get it from the form component
+        if (!taxStatusValue && this.$refs.supplierForm && this.$refs.supplierForm.form) {
+          taxStatusValue = this.$refs.supplierForm.form.taxStatus;
+          console.log('Supplier Create - Got taxStatus from form object:', taxStatusValue);
+        }
+        
+        // Default to non_taxable if still not found
+        taxStatusValue = taxStatusValue || 'non_taxable';
+        
+        console.log('Supplier Create - Final taxStatusValue before appending:', taxStatusValue);
+        
+        // Always append taxStatus - never skip it, even if it's the default value
+        // CRITICAL: Use explicit string conversion and ensure it's never null/undefined
+        const taxStatusToSend = String(taxStatusValue || 'non_taxable');
+        fd.append('taxStatus', taxStatusToSend);
+        fd.append('tax_status', taxStatusToSend);
+        
+        console.log('=== SUPPLIER CREATE - APPENDING TAX STATUS ===');
+        console.log('Supplier Create - taxStatusValue:', taxStatusValue);
+        console.log('Supplier Create - taxStatusToSend:', taxStatusToSend);
+        console.log('Supplier Create - Appended taxStatus to FormData:', taxStatusToSend);
+        console.log('Supplier Create - formData.taxStatus:', formData.taxStatus);
+        console.log('Supplier Create - formData.tax_status:', formData.tax_status);
+        console.log('Supplier Create - form.taxStatus:', this.$refs.supplierForm?.form?.taxStatus);
+        
+        // Verify it was added
+        console.log('Supplier Create - FormData has taxStatus:', fd.has('taxStatus'));
+        console.log('Supplier Create - FormData has tax_status:', fd.has('tax_status'));
+        appendIfDefined('fullName', formData.fullName);
+        appendIfDefined('businessName', formData.businessName);
+        appendIfDefined('companyName', formData.companyName || formData.businessName);
+        appendIfDefined('firstName', formData.firstName);
+        appendIfDefined('lastName', formData.lastName);
+        appendIfDefined('phone', formData.phone);
+        appendIfDefined('phoneNumber', formData.phoneNumber);
+        appendIfDefined('email', formData.email);
+        appendIfDefined('streetAddress1', formData.streetAddress1);
+        appendIfDefined('streetAddress2', formData.streetAddress2);
+        appendIfDefined('city', formData.city);
+        appendIfDefined('state', formData.state);
+        appendIfDefined('postalCode', formData.postalCode);
+        appendIfDefined('country', formData.country);
+        appendIfDefined('neighbourhood', formData.neighbourhood);
+        appendIfDefined('commercialRegister', formData.commercialRegister);
+        appendIfDefined('taxCard', formData.taxCard);
+        appendIfDefined('taxRegistrationNumber', formData.taxRegistrationNumber || formData.taxCard);
+        appendIfDefined('buildingNumber', formData.buildingNumber);
+        appendIfDefined('streetNumber', formData.streetNumber);
+        appendIfDefined('districtNumber', formData.districtNumber);
+        appendIfDefined('unitNumber', formData.unitNumber);
+        appendIfDefined('additionalNumber', formData.additionalNumber);
+        appendIfDefined('status', formData.status);
+        appendIfDefined('isSendEmail', formData.isSendEmail ? 1 : 0);
+        appendIfDefined('isSendSMS', formData.isSendSMS ? 1 : 0);
+        appendIfDefined('chartOfAccountId', formData.chartOfAccountId);
+        appendIfDefined('saudi_region', formData.saudi_region);
+        
+        // Handle name field
+        const name = formData.name || (formData.type === 'Individual' ? formData.fullName : formData.businessName);
+        appendIfDefined('name', name);
+        
+        // Handle address field
+        appendIfDefined('address', formData.address || formData.streetAddress1);
+        
+        // Handle image if it's a File object
+        if (formData.image instanceof File) {
+          fd.append('image', formData.image);
+        } else if (formData.image) {
+          // If it's a base64 string, we might need to handle it differently
+          // For now, skip it as it's handled in the controller
+        }
+        
+        // Handle attachments
+        if (formData.attachments && Array.isArray(formData.attachments)) {
+          formData.attachments.forEach((file, index) => {
+            if (file instanceof File) {
+              fd.append(`attachments[${index}]`, file);
+            }
+          });
+        }
+        
+        // Handle representatives
+        if (formData.representatives && Array.isArray(formData.representatives)) {
+          formData.representatives.forEach((rep, index) => {
+            if (rep && rep.name) {
+              appendIfDefined(`representatives[${index}][name]`, rep.name);
+              appendIfDefined(`representatives[${index}][email]`, rep.email);
+              appendIfDefined(`representatives[${index}][phone]`, rep.phone);
+              appendIfDefined(`representatives[${index}][position]`, rep.position);
+              appendIfDefined(`representatives[${index}][is_primary]`, rep.is_primary ? 1 : 0);
+              appendIfDefined(`representatives[${index}][notes]`, rep.notes);
+            }
+          });
+        }
+        
+        // Debug: Log FormData contents - CRITICAL for debugging
+        console.log('Supplier Create - FormData contents:');
+        const formDataEntries = [];
+        for (let pair of fd.entries()) {
+          console.log(pair[0] + ': ' + pair[1]);
+          formDataEntries.push({ key: pair[0], value: pair[1] });
+        }
+        console.log('Supplier Create - FormData entries array:', formDataEntries);
+        console.log('Supplier Create - taxStatus in FormData:', formDataEntries.find(e => e.key === 'taxStatus'));
+        console.log('Supplier Create - tax_status in FormData:', formDataEntries.find(e => e.key === 'tax_status'));
+        
+        // Use FormData with proper headers
+        const response = await this.$http.post("/api/suppliers", fd, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
         
         if (response.data.success) {
           toast.fire({
@@ -150,20 +301,57 @@ export default {
       if (error?.response?.status === 422 && error.response?.data?.errors) {
         const serverErrors = error.response.data.errors || {}
         const translatedErrors = {}
+        const errorMessages = []
+        
         Object.keys(serverErrors).forEach((field) => {
           const fieldErrors = serverErrors[field] || []
-          translatedErrors[field] = fieldErrors.map((message) => this.translateValidationMessage(message, field))
+          const translatedFieldErrors = fieldErrors.map((message) => this.translateValidationMessage(message, field))
+          translatedErrors[field] = translatedFieldErrors
+          
+          // Collect error messages for toast notification
+          translatedFieldErrors.forEach((msg) => {
+            errorMessages.push(msg)
+          })
         })
         
         // Set errors on the form if it exists
         if (this.$refs.supplierForm && this.$refs.supplierForm.form) {
-          this.$refs.supplierForm.form.errors.set(translatedErrors)
+          if (typeof this.$refs.supplierForm.form.errors.set === 'function') {
+            this.$refs.supplierForm.form.errors.set(translatedErrors);
+            console.log('Supplier Create - Set errors on form:', translatedErrors);
+          } else if (typeof this.$refs.supplierForm.form.errors.record === 'function') {
+            // Fallback to record method if set is not available
+            const mapped = {};
+            Object.keys(translatedErrors).forEach(key => {
+              mapped[key] = Array.isArray(translatedErrors[key]) ? translatedErrors[key][0] : translatedErrors[key];
+            });
+            this.$refs.supplierForm.form.errors.record(mapped);
+            console.log('Supplier Create - Recorded errors on form (fallback):', mapped);
+          } else {
+            console.warn('Supplier Create - Form errors object not available or invalid');
+          }
         }
         
-        toast.fire({ type: 'error', title: this.$t('Please fix the highlighted errors and try again') })
+        // Show detailed error messages in toast
+        const errorTitle = errorMessages.length > 0 
+          ? errorMessages.slice(0, 3).join(' | ') + (errorMessages.length > 3 ? ` (+${errorMessages.length - 3} more)` : '')
+          : this.$t('Please fix the highlighted errors and try again')
+        
+        console.log('Supplier Create - Error messages for toast:', errorMessages);
+        console.log('Supplier Create - Error title:', errorTitle);
+        console.log('Supplier Create - Translated errors:', translatedErrors);
+        
+        toast.fire({ 
+          type: 'error', 
+          title: this.$t('Validation Error'),
+          text: errorTitle,
+          html: errorMessages.length > 0 
+            ? `<div style="text-align: left; max-height: 200px; overflow-y: auto;">${errorMessages.map(msg => `<div>• ${msg}</div>`).join('')}</div>`
+            : undefined
+        })
       } else {
-        const message = error?.response?.data?.message || this.$t('Please check your input and try again.')
-        toast.fire({ type: 'error', title: message })
+        const message = error?.response?.data?.message || error?.message || this.$t('Please check your input and try again.')
+        toast.fire({ type: 'error', title: this.$t('Error'), text: message })
       }
     },
 
@@ -199,6 +387,13 @@ export default {
         neighbourhood: this.$t('Neighbourhood'),
         commercialRegister: this.$t('Commercial Register'),
         taxCard: this.$t('Tax Card'),
+        buildingNumber: this.$t('Building Number'),
+        streetNumber: this.$t('Street Number'),
+        districtNumber: this.$t('District Number'),
+        unitNumber: this.$t('Unit Number'),
+        additionalNumber: this.$t('Additional Number'),
+        taxStatus: this.$t('Tax Status'),
+        taxRegistrationNumber: this.$t('Tax Registration Number'),
         image: this.$t('Image'),
         attachments: this.$t('Attachments'),
         status: this.$t('Status'),
