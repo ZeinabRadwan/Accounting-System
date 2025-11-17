@@ -93,7 +93,6 @@ export default {
 /* Clear button positioning */
 [dir="ltr"] .search-clear {
   position: absolute !important;
-  right: 12px !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
   z-index: 1;
