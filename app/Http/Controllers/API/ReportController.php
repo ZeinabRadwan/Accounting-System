@@ -343,6 +343,11 @@ class ReportController extends Controller
                 $query->where('chart_of_account_id', $account->id);
             });
 
+        // Apply branch filter
+        if (isset($filters['branch_id']) && $filters['branch_id']) {
+            $query->where('branch_id', $filters['branch_id']);
+        }
+
         // Apply filters
         if ($filters['fiscal_year_id']) {
             $query->where('fiscal_year_id', $filters['fiscal_year_id']);
@@ -2294,12 +2299,13 @@ class ReportController extends Controller
 
             // Format the response
             $formattedAccounts = $subAccounts->map(function ($account) use ($parentAccountId) {
+                $translatedName = method_exists($account, 'getTranslatedField') ? $account->getTranslatedField('name') : $account->name;
                 return [
                     'id' => $account->id,
-                    'name' => $account->name,
+                    'name' => $translatedName,
                     'code' => $account->code,
                     'type' => $account->type ? $account->type->name : 'Unknown',
-                    'display_name' => "[{$account->code}] {$account->name}",
+                    'display_name' => "[{$account->code}] {$translatedName}",
                     'is_parent' => $account->id == $parentAccountId,
                     'parent_id' => $account->parent_id,
                 ];
@@ -4028,16 +4034,17 @@ class ReportController extends Controller
             $page = (int) ($request->page ?? 1);
             $perPage = (int) ($request->per_page ?? ($page === 1 ? 999999 : 30)); // Page 1 loads all, others use chunks
 
+            // Load ALL chart of accounts first (much faster) - load complete hierarchy
+            $branchId = Auth::user()->default_branch_id ?? null;
+
             // Create filter object for consistency
             $filters = [
                 'fiscal_year_id' => $fiscalYearId,
                 'accounting_period_id' => $accountingPeriodId,
                 'from_date' => $fromDate,
                 'to_date' => $toDate,
+                'branch_id' => $branchId,
             ];
-
-            // Load ALL chart of accounts first (much faster) - load complete hierarchy
-            $branchId = Auth::user()->default_branch_id ?? null;
             $allAccountsQuery = \App\Models\ChartOfAccount::forBranch($branchId)
                 ->with($this->getCompleteHierarchyEagerLoad())
                 ->where('is_active', true)
@@ -4135,6 +4142,9 @@ class ReportController extends Controller
             $fromDate = $request->from_date;
             $toDate = $request->to_date;
 
+            // Load accounts using Eloquent models (same as original trialBalance method)
+            $branchId = Auth::user()->default_branch_id ?? null;
+
             // Create filter object for consistency
             $filters = [
                 'fiscal_year_id' => $fiscalYearId,
@@ -4143,10 +4153,8 @@ class ReportController extends Controller
                 'to_date' => $toDate,
                 'chart_of_account_id' => $chartOfAccountId,
                 'sub_chart_of_account_id' => $subChartOfAccountId,
+                'branch_id' => $branchId,
             ];
-
-            // Load accounts using Eloquent models (same as original trialBalance method)
-            $branchId = Auth::user()->default_branch_id ?? null;
             $allAccountsQuery = \App\Models\ChartOfAccount::forBranch($branchId)
                 ->with($this->getCompleteHierarchyEagerLoad())
                 ->where('is_active', true)
@@ -4244,16 +4252,17 @@ class ReportController extends Controller
             $fromDate = $request->from_date;
             $toDate = $request->to_date;
 
+            // Get the specific account
+            $branchId = Auth::user()->default_branch_id ?? null;
+
             // Create filter object for consistency
             $filters = [
                 'fiscal_year_id' => $fiscalYearId,
                 'accounting_period_id' => $accountingPeriodId,
                 'from_date' => $fromDate,
                 'to_date' => $toDate,
+                'branch_id' => $branchId,
             ];
-
-            // Get the specific account
-            $branchId = Auth::user()->default_branch_id ?? null;
             $account = \App\Models\ChartOfAccount::forBranch($branchId)
                 ->with(['type'])
                 ->where('id', $accountId)
@@ -4275,7 +4284,7 @@ class ReportController extends Controller
             // Return the account with calculated balance
             $accountWithBalance = [
                 'id' => $account->id,
-                'name' => $account->name,
+                'name' => method_exists($account, 'getTranslatedField') ? $account->getTranslatedField('name') : $account->name,
                 'code' => $account->code,
                 'type' => $account->type,
                 'opening_debit' => $balanceDetails['opening_debit'],
@@ -4315,7 +4324,12 @@ class ReportController extends Controller
             ->with(['lines' => function ($query) {
                 $query->select('id', 'journal_entry_id', 'chart_of_account_id', 'debit_amount', 'credit_amount');
             }])
-            ->select('id', 'entry_date', 'fiscal_year_id', 'accounting_period_id');
+            ->select('id', 'entry_date', 'fiscal_year_id', 'accounting_period_id', 'branch_id');
+
+        // Apply branch filter
+        if (isset($filters['branch_id']) && $filters['branch_id']) {
+            $baseQuery->where('branch_id', $filters['branch_id']);
+        }
 
         // Apply filters
         if ($filters['fiscal_year_id']) {
@@ -4394,7 +4408,7 @@ class ReportController extends Controller
             $accountData = [
                 'id' => $account->id,
                 'code' => $account->code,
-                'name' => $account->name,
+                'name' => method_exists($account, 'getTranslatedField') ? $account->getTranslatedField('name') : $account->name,
                 'type' => $account->type ? $account->type->name : 'Unknown',
                 'level' => $level,
                 'is_parent' => $children->count() > 0,
@@ -4531,7 +4545,7 @@ class ReportController extends Controller
             $accountData = [
                 'id' => $account->id,
                 'code' => $account->code,
-                'name' => $account->name,
+                'name' => method_exists($account, 'getTranslatedField') ? $account->getTranslatedField('name') : $account->name,
                 'type' => $account->type ? $account->type->name : 'Unknown',
                 'level' => $level,
                 'is_parent' => $children->count() > 0,
@@ -4643,6 +4657,11 @@ class ReportController extends Controller
             ->whereHas('lines', function ($query) use ($account) {
                 $query->where('chart_of_account_id', $account->id);
             });
+
+        // Apply branch filter
+        if (isset($filters['branch_id']) && $filters['branch_id']) {
+            $baseQuery->where('branch_id', $filters['branch_id']);
+        }
 
         // Apply filters
         if ($filters['fiscal_year_id']) {
