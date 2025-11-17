@@ -371,7 +371,7 @@
                             <p class="text-bold mb-0">{{ data.causer_name }}</p>
                           </div>
                           <div class="col-12">
-                            <p class="mb-0">{{ data.description }}</p>
+                            <p class="mb-0">{{ $t(data.description) }}</p>
                           </div>
                           <div class="col-12">
                             <p class="mb-0">{{ data.performedAt }}</p>
