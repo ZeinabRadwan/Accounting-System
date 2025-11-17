@@ -1515,21 +1515,17 @@ class ReportController extends Controller
         $branchIds = $this->getUserBranchIds($user);
         $expenses = '';
 
-        // Parse dates from ISO 8601 format to date-only format (YYYY-MM-DD)
-        $fromDate = $request->fromDate ? Carbon::parse($request->fromDate)->format('Y-m-d') : null;
-        $toDate = $request->toDate ? Carbon::parse($request->toDate)->format('Y-m-d') : null;
-
         if (isset($request->category) && isset($request->subCategory)) {
             if ($request->subCategory['id'] != 0) {
                 $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user')
                     ->whereIn('branch_id', $branchIds)
                     ->where('sub_cat_id', $request->subCategory['id'])
-                    ->whereBetween('date', [$fromDate, $toDate])
+                    ->whereBetween('date', [$request->fromDate, $request->toDate])
                     ->get();
             } else {
                 $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount')
                     ->whereIn('branch_id', $branchIds)
-                    ->whereBetween('date', [$fromDate, $toDate])
+                    ->whereBetween('date', [$request->fromDate, $request->toDate])
                     ->whereHas('expSubCategory', function ($newQuery) use ($request) {
                         $newQuery->whereHas('expCategory', function ($newQuery) use ($request) {
                             $newQuery->where('id', $request->category['id']);
@@ -1540,7 +1536,7 @@ class ReportController extends Controller
         } else {
             $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user')
                 ->whereIn('branch_id', $branchIds)
-                ->whereBetween('date', [$fromDate, $toDate])
+                ->whereBetween('date', [$request->fromDate, $request->toDate])
                 ->get();
         }
 
@@ -2300,6 +2296,7 @@ class ReportController extends Controller
             // Format the response
             $formattedAccounts = $subAccounts->map(function ($account) use ($parentAccountId) {
                 $translatedName = method_exists($account, 'getTranslatedField') ? $account->getTranslatedField('name') : $account->name;
+
                 return [
                     'id' => $account->id,
                     'name' => $translatedName,
