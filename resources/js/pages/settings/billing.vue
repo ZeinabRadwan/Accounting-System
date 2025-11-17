@@ -97,11 +97,11 @@
                 <div>
                   <h4>
                     {{ $t("You are on Trial Period for the") }}
-                    {{ tenant && tenant.plan.name }} {{ $t("plan") }}
+                    {{ getLocalizedPlanName(tenant && tenant.plan.name) }} {{ $t("plan") }}
                   </h4>
                   <p>
                     {{ $t("You have") }}
-                    {{ tenant && tenant.trial_ends_at | moment("from", "now") }}
+                    {{ getTrialDaysLeft(tenant && tenant.trial_ends_at) }}
                     {{ $t("days left on your trial") }}
                   </p>
                 </div>
@@ -518,6 +518,33 @@ export default {
     },
     setShowPlan() {
       this.$store.dispatch("operations/setShowPlan", true);
+    },
+
+    getLocalizedPlanName(planName) {
+      if (!planName) return '';
+      // Map plan names to translation keys
+      const planNameMap = {
+        'New Business': 'New Business',
+        'Growing Business': 'Growing Business',
+        'Pro Marketer': 'Pro Marketer'
+      };
+      
+      if (planNameMap[planName]) {
+        return this.$t(planNameMap[planName]);
+      }
+      
+      // If no mapping found, try to translate directly
+      return this.$t(planName) || planName;
+    },
+
+    getTrialDaysLeft(trialEndsAt) {
+      if (!trialEndsAt) return '';
+      // Calculate days left
+      const now = new Date();
+      const trialEnd = new Date(trialEndsAt);
+      const diffTime = trialEnd - now;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      return diffDays;
     },
   },
 };
