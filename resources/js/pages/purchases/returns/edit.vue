@@ -10,7 +10,8 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'purchaseReturns.index' }" class="btn btn-info">
-                  <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                  <template
+                    v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
                     {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
 
@@ -18,7 +19,8 @@
 
                   <template v-else>
 
-                    <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                    <template
+                      v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
 
                       {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
@@ -37,9 +39,6 @@
 
                   </template>
                 </router-link>
-                <button type="button" class="btn btn-success" @click="updatePurchaseReturn" :title="$t('Save Changes')">
-                  <i class="fas fa-save" /> {{ $t('Save Changes') }}
-                </button>
               </div>
             </div>
           </div>
@@ -81,15 +80,12 @@
               </div>
               <!-- Product Chart of Account Status -->
               <div class="product-status mt-2" v-if="form.selectedProducts && form.selectedProducts.length > 0">
-                <div v-for="(product, index) in form.selectedProducts" :key="`status-${product.id}`" v-if="!product.purchase_account_id" class="product-warning mb-2">
+                <div v-for="(product, index) in form.selectedProducts" :key="`status-${product.id}`"
+                  v-if="!product.purchase_account_id" class="product-warning mb-2">
                   <i class="fas fa-exclamation-triangle text-warning"></i>
                   <span class="ml-2">{{ $t('Product') }} "{{ product.name }}" {{ $t('needs Purchase Account') }}</span>
-                  <button 
-                    type="button" 
-                    class="btn btn-sm btn-outline-warning ml-2"
-                    @click="autoAssignProductChartOfAccount(product)"
-                    :disabled="isAutoAssigningProduct === product.id"
-                  >
+                  <button type="button" class="btn btn-sm btn-outline-warning ml-2"
+                    @click="autoAssignProductChartOfAccount(product)" :disabled="isAutoAssigningProduct === product.id">
                     <i :class="isAutoAssigningProduct === product.id ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
                     {{ isAutoAssigningProduct === product.id ? $t('Assigning...') : $t('Auto-Assign') }}
                   </button>
@@ -124,52 +120,79 @@
                         <td style="min-width: 120px;">
                           <div class="d-flex align-items-center">
                             <div class="flex-grow-1">
-                              <router-link v-if="$can('product-view')" :to="{ name: 'products.show', params: { slug: item.slug } }">{{ item.name }}</router-link>
+                              <router-link v-if="$can('product-view')"
+                                :to="{ name: 'products.show', params: { slug: item.slug } }">{{ item.name
+                                }}</router-link>
                               <span v-else>{{ item.name }}</span>
                             </div>
                           </div>
                         </td>
                         <td style="min-width: 120px;">
                           <div class="input-group custom-qty-input">
-                            <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger" data-field="quantity" @click="updateItem(Math.max(0, item.returnQty - 1), index)" />
-                            <input type="number" step="any" :id="`returnQty-${index+1}`" v-model.number="item.returnQty" name="quantity" class="quantity-field border-0 incrementor" min="0" :max="item.maxQty" @input="updateItemReactively(item)" placeholder="Return Qty" />
-                            <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary" data-field="quantity" @click="updateItem(Math.min(item.maxQty, Number(item.returnQty) + 1), index)" />
+                            <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
+                              data-field="quantity" @click="updateItem(Math.max(0, item.returnQty - 1), index)" />
+                            <input type="number" step="any" :id="`returnQty-${index + 1}`"
+                              v-model.number="item.returnQty" name="quantity"
+                              class="quantity-field border-0 incrementor" min="0" :max="item.maxQty"
+                              @input="updateItemReactively(item)" placeholder="Return Qty" />
+                            <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
+                              data-field="quantity"
+                              @click="updateItem(Math.min(item.maxQty, Number(item.returnQty) + 1), index)" />
                           </div>
                         </td>
                         <td style="min-width: 100px;">{{ formatToTwoDecimals(item.unitCost) }}</td>
-                        <td style="min-width: 80px;">{{ formatToTwoDecimals(item.totalBeforeDiscount) }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 80px;">{{ formatToTwoDecimals(item.totalBeforeDiscount) }} <span
+                            class="saudi-riyal">ê</span></td>
                         <td style="min-width: 120px;">
                           <div class="input-group">
-                            <select v-model="item.discountType" class="form-control form-control-sm" style="width: 85px;" @change="calculateProductDiscount(index)">
+                            <select v-model="item.discountType" class="form-control form-control-sm"
+                              style="width: 85px;" @change="calculateProductDiscount(index)">
                               <option value="fixed">{{ $t('Fixed') }}</option>
                               <option value="percentage">{{ $t('%') }}</option>
                             </select>
-                            <input type="number" v-model="item.discount" class="form-control form-control-sm" style="width: 80px;" step="any" min="0" :max="item.discountType == 'percentage' ? 100 : (item.unitCost * item.qty)" placeholder="0" @change="calculateProductDiscount(index)" @keyup="calculateProductDiscount(index)" />
+                            <input type="number" v-model="item.discount" class="form-control form-control-sm"
+                              style="width: 80px;" step="any" min="0"
+                              :max="item.discountType == 'percentage' ? 100 : (item.unitCost * item.qty)"
+                              placeholder="0" @change="calculateProductDiscount(index)"
+                              @keyup="calculateProductDiscount(index)" />
                           </div>
                         </td>
-                        <td style="min-width: 80px;">{{ formatToTwoDecimals(item.totalAfterDiscount) }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 80px;">{{ formatToTwoDecimals(item.totalAfterDiscount) }} <span
+                            class="saudi-riyal">ê</span></td>
                         <td style="min-width: 100px;">
                           <div class="d-flex align-items-center">
-                            <select v-model="item.selectedVatRate" class="form-control form-control-sm flex-grow-1" @change="calculateProductVat(index)" style="min-width: 80px;">
+                            <select v-model="item.selectedVatRate" class="form-control form-control-sm flex-grow-1"
+                              @change="calculateProductVat(index)" style="min-width: 80px;">
                               <option value="">{{ $t('Select VAT') }}</option>
-                              <option v-for="tax in taxes" :key="tax.id" :value="tax">{{ tax.code }} ({{ tax.rate }}%)</option>
+                              <option v-for="tax in taxes" :key="tax.id" :value="tax">{{ tax.code }} ({{ tax.rate }}%)
+                              </option>
                             </select>
                           </div>
                         </td>
-                        <td style="min-width: 60px;"><span class="form-control-plaintext form-control-sm text-center">{{ formatToTwoDecimals(item.productTax) }} <span class="saudi-riyal">ê</span></span></td>
-                        <td style="min-width: 80px;">{{ formatToTwoDecimals(item.totalPrice) }} <span class="saudi-riyal">ê</span></td>
+                        <td style="min-width: 60px;"><span class="form-control-plaintext form-control-sm text-center">{{
+                          formatToTwoDecimals(item.productTax) }} <span class="saudi-riyal">ê</span></span></td>
+                        <td style="min-width: 80px;">{{ formatToTwoDecimals(item.totalPrice) }} <span
+                            class="saudi-riyal">ê</span>
+                        </td>
                         <td class="text-right" style="min-width: 50px;">
-                          <button type="button" class="btn btn-danger" @click="removeItem(item, index)"><i class="fas fa-times"></i></button>
+                          <button type="button" class="btn btn-danger" @click="removeItem(item, index)"><i
+                              class="fas fa-times"></i></button>
                         </td>
                       </tr>
                       <tr :key="`totals`">
                         <td colspan="4" class="text-right"><strong> {{ $t('Total') }} : {{ toWord() }} </strong></td>
-                        <td><strong>{{ formatToTwoDecimals(totalUnitPrice) }} <span class="saudi-riyal">ê</span></strong></td>
-                        <td><strong>{{ formatToTwoDecimals(totalTotal) }} <span class="saudi-riyal">ê</span></strong></td>
-                        <td><strong>{{ formatToTwoDecimals(totalProductDiscount) }} <span class="saudi-riyal">ê</span></strong></td>
-                        <td><strong>{{ formatToTwoDecimals(totalAfterDiscount) }} <span class="saudi-riyal">ê</span></strong></td>
+                        <td><strong>{{ formatToTwoDecimals(totalUnitPrice) }} <span
+                              class="saudi-riyal">ê</span></strong></td>
+                        <td><strong>{{ formatToTwoDecimals(totalTotal) }} <span class="saudi-riyal">ê</span></strong>
+                        </td>
+                        <td><strong>{{ formatToTwoDecimals(totalProductDiscount) }} <span
+                              class="saudi-riyal">ê</span></strong>
+                        </td>
+                        <td><strong>{{ formatToTwoDecimals(totalAfterDiscount) }} <span
+                              class="saudi-riyal">ê</span></strong></td>
                         <td><strong></strong></td>
-                        <td><strong>{{ formatToTwoDecimals(totalProductTax) }} <span class="saudi-riyal">ê</span></strong></td>
+                        <td><strong>{{ formatToTwoDecimals(totalProductTax) }} <span
+                              class="saudi-riyal">ê</span></strong></td>
                         <td><strong>{{ formatToTwoDecimals(subtotal) }} <span class="saudi-riyal">ê</span></strong></td>
                         <td></td>
                       </tr>
@@ -180,15 +203,18 @@
               <div class="row" id="input-fields">
                 <div v-if="!isSaudiArabia" class="form-group col-md-3">
                   <label for="totalDiscount">{{ $t('Total Discount') }}</label>
-                  <input id="totalDiscount" v-model="formattedTotalDiscount" type="text" class="form-control" name="totalDiscount" readonly />
+                  <input id="totalDiscount" v-model="formattedTotalDiscount" type="text" class="form-control"
+                    name="totalDiscount" readonly />
                 </div>
                 <div v-if="!isSaudiArabia" class="form-group col-md-3">
                   <label for="transportCost">{{ $t('Transport Cost') }}</label>
-                  <input id="transportCost" v-model="formattedTransportCost" type="text" class="form-control" name="transportCost" readonly />
+                  <input id="transportCost" v-model="formattedTransportCost" type="text" class="form-control"
+                    name="transportCost" readonly />
                 </div>
                 <div v-if="!isSaudiArabia" class="form-group col-md-3">
                   <label for="purchaseTax">{{ $t('Purchase Tax') }}</label>
-                  <input id="purchaseTax" v-model="formattedPurchaseTax" type="text" class="form-control" name="purchaseTax" readonly />
+                  <input id="purchaseTax" v-model="formattedPurchaseTax" type="text" class="form-control"
+                    name="purchaseTax" readonly />
                 </div>
                 <!-- <div v-if="form.returnAmount > 0" class="form-group col-md-3">
                   <label for="returnAmountText">{{ $t('Return Amount') }}</label>
@@ -196,8 +222,8 @@
                   <has-error :form="form" field="returnAmountText" />
                 </div> -->
               </div>
-             <div v-if="accounts && form.returnAmount > 0" class="row">  
-               <div class="form-group col-md-4">
+              <div v-if="accounts && form.returnAmount > 0" class="row">
+                <div class="form-group col-md-4">
                   <label for="account">{{ $t('Account') }}
                     <span class="required">*</span></label>
                   <v-select v-model="form.account" :options="accounts" label="label"
@@ -207,8 +233,8 @@
                       <img :src="option.image" style="width: 30px; height: 30px;" />
                       {{ option.label }}
                     </template>
-                  </v-select>  
-                 <div class="account-status mt-2" v-if="form.account">
+                  </v-select>
+                  <div class="account-status mt-2" v-if="form.account">
                     <div v-if="!form.account.chartOfAccountId" class="account-warning">
                       <i class="fas fa-exclamation-triangle text-warning"></i>
                       <span class="ml-2">{{ $t('Bank Account needs Chart of Account') }}</span>
@@ -226,7 +252,8 @@
                 </div>
                 <div class="form-group col-md-2">
                   <label for="availableBalance">{{ $t('Available Balance') }}</label>
-                  <input id="availableBalance" v-model="formattedAvailableBalance" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('availableBalance'), }" name="availableBalance" readonly />
+                  <input id="availableBalance" v-model="formattedAvailableBalance" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('availableBalance'), }" name="availableBalance" readonly />
                   <has-error :form="form" field="availableBalance" />
                 </div>
                 <div class="form-group col-md-3">
@@ -486,7 +513,7 @@ export default {
       for (var key in products) {
         let purchaseReturnItem = products[key]
         let purchaseReturnProduct = products[key].product
-        
+
         // Fetch fresh product data to get purchase_account_id
         let productData = null
         try {
@@ -513,10 +540,10 @@ export default {
           totalTax = productTax
           totalPrice = Number((totalAfterDiscount + productTax).toFixed(2))
         }
-        
+
         const finalPurchaseAccountId = purchaseReturnItem.purchase_account_id || purchaseReturnProduct?.purchase_account_id || productData?.purchase_account_id
         console.log('Final purchase_account_id for', purchaseReturnProduct.name, ':', finalPurchaseAccountId)
-        
+
         this.form.selectedProducts.unshift({
           id: purchaseReturnProduct.id,
           slug: purchaseReturnProduct.slug,
@@ -666,27 +693,27 @@ export default {
       if (!product || this.isAutoAssigningProduct === product.id) {
         return;
       }
-      
+
       this.isAutoAssigningProduct = product.id;
-      
+
       try {
         const response = await this.$http.post(`/api/products/${product.slug}/auto-assign-chart-of-account`);
-        
+
         if (response.data.success) {
           // Update the product data with new chart of account
           product.purchase_account_id = response.data.purchase_account_id;
-          
+
           // Force Vue to re-render the component to update the UI
           this.$nextTick(() => {
             this.$forceUpdate();
           });
-          
+
           // Show success message
           toast.fire({
             type: "success",
             title: this.$t("Chart of Account assigned successfully"),
           });
-          
+
         } else {
           toast.fire({
             type: "error",
@@ -694,7 +721,7 @@ export default {
             text: response.data.message || this.$t("Please try again or assign manually")
           });
         }
-        
+
       } catch (error) {
         console.error('Error auto-assigning chart of account:', error);
         toast.fire({
@@ -715,14 +742,14 @@ export default {
       this.form.netTotal = 0
       this.form.taxAmount = 0
       this.form.discountTotal = 0
-      
+
       for (let i = 0; i < length; i++) {
         const p = this.form.selectedProducts[i]
         const remainingQty = p.qty - p.returnQty
         const productTotal = remainingQty * p.unitCost
         purchaseSubtotal += productTotal
         this.form.newSubTotal += Number(productTotal.toFixed(2))
-        
+
         if (p.returnQty > 0) {
           const originalLineTotal = parseFloat(p.totalPrice) || 0
           const totalQty = parseFloat(p.qty) || 1
@@ -740,7 +767,7 @@ export default {
           this.form.taxAmount += proportionalTax
           this.form.discountTotal += proportionalDiscount
         }
-        
+
         if (p.productDiscount && p.productDiscount > 0) {
           if (p.discountType === 'percentage') {
             let discountAmount = (productTotal * p.productDiscount) / 100
@@ -752,22 +779,22 @@ export default {
           }
         }
       }
-      
+
       // purchase-level discount
       let purchaseDiscountAmount = Number(this.form.purchaseDiscount || 0)
       this.form.newSubTotal = Number((purchaseSubtotal - totalProductDiscount - purchaseDiscountAmount).toFixed(2))
       this.form.purchaseDiscount = purchaseDiscountAmount
-      
+
       const taxableAmount = this.form.newSubTotal
       if (this.form.taxRate && this.form.taxRate.rate) {
         this.form.newTax = Number(((this.form.taxRate.rate / 100) * taxableAmount).toFixed(2))
       } else {
         this.form.newTax = 0
       }
-      
+
       this.form.purchaseTotal = Number((this.form.newSubTotal + this.form.newTax + this.form.purchaseTransport - this.form.purchaseDiscount).toFixed(2))
       this.form.purchaseDue = Number((this.form.purchaseTotal - (this.form.purchase?.totalPaid || 0)).toFixed(2))
-      
+
       if (this.form.purchaseDue >= 0) {
         this.form.newDue = this.form.purchaseTotal - (this.form.purchase?.totalPaid || 0)
         this.form.newDueText = `${this.form.purchaseTotal} - ${this.form.purchase?.totalPaid || 0} = ${Number(this.form.newDue).toFixed(2)}`
@@ -814,7 +841,7 @@ export default {
         timestamp: new Date().toISOString()
       }
       localStorage.setItem('purchaseReturnEditTempData', JSON.stringify(tempData))
-       
+
     },
     // load temporary data
     loadTemporaryData() {
@@ -885,7 +912,7 @@ export default {
 }
 
 /* Search Input Background Override */
-.form-control{
+.form-control {
   background: #fff !important;
 }
 
@@ -907,19 +934,83 @@ export default {
 }
 
 /* Table Styling */
-.table-custom { border: none !important; }
-.purchases-create-table { border-collapse: separate; border-spacing: 0; }
-.purchases-create-table thead th { background-color: #33a0d9; color: #ffffff; padding: 8px; border: none !important; border-color: inherit !important; font-weight: 400; }
-.purchases-create-table thead tr { border: none !important; }
-.purchases-create-table thead th:first-child { border-top-left-radius: 10px; }
-.purchases-create-table thead th:last-child { border-top-right-radius: 10px; }
-[dir="rtl"] .purchases-create-table thead th:first-child { border-top-left-radius: 0; border-top-right-radius: 10px; }
-[dir="rtl"] .purchases-create-table thead th:last-child { border-top-right-radius: 0; border-top-left-radius: 10px; }
-.purchases-create-table .badge.badge-info { background: #E3F2FD !important; color: #1976D2 !important; font-size: 12px !important; font-weight: 500 !important; padding: 10px 16px; }
-.quantity-field { border-radius: 0 !important; min-height: 50px !important; margin: 0 !important; }
-.account-status { font-size: 0.875rem; }
-.account-status .account-warning { color: #856404; background-color: #fff3cd; border: 1px solid #ffeaa7; border-radius: 0.25rem; padding: 0.5rem; display: flex; align-items: center; }
-.account-status .account-success { color: #155724; background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 0.25rem; padding: 0.5rem; display: flex; align-items: center; }
+.table-custom {
+  border: none !important;
+}
+
+.purchases-create-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.purchases-create-table thead th {
+  background-color: #33a0d9;
+  color: #ffffff;
+  padding: 8px;
+  border: none !important;
+  border-color: inherit !important;
+  font-weight: 400;
+}
+
+.purchases-create-table thead tr {
+  border: none !important;
+}
+
+.purchases-create-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.purchases-create-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .purchases-create-table thead th:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .purchases-create-table thead th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
+}
+
+.purchases-create-table .badge.badge-info {
+  background: #E3F2FD !important;
+  color: #1976D2 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 10px 16px;
+}
+
+.quantity-field {
+  border-radius: 0 !important;
+  min-height: 50px !important;
+  margin: 0 !important;
+}
+
+.account-status {
+  font-size: 0.875rem;
+}
+
+.account-status .account-warning {
+  color: #856404;
+  background-color: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.account-status .account-success {
+  color: #155724;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+}
 
 /* Product Status Styles */
 .product-status {

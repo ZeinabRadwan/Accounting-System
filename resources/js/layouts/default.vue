@@ -18,7 +18,9 @@
         <div v-if="tenant && tenant.on_trial" class="trial-alert rounded-0">
           <div>
             {{ $t('You are on trial version! Your trial ends') }}
-            {{ tenant.trial_ends_at | moment('from', 'now') }}!
+            {{ $t('in') }}
+            {{ getTrialDaysLeft(tenant.trial_ends_at) }}
+            {{ $t('days') }}!
           </div>
           <div class="mt-3 mt-md-0 mb-2 mb-md-0 my-md-2">
             <router-link :to="{ name: 'settings.billing' }">
@@ -119,6 +121,16 @@ export default {
   methods: {
     addBodyClass(className) {
       document.body.classList.toggle(className)
+    },
+
+    getTrialDaysLeft(trialEndsAt) {
+      if (!trialEndsAt) return '';
+      // Calculate days left
+      const now = new Date();
+      const trialEnd = new Date(trialEndsAt);
+      const diffTime = trialEnd - now;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      return diffDays;
     },
   },
 }

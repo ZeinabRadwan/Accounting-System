@@ -140,7 +140,6 @@ class ReportController extends Controller
                     'legacy_data' => $legacyData,
                 ],
             ];
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -828,7 +827,6 @@ class ReportController extends Controller
                     'pagination' => $vatTransactionsData['pagination'],
                 ],
             ];
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -904,7 +902,6 @@ class ReportController extends Controller
                     'total_entries' => count($vatTransactions),
                 ],
             ];
-
         } catch (\Exception $e) {
             return [
                 'success' => false,
@@ -1556,41 +1553,59 @@ class ReportController extends Controller
         ]);
 
         try {
-            $user = Auth::user();
-            $branchIds = $this->getUserBranchIds($user);
+            // // Get authenticated user - try Auth facade first, then from request
+            // $user = Auth::user();
+            // if (! $user && $request->user()) {
+            //     $user = $request->user();
+            // }
 
-            $product = Product::where('slug', $request->productName['slug'])
-                ->whereIn('branch_id', $branchIds)
+            // // If user is still null, return error
+            // if (! $user) {
+            //     return $this->responseWithError('User not authenticated', [], 401);
+            // }
+
+            // $branchIds = $this->getUserBranchIds($user);
+
+            $productSlug = $request->productName['slug'] ?? null;
+
+            if (! $productSlug) {
+                return $this->responseWithError('Product slug is required', [], 422);
+            }
+
+            $product = Product::where('slug', $productSlug)
+                // ->whereIn('branch_id', $branchIds)
                 ->with('proSubCategory.category', 'productUnit')
                 ->first();
 
             if (! $product) {
-                return $this->responseWithError('Product not found');
+                // Check if product exists but not in user's branches
+                $productExists = Product::where('slug', $productSlug)->exists();
+                $errorMessage = $productExists
+                    ?? "Product with slug '{$productSlug}' not found.";
+
+                return $this->responseWithError($errorMessage, [], 404);
             }
 
             // stock ins
             $purchaseIns = PurchaseProduct::with('purchase.supplier')
                 ->where('product_id', $product->id)
-                ->whereHas('purchase', function ($newQuery) use ($request, $branchIds) {
-                    $newQuery->whereIn('branch_id', $branchIds)
-                        ->whereBetween('purchase_date', [$request->fromDate, $request->toDate]);
+                ->whereHas('purchase', function ($newQuery) use ($request) {
+                    $newQuery->whereBetween('purchase_date', [$request->fromDate, $request->toDate]);
                 })
                 ->get();
 
             $invoiceReturnIns = InvoiceReturnProduct::with('invoiceReturn.invoice.client')
                 ->where('product_id', $product->id)
-                ->whereHas('invoiceReturn', function ($newQuery) use ($request, $branchIds) {
-                    $newQuery->whereIn('branch_id', $branchIds)
-                        ->whereBetween('date', [$request->fromDate, $request->toDate]);
+                ->whereHas('invoiceReturn', function ($newQuery) use ($request) {
+                    $newQuery->whereBetween('date', [$request->fromDate, $request->toDate]);
                 })
                 ->get();
 
             $adjutmentIns = AdjustmentProduct::with('inventoryAdjustment')
                 ->where('product_id', $product->id)
                 ->where('type', 1)
-                ->whereHas('inventoryAdjustment', function ($newQuery) use ($request, $branchIds) {
-                    $newQuery->whereIn('branch_id', $branchIds)
-                        ->whereBetween('date', [$request->fromDate, $request->toDate]);
+                ->whereHas('inventoryAdjustment', function ($newQuery) use ($request) {
+                    $newQuery->whereBetween('date', [$request->fromDate, $request->toDate]);
                 })
                 ->get();
 
@@ -1632,25 +1647,22 @@ class ReportController extends Controller
             $adjutmentOuts = AdjustmentProduct::with('inventoryAdjustment')
                 ->where('product_id', $product->id)
                 ->where('type', 0)
-                ->whereHas('inventoryAdjustment', function ($newQuery) use ($request, $branchIds) {
-                    $newQuery->whereIn('branch_id', $branchIds)
-                        ->whereBetween('date', [$request->fromDate, $request->toDate]);
+                ->whereHas('inventoryAdjustment', function ($newQuery) use ($request) {
+                    $newQuery->whereBetween('date', [$request->fromDate, $request->toDate]);
                 })
                 ->get();
 
             $inventoryOuts = InvoiceProduct::with('invoice.client')
                 ->where('product_id', $product->id)
-                ->whereHas('invoice', function ($newQuery) use ($request, $branchIds) {
-                    $newQuery->whereIn('branch_id', $branchIds)
-                        ->whereBetween('invoice_date', [$request->fromDate, $request->toDate]);
+                ->whereHas('invoice', function ($newQuery) use ($request) {
+                    $newQuery->whereBetween('invoice_date', [$request->fromDate, $request->toDate]);
                 })
                 ->get();
 
             $purchaseReturnOuts = PurchaseReturnProduct::with('purchaseReturn.purchase.supplier')
                 ->where('product_id', $product->id)
-                ->whereHas('purchaseReturn', function ($newQuery) use ($request, $branchIds) {
-                    $newQuery->whereIn('branch_id', $branchIds)
-                        ->whereBetween('date', [$request->fromDate, $request->toDate]);
+                ->whereHas('purchaseReturn', function ($newQuery) use ($request) {
+                    $newQuery->whereBetween('date', [$request->fromDate, $request->toDate]);
                 })
                 ->get();
 
@@ -2305,7 +2317,6 @@ class ReportController extends Controller
                     'type' => $parentAccount->type ? $parentAccount->type->name : 'Unknown',
                 ],
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -2507,7 +2518,6 @@ class ReportController extends Controller
                     ],
                 ],
             ];
-
         } catch (\Exception $e) {
             return $this->responseWithError($e->getMessage());
         }
@@ -2685,7 +2695,6 @@ class ReportController extends Controller
                     'total_entries' => count($processedEntries),
                 ],
             ];
-
         } catch (\Exception $e) {
             return $this->responseWithError($e->getMessage());
         }
@@ -2905,7 +2914,6 @@ class ReportController extends Controller
                     ],
                 ],
             ];
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -3114,7 +3122,6 @@ class ReportController extends Controller
                     'total_entries' => count($processedEntries),
                 ],
             ];
-
         } catch (\Exception $e) {
             return [
                 'success' => false,
@@ -3406,7 +3413,6 @@ class ReportController extends Controller
                     ],
                 ],
             ];
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -3552,7 +3558,6 @@ class ReportController extends Controller
                     'total_entries' => count($clientData),
                 ],
             ];
-
         } catch (\Exception $e) {
             return [
                 'success' => false,
@@ -3844,7 +3849,6 @@ class ReportController extends Controller
                     ],
                 ],
             ];
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -3990,7 +3994,6 @@ class ReportController extends Controller
                     'total_entries' => count($supplierData),
                 ],
             ];
-
         } catch (\Exception $e) {
             return [
                 'success' => false,
@@ -4094,7 +4097,6 @@ class ReportController extends Controller
                     'total_count' => $totalCount,
                 ],
             ];
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -4216,7 +4218,6 @@ class ReportController extends Controller
                     'total_entries' => $totalCount,
                 ],
             ];
-
         } catch (\Exception $e) {
             return [
                 'success' => false,
@@ -4299,7 +4300,6 @@ class ReportController extends Controller
                     'account' => $accountWithBalance,
                 ],
             ];
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -4923,8 +4923,44 @@ class ReportController extends Controller
 
     private function getUserBranchIds($user)
     {
-        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        $branchIds = [];
 
-        return [$defaultBranchId > 0 ? $defaultBranchId : 0];
+        // Return [0] if user is null
+        if (! $user) {
+            return [0];
+        }
+
+        // Super admin (account_role === 1) has access to all active branches
+        if ((int) $user->account_role === 1) {
+            $allBranchIds = DB::table('branches')
+                ->whereNull('deleted_at')
+                ->where('is_active', true)
+                ->pluck('id')
+                ->toArray();
+
+            return ! empty($allBranchIds) ? array_values($allBranchIds) : [0];
+        }
+
+        // Add default branch if set (always include it even if not in branch_user table)
+        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        if ($defaultBranchId > 0) {
+            $branchIds[] = $defaultBranchId;
+        }
+
+        // Add all branches the user has access to from branch_user table
+        $userBranchIds = DB::table('branch_user')
+            ->where('user_id', $user->id)
+            ->pluck('branch_id')
+            ->toArray();
+
+        $branchIds = array_merge($branchIds, $userBranchIds);
+
+        // Remove duplicates and filter out zeros
+        $branchIds = array_unique(array_filter($branchIds, function ($id) {
+            return $id > 0;
+        }));
+
+        // If no branches found, return [0] to prevent empty array issues
+        return ! empty($branchIds) ? array_values($branchIds) : [0];
     }
 }

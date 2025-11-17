@@ -27,7 +27,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Purchase Order - {{ $purchaseOrder->purchase_no }}</title>
+    <title>@lang('print.Purchase Order') - {{ $purchaseOrder->purchase_no }}</title>
     <!-- Base64 font will be added here manually -->
      <style>
     @font-face {

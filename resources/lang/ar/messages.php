@@ -90,4 +90,5 @@ return [
     'This domain has already been taken' => 'تم حجز هذا النطاق بالفعل',
     'The current password is incorrect.' => 'كلمة المرور الحالية غير صحيحة.',
     'The provided credentials are incorrect.' => 'البيانات المقدمة غير صحيحة.',
+    'Tenant not found for this domain.' => 'لم يتم العثور على مستأجر لهذا النطاق.',
 ];

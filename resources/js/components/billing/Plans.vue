@@ -8,10 +8,10 @@
       <label :for="plan.id" class="price-single" :class="{ 'selected': plan.id === selectedPlanId && !currentPlan(plan.id), 'current-plan': currentPlan(plan.id) }">
         <img :src="plan.image" :alt="plan.name" class="w-16 h-16 mr-3" />
         <div>
-          <span>{{ plan.name }} <span v-if="currentPlan(plan.id)" class="activePlanText text-capitalize">
+          <span>{{ getLocalizedPlanName(plan.name) }} <span v-if="currentPlan(plan.id)" class="activePlanText text-capitalize">
             {{ $t('Current Plan') }}
           </span></span>
-          <span class="text-xs text-gray-700 d-block">{{ plan.description }}</span>
+          <span class="text-xs text-gray-700 d-block">{{ getLocalizedPlanDescription(plan.description) }}</span>
           <ul>
             <li>{{ $t('Client Limit') }}: <span>{{ plan.limit_clients | limitFormat }}</span></li>
             <li>{{ $t('Domains Limit') }}: <span>{{ plan.limit_domains | limitFormat }}</span></li>
@@ -28,7 +28,7 @@
               <strong class="text-strong text-capitalize">
                 <span class="saudi-riyal">ê</span>{{ getDiscountedPrice(plan.amount, centralPlanDiscount) }}
               </strong>
-              / {{ selectedPlanType === "year" ? "Year" : "Month" }}
+              / {{ selectedPlanType === "year" ? $t("Year") : $t("Month") }}
             </template>
 
             <template v-else>
@@ -127,6 +127,38 @@ export default {
 
     getImg(data) {
       return data
+    },
+
+    getLocalizedPlanName(planName) {
+      // Map plan names to translation keys
+      const planNameMap = {
+        'New Business': 'New Business',
+        'Growing Business': 'Growing Business',
+        'Pro Marketer': 'Pro Marketer'
+      };
+      
+      if (planNameMap[planName]) {
+        return this.$t(planNameMap[planName]);
+      }
+      
+      // If no mapping found, try to translate directly
+      return this.$t(planName) || planName;
+    },
+
+    getLocalizedPlanDescription(description) {
+      // Map descriptions to translation keys
+      const descriptionMap = {
+        'Best for small businesses': 'Best for small businesses',
+        'Best for medium businesses': 'Best for medium businesses',
+        'Best for large businesses': 'Best for large businesses'
+      };
+      
+      if (descriptionMap[description]) {
+        return this.$t(descriptionMap[description]);
+      }
+      
+      // If no mapping found, try to translate directly
+      return this.$t(description) || description;
     }
   },
 }
