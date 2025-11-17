@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class Client extends Model
 {
-    use Sluggable, HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, Notifiable, Sluggable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -29,10 +29,12 @@ class Client extends Model
         'building_number', 'street_number', 'district_number', 'unit_number', 'additional_number',
         // Business-specific fields (handle both naming conventions)
         'commercial_register', 'tax_card', 'tax_registration_number',
+        // Tax status
+        'tax_status',
         // Settings and preferences
         'is_send_email', 'is_send_sms',
         // Media and attachments
-        'attachments', 'phone_number'
+        'attachments', 'phone_number',
     ];
 
     /**
@@ -69,8 +71,9 @@ class Client extends Model
             return $this->full_name ?: $this->name;
         } else {
             if ($this->first_name && $this->last_name) {
-                return $this->first_name . ' ' . $this->last_name;
+                return $this->first_name.' '.$this->last_name;
             }
+
             return $this->first_name ?: $this->last_name ?: $this->name;
         }
     }
@@ -89,22 +92,34 @@ class Client extends Model
     public function getCompleteAddressAttribute()
     {
         $addressParts = [];
-        
-        if ($this->street_address1) $addressParts[] = $this->street_address1;
-        if ($this->street_address2) $addressParts[] = $this->street_address2;
-        if ($this->country) $addressParts[] = $this->country;
-        if ($this->state) $addressParts[] = $this->state;
-        if ($this->city) $addressParts[] = $this->city;
-        if ($this->neighbourhood) $addressParts[] = $this->neighbourhood;
-        if ($this->postal_code) $addressParts[] = $this->postal_code;
-        
+
+        if ($this->street_address1) {
+            $addressParts[] = $this->street_address1;
+        }
+        if ($this->street_address2) {
+            $addressParts[] = $this->street_address2;
+        }
+        if ($this->country) {
+            $addressParts[] = $this->country;
+        }
+        if ($this->state) {
+            $addressParts[] = $this->state;
+        }
+        if ($this->city) {
+            $addressParts[] = $this->city;
+        }
+        if ($this->neighbourhood) {
+            $addressParts[] = $this->neighbourhood;
+        }
+        if ($this->postal_code) {
+            $addressParts[] = $this->postal_code;
+        }
+
         return implode(', ', $addressParts);
     }
 
     /**
      * Return the sluggable configuration array for this model.
-     *
-     * @return array
      */
     public function sluggable(): array
     {
@@ -123,6 +138,7 @@ class Client extends Model
         if ($invoices) {
             $invoiceTotal = $invoices->where('status', 1)->sum('calculated_total');
         }
+
         return $invoiceTotal;
     }
 
@@ -133,6 +149,7 @@ class Client extends Model
         if (isset($this->invoicePayments)) {
             $totalPaid = $this->invoicePayments->where('status', 1)->sum('amount');
         }
+
         return $totalPaid;
     }
 
@@ -140,6 +157,7 @@ class Client extends Model
     public function clientDue()
     {
         $due = $this->clientInvoices->sum('calculated_due');
+
         return $due;
     }
 
@@ -163,6 +181,7 @@ class Client extends Model
         if ($invoices) {
             $discount = $invoices->sum('discount');
         }
+
         return $discount;
     }
 
@@ -174,6 +193,7 @@ class Client extends Model
         if ($invoices) {
             $transportCost = $invoices->sum('transport');
         }
+
         return $transportCost;
     }
 
@@ -185,6 +205,7 @@ class Client extends Model
         if (isset($dues)) {
             $totalDue = $dues->where('status', 1)->sum('amount');
         }
+
         return $totalDue;
     }
 
@@ -196,6 +217,7 @@ class Client extends Model
         if (isset($paid)) {
             $totalPaid = $paid->where('status', 1)->sum('amount');
         }
+
         return $totalPaid;
     }
 
@@ -256,21 +278,21 @@ class Client extends Model
     public function ensureChartOfAccountLoaded()
     {
         // If no chart of account is assigned, assign one
-        if (!$this->chart_of_account_id) {
+        if (! $this->chart_of_account_id) {
             $clientData = [
-                'type' => $this->type ?? 'Company'
+                'type' => $this->type ?? 'Company',
             ];
             $clientData = self::assignDefaultChartOfAccount($clientData);
             if (isset($clientData['chart_of_account_id'])) {
                 $this->update(['chart_of_account_id' => $clientData['chart_of_account_id']]);
             }
         }
-        
+
         // Load the relationship if not already loaded
-        if (!$this->relationLoaded('chartOfAccount')) {
+        if (! $this->relationLoaded('chartOfAccount')) {
             $this->load('chartOfAccount');
         }
-        
+
         return $this;
     }
 
@@ -303,7 +325,7 @@ class Client extends Model
      */
     public function isChartOfAccountConnected()
     {
-        return !is_null($this->chart_of_account_id);
+        return ! is_null($this->chart_of_account_id);
     }
 
     /**
@@ -311,9 +333,10 @@ class Client extends Model
      */
     public function getChartOfAccountValidationMessage()
     {
-        if (!$this->isChartOfAccountConnected()) {
+        if (! $this->isChartOfAccountConnected()) {
             return 'Client must be connected to a Chart of Account for journal entries.';
         }
+
         return null;
     }
 
@@ -331,20 +354,21 @@ class Client extends Model
         $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'clients_account')
             ->where('is_active', true)
             ->first();
-        
+
         if ($routingSetting && $routingSetting->parent_account_id) {
             // Use the parent account from routing setup
             $defaultAccount = $routingSetting->parentAccount;
-            
+
             if ($defaultAccount && $defaultAccount->is_active) {
                 $clientData['chart_of_account_id'] = $defaultAccount->id;
+
                 return $clientData;
             }
         }
-        
+
         // Fallback to the old logic if routing is not configured
         $defaultAccount = null;
-        
+
         if (isset($clientData['type'])) {
             switch ($clientData['type']) {
                 case 'Company':
@@ -365,14 +389,14 @@ class Client extends Model
         }
 
         // Fallback to any Accounts Receivable account
-        if (!$defaultAccount) {
+        if (! $defaultAccount) {
             $defaultAccount = \App\Models\ChartOfAccount::where('is_active', true)
                 ->where('name', 'like', '%Accounts Receivable%')
                 ->first();
         }
 
         // Final fallback to any active account
-        if (!$defaultAccount) {
+        if (! $defaultAccount) {
             $defaultAccount = \App\Models\ChartOfAccount::where('is_active', true)->first();
         }
 

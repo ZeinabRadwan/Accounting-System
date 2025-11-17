@@ -39,6 +39,59 @@
               <has-error :form="form" field="type" />
             </div>
 
+            <div class="form-group">
+              <label class="form-label font-weight-bold text-primary mb-2 d-block">
+                <i class="fas fa-receipt mr-2"></i>
+                {{ $t("Tax Status") }}
+                <span class="required text-danger">*</span>
+              </label>
+              <div class="tax-status-options">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label 
+                      class="tax-status-card-compact" 
+                      :class="{ 'active': form.taxStatus === 'taxable', 'border-primary': form.taxStatus === 'taxable' }"
+                      @click="form.taxStatus = 'taxable'"
+                    >
+                      <div class="tax-status-header-compact">
+                        <input 
+                          type="radio" 
+                          v-model="form.taxStatus" 
+                          value="taxable" 
+                          class="tax-status-radio"
+                        />
+                        <div class="tax-status-icon-compact taxable-icon">
+                          <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <span class="tax-status-title-compact">{{ $t("Taxable") }}</span>
+                      </div>
+                    </label>
+                  </div>
+                  <div class="col-md-6">
+                    <label 
+                      class="tax-status-card-compact" 
+                      :class="{ 'active': form.taxStatus === 'non_taxable', 'border-success': form.taxStatus === 'non_taxable' }"
+                      @click="form.taxStatus = 'non_taxable'"
+                    >
+                      <div class="tax-status-header-compact">
+                        <input 
+                          type="radio" 
+                          v-model="form.taxStatus" 
+                          value="non_taxable" 
+                          class="tax-status-radio"
+                        />
+                        <div class="tax-status-icon-compact non-taxable-icon">
+                          <i class="fas fa-file-invoice"></i>
+                        </div>
+                        <span class="tax-status-title-compact">{{ $t("Non-Taxable") }}</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <has-error :form="form" field="taxStatus" />
+            </div>
+
             <!-- Individual Client Fields -->
             <div v-if="form.type === 'Individual'">
               <div class="form-group">
@@ -114,80 +167,8 @@
         </div>
       </div>
 
-      <!-- Account Details Section - Now Second -->
+      <!-- National Address Section - Now Second, beside Client Details -->
       <div class="col-md-6">
-        <div class="form-card">
-          <div class="card-header">
-            <h5 class="section-title">
-              <i class="fas fa-cog mr-2"></i>
-              {{ $t("Account Details") }}
-            </h5>
-          </div>
-          <div class="card-body">
-            <div class="form-group">
-              <label for="displayLanguage">{{ $t("Display Language") }}</label>
-              <select id="displayLanguage" v-model="form.displayLanguage" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('displayLanguage') }">
-                <option value="">{{ $t("Select Language") }}</option>
-                <option value="en">{{ $t("English") }}</option>
-                <option value="ar">{{ $t("Arabic") }}</option>
-              </select>
-              <has-error :form="form" field="displayLanguage" />
-            </div>
-
-            <div class="form-group">
-              <label for="status">{{ $t("Status") }}</label>
-              <select id="status" v-model="form.status" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('status') }">
-                <option value="1">{{ $t("Active") }}</option>
-                <option value="0">{{ $t("Inactive") }}</option>
-              </select>
-              <has-error :form="form" field="status" />
-            </div>
-
-            <div class="form-group">
-              <label for="image">{{ $t("Profile Image") }}</label>
-              <div class="custom-file">
-                <input id="image" type="file" class="custom-file-input" name="image"
-                  :class="{ 'is-invalid': form.errors.has('image') }" @change="onFileChange" accept="image/*" />
-                <label class="custom-file-label" for="image">
-                  <i class="fas fa-image mr-2"></i>
-                  {{ $t("Choose file") }}
-                </label>
-              </div>
-              <has-error :form="form" field="image" />
-              <div class="image-preview mt-2" v-if="url">
-                <img :src="url" class="img-fluid rounded" :alt="$t('Profile Image')" style="max-height: 100px;" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Client Representative Info Section -->
-    <div class="row mt-4" v-if="form.type === 'Company'">
-      <div class="col-md-12">
-        <div class="form-card">
-          <div class="card-header">
-            <h5 class="section-title">
-              <i class="fas fa-users mr-2"></i>
-              {{ $t("Client Representative Info") }}
-            </h5>
-          </div>
-          <div class="card-body">
-            <RepresentativesList 
-              :representatives="form.representatives || []"
-              @representatives-changed="handleRepresentativesChanged"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- National Address Section -->
-    <div class="row mt-4">
-      <div class="col-md-12">
         <div class="form-card">
           <div class="card-header">
             <h5 class="section-title">
@@ -198,8 +179,11 @@
           <div class="card-body">
             <!-- Country and Region -->
             <div class="row">
-              <div class="form-group col-md-3">
-                <label for="country">{{ $t("Country") }}</label>
+              <div class="form-group col-md-6">
+                <label for="country">
+                  {{ $t("Country") }} 
+                  <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                </label>
                 <v-select
                   v-model="form.country"
                   :options="countries"
@@ -232,7 +216,7 @@
                 </v-select>
                 <has-error :form="form" field="country" />
               </div>
-              <div v-if="form.country !== 'SA'" class="form-group col-md-3">
+              <div v-if="form.country !== 'SA'" class="form-group col-md-6">
                 <label for="state">{{ $t("State") }}</label>
                 <input id="state" v-model="form.state" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('state') }" name="state"
@@ -242,7 +226,7 @@
               
               <!-- Saudi Arabia Region, City and Neighbourhood -->
               <template v-if="form.country === 'SA'">
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-6">
                   <label for="saudi_region">{{ $t("Region") }}</label>
                   <v-select
                     v-model="form.saudi_region"
@@ -265,8 +249,17 @@
                   </v-select>
                   <has-error :form="form" field="saudi_region" />
                 </div>
-                <div class="form-group col-md-3">
-                  <label for="city">{{ $t("City") }}</label>
+              </template>
+            </div>
+
+            <!-- City and Neighbourhood -->
+            <div class="row">
+              <template v-if="form.country === 'SA'">
+                <div class="form-group col-md-6">
+                  <label for="city">
+                    {{ $t("City") }} 
+                    <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                  </label>
                   <v-select
                     v-if="saudiCities.length > 0"
                     v-model="form.city"
@@ -300,8 +293,11 @@
                   />
                   <has-error :form="form" field="city" />
                 </div>
-                <div class="form-group col-md-3">
-                  <label for="neighbourhood">{{ $t("Neighbourhood") }}</label>
+                <div class="form-group col-md-6">
+                  <label for="neighbourhood">
+                    {{ $t("Neighbourhood") }} 
+                    <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                  </label>
                   <input id="neighbourhood" v-model="form.neighbourhood" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('neighbourhood') }" name="neighbourhood"
                     :placeholder="$t('Enter neighbourhood')" />
@@ -311,15 +307,21 @@
               
               <!-- Regular City and Neighbourhood Input for Non-Saudi Countries -->
               <template v-if="form.country !== 'SA'">
-                <div class="form-group col-md-3">
-                  <label for="city">{{ $t("City") }}</label>
+                <div class="form-group col-md-6">
+                  <label for="city">
+                    {{ $t("City") }} 
+                    <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                  </label>
                   <input id="city" v-model="form.city" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('city') }" name="city"
                     :placeholder="$t('Enter city')" />
                   <has-error :form="form" field="city" />
                 </div>
-                <div class="form-group col-md-3">
-                  <label for="neighbourhood">{{ $t("Neighbourhood") }}</label>
+                <div class="form-group col-md-6">
+                  <label for="neighbourhood">
+                    {{ $t("Neighbourhood") }} 
+                    <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                  </label>
                   <input id="neighbourhood" v-model="form.neighbourhood" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('neighbourhood') }" name="neighbourhood"
                     :placeholder="$t('Enter neighbourhood')" />
@@ -331,42 +333,70 @@
             <!-- Street Name and Postal Code -->
             <div class="row">
               <div class="form-group col-md-6">
-                <label for="streetAddress1">{{ $t("Street Name") }}</label>
+                <label for="streetAddress1">
+                  {{ $t("Street Name") }} 
+                  <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                </label>
                 <input id="streetAddress1" v-model="form.streetAddress1" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('streetAddress1') }" name="streetAddress1"
                   :placeholder="$t('Enter street name')" />
                 <has-error :form="form" field="streetAddress1" />
               </div>
-              <div class="form-group col-md-3">
-                <label for="postalCode">{{ $t("Postal Code") }}</label>
+              <div class="form-group col-md-6">
+                <label for="postalCode">
+                  {{ $t("Postal Code") }} 
+                  <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                </label>
                 <input id="postalCode" v-model="form.postalCode" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('postalCode') }" name="postalCode"
                   :placeholder="$t('Enter postal code')" />
                 <has-error :form="form" field="postalCode" />
               </div>
-              <div v-if="form.country === 'SA'" class="form-group col-md-3">
+            </div>
+
+            <!-- Saudi National Address Fields - Building Number -->
+            <div v-if="form.country === 'SA'" class="row">
+              <div class="form-group col-md-6">
                 <label for="buildingNumber">
-                  {{ $t("Building Number") }} <span class="required">*</span>
+                  {{ $t("Building Number") }} <span v-if="form.taxStatus === 'taxable'" class="required">*</span><span v-else class="text-muted">({{ $t("Optional") }})</span>
                 </label>
                 <input id="buildingNumber" v-model="form.buildingNumber" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('buildingNumber') }" name="buildingNumber"
                   :placeholder="$t('Enter building number')" maxlength="5" />
                 <has-error :form="form" field="buildingNumber" />
               </div>
+              <div class="form-group col-md-6">
+                <label for="streetNumber">
+                  {{ $t("Street Number") }} <span v-if="form.taxStatus === 'taxable'" class="required">*</span><span v-else class="text-muted">({{ $t("Optional") }})</span>
+                </label>
+                <input id="streetNumber" v-model="form.streetNumber" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('streetNumber') }" name="streetNumber"
+                  :placeholder="$t('Enter street number')" maxlength="5" />
+                <has-error :form="form" field="streetNumber" />
+              </div>
             </div>
 
             <!-- Saudi National Address Fields - Additional Numbers -->
             <div v-if="form.country === 'SA'" class="row">
-              <div class="form-group col-md-3">
+              <div class="form-group col-md-4">
+                <label for="districtNumber">
+                  {{ $t("District Number") }} <span v-if="form.taxStatus === 'taxable'" class="required">*</span><span v-else class="text-muted">({{ $t("Optional") }})</span>
+                </label>
+                <input id="districtNumber" v-model="form.districtNumber" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('districtNumber') }" name="districtNumber"
+                  :placeholder="$t('Enter district number')" maxlength="5" />
+                <has-error :form="form" field="districtNumber" />
+              </div>
+              <div class="form-group col-md-4">
                 <label for="unitNumber">
-                  {{ $t("Unit Number") }} <span class="text-muted">({{ $t("Optional") }})</span>
+                  {{ $t("Unit Number") }} <span v-if="form.taxStatus === 'taxable'" class="required">*</span><span v-else class="text-muted">({{ $t("Optional") }})</span>
                 </label>
                 <input id="unitNumber" v-model="form.unitNumber" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('unitNumber') }" name="unitNumber"
                   :placeholder="$t('Enter unit number')" maxlength="5" />
                 <has-error :form="form" field="unitNumber" />
               </div>
-              <div class="form-group col-md-3">
+              <div class="form-group col-md-4">
                 <label for="additionalNumber">
                   {{ $t("Additional Number") }} <span class="text-muted">({{ $t("Optional") }})</span>
                 </label>
@@ -377,10 +407,36 @@
               </div>
             </div>
 
-            <!-- Business-specific fields -->
-            <div v-if="form.type === 'Company'" class="row mt-4">
+            <!-- Tax Information Fields (shown in National Address section for taxable clients) -->
+            <div v-if="form.taxStatus === 'taxable'" class="row mt-3">
               <div class="col-md-12">
-                <hr style="margin: 20px 0; border-color: #e0e0e0;">
+                <hr style="margin: 15px 0; border-color: #e0e0e0;">
+                <h6 class="text-muted mb-3">
+                  <i class="fas fa-file-invoice-dollar mr-2"></i>
+                  {{ $t("Tax Information (Required for Taxable Clients)") }}
+                </h6>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="commercialRegister">{{ $t("Commercial Register") }} <span class="required">*</span></label>
+                <input id="commercialRegister" v-model="form.commercialRegister" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('commercialRegister') }" name="commercialRegister"
+                  :placeholder="$t('Enter commercial register number')" />
+                <has-error :form="form" field="commercialRegister" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="taxRegistrationNumber">{{ $t("Tax Registration Number") }} <span class="required">*</span></label>
+                <input id="taxRegistrationNumber" v-model="form.taxRegistrationNumber" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('taxRegistrationNumber') }" name="taxRegistrationNumber"
+                  :placeholder="$t('Enter 15-digit tax registration number')" maxlength="15" />
+                <small class="form-text text-muted">{{ $t("Must be exactly 15 digits") }}</small>
+                <has-error :form="form" field="taxRegistrationNumber" />
+              </div>
+            </div>
+
+            <!-- Business-specific fields (for non-taxable companies) -->
+            <div v-if="form.type === 'Company' && form.taxStatus !== 'taxable'" class="row mt-3">
+              <div class="col-md-12">
+                <hr style="margin: 15px 0; border-color: #e0e0e0;">
               </div>
               <div class="form-group col-md-6">
                 <label for="commercialRegister">{{ $t("CR") }} <span class="text-muted">({{ $t("Optional") }})</span></label>
@@ -397,6 +453,80 @@
                 <has-error :form="form" field="taxCard" />
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Account Details Section - Now on its own row -->
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <div class="form-card">
+          <div class="card-header">
+            <h5 class="section-title">
+              <i class="fas fa-cog mr-2"></i>
+              {{ $t("Account Details") }}
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label for="displayLanguage">{{ $t("Display Language") }}</label>
+                <select id="displayLanguage" v-model="form.displayLanguage" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('displayLanguage') }">
+                  <option value="">{{ $t("Select Language") }}</option>
+                  <option value="en">{{ $t("English") }}</option>
+                  <option value="ar">{{ $t("Arabic") }}</option>
+                </select>
+                <has-error :form="form" field="displayLanguage" />
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="status">{{ $t("Status") }}</label>
+                <select id="status" v-model="form.status" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('status') }">
+                  <option value="1">{{ $t("Active") }}</option>
+                  <option value="0">{{ $t("Inactive") }}</option>
+                </select>
+                <has-error :form="form" field="status" />
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="image">{{ $t("Profile Image") }}</label>
+                <div class="custom-file">
+                  <input id="image" type="file" class="custom-file-input" name="image"
+                    :class="{ 'is-invalid': form.errors.has('image') }" @change="onFileChange" accept="image/*" />
+                  <label class="custom-file-label" for="image">
+                    <i class="fas fa-image mr-2"></i>
+                    {{ $t("Choose file") }}
+                  </label>
+                </div>
+                <has-error :form="form" field="image" />
+                <div class="image-preview mt-2" v-if="url">
+                  <img :src="url" class="img-fluid rounded" :alt="$t('Profile Image')" style="max-height: 100px;" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Client Representative Info Section -->
+    <div class="row mt-4" v-if="form.type === 'Company'">
+      <div class="col-md-12">
+        <div class="form-card">
+          <div class="card-header">
+            <h5 class="section-title">
+              <i class="fas fa-users mr-2"></i>
+              {{ $t("Client Representative Info") }}
+            </h5>
+          </div>
+          <div class="card-body">
+            <RepresentativesList 
+              :representatives="form.representatives || []"
+              @representatives-changed="handleRepresentativesChanged"
+            />
           </div>
         </div>
       </div>
@@ -869,6 +999,7 @@ export default {
         
         // Client Details
         type: "Company",
+        taxStatus: "non_taxable",
         fullName: "",
         businessName: "",
         firstName: "",
@@ -887,6 +1018,8 @@ export default {
         taxCard: "",
         // Saudi National Address Fields
         buildingNumber: "",
+        streetNumber: "",
+        districtNumber: "",
         unitNumber: "",
         additionalNumber: "",
         
@@ -1644,6 +1777,8 @@ export default {
           
           // Client Details
           type: this.form.type,
+          taxStatus: this.form.taxStatus || 'non_taxable',
+          tax_status: this.form.taxStatus || 'non_taxable', // Also send as snake_case
           fullName: this.form.fullName,
           businessName: this.form.businessName,
           firstName: this.form.firstName,
@@ -1652,16 +1787,20 @@ export default {
           phoneNumber: this.form.phoneNumber || '', // Explicitly include phone number, default to empty string
           email: this.form.email,
           streetAddress1: this.form.streetAddress1,
+          streetAddress2: this.form.streetAddress2,
           city: this.form.city,
           state: this.form.state,
           postalCode: this.form.postalCode,
           country: this.form.country,
           neighbourhood: this.form.neighbourhood,
+          saudi_region: this.form.saudi_region,
           commercialRegister: this.form.commercialRegister,
           taxCard: this.form.taxCard,
           
           // Saudi National Address Fields
           buildingNumber: this.form.buildingNumber,
+          streetNumber: this.form.streetNumber,
+          districtNumber: this.form.districtNumber,
           unitNumber: this.form.unitNumber,
           additionalNumber: this.form.additionalNumber,
           
@@ -1674,7 +1813,7 @@ export default {
           // Map legacy fields for backward compatibility
           name: this.form.type === 'Individual' ? this.form.fullName : this.form.businessName,
           companyName: this.form.businessName,
-          taxRegistrationNumber: this.form.taxCard,
+          taxRegistrationNumber: this.form.taxRegistrationNumber || this.form.taxCard,
           address: this.form.streetAddress1,
           
           // Include representatives data
@@ -1966,6 +2105,115 @@ textarea.form-control:focus {
 .country-select .vs__dropdown-option--highlight {
   background-color: #33a0d9;
   color: white;
+}
+
+/* Tax Status Cards - Compact Version */
+.tax-status-options {
+  margin-top: 0.5rem;
+}
+
+.tax-status-card-compact {
+  display: block;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.tax-status-card-compact:hover {
+  border-color: #007bff;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+.tax-status-card-compact.active {
+  border-color: #007bff;
+  background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+  box-shadow: 0 2px 10px rgba(0, 123, 255, 0.15);
+}
+
+.tax-status-card-compact.border-success.active {
+  border-color: #28a745;
+  background: linear-gradient(135deg, #f0fff4 0%, #ffffff 100%);
+  box-shadow: 0 2px 10px rgba(40, 167, 69, 0.15);
+}
+
+.tax-status-card-compact.border-primary.active {
+  border-color: #007bff;
+  background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+  box-shadow: 0 2px 10px rgba(0, 123, 255, 0.15);
+}
+
+.tax-status-header-compact {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.tax-status-radio {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tax-status-icon-compact {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.75rem;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.tax-status-icon-compact.taxable-icon {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.25);
+}
+
+.tax-status-icon-compact.non-taxable-icon {
+  background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+  color: white;
+  box-shadow: 0 2px 6px rgba(40, 167, 69, 0.25);
+}
+
+.tax-status-card-compact.active .tax-status-icon-compact.taxable-icon {
+  transform: scale(1.05);
+  box-shadow: 0 3px 10px rgba(0, 123, 255, 0.35);
+}
+
+.tax-status-card-compact.active .tax-status-icon-compact.non-taxable-icon {
+  transform: scale(1.05);
+  box-shadow: 0 3px 10px rgba(40, 167, 69, 0.35);
+}
+
+.tax-status-title-compact {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #2c3e50;
+  flex: 1;
+}
+
+.tax-status-card-compact.active .tax-status-title-compact {
+  color: #007bff;
+}
+
+.tax-status-card-compact.border-success.active .tax-status-title-compact {
+  color: #28a745;
+}
+
+/* RTL Support */
+[dir="rtl"] .tax-status-icon-compact {
+  margin-right: 0;
+  margin-left: 0.75rem;
 }
 
 /* Saudi location select styles - remove double border */

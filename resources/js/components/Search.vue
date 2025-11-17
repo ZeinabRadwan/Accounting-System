@@ -6,9 +6,10 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
       </svg>
     </div>
-    <input ref="autoFocusInput" type="text" :value="query" class="search-input form-control"
-      :placeholder="$t('Search')" @input="$emit('reset-pagination', $event.target.value)" />
-    <label class="search-btn search-clear" :class="[query !== '' ? 'd-inline-block' : 'd-none']" @click="$emit('reload')">
+    <input ref="autoFocusInput" type="text" :value="query" class="search-input form-control" :placeholder="$t('Search')"
+      @input="$emit('reset-pagination', $event.target.value)" />
+    <label class="search-btn search-clear" :class="[query !== '' ? 'd-inline-block' : 'd-none']"
+      @click="$emit('reload')">
       <i class="fas fa-times" />
     </label>
   </div>
@@ -92,7 +93,6 @@ export default {
 /* Clear button positioning */
 [dir="ltr"] .search-clear {
   position: absolute !important;
-  right: 12px !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
   z-index: 1;
@@ -101,7 +101,7 @@ export default {
 
 [dir="rtl"] .search-clear {
   position: absolute !important;
-  right: 12px !important;
+  left: 12px !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
   z-index: 1;

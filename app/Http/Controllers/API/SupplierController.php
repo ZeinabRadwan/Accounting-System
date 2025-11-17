@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SupplierStoreRequest;
+use App\Http\Requests\Supplier\StoreSupplierRequest;
+use App\Http\Requests\Supplier\UpdateSupplierRequest;
 use App\Http\Resources\NonPurchasePaymentListResource;
 use App\Http\Resources\PurchaseListResource;
 use App\Http\Resources\PurchasePaymentResource;
@@ -78,9 +79,25 @@ class SupplierController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SupplierStoreRequest $request)
+    public function store(StoreSupplierRequest $request)
     {
         try {
+            // Debug: Log request data before validation - check all possible ways to get taxStatus
+            Log::info('SupplierController store - Request data:', [
+                'taxStatus' => $request->taxStatus,
+                'tax_status' => $request->tax_status,
+                'taxStatus_input' => $request->input('taxStatus'),
+                'tax_status_input' => $request->input('tax_status'),
+                'taxStatus_get' => $request->get('taxStatus'),
+                'tax_status_get' => $request->get('tax_status'),
+                'all_input' => $request->all(),
+                'all_request' => $request->request->all(),
+                'request_method' => $request->method(),
+                'content_type' => $request->header('Content-Type'),
+                'has_taxStatus' => $request->has('taxStatus'),
+                'has_tax_status' => $request->has('tax_status'),
+            ]);
+
             // get logged in user
             $user = Auth::user();
             $branchId = (int) ($user->default_branch_id ?? 0);
@@ -142,6 +159,7 @@ class SupplierController extends Controller
                 'status' => $request->status,
                 'image_path' => $imageName,
                 'type' => $request->type,
+                'tax_status' => $request->taxStatus ?? $request->tax_status ?? 'non_taxable',
                 'chart_of_account_id' => $request->chartOfAccountId,
 
                 // New fields
@@ -160,6 +178,12 @@ class SupplierController extends Controller
                 'postal_code' => $request->postalCode,
                 'country' => $request->country,
                 'neighbourhood' => $request->neighbourhood,
+                // Saudi National Address fields
+                'building_number' => $request->buildingNumber,
+                'street_number' => $request->streetNumber,
+                'district_number' => $request->districtNumber,
+                'unit_number' => $request->unitNumber,
+                'additional_number' => $request->additionalNumber,
                 'commercial_register' => $request->commercialRegister,
                 'tax_card' => $request->taxCard,
                 'attachments' => $request->attachments ? json_encode($request->attachments) : null,
@@ -257,23 +281,13 @@ class SupplierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $slug)
+    public function update(UpdateSupplierRequest $request, $slug)
     {
         $supplier = Supplier::where('slug', $slug)->first();
 
         if (! $supplier) {
             return $this->responseWithError('Supplier not found', 404);
         }
-
-        // validate request
-        $this->validate($request, [
-            'name' => 'required_if:type,Individual|nullable|string|max:255',
-            'phoneNumber' => 'required|string|max:20|min:3',
-            'email' => 'nullable|email|max:255|min:3|unique:suppliers,email,'.$supplier->id,
-            'companyName' => 'required_if:type,Company|nullable|string|max:100|min:2',
-            'type' => 'required|in:Company,Individual',
-            'chartOfAccountId' => 'nullable|integer|exists:chart_of_accounts,id',
-        ]);
         try {
             // upload thumbnail and set the name
             $imageName = $supplier->image_path;
@@ -326,6 +340,7 @@ class SupplierController extends Controller
                 'company_name' => $request->companyName,
                 'tax_registration_number' => $request->taxRegistrationNumber,
                 'type' => $request->type,
+                'tax_status' => $request->taxStatus ?? $request->tax_status ?? $supplier->tax_status ?? 'non_taxable',
                 'status' => $request->status,
                 'image_path' => $imageName,
                 'chart_of_account_id' => $request->chartOfAccountId,
@@ -346,6 +361,12 @@ class SupplierController extends Controller
                 'postal_code' => $request->postalCode,
                 'country' => $request->country,
                 'neighbourhood' => $request->neighbourhood,
+                // Saudi National Address fields
+                'building_number' => $request->buildingNumber,
+                'street_number' => $request->streetNumber,
+                'district_number' => $request->districtNumber,
+                'unit_number' => $request->unitNumber,
+                'additional_number' => $request->additionalNumber,
                 'commercial_register' => $request->commercialRegister,
                 'tax_card' => $request->taxCard,
                 'attachments' => $request->attachments ? json_encode($request->attachments) : null,

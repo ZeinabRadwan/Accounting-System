@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import store from '../store'
+import i18n from './i18n'
 
 // return formatted limit
 // Ex: clientLimit(10) => 10
@@ -7,7 +8,7 @@ import store from '../store'
 Vue.filter('limitFormat', function (limit) {
   // 0 means unlimited
   if (limit === 0) {
-    return 'Unlimited';
+    return i18n.t('Unlimited');
   } else {
     return limit;
   }

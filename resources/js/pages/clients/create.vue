@@ -158,11 +158,69 @@ export default {
           }
         };
 
+        // Debug: Log formData before building FormData - CRITICAL
+        console.log('=== CLIENT CREATE - FORM DATA RECEIVED ===');
+        console.log('Client Create - formData received:', {
+          taxStatus: formData.taxStatus,
+          tax_status: formData.tax_status,
+          allFormData: formData
+        });
+        console.log('Client Create - formData keys:', Object.keys(formData || {}));
+        console.log('Client Create - formData.taxStatus type:', typeof formData.taxStatus);
+        console.log('Client Create - formData.taxStatus value:', formData.taxStatus);
+        console.log('Client Create - formData.tax_status value:', formData.tax_status);
+        console.log('Client Create - $refs.clientForm exists:', !!this.$refs.clientForm);
+        console.log('Client Create - $refs.clientForm.form exists:', !!(this.$refs.clientForm && this.$refs.clientForm.form));
+        if (this.$refs.clientForm && this.$refs.clientForm.form) {
+          console.log('Client Create - form.taxStatus:', this.$refs.clientForm.form.taxStatus);
+          console.log('Client Create - form.data() taxStatus:', this.$refs.clientForm.form.data ? this.$refs.clientForm.form.data().taxStatus : 'N/A');
+        }
+
         // Simple scalar fields
         appendIfDefined('codeNumber', formData.codeNumber);
         appendIfDefined('notes', formData.notes);
         appendIfDefined('displayLanguage', formData.displayLanguage);
         appendIfDefined('type', formData.type);
+        
+        // CRITICAL: Always append taxStatus - don't use appendIfDefined to ensure it's always sent
+        // Get taxStatus from formData, or try to get it from form object if available
+        let taxStatusValue = formData.taxStatus || formData.tax_status;
+        
+        console.log('Client Create - Initial taxStatus check:', {
+          formDataTaxStatus: formData.taxStatus,
+          formDataTax_status: formData.tax_status,
+          currentTaxStatusValue: taxStatusValue
+        });
+        
+        // If still not found, try to get it from the form component
+        if (!taxStatusValue && this.$refs.clientForm && this.$refs.clientForm.form) {
+          taxStatusValue = this.$refs.clientForm.form.taxStatus;
+          console.log('Client Create - Got taxStatus from form object:', taxStatusValue);
+        }
+        
+        // Default to non_taxable if still not found
+        taxStatusValue = taxStatusValue || 'non_taxable';
+        
+        console.log('Client Create - Final taxStatusValue before appending:', taxStatusValue);
+        
+        // Always append taxStatus - never skip it, even if it's the default value
+        // CRITICAL: Use explicit string conversion and ensure it's never null/undefined
+        const taxStatusToSend = String(taxStatusValue || 'non_taxable');
+        fd.append('taxStatus', taxStatusToSend);
+        fd.append('tax_status', taxStatusToSend);
+        
+        console.log('=== CLIENT CREATE - APPENDING TAX STATUS ===');
+        console.log('Client Create - taxStatusValue:', taxStatusValue);
+        console.log('Client Create - taxStatusToSend:', taxStatusToSend);
+        console.log('Client Create - Appended taxStatus to FormData:', taxStatusToSend);
+        console.log('Client Create - formData.taxStatus:', formData.taxStatus);
+        console.log('Client Create - formData.tax_status:', formData.tax_status);
+        console.log('Client Create - form.taxStatus:', this.$refs.clientForm?.form?.taxStatus);
+        
+        // Verify it was added
+        console.log('Client Create - FormData has taxStatus:', fd.has('taxStatus'));
+        console.log('Client Create - FormData has tax_status:', fd.has('tax_status'));
+        
         appendIfDefined('fullName', formData.fullName);
         appendIfDefined('businessName', formData.businessName);
         appendIfDefined('firstName', formData.firstName);
@@ -179,6 +237,13 @@ export default {
         appendIfDefined('neighbourhood', formData.neighbourhood);
         appendIfDefined('commercialRegister', formData.commercialRegister);
         appendIfDefined('taxCard', formData.taxCard);
+        appendIfDefined('taxRegistrationNumber', formData.taxRegistrationNumber || formData.taxCard);
+        appendIfDefined('buildingNumber', formData.buildingNumber);
+        appendIfDefined('streetNumber', formData.streetNumber);
+        appendIfDefined('districtNumber', formData.districtNumber);
+        appendIfDefined('unitNumber', formData.unitNumber);
+        appendIfDefined('additionalNumber', formData.additionalNumber);
+        appendIfDefined('saudi_region', formData.saudi_region);
         appendIfDefined('status', formData.status);
         appendIfDefined('isSendEmail', formData.isSendEmail ? 1 : 0);
         appendIfDefined('isSendSMS', formData.isSendSMS ? 1 : 0);
@@ -236,25 +301,52 @@ export default {
         console.error("Error creating client:", error);
         const status = error && error.response && error.response.status;
         const serverErrors = error && error.response && error.response.data && error.response.data.errors;
-        if (status === 422 && serverErrors && this.$refs.clientForm && this.$refs.clientForm.getFormData) {
-          // Map backend validation errors into ClientForm's vform errors
-          const form = this.$refs.clientForm.getFormData();
-          const mapped = {};
+        if (status === 422 && serverErrors && this.$refs.clientForm) {
+          // Get form object directly from ClientForm component
+          const form = this.$refs.clientForm.form;
+          const errorMessages = [];
+          
+          // Prepare errors object for vform
+          const errorsObject = {};
+          
           Object.keys(serverErrors).forEach((key) => {
             const messages = serverErrors[key];
             if (Array.isArray(messages) && messages.length > 0) {
-              mapped[key] = messages[0];
+              // Translate messages before adding to errorsObject
+              const translatedMessages = messages.map(msg => this.translateValidationMessage(msg, key));
+              errorsObject[key] = translatedMessages;
+              
+              // Collect error messages for toast notification
+              const fieldLabel = this.getFieldLabel(key);
+              translatedMessages.forEach(msg => {
+                errorMessages.push(`${fieldLabel}: ${msg}`);
+              });
+              
               // Also map attachments.* to attachments field for UI display
               if (key.startsWith('attachments.')) {
-                if (!mapped.attachments) {
-                  mapped.attachments = messages[0];
+                if (!errorsObject.attachments) {
+                  errorsObject.attachments = translatedMessages;
                 }
               }
             }
           });
-          if (form && form.errors && typeof form.errors.record === 'function') {
+          
+          // Set errors on form using vform's set method
+          if (form && form.errors && typeof form.errors.set === 'function') {
+            form.errors.set(errorsObject);
+            console.log('Client Create - Set errors on form:', errorsObject);
+          } else if (form && form.errors && typeof form.errors.record === 'function') {
+            // Fallback to record method if set is not available
+            const mapped = {};
+            Object.keys(errorsObject).forEach(key => {
+              mapped[key] = Array.isArray(errorsObject[key]) ? errorsObject[key][0] : errorsObject[key];
+            });
             form.errors.record(mapped);
+            console.log('Client Create - Recorded errors on form (fallback):', mapped);
+          } else {
+            console.warn('Client Create - Form errors object not available or invalid');
           }
+          
           // Optionally scroll to the first invalid input
           this.$nextTick(() => {
             const invalid = document.querySelector('.is-invalid');
@@ -262,16 +354,29 @@ export default {
               invalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
           });
-          // Show toast notification for validation errors
+          
+          // Show detailed error messages in toast
+          const errorTitle = errorMessages.length > 0 
+            ? errorMessages.slice(0, 3).join(' | ') + (errorMessages.length > 3 ? ` (+${errorMessages.length - 3} more)` : '')
+            : this.$t("Please check the form for errors and try again.")
+          
+          console.log('Client Create - Error messages for toast:', errorMessages);
+          console.log('Client Create - Error title:', errorTitle);
+          
           toast.fire({
             type: "error",
             title: this.$t("Validation Error"),
-            text: this.$t("Please check the form for errors and try again.")
+            text: errorTitle,
+            html: errorMessages.length > 0 
+              ? `<div style="text-align: left; max-height: 200px; overflow-y: auto;">${errorMessages.map(msg => `<div>• ${msg}</div>`).join('')}</div>`
+              : undefined
           });
         } else {
+          const message = error?.response?.data?.message || error?.message || this.$t("Please check your input and try again.")
           toast.fire({ 
             type: "error", 
-            title: this.$t("Please check your input and try again.") 
+            title: this.$t("Error"),
+            text: message
           });
         }
       } finally {
@@ -306,6 +411,108 @@ export default {
         
       }
     },
+    // Get field label for error messages
+    getFieldLabel(field) {
+      const fieldLabelMap = {
+        codeNumber: this.$t('Code Number'),
+        notes: this.$t('Notes'),
+        displayLanguage: this.$t('Display Language'),
+        type: this.$t('Type'),
+        fullName: this.$t('Full Name'),
+        businessName: this.$t('Business Name'),
+        firstName: this.$t('First Name'),
+        lastName: this.$t('Last Name'),
+        phone: this.$t('Phone'),
+        phoneNumber: this.$t('Mobile Number'),
+        email: this.$t('Email'),
+        streetAddress1: this.$t('Street Address 1'),
+        streetAddress2: this.$t('Street Address 2'),
+        city: this.$t('City'),
+        state: this.$t('State'),
+        postalCode: this.$t('Postal Code'),
+        country: this.$t('Country'),
+        neighbourhood: this.$t('Neighbourhood'),
+        commercialRegister: this.$t('Commercial Register'),
+        taxCard: this.$t('Tax Card'),
+        buildingNumber: this.$t('Building Number'),
+        streetNumber: this.$t('Street Number'),
+        districtNumber: this.$t('District Number'),
+        unitNumber: this.$t('Unit Number'),
+        additionalNumber: this.$t('Additional Number'),
+        taxStatus: this.$t('Tax Status'),
+        taxRegistrationNumber: this.$t('Tax Registration Number'),
+        image: this.$t('Image'),
+        attachments: this.$t('Attachments'),
+        status: this.$t('Status'),
+        chartOfAccountId: this.$t('Chart of Account'),
+      };
+      return fieldLabelMap[field] || field;
+    },
+    
+    // translate validation messages from backend to localized messages
+    translateValidationMessage(message, field) {
+      // If there is a direct translation key, use it
+      const direct = this.$t(message);
+      if (direct && direct !== message) return direct;
+
+      // Get current locale
+      const currentLocale = this.$i18n.locale || 'en';
+      const isArabic = currentLocale === 'ar';
+
+      // Field label mapping for client form fields
+      const fieldLabelMap = {
+        codeNumber: this.$t('Code Number'),
+        notes: this.$t('Notes'),
+        displayLanguage: this.$t('Display Language'),
+        type: this.$t('Type'),
+        fullName: this.$t('Full Name'),
+        businessName: this.$t('Business Name'),
+        firstName: this.$t('First Name'),
+        lastName: this.$t('Last Name'),
+        phone: this.$t('Phone'),
+        phoneNumber: this.$t('Mobile Number'),
+        email: this.$t('Email'),
+        streetAddress1: this.$t('Street Address 1'),
+        streetAddress2: this.$t('Street Address 2'),
+        city: this.$t('City'),
+        state: this.$t('State'),
+        postalCode: this.$t('Postal Code'),
+        country: this.$t('Country'),
+        neighbourhood: this.$t('Neighbourhood'),
+        commercialRegister: this.$t('Commercial Register'),
+        taxCard: this.$t('Tax Card'),
+        buildingNumber: this.$t('Building Number'),
+        streetNumber: this.$t('Street Number'),
+        districtNumber: this.$t('District Number'),
+        unitNumber: this.$t('Unit Number'),
+        additionalNumber: this.$t('Additional Number'),
+        taxStatus: this.$t('Tax Status'),
+        taxRegistrationNumber: this.$t('Tax Registration Number'),
+        image: this.$t('Image'),
+        attachments: this.$t('Attachments'),
+        status: this.$t('Status'),
+        chartOfAccountId: this.$t('Chart of Account'),
+      };
+
+      // Try to translate common validation messages
+      const commonMessages = {
+        'required': isArabic ? 'مطلوب' : 'required',
+        'must be exactly 15 digits': isArabic ? 'يجب أن يكون 15 رقم بالضبط' : 'must be exactly 15 digits',
+        'must contain only numbers and be 15 digits': isArabic ? 'يجب أن يحتوي على أرقام فقط ويكون 15 رقم' : 'must contain only numbers and be 15 digits',
+      };
+
+      // Check if message contains common patterns
+      for (const [pattern, translation] of Object.entries(commonMessages)) {
+        if (message.toLowerCase().includes(pattern.toLowerCase())) {
+          const fieldLabel = fieldLabelMap[field] || field;
+          return `${fieldLabel}: ${translation}`;
+        }
+      }
+
+      // Return original message if no translation found
+      return message;
+    },
+    
     // load temporary data
     loadTemporaryData() {
       const tempData = localStorage.getItem('clientTempData')

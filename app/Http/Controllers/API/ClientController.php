@@ -2,36 +2,35 @@
 
 namespace App\Http\Controllers\API;
 
-use Exception;
-use App\Models\Client;
-use App\Models\Invoice;
-use Illuminate\Http\Request;
-use App\Models\InvoiceReturn;
-use App\Models\InvoicePayment;
-use App\Models\NonInvoicePayment;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Resources\ClientResource;
-use App\Http\Resources\InvoiceResource;
-use Illuminate\Support\Facades\Validator;
-use Spatie\SimpleExcel\SimpleExcelReader;
-use App\Http\Resources\ClientListResource;
-use App\Notifications\WelcomeNotification;
-use App\Http\Resources\InvoiceListResource;
-use Illuminate\Support\Facades\Notification;
-use App\Http\Resources\InvoicePaymentResource;
-use Intervention\Image\Facades\Image as Image;
 use App\Http\Requests\Client\StoreClientRequest;
 use App\Http\Requests\Client\UpdateClientRequest;
-use App\Http\Resources\InvoiceForPaymentResource;
-use App\Http\Resources\InvoiceReturnListResource;
-use App\Http\Resources\NonInvoicePaymentListResource;
+use App\Http\Resources\ClientListResource;
+use App\Http\Resources\ClientResource;
 use App\Http\Resources\ClientWithInvoicePaymentResource;
 use App\Http\Resources\ClientWithNonInvoicePaymentResource;
-use App\Models\ChartOfAccount;
-use Illuminate\Support\Str;
+use App\Http\Resources\InvoiceForPaymentResource;
+use App\Http\Resources\InvoiceListResource;
+use App\Http\Resources\InvoicePaymentResource;
+use App\Http\Resources\InvoiceResource;
+use App\Http\Resources\InvoiceReturnListResource;
+use App\Http\Resources\NonInvoicePaymentListResource;
+use App\Models\Client;
+use App\Models\Invoice;
+use App\Models\InvoicePayment;
+use App\Models\InvoiceReturn;
+use App\Models\NonInvoicePayment;
+use App\Notifications\WelcomeNotification;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
+use Spatie\SimpleExcel\SimpleExcelReader;
 
 class ClientController extends Controller
 {
@@ -53,24 +52,25 @@ class ClientController extends Controller
     public function index(Request $request)
     {
         $query = Client::query();
-        
+
         // Apply branch filter for non-superadmin users
         $user = Auth::user();
         // if ((int) $user->account_role !== 1) {
-            $branchIds = $this->getUserBranchIds($user);
-            $query->whereIn('branch_id', $branchIds);
+        $branchIds = $this->getUserBranchIds($user);
+        $query->whereIn('branch_id', $branchIds);
         // }
-        
+
         if ($request->type) {
             $query = $query->where('type', $request->type);
         }
-        
+
         return ClientListResource::collection($query->orderBy('client_id', 'DESC')->paginate($request->perPage));
     }
-    
+
     private function getUserBranchIds($user)
     {
         $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+
         return [$defaultBranchId > 0 ? $defaultBranchId : 0];
     }
 
@@ -83,10 +83,25 @@ class ClientController extends Controller
     public function store(StoreClientRequest $request)
     {
         try {
+            // Debug: Log request data before validation - check all possible ways to get taxStatus
+            \Log::info('ClientController store - Request data:', [
+                'taxStatus' => $request->taxStatus,
+                'tax_status' => $request->tax_status,
+                'taxStatus_input' => $request->input('taxStatus'),
+                'tax_status_input' => $request->input('tax_status'),
+                'taxStatus_get' => $request->get('taxStatus'),
+                'tax_status_get' => $request->get('tax_status'),
+                'all_input' => $request->all(),
+                'all_request' => $request->request->all(),
+                'request_method' => $request->method(),
+                'content_type' => $request->header('Content-Type'),
+                'has_taxStatus' => $request->has('taxStatus'),
+                'has_tax_status' => $request->has('tax_status'),
+            ]);
             // get logged in user
             $user = Auth::user();
             $branchId = (int) ($user->default_branch_id ?? 0);
-            
+
             // generate code
             $code = $this->generateNextClientCode();
 
@@ -121,9 +136,9 @@ class ClientController extends Controller
                     // Direct file upload or other format
                     $fileExtension = 'png'; // fallback
                 }
-                
-                $imageName = time() . '.' . $fileExtension;
-                Image::make($request->image)->save(public_path('images/clients/') . $imageName);
+
+                $imageName = time().'.'.$fileExtension;
+                Image::make($request->image)->save(public_path('images/clients/').$imageName);
             }
 
             // Prepare client data
@@ -140,13 +155,14 @@ class ClientController extends Controller
                 'status' => $request->status,
                 'image_path' => $imageName,
                 'type' => $request->type ?? 'Company',
+                'tax_status' => $request->taxStatus ?? $request->tax_status ?? 'non_taxable',
                 'chart_of_account_id' => $request->chartOfAccountId ? (is_array($request->chartOfAccountId) ? $request->chartOfAccountId['id'] : $request->chartOfAccountId) : null,
-                
+
                 // New fields for enhanced client form
                 'code_number' => $request->codeNumber,
                 'notes' => $request->notes,
                 'display_language' => $request->displayLanguage,
-                
+
                 // Enhanced client details based on type
                 'full_name' => $request->type === 'Individual' ? $request->fullName : null,
                 'business_name' => $request->type === 'Company' ? $request->businessName : null,
@@ -163,18 +179,18 @@ class ClientController extends Controller
                 'neighbourhood' => $request->neighbourhood,
                 'commercial_register' => $request->commercialRegister,
                 'tax_card' => $request->taxCard,
-                
+
                 // Saudi National Address fields
                 'building_number' => $request->buildingNumber,
                 'street_number' => $request->streetNumber,
                 'district_number' => $request->districtNumber,
                 'unit_number' => $request->unitNumber,
                 'additional_number' => $request->additionalNumber,
-                
+
                 // Additional fields
                 'is_send_email' => $request->isSendEmail,
                 'is_send_sms' => $request->isSendSMS,
-                
+
                 // Handle attachments if provided
                 'attachments' => $request->attachments ? json_encode($request->attachments) : null,
                 'branch_id' => $branchId,
@@ -186,7 +202,7 @@ class ClientController extends Controller
             // create client
             $userSchema = Client::create($clientData);
 
-            //send welcome notification
+            // send welcome notification
             try {
                 if ($request->isSendEmail || $request->isSendSMS) {
                     Notification::send($userSchema, new WelcomeNotification($userSchema, [
@@ -195,19 +211,19 @@ class ClientController extends Controller
                     ]));
                 }
             } catch (Exception $e) {
-                //handle email error here if necessary
+                // handle email error here if necessary
                 throw new Exception($e);
             }
 
             // Handle representatives if provided
             if ($request->has('representatives') && is_array($request->representatives)) {
                 foreach ($request->representatives as $repData) {
-                    if (!empty($repData['name'])) {
+                    if (! empty($repData['name'])) {
                         // If this is a primary representative, unset others
                         if (isset($repData['is_primary']) && $repData['is_primary']) {
                             $userSchema->representatives()->update(['is_primary' => false]);
                         }
-                        
+
                         $userSchema->representatives()->create([
                             'name' => $repData['name'],
                             'email' => $repData['email'] ?? null,
@@ -225,11 +241,11 @@ class ClientController extends Controller
                 ->causedBy(Auth::user())
                 ->performedOn($userSchema)
                 ->withProperties([
-                    'name' => "",
-                    'code' => '[' . $request->name . ']',
+                    'name' => '',
+                    'code' => '['.$request->name.']',
                     'event' => 'Create',
                     'slug' => $userSchema->slug,
-                    'routeName' => 'clients.show'
+                    'routeName' => 'clients.show',
                 ])
                 ->useLog('Client Created')
                 ->log('Client Created');
@@ -250,11 +266,11 @@ class ClientController extends Controller
     {
         try {
             $client = Client::where('slug', $slug)->first();
-            
+
             if ($client) {
                 $client->ensureChartOfAccountLoaded();
             }
-            
+
             return new ClientResource($client);
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
@@ -275,7 +291,7 @@ class ClientController extends Controller
             \Log::info('ClientController update - Request all:', $request->all());
             \Log::info('ClientController update - phoneNumber from request:', ['phoneNumber' => $request->input('phoneNumber')]);
             \Log::info('ClientController update - phoneNumber from get:', ['phoneNumber' => $request->get('phoneNumber')]);
-            
+
             // get client
             $client = Client::where('slug', $slug)->first();
 
@@ -283,9 +299,9 @@ class ClientController extends Controller
             $imageName = $client->image_path;
             if ($request->image) {
                 if ($imageName) {
-                    @unlink(public_path('images/clients/' . $imageName));
+                    @unlink(public_path('images/clients/'.$imageName));
                 }
-                
+
                 // SAFE IMAGE PROCESSING - Handle different image formats
                 if (strpos($request->image, 'data:image/') === 0) {
                     // Base64 image data
@@ -314,9 +330,9 @@ class ClientController extends Controller
                     // Direct file upload or other format
                     $fileExtension = 'png'; // fallback
                 }
-                
-                $imageName = time() . '.' . $fileExtension;
-                
+
+                $imageName = time().'.'.$fileExtension;
+
             }
 
             // update client
@@ -332,13 +348,14 @@ class ClientController extends Controller
                 'status' => $request->status,
                 'image_path' => $imageName,
                 'type' => $request->type ?? 'Company',
+                'tax_status' => $request->taxStatus ?? $request->tax_status ?? 'non_taxable',
                 'chart_of_account_id' => $request->chartOfAccountId ? (is_array($request->chartOfAccountId) ? $request->chartOfAccountId['id'] : $request->chartOfAccountId) : null,
-                
+
                 // New fields for enhanced client form
                 'code_number' => $request->codeNumber,
                 'notes' => $request->notes,
                 'display_language' => $request->displayLanguage,
-                
+
                 // Enhanced client details based on type
                 'full_name' => $request->type === 'Individual' ? $request->fullName : null,
                 'business_name' => $request->type === 'Company' ? $request->businessName : null,
@@ -355,18 +372,18 @@ class ClientController extends Controller
                 'neighbourhood' => $request->neighbourhood,
                 'commercial_register' => $request->commercialRegister,
                 'tax_card' => $request->taxCard,
-                
+
                 // Saudi National Address fields
                 'building_number' => $request->buildingNumber,
                 'street_number' => $request->streetNumber,
                 'district_number' => $request->districtNumber,
                 'unit_number' => $request->unitNumber,
                 'additional_number' => $request->additionalNumber,
-                
+
                 // Additional fields
                 'is_send_email' => $request->isSendEmail,
                 'is_send_sms' => $request->isSendSMS,
-                
+
                 // Handle attachments if provided
                 'attachments' => $request->attachments ? json_encode($request->attachments) : null,
             ];
@@ -380,15 +397,15 @@ class ClientController extends Controller
             if ($request->has('representatives') && is_array($request->representatives)) {
                 // Clear existing representatives
                 $client->representatives()->delete();
-                
+
                 // Add new representatives
                 foreach ($request->representatives as $repData) {
-                    if (!empty($repData['name'])) {
+                    if (! empty($repData['name'])) {
                         // If this is a primary representative, unset others
                         if (isset($repData['is_primary']) && $repData['is_primary']) {
                             $client->representatives()->update(['is_primary' => false]);
                         }
-                        
+
                         $client->representatives()->create([
                             'name' => $repData['name'],
                             'email' => $repData['email'] ?? null,
@@ -407,21 +424,21 @@ class ClientController extends Controller
                     ->causedBy(Auth::user())
                     ->performedOn($client)
                     ->withProperties([
-                        'name' => "",
-                        'code' => '[' . $request->name . ']',
+                        'name' => '',
+                        'code' => '['.$request->name.']',
                         'event' => 'Update',
                         'slug' => $client->slug,
-                        'routeName' => 'clients.show'
+                        'routeName' => 'clients.show',
                     ])
                     ->useLog('Client Updated')
                     ->log('Client Updated');
-                
+
             } catch (\Exception $activityError) {
                 // Don't fail the update if activity logging fails
             }
 
             return $this->responseWithSuccess('Client updated successfully');
-            
+
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
         }
@@ -445,9 +462,9 @@ class ClientController extends Controller
                 return $this->responseWithError('Sorry you can\'t delete this client!');
             }
             if ($canDelete) {
-                //delete asset image
+                // delete asset image
                 if ($client->image_path) {
-                    @unlink(public_path('images/clients/' . $client->image_path));
+                    @unlink(public_path('images/clients/'.$client->image_path));
                 }
 
                 // add activity log
@@ -455,9 +472,9 @@ class ClientController extends Controller
                     ->causedBy(Auth::user())
                     ->performedOn($client)
                     ->withProperties([
-                        'name' => "",
-                        'code' => '[' . $client->name . ']',
-                        'event' => 'Delete'
+                        'name' => '',
+                        'code' => '['.$client->name.']',
+                        'event' => 'Delete',
                     ])
                     ->useLog('Client Deleted')
                     ->log('Client Deleted');
@@ -498,13 +515,13 @@ class ClientController extends Controller
         }
 
         $query->where(function ($query) use ($term) {
-            $query->where('name', 'Like', '%' . $term . '%')
-                ->orWhere('client_id', 'Like', '%' . $term . '%')
-                ->orWhere('email', 'Like', '%' . $term . '%')
-                ->orWhere('phone', 'Like', '%' . $term . '%')
-                ->orWhere('phone_number', 'Like', '%' . $term . '%')
-                ->orWhere('phone_secondary', 'Like', '%' . $term . '%')
-                ->orWhere('company_name', 'Like', '%' . $term . '%');
+            $query->where('name', 'Like', '%'.$term.'%')
+                ->orWhere('client_id', 'Like', '%'.$term.'%')
+                ->orWhere('email', 'Like', '%'.$term.'%')
+                ->orWhere('phone', 'Like', '%'.$term.'%')
+                ->orWhere('phone_number', 'Like', '%'.$term.'%')
+                ->orWhere('phone_secondary', 'Like', '%'.$term.'%')
+                ->orWhere('company_name', 'Like', '%'.$term.'%');
         });
 
         return ClientResource::collection($query->with('chartOfAccount')->latest()->paginate($request->perPage));
@@ -519,7 +536,7 @@ class ClientController extends Controller
     {
         $user = Auth::user();
         $branchIds = $this->getUserBranchIds($user);
-        
+
         $clients = Client::with('chartOfAccount')
             ->where('status', 1)
             ->whereIn('branch_id', $branchIds)
@@ -534,7 +551,7 @@ class ClientController extends Controller
     {
         $user = Auth::user();
         $branchIds = $this->getUserBranchIds($user);
-        
+
         $clients = Client::with('chartOfAccount')
             ->where('status', 1)
             ->whereIn('branch_id', $branchIds)
@@ -601,8 +618,8 @@ class ClientController extends Controller
             'invoiceTax',
             'invoiceProducts' // Ensure invoiceProducts are loaded for subtotal calculation
         )->where('client_id', $client->id)
-        ->where('status', 1) // Only active invoices
-        ->get();
+            ->where('status', 1) // Only active invoices
+            ->get();
 
         return [
             'invoices' => InvoiceForPaymentResource::collection($invoices->where('calculated_due', '>', 0)),
@@ -638,13 +655,13 @@ class ClientController extends Controller
 
         $query->where(function ($query) use ($term) {
             $query->where(function ($query) use ($term) {
-                $query->where('invoice_no', 'LIKE', '%' . $term . '%')
-                    ->orWhere('sub_total', 'LIKE', '%' . $term . '%')
-                    ->orWhere('po_reference', 'LIKE', '%' . $term . '%')
-                    ->orWhere('payment_terms', 'LIKE', '%' . $term . '%')
+                $query->where('invoice_no', 'LIKE', '%'.$term.'%')
+                    ->orWhere('sub_total', 'LIKE', '%'.$term.'%')
+                    ->orWhere('po_reference', 'LIKE', '%'.$term.'%')
+                    ->orWhere('payment_terms', 'LIKE', '%'.$term.'%')
                     ->orWhereHas('client', function ($newQuery) use ($term) {
-                        $newQuery->where('name', 'LIKE', '%' . $term . '%')
-                            ->orWhere('client_id', 'LIKE', '%' . $term . '%');
+                        $newQuery->where('name', 'LIKE', '%'.$term.'%')
+                            ->orWhere('client_id', 'LIKE', '%'.$term.'%');
                     });
             });
         });
@@ -683,14 +700,14 @@ class ClientController extends Controller
             $query->whereHas('invoice', function ($newQuery) use ($client) {
                 $newQuery->where('client_id', $client->id);
             })->where(function ($query) use ($term) {
-                $query->where('reason', 'LIKE', '%' . $term . '%')
-                    ->orWhere('slug', 'LIKE', '%' . $term . '%')
-                    ->orWhere('total_return', 'LIKE', '%' . $term . '%')
+                $query->where('reason', 'LIKE', '%'.$term.'%')
+                    ->orWhere('slug', 'LIKE', '%'.$term.'%')
+                    ->orWhere('total_return', 'LIKE', '%'.$term.'%')
                     ->orWhereHas('invoice', function ($newQuery) use ($term) {
-                        $newQuery->where('invoice_no', 'LIKE', '%' . $term . '%')
-                            ->orWhere('po_reference', 'LIKE', '%' . $term . '%')
+                        $newQuery->where('invoice_no', 'LIKE', '%'.$term.'%')
+                            ->orWhere('po_reference', 'LIKE', '%'.$term.'%')
                             ->orWhereHas('client', function ($anotherQuery) use ($term) {
-                                $anotherQuery->where('name', 'LIKE', '%' . $term . '%');
+                                $anotherQuery->where('name', 'LIKE', '%'.$term.'%');
                             });
                     });
             });
@@ -746,25 +763,26 @@ class ClientController extends Controller
             })->where(function ($query) use ($term) {
                 $query->where('amount', '=', $term)
                     ->orWhereHas('invoice', function ($newQuery) use ($term) {
-                        $newQuery->where('invoice_no', 'LIKE', '%' . $term . '%')
-                            ->orWhere('po_reference', 'LIKE', '%' . $term . '%')
+                        $newQuery->where('invoice_no', 'LIKE', '%'.$term.'%')
+                            ->orWhere('po_reference', 'LIKE', '%'.$term.'%')
                             ->orWhereHas('client', function ($anotherQuery) use ($term) {
-                                $anotherQuery->where('name', 'LIKE', '%' . $term . '%')
-                                    ->orWhere('phone', 'LIKE', '%' . $term . '%')
-                                    ->orWhere('phone_number', 'LIKE', '%' . $term . '%')
-                                    ->orWhere('phone_secondary', 'LIKE', '%' . $term . '%');
+                                $anotherQuery->where('name', 'LIKE', '%'.$term.'%')
+                                    ->orWhere('phone', 'LIKE', '%'.$term.'%')
+                                    ->orWhere('phone_number', 'LIKE', '%'.$term.'%')
+                                    ->orWhere('phone_secondary', 'LIKE', '%'.$term.'%');
                             });
                     })
                     ->orWhereHas('invoicePaymentTransaction', function ($newQuery) use ($term) {
-                        $newQuery->where('cheque_no', 'LIKE', '%' . $term . '%')
-                            ->orWhere('receipt_no', 'LIKE', '%' . $term . '%')
+                        $newQuery->where('cheque_no', 'LIKE', '%'.$term.'%')
+                            ->orWhere('receipt_no', 'LIKE', '%'.$term.'%')
                             ->orWhereHas('cashbookAccount', function ($newQuery) use ($term) {
-                                $newQuery->where('account_number', 'LIKE', '%' . $term . '%')
-                                    ->orWhere('bank_name', 'LIKE', '%' . $term . '%');
+                                $newQuery->where('account_number', 'LIKE', '%'.$term.'%')
+                                    ->orWhere('bank_name', 'LIKE', '%'.$term.'%');
                             });
                     });
             });
         });
+
         return InvoicePaymentResource::collection($query->latest()->paginate($request->perPage));
     }
 
@@ -795,14 +813,14 @@ class ClientController extends Controller
 
         $query->where(function ($query) use ($term, $client) {
             $query->where('client_id', $client->id)->where(function ($query) use ($term) {
-                $query->where('amount', 'LIKE', '%' . $term . '%')
+                $query->where('amount', 'LIKE', '%'.$term.'%')
                     ->orWhereHas('paymentTransaction', function ($newQuery) use ($term) {
-                        $newQuery->where('cheque_no', 'LIKE', '%' . $term . '%')
-                            ->orWhere('receipt_no', 'LIKE', '%' . $term . '%')->orWhereHas(
+                        $newQuery->where('cheque_no', 'LIKE', '%'.$term.'%')
+                            ->orWhere('receipt_no', 'LIKE', '%'.$term.'%')->orWhereHas(
                                 'cashbookAccount',
                                 function ($newQuery) use ($term) {
-                                    $newQuery->where('account_number', 'LIKE', '%' . $term . '%')
-                                        ->orWhere('bank_name', 'LIKE', '%' . $term . '%');
+                                    $newQuery->where('account_number', 'LIKE', '%'.$term.'%')
+                                        ->orWhere('bank_name', 'LIKE', '%'.$term.'%');
                                 }
                             );
                     });
@@ -841,19 +859,20 @@ class ClientController extends Controller
                     $data['type'] = $data['type'] ?? 'Company';
                     $data['slug'] = Str::slug($data['name']);
                     $data['status'] = 1;
-                    
+
                     Client::create(
                         $this->incrementClientId() + $data
                     );
                 } else {
                     return response()->json([
                         'message' => $validator->errors()->first(),
-                        'row_number' => $key + 1
+                        'row_number' => $key + 1,
                     ], 422);
                 }
             }
+
             return response()->json([
-                'message' => 'Clients imported successfully'
+                'message' => 'Clients imported successfully',
             ]);
         }
     }
@@ -865,8 +884,9 @@ class ClientController extends Controller
         if ($lastClient) {
             $clientId = (int) $lastClient->client_id + 1;
         }
+
         return [
-            'client_id' => $clientId
+            'client_id' => $clientId,
         ];
     }
 
@@ -929,8 +949,8 @@ FROM (
 		,invoice_returns ci
 	WHERE ii.id = ci.invoice_id
 	) v
-WHERE v.client_id = " . $client->id . "
-ORDER BY `date`");
+WHERE v.client_id = ".$client->id.'
+ORDER BY `date`');
         // if credit plus, debit minus balance, always discount minus
         $totalDiscount = $totalDebit = $totalCredit = $finalBalance = 0;
         $balance = 0;
@@ -939,14 +959,15 @@ ORDER BY `date`");
                 $ledger->balance = $balance + $ledger->debit;
                 $balance = $ledger->balance;
             } else {
-                $balance =  $ledger->balance = $balance - $ledger->credit - $ledger->discount;
+                $balance = $ledger->balance = $balance - $ledger->credit - $ledger->discount;
             }
-            $totalDiscount  += $ledger->discount;
-            $totalDebit  += $ledger->debit;
-            $totalCredit  += $ledger->credit;
+            $totalDiscount += $ledger->discount;
+            $totalDebit += $ledger->debit;
+            $totalCredit += $ledger->credit;
         }
 
         $finalBalance = $totalDebit - $totalCredit;
+
         return [
             'items' => $data,
             'totalDiscount' => $totalDiscount,
@@ -966,27 +987,27 @@ ORDER BY `date`");
             $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'clients_account')
                 ->where('is_active', true)
                 ->first();
-            
-            if (!$routingSetting || !$routingSetting->parent_account_id) {
+
+            if (! $routingSetting || ! $routingSetting->parent_account_id) {
                 // Fallback to all active accounts if routing is not configured
                 $branchId = Auth::user()->default_branch_id ?? null;
                 $accounts = \App\Models\ChartOfAccount::where('is_active', true)
                     ->forBranch($branchId)
                     ->orderBy('name')
                     ->get();
-                    
+
                 return $this->formatChartOfAccounts($accounts, 'Fallback to all accounts');
             }
-            
+
             // Get accounts from the routing setup (parent + children)
             $accounts = $routingSetting->getAllAccounts();
-            
+
             return $this->formatChartOfAccounts($accounts, 'From routing setup');
-            
+
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Failed to retrieve chart of accounts.',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -999,14 +1020,14 @@ ORDER BY `date`");
         $chartOfAccounts = collect();
         $processedCount = 0;
         $skippedCount = 0;
-        
+
         foreach ($accounts as $account) {
             try {
                 // Skip if account is null or missing essential data
-                if (!$account || !$account->id || !$account->name) {
+                if (! $account || ! $account->id || ! $account->name) {
                     continue;
                 }
-                
+
                 // Get type name safely
                 $typeName = 'No Type';
                 try {
@@ -1019,22 +1040,23 @@ ORDER BY `date`");
                 } catch (\Exception $typeError) {
                     continue;
                 }
-                
+
                 $chartOfAccounts->push([
                     'id' => (int) $account->id,
                     'name' => (string) ($account->name ?? 'Unknown'),
                     'code' => (string) ($account->code ?? ''),
-                    'type' => $typeName
+                    'type' => $typeName,
                 ]);
-                
+
                 $processedCount++;
-                
+
             } catch (\Exception $accountError) {
                 $skippedCount++;
+
                 continue;
             }
         }
-        
+
         return response()->json($chartOfAccounts->values()->toArray());
     }
 
@@ -1045,11 +1067,11 @@ ORDER BY `date`");
     {
         try {
             $client = Client::where('slug', $slug)->first();
-            
-            if (!$client) {
+
+            if (! $client) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Client not found'
+                    'message' => 'Client not found',
                 ], 404);
             }
 
@@ -1061,10 +1083,10 @@ ORDER BY `date`");
             if ($routingSetting) {
                 // Main-account-per-each: create a child under main account
                 if ($routingSetting->routing_type === 'main_account_per_each') {
-                    if (!$routingSetting->main_account_id) {
+                    if (! $routingSetting->main_account_id) {
                         return response()->json([
                             'success' => false,
-                            'message' => 'Client routing is not properly configured: Main account is missing.'
+                            'message' => 'Client routing is not properly configured: Main account is missing.',
                         ], 400);
                     }
 
@@ -1081,16 +1103,16 @@ ORDER BY `date`");
                     return response()->json([
                         'success' => true,
                         'message' => 'Chart of Account created and assigned successfully',
-                        'chart_of_account_id' => $newAccount->id
+                        'chart_of_account_id' => $newAccount->id,
                     ]);
                 }
 
                 // Automatic: assign the main account directly
                 if ($routingSetting->routing_type === 'automatic') {
-                    if (!$routingSetting->main_account_id) {
+                    if (! $routingSetting->main_account_id) {
                         return response()->json([
                             'success' => false,
-                            'message' => 'Client routing is not properly configured: Main account is missing.'
+                            'message' => 'Client routing is not properly configured: Main account is missing.',
                         ], 400);
                     }
 
@@ -1099,14 +1121,14 @@ ORDER BY `date`");
                     return response()->json([
                         'success' => true,
                         'message' => 'Main account assigned to client successfully',
-                        'chart_of_account_id' => $routingSetting->main_account_id
+                        'chart_of_account_id' => $routingSetting->main_account_id,
                     ]);
                 }
             }
 
             // Fallback to legacy/default behavior if routing not configured or other types
             $clientData = [
-                'type' => $client->type ?? 'Company'
+                'type' => $client->type ?? 'Company',
             ];
             $clientData = Client::assignDefaultChartOfAccount($clientData);
 
@@ -1116,19 +1138,19 @@ ORDER BY `date`");
                 return response()->json([
                     'success' => true,
                     'message' => __('Chart of Account assigned successfully'),
-                    'chart_of_account_id' => $clientData['chart_of_account_id']
+                    'chart_of_account_id' => $clientData['chart_of_account_id'],
                 ]);
             }
 
             return response()->json([
                 'success' => false,
-                'message' => 'No suitable Chart of Account found for automatic assignment'
+                'message' => 'No suitable Chart of Account found for automatic assignment',
             ], 400);
-            
+
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to assign Chart of Account: ' . $e->getMessage()
+                'message' => 'Failed to assign Chart of Account: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -1143,26 +1165,26 @@ ORDER BY `date`");
             $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'clients_account')
                 ->where('is_active', true)
                 ->first();
-            
-            if (!$routingSetting) {
+
+            if (! $routingSetting) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Client account routing is not configured',
-                    'accounts' => []
+                    'accounts' => [],
                 ], 404);
             }
-            
-            if (!$routingSetting->parent_account_id) {
+
+            if (! $routingSetting->parent_account_id) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Client account routing is not properly configured. Please set a parent account.',
-                    'accounts' => []
+                    'accounts' => [],
                 ], 400);
             }
-            
+
             // Get accounts from the routing setup (parent + children)
             $accounts = $routingSetting->getAccountsForDropdown();
-            
+
             return response()->json([
                 'success' => true,
                 'message' => 'Client routing accounts retrieved successfully',
@@ -1174,16 +1196,16 @@ ORDER BY `date`");
                     'parent_account' => $routingSetting->parentAccount ? [
                         'id' => $routingSetting->parentAccount->id,
                         'name' => $routingSetting->parentAccount->name,
-                        'code' => $routingSetting->parentAccount->code
-                    ] : null
-                ]
+                        'code' => $routingSetting->parentAccount->code,
+                    ] : null,
+                ],
             ]);
-            
+
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to retrieve client routing accounts.',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -1196,30 +1218,30 @@ ORDER BY `date`");
         try {
             // Get client prefix from general settings
             $clientPrefix = getGeneralSettingsInfo()['clientPrefix'] ?? 'AC';
-            
+
             // Debug: Check existing clients
-            $existingClients = Client::where('client_id', 'like', $clientPrefix . '%')
-                ->orderByRaw('CAST(SUBSTRING(client_id, ' . (strlen($clientPrefix) + 1) . ') AS UNSIGNED) DESC')
+            $existingClients = Client::where('client_id', 'like', $clientPrefix.'%')
+                ->orderByRaw('CAST(SUBSTRING(client_id, '.(strlen($clientPrefix) + 1).') AS UNSIGNED) DESC')
                 ->limit(5)
                 ->get(['client_id']);
-            
+
             \Illuminate\Support\Facades\Log::info('Next code generation debug', [
                 'client_prefix' => $clientPrefix,
                 'existing_clients' => $existingClients->pluck('client_id')->toArray(),
-                'total_clients_count' => Client::count()
+                'total_clients_count' => Client::count(),
             ]);
-            
+
             // Generate the next client code using the same logic as store method
             $nextClientCode = $this->generateNextClientCode();
-            
+
             // Extract the numeric part for the next_code field
             $nextCode = (int) substr($nextClientCode, strlen($clientPrefix));
-            
+
             \Illuminate\Support\Facades\Log::info('Generated next code', [
                 'next_client_code' => $nextClientCode,
-                'next_code_number' => $nextCode
+                'next_code_number' => $nextCode,
             ]);
-            
+
             return response()->json([
                 'success' => true,
                 'next_code' => $nextCode,
@@ -1228,19 +1250,19 @@ ORDER BY `date`");
                 'debug' => [
                     'client_prefix' => $clientPrefix,
                     'existing_clients' => $existingClients->pluck('client_id')->toArray(),
-                    'total_clients' => Client::count()
-                ]
+                    'total_clients' => Client::count(),
+                ],
             ]);
-            
+
         } catch (Exception $e) {
             \Illuminate\Support\Facades\Log::error('Error generating next code number', [
                 'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+                'trace' => $e->getTraceAsString(),
             ]);
-            
+
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to retrieve next code number: ' . $e->getMessage()
+                'message' => 'Failed to retrieve next code number: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -1255,45 +1277,46 @@ ORDER BY `date`");
             if ($existingClient && $existingClient->chart_of_account_id) {
                 \Illuminate\Support\Facades\Log::info("Client already has chart of account {$existingClient->chart_of_account_id}, skipping auto-assignment", [
                     'client_id' => $existingClient->id,
-                    'existing_chart_of_account_id' => $existingClient->chart_of_account_id
+                    'existing_chart_of_account_id' => $existingClient->chart_of_account_id,
                 ]);
+
                 return $clientData;
             }
-            
+
             // If chart_of_account_id is already provided in the data, don't auto-assign
-            if (!empty($clientData['chart_of_account_id'])) {
-                \Illuminate\Support\Facades\Log::info("Chart of account already provided in data, skipping auto-assignment", [
-                    'provided_chart_of_account_id' => $clientData['chart_of_account_id']
+            if (! empty($clientData['chart_of_account_id'])) {
+                \Illuminate\Support\Facades\Log::info('Chart of account already provided in data, skipping auto-assignment', [
+                    'provided_chart_of_account_id' => $clientData['chart_of_account_id'],
                 ]);
+
                 return $clientData;
             }
-            
+
             // Get the clients account routing setting
             $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'clients_account')
                 ->where('is_active', true)
                 ->first();
-            
-            if (!$routingSetting) {
+
+            if (! $routingSetting) {
                 // If no routing setting, use default behavior
                 return $clientData;
             }
-            
-            \Illuminate\Support\Facades\Log::info("Processing client chart of account with routing type: " . $routingSetting->routing_type, [
+
+            \Illuminate\Support\Facades\Log::info('Processing client chart of account with routing type: '.$routingSetting->routing_type, [
                 'routing_setting' => $routingSetting->toArray(),
-                'client_data' => $clientData
+                'client_data' => $clientData,
             ]);
-            
+
             switch ($routingSetting->routing_type) {
                 case 'automatic':
                     // For automatic routing, always create/assign account if none provided
                     if (empty($clientData['chart_of_account_id']) && $routingSetting->main_account_id) {
                         // $newAccount = $this->createChartOfAccountForClient($clientData, $routingSetting);
                         $clientData['chart_of_account_id'] = $routingSetting->main_account_id;
-                        
-                     
+
                     }
                     break;
-                    
+
                 case 'per_each':
                     // For per each routing, validate that account is provided
                     if (empty($clientData['chart_of_account_id'])) {
@@ -1301,12 +1324,11 @@ ORDER BY `date`");
                         if ($routingSetting->main_account_id) {
                             $newAccount = $this->createChartOfAccountForClient($clientData, $routingSetting);
                             $clientData['chart_of_account_id'] = $newAccount->id;
-                            
-                          
+
                         }
                     }
                     break;
-                    
+
                 case 'main_account_per_each':
                     // For main account per each, validate that account is provided
                     if (empty($clientData['chart_of_account_id'])) {
@@ -1314,40 +1336,40 @@ ORDER BY `date`");
                         if ($routingSetting->main_account_id) {
                             $newAccount = $this->createChartOfAccountForClient($clientData, $routingSetting);
                             $clientData['chart_of_account_id'] = $newAccount->id;
-                            
-                          
+
                         }
                     }
                     break;
-                    
+
                 case 'cancel':
                     // For cancel routing, no chart of account needed
                     $clientData['chart_of_account_id'] = null;
-                    \Illuminate\Support\Facades\Log::info("No chart of account assigned for client with cancel routing", [
+                    \Illuminate\Support\Facades\Log::info('No chart of account assigned for client with cancel routing', [
                         'client_data' => $clientData,
-                        'routing_setting' => $routingSetting->toArray()
+                        'routing_setting' => $routingSetting->toArray(),
                     ]);
                     break;
-                    
+
                 default:
                     // Unknown routing type, use default behavior
-                    \Illuminate\Support\Facades\Log::warning("Unknown routing type: " . $routingSetting->routing_type, [
-                        'routing_setting' => $routingSetting->toArray()
+                    \Illuminate\Support\Facades\Log::warning('Unknown routing type: '.$routingSetting->routing_type, [
+                        'routing_setting' => $routingSetting->toArray(),
                     ]);
                     break;
             }
-            
+
             return $clientData;
         } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error("Error auto-assigning chart of account: " . $e->getMessage(), [
+            \Illuminate\Support\Facades\Log::error('Error auto-assigning chart of account: '.$e->getMessage(), [
                 'client_data' => $clientData,
                 'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+                'trace' => $e->getTraceAsString(),
             ]);
+
             return $clientData;
         }
     }
-    
+
     /**
      * Create chart of account for client
      */
@@ -1363,33 +1385,33 @@ ORDER BY `date`");
                 'created_by' => Auth::id(),
                 'branch_id' => Auth::user()->default_branch_id,
             ]);
-            
-            \Illuminate\Support\Facades\Log::info("Created new chart of account for client", [
+
+            \Illuminate\Support\Facades\Log::info('Created new chart of account for client', [
                 'account_id' => $newAccount->id,
                 'account_name' => $newAccount->name,
                 'account_code' => $newAccount->code,
-                'parent_account_id' => $routingSetting->main_account_id
+                'parent_account_id' => $routingSetting->main_account_id,
             ]);
-            
+
             return $newAccount;
         } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error("Error creating chart of account for client: " . $e->getMessage());
+            \Illuminate\Support\Facades\Log::error('Error creating chart of account for client: '.$e->getMessage());
             throw $e;
         }
     }
-    
+
     /**
      * Get client display name for account creation
      */
     private function getClientDisplayName($clientData)
     {
         // if (isset($clientData['type']) && $clientData['type'] === 'Individual') {
-            return $clientData['full_name'] ?? $clientData['name'] ?? 'Individual Client';
+        return $clientData['full_name'] ?? $clientData['name'] ?? 'Individual Client';
         // } else {
         //     return $clientData['business_name'] ?? $clientData['company_name'] ?? 'Business Client';
         // }
     }
-    
+
     /**
      * Generate unique account code
      */
@@ -1398,33 +1420,34 @@ ORDER BY `date`");
         try {
             $branchId = Auth::user()->default_branch_id ?? null;
             $mainAccount = \App\Models\ChartOfAccount::forBranch($branchId)->find($mainAccountId);
-            if (!$mainAccount) {
-                throw new \Exception("Main account not found");
+            if (! $mainAccount) {
+                throw new \Exception('Main account not found');
             }
-            
+
             $baseCode = $mainAccount->code;
             $existingCodes = \App\Models\ChartOfAccount::forBranch($branchId)
-                ->where('code', 'like', $baseCode . '-%')
+                ->where('code', 'like', $baseCode.'-%')
                 ->pluck('code')
                 ->toArray();
-            
+
             $counter = 1;
-            $newCode = $baseCode . '-' . str_pad($counter, 3, '0', STR_PAD_LEFT);
-            
+            $newCode = $baseCode.'-'.str_pad($counter, 3, '0', STR_PAD_LEFT);
+
             while (in_array($newCode, $existingCodes)) {
                 $counter++;
-                $newCode = $baseCode . '-' . str_pad($counter, 3, '0', STR_PAD_LEFT);
+                $newCode = $baseCode.'-'.str_pad($counter, 3, '0', STR_PAD_LEFT);
             }
-            
+
             return $newCode;
         } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error("Error generating account code: " . $e->getMessage());
+            \Illuminate\Support\Facades\Log::error('Error generating account code: '.$e->getMessage());
             // Fallback code
             $timestamp = time() % 1000000;
-            return 'CLI-' . $timestamp;
+
+            return 'CLI-'.$timestamp;
         }
     }
-    
+
     /**
      * Get Asset account type ID
      */
@@ -1432,9 +1455,11 @@ ORDER BY `date`");
     {
         try {
             $assetType = \App\Models\ChartOfAccountType::where('name', 'Asset')->first();
+
             return $assetType ? $assetType->id : 1; // Default to first type if Asset not found
         } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error("Error getting Asset account type: " . $e->getMessage());
+            \Illuminate\Support\Facades\Log::error('Error getting Asset account type: '.$e->getMessage());
+
             return 1; // Default fallback
         }
     }
@@ -1447,12 +1472,12 @@ ORDER BY `date`");
         try {
             $request->validate([
                 'name' => 'required|string|max:150',
-                'routing_type' => 'required|in:per_each,main_account_per_each'
+                'routing_type' => 'required|in:per_each,main_account_per_each',
             ]);
 
             // Get the client
             $client = Client::where('slug', $slug)->first();
-            if (!$client) {
+            if (! $client) {
                 return $this->responseWithError('Client not found');
             }
 
@@ -1461,7 +1486,7 @@ ORDER BY `date`");
                 ->where('is_active', true)
                 ->first();
 
-            if (!$routingSetting) {
+            if (! $routingSetting) {
                 return $this->responseWithError('Client account routing is not configured');
             }
 
@@ -1489,11 +1514,11 @@ ORDER BY `date`");
 
             return $this->responseWithSuccess('Chart of account created successfully', [
                 'account' => $newAccount,
-                'client' => $client->fresh()
+                'client' => $client->fresh(),
             ]);
 
         } catch (\Exception $e) {
-            return $this->responseWithError('Failed to create chart of account: ' . $e->getMessage());
+            return $this->responseWithError('Failed to create chart of account: '.$e->getMessage());
         }
     }
 
@@ -1506,12 +1531,12 @@ ORDER BY `date`");
     {
         // Get client prefix from general settings
         $clientPrefix = getGeneralSettingsInfo()['clientPrefix'] ?? 'AC';
-        
+
         // Get the last client to determine the next number
-        $lastClient = Client::where('client_id', 'like', $clientPrefix . '%')
-            ->orderByRaw('CAST(SUBSTRING(client_id, ' . (strlen($clientPrefix) + 1) . ') AS UNSIGNED) DESC')
+        $lastClient = Client::where('client_id', 'like', $clientPrefix.'%')
+            ->orderByRaw('CAST(SUBSTRING(client_id, '.(strlen($clientPrefix) + 1).') AS UNSIGNED) DESC')
             ->first();
-        
+
         if ($lastClient) {
             // Extract the numeric part from the last client_id
             $lastNumber = (int) substr($lastClient->client_id, strlen($clientPrefix));
@@ -1520,8 +1545,8 @@ ORDER BY `date`");
             // If no clients exist, start with 1
             $nextNumber = 1;
         }
-        
+
         // Format the number with leading zeros (e.g., 001, 002, etc.)
-        return $clientPrefix . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        return $clientPrefix.str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
     }
 }
