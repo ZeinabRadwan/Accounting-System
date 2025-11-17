@@ -24,10 +24,10 @@ class SupplierStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required_if:type,Individual', 'nullable', 'string', 'max:255'],
+            'name' => ['nullable', 'required_if:type,Individual', 'string', 'max:255'],
             'phoneNumber' => ['required', 'string', 'max:20', 'min:3'],
             'email' => ['nullable', 'required_if:isSendEmail,true', 'email', 'max:255', 'min:3', 'unique:suppliers,email'],
-            'companyName' => ['required_if:type,Company', 'nullable', 'string', 'max:100', 'min:2'],
+            'companyName' => ['nullable', 'required_if:type,Company', 'string', 'max:100', 'min:2'],
             'type' => ['required', 'string', 'in:Company,Individual'],
             'address' => ['nullable', 'string', 'max:255'],
         ];

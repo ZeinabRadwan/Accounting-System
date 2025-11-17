@@ -332,7 +332,25 @@
                       " @change="calculateSum" @keyup="calculateSum" />
                   <has-error :form="form" field="discount" />
                 </div>
-                <div class="form-group col-md-6 col-xl-3">
+                <!-- Transport Cost Fields - Show based on supplier tax status -->
+                <div v-if="isSupplierTaxable" class="form-group col-md-6 col-xl-3">
+                  <label for="transportTaxableCost">{{
+                    $t("Taxable Transport Cost")
+                  }}</label>
+                  <input id="transportTaxableCost" v-model="form.transportTaxableCost" type="number" step="any" min="0"
+                    class="form-control" :class="{ 'is-invalid': form.errors.has('transportTaxableCost') }" name="transportTaxableCost"
+                    :placeholder="$t('Enter transport cost')
+                        " @change="calculateSum" @keyup="calculateSum" />
+                  <has-error :form="form" field="transportTaxableCost" />
+                </div>
+                <div v-if="isSupplierTaxable" class="form-group col-md-6 col-xl-3">
+                  <label for="transportVatAmount">{{
+                    $t("Transport VAT Amount")
+                  }}</label>
+                  <input id="transportVatAmount" v-model="form.transportVatAmount" type="number" step="any" 
+                    class="form-control" name="transportVatAmount" readonly />
+                </div>
+                <div v-else class="form-group col-md-6 col-xl-3">
                   <label for="transportCost">{{
                     $t("Transport Cost")
                   }}</label>
@@ -540,6 +558,8 @@ export default {
       netTotal: 0,
       discount: "",
       transportCost: "",
+      transportTaxableCost: "",
+      transportVatAmount: 0,
       account: "",
       availableBalance: "",
       totalProductTax: 0,
@@ -591,6 +611,33 @@ export default {
       console.log('========================');
       return this.appInfo && this.appInfo.country === 'SA'
     },
+    // Check if supplier is taxable (has tax_status === 'taxable' and tax_registration_number)
+    isSupplierTaxable() {
+      if (!this.form.supplier) {
+        return false;
+      }
+      
+      // Support both camelCase and snake_case
+      const taxStatus = this.form.supplier.tax_status || this.form.supplier.taxStatus;
+      const taxRegNumber = this.form.supplier.tax_registration_number || 
+                          this.form.supplier.taxRegistrationNumber ||
+                          this.form.supplier.tax_registrationNumber;
+      
+      const isTaxable = taxStatus === 'taxable' && 
+                       taxRegNumber && 
+                       taxRegNumber.length > 0;
+      
+      // Debug log
+      console.log('isSupplierTaxable check:', {
+        supplier: this.form.supplier.name,
+        tax_status: taxStatus,
+        tax_registration_number: taxRegNumber,
+        isTaxable: isTaxable,
+        supplierData: this.form.supplier
+      });
+      
+      return isTaxable;
+    },
   },
   watch: {
     appInfo: {
@@ -628,6 +675,11 @@ export default {
     },
     // Watch for changes in transport cost to update Net Total
     'form.transportCost': {
+      handler() {
+        this.updateNetTotal();
+      }
+    },
+    'form.transportTaxableCost': {
       handler() {
         this.updateNetTotal();
       }
@@ -1017,11 +1069,35 @@ export default {
       // Calculate Total with VAT (sum of all individual "Total with VAT" values)
       let totalWithVAT = this.getTotalWithVATSum();
       
-      // Net Total = Total with VAT + Transport cost (if transport cost is empty, Net Total = Total with VAT)
-      this.form.netTotal = Number((
-        totalWithVAT + 
-        Number(this.form.transportCost || 0)
-      ).toFixed(2));
+      // Calculate transport costs
+      let transportTotal = 0;
+      
+      if (this.isSupplierTaxable) {
+        // For taxable suppliers: always calculate VAT
+        const transportTaxable = Number(this.form.transportTaxableCost || 0);
+        
+        // Get default VAT rate for transport (use first VAT rate or 15% default)
+        let vatRate = 15; // Default VAT rate
+        if (this.taxes && this.taxes.length > 0) {
+          vatRate = this.taxes[0].rate || 15;
+        }
+        
+        // Calculate VAT on transport cost
+        const transportVAT = transportTaxable * (vatRate / 100);
+        
+        // Store VAT amount for display
+        this.form.transportVatAmount = Number(transportVAT.toFixed(2));
+        
+        // Total transport = transport cost + VAT
+        transportTotal = transportTaxable + transportVAT;
+      } else {
+        // For non-taxable suppliers: use simple transport cost
+        transportTotal = Number(this.form.transportCost || 0);
+        this.form.transportVatAmount = 0;
+      }
+      
+      // Net Total = Total with VAT + Transport cost
+      this.form.netTotal = Number((totalWithVAT + transportTotal).toFixed(2));
     },
 
     // Helper method to find matching VAT rate

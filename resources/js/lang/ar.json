@@ -3801,5 +3801,7 @@
 "City is required for taxable clients.": "المدينة مطلوبة للعملاء المكلفين بالضريبة.",
 "City is required for taxable suppliers.": "المدينة مطلوبة للموردين المكلفين بالضريبة.",
 "Country is required for taxable clients.": "البلد مطلوب للعملاء المكلفين بالضريبة.",
-"Country is required for taxable suppliers.": "البلد مطلوب للموردين المكلفين بالضريبة."
+"Country is required for taxable suppliers.": "البلد مطلوب للموردين المكلفين بالضريبة.",
+"Taxable Transport Cost": "تكلفة النقل ضريبية",
+"Transport VAT Amount": "مبلغ الضريبة لتكلفة النقل"
 }

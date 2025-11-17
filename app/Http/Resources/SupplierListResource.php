@@ -27,6 +27,8 @@ class SupplierListResource extends JsonResource
             'image' => getAvatarWithFallback($this->image_path, 'suppliers'),
             'type' => $this->type,
             'chart_of_account_id' => $this->chart_of_account_id,
+            'tax_status' => $this->tax_status,
+            'tax_registration_number' => $this->tax_registration_number,
         ];
     }
 }

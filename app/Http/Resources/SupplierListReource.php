@@ -26,6 +26,9 @@ class SupplierListReource extends JsonResource
             'status' => (int) $this->status,
             'image' => $this->image_path ? $this->image_path : '',
             'type' => $this->type,
+            'tax_status' => $this->tax_status,
+            'tax_registration_number' => $this->tax_registration_number,
+            'chart_of_account_id' => $this->chart_of_account_id,
         ];
     }
 }

@@ -60,10 +60,10 @@ class StoreSupplierRequest extends BaseRequest
         // Build rules array
         $rules = [
             // Required fields
-            'name' => 'required_if:type,Individual|nullable|string|max:255',
+            'name' => 'nullable|required_if:type,Individual|string|max:255',
             'phoneNumber' => 'required|string|max:20|min:3',
             'email' => 'nullable|email|max:255|min:3|unique:suppliers,email',
-            'companyName' => 'required_if:type,Company|nullable|string|max:100|min:2',
+            'companyName' => 'nullable|required_if:type,Company|string|max:100|min:2',
             'address' => 'nullable|string|max:255',
             'type' => 'required|string|in:Company,Individual',
             'chartOfAccountId' => 'nullable|integer|exists:chart_of_accounts,id',
@@ -137,6 +137,8 @@ class StoreSupplierRequest extends BaseRequest
     {
         return [
             'phoneNumber.required' => 'Mobile number is required.',
+            'name.required_if' => 'The name field is required when type is Individual.',
+            'companyName.required_if' => 'The company name field is required when type is Company.',
             'chartOfAccountId.exists' => 'Selected Chart of Account is invalid.',
             'email.unique' => 'This email address is already taken.',
             'attachments.*.file' => 'Invalid file format.',

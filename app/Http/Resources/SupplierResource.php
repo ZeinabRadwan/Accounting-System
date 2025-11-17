@@ -23,13 +23,15 @@ class SupplierResource extends JsonResource
             'phoneNumber' => $this->phone_number ?: $this->phone_legacy,
             'companyName' => $this->company_name,
             'type' => $this->type,
+            'tax_status' => $this->tax_status,
             'taxRegistrationNumber' => $this->tax_registration_number,
+            'tax_registration_number' => $this->tax_registration_number,
             'address' => $this->address,
             'status' => (int) $this->status,
             'image' => getAvatarWithFallback($this->image_path, 'suppliers'),
             'image_path' => $this->image_path,
             'chart_of_account_id' => $this->chart_of_account_id,
-            
+
             // New fields for enhanced supplier data
             'code_number' => $this->code_number,
             'notes' => $this->notes,
@@ -53,15 +55,15 @@ class SupplierResource extends JsonResource
             'chartOfAccount' => function () {
                 try {
                     // Check if the relationship is loaded and exists
-                    if (!$this->relationLoaded('chartOfAccount')) {
+                    if (! $this->relationLoaded('chartOfAccount')) {
                         return null;
                     }
-                    
+
                     $chartOfAccount = $this->chartOfAccount;
-                    if (!$chartOfAccount || !is_object($chartOfAccount)) {
+                    if (! $chartOfAccount || ! is_object($chartOfAccount)) {
                         return null;
                     }
-                    
+
                     // Safely get the ID
                     $id = null;
                     try {
@@ -72,7 +74,7 @@ class SupplierResource extends JsonResource
                     } catch (\Exception $e) {
                         $id = null;
                     }
-                    
+
                     // Safely get the name
                     $name = '';
                     try {
@@ -81,7 +83,7 @@ class SupplierResource extends JsonResource
                     } catch (\Exception $e) {
                         $name = '';
                     }
-                    
+
                     // Safely get the code
                     $code = '';
                     try {
@@ -90,7 +92,7 @@ class SupplierResource extends JsonResource
                     } catch (\Exception $e) {
                         $code = '';
                     }
-                    
+
                     // Safely get the type name
                     $typeName = 'Unknown';
                     try {
@@ -103,14 +105,14 @@ class SupplierResource extends JsonResource
                     } catch (\Exception $e) {
                         $typeName = 'Unknown';
                     }
-                    
+
                     return [
                         'id' => $id,
                         'name' => $name,
                         'code' => $code,
-                        'type' => $typeName
+                        'type' => $typeName,
                     ];
-                    
+
                 } catch (\Exception $e) {
                     return null;
                 }
