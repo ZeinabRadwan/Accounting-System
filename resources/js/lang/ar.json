@@ -4572,5 +4572,17 @@
 "Debit Note Details" : "تفاصيل الاشعار المدين",
 "Name (Arabic)": "الاسم (عربي)",
 "Enter cost center name in Arabic": "أدخل اسم مركز التكلفة بالعربية",
-"An error occurred": "حدث خطأ"
+"An error occurred": "حدث خطأ",
+"Tax Status" : "حالة الضريبة",
+"Taxable" : "مكلف بالضريبة",
+"Non-Taxable" : "غير مكلف بالضريبة",
+"Please select the tax status for this client. Taxable clients require additional information." : "يرجى اختيار حالة الضريبة لهذا العميل. العملاء المكلفون بالضريبة يتطلبون معلومات إضافية.",
+"Client is subject to tax. Tax registration number and commercial register are required." : "العميل خاضع للضريبة. الرقم الضريبي والسجل التجاري مطلوبان.",
+"Client is not subject to tax. Tax information is optional." : "العميل غير خاضع للضريبة. معلومات الضريبة اختيارية.",
+"Tax Information (Required for Taxable Clients)" : "معلومات الضريبة (مطلوبة للعملاء المكلفين بالضريبة)",
+"Commercial Register" : "السجل التجاري",
+"Enter commercial register number" : "أدخل رقم السجل التجاري",
+"Tax Information (Required for Taxable Suppliers)" : "معلومات الضريبة (مطلوبة للموردين المكلفين بالضريبة)",
+"Tax Information (Required for Taxable Clients)" : "معلومات الضريبة (مطلوبة للعملاء المكلفين بالضريبة)",
+"Tax Information (Required for Taxable Suppliers)" : "معلومات الضريبة (مطلوبة للموردين المكلفين بالضريبة)"
 }

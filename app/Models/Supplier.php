@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class Supplier extends Model
 {
-    use Sluggable, HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, Notifiable, Sluggable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -23,13 +23,13 @@ class Supplier extends Model
         'supplier_id',
         'email',
         'company_name',
-        
+
         'status',
         'image_path',
         'tax_registration_number',
         'type',
         'chart_of_account_id',
-        
+
         // New fields
         'code_number',
         'notes',
@@ -46,8 +46,16 @@ class Supplier extends Model
         'postal_code',
         'country',
         'neighbourhood',
+        // Saudi National Address fields
+        'building_number',
+        'street_number',
+        'district_number',
+        'unit_number',
+        'additional_number',
         'commercial_register',
         'tax_card',
+        // Tax status
+        'tax_status',
         'attachments',
         'is_send_email',
         'is_send_sms',
@@ -60,22 +68,34 @@ class Supplier extends Model
     public function getCompleteAddressAttribute()
     {
         $addressParts = [];
-        
-        if ($this->street_address1) $addressParts[] = $this->street_address1;
-        if ($this->street_address2) $addressParts[] = $this->street_address2;
-        if ($this->country) $addressParts[] = $this->country;
-        if ($this->state) $addressParts[] = $this->state;
-        if ($this->city) $addressParts[] = $this->city;
-        if ($this->neighbourhood) $addressParts[] = $this->neighbourhood;
-        if ($this->postal_code) $addressParts[] = $this->postal_code;
-        
+
+        if ($this->street_address1) {
+            $addressParts[] = $this->street_address1;
+        }
+        if ($this->street_address2) {
+            $addressParts[] = $this->street_address2;
+        }
+        if ($this->country) {
+            $addressParts[] = $this->country;
+        }
+        if ($this->state) {
+            $addressParts[] = $this->state;
+        }
+        if ($this->city) {
+            $addressParts[] = $this->city;
+        }
+        if ($this->neighbourhood) {
+            $addressParts[] = $this->neighbourhood;
+        }
+        if ($this->postal_code) {
+            $addressParts[] = $this->postal_code;
+        }
+
         return implode(', ', $addressParts);
     }
 
     /**
      * Return the sluggable configuration array for this model.
-     *
-     * @return array
      */
     public function sluggable(): array
     {
@@ -93,6 +113,7 @@ class Supplier extends Model
         if (isset($this->purchases)) {
             $total = $this->purchases->where('status', 1)->sum('calculated_total');
         }
+
         return $total;
     }
 
@@ -104,9 +125,10 @@ class Supplier extends Model
             $total = $this->purchases->where('status', 1)->sum(function ($purchase) {
                 $costOfReturn = isset($purchase->purchaseReturn) ? $purchase->purchaseReturn->total_return : 0;
 
-                return  $costOfReturn;
+                return $costOfReturn;
             });
         }
+
         return $total;
     }
 
@@ -114,6 +136,7 @@ class Supplier extends Model
     public function purTotalDiscount()
     {
         $totalDiscount = $this->purchases->sum('discount');
+
         return $totalDiscount > 0 ? $totalDiscount : 0;
     }
 
@@ -121,6 +144,7 @@ class Supplier extends Model
     public function purTotalTransport()
     {
         $totalTransport = $this->purchases->sum('transport');
+
         return $totalTransport > 0 ? $totalTransport : 0;
     }
 
@@ -128,6 +152,7 @@ class Supplier extends Model
     public function purTotalTax()
     {
         $totalTax = $this->purchases->sum('calculated_tax');
+
         return $totalTax > 0 ? $totalTax : 0;
     }
 
@@ -138,6 +163,7 @@ class Supplier extends Model
         if ($this->purchasePayments) {
             $totalPaid = $this->purchasePayments->sum('amount');
         }
+
         return $totalPaid;
     }
 
@@ -148,6 +174,7 @@ class Supplier extends Model
         if (isset($this->purchases)) {
             $due = $this->purchases->where('status', 1)->sum('calculated_due');
         }
+
         return $due;
     }
 
@@ -159,6 +186,7 @@ class Supplier extends Model
         if (isset($paid)) {
             $totalPaid = $paid->where('status', 1)->sum('amount');
         }
+
         return $totalPaid;
     }
 
@@ -170,6 +198,7 @@ class Supplier extends Model
         if (isset($dues)) {
             $totalDue = $dues->where('status', 1)->sum('amount');
         }
+
         return $totalDue;
     }
 
@@ -211,7 +240,6 @@ class Supplier extends Model
         return $this->hasMany(NonPurchasePayment::class, 'supplier_id')->where('type', 1);
     }
 
-
     public function routeNotificationForTwilio()
     {
         return $this->phone_number;
@@ -247,21 +275,21 @@ class Supplier extends Model
     public function ensureChartOfAccountLoaded()
     {
         // If no chart of account is assigned, assign one
-        if (!$this->chart_of_account_id) {
+        if (! $this->chart_of_account_id) {
             $supplierData = [
-                'type' => $this->type ?? 'Company'
+                'type' => $this->type ?? 'Company',
             ];
             $supplierData = self::assignDefaultChartOfAccount($supplierData);
             if (isset($supplierData['chart_of_account_id'])) {
                 $this->update(['chart_of_account_id' => $supplierData['chart_of_account_id']]);
             }
         }
-        
+
         // Load the relationship if not already loaded
-        if (!$this->relationLoaded('chartOfAccount')) {
+        if (! $this->relationLoaded('chartOfAccount')) {
             $this->load('chartOfAccount');
         }
-        
+
         return $this;
     }
 
@@ -278,7 +306,7 @@ class Supplier extends Model
      */
     public function isChartOfAccountConnected()
     {
-        return !is_null($this->chart_of_account_id);
+        return ! is_null($this->chart_of_account_id);
     }
 
     /**
@@ -286,9 +314,10 @@ class Supplier extends Model
      */
     public function getChartOfAccountValidationMessage()
     {
-        if (!$this->isChartOfAccountConnected()) {
+        if (! $this->isChartOfAccountConnected()) {
             return 'Supplier must be connected to a Chart of Account for journal entries.';
         }
+
         return null;
     }
 
@@ -304,7 +333,7 @@ class Supplier extends Model
 
         // Auto-assign based on supplier type or other criteria
         $defaultAccount = null;
-        
+
         if (isset($supplierData['type'])) {
             switch ($supplierData['type']) {
                 case 'Company':
@@ -325,14 +354,14 @@ class Supplier extends Model
         }
 
         // Fallback to any Accounts Payable account
-        if (!$defaultAccount) {
+        if (! $defaultAccount) {
             $defaultAccount = \App\Models\ChartOfAccount::where('is_active', true)
                 ->where('name', 'like', '%Accounts Payable%')
                 ->first();
         }
 
         // Final fallback to any active account
-        if (!$defaultAccount) {
+        if (! $defaultAccount) {
             $defaultAccount = \App\Models\ChartOfAccount::where('is_active', true)->first();
         }
 

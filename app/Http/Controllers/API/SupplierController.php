@@ -142,6 +142,7 @@ class SupplierController extends Controller
                 'status' => $request->status,
                 'image_path' => $imageName,
                 'type' => $request->type,
+                'tax_status' => $request->taxStatus ?? $request->tax_status ?? 'non_taxable',
                 'chart_of_account_id' => $request->chartOfAccountId,
 
                 // New fields
@@ -160,6 +161,12 @@ class SupplierController extends Controller
                 'postal_code' => $request->postalCode,
                 'country' => $request->country,
                 'neighbourhood' => $request->neighbourhood,
+                // Saudi National Address fields
+                'building_number' => $request->buildingNumber,
+                'street_number' => $request->streetNumber,
+                'district_number' => $request->districtNumber,
+                'unit_number' => $request->unitNumber,
+                'additional_number' => $request->additionalNumber,
                 'commercial_register' => $request->commercialRegister,
                 'tax_card' => $request->taxCard,
                 'attachments' => $request->attachments ? json_encode($request->attachments) : null,
@@ -326,6 +333,7 @@ class SupplierController extends Controller
                 'company_name' => $request->companyName,
                 'tax_registration_number' => $request->taxRegistrationNumber,
                 'type' => $request->type,
+                'tax_status' => $request->taxStatus ?? $request->tax_status ?? $supplier->tax_status ?? 'non_taxable',
                 'status' => $request->status,
                 'image_path' => $imageName,
                 'chart_of_account_id' => $request->chartOfAccountId,
@@ -346,6 +354,12 @@ class SupplierController extends Controller
                 'postal_code' => $request->postalCode,
                 'country' => $request->country,
                 'neighbourhood' => $request->neighbourhood,
+                // Saudi National Address fields
+                'building_number' => $request->buildingNumber,
+                'street_number' => $request->streetNumber,
+                'district_number' => $request->districtNumber,
+                'unit_number' => $request->unitNumber,
+                'additional_number' => $request->additionalNumber,
                 'commercial_register' => $request->commercialRegister,
                 'tax_card' => $request->taxCard,
                 'attachments' => $request->attachments ? json_encode($request->attachments) : null,
