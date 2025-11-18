@@ -171,16 +171,20 @@ export default {
         printTemplateUrl() {
             // Create a dynamic print template URL for supplier payable report
             const params = new URLSearchParams();
+            
+            // Always add token first if available
+            const token = this.$store.getters['auth/token'];
+            if (token) {
+                params.append('token', token);
+            }
+            
+            // Add query term if exists
             if (this.query) {
                 params.append('term', this.query);
             }
-            // Add token to URL
-            const token = this.$store.getters['auth/token'];
-            if (token) {
-              params.append('token', token);
-            }
             
-            return `/print/reports/supplier-payable-report?${params.toString()}`;
+            const queryString = params.toString();
+            return `/print/reports/supplier-payable-report${queryString ? '?' + queryString : ''}`;
         },
     },
     watch: {
@@ -250,31 +254,39 @@ export default {
         // download PDF
         downloadPDF() {
             const params = new URLSearchParams();
+            
+            // Always add token first if available
+            const token = this.$store.getters['auth/token'];
+            if (token) {
+                params.append('token', token);
+            }
+            
+            // Add query term if exists
             if (this.query) {
                 params.append('term', this.query);
             }
-            // Add token to URL
-            const token = this.$store.getters['auth/token'];
-            if (token) {
-              params.append('token', token);
-            }
             
-            window.location.href = `/print/reports/supplier-payable-report/pdf?${params.toString()}`;
+            const queryString = params.toString();
+            window.location.href = `/print/reports/supplier-payable-report/pdf${queryString ? '?' + queryString : ''}`;
         },
 
         // preview PDF
         previewPDF() {
             const params = new URLSearchParams();
+            
+            // Always add token first if available
+            const token = this.$store.getters['auth/token'];
+            if (token) {
+                params.append('token', token);
+            }
+            
+            // Add query term if exists
             if (this.query) {
                 params.append('term', this.query);
             }
-            // Add token to URL
-            const token = this.$store.getters['auth/token'];
-            if (token) {
-              params.append('token', token);
-            }
             
-            window.location.href = `/print/reports/supplier-payable-report/preview?${params.toString()}`;
+            const queryString = params.toString();
+            window.location.href = `/print/reports/supplier-payable-report/preview${queryString ? '?' + queryString : ''}`;
         },
 
         async print() {

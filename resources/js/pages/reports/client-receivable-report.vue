@@ -240,16 +240,20 @@ export default {
     printTemplateUrl() {
       // Create a dynamic print template URL for client receivable report
       const params = new URLSearchParams();
-      if (this.query) {
-        params.append('term', this.query);
-      }
-      // Add token to URL
+      
+      // Always add token first if available
       const token = this.$store.getters['auth/token'];
       if (token) {
         params.append('token', token);
       }
       
-      return `/print/reports/client-receivable-report?${params.toString()}`;
+      // Add query term if exists
+      if (this.query) {
+        params.append('term', this.query);
+      }
+      
+      const queryString = params.toString();
+      return `/print/reports/client-receivable-report${queryString ? '?' + queryString : ''}`;
     },
   },
   watch: {
@@ -318,31 +322,39 @@ export default {
     // download PDF
     downloadPDF() {
       const params = new URLSearchParams();
-      if (this.query) {
-        params.append('term', this.query);
-      }
-      // Add token to URL
+      
+      // Always add token first if available
       const token = this.$store.getters['auth/token'];
       if (token) {
         params.append('token', token);
       }
       
-      window.location.href = `/print/reports/client-receivable-report/pdf?${params.toString()}`;
+      // Add query term if exists
+      if (this.query) {
+        params.append('term', this.query);
+      }
+      
+      const queryString = params.toString();
+      window.location.href = `/print/reports/client-receivable-report/pdf${queryString ? '?' + queryString : ''}`;
     },
 
     // preview PDF
     previewPDF() {
       const params = new URLSearchParams();
-      if (this.query) {
-        params.append('term', this.query);
-      }
-      // Add token to URL
+      
+      // Always add token first if available
       const token = this.$store.getters['auth/token'];
       if (token) {
         params.append('token', token);
       }
       
-      window.location.href = `/print/reports/client-receivable-report/preview?${params.toString()}`;
+      // Add query term if exists
+      if (this.query) {
+        params.append('term', this.query);
+      }
+      
+      const queryString = params.toString();
+      window.location.href = `/print/reports/client-receivable-report/preview${queryString ? '?' + queryString : ''}`;
     },
 
     // print table

@@ -1514,17 +1514,22 @@ class ReportController extends Controller
         $toDateRaw = $request->input('toDate') ?? $request->toDate;
 
         // Parse dates from ISO 8601 format to date-only format (YYYY-MM-DD) for DATE column
+        // Clean date strings to remove timezone names in parentheses that cause parsing errors
         $fromDate = null;
         $toDate = null;
         if ($fromDateRaw) {
-            $fromDate = Carbon::parse($fromDateRaw)->format('Y-m-d');
+            // Remove timezone name in parentheses (e.g., "(Pakistan Standard Time)") to avoid double timezone specification
+            $cleanedDate = preg_replace('/\s*\([^)]+\)\s*$/', '', $fromDateRaw);
+            $fromDate = Carbon::parse($cleanedDate)->format('Y-m-d');
         }
         if ($toDateRaw) {
-            $toDate = Carbon::parse($toDateRaw)->format('Y-m-d');
+            // Remove timezone name in parentheses (e.g., "(Pakistan Standard Time)") to avoid double timezone specification
+            $cleanedDate = preg_replace('/\s*\([^)]+\)\s*$/', '', $toDateRaw);
+            $toDate = Carbon::parse($cleanedDate)->format('Y-m-d');
         }
 
         // Log for debugging
-     $log =   [
+        $log = [
             'categoryId' => $categoryId,
             'subCategoryId' => $subCategoryId,
             'fromDateRaw' => $fromDateRaw,
@@ -1533,7 +1538,6 @@ class ReportController extends Controller
             'toDate' => $toDate,
             'all_request' => $request->all(),
         ];
-       
 
         // Validate request - create category array for validation
         $categoryArray = $categoryId !== null ? ['id' => (int) $categoryId, 'name' => $categoryName ?? ''] : null;
@@ -1550,19 +1554,18 @@ class ReportController extends Controller
             'subCategory' => ($categoryId && $categoryId != 0) ? 'required' : 'nullable',
         ]);
 
-      
         $expenses = '';
 
         if ($categoryId !== null && $subCategoryId !== null) {
             if ($subCategoryId != 0) {
                 $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user')
-                  
+
                     ->where('sub_cat_id', $subCategoryId)
                     ->whereBetween('date', [$fromDate, $toDate])
                     ->get();
             } else {
                 $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount')
-                
+
                     ->whereBetween('date', [$fromDate, $toDate])
                     ->whereHas('expSubCategory', function ($newQuery) use ($categoryId) {
                         $newQuery->whereHas('expCategory', function ($newQuery) use ($categoryId) {
@@ -1573,12 +1576,10 @@ class ReportController extends Controller
             }
         } else {
             $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user')
-                
+
                 ->whereBetween('date', [$fromDate, $toDate])
                 ->get();
         }
-
-     
 
         return ExpenseResource::collection($expenses);
     }
@@ -1752,7 +1753,7 @@ class ReportController extends Controller
     }
 
     // return inventory report data
-    public function inventoryReport(Request $request,$user = null)
+    public function inventoryReport(Request $request, $user = null)
     {
         // validate request
         $this->validate($request, [
@@ -1875,7 +1876,7 @@ class ReportController extends Controller
     }
 
     // get supplier due reports
-    public function supplierDueReport(Request $request,$user = null)
+    public function supplierDueReport(Request $request, $user = null)
     {
         try {
             $user = $user ?? Auth::user();
@@ -1907,7 +1908,7 @@ class ReportController extends Controller
     }
 
     // get sales by user report
-    public function salesByUserReport(Request $request,$user = null)
+    public function salesByUserReport(Request $request, $user = null)
     {
         $this->validate($request, [
             'user' => 'required',
@@ -1939,7 +1940,7 @@ class ReportController extends Controller
     }
 
     // get sales collection by user report
-    public function collectionByUserReport(Request $request,$user = null)
+    public function collectionByUserReport(Request $request, $user = null)
     {
         $this->validate($request, [
             'user' => 'required',
@@ -2397,8 +2398,6 @@ class ReportController extends Controller
             // Determine which account to use for the report
             $reportAccountId = $subChartOfAccountId ?: $chartOfAccountId;
             $branchId = Auth::user()->default_branch_id ?? null;
-
-           
 
             // Get chart of account details
             $chartOfAccount = \App\Models\ChartOfAccount::forBranch($branchId)
