@@ -26292,20 +26292,20 @@ var map = {
 		856
 	],
 	"./purchase-order/create": [
-		80220,
-		220
+		60628,
+		628
 	],
 	"./purchase-order/create.vue": [
-		80220,
-		220
+		60628,
+		628
 	],
 	"./purchase-order/edit": [
-		78908,
-		8908
+		14975,
+		4975
 	],
 	"./purchase-order/edit.vue": [
-		78908,
-		8908
+		14975,
+		4975
 	],
 	"./purchase-order/index": [
 		70856,
@@ -26332,20 +26332,20 @@ var map = {
 		3148
 	],
 	"./purchases/create": [
-		59484,
-		9484
+		75057,
+		5057
 	],
 	"./purchases/create.vue": [
-		59484,
-		9484
+		75057,
+		5057
 	],
 	"./purchases/edit": [
-		12673,
-		2673
+		9512,
+		9512
 	],
 	"./purchases/edit.vue": [
-		12673,
-		2673
+		9512,
+		9512
 	],
 	"./purchases/index": [
 		33148,
@@ -26364,20 +26364,20 @@ var map = {
 		5073
 	],
 	"./purchases/returns/create": [
-		48194,
-		8194
+		81265,
+		1265
 	],
 	"./purchases/returns/create.vue": [
-		48194,
-		8194
+		81265,
+		1265
 	],
 	"./purchases/returns/edit": [
-		61688,
-		1688
+		8068,
+		8068
 	],
 	"./purchases/returns/edit.vue": [
-		61688,
-		1688
+		8068,
+		8068
 	],
 	"./purchases/returns/index": [
 		75073,
@@ -26548,20 +26548,20 @@ var map = {
 		3043
 	],
 	"./sales/invoices/create": [
-		95193,
-		5193
+		13242,
+		3242
 	],
 	"./sales/invoices/create.vue": [
-		95193,
-		5193
+		13242,
+		3242
 	],
 	"./sales/invoices/edit": [
-		71650,
-		1650
+		93321,
+		3321
 	],
 	"./sales/invoices/edit.vue": [
-		71650,
-		1650
+		93321,
+		3321
 	],
 	"./sales/invoices/index": [
 		83043,
@@ -26596,20 +26596,20 @@ var map = {
 		3459
 	],
 	"./sales/quotations/create": [
-		36073,
-		6073
+		34422,
+		4422
 	],
 	"./sales/quotations/create.vue": [
-		36073,
-		6073
+		34422,
+		4422
 	],
 	"./sales/quotations/edit": [
-		54466,
-		4466
+		70904,
+		904
 	],
 	"./sales/quotations/edit.vue": [
-		54466,
-		4466
+		70904,
+		904
 	],
 	"./sales/quotations/index": [
 		33459,
@@ -26620,12 +26620,12 @@ var map = {
 		3459
 	],
 	"./sales/quotations/invoice": [
-		12665,
-		2665
+		83418,
+		3418
 	],
 	"./sales/quotations/invoice.vue": [
-		12665,
-		2665
+		83418,
+		3418
 	],
 	"./sales/quotations/show": [
 		55232,
@@ -26644,28 +26644,28 @@ var map = {
 		7109
 	],
 	"./sales/returns/create": [
-		74728,
-		4728
+		38616,
+		8616
 	],
 	"./sales/returns/create.vue": [
-		74728,
-		4728
+		38616,
+		8616
 	],
 	"./sales/returns/edit": [
-		10966,
-		966
+		7151,
+		7151
 	],
 	"./sales/returns/edit.vue": [
-		10966,
-		966
+		7151,
+		7151
 	],
 	"./sales/returns/form": [
-		65025,
-		5025
+		74073,
+		4073
 	],
 	"./sales/returns/form.vue": [
-		65025,
-		5025
+		74073,
+		4073
 	],
 	"./sales/returns/index": [
 		77109,
@@ -26709,11 +26709,11 @@ var map = {
 	],
 	"./settings/payments": [
 		63321,
-		3321
+		5702
 	],
 	"./settings/payments.vue": [
 		63321,
-		3321
+		5702
 	],
 	"./settings/print-templates": [
 		8222,
