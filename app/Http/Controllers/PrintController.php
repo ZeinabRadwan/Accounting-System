@@ -2749,6 +2749,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
+        dd($user);
         
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
