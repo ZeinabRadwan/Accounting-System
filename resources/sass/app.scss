@@ -67731,7 +67731,21 @@ img.circle-img.circle-img--small {
 }
 
 [dir=rtl] .table .text-right {
-  text-align: left !important
+  text-align: right !important
+}
+
+[dir=rtl] #journal-entry .table th,
+[dir=rtl] #journal-entry .table td {
+  text-align: right !important
+}
+
+[dir=rtl] #journal-entry .row,
+[dir=rtl] #journal-entry .col-md-3,
+[dir=rtl] #journal-entry .col-12,
+[dir=rtl] #journal-entry .card-body,
+[dir=rtl] #journal-entry .mb-3,
+[dir=rtl] #journal-entry .mb-4 {
+  text-align: right !important
 }
 
 [dir=rtl] .card-header,
