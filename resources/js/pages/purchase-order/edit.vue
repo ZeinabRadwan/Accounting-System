@@ -380,16 +380,26 @@ export default {
       const item = this.form.selectedProducts[index];
       if (!item) return;
       const lineTotal = Number(((item.originalPrice || item.unitPrice) * item.qty).toFixed(2));
+      
+      // Set totalBeforeDiscount for ItemsTable component
+      item.totalBeforeDiscount = lineTotal;
+      
       let lineAfterDiscount;
       if (item.discountType === 'percentage') lineAfterDiscount = Number((lineTotal - (lineTotal * (item.discount || 0) / 100)).toFixed(2));
       else lineAfterDiscount = Number((lineTotal - (item.discountAmount || 0)).toFixed(2));
+      
+      // Set totalAfterDiscount for ItemsTable component
+      item.totalAfterDiscount = lineAfterDiscount;
+      
       let vatRate = 0;
       if (item.selectedVatRate && item.selectedVatRate.rate != null) vatRate = Number(item.selectedVatRate.rate);
       else if (item.taxRate != null) vatRate = Number(item.taxRate);
       if (isNaN(vatRate) || vatRate < 0) vatRate = 0;
-      item.productTax = Number((lineAfterDiscount * vatRate / 100).toFixed(2));
-      item.totalTax = item.productTax;
-      item.totalPrice = Number((lineAfterDiscount + item.productTax).toFixed(2));
+      // Calculate VAT on total after discount (for the entire quantity)
+      item.totalTax = Number((lineAfterDiscount * vatRate / 100).toFixed(2));
+      // productTax is VAT per unit (for display purposes)
+      item.productTax = item.qty > 0 ? Number((item.totalTax / item.qty).toFixed(2)) : 0;
+      item.totalPrice = Number((lineAfterDiscount + item.totalTax).toFixed(2));
     },
     getTotalAfterDiscount(item) {
       const total = (item.originalPrice || item.unitPrice) * item.qty;
@@ -406,7 +416,8 @@ export default {
     },
     getTotalWithVAT(item) {
       const totalAfterDiscount = this.getTotalAfterDiscount(item);
-      const vatAmount = item.productTax || 0;
+      // Use totalTax (VAT for entire quantity) not productTax (VAT per unit)
+      const vatAmount = item.totalTax || 0;
       return Number((totalAfterDiscount + vatAmount).toFixed(2));
     },
     getTotalWithVATSum() {
@@ -415,7 +426,10 @@ export default {
     },
     getTotalVATSum() {
       if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) return 0;
-      return this.form.selectedProducts.reduce((total, item) => Number((total + (item.productTax || 0)).toFixed(2)), 0);
+      return this.form.selectedProducts.reduce((total, item) => {
+        // Use totalTax (VAT for entire quantity) not productTax (VAT per unit)
+        return Number((total + (item.totalTax || 0)).toFixed(2));
+      }, 0);
     },
     getTotalDiscountSum() {
       if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) return 0;

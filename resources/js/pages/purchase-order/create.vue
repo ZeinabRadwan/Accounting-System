@@ -616,6 +616,8 @@ export default {
           totalTax: 0,
           unitCost: product.regularPrice,
           totalPrice: product.regularPrice * quantity,
+          totalBeforeDiscount: product.regularPrice * quantity, // For ItemsTable component
+          totalAfterDiscount: product.regularPrice * quantity, // For ItemsTable component
           // Include chart of account IDs for validation
           sales_account_id: product.sales_account_id,
           purchase_account_id: product.purchase_account_id,
@@ -729,6 +731,9 @@ export default {
         // 1. Line Item: Total (Before Discount)
         let total = Number(((item.originalPrice || item.unitPrice) * item.qty).toFixed(2));
         
+        // Set totalBeforeDiscount for ItemsTable component
+        item.totalBeforeDiscount = total;
+        
         // 2. Line Item: Total After Discount
         let totalAfterDiscount;
         if (item.discountType === "percentage") {
@@ -736,6 +741,9 @@ export default {
         } else {
           totalAfterDiscount = Number((total - (item.discountAmount || 0)).toFixed(2));
         }
+        
+        // Set totalAfterDiscount for ItemsTable component
+        item.totalAfterDiscount = totalAfterDiscount;
         
         // Get VAT rate
         let vatRate = 0;
@@ -751,8 +759,10 @@ export default {
         }
         
         // 3. Line Item: VAT Amount (always calculated on TotalAfterDiscount)
-        item.productTax = Number((totalAfterDiscount * vatRate / 100).toFixed(2));
-        item.totalTax = Number((item.productTax * item.qty).toFixed(2));
+        // Calculate VAT on total after discount (for the entire quantity)
+        item.totalTax = Number((totalAfterDiscount * vatRate / 100).toFixed(2));
+        // productTax is VAT per unit (for display purposes)
+        item.productTax = item.qty > 0 ? Number((item.totalTax / item.qty).toFixed(2)) : 0;
         
         // 4. Line Item: Total With VAT
         item.totalPrice = Number((totalAfterDiscount + item.totalTax).toFixed(2));
@@ -795,7 +805,8 @@ export default {
     // Helper method to get total with VAT for display (VAT + Total After Discount)
     getTotalWithVAT(item) {
       let totalAfterDiscount = this.getTotalAfterDiscount(item);
-      let vatAmount = item.productTax || 0;
+      // Use totalTax (VAT for entire quantity) not productTax (VAT per unit)
+      let vatAmount = item.totalTax || 0;
       return Number((totalAfterDiscount + vatAmount).toFixed(2));
     },
 
@@ -811,8 +822,9 @@ export default {
       if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
         return 0;
       }
+      // Sum of all item.totalPrice values (which is totalAfterDiscount + totalTax)
       return this.form.selectedProducts.reduce((total, item) => {
-        return Number((total + this.getTotalWithVAT(item)).toFixed(2));
+        return Number((total + (item.totalPrice || 0)).toFixed(2));
       }, 0);
     },
 
@@ -822,7 +834,8 @@ export default {
         return 0;
       }
       return this.form.selectedProducts.reduce((total, item) => {
-        return Number((total + (item.productTax || 0)).toFixed(2));
+        // Use totalTax (VAT for entire quantity) not productTax (VAT per unit)
+        return Number((total + (item.totalTax || 0)).toFixed(2));
       }, 0);
     },
 

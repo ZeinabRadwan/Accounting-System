@@ -577,6 +577,9 @@ export default {
             }
           }
         }
+        // Calculate total before discount for ItemsTable component
+        item.totalBeforeDiscount = Number((item.qty * item.unitPrice).toFixed(2))
+        
         item.productTax =
           item.taxType == 'Exclusive'
             ? item.unitPrice * (item.taxRate / 100)
@@ -586,6 +589,10 @@ export default {
           item.taxType == 'Exclusive'
             ? item.qty * item.unitPrice + item.totalTax
             : item.qty * item.unitPrice
+        
+        // Calculate total after discount for ItemsTable component
+        item.totalAfterDiscount = Number((item.totalBeforeDiscount - (item.discountAmount || 0)).toFixed(2))
+        
         item.unitCost =
           item.taxType == 'Exclusive'
             ? Number(item.unitPrice) + Number(item.productTax)
