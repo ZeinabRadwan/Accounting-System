@@ -2456,7 +2456,7 @@
 "Credit note added successfully": "تم إضافة الاشعار الدائن بنجاح",
 "Failed to auto-assign Purchase Account": "فشل في تعيين حساب المشتريات تلقائياً",
 "Select it manually": "الاختيار يدوياً",
-"Accounts will be assigned automatically based on your settings. Use the toggle switches below to manually select accounts for this product.": "سيتم تعيين الحسابات تلقائياً بناءً على إعداداتك. استخدم مفاتيح التبديل أدناه لتحديد الحسابات يدوياً لهذا المنتج.",
+"Accounts will be assigned automatically based on your settings.": "سيتم تعيين الحسابات تلقائياً بناءً على إعداداتك. استخدم مفاتيح التبديل أدناه لتحديد الحسابات يدوياً لهذا المنتج.",
 "Originally auto-assigned, but you can change it": "تم تعيينه تلقائياً في الأصل، ولكن يمكنك تغييره",
 "needs Purchase Account": "يحتاج إلى حساب مشتريات",
 "No Company": "لا توجد شركة",

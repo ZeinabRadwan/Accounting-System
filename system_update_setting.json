@@ -1,22 +1,12 @@
 {
-    "TechnicianEmail":  "update@websoft.sa",
-    "upg_update":  false,
-    "public_update":  true,
-    "run_migration":  [
-                          false,
-                          null
-                      ],
-    "run_seeder":  [
-                       false,
-                       "TenantVatRateSeeder",
-                       null
-                   ],
-    "run_command":  [
-                        false,
-                        null
-                    ],
-    "run_composer":  false,
-    "APP_DEBUG":  true,
-    "clear_logs":  true,
-    "run_migration_rollback":  false
+  "TechnicianEmail": "update@websoft.sa",
+  "upg_update": false,
+  "public_update": true,
+  "run_migration": [false, null],
+  "run_seeder": [false, "TenantVatRateSeeder", null],
+  "run_command": [false, null],
+  "run_composer": false,
+  "APP_DEBUG": true,
+  "clear_logs": true,
+  "run_migration_rollback": false
 }

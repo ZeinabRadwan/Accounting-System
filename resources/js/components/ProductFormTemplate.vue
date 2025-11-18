@@ -34,7 +34,7 @@
       <div class="card-header">
         <h5 class="section-title">
           <i class="fas fa-info-circle mr-2"></i>
-          {{ $t("Product Details") }} 
+          {{ $t("Product Details") }}
         </h5>
       </div>
       <div class="card-body">
@@ -103,7 +103,7 @@
             <div class="form-group">
               <label for="regularPrice">{{ $t("Price") }} <span class="required">*</span></label>
               <input id="regularPrice" v-model="form.regularPrice" type="number" step="any" min="0" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('regularPrice') }" name="regularPrice" 
+                :class="{ 'is-invalid': form.errors.has('regularPrice') }" name="regularPrice"
                 :placeholder="$t('Enter price')" @change="calculatePrice" @keyup="calculatePrice" />
               <has-error :form="form" field="regularPrice" />
             </div>
@@ -119,7 +119,7 @@
             <div class="form-group" style="display: none;">
               <label for="sellingPrice">{{ $t("Final Price") }}</label>
               <input id="sellingPrice" v-model="form.sellingPrice" type="number" class="form-control" readonly
-                :class="{ 'is-invalid': form.errors.has('sellingPrice') }" name="sellingPrice" 
+                :class="{ 'is-invalid': form.errors.has('sellingPrice') }" name="sellingPrice"
                 :placeholder="$t('Calculated automatically')" />
               <has-error :form="form" field="sellingPrice" />
             </div>
@@ -141,9 +141,9 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="openingStockCount">{{ $t("Opening Stock") }}</label>
-              <input id="openingStockCount" v-model="form.openingStockCount" type="number" step="any" min="0" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('openingStockCount') }" name="openingStockCount" 
-                :placeholder="$t('Enter opening stock')" />
+              <input id="openingStockCount" v-model="form.openingStockCount" type="number" step="any" min="0"
+                class="form-control" :class="{ 'is-invalid': form.errors.has('openingStockCount') }"
+                name="openingStockCount" :placeholder="$t('Enter opening stock')" />
               <has-error :form="form" field="openingStockCount" />
             </div>
           </div>
@@ -161,9 +161,9 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="openingStockUnitPrice">{{ $t("Purchase Price") }}</label>
-              <input id="openingStockUnitPrice" v-model="form.openingStockUnitPrice" type="number" step="any" min="0" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('openingStockUnitPrice') }" name="openingStockUnitPrice" 
-                :placeholder="$t('Enter purchase price')" />
+              <input id="openingStockUnitPrice" v-model="form.openingStockUnitPrice" type="number" step="any" min="0"
+                class="form-control" :class="{ 'is-invalid': form.errors.has('openingStockUnitPrice') }"
+                name="openingStockUnitPrice" :placeholder="$t('Enter purchase price')" />
               <has-error :form="form" field="openingStockUnitPrice" />
             </div>
           </div>
@@ -188,7 +188,7 @@
             <div class="col-12">
               <div class="alert alert-info d-flex align-items-center">
                 <i class="fas fa-info-circle mr-2"></i>
-                <span>{{ $t("Accounts will be assigned automatically based on your settings. Use the toggle switches below to manually select accounts for this product.") }}</span>
+                <span>{{ $t("Accounts will be assigned automatically based on your settings.") }}</span>
               </div>
             </div>
           </div>
@@ -202,17 +202,13 @@
                     {{ $t("Sales Account") }}
                     <span v-if="!isSalesAccountAutomatic || form.overrideSalesAccount" class="required">*</span>
                   </label>
-                  
+
                   <!-- Toggle Switch (shown when automatic routing is enabled) -->
                   <div v-if="isSalesAccountAutomatic" class="toggle-switch-container">
                     <label class="toggle-switch-label">
                       <span class="toggle-switch-wrapper">
-                        <input 
-                          type="checkbox" 
-                          v-model="form.overrideSalesAccount" 
-                          class="toggle-switch-input"
-                          @change="onOverrideSalesAccountChange"
-                        />
+                        <input type="checkbox" v-model="form.overrideSalesAccount" class="toggle-switch-input"
+                          @change="onOverrideSalesAccountChange" />
                         <span class="toggle-switch-slider"></span>
                       </span>
                       <span class="toggle-switch-text">
@@ -221,21 +217,14 @@
                     </label>
                   </div>
                 </div>
-                
+
                 <!-- Manual Selection (shown when override is checked or not automatic) -->
                 <div v-if="!isSalesAccountAutomatic || form.overrideSalesAccount" class="form-group">
                   <div class="d-flex align-items-center">
-                    <v-select
-                      v-model="form.salesAccountId"
-                      :options="chartOfAccounts"
-                      label="name"
-                      :reduce="option => option.id"
-                      :class="{ 'is-invalid': form.errors.has('salesAccountId') }"
-                      name="salesAccountId"
-                      :placeholder="$t('Select sales account')"
-                      class="flex-grow-1 mr-2"
-                      required
-                    />
+                    <v-select v-model="form.salesAccountId" :options="chartOfAccounts" label="name"
+                      :reduce="option => option.id" :class="{ 'is-invalid': form.errors.has('salesAccountId') }"
+                      name="salesAccountId" :placeholder="$t('Select sales account')" class="flex-grow-1 mr-2"
+                      required />
                   </div>
                   <has-error :form="form" field="salesAccountId" />
                 </div>
@@ -250,17 +239,13 @@
                     {{ $t("Purchase Account") }}
                     <span v-if="!isPurchaseAccountAutomatic || form.overridePurchaseAccount" class="required">*</span>
                   </label>
-                  
+
                   <!-- Toggle Switch (shown when automatic routing is enabled) -->
                   <div v-if="isPurchaseAccountAutomatic" class="toggle-switch-container">
                     <label class="toggle-switch-label">
                       <span class="toggle-switch-wrapper">
-                        <input 
-                          type="checkbox" 
-                          v-model="form.overridePurchaseAccount" 
-                          class="toggle-switch-input"
-                          @change="onOverridePurchaseAccountChange"
-                        />
+                        <input type="checkbox" v-model="form.overridePurchaseAccount" class="toggle-switch-input"
+                          @change="onOverridePurchaseAccountChange" />
                         <span class="toggle-switch-slider"></span>
                       </span>
                       <span class="toggle-switch-text">
@@ -269,21 +254,14 @@
                     </label>
                   </div>
                 </div>
-                
+
                 <!-- Manual Selection (shown when override is checked or not automatic) -->
                 <div v-if="!isPurchaseAccountAutomatic || form.overridePurchaseAccount" class="form-group">
                   <div class="d-flex align-items-center">
-                    <v-select
-                      v-model="form.purchaseAccountId"
-                      :options="chartOfAccounts"
-                      label="name"
-                      :reduce="option => option.id"
-                      :class="{ 'is-invalid': form.errors.has('purchaseAccountId') }"
-                      name="purchaseAccountId"
-                      :placeholder="$t('Select purchase account')"
-                      class="flex-grow-1 mr-2"
-                      required
-                    />
+                    <v-select v-model="form.purchaseAccountId" :options="chartOfAccounts" label="name"
+                      :reduce="option => option.id" :class="{ 'is-invalid': form.errors.has('purchaseAccountId') }"
+                      name="purchaseAccountId" :placeholder="$t('Select purchase account')" class="flex-grow-1 mr-2"
+                      required />
                   </div>
                   <has-error :form="form" field="purchaseAccountId" />
                 </div>
@@ -309,16 +287,9 @@
               <!-- Sales Account -->
               <div class="form-group">
                 <label for="salesAccountId">{{ $t("Sales Account") }} <span class="required">*</span></label>
-                <v-select
-                  v-model="form.salesAccountId"
-                  :options="chartOfAccounts"
-                  label="name"
-                  :reduce="option => option.id"
-                  :class="{ 'is-invalid': form.errors.has('salesAccountId') }"
-                  name="salesAccountId"
-                  :placeholder="$t('Select sales account')"
-                  required
-                >
+                <v-select v-model="form.salesAccountId" :options="chartOfAccounts" label="name"
+                  :reduce="option => option.id" :class="{ 'is-invalid': form.errors.has('salesAccountId') }"
+                  name="salesAccountId" :placeholder="$t('Select sales account')" required>
                   <template #option="{ name, code, type }">
                     <div>
                       <strong>{{ name }}</strong>
@@ -338,16 +309,9 @@
               <!-- Purchase Account -->
               <div class="form-group">
                 <label for="purchaseAccountId">{{ $t("Purchase Account") }} <span class="required">*</span></label>
-                <v-select
-                  v-model="form.purchaseAccountId"
-                  :options="chartOfAccounts"
-                  label="name"
-                  :reduce="option => option.id"
-                  :class="{ 'is-invalid': form.errors.has('purchaseAccountId') }"
-                  name="purchaseAccountId"
-                  :placeholder="$t('Select purchase account')"
-                  required
-                >
+                <v-select v-model="form.purchaseAccountId" :options="chartOfAccounts" label="name"
+                  :reduce="option => option.id" :class="{ 'is-invalid': form.errors.has('purchaseAccountId') }"
+                  name="purchaseAccountId" :placeholder="$t('Select purchase account')" required>
                   <template #option="{ name, code, type }">
                     <div>
                       <strong>{{ name }}</strong>
@@ -389,7 +353,7 @@
               <has-error :form="form" field="status" />
             </div>
           </div>
-          
+
           <div class="col-md-6">
             <div class="form-group">
               <label for="image">{{ $t("Image") }}</label>
@@ -401,7 +365,7 @@
                 </label>
               </div>
               <has-error :form="form" field="image" />
-              
+
               <!-- Image preview -->
               <div class="image-preview mt-2" v-if="url">
                 <img :src="url" class="img-fluid rounded" :alt="$t('Product Image')" style="max-height: 80px;" />
@@ -511,17 +475,17 @@ export default {
       this.$emit('on-override-purchase-account-change')
     },
     handleSaveClick() {
-      console.log('ProductFormTemplate: Save button clicked', { 
+      console.log('ProductFormTemplate: Save button clicked', {
         formBusy: this.form.busy,
         formErrors: this.form.errors.any(),
         formData: this.form.data()
       })
-      
+
       if (this.form.busy) {
         console.log('ProductFormTemplate: Form is busy, ignoring click')
         return
       }
-      
+
       this.submitForm()
     },
     submitForm() {
@@ -627,7 +591,7 @@ export default {
 .image-preview img {
   border: 1px solid #dee2e6;
   border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 /* Custom file input styling */
@@ -912,7 +876,7 @@ export default {
   position: relative;
 }
 
-.toggle-switch-label .toggle-switch-input:checked + .toggle-switch-slider {
+.toggle-switch-label .toggle-switch-input:checked+.toggle-switch-slider {
   transform: translate(24px, -50%);
 }
 
@@ -924,8 +888,8 @@ export default {
   white-space: nowrap;
 }
 
-.toggle-switch-input:checked ~ .toggle-switch-text,
-.toggle-switch-wrapper:has(.toggle-switch-input:checked) ~ .toggle-switch-text {
+.toggle-switch-input:checked~.toggle-switch-text,
+.toggle-switch-wrapper:has(.toggle-switch-input:checked)~.toggle-switch-text {
   color: #33a0d9;
   font-weight: 600;
 }
@@ -955,31 +919,31 @@ export default {
     flex-direction: column;
     gap: 0.5rem;
   }
-  
+
   .option-content {
     padding: 0.75rem 0.5rem;
     min-height: 60px;
   }
-  
+
   .option-content i {
     font-size: 1.25rem;
     margin-bottom: 0.4rem;
   }
-  
+
   .option-content span {
     font-size: 0.85rem;
   }
-  
+
   /* Mobile checkbox adjustments */
   .override-checkbox-container .form-check-label {
     min-height: 44px;
     padding: 0.6rem 0.8rem;
   }
-  
+
   .checkbox-text {
     font-size: 0.9rem;
   }
-  
+
   .form-check-input {
     width: 16px;
     height: 16px;

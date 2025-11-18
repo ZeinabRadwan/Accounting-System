@@ -136,8 +136,8 @@
                       @keyup="calculatePrice" @input="checkPurchasePriceWarning" @blur="checkPurchasePriceWarning" />
                     <has-error :form="form" field="regularPrice" />
                     <small v-if="showPurchasePriceWarning" class="text-warning d-block mt-1">
-                      <i class="fas fa-exclamation-triangle"></i> {{ $t("Warning: Purchase price is greater than selling
-                      price") }}
+                      <i class="fas fa-exclamation-triangle"></i>
+                      {{ $t("Warning: Purchase price is greater than selling price") }}
                     </small>
                   </div>
 
@@ -190,8 +190,8 @@
                       @blur="checkPurchasePriceWarning" />
                     <has-error :form="form" field="openingStockUnitPrice" />
                     <small v-if="showPurchasePriceWarning" class="text-warning d-block mt-1">
-                      <i class="fas fa-exclamation-triangle"></i> {{ $t("Warning: Purchase price is greater than selling
-                      price") }}
+                      <i class="fas fa-exclamation-triangle"></i>
+                      {{ $t("Warning: Purchase price is greater than selling price") }}
                     </small>
                   </div>
                 </div>
@@ -226,9 +226,9 @@
                 <div class="col-12">
                   <div class="alert alert-info d-flex align-items-center">
                     <i class="fas fa-info-circle mr-2"></i>
-                    <span>{{ $t("Accounts will be assigned automatically based on your settings. Use the toggle switches
-                      below
-                      to manually select accounts for this product.") }}</span>
+                    <span>
+                      {{ $t("Accounts will be assigned automatically based on your settings.") }}
+                    </span>
                   </div>
                 </div>
               </div>

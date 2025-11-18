@@ -8677,7 +8677,7 @@ var render = function render() {
     staticClass: "alert alert-info d-flex align-items-center"
   }, [_c('i', {
     staticClass: "fas fa-info-circle mr-2"
-  }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t("Accounts will be assigned automatically based on your settings. Use the toggle switches below to manually select accounts for this product.")))])])])]) : _vm._e(), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t("Accounts will be assigned automatically based on your settings.")))])])])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-md-6"
