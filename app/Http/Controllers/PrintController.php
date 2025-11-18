@@ -3066,9 +3066,12 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         try {
+            // Normalize request parameters from query string to match POST format
+            $normalizedRequest = $this->normalizeExpenseReportRequest($request);
+
             // Get expenses report data
             $reportController = new \App\Http\Controllers\API\ReportController();
-            $expensesData = $reportController->expenseReport($request);
+            $expensesData = $reportController->expenseReport($normalizedRequest);
 
             // Handle JsonResponse (the expenses API returns a collection resource)
             if ($expensesData instanceof \Illuminate\Http\JsonResponse) {
@@ -3124,9 +3127,12 @@ class PrintController extends Controller
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
 
+        // Normalize request parameters from query string to match POST format
+        $normalizedRequest = $this->normalizeExpenseReportRequest($request);
+
         // Get expenses report data
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $expensesData = $reportController->expenseReport($request);
+        $expensesData = $reportController->expenseReport($normalizedRequest);
 
         // Handle JsonResponse
         if ($expensesData instanceof \Illuminate\Http\JsonResponse) {
@@ -3180,9 +3186,12 @@ class PrintController extends Controller
         $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
 
+        // Normalize request parameters from query string to match POST format
+        $normalizedRequest = $this->normalizeExpenseReportRequest($request);
+
         // Get expenses report data
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $expensesData = $reportController->expenseReport($request);
+        $expensesData = $reportController->expenseReport($normalizedRequest);
 
         // Handle JsonResponse
         if ($expensesData instanceof \Illuminate\Http\JsonResponse) {
@@ -3226,6 +3235,52 @@ class PrintController extends Controller
                 'bottom' => '10mm',
             ],
         ], 'landscape', false);
+    }
+
+    /**
+     * Normalize expense report request parameters from query string to match POST format
+     */
+    private function normalizeExpenseReportRequest(Request $request): Request
+    {
+        // Create a new request with normalized data
+        $normalizedData = $request->all();
+
+        // Normalize category array - Laravel should parse category[id]=1 automatically, but ensure it's an array
+        $categoryId = $request->input('category.id') ?? $request->input('category[id]') ?? ($request->category['id'] ?? null);
+        $categoryName = $request->input('category.name') ?? $request->input('category[name]') ?? ($request->category['name'] ?? null);
+
+        if ($categoryId !== null) {
+            $normalizedData['category'] = [
+                'id' => (int) $categoryId,
+                'name' => $categoryName ?? '',
+            ];
+        }
+
+        // Normalize subCategory array
+        $subCategoryId = $request->input('subCategory.id') ?? $request->input('subCategory[id]') ?? ($request->subCategory['id'] ?? null);
+        $subCategoryName = $request->input('subCategory.name') ?? $request->input('subCategory[name]') ?? ($request->subCategory['name'] ?? null);
+
+        if ($subCategoryId !== null) {
+            $normalizedData['subCategory'] = [
+                'id' => (int) $subCategoryId,
+                'name' => $subCategoryName ?? '',
+            ];
+        }
+
+        // Preserve fromDate and toDate
+        if ($request->has('fromDate')) {
+            $normalizedData['fromDate'] = $request->fromDate;
+        }
+        if ($request->has('toDate')) {
+            $normalizedData['toDate'] = $request->toDate;
+        }
+
+        // Create a new request with the normalized data
+        $normalizedRequest = new Request($normalizedData);
+        $normalizedRequest->setMethod($request->method());
+        $normalizedRequest->headers->replace($request->headers->all());
+
+        return $normalizedRequest;
     }
 
     /**
