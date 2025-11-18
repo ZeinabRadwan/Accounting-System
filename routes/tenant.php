@@ -137,6 +137,59 @@ Route::middleware([
         Route::get('locations/saudi/districts-by-city', [App\Http\Controllers\API\LocationController::class, 'getDistrictsByCity']);
     });
 
+
+
+
+
+
+
+
+
+    // [PROTECTED API] Tenant Routes protected by Sanctum
+    Route::group(['middleware' => ['auth:sanctum']], function () {
+
+
+
+      // Report routes
+      Route::get('/reports/account-statement', [ReportController::class, 'accountStatement']);
+      Route::get('/reports/group-account-statement', [ReportController::class, 'groupAccountStatement']);
+      Route::get('/reports/invoice-summary', [ReportController::class, 'invoiceSummary']);
+      Route::get('/reports/purchase-summary', [ReportController::class, 'purchaseSummary']);
+      Route::get('/reports/sub-chart-of-accounts', [ReportController::class, 'getSubChartOfAccounts']);
+      Route::get('/reports/balance-sheet', [ReportController::class, 'balanceSheet']);
+      Route::get('/reports/trial-balance', [ReportController::class, 'trialBalance']);
+      Route::post('/reports/calculate-account-balances', [ReportController::class, 'calculateAccountBalances']);
+      Route::post('/reports/summery', [ReportController::class, 'summeryReport']);
+      Route::post('/reports/profit-loss', [ReportController::class, 'profitLossReport']);
+      Route::post('/reports/vat-report', [ReportController::class, 'vatReport']);
+      Route::post('/reports/expenses', [ReportController::class, 'expenseReport']);
+      Route::post('/reports/items', [ReportController::class, 'itemsReport']);
+      Route::post('/reports/inventory', [ReportController::class, 'inventoryReport']);
+      Route::get('/reports/supplier-due-report', [ReportController::class, 'supplierDueReport']);
+      Route::get('/reports/client-due-report', [ReportController::class, 'clientDueReport']);
+      Route::post('/reports/sales-by-user-report', [ReportController::class, 'salesByUserReport']);
+      Route::post('/reports/collection-by-user-report', [ReportController::class, 'collectionByUserReport']);
+      Route::get('/reports/todayReport', [ReportController::class, 'todayReport']);
+      Route::get('/reports/cost-center-statement', [ReportController::class, 'costCenterStatement']);
+      Route::get('/reports/cost-allocation-report', [ReportController::class, 'costAllocationReport']);
+
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // [PROTECTED API] Tenant Routes protected by Sanctum
     Route::group(['middleware' => ['auth:sanctum', 'tenant.not_archived', 'user.tenant.not_archived', 'tenant.initialized'], 'prefix' => 'api', 'as' => 'tenant.'], function () {
 
@@ -609,28 +662,7 @@ Route::middleware([
         Route::get('/inventory-adjustments/search', [InventoryAdjustmentController::class, 'search']);
         Route::apiResource('/inventory-adjustments', InventoryAdjustmentController::class);
 
-        // Report routes
-        Route::get('/reports/account-statement', [ReportController::class, 'accountStatement']);
-        Route::get('/reports/group-account-statement', [ReportController::class, 'groupAccountStatement']);
-        Route::get('/reports/invoice-summary', [ReportController::class, 'invoiceSummary']);
-        Route::get('/reports/purchase-summary', [ReportController::class, 'purchaseSummary']);
-        Route::get('/reports/sub-chart-of-accounts', [ReportController::class, 'getSubChartOfAccounts']);
-        Route::get('/reports/balance-sheet', [ReportController::class, 'balanceSheet']);
-        Route::get('/reports/trial-balance', [ReportController::class, 'trialBalance']);
-        Route::post('/reports/calculate-account-balances', [ReportController::class, 'calculateAccountBalances']);
-        Route::post('/reports/summery', [ReportController::class, 'summeryReport']);
-        Route::post('/reports/profit-loss', [ReportController::class, 'profitLossReport']);
-        Route::post('/reports/vat-report', [ReportController::class, 'vatReport']);
-        Route::post('/reports/expenses', [ReportController::class, 'expenseReport']);
-        Route::post('/reports/items', [ReportController::class, 'itemsReport']);
-        Route::post('/reports/inventory', [ReportController::class, 'inventoryReport']);
-        Route::get('/reports/supplier-due-report', [ReportController::class, 'supplierDueReport']);
-        Route::get('/reports/client-due-report', [ReportController::class, 'clientDueReport']);
-        Route::post('/reports/sales-by-user-report', [ReportController::class, 'salesByUserReport']);
-        Route::post('/reports/collection-by-user-report', [ReportController::class, 'collectionByUserReport']);
-        Route::get('/reports/todayReport', [ReportController::class, 'todayReport']);
-        Route::get('/reports/cost-center-statement', [ReportController::class, 'costCenterStatement']);
-        Route::get('/reports/cost-allocation-report', [ReportController::class, 'costAllocationReport']);
+      
 
         // update profile
         Route::post('/update-profile', [DashboardController::class, 'updateProfile']);

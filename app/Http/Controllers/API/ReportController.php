@@ -1761,32 +1761,7 @@ class ReportController extends Controller
             'itemName' => 'required',
         ]);
 
-        // Get authenticated user - try all possible methods
-        // Since 'can' middleware requires auth, user should be available
-        $user = $request->user();
-        
-        // If null, try different guards (Sanctum checks 'web' first for stateful requests)
-        if (! $user) {
-            $user = Auth::guard('web')->user();
-        }
-        
-        // Try sanctum guard
-        if (! $user) {
-            $user = auth('sanctum')->user();
-        }
-        
-        // Try default guard
-        if (! $user) {
-            $user = Auth::user();
-        }
-        
-        // Last resort: try to get from session if stateful request
-        if (! $user && $request->hasSession()) {
-            $userId = $request->session()->get('login_web_' . sha1('App\Models\User'));
-            if ($userId) {
-                $user = \App\Models\User::find($userId);
-            }
-        }
+        $user = Auth::user();
         dd($user);
         $branchIds = $this->getUserBranchIds($user);
         $allProducts = [];
