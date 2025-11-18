@@ -240,10 +240,20 @@ export default {
     printTemplateUrl() {
       // Create a dynamic print template URL for client receivable report
       const params = new URLSearchParams();
+      
+      // Always add token first if available
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
+      // Add query term if exists
       if (this.query) {
         params.append('term', this.query);
       }
-      return `/print/reports/client-receivable-report?${params.toString()}`;
+      
+      const queryString = params.toString();
+      return `/print/reports/client-receivable-report${queryString ? '?' + queryString : ''}`;
     },
   },
   watch: {
@@ -312,19 +322,39 @@ export default {
     // download PDF
     downloadPDF() {
       const params = new URLSearchParams();
+      
+      // Always add token first if available
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
+      // Add query term if exists
       if (this.query) {
         params.append('term', this.query);
       }
-      window.location.href = `/print/reports/client-receivable-report/pdf?${params.toString()}`;
+      
+      const queryString = params.toString();
+      window.location.href = `/print/reports/client-receivable-report/pdf${queryString ? '?' + queryString : ''}`;
     },
 
     // preview PDF
     previewPDF() {
       const params = new URLSearchParams();
+      
+      // Always add token first if available
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
+      // Add query term if exists
       if (this.query) {
         params.append('term', this.query);
       }
-      window.location.href = `/print/reports/client-receivable-report/preview?${params.toString()}`;
+      
+      const queryString = params.toString();
+      window.location.href = `/print/reports/client-receivable-report/preview${queryString ? '?' + queryString : ''}`;
     },
 
     // print table

@@ -328,6 +328,12 @@ export default {
         params.append('toDate', this.form.toDate);
       }
       
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
       return `/print/reports/inventory?${params.toString()}`;
     },
   },
@@ -537,6 +543,13 @@ export default {
       if (this.form.toDate) {
         params.append('toDate', this.form.toDate);
       }
+      
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
       window.location.href = `/print/reports/inventory/pdf?${params.toString()}`;
     },
 
@@ -587,6 +600,13 @@ export default {
       if (this.form.toDate) {
         params.append('toDate', this.form.toDate);
       }
+      
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
       window.location.href = `/print/reports/inventory/preview?${params.toString()}`;
     },
 

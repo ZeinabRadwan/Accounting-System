@@ -117,11 +117,10 @@
                             </div>
                         </td>
                         <td class="no-currency auto-width">{{
-                            formatToTwoDecimals(item.totalBeforeDiscount !== undefined ? item.totalBeforeDiscount :
-                                (item.totalPrice !== undefined ? item.totalPrice : (getItemField(item, unitPriceFieldName) *
-                                    (item.invoiceQty || getItemField(item, qtyFieldName))))) }} <span
-                                class="saudi-riyal">ê</span></td>
-                        <td v-if="!hideDiscountColumn" class="fixed-discount-column">
+                            formatToTwoDecimals(
+                                (item.originalPrice || getItemField(item, unitPriceFieldName)) * (item.invoiceQty || getItemField(item, qtyFieldName) || 1)
+                            ) }} <span class="saudi-riyal">ê</span></td>
+                        <td v-if="!hideDiscountColumn" style="min-width: 180px;">
                             <div class="input-group">
                                 <select v-model="item.discountType" class="form-control form-control-sm"
                                     style="width: 85px;"
@@ -180,8 +179,7 @@
                         </td>
                         <td v-if="!hideVatColumn" class="no-currency fixed-vat-column">
                             <div>
-                                {{ formatToTwoDecimals(item.taxType === 'Inclusive' ? (item.totalTax || 0) :
-                                    (item.productTax || 0)) }}
+                                {{ formatToTwoDecimals(item.totalTax || 0) }}
                                 <span class="saudi-riyal">ê</span>
                             </div>
                         </td>

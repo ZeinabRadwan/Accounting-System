@@ -324,6 +324,12 @@ export default {
         params.append('year', this.form.year);
       }
       
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
       return `/print/reports/summary?${params.toString()}`;
     },
   },
@@ -431,6 +437,12 @@ export default {
       }
       
       // Redirect to backend PDF route with query parameters
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
       const pdfUrl = `/print/reports/summary/pdf?${params.toString()}`;
       window.location.href = pdfUrl;
     },
@@ -446,6 +458,12 @@ export default {
       }
       
       // Redirect to backend PDF route with query parameters
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
       const pdfUrl = `/print/reports/summary/preview?${params.toString()}`;
       window.location.href = pdfUrl;
     },
