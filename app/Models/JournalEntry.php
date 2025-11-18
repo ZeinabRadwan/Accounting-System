@@ -64,7 +64,7 @@ class JournalEntry extends Model
     protected function validateBalance(): void
     {
         if (abs($this->total_debit - $this->total_credit) > 0.01) {
-            throw new \InvalidArgumentException('Journal entry must be balanced. Total debits must equal total credits.');
+            throw new \InvalidArgumentException(__('journal.must_be_balanced'));
         }
     }
 

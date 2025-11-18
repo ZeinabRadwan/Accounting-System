@@ -67,5 +67,8 @@ return [
     'payment_received' => 'Payment Received',
     'payment_sent' => 'Payment Sent',
     'cash_bank_payment' => 'Cash/Bank Payment',
+    
+    // Validation Messages
+    'must_be_balanced' => 'Journal entry must be balanced. Total debits must equal total credits.',
 ];
 

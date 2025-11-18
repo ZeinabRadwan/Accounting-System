@@ -67,5 +67,8 @@ return [
     'payment_received' => 'دفعة مستلمة',
     'payment_sent' => 'دفعة مدفوعة',
     'cash_bank_payment' => 'دفع نقدي/بنكي',
+    
+    // Validation Messages
+    'must_be_balanced' => 'يجب أن تكون قيود اليومية متوازنة. يجب أن تساوي إجمالي المدين إجمالي الدائن.',
 ];
 
