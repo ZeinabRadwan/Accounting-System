@@ -213,6 +213,12 @@ export default {
         params.append('toDate', this.form.toDate);
       }
       
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
       return `/print/reports/sales-by-user-report?${params.toString()}`;
     },
   },
@@ -280,6 +286,12 @@ export default {
       if (this.form.toDate) {
         params.append('toDate', this.form.toDate);
       }
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
       window.location.href = `/print/reports/sales-by-user-report/pdf?${params.toString()}`;
     },
 
@@ -305,6 +317,12 @@ export default {
       if (this.form.toDate) {
         params.append('toDate', this.form.toDate);
       }
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
       window.location.href = `/print/reports/sales-by-user-report/preview?${params.toString()}`;
     },
 

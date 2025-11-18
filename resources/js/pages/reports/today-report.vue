@@ -210,7 +210,13 @@ export default {
         },
         printTemplateUrl() {
             // Create a dynamic print template URL for today's report
-            return `/print/reports/today-report`;
+            // Add token to URL
+            const params = new URLSearchParams();
+            const token = this.$store.getters['auth/token'];
+            if (token) {
+              params.append('token', token);
+            }
+            return `/print/reports/today-report${params.toString() ? '?' + params.toString() : ''}`;
         },
     },
     created() {
@@ -230,13 +236,23 @@ export default {
         
         downloadPDF() {
             // Redirect to backend PDF route
-            const pdfUrl = `/print/reports/today-report/pdf`;
+            const params = new URLSearchParams();
+            const token = this.$store.getters['auth/token'];
+            if (token) {
+              params.append('token', token);
+            }
+            const pdfUrl = `/print/reports/today-report/pdf${params.toString() ? '?' + params.toString() : ''}`;
             window.location.href = pdfUrl;
         },
 
         previewPDF() {
             // Redirect to backend PDF route
-            const pdfUrl = `/print/reports/today-report/preview`;
+            const params = new URLSearchParams();
+            const token = this.$store.getters['auth/token'];
+            if (token) {
+              params.append('token', token);
+            }
+            const pdfUrl = `/print/reports/today-report/preview${params.toString() ? '?' + params.toString() : ''}`;
             window.location.href = pdfUrl;
         },
 

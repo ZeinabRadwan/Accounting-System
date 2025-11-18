@@ -317,6 +317,12 @@ export default {
         params.append('toDate', this.form.toDate);
       }
       
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
       return `/print/reports/items?${params.toString()}`;
     },
   },
@@ -608,6 +614,12 @@ export default {
         params.append('toDate', this.form.toDate);
       }
       
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
       // Redirect to backend PDF route with query parameters
       const pdfUrl = `/print/reports/items/pdf?${params.toString()}`;
       window.location.href = pdfUrl;
@@ -636,6 +648,12 @@ export default {
       }
       if (this.form.toDate) {
         params.append('toDate', this.form.toDate);
+      }
+      
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
       }
       
       // Redirect to backend PDF route with query parameters

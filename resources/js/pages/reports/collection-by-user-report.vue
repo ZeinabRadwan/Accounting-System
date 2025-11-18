@@ -213,6 +213,12 @@
           params.append('toDate', this.form.toDate);
         }
         
+        // Add token to URL
+        const token = this.$store.getters['auth/token'];
+        if (token) {
+          params.append('token', token);
+        }
+        
         return `/print/reports/collection-by-user-report?${params.toString()}`;
       },
     },
@@ -274,6 +280,12 @@
         if (this.form.toDate) {
           params.append('toDate', this.form.toDate);
         }
+        // Add token to URL
+        const token = this.$store.getters['auth/token'];
+        if (token) {
+          params.append('token', token);
+        }
+        
         window.location.href = `/print/reports/collection-by-user-report/pdf?${params.toString()}`;
       },
 
@@ -299,6 +311,12 @@
         if (this.form.toDate) {
           params.append('toDate', this.form.toDate);
         }
+        // Add token to URL
+        const token = this.$store.getters['auth/token'];
+        if (token) {
+          params.append('token', token);
+        }
+        
         window.location.href = `/print/reports/collection-by-user-report/preview?${params.toString()}`;
       },
 

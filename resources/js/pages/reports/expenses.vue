@@ -306,6 +306,12 @@ export default {
         params.append('toDate', this.form.toDate);
       }
       
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
       return `/print/reports/expenses?${params.toString()}`;
     },
   },
@@ -526,6 +532,12 @@ export default {
       }
       
       // Redirect to backend PDF route with query parameters
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
       const pdfUrl = `/print/reports/expenses/pdf?${params.toString()}`;
       window.location.href = pdfUrl;
     },
@@ -555,6 +567,12 @@ export default {
       }
       
       // Redirect to backend PDF route with query parameters
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
       const pdfUrl = `/print/reports/expenses/preview?${params.toString()}`;
       window.location.href = pdfUrl;
     },

@@ -243,6 +243,12 @@ export default {
       if (this.query) {
         params.append('term', this.query);
       }
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
       return `/print/reports/client-receivable-report?${params.toString()}`;
     },
   },
@@ -315,6 +321,12 @@ export default {
       if (this.query) {
         params.append('term', this.query);
       }
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
       window.location.href = `/print/reports/client-receivable-report/pdf?${params.toString()}`;
     },
 
@@ -324,6 +336,12 @@ export default {
       if (this.query) {
         params.append('term', this.query);
       }
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
       window.location.href = `/print/reports/client-receivable-report/preview?${params.toString()}`;
     },
 

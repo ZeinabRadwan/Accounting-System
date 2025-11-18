@@ -546,6 +546,12 @@ export default {
         params.append('to_date', this.filters.toDate);
       }
       
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
       return `/print/reports/vat-report?${params.toString()}`;
     },
   },
@@ -774,6 +780,12 @@ export default {
         params.append('to_date', this.filters.toDate);
       }
       
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
       // Redirect to backend PDF route with query parameters
       const pdfUrl = `/print/reports/vat-report/pdf?${params.toString()}`;
       window.location.href = pdfUrl;
@@ -793,6 +805,12 @@ export default {
       }
       if (this.filters.toDate) {
         params.append('to_date', this.filters.toDate);
+      }
+      
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
       }
       
       // Redirect to backend PDF route with query parameters

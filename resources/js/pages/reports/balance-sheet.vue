@@ -343,6 +343,12 @@ export default {
         params.append('to_date', this.filters.toDate);
       }
       
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
       return `/print/reports/balance-sheet?${params.toString()}`;
     },
 
@@ -537,6 +543,12 @@ export default {
       }
       
       // Redirect to backend PDF route with query parameters
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
       const pdfUrl = `/print/reports/balance-sheet/pdf?${params.toString()}`;
       window.location.href = pdfUrl;
     },
@@ -558,6 +570,12 @@ export default {
       }
       
       // Redirect to backend PDF route with query parameters
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      
       const pdfUrl = `/print/reports/balance-sheet/preview?${params.toString()}`;
       window.location.href = pdfUrl;
     },

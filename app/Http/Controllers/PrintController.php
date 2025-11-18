@@ -16,6 +16,7 @@ use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
+use Laravel\Sanctum\PersonalAccessToken;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Html2Pdf;
 use Symfony\Component\Process\Process;
@@ -263,8 +264,11 @@ class PrintController extends Controller
         ini_set('memory_limit', '1G');
         set_time_limit(300);
 
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
         // Set locale for translations
-        $locale = \Auth::user()->locale ?? app()->getLocale();
+        $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
 
         try {
@@ -331,7 +335,10 @@ class PrintController extends Controller
      */
     public function previewBalanceSheetPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Get report data from the API
@@ -385,7 +392,10 @@ class PrintController extends Controller
      */
     public function downloadBalanceSheetPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Get report data from the API
@@ -443,8 +453,11 @@ class PrintController extends Controller
         ini_set('memory_limit', '1G');
         set_time_limit(300);
 
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
         // Set locale for translations
-        $locale = \Auth::user()->locale ?? app()->getLocale();
+        $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
 
         try {
@@ -511,7 +524,10 @@ class PrintController extends Controller
      */
     public function previewTrialBalancePDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Get report data from the API
@@ -565,7 +581,10 @@ class PrintController extends Controller
      */
     public function downloadTrialBalancePDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Get report data from the API
@@ -623,8 +642,11 @@ class PrintController extends Controller
         ini_set('memory_limit', '1G');
         set_time_limit(300);
 
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
         // Set locale for translations
-        $locale = \Auth::user()->locale ?? app()->getLocale();
+        $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
 
         try {
@@ -707,7 +729,10 @@ class PrintController extends Controller
      */
     public function previewProfitLossPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Get report data from the API
@@ -773,7 +798,10 @@ class PrintController extends Controller
      */
     public function downloadProfitLossPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Get report data from the API
@@ -839,8 +867,12 @@ class PrintController extends Controller
      */
     public function printAccountStatement(Request $request)
     {
-        // // Set locale for translations
-        // app()->setLocale('ar');
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        // Set locale for translations
+        $locale = $user?->locale ?? app()->getLocale();
+        \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
@@ -877,7 +909,10 @@ class PrintController extends Controller
      */
     public function previewAccountStatementPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
@@ -929,8 +964,12 @@ class PrintController extends Controller
 
     public function downloadAccountStatementPDF(Request $request)
     {
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
         // Set locale for translations
-        // app()->setLocale('ar');
+        $locale = $user?->locale ?? 'ar';
+        \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
@@ -1281,6 +1320,32 @@ class PrintController extends Controller
 
             return ['success' => false, 'error' => $e->getMessage()];
         }
+    }
+
+    /**
+     * Get user from token or fallback to authenticated user
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \App\Models\User|null
+     */
+    protected function getUserFromToken(Request $request)
+    {
+        // First, try to get user from token if provided
+        $token = $request->input('token') ?? $request->query('token');
+        
+        if ($token) {
+            try {
+                $personalAccessToken = PersonalAccessToken::findToken($token);
+                if ($personalAccessToken && $personalAccessToken->tokenable) {
+                    return $personalAccessToken->tokenable;
+                }
+            } catch (\Exception $e) {
+                Log::warning('Failed to get user from token: '.$e->getMessage());
+            }
+        }
+        
+        // Fallback to authenticated user (for backward compatibility)
+        return \Auth::user();
     }
 
     /**
@@ -1928,8 +1993,11 @@ class PrintController extends Controller
      */
     public function printTodayReport(Request $request)
     {
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
         // Set locale for translations
-        $locale = \Auth::user()->locale ?? app()->getLocale();
+        $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
 
         // Get today's report data
@@ -1958,7 +2026,10 @@ class PrintController extends Controller
      */
     public function previewTodayReportPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Get today's report data
@@ -2000,7 +2071,10 @@ class PrintController extends Controller
      */
     public function downloadTodayReportPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Get today's report data
@@ -2046,8 +2120,11 @@ class PrintController extends Controller
         ini_set('memory_limit', '1G');
         set_time_limit(300);
 
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
         // Set locale for translations
-        $locale = \Auth::user()->locale ?? app()->getLocale();
+        $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
 
         try {
@@ -2114,7 +2191,10 @@ class PrintController extends Controller
      */
     public function previewInvoiceSummaryPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
@@ -2168,7 +2248,10 @@ class PrintController extends Controller
      */
     public function downloadInvoiceSummaryPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
@@ -2226,8 +2309,11 @@ class PrintController extends Controller
         ini_set('memory_limit', '1G');
         set_time_limit(300);
 
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
         // Set locale for translations
-        $locale = \Auth::user()->locale ?? app()->getLocale();
+        $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
 
         try {
@@ -2294,7 +2380,10 @@ class PrintController extends Controller
      */
     public function previewPurchaseSummaryPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
@@ -2348,7 +2437,10 @@ class PrintController extends Controller
      */
     public function downloadPurchaseSummaryPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
@@ -2406,8 +2498,11 @@ class PrintController extends Controller
         ini_set('memory_limit', '1G');
         set_time_limit(300);
 
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
         // Set locale for translations
-        $locale = \Auth::user()->locale ?? app()->getLocale();
+        $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
 
         try {
@@ -2474,7 +2569,10 @@ class PrintController extends Controller
      */
     public function previewVatReportPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Get report data from the API
@@ -2528,7 +2626,10 @@ class PrintController extends Controller
      */
     public function downloadVatReportPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Get report data from the API
@@ -2582,15 +2683,12 @@ class PrintController extends Controller
      */
     public function printInventory(Request $request)
     {
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
         // Set locale for translations
-        $user = \Auth::user();
-        $locale = $user->locale ?? app()->getLocale();
+        $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
-
-        // Ensure user is authenticated in the request context
-        if ($user) {
-            \Auth::setUser($user);
-        }
 
         try {
             // Get inventory report data
@@ -2649,15 +2747,11 @@ class PrintController extends Controller
      */
     public function previewInventoryPDF(Request $request)
     {
-        $user = \Auth::user();
-        dd($user);
-        $locale = $user->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
-
-        // Ensure user is authenticated in the request context
-        if ($user) {
-            \Auth::setUser($user);
-        }
 
         // Get inventory report data
         $reportController = new \App\Http\Controllers\API\ReportController();
@@ -2714,14 +2808,11 @@ class PrintController extends Controller
      */
     public function downloadInventoryPDF(Request $request)
     {
-        $user = \Auth::user();
-        $locale = $user->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
-
-        // Ensure user is authenticated in the request context
-        if ($user) {
-            \Auth::setUser($user);
-        }
 
         // Get inventory report data
         $reportController = new \App\Http\Controllers\API\ReportController();
@@ -2778,8 +2869,11 @@ class PrintController extends Controller
      */
     public function printItems(Request $request)
     {
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
         // Set locale for translations
-        $locale = \Auth::user()->locale ?? app()->getLocale();
+        $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
 
         try {
@@ -2860,8 +2954,10 @@ class PrintController extends Controller
      */
     public function previewItemsPDF(Request $request)
     {
-        $user = \Auth::user();
-        $locale = $user->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         try {
@@ -2973,7 +3069,10 @@ class PrintController extends Controller
      */
     public function downloadItemsPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         try {
@@ -3080,8 +3179,11 @@ class PrintController extends Controller
      */
     public function printExpenses(Request $request)
     {
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
         // Set locale for translations
-        $locale = \Auth::user()->locale ?? app()->getLocale();
+        $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
 
         try {
@@ -3140,7 +3242,10 @@ class PrintController extends Controller
      */
     public function previewExpensesPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Normalize request parameters from query string to match POST format
@@ -3199,7 +3304,10 @@ class PrintController extends Controller
      */
     public function downloadExpensesPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Normalize request parameters from query string to match POST format
@@ -3304,8 +3412,11 @@ class PrintController extends Controller
      */
     public function printClientReceivableReport(Request $request)
     {
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
         // Set locale for translations
-        $locale = \Auth::user()->locale ?? app()->getLocale();
+        $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
 
         // Get client receivable report data
@@ -3334,7 +3445,10 @@ class PrintController extends Controller
      */
     public function previewClientReceivableReportPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Get client receivable report data
@@ -3375,7 +3489,10 @@ class PrintController extends Controller
      */
     public function downloadClientReceivableReportPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Get client receivable report data
@@ -3416,8 +3533,11 @@ class PrintController extends Controller
      */
     public function printSupplierPayableReport(Request $request)
     {
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
         // Set locale for translations
-        $locale = \Auth::user()->locale ?? app()->getLocale();
+        $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
 
         // Get supplier payable report data
@@ -3446,7 +3566,10 @@ class PrintController extends Controller
      */
     public function previewSupplierPayableReportPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Get supplier payable report data
@@ -3487,7 +3610,10 @@ class PrintController extends Controller
      */
     public function downloadSupplierPayableReportPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Get supplier payable report data
@@ -3528,8 +3654,11 @@ class PrintController extends Controller
      */
     public function printSalesByUserReport(Request $request)
     {
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
         // Set locale for translations
-        $locale = \Auth::user()->locale ?? app()->getLocale();
+        $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
 
         try {
@@ -3587,7 +3716,10 @@ class PrintController extends Controller
      */
     public function previewSalesByUserReportPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Get sales by user report data
@@ -3643,7 +3775,10 @@ class PrintController extends Controller
      */
     public function downloadSalesByUserReportPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Get sales by user report data
@@ -3699,8 +3834,11 @@ class PrintController extends Controller
      */
     public function printCollectionByUserReport(Request $request)
     {
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
         // Set locale for translations
-        $locale = \Auth::user()->locale ?? app()->getLocale();
+        $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
 
         try {
@@ -3758,7 +3896,10 @@ class PrintController extends Controller
      */
     public function previewCollectionByUserReportPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Get collection by user report data
@@ -3814,7 +3955,10 @@ class PrintController extends Controller
      */
     public function downloadCollectionByUserReportPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Get collection by user report data
@@ -3870,8 +4014,11 @@ class PrintController extends Controller
      */
     public function printGroupAccountStatement(Request $request)
     {
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
         // Set locale for translations
-        $locale = \Auth::user()->locale ?? app()->getLocale();
+        $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
@@ -3911,7 +4058,10 @@ class PrintController extends Controller
      */
     public function previewGroupAccountStatementPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
@@ -3966,7 +4116,10 @@ class PrintController extends Controller
      */
     public function downloadGroupAccountStatementPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Use the dedicated print method that gets ALL data without pagination
@@ -4021,8 +4174,11 @@ class PrintController extends Controller
      */
     public function printSummary(Request $request)
     {
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
         // Set locale for translations
-        $locale = \Auth::user()->locale ?? app()->getLocale();
+        $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
 
         try {
@@ -4066,7 +4222,10 @@ class PrintController extends Controller
      */
     public function previewSummaryPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Get summary report data
@@ -4110,7 +4269,10 @@ class PrintController extends Controller
      */
     public function downloadSummaryPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+        
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Get summary report data
