@@ -732,9 +732,8 @@ Route::middleware([
     Route::get('/print/voucher/{slug}', [App\Http\Controllers\PrintController::class, 'printVoucher'])->name('print.voucher');
     Route::get('/print/voucher/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadVoucherPDF'])->name('print.voucher.pdf');
 
-    // Reports print routes (authenticated via Sanctum cookies, no redirect)
-    Route::middleware(['web', \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class])->group(function () {
-        Route::get('/print/reports/balance-sheet', [App\Http\Controllers\PrintController::class, 'printBalanceSheet'])->name('print.reports.balance-sheet');
+    // Reports print routes (no auth middleware - works like SPA routes)
+    Route::get('/print/reports/balance-sheet', [App\Http\Controllers\PrintController::class, 'printBalanceSheet'])->name('print.reports.balance-sheet');
     Route::get('/print/reports/balance-sheet/pdf', [App\Http\Controllers\PrintController::class, 'downloadBalanceSheetPDF'])->name('print.reports.balance-sheet.pdf');
     Route::get('/print/reports/balance-sheet/preview', [App\Http\Controllers\PrintController::class, 'previewBalanceSheetPDF'])->name('print.reports.balance-sheet.preview');
     Route::get('/print/reports/trial-balance', [App\Http\Controllers\PrintController::class, 'printTrialBalance'])->name('print.reports.trial-balance');
@@ -785,8 +784,7 @@ Route::middleware([
     Route::get('/print/reports/group-account-statement', [App\Http\Controllers\PrintController::class, 'printGroupAccountStatement'])->name('print.reports.group-account-statement');
     Route::get('/print/reports/group-account-statement/pdf', [App\Http\Controllers\PrintController::class, 'downloadGroupAccountStatementPDF'])->name('print.reports.group-account-statement.pdf');
     Route::get('/print/reports/group-account-statement/preview', [App\Http\Controllers\PrintController::class, 'previewGroupAccountStatementPDF'])->name('print.reports.group-account-statement.preview');
-    });
-
+ 
 
     // PDF download routes for print templates
     Route::get('/print/invoice/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadInvoicePDF'])->name('print.invoice.pdf');
