@@ -1762,6 +1762,7 @@ class ReportController extends Controller
         ]);
 
         $user = Auth::user();
+        dd($user);
         $branchIds = $this->getUserBranchIds($user);
         $allProducts = [];
 
