@@ -958,20 +958,19 @@ var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 // EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
 var vuex_esm = __webpack_require__(95353);
 // EXTERNAL MODULE: ./resources/js/components/ItemsTable.vue + 5 modules
-var ItemsTable = __webpack_require__(69212);
+var ItemsTable = __webpack_require__(67571);
 // EXTERNAL MODULE: ./resources/js/mixins/RTLMixin.js
 var RTLMixin = __webpack_require__(64744);
 // EXTERNAL MODULE: ./node_modules/to-words/dist/ToWords.js
 var ToWords = __webpack_require__(54923);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/edit.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
@@ -1105,15 +1104,15 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // get purchase
     getPurchase: function getPurchase() {
       var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var _yield$axios$get, data;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.n) {
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
             case 0:
-              _context.n = 1;
+              _context.next = 2;
               return axios_default().get(window.location.origin + '/api/purchases/' + _this2.$route.params.slug);
-            case 1:
-              _yield$axios$get = _context.v;
+            case 2:
+              _yield$axios$get = _context.sent;
               data = _yield$axios$get.data;
               _this2.form.purchaseNo = _this2.$options.filters.withPrefix(data.data.purchaseNo, _this2.purchasePrefix);
               _this2.form.supplier = data.data.supplier;
@@ -1136,8 +1135,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
               _this2.form.status = data.data.status;
               _this2.form.note = data.data.note;
               _this2.form.selectedProducts = _this2.assignProducts(data.data.products);
-            case 2:
-              return _context.a(2);
+            case 20:
+            case "end":
+              return _context.stop();
           }
         }, _callee);
       }))();
@@ -1145,19 +1145,20 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // get all local suppliers
     getSuppliers: function getSuppliers() {
       var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var _yield$axios$get2, data;
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.n = 1;
+              _context2.next = 2;
               return axios_default().get(window.location.origin + '/api/all-suppliers');
-            case 1:
-              _yield$axios$get2 = _context2.v;
+            case 2:
+              _yield$axios$get2 = _context2.sent;
               data = _yield$axios$get2.data;
               _this3.suppliers = data.data || [];
-            case 2:
-              return _context2.a(2);
+            case 5:
+            case "end":
+              return _context2.stop();
           }
         }, _callee2);
       }))();
@@ -1165,19 +1166,19 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // get products
     getProducts: function getProducts() {
       var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
         var currentProductIds, _yield$axios$get3, data;
-        return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.n) {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
             case 0:
               // Store the current selected products IDs
               currentProductIds = _this4.form.selectedProducts ? _this4.form.selectedProducts.map(function (p) {
                 return p.id;
               }) : [];
-              _context3.n = 1;
+              _context3.next = 3;
               return axios_default().get(window.location.origin + '/api/all-products-not-service');
-            case 1:
-              _yield$axios$get3 = _context3.v;
+            case 3:
+              _yield$axios$get3 = _context3.sent;
               data = _yield$axios$get3.data;
               _this4.products = data.data;
 
@@ -1193,8 +1194,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   }
                 });
               }
-            case 2:
-              return _context3.a(2);
+            case 7:
+            case "end":
+              return _context3.stop();
           }
         }, _callee3);
       }))();
@@ -1202,19 +1204,20 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // get taxes
     getTaxes: function getTaxes() {
       var _this5 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
         var _yield$axios$get4, data;
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.n) {
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              _context4.n = 1;
+              _context4.next = 2;
               return axios_default().get(window.location.origin + '/api/all-vat-rates');
-            case 1:
-              _yield$axios$get4 = _context4.v;
+            case 2:
+              _yield$axios$get4 = _context4.sent;
               data = _yield$axios$get4.data;
               _this5.taxes = data.data;
-            case 2:
-              return _context4.a(2);
+            case 5:
+            case "end":
+              return _context4.stop();
           }
         }, _callee4);
       }))();
@@ -1447,18 +1450,18 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // Handle chart of account assignment
     handleChartOfAccountAssigned: function handleChartOfAccountAssigned(data) {
       var _this6 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
         var updatedSupplier;
-        return _regenerator().w(function (_context5) {
-          while (1) switch (_context5.n) {
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
             case 0:
               if (!(data.entity === 'supplier')) {
-                _context5.n = 2;
+                _context5.next = 6;
                 break;
               }
-              _context5.n = 1;
+              _context5.next = 3;
               return _this6.getSuppliers();
-            case 1:
+            case 3:
               // If we have a selected supplier, update it with the new data
               if (_this6.form.supplier && _this6.suppliers && _this6.suppliers.length > 0) {
                 updatedSupplier = _this6.suppliers.find(function (s) {
@@ -1468,16 +1471,16 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   _this6.form.supplier = updatedSupplier;
                 }
               }
-              _context5.n = 4;
+              _context5.next = 10;
               break;
-            case 2:
+            case 6:
               if (!(data.entity === 'product')) {
-                _context5.n = 4;
+                _context5.next = 10;
                 break;
               }
-              _context5.n = 3;
+              _context5.next = 9;
               return _this6.getProducts();
-            case 3:
+            case 9:
               // Update selected products with new chart of account data
               if (_this6.form.selectedProducts && _this6.form.selectedProducts.length > 0) {
                 _this6.form.selectedProducts.forEach(function (selectedProduct) {
@@ -1491,13 +1494,14 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   }
                 });
               }
-            case 4:
+            case 10:
               // Force re-render of the validation component
               _this6.$nextTick(function () {
                 _this6.$forceUpdate();
               });
-            case 5:
-              return _context5.a(2);
+            case 11:
+            case "end":
+              return _context5.stop();
           }
         }, _callee5);
       }))();
@@ -1505,23 +1509,23 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // Auto-assign Chart of Account for supplier
     autoAssignSupplierChartOfAccount: function autoAssignSupplierChartOfAccount() {
       var _this7 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
-        var response, _t;
-        return _regenerator().w(function (_context6) {
-          while (1) switch (_context6.p = _context6.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
             case 0:
               if (!(!_this7.form.supplier || _this7.isAutoAssigningSupplier)) {
-                _context6.n = 1;
+                _context6.next = 2;
                 break;
               }
-              return _context6.a(2);
-            case 1:
+              return _context6.abrupt("return");
+            case 2:
               _this7.isAutoAssigningSupplier = true;
-              _context6.p = 2;
-              _context6.n = 3;
+              _context6.prev = 3;
+              _context6.next = 6;
               return axios_default().post("/api/suppliers/".concat(_this7.form.supplier.slug, "/auto-assign-chart-of-account"));
-            case 3:
-              response = _context6.v;
+            case 6:
+              response = _context6.sent;
               if (response.data.success) {
                 // Update the supplier data with new chart of account
                 _this7.form.supplier.chart_of_account_id = response.data.chart_of_account_id;
@@ -1543,45 +1547,46 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   text: response.data.message || _this7.$t("Please try again or assign manually")
                 });
               }
-              _context6.n = 5;
+              _context6.next = 13;
               break;
-            case 4:
-              _context6.p = 4;
-              _t = _context6.v;
+            case 10:
+              _context6.prev = 10;
+              _context6.t0 = _context6["catch"](3);
               toast.fire({
                 type: "error",
                 title: _this7.$t("An error occurred while assigning Chart of Account")
               });
-            case 5:
-              _context6.p = 5;
+            case 13:
+              _context6.prev = 13;
               _this7.isAutoAssigningSupplier = false;
-              return _context6.f(5);
-            case 6:
-              return _context6.a(2);
+              return _context6.finish(13);
+            case 16:
+            case "end":
+              return _context6.stop();
           }
-        }, _callee6, null, [[2, 4, 5, 6]]);
+        }, _callee6, null, [[3, 10, 13, 16]]);
       }))();
     },
     // Auto-assign Chart of Account for a specific product
     autoAssignProductChartOfAccount: function autoAssignProductChartOfAccount(product) {
       var _this8 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
-        var response, _t2;
-        return _regenerator().w(function (_context7) {
-          while (1) switch (_context7.p = _context7.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
             case 0:
               if (!(!product || _this8.isAutoAssigningProduct === product.id)) {
-                _context7.n = 1;
+                _context7.next = 2;
                 break;
               }
-              return _context7.a(2);
-            case 1:
+              return _context7.abrupt("return");
+            case 2:
               _this8.isAutoAssigningProduct = product.id;
-              _context7.p = 2;
-              _context7.n = 3;
+              _context7.prev = 3;
+              _context7.next = 6;
               return axios_default().post("/api/products/".concat(product.slug, "/auto-assign-chart-of-account"));
-            case 3:
-              response = _context7.v;
+            case 6:
+              response = _context7.sent;
               if (response.data.success) {
                 // Update the product data with new chart of account
                 product.purchase_account_id = response.data.purchase_account_id;
@@ -1603,23 +1608,24 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   text: response.data.message || _this8.$t("Please try again or assign manually")
                 });
               }
-              _context7.n = 5;
+              _context7.next = 13;
               break;
-            case 4:
-              _context7.p = 4;
-              _t2 = _context7.v;
+            case 10:
+              _context7.prev = 10;
+              _context7.t0 = _context7["catch"](3);
               toast.fire({
                 type: "error",
                 title: _this8.$t("An error occurred while assigning Chart of Account")
               });
-            case 5:
-              _context7.p = 5;
+            case 13:
+              _context7.prev = 13;
               _this8.isAutoAssigningProduct = false;
-              return _context7.f(5);
-            case 6:
-              return _context7.a(2);
+              return _context7.finish(13);
+            case 16:
+            case "end":
+              return _context7.stop();
           }
-        }, _callee7, null, [[2, 4, 5, 6]]);
+        }, _callee7, null, [[3, 10, 13, 16]]);
       }))();
     },
     // Handle supplier change
@@ -1643,11 +1649,11 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // update purchase
     updatePurchase: function updatePurchase() {
       var _this0 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
-        return _regenerator().w(function (_context8) {
-          while (1) switch (_context8.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
             case 0:
-              _context8.n = 1;
+              _context8.next = 2;
               return _this0.form.patch(window.location.origin + '/api/purchases/' + _this0.$route.params.slug).then(function (_ref2) {
                 var data = _ref2.data;
                 toast.fire({
@@ -1667,8 +1673,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   title: _this0.$t('Please check your input and try again.')
                 });
               });
-            case 1:
-              return _context8.a(2);
+            case 2:
+            case "end":
+              return _context8.stop();
           }
         }, _callee8);
       }))();
@@ -2306,217 +2313,6 @@ exports["default"] = Locale;
 
 /***/ }),
 
-/***/ 27002:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'ರೂಪಾಯಿ',
-                plural: 'ರೂಪಾಯಿಗಳು',
-                singular: 'ರೂಪಾಯಿ',
-                symbol: '₹',
-                fractionalUnit: {
-                    name: 'ಪೈಸೆ',
-                    singular: 'ಪೈಸೆ',
-                    plural: 'ಪೈಸೆಗಳು',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'ಮತ್ತು',
-                minus: 'ಋಣ',
-                only: '',
-                point: 'ದಶಾಂಶ',
-            },
-            numberWordsMapping: [
-                { number: 10000000, value: 'ಕೋಟಿ' },
-                { number: 100000, value: 'ಲಕ್ಷ' },
-                { number: 1000, value: 'ಸಾವಿರ' },
-                { number: 100, value: 'ನೂರು' },
-                { number: 99, value: 'ತೊಂಬತ್ತೊಂಬತ್ತು' },
-                { number: 98, value: 'ತೊಂಬತ್ತೆಂಟು' },
-                { number: 97, value: 'ತೊಂಬತ್ತೇಳು' },
-                { number: 96, value: 'ತೊಂಬತ್ತಾರು' },
-                { number: 95, value: 'ತೊಂಬತ್ತೈದು' },
-                { number: 94, value: 'ತೊಂಬತ್ತನಾಲ್ಕು' },
-                { number: 93, value: 'ತೊಂಬತ್ತಮೂರು' },
-                { number: 92, value: 'ತೊಂಬತ್ತೆರಡು' },
-                { number: 91, value: 'ತೊಂಬತ್ತೊಂದು' },
-                { number: 90, value: 'ತೊಂಬತ್ತು' },
-                { number: 89, value: 'ಎಂಭತ್ತೊಂಬತ್ತು' },
-                { number: 88, value: 'ಎಂಭತ್ತೆಂಟು' },
-                { number: 87, value: 'ಎಂಭತ್ತೇಳು' },
-                { number: 86, value: 'ಎಂಭತ್ತಾರು' },
-                { number: 85, value: 'ಎಂಭತ್ತೈದು' },
-                { number: 84, value: 'ಎಂಭತ್ತನಾಲ್ಕು' },
-                { number: 83, value: 'ಎಂಭತ್ತಮೂರು' },
-                { number: 82, value: 'ಎಂಭತ್ತೆರಡು' },
-                { number: 81, value: 'ಎಂಭತ್ತೊಂದು' },
-                { number: 80, value: 'ಎಂಭತ್ತು' },
-                { number: 79, value: 'ಎಪ್ಪತ್ತೊಂಬತ್ತು' },
-                { number: 78, value: 'ಎಪ್ಪತ್ತೆಂಟು' },
-                { number: 77, value: 'ಎಪ್ಪತ್ತೇಳು' },
-                { number: 76, value: 'ಎಪ್ಪತ್ತಾರು' },
-                { number: 75, value: 'ಎಪ್ಪತ್ತೈದು' },
-                { number: 74, value: 'ಎಪ್ಪತ್ತನಾಲ್ಕು' },
-                { number: 73, value: 'ಎಪ್ಪತ್ತಮೂರು' },
-                { number: 72, value: 'ಎಪ್ಪತ್ತೆರಡು' },
-                { number: 71, value: 'ಎಪ್ಪತ್ತೊಂದು' },
-                { number: 70, value: 'ಎಪ್ಪತ್ತು' },
-                { number: 69, value: 'ಅರುವತ್ತೊಂಬತ್ತು' },
-                { number: 68, value: 'ಅರುವತ್ತೆಂಟು' },
-                { number: 67, value: 'ಅರುವತ್ತೇಳು' },
-                { number: 66, value: 'ಅರುವತ್ತಾರು' },
-                { number: 65, value: 'ಅರುವತ್ತೈದು' },
-                { number: 64, value: 'ಅರುವತ್ತನಾಲ್ಕು' },
-                { number: 63, value: 'ಅರುವತ್ತಮೂರು' },
-                { number: 62, value: 'ಅರುವತ್ತೆರಡು' },
-                { number: 61, value: 'ಅರುವತ್ತೊಂದು' },
-                { number: 60, value: 'ಅರುವತ್ತು' },
-                { number: 59, value: 'ಐವತ್ತೊಂಬತ್ತು' },
-                { number: 58, value: 'ಐವತ್ತೆಂಟು' },
-                { number: 57, value: 'ಐವತ್ತೇಳು' },
-                { number: 56, value: 'ಐವತ್ತಾರು' },
-                { number: 55, value: 'ಐವತ್ತೈದು' },
-                { number: 54, value: 'ಐವತ್ತನಾಲ್ಕು' },
-                { number: 53, value: 'ಐವತ್ತಮೂರು' },
-                { number: 52, value: 'ಐವತ್ತೆರಡು' },
-                { number: 51, value: 'ಐವತ್ತೊಂದು' },
-                { number: 50, value: 'ಐವತ್ತು' },
-                { number: 49, value: 'ನಲವತ್ತೊಂಬತ್ತು' },
-                { number: 48, value: 'ನಲವತ್ತೆಂಟು' },
-                { number: 47, value: 'ನಲವತ್ತೇಳು' },
-                { number: 46, value: 'ನಲವತ್ತಾರು' },
-                { number: 45, value: 'ನಲವತ್ತೈದು' },
-                { number: 44, value: 'ನಲವತ್ತನಾಲ್ಕು' },
-                { number: 43, value: 'ನಲವತ್ತಮೂರು' },
-                { number: 42, value: 'ನಲವತ್ತೆರಡು' },
-                { number: 41, value: 'ನಲವತ್ತೊಂದು' },
-                { number: 40, value: 'ನಲವತ್ತು' },
-                { number: 39, value: 'ಮೂವತ್ತೊಂಬತ್ತು' },
-                { number: 38, value: 'ಮೂವತ್ತೆಂಟು' },
-                { number: 37, value: 'ಮೂವತ್ತೇಳು' },
-                { number: 36, value: 'ಮೂವತ್ತಾರು' },
-                { number: 35, value: 'ಮೂವತ್ತೈದು' },
-                { number: 34, value: 'ಮೂವತ್ತನಾಲ್ಕು' },
-                { number: 33, value: 'ಮೂವತ್ತಮೂರು' },
-                { number: 32, value: 'ಮೂವತ್ತೆರಡು' },
-                { number: 31, value: 'ಮೂವತ್ತೊಂದು' },
-                { number: 30, value: 'ಮೂವತ್ತು' },
-                { number: 29, value: 'ಇಪ್ಪತ್ತೊಂಬತ್ತು' },
-                { number: 28, value: 'ಇಪ್ಪತ್ತೆಂಟು' },
-                { number: 27, value: 'ಇಪ್ಪತ್ತೇಳು' },
-                { number: 26, value: 'ಇಪ್ಪತ್ತಾರು' },
-                { number: 25, value: 'ಇಪ್ಪತ್ತೈದು' },
-                { number: 24, value: 'ಇಪ್ಪತ್ತನಾಲ್ಕು' },
-                { number: 23, value: 'ಇಪ್ಪತ್ತಮೂರು' },
-                { number: 22, value: 'ಇಪ್ಪತ್ತೆರಡು' },
-                { number: 21, value: 'ಇಪ್ಪತ್ತೊಂದು' },
-                { number: 20, value: 'ಇಪ್ಪತ್ತು' },
-                { number: 19, value: 'ಹತ್ತೊಂಬತ್ತು' },
-                { number: 18, value: 'ಹದಿನೆಂಟು' },
-                { number: 17, value: 'ಹದಿನೇಳು' },
-                { number: 16, value: 'ಹದಿನಾರು' },
-                { number: 15, value: 'ಹದಿನೈದು' },
-                { number: 14, value: 'ಹದಿನಾಲ್ಕು' },
-                { number: 13, value: 'ಹದಿಮೂರು' },
-                { number: 12, value: 'ಹನ್ನೆರಡು' },
-                { number: 11, value: 'ಹನ್ನೊಂದು' },
-                { number: 10, value: 'ಹತ್ತು' },
-                { number: 9, value: 'ಒಂಬತ್ತು' },
-                { number: 8, value: 'ಎಂಟು' },
-                { number: 7, value: 'ಏಳು' },
-                { number: 6, value: 'ಆರು' },
-                { number: 5, value: 'ಐದು' },
-                { number: 4, value: 'ನಾಲ್ಕು' },
-                { number: 3, value: 'ಮೂರು' },
-                { number: 2, value: 'ಎರಡು' },
-                { number: 1, value: 'ಒಂದು' },
-                { number: 0, value: 'ಶೂನ್ಯ' },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 28787:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Omani Rial',
-                plural: 'Omani Rials',
-                singular: 'Omani Rial',
-                symbol: 'OMR',
-                fractionalUnit: {
-                    name: 'Baisa',
-                    singular: 'Baisa',
-                    plural: 'Baisa',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Quadrillion' },
-                { number: 1000000000000, value: 'Trillion' },
-                { number: 1000000000, value: 'Billion' },
-                { number: 1000000, value: 'Million' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
 /***/ 28834:
 /***/ ((__unused_webpack_module, exports) => {
 
@@ -2830,239 +2626,6 @@ exports["default"] = Locale;
 
 /***/ }),
 
-/***/ 34922:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'eiro',
-                plural: 'eiro',
-                symbol: '€',
-                fractionalUnit: {
-                    name: 'cents',
-                    plural: 'centi',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'un',
-                minus: 'mīnus',
-                only: '',
-                point: 'komats',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'kvadriljon' },
-                { number: 1000000000000, value: 'triljon' },
-                { number: 1000000000, value: 'miljard' },
-                { number: 1000000, value: 'miljoni', singularValue: 'miljons' },
-                { number: 1000, value: 'tūkstoši', singularValue: 'tūkstotis' },
-                { number: 900, value: 'deviņi simti' },
-                { number: 800, value: 'astoņi simti' },
-                { number: 700, value: 'septiņi simti' },
-                { number: 600, value: 'seši simti' },
-                { number: 500, value: 'pieci simti' },
-                { number: 400, value: 'četri simti' },
-                { number: 300, value: 'trīs simti' },
-                { number: 200, value: 'divi simti' },
-                { number: 100, value: 'simtu' },
-                { number: 90, value: 'deviņdesmit' },
-                { number: 80, value: 'astoņdesmit' },
-                { number: 70, value: 'septiņdesmit' },
-                { number: 60, value: 'sešdesmit' },
-                { number: 50, value: 'piecdesmit' },
-                { number: 40, value: 'četrdesmit' },
-                { number: 30, value: 'trīsdesmit' },
-                { number: 20, value: 'divdesmit' },
-                { number: 19, value: 'deviņpadsmit' },
-                { number: 18, value: 'astoņpadsmit' },
-                { number: 17, value: 'septiņpadsmit' },
-                { number: 16, value: 'sešpadsmit' },
-                { number: 15, value: 'piecpadsmit' },
-                { number: 14, value: 'četrdpadsmit' },
-                { number: 13, value: 'trīspadsmit' },
-                { number: 12, value: 'divpadsmit' },
-                { number: 11, value: 'vienpadsmit' },
-                { number: 10, value: 'desmit' },
-                { number: 9, value: 'deviņi' },
-                { number: 8, value: 'astoņi' },
-                { number: 7, value: 'septiņi' },
-                { number: 6, value: 'seši' },
-                { number: 5, value: 'pieci' },
-                { number: 4, value: 'četri' },
-                { number: 3, value: 'trīs' },
-                { number: 2, value: 'divi' },
-                { number: 1, value: 'viens' },
-                { number: 0, value: 'nulle' },
-            ],
-            ignoreOneForWords: [
-                'simtu',
-                'divi simti',
-                'trīs simti',
-                'četri simti',
-                'pieci simti',
-                'seši simti',
-                'septiņi simti',
-                'astoņi simti',
-                'deviņi simti',
-            ],
-            exactWordsMapping: [{ number: 100, value: 'Simtu' }],
-            pluralMark: 'i',
-            pluralWords: ['kvadriljon', 'triljon', 'miljard'],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 35262:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'रुपैयाँ',
-                plural: 'रुपैयाँ',
-                singular: 'रुपैयाँ',
-                symbol: 'रु',
-                fractionalUnit: {
-                    name: 'पैसा',
-                    singular: 'पैसा',
-                    plural: 'पैसा',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'र',
-                minus: 'माइनस',
-                only: 'मात्र',
-                point: 'दशमलब',
-            },
-            numberWordsMapping: [
-                { number: 100000000000, value: 'खर्ब' },
-                { number: 1000000000, value: 'अर्ब' },
-                { number: 10000000, value: 'करोड' },
-                { number: 100000, value: 'लाख' },
-                { number: 1000, value: 'हजार' },
-                { number: 100, value: 'सय' },
-                { number: 99, value: 'उनान्सय' },
-                { number: 98, value: 'अन्ठानब्बे' },
-                { number: 97, value: 'सन्तानब्बे' },
-                { number: 96, value: 'छयानब्बे' },
-                { number: 95, value: 'पन्चानब्बे' },
-                { number: 94, value: 'चौरानब्बे' },
-                { number: 93, value: 'त्रियानब्बे' },
-                { number: 92, value: 'बयान्नब्बे' },
-                { number: 91, value: 'एकानब्बे' },
-                { number: 90, value: 'नब्बे' },
-                { number: 89, value: 'उनान्नब्बे' },
-                { number: 88, value: 'अठासी' },
-                { number: 87, value: 'सतासी' },
-                { number: 86, value: 'छयासी' },
-                { number: 85, value: 'पचासी' },
-                { number: 84, value: 'चौरासी' },
-                { number: 83, value: 'त्रियासी' },
-                { number: 82, value: 'बयासी' },
-                { number: 81, value: 'एकासी' },
-                { number: 80, value: 'अस्सी' },
-                { number: 79, value: 'उनासी' },
-                { number: 78, value: 'अठहत्तर' },
-                { number: 77, value: 'सतहत्तर' },
-                { number: 76, value: 'छयहत्तर' },
-                { number: 75, value: 'पचहत्तर' },
-                { number: 74, value: 'चौहत्तर' },
-                { number: 73, value: 'त्रिहत्तर' },
-                { number: 72, value: 'बहत्तर' },
-                { number: 71, value: 'एकहत्तर' },
-                { number: 70, value: 'सत्तरी' },
-                { number: 69, value: 'उनन्सत्तरी' },
-                { number: 68, value: 'अठसट्ठी' },
-                { number: 67, value: 'सड्सट्ठी' },
-                { number: 66, value: 'छैंसट्ठी' },
-                { number: 65, value: 'पैंसट्ठी' },
-                { number: 64, value: 'चौंसट्ठी' },
-                { number: 63, value: 'त्रिसट्ठी' },
-                { number: 62, value: 'बइसट्ठी' },
-                { number: 61, value: 'एकसट्ठी' },
-                { number: 60, value: 'साठी' },
-                { number: 59, value: 'उनन्साठी' },
-                { number: 58, value: 'अन्ठाउन्न' },
-                { number: 57, value: 'सन्ताउन्न' },
-                { number: 56, value: 'छपन्न' },
-                { number: 55, value: 'पचपन्न' },
-                { number: 54, value: 'चवन्न' },
-                { number: 53, value: 'त्रिपन्न' },
-                { number: 52, value: 'बाउन्न' },
-                { number: 51, value: 'एकाउन्न' },
-                { number: 50, value: 'पचास' },
-                { number: 49, value: 'उनन्चास' },
-                { number: 48, value: 'अठचालीस' },
-                { number: 47, value: 'सट्चालीस' },
-                { number: 46, value: 'छयालीस' },
-                { number: 45, value: 'पैंतालीस' },
-                { number: 44, value: 'चवालीस' },
-                { number: 43, value: 'त्रिचालीस' },
-                { number: 42, value: 'बयालीस' },
-                { number: 41, value: 'एकचालीस' },
-                { number: 40, value: 'चालीस' },
-                { number: 39, value: 'उनन्चालीस' },
-                { number: 38, value: 'अठतीस' },
-                { number: 37, value: 'सैंतीस' },
-                { number: 36, value: 'छत्तीस' },
-                { number: 35, value: 'पैंतीस' },
-                { number: 34, value: 'चौँतीस' },
-                { number: 33, value: 'तेत्तीस' },
-                { number: 32, value: 'बत्तीस' },
-                { number: 31, value: 'एकतीस' },
-                { number: 30, value: 'तीस' },
-                { number: 29, value: 'उनन्तिस' },
-                { number: 28, value: 'अठ्ठाइस' },
-                { number: 27, value: 'सत्ताइस' },
-                { number: 26, value: 'छब्बिस' },
-                { number: 25, value: 'पच्चिस' },
-                { number: 24, value: 'चौबीस' },
-                { number: 23, value: 'तेइस' },
-                { number: 22, value: 'बाइस' },
-                { number: 21, value: 'एक्काइस' },
-                { number: 20, value: 'बीस' },
-                { number: 19, value: 'उन्नाइस' },
-                { number: 18, value: 'अठार' },
-                { number: 17, value: 'सत्र' },
-                { number: 16, value: 'सोह्र' },
-                { number: 15, value: 'पन्ध्र' },
-                { number: 14, value: 'चौध' },
-                { number: 13, value: 'तेह्र' },
-                { number: 12, value: 'बाह्र' },
-                { number: 11, value: 'एघार' },
-                { number: 10, value: 'दश' },
-                { number: 9, value: 'नौ' },
-                { number: 8, value: 'आठ' },
-                { number: 7, value: 'सात' },
-                { number: 6, value: 'छ' },
-                { number: 5, value: 'पाँच' },
-                { number: 4, value: 'चार' },
-                { number: 3, value: 'तीन' },
-                { number: 2, value: 'दुई' },
-                { number: 1, value: 'एक' },
-                { number: 0, value: 'शून्य' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'एक सय' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
 /***/ 37460:
 /***/ ((__unused_webpack_module, exports) => {
 
@@ -3274,25 +2837,6 @@ exports["default"] = Locale;
 
 /***/ }),
 
-/***/ 40231:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".items-table-wrapper[data-v-039cad0a]{display:block;margin-left:0;margin-right:0;width:100%}.table-custom[data-v-039cad0a]{-webkit-overflow-scrolling:touch;border:none!important;overflow-x:auto;overflow-y:visible;width:100%}.table-custom table[data-v-039cad0a]{border-collapse:separate;border-spacing:0;height:100%;min-width:100%;width:100%}.table-custom table thead th[data-v-039cad0a]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.table-custom table thead tr[data-v-039cad0a]{border:none!important}.table-custom table thead th[data-v-039cad0a]:first-child{border-top-left-radius:10px}.table-custom table thead th[data-v-039cad0a]:last-child{border-top-right-radius:10px}[dir=rtl] .table-custom table thead th[data-v-039cad0a]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .table-custom table thead th[data-v-039cad0a]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.custom-qty-input[data-v-039cad0a]{align-items:center;display:flex;margin:0 auto;width:-moz-fit-content;width:fit-content}.button-minus[data-v-039cad0a],.button-plus[data-v-039cad0a]{align-items:center;border:none;border-radius:50%;cursor:pointer;display:flex;font-size:14px;font-weight:700;height:30px;justify-content:center;transition:all .2s ease;width:30px}.button-minus[data-v-039cad0a]{background-color:#dc3545;color:#fff}.button-plus[data-v-039cad0a]{background-color:#007bff;color:#fff}.button-minus[data-v-039cad0a]:hover{background-color:#c82333;transform:scale(1.05)}.button-plus[data-v-039cad0a]:hover{background-color:#0056b3;transform:scale(1.05)}.quantity-field[data-v-039cad0a]{border:1px solid #ced4da;border-radius:5px;margin:0 5px;padding:5px;text-align:center;width:60px}.quantity-field[data-v-039cad0a]:focus{border-color:#007bff;box-shadow:0 0 0 .2rem rgba(0,123,255,.25);outline:none}.clickable-badge[data-v-039cad0a]{cursor:pointer;transition:all .3s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.clickable-badge[data-v-039cad0a]:hover{background-color:#c82333!important;box-shadow:0 2px 4px rgba(220,53,69,.3);transform:scale(1.05)}.clickable-badge[data-v-039cad0a]:active{transform:scale(.95)}.insufficient-stock-input[data-v-039cad0a]{background-color:#fff5f5!important;border:2px solid #dc3545!important;color:#dc3545!important}.insufficient-stock-input[data-v-039cad0a]:focus{border-color:#dc3545!important;box-shadow:0 0 0 .2rem rgba(220,53,69,.25)!important}.table-custom table .badge.badge-danger[data-v-039cad0a]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}@media (max-width:768px){.table-custom[data-v-039cad0a]{-webkit-overflow-scrolling:touch;display:block;overflow-x:auto;width:100%}.table-custom table[data-v-039cad0a]{display:block;min-width:800px;width:100%}.table-custom table thead[data-v-039cad0a]{display:table-header-group}.table-custom table tbody[data-v-039cad0a]{display:table-row-group}.table-custom table tr[data-v-039cad0a]{display:table-row}.table-custom table td[data-v-039cad0a],.table-custom table th[data-v-039cad0a]{display:table-cell;white-space:nowrap}}@media (max-width:576px){.table-custom table[data-v-039cad0a]{min-width:1000px}.table-custom table tbody td[data-v-039cad0a],.table-custom table thead th[data-v-039cad0a]{font-size:12px;padding:6px 4px}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
 /***/ 41061:
 /***/ ((__unused_webpack_module, exports) => {
 
@@ -3444,118 +2988,6 @@ class Locale {
                 7: 'milyonuncu',
                 8: 'yüz milyonuncu',
             },
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 46709:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Peso Argentino',
-                plural: 'Pesos Argentinos',
-                singular: 'Peso Argentino',
-                symbol: '$',
-                fractionalUnit: {
-                    name: 'Centavo',
-                    plural: 'Centavos',
-                    singular: 'Centavo',
-                    symbol: '¢',
-                },
-            },
-            texts: {
-                and: 'Y',
-                minus: 'Menos',
-                only: '',
-                point: 'Coma',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Trillon' },
-                { number: 1000000000000, value: 'Billon' },
-                { number: 1000000, value: 'Millon' },
-                { number: 1000, value: 'Mil' },
-                { number: 900, value: 'Novecientos' },
-                { number: 800, value: 'Ochocientos' },
-                { number: 700, value: 'Setecientos' },
-                { number: 600, value: 'Seiscientos' },
-                { number: 500, value: 'Quinientos' },
-                { number: 400, value: 'Cuatrocientos' },
-                { number: 300, value: 'Trescientos' },
-                { number: 200, value: 'Doscientos' },
-                { number: 100, value: 'Ciento' },
-                { number: 90, value: 'Noventa Y' },
-                { number: 80, value: 'Ochenta Y' },
-                { number: 70, value: 'Setenta Y' },
-                { number: 60, value: 'Sesenta Y' },
-                { number: 50, value: 'Cincuenta Y' },
-                { number: 40, value: 'Cuarenta Y' },
-                { number: 30, value: 'Treinta Y' },
-                { number: 29, value: 'Veintinueve' },
-                { number: 28, value: 'Veintiocho' },
-                { number: 27, value: 'Veintisiete' },
-                { number: 26, value: 'Veintiseis' },
-                { number: 25, value: 'Veinticinco' },
-                { number: 24, value: 'Veinticuatro' },
-                { number: 23, value: 'Veintitrés' },
-                { number: 22, value: 'Veintidos' },
-                { number: 21, value: 'Veintiuno' },
-                { number: 20, value: 'Veinte' },
-                { number: 19, value: 'Diecinueve' },
-                { number: 18, value: 'Dieciocho' },
-                { number: 17, value: 'Dieciciete' },
-                { number: 16, value: 'Dieciseis' },
-                { number: 15, value: 'Quince' },
-                { number: 14, value: 'Catorce' },
-                { number: 13, value: 'Trece' },
-                { number: 12, value: 'Doce' },
-                { number: 11, value: 'Once' },
-                { number: 10, value: 'Diez' },
-                { number: 9, value: 'Nueve' },
-                { number: 8, value: 'Ocho' },
-                { number: 7, value: 'Siete' },
-                { number: 6, value: 'Seis' },
-                { number: 5, value: 'Cinco' },
-                { number: 4, value: 'Cuatro' },
-                { number: 3, value: 'Tres' },
-                { number: 2, value: 'Dos' },
-                { number: 1, value: 'Uno' },
-                { number: 0, value: 'Cero' },
-            ],
-            ignoreOneForWords: [
-                'Cien',
-                'Ciento',
-                'Doscientos',
-                'Trescientos',
-                'Cuatrocientos',
-                'Quinientos',
-                'Seiscientos',
-                'Setecientos',
-                'Ochocientos',
-                'Novecientos',
-                'Mil',
-            ],
-            pluralMark: 'es',
-            pluralWords: ['Millon', 'Billon', 'Trillon'],
-            exactWordsMapping: [
-                { number: 100, value: 'Cien' },
-                { number: 90, value: 'Noventa' },
-                { number: 80, value: 'Ochenta' },
-                { number: 70, value: 'Setenta' },
-                { number: 60, value: 'Sesenta' },
-                { number: 50, value: 'Cincuenta' },
-                { number: 40, value: 'Cuarenta' },
-                { number: 30, value: 'Treinta' },
-                { number: 1, value: ['Un', 'Uno'] },
-            ],
         };
     }
 }
@@ -3784,9 +3216,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ToWords = exports.DefaultToWordsOptions = exports.DefaultConverterOptions = exports.LOCALES = void 0;
-const locales_1 = __importDefault(__webpack_require__(71545));
-exports.LOCALES = locales_1.default;
+exports.ToWords = exports.DefaultToWordsOptions = exports.DefaultConverterOptions = void 0;
+const en_AE_1 = __importDefault(__webpack_require__(8550));
+const en_BD_1 = __importDefault(__webpack_require__(41061));
+const en_GH_1 = __importDefault(__webpack_require__(59096));
+const en_IE_1 = __importDefault(__webpack_require__(21470));
+const en_IN_1 = __importDefault(__webpack_require__(144));
+const en_MM_1 = __importDefault(__webpack_require__(38765));
+const en_MU_1 = __importDefault(__webpack_require__(74261));
+const en_NG_1 = __importDefault(__webpack_require__(92952));
+const en_NP_1 = __importDefault(__webpack_require__(26365));
+const en_US_1 = __importDefault(__webpack_require__(84463));
+const en_GB_1 = __importDefault(__webpack_require__(54330));
+const en_PH_1 = __importDefault(__webpack_require__(82779));
+const fa_IR_1 = __importDefault(__webpack_require__(10982));
+const fr_BE_1 = __importDefault(__webpack_require__(69543));
+const fr_FR_1 = __importDefault(__webpack_require__(28834));
+const gu_IN_1 = __importDefault(__webpack_require__(47229));
+const hi_IN_1 = __importDefault(__webpack_require__(37460));
+const mr_IN_1 = __importDefault(__webpack_require__(33972));
+const pt_BR_1 = __importDefault(__webpack_require__(21722));
+const tr_TR_1 = __importDefault(__webpack_require__(44130));
+const nl_SR_1 = __importDefault(__webpack_require__(55101));
+const ee_EE_1 = __importDefault(__webpack_require__(74938));
+const ko_KR_1 = __importDefault(__webpack_require__(58041));
 exports.DefaultConverterOptions = {
     currency: false,
     ignoreDecimal: false,
@@ -3804,10 +3257,57 @@ class ToWords {
         this.options = Object.assign({}, exports.DefaultToWordsOptions, options);
     }
     getLocaleClass() {
-        if (!(this.options.localeCode in locales_1.default)) {
-            throw new Error(`Unknown Locale "${this.options.localeCode}"`);
+        /* eslint-disable @typescript-eslint/no-var-requires */
+        switch (this.options.localeCode) {
+            case 'ee-EE':
+                return ee_EE_1.default;
+            case 'en-AE':
+                return en_AE_1.default;
+            case 'en-BD':
+                return en_BD_1.default;
+            case 'en-GH':
+                return en_GH_1.default;
+            case 'en-IE':
+                return en_IE_1.default;
+            case 'en-IN':
+                return en_IN_1.default;
+            case 'en-MM':
+                return en_MM_1.default;
+            case 'en-MU':
+                return en_MU_1.default;
+            case 'en-NG':
+                return en_NG_1.default;
+            case 'en-NP':
+                return en_NP_1.default;
+            case 'en-US':
+                return en_US_1.default;
+            case 'en-GB':
+                return en_GB_1.default;
+            case 'en-PH':
+                return en_PH_1.default;
+            case 'fa-IR':
+                return fa_IR_1.default;
+            case 'fr-BE':
+                return fr_BE_1.default;
+            case 'fr-FR':
+                return fr_FR_1.default;
+            case 'gu-IN':
+                return gu_IN_1.default;
+            case 'hi-IN':
+                return hi_IN_1.default;
+            case 'mr-IN':
+                return mr_IN_1.default;
+            case 'pt-BR':
+                return pt_BR_1.default;
+            case 'tr-TR':
+                return tr_TR_1.default;
+            case 'nl-SR':
+                return nl_SR_1.default;
+            case 'ko-KR':
+                return ko_KR_1.default;
         }
-        return locales_1.default[this.options.localeCode];
+        /* eslint-enable @typescript-eslint/no-var-requires */
+        throw new Error(`Unknown Locale "${this.options.localeCode}"`);
     }
     getLocale() {
         if (this.locale === undefined) {
@@ -3846,7 +3346,7 @@ class ToWords {
         }
         const split = number.toString().split('.');
         const ignoreZero = this.isNumberZero(number) && locale.config.ignoreZeroInDecimals;
-        let words = this.convertInternal(Number(split[0]), true);
+        let words = this.convertInternal(Number(split[0]));
         const isFloat = this.isFloat(number);
         if (isFloat && ignoreZero) {
             words = [];
@@ -3859,12 +3359,12 @@ class ToWords {
             if (split[1].startsWith('0') && !((_a = locale.config) === null || _a === void 0 ? void 0 : _a.decimalLengthWordMapping)) {
                 const zeroWords = [];
                 for (const num of split[1]) {
-                    zeroWords.push(...this.convertInternal(Number(num), true));
+                    zeroWords.push(...this.convertInternal(Number(num)));
                 }
                 wordsWithDecimal.push(...zeroWords);
             }
             else {
-                wordsWithDecimal.push(...this.convertInternal(Number(split[1]), true));
+                wordsWithDecimal.push(...this.convertInternal(Number(split[1])));
                 const decimalLengthWord = (_c = (_b = locale.config) === null || _b === void 0 ? void 0 : _b.decimalLengthWordMapping) === null || _c === void 0 ? void 0 : _c[split[1].length];
                 if (decimalLengthWord) {
                     wordsWithDecimal.push(decimalLengthWord);
@@ -3893,7 +3393,7 @@ class ToWords {
         // Determine if the main currency should be in singular form
         // e.g. 1 Dollar Only instead of 1 Dollars Only
         if (Number(split[0]) === 1 && currencyOptions.singular) {
-            words.push(currencyOptions.singular);
+            words.push(currencyOptions.name);
         }
         else if (currencyOptions.plural) {
             words.push(currencyOptions.plural);
@@ -3942,7 +3442,7 @@ class ToWords {
         }
         return words;
     }
-    convertInternal(number, trailing = false) {
+    convertInternal(number) {
         var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
         const locale = this.getLocale();
         if (locale.config.exactWordsMapping) {
@@ -3950,7 +3450,7 @@ class ToWords {
                 return number === elem.number;
             });
             if (exactMatch) {
-                return [Array.isArray(exactMatch.value) ? exactMatch.value[+trailing] : exactMatch.value];
+                return [exactMatch.value];
             }
         }
         const match = locale.config.numberWordsMapping.find((elem) => {
@@ -3958,30 +3458,27 @@ class ToWords {
         });
         const words = [];
         if (number <= 100 || (number < 1000 && locale.config.namedLessThan1000)) {
-            words.push(Array.isArray(match.value) ? match.value[0] : match.value);
+            words.push(match.value);
             number -= match.number;
             if (number > 0) {
                 if ((_d = (_c = locale.config) === null || _c === void 0 ? void 0 : _c.splitWord) === null || _d === void 0 ? void 0 : _d.length) {
                     words.push(locale.config.splitWord);
                 }
-                words.push(...this.convertInternal(number, trailing));
+                words.push(...this.convertInternal(number));
             }
             return words;
         }
         const quotient = Math.floor(number / match.number);
         const remainder = number % match.number;
-        let matchValue = Array.isArray(match.value) ? match.value[0] : match.value;
+        let matchValue = match.value;
         if (quotient > 1 && ((_f = (_e = locale.config) === null || _e === void 0 ? void 0 : _e.pluralWords) === null || _f === void 0 ? void 0 : _f.find((word) => word === match.value)) && ((_g = locale.config) === null || _g === void 0 ? void 0 : _g.pluralMark)) {
             matchValue += locale.config.pluralMark;
-        }
-        if (quotient % 10 === 1) {
-            matchValue = match.singularValue || (Array.isArray(matchValue) ? matchValue[0] : matchValue);
         }
         if (quotient === 1 && ((_j = (_h = locale.config) === null || _h === void 0 ? void 0 : _h.ignoreOneForWords) === null || _j === void 0 ? void 0 : _j.includes(matchValue))) {
             words.push(matchValue);
         }
         else {
-            words.push(...this.convertInternal(quotient, false), matchValue);
+            words.push(...this.convertInternal(quotient), matchValue);
         }
         if (remainder > 0) {
             if ((_l = (_k = locale.config) === null || _k === void 0 ? void 0 : _k.splitWord) === null || _l === void 0 ? void 0 : _l.length) {
@@ -3989,7 +3486,7 @@ class ToWords {
                     words.push(locale.config.splitWord);
                 }
             }
-            words.push(...this.convertInternal(remainder, trailing));
+            words.push(...this.convertInternal(remainder));
         }
         return words;
     }
@@ -4154,147 +3651,6 @@ exports["default"] = Locale;
 
 /***/ }),
 
-/***/ 56386:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'روپیہ',
-                plural: 'روپے',
-                singular: 'روپے',
-                symbol: '₨',
-                fractionalUnit: {
-                    name: 'پیسہ',
-                    plural: 'پیسے',
-                    singular: 'پیسہ',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'اور',
-                minus: 'منفی',
-                only: 'صرف',
-                point: 'اعشاریہ',
-            },
-            numberWordsMapping: [
-                { number: 10000000, value: 'کروڑ' },
-                { number: 100000, value: 'لاکھ' },
-                { number: 1000, value: 'ہزار' },
-                { number: 100, value: 'سو' },
-                { number: 99, value: 'نناوے' },
-                { number: 98, value: 'اٹھانوے' },
-                { number: 97, value: 'ستانوے' },
-                { number: 96, value: 'چھیانوے' },
-                { number: 95, value: 'پچانوے' },
-                { number: 94, value: 'چورانوے' },
-                { number: 93, value: 'ترانوے' },
-                { number: 92, value: 'بانوے' },
-                { number: 91, value: 'اکانوے' },
-                { number: 90, value: 'نوے' },
-                { number: 89, value: 'نواسی' },
-                { number: 88, value: 'اٹھاسی' },
-                { number: 87, value: 'ستاسی' },
-                { number: 86, value: 'چھیاسی' },
-                { number: 85, value: 'پچاسی' },
-                { number: 84, value: 'چوراسی' },
-                { number: 83, value: 'تراسی' },
-                { number: 82, value: 'بیاسی' },
-                { number: 81, value: 'اکیاسی' },
-                { number: 80, value: 'اسی' },
-                { number: 79, value: 'انہتر' },
-                { number: 78, value: 'اٹھہتر' },
-                { number: 77, value: 'ستتر' },
-                { number: 76, value: 'چھہتر' },
-                { number: 75, value: 'پچھتر' },
-                { number: 74, value: 'چوہتر' },
-                { number: 73, value: 'تہتر' },
-                { number: 72, value: 'بہتر' },
-                { number: 71, value: 'اکہتر' },
-                { number: 70, value: 'ستر' },
-                { number: 69, value: 'انہتر' },
-                { number: 68, value: 'اڑسٹھ' },
-                { number: 67, value: 'سڑسٹھ' },
-                { number: 66, value: 'چھیاسٹھ' },
-                { number: 65, value: 'پینسٹھ' },
-                { number: 64, value: 'چونسٹھ' },
-                { number: 63, value: 'تریسٹھ' },
-                { number: 62, value: 'باسٹھ' },
-                { number: 61, value: 'اکسٹھ' },
-                { number: 60, value: 'ساٹھ' },
-                { number: 59, value: 'انسٹھ' },
-                { number: 58, value: 'اٹھاون' },
-                { number: 57, value: 'ستاون' },
-                { number: 56, value: 'چھپن' },
-                { number: 55, value: 'پچپن' },
-                { number: 54, value: 'چون' },
-                { number: 53, value: 'ترپن' },
-                { number: 52, value: 'باون' },
-                { number: 51, value: 'اکیاون' },
-                { number: 50, value: 'پچاس' },
-                { number: 49, value: 'انچاس' },
-                { number: 48, value: 'اڑتالیس' },
-                { number: 47, value: 'سینتالیس' },
-                { number: 46, value: 'چھیالیس' },
-                { number: 45, value: 'پینتالیس' },
-                { number: 44, value: 'چوالیس' },
-                { number: 43, value: 'تینتالیس' },
-                { number: 42, value: 'بیالیس' },
-                { number: 41, value: 'اکتالیس' },
-                { number: 40, value: 'چالیس' },
-                { number: 39, value: 'انتالیس' },
-                { number: 38, value: 'اڑتیس' },
-                { number: 37, value: 'سینتیس' },
-                { number: 36, value: 'چھتیس' },
-                { number: 35, value: 'پینتیس' },
-                { number: 34, value: 'چونتیس' },
-                { number: 33, value: 'تینتیس' },
-                { number: 32, value: 'بتیس' },
-                { number: 31, value: 'اکتیس' },
-                { number: 30, value: 'تیس' },
-                { number: 29, value: 'انتیس' },
-                { number: 28, value: 'اٹھائیس' },
-                { number: 27, value: 'ستائیس' },
-                { number: 26, value: 'چھبیس' },
-                { number: 25, value: 'پچیس' },
-                { number: 24, value: 'چوبیس' },
-                { number: 23, value: 'تئیس' },
-                { number: 22, value: 'بائیس' },
-                { number: 21, value: 'اکیس' },
-                { number: 20, value: 'بیس' },
-                { number: 19, value: 'انیس' },
-                { number: 18, value: 'اٹھارہ' },
-                { number: 17, value: 'سترہ' },
-                { number: 16, value: 'سولہ' },
-                { number: 15, value: 'پندرہ' },
-                { number: 14, value: 'چودہ' },
-                { number: 13, value: 'تیرہ' },
-                { number: 12, value: 'بارہ' },
-                { number: 11, value: 'گیارہ' },
-                { number: 10, value: 'دس' },
-                { number: 9, value: 'نو' },
-                { number: 8, value: 'آٹھ' },
-                { number: 7, value: 'سات' },
-                { number: 6, value: 'چھ' },
-                { number: 5, value: 'پانچ' },
-                { number: 4, value: 'چار' },
-                { number: 3, value: 'تین' },
-                { number: 2, value: 'دو' },
-                { number: 1, value: 'ایک' },
-                { number: 0, value: 'صفر' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'ایک سو' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
 /***/ 58041:
 /***/ ((__unused_webpack_module, exports) => {
 
@@ -4359,6 +3715,25 @@ class Locale {
     }
 }
 exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 58402:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".items-table-wrapper[data-v-5835ef11]{display:block;margin-left:0;margin-right:0;width:100%}.table-custom[data-v-5835ef11]{-webkit-overflow-scrolling:touch;border:none!important;overflow-x:auto;overflow-y:visible;width:100%}.table-custom table[data-v-5835ef11]{border-collapse:separate;border-spacing:0;height:100%;min-width:100%;table-layout:auto;width:100%}.table-custom table thead th[data-v-5835ef11]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.table-custom table thead tr[data-v-5835ef11]{border:none!important}.table-custom table thead th[data-v-5835ef11]:first-child{border-top-left-radius:10px}.table-custom table thead th[data-v-5835ef11]:last-child{border-top-right-radius:10px}[dir=rtl] .table-custom table thead th[data-v-5835ef11]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .table-custom table thead th[data-v-5835ef11]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.custom-qty-input[data-v-5835ef11]{align-items:center;display:flex;margin:0 auto;width:-moz-fit-content;width:fit-content}.button-minus[data-v-5835ef11],.button-plus[data-v-5835ef11]{align-items:center;border:none;border-radius:50%;cursor:pointer;display:flex;font-size:14px;font-weight:700;height:30px;justify-content:center;transition:all .2s ease;width:30px}.button-minus[data-v-5835ef11]{background-color:#dc3545;color:#fff}.button-plus[data-v-5835ef11]{background-color:#007bff;color:#fff}.button-minus[data-v-5835ef11]:hover{background-color:#c82333;transform:scale(1.05)}.button-plus[data-v-5835ef11]:hover{background-color:#0056b3;transform:scale(1.05)}.quantity-field[data-v-5835ef11]{border:1px solid #ced4da;border-radius:5px;margin:0 5px;padding:5px;text-align:center;width:60px}.quantity-field[data-v-5835ef11]:focus{border-color:#007bff;box-shadow:0 0 0 .2rem rgba(0,123,255,.25);outline:none}.clickable-badge[data-v-5835ef11]{cursor:pointer;transition:all .3s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.clickable-badge[data-v-5835ef11]:hover{background-color:#c82333!important;box-shadow:0 2px 4px rgba(220,53,69,.3);transform:scale(1.05)}.clickable-badge[data-v-5835ef11]:active{transform:scale(.95)}.insufficient-stock-input[data-v-5835ef11]{background-color:#fff5f5!important;border:2px solid #dc3545!important;color:#dc3545!important}.insufficient-stock-input[data-v-5835ef11]:focus{border-color:#dc3545!important;box-shadow:0 0 0 .2rem rgba(220,53,69,.25)!important}.table-custom table .badge.badge-danger[data-v-5835ef11]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.table-custom table td.auto-width[data-v-5835ef11]{min-width:0;white-space:nowrap;width:auto}.table-custom table td.fixed-qty-column[data-v-5835ef11]{min-width:200px;width:auto}.table-custom table td.fixed-discount-column[data-v-5835ef11]{min-width:180px;width:auto}.table-custom table td.fixed-vat-column[data-v-5835ef11]{min-width:150px;width:auto}@media (max-width:768px){.table-custom[data-v-5835ef11]{-webkit-overflow-scrolling:touch;display:block;overflow-x:auto;width:100%}.table-custom table[data-v-5835ef11]{display:block;min-width:-moz-fit-content;min-width:fit-content;width:100%}.table-custom table thead[data-v-5835ef11]{display:table-header-group}.table-custom table tbody[data-v-5835ef11]{display:table-row-group}.table-custom table tr[data-v-5835ef11]{display:table-row}.table-custom table td[data-v-5835ef11],.table-custom table th[data-v-5835ef11]{display:table-cell;white-space:nowrap}.table-custom table td.fixed-qty-column[data-v-5835ef11]{min-width:200px}.table-custom table td.fixed-discount-column[data-v-5835ef11]{min-width:180px}.table-custom table td.fixed-vat-column[data-v-5835ef11]{min-width:150px}}@media (max-width:576px){.table-custom table[data-v-5835ef11]{min-width:-moz-fit-content;min-width:fit-content}.table-custom table tbody td[data-v-5835ef11],.table-custom table thead th[data-v-5835ef11]{font-size:12px;padding:6px 4px}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
@@ -4434,118 +3809,6 @@ exports["default"] = Locale;
 
 /***/ }),
 
-/***/ 60130:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Euro',
-                plural: 'Euros',
-                singular: 'Euro',
-                symbol: '€',
-                fractionalUnit: {
-                    name: 'Centimo',
-                    plural: 'Centimos',
-                    singular: 'Centimo',
-                    symbol: '¢',
-                },
-            },
-            texts: {
-                and: 'Y',
-                minus: 'Menos',
-                only: '',
-                point: 'Punto',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Trillon' },
-                { number: 1000000000000, value: 'Billon' },
-                { number: 1000000, value: 'Millon' },
-                { number: 1000, value: 'Mil' },
-                { number: 900, value: 'Novecientos' },
-                { number: 800, value: 'Ochocientos' },
-                { number: 700, value: 'Setecientos' },
-                { number: 600, value: 'Seiscientos' },
-                { number: 500, value: 'Quinientos' },
-                { number: 400, value: 'Cuatrocientos' },
-                { number: 300, value: 'Trescientos' },
-                { number: 200, value: 'Doscientos' },
-                { number: 100, value: 'Ciento' },
-                { number: 90, value: 'Noventa Y' },
-                { number: 80, value: 'Ochenta Y' },
-                { number: 70, value: 'Setenta Y' },
-                { number: 60, value: 'Sesenta Y' },
-                { number: 50, value: 'Cincuenta Y' },
-                { number: 40, value: 'Cuarenta Y' },
-                { number: 30, value: 'Treinta Y' },
-                { number: 29, value: 'Veintinueve' },
-                { number: 28, value: 'Veintiocho' },
-                { number: 27, value: 'Veintisiete' },
-                { number: 26, value: 'Veintiseis' },
-                { number: 25, value: 'Veinticinco' },
-                { number: 24, value: 'Veinticuatro' },
-                { number: 23, value: 'Veintitrés' },
-                { number: 22, value: 'Veintidos' },
-                { number: 21, value: 'Veintiuno' },
-                { number: 20, value: 'Veinte' },
-                { number: 19, value: 'Diecinueve' },
-                { number: 18, value: 'Dieciocho' },
-                { number: 17, value: 'Dieciciete' },
-                { number: 16, value: 'Dieciseis' },
-                { number: 15, value: 'Quince' },
-                { number: 14, value: 'Catorce' },
-                { number: 13, value: 'Trece' },
-                { number: 12, value: 'Doce' },
-                { number: 11, value: 'Once' },
-                { number: 10, value: 'Diez' },
-                { number: 9, value: 'Nueve' },
-                { number: 8, value: 'Ocho' },
-                { number: 7, value: 'Siete' },
-                { number: 6, value: 'Seis' },
-                { number: 5, value: 'Cinco' },
-                { number: 4, value: 'Cuatro' },
-                { number: 3, value: 'Tres' },
-                { number: 2, value: 'Dos' },
-                { number: 1, value: 'Uno' },
-                { number: 0, value: 'Cero' },
-            ],
-            ignoreOneForWords: [
-                'Cien',
-                'Ciento',
-                'Doscientos',
-                'Trescientos',
-                'Cuatrocientos',
-                'Quinientos',
-                'Seiscientos',
-                'Setecientos',
-                'Ochocientos',
-                'Novecientos',
-                'Mil',
-            ],
-            pluralMark: 'es',
-            pluralWords: ['Millon', 'Billon', 'Trillon'],
-            exactWordsMapping: [
-                { number: 100, value: 'Cien' },
-                { number: 90, value: 'Noventa' },
-                { number: 80, value: 'Ochenta' },
-                { number: 70, value: 'Setenta' },
-                { number: 60, value: 'Sesenta' },
-                { number: 50, value: 'Cincuenta' },
-                { number: 40, value: 'Cuarenta' },
-                { number: 30, value: 'Treinta' },
-                { number: 1, value: ['Un', 'Uno'] },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
 /***/ 64744:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -4554,7 +3817,7 @@ exports["default"] = Locale;
 /* harmony export */ });
 /* harmony import */ var _services_RTLService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73948);
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
@@ -4662,231 +3925,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
 /***/ }),
 
-/***/ 65903:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Peso Mexicano',
-                plural: 'Pesos Mexicanos',
-                singular: 'Peso Mexicano',
-                symbol: '$',
-                fractionalUnit: {
-                    name: 'Centavo',
-                    plural: 'Centavos',
-                    singular: 'Centavo',
-                    symbol: '¢',
-                },
-            },
-            texts: {
-                and: 'Y',
-                minus: 'Menos',
-                only: '',
-                point: 'Punto',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Trillon' },
-                { number: 1000000000000, value: 'Billon' },
-                { number: 1000000, value: 'Millon' },
-                { number: 1000, value: 'Mil' },
-                { number: 900, value: 'Novecientos' },
-                { number: 800, value: 'Ochocientos' },
-                { number: 700, value: 'Setecientos' },
-                { number: 600, value: 'Seiscientos' },
-                { number: 500, value: 'Quinientos' },
-                { number: 400, value: 'Cuatrocientos' },
-                { number: 300, value: 'Trescientos' },
-                { number: 200, value: 'Doscientos' },
-                { number: 100, value: 'Ciento' },
-                { number: 90, value: 'Noventa Y' },
-                { number: 80, value: 'Ochenta Y' },
-                { number: 70, value: 'Setenta Y' },
-                { number: 60, value: 'Sesenta Y' },
-                { number: 50, value: 'Cincuenta Y' },
-                { number: 40, value: 'Cuarenta Y' },
-                { number: 30, value: 'Treinta Y' },
-                { number: 29, value: 'Veintinueve' },
-                { number: 28, value: 'Veintiocho' },
-                { number: 27, value: 'Veintisiete' },
-                { number: 26, value: 'Veintiseis' },
-                { number: 25, value: 'Veinticinco' },
-                { number: 24, value: 'Veinticuatro' },
-                { number: 23, value: 'Veintitrés' },
-                { number: 22, value: 'Veintidos' },
-                { number: 21, value: 'Veintiuno' },
-                { number: 20, value: 'Veinte' },
-                { number: 19, value: 'Diecinueve' },
-                { number: 18, value: 'Dieciocho' },
-                { number: 17, value: 'Dieciciete' },
-                { number: 16, value: 'Dieciseis' },
-                { number: 15, value: 'Quince' },
-                { number: 14, value: 'Catorce' },
-                { number: 13, value: 'Trece' },
-                { number: 12, value: 'Doce' },
-                { number: 11, value: 'Once' },
-                { number: 10, value: 'Diez' },
-                { number: 9, value: 'Nueve' },
-                { number: 8, value: 'Ocho' },
-                { number: 7, value: 'Siete' },
-                { number: 6, value: 'Seis' },
-                { number: 5, value: 'Cinco' },
-                { number: 4, value: 'Cuatro' },
-                { number: 3, value: 'Tres' },
-                { number: 2, value: 'Dos' },
-                { number: 1, value: 'Uno' },
-                { number: 0, value: 'Cero' },
-            ],
-            ignoreOneForWords: [
-                'Cien',
-                'Ciento',
-                'Doscientos',
-                'Trescientos',
-                'Cuatrocientos',
-                'Quinientos',
-                'Seiscientos',
-                'Setecientos',
-                'Ochocientos',
-                'Novecientos',
-                'Mil',
-            ],
-            pluralMark: 'es',
-            pluralWords: ['Millon', 'Billon', 'Trillon'],
-            exactWordsMapping: [
-                { number: 100, value: 'Cien' },
-                { number: 90, value: 'Noventa' },
-                { number: 80, value: 'Ochenta' },
-                { number: 70, value: 'Setenta' },
-                { number: 60, value: 'Sesenta' },
-                { number: 50, value: 'Cincuenta' },
-                { number: 40, value: 'Cuarenta' },
-                { number: 30, value: 'Treinta' },
-                { number: 1, value: ['Un', 'Uno'] },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 68224:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Bolivar',
-                plural: 'Bolivares',
-                singular: 'Bolivar',
-                symbol: '',
-                fractionalUnit: {
-                    name: 'Centimo',
-                    plural: 'Centimos',
-                    singular: 'Centimo',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'Con',
-                minus: 'Menos',
-                only: '',
-                point: 'Coma',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Trillon' },
-                { number: 1000000000000, value: 'Billon' },
-                { number: 1000000, value: 'Millon' },
-                { number: 1000, value: 'Mil' },
-                { number: 900, value: 'Novecientos' },
-                { number: 800, value: 'Ochocientos' },
-                { number: 700, value: 'Setecientos' },
-                { number: 600, value: 'Seiscientos' },
-                { number: 500, value: 'Quinientos' },
-                { number: 400, value: 'Cuatrocientos' },
-                { number: 300, value: 'Trescientos' },
-                { number: 200, value: 'Doscientos' },
-                { number: 100, value: 'Ciento' },
-                { number: 90, value: 'Noventa Y' },
-                { number: 80, value: 'Ochenta Y' },
-                { number: 70, value: 'Setenta Y' },
-                { number: 60, value: 'Sesenta Y' },
-                { number: 50, value: 'Cincuenta Y' },
-                { number: 40, value: 'Cuarenta Y' },
-                { number: 30, value: 'Treinta Y' },
-                { number: 29, value: 'Veintinueve' },
-                { number: 28, value: 'Veintiocho' },
-                { number: 27, value: 'Veintisiete' },
-                { number: 26, value: 'Veintiseis' },
-                { number: 25, value: 'Veinticinco' },
-                { number: 24, value: 'Veinticuatro' },
-                { number: 23, value: 'Veintitrés' },
-                { number: 22, value: 'Veintidos' },
-                { number: 21, value: 'Veintiuno' },
-                { number: 20, value: 'Veinte' },
-                { number: 19, value: 'Diecinueve' },
-                { number: 18, value: 'Dieciocho' },
-                { number: 17, value: 'Dieciciete' },
-                { number: 16, value: 'Dieciseis' },
-                { number: 15, value: 'Quince' },
-                { number: 14, value: 'Catorce' },
-                { number: 13, value: 'Trece' },
-                { number: 12, value: 'Doce' },
-                { number: 11, value: 'Once' },
-                { number: 10, value: 'Diez' },
-                { number: 9, value: 'Nueve' },
-                { number: 8, value: 'Ocho' },
-                { number: 7, value: 'Siete' },
-                { number: 6, value: 'Seis' },
-                { number: 5, value: 'Cinco' },
-                { number: 4, value: 'Cuatro' },
-                { number: 3, value: 'Tres' },
-                { number: 2, value: 'Dos' },
-                { number: 1, value: 'Uno' },
-                { number: 0, value: 'Cero' },
-            ],
-            ignoreOneForWords: [
-                'Cien',
-                'Ciento',
-                'Doscientos',
-                'Trescientos',
-                'Cuatrocientos',
-                'Quinientos',
-                'Seiscientos',
-                'Setecientos',
-                'Ochocientos',
-                'Novecientos',
-                'Mil',
-            ],
-            pluralMark: 'es',
-            pluralWords: ['Millon', 'Billon', 'Trillon'],
-            exactWordsMapping: [
-                { number: 100, value: 'Cien' },
-                { number: 90, value: 'Noventa' },
-                { number: 80, value: 'Ochenta' },
-                { number: 70, value: 'Setenta' },
-                { number: 60, value: 'Sesenta' },
-                { number: 50, value: 'Cincuenta' },
-                { number: 40, value: 'Cuarenta' },
-                { number: 30, value: 'Treinta' },
-                { number: 1, value: ['Un', 'Uno'] },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 69212:
+/***/ 67571:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -4895,7 +3934,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ ItemsTable)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=template&id=039cad0a&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=template&id=5835ef11&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -4916,17 +3955,11 @@ var render = function render() {
     return _c('tr', {
       key: i
     }, [_c('td', {
-      staticStyle: {
-        "min-width": "50px"
-      }
+      staticClass: "auto-width"
     }, [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', {
-      staticStyle: {
-        "min-width": "100px"
-      }
+      staticClass: "auto-width"
     }, [_vm._v(_vm._s(_vm._f("withPrefix")(item.code, _vm.prefix)))]), _vm._v(" "), _c('td', {
-      staticStyle: {
-        "min-width": "200px"
-      }
+      staticClass: "auto-width"
     }, [_c('div', {
       staticClass: "d-flex align-items-center"
     }, [Number(item.inventoryCount) < Number(_vm.getItemField(item, _vm.qtyFieldName)) && item.itemType == 'product' ? _c('span', {
@@ -4974,17 +4007,11 @@ var render = function render() {
     }, [_c('i', {
       staticClass: "fas fa-edit"
     })]) : _vm._e()])]), _vm._v(" "), _vm.showInvoiceQtyColumn ? _c('td', {
-      staticStyle: {
-        "min-width": "120px"
-      }
+      staticClass: "auto-width"
     }, [_vm._v("\n                        " + _vm._s(item.invoiceQty || item.qty) + " " + _vm._s(item.unit || '') + "\n                    ")]) : _vm._e(), _vm._v(" "), _vm.showCurrentQtyColumn ? _c('td', {
-      staticStyle: {
-        "min-width": "120px"
-      }
+      staticClass: "auto-width"
     }, [_vm._v("\n                        " + _vm._s(item.returnQty !== undefined ? item.returnQty : (item.invoiceQty || item.qty) - (item.oldQty || 0)) + " " + _vm._s(item.unit || '') + "\n                    ")]) : _vm._e(), _vm._v(" "), _c('td', {
-      staticStyle: {
-        "min-width": "200px"
-      }
+      staticClass: "fixed-qty-column"
     }, [_c('div', {
       staticClass: "input-group custom-qty-input"
     }, [_c('input', {
@@ -5060,9 +4087,7 @@ var render = function render() {
         }
       }
     })])]), _vm._v(" "), _c('td', {
-      staticStyle: {
-        "min-width": "150px"
-      }
+      staticClass: "auto-width"
     }, [!_vm.priceReadonly ? _c('div', {
       staticClass: "input-group custom-qty-input"
     }, [_c('input', {
@@ -5099,21 +4124,12 @@ var render = function render() {
           return _vm.$forceUpdate();
         }
       }
-    })]) : _c('div', {
-      staticStyle: {
-        "min-width": "200px"
-      }
-    }, [_vm._v("\n                            " + _vm._s(_vm.formatToTwoDecimals(_vm.getItemField(item, _vm.unitPriceFieldName))) + "\n                        ")])]), _vm._v(" "), _c('td', {
-      staticClass: "no-currency",
-      staticStyle: {
-        "min-width": "120px"
-      }
+    })]) : _c('div', [_vm._v("\n                            " + _vm._s(_vm.formatToTwoDecimals(_vm.getItemField(item, _vm.unitPriceFieldName))) + "\n                        ")])]), _vm._v(" "), _c('td', {
+      staticClass: "no-currency auto-width"
     }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.totalBeforeDiscount !== undefined ? item.totalBeforeDiscount : item.totalPrice !== undefined ? item.totalPrice : _vm.getItemField(item, _vm.unitPriceFieldName) * (item.invoiceQty || _vm.getItemField(item, _vm.qtyFieldName)))) + " "), _c('span', {
       staticClass: "saudi-riyal"
     }, [_vm._v("ê")])]), _vm._v(" "), !_vm.hideDiscountColumn ? _c('td', {
-      staticStyle: {
-        "min-width": "180px"
-      }
+      staticClass: "fixed-discount-column"
     }, [_c('div', {
       staticClass: "input-group"
     }, [_c('select', {
@@ -5198,16 +4214,11 @@ var render = function render() {
     }, [_vm._v(_vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".discount"))))]) : _vm._e(), _vm._v(" "), _vm.getFieldError("selectedProducts.".concat(i - 1, ".discountType")) ? _c('span', {
       staticClass: "d-block"
     }, [_vm._v(_vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".discountType"))))]) : _vm._e()]) : _vm._e()]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn ? _c('td', {
-      staticClass: "no-currency",
-      staticStyle: {
-        "min-width": "120px"
-      }
+      staticClass: "no-currency auto-width"
     }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.totalAfterDiscount !== undefined ? item.totalAfterDiscount : _vm.getItemField(item, _vm.unitPriceFieldName) * _vm.getItemField(item, _vm.qtyFieldName) - (item.discountAmount || 0))) + " "), _c('span', {
       staticClass: "saudi-riyal"
     }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
-      staticStyle: {
-        "min-width": "150px"
-      }
+      staticClass: "fixed-vat-column"
     }, [_vm.useVatRateId ? _c('select', {
       directives: [{
         name: "model",
@@ -5295,31 +4306,19 @@ var render = function render() {
     }, [_vm._v("\n                            " + _vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".vat_rate_id"))) + "\n                        ")]) : _vm._e(), _vm._v(" "), !_vm.useVatRateId && _vm.getFieldError("selectedProducts.".concat(i - 1, ".selectedVatRate")) ? _c('div', {
       staticClass: "invalid-feedback d-block"
     }, [_vm._v("\n                            " + _vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".selectedVatRate"))) + "\n                        ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
-      staticClass: "no-currency",
-      staticStyle: {
-        "min-width": "100px"
-      }
+      staticClass: "no-currency fixed-vat-column"
     }, [_c('div', [_vm._v("\n                            " + _vm._s(_vm.formatToTwoDecimals(item.taxType === 'Inclusive' ? item.totalTax || 0 : item.productTax || 0)) + "\n                            "), _c('span', {
       staticClass: "saudi-riyal"
     }, [_vm._v("ê")])])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
-      staticClass: "no-currency",
-      staticStyle: {
-        "min-width": "120px"
-      }
+      staticClass: "no-currency auto-width"
     }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.totalPrice)) + "\n                        "), _c('span', {
       staticClass: "saudi-riyal"
     }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn ? _c('td', {
-      staticClass: "text-right",
-      staticStyle: {
-        "min-width": "120px"
-      }
+      staticClass: "text-right auto-width"
     }, [_vm._v("\n                        " + _vm._s(_vm.formatToTwoDecimals(item.returnTotal !== undefined ? item.returnTotal : item.totalReturn || 0)) + " "), _c('span', {
       staticClass: "saudi-riyal"
     }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.showReturnPriceColumn ? _c('td', {
-      staticClass: "text-right",
-      staticStyle: {
-        "min-width": "80px"
-      }
+      staticClass: "text-right auto-width"
     }, [_c('button', {
       staticClass: "btn btn-danger",
       attrs: {
@@ -5529,9 +4528,9 @@ var staticRenderFns = [];
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=039cad0a&prod&scoped=true&lang=css
-var ItemsTablevue_type_style_index_0_id_039cad0a_prod_scoped_true_lang_css = __webpack_require__(40231);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=039cad0a&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=5835ef11&prod&scoped=true&lang=css
+var ItemsTablevue_type_style_index_0_id_5835ef11_prod_scoped_true_lang_css = __webpack_require__(58402);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=5835ef11&prod&scoped=true&lang=css
 
             
 
@@ -5540,12 +4539,12 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(ItemsTablevue_type_style_index_0_id_039cad0a_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(ItemsTablevue_type_style_index_0_id_5835ef11_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const components_ItemsTablevue_type_style_index_0_id_039cad0a_prod_scoped_true_lang_css = (ItemsTablevue_type_style_index_0_id_039cad0a_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=039cad0a&prod&scoped=true&lang=css
+/* harmony default export */ const components_ItemsTablevue_type_style_index_0_id_5835ef11_prod_scoped_true_lang_css = (ItemsTablevue_type_style_index_0_id_5835ef11_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=5835ef11&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
@@ -5564,7 +4563,7 @@ var component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "039cad0a",
+  "5835ef11",
   null
   
 )
@@ -5714,87 +4713,6 @@ class Locale {
     }
 }
 exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 71545:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const bn_IN_1 = __importDefault(__webpack_require__(82689));
-const ee_EE_1 = __importDefault(__webpack_require__(74938));
-const en_AE_1 = __importDefault(__webpack_require__(8550));
-const en_BD_1 = __importDefault(__webpack_require__(41061));
-const en_GB_1 = __importDefault(__webpack_require__(54330));
-const en_GH_1 = __importDefault(__webpack_require__(59096));
-const en_IE_1 = __importDefault(__webpack_require__(21470));
-const en_IN_1 = __importDefault(__webpack_require__(144));
-const en_MM_1 = __importDefault(__webpack_require__(38765));
-const en_MU_1 = __importDefault(__webpack_require__(74261));
-const en_NG_1 = __importDefault(__webpack_require__(92952));
-const en_NP_1 = __importDefault(__webpack_require__(26365));
-const en_OM_1 = __importDefault(__webpack_require__(28787));
-const en_PH_1 = __importDefault(__webpack_require__(82779));
-const en_US_1 = __importDefault(__webpack_require__(84463));
-const es_AR_1 = __importDefault(__webpack_require__(46709));
-const es_ES_1 = __importDefault(__webpack_require__(60130));
-const es_MX_1 = __importDefault(__webpack_require__(65903));
-const fa_IR_1 = __importDefault(__webpack_require__(10982));
-const fr_BE_1 = __importDefault(__webpack_require__(69543));
-const fr_FR_1 = __importDefault(__webpack_require__(28834));
-const gu_IN_1 = __importDefault(__webpack_require__(47229));
-const hi_IN_1 = __importDefault(__webpack_require__(37460));
-const kn_IN_1 = __importDefault(__webpack_require__(27002));
-const ko_KR_1 = __importDefault(__webpack_require__(58041));
-const lv_LV_1 = __importDefault(__webpack_require__(34922));
-const mr_IN_1 = __importDefault(__webpack_require__(33972));
-const nl_SR_1 = __importDefault(__webpack_require__(55101));
-const np_NP_1 = __importDefault(__webpack_require__(35262));
-const pt_BR_1 = __importDefault(__webpack_require__(21722));
-const tr_TR_1 = __importDefault(__webpack_require__(44130));
-const ur_PK_1 = __importDefault(__webpack_require__(56386));
-const es_VE_1 = __importDefault(__webpack_require__(68224));
-const LOCALES = {
-    'bn-IN': bn_IN_1.default,
-    'ee-EE': ee_EE_1.default,
-    'en-AE': en_AE_1.default,
-    'en-BD': en_BD_1.default,
-    'en-GB': en_GB_1.default,
-    'en-GH': en_GH_1.default,
-    'en-IE': en_IE_1.default,
-    'en-IN': en_IN_1.default,
-    'en-MM': en_MM_1.default,
-    'en-MU': en_MU_1.default,
-    'en-NG': en_NG_1.default,
-    'en-NP': en_NP_1.default,
-    'en-OM': en_OM_1.default,
-    'en-PH': en_PH_1.default,
-    'en-US': en_US_1.default,
-    'es-AR': es_AR_1.default,
-    'es-ES': es_ES_1.default,
-    'es-MX': es_MX_1.default,
-    'fa-IR': fa_IR_1.default,
-    'fr-BE': fr_BE_1.default,
-    'fr-FR': fr_FR_1.default,
-    'gu-IN': gu_IN_1.default,
-    'hi-IN': hi_IN_1.default,
-    'kn-IN': kn_IN_1.default,
-    'ko-KR': ko_KR_1.default,
-    'lv-LV': lv_LV_1.default,
-    'mr-IN': mr_IN_1.default,
-    'nl-SR': nl_SR_1.default,
-    'np-NP': np_NP_1.default,
-    'pt-BR': pt_BR_1.default,
-    'tr-TR': tr_TR_1.default,
-    'ur-PK': ur_PK_1.default,
-    'es-VE': es_VE_1.default,
-};
-exports["default"] = LOCALES;
 
 
 /***/ }),
@@ -5958,146 +4876,6 @@ class Locale {
             pluralWords: ['Miljon', 'Miljard', 'Trillion', 'Kvadriljon'],
             pluralMark: 'it',
             onlyInFront: true,
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 82689:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'টাকা',
-                plural: 'টাকা',
-                singular: 'টাকা',
-                symbol: '৳',
-                fractionalUnit: {
-                    name: 'পয়সা',
-                    singular: 'পয়সা',
-                    plural: 'পয়সা',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'এবং',
-                minus: 'ঋণ',
-                only: '',
-                point: 'দশমিক',
-            },
-            numberWordsMapping: [
-                { number: 10000000, value: 'কোটি' },
-                { number: 100000, value: 'লাখ' },
-                { number: 1000, value: 'হাজার' },
-                { number: 100, value: 'শত' },
-                { number: 99, value: 'নিরানব্বই' },
-                { number: 98, value: 'আটানব্বই' },
-                { number: 97, value: 'সাতানব্বই' },
-                { number: 96, value: 'ছিয়ানব্বই' },
-                { number: 95, value: 'পঁচানব্বই' },
-                { number: 94, value: 'চুরানব্বই' },
-                { number: 93, value: 'তিরানব্বই' },
-                { number: 92, value: 'বিরানব্বই' },
-                { number: 91, value: 'একানব্বই' },
-                { number: 90, value: 'নব্বই' },
-                { number: 89, value: 'ঊননব্বই' },
-                { number: 88, value: 'অষ্টআশি' },
-                { number: 87, value: 'সাতআশি' },
-                { number: 86, value: 'ছিয়াশী' },
-                { number: 85, value: 'পঁচাশী' },
-                { number: 84, value: 'চুরাশী' },
-                { number: 83, value: 'তিরাশী' },
-                { number: 82, value: 'বিরাশী' },
-                { number: 81, value: 'একাশী' },
-                { number: 80, value: 'আশি' },
-                { number: 79, value: 'ঊনআশি' },
-                { number: 78, value: 'অষ্টাত্তর' },
-                { number: 77, value: 'সাতাত্তর' },
-                { number: 76, value: 'ছিয়াত্তর' },
-                { number: 75, value: 'পঁচাত্তর' },
-                { number: 74, value: 'চুয়াত্তর' },
-                { number: 73, value: 'তিয়াত্তর' },
-                { number: 72, value: 'বাহাত্তর' },
-                { number: 71, value: 'একাত্তর' },
-                { number: 70, value: 'সত্তর' },
-                { number: 69, value: 'ঊনসত্তর' },
-                { number: 68, value: 'অষ্টষষ্টি' },
-                { number: 67, value: 'সাতষষ্টি' },
-                { number: 66, value: 'ছেষষ্টি' },
-                { number: 65, value: 'পঁয়ষট্টি' },
-                { number: 64, value: 'চৌষট্টি' },
-                { number: 63, value: 'তেষট্টি' },
-                { number: 62, value: 'বাষট্টি' },
-                { number: 61, value: 'একষট্টি' },
-                { number: 60, value: 'ষাট' },
-                { number: 59, value: 'ঊনষাট' },
-                { number: 58, value: 'আটান্ন' },
-                { number: 57, value: 'সাতান্ন' },
-                { number: 56, value: 'ছাপ্পান্ন' },
-                { number: 55, value: 'পঞ্চান্ন' },
-                { number: 54, value: 'চুয়ান্ন' },
-                { number: 53, value: 'তিপ্পান্ন' },
-                { number: 52, value: 'বায়ান্ন' },
-                { number: 51, value: 'একান্ন' },
-                { number: 50, value: 'পঞ্চাশ' },
-                { number: 49, value: 'ঊনপঞ্চাশ' },
-                { number: 48, value: 'আটচল্লিশ' },
-                { number: 47, value: 'সাতচল্লিশ' },
-                { number: 46, value: 'ছেচল্লিশ' },
-                { number: 45, value: 'পঁইঁতাল্লিশ' },
-                { number: 44, value: 'চুয়াল্লিশ' },
-                { number: 43, value: 'তেতাল্লিশ' },
-                { number: 42, value: 'বিয়াল্লিশ' },
-                { number: 41, value: 'একচল্লিশ' },
-                { number: 40, value: 'চল্লিশ' },
-                { number: 39, value: 'ঊনচল্লিশ' },
-                { number: 38, value: 'আটত্রিশ' },
-                { number: 37, value: 'সাঁইত্রিশ' },
-                { number: 36, value: 'ছত্রিশ' },
-                { number: 35, value: 'পঁইত্রিশ' },
-                { number: 34, value: 'চৌত্রিশ' },
-                { number: 33, value: 'তেত্রিশ' },
-                { number: 32, value: 'বত্রিশ' },
-                { number: 31, value: 'একত্রিশ' },
-                { number: 30, value: 'ত্রিশ' },
-                { number: 29, value: 'ঊনত্রিশ' },
-                { number: 28, value: 'আঠাশ' },
-                { number: 27, value: 'সাতাশ' },
-                { number: 26, value: 'ছাব্বিশ' },
-                { number: 25, value: 'পঁচিশ' },
-                { number: 24, value: 'চব্বিশ' },
-                { number: 23, value: 'তেইশ' },
-                { number: 22, value: 'বাইশ' },
-                { number: 21, value: 'একুশ' },
-                { number: 20, value: 'বিশ' },
-                { number: 19, value: 'ঊনিশ' },
-                { number: 18, value: 'আঠারো' },
-                { number: 17, value: 'সতেরো' },
-                { number: 16, value: 'ষোলো' },
-                { number: 15, value: 'পনেরো' },
-                { number: 14, value: 'চৌদ্দ' },
-                { number: 13, value: 'তেরো' },
-                { number: 12, value: 'বারো' },
-                { number: 11, value: 'এগারো' },
-                { number: 10, value: 'দশ' },
-                { number: 9, value: 'নয়' },
-                { number: 8, value: 'আট' },
-                { number: 7, value: 'সাত' },
-                { number: 6, value: 'ছয়' },
-                { number: 5, value: 'পাঁচ' },
-                { number: 4, value: 'চার' },
-                { number: 3, value: 'তিন' },
-                { number: 2, value: 'দুই' },
-                { number: 1, value: 'এক' },
-                { number: 0, value: 'শূন্য' },
-            ],
         };
     }
 }
