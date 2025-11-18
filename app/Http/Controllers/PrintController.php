@@ -3066,12 +3066,9 @@ class PrintController extends Controller
         \App::setLocale($locale);
 
         try {
-            // Normalize request parameters from query string to match POST format
-            $normalizedRequest = $this->normalizeExpenseReportRequest($request);
-
             // Get expenses report data
             $reportController = new \App\Http\Controllers\API\ReportController();
-            $expensesData = $reportController->expenseReport($normalizedRequest);
+            $expensesData = $reportController->expenseReport($request);
 
             // Handle JsonResponse (the expenses API returns a collection resource)
             if ($expensesData instanceof \Illuminate\Http\JsonResponse) {

@@ -1505,30 +1505,68 @@ class ReportController extends Controller
     // return expense report data
     public function expenseReport(Request $request)
     {
-        // validate request
+        // Extract parameters using input() which works with both query params and POST data
+        $categoryId = $request->input('category.id') ?? ($request->category['id'] ?? null);
+        $categoryName = $request->input('category.name') ?? ($request->category['name'] ?? null);
+        $subCategoryId = $request->input('subCategory.id') ?? ($request->subCategory['id'] ?? null);
+        $subCategoryName = $request->input('subCategory.name') ?? ($request->subCategory['name'] ?? null);
+        $fromDateRaw = $request->input('fromDate') ?? $request->fromDate;
+        $toDateRaw = $request->input('toDate') ?? $request->toDate;
+
+        // Parse dates from ISO 8601 format to date-only format (YYYY-MM-DD) for DATE column
+        $fromDate = null;
+        $toDate = null;
+        if ($fromDateRaw) {
+            $fromDate = Carbon::parse($fromDateRaw)->format('Y-m-d');
+        }
+        if ($toDateRaw) {
+            $toDate = Carbon::parse($toDateRaw)->format('Y-m-d');
+        }
+
+        // Log for debugging
+        Log::info('Expense Report - Request Parameters:', [
+            'categoryId' => $categoryId,
+            'subCategoryId' => $subCategoryId,
+            'fromDateRaw' => $fromDateRaw,
+            'toDateRaw' => $toDateRaw,
+            'fromDate' => $fromDate,
+            'toDate' => $toDate,
+            'all_request' => $request->all(),
+        ]);
+
+        // Validate request - create category array for validation
+        $categoryArray = $categoryId !== null ? ['id' => (int) $categoryId, 'name' => $categoryName ?? ''] : null;
+        $subCategoryArray = $subCategoryId !== null ? ['id' => (int) $subCategoryId, 'name' => $subCategoryName ?? ''] : null;
+
+        // Temporarily merge for validation
+        $request->merge([
+            'category' => $categoryArray,
+            'subCategory' => $subCategoryArray,
+        ]);
+
         $this->validate($request, [
             'category' => 'required',
-            'subCategory' => ($request->category && $request->category['id'] != 0) ? 'required' : 'nullable',
+            'subCategory' => ($categoryId && $categoryId != 0) ? 'required' : 'nullable',
         ]);
 
         $user = Auth::user();
         $branchIds = $this->getUserBranchIds($user);
         $expenses = '';
 
-        if (isset($request->category) && isset($request->subCategory)) {
-            if ($request->subCategory['id'] != 0) {
+        if ($categoryId !== null && $subCategoryId !== null) {
+            if ($subCategoryId != 0) {
                 $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user')
                     ->whereIn('branch_id', $branchIds)
-                    ->where('sub_cat_id', $request->subCategory['id'])
-                    ->whereBetween('date', [$request->fromDate, $request->toDate])
+                    ->where('sub_cat_id', $subCategoryId)
+                    ->whereBetween('date', [$fromDate, $toDate])
                     ->get();
             } else {
                 $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount')
                     ->whereIn('branch_id', $branchIds)
-                    ->whereBetween('date', [$request->fromDate, $request->toDate])
-                    ->whereHas('expSubCategory', function ($newQuery) use ($request) {
-                        $newQuery->whereHas('expCategory', function ($newQuery) use ($request) {
-                            $newQuery->where('id', $request->category['id']);
+                    ->whereBetween('date', [$fromDate, $toDate])
+                    ->whereHas('expSubCategory', function ($newQuery) use ($categoryId) {
+                        $newQuery->whereHas('expCategory', function ($newQuery) use ($categoryId) {
+                            $newQuery->where('id', $categoryId);
                         });
                     })
                     ->get();
@@ -1536,9 +1574,14 @@ class ReportController extends Controller
         } else {
             $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user')
                 ->whereIn('branch_id', $branchIds)
-                ->whereBetween('date', [$request->fromDate, $request->toDate])
+                ->whereBetween('date', [$fromDate, $toDate])
                 ->get();
         }
+
+        Log::info('Expense Report - Query Results:', [
+            'expenses_count' => $expenses->count(),
+            'branchIds' => $branchIds,
+        ]);
 
         return ExpenseResource::collection($expenses);
     }
