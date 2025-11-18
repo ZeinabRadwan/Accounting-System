@@ -725,8 +725,8 @@ Route::middleware([
     Route::get('/print/voucher/{slug}', [App\Http\Controllers\PrintController::class, 'printVoucher'])->name('print.voucher');
     Route::get('/print/voucher/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadVoucherPDF'])->name('print.voucher.pdf');
 
-    // Reports print routes - protected with auth:sanctum to ensure Auth::user() is available
-    Route::middleware(['auth:sanctum', 'tenant.not_archived', 'user.tenant.not_archived', 'tenant.initialized'])->group(function () {
+    // Reports print routes - protect with session auth to ensure Auth::user() is available
+    Route::middleware(['auth', 'tenant.not_archived', 'user.tenant.not_archived', 'tenant.initialized'])->group(function () {
         Route::get('/print/reports/balance-sheet', [App\Http\Controllers\PrintController::class, 'printBalanceSheet'])->name('print.reports.balance-sheet');
         Route::get('/print/reports/balance-sheet/pdf', [App\Http\Controllers\PrintController::class, 'downloadBalanceSheetPDF'])->name('print.reports.balance-sheet.pdf');
         Route::get('/print/reports/balance-sheet/preview', [App\Http\Controllers\PrintController::class, 'previewBalanceSheetPDF'])->name('print.reports.balance-sheet.preview');
@@ -812,8 +812,8 @@ Route::middleware([
     Route::get('/invoices/pdf', [TableExportController::class, 'invoicePDF'])->name('invoices.pdf');
     Route::get('/invoices/export/export', [TableExportController::class, 'invoiceExportExcel'])->name('invoices.export.export');
 
-    // Report export routes - protected with auth:sanctum to ensure Auth::user() is available
-    Route::middleware(['auth:sanctum', 'tenant.not_archived', 'user.tenant.not_archived', 'tenant.initialized'])->group(function () {
+    // Report export routes - protect with session auth to ensure Auth::user() is available
+    Route::middleware(['auth', 'tenant.not_archived', 'user.tenant.not_archived', 'tenant.initialized'])->group(function () {
         Route::get('/reports/today-report/pdf', [TableExportController::class, 'todayReportPDF'])->name('todayReport.pdf');
         Route::get('/reports/today-report/export', [TableExportController::class, 'todayReportExportExcel'])->name('todayReport.export.excel');
         Route::get('/reports/balance-sheet/pdf', [TableExportController::class, 'balanceSheetPDF'])->name('balanceSheet.pdf');
@@ -888,8 +888,8 @@ Route::middleware([
     Route::get('/inventory-history/excel', [TableExportController::class, 'inventoryHistoryExcel'])->name('inventoryHistory.excel');
     Route::get('/inventory-history/pdf', [TableExportController::class, 'inventoryHistoryPDF'])->name('inventoryHistory.pdf');
 
-    // Report export routes - protected with auth:sanctum to ensure Auth::user() is available
-    Route::middleware(['auth:sanctum', 'tenant.not_archived', 'user.tenant.not_archived', 'tenant.initialized'])->group(function () {
+    // Report export routes - protect with session auth to ensure Auth::user() is available
+    Route::middleware(['auth', 'tenant.not_archived', 'user.tenant.not_archived', 'tenant.initialized'])->group(function () {
         Route::get('/supplier-payable-report/export/excel', [TableExportController::class, 'supplierPayableReportExportExcel'])->name('supplierPayableReport.export.excel');
         Route::get('/client-receivable-report/export/excel', [TableExportController::class, 'clientReceivableReportExportExcel'])->name('clientReceivableReport.export.excel');
         Route::get('/sales-by-user-report/export/excel', [TableExportController::class, 'salesByUserReportExportExcel'])->name('salesByUserReport.export.excel');
