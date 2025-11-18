@@ -2650,6 +2650,7 @@ class PrintController extends Controller
     public function previewInventoryPDF(Request $request)
     {
         $user = \Auth::user();
+        dd($user);
         $locale = $user->locale ?? 'ar';
         \App::setLocale($locale);
 
