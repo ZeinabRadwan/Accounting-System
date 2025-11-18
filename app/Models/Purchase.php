@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Purchase extends Model
 {
-    use Sluggable, HasFactory, SoftDeletes;
+    use HasFactory, Sluggable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -17,15 +17,13 @@ class Purchase extends Model
      * @var array
      */
     protected $fillable = [
-        'purchase_no', 'slug', 'supplier_id', 'discount', 'transport', 'sub_total', 'tax_id', 'po_reference', 'payment_terms', 'po_date', 'purchase_date', 'created_by', 'note', 'status', 'is_paid', 'fiscal_year_id', 'accounting_period_id', 'branch_id',
+        'purchase_no', 'slug', 'supplier_id', 'discount', 'transport', 'transport_taxable', 'transport_non_taxable', 'sub_total', 'tax_id', 'po_reference', 'payment_terms', 'po_date', 'purchase_date', 'created_by', 'note', 'status', 'is_paid', 'fiscal_year_id', 'accounting_period_id', 'branch_id',
     ];
 
     protected $appends = ['calculated_due', 'calculated_tax', 'calculated_total'];
 
     /**
      * Return the sluggable configuration array for this model.
-     *
-     * @return array
      */
     public function sluggable(): array
     {
@@ -73,7 +71,7 @@ class Purchase extends Model
         if ($this->purchaseProducts) {
             $totalTax = $this->purchaseProducts->sum('tax_amount');
         }
-        
+
         // Returns should not affect the displayed tax amount
         // Original tax calculation without subtracting returns
         return $totalTax;

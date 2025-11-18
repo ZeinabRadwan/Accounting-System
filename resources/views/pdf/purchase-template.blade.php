@@ -76,7 +76,12 @@
                 <td class="total">@currency($purchase['discount'])</td>
             </tr>
         @endif
-        @if ($purchase['transport'])
+        @if ($purchase['transport_taxable'])
+            <tr>
+                <td class="total" colspan="3">@lang('Taxable Transport Cost')</td>
+                <td class="total">@currency($purchase['transport_taxable'])</td>
+            </tr>
+        @elseif ($purchase['transport'])
             <tr>
                 <td class="total" colspan="3">@lang('Transport')</td>
                 <td class="total">@currency($purchase['transport'])</td>

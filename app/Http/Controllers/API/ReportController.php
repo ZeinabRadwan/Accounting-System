@@ -140,7 +140,6 @@ class ReportController extends Controller
                     'legacy_data' => $legacyData,
                 ],
             ];
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -343,6 +342,11 @@ class ReportController extends Controller
             ->whereHas('lines', function ($query) use ($account) {
                 $query->where('chart_of_account_id', $account->id);
             });
+
+        // Apply branch filter
+        if (isset($filters['branch_id']) && $filters['branch_id']) {
+            $query->where('branch_id', $filters['branch_id']);
+        }
 
         // Apply filters
         if ($filters['fiscal_year_id']) {
@@ -823,7 +827,6 @@ class ReportController extends Controller
                     'pagination' => $vatTransactionsData['pagination'],
                 ],
             ];
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -899,7 +902,6 @@ class ReportController extends Controller
                     'total_entries' => count($vatTransactions),
                 ],
             ];
-
         } catch (\Exception $e) {
             return [
                 'success' => false,
@@ -1503,40 +1505,80 @@ class ReportController extends Controller
     // return expense report data
     public function expenseReport(Request $request)
     {
-        // validate request
-        $this->validate($request, [
-            'category' => 'required',
-            'subCategory' => ($request->category && $request->category['id'] != 0) ? 'required' : 'nullable',
+        // Extract parameters using input() which works with both query params and POST data
+        $categoryId = $request->input('category.id') ?? ($request->category['id'] ?? null);
+        $categoryName = $request->input('category.name') ?? ($request->category['name'] ?? null);
+        $subCategoryId = $request->input('subCategory.id') ?? ($request->subCategory['id'] ?? null);
+        $subCategoryName = $request->input('subCategory.name') ?? ($request->subCategory['name'] ?? null);
+        $fromDateRaw = $request->input('fromDate') ?? $request->fromDate;
+        $toDateRaw = $request->input('toDate') ?? $request->toDate;
+
+        // Parse dates from ISO 8601 format to date-only format (YYYY-MM-DD) for DATE column
+        $fromDate = null;
+        $toDate = null;
+        if ($fromDateRaw) {
+            $fromDate = Carbon::parse($fromDateRaw)->format('Y-m-d');
+        }
+        if ($toDateRaw) {
+            $toDate = Carbon::parse($toDateRaw)->format('Y-m-d');
+        }
+
+        // Log for debugging
+     $log =   [
+            'categoryId' => $categoryId,
+            'subCategoryId' => $subCategoryId,
+            'fromDateRaw' => $fromDateRaw,
+            'toDateRaw' => $toDateRaw,
+            'fromDate' => $fromDate,
+            'toDate' => $toDate,
+            'all_request' => $request->all(),
+        ];
+       
+
+        // Validate request - create category array for validation
+        $categoryArray = $categoryId !== null ? ['id' => (int) $categoryId, 'name' => $categoryName ?? ''] : null;
+        $subCategoryArray = $subCategoryId !== null ? ['id' => (int) $subCategoryId, 'name' => $subCategoryName ?? ''] : null;
+
+        // Temporarily merge for validation
+        $request->merge([
+            'category' => $categoryArray,
+            'subCategory' => $subCategoryArray,
         ]);
 
-        $user = Auth::user();
-        $branchIds = $this->getUserBranchIds($user);
+        $this->validate($request, [
+            'category' => 'required',
+            'subCategory' => ($categoryId && $categoryId != 0) ? 'required' : 'nullable',
+        ]);
+
+      
         $expenses = '';
 
-        if (isset($request->category) && isset($request->subCategory)) {
-            if ($request->subCategory['id'] != 0) {
+        if ($categoryId !== null && $subCategoryId !== null) {
+            if ($subCategoryId != 0) {
                 $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user')
-                    ->whereIn('branch_id', $branchIds)
-                    ->where('sub_cat_id', $request->subCategory['id'])
-                    ->whereBetween('date', [$request->fromDate, $request->toDate])
+                  
+                    ->where('sub_cat_id', $subCategoryId)
+                    ->whereBetween('date', [$fromDate, $toDate])
                     ->get();
             } else {
                 $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount')
-                    ->whereIn('branch_id', $branchIds)
-                    ->whereBetween('date', [$request->fromDate, $request->toDate])
-                    ->whereHas('expSubCategory', function ($newQuery) use ($request) {
-                        $newQuery->whereHas('expCategory', function ($newQuery) use ($request) {
-                            $newQuery->where('id', $request->category['id']);
+                
+                    ->whereBetween('date', [$fromDate, $toDate])
+                    ->whereHas('expSubCategory', function ($newQuery) use ($categoryId) {
+                        $newQuery->whereHas('expCategory', function ($newQuery) use ($categoryId) {
+                            $newQuery->where('id', $categoryId);
                         });
                     })
                     ->get();
             }
         } else {
             $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user')
-                ->whereIn('branch_id', $branchIds)
-                ->whereBetween('date', [$request->fromDate, $request->toDate])
+                
+                ->whereBetween('date', [$fromDate, $toDate])
                 ->get();
         }
+
+     
 
         return ExpenseResource::collection($expenses);
     }
@@ -1551,41 +1593,59 @@ class ReportController extends Controller
         ]);
 
         try {
-            $user = Auth::user();
-            $branchIds = $this->getUserBranchIds($user);
+            // // Get authenticated user - try Auth facade first, then from request
+            // $user = Auth::user();
+            // if (! $user && $request->user()) {
+            //     $user = $request->user();
+            // }
 
-            $product = Product::where('slug', $request->productName['slug'])
-                ->whereIn('branch_id', $branchIds)
+            // // If user is still null, return error
+            // if (! $user) {
+            //     return $this->responseWithError('User not authenticated', [], 401);
+            // }
+
+            // $branchIds = $this->getUserBranchIds($user);
+
+            $productSlug = $request->productName['slug'] ?? null;
+
+            if (! $productSlug) {
+                return $this->responseWithError('Product slug is required', [], 422);
+            }
+
+            $product = Product::where('slug', $productSlug)
+                // ->whereIn('branch_id', $branchIds)
                 ->with('proSubCategory.category', 'productUnit')
                 ->first();
 
             if (! $product) {
-                return $this->responseWithError('Product not found');
+                // Check if product exists but not in user's branches
+                $productExists = Product::where('slug', $productSlug)->exists();
+                $errorMessage = $productExists
+                    ?? "Product with slug '{$productSlug}' not found.";
+
+                return $this->responseWithError($errorMessage, [], 404);
             }
 
             // stock ins
             $purchaseIns = PurchaseProduct::with('purchase.supplier')
                 ->where('product_id', $product->id)
-                ->whereHas('purchase', function ($newQuery) use ($request, $branchIds) {
-                    $newQuery->whereIn('branch_id', $branchIds)
-                        ->whereBetween('purchase_date', [$request->fromDate, $request->toDate]);
+                ->whereHas('purchase', function ($newQuery) use ($request) {
+                    $newQuery->whereBetween('purchase_date', [$request->fromDate, $request->toDate]);
                 })
                 ->get();
 
             $invoiceReturnIns = InvoiceReturnProduct::with('invoiceReturn.invoice.client')
                 ->where('product_id', $product->id)
-                ->whereHas('invoiceReturn', function ($newQuery) use ($request, $branchIds) {
-                    $newQuery->whereIn('branch_id', $branchIds)
-                        ->whereBetween('date', [$request->fromDate, $request->toDate]);
+                ->whereHas('invoiceReturn', function ($newQuery) use ($request) {
+                    $newQuery->whereBetween('date', [$request->fromDate, $request->toDate]);
                 })
                 ->get();
 
             $adjutmentIns = AdjustmentProduct::with('inventoryAdjustment')
                 ->where('product_id', $product->id)
                 ->where('type', 1)
-                ->whereHas('inventoryAdjustment', function ($newQuery) use ($request, $branchIds) {
-                    $newQuery->whereIn('branch_id', $branchIds)
-                        ->whereBetween('date', [$request->fromDate, $request->toDate]);
+                ->whereHas('inventoryAdjustment', function ($newQuery) use ($request) {
+                    $newQuery->whereBetween('date', [$request->fromDate, $request->toDate]);
                 })
                 ->get();
 
@@ -1627,25 +1687,22 @@ class ReportController extends Controller
             $adjutmentOuts = AdjustmentProduct::with('inventoryAdjustment')
                 ->where('product_id', $product->id)
                 ->where('type', 0)
-                ->whereHas('inventoryAdjustment', function ($newQuery) use ($request, $branchIds) {
-                    $newQuery->whereIn('branch_id', $branchIds)
-                        ->whereBetween('date', [$request->fromDate, $request->toDate]);
+                ->whereHas('inventoryAdjustment', function ($newQuery) use ($request) {
+                    $newQuery->whereBetween('date', [$request->fromDate, $request->toDate]);
                 })
                 ->get();
 
             $inventoryOuts = InvoiceProduct::with('invoice.client')
                 ->where('product_id', $product->id)
-                ->whereHas('invoice', function ($newQuery) use ($request, $branchIds) {
-                    $newQuery->whereIn('branch_id', $branchIds)
-                        ->whereBetween('invoice_date', [$request->fromDate, $request->toDate]);
+                ->whereHas('invoice', function ($newQuery) use ($request) {
+                    $newQuery->whereBetween('invoice_date', [$request->fromDate, $request->toDate]);
                 })
                 ->get();
 
             $purchaseReturnOuts = PurchaseReturnProduct::with('purchaseReturn.purchase.supplier')
                 ->where('product_id', $product->id)
-                ->whereHas('purchaseReturn', function ($newQuery) use ($request, $branchIds) {
-                    $newQuery->whereIn('branch_id', $branchIds)
-                        ->whereBetween('date', [$request->fromDate, $request->toDate]);
+                ->whereHas('purchaseReturn', function ($newQuery) use ($request) {
+                    $newQuery->whereBetween('date', [$request->fromDate, $request->toDate]);
                 })
                 ->get();
 
@@ -1704,7 +1761,33 @@ class ReportController extends Controller
             'itemName' => 'required',
         ]);
 
-        $user = Auth::user();
+        // Get authenticated user - try all possible methods
+        // Since 'can' middleware requires auth, user should be available
+        $user = $request->user();
+        
+        // If null, try different guards (Sanctum checks 'web' first for stateful requests)
+        if (! $user) {
+            $user = Auth::guard('web')->user();
+        }
+        
+        // Try sanctum guard
+        if (! $user) {
+            $user = auth('sanctum')->user();
+        }
+        
+        // Try default guard
+        if (! $user) {
+            $user = Auth::user();
+        }
+        
+        // Last resort: try to get from session if stateful request
+        if (! $user && $request->hasSession()) {
+            $userId = $request->session()->get('login_web_' . sha1('App\Models\User'));
+            if ($userId) {
+                $user = \App\Models\User::find($userId);
+            }
+        }
+        dd($user);
         $branchIds = $this->getUserBranchIds($user);
         $allProducts = [];
 
@@ -2278,12 +2361,14 @@ class ReportController extends Controller
 
             // Format the response
             $formattedAccounts = $subAccounts->map(function ($account) use ($parentAccountId) {
+                $translatedName = method_exists($account, 'getTranslatedField') ? $account->getTranslatedField('name') : $account->name;
+
                 return [
                     'id' => $account->id,
-                    'name' => $account->name,
+                    'name' => $translatedName,
                     'code' => $account->code,
                     'type' => $account->type ? $account->type->name : 'Unknown',
-                    'display_name' => "[{$account->code}] {$account->name}",
+                    'display_name' => "[{$account->code}] {$translatedName}",
                     'is_parent' => $account->id == $parentAccountId,
                     'parent_id' => $account->parent_id,
                 ];
@@ -2299,7 +2384,6 @@ class ReportController extends Controller
                     'type' => $parentAccount->type ? $parentAccount->type->name : 'Unknown',
                 ],
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -2501,7 +2585,6 @@ class ReportController extends Controller
                     ],
                 ],
             ];
-
         } catch (\Exception $e) {
             return $this->responseWithError($e->getMessage());
         }
@@ -2679,7 +2762,6 @@ class ReportController extends Controller
                     'total_entries' => count($processedEntries),
                 ],
             ];
-
         } catch (\Exception $e) {
             return $this->responseWithError($e->getMessage());
         }
@@ -2899,7 +2981,6 @@ class ReportController extends Controller
                     ],
                 ],
             ];
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -3108,7 +3189,6 @@ class ReportController extends Controller
                     'total_entries' => count($processedEntries),
                 ],
             ];
-
         } catch (\Exception $e) {
             return [
                 'success' => false,
@@ -3400,7 +3480,6 @@ class ReportController extends Controller
                     ],
                 ],
             ];
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -3546,7 +3625,6 @@ class ReportController extends Controller
                     'total_entries' => count($clientData),
                 ],
             ];
-
         } catch (\Exception $e) {
             return [
                 'success' => false,
@@ -3838,7 +3916,6 @@ class ReportController extends Controller
                     ],
                 ],
             ];
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -3984,7 +4061,6 @@ class ReportController extends Controller
                     'total_entries' => count($supplierData),
                 ],
             ];
-
         } catch (\Exception $e) {
             return [
                 'success' => false,
@@ -4021,16 +4097,17 @@ class ReportController extends Controller
             $page = (int) ($request->page ?? 1);
             $perPage = (int) ($request->per_page ?? ($page === 1 ? 999999 : 30)); // Page 1 loads all, others use chunks
 
+            // Load ALL chart of accounts first (much faster) - load complete hierarchy
+            $branchId = Auth::user()->default_branch_id ?? null;
+
             // Create filter object for consistency
             $filters = [
                 'fiscal_year_id' => $fiscalYearId,
                 'accounting_period_id' => $accountingPeriodId,
                 'from_date' => $fromDate,
                 'to_date' => $toDate,
+                'branch_id' => $branchId,
             ];
-
-            // Load ALL chart of accounts first (much faster) - load complete hierarchy
-            $branchId = Auth::user()->default_branch_id ?? null;
             $allAccountsQuery = \App\Models\ChartOfAccount::forBranch($branchId)
                 ->with($this->getCompleteHierarchyEagerLoad())
                 ->where('is_active', true)
@@ -4087,7 +4164,6 @@ class ReportController extends Controller
                     'total_count' => $totalCount,
                 ],
             ];
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -4129,6 +4205,9 @@ class ReportController extends Controller
             $fromDate = $request->from_date;
             $toDate = $request->to_date;
 
+            // Load accounts using Eloquent models (same as original trialBalance method)
+            $branchId = Auth::user()->default_branch_id ?? null;
+
             // Create filter object for consistency
             $filters = [
                 'fiscal_year_id' => $fiscalYearId,
@@ -4137,10 +4216,8 @@ class ReportController extends Controller
                 'to_date' => $toDate,
                 'chart_of_account_id' => $chartOfAccountId,
                 'sub_chart_of_account_id' => $subChartOfAccountId,
+                'branch_id' => $branchId,
             ];
-
-            // Load accounts using Eloquent models (same as original trialBalance method)
-            $branchId = Auth::user()->default_branch_id ?? null;
             $allAccountsQuery = \App\Models\ChartOfAccount::forBranch($branchId)
                 ->with($this->getCompleteHierarchyEagerLoad())
                 ->where('is_active', true)
@@ -4208,7 +4285,6 @@ class ReportController extends Controller
                     'total_entries' => $totalCount,
                 ],
             ];
-
         } catch (\Exception $e) {
             return [
                 'success' => false,
@@ -4239,16 +4315,17 @@ class ReportController extends Controller
             $fromDate = $request->from_date;
             $toDate = $request->to_date;
 
+            // Get the specific account
+            $branchId = Auth::user()->default_branch_id ?? null;
+
             // Create filter object for consistency
             $filters = [
                 'fiscal_year_id' => $fiscalYearId,
                 'accounting_period_id' => $accountingPeriodId,
                 'from_date' => $fromDate,
                 'to_date' => $toDate,
+                'branch_id' => $branchId,
             ];
-
-            // Get the specific account
-            $branchId = Auth::user()->default_branch_id ?? null;
             $account = \App\Models\ChartOfAccount::forBranch($branchId)
                 ->with(['type'])
                 ->where('id', $accountId)
@@ -4270,7 +4347,7 @@ class ReportController extends Controller
             // Return the account with calculated balance
             $accountWithBalance = [
                 'id' => $account->id,
-                'name' => $account->name,
+                'name' => method_exists($account, 'getTranslatedField') ? $account->getTranslatedField('name') : $account->name,
                 'code' => $account->code,
                 'type' => $account->type,
                 'opening_debit' => $balanceDetails['opening_debit'],
@@ -4290,7 +4367,6 @@ class ReportController extends Controller
                     'account' => $accountWithBalance,
                 ],
             ];
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -4311,7 +4387,12 @@ class ReportController extends Controller
             ->with(['lines' => function ($query) {
                 $query->select('id', 'journal_entry_id', 'chart_of_account_id', 'debit_amount', 'credit_amount');
             }])
-            ->select('id', 'entry_date', 'fiscal_year_id', 'accounting_period_id');
+            ->select('id', 'entry_date', 'fiscal_year_id', 'accounting_period_id', 'branch_id');
+
+        // Apply branch filter
+        if (isset($filters['branch_id']) && $filters['branch_id']) {
+            $baseQuery->where('branch_id', $filters['branch_id']);
+        }
 
         // Apply filters
         if ($filters['fiscal_year_id']) {
@@ -4390,7 +4471,7 @@ class ReportController extends Controller
             $accountData = [
                 'id' => $account->id,
                 'code' => $account->code,
-                'name' => $account->name,
+                'name' => method_exists($account, 'getTranslatedField') ? $account->getTranslatedField('name') : $account->name,
                 'type' => $account->type ? $account->type->name : 'Unknown',
                 'level' => $level,
                 'is_parent' => $children->count() > 0,
@@ -4527,7 +4608,7 @@ class ReportController extends Controller
             $accountData = [
                 'id' => $account->id,
                 'code' => $account->code,
-                'name' => $account->name,
+                'name' => method_exists($account, 'getTranslatedField') ? $account->getTranslatedField('name') : $account->name,
                 'type' => $account->type ? $account->type->name : 'Unknown',
                 'level' => $level,
                 'is_parent' => $children->count() > 0,
@@ -4639,6 +4720,11 @@ class ReportController extends Controller
             ->whereHas('lines', function ($query) use ($account) {
                 $query->where('chart_of_account_id', $account->id);
             });
+
+        // Apply branch filter
+        if (isset($filters['branch_id']) && $filters['branch_id']) {
+            $baseQuery->where('branch_id', $filters['branch_id']);
+        }
 
         // Apply filters
         if ($filters['fiscal_year_id']) {
@@ -4904,8 +4990,44 @@ class ReportController extends Controller
 
     private function getUserBranchIds($user)
     {
-        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        $branchIds = [];
 
-        return [$defaultBranchId > 0 ? $defaultBranchId : 0];
+        // Return [0] if user is null
+        if (! $user) {
+            return [0];
+        }
+
+        // Super admin (account_role === 1) has access to all active branches
+        if ((int) $user->account_role === 1) {
+            $allBranchIds = DB::table('branches')
+                ->whereNull('deleted_at')
+                ->where('is_active', true)
+                ->pluck('id')
+                ->toArray();
+
+            return ! empty($allBranchIds) ? array_values($allBranchIds) : [0];
+        }
+
+        // Add default branch if set (always include it even if not in branch_user table)
+        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+        if ($defaultBranchId > 0) {
+            $branchIds[] = $defaultBranchId;
+        }
+
+        // Add all branches the user has access to from branch_user table
+        $userBranchIds = DB::table('branch_user')
+            ->where('user_id', $user->id)
+            ->pluck('branch_id')
+            ->toArray();
+
+        $branchIds = array_merge($branchIds, $userBranchIds);
+
+        // Remove duplicates and filter out zeros
+        $branchIds = array_unique(array_filter($branchIds, function ($id) {
+            return $id > 0;
+        }));
+
+        // If no branches found, return [0] to prevent empty array issues
+        return ! empty($branchIds) ? array_values($branchIds) : [0];
     }
 }

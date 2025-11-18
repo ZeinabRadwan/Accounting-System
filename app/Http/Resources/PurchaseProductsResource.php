@@ -14,16 +14,18 @@ class PurchaseProductsResource extends JsonResource
      */
     public function toArray($request)
     {
-        if (!$this->resource) {
+        if (! $this->resource) {
             return [];
         }
-        
+
         return [
             'id' => $this->id,
             'purchaseNo' => $this->purchase_no,
             'slug' => $this->slug,
             'supplier' => new SupplierListReource($this->supplier),
             'transport' => $this->transport,
+            'transport_taxable' => $this->transport_taxable,
+            'transport_non_taxable' => $this->transport_non_taxable,
             'tax' => $this->taxAmount(),
             'taxType' => $this->purchaseTax,
             'subTotal' => $this->sub_total,
