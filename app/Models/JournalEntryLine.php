@@ -54,11 +54,11 @@ class JournalEntryLine extends Model
         $hasCredit = $this->credit_amount > 0;
 
         if ($hasDebit && $hasCredit) {
-            throw new \InvalidArgumentException('A journal entry line cannot have both debit and credit amounts.');
+            throw new \InvalidArgumentException(__('journal.line_cannot_have_both'));
         }
 
         if (!$hasDebit && !$hasCredit) {
-            throw new \InvalidArgumentException('A journal entry line must have either a debit or credit amount.');
+            throw new \InvalidArgumentException(__('journal.line_must_have_one'));
         }
     }
 

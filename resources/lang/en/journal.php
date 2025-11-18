@@ -70,5 +70,7 @@ return [
     
     // Validation Messages
     'must_be_balanced' => 'Journal entry must be balanced. Total debits must equal total credits.',
+    'line_cannot_have_both' => 'A journal entry line cannot have both debit and credit amounts.',
+    'line_must_have_one' => 'A journal entry line must have either a debit or credit amount.',
 ];
 
