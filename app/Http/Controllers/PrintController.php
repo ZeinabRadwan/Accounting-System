@@ -2749,14 +2749,14 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        dd($user);
+       
         
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Get inventory report data
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $inventoryData = $reportController->inventoryReport($request);
+        $inventoryData = $reportController->inventoryReport($request,$user  );
 
         // Handle JsonResponse
         if ($inventoryData instanceof \Illuminate\Http\JsonResponse) {

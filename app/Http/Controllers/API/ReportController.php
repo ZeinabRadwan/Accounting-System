@@ -1752,7 +1752,7 @@ class ReportController extends Controller
     }
 
     // return inventory report data
-    public function inventoryReport(Request $request)
+    public function inventoryReport(Request $request,$user = null)
     {
         // validate request
         $this->validate($request, [
@@ -1761,7 +1761,7 @@ class ReportController extends Controller
             'itemName' => 'required',
         ]);
 
-        $user = Auth::user();
+        $user = $user ?? Auth::user();
         $branchIds = $this->getUserBranchIds($user);
         $allProducts = [];
 
