@@ -153,6 +153,9 @@ return [
             'string' => 'The note must be a string.',
             'max' => 'The note may not be greater than 255 characters.',
         ],
+        'domain' => [
+            'not_found' => 'The :attribute is not found.',
+        ],
     ],
 
     /*

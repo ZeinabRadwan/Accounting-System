@@ -38,6 +38,6 @@ class FindDomainValidation implements Rule
      */
     public function message()
     {
-        return 'The :attribute is not found.';
+        return __('validation.custom.domain.not_found', ['attribute' => __('validation.attributes.domain')]);
     }
 }
