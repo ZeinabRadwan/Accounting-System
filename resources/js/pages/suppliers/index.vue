@@ -259,7 +259,7 @@
     
     <!-- Supplier Edit Modal -->
     <SupplierEditModal 
-      :showModal="showEditModal" 
+      :showModal.sync="showEditModal"
       :supplier="selectedSupplierForEdit"
       @supplierUpdated="onSupplierUpdated"
       @reloadSuppliers="reload"
@@ -517,6 +517,8 @@ export default {
     openEditModal(supplier) {
       this.selectedSupplierForEdit = supplier;
       this.showEditModal = true;
+      // Close action menu
+      this.openActionIndex = null;
     },
     
     // Handle supplier updated event
