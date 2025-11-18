@@ -2817,7 +2817,7 @@ class PrintController extends Controller
 
         // Get inventory report data
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $inventoryData = $reportController->inventoryReport($request);
+        $inventoryData = $reportController->inventoryReport($request,$user  );
 
         // Handle JsonResponse
         if ($inventoryData instanceof \Illuminate\Http\JsonResponse) {
@@ -3543,7 +3543,7 @@ class PrintController extends Controller
 
         // Get supplier payable report data
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $reportData = $reportController->supplierDueReport($request);
+        $reportData = $reportController->supplierDueReport($request,$user  );
 
         if ($reportData instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportData->getData(true);
@@ -3575,7 +3575,7 @@ class PrintController extends Controller
 
         // Get supplier payable report data
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $reportData = $reportController->supplierDueReport($request);
+        $reportData = $reportController->supplierDueReport($request,$user  );
 
         if ($reportData instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportData->getData(true);
@@ -3619,7 +3619,7 @@ class PrintController extends Controller
 
         // Get supplier payable report data
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $reportData = $reportController->supplierDueReport($request);
+        $reportData = $reportController->supplierDueReport($request,$user  );
 
         if ($reportData instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportData->getData(true);

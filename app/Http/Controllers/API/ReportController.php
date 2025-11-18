@@ -1875,10 +1875,10 @@ class ReportController extends Controller
     }
 
     // get supplier due reports
-    public function supplierDueReport(Request $request)
+    public function supplierDueReport(Request $request,$user = null)
     {
         try {
-            $user = Auth::user();
+            $user = $user ?? Auth::user();
             $branchIds = $this->getUserBranchIds($user);
 
             $query = Supplier::with('purchases.purchaseReturn')
