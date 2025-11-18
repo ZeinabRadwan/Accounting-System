@@ -8,11 +8,12 @@
         </div>
         <div class="warning-text">
           <h6 class="warning-title">{{ $t('Chart of Account Required') }}</h6>
-          <p class="warning-description">{{ $t('Client must have a Chart of Account assigned for journal entries') }}</p>
+          <p class="warning-description">{{ $t('Client must have a Chart of Account assigned for journal entries') }}
+          </p>
         </div>
       </div>
     </div>
-    
+
     <div class="row">
       <div class="col-lg-12 col-xl-12">
         <div class="card custom-card w-100">
@@ -23,11 +24,13 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'clients.index' }" class="btn btn-info">
-                  <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                  <template
+                    v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
                     {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
                   </template>
                   <template v-else>
-                    <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                    <template
+                      v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
                       {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
 
@@ -35,7 +38,8 @@
 
                     <template v-else>
 
-                      <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                      <template
+                        v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
 
                         {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
@@ -64,11 +68,7 @@
           <!-- /.card-header -->
           <div class="card-body">
             <!-- form start -->
-            <ClientForm 
-              ref="clientForm"
-              :showCardBody="false"
-              @submit="saveClient"
-            />
+            <ClientForm ref="clientForm" :showCardBody="false" @submit="saveClient" />
           </div>
           <!-- /.card-body -->
           <div class="card-footer">
@@ -76,7 +76,7 @@
               <div class="form-group row display-per-page footer-buttons d-flex justify-content-between w-100">
                 <button @click="submitForm" :disabled="isSubmitting" class="btn btn-success">
                   <i v-if="isSubmitting" class="fas fa-spinner fa-spin"></i>
-                  <i v-else class="fas fa-save"></i> 
+                  <i v-else class="fas fa-save"></i>
                   {{ isSubmitting ? $t("Saving...") : $t("Save") }}
                 </button>
                 <button type="reset" class="btn btn-info" @click="resetForm">
@@ -141,13 +141,13 @@ export default {
         this.$refs.clientForm.submitForm();
       }
     },
-    
+
     // save client
     async saveClient(formData) {
       if (this.isSubmitting) return;
-      
+
       this.isSubmitting = true;
-      
+
       try {
         // Build multipart/form-data to properly send files (image, attachments)
         const fd = new FormData();
@@ -181,34 +181,34 @@ export default {
         appendIfDefined('notes', formData.notes);
         appendIfDefined('displayLanguage', formData.displayLanguage);
         appendIfDefined('type', formData.type);
-        
+
         // CRITICAL: Always append taxStatus - don't use appendIfDefined to ensure it's always sent
         // Get taxStatus from formData, or try to get it from form object if available
         let taxStatusValue = formData.taxStatus || formData.tax_status;
-        
+
         console.log('Client Create - Initial taxStatus check:', {
           formDataTaxStatus: formData.taxStatus,
           formDataTax_status: formData.tax_status,
           currentTaxStatusValue: taxStatusValue
         });
-        
+
         // If still not found, try to get it from the form component
         if (!taxStatusValue && this.$refs.clientForm && this.$refs.clientForm.form) {
           taxStatusValue = this.$refs.clientForm.form.taxStatus;
           console.log('Client Create - Got taxStatus from form object:', taxStatusValue);
         }
-        
+
         // Default to non_taxable if still not found
         taxStatusValue = taxStatusValue || 'non_taxable';
-        
+
         console.log('Client Create - Final taxStatusValue before appending:', taxStatusValue);
-        
+
         // Always append taxStatus - never skip it, even if it's the default value
         // CRITICAL: Use explicit string conversion and ensure it's never null/undefined
         const taxStatusToSend = String(taxStatusValue || 'non_taxable');
         fd.append('taxStatus', taxStatusToSend);
         fd.append('tax_status', taxStatusToSend);
-        
+
         console.log('=== CLIENT CREATE - APPENDING TAX STATUS ===');
         console.log('Client Create - taxStatusValue:', taxStatusValue);
         console.log('Client Create - taxStatusToSend:', taxStatusToSend);
@@ -216,11 +216,11 @@ export default {
         console.log('Client Create - formData.taxStatus:', formData.taxStatus);
         console.log('Client Create - formData.tax_status:', formData.tax_status);
         console.log('Client Create - form.taxStatus:', this.$refs.clientForm?.form?.taxStatus);
-        
+
         // Verify it was added
         console.log('Client Create - FormData has taxStatus:', fd.has('taxStatus'));
         console.log('Client Create - FormData has tax_status:', fd.has('tax_status'));
-        
+
         appendIfDefined('fullName', formData.fullName);
         appendIfDefined('businessName', formData.businessName);
         appendIfDefined('firstName', formData.firstName);
@@ -285,7 +285,7 @@ export default {
         const response = await this.$http.post("/api/clients", fd, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
-        
+
         if (response.data.success) {
           // Clear temporary data after successful save
           this.clearTemporaryData()
@@ -305,23 +305,23 @@ export default {
           // Get form object directly from ClientForm component
           const form = this.$refs.clientForm.form;
           const errorMessages = [];
-          
+
           // Prepare errors object for vform
           const errorsObject = {};
-          
+
           Object.keys(serverErrors).forEach((key) => {
             const messages = serverErrors[key];
             if (Array.isArray(messages) && messages.length > 0) {
               // Translate messages before adding to errorsObject
               const translatedMessages = messages.map(msg => this.translateValidationMessage(msg, key));
               errorsObject[key] = translatedMessages;
-              
+
               // Collect error messages for toast notification
               const fieldLabel = this.getFieldLabel(key);
               translatedMessages.forEach(msg => {
                 errorMessages.push(`${fieldLabel}: ${msg}`);
               });
-              
+
               // Also map attachments.* to attachments field for UI display
               if (key.startsWith('attachments.')) {
                 if (!errorsObject.attachments) {
@@ -330,7 +330,7 @@ export default {
               }
             }
           });
-          
+
           // Set errors on form using vform's set method
           if (form && form.errors && typeof form.errors.set === 'function') {
             form.errors.set(errorsObject);
@@ -346,7 +346,7 @@ export default {
           } else {
             console.warn('Client Create - Form errors object not available or invalid');
           }
-          
+
           // Optionally scroll to the first invalid input
           this.$nextTick(() => {
             const invalid = document.querySelector('.is-invalid');
@@ -354,27 +354,27 @@ export default {
               invalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
           });
-          
+
           // Show detailed error messages in toast
-          const errorTitle = errorMessages.length > 0 
+          const errorTitle = errorMessages.length > 0
             ? errorMessages.slice(0, 3).join(' | ') + (errorMessages.length > 3 ? ` (+${errorMessages.length - 3} more)` : '')
             : this.$t("Please check the form for errors and try again.")
-          
+
           console.log('Client Create - Error messages for toast:', errorMessages);
           console.log('Client Create - Error title:', errorTitle);
-          
+
           toast.fire({
             type: "error",
             title: this.$t("Validation Error"),
             text: errorTitle,
-            html: errorMessages.length > 0 
+            html: errorMessages.length > 0
               ? `<div style="text-align: left; max-height: 200px; overflow-y: auto;">${errorMessages.map(msg => `<div>• ${msg}</div>`).join('')}</div>`
               : undefined
           });
         } else {
           const message = error?.response?.data?.message || error?.message || this.$t("Please check your input and try again.")
-          toast.fire({ 
-            type: "error", 
+          toast.fire({
+            type: "error",
             title: this.$t("Error"),
             text: message
           });
@@ -408,7 +408,7 @@ export default {
           timestamp: new Date().toISOString()
         }
         localStorage.setItem('clientTempData', JSON.stringify(tempData))
-        
+
       }
     },
     // Get field label for error messages
@@ -448,7 +448,7 @@ export default {
       };
       return fieldLabelMap[field] || field;
     },
-    
+
     // translate validation messages from backend to localized messages
     translateValidationMessage(message, field) {
       // If there is a direct translation key, use it
@@ -512,7 +512,7 @@ export default {
       // Return original message if no translation found
       return message;
     },
-    
+
     // load temporary data
     loadTemporaryData() {
       const tempData = localStorage.getItem('clientTempData')
@@ -585,7 +585,7 @@ export default {
   margin-bottom: 20px;
   border-radius: 8px;
   padding: 16px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .chart-account-warning {
@@ -682,17 +682,18 @@ export default {
 
 /* Responsive design */
 @media (max-width: 768px) {
+
   .warning-content,
   .success-content {
     flex-direction: column;
     text-align: center;
     gap: 12px;
   }
-  
+
   .warning-action {
     width: 100%;
   }
-  
+
   .btn-primary {
     width: 100%;
   }
@@ -903,7 +904,7 @@ export default {
 }
 
 /* Search Input Background Override */
-.form-control{
+.form-control {
   background: #fff !important;
 }
 

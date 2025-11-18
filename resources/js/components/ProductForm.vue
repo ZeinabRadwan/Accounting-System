@@ -15,7 +15,8 @@
                     {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
                   </template>
                   <template v-else>
-                    <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                    <template
+                      v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
                       {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
 
@@ -23,7 +24,8 @@
 
                     <template v-else>
 
-                      <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                      <template
+                        v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
 
                         {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
@@ -51,27 +53,14 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <product-form-template
-              :form="form"
-              :form-id="formId"
-              :product="product"
-              :categories="categories"
-              :units="units"
-              :taxes="taxes"
-              :chart-of-accounts="chartOfAccounts"
-              :prefix="prefix"
-              :url="url"
+            <product-form-template :form="form" :form-id="formId" :product="product" :categories="categories"
+              :units="units" :taxes="taxes" :chart-of-accounts="chartOfAccounts" :prefix="prefix" :url="url"
               :is-sales-account-automatic="isSalesAccountAutomatic"
-              :is-purchase-account-automatic="isPurchaseAccountAutomatic"
-              :is-edit-mode="isEditMode"
-              @calculate-price="calculatePrice"
-              @on-file-change="onFileChange"
+              :is-purchase-account-automatic="isPurchaseAccountAutomatic" :is-edit-mode="isEditMode"
+              @calculate-price="calculatePrice" @on-file-change="onFileChange"
               @on-override-sales-account-change="onOverrideSalesAccountChange"
-              @on-override-purchase-account-change="onOverridePurchaseAccountChange"
-              @submit-form="submitForm"
-              @save-temporary="saveTemporary"
-              @reset-form="resetForm"
-            />
+              @on-override-purchase-account-change="onOverridePurchaseAccountChange" @submit-form="submitForm"
+              @save-temporary="saveTemporary" @reset-form="resetForm" />
           </div>
           <div class="card-footer" style="display: none;">
             <div class="dtable-footer">
@@ -94,27 +83,14 @@
       <VModal v-model="showModal" @close="closeModal" size="lg">
         <template v-slot:title>{{ modalTitle }}</template>
         <div class="w-100">
-          <product-form-template
-            :form="form"
-            :form-id="formId"
-            :product="product"
-            :categories="categories"
-            :units="units"
-            :taxes="taxes"
-            :chart-of-accounts="chartOfAccounts"
-            :prefix="prefix"
-            :url="url"
+          <product-form-template :form="form" :form-id="formId" :product="product" :categories="categories"
+            :units="units" :taxes="taxes" :chart-of-accounts="chartOfAccounts" :prefix="prefix" :url="url"
             :is-sales-account-automatic="isSalesAccountAutomatic"
-            :is-purchase-account-automatic="isPurchaseAccountAutomatic"
-            :is-edit-mode="isEditMode"
-            @calculate-price="calculatePrice"
-            @on-file-change="onFileChange"
+            :is-purchase-account-automatic="isPurchaseAccountAutomatic" :is-edit-mode="isEditMode"
+            @calculate-price="calculatePrice" @on-file-change="onFileChange"
             @on-override-sales-account-change="onOverrideSalesAccountChange"
-            @on-override-purchase-account-change="onOverridePurchaseAccountChange"
-            @submit-form="submitForm"
-            @save-temporary="saveTemporary"
-            @reset-form="resetForm"
-          />
+            @on-override-purchase-account-change="onOverridePurchaseAccountChange" @submit-form="submitForm"
+            @save-temporary="saveTemporary" @reset-form="resetForm" />
         </div>
         <div slot="modal-footer">
           <button type="button" class="btn btn-secondary mr-2" @click="closeModal">
@@ -230,7 +206,7 @@ export default {
     }
   },
   created() {
-    console.log('ProductForm: Component created', { 
+    console.log('ProductForm: Component created', {
       form: this.form,
       formBusy: this.form.busy,
       formErrors: this.form.errors.any(),
@@ -294,12 +270,12 @@ export default {
     },
 
     async submitForm() {
-      console.log('ProductForm: submitForm called - EVENT RECEIVED!', { 
-        isEditMode: !!this.product, 
+      console.log('ProductForm: submitForm called - EVENT RECEIVED!', {
+        isEditMode: !!this.product,
         formData: this.form.data(),
-        formErrors: this.form.errors.any() 
+        formErrors: this.form.errors.any()
       })
-      
+
       if (this.product) {
         await this.updateProduct()
       } else {
@@ -313,19 +289,19 @@ export default {
         event.preventDefault()
         event.stopPropagation()
       }
-      
+
       // Save form data to localStorage for temporary storage
       const formData = this.form.data()
       localStorage.setItem('productFormTemporary', JSON.stringify(formData))
-      
+
       // Show success message
       toast.fire({
         type: "success",
         title: "Form saved temporarily"
       })
-      
+
       console.log('Form data saved temporarily:', formData)
-      
+
       // Return false to prevent any further event handling
       return false
     },
@@ -408,19 +384,19 @@ export default {
       try {
         const response = await axios.get(window.location.origin + "/api/account-routing-settings/product-account-routing")
         this.accountRoutingSettings = response.data.data || {}
-        
+
         // Set flags for automatic routing
-        this.isSalesAccountAutomatic = this.accountRoutingSettings.sales && 
+        this.isSalesAccountAutomatic = this.accountRoutingSettings.sales &&
           this.accountRoutingSettings.sales.routing_type === 'automatic'
-        
-        this.isPurchaseAccountAutomatic = this.accountRoutingSettings.purchase && 
+
+        this.isPurchaseAccountAutomatic = this.accountRoutingSettings.purchase &&
           this.accountRoutingSettings.purchase.routing_type === 'automatic'
-        
+
         // If automatic routing is enabled, set the account IDs from routing settings
         if (this.isSalesAccountAutomatic && this.accountRoutingSettings.sales.main_account_id) {
           this.form.salesAccountId = this.accountRoutingSettings.sales.main_account_id
         }
-        
+
         if (this.isPurchaseAccountAutomatic && this.accountRoutingSettings.purchase.main_account_id) {
           this.form.purchaseAccountId = this.accountRoutingSettings.purchase.main_account_id
         }
@@ -457,11 +433,11 @@ export default {
           this.form.sellingPrice =
             (this.form.regularPrice - discount) / (1 + taxAmount) + totalTax
         }
-        
+
         // Set hidden fields to match regular price
         this.form.openingStockUnitPrice = this.form.regularPrice
         this.form.servicePurchasePrice = this.form.regularPrice
-        
+
         return
       }
       this.form.sellingPrice = this.form.regularPrice
@@ -491,19 +467,19 @@ export default {
 
     // save product
     async saveProduct() {
-      console.log('ProductForm: saveProduct called', { 
+      console.log('ProductForm: saveProduct called', {
         formData: this.form.data(),
         formErrors: this.form.errors.any(),
         formBusy: this.form.busy,
         formMethods: Object.getOwnPropertyNames(Object.getPrototypeOf(this.form)),
         formHasPost: typeof this.form.post === 'function'
       })
-      
+
       // Validate required fields based on item type
       if (this.form.itemType === 'service' && !this.form.servicePurchasePrice) {
-        toast.fire({ 
-          type: "error", 
-          title: "Service Purchase Price is required for services" 
+        toast.fire({
+          type: "error",
+          title: "Service Purchase Price is required for services"
         })
         return
       }
@@ -516,7 +492,7 @@ export default {
         needsSalesAccount: needsSalesAccount,
         salesAccountId: this.form.salesAccountId
       })
-      
+
       // If automatic routing is enabled and user hasn't overridden, use the auto-assigned account
       if (this.isSalesAccountAutomatic && !this.form.overrideSalesAccount) {
         if (this.accountRoutingSettings && this.accountRoutingSettings.sales && this.accountRoutingSettings.sales.main_account_id) {
@@ -524,14 +500,14 @@ export default {
           console.log('ProductForm: Using auto-assigned sales account:', this.form.salesAccountId)
         }
       }
-      
+
       if (needsSalesAccount && !this.form.salesAccountId) {
         console.log('ProductForm: Sales account validation failed')
-        const message = this.form.overrideSalesAccount 
-          ? "Please select a Sales Account from the dropdown" 
+        const message = this.form.overrideSalesAccount
+          ? "Please select a Sales Account from the dropdown"
           : "Sales Account is required"
-        toast.fire({ 
-          type: "error", 
+        toast.fire({
+          type: "error",
           title: message
         })
         return
@@ -545,7 +521,7 @@ export default {
         needsPurchaseAccount: needsPurchaseAccount,
         purchaseAccountId: this.form.purchaseAccountId
       })
-      
+
       // If automatic routing is enabled and user hasn't overridden, use the auto-assigned account
       if (this.isPurchaseAccountAutomatic && !this.form.overridePurchaseAccount) {
         if (this.accountRoutingSettings && this.accountRoutingSettings.purchase && this.accountRoutingSettings.purchase.main_account_id) {
@@ -553,14 +529,14 @@ export default {
           console.log('ProductForm: Using auto-assigned purchase account:', this.form.purchaseAccountId)
         }
       }
-      
+
       if (needsPurchaseAccount && !this.form.purchaseAccountId) {
         console.log('ProductForm: Purchase account validation failed')
-        const message = this.form.overridePurchaseAccount 
-          ? "Please select a Purchase Account from the dropdown" 
+        const message = this.form.overridePurchaseAccount
+          ? "Please select a Purchase Account from the dropdown"
           : "Purchase Account is required"
-        toast.fire({ 
-          type: "error", 
+        toast.fire({
+          type: "error",
           title: message
         })
         return
@@ -569,19 +545,19 @@ export default {
       // Check if form has any errors
       if (this.form.errors.any()) {
         console.log('ProductForm: Form has validation errors', this.form.errors.all())
-        toast.fire({ 
-          type: "error", 
-          title: "Please fix the form errors before submitting" 
+        toast.fire({
+          type: "error",
+          title: "Please fix the form errors before submitting"
         })
         return
       }
-      
+
       console.log('ProductForm: Form validation passed, proceeding with submission')
-      
+
       console.log('ProductForm: Making POST request to /api/products')
       const formDataToSend = this.form.data()
       console.log('ProductForm: Form data being sent:', formDataToSend)
-      
+
       // Check for object values that should be IDs
       Object.keys(formDataToSend).forEach(key => {
         const value = formDataToSend[key]
@@ -593,15 +569,15 @@ export default {
           }
         }
       })
-      
+
       console.log('ProductForm: Processed form data:', formDataToSend)
       console.log('ProductForm: Form headers:', this.form.headers)
       console.log('ProductForm: Form busy before request:', this.form.busy)
-      
+
       // Set form as busy before making the request
       this.form.busy = true
       console.log('ProductForm: Form busy after setting:', this.form.busy)
-      
+
       try {
         // Create a new form instance with processed data
         const processedForm = new Form(formDataToSend)
@@ -612,7 +588,7 @@ export default {
           type: "success",
           title: this.$t("Product added successfully"),
         })
-        
+
         // Emit the newly created product data
         if (response.data && response.data.data) {
           const newProduct = response.data.data
@@ -639,16 +615,16 @@ export default {
           }
           this.$emit('productCreated', formattedProduct)
         }
-        
+
         // Store auto-assigned account IDs before reset
         const autoAssignedSalesAccountId = this.isSalesAccountAutomatic ? this.form.salesAccountId : null
         const autoAssignedPurchaseAccountId = this.isPurchaseAccountAutomatic ? this.form.purchaseAccountId : null
-        
+
         this.form.reset()
         this.form.itemType = "product" // Reset to default
         this.form.overrideSalesAccount = false // Reset override flags
         this.form.overridePurchaseAccount = false
-        
+
         // Restore auto-assigned account IDs after reset
         if (autoAssignedSalesAccountId) {
           this.form.salesAccountId = autoAssignedSalesAccountId
@@ -656,36 +632,36 @@ export default {
         if (autoAssignedPurchaseAccountId) {
           this.form.purchaseAccountId = autoAssignedPurchaseAccountId
         }
-        
+
         if (this.mode === 'modal') {
           this.showModal = false
         } else {
           this.$router.push({ name: 'products.index' })
         }
         this.$emit('reloadProducts')
-        
+
         // Reset form busy state
         this.form.busy = false
         console.log('ProductForm: Form busy after success:', this.form.busy)
       } catch (error) {
         console.error("Error creating product:", error)
-        console.log('ProductForm: POST request failed', { 
+        console.log('ProductForm: POST request failed', {
           error: error,
           response: error.response,
           status: error.response?.status,
           data: error.response?.data
         })
-        
+
         // Check if this is a validation error (status 422)
         const status = error && error.response && error.response.status
         const serverErrors = error && error.response && error.response.data && error.response.data.errors
-        
+
         // Handle validation errors
         if (error.response && error.response.data && error.response.data.errors) {
           this.form.errors.set(error.response.data.errors)
           console.log('ProductForm: Validation errors set:', error.response.data.errors)
         }
-        
+
         if (status === 422 && serverErrors) {
           // Show toast notification for validation errors
           toast.fire({
@@ -693,7 +669,7 @@ export default {
             title: this.$t('Validation Error'),
             text: this.$t('Please check the form for errors and try again.'),
           })
-          
+
           // Scroll to the first invalid input after DOM updates
           this.$nextTick(() => {
             // Wait a bit more to ensure vform has added the is-invalid class
@@ -709,7 +685,7 @@ export default {
           const errorMessage = error.response?.data?.message || this.$t("Please check your input and try again.")
           toast.fire({ type: "error", title: String(errorMessage) })
         }
-        
+
         // Reset form busy state
         this.form.busy = false
         console.log('ProductForm: Form busy after error:', this.form.busy)
@@ -727,10 +703,10 @@ export default {
           })
           return
         }
-        
+
         const productSlug = this.product.slug || this.product.productSlug || this.product.product_slug
         const productId = this.product.id || this.product.productID || this.product.product_id
-        
+
         if (!productSlug && !productId) {
           console.error('No product identifier (slug or ID) available for update')
           toast.fire({
@@ -739,7 +715,7 @@ export default {
           })
           return
         }
-        
+
         let identifier = productSlug
         if (!productSlug && productId) {
           identifier = productId
@@ -774,7 +750,7 @@ export default {
 
         // Transform object fields to IDs before sending
         const formData = this.form.data()
-        
+
         // Transform v-select objects to IDs
         if (formData.subCategory && typeof formData.subCategory === 'object') {
           formData.subCategory = formData.subCategory.id
@@ -788,26 +764,26 @@ export default {
         if (formData.productTax && typeof formData.productTax === 'object') {
           formData.productTax = formData.productTax.id
         }
-        
+
         const response = await axios.put(`/api/products/${identifier}`, formData)
         if (response.data.success) {
           toast.fire({
             type: "success",
             title: this.$t("Product updated successfully")
           })
-          
+
           if (this.mode === 'modal') {
             this.showModal = false
           } else {
             this.$router.push({ name: 'products.index' })
           }
-          
+
           this.$emit("reloadProducts")
-          this.$emit("productUpdated", { 
-            originalProduct: this.product, 
-            updatedData: formData 
+          this.$emit("productUpdated", {
+            originalProduct: this.product,
+            updatedData: formData
           })
-          
+
           this.form.reset()
           this.url = null
         }
