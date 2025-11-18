@@ -76,83 +76,37 @@
                   <input v-model="form.clientName" type="text" class="form-control" name="clientName" readonly />
                 </div>
               </div>
-              <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-2">
-                <div v-if="form.errors.errors && form.errors.errors.selectedProducts
-                  " class="w-95 m-auto">
-                  <div v-for="(msg, i) in form.errors.errors.selectedProducts" :key="i" class="callout callout-danger">
-                    <p><i class="icon fas fa-ban"></i> {{ msg }}</p>
-                  </div>
-                </div>
-
-                <div class="table-responsive table-custom w-95 m-auto">
-                  <table class="table table-hover table-sm text-center">
-                    <thead>
-                      <tr>
-                        <th>{{ $t('#') }}</th>
-                        <th>{{ $t('Code') }}</th>
-                        <th>{{ $t('Item Name') }}</th>
-                        <th>{{ $t('Invoice Qty') }}</th>
-                        <th>{{ $t('Current Qty') }}</th>
-                        <th>{{ $t('Return Qty') }}</th>
-                        <th>{{ $t('Unit Price') }}</th>
-                        <th>{{ $t('Total Price') }}</th>
-                        <th class="text-right">
-                          {{ $t('Return Price') }}
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="(item, i) in form.selectedProducts" :key="i">
-                        <td style="min-width: 50px;">{{ ++i }}</td>
-                        <td style="min-width: 100px;">{{ item.code | withPrefix(prefix) }}</td>
-                        <td style="min-width: 200px;">
-                          <router-link v-if="$can('product-view')" :to="{
-                            name: 'products.show',
-                            params: { slug: item.slug },
-                          }">
-                            {{ item.name }}
-                          </router-link>
-                          <span v-else>{{ item.name }}</span>
-                        </td>
-                        <td style="min-width: 120px;">{{ item.invoiceQty }} {{ item.unit }}</td>
-                        <td style="min-width: 120px;">
-                          {{ item.invoiceQty - item.oldQty }} {{ item.unit }}
-                        </td>
-                        <td style="min-width: 200px;">
-                          <div class="input-group custom-qty-input">
-                            <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
-                              data-field="quantity" @click="updateItem(item.returnQty - 1, i - 1)" />
-                            <input type="number" step="any" :id="`returnQty-${i}`" min="0" :value="item.returnQty"
-                              :max="item.maxQty" name="quantity" class="quantity-field border-0 incrementor"
-                              @change="updateItem($event.target.value, i - 1)"
-                              @keyup="updateItem($event.target.value, i - 1)" placeholder="Return Qty" />
-                            <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
-                              data-field="quantity" @click="updateItem(item.returnQty + 1, i - 1)" />
-                          </div>
-                        </td>
-                        <td style="min-width: 100px;">{{ Number(item.sellingPrice).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</td>
-                        <td style="min-width: 120px;">{{ Number(item.totalPrice).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</td>
-                        <td class="text-right" style="min-width: 120px;">
-                          {{ Number(item.returnTotal).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
-                        </td>
-                      </tr>
-                      <tr v-if="form.invoice">
-                        <td colspan="7" class="text-right">
-                          <strong>{{ $t('Subtotal') }}</strong>
-                        </td>
-                        <td>
-                          <strong>{{
-                            Number(form.returnSubtotal).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-                          }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td class="text-right">
-                          <strong>{{ Number(form.totalReturn).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</strong>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+              <div v-if="form.errors.errors && form.errors.errors.selectedProducts" class="w-95 m-auto mb-3">
+                <div v-for="(msg, i) in form.errors.errors.selectedProducts" :key="i" class="callout callout-danger">
+                  <p><i class="icon fas fa-ban"></i> {{ msg }}</p>
                 </div>
               </div>
+              <ItemsTable
+                v-if="form.selectedProducts && form.selectedProducts.length > 0"
+                :items="form.selectedProducts"
+                :prefix="prefix"
+                :taxes="[]"
+                :form-errors="form.errors"
+                :total-unit-price="form.returnSubtotal || 0"
+                :total-product-discount="0"
+                :total-after-discount="0"
+                :total-product-tax="0"
+                :subtotal="form.totalReturn || 0"
+                :amount-in-words="''"
+                table-class=""
+                qty-field-name="returnQty"
+                unit-price-field-name="sellingPrice"
+                :price-readonly="true"
+                :show-edit-button="false"
+                :hide-discount-column="true"
+                :hide-vat-column="true"
+                :show-invoice-qty-column="true"
+                :show-current-qty-column="true"
+                :show-return-price-column="true"
+                :custom-total-value="form.totalReturn || 0"
+                :totals-colspan="7"
+                @item-change="handleItemChange"
+              />
               <div v-if="form.invoice" class="row">
                 <div v-if="form.discountPercentage > 0" class="form-group col-md-2">
                   <label for="discountType">{{
@@ -304,11 +258,15 @@
 import Form from 'vform'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
+import ItemsTable from '~/components/ItemsTable'
 
 export default {
   middleware: ['auth', 'check-permissions'],
   metaInfo() {
     return { title: this.$t('Edit Invoice Return') }
+  },
+  components: {
+    ItemsTable,
   },
   data: () => ({
     breadcrumbsCurrent: 'Edit Invoice Return',
@@ -462,6 +420,20 @@ export default {
       this.calculateSum()
       return this.form.selectedProducts
     },
+    // Handle item change from ItemsTable component
+    handleItemChange({ value, type, index, action }) {
+      if (type === 'qty') {
+        if (action === 'increment') {
+          this.updateItem(Math.min(this.form.selectedProducts[index].maxQty, Number(value) + 1), index)
+        } else if (action === 'decrement') {
+          this.updateItem(Math.max(0, Number(value) - 1), index)
+        } else {
+          // Direct value change
+          this.updateItem(Number(value), index)
+        }
+      }
+    },
+
     // updateItems
     updateItem(value, index) {
       let selectedProduct = this.form.selectedProducts[index]

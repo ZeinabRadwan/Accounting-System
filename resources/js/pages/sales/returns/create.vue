@@ -10,7 +10,8 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'invoiceReturns.index' }" class="btn btn-info">
-                  <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                  <template
+                    v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
                     {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
 
@@ -18,7 +19,8 @@
 
                   <template v-else>
 
-                    <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                    <template
+                      v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
 
                       {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
@@ -45,7 +47,8 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form id="invoiceReturnCreateForm" role="form" @submit.prevent="saveInvoiceReturn" @keydown="form.onKeydown($event)">
+          <form id="invoiceReturnCreateForm" role="form" @submit.prevent="saveInvoiceReturn"
+            @keydown="form.onKeydown($event)">
             <div class="card-body">
               <div class="row" v-if="items">
                 <div class="form-group col-md-6">
@@ -86,152 +89,19 @@
                   <has-error :form="form" field="invoice" />
                 </div>
               </div>
-              <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">
-                <div v-if="form.errors.errors && form.errors.errors.selectedProducts
-                  " class="w-100 m-auto">
-                  <div v-for="(msg, i) in form.errors.errors.selectedProducts" :key="i" class="callout callout-danger">
-                    <p><i class="icon fas fa-ban"></i> {{ msg }}</p>
-                  </div>
-                </div>
-                <div class="table-responsive table-custom w-95 m-auto">
-                  <table class="table table-hover table-sm text-center quotations-create-table">
-                    <thead>
-                      <th>{{ $t("#") }}</th>
-                      <th>{{ $t("Code") }}</th>
-                      <th>{{ $t("Item Name") }}</th>
-                      <th>{{ $t("Qty") }}</th>
-                      <th>{{ $t("Price") }}</th>
-                      <th>{{ $t("Total") }}</th>
-                      <th>{{ $t("Discount") }}</th>
-                      <th>{{ $t("Total After Discount") }}</th>
-                      <th>{{ $t("VAT Type") }}</th>
-                      <th>{{ $t("VAT") }}</th>
-                      <th>{{ $t("Total with VAT") }}</th>
-                      <!-- <th>{{ $t("Return Price") }}</th> -->
-                      <th class="text-right">{{ $t("Action") }}</th>
-                    </thead>
-                    <tbody>
-                      <tr v-for="(item, index) in form.selectedProducts" :key="`item-${index}`">
-                        <td style="min-width: 50px;">{{ index + 1 }}</td>
-                        <td style="min-width: 100px;">
-                          {{ item.code | withPrefix(prefix) }}
-                        </td>
-                        <td style="min-width: 200px;">
-                          <div class="d-flex align-items-center">
-                            <div class="flex-grow-1">
-                          <router-link v-if="$can('product-view')" :to="{
-                            name: 'products.show',
-                            params: { slug: item.slug },
-                          }">
-                            {{ item.name }}
-                          </router-link>
-                          <span v-else>{{ item.name }}</span>
-                            </div>
-                          </div>
-                        </td>
-                        <td style="min-width: 200px;">
-                          <div class="input-group custom-qty-input">
-                            <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
-                              data-field="quantity" @click="updateItem(Math.max(0, item.returnQty - 1), index)" />
-                            <input type="number" step="any" :id="`returnQty-${index+1}`" v-model.number="item.returnQty" name="quantity"
-                              class="quantity-field border-0 incrementor" min="0" :max="item.maxQty"
-                              @input="updateItemReactively(item)" placeholder="Return Qty" />
-                            <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
-                              data-field="quantity" @click="
-                                updateItem(Math.min(item.maxQty, Number(item.returnQty) + 1), index)
-                                " />
-                          </div>
-                        </td>
-                        <td style="min-width: 200px;">{{ formatToTwoDecimals(item.unitCost) }}</td>
-                        <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.totalBeforeDiscount) }} <span class="saudi-riyal">ê</span></td>
-                        <td style="min-width: 180px;">
-                          <div class="input-group">
-                            <select 
-                              v-model="item.discountType" 
-                              class="form-control form-control-sm" 
-                              style="width: 85px;"
-                              @change="calculateProductDiscount(index)">
-                              <option value="fixed">{{ $t("Fixed") }}</option>
-                              <option value="percentage">{{ $t("%") }}</option>
-                            </select>
-                            <input 
-                              type="number" 
-                              v-model="item.discount" 
-                              class="form-control form-control-sm" 
-                              style="width: 80px;"
-                              step="any" 
-                              min="0" 
-                              :max="item.discountType == 'percentage' ? 100 : (item.unitCost * item.qty)"
-                              placeholder="0"
-                              @change="calculateProductDiscount(index)"
-                              @keyup="calculateProductDiscount(index)" />
-                          </div>
-                        </td>
-                        <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.totalAfterDiscount) }} <span class="saudi-riyal">ê</span></td>
-                        <td style="min-width: 150px;">
-                          <select 
-                            v-model="item.selectedVatRate" 
-                            class="form-control form-control-sm"
-                            @change="calculateProductVat(index)"
-                            style="min-width: 120px;">
-                            <option value="">{{ $t('Select VAT') }}</option>
-                            <option 
-                              v-for="tax in taxes" 
-                              :key="tax.id" 
-                              :value="tax">
-                              {{ tax.code }} ({{ tax.rate }}%)
-                            </option>
-                          </select>
-                        </td>
-                        <td class="no-currency" style="min-width: 100px;">
-                          <span class="form-control-plaintext form-control-sm text-center no-currency">
-                            {{ formatToTwoDecimals(item.productTax) }}
-                          </span>
-                          <span class="saudi-riyal">ê</span>
-                        </td>
-                        <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.totalPrice) }} <span class="saudi-riyal">ê</span></td>
-                        <!-- <td style="min-width: 80px;">{{ formatToTwoDecimals(item.returnTotal) }} <span class="saudi-riyal">ê</span></td> -->
-                        <td class="text-right" style="min-width: 80px;">
-                          <button type="button" class="btn btn-danger" @click="removeItem(item, index)">
-                            <i class="fas fa-times"></i>
-                          </button>
-                        </td>
-                      </tr>
-                      <!-- Totals Row -->
-                      <tr :key="`totals`">
-                        <td colspan="4" class="text-right">
-                          <strong> {{ $t("Total") }} : {{ toWord() }} </strong>
-                        </td>
-                        <td>
-                          <strong>{{ formatToTwoDecimals(totalUnitPrice) }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td>
-                          <strong>{{ formatToTwoDecimals(totalTotal) }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td>
-                          <strong>{{ formatToTwoDecimals(totalProductDiscount) }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td>
-                          <strong>{{ formatToTwoDecimals(totalAfterDiscount) }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td>
-                          <strong></strong>
-                        </td>
-                        <td>
-                          <strong>{{ formatToTwoDecimals(totalProductTax) }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td>
-                          <strong>{{ formatToTwoDecimals(subtotal) }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <!-- <td>
-                          <strong>{{ formatToTwoDecimals(form.totalReturn) }} <span class="saudi-riyal">ê</span></strong>
-                        </td> -->
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </table>
+              <div v-if="form.errors.errors && form.errors.errors.selectedProducts" class="w-100 m-auto mb-3">
+                <div v-for="(msg, i) in form.errors.errors.selectedProducts" :key="i" class="callout callout-danger">
+                  <p><i class="icon fas fa-ban"></i> {{ msg }}</p>
                 </div>
               </div>
+              <ItemsTable :items="form.selectedProducts" :prefix="prefix" :taxes="taxes" :form-errors="form.errors"
+                :total-unit-price="totalUnitPrice" :total-product-discount="totalProductDiscount"
+                :total-after-discount="totalAfterDiscount" :total-product-tax="totalProductTax" :subtotal="subtotal"
+                :amount-in-words="toWord()" table-class="quotations-create-table" qty-field-name="returnQty"
+                unit-price-field-name="unitCost" :price-readonly="true" :show-edit-button="false"
+                :custom-total-value="totalTotal" :totals-colspan="4" @item-change="handleItemChange"
+                @discount-change="calculateProductDiscount" @vat-change="calculateProductVat"
+                @remove-item="removeItem" />
               <div class="row" id="input-fields">
                 <!-- <div class="form-group col-md-3">
                   <label for="invoiceTotal">{{
@@ -243,21 +113,21 @@
                 <div v-if="!isSaudiArabia" class="form-group col-md-3">
                   <label for="totalDiscount">{{
                     $t('Total Discount')
-                  }}</label>
+                    }}</label>
                   <input id="totalDiscount" v-model="formattedTotalDiscount" type="text" class="form-control"
                     name="totalDiscount" readonly />
                 </div>
                 <div v-if="!isSaudiArabia" class="form-group col-md-3">
                   <label for="transportCost">{{
                     $t('Transport Cost')
-                  }}</label>
+                    }}</label>
                   <input id="transportCost" v-model="formattedTransportCost" type="text" class="form-control"
                     name="transportCost" readonly />
                 </div>
                 <div v-if="!isSaudiArabia" class="form-group col-md-3">
                   <label for="invoiceTax">{{
                     $t('Invoice Tax')
-                  }}</label>
+                    }}</label>
                   <input id="invoiceTax" v-model="formattedInvoiceTax" type="text" class="form-control"
                     name="invoiceTax" readonly />
                 </div>
@@ -269,7 +139,7 @@
                 <div v-if="form.returnAmount > 0" class="form-group col-md-3">
                   <label for="returnAmountText">{{
                     $t('Return Amount')
-                  }}</label>
+                    }}</label>
                   <input id="returnAmountText" v-model="form.returnAmountText" type="text" class="form-control" :class="{
                     'is-invalid': form.errors.has('returnAmountText'),
                   }" name="returnAmountText" readonly />
@@ -291,22 +161,18 @@
                   <v-select v-model="form.account" :options="accounts" label="label"
                     :class="{ 'is-invalid': form.errors.has('account') }" name="account"
                     :placeholder="$t('Select an account')" @input="updateBalance">
-                     <template slot="option" slot-scope="option">
-                        <img :src="option.image" style="width: 30px; height: 30px;" />
-                        {{ option.label }}
+                    <template slot="option" slot-scope="option">
+                      <img :src="option.image" style="width: 30px; height: 30px;" />
+                      {{ option.label }}
                     </template>
                   </v-select>
-                  
+
                   <!-- Bank Account Chart of Account Status -->
                   <div class="account-status mt-2" v-if="form.account">
                     <div v-if="!form.account.chartOfAccountId" class="account-warning">
                       <i class="fas fa-exclamation-triangle text-warning"></i>
                       <span class="ml-2">{{ $t('Bank Account needs Chart of Account') }}</span>
-                      <button 
-                        type="button" 
-                        class="btn btn-sm btn-outline-warning ml-2"
-                        @click="goToBankAccounts"
-                      >
+                      <button type="button" class="btn btn-sm btn-outline-warning ml-2" @click="goToBankAccounts">
                         <i class="fas fa-external-link-alt"></i>
                         {{ $t('Go to Bank Accounts') }}
                       </button>
@@ -316,15 +182,15 @@
                       <span class="ml-2">{{ $t('Bank Account Chart of Account ready') }}</span>
                     </div>
                   </div>
-                  
+
                   <has-error :form="form" field="account" />
                 </div>
                 <div class="form-group col-md-2">
                   <label for="availableBalance">{{
                     $t('Available Balance')
-                  }}</label>
-                  <input id="availableBalance" v-model="formattedAvailableBalance" type="text"
-                    class="form-control" :class="{
+                    }}</label>
+                  <input id="availableBalance" v-model="formattedAvailableBalance" type="text" class="form-control"
+                    :class="{
                       'is-invalid': form.errors.has('availableBalance'),
                     }" name="availableBalance" readonly />
                   <has-error :form="form" field="availableBalance" />
@@ -392,11 +258,15 @@
 import Form from 'vform'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
+import ItemsTable from '~/components/ItemsTable'
 
 export default {
   middleware: ['auth', 'check-permissions'],
   metaInfo() {
     return { title: this.isSaudiArabia ? this.$t('Create Credit Note') : this.$t('Create Invoice Return') }
+  },
+  components: {
+    ItemsTable,
   },
   data: () => ({
     breadcrumbsCurrent: '',
@@ -460,12 +330,12 @@ export default {
   }),
   computed: {
     ...mapGetters('operations', ['items', 'appInfo']),
-    
+
     // Check if the country is Saudi Arabia
     isSaudiArabia() {
       return this.appInfo && this.appInfo.country === 'SA'
     },
-    
+
     // Check if bank account has chart of account assigned (when payment is being added)
     hasBankAccountChartOfAccount() {
       if (this.form.returnAmount <= 0) {
@@ -473,18 +343,18 @@ export default {
       }
       return this.form.account && this.form.account.chartOfAccountId;
     },
-    
-    
+
+
     // Calculate total product discounts
     totalProductDiscounts() {
       if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
         return 0
       }
-      
+
       return this.form.selectedProducts.reduce((total, product) => {
         let remainingQty = product.qty - product.returnQty
         let productTotal = remainingQty * product.unitCost
-        
+
         if (product.productDiscount && product.productDiscount > 0) {
           if (product.discountType === 'percentage') {
             return total + ((productTotal * product.productDiscount) / 100)
@@ -496,48 +366,48 @@ export default {
         return total
       }, 0)
     },
-    
+
     // Calculate total invoice discount
     totalInvoiceDiscount() {
       return this.form.invoiceDiscount || 0
     },
-    
+
     // Calculate total discount (product + invoice)
     totalDiscount() {
       return this.totalProductDiscounts + this.totalInvoiceDiscount
     },
-    
-    
+
+
     // Calculate original invoice total discount from invoice_products table
     originalInvoiceTotalDiscount() {
       if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
         return 0
       }
-      
+
       return this.form.selectedProducts.reduce((total, product) => {
         // Use the original product data from invoice_products
         const salePrice = parseFloat(product.unitCost) || 0
         const quantity = parseFloat(product.qty) || 0
         const discountAmount = parseFloat(product.discountAmount) || 0
         const discountType = product.discountType || 'fixed'
-        
+
         let lineDiscount = 0
         if (discountType === 'fixed') {
           lineDiscount = discountAmount
         } else if (discountType === 'percentage') {
           lineDiscount = (salePrice * quantity) * (discountAmount / 100)
         }
-        
+
         return total + lineDiscount
       }, 0)
     },
-    
+
     // Calculate original invoice total tax from invoice_products table
     originalInvoiceTotalTax() {
       if (!this.form.selectedProducts || this.form.selectedProducts.length === 0) {
         return 0
       }
-      
+
       return this.form.selectedProducts.reduce((total, product) => {
         // Use the logic: (SUM(tax_amount) / quantity) per product line
         const taxAmount = parseFloat(product.totalTax) || 0
@@ -567,7 +437,7 @@ export default {
         },
       ];
     },
-    
+
     // Computed properties for totals (matching invoice create)
     totalUnitPrice() {
       if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) {
@@ -579,7 +449,7 @@ export default {
       const numValue = Number(total)
       return isNaN(numValue) ? 0 : Number(numValue.toFixed(2))
     },
-    
+
     totalProductDiscount() {
       if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) {
         return 0
@@ -590,7 +460,7 @@ export default {
       const numValue = Number(total)
       return isNaN(numValue) ? 0 : Number(numValue.toFixed(2))
     },
-    
+
     totalAfterDiscount() {
       if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) {
         return 0
@@ -601,7 +471,7 @@ export default {
       const numValue = Number(total)
       return isNaN(numValue) ? 0 : Number(numValue.toFixed(2))
     },
-    
+
     totalProductTax() {
       if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) {
         return 0
@@ -612,7 +482,7 @@ export default {
       const numValue = Number(total)
       return isNaN(numValue) ? 0 : Number(numValue.toFixed(2))
     },
-    
+
     subtotal() {
       if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) {
         return 0
@@ -623,7 +493,7 @@ export default {
       const numValue = Number(total)
       return isNaN(numValue) ? 0 : Number(numValue.toFixed(2))
     },
-    
+
     // Total for the "Total" column (sum of totalBeforeDiscount)
     totalTotal() {
       if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) {
@@ -635,28 +505,28 @@ export default {
       const numValue = Number(total)
       return isNaN(numValue) ? 0 : Number(numValue.toFixed(2))
     },
-    
+
     // Formatted computed properties for display
     formattedOriginalInvoiceTotal() {
       return this.formatToTwoDecimals(this.form.originalInvoiceTotal)
     },
-    
+
     formattedTotalDiscount() {
       return this.formatToTwoDecimals(this.form.totalDiscount)
     },
-    
+
     formattedTransportCost() {
       return this.formatToTwoDecimals(this.form.transportCost)
     },
-    
+
     formattedInvoiceTax() {
       return this.formatToTwoDecimals(this.form.invoiceTax)
     },
-    
+
     formattedTotalPaid() {
       return this.formatToTwoDecimals(this.form.invoice?.totalPaid || 0)
     },
-    
+
     formattedAvailableBalance() {
       return this.formatToTwoDecimals(this.form.availableBalance)
     },
@@ -690,7 +560,7 @@ export default {
       this.getTaxes()
     ])
     this.prefix = this.appInfo.productPrefix
-    
+
     // Set default status based on country
     if (this.isSaudiArabia) {
       this.form.status = 0 // Inactive for Saudi Arabia
@@ -740,85 +610,146 @@ export default {
       let clientSlug = this.$route.query.client
       const invoiceSlug = this.$route.query.invoice
       let invoiceData = null
-      
-      
+
+
       if (invoiceSlug) {
         try {
           // If we have an invoice slug but no client slug, fetch the invoice details
           if (!clientSlug) {
             const response = await axios.get(`/api/invoices/${invoiceSlug}`)
             invoiceData = response.data.data
-            
+
             if (invoiceData && invoiceData.client) {
               clientSlug = invoiceData.client.slug
             }
           }
-          
+
           if (clientSlug) {
             // Wait for items to be loaded (reduced from 10 attempts to 3)
             let attempts = 0
             const maxAttempts = 3
-            
+
             while (attempts < maxAttempts) {
-              
+
               if (this.items && this.items.length > 0) {
                 try {
-                const selectedClient = this.items.find(client => client.slug === clientSlug)
-                
-                // If not found by slug, try to find by ID or name as fallback
-                if (!selectedClient && invoiceData && invoiceData.client) {
-                  const fallbackClient = this.items.find(client => 
-                    client.id === invoiceData.client.id || 
-                    client.name === invoiceData.client.name
-                  )
-                  if (fallbackClient) {
-                    this.form.client = fallbackClient
-                    
+                  const selectedClient = this.items.find(client => client.slug === clientSlug)
+
+                  // If not found by slug, try to find by ID or name as fallback
+                  if (!selectedClient && invoiceData && invoiceData.client) {
+                    const fallbackClient = this.items.find(client =>
+                      client.id === invoiceData.client.id ||
+                      client.name === invoiceData.client.name
+                    )
+                    if (fallbackClient) {
+                      this.form.client = fallbackClient
+
+                      // Trigger invoice loading for this client
+                      await this.assignInvoices()
+
+                      // Wait for invoices to be loaded, then select the invoice
+                      await this.$nextTick()
+                      await new Promise(resolve => setTimeout(resolve, 200))
+
+
+                      if (this.clientInvoices && this.clientInvoices.length > 0) {
+
+                        const selectedInvoice = this.clientInvoices.find(invoice => invoice.slug === invoiceSlug)
+
+                        if (selectedInvoice) {
+                          this.form.invoice = selectedInvoice
+                          // Trigger product loading for this invoice
+                          this.storeProducts()
+                          return // Success, exit the loop
+                        } else {
+
+                          // Try multiple fallback methods
+                          let fallbackInvoice = null
+
+                          // Method 1: Try by ID
+                          if (invoiceData && invoiceData.id) {
+                            fallbackInvoice = this.clientInvoices.find(invoice => invoice.id === invoiceData.id)
+                          }
+
+                          // Method 2: Try by invoice number
+                          if (!fallbackInvoice && invoiceData && invoiceData.invoiceNo) {
+                            fallbackInvoice = this.clientInvoices.find(invoice => invoice.invoiceNo === invoiceData.invoiceNo)
+                          }
+
+                          // Method 3: Try by slug with different casing
+                          if (!fallbackInvoice) {
+                            fallbackInvoice = this.clientInvoices.find(invoice =>
+                              invoice.slug && invoice.slug.toLowerCase() === invoiceSlug.toLowerCase()
+                            )
+                          }
+
+                          if (fallbackInvoice) {
+                            this.form.invoice = fallbackInvoice
+                            this.storeProducts()
+                            return // Success, exit the loop
+                          } else {
+
+                            // If we have invoice data from API but it's not in client's list, use it directly
+                            if (invoiceData && invoiceData.slug === invoiceSlug) {
+                              this.form.invoice = invoiceData
+                              this.storeProducts()
+                              return // Success, exit the loop
+                            }
+                          }
+                        }
+                      }
+                      // Continue trying instead of returning early
+                    }
+                  }
+
+                  if (selectedClient) {
+                    this.form.client = selectedClient
+
                     // Trigger invoice loading for this client
                     await this.assignInvoices()
-                    
+
                     // Wait for invoices to be loaded, then select the invoice
                     await this.$nextTick()
                     await new Promise(resolve => setTimeout(resolve, 200))
-                    
-                    
+
+
                     if (this.clientInvoices && this.clientInvoices.length > 0) {
-                      
+
                       const selectedInvoice = this.clientInvoices.find(invoice => invoice.slug === invoiceSlug)
-                      
+
                       if (selectedInvoice) {
                         this.form.invoice = selectedInvoice
                         // Trigger product loading for this invoice
                         this.storeProducts()
                         return // Success, exit the loop
                       } else {
-                        
+
                         // Try multiple fallback methods
                         let fallbackInvoice = null
-                        
+
                         // Method 1: Try by ID
                         if (invoiceData && invoiceData.id) {
                           fallbackInvoice = this.clientInvoices.find(invoice => invoice.id === invoiceData.id)
                         }
-                        
+
                         // Method 2: Try by invoice number
                         if (!fallbackInvoice && invoiceData && invoiceData.invoiceNo) {
                           fallbackInvoice = this.clientInvoices.find(invoice => invoice.invoiceNo === invoiceData.invoiceNo)
                         }
-                        
+
                         // Method 3: Try by slug with different casing
                         if (!fallbackInvoice) {
-                          fallbackInvoice = this.clientInvoices.find(invoice => 
+                          fallbackInvoice = this.clientInvoices.find(invoice =>
                             invoice.slug && invoice.slug.toLowerCase() === invoiceSlug.toLowerCase()
                           )
                         }
-                        
+
                         if (fallbackInvoice) {
                           this.form.invoice = fallbackInvoice
                           this.storeProducts()
                           return // Success, exit the loop
                         } else {
-                          
+
                           // If we have invoice data from API but it's not in client's list, use it directly
                           if (invoiceData && invoiceData.slug === invoiceSlug) {
                             this.form.invoice = invoiceData
@@ -830,67 +761,6 @@ export default {
                     }
                     // Continue trying instead of returning early
                   }
-                }
-                
-                if (selectedClient) {
-                  this.form.client = selectedClient
-                  
-                  // Trigger invoice loading for this client
-                  await this.assignInvoices()
-                  
-                  // Wait for invoices to be loaded, then select the invoice
-                  await this.$nextTick()
-                  await new Promise(resolve => setTimeout(resolve, 200))
-                  
-                  
-                  if (this.clientInvoices && this.clientInvoices.length > 0) {
-                    
-                    const selectedInvoice = this.clientInvoices.find(invoice => invoice.slug === invoiceSlug)
-                    
-                    if (selectedInvoice) {
-                      this.form.invoice = selectedInvoice
-                      // Trigger product loading for this invoice
-                      this.storeProducts()
-                      return // Success, exit the loop
-                    } else {
-                      
-                      // Try multiple fallback methods
-                      let fallbackInvoice = null
-                      
-                      // Method 1: Try by ID
-                      if (invoiceData && invoiceData.id) {
-                        fallbackInvoice = this.clientInvoices.find(invoice => invoice.id === invoiceData.id)
-                      }
-                      
-                      // Method 2: Try by invoice number
-                      if (!fallbackInvoice && invoiceData && invoiceData.invoiceNo) {
-                        fallbackInvoice = this.clientInvoices.find(invoice => invoice.invoiceNo === invoiceData.invoiceNo)
-                      }
-                      
-                      // Method 3: Try by slug with different casing
-                      if (!fallbackInvoice) {
-                        fallbackInvoice = this.clientInvoices.find(invoice => 
-                          invoice.slug && invoice.slug.toLowerCase() === invoiceSlug.toLowerCase()
-                        )
-                      }
-                      
-                      if (fallbackInvoice) {
-                        this.form.invoice = fallbackInvoice
-                        this.storeProducts()
-                        return // Success, exit the loop
-                      } else {
-                        
-                        // If we have invoice data from API but it's not in client's list, use it directly
-                        if (invoiceData && invoiceData.slug === invoiceSlug) {
-                          this.form.invoice = invoiceData
-                          this.storeProducts()
-                          return // Success, exit the loop
-                        }
-                      }
-                    }
-                  }
-                  // Continue trying instead of returning early
-                }
                 } catch (err) {
                   console.error('Error in handlePreSelection:', err)
                 }
@@ -900,7 +770,7 @@ export default {
                 await new Promise(resolve => setTimeout(resolve, 200))
               }
             }
-            
+
           }
         } catch (error) {
           console.error('Error fetching invoice details:', error)
@@ -914,15 +784,15 @@ export default {
       if (this.form.account) {
         this.form.availableBalance = this.form.account.availableBalance
       }
-      
+
       // Validate bank account chart of account when account is selected
       if (this.form.account && this.form.returnAmount > 0) {
         this.validateBankAccountChartOfAccount();
       }
-      
+
       return
     },
-    
+
     // Validate bank account chart of account
     validateBankAccountChartOfAccount() {
       if (this.form.account && !this.form.account.chartOfAccountId) {
@@ -944,7 +814,7 @@ export default {
         });
       }
     },
-    
+
     // Navigate to bank accounts page
     goToBankAccounts() {
       this.$router.push({ name: 'accounts.index' });
@@ -1028,11 +898,11 @@ export default {
           purchase_account_id: invoiceItem.purchase_account_id,
           itemType: invoiceItem.itemType || 'product',
         })
-        
+
         // Initialize discount and VAT calculations for the last added product
         const lastIndex = 0 // Since we're adding to the beginning
         const lastProduct = this.form.selectedProducts[lastIndex]
-        
+
         // Calculate discount amount
         if (lastProduct.discount && lastProduct.discount > 0) {
           if (lastProduct.discountType === 'percentage') {
@@ -1045,7 +915,7 @@ export default {
           lastProduct.discountAmount = 0
           lastProduct.totalAfterDiscount = lastProduct.totalBeforeDiscount
         }
-        
+
         // Calculate VAT
         if (lastProduct.selectedVatRate && lastProduct.selectedVatRate.rate) {
           const vatAmount = Number((lastProduct.totalAfterDiscount * (lastProduct.selectedVatRate.rate / 100)).toFixed(2))
@@ -1058,7 +928,7 @@ export default {
           lastProduct.totalPrice = lastProduct.totalAfterDiscount
         }
       }
-      
+
       // Initialize calculations after loading products
       this.calculateSum()
       return
@@ -1069,11 +939,11 @@ export default {
       let selectedProduct = this.form.selectedProducts[index]
       if (selectedProduct && value >= 0 && value <= selectedProduct.maxQty) {
         selectedProduct.returnQty = Number(value)
-        
+
         // Recalculate totals based on return quantity
         selectedProduct.totalBeforeDiscount = Number((selectedProduct.returnQty * selectedProduct.unitCost).toFixed(2))
         selectedProduct.totalAfterDiscount = Number((selectedProduct.totalBeforeDiscount - (selectedProduct.discountAmount || 0)).toFixed(2))
-        
+
         // Recalculate VAT and total price
         if (selectedProduct.selectedVatRate && selectedProduct.selectedVatRate.rate) {
           const vatAmount = Number((selectedProduct.totalAfterDiscount * (selectedProduct.selectedVatRate.rate / 100)).toFixed(2))
@@ -1085,18 +955,18 @@ export default {
           selectedProduct.totalTax = 0
           selectedProduct.totalPrice = selectedProduct.totalAfterDiscount
         }
-        
+
         // Calculate return total proportionally from original invoice line total
         const originalLineTotal = parseFloat(selectedProduct.totalPrice) || 0
         const totalQty = parseFloat(selectedProduct.qty) || 1
         const returnQty = parseFloat(selectedProduct.returnQty) || 0
-        
+
         // Calculate proportional return amount: (original_line_total / total_qty) * return_qty
         const unitPrice = originalLineTotal / totalQty
         const returnTotal = Number((unitPrice * returnQty).toFixed(2))
-        
+
         selectedProduct.returnTotal = returnTotal
-        
+
         // Force reactivity update
         this.$set(this.form.selectedProducts, index, selectedProduct)
       }
@@ -1110,11 +980,11 @@ export default {
       } else if (item.returnQty > item.maxQty) {
         item.returnQty = item.maxQty
       }
-      
+
       // Recalculate totals based on return quantity
       item.totalBeforeDiscount = Number((item.returnQty * item.unitCost).toFixed(2))
       item.totalAfterDiscount = Number((item.totalBeforeDiscount - (item.discountAmount || 0)).toFixed(2))
-      
+
       // Recalculate VAT and total price
       if (item.selectedVatRate && item.selectedVatRate.rate) {
         const vatAmount = Number((item.totalAfterDiscount * (item.selectedVatRate.rate / 100)).toFixed(2))
@@ -1126,16 +996,16 @@ export default {
         item.totalTax = 0
         item.totalPrice = item.totalAfterDiscount
       }
-      
+
       // Calculate return total proportionally from original invoice line total
       const originalLineTotal = parseFloat(item.totalPrice) || 0
       const totalQty = parseFloat(item.qty) || 1
       const returnQty = parseFloat(item.returnQty) || 0
-      
+
       // Calculate proportional return amount: (original_line_total / total_qty) * return_qty
       const unitPrice = originalLineTotal / totalQty
       const returnTotal = Number((unitPrice * returnQty).toFixed(2))
-      
+
       item.returnTotal = returnTotal
       this.calculateSum()
     },
@@ -1148,54 +1018,54 @@ export default {
       let totalProductDiscount = 0
       let totalProductTax = 0
       let invoiceSubtotal = 0
-      
+
       // Initialize detailed return calculation fields
       this.form.netTotal = 0
       this.form.taxAmount = 0
       this.form.discountTotal = 0
-      
+
       for (let i = 0; i < length; i++) {
         let looProduct = this.form.selectedProducts[i]
         let remainingQty = looProduct.qty - looProduct.returnQty
-        
+
         // Calculate product total for remaining items
         let productTotal = remainingQty * looProduct.unitCost
         invoiceSubtotal += productTotal
-        
+
         // Calculate subtotal for remaining items (this will be the base for calculations)
         this.form.newSubTotal += Number(productTotal.toFixed(2))
-        
+
         // Calculate return total using proportional calculation from original invoice
         if (looProduct.returnQty > 0) {
           // Calculate return amount proportionally from the original invoice line total
           const originalLineTotal = parseFloat(looProduct.totalPrice) || 0 // This is the total price from invoice_products
           const totalQty = parseFloat(looProduct.qty) || 1
           const returnQty = parseFloat(looProduct.returnQty) || 0
-          
+
           // Calculate proportional return amount: (original_line_total / total_qty) * return_qty
           const unitPrice = originalLineTotal / totalQty
           const returnTotal = Number((unitPrice * returnQty).toFixed(2))
-          
+
           // Update the product's returnTotal with the proportional calculation
           looProduct.returnTotal = returnTotal
-          
+
           // Add to total return
           this.form.totalReturn += returnTotal
-          
+
           // For detailed breakdown, calculate proportional amounts
           const originalDiscount = parseFloat(looProduct.discountAmount) || 0
           const originalTax = parseFloat(looProduct.totalTax) || 0
-          
+
           // Proportional discount and tax
           const proportionalDiscount = Number(((originalDiscount / totalQty) * returnQty).toFixed(2))
           const proportionalTax = Number(((originalTax / totalQty) * returnQty).toFixed(2))
           const proportionalNet = Number((returnTotal - proportionalDiscount).toFixed(2))
-          
+
           this.form.netTotal += proportionalNet
           this.form.taxAmount += proportionalTax
           this.form.discountTotal += proportionalDiscount
         }
-        
+
         // Calculate product-level discounts for remaining items
         if (looProduct.productDiscount && looProduct.productDiscount > 0) {
           if (looProduct.discountType === 'percentage') {
@@ -1209,7 +1079,7 @@ export default {
             totalProductDiscount += Number(discountAmount.toFixed(2))
           }
         }
-        
+
         // Calculate product-level taxes for remaining items
         if (looProduct.productTax && looProduct.productTax > 0) {
           let taxPerUnit = looProduct.productTax / looProduct.qty
@@ -1246,7 +1116,7 @@ export default {
       // Update tax calculation
       // Tax is calculated on the discounted amount
       let taxableAmount = this.form.newSubTotal
-      
+
       if (this.form.invoiceTaxRate && this.form.invoiceTaxRate.rate) {
         this.form.newTax = Number(
           ((this.form.invoiceTaxRate.rate / 100) * taxableAmount).toFixed(2)
@@ -1254,7 +1124,7 @@ export default {
       } else {
         this.form.newTax = 0
       }
-      
+
       // Note: Product-level taxes are already included in the original invoice calculation
       // We only need to calculate the invoice-level tax on the new subtotal
 
@@ -1268,20 +1138,20 @@ export default {
       //     this.form.invoiceTransport
       //   ).toFixed(2)
       // )
-      
+
       this.form.invoiceDue = Number(
         (this.form.originalInvoiceTotal - this.form.invoice.totalPaid).toFixed(2)
       )
-      
+
       // Update the display fields with calculated values
       // 1. Total Discount = Original Invoice Total Discount - Return discount amount
       this.form.totalDiscount = Number(
         (this.originalInvoiceTotalDiscount - this.form.discountTotal).toFixed(2)
       )
-      
+
       // 2. Transport Cost = from table invoices.transport (already set in storeProducts)
       // this.form.transportCost is already set from this.form.invoice.transport
-      
+
       // 3. Invoice Tax = Original Invoice Total Tax - Return tax amount
       this.form.invoiceTax = Number(
         (this.originalInvoiceTotalTax - this.form.taxAmount).toFixed(2)
@@ -1323,21 +1193,21 @@ export default {
         const productQty = parseFloat(product.qty) || 0
         const discountAmount = parseFloat(product.discountAmount) || 0
         const discountType = product.discountType || 'fixed'
-        
+
         let originalLineDiscount = 0
         if (discountType === 'fixed') {
           originalLineDiscount = discountAmount
         } else if (discountType === 'percentage') {
           originalLineDiscount = (salePrice * productQty) * (discountAmount / 100)
         }
-        
+
         // Calculate original line tax for this product
         const totalTax = parseFloat(product.totalTax) || 0
         const taxQty = parseFloat(product.qty) || 1
         const originalLineTax = totalTax / taxQty
-        
-      }) 
-      
+
+      })
+
       // Show alert with key information
       let message = `Calculation Summary:\n\n`
       message += `Base Subtotal: ${(this.form.newSubTotal + this.form.invoiceDiscount).toFixed(2)}\n`
@@ -1347,7 +1217,7 @@ export default {
       message += `New Tax: ${this.form.newTax.toFixed(2)}\n`
       message += `New Total: ${this.form.invoiceTotal.toFixed(2)}\n`
       message += `New Due: ${this.form.invoiceDue.toFixed(2)}`
-      
+
       alert(message)
     },
 
@@ -1355,13 +1225,13 @@ export default {
     validateReturns() {
       let isValid = true
       let errors = []
-      
+
       // Check if any products have returns
       if (this.form.totalReturn <= 0) {
         errors.push(this.$t('At least one product must have a return quantity greater than 0'))
         isValid = false
       }
-      
+
       // Check if return quantities exceed available quantities
       this.form.selectedProducts.forEach((product) => {
         if (product.returnQty > product.qty) {
@@ -1374,19 +1244,19 @@ export default {
           isValid = false
         }
       })
-      
+
       // Check if new subtotal is valid
       if (this.form.newSubTotal < 0) {
         errors.push(this.$t('New subtotal cannot be negative'))
         isValid = false
       }
-      
+
       // Check if discount is valid
       if (this.form.invoiceDiscount > this.form.newSubTotal) {
         errors.push(this.$t('Total discount cannot exceed new subtotal'))
         isValid = false
       }
-      
+
       if (errors.length > 0) {
         console.error('Validation Errors:', errors)
         // Show a toast like other parts of the system
@@ -1403,7 +1273,7 @@ export default {
           this.form.errors.set({ selectedProducts: errors })
         }
       }
-      
+
       return isValid
     },
 
@@ -1413,7 +1283,7 @@ export default {
       if (!this.validateReturns()) {
         return
       }
-      
+
       // For Saudi Arabia, only validate bank account chart of account if status will be active
       // Since we're saving as inactive for Saudi Arabia, skip this validation
       if (!this.isSaudiArabia && this.form.returnAmount > 0 && !this.hasBankAccountChartOfAccount) {
@@ -1434,7 +1304,7 @@ export default {
         });
         return;
       }
-      
+
       // Sync form fields with Calculation Summary just before save
       this.form.totalPaid = this.form.invoice?.totalPaid || 0
       this.form.invoiceTax = this.form.newTax
@@ -1478,7 +1348,7 @@ export default {
         timestamp: new Date().toISOString()
       }
       localStorage.setItem('salesReturnTempData', JSON.stringify(tempData))
-       
+
     },
     // load temporary data
     loadTemporaryData() {
@@ -1502,13 +1372,13 @@ export default {
     clearTemporaryData() {
       localStorage.removeItem('salesReturnTempData')
     },
-    
+
     // Helper methods for invoice create compatibility
     findMatchingVatRate(productTax) {
       if (!this.taxes || !productTax) return null
       return this.taxes.find(tax => tax.id === productTax.id || tax.rate === productTax.rate)
     },
-    
+
     formatToTwoDecimals(value) {
       // Handle null, undefined, or non-numeric values
       if (value === null || value === undefined || isNaN(value)) {
@@ -1520,42 +1390,68 @@ export default {
       }
       return numValue.toFixed(2)
     },
-    
+
     toWord() {
       // Simple implementation - you might want to use a proper number-to-words library
       return this.$t('Total')
     },
-    
+
     calculateProductDiscount(index) {
       const product = this.form.selectedProducts[index]
       if (!product || !this.form.selectedProducts || !Array.isArray(this.form.selectedProducts)) return
-      
+
       let discountAmount = 0
       if (product.discountType === 'percentage') {
         discountAmount = (product.returnQty * product.unitCost) * (product.discount / 100)
       } else {
         discountAmount = product.discount
       }
-      
+
       product.discountAmount = Number(discountAmount.toFixed(2))
       product.totalBeforeDiscount = Number((product.returnQty * product.unitCost).toFixed(2))
       product.totalAfterDiscount = Number((product.totalBeforeDiscount - discountAmount).toFixed(2))
-      
+
       this.calculateSum()
     },
-    
+
     calculateProductVat(index) {
       const product = this.form.selectedProducts[index]
       if (!product || !product.selectedVatRate || !this.form.selectedProducts || !Array.isArray(this.form.selectedProducts)) return
-      
+
       const vatAmount = Number((product.totalAfterDiscount * (product.selectedVatRate.rate / 100)).toFixed(2))
       product.productTax = vatAmount
       product.totalTax = vatAmount
       product.totalPrice = Number((product.totalAfterDiscount + vatAmount).toFixed(2))
-      
+
       this.calculateSum()
     },
-    
+
+    // Handle item change from ItemsTable component
+    handleItemChange({ value, type, index, action }) {
+      if (type === 'qty') {
+        if (action === 'increment') {
+          this.updateItem(Math.min(this.form.selectedProducts[index].maxQty, Number(value) + 1), index)
+        } else if (action === 'decrement') {
+          this.updateItem(Math.max(0, Number(value) - 1), index)
+        } else {
+          // Direct value change
+          const item = this.form.selectedProducts[index]
+          if (item) {
+            item.returnQty = Number(value)
+            this.updateItemReactively(item)
+          }
+        }
+      } else if (type === 'price') {
+        // Price changes are not allowed in returns (readonly)
+        // But handle it anyway for consistency
+        const item = this.form.selectedProducts[index]
+        if (item) {
+          item.unitCost = Number(value)
+          this.calculateSum()
+        }
+      }
+    },
+
     removeItem(item, index) {
       if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts)) return
       this.form.selectedProducts.splice(index, 1)
@@ -1684,7 +1580,7 @@ export default {
 }
 
 /* Search Input Background Override */
-.form-control{
+.form-control {
   background: #fff !important;
 }
 
@@ -1822,7 +1718,8 @@ export default {
   border: 2px solid #ffc107;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(255, 193, 7, 0.2);
-  display: none; /* Hide debug panel by default */
+  display: none;
+  /* Hide debug panel by default */
 }
 
 .debug-panel .card-header {
@@ -1922,20 +1819,20 @@ export default {
   .debug-panel .card-body {
     padding: 15px;
   }
-  
+
   .debug-item .row {
     margin: 0;
   }
-  
+
   .debug-item .col-md-6 {
     padding: 0 5px;
   }
-  
+
   .debug-step {
     font-size: 0.8em;
     padding: 3px 6px;
   }
-  
+
   .debug-panel .table {
     font-size: 0.75em;
   }
