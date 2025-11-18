@@ -3665,7 +3665,7 @@ class PrintController extends Controller
         try {
             // Get sales by user report data
             $reportController = new \App\Http\Controllers\API\ReportController();
-            $salesData = $reportController->salesByUserReport($request);
+            $salesData = $reportController->salesByUserReport($request,$user  );
 
             // Handle JsonResponse (the sales by user API returns a collection resource)
             if ($salesData instanceof \Illuminate\Http\JsonResponse) {
@@ -3725,7 +3725,7 @@ class PrintController extends Controller
 
         // Get sales by user report data
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $salesData = $reportController->salesByUserReport($request);
+        $salesData = $reportController->salesByUserReport($request,$user  );
 
         // Handle JsonResponse
         if ($salesData instanceof \Illuminate\Http\JsonResponse) {
@@ -3784,7 +3784,7 @@ class PrintController extends Controller
 
         // Get sales by user report data
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $salesData = $reportController->salesByUserReport($request);
+        $salesData = $reportController->salesByUserReport($request,$user  );
 
         // Handle JsonResponse
         if ($salesData instanceof \Illuminate\Http\JsonResponse) {
@@ -3845,7 +3845,7 @@ class PrintController extends Controller
         try {
             // Get collection by user report data
             $reportController = new \App\Http\Controllers\API\ReportController();
-            $collectionData = $reportController->collectionByUserReport($request);
+            $collectionData = $reportController->collectionByUserReport($request,$user  );
 
             // Handle JsonResponse (the collection by user API returns a collection resource)
             if ($collectionData instanceof \Illuminate\Http\JsonResponse) {
@@ -3905,7 +3905,7 @@ class PrintController extends Controller
 
         // Get collection by user report data
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $collectionData = $reportController->collectionByUserReport($request);
+        $collectionData = $reportController->collectionByUserReport($request,$user  );
 
         // Handle JsonResponse
         if ($collectionData instanceof \Illuminate\Http\JsonResponse) {
@@ -3964,7 +3964,7 @@ class PrintController extends Controller
 
         // Get collection by user report data
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $collectionData = $reportController->collectionByUserReport($request);
+        $collectionData = $reportController->collectionByUserReport($request,$user  );
 
         // Handle JsonResponse
         if ($collectionData instanceof \Illuminate\Http\JsonResponse) {

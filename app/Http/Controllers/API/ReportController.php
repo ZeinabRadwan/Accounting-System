@@ -1907,13 +1907,13 @@ class ReportController extends Controller
     }
 
     // get sales by user report
-    public function salesByUserReport(Request $request)
+    public function salesByUserReport(Request $request,$user = null)
     {
         $this->validate($request, [
             'user' => 'required',
         ]);
         try {
-            $user = Auth::user();
+            $user = $user ?? Auth::user();
             $branchIds = $this->getUserBranchIds($user);
 
             $query = Invoice::with('client', 'invoicePayments', 'invoiceReturn', 'user')
@@ -1939,14 +1939,14 @@ class ReportController extends Controller
     }
 
     // get sales collection by user report
-    public function collectionByUserReport(Request $request)
+    public function collectionByUserReport(Request $request,$user = null)
     {
         $this->validate($request, [
             'user' => 'required',
         ]);
 
         try {
-            $user = Auth::user();
+            $user = $user ?? Auth::user();
             $branchIds = $this->getUserBranchIds($user);
 
             $query = InvoicePayment::with('user.employee', 'invoice', 'invoicePaymentTransaction')
