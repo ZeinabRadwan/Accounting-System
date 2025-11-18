@@ -733,7 +733,8 @@ Route::middleware([
     Route::get('/print/voucher/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadVoucherPDF'])->name('print.voucher.pdf');
 
     // Reports print routes (authenticated but without /api prefix)
-    Route::middleware(['auth:web', 'tenant.not_archived', 'user.tenant.not_archived', 'tenant.initialized'])->group(function () {
+    // Using auth:web since Sanctum uses web guard for SPA authentication
+    Route::middleware(['web', 'auth:web', 'tenant.not_archived', 'user.tenant.not_archived', 'tenant.initialized'])->group(function () {
         Route::get('/print/reports/balance-sheet', [App\Http\Controllers\PrintController::class, 'printBalanceSheet'])->name('print.reports.balance-sheet');
         Route::get('/print/reports/balance-sheet/pdf', [App\Http\Controllers\PrintController::class, 'downloadBalanceSheetPDF'])->name('print.reports.balance-sheet.pdf');
         Route::get('/print/reports/balance-sheet/preview', [App\Http\Controllers\PrintController::class, 'previewBalanceSheetPDF'])->name('print.reports.balance-sheet.preview');
