@@ -10,34 +10,10 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'invoiceReturns.index' }" class="btn btn-info">
-                  <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
-
-                    {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
-
-                  </template>
-
-                  <template v-else>
-
-                    <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
-
-
-                      {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
-
-
-                    </template>
-
-
-                    <template v-else>
-
-
-                      <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
-
-
-                    </template>
-
-                  </template>
+                  <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
                 </router-link>
-                <button type="submit" class="btn btn-success" :form="formId" :title="isEdit ? $t('Save changes') : $t('Save')">
+                <button type="submit" class="btn btn-success" :form="formId"
+                  :title="isEdit ? $t('Save changes') : $t('Save')">
                   <i class="fas fa-save" />
                 </button>
               </div>
@@ -94,103 +70,36 @@
               </div>
 
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">
-                <div v-if="form.errors.errors && form.errors.errors.selectedProducts" class="w-100 m-auto">
+                <div v-if="form.errors.errors && form.errors.errors.selectedProducts" class="w-100 m-auto mb-3">
                   <div v-for="(msg, i) in form.errors.errors.selectedProducts" :key="i" class="callout callout-danger">
                     <p><i class="icon fas fa-ban"></i> {{ msg }}</p>
                   </div>
                 </div>
-                <div class="table-responsive table-custom w-95 m-auto">
-                  <table class="table table-hover table-sm text-center quotations-create-table">
-                    <thead>
-                      <th>{{ $t('#') }}</th>
-                      <th>{{ $t('Code') }}</th>
-                      <th>{{ $t('Item Name') }}</th>
-                      <th>{{ $t('Qty') }}</th>
-                      <th>{{ $t('Price') }}</th>
-                      <th>{{ $t('Total') }}</th>
-                      <th>{{ $t('Discount') }}</th>
-                      <th>{{ $t('Total After Discount') }}</th>
-                      <th>{{ $t('VAT Type') }}</th>
-                      <th>{{ $t('VAT') }}</th>
-                      <th>{{ $t('Total with VAT') }}</th>
-                      <th class="text-right">{{ $t('Action') }}</th>
-                    </thead>
-                    <tbody>
-                      <tr v-for="(item, index) in form.selectedProducts" :key="`item-${index}`">
-                        <td style="min-width: 50px;">{{ index + 1 }}</td>
-                        <td style="min-width: 100px;">{{ item.code | withPrefix(prefix) }}</td>
-                        <td style="min-width: 200px;">
-                          <div class="d-flex align-items-center">
-                            <div class="flex-grow-1">
-                              <router-link v-if="$can('product-view')" :to="{ name: 'products.show', params: { slug: item.slug } }">{{ item.name }}</router-link>
-                              <span v-else>{{ item.name }}</span>
-                            </div>
-                          </div>
-                        </td>
-                        <td style="min-width: 200px;">
-                          <div class="input-group custom-qty-input">
-                            <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger" data-field="quantity" @click="updateItem(Math.max(0, item.returnQty - 1), index)" />
-                            <input type="number" step="any" :id="`returnQty-${index+1}`" v-model.number="item.returnQty" name="quantity" class="quantity-field border-0 incrementor" min="0" :max="item.maxQty" @input="updateItemReactively(item)" placeholder="Return Qty" />
-                            <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary" data-field="quantity" @click="updateItem(Math.min(item.maxQty, Number(item.returnQty) + 1), index)" />
-                          </div>
-                        </td>
-                        <td style="min-width: 200px;">{{ formatToTwoDecimals(item.unitCost) }}</td>
-                        <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.totalBeforeDiscount) }} <span class="saudi-riyal">ê</span></td>
-                        <td style="min-width: 180px;">
-                          <div class="input-group">
-                            <select v-model="item.discountType" class="form-control form-control-sm" style="width: 85px;" @change="calculateProductDiscount(index)">
-                              <option value="fixed">{{ $t('Fixed') }}</option>
-                              <option value="percentage">{{ $t('%') }}</option>
-                            </select>
-                            <input type="number" v-model="item.discount" class="form-control form-control-sm" style="width: 80px;" step="any" min="0" :max="item.discountType == 'percentage' ? 100 : (item.unitCost * item.qty)" placeholder="0" @change="calculateProductDiscount(index)" @keyup="calculateProductDiscount(index)" />
-                          </div>
-                        </td>
-                        <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.totalAfterDiscount) }} <span class="saudi-riyal">ê</span></td>
-                        <td style="min-width: 150px;">
-                          <select v-model="item.selectedVatRate" class="form-control form-control-sm" @change="calculateProductVat(index)" style="min-width: 120px;">
-                            <option value="">{{ $t('Select VAT') }}</option>
-                            <option v-for="tax in taxes" :key="tax.id" :value="tax">{{ tax.code }} ({{ tax.rate }}%)</option>
-                          </select>
-                        </td>
-                        <td class="no-currency" style="min-width: 100px;">
-                          <span class="form-control-plaintext form-control-sm text-center no-currency">
-                            {{ formatToTwoDecimals(item.productTax) }}
-                          </span>
-                          <span class="saudi-riyal">ê</span>
-                        </td>
-                        <td class="no-currency" style="min-width: 120px;">{{ formatToTwoDecimals(item.totalPrice) }} <span class="saudi-riyal">ê</span></td>
-                        <td class="text-right" style="min-width: 80px;">
-                          <button type="button" class="btn btn-danger" @click="removeItem(item, index)"><i class="fas fa-times"></i></button>
-                        </td>
-                      </tr>
-                      <tr :key="`totals`">
-                        <td colspan="4" class="text-right"><strong> {{ $t('Total') }} : {{ toWord() }} </strong></td>
-                        <td><strong>{{ formatToTwoDecimals(totalUnitPrice) }} <span class="saudi-riyal">ê</span></strong></td>
-                        <td><strong>{{ formatToTwoDecimals(totalTotal) }} <span class="saudi-riyal">ê</span></strong></td>
-                        <td><strong>{{ formatToTwoDecimals(totalProductDiscount) }} <span class="saudi-riyal">ê</span></strong></td>
-                        <td><strong>{{ formatToTwoDecimals(totalAfterDiscount) }} <span class="saudi-riyal">ê</span></strong></td>
-                        <td><strong></strong></td>
-                        <td><strong>{{ formatToTwoDecimals(totalProductTax) }} <span class="saudi-riyal">ê</span></strong></td>
-                        <td><strong>{{ formatToTwoDecimals(subtotal) }} <span class="saudi-riyal">ê</span></strong></td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                <ItemsTable :items="form.selectedProducts" :prefix="prefix" :taxes="taxes" :form-errors="form.errors"
+                  :total-unit-price="totalUnitPrice" :total-product-discount="totalProductDiscount"
+                  :total-after-discount="totalAfterDiscount" :total-product-tax="totalProductTax" :subtotal="subtotal"
+                  :amount-in-words="toWord()" table-class="invoices-create-table" qty-field-name="returnQty"
+                  unit-price-field-name="unitCost" :price-readonly="true" :show-edit-button="false"
+                  :custom-total-value="totalTotal" :totals-colspan="4" @item-change="handleItemChange"
+                  @discount-change="calculateProductDiscount" @vat-change="calculateProductVat"
+                  @remove-item="removeItem" />
               </div>
 
               <div class="row" id="input-fields">
                 <div v-if="!isSaudiArabia" class="form-group col-md-3">
                   <label for="totalDiscount">{{ $t('Total Discount') }}</label>
-                  <input id="totalDiscount" v-model="formattedTotalDiscount" type="text" class="form-control" name="totalDiscount" readonly />
+                  <input id="totalDiscount" v-model="formattedTotalDiscount" type="text" class="form-control"
+                    name="totalDiscount" readonly />
                 </div>
                 <div v-if="!isSaudiArabia" class="form-group col-md-3">
                   <label for="transportCost">{{ $t('Transport Cost') }}</label>
-                  <input id="transportCost" v-model="formattedTransportCost" type="text" class="form-control" name="transportCost" readonly />
+                  <input id="transportCost" v-model="formattedTransportCost" type="text" class="form-control"
+                    name="transportCost" readonly />
                 </div>
                 <div v-if="!isSaudiArabia" class="form-group col-md-3">
                   <label for="invoiceTax">{{ $t('Invoice Tax') }}</label>
-                  <input id="invoiceTax" v-model="formattedInvoiceTax" type="text" class="form-control" name="invoiceTax" readonly />
+                  <input id="invoiceTax" v-model="formattedInvoiceTax" type="text" class="form-control"
+                    name="invoiceTax" readonly />
                 </div>
                 <!-- <div v-if="form.returnAmount > 0" class="form-group col-md-3">
                   <label for="returnAmountText">{{ $t('Return Amount') }}</label>
@@ -199,8 +108,8 @@
                 </div> -->
               </div>
 
-             <div v-if="accounts && form.returnAmount > 0" class="row">  
-               <div class="form-group col-md-4">
+              <div v-if="accounts && form.returnAmount > 0" class="row">
+                <div class="form-group col-md-4">
                   <label for="account">{{ $t('Account') }}
                     <span class="required">*</span></label>
                   <v-select v-model="form.account" :options="accounts" label="label"
@@ -210,8 +119,8 @@
                       <img :src="option.image" style="width: 30px; height: 30px;" />
                       {{ option.label }}
                     </template>
-                  </v-select>  
-                 <div class="account-status mt-2" v-if="form.account">
+                  </v-select>
+                  <div class="account-status mt-2" v-if="form.account">
                     <div v-if="!form.account.chartOfAccountId" class="account-warning">
                       <i class="fas fa-exclamation-triangle text-warning"></i>
                       <span class="ml-2">{{ $t('Bank Account needs Chart of Account') }}</span>
@@ -229,7 +138,8 @@
                 </div>
                 <div class="form-group col-md-2">
                   <label for="availableBalance">{{ $t('Available Balance') }}</label>
-                  <input id="availableBalance" v-model="formattedAvailableBalance" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('availableBalance'), }" name="availableBalance" readonly />
+                  <input id="availableBalance" v-model="formattedAvailableBalance" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('availableBalance'), }" name="availableBalance" readonly />
                   <has-error :form="form" field="availableBalance" />
                 </div>
                 <div class="form-group col-md-3">
@@ -239,7 +149,7 @@
                     :placeholder="$t('Enter a receipt no')" />
                   <has-error :form="form" field="receiptNo" />
                 </div>
-              </div>  
+              </div>
 
               <div class="form-group">
                 <label for="note">{{ $t('Note') }}</label>
@@ -288,9 +198,13 @@
 import Form from 'vform'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
+import ItemsTable from '~/components/ItemsTable'
 
 export default {
   middleware: ['auth', 'check-permissions'],
+  components: {
+    ItemsTable,
+  },
   metaInfo() {
     return { title: this.isEdit ? this.$t('Edit Invoice Return') : (this.isSaudiArabia ? this.$t('Create Credit Note') : this.$t('Create Invoice Return')) }
   },
@@ -406,6 +320,10 @@ export default {
       const numValue = Number(total)
       return isNaN(numValue) ? 0 : Number(numValue.toFixed(2))
     },
+    totalTotal() {
+      // totalTotal is the same as totalUnitPrice (sum of totalBeforeDiscount)
+      return this.totalUnitPrice
+    },
     formattedTotalDiscount() {
       return this.formatToTwoDecimals(this.form.totalDiscount)
     },
@@ -502,7 +420,7 @@ export default {
                   const resp = await axios.get(`/api/invoices/${invoiceSlug}`)
                   invoiceData = resp.data?.data
                   console.log('Fetched invoice data:', invoiceData?.id)
-                } catch (e) { 
+                } catch (e) {
                   console.warn('Failed to fetch invoice:', e)
                 }
               }
@@ -706,6 +624,32 @@ export default {
       // build products with return qty prefilled from invoiceReturnProducts
       this.storeProducts()
     },
+    // Handle item change from ItemsTable component
+    handleItemChange({ value, type, index, action }) {
+      if (type === 'qty') {
+        if (action === 'increment') {
+          this.updateItem(Math.min(this.form.selectedProducts[index].maxQty, Number(value) + 1), index)
+        } else if (action === 'decrement') {
+          this.updateItem(Math.max(0, Number(value) - 1), index)
+        } else {
+          // Direct value change
+          const item = this.form.selectedProducts[index]
+          if (item) {
+            item.returnQty = Number(value)
+            this.updateItemReactively(item)
+          }
+        }
+      } else if (type === 'price') {
+        // Price changes are not allowed in returns (readonly)
+        // But handle it anyway for consistency
+        const item = this.form.selectedProducts[index]
+        if (item) {
+          item.unitCost = Number(value)
+          this.calculateSum()
+        }
+      }
+    },
+
     // item updates
     updateItem(value, index) {
       let selectedProduct = this.form.selectedProducts[index]
@@ -854,8 +798,12 @@ export default {
     toWord() { return this.$t('Total') },
     removeItem(item, index) {
       if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts)) return
-      this.form.selectedProducts.splice(index, 1)
-      this.calculateSum()
+      // ItemsTable passes item, but we need index - find it if not provided
+      const itemIndex = index !== undefined ? index : this.form.selectedProducts.findIndex(p => p.id === item.id)
+      if (itemIndex > -1) {
+        this.form.selectedProducts.splice(itemIndex, 1)
+        this.calculateSum()
+      }
     },
     // submit
     async onSubmit() {
@@ -935,59 +883,131 @@ export default {
 </script>
 
 <style scoped>
-.header-buttons { margin-bottom: 15px; }
-.footer-buttons { gap: 10px; display: flex; }
-.footer-buttons .btn { margin-right: 10px; }
-.footer-buttons .btn:last-child { margin-right: 0; }
-.table-custom { border: none !important; }
-.quotations-create-table { border-collapse: separate; border-spacing: 0; }
-.quotations-create-table thead th { background-color: #33a0d9; color: #ffffff; padding: 8px; border: none !important; border-color: inherit !important; font-weight: 400; }
-.quotations-create-table thead tr { border: none !important; }
-.quotations-create-table thead th:first-child { border-top-left-radius: 10px; }
-.quotations-create-table thead th:last-child { border-top-right-radius: 10px; }
-[dir="rtl"] .quotations-create-table thead th:first-child { border-top-left-radius: 0; border-top-right-radius: 10px; }
-[dir="rtl"] .quotations-create-table thead th:last-child { border-top-right-radius: 0; border-top-left-radius: 10px; }
-.btn-group.c-w-100 { gap: 10px; }
-.card { margin-top: 30px; border-radius: 20px; box-shadow: 0px 8px 20px 0px #00000014; border: 1px solid #CED4DA }
-.card-footer { background-color: white; border-top: 1px solid #CED4DA; padding: 0 1.25rem 0.625rem 1.25rem; border-radius: 0 0 20px 20px; }
-.quotations-create-table .badge.badge-danger { background: #FEF4F4 !important; color: #DC3545 !important; font-size: 12px !important; font-weight: 500 !important; padding: 10px 16px; }
-.form-control{ background: #fff !important; }
-.btn-primary { background: #2AB930 !important; }
-.btn-secondary { background: #33a0d9 !important; color: white !important; padding: 10px 20px !important; border: none !important; }
-.quantity-field { border-radius: 0 !important; min-height: 50px !important; margin: 0 !important; }
-.custom-qty-input { display: flex; align-items: center; width: fit-content; margin: 0 auto; }
-.button-minus,
-.button-plus {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: none;
+.header-buttons {
+  margin-bottom: 15px;
+}
+
+.footer-buttons {
+  gap: 10px;
+  display: flex;
+}
+
+.footer-buttons .btn {
+  margin-right: 10px;
+}
+
+.footer-buttons .btn:last-child {
+  margin-right: 0;
+}
+
+.table-custom {
+  border: none !important;
+}
+
+.invoices-create-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.invoices-create-table thead th {
+  background-color: #33a0d9;
+  color: #ffffff;
+  padding: 8px;
+  border: none !important;
+  border-color: inherit !important;
+  font-weight: 400;
+}
+
+.invoices-create-table thead tr {
+  border: none !important;
+}
+
+.invoices-create-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.invoices-create-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .invoices-create-table thead th:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .invoices-create-table thead th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
+}
+
+.btn-group.c-w-100 {
+  gap: 10px;
+}
+
+.card {
+  margin-top: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px 0px #00000014;
+  border: 1px solid #CED4DA
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #CED4DA;
+  padding: 0 1.25rem 0.625rem 1.25rem;
+  border-radius: 0 0 20px 20px;
+}
+
+.invoices-create-table .badge.badge-info {
+  background: #E3F2FD !important;
+  color: #1976D2 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 10px 16px;
+}
+
+.form-control {
+  background: #fff !important;
+}
+
+.btn-primary {
+  background: #2AB930 !important;
+}
+
+.btn-secondary {
+  background: #33a0d9 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border: none !important;
+}
+
+.quantity-field {
+  border-radius: 0 !important;
+  min-height: 50px !important;
+  margin: 0 !important;
+}
+
+.account-status {
+  font-size: 0.875rem;
+}
+
+.account-status .account-warning {
+  color: #856404;
+  background-color: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
 }
-.button-minus {
-  background-color: #dc3545;
-  color: white;
-}
-.button-plus {
-  background-color: #007bff;
-  color: white;
-}
-.button-minus:hover {
-  background-color: #c82333;
-  transform: scale(1.05);
-}
-.button-plus:hover {
-  background-color: #0056b3;
-  transform: scale(1.05);
-}
-.account-status { font-size: 0.875rem; }
-.account-status .account-warning { color: #856404; background-color: #fff3cd; border: 1px solid #ffeaa7; border-radius: 0.25rem; padding: 0.5rem; display: flex; align-items: center; }
-.account-status .account-success { color: #155724; background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 0.25rem; padding: 0.5rem; display: flex; align-items: center; }
-</style>
 
+.account-status .account-success {
+  color: #155724;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+</style>

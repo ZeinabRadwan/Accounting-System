@@ -1505,40 +1505,80 @@ class ReportController extends Controller
     // return expense report data
     public function expenseReport(Request $request)
     {
-        // validate request
-        $this->validate($request, [
-            'category' => 'required',
-            'subCategory' => ($request->category && $request->category['id'] != 0) ? 'required' : 'nullable',
+        // Extract parameters using input() which works with both query params and POST data
+        $categoryId = $request->input('category.id') ?? ($request->category['id'] ?? null);
+        $categoryName = $request->input('category.name') ?? ($request->category['name'] ?? null);
+        $subCategoryId = $request->input('subCategory.id') ?? ($request->subCategory['id'] ?? null);
+        $subCategoryName = $request->input('subCategory.name') ?? ($request->subCategory['name'] ?? null);
+        $fromDateRaw = $request->input('fromDate') ?? $request->fromDate;
+        $toDateRaw = $request->input('toDate') ?? $request->toDate;
+
+        // Parse dates from ISO 8601 format to date-only format (YYYY-MM-DD) for DATE column
+        $fromDate = null;
+        $toDate = null;
+        if ($fromDateRaw) {
+            $fromDate = Carbon::parse($fromDateRaw)->format('Y-m-d');
+        }
+        if ($toDateRaw) {
+            $toDate = Carbon::parse($toDateRaw)->format('Y-m-d');
+        }
+
+        // Log for debugging
+     $log =   [
+            'categoryId' => $categoryId,
+            'subCategoryId' => $subCategoryId,
+            'fromDateRaw' => $fromDateRaw,
+            'toDateRaw' => $toDateRaw,
+            'fromDate' => $fromDate,
+            'toDate' => $toDate,
+            'all_request' => $request->all(),
+        ];
+       
+
+        // Validate request - create category array for validation
+        $categoryArray = $categoryId !== null ? ['id' => (int) $categoryId, 'name' => $categoryName ?? ''] : null;
+        $subCategoryArray = $subCategoryId !== null ? ['id' => (int) $subCategoryId, 'name' => $subCategoryName ?? ''] : null;
+
+        // Temporarily merge for validation
+        $request->merge([
+            'category' => $categoryArray,
+            'subCategory' => $subCategoryArray,
         ]);
 
-        $user = Auth::user();
-        $branchIds = $this->getUserBranchIds($user);
+        $this->validate($request, [
+            'category' => 'required',
+            'subCategory' => ($categoryId && $categoryId != 0) ? 'required' : 'nullable',
+        ]);
+
+      
         $expenses = '';
 
-        if (isset($request->category) && isset($request->subCategory)) {
-            if ($request->subCategory['id'] != 0) {
+        if ($categoryId !== null && $subCategoryId !== null) {
+            if ($subCategoryId != 0) {
                 $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user')
-                    ->whereIn('branch_id', $branchIds)
-                    ->where('sub_cat_id', $request->subCategory['id'])
-                    ->whereBetween('date', [$request->fromDate, $request->toDate])
+                  
+                    ->where('sub_cat_id', $subCategoryId)
+                    ->whereBetween('date', [$fromDate, $toDate])
                     ->get();
             } else {
                 $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount')
-                    ->whereIn('branch_id', $branchIds)
-                    ->whereBetween('date', [$request->fromDate, $request->toDate])
-                    ->whereHas('expSubCategory', function ($newQuery) use ($request) {
-                        $newQuery->whereHas('expCategory', function ($newQuery) use ($request) {
-                            $newQuery->where('id', $request->category['id']);
+                
+                    ->whereBetween('date', [$fromDate, $toDate])
+                    ->whereHas('expSubCategory', function ($newQuery) use ($categoryId) {
+                        $newQuery->whereHas('expCategory', function ($newQuery) use ($categoryId) {
+                            $newQuery->where('id', $categoryId);
                         });
                     })
                     ->get();
             }
         } else {
             $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user')
-                ->whereIn('branch_id', $branchIds)
-                ->whereBetween('date', [$request->fromDate, $request->toDate])
+                
+                ->whereBetween('date', [$fromDate, $toDate])
                 ->get();
         }
+
+     
 
         return ExpenseResource::collection($expenses);
     }
@@ -1721,7 +1761,33 @@ class ReportController extends Controller
             'itemName' => 'required',
         ]);
 
-        $user = Auth::user();
+        // Get authenticated user - try all possible methods
+        // Since 'can' middleware requires auth, user should be available
+        $user = $request->user();
+        
+        // If null, try different guards (Sanctum checks 'web' first for stateful requests)
+        if (! $user) {
+            $user = Auth::guard('web')->user();
+        }
+        
+        // Try sanctum guard
+        if (! $user) {
+            $user = auth('sanctum')->user();
+        }
+        
+        // Try default guard
+        if (! $user) {
+            $user = Auth::user();
+        }
+        
+        // Last resort: try to get from session if stateful request
+        if (! $user && $request->hasSession()) {
+            $userId = $request->session()->get('login_web_' . sha1('App\Models\User'));
+            if ($userId) {
+                $user = \App\Models\User::find($userId);
+            }
+        }
+        dd($user);
         $branchIds = $this->getUserBranchIds($user);
         $allProducts = [];
 

@@ -114,156 +114,28 @@
                 </div>
               </div>
 
-              <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">
-                <div class="table-responsive table-custom w-100 m-auto">
-                  <table class="table table-hover table-sm text-center">
-                    <thead>
-                        <th>{{ $t('#') }}</th>
-                        <th>{{ $t('Code') }}</th>
-                        <th>{{ $t('Name') }}</th>
-                        <th>{{ $t('Purchased Qty') }}</th>
-                        <th v-if="form.purchaseReturnData">
-                          {{ $t('Returned Qty') }}
-                        </th>
-                        <th>{{ $t('Purchase Price') }}</th>
-                        <th>{{ $t('Total') }}</th>
-                        <th>{{ $t('Discount') }}</th>
-                        <th>{{ $t('Total After Discount') }}</th>
-                        <th>{{ $t('VAT Type') }}</th>
-                        <th>{{ $t('VAT') }}</th>
-                        <th>{{ $t('Total with VAT') }}</th>
-                        <th v-if="form.purchaseReturnData">
-                          {{ $t('Total Return') }}
-                        </th>
-                        <th class="text-right">{{ $t('Action') }}</th>
-                    </thead>
-                    <tbody>
-                      <tr v-for="(item, i) in form.selectedProducts" :key="i" class="text-center">
-                        <td style="min-width: 50px;">{{ ++i }}</td>
-                        <td style="min-width: 100px;">{{ item.code | withPrefix(prefix) }}</td>
-                        <td style="min-width: 200px;">
-                          <router-link v-if="$can('product-view')" :to="{
-                            name: 'products.show',
-                            params: { slug: item.slug },
-                          }">
-                            {{ item.name }}
-                          </router-link>
-                          <span v-else>{{ item.name }}</span>
-                        </td>
-                        <td style="min-width: 200px;">
-                          <div class="input-group custom-qty-input">
-                            <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
-                              data-field="quantity" @click="generateItemTotal(item.qty, 'qty', i - 1, 'decrement')" />
-
-                            <input type="number" step="any" :id="`purchaseQty-${i}`" :value="item.qty" name="quantity"
-                              class="quantity-field border-0 incrementor" required :min="item.minQty" @change="
-                                generateItemTotal($event.target.value, 'qty', i - 1, '')"
-                              @keyup="generateItemTotal($event.target.value, 'qty', i - 1, '')" />
-
-                            <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
-                              data-field="quantity" @click="generateItemTotal(item.qty, 'qty', i - 1, 'increment')" />
-                          </div>
-                        </td>
-                        <td v-if="form.purchaseReturnData" style="min-width: 100px;">
-                          {{ item.returnQty }}
-                        </td>
-                        <td style="min-width: 200px;">
-                          <div class="input-group custom-qty-input">
-                            <input type="number" step="any" :id="`unitPrice-${i}`" :value="item.unitPrice"
-                              name="unitPrice" class="quantity-field border-0" required min="1" @change="
-                                generateItemTotal($event.target.value, 'price', i - 1, '')"
-                              @keyup="generateItemTotal($event.target.value, 'price', i - 1, '')" />
-                          </div>
-                        </td>
-                        <td style="min-width: 120px;">{{ (item.unitPrice * item.qty)  }} <span class="saudi-riyal">ê</span></td>
-                        <td style="min-width: 180px;">
-                          <div class="input-group">
-                            <select 
-                              v-model="item.discountType" 
-                              class="form-control form-control-sm" 
-                              style="width: 85px;"
-                              @change="calculateProductDiscount(i - 1)">
-                              <option value="fixed">{{ $t("Fixed") }}</option>
-                              <option value="percentage">{{ $t("%") }}</option>
-                            </select>
-                            <input 
-                              type="number" 
-                              v-model="item.discount" 
-                              class="form-control form-control-sm" 
-                              style="width: 80px;"
-                              step="any" 
-                              min="0" 
-                              :max="item.discountType == 'percentage' ? 100 : (item.unitPrice * item.qty)"
-                              placeholder="0"
-                              @change="calculateProductDiscount(i - 1)"
-                              @keyup="calculateProductDiscount(i - 1)" />
-                          </div>
-                        </td>
-                        <td style="min-width: 120px;">{{ ((item.unitPrice * item.qty) - (item.discountAmount || 0))  }} <span class="saudi-riyal">ê</span></td>
-                        <td style="min-width: 150px;">
-                          <select 
-                            v-model="item.selectedVatRate" 
-                            class="form-control form-control-sm"
-                            @change="calculateProductVat(i - 1)"
-                            style="min-width: 120px;">
-                            <option value="">{{ $t('Select VAT') }}</option>
-                            <option 
-                              v-for="tax in taxes" 
-                              :key="tax.id" 
-                              :value="tax">
-                              {{ tax.code }} ({{ tax.rate }}%)
-                            </option>
-                          </select>
-                        </td>
-                        <td style="min-width: 100px;">
-                          <span class="form-control-plaintext form-control-sm text-center">
-                            {{ item.productTax  }} <span class="saudi-riyal">ê</span>
-                          </span>
-                        </td>
-                        <td style="min-width: 120px;">{{ item.totalPrice  }} <span class="saudi-riyal">ê</span></td>
-                        <td v-if="form.purchaseReturnData" style="min-width: 100px;">
-                          {{ item.totalReturn  }} <span class="saudi-riyal">ê</span>
-                        </td>
-                        <td class="text-right" style="min-width: 80px;">
-                          <button type="button" class="btn btn-danger" @click="removeItem(item)">
-                            <i class="fas fa-times"></i>
-                          </button>
-                        </td>
-                      </tr>
-                      <!-- Totals Row -->
-                      <tr>
-                        <td :colspan="form.purchaseReturnData ? 8 : 7" class="text-right">
-                          <strong>{{ $t('Total') }}: {{ toWord() }}</strong>
-                        </td>
-                        <td>
-                          <strong>{{ totalUnitPrice  }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td>
-                          <strong>{{ form.totalDiscount  }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td>
-                          <strong>{{ (totalUnitPrice - form.totalDiscount)  }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td>
-                          <strong></strong>
-                        </td>
-                        <td>
-                          <strong>{{ form.totalProductTax  }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td>
-                          <strong>{{ form.subTotal  }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td v-if="form.purchaseReturnData">
-                          <strong>{{
-                            form.purchaseReturn 
-                          }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+              <ItemsTable
+                v-if="form.selectedProducts && form.selectedProducts.length > 0"
+                :items="form.selectedProducts"
+                :prefix="prefix"
+                :taxes="taxes"
+                :form-errors="form.errors"
+                :total-unit-price="totalUnitPrice"
+                :total-product-discount="totalProductDiscount"
+                :total-after-discount="totalAfterDiscount"
+                :total-product-tax="totalProductTax"
+                :subtotal="subtotal"
+                :amount-in-words="toWord()"
+                :show-current-qty-column="!!form.purchaseReturnData"
+                :show-return-price-column="!!form.purchaseReturnData"
+                :totals-colspan="5"
+                :custom-total-value="form.purchaseReturnData ? form.purchaseReturn : null"
+                table-class="quotations-create-table"
+                @item-change="handleItemChange"
+                @discount-change="calculateProductDiscount"
+                @vat-change="calculateProductVat"
+                @remove-item="removeItem"
+              />
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row">
                 <div class="form-group col-md-6 col-xl-3">
                   <label for="poReference">{{
@@ -415,12 +287,16 @@
 import Form from 'vform'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
+import ItemsTable from '~/components/ItemsTable'
 import RTLMixin from '~/mixins/RTLMixin'
 import { ToWords } from 'to-words'
 
 
 export default {
   middleware: ['auth', 'check-permissions'],
+  components: {
+    ItemsTable,
+  },
   metaInfo() {
     return { title: this.$t('Edit Purchase') }
   },
@@ -523,6 +399,18 @@ export default {
       return this.form.selectedProducts.reduce((total, item) => {
         return total + (item.unitPrice * item.qty);
       }, 0);
+    },
+    totalProductDiscount() {
+      return this.form.totalDiscount || 0;
+    },
+    totalAfterDiscount() {
+      return this.totalUnitPrice - (this.form.totalDiscount || 0);
+    },
+    totalProductTax() {
+      return this.form.totalProductTax || 0;
+    },
+    subtotal() {
+      return this.form.subTotal || 0;
     },
   },
   created() {
@@ -657,6 +545,12 @@ export default {
       this.generateItemTotal(qunatity, 'qty', index, '')
       this.updateTax()
       return
+    },
+
+    // Handle item change from ItemsTable component
+    handleItemChange({ value, type, index, action }) {
+      // Map ItemsTable event format to generateItemTotal method signature
+      this.generateItemTotal(value, type, index, action);
     },
 
     // update array

@@ -155,196 +155,25 @@
                   </div>
                 </div>
               </div>
-              <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">
-                <div class="table-responsive table-custom w-100 m-auto" style="max-width: 100%;">
-                  <table class="table table-hover table-sm text-center invoices-create-table">
-                    <thead>
-                        <th>{{ $t("#") }}</th>
-                        <th>{{ $t("Code") }}</th>
-                        <th>{{ $t("Item Name") }}</th>
-                        <th>{{ $t("Qty") }}</th>
-                        <th>{{ $t("Price") }}</th>
-                        <th>{{ $t("Total") }}</th>
-                        <th>{{ $t("Discount") }}</th>
-                        <th>{{ $t("Total After Discount") }}</th>
-                        <th>{{ $t("VAT Type") }}</th>
-                        <th>{{ $t("VAT") }}</th>
-                        <th>{{ $t("Total with VAT") }}</th>
-                        <th class="text-right">{{ $t("Action") }}</th>
-                    </thead>
-                    <tbody>
-                      <tr v-for="(item, i) in form.selectedProducts" :key="i">
-                        <td style="min-width: 50px;">{{ ++i }}</td>
-                        <td style="min-width: 100px;">
-                          {{ item.code | withPrefix(prefix) }}
-                        </td>
-                        <td style="min-width: 200px;">
-                          <div class="d-flex align-items-center">
-                            <span v-if="Number(item.inventoryCount) < Number(item.qty) && item.itemType == 'product'
-                              " v-tooltip="$t('Click to manage stock')" 
-                              class="badge badge-danger p-2 mr-2 clickable-badge" 
-                              @click="openStockAdjustmentModal(item)">
-                              <i class="fas fa-exclamation"></i>
-                            </span>
-                            <div class="flex-grow-1">
-                              <router-link v-if="$can('product-view')" :to="{
-                                name: 'products.show',
-                                params: { slug: item.slug },
-                              }">
-                                {{ item.name }}
-                              </router-link>
-                              <span v-else>{{ item.name }}</span>
-                            </div>
-                          </div>
-                        </td>
-                        <td style="min-width: 200px;">
-                          <div class="input-group custom-qty-input">
-                            <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
-                              data-field="quantity" @click="
-                                generateItemTotal(
-                                  item.qty,
-                                  'qty',
-                                  i - 1,
-                                  'decrement'
-                                )
-                                " />
-
-                            <input type="number" step="any" :id="`Qty-${i}`" :value="item.qty" name="quantity"
-                              class="quantity-field border-0 incrementor" required min="1" :max="item.itemType == 'product' ? item.inventoryCount : null"
-                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.qty`) }"
-                              @change="
-                                generateItemTotal(
-                                  $event.target.value,
-                                  'qty',
-                                  i - 1,
-                                  ''
-                                )
-                                " @keyup="generateItemTotal($event.target.value, 'qty', i - 1, '')"
-                              placeholder="Quantity" />
-
-                            <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary"
-                              data-field="quantity" @click="
-                                generateItemTotal(
-                                  item.qty,
-                                  'qty',
-                                  i - 1,
-                                  'increment'
-                                )
-                                " />
-                          </div>
-                          <div v-if="form.errors.has(`selectedProducts.${i-1}.qty`)" class="invalid-feedback d-block">
-                            {{ form.errors.get(`selectedProducts.${i-1}.qty`) }}
-                          </div>
-                        </td>
-                        <td style="min-width: 200px;">
-                          <div class="input-group custom-qty-input">
-                            <input type="unitPrice" step="any" :id="`unitPrice-${i}`" :value="item.unitPrice"
-                              name="unitPrice" class="quantity-field border-0" required min="0" 
-                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.unitPrice`) }"
-                              @change="
-                                generateItemTotal(
-                                  $event.target.value,
-                                  'price',
-                                  i - 1,
-                                  ''
-                                )
-                                " @keyup="generateItemTotal($event.target.value, 'price', i - 1, '')" />
-                          </div>
-                          <div v-if="form.errors.has(`selectedProducts.${i-1}.unitPrice`)" class="invalid-feedback d-block">
-                            {{ form.errors.get(`selectedProducts.${i-1}.unitPrice`) }}
-                          </div>
-                        </td>
-                        <td style="min-width: 120px;">{{ (item.unitPrice * item.qty)  }} <span class="saudi-riyal">ê</span></td>
-                        <td style="min-width: 180px;">
-                          <div class="input-group">
-                            <select 
-                              v-model="item.discountType" 
-                              class="form-control form-control-sm" 
-                              style="width: 85px;"
-                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.discountType`) }"
-                              @change="calculateProductDiscount(i - 1)">
-                              <option value="fixed">{{ $t("Fixed") }}</option>
-                              <option value="percentage">{{ $t("%") }}</option>
-                            </select>
-                            <input 
-                              type="number" 
-                              v-model="item.discount" 
-                              class="form-control form-control-sm" 
-                              style="width: 80px;"
-                              step="any" 
-                              min="0" 
-                              :max="item.discountType == 'percentage' ? 100 : (item.unitPrice * item.qty)"
-                              :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.discount`) }"
-                              placeholder="0"
-                              @change="calculateProductDiscount(i - 1)"
-                              @keyup="calculateProductDiscount(i - 1)" />
-                          </div>
-                          <div v-if="form.errors.has(`selectedProducts.${i-1}.discount`) || form.errors.has(`selectedProducts.${i-1}.discountType`)" class="invalid-feedback d-block">
-                            <span v-if="form.errors.has(`selectedProducts.${i-1}.discount`)" class="d-block">{{ form.errors.get(`selectedProducts.${i-1}.discount`) }}</span>
-                            <span v-if="form.errors.has(`selectedProducts.${i-1}.discountType`)" class="d-block">{{ form.errors.get(`selectedProducts.${i-1}.discountType`) }}</span>
-                          </div>
-                        </td>
-                        <td style="min-width: 120px;">{{ ((item.unitPrice * item.qty) - (item.discountAmount || 0))  }} <span class="saudi-riyal">ê</span></td>
-                        <td style="min-width: 150px;">
-                          <select 
-                            v-model="item.selectedVatRate" 
-                            class="form-control form-control-sm"
-                            :class="{ 'is-invalid': form.errors.has(`selectedProducts.${i-1}.selectedVatRate`) }"
-                            @change="calculateProductVat(i - 1)"
-                            style="min-width: 120px;">
-                            <option value="">{{ $t('Select VAT') }}</option>
-                            <option 
-                              v-for="tax in taxes" 
-                              :key="tax.id" 
-                              :value="tax">
-                              {{ tax.code }} ({{ tax.rate }}%)
-                            </option>
-                          </select>
-                          <div v-if="form.errors.has(`selectedProducts.${i-1}.selectedVatRate`)" class="invalid-feedback d-block">
-                            {{ form.errors.get(`selectedProducts.${i-1}.selectedVatRate`) }}
-                          </div>
-                        </td>
-                        <td style="min-width: 100px;">
-                          <span class="form-control-plaintext form-control-sm text-center">
-                            {{ item.productTax  }} <span class="saudi-riyal">ê</span>
-                          </span>
-                        </td>
-                        <td style="min-width: 120px;">{{ item.totalPrice  }} <span class="saudi-riyal">ê</span></td>
-                        <td class="text-right" style="min-width: 80px;">
-                          <button type="button" class="btn btn-danger" @click="removeItem(item)">
-                            <i class="fas fa-times"></i>
-                          </button>
-                        </td>
-                      </tr>
-                      <!-- Totals Row -->
-                      <tr>
-                        <td colspan="5" class="text-right">
-                          <strong> {{ $t("Total") }} : {{ toWord() }} </strong>
-                        </td>
-                        <td>
-                          <strong>{{ totalUnitPrice  }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td>
-                          <strong>{{ form.totalDiscount  }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td>
-                          <strong>{{ (totalUnitPrice - form.totalDiscount)  }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td>
-                          <strong></strong>
-                        </td>
-                        <td>
-                          <strong>{{ form.productTotalTax  }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td>
-                          <strong>{{ form.subTotal  }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+              <ItemsTable
+                :items="form.selectedProducts"
+                :prefix="prefix"
+                :taxes="taxes"
+                :form-errors="form.errors"
+                :total-unit-price="totalUnitPrice"
+                :total-product-discount="totalProductDiscount"
+                :total-after-discount="totalAfterDiscount"
+                :total-product-tax="totalProductTax"
+                :subtotal="subtotal"
+                :amount-in-words="toWord()"
+                table-class="invoices-create-table"
+                :show-edit-button="false"
+                @item-change="handleItemChange"
+                @discount-change="calculateProductDiscount"
+                @vat-change="calculateProductVat"
+                @remove-item="removeItem"
+                @open-stock-modal="openStockAdjustmentModal"
+              />
               
               <!-- Insufficient Stock Warning -->
               <div v-if="hasInsufficientStock" class="row mt-3 mb-3">
@@ -644,6 +473,7 @@ import { ToggleButton } from "vue-js-toggle-button";
 import ClientCreateModal from '~/components/ClientCreateModal'
 import ProductCreateModal from '~/components/ProductCreateModal'
 import StockAdjustmentModal from '~/components/StockAdjustmentModal'
+import ItemsTable from '~/components/ItemsTable'
 import RTLMixin from '~/mixins/RTLMixin'
 import { ToWords } from 'to-words';
 
@@ -658,6 +488,7 @@ export default {
     ClientCreateModal,
     ProductCreateModal,
     StockAdjustmentModal,
+    ItemsTable,
   },
   data() {
     return {
@@ -754,6 +585,22 @@ export default {
       return this.form.selectedProducts.reduce((total, item) => {
         return total + (item.unitPrice * item.qty);
       }, 0);
+    },
+
+    totalProductDiscount() {
+      return this.form.totalDiscount || 0;
+    },
+
+    totalAfterDiscount() {
+      return this.totalUnitPrice - (this.form.totalDiscount || 0);
+    },
+
+    totalProductTax() {
+      return this.form.productTotalTax || 0;
+    },
+
+    subtotal() {
+      return this.form.subTotal || 0;
     },
 
     hasChartOfAccount() {
@@ -1198,6 +1045,14 @@ export default {
           item.discountType = 'fixed';
         }
       });
+    },
+
+    // Handle item change from ItemsTable component
+    handleItemChange({ value, type, index, action }) {
+      // Map ItemsTable event format to generateItemTotal method signature
+      // ItemsTable: { value, type, index, action }
+      // generateItemTotal: (value, type, index, action)
+      this.generateItemTotal(value, type, index, action);
     },
 
     generateItemTotal(value, type, index, action) {

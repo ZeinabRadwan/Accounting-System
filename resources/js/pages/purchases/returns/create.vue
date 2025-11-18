@@ -103,86 +103,34 @@
                 </div>
               </div>
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row mt-3 mb-4">
-                <div v-if="form.errors.errors && form.errors.errors.selectedProducts" class="w-100 m-auto">
+                <div v-if="form.errors.errors && form.errors.errors.selectedProducts" class="w-100 m-auto mb-3">
                   <div v-for="(msg, i) in form.errors.errors.selectedProducts" :key="i" class="callout callout-danger">
                     <p><i class="icon fas fa-ban"></i> {{ msg }}</p>
                   </div>
                 </div>
-                <div class="table-responsive table-custom w-100 m-auto" style="max-width: 100%;">
-                  <table class="table table-hover table-sm text-center purchases-create-table">
-                    <thead>
-                      <th>{{ $t('#') }}</th>
-                      <th>{{ $t('Code') }}</th>
-                      <th>{{ $t('Item Name') }}</th>
-                      <th>{{ $t('Qty') }}</th>
-                      <th>{{ $t('Price') }}</th>
-                      <th>{{ $t('Total') }}</th>
-                      <th>{{ $t('Discount') }}</th>
-                      <th>{{ $t('Total After Discount') }}</th>
-                      <th>{{ $t('VAT Type') }}</th>
-                      <th>{{ $t('VAT') }}</th>
-                      <th>{{ $t('Total with VAT') }}</th>
-                      <th class="text-right">{{ $t('Action') }}</th>
-                    </thead>
-                    <tbody>
-                      <tr v-for="(item, index) in form.selectedProducts" :key="`item-${index}`">
-                        <td style="min-width: 30px;">{{ index + 1 }}</td>
-                        <td style="min-width: 60px;">{{ item.code | withPrefix(prefix) }}</td>
-                        <td style="min-width: 120px;">
-                          <div class="d-flex align-items-center">
-                            <div class="flex-grow-1">
-                              <router-link v-if="$can('product-view')" :to="{ name: 'products.show', params: { slug: item.slug } }">{{ item.name }}</router-link>
-                              <span v-else>{{ item.name }}</span>
-                            </div>
-                          </div>
-                        </td>
-                        <td style="min-width: 120px;">
-                          <div class="input-group custom-qty-input">
-                            <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger" data-field="quantity" @click="updateItem(Math.max(0, item.returnQty - 1), index)" />
-                            <input type="number" step="any" :id="`returnQty-${index+1}`" v-model.number="item.returnQty" name="quantity" class="quantity-field border-0 incrementor" min="0" :max="item.maxQty" @input="updateItemReactively(item)" placeholder="Return Qty" />
-                            <input type="button" value="+" class="button-plus icon-shape icon-sm btn-primary" data-field="quantity" @click="updateItem(Math.min(item.maxQty, Number(item.returnQty) + 1), index)" />
-                          </div>
-                        </td>
-                        <td style="min-width: 100px;">{{ formatToTwoDecimals(item.unitCost) }}</td>
-                        <td style="min-width: 80px;">{{ formatToTwoDecimals(item.totalBeforeDiscount) }} <span class="saudi-riyal">ê</span></td>
-                        <td style="min-width: 120px;">
-                          <div class="input-group">
-                            <select v-model="item.discountType" class="form-control form-control-sm" style="width: 85px;" @change="calculateProductDiscount(index)">
-                              <option value="fixed">{{ $t('Fixed') }}</option>
-                              <option value="percentage">{{ $t('%') }}</option>
-                            </select>
-                            <input type="number" v-model="item.discount" class="form-control form-control-sm" style="width: 80px;" step="any" min="0" :max="item.discountType == 'percentage' ? 100 : (item.unitCost * item.qty)" placeholder="0" @change="calculateProductDiscount(index)" @keyup="calculateProductDiscount(index)" />
-                          </div>
-                        </td>
-                        <td style="min-width: 80px;">{{ formatToTwoDecimals(item.totalAfterDiscount) }} <span class="saudi-riyal">ê</span></td>
-                        <td style="min-width: 100px;">
-                          <div class="d-flex align-items-center">
-                            <select v-model="item.selectedVatRate" class="form-control form-control-sm flex-grow-1" @change="calculateProductVat(index)" style="min-width: 80px;">
-                              <option value="">{{ $t('Select VAT') }}</option>
-                              <option v-for="tax in taxes" :key="tax.id" :value="tax">{{ tax.code }} ({{ tax.rate }}%)</option>
-                            </select>
-                          </div>
-                        </td>
-                        <td style="min-width: 60px;"><span class="form-control-plaintext form-control-sm text-center">{{ formatToTwoDecimals(item.productTax) }} <span class="saudi-riyal">ê</span></span></td>
-                        <td style="min-width: 80px;">{{ formatToTwoDecimals(item.totalPrice) }} <span class="saudi-riyal">ê</span></td>
-                        <td class="text-right" style="min-width: 50px;">
-                          <button type="button" class="btn btn-danger" @click="removeItem(item, index)"><i class="fas fa-times"></i></button>
-                        </td>
-                      </tr>
-                      <tr :key="`totals`">
-                        <td colspan="4" class="text-right"><strong> {{ $t('Total') }} : {{ toWord() }} </strong></td>
-                        <td><strong>{{ formatToTwoDecimals(totalUnitPrice) }} <span class="saudi-riyal">ê</span></strong></td>
-                        <td><strong>{{ formatToTwoDecimals(totalTotal) }} <span class="saudi-riyal">ê</span></strong></td>
-                        <td><strong>{{ formatToTwoDecimals(totalProductDiscount) }} <span class="saudi-riyal">ê</span></strong></td>
-                        <td><strong>{{ formatToTwoDecimals(totalAfterDiscount) }} <span class="saudi-riyal">ê</span></strong></td>
-                        <td><strong></strong></td>
-                        <td><strong>{{ formatToTwoDecimals(totalProductTax) }} <span class="saudi-riyal">ê</span></strong></td>
-                        <td><strong>{{ formatToTwoDecimals(subtotal) }} <span class="saudi-riyal">ê</span></strong></td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                <ItemsTable
+                  :items="form.selectedProducts"
+                  :prefix="prefix"
+                  :taxes="taxes"
+                  :form-errors="form.errors"
+                  :total-unit-price="totalUnitPrice"
+                  :total-product-discount="totalProductDiscount"
+                  :total-after-discount="totalAfterDiscount"
+                  :total-product-tax="totalProductTax"
+                  :subtotal="subtotal"
+                  :amount-in-words="toWord()"
+                  table-class="purchases-create-table"
+                  qty-field-name="returnQty"
+                  unit-price-field-name="unitCost"
+                  :price-readonly="true"
+                  :show-edit-button="false"
+                  :custom-total-value="totalTotal"
+                  :totals-colspan="4"
+                  @item-change="handleItemChange"
+                  @discount-change="calculateProductDiscount"
+                  @vat-change="calculateProductVat"
+                  @remove-item="removeItem"
+                />
               </div>
               <div class="row" id="input-fields">
                 <div v-if="!isSaudiArabia" class="form-group col-md-3">
@@ -295,9 +243,13 @@
 import Form from 'vform'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
+import ItemsTable from '~/components/ItemsTable'
 
 export default {
   middleware: ['auth', 'check-permissions'],
+  components: {
+    ItemsTable,
+  },
   metaInfo() {
     return { title: this.isSaudiArabia ? this.$t('Create Debit Note') : this.$t('Create Purchase Return') }
   },
@@ -593,6 +545,31 @@ export default {
       return
     },
 
+    // Handle item change from ItemsTable component
+    handleItemChange({ value, type, index, action }) {
+      if (type === 'qty') {
+        if (action === 'increment') {
+          this.updateItem(Math.min(this.form.selectedProducts[index].maxQty, Number(value) + 1), index)
+        } else if (action === 'decrement') {
+          this.updateItem(Math.max(0, Number(value) - 1), index)
+        } else {
+          // Direct value change
+          const item = this.form.selectedProducts[index]
+          if (item) {
+            item.returnQty = Number(value)
+            this.updateItemReactively(item)
+          }
+        }
+      } else if (type === 'price') {
+        // Price changes are not allowed in returns (readonly)
+        const item = this.form.selectedProducts[index]
+        if (item) {
+          item.unitCost = Number(value)
+          this.calculateSum()
+        }
+      }
+    },
+
     // update items
     updateItem(value, index) {
       let selectedProduct = this.form.selectedProducts[index]
@@ -730,8 +707,12 @@ export default {
 
     removeItem(item, index) {
       if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts)) return
-      this.form.selectedProducts.splice(index, 1)
-      this.calculateSum()
+      // ItemsTable passes item, but we need index - find it if not provided
+      const itemIndex = index !== undefined ? index : this.form.selectedProducts.findIndex(p => p.id === item.id)
+      if (itemIndex > -1) {
+        this.form.selectedProducts.splice(itemIndex, 1)
+        this.calculateSum()
+      }
     },
 
     // update available balance
