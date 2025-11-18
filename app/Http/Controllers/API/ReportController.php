@@ -1761,7 +1761,7 @@ class ReportController extends Controller
             'itemName' => 'required',
         ]);
 
-        $user = Auth::user();
+        $user = auth('session')->user();
         dd($user);
         $branchIds = $this->getUserBranchIds($user);
         $allProducts = [];
