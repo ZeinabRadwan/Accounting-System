@@ -21,9 +21,9 @@
                 </thead>
                 <tbody>
                     <tr v-for="(item, i) in items" :key="i">
-                        <td style="min-width: 50px;">{{ ++i }}</td>
-                        <td style="min-width: 100px;">{{ item.code | withPrefix(prefix) }}</td>
-                        <td style="min-width: 200px;">
+                        <td class="auto-width">{{ ++i }}</td>
+                        <td class="auto-width">{{ item.code | withPrefix(prefix) }}</td>
+                        <td class="auto-width">
                             <div class="d-flex align-items-center">
                                 <span v-if="Number(item.inventoryCount) < Number(getItemField(item, qtyFieldName)) && item.itemType == 'product'
                                 " v-tooltip="$t('Click to manage stock')"
@@ -46,14 +46,14 @@
                                 </button>
                             </div>
                         </td>
-                        <td v-if="showInvoiceQtyColumn" style="min-width: 120px;">
+                        <td v-if="showInvoiceQtyColumn" class="auto-width">
                             {{ item.invoiceQty || item.qty }} {{ item.unit || '' }}
                         </td>
-                        <td v-if="showCurrentQtyColumn" style="min-width: 120px;">
+                        <td v-if="showCurrentQtyColumn" class="auto-width">
                             {{ item.returnQty !== undefined ? item.returnQty : ((item.invoiceQty || item.qty) -
                                 (item.oldQty || 0)) }} {{ item.unit || '' }}
                         </td>
-                        <td style="min-width: 200px;">
+                        <td class="fixed-qty-column">
                             <div class="input-group custom-qty-input">
                                 <input type="button" value="-" class="button-minus icon-shape icon-sm btn-danger"
                                     data-field="quantity" :disabled="item.isFromQuotation" @click="
@@ -105,18 +105,18 @@
                                         " />
                             </div>
                         </td>
-                        <td style="min-width: 150px;">
+                        <td class="auto-width">
                             <div class="input-group custom-qty-input" v-if="!priceReadonly">
                                 <input type="number" step="any" min="0" :id="`unitPrice-${i}`"
                                     v-model.number="item[unitPriceFieldName]" name="unitPrice"
                                     class="quantity-field border-0" required :readonly="item.isFromQuotation"
                                     @input="handleItemChange(item[unitPriceFieldName], 'price', i - 1, '')" />
                             </div>
-                            <div v-else style="min-width: 200px;">
+                            <div v-else>
                                 {{ formatToTwoDecimals(getItemField(item, unitPriceFieldName)) }}
                             </div>
                         </td>
-                        <td class="no-currency" style="min-width: 120px;">{{
+                        <td class="no-currency auto-width">{{
                             formatToTwoDecimals(
                                 (item.originalPrice || getItemField(item, unitPriceFieldName)) * (item.invoiceQty || getItemField(item, qtyFieldName) || 1)
                             ) }} <span class="saudi-riyal">ê</span></td>
@@ -144,12 +144,12 @@
                                     getFieldErrorMessage(`selectedProducts.${i - 1}.discountType`) }}</span>
                             </div>
                         </td>
-                        <td v-if="!hideDiscountColumn" class="no-currency" style="min-width: 120px;">{{
+                        <td v-if="!hideDiscountColumn" class="no-currency auto-width">{{
                             formatToTwoDecimals(item.totalAfterDiscount
                                 !== undefined ? item.totalAfterDiscount : ((getItemField(item, unitPriceFieldName) *
                                     getItemField(item, qtyFieldName)) -
                                     (item.discountAmount || 0))) }} <span class="saudi-riyal">ê</span></td>
-                        <td v-if="!hideVatColumn" style="min-width: 150px;">
+                        <td v-if="!hideVatColumn" class="fixed-vat-column">
                             <select v-if="useVatRateId" v-model="item.vat_rate_id" class="form-control form-control-sm"
                                 :class="{ 'is-invalid': getFieldError(`selectedProducts.${i - 1}.vat_rate_id`) }"
                                 :disabled="item.isFromQuotation" @change="handleVatChange(i - 1)"
@@ -177,21 +177,21 @@
                                 {{ getFieldErrorMessage(`selectedProducts.${i - 1}.selectedVatRate`) }}
                             </div>
                         </td>
-                        <td v-if="!hideVatColumn" class="no-currency" style="min-width: 100px;">
+                        <td v-if="!hideVatColumn" class="no-currency fixed-vat-column">
                             <div>
                                 {{ formatToTwoDecimals(item.totalTax || 0) }}
                                 <span class="saudi-riyal">ê</span>
                             </div>
                         </td>
-                        <td v-if="!hideVatColumn" class="no-currency" style="min-width: 120px;">{{
+                        <td v-if="!hideVatColumn" class="no-currency auto-width">{{
                             formatToTwoDecimals(item.totalPrice) }}
                             <span class="saudi-riyal">ê</span>
                         </td>
-                        <td v-if="showReturnPriceColumn" class="text-right" style="min-width: 120px;">
+                        <td v-if="showReturnPriceColumn" class="text-right auto-width">
                             {{ formatToTwoDecimals(item.returnTotal !== undefined ? item.returnTotal : (item.totalReturn
                                 || 0)) }} <span class="saudi-riyal">ê</span>
                         </td>
-                        <td v-if="!showReturnPriceColumn" class="text-right" style="min-width: 80px;">
+                        <td v-if="!showReturnPriceColumn" class="text-right auto-width">
                             <button type="button" class="btn btn-danger" @click="$emit('remove-item', item)">
                                 <i class="fas fa-times"></i>
                             </button>
@@ -201,7 +201,7 @@
                         <td :colspan="(totalsColspan + (showInvoiceQtyColumn ? 1 : 0) + (showCurrentQtyColumn ? 1 : 0))"
                             class="text-right">
                             <strong v-if="!hideDiscountColumn && !hideVatColumn"> {{ $t("Total") }} : {{ amountInWords
-                                }} </strong>
+                            }} </strong>
                             <strong v-else>{{ $t("Subtotal") }}</strong>
                         </td>
                         <td v-if="totalsColspan === 4 && !hideDiscountColumn && !hideVatColumn" class="no-currency">
@@ -232,7 +232,7 @@
                         </td>
                         <td v-if="showReturnPriceColumn && !hideDiscountColumn && !hideVatColumn" class="no-currency">
                             <strong>{{ formatToTwoDecimals(customTotalValue !== null ? customTotalValue : 0)
-                                }}</strong> <span class="saudi-riyal">ê</span>
+                            }}</strong> <span class="saudi-riyal">ê</span>
                         </td>
                         <td v-if="hideDiscountColumn && hideVatColumn" class="no-currency">
                             <strong>{{ formatToTwoDecimals(totalUnitPrice) }}</strong> <span
@@ -240,7 +240,7 @@
                         </td>
                         <td v-if="showReturnPriceColumn && hideDiscountColumn && hideVatColumn" class="text-right">
                             <strong>{{ formatToTwoDecimals(customTotalValue !== null ? customTotalValue : subtotal)
-                                }}</strong> <span class="saudi-riyal">ê</span>
+                            }}</strong> <span class="saudi-riyal">ê</span>
                         </td>
                         <td v-if="!showReturnPriceColumn && !hideDiscountColumn && !hideVatColumn"></td>
                     </tr>
@@ -416,6 +416,7 @@ export default {
     width: 100%;
     min-width: 100%;
     height: 100%;
+    table-layout: auto;
 }
 
 /* General header styling for all tables */
@@ -547,6 +548,29 @@ export default {
     padding: 10px 16px;
 }
 
+/* Auto-width columns - adjust to content */
+.table-custom table td.auto-width {
+    width: auto;
+    min-width: 0;
+    white-space: nowrap;
+}
+
+/* Fixed columns - maintain minimum width for Quantity, Discount, and VAT */
+.table-custom table td.fixed-qty-column {
+    min-width: 200px;
+    width: auto;
+}
+
+.table-custom table td.fixed-discount-column {
+    min-width: 180px;
+    width: auto;
+}
+
+.table-custom table td.fixed-vat-column {
+    min-width: 150px;
+    width: auto;
+}
+
 /* Responsive table styling */
 @media (max-width: 768px) {
     .table-custom {
@@ -559,8 +583,8 @@ export default {
     .table-custom table {
         display: block;
         width: 100%;
-        min-width: 800px;
-        /* Minimum width to ensure horizontal scroll on small screens */
+        min-width: fit-content;
+        /* Allow table to size based on content */
     }
 
     .table-custom table thead {
@@ -580,12 +604,25 @@ export default {
         display: table-cell;
         white-space: nowrap;
     }
+
+    /* Ensure fixed columns maintain their minimum width on mobile */
+    .table-custom table td.fixed-qty-column {
+        min-width: 200px;
+    }
+
+    .table-custom table td.fixed-discount-column {
+        min-width: 180px;
+    }
+
+    .table-custom table td.fixed-vat-column {
+        min-width: 150px;
+    }
 }
 
 @media (max-width: 576px) {
     .table-custom table {
-        min-width: 1000px;
-        /* Larger minimum width for very small screens */
+        min-width: fit-content;
+        /* Allow table to size based on content */
     }
 
     .table-custom table thead th,

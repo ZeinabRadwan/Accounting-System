@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Models\GeneralSetting;
 use App\Models\Invoice;
 use App\Models\InvoiceReturn;
@@ -2583,14 +2584,8 @@ class PrintController extends Controller
     public function printInventory(Request $request)
     {
         // Set locale for translations
-        $user = \Auth::user();
-        $locale = $user->locale ?? app()->getLocale();
+        $locale = \Auth::user()->locale ?? app()->getLocale();
         \App::setLocale($locale);
-
-        // Ensure user is authenticated in the request context
-        if ($user) {
-            \Auth::setUser($user);
-        }
 
         try {
             // Get inventory report data
@@ -2649,15 +2644,8 @@ class PrintController extends Controller
      */
     public function previewInventoryPDF(Request $request)
     {
-        $user = \Auth::user();
-        dd($user);
-        $locale = $user->locale ?? 'ar';
+        $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
-        // Ensure user is authenticated in the request context
-        if ($user) {
-            \Auth::setUser($user);
-        }
 
         // Get inventory report data
         $reportController = new \App\Http\Controllers\API\ReportController();
@@ -2714,14 +2702,8 @@ class PrintController extends Controller
      */
     public function downloadInventoryPDF(Request $request)
     {
-        $user = \Auth::user();
-        $locale = $user->locale ?? 'ar';
+        $locale = \Auth::user()->locale ?? 'ar';
         \App::setLocale($locale);
-
-        // Ensure user is authenticated in the request context
-        if ($user) {
-            \Auth::setUser($user);
-        }
 
         // Get inventory report data
         $reportController = new \App\Http\Controllers\API\ReportController();
