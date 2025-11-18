@@ -762,7 +762,7 @@ Route::middleware([
     Route::get('/print/reports/vat-report/preview', [App\Http\Controllers\PrintController::class, 'previewVatReportPDF'])->name('print.reports.vat-report.preview');
     Route::get('/print/reports/inventory', [App\Http\Controllers\PrintController::class, 'printInventory'])->name('print.reports.inventory');
     Route::get('/print/reports/inventory/pdf', [App\Http\Controllers\PrintController::class, 'downloadInventoryPDF'])->name('print.reports.inventory.pdf');
-    Route::get('/print/reports/inventory/preview', [App\Http\Controllers\PrintController::class, 'previewInventoryPDF'])->name('print.reports.inventory.preview')->where('path', '^(?!.*(?:api|storage|build)).*$')->middleware('tenant.not_archived');
+    Route::get('/print/reports/inventory/preview', [App\Http\Controllers\PrintController::class, 'previewInventoryPDF'])->name('print.reports.inventory.preview')->middleware('auth:sanctum');
     Route::get('/print/reports/items', [App\Http\Controllers\PrintController::class, 'printItems'])->name('print.reports.items');
     Route::get('/print/reports/items/pdf', [App\Http\Controllers\PrintController::class, 'downloadItemsPDF'])->name('print.reports.items.pdf');
     Route::get('/print/reports/items/preview', [App\Http\Controllers\PrintController::class, 'previewItemsPDF'])->name('print.reports.items.preview');
