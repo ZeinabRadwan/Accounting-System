@@ -1761,8 +1761,30 @@ class ReportController extends Controller
             'itemName' => 'required',
         ]);
 
-        $user = $request->user();
-        dd($user);
+        // Try multiple ways to get the authenticated user
+        $user = auth('sanctum')->user();
+        if (! $user) {
+            $user = Auth::guard('sanctum')->user();
+        }
+        if (! $user) {
+            $user = $request->user('sanctum');
+        }
+        if (! $user) {
+            $user = Auth::user();
+        }
+        if (! $user) {
+            $user = $request->user();
+        }
+        
+        // Debug: Check if token exists
+        $token = $request->bearerToken();
+        dd([
+            'user' => $user,
+            'token' => $token ? 'Token exists' : 'No token',
+            'auth_check' => auth('sanctum')->check(),
+            'auth_user' => auth('sanctum')->user(),
+            'request_user' => $request->user(),
+        ]);
         $branchIds = $this->getUserBranchIds($user);
         $allProducts = [];
 
