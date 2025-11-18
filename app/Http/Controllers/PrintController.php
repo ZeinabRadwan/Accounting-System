@@ -2583,8 +2583,14 @@ class PrintController extends Controller
     public function printInventory(Request $request)
     {
         // Set locale for translations
-        $locale = \Auth::user()->locale ?? app()->getLocale();
+        $user = \Auth::user();
+        $locale = $user->locale ?? app()->getLocale();
         \App::setLocale($locale);
+
+        // Ensure user is authenticated in the request context
+        if ($user) {
+            \Auth::setUser($user);
+        }
 
         try {
             // Get inventory report data
@@ -2643,8 +2649,14 @@ class PrintController extends Controller
      */
     public function previewInventoryPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        $user = \Auth::user();
+        $locale = $user->locale ?? 'ar';
         \App::setLocale($locale);
+
+        // Ensure user is authenticated in the request context
+        if ($user) {
+            \Auth::setUser($user);
+        }
 
         // Get inventory report data
         $reportController = new \App\Http\Controllers\API\ReportController();
@@ -2701,8 +2713,14 @@ class PrintController extends Controller
      */
     public function downloadInventoryPDF(Request $request)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        $user = \Auth::user();
+        $locale = $user->locale ?? 'ar';
         \App::setLocale($locale);
+
+        // Ensure user is authenticated in the request context
+        if ($user) {
+            \Auth::setUser($user);
+        }
 
         // Get inventory report data
         $reportController = new \App\Http\Controllers\API\ReportController();
