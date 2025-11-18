@@ -981,7 +981,7 @@ class PurchaseController extends Controller
                 Log::error('User ID: '.$userId);
                 Log::error('Exception trace: '.$e->getTraceAsString());
 
-                return $this->responseWithError('Failed to create journal entries: '.$e->getMessage());
+                return $this->responseWithError(__('messages.Failed to create journal entries: ').$e->getMessage());
             }
 
             // Create journal entries for any existing payments
