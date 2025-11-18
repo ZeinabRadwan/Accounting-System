@@ -2,7 +2,7 @@
   <div :class="{ 'card-body': showCardBody }">
     <!-- Client Details Section - Now First -->
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-form-6">
         <div class="form-card">
           <div class="card-header">
             <h5 class="section-title">
@@ -15,7 +15,7 @@
               <label for="codeNumber">
                 {{ $t("Client Number") }}
               </label>
-              <input id="codeNumber" v-model="form.codeNumber" type="text" class="form-control" 
+              <input id="codeNumber" v-model="form.codeNumber" type="text" class="form-control"
                 :class="{ 'is-invalid': form.errors.has('codeNumber') }" name="codeNumber"
                 :placeholder="$t('Auto-generated...')" readonly aria-readonly="true" />
               <small class="form-text text-muted">
@@ -47,19 +47,12 @@
               </label>
               <div class="tax-status-options">
                 <div class="row">
-                  <div class="col-md-6">
-                    <label 
-                      class="tax-status-card-compact" 
+                  <div class="col-form-6">
+                    <label class="tax-status-card-compact"
                       :class="{ 'active': form.taxStatus === 'taxable', 'border-primary': form.taxStatus === 'taxable' }"
-                      @click="form.taxStatus = 'taxable'"
-                    >
+                      @click="form.taxStatus = 'taxable'">
                       <div class="tax-status-header-compact">
-                        <input 
-                          type="radio" 
-                          v-model="form.taxStatus" 
-                          value="taxable" 
-                          class="tax-status-radio"
-                        />
+                        <input type="radio" v-model="form.taxStatus" value="taxable" class="tax-status-radio" />
                         <div class="tax-status-icon-compact taxable-icon">
                           <i class="fas fa-file-invoice-dollar"></i>
                         </div>
@@ -67,19 +60,12 @@
                       </div>
                     </label>
                   </div>
-                  <div class="col-md-6">
-                    <label 
-                      class="tax-status-card-compact" 
+                  <div class="col-form-6">
+                    <label class="tax-status-card-compact"
                       :class="{ 'active': form.taxStatus === 'non_taxable', 'border-success': form.taxStatus === 'non_taxable' }"
-                      @click="form.taxStatus = 'non_taxable'"
-                    >
+                      @click="form.taxStatus = 'non_taxable'">
                       <div class="tax-status-header-compact">
-                        <input 
-                          type="radio" 
-                          v-model="form.taxStatus" 
-                          value="non_taxable" 
-                          class="tax-status-radio"
-                        />
+                        <input type="radio" v-model="form.taxStatus" value="non_taxable" class="tax-status-radio" />
                         <div class="tax-status-icon-compact non-taxable-icon">
                           <i class="fas fa-file-invoice"></i>
                         </div>
@@ -105,14 +91,14 @@
               </div>
 
               <div class="row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-form-6">
                   <label for="firstName">{{ $t("First Name") }}</label>
                   <input id="firstName" v-model="form.firstName" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('firstName') }" name="firstName"
                     :placeholder="$t('Enter first name')" />
                   <has-error :form="form" field="firstName" />
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-form-6">
                   <label for="lastName">{{ $t("Last Name") }}</label>
                   <input id="lastName" v-model="form.lastName" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('lastName') }" name="lastName"
@@ -136,22 +122,16 @@
             </div>
 
             <div class="row">
-              <div class="form-group col-md-6">
+              <div class="form-group col-form-6">
                 <label for="phone">{{ $t("Telephone") }}</label>
                 <input id="phone" v-model="form.phone" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('phone') }" name="phone"
                   :placeholder="$t('Enter telephone number')" />
                 <has-error :form="form" field="phone" />
               </div>
-              <div class="form-group col-md-6">
-                <PhoneNumberInput
-                  v-model="form.phoneNumber"
-                  :label="$t('Mobile')"
-                  :required="true"
-                  :country="form.country"
-                  :default-country="form.country || 'SA'"
-                  @validated="onPhoneValidated"
-                />
+              <div class="form-group col-form-6">
+                <PhoneNumberInput v-model="form.phoneNumber" :label="$t('Mobile')" :required="true"
+                  :country="form.country" :default-country="form.country || 'SA'" @validated="onPhoneValidated" />
                 <has-error :form="form" field="phoneNumber" />
               </div>
             </div>
@@ -168,7 +148,7 @@
       </div>
 
       <!-- National Address Section - Now Second, beside Client Details -->
-      <div class="col-md-6">
+      <div class="col-form-6">
         <div class="form-card">
           <div class="card-header">
             <h5 class="section-title">
@@ -179,23 +159,14 @@
           <div class="card-body">
             <!-- Country and Region -->
             <div class="row">
-              <div class="form-group col-md-6">
+              <div class="form-group col-form-6">
                 <label for="country">
-                  {{ $t("Country") }} 
+                  {{ $t("Country") }}
                   <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
                 </label>
-                <v-select
-                  v-model="form.country"
-                  :options="countries"
-                  label="name"
-                  :reduce="option => option.code"
-                  :placeholder="$t('Select Country')"
-                  :searchable="true"
-                  :clearable="false"
-                  class="country-select"
-                  :class="{ 'is-invalid': form.errors.has('country') }"
-                  @input="onCountryChange"
-                >
+                <v-select v-model="form.country" :options="countries" label="name" :reduce="option => option.code"
+                  :placeholder="$t('Select Country')" :searchable="true" :clearable="false" class="country-select"
+                  :class="{ 'is-invalid': form.errors.has('country') }" @input="onCountryChange">
                   <template #option="{ flag, name }">
                     <div class="country-option">
                       <span class="country-flag">{{ flag }}</span>
@@ -216,30 +187,21 @@
                 </v-select>
                 <has-error :form="form" field="country" />
               </div>
-              <div v-if="form.country !== 'SA'" class="form-group col-md-6">
+              <div v-if="form.country !== 'SA'" class="form-group col-form-6">
                 <label for="state">{{ $t("State") }}</label>
                 <input id="state" v-model="form.state" type="text" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('state') }" name="state"
-                  :placeholder="$t('Enter state')" />
+                  :class="{ 'is-invalid': form.errors.has('state') }" name="state" :placeholder="$t('Enter state')" />
                 <has-error :form="form" field="state" />
               </div>
-              
+
               <!-- Saudi Arabia Region, City and Neighbourhood -->
               <template v-if="form.country === 'SA'">
-                <div class="form-group col-md-6">
+                <div class="form-group col-form-6">
                   <label for="saudi_region">{{ $t("Region") }}</label>
-                  <v-select
-                    v-model="form.saudi_region"
-                    :options="saudiRegions"
-                    label="name"
-                    :reduce="option => option.id"
-                    :placeholder="$t('Select Region')"
-                    :searchable="true"
-                    :clearable="false"
-                    class="saudi-location-select"
-                    :class="{ 'is-invalid': form.errors.has('saudi_region') }"
-                    @input="onSaudiRegionChange"
-                  >
+                  <v-select v-model="form.saudi_region" :options="saudiRegions" label="name"
+                    :reduce="option => option.id" :placeholder="$t('Select Region')" :searchable="true"
+                    :clearable="false" class="saudi-location-select"
+                    :class="{ 'is-invalid': form.errors.has('saudi_region') }" @input="onSaudiRegionChange">
                     <template #option="{ name_ar, name_en }">
                       <div>{{ $i18n.locale === 'ar' ? name_ar : name_en }}</div>
                     </template>
@@ -255,24 +217,15 @@
             <!-- City and Neighbourhood -->
             <div class="row">
               <template v-if="form.country === 'SA'">
-                <div class="form-group col-md-6">
+                <div class="form-group col-form-6">
                   <label for="city">
-                    {{ $t("City") }} 
+                    {{ $t("City") }}
                     <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
                   </label>
-                  <v-select
-                    v-if="saudiCities.length > 0"
-                    v-model="form.city"
-                    :options="saudiCities"
-                    label="name"
-                    :reduce="option => option.name"
-                    :placeholder="$t('Select City')"
-                    :searchable="true"
-                    :clearable="false"
-                    class="saudi-location-select"
-                    :class="{ 'is-invalid': form.errors.has('city') }"
-                    :disabled="!form.saudi_region"
-                  >
+                  <v-select v-if="saudiCities.length > 0" v-model="form.city" :options="saudiCities" label="name"
+                    :reduce="option => option.name" :placeholder="$t('Select City')" :searchable="true"
+                    :clearable="false" class="saudi-location-select" :class="{ 'is-invalid': form.errors.has('city') }"
+                    :disabled="!form.saudi_region">
                     <template #option="{ name_ar, name_en }">
                       <div>{{ $i18n.locale === 'ar' ? name_ar : name_en }}</div>
                     </template>
@@ -280,22 +233,14 @@
                       <div>{{ $i18n.locale === 'ar' ? name_ar : name_en }}</div>
                     </template>
                   </v-select>
-                  <input
-                    v-else-if="form.saudi_region"
-                    id="city"
-                    v-model="form.city"
-                    type="text"
-                    class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('city') }"
-                    name="city"
-                    :placeholder="$t('Enter city name')"
-                    :disabled="!form.saudi_region"
-                  />
+                  <input v-else-if="form.saudi_region" id="city" v-model="form.city" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('city') }" name="city" :placeholder="$t('Enter city name')"
+                    :disabled="!form.saudi_region" />
                   <has-error :form="form" field="city" />
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-form-6">
                   <label for="neighbourhood">
-                    {{ $t("Neighbourhood") }} 
+                    {{ $t("Neighbourhood") }}
                     <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
                   </label>
                   <input id="neighbourhood" v-model="form.neighbourhood" type="text" class="form-control"
@@ -304,22 +249,21 @@
                   <has-error :form="form" field="neighbourhood" />
                 </div>
               </template>
-              
+
               <!-- Regular City and Neighbourhood Input for Non-Saudi Countries -->
               <template v-if="form.country !== 'SA'">
-                <div class="form-group col-md-6">
+                <div class="form-group col-form-6">
                   <label for="city">
-                    {{ $t("City") }} 
+                    {{ $t("City") }}
                     <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
                   </label>
                   <input id="city" v-model="form.city" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('city') }" name="city"
-                    :placeholder="$t('Enter city')" />
+                    :class="{ 'is-invalid': form.errors.has('city') }" name="city" :placeholder="$t('Enter city')" />
                   <has-error :form="form" field="city" />
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-form-6">
                   <label for="neighbourhood">
-                    {{ $t("Neighbourhood") }} 
+                    {{ $t("Neighbourhood") }}
                     <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
                   </label>
                   <input id="neighbourhood" v-model="form.neighbourhood" type="text" class="form-control"
@@ -332,9 +276,9 @@
 
             <!-- Street Name and Postal Code -->
             <div class="row">
-              <div class="form-group col-md-6">
+              <div class="form-group col-form-6">
                 <label for="streetAddress1">
-                  {{ $t("Street Name") }} 
+                  {{ $t("Street Name") }}
                   <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
                 </label>
                 <input id="streetAddress1" v-model="form.streetAddress1" type="text" class="form-control"
@@ -342,9 +286,9 @@
                   :placeholder="$t('Enter street name')" />
                 <has-error :form="form" field="streetAddress1" />
               </div>
-              <div class="form-group col-md-6">
+              <div class="form-group col-form-6">
                 <label for="postalCode">
-                  {{ $t("Postal Code") }} 
+                  {{ $t("Postal Code") }}
                   <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
                 </label>
                 <input id="postalCode" v-model="form.postalCode" type="text" class="form-control"
@@ -356,18 +300,20 @@
 
             <!-- Saudi National Address Fields - Building Number -->
             <div v-if="form.country === 'SA'" class="row">
-              <div class="form-group col-md-6">
+              <div class="form-group col-form-6">
                 <label for="buildingNumber">
-                  {{ $t("Building Number") }} <span v-if="form.taxStatus === 'taxable'" class="required">*</span><span v-else class="text-muted">({{ $t("Optional") }})</span>
+                  {{ $t("Building Number") }} <span v-if="form.taxStatus === 'taxable'" class="required">*</span><span
+                    v-else class="text-muted">({{ $t("Optional") }})</span>
                 </label>
                 <input id="buildingNumber" v-model="form.buildingNumber" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('buildingNumber') }" name="buildingNumber"
                   :placeholder="$t('Enter building number')" maxlength="5" />
                 <has-error :form="form" field="buildingNumber" />
               </div>
-              <div class="form-group col-md-6">
+              <div class="form-group col-form-6">
                 <label for="streetNumber">
-                  {{ $t("Street Number") }} <span v-if="form.taxStatus === 'taxable'" class="required">*</span><span v-else class="text-muted">({{ $t("Optional") }})</span>
+                  {{ $t("Street Number") }} <span v-if="form.taxStatus === 'taxable'" class="required">*</span><span
+                    v-else class="text-muted">({{ $t("Optional") }})</span>
                 </label>
                 <input id="streetNumber" v-model="form.streetNumber" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('streetNumber') }" name="streetNumber"
@@ -380,7 +326,8 @@
             <div v-if="form.country === 'SA'" class="row">
               <div class="form-group col-md-4">
                 <label for="districtNumber">
-                  {{ $t("District Number") }} <span v-if="form.taxStatus === 'taxable'" class="required">*</span><span v-else class="text-muted">({{ $t("Optional") }})</span>
+                  {{ $t("District Number") }} <span v-if="form.taxStatus === 'taxable'" class="required">*</span><span
+                    v-else class="text-muted">({{ $t("Optional") }})</span>
                 </label>
                 <input id="districtNumber" v-model="form.districtNumber" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('districtNumber') }" name="districtNumber"
@@ -389,7 +336,8 @@
               </div>
               <div class="form-group col-md-4">
                 <label for="unitNumber">
-                  {{ $t("Unit Number") }} <span v-if="form.taxStatus === 'taxable'" class="required">*</span><span v-else class="text-muted">({{ $t("Optional") }})</span>
+                  {{ $t("Unit Number") }} <span v-if="form.taxStatus === 'taxable'" class="required">*</span><span
+                    v-else class="text-muted">({{ $t("Optional") }})</span>
                 </label>
                 <input id="unitNumber" v-model="form.unitNumber" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('unitNumber') }" name="unitNumber"
@@ -416,15 +364,16 @@
                   {{ $t("Tax Information (Required for Taxable Clients)") }}
                 </h6>
               </div>
-              <div class="form-group col-md-6">
+              <div class="form-group col-form-6">
                 <label for="commercialRegister">{{ $t("Commercial Register") }} <span class="required">*</span></label>
                 <input id="commercialRegister" v-model="form.commercialRegister" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('commercialRegister') }" name="commercialRegister"
                   :placeholder="$t('Enter commercial register number')" />
                 <has-error :form="form" field="commercialRegister" />
               </div>
-              <div class="form-group col-md-6">
-                <label for="taxRegistrationNumber">{{ $t("Tax Registration Number") }} <span class="required">*</span></label>
+              <div class="form-group col-form-6">
+                <label for="taxRegistrationNumber">{{ $t("Tax Registration Number") }} <span
+                    class="required">*</span></label>
                 <input id="taxRegistrationNumber" v-model="form.taxRegistrationNumber" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('taxRegistrationNumber') }" name="taxRegistrationNumber"
                   :placeholder="$t('Enter 15-digit tax registration number')" maxlength="15" />
@@ -438,14 +387,15 @@
               <div class="col-md-12">
                 <hr style="margin: 15px 0; border-color: #e0e0e0;">
               </div>
-              <div class="form-group col-md-6">
-                <label for="commercialRegister">{{ $t("CR") }} <span class="text-muted">({{ $t("Optional") }})</span></label>
+              <div class="form-group col-form-6">
+                <label for="commercialRegister">{{ $t("CR") }} <span class="text-muted">({{ $t("Optional")
+                    }})</span></label>
                 <input id="commercialRegister" v-model="form.commercialRegister" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('commercialRegister') }" name="commercialRegister"
                   :placeholder="$t('Enter commercial register number')" />
                 <has-error :form="form" field="commercialRegister" />
               </div>
-              <div class="form-group col-md-6">
+              <div class="form-group col-form-6">
                 <label for="taxCard">{{ $t("Tax ID (Optional)") }}</label>
                 <input id="taxCard" v-model="form.taxCard" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('taxCard') }" name="taxCard"
@@ -523,10 +473,8 @@
             </h5>
           </div>
           <div class="card-body">
-            <RepresentativesList 
-              :representatives="form.representatives || []"
-              @representatives-changed="handleRepresentativesChanged"
-            />
+            <RepresentativesList :representatives="form.representatives || []"
+              @representatives-changed="handleRepresentativesChanged" />
           </div>
         </div>
       </div>
@@ -534,7 +482,7 @@
 
     <!-- Additional Fields Section -->
     <div class="row mt-4">
-      <div class="col-md-6">
+      <div class="col-form-6">
         <div class="form-card">
           <div class="card-header">
             <h5 class="section-title">
@@ -554,7 +502,7 @@
         </div>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-form-6">
         <div class="form-card">
           <div class="card-header">
             <h5 class="section-title">
@@ -567,7 +515,7 @@
               <label for="attachments">{{ $t("Attachments") }}</label>
               <div class="file-upload-area">
                 <input id="attachments" type="file" class="file-input" name="attachments"
-                  :class="{ 'is-invalid': form.errors.has('attachments') }" @change="onFileChange" multiple 
+                  :class="{ 'is-invalid': form.errors.has('attachments') }" @change="onFileChange" multiple
                   accept="image/jpeg,image/png,image/gif" />
                 <div class="file-upload-content">
                   <i class="fas fa-cloud-upload-alt"></i>
@@ -576,7 +524,7 @@
                 </div>
               </div>
               <has-error :form="form" field="attachments" />
-              
+
               <!-- Show selected files -->
               <div class="selected-files mt-2" v-if="form.attachments && form.attachments.length > 0">
                 <div class="selected-file-item" v-for="(file, index) in form.attachments" :key="index">
@@ -604,26 +552,26 @@
             </h5>
           </div>
           <div class="card-body">
-        
 
-        
-                     <!-- Routing Type Info -->
-         <div v-if="routingSetting" class="alert alert-info">
-           <i class="fas fa-info-circle mr-2"></i>
-           <strong>{{ $t("Current Routing Type") }}:</strong> {{ routingSetting.routing_type_display }}
-           <!-- <span v-if="routingSetting.description" class="ml-2">- {{ routingSetting.description }}</span> -->
-         </div>
 
-       
 
-        <!-- Automatic Account Routing - No dropdown needed -->
-        <!-- <div v-if="routingSetting && routingSetting.routing_type === 'automatic'" class="alert alert-success">
+            <!-- Routing Type Info -->
+            <div v-if="routingSetting" class="alert alert-info">
+              <i class="fas fa-info-circle mr-2"></i>
+              <strong>{{ $t("Current Routing Type") }}:</strong> {{ routingSetting.routing_type_display }}
+              <!-- <span v-if="routingSetting.description" class="ml-2">- {{ routingSetting.description }}</span> -->
+            </div>
+
+
+
+            <!-- Automatic Account Routing - No dropdown needed -->
+            <!-- <div v-if="routingSetting && routingSetting.routing_type === 'automatic'" class="alert alert-success">
           <i class="fas fa-check-circle mr-2"></i>
           {{ $t("Chart of account will be automatically assigned based on your accounting configuration.") }}
         </div> -->
 
-                                                                        <!-- Specify Per Each - Show dropdown and create button -->
-       
+            <!-- Specify Per Each - Show dropdown and create button -->
+
           </div>
         </div>
       </div>
@@ -661,30 +609,28 @@
           </div>
           <div class="card-body">
             <div class="row">
-          <div class="form-group col-md-6">
-            <div class="d-flex align-items-center">
-              <toggle-button 
-                v-model="form.isSendEmail" 
-                :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.email_configured" />
-              <span class="ml-3">{{ $t("Send Welcome Email") }}</span>
-              <span v-if="!communicationConfig.loading && !communicationConfig.email_configured" 
+              <div class="form-group col-form-6">
+                <div class="d-flex align-items-center">
+                  <toggle-button v-model="form.isSendEmail"
+                    :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.email_configured" />
+                  <span class="ml-3">{{ $t("Send Welcome Email") }}</span>
+                  <span v-if="!communicationConfig.loading && !communicationConfig.email_configured"
                     class="ml-2 text-muted small">
-                ({{ $t("Email not configured") }})
-              </span>
-            </div>
-          </div>
-          <div class="form-group col-md-6">
-            <div class="d-flex align-items-center">
-              <toggle-button 
-                v-model="form.isSendSMS" 
-                :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.sms_configured" />
-              <span class="ml-3">{{ $t("Send Welcome SMS") }}</span>
-              <span v-if="!communicationConfig.loading && !communicationConfig.sms_configured" 
+                    ({{ $t("Email not configured") }})
+                  </span>
+                </div>
+              </div>
+              <div class="form-group col-form-6">
+                <div class="d-flex align-items-center">
+                  <toggle-button v-model="form.isSendSMS"
+                    :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.sms_configured" />
+                  <span class="ml-3">{{ $t("Send Welcome SMS") }}</span>
+                  <span v-if="!communicationConfig.loading && !communicationConfig.sms_configured"
                     class="ml-2 text-muted small">
-                ({{ $t("SMS not configured") }})
-              </span>
-            </div>
-          </div>
+                    ({{ $t("SMS not configured") }})
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -726,30 +672,30 @@ export default {
       loading: true,
       url: null,
       form: null, // Will be initialized in created()
-      
+
       // Add missing properties
       routingSetting: null,
       loadingChartOfAccounts: false,
       chartOfAccountsError: null,
       chartOfAccounts: [],
       isCreatingAccount: false,
-      
+
       // Communication configuration status
       communicationConfig: {
         email_configured: false,
         sms_configured: false,
         loading: true,
       },
-      
+
       // Phone number validation
       phoneNumberValid: false,
-      
+
       // Saudi Arabia location data
       saudiRegions: [],
       saudiCities: [],
       loadingRegions: false,
       loadingCities: false,
-      
+
       // Countries data with flags (same as tenant-initialization)
       countriesData: [
         { code: 'SA', nameKey: 'Saudi Arabia', flag: '🇸🇦' },
@@ -830,7 +776,7 @@ export default {
         console.log('=== INITIAL DATA WATCHER TRIGGERED ===');
         console.log('New data:', newData);
         console.log('Form exists:', !!this.form);
-        
+
         if (newData && Object.keys(newData).length > 0) {
           // Set form values from initial data
           Object.keys(newData).forEach(key => {
@@ -841,19 +787,19 @@ export default {
               console.log(`Form does not have property: ${key}`);
             }
           });
-          
+
           // Handle special cases
           if (newData.image_path) {
             this.url = newData.image_path;
           }
-          
+
           if (newData.attachments) {
             this.form.attachments = Array.isArray(newData.attachments) ? newData.attachments : [];
           }
-          
+
           console.log('Form initialized with data:', newData);
           console.log('Form after initialization:', this.form);
-          
+
           // Load representatives if this is an existing client
           if (newData.slug && newData.slug !== 'new') {
             console.log('=== WILL LOAD REPRESENTATIVES ===');
@@ -873,7 +819,7 @@ export default {
             console.log('- newData.slug value:', newData.slug);
             console.log('- newData.slug !== new:', newData.slug !== 'new');
             console.log('Full newData:', newData);
-            
+
             // Only load next code number for truly new clients (not when editing)
             if (!newData.slug || newData.slug === 'new') {
               console.log('Loading next code number for new client');
@@ -887,7 +833,7 @@ export default {
       immediate: true,
       deep: true
     },
-    
+
     // Watch for changes in phoneNumber field
     'form.phoneNumber': {
       handler(newValue, oldValue) {
@@ -895,7 +841,7 @@ export default {
       },
       immediate: true
     },
-    
+
     // Watch for changes in representatives field
     'form.representatives': {
       handler(newValue, oldValue) {
@@ -915,7 +861,7 @@ export default {
       },
       deep: true
     },
-    
+
     // Watch for country changes - clear state when Saudi Arabia is selected
     'form.country': {
       handler(newValue, oldValue) {
@@ -932,7 +878,7 @@ export default {
       },
       immediate: true
     },
-    
+
     // Watch for Saudi region changes - load cities
     'form.saudi_region': {
       handler(newValue) {
@@ -948,8 +894,8 @@ export default {
   computed: {
     // Check if this is a new client
     isNewClient() {
-      return !this.initialData || Object.keys(this.initialData).length === 0 || 
-             (this.initialData.slug && this.initialData.slug === 'new');
+      return !this.initialData || Object.keys(this.initialData).length === 0 ||
+        (this.initialData.slug && this.initialData.slug === 'new');
     },
     // Countries with translated names
     countries() {
@@ -967,13 +913,13 @@ export default {
     console.log('ClientForm component mounted, form:', this.form);
     console.log('Initial data in mounted:', this.initialData);
     // Don't call loadRepresentatives here - let the watcher handle it
-    
+
     // Load next code number for new clients
     this.loadNextCodeNumber();
-    
+
     // Load communication configuration status
     this.loadCommunicationConfigStatus();
-    
+
     // Load routing settings first, then chart of accounts
     this.loadRoutingSettings().then(() => {
       console.log('Routing settings loaded, now loading chart of accounts...');
@@ -990,13 +936,13 @@ export default {
     initializeForm() {
       console.log('=== INITIALIZING FORM ===');
       console.log('Initial data:', this.initialData);
-      
+
       this.form = new Form({
         // Account Details
         codeNumber: "", // Will be loaded from API
         notes: "",
         displayLanguage: "",
-        
+
         // Client Details
         type: "Company",
         taxStatus: "non_taxable",
@@ -1022,35 +968,35 @@ export default {
         districtNumber: "",
         unitNumber: "",
         additionalNumber: "",
-        
+
         // Additional Fields
         image: "",
         attachments: [],
         status: 1,
         isSendEmail: false,
         isSendSMS: false,
-        
+
         // Legacy fields for backward compatibility
         name: "",
         companyName: "",
         taxRegistrationNumber: "",
         address: "",
-        
+
         // Representatives
         representatives: [],
-        
+
         // Chart of Account
         chartOfAccountId: null,
-        
+
         // Spread initial data if available
         ...(this.initialData || {})
       });
-      
+
       console.log('Form initialized:', this.form);
       console.log('Form type:', typeof this.form);
       console.log('Form methods:', Object.getOwnPropertyNames(this.form));
     },
-    
+
     // Load the next available code number for new clients
     async loadNextCodeNumber() {
       // Skip if this is not a new client (editing existing client)
@@ -1058,14 +1004,14 @@ export default {
         console.log('Skipping next code number load - editing existing client');
         return;
       }
-      
+
       try {
         console.log('=== LOADING NEXT CODE NUMBER ===');
         console.log('Current form codeNumber before API call:', this.form.codeNumber);
-        
+
         const response = await axios.get('/clients/next-code');
         console.log('Next code API response:', response.data);
-        
+
         // Check if we have formatted_code in the response (successful response)
         if (response.data && response.data.formatted_code) {
           this.form.codeNumber = response.data.formatted_code;
@@ -1101,14 +1047,14 @@ export default {
       try {
         console.log('=== LOADING COMMUNICATION CONFIG STATUS ===');
         this.communicationConfig.loading = true;
-        
+
         const response = await axios.get('/api/communication-config-status');
         console.log('Communication config response:', response.data);
-        
+
         this.communicationConfig.email_configured = response.data.email_configured;
         this.communicationConfig.sms_configured = response.data.sms_configured;
         this.communicationConfig.loading = false;
-        
+
         console.log('Communication config loaded:', this.communicationConfig);
       } catch (error) {
         console.error('Error loading communication config status:', error);
@@ -1123,7 +1069,7 @@ export default {
     onFileChange(e) {
       const files = Array.from(e.target.files);
       const validFiles = [];
-      
+
       files.forEach(file => {
         // Check file size (2MB limit)
         if (file.size < 2111775) {
@@ -1144,7 +1090,7 @@ export default {
               'image/png',
               'image/gif'
             ];
-            
+
             if (allowedTypes.includes(file.type)) {
               validFiles.push(file);
             } else {
@@ -1183,17 +1129,17 @@ export default {
     // Reset form to default values
     resetForm() {
       this.form.reset();
-      
+
       // Reset to default values for specific fields
       this.form.type = "Company";
       this.form.status = 1;
       this.form.country = "SA";
       this.form.isSendEmail = false;
       this.form.isSendSMS = false;
-      
+
       // Load the next available code number
       this.loadNextCodeNumber();
-      
+
       // Clear all other fields
       this.form.notes = "";
       this.form.displayLanguage = "";
@@ -1218,13 +1164,13 @@ export default {
       this.form.attachments = []; // Clear attachments
       this.form.image = null; // Clear image
       this.form.chartOfAccountId = null; // Clear chart of account
-      
+
       // Clear image preview
       this.url = null;
-      
+
       // Clear validation errors
       this.form.errors.clear();
-      
+
       // Reset phone number validation
       this.phoneNumberValid = false;
     },
@@ -1234,11 +1180,11 @@ export default {
       // Clear state field when Saudi Arabia is selected (handled by watcher)
       // This method can be used for additional country-specific logic
     },
-    
+
     // Load Saudi Arabia regions
     async loadSaudiRegions() {
       if (this.loadingRegions) return;
-      
+
       this.loadingRegions = true;
       try {
         const response = await axios.get('/api/locations/saudi/regions');
@@ -1258,16 +1204,16 @@ export default {
         this.loadingRegions = false;
       }
     },
-    
+
     // Load Saudi Arabia cities by region
     async loadSaudiCities(regionId) {
       if (!regionId) {
         this.saudiCities = [];
         return;
       }
-      
+
       if (this.loadingCities) return;
-      
+
       this.loadingCities = true;
       try {
         const response = await axios.get('/api/locations/saudi/cities-by-region', {
@@ -1282,7 +1228,7 @@ export default {
             name_en: city.name_en,
             region_id: city.region_id
           }));
-          
+
           // If no cities found, add the region name as a city option
           if (this.saudiCities.length === 0) {
             const selectedRegion = this.saudiRegions.find(region => region.id === regionId);
@@ -1337,7 +1283,7 @@ export default {
         this.loadingCities = false;
       }
     },
-    
+
     // Handle Saudi region change
     onSaudiRegionChange() {
       // Clear city when region changes
@@ -1359,13 +1305,13 @@ export default {
       console.log('Form phoneNumber:', this.form ? this.form.phoneNumber : 'No form');
       console.log('Form businessName:', this.form ? this.form.businessName : 'No form');
       console.log('Form fullName:', this.form ? this.form.fullName : 'No form');
-      
+
       // Basic validation - check if form exists
       if (!this.form) {
         console.error('Form is not initialized');
         return false;
       }
-      
+
       // Check if mobile number is provided
       if (!this.form.phoneNumber || this.form.phoneNumber.trim() === '') {
         console.log('Phone number validation failed - phoneNumber:', this.form.phoneNumber);
@@ -1379,7 +1325,7 @@ export default {
         }
         return false;
       }
-      
+
       // Check if phone number is valid
       if (!this.phoneNumberValid) {
         console.log('Phone number validation failed - phoneNumberValid:', this.phoneNumberValid);
@@ -1394,53 +1340,53 @@ export default {
         return false;
       }
 
-       // Check if name is provided based on type
-       if (this.form.type === 'Company' && (!this.form.businessName || this.form.businessName.trim() === '')) {
-         console.log('Business name validation failed - businessName:', this.form.businessName);
-         if (window.toast && typeof window.toast.fire === 'function') {
-           window.toast.fire({
-             type: "error",
-             title: this.$t("Business name is required for company clients"),
-           });
-         } else {
-           alert(this.$t("Business name is required for company clients"));
-         }
-         return false;
-       }
+      // Check if name is provided based on type
+      if (this.form.type === 'Company' && (!this.form.businessName || this.form.businessName.trim() === '')) {
+        console.log('Business name validation failed - businessName:', this.form.businessName);
+        if (window.toast && typeof window.toast.fire === 'function') {
+          window.toast.fire({
+            type: "error",
+            title: this.$t("Business name is required for company clients"),
+          });
+        } else {
+          alert(this.$t("Business name is required for company clients"));
+        }
+        return false;
+      }
 
-       if (this.form.type === 'Individual' && (!this.form.fullName || this.form.fullName.trim() === '')) {
-         console.log('Full name validation failed - fullName:', this.form.fullName);
-         if (window.toast && typeof window.toast.fire === 'function') {
-           window.toast.fire({
-             type: "error",
-             title: this.$t("Full name is required for individual clients"),
-           });
-         } else {
-           alert(this.$t("Full name is required for individual clients"));
-         }
-         return false;
-       }
+      if (this.form.type === 'Individual' && (!this.form.fullName || this.form.fullName.trim() === '')) {
+        console.log('Full name validation failed - fullName:', this.form.fullName);
+        if (window.toast && typeof window.toast.fire === 'function') {
+          window.toast.fire({
+            type: "error",
+            title: this.$t("Full name is required for individual clients"),
+          });
+        } else {
+          alert(this.$t("Full name is required for individual clients"));
+        }
+        return false;
+      }
 
-       // For new clients, automatically create chart of account if none selected
-       if (this.isNewClient && this.routingSetting && this.routingSetting.routing_type !== 'automatic') {
-         if (!this.form.chartOfAccountId) {
-           // Auto-create chart of account for new client
-           const autoCreatedAccount = await this.autoCreateChartOfAccountForNewClient();
-           if (autoCreatedAccount) {
-             // Show info message about auto-creation
-             if (window.toast && typeof window.toast.fire === 'function') {
-               window.toast.fire({
-                 type: 'info',
-                 title: this.$t('Chart of account automatically created for new client'),
-                 text: this.$t('Account will be properly created when you save the client.')
-               });
-             }
-           }
-         }
-       }
+      // For new clients, automatically create chart of account if none selected
+      if (this.isNewClient && this.routingSetting && this.routingSetting.routing_type !== 'automatic') {
+        if (!this.form.chartOfAccountId) {
+          // Auto-create chart of account for new client
+          const autoCreatedAccount = await this.autoCreateChartOfAccountForNewClient();
+          if (autoCreatedAccount) {
+            // Show info message about auto-creation
+            if (window.toast && typeof window.toast.fire === 'function') {
+              window.toast.fire({
+                type: 'info',
+                title: this.$t('Chart of account automatically created for new client'),
+                text: this.$t('Account will be properly created when you save the client.')
+              });
+            }
+          }
+        }
+      }
 
-       return true;
-     },
+      return true;
+    },
 
     // Load representatives for existing client
     async loadRepresentatives() {
@@ -1452,19 +1398,19 @@ export default {
       console.log('Initial data:', this.initialData);
       console.log('Form type:', this.form.type);
       console.log('Form representatives before load:', this.form.representatives);
-      
+
       if (slug && slug !== 'new') {
         try {
           const apiUrl = `/api/client/${slug}/representatives`;
           console.log('Making API call to:', apiUrl);
-          
+
           const response = await this.$http.get(apiUrl);
           console.log('Representatives API response received');
           console.log('Response status:', response.status);
           console.log('Response data:', response.data);
           console.log('Response success:', response.data.success);
           console.log('Response data.data:', response.data.data);
-          
+
           if (response.data.success) {
             this.form.representatives = response.data.data;
             console.log('Representatives loaded into form:', this.form.representatives);
@@ -1495,7 +1441,7 @@ export default {
     handleRepresentativesChanged(representatives) {
       this.form.representatives = representatives;
     },
-    
+
     // Handle phone number validation
     onPhoneValidated(isValid) {
       this.phoneNumberValid = isValid;
@@ -1514,13 +1460,13 @@ export default {
         // Get the specific clients_account routing setting
         const response = await this.$http.get('/api/account-routing-settings');
         console.log('Routing settings response:', response);
-        
+
         if (response.data && response.data.success) {
           console.log('Routing settings data:', response.data.data);
           // Find the clients_account setting
           this.routingSetting = response.data.data.find(setting => setting.setting_key === 'clients_account');
           console.log('Found clients_account setting:', this.routingSetting);
-          
+
           if (this.routingSetting) {
             // Add routing type display name
             this.routingSetting.routing_type_display = this.getRoutingTypeDisplayName(this.routingSetting.routing_type);
@@ -1578,17 +1524,17 @@ export default {
       try {
         console.log('Loading chart of accounts...');
         console.log('Current routing setting:', this.routingSetting);
-        
+
         this.loadingChartOfAccounts = true;
         this.chartOfAccountsError = null;
-        
+
         // If routing is automatic, we don't need to load all accounts
         if (this.routingSetting && this.routingSetting.routing_type === 'automatic') {
           console.log('Routing type is automatic, not loading chart of accounts');
           this.chartOfAccounts = [];
           return;
         }
-        
+
         // For other routing types, load accounts based on routing setting
         if (this.routingSetting && this.routingSetting.main_account_id) {
           console.log('Loading accounts from routing setup...');
@@ -1596,7 +1542,7 @@ export default {
             // Load accounts from the routing setup
             const response = await this.$http.get(`/api/account-routing-settings/${this.routingSetting.setting_key}/accounts`);
             console.log('Routing accounts response:', response);
-            
+
             if (response.data && response.data.success) {
               this.chartOfAccounts = response.data.accounts || [];
               console.log('Loaded accounts from routing setup:', this.chartOfAccounts.length);
@@ -1618,7 +1564,7 @@ export default {
           this.chartOfAccounts = response.data.data || response.data || [];
           console.log('Loaded all accounts as fallback:', this.chartOfAccounts.length);
         }
-        
+
         // Ensure we have some accounts loaded
         if (this.chartOfAccounts.length === 0) {
           console.log('No accounts loaded, trying alternative endpoint...');
@@ -1649,35 +1595,35 @@ export default {
     // Search chart of accounts (for v-select search)
     async searchChartOfAccounts(search) {
       console.log('Searching for:', search);
-      
+
       if (!search || search.length < 2) {
         console.log('Search too short, returning first 50 accounts');
         return this.chartOfAccounts.slice(0, 50); // Return first 50 for initial display
       }
-      
+
       try {
         // Filter locally first for better performance
-        const filtered = this.chartOfAccounts.filter(account => 
+        const filtered = this.chartOfAccounts.filter(account =>
           account.name.toLowerCase().includes(search.toLowerCase()) ||
           account.code.toLowerCase().includes(search.toLowerCase())
         );
-        
+
         console.log('Local filtered results:', filtered.length);
-        
+
         // If we have enough results locally, return them
         if (filtered.length >= 10) {
           console.log('Enough local results, returning filtered');
           return filtered.slice(0, 50);
         }
-        
+
         // Otherwise, search from API
         console.log('Searching from API...');
         const response = await this.$http.get('/api/chart-of-accounts/search', {
           params: { term: search }
         });
-        
+
         console.log('API search response:', response);
-        
+
         if (response.data && (response.data.data || response.data)) {
           console.log('API returned data, returning results');
           const apiData = response.data.data || response.data;
@@ -1689,7 +1635,7 @@ export default {
       } catch (error) {
         console.error('Error searching chart of accounts:', error);
         // Fallback to local filtering
-        const fallbackFiltered = this.chartOfAccounts.filter(account => 
+        const fallbackFiltered = this.chartOfAccounts.filter(account =>
           account.name.toLowerCase().includes(search.toLowerCase()) ||
           account.code.toLowerCase().includes(search.toLowerCase())
         );
@@ -1719,7 +1665,7 @@ export default {
       console.log('Form data method:', this.form ? typeof this.form.data : 'No form');
       console.log('isNewClient:', this.isNewClient);
       console.log('initialData:', this.initialData);
-      
+
       if (!this.form) {
         console.error('Form is not initialized!');
         if (window.toast && typeof window.toast.fire === 'function') {
@@ -1733,7 +1679,7 @@ export default {
         }
         return;
       }
-      
+
       // Check if form has the required methods
       if (!this.form.data || typeof this.form.data !== 'function') {
         console.error('Form data method is not available!');
@@ -1748,12 +1694,12 @@ export default {
         }
         return;
       }
-      
+
       try {
         console.log('Validating form...');
         const isValid = await this.validateForm();
         console.log('Validation result:', isValid);
-        
+
         if (!isValid) {
           console.log('Form validation failed');
           if (window.toast && typeof window.toast.fire === 'function') {
@@ -1764,9 +1710,9 @@ export default {
           }
           return;
         }
-        
+
         console.log('Form validation passed, preparing submit data...');
-        
+
         // Map form data to API format
         const submitData = {
           // Explicitly include all form fields to ensure they are sent
@@ -1774,7 +1720,7 @@ export default {
           notes: this.form.notes,
           displayLanguage: this.form.displayLanguage,
           status: this.form.status,
-          
+
           // Client Details
           type: this.form.type,
           taxStatus: this.form.taxStatus || 'non_taxable',
@@ -1796,38 +1742,38 @@ export default {
           saudi_region: this.form.saudi_region,
           commercialRegister: this.form.commercialRegister,
           taxCard: this.form.taxCard,
-          
+
           // Saudi National Address Fields
           buildingNumber: this.form.buildingNumber,
           streetNumber: this.form.streetNumber,
           districtNumber: this.form.districtNumber,
           unitNumber: this.form.unitNumber,
           additionalNumber: this.form.additionalNumber,
-          
+
           // Additional Fields
           image: this.form.image,
           attachments: this.form.attachments,
           isSendEmail: this.form.isSendEmail,
           isSendSMS: this.form.isSendSMS,
-          
+
           // Map legacy fields for backward compatibility
           name: this.form.type === 'Individual' ? this.form.fullName : this.form.businessName,
           companyName: this.form.businessName,
           taxRegistrationNumber: this.form.taxRegistrationNumber || this.form.taxCard,
           address: this.form.streetAddress1,
-          
+
           // Include representatives data
           representatives: this.form.representatives || [],
-          
+
           // Chart of Account
           chartOfAccountId: this.form.chartOfAccountId,
         };
-        
+
         console.log('Emitting submit event with data...');
-        
+
         // Emit submit event with form data
         this.$emit('submit', submitData);
-        
+
         console.log('Submit event emitted successfully');
       } catch (error) {
         console.error('Error in submitForm:', error);
@@ -1847,7 +1793,7 @@ export default {
     async createNewAccount() {
       try {
         this.isCreatingAccount = true;
-        
+
         // This method would implement the logic to create a new chart of account
         // For now, we'll just show a message
         if (window.toast && typeof window.toast.fire === 'function') {
@@ -1957,7 +1903,7 @@ textarea.form-control:focus {
 }
 
 /* Custom file input */
-.custom-file-input:focus ~ .custom-file-label {
+.custom-file-input:focus~.custom-file-label {
   border-color: #33a0d9;
   box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.15);
 }
@@ -2259,5 +2205,19 @@ textarea.form-control:focus {
 .saudi-location-select .vs__dropdown-option--highlight {
   background-color: #33a0d9;
   color: white;
+}
+
+/* Custom column class for form layout */
+.col-form-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+/* When width is 1300px or less, make col-form-6 take full width */
+@media (max-width: 1300px) {
+  .col-form-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }
 </style>
