@@ -2,83 +2,83 @@
 
 declare(strict_types=1);
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SpaController;
-use App\Http\Controllers\ServerController;
-use App\Http\Controllers\API\LoanController;
-use App\Http\Controllers\API\MenuController;
-use App\Http\Controllers\API\RoleController;
-use App\Http\Controllers\API\UnitController;
-use App\Http\Controllers\API\AssetController;
-use App\Http\Controllers\API\BrandController;
-use App\Http\Controllers\Auth\UserController;
-use App\Http\Controllers\API\ClientController;
-use App\Http\Controllers\API\DomainController;
-use App\Http\Controllers\API\ReportController;
-use App\Http\Controllers\API\TenantController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\OAuthController;
 use App\Http\Controllers\API\AccountController;
-use App\Http\Controllers\API\BalanceController;
-use App\Http\Controllers\API\ExpenseController;
-use App\Http\Controllers\API\GeneralController;
-use App\Http\Controllers\API\InvoiceController;
-use App\Http\Controllers\API\PaymentController;
-use App\Http\Controllers\API\PayrollController;
-use App\Http\Controllers\API\ProductController;
-use App\Http\Controllers\API\VatRateController;
-use App\Http\Controllers\TableExportController;
-use App\Http\Controllers\API\CurrencyController;
-use App\Http\Controllers\API\EmployeeController;
-use App\Http\Controllers\API\PurchaseController;
-use App\Http\Controllers\API\PurchaseOrderController;
-use App\Http\Controllers\API\SupplierController;
-use App\Http\Controllers\PDFGeneratorController;
-use App\Http\Controllers\SubscriptionController;
-use App\Http\Controllers\API\AssetTypeController;
-use App\Http\Controllers\API\DashboardController;
-use App\Http\Controllers\API\ExpSubCatController;
-use App\Http\Controllers\API\InventoryController;
-use App\Http\Controllers\API\ProSubCatController;
-use App\Http\Controllers\API\QuotationController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\API\DepartmentController;
-use App\Http\Controllers\API\ExpenseCatController;
-use App\Http\Controllers\API\PermissionController;
-use App\Http\Controllers\API\RichEditorController;
+use App\Http\Controllers\API\AccountRoutingController;
 use App\Http\Controllers\API\ActivityLogController;
-use App\Http\Controllers\API\LoanPaymentController;
-use App\Http\Controllers\API\TransactionController;
-use App\Http\Controllers\API\InvoiceReturnController;
-use App\Http\Controllers\API\LoanAuthorityController;
-use App\Http\Controllers\API\PaymentMethodController;
-use App\Http\Controllers\API\InvoicePaymentController;
-use App\Http\Controllers\API\PurchaseReturnController;
-use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\API\AssetController;
+use App\Http\Controllers\API\AssetTypeController;
+use App\Http\Controllers\API\BalanceController;
+use App\Http\Controllers\API\BrandController;
+use App\Http\Controllers\API\ChartOfAccountController;
+use App\Http\Controllers\API\ClientController;
+use App\Http\Controllers\API\ClientRepresentativeController;
+use App\Http\Controllers\API\CostAllocationController;
+use App\Http\Controllers\API\CostAllocationRuleController;
+use App\Http\Controllers\API\CostCenterController;
+use App\Http\Controllers\API\CurrencyController;
+use App\Http\Controllers\API\DashboardController;
+use App\Http\Controllers\API\DepartmentController;
+use App\Http\Controllers\API\DomainController;
+use App\Http\Controllers\API\EmployeeController;
 use App\Http\Controllers\API\EmpSalIncrementController;
-use App\Http\Controllers\API\ProductCategoryController;
-use App\Http\Controllers\API\PurchasePaymentController;
-use App\Http\Controllers\API\TransferBalanceController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\TenantImpersonationController;
+use App\Http\Controllers\API\ExpenseCatController;
+use App\Http\Controllers\API\ExpenseController;
+use App\Http\Controllers\API\ExpSubCatController;
+use App\Http\Controllers\API\GeneralController;
+use App\Http\Controllers\API\InventoryAdjustmentController;
+use App\Http\Controllers\API\InventoryController;
+use App\Http\Controllers\API\InvoiceController;
+use App\Http\Controllers\API\InvoicePaymentController;
+use App\Http\Controllers\API\InvoiceReturnController;
+use App\Http\Controllers\API\JournalEntryController;
+use App\Http\Controllers\API\LoanAuthorityController;
+use App\Http\Controllers\API\LoanController;
+use App\Http\Controllers\API\LoanPaymentController;
+use App\Http\Controllers\API\MenuController;
 use App\Http\Controllers\API\NonInvoicePaymentController;
 use App\Http\Controllers\API\NonPurchasePaymentController;
+use App\Http\Controllers\API\PaymentController;
+use App\Http\Controllers\API\PaymentMethodController;
 use App\Http\Controllers\API\PaymentVoucherController;
-use App\Http\Controllers\API\InventoryAdjustmentController;
+use App\Http\Controllers\API\PayrollController;
+use App\Http\Controllers\API\PermissionController;
+use App\Http\Controllers\API\ProductCategoryController;
+use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\ProSubCatController;
+use App\Http\Controllers\API\PurchaseController;
+use App\Http\Controllers\API\PurchaseOrderController;
+use App\Http\Controllers\API\PurchasePaymentController;
+use App\Http\Controllers\API\PurchaseReturnController;
+use App\Http\Controllers\API\QuotationController;
+use App\Http\Controllers\API\ReportController;
+use App\Http\Controllers\API\RichEditorController;
+use App\Http\Controllers\API\RoleController;
 use App\Http\Controllers\API\SubscriptionInvoiceController;
-use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 use App\Http\Controllers\API\SubscriptionPaymentMethodController;
-use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
-use App\Http\Controllers\API\ChartOfAccountController;
-use App\Http\Controllers\API\JournalEntryController;
-use App\Http\Controllers\API\AccountRoutingController;
-use App\Http\Controllers\API\VatReportController;
-use App\Http\Controllers\API\ClientRepresentativeController;
+use App\Http\Controllers\API\SupplierController;
 use App\Http\Controllers\API\SupplierRepresentativeController;
-use App\Http\Controllers\API\CostCenterController;
-use App\Http\Controllers\API\CostAllocationRuleController;
-use App\Http\Controllers\API\CostAllocationController;
+use App\Http\Controllers\API\TenantController;
+use App\Http\Controllers\API\TransactionController;
+use App\Http\Controllers\API\TransferBalanceController;
+use App\Http\Controllers\API\UnitController;
+use App\Http\Controllers\API\VatRateController;
+use App\Http\Controllers\API\VatReportController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\OAuthController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\PDFGeneratorController;
 use App\Http\Controllers\PrintController;
+use App\Http\Controllers\ServerController;
+use App\Http\Controllers\SpaController;
+use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\TableExportController;
+use App\Http\Controllers\TenantImpersonationController;
+use Illuminate\Support\Facades\Route;
+use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
+use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,7 +97,6 @@ use App\Http\Controllers\PrintController;
  */
 
 Route::post('/upload-pdf', [PrintController::class, 'upload']);
-
 
 Route::middleware([
     InitializeTenancyByDomainOrSubdomain::class,
@@ -129,7 +128,7 @@ Route::middleware([
 
         // Allow fetching currencies during initialization (without auth)
         Route::get('all-currencies', [CurrencyController::class, 'allCurrencies']);
-        
+
         // Location routes (available without auth for easier access)
         Route::get('locations/saudi/regions', [App\Http\Controllers\API\LocationController::class, 'getRegions']);
         Route::get('locations/saudi/cities', [App\Http\Controllers\API\LocationController::class, 'getAllCities']);
@@ -139,7 +138,6 @@ Route::middleware([
 
     // [PROTECTED API] Tenant Routes protected by Sanctum
     Route::group(['middleware' => ['auth:sanctum', 'tenant.not_archived', 'user.tenant.not_archived', 'tenant.initialized'], 'prefix' => 'api', 'as' => 'tenant.'], function () {
-
         // routes/api.php
 
         Route::post('/set-locale', [App\Http\Controllers\LanguageController::class, 'setLocale'])->name('set.locale');
@@ -181,7 +179,7 @@ Route::middleware([
         Route::post('branches', [App\Http\Controllers\API\BranchController::class, 'store']);
         Route::put('branches/{slug}', [App\Http\Controllers\API\BranchController::class, 'update']);
         Route::delete('branches/{slug}', [App\Http\Controllers\API\BranchController::class, 'destroy']);
-        
+
         // User-Branch assignment routes
         Route::get('branches/{branchId}/users', [App\Http\Controllers\API\UserBranchController::class, 'branchUsers']);
         Route::get('users/{userId}/branches', [App\Http\Controllers\API\UserBranchController::class, 'userBranches']);
@@ -573,7 +571,6 @@ Route::middleware([
         Route::get('/all-pro-sub-categories-by-category/{slug}', [ProSubCatController::class, 'allSubCategoriesByCategory']);
         Route::apiResource('product-sub-categories', ProSubCatController::class);
 
-
         // Product routes
         Route::get('/products/search', [ProductController::class, 'search']);
         Route::get('/products/search-from-pos', [ProductController::class, 'searchFromPos']);
@@ -592,7 +589,6 @@ Route::middleware([
         Route::post('/products/{slug}/restore', [ProductController::class, 'restore']);
         Route::delete('/products/{slug}/force-delete', [ProductController::class, 'forceDelete']);
         Route::post('/product-import', [ProductController::class, 'import']);
-
 
         // Inventory route
         Route::get('/inventory', [InventoryController::class, 'allInventory']);
@@ -648,7 +644,6 @@ Route::middleware([
         Route::post('payments/download', [PaymentController::class, 'download']);
         Route::apiResource('payments', PaymentController::class)->only(['index']);
 
-
         Route::get('subscriptions/payment-methods', [SubscriptionPaymentMethodController::class, 'index']);
 
         Route::get('activity-log-specific', [ActivityLogController::class, 'specific']);
@@ -690,7 +685,6 @@ Route::middleware([
 
         Route::get('server', [ServerController::class, 'runCommand']);
 
-
         Route::post('/rich-editor-file-upload', [RichEditorController::class, 'handleUpload']);
 
         // Print Templates API routes
@@ -700,7 +694,6 @@ Route::middleware([
         Route::get('/print-templates/default/get', [App\Http\Controllers\API\PrintTemplateController::class, 'getDefault']);
         Route::delete('/print-templates/{id}/remove-logo', [App\Http\Controllers\API\PrintTemplateController::class, 'removeCustomLogo']);
     });
-
 
     // email pdf generator routes (legacy - keeping for backward compatibility)
     Route::get('/invoice/pdf/{slug}', [PDFGeneratorController::class, 'generateInvoicePDF'])->name('email.invoice.pdf');
@@ -732,64 +725,65 @@ Route::middleware([
     Route::get('/print/voucher/{slug}', [App\Http\Controllers\PrintController::class, 'printVoucher'])->name('print.voucher');
     Route::get('/print/voucher/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadVoucherPDF'])->name('print.voucher.pdf');
 
-    // Reports print routes
-    Route::get('/print/reports/balance-sheet', [App\Http\Controllers\PrintController::class, 'printBalanceSheet'])->name('print.reports.balance-sheet');
-    Route::get('/print/reports/balance-sheet/pdf', [App\Http\Controllers\PrintController::class, 'downloadBalanceSheetPDF'])->name('print.reports.balance-sheet.pdf');
-    Route::get('/print/reports/balance-sheet/preview', [App\Http\Controllers\PrintController::class, 'previewBalanceSheetPDF'])->name('print.reports.balance-sheet.preview');
-    Route::get('/print/reports/trial-balance', [App\Http\Controllers\PrintController::class, 'printTrialBalance'])->name('print.reports.trial-balance');
-    Route::get('/print/reports/trial-balance/pdf', [App\Http\Controllers\PrintController::class, 'downloadTrialBalancePDF'])->name('print.reports.trial-balance.pdf');
-    Route::get('/print/reports/trial-balance/preview', [App\Http\Controllers\PrintController::class, 'previewTrialBalancePDF'])->name('print.reports.trial-balance.preview');
-    Route::get('/print/reports/profit-loss', [App\Http\Controllers\PrintController::class, 'printProfitLoss'])->name('print.reports.profit-loss');
-    Route::get('/print/reports/profit-loss/pdf', [App\Http\Controllers\PrintController::class, 'downloadProfitLossPDF'])->name('print.reports.profit-loss.pdf');
-    Route::get('/print/reports/profit-loss/preview', [App\Http\Controllers\PrintController::class, 'previewProfitLossPDF'])->name('print.reports.profit-loss.preview');
-    Route::get('/print/reports/summary', [App\Http\Controllers\PrintController::class, 'printSummary'])->name('print.reports.summary');
-    Route::get('/print/reports/summary/pdf', [App\Http\Controllers\PrintController::class, 'downloadSummaryPDF'])->name('print.reports.summary.pdf');
-    Route::get('/print/reports/summary/preview', [App\Http\Controllers\PrintController::class, 'previewSummaryPDF'])->name('print.reports.summary.preview');
-    Route::get('/print/reports/account-statement', [App\Http\Controllers\PrintController::class, 'printAccountStatement'])->name('print.reports.account-statement');
-    Route::get('/print/reports/account-statement/pdf', [App\Http\Controllers\PrintController::class, 'downloadAccountStatementPDF'])->name('print.reports.account-statement.pdf');
-    Route::get('/print/reports/account-statement/preview', [App\Http\Controllers\PrintController::class, 'previewAccountStatementPDF'])->name('print.reports.account-statement.preview');
-    Route::get('/print/reports/today-report', [App\Http\Controllers\PrintController::class, 'printTodayReport'])->name('print.reports.today-report');
-    Route::get('/print/reports/today-report/pdf', [App\Http\Controllers\PrintController::class, 'downloadTodayReportPDF'])->name('print.reports.today-report.pdf');
-    Route::get('/print/reports/today-report/preview', [App\Http\Controllers\PrintController::class, 'previewTodayReportPDF'])->name('print.reports.today-report.preview');
-    Route::get('/print/reports/invoice-summary', [App\Http\Controllers\PrintController::class, 'printInvoiceSummary'])->name('print.reports.invoice-summary');
-    Route::get('/print/reports/invoice-summary/pdf', [App\Http\Controllers\PrintController::class, 'downloadInvoiceSummaryPDF'])->name('print.reports.invoice-summary.pdf');
-    Route::get('/print/reports/invoice-summary/preview', [App\Http\Controllers\PrintController::class, 'previewInvoiceSummaryPDF'])->name('print.reports.invoice-summary.preview');
-    Route::get('/print/reports/purchase-summary', [App\Http\Controllers\PrintController::class, 'printPurchaseSummary'])->name('print.reports.purchase-summary');
-    Route::get('/print/reports/purchase-summary/pdf', [App\Http\Controllers\PrintController::class, 'downloadPurchaseSummaryPDF'])->name('print.reports.purchase-summary.pdf');
-    Route::get('/print/reports/purchase-summary/preview', [App\Http\Controllers\PrintController::class, 'previewPurchaseSummaryPDF'])->name('print.reports.purchase-summary.preview');
-    Route::get('/print/reports/vat-report', [App\Http\Controllers\PrintController::class, 'printVatReport'])->name('print.reports.vat-report');
-    Route::get('/print/reports/vat-report/pdf', [App\Http\Controllers\PrintController::class, 'downloadVatReportPDF'])->name('print.reports.vat-report.pdf');
-    Route::get('/print/reports/vat-report/preview', [App\Http\Controllers\PrintController::class, 'previewVatReportPDF'])->name('print.reports.vat-report.preview');
-    Route::get('/print/reports/inventory', [App\Http\Controllers\PrintController::class, 'printInventory'])->name('print.reports.inventory');
-    Route::get('/print/reports/inventory/pdf', [App\Http\Controllers\PrintController::class, 'downloadInventoryPDF'])->name('print.reports.inventory.pdf');
-    Route::get('/print/reports/inventory/preview', [App\Http\Controllers\PrintController::class, 'previewInventoryPDF'])->name('print.reports.inventory.preview');
-    Route::get('/print/reports/items', [App\Http\Controllers\PrintController::class, 'printItems'])->name('print.reports.items');
-    Route::get('/print/reports/items/pdf', [App\Http\Controllers\PrintController::class, 'downloadItemsPDF'])->name('print.reports.items.pdf');
-    Route::get('/print/reports/items/preview', [App\Http\Controllers\PrintController::class, 'previewItemsPDF'])->name('print.reports.items.preview');
-    Route::get('/print/reports/expenses', [App\Http\Controllers\PrintController::class, 'printExpenses'])->name('print.reports.expenses');
-    Route::get('/print/reports/expenses/pdf', [App\Http\Controllers\PrintController::class, 'downloadExpensesPDF'])->name('print.reports.expenses.pdf');
-    Route::get('/print/reports/expenses/preview', [App\Http\Controllers\PrintController::class, 'previewExpensesPDF'])->name('print.reports.expenses.preview');
-    Route::get('/print/reports/client-receivable-report', [App\Http\Controllers\PrintController::class, 'printClientReceivableReport'])->name('print.reports.client-receivable-report');
-    Route::get('/print/reports/client-receivable-report/pdf', [App\Http\Controllers\PrintController::class, 'downloadClientReceivableReportPDF'])->name('print.reports.client-receivable-report.pdf');
-    Route::get('/print/reports/client-receivable-report/preview', [App\Http\Controllers\PrintController::class, 'previewClientReceivableReportPDF'])->name('print.reports.client-receivable-report.preview');
-    Route::get('/print/reports/supplier-payable-report', [App\Http\Controllers\PrintController::class, 'printSupplierPayableReport'])->name('print.reports.supplier-payable-report');
-    Route::get('/print/reports/supplier-payable-report/pdf', [App\Http\Controllers\PrintController::class, 'downloadSupplierPayableReportPDF'])->name('print.reports.supplier-payable-report.pdf');
-    Route::get('/print/reports/supplier-payable-report/preview', [App\Http\Controllers\PrintController::class, 'previewSupplierPayableReportPDF'])->name('print.reports.supplier-payable-report.preview');
-    Route::get('/print/reports/sales-by-user-report', [App\Http\Controllers\PrintController::class, 'printSalesByUserReport'])->name('print.reports.sales-by-user-report');
-    Route::get('/print/reports/sales-by-user-report/pdf', [App\Http\Controllers\PrintController::class, 'downloadSalesByUserReportPDF'])->name('print.reports.sales-by-user-report.pdf');
-    Route::get('/print/reports/sales-by-user-report/preview', [App\Http\Controllers\PrintController::class, 'previewSalesByUserReportPDF'])->name('print.reports.sales-by-user-report.preview');
-    Route::get('/print/reports/collection-by-user-report', [App\Http\Controllers\PrintController::class, 'printCollectionByUserReport'])->name('print.reports.collection-by-user-report');
-    Route::get('/print/reports/collection-by-user-report/pdf', [App\Http\Controllers\PrintController::class, 'downloadCollectionByUserReportPDF'])->name('print.reports.collection-by-user-report.pdf');
-    Route::get('/print/reports/collection-by-user-report/preview', [App\Http\Controllers\PrintController::class, 'previewCollectionByUserReportPDF'])->name('print.reports.collection-by-user-report.preview');
-    Route::get('/print/reports/group-account-statement', [App\Http\Controllers\PrintController::class, 'printGroupAccountStatement'])->name('print.reports.group-account-statement');
-    Route::get('/print/reports/group-account-statement/pdf', [App\Http\Controllers\PrintController::class, 'downloadGroupAccountStatementPDF'])->name('print.reports.group-account-statement.pdf');
-    Route::get('/print/reports/group-account-statement/preview', [App\Http\Controllers\PrintController::class, 'previewGroupAccountStatementPDF'])->name('print.reports.group-account-statement.preview');
+    // Reports print routes - protected with auth:sanctum to ensure Auth::user() is available
+    Route::middleware(['auth:sanctum', 'tenant.not_archived', 'user.tenant.not_archived', 'tenant.initialized'])->group(function () {
+        Route::get('/print/reports/balance-sheet', [App\Http\Controllers\PrintController::class, 'printBalanceSheet'])->name('print.reports.balance-sheet');
+        Route::get('/print/reports/balance-sheet/pdf', [App\Http\Controllers\PrintController::class, 'downloadBalanceSheetPDF'])->name('print.reports.balance-sheet.pdf');
+        Route::get('/print/reports/balance-sheet/preview', [App\Http\Controllers\PrintController::class, 'previewBalanceSheetPDF'])->name('print.reports.balance-sheet.preview');
+        Route::get('/print/reports/trial-balance', [App\Http\Controllers\PrintController::class, 'printTrialBalance'])->name('print.reports.trial-balance');
+        Route::get('/print/reports/trial-balance/pdf', [App\Http\Controllers\PrintController::class, 'downloadTrialBalancePDF'])->name('print.reports.trial-balance.pdf');
+        Route::get('/print/reports/trial-balance/preview', [App\Http\Controllers\PrintController::class, 'previewTrialBalancePDF'])->name('print.reports.trial-balance.preview');
+        Route::get('/print/reports/profit-loss', [App\Http\Controllers\PrintController::class, 'printProfitLoss'])->name('print.reports.profit-loss');
+        Route::get('/print/reports/profit-loss/pdf', [App\Http\Controllers\PrintController::class, 'downloadProfitLossPDF'])->name('print.reports.profit-loss.pdf');
+        Route::get('/print/reports/profit-loss/preview', [App\Http\Controllers\PrintController::class, 'previewProfitLossPDF'])->name('print.reports.profit-loss.preview');
+        Route::get('/print/reports/summary', [App\Http\Controllers\PrintController::class, 'printSummary'])->name('print.reports.summary');
+        Route::get('/print/reports/summary/pdf', [App\Http\Controllers\PrintController::class, 'downloadSummaryPDF'])->name('print.reports.summary.pdf');
+        Route::get('/print/reports/summary/preview', [App\Http\Controllers\PrintController::class, 'previewSummaryPDF'])->name('print.reports.summary.preview');
+        Route::get('/print/reports/account-statement', [App\Http\Controllers\PrintController::class, 'printAccountStatement'])->name('print.reports.account-statement');
+        Route::get('/print/reports/account-statement/pdf', [App\Http\Controllers\PrintController::class, 'downloadAccountStatementPDF'])->name('print.reports.account-statement.pdf');
+        Route::get('/print/reports/account-statement/preview', [App\Http\Controllers\PrintController::class, 'previewAccountStatementPDF'])->name('print.reports.account-statement.preview');
+        Route::get('/print/reports/today-report', [App\Http\Controllers\PrintController::class, 'printTodayReport'])->name('print.reports.today-report');
+        Route::get('/print/reports/today-report/pdf', [App\Http\Controllers\PrintController::class, 'downloadTodayReportPDF'])->name('print.reports.today-report.pdf');
+        Route::get('/print/reports/today-report/preview', [App\Http\Controllers\PrintController::class, 'previewTodayReportPDF'])->name('print.reports.today-report.preview');
+        Route::get('/print/reports/invoice-summary', [App\Http\Controllers\PrintController::class, 'printInvoiceSummary'])->name('print.reports.invoice-summary');
+        Route::get('/print/reports/invoice-summary/pdf', [App\Http\Controllers\PrintController::class, 'downloadInvoiceSummaryPDF'])->name('print.reports.invoice-summary.pdf');
+        Route::get('/print/reports/invoice-summary/preview', [App\Http\Controllers\PrintController::class, 'previewInvoiceSummaryPDF'])->name('print.reports.invoice-summary.preview');
+        Route::get('/print/reports/purchase-summary', [App\Http\Controllers\PrintController::class, 'printPurchaseSummary'])->name('print.reports.purchase-summary');
+        Route::get('/print/reports/purchase-summary/pdf', [App\Http\Controllers\PrintController::class, 'downloadPurchaseSummaryPDF'])->name('print.reports.purchase-summary.pdf');
+        Route::get('/print/reports/purchase-summary/preview', [App\Http\Controllers\PrintController::class, 'previewPurchaseSummaryPDF'])->name('print.reports.purchase-summary.preview');
+        Route::get('/print/reports/vat-report', [App\Http\Controllers\PrintController::class, 'printVatReport'])->name('print.reports.vat-report');
+        Route::get('/print/reports/vat-report/pdf', [App\Http\Controllers\PrintController::class, 'downloadVatReportPDF'])->name('print.reports.vat-report.pdf');
+        Route::get('/print/reports/vat-report/preview', [App\Http\Controllers\PrintController::class, 'previewVatReportPDF'])->name('print.reports.vat-report.preview');
+        Route::get('/print/reports/inventory', [App\Http\Controllers\PrintController::class, 'printInventory'])->name('print.reports.inventory');
+        Route::get('/print/reports/inventory/pdf', [App\Http\Controllers\PrintController::class, 'downloadInventoryPDF'])->name('print.reports.inventory.pdf');
+        Route::get('/print/reports/inventory/preview', [App\Http\Controllers\PrintController::class, 'previewInventoryPDF'])->name('print.reports.inventory.preview');
+        Route::get('/print/reports/items', [App\Http\Controllers\PrintController::class, 'printItems'])->name('print.reports.items');
+        Route::get('/print/reports/items/pdf', [App\Http\Controllers\PrintController::class, 'downloadItemsPDF'])->name('print.reports.items.pdf');
+        Route::get('/print/reports/items/preview', [App\Http\Controllers\PrintController::class, 'previewItemsPDF'])->name('print.reports.items.preview');
+        Route::get('/print/reports/expenses', [App\Http\Controllers\PrintController::class, 'printExpenses'])->name('print.reports.expenses');
+        Route::get('/print/reports/expenses/pdf', [App\Http\Controllers\PrintController::class, 'downloadExpensesPDF'])->name('print.reports.expenses.pdf');
+        Route::get('/print/reports/expenses/preview', [App\Http\Controllers\PrintController::class, 'previewExpensesPDF'])->name('print.reports.expenses.preview');
+        Route::get('/print/reports/client-receivable-report', [App\Http\Controllers\PrintController::class, 'printClientReceivableReport'])->name('print.reports.client-receivable-report');
+        Route::get('/print/reports/client-receivable-report/pdf', [App\Http\Controllers\PrintController::class, 'downloadClientReceivableReportPDF'])->name('print.reports.client-receivable-report.pdf');
+        Route::get('/print/reports/client-receivable-report/preview', [App\Http\Controllers\PrintController::class, 'previewClientReceivableReportPDF'])->name('print.reports.client-receivable-report.preview');
+        Route::get('/print/reports/supplier-payable-report', [App\Http\Controllers\PrintController::class, 'printSupplierPayableReport'])->name('print.reports.supplier-payable-report');
+        Route::get('/print/reports/supplier-payable-report/pdf', [App\Http\Controllers\PrintController::class, 'downloadSupplierPayableReportPDF'])->name('print.reports.supplier-payable-report.pdf');
+        Route::get('/print/reports/supplier-payable-report/preview', [App\Http\Controllers\PrintController::class, 'previewSupplierPayableReportPDF'])->name('print.reports.supplier-payable-report.preview');
+        Route::get('/print/reports/sales-by-user-report', [App\Http\Controllers\PrintController::class, 'printSalesByUserReport'])->name('print.reports.sales-by-user-report');
+        Route::get('/print/reports/sales-by-user-report/pdf', [App\Http\Controllers\PrintController::class, 'downloadSalesByUserReportPDF'])->name('print.reports.sales-by-user-report.pdf');
+        Route::get('/print/reports/sales-by-user-report/preview', [App\Http\Controllers\PrintController::class, 'previewSalesByUserReportPDF'])->name('print.reports.sales-by-user-report.preview');
+        Route::get('/print/reports/collection-by-user-report', [App\Http\Controllers\PrintController::class, 'printCollectionByUserReport'])->name('print.reports.collection-by-user-report');
+        Route::get('/print/reports/collection-by-user-report/pdf', [App\Http\Controllers\PrintController::class, 'downloadCollectionByUserReportPDF'])->name('print.reports.collection-by-user-report.pdf');
+        Route::get('/print/reports/collection-by-user-report/preview', [App\Http\Controllers\PrintController::class, 'previewCollectionByUserReportPDF'])->name('print.reports.collection-by-user-report.preview');
+        Route::get('/print/reports/group-account-statement', [App\Http\Controllers\PrintController::class, 'printGroupAccountStatement'])->name('print.reports.group-account-statement');
+        Route::get('/print/reports/group-account-statement/pdf', [App\Http\Controllers\PrintController::class, 'downloadGroupAccountStatementPDF'])->name('print.reports.group-account-statement.pdf');
+        Route::get('/print/reports/group-account-statement/preview', [App\Http\Controllers\PrintController::class, 'previewGroupAccountStatementPDF'])->name('print.reports.group-account-statement.preview');
+    });
 
     // PDF download routes for print templates
     Route::get('/print/invoice/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadInvoicePDF'])->name('print.invoice.pdf');
     Route::get('/print/purchase/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadPurchasePDF'])->name('print.purchase.pdf');
     Route::get('/print/quotation/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadQuotationPDF'])->name('print.quotation.pdf');
-
 
     // pdf download blade routes
     Route::get('/setup/brands/pdf', [TableExportController::class, 'brandsPDF'])->name('brands.pdf');
@@ -817,12 +811,16 @@ Route::middleware([
     Route::get('/quotations/export/excel', [TableExportController::class, 'quotationsExportExcel'])->name('quotations.export.excel');
     Route::get('/invoices/pdf', [TableExportController::class, 'invoicePDF'])->name('invoices.pdf');
     Route::get('/invoices/export/export', [TableExportController::class, 'invoiceExportExcel'])->name('invoices.export.export');
-    Route::get('/reports/today-report/pdf', [TableExportController::class, 'todayReportPDF'])->name('todayReport.pdf');
-    Route::get('/reports/today-report/export', [TableExportController::class, 'todayReportExportExcel'])->name('todayReport.export.excel');
-    Route::get('/reports/balance-sheet/pdf', [TableExportController::class, 'balanceSheetPDF'])->name('balanceSheet.pdf');
-    Route::get('/reports/balance-sheet/export', [TableExportController::class, 'balanceSheetExportExcel'])->name('balanceSheet.export.excel');
-    Route::get('/reports/profit-loss/pdf', [TableExportController::class, 'profitLossPDF'])->name('profitLoss.pdf');
-    Route::get('/reports/profit-loss/export', [TableExportController::class, 'profitLossExportExcel'])->name('profitLoss.export.excel');
+
+    // Report export routes - protected with auth:sanctum to ensure Auth::user() is available
+    Route::middleware(['auth:sanctum', 'tenant.not_archived', 'user.tenant.not_archived', 'tenant.initialized'])->group(function () {
+        Route::get('/reports/today-report/pdf', [TableExportController::class, 'todayReportPDF'])->name('todayReport.pdf');
+        Route::get('/reports/today-report/export', [TableExportController::class, 'todayReportExportExcel'])->name('todayReport.export.excel');
+        Route::get('/reports/balance-sheet/pdf', [TableExportController::class, 'balanceSheetPDF'])->name('balanceSheet.pdf');
+        Route::get('/reports/balance-sheet/export', [TableExportController::class, 'balanceSheetExportExcel'])->name('balanceSheet.export.excel');
+        Route::get('/reports/profit-loss/pdf', [TableExportController::class, 'profitLossPDF'])->name('profitLoss.pdf');
+        Route::get('/reports/profit-loss/export', [TableExportController::class, 'profitLossExportExcel'])->name('profitLoss.export.excel');
+    });
     Route::get('/invoice-returns/pdf', [TableExportController::class, 'invoiceReturnPDF'])->name('invoiceReturns.pdf');
     Route::get('/invoice-returns/export/excel', [TableExportController::class, 'invoiceReturnExportExcel'])->name('invoiceReturns.export.excel');
 
@@ -890,47 +888,50 @@ Route::middleware([
     Route::get('/inventory-history/excel', [TableExportController::class, 'inventoryHistoryExcel'])->name('inventoryHistory.excel');
     Route::get('/inventory-history/pdf', [TableExportController::class, 'inventoryHistoryPDF'])->name('inventoryHistory.pdf');
 
-    Route::get('/supplier-payable-report/export/excel', [TableExportController::class, 'supplierPayableReportExportExcel'])->name('supplierPayableReport.export.excel');
-    Route::get('/client-receivable-report/export/excel', [TableExportController::class, 'clientReceivableReportExportExcel'])->name('clientReceivableReport.export.excel');
-    Route::get('/sales-by-user-report/export/excel', [TableExportController::class, 'salesByUserReportExportExcel'])->name('salesByUserReport.export.excel');
-    Route::get('/sales-by-user-report/pdf', [TableExportController::class, 'salesByUserReportPDF'])->name('salesByUserReport.pdf');
-    Route::get('/collection-by-user-report/export/excel', [TableExportController::class, 'collectionByUserReportExportExcel'])->name('collectionByUserReport.export.excel');
-    Route::get('/collection-by-user-report/pdf', [TableExportController::class, 'collectionByUserReportPDF'])->name('collectionByUserReport.pdf');
-    Route::get('/account-statement/pdf', [TableExportController::class, 'accountStatementPDF'])->name('accountStatement.pdf');
-    Route::get('/account-statement/export', [TableExportController::class, 'accountStatementExportExcel'])->name('accountStatement.export.excel');
-    Route::get('/group-account-statement/pdf', [TableExportController::class, 'groupAccountStatementPDF'])->name('groupAccountStatement.pdf');
-    Route::get('/group-account-statement/export', [TableExportController::class, 'groupAccountStatementExportExcel'])->name('groupAccountStatement.export.excel');
-    Route::get('/invoice-summary/pdf', [TableExportController::class, 'invoiceSummaryPDF'])->name('invoiceSummary.pdf');
-    Route::get('/invoice-summary/export', [TableExportController::class, 'invoiceSummaryExportExcel'])->name('invoiceSummary.export.excel');
-    Route::get('/purchase-summary/pdf', [TableExportController::class, 'purchaseSummaryPDF'])->name('purchaseSummary.pdf');
-    Route::get('/purchase-summary/export', [TableExportController::class, 'purchaseSummaryExportExcel'])->name('purchaseSummary.export.excel');
-    Route::get('/vat-report/pdf', [TableExportController::class, 'vatReportPDF'])->name('vatReport.pdf');
-    Route::get('/summary/pdf', [TableExportController::class, 'summaryPDF'])->name('summary.pdf');
-    Route::get('/vat-report/export', [TableExportController::class, 'vatReportExportExcel'])->name('vatReport.export.excel');
-    Route::get('/trial-balance/pdf', [TableExportController::class, 'trialBalancePDF'])->name('trialBalance.pdf');
-    Route::get('/trial-balance/export', [TableExportController::class, 'trialBalanceExportExcel'])->name('trialBalance.export.excel');
-    Route::get('/inventory-report/pdf', [TableExportController::class, 'inventoryReportPDF'])->name('inventoryReport.pdf');
-    Route::get('/inventory-report/export', [TableExportController::class, 'inventoryReportExportExcel'])->name('inventoryReport.export.excel');
-    Route::get('/items-report/pdf', [TableExportController::class, 'itemsReportPDF'])->name('itemsReport.pdf');
-    Route::get('/items-report/export', [TableExportController::class, 'itemsReportExportExcel'])->name('itemsReport.export.excel');
-    Route::get('/expenses-report/pdf', [TableExportController::class, 'expensesReportPDF'])->name('expensesReport.pdf');
-    Route::get('/expenses-report/export', [TableExportController::class, 'expensesReportExportExcel'])->name('expensesReport.export.excel');
-    // Aliases to match frontend URLs
-    Route::get('/reports/expenses-report/pdf', [TableExportController::class, 'expensesReportPDF'])->name('reports.expensesReport.pdf');
-    Route::get('/reports/expenses-report/export', [TableExportController::class, 'expensesReportExportExcel'])->name('reports.expensesReport.export.excel');
+    // Report export routes - protected with auth:sanctum to ensure Auth::user() is available
+    Route::middleware(['auth:sanctum', 'tenant.not_archived', 'user.tenant.not_archived', 'tenant.initialized'])->group(function () {
+        Route::get('/supplier-payable-report/export/excel', [TableExportController::class, 'supplierPayableReportExportExcel'])->name('supplierPayableReport.export.excel');
+        Route::get('/client-receivable-report/export/excel', [TableExportController::class, 'clientReceivableReportExportExcel'])->name('clientReceivableReport.export.excel');
+        Route::get('/sales-by-user-report/export/excel', [TableExportController::class, 'salesByUserReportExportExcel'])->name('salesByUserReport.export.excel');
+        Route::get('/sales-by-user-report/pdf', [TableExportController::class, 'salesByUserReportPDF'])->name('salesByUserReport.pdf');
+        Route::get('/collection-by-user-report/export/excel', [TableExportController::class, 'collectionByUserReportExportExcel'])->name('collectionByUserReport.export.excel');
+        Route::get('/collection-by-user-report/pdf', [TableExportController::class, 'collectionByUserReportPDF'])->name('collectionByUserReport.pdf');
+        Route::get('/account-statement/pdf', [TableExportController::class, 'accountStatementPDF'])->name('accountStatement.pdf');
+        Route::get('/account-statement/export', [TableExportController::class, 'accountStatementExportExcel'])->name('accountStatement.export.excel');
+        Route::get('/group-account-statement/pdf', [TableExportController::class, 'groupAccountStatementPDF'])->name('groupAccountStatement.pdf');
+        Route::get('/group-account-statement/export', [TableExportController::class, 'groupAccountStatementExportExcel'])->name('groupAccountStatement.export.excel');
+        Route::get('/invoice-summary/pdf', [TableExportController::class, 'invoiceSummaryPDF'])->name('invoiceSummary.pdf');
+        Route::get('/invoice-summary/export', [TableExportController::class, 'invoiceSummaryExportExcel'])->name('invoiceSummary.export.excel');
+        Route::get('/purchase-summary/pdf', [TableExportController::class, 'purchaseSummaryPDF'])->name('purchaseSummary.pdf');
+        Route::get('/purchase-summary/export', [TableExportController::class, 'purchaseSummaryExportExcel'])->name('purchaseSummary.export.excel');
+        Route::get('/vat-report/pdf', [TableExportController::class, 'vatReportPDF'])->name('vatReport.pdf');
+        Route::get('/summary/pdf', [TableExportController::class, 'summaryPDF'])->name('summary.pdf');
+        Route::get('/vat-report/export', [TableExportController::class, 'vatReportExportExcel'])->name('vatReport.export.excel');
+        Route::get('/trial-balance/pdf', [TableExportController::class, 'trialBalancePDF'])->name('trialBalance.pdf');
+        Route::get('/trial-balance/export', [TableExportController::class, 'trialBalanceExportExcel'])->name('trialBalance.export.excel');
+        Route::get('/inventory-report/pdf', [TableExportController::class, 'inventoryReportPDF'])->name('inventoryReport.pdf');
+        Route::get('/inventory-report/export', [TableExportController::class, 'inventoryReportExportExcel'])->name('inventoryReport.export.excel');
+        Route::get('/items-report/pdf', [TableExportController::class, 'itemsReportPDF'])->name('itemsReport.pdf');
+        Route::get('/items-report/export', [TableExportController::class, 'itemsReportExportExcel'])->name('itemsReport.export.excel');
+        Route::get('/expenses-report/pdf', [TableExportController::class, 'expensesReportPDF'])->name('expensesReport.pdf');
+        Route::get('/expenses-report/export', [TableExportController::class, 'expensesReportExportExcel'])->name('expensesReport.export.excel');
+        // Aliases to match frontend URLs
+        Route::get('/reports/expenses-report/pdf', [TableExportController::class, 'expensesReportPDF'])->name('reports.expensesReport.pdf');
+        Route::get('/reports/expenses-report/export', [TableExportController::class, 'expensesReportExportExcel'])->name('reports.expensesReport.export.excel');
+        Route::get('/client-receivable-report/pdf', [TableExportController::class, 'clientReceivableReportPDF'])->name('clientReceivableReport.pdf');
+        Route::get('/supplier-payable-report/pdf', [TableExportController::class, 'supplierPayableReportPDF'])->name('supplierPayableReport.pdf');
+    });
 
     // Journal Entries export routes
     Route::get('/journal-entries/export/excel', [TableExportController::class, 'journalEntriesExportExcel'])->name('journalEntries.export.excel');
     Route::get('/journal-entries/export/pdf', [TableExportController::class, 'journalEntriesExportPDF'])->name('journalEntries.export.pdf');
-    Route::get('/client-receivable-report/pdf', [TableExportController::class, 'clientReceivableReportPDF'])->name('clientReceivableReport.pdf');
-    Route::get('/supplier-payable-report/pdf', [TableExportController::class, 'supplierPayableReportPDF'])->name('supplierPayableReport.pdf');
 
     // product templates
     Route::get('/product-import-template', [ProductController::class, 'importTemplate']);
 
     // Serve profile images
     Route::get('/images/users/{filename}', function ($filename) {
-        $path = public_path('images/users/' . $filename);
+        $path = public_path('images/users/'.$filename);
         if (file_exists($path)) {
             return response()->file($path);
         }
