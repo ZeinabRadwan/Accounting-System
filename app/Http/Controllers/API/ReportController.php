@@ -2399,7 +2399,7 @@ class ReportController extends Controller
             $reportAccountId = $subChartOfAccountId ?: $chartOfAccountId;
             $branchId = Auth::user()->default_branch_id ?? null;
 
-           
+           dd($branchId);
 
             // Get chart of account details
             $chartOfAccount = \App\Models\ChartOfAccount::forBranch($branchId)
