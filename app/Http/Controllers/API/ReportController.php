@@ -1524,7 +1524,7 @@ class ReportController extends Controller
         }
 
         // Log for debugging
-        Log::info('Expense Report - Request Parameters:', [
+     $log =   [
             'categoryId' => $categoryId,
             'subCategoryId' => $subCategoryId,
             'fromDateRaw' => $fromDateRaw,
@@ -1532,7 +1532,8 @@ class ReportController extends Controller
             'fromDate' => $fromDate,
             'toDate' => $toDate,
             'all_request' => $request->all(),
-        ]);
+        ];
+        dd($log);
 
         // Validate request - create category array for validation
         $categoryArray = $categoryId !== null ? ['id' => (int) $categoryId, 'name' => $categoryName ?? ''] : null;
