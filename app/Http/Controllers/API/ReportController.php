@@ -1761,7 +1761,7 @@ class ReportController extends Controller
             'itemName' => 'required',
         ]);
 
-        $user = auth('sanctum')->user();
+        $user = auth('web')->user();
         dd($user);
         $branchIds = $this->getUserBranchIds($user);
         $allProducts = [];
