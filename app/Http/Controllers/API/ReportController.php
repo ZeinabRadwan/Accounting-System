@@ -1533,7 +1533,7 @@ class ReportController extends Controller
             'toDate' => $toDate,
             'all_request' => $request->all(),
         ];
-        dd($log);
+       
 
         // Validate request - create category array for validation
         $categoryArray = $categoryId !== null ? ['id' => (int) $categoryId, 'name' => $categoryName ?? ''] : null;
@@ -1550,20 +1550,19 @@ class ReportController extends Controller
             'subCategory' => ($categoryId && $categoryId != 0) ? 'required' : 'nullable',
         ]);
 
-        $user = Auth::user();
-        $branchIds = $this->getUserBranchIds($user);
+      
         $expenses = '';
 
         if ($categoryId !== null && $subCategoryId !== null) {
             if ($subCategoryId != 0) {
                 $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user')
-                    ->whereIn('branch_id', $branchIds)
+                  
                     ->where('sub_cat_id', $subCategoryId)
                     ->whereBetween('date', [$fromDate, $toDate])
                     ->get();
             } else {
                 $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount')
-                    ->whereIn('branch_id', $branchIds)
+                
                     ->whereBetween('date', [$fromDate, $toDate])
                     ->whereHas('expSubCategory', function ($newQuery) use ($categoryId) {
                         $newQuery->whereHas('expCategory', function ($newQuery) use ($categoryId) {
@@ -1574,15 +1573,12 @@ class ReportController extends Controller
             }
         } else {
             $expenses = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user')
-                ->whereIn('branch_id', $branchIds)
+                
                 ->whereBetween('date', [$fromDate, $toDate])
                 ->get();
         }
 
-        Log::info('Expense Report - Query Results:', [
-            'expenses_count' => $expenses->count(),
-            'branchIds' => $branchIds,
-        ]);
+     
 
         return ExpenseResource::collection($expenses);
     }
