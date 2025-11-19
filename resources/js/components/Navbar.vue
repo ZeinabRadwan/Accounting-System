@@ -465,6 +465,7 @@ export default {
       if ((this.$can('view_cost_centers') || this.$can('create_cost_center')) && 
           (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
         addRoute('cost-centers.index', 'All Cost Centers', 'fas fa-list');
+        addRoute('cost-centers.tree', 'Tree View', 'fas fa-sitemap');
         addRoute('cost-centers.create', 'Create Cost Center', 'fas fa-plus');
       }
       

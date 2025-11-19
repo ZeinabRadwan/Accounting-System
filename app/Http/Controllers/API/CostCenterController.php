@@ -17,9 +17,9 @@ class CostCenterController extends Controller
     public function __construct()
     {
         // Define middleware for permissions
-        $this->middleware('can:view_cost_centers', ['only' => ['index', 'show', 'getAll', 'search']]);
+        $this->middleware('can:view_cost_centers', ['only' => ['index', 'show', 'getAll', 'getTree', 'search']]);
         $this->middleware('can:create_cost_center', ['only' => ['store']]);
-        $this->middleware('can:update_cost_center', ['only' => ['update']]);
+        $this->middleware('can:update_cost_center', ['only' => ['update', 'move']]);
         $this->middleware('can:delete_cost_center', ['only' => ['destroy']]);
     }
 
@@ -83,6 +83,38 @@ class CostCenterController extends Controller
     }
 
     /**
+     * Get all cost centers optimized for tree view
+     */
+    public function getTree(Request $request)
+    {
+        try {
+            $query = CostCenter::query();
+
+            // Only load parent relationship for tree structure (optimized)
+            $query->with('parent:id,code,name,name_en');
+
+            // Count children for each cost center
+            $query->withCount('children');
+
+            // Apply filters
+            if ($request->has('search')) {
+                $query->search($request->search);
+            }
+
+            if ($request->has('is_active')) {
+                $query->where('is_active', $request->is_active);
+            }
+
+            // Order by code for consistent tree structure
+            $costCenters = $query->orderBy('code', 'asc')->get();
+
+            return $this->responseWithSuccess('Cost centers retrieved successfully', CostCenterResource::collection($costCenters));
+        } catch (Exception $e) {
+            return $this->responseWithError($e->getMessage());
+        }
+    }
+
+    /**
      * Store a newly created cost center.
      */
     public function store(StoreCostCenterRequest $request)
@@ -108,8 +140,8 @@ class CostCenterController extends Controller
                 ->performedOn($costCenter)
                 ->withProperties([
                     'name' => $costCenter->name,
-                    'code' => '[' . $costCenter->code . ']',
-                    'event' => 'Create'
+                    'code' => '['.$costCenter->code.']',
+                    'event' => 'Create',
                 ])
                 ->useLog('Cost Center Created')
                 ->log('Cost Center Created');
@@ -119,6 +151,7 @@ class CostCenterController extends Controller
             return $this->responseWithSuccess('Cost center created successfully', new CostCenterResource($costCenter), 201);
         } catch (Exception $e) {
             DB::rollBack();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -132,7 +165,7 @@ class CostCenterController extends Controller
             $costCenter = CostCenter::with(['parent', 'children', 'creator', 'updater', 'journalEntryLines'])
                 ->findOrFail($id);
 
-            return new CostCenterResource($costCenter);
+            return $this->responseWithSuccess('Cost center retrieved successfully', new CostCenterResource($costCenter));
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
         }
@@ -174,8 +207,8 @@ class CostCenterController extends Controller
                 ->performedOn($costCenter)
                 ->withProperties([
                     'name' => $costCenter->name,
-                    'code' => '[' . $costCenter->code . ']',
-                    'event' => 'Update'
+                    'code' => '['.$costCenter->code.']',
+                    'event' => 'Update',
                 ])
                 ->useLog('Cost Center Updated')
                 ->log('Cost Center Updated');
@@ -185,6 +218,7 @@ class CostCenterController extends Controller
             return $this->responseWithSuccess('Cost center updated successfully', new CostCenterResource($costCenter));
         } catch (Exception $e) {
             DB::rollBack();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -197,7 +231,7 @@ class CostCenterController extends Controller
         try {
             $costCenter = CostCenter::findOrFail($id);
 
-            if (!$costCenter->canDelete()) {
+            if (! $costCenter->canDelete()) {
                 return $this->responseWithError($costCenter->getDeletionBlockReason());
             }
 
@@ -209,8 +243,8 @@ class CostCenterController extends Controller
                 ->performedOn($costCenter)
                 ->withProperties([
                     'name' => $costCenter->name,
-                    'code' => '[' . $costCenter->code . ']',
-                    'event' => 'Delete'
+                    'code' => '['.$costCenter->code.']',
+                    'event' => 'Delete',
                 ])
                 ->useLog('Cost Center Deleted')
                 ->log('Cost Center Deleted');
@@ -222,6 +256,7 @@ class CostCenterController extends Controller
             return $this->responseWithSuccess('Cost center deleted successfully');
         } catch (Exception $e) {
             DB::rollBack();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -249,6 +284,67 @@ class CostCenterController extends Controller
 
             return CostCenterResource::collection($costCenters);
         } catch (Exception $e) {
+            return $this->responseWithError($e->getMessage());
+        }
+    }
+
+    /**
+     * Move cost center to a new parent
+     */
+    public function move(Request $request, $id)
+    {
+        try {
+            $costCenter = CostCenter::findOrFail($id);
+            $newParentId = $request->parent_id;
+
+            // Validate parent_id (can be null for root)
+            if ($newParentId !== null) {
+                $newParent = CostCenter::findOrFail($newParentId);
+
+                // Prevent circular reference - check if new parent is a descendant
+                $descendants = $costCenter->getDescendants();
+                if ($descendants->pluck('id')->contains($newParentId)) {
+                    return $this->responseWithError('Cannot move cost center to its own descendant (circular reference).');
+                }
+
+                // Prevent moving to itself
+                if ($costCenter->id === $newParentId) {
+                    return $this->responseWithError('Cannot move cost center to itself.');
+                }
+            }
+
+            DB::beginTransaction();
+
+            $oldParentId = $costCenter->parent_id;
+
+            $costCenter->update([
+                'parent_id' => $newParentId,
+                'updated_by' => Auth::id(),
+            ]);
+
+            // Load relationships
+            $costCenter->load(['parent', 'updater']);
+
+            // Add activity log
+            activity()
+                ->causedBy(Auth::user())
+                ->performedOn($costCenter)
+                ->withProperties([
+                    'name' => $costCenter->name,
+                    'code' => '['.$costCenter->code.']',
+                    'event' => 'Move',
+                    'old_parent_id' => $oldParentId,
+                    'new_parent_id' => $newParentId,
+                ])
+                ->useLog('Cost Center Moved')
+                ->log('Cost Center Moved');
+
+            DB::commit();
+
+            return $this->responseWithSuccess('Cost center moved successfully', new CostCenterResource($costCenter));
+        } catch (Exception $e) {
+            DB::rollBack();
+
             return $this->responseWithError($e->getMessage());
         }
     }

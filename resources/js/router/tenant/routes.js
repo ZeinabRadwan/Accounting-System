@@ -1528,9 +1528,9 @@ export default [
     meta: {permissions: ['create_cost_center']},
   },
   {
-    path: '/cost-centers/:slug',
-    name: 'cost-centers.show',
-    component: page('cost-centers/show.vue'),
+    path: '/cost-centers/tree',
+    name: 'cost-centers.tree',
+    component: page('cost-centers/tree.vue'),
     meta: {permissions: ['view_cost_centers']},
   },
   {
@@ -1538,6 +1538,12 @@ export default [
     name: 'cost-centers.edit',
     component: page('cost-centers/edit.vue'),
     meta: {permissions: ['update_cost_center']},
+  },
+  {
+    path: '/cost-centers/:slug',
+    name: 'cost-centers.show',
+    component: page('cost-centers/show.vue'),
+    meta: {permissions: ['view_cost_centers']},
   },
   
   {
