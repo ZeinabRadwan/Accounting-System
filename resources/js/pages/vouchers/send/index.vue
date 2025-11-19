@@ -184,12 +184,26 @@ export default {
       currentRoute: "",
       perPage: 10,
       openActionIndex: null,
+      searchTimeout: null,
     };
   },
   computed: {
     ...mapGetters({
       appInfo: "operations/appInfo",
     }),
+  },
+  watch: {
+    // watch search data
+    query: function (newQ, oldQ) {
+      clearTimeout(this.searchTimeout);
+      if (newQ === "") {
+        this.getAllItem();
+      } else {
+        this.searchTimeout = setTimeout(() => {
+          this.searchData();
+        }, 500);
+      }
+    },
   },
   created() {
     this.currentRoute = this.$route.path;
@@ -204,6 +218,9 @@ export default {
     document.removeEventListener('click', this.onClickOutside);
     window.removeEventListener('scroll', this.handleScroll);
     window.removeEventListener('resize', this.handleResize);
+    if (this.searchTimeout) {
+      clearTimeout(this.searchTimeout);
+    }
   },
   methods: {
     async getAllItem() {
