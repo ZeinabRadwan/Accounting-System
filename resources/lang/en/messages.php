@@ -33,4 +33,5 @@ return [
     
     // Inventory / UI Messages
     'Filter by Operation Type' => 'Filter by Operation Type',
+    'Select a branch' => 'Select a branch',
 ];

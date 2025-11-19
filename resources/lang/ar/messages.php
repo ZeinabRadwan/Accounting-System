@@ -94,4 +94,5 @@ return [
     
     // Inventory / UI Messages
     'Filter by Operation Type' => 'تصفية حسب نوع العملية',
+    'Select a branch' => 'اختر فرع',
 ];
