@@ -503,14 +503,6 @@ function makeSectorShape(cx, cy, r0, r, startAngle, endAngle) {
 
 
 var TOOLTIP_LINE_HEIGHT_CSS = 'line-height:1';
-function getTooltipLineHeight(textStyle) {
-  var lineHeight = textStyle.lineHeight;
-  if (lineHeight == null) {
-    return TOOLTIP_LINE_HEIGHT_CSS;
-  } else {
-    return "line-height:" + (0,_util_format_js__WEBPACK_IMPORTED_MODULE_0__/* .encodeHTML */ .Me)(lineHeight + '') + "px";
-  }
-}
 // TODO: more textStyle option
 function getTooltipTextStyle(textStyle, renderMode) {
   var nameFontColor = textStyle.color || '#6e7079';
@@ -613,17 +605,16 @@ function buildSection(ctx, fragment, topMarginForOuterGap, toolTipTextStyle) {
     }) : ctx, subBlock, idx > 0 ? gaps.html : 0, toolTipTextStyle);
     subMarkupText != null && subMarkupTextList.push(subMarkupText);
   });
-  var subMarkupText = ctx.renderMode === 'richText' ? subMarkupTextList.join(gaps.richText) : wrapBlockHTML(toolTipTextStyle, subMarkupTextList.join(''), noHeader ? topMarginForOuterGap : gaps.html);
+  var subMarkupText = ctx.renderMode === 'richText' ? subMarkupTextList.join(gaps.richText) : wrapBlockHTML(subMarkupTextList.join(''), noHeader ? topMarginForOuterGap : gaps.html);
   if (noHeader) {
     return subMarkupText;
   }
   var displayableHeader = (0,_util_format_js__WEBPACK_IMPORTED_MODULE_1__/* .makeValueReadable */ .yC)(fragment.header, 'ordinal', ctx.useUTC);
   var nameStyle = getTooltipTextStyle(toolTipTextStyle, ctx.renderMode).nameStyle;
-  var tooltipLineHeight = getTooltipLineHeight(toolTipTextStyle);
   if (ctx.renderMode === 'richText') {
     return wrapInlineNameRichText(ctx, displayableHeader, nameStyle) + gaps.richText + subMarkupText;
   } else {
-    return wrapBlockHTML(toolTipTextStyle, "<div style=\"" + nameStyle + ";" + tooltipLineHeight + ";\">" + (0,_util_format_js__WEBPACK_IMPORTED_MODULE_0__/* .encodeHTML */ .Me)(displayableHeader) + '</div>' + subMarkupText, topMarginForOuterGap);
+    return wrapBlockHTML("<div style=\"" + nameStyle + ";" + TOOLTIP_LINE_HEIGHT_CSS + ";\">" + (0,_util_format_js__WEBPACK_IMPORTED_MODULE_0__/* .encodeHTML */ .Me)(displayableHeader) + '</div>' + subMarkupText, topMarginForOuterGap);
   }
 }
 function buildNameValue(ctx, fragment, topMarginForOuterGap, toolTipTextStyle) {
@@ -654,7 +645,7 @@ function buildNameValue(ctx, fragment, topMarginForOuterGap, toolTipTextStyle) {
     valueStyle = _a.valueStyle;
   return renderMode === 'richText' ? (noMarker ? '' : markerStr) + (noName ? '' : wrapInlineNameRichText(ctx, readableName, nameStyle))
   // Value has commas inside, so use ' ' as delimiter for multiple values.
-  + (noValue ? '' : wrapInlineValueRichText(ctx, readableValueList, valueAlignRight, valueCloseToMarker, valueStyle)) : wrapBlockHTML(toolTipTextStyle, (noMarker ? '' : markerStr) + (noName ? '' : wrapInlineNameHTML(readableName, !noMarker, nameStyle)) + (noValue ? '' : wrapInlineValueHTML(readableValueList, valueAlignRight, valueCloseToMarker, valueStyle)), topMarginForOuterGap);
+  + (noValue ? '' : wrapInlineValueRichText(ctx, readableValueList, valueAlignRight, valueCloseToMarker, valueStyle)) : wrapBlockHTML((noMarker ? '' : markerStr) + (noName ? '' : wrapInlineNameHTML(readableName, !noMarker, nameStyle)) + (noValue ? '' : wrapInlineValueHTML(readableValueList, valueAlignRight, valueCloseToMarker, valueStyle)), topMarginForOuterGap);
 }
 /**
  * @return markupText. null/undefined means no content.
@@ -679,11 +670,10 @@ function getGap(gapLevel) {
     richText: RICH_TEXT_GAPS[gapLevel]
   };
 }
-function wrapBlockHTML(textStyle, encodedContent, topGap) {
+function wrapBlockHTML(encodedContent, topGap) {
   var clearfix = '<div style="clear:both"></div>';
   var marginCSS = "margin: " + topGap + "px 0 0";
-  var tooltipLineHeight = getTooltipLineHeight(textStyle);
-  return "<div style=\"" + marginCSS + ";" + tooltipLineHeight + ";\">" + encodedContent + clearfix + '</div>';
+  return "<div style=\"" + marginCSS + ";" + TOOLTIP_LINE_HEIGHT_CSS + ";\">" + encodedContent + clearfix + '</div>';
 }
 function wrapInlineNameHTML(name, leftHasMarker, style) {
   var marginCss = leftHasMarker ? 'margin-left:2px' : '';
@@ -856,6 +846,7 @@ var AREA_STYLE_KEY_MAP = [['fill', 'color'], ['shadowBlur'], ['shadowOffsetX'], 
 // Option decal is in `DecalObject` but style.decal is in `PatternObject`.
 // So do not transfer decal directly.
 ];
+
 var getAreaStyle = (0,makeStyleMapper/* default */.A)(AREA_STYLE_KEY_MAP);
 var AreaStyleMixin = /** @class */function () {
   function AreaStyleMixin() {}
@@ -1030,6 +1021,7 @@ var Model = /** @class */function () {
     //     }
     // }
   }
+
   Model.prototype.init = function (option, parentModel, ecModel) {
     var rest = [];
     for (var _i = 3; _i < arguments.length; _i++) {
@@ -1427,8 +1419,6 @@ var layout = __webpack_require__(34253);
 var util = __webpack_require__(98026);
 // EXTERNAL MODULE: ./node_modules/zrender/lib/core/PathProxy.js + 1 modules
 var PathProxy = __webpack_require__(68983);
-// EXTERNAL MODULE: ./node_modules/echarts/lib/util/model.js
-var model = __webpack_require__(48170);
 ;// ./node_modules/echarts/lib/chart/pie/pieLayout.js
 
 /*
@@ -1473,7 +1463,6 @@ var model = __webpack_require__(48170);
 * specific language governing permissions and limitations
 * under the License.
 */
-
 
 
 
@@ -1555,10 +1544,6 @@ function pieLayout(seriesType, ecModel, api) {
     var halfPadAngle = dir * padAngle / 2;
     (0,PathProxy/* normalizeArcAngles */.q)(angles, !clockwise);
     startAngle = angles[0], endAngle = angles[1];
-    var layoutData = getSeriesLayoutData(seriesModel);
-    layoutData.startAngle = startAngle;
-    layoutData.endAngle = endAngle;
-    layoutData.clockwise = clockwise;
     var angleRange = Math.abs(endAngle - startAngle);
     // In the case some sector angle is smaller than minAngle
     var restAngle = angleRange;
@@ -1667,7 +1652,6 @@ function pieLayout(seriesType, ecModel, api) {
     }
   });
 }
-var getSeriesLayoutData = (0,model/* makeInner */.$r)();
 ;// ./node_modules/echarts/lib/processor/dataFilter.js
 
 /*
@@ -2365,7 +2349,7 @@ function adjustSingleSide(list, cx, cy, r, dir, viewWidth, viewHeight, viewLeft,
       var rA = r + item.len;
       var rA2 = rA * rA;
       // Use ellipse implicit function to calculate x
-      var dx = Math.sqrt(Math.abs((1 - dy * dy / rB2) * rA2));
+      var dx = Math.sqrt((1 - Math.abs(dy * dy / rB2)) * rA2);
       var newX = cx + (dx + item.len2) * dir;
       var deltaX = newX - item.label.x;
       var newTargetWidth = item.targetTextWidth - deltaX * dir;
@@ -3019,9 +3003,8 @@ var PieView = /** @class */function (_super) {
     }
     // when all data are filtered, show lightgray empty circle
     if (data.count() === 0 && seriesModel.get('showEmptyCircle')) {
-      var layoutData = getSeriesLayoutData(seriesModel);
       var sector = new Sector/* default */.A({
-        shape: (0,util/* extend */.X$)(getBasicPieLayout(seriesModel, api), layoutData)
+        shape: getBasicPieLayout(seriesModel, api)
       });
       sector.useStyle(seriesModel.getModel('emptyCircleStyle').getItemStyle());
       this._emptyCircleSector = sector;
@@ -3135,6 +3118,8 @@ function createSeriesDataSimply(seriesModel, opt, nameList) {
   list.initData(source, nameList);
   return list;
 }
+// EXTERNAL MODULE: ./node_modules/echarts/lib/util/model.js
+var model = __webpack_require__(48170);
 // EXTERNAL MODULE: ./node_modules/echarts/lib/data/helper/sourceHelper.js
 var sourceHelper = __webpack_require__(23071);
 ;// ./node_modules/echarts/lib/visual/LegendVisualProvider.js
@@ -3390,6 +3375,7 @@ var PieSeriesModel = /** @class */function (_super) {
       // 默认使用全局文本样式，详见 textStyle
       // distance: 当position为inner时有效，为label位置到圆心的距离与圆半径(环状图为内外半径和)的比例系数
     },
+
     // Enabled when label.normal.position is 'outer'
     labelLine: {
       show: true,
@@ -4019,6 +4005,7 @@ var LINE_STYLE_KEY_MAP = [['lineWidth', 'width'], ['stroke', 'color'], ['opacity
 // Option decal is in `DecalObject` but style.decal is in `PatternObject`.
 // So do not transfer decal directly.
 ];
+
 var getLineStyle = (0,_makeStyleMapper_js__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A)(LINE_STYLE_KEY_MAP);
 var LineStyleMixin = /** @class */function () {
   function LineStyleMixin() {}
@@ -6082,6 +6069,7 @@ var ITEM_STYLE_KEY_MAP = [['fill', 'color'], ['stroke', 'borderColor'], ['lineWi
 // Option decal is in `DecalObject` but style.decal is in `PatternObject`.
 // So do not transfer decal directly.
 ];
+
 var getItemStyle = (0,_makeStyleMapper_js__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A)(ITEM_STYLE_KEY_MAP);
 var ItemStyleMixin = /** @class */function () {
   function ItemStyleMixin() {}
@@ -8283,8 +8271,7 @@ var LegendView = /** @class */function (_super) {
         },
         onclick: function () {
           api.dispatchAction({
-            type: type === 'all' ? 'legendAllSelect' : 'legendInverseSelect',
-            legendId: legendModel.id
+            type: type === 'all' ? 'legendAllSelect' : 'legendInverseSelect'
           });
         }
       });
@@ -8672,62 +8659,49 @@ function legendFilter(ecModel) {
 * specific language governing permissions and limitations
 * under the License.
 */
+// @ts-nocheck
 
 function legendSelectActionHandler(methodName, payload, ecModel) {
-  var isAllSelect = methodName === 'allSelect' || methodName === 'inverseSelect';
   var selectedMap = {};
-  var actionLegendIndices = [];
-  ecModel.eachComponent({
-    mainType: 'legend',
-    query: payload
-  }, function (legendModel) {
-    if (isAllSelect) {
-      legendModel[methodName]();
-    } else {
-      legendModel[methodName](payload.name);
-    }
-    makeSelectedMap(legendModel, selectedMap);
-    actionLegendIndices.push(legendModel.componentIndex);
-  });
-  var allSelectedMap = {};
-  // make selectedMap from all legend components
+  var isToggleSelect = methodName === 'toggleSelected';
+  var isSelected;
+  // Update all legend components
   ecModel.eachComponent('legend', function (legendModel) {
-    (0,util/* each */.__)(selectedMap, function (isSelected, name) {
+    if (isToggleSelect && isSelected != null) {
       // Force other legend has same selected status
       // Or the first is toggled to true and other are toggled to false
       // In the case one legend has some item unSelected in option. And if other legend
       // doesn't has the item, they will assume it is selected.
-      legendModel[isSelected ? 'select' : 'unSelect'](name);
+      legendModel[isSelected ? 'select' : 'unSelect'](payload.name);
+    } else if (methodName === 'allSelect' || methodName === 'inverseSelect') {
+      legendModel[methodName]();
+    } else {
+      legendModel[methodName](payload.name);
+      isSelected = legendModel.isSelected(payload.name);
+    }
+    var legendData = legendModel.getData();
+    (0,util/* each */.__)(legendData, function (model) {
+      var name = model.get('name');
+      // Wrap element
+      if (name === '\n' || name === '') {
+        return;
+      }
+      var isItemSelected = legendModel.isSelected(name);
+      if (selectedMap.hasOwnProperty(name)) {
+        // Unselected if any legend is unselected
+        selectedMap[name] = selectedMap[name] && isItemSelected;
+      } else {
+        selectedMap[name] = isItemSelected;
+      }
     });
-    makeSelectedMap(legendModel, allSelectedMap);
   });
   // Return the event explicitly
-  return isAllSelect ? {
-    selected: allSelectedMap,
-    // return legendIndex array to tell the developers which legends are allSelect / inverseSelect
-    legendIndex: actionLegendIndices
+  return methodName === 'allSelect' || methodName === 'inverseSelect' ? {
+    selected: selectedMap
   } : {
     name: payload.name,
-    selected: allSelectedMap
+    selected: selectedMap
   };
-}
-function makeSelectedMap(legendModel, out) {
-  var selectedMap = out || {};
-  (0,util/* each */.__)(legendModel.getData(), function (model) {
-    var name = model.get('name');
-    // Wrap element
-    if (name === '\n' || name === '') {
-      return;
-    }
-    var isItemSelected = legendModel.isSelected(name);
-    if ((0,util/* hasOwn */.$3)(selectedMap, name)) {
-      // Unselected if any legend is unselected
-      selectedMap[name] = selectedMap[name] && isItemSelected;
-    } else {
-      selectedMap[name] = isItemSelected;
-    }
-  });
-  return selectedMap;
 }
 function installLegendAction(registers) {
   /**
@@ -9665,6 +9639,7 @@ var BE_ORDINAL = {
   Might: 2,
   Not: 3 // Other cases
 };
+
 var innerGlobalModel = (0,_util_model_js__WEBPACK_IMPORTED_MODULE_0__/* .makeInner */ .$r)();
 /**
  * MUST be called before mergeOption of all series.
@@ -9957,8 +9932,8 @@ function doGuessOrdinal(data, sourceFormat, seriesLayoutBy, dimensionsDefine, st
   function detectValue(val) {
     var beStr = (0,zrender_lib_core_util_js__WEBPACK_IMPORTED_MODULE_1__/* .isString */ .Kg)(val);
     // Consider usage convenience, '1', '2' will be treated as "number".
-    // `Number('')` (or any whitespace) is `0`.
-    if (val != null && Number.isFinite(Number(val)) && val !== '') {
+    // `isFinit('')` get `true`.
+    if (val != null && isFinite(val) && val !== '') {
       return beStr ? BE_ORDINAL.Might : BE_ORDINAL.Not;
     } else if (beStr && val !== '-') {
       return BE_ORDINAL.Must;
@@ -11388,7 +11363,7 @@ function getElementSSRData(el) {
 function registerSSRDataGetter(getter) {
     ssrDataGetter = getter;
 }
-var version = '5.6.1';
+var version = '5.5.0';
 ;
 
 
@@ -11791,10 +11766,10 @@ var SeriesData = /** @class */function () {
     this.hasItemOption = false;
     // Methods that create a new list based on this list should be listed here.
     // Notice that those method should `RETURN` the new list.
-    this.TRANSFERABLE_METHODS = ['cloneShallow', 'downSample', 'minmaxDownSample', 'lttbDownSample', 'map'];
+    this.TRANSFERABLE_METHODS = ['cloneShallow', 'downSample', 'lttbDownSample', 'map'];
     // Methods that change indices of this list should be listed here.
     this.CHANGABLE_METHODS = ['filterSelf', 'selectRange'];
-    this.DOWNSAMPLE_METHODS = ['downSample', 'minmaxDownSample', 'lttbDownSample'];
+    this.DOWNSAMPLE_METHODS = ['downSample', 'lttbDownSample'];
     var dimensions;
     var assignStoreDimIdx = false;
     if ((0,SeriesDataSchema/* isSeriesDataSchema */.fg)(dimensionsInput)) {
@@ -12041,7 +12016,7 @@ var SeriesData = /** @class */function () {
    *        Each item is exactly corresponding to a dimension.
    */
   SeriesData.prototype.appendValues = function (values, names) {
-    var _a = this._store.appendValues(values, names && names.length),
+    var _a = this._store.appendValues(values, names.length),
       start = _a.start,
       end = _a.end;
     var shouldMakeIdFromName = this._shouldMakeIdFromName();
@@ -12269,7 +12244,7 @@ var SeriesData = /** @class */function () {
     var invertedIndices = dim && this._invertedIndicesMap[dim];
     if (false) // removed by dead control flow
 {}
-    var rawIndex = invertedIndices && invertedIndices[value];
+    var rawIndex = invertedIndices[value];
     if (rawIndex == null || isNaN(rawIndex)) {
       return INDEX_NOT_FOUND;
     }
@@ -12379,16 +12354,6 @@ var SeriesData = /** @class */function () {
   SeriesData.prototype.downSample = function (dimension, rate, sampleValue, sampleIndex) {
     var list = cloneListForMapAndSample(this);
     list._store = this._store.downSample(this._getStoreDimIndex(dimension), rate, sampleValue, sampleIndex);
-    return list;
-  };
-  /**
-   * Large data down sampling using min-max
-   * @param {string} valueDimension
-   * @param {number} rate
-   */
-  SeriesData.prototype.minmaxDownSample = function (valueDimension, rate) {
-    var list = cloneListForMapAndSample(this);
-    list._store = this._store.minmaxDownSample(this._getStoreDimIndex(valueDimension), rate);
     return list;
   };
   /**
@@ -15002,6 +14967,7 @@ var scaleIntervals = [
 // Format                           interval
 ['second', time/* ONE_SECOND */.OY], ['minute', time/* ONE_MINUTE */.iW], ['hour', time/* ONE_HOUR */.MA], ['quarter-day', time/* ONE_HOUR */.MA * 6], ['half-day', time/* ONE_HOUR */.MA * 12], ['day', time/* ONE_DAY */.CZ * 1.2], ['half-week', time/* ONE_DAY */.CZ * 3.5], ['week', time/* ONE_DAY */.CZ * 7], ['month', time/* ONE_DAY */.CZ * 31], ['quarter', time/* ONE_DAY */.CZ * 95], ['half-year', time/* ONE_YEAR */.$H / 2], ['year', time/* ONE_YEAR */.$H] // 1Y
 ];
+
 function isUnitValueSame(unit, valueA, valueB, isUTC) {
   var dateA = number/* parseDate */._U(valueA);
   var dateB = number/* parseDate */._U(valueB);
@@ -15572,11 +15538,7 @@ var ScaleRawExtentInfo = /** @class */function () {
     this._dataMax = dataExtent[1];
     var isOrdinal = this._isOrdinal = scale.type === 'ordinal';
     this._needCrossZero = scale.type === 'interval' && model.getNeedCrossZero && model.getNeedCrossZero();
-    var axisMinValue = model.get('min', true);
-    if (axisMinValue == null) {
-      axisMinValue = model.get('startValue', true);
-    }
-    var modelMinRaw = this._modelMinRaw = axisMinValue;
+    var modelMinRaw = this._modelMinRaw = model.get('min', true);
     if ((0,util/* isFunction */.Tn)(modelMinRaw)) {
       // This callback always provides users the full data extent (before data is filtered).
       this._modelMinNum = parseAxisModelMinMax(scale, modelMinRaw({
@@ -15668,6 +15630,7 @@ var ScaleRawExtentInfo = /** @class */function () {
       // that the results processed by boundaryGap are positive/negative?
       // If so, here `minFixed`/`maxFixed` need to be set.
     }
+
     var determinedMin = this._determinedMin;
     var determinedMax = this._determinedMax;
     if (determinedMin != null) {
@@ -15853,7 +15816,7 @@ function adjustScaleForOverflow(min, max, model,
 barWidthAndOffset) {
   // Get Axis Length
   var axisExtent = model.axis.getExtent();
-  var axisLength = Math.abs(axisExtent[1] - axisExtent[0]);
+  var axisLength = axisExtent[1] - axisExtent[0];
   // Get bars on current base axis and calculate min and max overflow
   var barsOnCurrentAxis = (0,barGrid/* retrieveColumnLayout */.VA)(barWidthAndOffset, model.axis);
   if (barsOnCurrentAxis === undefined) {
@@ -16425,8 +16388,6 @@ var defaultOption = {
   },
   splitLine: {
     show: true,
-    showMinLine: true,
-    showMaxLine: true,
     lineStyle: {
       color: ['#E0E6F1'],
       width: 1,
@@ -16989,41 +16950,7 @@ var contain_text = __webpack_require__(45558);
 
 
 var inner = (0,model/* makeInner */.$r)();
-function tickValuesToNumbers(axis, values) {
-  var nums = util/* map */.Tj(values, function (val) {
-    return axis.scale.parse(val);
-  });
-  if (axis.type === 'time' && nums.length > 0) {
-    // Time axis needs duplicate first/last tick (see TimeScale.getTicks())
-    // The first and last tick/label don't get drawn
-    nums.sort();
-    nums.unshift(nums[0]);
-    nums.push(nums[nums.length - 1]);
-  }
-  return nums;
-}
 function createAxisLabels(axis) {
-  var custom = axis.getLabelModel().get('customValues');
-  if (custom) {
-    var labelFormatter_1 = (0,axisHelper/* makeLabelFormatter */.ry)(axis);
-    var extent_1 = axis.scale.getExtent();
-    var tickNumbers = tickValuesToNumbers(axis, custom);
-    var ticks = util/* filter */.pb(tickNumbers, function (val) {
-      return val >= extent_1[0] && val <= extent_1[1];
-    });
-    return {
-      labels: util/* map */.Tj(ticks, function (numval) {
-        var tick = {
-          value: numval
-        };
-        return {
-          formattedLabel: labelFormatter_1(tick),
-          rawLabel: axis.scale.getLabel(tick),
-          tickValue: numval
-        };
-      })
-    };
-  }
   // Only ordinal scale support tick interval
   return axis.type === 'category' ? makeCategoryLabels(axis) : makeRealNumberLabels(axis);
 }
@@ -17036,16 +16963,6 @@ function createAxisLabels(axis) {
  * }
  */
 function createAxisTicks(axis, tickModel) {
-  var custom = axis.getTickModel().get('customValues');
-  if (custom) {
-    var extent_2 = axis.scale.getExtent();
-    var tickNumbers = tickValuesToNumbers(axis, custom);
-    return {
-      ticks: util/* filter */.pb(tickNumbers, function (val) {
-        return val >= extent_2[0] && val <= extent_2[1];
-      })
-    };
-  }
   // Only ordinal scale support tick interval
   return axis.type === 'category' ? makeCategoryTicks(axis, tickModel) : {
     ticks: util/* map */.Tj(axis.scale.getTicks(), function (tick) {
@@ -17546,8 +17463,7 @@ function fixOnBandTicksCoords(axis, ticksCoords, alignWithLabel, clamp) {
   if (ticksLen === 1) {
     ticksCoords[0].coord = axisExtent[0];
     last = ticksCoords[1] = {
-      coord: axisExtent[1],
-      tickValue: ticksCoords[0].tickValue
+      coord: axisExtent[1]
     };
   } else {
     var crossLen = ticksCoords[ticksLen - 1].tickValue - ticksCoords[0].tickValue;
@@ -17558,8 +17474,7 @@ function fixOnBandTicksCoords(axis, ticksCoords, alignWithLabel, clamp) {
     var dataExtent = axis.scale.getExtent();
     diffSize = 1 + dataExtent[1] - ticksCoords[ticksLen - 1].tickValue;
     last = {
-      coord: ticksCoords[ticksLen - 1].coord + shift_1 * diffSize,
-      tickValue: dataExtent[1] + 1
+      coord: ticksCoords[ticksLen - 1].coord + shift_1 * diffSize
     };
     ticksCoords.push(last);
   }
@@ -18565,8 +18480,6 @@ var axisElementBuilders = {
     var splitLineModel = axisModel.getModel('splitLine');
     var lineStyleModel = splitLineModel.getModel('lineStyle');
     var lineColors = lineStyleModel.get('color');
-    var showMinLine = splitLineModel.get('showMinLine') !== false;
-    var showMaxLine = splitLineModel.get('showMaxLine') !== false;
     lineColors = util/* isArray */.cy(lineColors) ? lineColors : [lineColors];
     var gridRect = gridModel.coordinateSystem.getRect();
     var isHorizontal = axis.isHorizontal();
@@ -18579,10 +18492,6 @@ var axisElementBuilders = {
     var lineStyle = lineStyleModel.getLineStyle();
     for (var i = 0; i < ticksCoords.length; i++) {
       var tickCoord = axis.toGlobalCoord(ticksCoords[i].coord);
-      if (i === 0 && !showMinLine || i === ticksCoords.length - 1 && !showMaxLine) {
-        continue;
-      }
-      var tickValue = ticksCoords[i].tickValue;
       if (isHorizontal) {
         p1[0] = tickCoord;
         p1[1] = gridRect.y;
@@ -18595,8 +18504,9 @@ var axisElementBuilders = {
         p2[1] = tickCoord;
       }
       var colorIndex = lineCount++ % lineColors.length;
+      var tickValue = ticksCoords[i].tickValue;
       var line = new Line/* default */.A({
-        anid: tickValue != null ? 'line_' + tickValue : null,
+        anid: tickValue != null ? 'line_' + ticksCoords[i].tickValue : null,
         autoBatch: true,
         shape: {
           x1: p1[0],
@@ -19709,7 +19619,7 @@ opt) {
   return value == null || value === '' ? NaN
   // If string (like '-'), using '+' parse to NaN
   // If object, also parse to NaN
-  : Number(value);
+  : +value;
 }
 ;
 var valueParserMap = (0,zrender_lib_core_util_js__WEBPACK_IMPORTED_MODULE_1__/* .createHashMap */ .nt)({
@@ -20377,6 +20287,7 @@ var SausagePath = /** @class */function (_super) {
     }
     // ctx.closePath();
   };
+
   return SausagePath;
 }(Path/* default */.Ay);
 /* harmony default export */ const sausage = (SausagePath);
@@ -21406,8 +21317,6 @@ function createLarge(seriesModel, group, progressiveEls, incremental) {
   el.barWidth = barWidth;
   group.add(el);
   el.useStyle(data.getVisual('style'));
-  // Stroke is rendered first to avoid overlapping with fill
-  el.style.stroke = null;
   // Enable tooltip and user mouse/touch event handlers.
   (0,innerStore/* getECData */.z)(el).seriesIndex = seriesModel.seriesIndex;
   if (!seriesModel.get('silent')) {
@@ -23311,6 +23220,19 @@ var samplers = {
     // NaN will cause illegal axis extent.
     return isFinite(min) ? min : NaN;
   },
+  minmax: function (frame) {
+    var turningPointAbsoluteValue = -Infinity;
+    var turningPointOriginalValue = -Infinity;
+    for (var i = 0; i < frame.length; i++) {
+      var originalValue = frame[i];
+      var absoluteValue = Math.abs(originalValue);
+      if (absoluteValue > turningPointAbsoluteValue) {
+        turningPointAbsoluteValue = absoluteValue;
+        turningPointOriginalValue = originalValue;
+      }
+    }
+    return isFinite(turningPointOriginalValue) ? turningPointOriginalValue : NaN;
+  },
   // TODO
   // Median
   nearest: function (frame) {
@@ -23342,8 +23264,6 @@ function dataSample(seriesType) {
         if (isFinite(rate) && rate > 1) {
           if (sampling === 'lttb') {
             seriesModel.setData(data.lttbDownSample(data.mapDimension(valueAxis.dim), 1 / rate));
-          } else if (sampling === 'minmax') {
-            seriesModel.setData(data.minmaxDownSample(data.mapDimension(valueAxis.dim), 1 / rate));
           }
           var sampler = void 0;
           if ((0,zrender_lib_core_util_js__WEBPACK_IMPORTED_MODULE_0__/* .isString */ .Kg)(sampling)) {
@@ -23404,7 +23324,8 @@ if (typeof wx === 'object' && typeof wx.getSystemInfoSync === 'function') {
 else if (typeof document === 'undefined' && typeof self !== 'undefined') {
     env.worker = true;
 }
-else if (!env.hasGlobalWindow || 'Deno' in window) {
+else if (typeof navigator === 'undefined'
+    || navigator.userAgent.indexOf('Node.js') === 0) {
     env.node = true;
     env.svgSupported = true;
 }
@@ -25176,7 +25097,7 @@ function getDefaultInterpolatedLabel(data, interpolatedValue) {
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
   k4: () => (/* binding */ D),
-  Ay: () => (/* binding */ H)
+  Ay: () => (/* binding */ B)
 });
 
 // UNUSED EXPORTS: INIT_OPTIONS_KEY, LOADING_OPTIONS_KEY, UPDATE_OPTIONS_KEY
@@ -25557,8 +25478,8 @@ function resetTriggers (elem) {
 
 
 ;// ./node_modules/vue-echarts/dist/index.esm.min.js
-var b=function(){return b=Object.assign||function(e){for(var t,n=1,r=arguments.length;n<r;n++)for(var i in t=arguments[n])Object.prototype.hasOwnProperty.call(t,i)&&(e[i]=t[i]);return e},b.apply(this,arguments)};"function"==typeof SuppressedError&&SuppressedError;var y=["getWidth","getHeight","getDom","getOption","resize","dispatchAction","convertToPixel","convertFromPixel","containPixel","getDataURL","getConnectedDataURL","appendData","clear","isDisposed","dispose"];function E(e){return t=Object.create(null),y.forEach((function(n){t[n]=function(t){return function(){for(var n=[],r=0;r<arguments.length;r++)n[r]=arguments[r];if(!e.value)throw new Error("ECharts is not initialized yet.");return e.value[t].apply(e.value,n)}}(n)})),t;// removed by dead control flow
- var t; }var _={autoresize:[Boolean,Object]},x=/^on[^a-z]/,j=function(e){return x.test(e)};function w(e,r){var i=(0,vue_esm.isRef)(e)?(0,vue_esm.unref)(e):e;return i&&"object"==typeof i&&"value"in i?i.value||r:i||r}var A="ecLoadingOptions";var L={loading:Boolean,loadingOptions:Object},z=null,C="x-vue-echarts";var T=[],S=[];!function(e,t){if(e&&"undefined"!=typeof document){var n,r=!0===t.prepend?"prepend":"append",i=!0===t.singleTag,o="string"==typeof t.container?document.querySelector(t.container):document.getElementsByTagName("head")[0];if(i){var a=T.indexOf(o);-1===a&&(a=T.push(o)-1,S[a]={}),n=S[a]&&S[a][r]?S[a][r]:S[a][r]=u()}else n=u();65279===e.charCodeAt(0)&&(e=e.substring(1)),n.styleSheet?n.styleSheet.cssText+=e:n.appendChild(document.createTextNode(e))}function u(){var e=document.createElement("style");if(e.setAttribute("type","text/css"),t.attributes)for(var n=Object.keys(t.attributes),i=0;i<n.length;i++)e.setAttribute(n[i],t.attributes[n[i]]);var a="prepend"===r?"afterbegin":"beforeend";return o.insertAdjacentElement(a,e),e}}("x-vue-echarts{display:flex;flex-direction:column;width:100%;height:100%;min-width:0}\n.vue-echarts-inner{flex-grow:1;min-width:0;width:auto!important;height:auto!important}\n",{});var U=function(){if(null!=z)return z;if("undefined"==typeof HTMLElement||"undefined"==typeof customElements)return z=!1;try{new Function("tag","class EChartsElement extends HTMLElement {\n  __dispose = null;\n\n  disconnectedCallback() {\n    if (this.__dispose) {\n      this.__dispose();\n      this.__dispose = null;\n    }\n  }\n}\n\nif (customElements.get(tag) == null) {\n  customElements.define(tag, EChartsElement);\n}\n")(C)}catch(e){return z=!1}return z=!0}();Vue2&&Vue2.config.ignoredElements.push(C);var D="ecTheme",k="ecInitOptions",B="ecUpdateOptions",P=/(^&?~?!?)native:/,H=(0,vue_esm.defineComponent)({name:"echarts",props:b(b({option:Object,theme:{type:[Object,String]},initOptions:Object,updateOptions:Object,group:String,manualUpdate:Boolean},_),L),emits:{},inheritAttrs:!1,setup:function(t,n){var a=n.attrs,u=(0,vue_esm.shallowRef)(),v=(0,vue_esm.shallowRef)(),y=(0,vue_esm.shallowRef)(),_=(0,vue_esm.shallowRef)(),x=(0,vue_esm.inject)(D,null),L=(0,vue_esm.inject)(k,null),z=(0,vue_esm.inject)(B,null),C=(0,vue_esm.toRefs)(t),T=C.autoresize,S=C.manualUpdate,H=C.loading,M=C.loadingOptions,R=(0,vue_esm.computed)((function(){return _.value||t.option||null})),F=(0,vue_esm.computed)((function(){return t.theme||w(x,{})})),N=(0,vue_esm.computed)((function(){return t.initOptions||w(L,{})})),$=(0,vue_esm.computed)((function(){return t.updateOptions||w(z,{})})),q=(0,vue_esm.computed)((function(){return function(e){var t={};for(var n in e)j(n)||(t[n]=e[n]);return t}(a)})),I={},W=(0,vue_esm.getCurrentInstance)().proxy.$listeners,Z={};function G(e){if(v.value){var n=y.value=(0,echarts/* init */.Ts)(v.value,F.value,N.value);t.group&&(n.group=t.group),Object.keys(Z).forEach((function(e){var t=Z[e];if(t){var r=e.toLowerCase();"~"===r.charAt(0)&&(r=r.substring(1),t.__once__=!0);var i=n;if(0===r.indexOf("zr:")&&(i=n.getZr(),r=r.substring(3)),t.__once__){delete t.__once__;var o=t;t=function(){for(var e=[],n=0;n<arguments.length;n++)e[n]=arguments[n];o.apply(void 0,e),i.off(r,t)}}i.on(r,t)}})),T.value?(0,vue_esm.nextTick)((function(){n&&!n.isDisposed()&&n.resize(),r()})):r()}function r(){var t=e||R.value;t&&n.setOption(t,$.value)}}function J(){y.value&&(y.value.dispose(),y.value=void 0)}W?Object.keys(W).forEach((function(e){P.test(e)?I[e.replace(P,"$1")]=W[e]:Z[e]=W[e]})):Object.keys(a).filter((function(e){return j(e)})).forEach((function(e){var t=e.charAt(2).toLowerCase()+e.slice(3);if(0!==t.indexOf("native:"))"Once"===t.substring(t.length-4)&&(t="~".concat(t.substring(0,t.length-4))),Z[t]=a[e];else{var n="on".concat(t.charAt(7).toUpperCase()).concat(t.slice(8));I[n]=a[e]}}));var K=null;(0,vue_esm.watch)(S,(function(n){"function"==typeof K&&(K(),K=null),n||(K=(0,vue_esm.watch)((function(){return t.option}),(function(e,t){e&&(y.value?y.value.setOption(e,b({notMerge:e!==t},$.value)):G())}),{deep:!0}))}),{immediate:!0}),(0,vue_esm.watch)([F,N],(function(){J(),G()}),{deep:!0}),(0,vue_esm.watchEffect)((function(){t.group&&y.value&&(y.value.group=t.group)}));var Q=E(y);return function(e,t,n){var a=(0,vue_esm.inject)(A,{}),u=(0,vue_esm.computed)((function(){return b(b({},w(a,{})),null==n?void 0:n.value)}));(0,vue_esm.watchEffect)((function(){var n=e.value;n&&(t.value?n.showLoading(u.value):n.hideLoading())}))}(y,H,M),function(t,n,r){var i=null;(0,vue_esm.watch)([r,t,n],(function(e,t,n){var r=e[0],o=e[1],a=e[2];if(r&&o&&a){var u=!0===a?{}:a,s=u.throttle,c=void 0===s?100:s,l=u.onResize,f=function(){o.resize(),null==l||l()};i=c?(0,throttle/* throttle */.nF)(f,c):f,addListener(r,i)}n((function(){r&&i&&removeListener(r,i)}))}))}(y,T,v),(0,vue_esm.onMounted)((function(){G()})),(0,vue_esm.onBeforeUnmount)((function(){U&&u.value?u.value.__dispose=J:J()})),b({chart:y,root:u,inner:v,setOption:function(e,n){t.manualUpdate&&(_.value=e),y.value?y.value.setOption(e,n||{}):G(e)},nonEventAttrs:q,nativeListeners:I},Q)},render:function(){var e=Vue2?{attrs:this.nonEventAttrs,on:this.nativeListeners}:b(b({},this.nonEventAttrs),this.nativeListeners);return e.ref="root",e.class=e.class?["echarts"].concat(e.class):"echarts",(0,vue_esm.h)(C,e,[(0,vue_esm.h)("div",{ref:"inner",class:"vue-echarts-inner"})])}});
+var O=function(){return O=Object.assign||function(e){for(var t,n=1,r=arguments.length;n<r;n++)for(var o in t=arguments[n])Object.prototype.hasOwnProperty.call(t,o)&&(e[o]=t[o]);return e},O.apply(this,arguments)};"function"==typeof SuppressedError&&SuppressedError;var b=["getWidth","getHeight","getDom","getOption","resize","dispatchAction","convertToPixel","convertFromPixel","containPixel","getDataURL","getConnectedDataURL","appendData","clear","isDisposed","dispose"];function y(e){return t=Object.create(null),b.forEach((function(n){t[n]=function(t){return function(){for(var n=[],r=0;r<arguments.length;r++)n[r]=arguments[r];if(!e.value)throw new Error("ECharts is not initialized yet.");return e.value[t].apply(e.value,n)}}(n)})),t;// removed by dead control flow
+ var t; }var E={autoresize:[Boolean,Object]},_=/^on[^a-z]/,x=function(e){return _.test(e)};function j(e,n){var r=(0,vue_esm.unref)(e);return r&&"object"==typeof r&&"value"in r?r.value||n:r||n}var w="ecLoadingOptions";var A={loading:Boolean,loadingOptions:Object},z=null,C="x-vue-echarts";var L=[],T=[];!function(e,t){if(e&&"undefined"!=typeof document){var n,r=!0===t.prepend?"prepend":"append",o=!0===t.singleTag,i="string"==typeof t.container?document.querySelector(t.container):document.getElementsByTagName("head")[0];if(o){var a=L.indexOf(i);-1===a&&(a=L.push(i)-1,T[a]={}),n=T[a]&&T[a][r]?T[a][r]:T[a][r]=u()}else n=u();65279===e.charCodeAt(0)&&(e=e.substring(1)),n.styleSheet?n.styleSheet.cssText+=e:n.appendChild(document.createTextNode(e))}function u(){var e=document.createElement("style");if(e.setAttribute("type","text/css"),t.attributes)for(var n=Object.keys(t.attributes),o=0;o<n.length;o++)e.setAttribute(n[o],t.attributes[n[o]]);var a="prepend"===r?"afterbegin":"beforeend";return i.insertAdjacentElement(a,e),e}}("x-vue-echarts{display:flex;flex-direction:column;width:100%;height:100%;min-width:0}\n.vue-echarts-inner{flex-grow:1;min-width:0}\n",{});var S=function(){if(null!=z)return z;if("undefined"==typeof HTMLElement||"undefined"==typeof customElements)return z=!1;try{new Function("tag","class EChartsElement extends HTMLElement {\n  __dispose = null;\n\n  disconnectedCallback() {\n    if (this.__dispose) {\n      this.__dispose();\n      this.__dispose = null;\n    }\n  }\n}\n\nif (customElements.get(tag) == null) {\n  customElements.define(tag, EChartsElement);\n}\n")(C)}catch(e){return z=!1}return z=!0}();Vue2&&Vue2.config.ignoredElements.push(C);var D="ecTheme",U="ecInitOptions",k="ecUpdateOptions",B=(0,vue_esm.defineComponent)({name:"echarts",props:O(O({option:Object,theme:{type:[Object,String]},initOptions:Object,updateOptions:Object,group:String,manualUpdate:Boolean},E),A),emits:{},inheritAttrs:!1,setup:function(t,i){var a=i.attrs,p=(0,vue_esm.shallowRef)(),b=(0,vue_esm.shallowRef)(),E=(0,vue_esm.shallowRef)(),_=(0,vue_esm.shallowRef)(),A=(0,vue_esm.inject)(D,null),z=(0,vue_esm.inject)(U,null),C=(0,vue_esm.inject)(k,null),L=(0,vue_esm.toRefs)(t),T=L.autoresize,B=L.manualUpdate,P=L.loading,H=L.loadingOptions,M=(0,vue_esm.computed)((function(){return _.value||t.option||null})),R=(0,vue_esm.computed)((function(){return t.theme||j(A,{})})),F=(0,vue_esm.computed)((function(){return t.initOptions||j(z,{})})),N=(0,vue_esm.computed)((function(){return t.updateOptions||j(C,{})})),q=(0,vue_esm.computed)((function(){return function(e){var t={};for(var n in e)x(n)||(t[n]=e[n]);return t}(a)})),I=(0,vue_esm.getCurrentInstance)().proxy.$listeners;function W(e){if(b.value){var n=E.value=(0,echarts/* init */.Ts)(b.value,R.value,F.value);t.group&&(n.group=t.group);var r=I;r||(r={},Object.keys(a).filter((function(e){return 0===e.indexOf("on")&&e.length>2})).forEach((function(e){var t=e.charAt(2).toLowerCase()+e.slice(3);"Once"===t.substring(t.length-4)&&(t="~".concat(t.substring(0,t.length-4))),r[t]=a[e]}))),Object.keys(r).forEach((function(e){var t=r[e];if(t){var o=e.toLowerCase();"~"===o.charAt(0)&&(o=o.substring(1),t.__once__=!0);var i=n;if(0===o.indexOf("zr:")&&(i=n.getZr(),o=o.substring(3)),t.__once__){delete t.__once__;var a=t;t=function(){for(var e=[],n=0;n<arguments.length;n++)e[n]=arguments[n];a.apply(void 0,e),i.off(o,t)}}i.on(o,t)}})),T.value?(0,vue_esm.nextTick)((function(){n&&!n.isDisposed()&&n.resize(),o()})):o()}function o(){var t=e||M.value;t&&n.setOption(t,N.value)}}function Z(){E.value&&(E.value.dispose(),E.value=void 0)}var $=null;(0,vue_esm.watch)(B,(function(n){"function"==typeof $&&($(),$=null),n||($=(0,vue_esm.watch)((function(){return t.option}),(function(e,t){e&&(E.value?E.value.setOption(e,O({notMerge:e!==t},N.value)):W())}),{deep:!0}))}),{immediate:!0}),(0,vue_esm.watch)([R,F],(function(){Z(),W()}),{deep:!0}),(0,vue_esm.watchEffect)((function(){t.group&&E.value&&(E.value.group=t.group)}));var G=y(E);return function(e,t,i){var a=(0,vue_esm.inject)(w,{}),u=(0,vue_esm.computed)((function(){return O(O({},j(a,{})),null==i?void 0:i.value)}));(0,vue_esm.watchEffect)((function(){var n=e.value;n&&(t.value?n.showLoading(u.value):n.hideLoading())}))}(E,P,H),function(t,n,r){var o=null;(0,vue_esm.watch)([r,t,n],(function(e,t,n){var r=e[0],i=e[1],a=e[2];if(r&&i&&a){var u=!0===a?{}:a,s=u.throttle,c=void 0===s?100:s,l=u.onResize,f=function(){i.resize(),null==l||l()};o=c?(0,throttle/* throttle */.nF)(f,c):f,addListener(r,o)}n((function(){r&&o&&removeListener(r,o)}))}))}(E,T,b),(0,vue_esm.onMounted)((function(){W()})),(0,vue_esm.onBeforeUnmount)((function(){S&&p.value?p.value.__dispose=Z:Z()})),O({chart:E,root:p,inner:b,setOption:function(e,n){t.manualUpdate&&(_.value=e),E.value?E.value.setOption(e,n||{}):W(e)},nonEventAttrs:q},G)},render:function(){var e=Vue2?{attrs:this.nonEventAttrs}:O({},this.nonEventAttrs);return e.ref="root",e.class=e.class?["echarts"].concat(e.class):"echarts",(0,vue_esm.h)(C,e,[(0,vue_esm.h)("div",{ref:"inner",class:"vue-echarts-inner"})])}});
 //# sourceMappingURL=index.esm.min.js.map
 
 
@@ -28003,7 +27924,6 @@ function setTooltipConfig(opt) {
     name: itemName,
     option: (0,util/* defaults */.NT)({
       content: itemName,
-      encodeHTMLContent: true,
       formatterParams: formatterParams
     }, itemTooltipOptionObj)
   };
@@ -28192,6 +28112,7 @@ function isDataItemOption(dataItem) {
   // // markLine data can be array
   // && !(dataItem[0] && isObject(dataItem[0]) && !(dataItem[0] instanceof Array));
 }
+
 ;
 /**
  * Mapping to existings for merge.
@@ -31478,15 +31399,13 @@ time, template, isUTC, lang) {
   var m = date[minutesGetterName(isUTC)]();
   var s = date[secondsGetterName(isUTC)]();
   var S = date[millisecondsGetterName(isUTC)]();
-  var a = H >= 12 ? 'pm' : 'am';
-  var A = a.toUpperCase();
   var localeModel = lang instanceof _model_Model_js__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .A ? lang : (0,_core_locale_js__WEBPACK_IMPORTED_MODULE_2__/* .getLocaleModel */ .A4)(lang || _core_locale_js__WEBPACK_IMPORTED_MODULE_2__/* .SYSTEM_LANG */ .Lv) || (0,_core_locale_js__WEBPACK_IMPORTED_MODULE_2__/* .getDefaultLocaleModel */ .pr)();
   var timeModel = localeModel.getModel('time');
   var month = timeModel.get('month');
   var monthAbbr = timeModel.get('monthAbbr');
   var dayOfWeek = timeModel.get('dayOfWeek');
   var dayOfWeekAbbr = timeModel.get('dayOfWeekAbbr');
-  return (template || '').replace(/{a}/g, a + '').replace(/{A}/g, A + '').replace(/{yyyy}/g, y + '').replace(/{yy}/g, pad(y % 100 + '', 2)).replace(/{Q}/g, q + '').replace(/{MMMM}/g, month[M - 1]).replace(/{MMM}/g, monthAbbr[M - 1]).replace(/{MM}/g, pad(M, 2)).replace(/{M}/g, M + '').replace(/{dd}/g, pad(d, 2)).replace(/{d}/g, d + '').replace(/{eeee}/g, dayOfWeek[e]).replace(/{ee}/g, dayOfWeekAbbr[e]).replace(/{e}/g, e + '').replace(/{HH}/g, pad(H, 2)).replace(/{H}/g, H + '').replace(/{hh}/g, pad(h + '', 2)).replace(/{h}/g, h + '').replace(/{mm}/g, pad(m, 2)).replace(/{m}/g, m + '').replace(/{ss}/g, pad(s, 2)).replace(/{s}/g, s + '').replace(/{SSS}/g, pad(S, 3)).replace(/{S}/g, S + '');
+  return (template || '').replace(/{yyyy}/g, y + '').replace(/{yy}/g, pad(y % 100 + '', 2)).replace(/{Q}/g, q + '').replace(/{MMMM}/g, month[M - 1]).replace(/{MMM}/g, monthAbbr[M - 1]).replace(/{MM}/g, pad(M, 2)).replace(/{M}/g, M + '').replace(/{dd}/g, pad(d, 2)).replace(/{d}/g, d + '').replace(/{eeee}/g, dayOfWeek[e]).replace(/{ee}/g, dayOfWeekAbbr[e]).replace(/{e}/g, e + '').replace(/{HH}/g, pad(H, 2)).replace(/{H}/g, H + '').replace(/{hh}/g, pad(h + '', 2)).replace(/{h}/g, h + '').replace(/{mm}/g, pad(m, 2)).replace(/{m}/g, m + '').replace(/{ss}/g, pad(s, 2)).replace(/{s}/g, s + '').replace(/{SSS}/g, pad(S, 3)).replace(/{S}/g, S + '');
 }
 function leveledFormat(tick, idx, formatter, lang, isUTC) {
   var template = null;
@@ -32036,7 +31955,7 @@ var DEFAULT_LOCALE = LOCALE_EN;
 var localeStorage = {};
 var localeModels = {};
 var SYSTEM_LANG = !env/* default */.A.domSupported ? DEFAULT_LOCALE : function () {
-  var langStr = (/* eslint-disable-next-line */
+  var langStr = ( /* eslint-disable-next-line */
   document.documentElement.lang || navigator.language || navigator.browserLanguage || DEFAULT_LOCALE).toUpperCase();
   return langStr.indexOf(LOCALE_ZH) > -1 ? LOCALE_ZH : DEFAULT_LOCALE;
 }();
@@ -32745,7 +32664,7 @@ var platformApi = {
             else {
                 text = text || '';
                 font = font || DEFAULT_FONT;
-                var res = /((?:\d+)?\.?\d*)px/.exec(font);
+                var res = /(\d+)px/.exec(font);
                 var fontSize = res && +res[1] || DEFAULT_FONT_SIZE;
                 var width = 0;
                 if (font.indexOf('mono') >= 0) {
@@ -34751,6 +34670,7 @@ function getValueAxesMinGaps(barSeries) {
       // Ignore duplicated time values in the same axis
     }
   });
+
   var axisMinGaps = {};
   for (var key in axisValues) {
     if (axisValues.hasOwnProperty(key)) {
@@ -35015,11 +34935,11 @@ function createProgressiveLayout(seriesType) {
             var value = store.get(stacked ? stackedDimIdx : valueDimIdx, dataIndex);
             var baseValue = store.get(baseDimIdx, dataIndex);
             var baseCoord = valueAxisStart;
-            var stackStartValue = void 0;
+            var startValue = void 0;
             // Because of the barMinHeight, we can not use the value in
             // stackResultDimension directly.
             if (stacked) {
-              stackStartValue = +value - store.get(valueDimIdx, dataIndex);
+              startValue = +value - store.get(valueDimIdx, dataIndex);
             }
             var x = void 0;
             var y = void 0;
@@ -35028,7 +34948,7 @@ function createProgressiveLayout(seriesType) {
             if (isValueAxisH) {
               var coord = cartesian.dataToPoint([value, baseValue]);
               if (stacked) {
-                var startCoord = cartesian.dataToPoint([stackStartValue, baseValue]);
+                var startCoord = cartesian.dataToPoint([startValue, baseValue]);
                 baseCoord = startCoord[0];
               }
               x = baseCoord;
@@ -35041,7 +34961,7 @@ function createProgressiveLayout(seriesType) {
             } else {
               var coord = cartesian.dataToPoint([baseValue, value]);
               if (stacked) {
-                var startCoord = cartesian.dataToPoint([baseValue, stackStartValue]);
+                var startCoord = cartesian.dataToPoint([baseValue, startValue]);
                 baseCoord = startCoord[1];
               }
               x = coord[0] + columnOffset;
@@ -35094,11 +35014,7 @@ function isInLargeMode(seriesModel) {
 }
 // See cases in `test/bar-start.html` and `#7412`, `#8747`.
 function getValueAxisStart(baseAxis, valueAxis) {
-  var startValue = valueAxis.model.get('startValue');
-  if (!startValue) {
-    startValue = 0;
-  }
-  return valueAxis.toGlobalCoord(valueAxis.dataToCoord(valueAxis.type === 'log' ? startValue > 0 ? startValue : 1 : startValue));
+  return valueAxis.toGlobalCoord(valueAxis.dataToCoord(valueAxis.type === 'log' ? 1 : 0));
 }
 
 /***/ }),
@@ -35891,13 +35807,12 @@ var tooltip_install = __webpack_require__(73416);
 var legend_install = __webpack_require__(22735);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/dashboard.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
@@ -36531,48 +36446,50 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // get summery
     getSummery: function getSummery() {
       var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var summerType, _yield$axios$get, data, _t;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var summerType, _yield$axios$get, data;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
             case 0:
               summerType = _this2.form.summeryType || "today";
-              _context.p = 1;
-              _context.n = 2;
+              _context.prev = 1;
+              _context.next = 4;
               return axios_default().get(window.location.origin + "/api/dashboard-summery/" + summerType);
-            case 2:
-              _yield$axios$get = _context.v;
+            case 4:
+              _yield$axios$get = _context.sent;
               data = _yield$axios$get.data;
               _this2.dashboardSummery = data;
-              _context.n = 4;
+              _context.next = 12;
               break;
-            case 3:
-              _context.p = 3;
-              _t = _context.v;
-              console.error('Error fetching dashboard summary:', _t);
-            case 4:
-              return _context.a(2);
+            case 9:
+              _context.prev = 9;
+              _context.t0 = _context["catch"](1);
+              console.error('Error fetching dashboard summary:', _context.t0);
+            case 12:
+            case "end":
+              return _context.stop();
           }
-        }, _callee, null, [[1, 3]]);
+        }, _callee, null, [[1, 9]]);
       }))();
     },
     // get top-selling products
     getTopSellingProducts: function getTopSellingProducts() {
       var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var _yield$axios$get2, data;
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.n = 1;
+              _context2.next = 2;
               return axios_default().get(window.location.origin + "/api/dashboard/top-selling-products");
-            case 1:
-              _yield$axios$get2 = _context2.v;
+            case 2:
+              _yield$axios$get2 = _context2.sent;
               data = _yield$axios$get2.data;
               _this3.pieChartOptions.legend.data = data.names;
               _this3.pieChartOptions.series[0].data = data.products;
-            case 2:
-              return _context2.a(2);
+            case 6:
+            case "end":
+              return _context2.stop();
           }
         }, _callee2);
       }))();
@@ -36580,19 +36497,20 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // get top clients
     getTopClients: function getTopClients() {
       var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
         var _yield$axios$get3, data;
-        return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.n) {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
             case 0:
-              _context3.n = 1;
+              _context3.next = 2;
               return axios_default().get(window.location.origin + "/api/dashboard/top-clients");
-            case 1:
-              _yield$axios$get3 = _context3.v;
+            case 2:
+              _yield$axios$get3 = _context3.sent;
               data = _yield$axios$get3.data;
               _this4.topClients = data;
-            case 2:
-              return _context3.a(2);
+            case 5:
+            case "end":
+              return _context3.stop();
           }
         }, _callee3);
       }))();
@@ -36600,22 +36518,23 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // get monthly sent & received
     getMonthlySentAndReceived: function getMonthlySentAndReceived() {
       var _this5 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
         var _yield$axios$get4, data;
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.n) {
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              _context4.n = 1;
+              _context4.next = 2;
               return axios_default().get(window.location.origin + "/api/dashboard/monthly-payment-sent-received");
-            case 1:
-              _yield$axios$get4 = _context4.v;
+            case 2:
+              _yield$axios$get4 = _context4.sent;
               data = _yield$axios$get4.data;
               _this5.paymentMonths = data.months || [];
               _this5.lineChartOptions.xAxis.data = _this5.translateMonths(_this5.paymentMonths);
               _this5.lineChartOptions.series[0].data = data.sent;
               _this5.lineChartOptions.series[1].data = data.received;
-            case 2:
-              return _context4.a(2);
+            case 8:
+            case "end":
+              return _context4.stop();
           }
         }, _callee4);
       }))();
@@ -36623,22 +36542,23 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // get monthly sales & purchases
     getMonthlySalesAndPurchases: function getMonthlySalesAndPurchases() {
       var _this6 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
         var _yield$axios$get5, data;
-        return _regenerator().w(function (_context5) {
-          while (1) switch (_context5.n) {
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
             case 0:
-              _context5.n = 1;
+              _context5.next = 2;
               return axios_default().get(window.location.origin + "/api/dashboard/monthly-sales-purchases");
-            case 1:
-              _yield$axios$get5 = _context5.v;
+            case 2:
+              _yield$axios$get5 = _context5.sent;
               data = _yield$axios$get5.data;
               _this6.salesMonths = data.months || [];
               _this6.barChartOptions.xAxis.data = _this6.translateMonths(_this6.salesMonths);
               _this6.barChartOptions.series[0].data = data.purchase;
               _this6.barChartOptions.series[1].data = data.sales;
-            case 2:
-              return _context5.a(2);
+            case 8:
+            case "end":
+              return _context5.stop();
           }
         }, _callee5);
       }))();
@@ -38141,6 +38061,7 @@ var DataStore = /** @class */function () {
     dim.ordinalOffset = len;
     dim.type = 'ordinal'; // Force to be ordinal
   };
+
   DataStore.prototype.getOrdinalMeta = function (dimIdx) {
     var dimInfo = this._dimensions[dimIdx];
     var ordinalMeta = dimInfo.ordinalMeta;
@@ -38696,6 +38617,7 @@ var DataStore = /** @class */function () {
           nextRawIndex = rawIndex; // Next a is this b
         }
       }
+
       if (countNaN > 0 && countNaN < frameEnd - frameStart) {
         // Append first NaN point in every bucket.
         // It is necessary to ensure the correct order of indices.
@@ -38710,59 +38632,6 @@ var DataStore = /** @class */function () {
     target._count = sampledIndex;
     target._indices = newIndices;
     target.getRawIndex = this._getRawIdx;
-    return target;
-  };
-  /**
-   * Large data down sampling using min-max
-   * @param {string} valueDimension
-   * @param {number} rate
-   */
-  DataStore.prototype.minmaxDownSample = function (valueDimension, rate) {
-    var target = this.clone([valueDimension], true);
-    var targetStorage = target._chunks;
-    var frameSize = Math.floor(1 / rate);
-    var dimStore = targetStorage[valueDimension];
-    var len = this.count();
-    // Each frame results in 2 data points, one for min and one for max
-    var newIndices = new (getIndicesCtor(this._rawCount))(Math.ceil(len / frameSize) * 2);
-    var offset = 0;
-    for (var i = 0; i < len; i += frameSize) {
-      var minIndex = i;
-      var minValue = dimStore[this.getRawIndex(minIndex)];
-      var maxIndex = i;
-      var maxValue = dimStore[this.getRawIndex(maxIndex)];
-      var thisFrameSize = frameSize;
-      // Handle final smaller frame
-      if (i + frameSize > len) {
-        thisFrameSize = len - i;
-      }
-      // Determine min and max within the current frame
-      for (var k = 0; k < thisFrameSize; k++) {
-        var rawIndex = this.getRawIndex(i + k);
-        var value = dimStore[rawIndex];
-        if (value < minValue) {
-          minValue = value;
-          minIndex = i + k;
-        }
-        if (value > maxValue) {
-          maxValue = value;
-          maxIndex = i + k;
-        }
-      }
-      var rawMinIndex = this.getRawIndex(minIndex);
-      var rawMaxIndex = this.getRawIndex(maxIndex);
-      // Set the order of the min and max values, based on their ordering in the frame
-      if (minIndex < maxIndex) {
-        newIndices[offset++] = rawMinIndex;
-        newIndices[offset++] = rawMaxIndex;
-      } else {
-        newIndices[offset++] = rawMaxIndex;
-        newIndices[offset++] = rawMinIndex;
-      }
-    }
-    target._count = offset;
-    target._indices = newIndices;
-    target._updateGetRawIdx();
     return target;
   };
   /**
@@ -39520,6 +39389,7 @@ var TooltipModel = /** @class */function (_super) {
       // lineStyle and shadowStyle should not be specified here,
       // otherwise it will always override those styles on option.axisPointer.
     },
+
     textStyle: {
       color: '#666',
       fontSize: 14
@@ -39742,9 +39612,9 @@ function assembleFont(textStyleModel) {
   var color = textStyleModel.getTextColor();
   color && cssText.push('color:' + color);
   cssText.push('font:' + textStyleModel.getFont());
+  fontSize
   // @ts-ignore, leave it to the tooltip refactor.
-  var lineHeight = (0,util/* retrieve2 */.bZ)(textStyleModel.get('lineHeight'), Math.round(fontSize * 3 / 2));
-  fontSize && cssText.push('line-height:' + lineHeight + 'px');
+  && cssText.push('line-height:' + Math.round(fontSize * 3 / 2) + 'px');
   var shadowColor = textStyleModel.get('textShadowColor');
   var shadowBlur = textStyleModel.get('textShadowBlur') || 0;
   var shadowOffsetX = textStyleModel.get('textShadowOffsetX') || 0;
@@ -39896,6 +39766,7 @@ var TooltipHTMLContent = /** @class */function () {
     // PENDING
     // this.hide();
   };
+
   TooltipHTMLContent.prototype.show = function (tooltipModel, nearPointColor) {
     clearTimeout(this._hideTimeout);
     clearTimeout(this._longHideTimeout);
@@ -39957,12 +39828,9 @@ var TooltipHTMLContent = /** @class */function () {
   };
   TooltipHTMLContent.prototype.getSize = function () {
     var el = this.el;
-    return el ? [el.offsetWidth, el.offsetHeight] : [0, 0];
+    return [el.offsetWidth, el.offsetHeight];
   };
   TooltipHTMLContent.prototype.moveTo = function (zrX, zrY) {
-    if (!this.el) {
-      return;
-    }
     var styleCoord = this._styleCoord;
     makeStyleCoord(styleCoord, this._zr, this._container, zrX, zrY);
     if (styleCoord[0] != null && styleCoord[1] != null) {
@@ -40692,6 +40560,7 @@ var TooltipView = /** @class */function (_super) {
     // Do not trigger events here, because this branch only be entered
     // from dispatchAction.
   };
+
   TooltipView.prototype._showSeriesItemTooltip = function (e, dispatcher, dispatchAction) {
     var ecModel = this._ecModel;
     var ecData = (0,innerStore/* getECData */.z)(dispatcher);
@@ -40741,11 +40610,9 @@ var TooltipView = /** @class */function (_super) {
     });
   };
   TooltipView.prototype._showComponentItemTooltip = function (e, el, dispatchAction) {
-    var isHTMLRenderMode = this._renderMode === 'html';
     var ecData = (0,innerStore/* getECData */.z)(el);
     var tooltipConfig = ecData.tooltipConfig;
     var tooltipOpt = tooltipConfig.option || {};
-    var encodeHTMLContent = tooltipOpt.encodeHTMLContent;
     if ((0,util/* isString */.Kg)(tooltipOpt)) {
       var content = tooltipOpt;
       tooltipOpt = {
@@ -40753,15 +40620,6 @@ var TooltipView = /** @class */function (_super) {
         // Fixed formatter
         formatter: content
       };
-      // when `tooltipConfig.option` is a string rather than an object,
-      // we can't know if the content needs to be encoded
-      // for the sake of security, encode it by default.
-      encodeHTMLContent = true;
-    }
-    if (encodeHTMLContent && isHTMLRenderMode && tooltipOpt.content) {
-      // clone might be unnecessary?
-      tooltipOpt = (0,util/* clone */.o8)(tooltipOpt);
-      tooltipOpt.content = (0,dom/* encodeHTML */.Me)(tooltipOpt.content);
     }
     var tooltipModelCascade = [tooltipOpt];
     var cmpt = this._ecModel.getComponent(ecData.componentMainType, ecData.componentIndex);
@@ -41108,6 +40966,7 @@ function findComponentReference(payload, ecModel, api) {
       return true; // stop
     }
   });
+
   if (el) {
     return {
       componentMainType: componentMainType,
@@ -42755,7 +42614,7 @@ var SeriesModel = /** @class */function (_super) {
     var task = getCurrentTask(this);
     if (task) {
       var data = task.context.data;
-      return dataType == null || !data.getLinkedData ? data : data.getLinkedData(dataType);
+      return dataType == null ? data : data.getLinkedData(dataType);
     } else {
       // When series is not alive (that may happen when click toolbox
       // restore or setOption with not merge mode), series data may
@@ -43639,6 +43498,7 @@ var GlobalModel = /** @class */function (_super) {
           var isSeriesType = mainType === 'series';
           var ComponentModelClass = Component/* default */.A.getClass(mainType, resultItem.keyInfo.subType, !isSeriesType // Give a more detailed warn later if series don't exists
           );
+
           if (!ComponentModelClass) {
             if (false) // removed by dead control flow
 { var seriesImportName, subType; }
@@ -44464,6 +44324,7 @@ function applyMediaQuery(query, ecWidth, ecHeight) {
     height: ecHeight,
     aspectratio: ecWidth / ecHeight // lower case for convenience.
   };
+
   var applicable = true;
   (0,util/* each */.__)(query, function (value, attr) {
     var matched = attr.match(QUERY_REG);
@@ -44822,6 +44683,7 @@ function processSeries(seriesOpt) {
   }
   // sunburst starts from ec4, so it does not need to compat levels.
 }
+
 function toArr(o) {
   return util/* isArray */.cy(o) ? o : o ? [o] : [];
 }
@@ -46076,6 +45938,7 @@ var Scheduler = /** @class */function () {
         // FIXME:TS never used, so comment it
         // modifyOutputEnd: modifyOutputEnd
       };
+
       stub.agent = overallTask;
       stub.__block = overallProgress;
       scheduler._pipe(seriesModel, stub);
@@ -46185,6 +46048,7 @@ function mockMethods(target, Clz) {
   }
   /* eslint-enable */
 }
+
 /* harmony default export */ const core_Scheduler = (Scheduler);
 ;// ./node_modules/echarts/lib/theme/light.js
 
@@ -46325,9 +46189,6 @@ var theme = {
   legend: {
     textStyle: {
       color: contrastColor
-    },
-    pageTextStyle: {
-      color: contrastColor
     }
   },
   textStyle: {
@@ -46459,6 +46320,7 @@ var theme = {
     }
   }
 };
+
 theme.categoryAxis.splitLine.show = false;
 /* harmony default export */ const dark = (theme);
 // EXTERNAL MODULE: ./node_modules/echarts/lib/util/clazz.js
@@ -47044,9 +46906,9 @@ var impl = __webpack_require__(13976);
 
 
 
-var version = '5.6.0';
+var version = '5.5.0';
 var dependencies = {
-  zrender: '5.6.1'
+  zrender: '5.5.0'
 };
 var TEST_FRAME_REMAIN_TIME = 1;
 var PRIORITY_PROCESSOR_SERIES_FILTER = 800;
@@ -47301,6 +47163,7 @@ var ECharts = /** @class */function (_super) {
       // because zr flushing is after onframe event.
     }
   };
+
   ECharts.prototype.getDom = function () {
     return this._dom;
   };
@@ -48769,7 +48632,7 @@ var ECharts = /** @class */function (_super) {
     }
     ;
     createExtensionAPI = function (ecIns) {
-      return new (/** @class */function (_super) {
+      return new ( /** @class */function (_super) {
         (0,tslib_es6/* __extends */.C6)(class_1, _super);
         function class_1() {
           return _super !== null && _super.apply(this, arguments) || this;
@@ -51901,6 +51764,7 @@ function getValueStart(valueAxis, valueOrigin) {
     }
     // If is one positive, and one negative, onZero shall be true
   }
+
   return valueStart;
 }
 function getStackedOnPoint(dataCoordInfo, coordSys, data, idx) {
@@ -52581,17 +52445,7 @@ function getStackedOnPoints(coordSys, data, dataCoordInfo) {
   }
   return points;
 }
-/**
- * Filter the null data and extend data for step considering `stepTurnAt`
- *
- * @param points data to convert, that may containing null
- * @param basePoints base data to reference, used only for areaStyle points
- * @param coordSys coordinate system
- * @param stepTurnAt 'start' | 'end' | 'middle' | true
- * @param connectNulls whether to connect nulls
- * @returns converted point positions
- */
-function turnPointsIntoStep(points, basePoints, coordSys, stepTurnAt, connectNulls) {
+function turnPointsIntoStep(points, coordSys, stepTurnAt, connectNulls) {
   var baseAxis = coordSys.getBaseAxis();
   var baseIndex = baseAxis.dim === 'x' || baseAxis.dim === 'radius' ? 0 : 1;
   var stepPoints = [];
@@ -52602,13 +52456,7 @@ function turnPointsIntoStep(points, basePoints, coordSys, stepTurnAt, connectNul
   var filteredPoints = [];
   if (connectNulls) {
     for (i = 0; i < points.length; i += 2) {
-      /**
-       * For areaStyle of stepped lines, `stackedOnPoints` should be
-       * filtered the same as `points` so that the base axis values
-       * should stay the same as the lines above. See #20021
-       */
-      var reference = basePoints || points;
-      if (!isNaN(reference[i]) && !isNaN(reference[i + 1])) {
+      if (!isNaN(points[i]) && !isNaN(points[i + 1])) {
         filteredPoints.push(points[i], points[i + 1]);
       }
     }
@@ -52946,9 +52794,9 @@ var LineView = /** @class */function (_super) {
     this.group.add(symbolDraw.group);
     this._symbolDraw = symbolDraw;
     this._lineGroup = lineGroup;
-    this._changePolyState = util/* bind */.oI(this._changePolyState, this);
   };
   LineView.prototype.render = function (seriesModel, ecModel, api) {
+    var _this = this;
     var coordSys = seriesModel.coordinateSystem;
     var group = this.group;
     var data = seriesModel.getData();
@@ -53013,11 +52861,11 @@ var LineView = /** @class */function (_super) {
       });
       hasAnimation && this._initSymbolLabelAnimation(data, coordSys, clipShapeForSymbol);
       if (step) {
-        if (stackedOnPoints) {
-          stackedOnPoints = turnPointsIntoStep(stackedOnPoints, points, coordSys, step, connectNulls);
-        }
         // TODO If stacked series is not step
-        points = turnPointsIntoStep(points, null, coordSys, step, connectNulls);
+        points = turnPointsIntoStep(points, coordSys, step, connectNulls);
+        if (stackedOnPoints) {
+          stackedOnPoints = turnPointsIntoStep(stackedOnPoints, coordSys, step, connectNulls);
+        }
       }
       polyline = this._newPolyline(points);
       if (isAreaChart) {
@@ -53073,11 +52921,11 @@ var LineView = /** @class */function (_super) {
         } else {
           // Not do it in update with animation
           if (step) {
-            if (stackedOnPoints) {
-              stackedOnPoints = turnPointsIntoStep(stackedOnPoints, points, coordSys, step, connectNulls);
-            }
             // TODO If stacked series is not step
-            points = turnPointsIntoStep(points, null, coordSys, step, connectNulls);
+            points = turnPointsIntoStep(points, coordSys, step, connectNulls);
+            if (stackedOnPoints) {
+              stackedOnPoints = turnPointsIntoStep(stackedOnPoints, coordSys, step, connectNulls);
+            }
           }
           polyline.setShape({
             points: points
@@ -53138,7 +52986,9 @@ var LineView = /** @class */function (_super) {
       (0,innerStore/* getECData */.z)(polygon).seriesIndex = seriesModel.seriesIndex;
       (0,states/* toggleHoverEmphasis */.Lm)(polygon, focus, blurScope, emphasisDisabled);
     }
-    var changePolyState = this._changePolyState;
+    var changePolyState = function (toState) {
+      _this._changePolyState(toState);
+    };
     data.eachItemGraphicEl(function (el) {
       // Switch polyline / polygon state if element changed its state.
       el && (el.onHoverStateChange = changePolyState);
@@ -53372,6 +53222,7 @@ var LineView = /** @class */function (_super) {
         endLabel = this._endLabel = new Text/* default */.Ay({
           z2: 200 // should be higher than item symbol
         });
+
         endLabel.ignoreClip = true;
         polyline.setTextContent(this._endLabel);
         polyline.disableLabelAnimation = true;
@@ -53476,10 +53327,10 @@ var LineView = /** @class */function (_super) {
     var stackedOnNext = diff.stackedOnNext;
     if (step) {
       // TODO If stacked series is not step
-      stackedOnCurrent = turnPointsIntoStep(diff.stackedOnCurrent, diff.current, coordSys, step, connectNulls);
-      current = turnPointsIntoStep(diff.current, null, coordSys, step, connectNulls);
-      stackedOnNext = turnPointsIntoStep(diff.stackedOnNext, diff.next, coordSys, step, connectNulls);
-      next = turnPointsIntoStep(diff.next, null, coordSys, step, connectNulls);
+      current = turnPointsIntoStep(diff.current, coordSys, step, connectNulls);
+      stackedOnCurrent = turnPointsIntoStep(diff.stackedOnCurrent, coordSys, step, connectNulls);
+      next = turnPointsIntoStep(diff.next, coordSys, step, connectNulls);
+      stackedOnNext = turnPointsIntoStep(diff.stackedOnNext, coordSys, step, connectNulls);
     }
     // Don't apply animation if diff is large.
     // For better result and avoid memory explosion problems like
@@ -53544,6 +53395,7 @@ var LineView = /** @class */function (_super) {
         }
       }
     }
+
     if (polyline.animators && polyline.animators.length) {
       polyline.animators[0].during(function () {
         polygon && polygon.dirtyShape();
@@ -53869,27 +53721,15 @@ var contain_text = __webpack_require__(45558);
 
 var STYLE_REG = /\{([a-zA-Z0-9_]+)\|([^}]*)\}/g;
 function truncateText(text, containerWidth, font, ellipsis, options) {
-    var out = {};
-    truncateText2(out, text, containerWidth, font, ellipsis, options);
-    return out.text;
-}
-function truncateText2(out, text, containerWidth, font, ellipsis, options) {
     if (!containerWidth) {
-        out.text = '';
-        out.isTruncated = false;
-        return;
+        return '';
     }
     var textLines = (text + '').split('\n');
     options = prepareTruncateOptions(containerWidth, font, ellipsis, options);
-    var isTruncated = false;
-    var truncateOut = {};
     for (var i = 0, len = textLines.length; i < len; i++) {
-        truncateSingleLine(truncateOut, textLines[i], options);
-        textLines[i] = truncateOut.textLine;
-        isTruncated = isTruncated || truncateOut.isTruncated;
+        textLines[i] = truncateSingleLine(textLines[i], options);
     }
-    out.text = textLines.join('\n');
-    out.isTruncated = isTruncated;
+    return textLines.join('\n');
 }
 function prepareTruncateOptions(containerWidth, font, ellipsis, options) {
     options = options || {};
@@ -53917,20 +53757,16 @@ function prepareTruncateOptions(containerWidth, font, ellipsis, options) {
     preparedOpts.containerWidth = containerWidth;
     return preparedOpts;
 }
-function truncateSingleLine(out, textLine, options) {
+function truncateSingleLine(textLine, options) {
     var containerWidth = options.containerWidth;
     var font = options.font;
     var contentWidth = options.contentWidth;
     if (!containerWidth) {
-        out.textLine = '';
-        out.isTruncated = false;
-        return;
+        return '';
     }
     var lineWidth = (0,contain_text/* getWidth */.RG)(textLine, font);
     if (lineWidth <= containerWidth) {
-        out.textLine = textLine;
-        out.isTruncated = false;
-        return;
+        return textLine;
     }
     for (var j = 0;; j++) {
         if (lineWidth <= contentWidth || j >= options.maxIterations) {
@@ -53948,8 +53784,7 @@ function truncateSingleLine(out, textLine, options) {
     if (textLine === '') {
         textLine = options.placeholder;
     }
-    out.textLine = textLine;
-    out.isTruncated = true;
+    return textLine;
 }
 function estimateLength(text, contentWidth, ascCharWidth, cnCharWidth) {
     var width = 0;
@@ -53970,7 +53805,6 @@ function parsePlainText(text, style) {
     var lineHeight = (0,util/* retrieve2 */.bZ)(style.lineHeight, calculatedLineHeight);
     var bgColorDrawn = !!(style.backgroundColor);
     var truncateLineOverflow = style.lineOverflow === 'truncate';
-    var isTruncated = false;
     var width = style.width;
     var lines;
     if (width != null && (overflow === 'break' || overflow === 'breakAll')) {
@@ -53983,7 +53817,6 @@ function parsePlainText(text, style) {
     var height = (0,util/* retrieve2 */.bZ)(style.height, contentHeight);
     if (contentHeight > height && truncateLineOverflow) {
         var lineCount = Math.floor(height / lineHeight);
-        isTruncated = isTruncated || (lines.length > lineCount);
         lines = lines.slice(0, lineCount);
     }
     if (text && truncate && width != null) {
@@ -53991,11 +53824,8 @@ function parsePlainText(text, style) {
             minChar: style.truncateMinChar,
             placeholder: style.placeholder
         });
-        var singleOut = {};
         for (var i = 0; i < lines.length; i++) {
-            truncateSingleLine(singleOut, lines[i], options);
-            lines[i] = singleOut.textLine;
-            isTruncated = isTruncated || singleOut.isTruncated;
+            lines[i] = truncateSingleLine(lines[i], options);
         }
     }
     var outerHeight = height;
@@ -54024,8 +53854,7 @@ function parsePlainText(text, style) {
         calculatedLineHeight: calculatedLineHeight,
         contentWidth: contentWidth,
         contentHeight: contentHeight,
-        width: width,
-        isTruncated: isTruncated
+        width: width
     };
 }
 var RichTextToken = (function () {
@@ -54051,7 +53880,6 @@ var RichTextContentBlock = (function () {
         this.outerWidth = 0;
         this.outerHeight = 0;
         this.lines = [];
-        this.isTruncated = false;
     }
     return RichTextContentBlock;
 }());
@@ -54087,7 +53915,6 @@ function parseRichText(text, style) {
     var stlPadding = style.padding;
     var truncate = overflow === 'truncate';
     var truncateLine = style.lineOverflow === 'truncate';
-    var tmpTruncateOut = {};
     function finishLine(line, lineWidth, lineHeight) {
         line.width = lineWidth;
         line.lineHeight = lineHeight;
@@ -54113,7 +53940,6 @@ function parseRichText(text, style) {
             token.align = tokenStyle && tokenStyle.align || style.align;
             token.verticalAlign = tokenStyle && tokenStyle.verticalAlign || 'middle';
             if (truncateLine && topHeight != null && calculatedHeight + token.lineHeight > topHeight) {
-                var originalLength = contentBlock.lines.length;
                 if (j > 0) {
                     line.tokens = line.tokens.slice(0, j);
                     finishLine(line, lineWidth, lineHeight);
@@ -54122,7 +53948,6 @@ function parseRichText(text, style) {
                 else {
                     contentBlock.lines = contentBlock.lines.slice(0, i);
                 }
-                contentBlock.isTruncated = contentBlock.isTruncated || (contentBlock.lines.length < originalLength);
                 break outer;
             }
             var styleTokenWidth = tokenStyle.width;
@@ -54151,9 +53976,7 @@ function parseRichText(text, style) {
                         token.width = token.contentWidth = 0;
                     }
                     else {
-                        truncateText2(tmpTruncateOut, token.text, remainTruncWidth - paddingH, font, style.ellipsis, { minChar: style.truncateMinChar });
-                        token.text = tmpTruncateOut.text;
-                        contentBlock.isTruncated = contentBlock.isTruncated || tmpTruncateOut.isTruncated;
+                        token.text = truncateText(token.text, remainTruncWidth - paddingH, font, style.ellipsis, { minChar: style.truncateMinChar });
                         token.width = token.contentWidth = (0,contain_text/* getWidth */.RG)(token.text, font);
                     }
                 }
@@ -54572,7 +54395,6 @@ var ZRText = (function (_super) {
         var textLines = contentBlock.lines;
         var lineHeight = contentBlock.lineHeight;
         var defaultStyle = this._defaultStyle;
-        this.isTruncated = !!contentBlock.isTruncated;
         var baseX = style.x || 0;
         var baseY = style.y || 0;
         var textAlign = style.align || defaultStyle.align || 'left';
@@ -54639,7 +54461,7 @@ var ZRText = (function (_super) {
             setSeparateFont(subElStyle, style);
             textY += lineHeight;
             if (fixedBoundingRect) {
-                el.setBoundingRect(new BoundingRect/* default */.A((0,contain_text/* adjustTextX */.ll)(subElStyle.x, contentWidth, subElStyle.textAlign), (0,contain_text/* adjustTextY */.sZ)(subElStyle.y, calculatedLineHeight, subElStyle.textBaseline), contentWidth, calculatedLineHeight));
+                el.setBoundingRect(new BoundingRect/* default */.A((0,contain_text/* adjustTextX */.ll)(subElStyle.x, style.width, subElStyle.textAlign), (0,contain_text/* adjustTextY */.sZ)(subElStyle.y, calculatedLineHeight, subElStyle.textBaseline), contentWidth, calculatedLineHeight));
             }
         }
     };
@@ -54656,7 +54478,6 @@ var ZRText = (function (_super) {
         var defaultStyle = this._defaultStyle;
         var textAlign = style.align || defaultStyle.align;
         var verticalAlign = style.verticalAlign || defaultStyle.verticalAlign;
-        this.isTruncated = !!contentBlock.isTruncated;
         var boxX = (0,contain_text/* adjustTextX */.ll)(baseX, outerWidth, textAlign);
         var boxY = (0,contain_text/* adjustTextY */.sZ)(baseY, outerHeight, verticalAlign);
         var xLeft = boxX;
@@ -55044,6 +54865,7 @@ function makeValueReadable(value, valueType, useUTC) {
     }
     // In other cases, continue to try to display the value in the following code.
   }
+
   if (valueType === 'ordinal') {
     return zrender_lib_core_util_js__WEBPACK_IMPORTED_MODULE_0__/* .isStringSafe */ .Lh(value) ? stringToUserReadable(value) : zrender_lib_core_util_js__WEBPACK_IMPORTED_MODULE_0__/* .isNumber */ .Et(value) ? isNumberUserReadable(value) ? value + '' : '-' : '-';
   }
@@ -56727,6 +56549,7 @@ var builders = {
     if (nameRotation != null) {
       nameRotation = nameRotation * PI / 180; // To radian.
     }
+
     var axisNameAvailableWidth;
     if (isNameLocationCenter(nameLocation)) {
       labelLayout = AxisBuilder.innerTextLayout(opt.rotation, nameRotation != null ? nameRotation : opt.rotation,
@@ -57008,18 +56831,6 @@ function buildAxisLabel(group, transformGroup, axisModel, opt) {
       })
     });
     textEl.anid = 'label_' + tickValue;
-    _util_graphic_js__WEBPACK_IMPORTED_MODULE_3__.setTooltipConfig({
-      el: textEl,
-      componentModel: axisModel,
-      itemName: formattedLabel,
-      formatterParamsExtra: {
-        isTruncated: function () {
-          return textEl.isTruncated;
-        },
-        value: rawLabel,
-        tickIndex: index
-      }
-    });
     // Pack data for mouse event
     if (triggerEvent) {
       var eventData = AxisBuilder.makeAxisEventDataBase(axisModel);
@@ -58235,7 +58046,7 @@ function createGridClipPath(cartesian, hasAnimation, seriesModel, done, during) 
   var y = rect.y;
   var width = rect.width;
   var height = rect.height;
-  var lineWidth = seriesModel.get(['lineStyle', 'width']) || 0;
+  var lineWidth = seriesModel.get(['lineStyle', 'width']) || 2;
   // Expand the clip path a bit to avoid the border is clipped and looks thinner
   x -= lineWidth / 2;
   y -= lineWidth / 2;
@@ -59107,7 +58918,7 @@ function extend(target, source) {
 }
 function defaults(target, source, overlay) {
     var keysArr = keys(source);
-    for (var i = 0, len = keysArr.length; i < len; i++) {
+    for (var i = 0; i < keysArr.length; i++) {
         var key = keysArr[i];
         if ((overlay ? source[key] != null : target[key] == null)) {
             target[key] = source[key];
