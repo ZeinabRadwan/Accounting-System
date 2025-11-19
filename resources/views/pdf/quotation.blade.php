@@ -105,16 +105,16 @@
                         <br><small style="color: {{ $colors['secondary'] ?? '#6b7280' }};">{{ $product->product->description }}</small>
                         @endif
                     </td>
-                    <td class="text-center">{{ $product->quantity }}</td>
-                    <td class="text-center">{{ $product->quotationReturnQty ?? 0 }}</td>
+                    <td class="text-center">{{ $product->quantity }} {{ $product->product->productUnit->name ?? __('print.Pcs') }}</td>
+                    <td class="text-center">{{ $product->quotationReturnQty ?? 0 }} {{ $product->product->productUnit->name ?? __('print.Pcs') }}</td>
                     <td class="text-right">{!! centralCurrencySymbolFormat($product->sale_price) !!}</td>
                     <td class="text-right">{!! centralCurrencySymbolFormat($product->quantity * $product->sale_price) !!}</td>
                     <td class="text-center">
                         @if($product->discount > 0)
                             @if($product->discount_type === 'percentage')
-                                {{ $product->discount }}%
+                                {{ $product->discount }}% ({!! centralCurrencySymbolFormat($product->discount_amount ?? 0) !!})
                             @else
-                                {!! centralCurrencySymbolFormat($product->discount) !!}
+                                {!! centralCurrencySymbolFormat($product->discount_amount ?? 0) !!}
                             @endif
                         @else
                             @lang('print.No Discount')

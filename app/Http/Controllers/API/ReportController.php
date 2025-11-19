@@ -2038,6 +2038,60 @@ class ReportController extends Controller
         }
     }
 
+    /**
+     * Get Sales By User report data for printing (all data, no pagination)
+     */
+    public function salesByUserReportForPrint(Request $request, $user = null)
+    {
+        // Increase memory limit for large datasets
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+
+        try {
+            $this->validate($request, [
+                'user' => 'required',
+            ]);
+
+            $user = $user ?? Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
+
+            $query = Invoice::with('client', 'invoicePayments', 'invoiceReturn', 'user')
+                ->whereIn('branch_id', $branchIds);
+
+            $term = $request->user['id'];
+            if ($request->fromDate && $request->toDate) {
+                $query = $query->whereBetween('invoice_date', [$request->fromDate, $request->toDate]);
+            }
+
+            if ($term !== 0) {
+                $query = $query->where(function ($query) use ($term) {
+                    $query->WhereHas('user', function ($newQuery) use ($term) {
+                        $newQuery->where('id', $term);
+                    });
+                });
+            }
+
+            // Get ALL invoices - NO PAGINATION
+            $invoices = $query->latest()->get();
+
+            // Transform to array using resource
+            $salesData = InvoiceListResource::collection($invoices)->resolve();
+
+            return [
+                'success' => true,
+                'data' => $salesData,
+            ];
+        } catch (\Exception $e) {
+            Log::error('Sales By User Report For Print Error: '.$e->getMessage());
+
+            return [
+                'success' => false,
+                'message' => 'Failed to generate sales by user report for print',
+                'error' => $e->getMessage(),
+            ];
+        }
+    }
+
     // get sales by user report
     public function salesByUserReport(Request $request, $user = null)
     {
@@ -2067,6 +2121,60 @@ class ReportController extends Controller
             return InvoiceListResource::collection($query->latest()->get());
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
+        }
+    }
+
+    /**
+     * Get Collection By User report data for printing (all data, no pagination)
+     */
+    public function collectionByUserReportForPrint(Request $request, $user = null)
+    {
+        // Increase memory limit for large datasets
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+
+        try {
+            $this->validate($request, [
+                'user' => 'required',
+            ]);
+
+            $user = $user ?? Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
+
+            $query = InvoicePayment::with('user.employee', 'invoice', 'invoicePaymentTransaction')
+                ->whereIn('branch_id', $branchIds);
+
+            $term = $request->user['id'];
+            if ($request->fromDate && $request->toDate) {
+                $query = $query->whereBetween('date', [$request->fromDate, $request->toDate]);
+            }
+
+            if ($term !== 0) {
+                $query = $query->where(function ($query) use ($term) {
+                    $query->WhereHas('user', function ($newQuery) use ($term) {
+                        $newQuery->where('id', $term);
+                    });
+                });
+            }
+
+            // Get ALL invoice payments - NO PAGINATION
+            $invoicePayments = $query->latest()->get();
+
+            // Transform to array using resource
+            $collectionData = InvoicePaymentResource::collection($invoicePayments)->resolve();
+
+            return [
+                'success' => true,
+                'data' => $collectionData,
+            ];
+        } catch (\Exception $e) {
+            Log::error('Collection By User Report For Print Error: '.$e->getMessage());
+
+            return [
+                'success' => false,
+                'message' => 'Failed to generate collection by user report for print',
+                'error' => $e->getMessage(),
+            ];
         }
     }
 
