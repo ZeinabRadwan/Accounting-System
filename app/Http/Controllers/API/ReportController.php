@@ -1891,6 +1891,70 @@ class ReportController extends Controller
         }
     }
 
+    /**
+     * Get Supplier Payable report data for printing (all data, no pagination)
+     */
+    public function supplierDueReportForPrint(Request $request, $user = null)
+    {
+        // Increase memory limit for large datasets
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+
+        try {
+            $user = $user ?? Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
+
+            // Apply search filter if provided
+            $term = $request->input('term', '');
+
+            // Get ALL suppliers - NO PAGINATION
+            $query = Supplier::with(['purchases.purchaseReturn'])
+                ->whereIn('branch_id', $branchIds);
+
+            // Apply search filter
+            if (! empty($term)) {
+                $query->where(function ($q) use ($term) {
+                    $q->where('name', 'like', '%'.$term.'%')
+                        ->orWhere('supplier_id', 'like', '%'.$term.'%')
+                        ->orWhere('email', 'like', '%'.$term.'%')
+                        ->orWhere('phone_number', 'like', '%'.$term.'%')
+                        ->orWhere('company_name', 'like', '%'.$term.'%');
+                });
+            }
+
+            $suppliers = $query->latest()->get();
+
+            // Transform suppliers to match view expectations
+            $suppliersData = $suppliers->map(function ($supplier) {
+                return [
+                    'id' => $supplier->id,
+                    'supplier_id' => $supplier->supplier_id,
+                    'name' => $supplier->name,
+                    'phone' => $supplier->phone_number ?: $supplier->phone_legacy,
+                    'email' => $supplier->email,
+                    'company_name' => $supplier->company_name,
+                    'address' => $supplier->address,
+                    'status' => (bool) $supplier->status,
+                    'supplier_due' => round($supplier->purchaseTotalDue(), 2),
+                    'supplier_return_due' => round($supplier->purchaseReturnTotal(), 2),
+                ];
+            })->toArray();
+
+            return [
+                'success' => true,
+                'data' => $suppliersData,
+            ];
+        } catch (\Exception $e) {
+            Log::error('Supplier Due Report For Print Error: '.$e->getMessage());
+
+            return [
+                'success' => false,
+                'message' => 'Failed to generate supplier payable report for print',
+                'error' => $e->getMessage(),
+            ];
+        }
+    }
+
     // get client due reports
     public function clientDueReport(Request $request)
     {
