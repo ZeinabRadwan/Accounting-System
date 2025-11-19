@@ -919,9 +919,10 @@ var axios = __webpack_require__(72505);
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductEditModal.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 
 
 
@@ -995,21 +996,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     openModal: function openModal() {
       var _arguments = arguments,
         _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var product, productToEdit, needsFullData, identifier, _yield$axios$get, data;
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var product, productToEdit, needsFullData, identifier, _yield$axios$get, data, _t;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.p = _context.n) {
             case 0:
               product = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : null;
               // If product is passed as parameter, use it; otherwise use the prop
               productToEdit = product || _this.product;
               if (productToEdit) {
-                _context.next = 5;
+                _context.n = 1;
                 break;
               }
               console.warn('No product provided to ProductEditModal');
-              return _context.abrupt("return");
-            case 5:
+              return _context.a(2);
+            case 1:
               // Store the product being edited in component data
               _this.currentProduct = productToEdit;
 
@@ -1022,31 +1023,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               // Check if we need to fetch complete product data in background
               needsFullData = !productToEdit.itemUnit || !productToEdit.itemTax || !productToEdit.subCategory || !productToEdit.brand || typeof productToEdit.itemUnit === 'string' || typeof productToEdit.itemTax === 'string';
               if (!(needsFullData && (productToEdit.slug || productToEdit.id))) {
-                _context.next = 23;
+                _context.n = 5;
                 break;
               }
               console.log('Fetching complete product data from API...');
               identifier = productToEdit.slug || productToEdit.id;
-              _context.prev = 12;
-              _context.next = 15;
+              _context.p = 2;
+              _context.n = 3;
               return axios_default().get("/api/products/".concat(identifier));
-            case 15:
-              _yield$axios$get = _context.sent;
+            case 3:
+              _yield$axios$get = _context.v;
               data = _yield$axios$get.data;
               // Update with complete product data from API
               _this.loadProductData(data.data);
-              _context.next = 23;
+              _context.n = 5;
               break;
-            case 20:
-              _context.prev = 20;
-              _context.t0 = _context["catch"](12);
-              console.warn('Failed to fetch complete product data, using provided data:', _context.t0);
+            case 4:
+              _context.p = 4;
+              _t = _context.v;
+              console.warn('Failed to fetch complete product data, using provided data:', _t);
               // Keep using the initially loaded product data
-            case 23:
-            case "end":
-              return _context.stop();
+            case 5:
+              return _context.a(2);
           }
-        }, _callee, null, [[12, 20]]);
+        }, _callee, null, [[2, 4]]);
       }))();
     },
     loadProductData: function loadProductData(product) {
@@ -1200,18 +1200,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     updateProduct: function updateProduct() {
       var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var currentProduct, productSlug, productId, identifier, formData, response;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var currentProduct, productSlug, productId, identifier, formData, response, _t2;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.p = _context2.n) {
             case 0:
-              _context2.prev = 0;
+              _context2.p = 0;
               // Get the current product being edited (stored in component data)
               currentProduct = _this3.currentProduct; // Debug logging to understand the product object structure
               console.log('Current product object:', currentProduct);
               console.log('Available properties:', currentProduct ? Object.keys(currentProduct) : 'No product');
               if (currentProduct) {
-                _context2.next = 8;
+                _context2.n = 1;
                 break;
               }
               console.error('No product available for update');
@@ -1219,13 +1219,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 type: "error",
                 title: _this3.$t("No product selected for update")
               });
-              return _context2.abrupt("return");
-            case 8:
+              return _context2.a(2);
+            case 1:
               // Check for slug property with fallbacks
               productSlug = currentProduct.slug || currentProduct.productSlug || currentProduct.product_slug;
               productId = currentProduct.id || currentProduct.productID || currentProduct.product_id;
               if (!(!productSlug && !productId)) {
-                _context2.next = 15;
+                _context2.n = 2;
                 break;
               }
               console.error('No product identifier (slug or ID) available for update');
@@ -1234,8 +1234,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 type: "error",
                 title: _this3.$t("Product identifier missing. Cannot update product.")
               });
-              return _context2.abrupt("return");
-            case 15:
+              return _context2.a(2);
+            case 2:
               // If we don't have a slug but have an ID, we need to fetch the product to get the slug
               identifier = productSlug;
               if (!productSlug && productId) {
@@ -1246,59 +1246,59 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               // Validate required fields based on item type
               if (!(_this3.form.itemType === 'service' && !_this3.form.servicePurchasePrice)) {
-                _context2.next = 20;
+                _context2.n = 3;
                 break;
               }
               toast.fire({
                 type: "error",
                 title: _this3.$t("Service Purchase Price is required for services")
               });
-              return _context2.abrupt("return");
-            case 20:
+              return _context2.a(2);
+            case 3:
               if (!_this3.form.isOpeningStock) {
-                _context2.next = 27;
+                _context2.n = 5;
                 break;
               }
               if (!(!_this3.form.newOpeningStockCount || _this3.form.newOpeningStockCount <= 0)) {
-                _context2.next = 24;
+                _context2.n = 4;
                 break;
               }
               toast.fire({
                 type: "error",
                 title: _this3.$t("New Opening Stock Count is required and must be greater than 0")
               });
-              return _context2.abrupt("return");
-            case 24:
+              return _context2.a(2);
+            case 4:
               if (!(!_this3.form.newOpeningStockUnitPrice || _this3.form.newOpeningStockUnitPrice <= 0)) {
-                _context2.next = 27;
+                _context2.n = 5;
                 break;
               }
               toast.fire({
                 type: "error",
                 title: _this3.$t("New Opening Stock Unit Price is required and must be greater than 0")
               });
-              return _context2.abrupt("return");
-            case 27:
+              return _context2.a(2);
+            case 5:
               if (!(!_this3.isSalesAccountAutomatic && !_this3.form.salesAccountId)) {
-                _context2.next = 30;
+                _context2.n = 6;
                 break;
               }
               toast.fire({
                 type: "error",
                 title: _this3.$t("Sales Account is required")
               });
-              return _context2.abrupt("return");
-            case 30:
+              return _context2.a(2);
+            case 6:
               if (!(!_this3.isPurchaseAccountAutomatic && !_this3.form.purchaseAccountId)) {
-                _context2.next = 33;
+                _context2.n = 7;
                 break;
               }
               toast.fire({
                 type: "error",
                 title: _this3.$t("Purchase Account is required")
               });
-              return _context2.abrupt("return");
-            case 33:
+              return _context2.a(2);
+            case 7:
               console.log('Using identifier for API call:', identifier);
 
               // Transform object fields to IDs before sending
@@ -1323,10 +1323,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               console.log('- itemUnit:', _this3.form.itemUnit, '→', formData.itemUnit);
               console.log('- productTax:', _this3.form.productTax, '→', formData.productTax);
               console.log('Form data being sent:', formData);
-              _context2.next = 47;
+              _context2.n = 8;
               return axios_default().put("/api/products/".concat(identifier), formData);
-            case 47:
-              response = _context2.sent;
+            case 8:
+              response = _context2.v;
               if (response.data.success) {
                 // Show success message with system notification style
                 toast.fire({
@@ -1345,18 +1345,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this3.url = null;
                 _this3.currentProduct = null; // Clear the stored product
               }
-              _context2.next = 55;
+              _context2.n = 10;
               break;
-            case 51:
-              _context2.prev = 51;
-              _context2.t0 = _context2["catch"](0);
-              if (_context2.t0.response && _context2.t0.response.data) {
-                if (_context2.t0.response.data.errors) {
-                  _this3.form.errors.set(_context2.t0.response.data.errors);
+            case 9:
+              _context2.p = 9;
+              _t2 = _context2.v;
+              if (_t2.response && _t2.response.data) {
+                if (_t2.response.data.errors) {
+                  _this3.form.errors.set(_t2.response.data.errors);
                 } else {
                   toast.fire({
                     type: "error",
-                    title: _context2.t0.response.data.message || _this3.$t("Error updating product")
+                    title: _t2.response.data.message || _this3.$t("Error updating product")
                   });
                 }
               } else {
@@ -1365,12 +1365,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   title: _this3.$t("Error updating product")
                 });
               }
-              console.error('Error updating product:', _context2.t0);
-            case 55:
-            case "end":
-              return _context2.stop();
+              console.error('Error updating product:', _t2);
+            case 10:
+              return _context2.a(2);
           }
-        }, _callee2, null, [[0, 51]]);
+        }, _callee2, null, [[0, 9]]);
       }))();
     },
     closeModal: function closeModal() {
@@ -1382,158 +1381,153 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     // get all product categories
     getSubCategories: function getSubCategories() {
       var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        var _yield$_this4$form$ge, data;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var _yield$_this4$form$ge, data, _t3;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.p = _context3.n) {
             case 0:
-              _context3.prev = 0;
-              _context3.next = 3;
+              _context3.p = 0;
+              _context3.n = 1;
               return _this4.form.get(window.location.origin + "/api/all-product-sub-categories");
-            case 3:
-              _yield$_this4$form$ge = _context3.sent;
+            case 1:
+              _yield$_this4$form$ge = _context3.v;
               data = _yield$_this4$form$ge.data;
               _this4.categories = data.data;
-              _context3.next = 11;
+              _context3.n = 3;
               break;
-            case 8:
-              _context3.prev = 8;
-              _context3.t0 = _context3["catch"](0);
-              console.error("Error fetching categories:", _context3.t0);
-            case 11:
-            case "end":
-              return _context3.stop();
+            case 2:
+              _context3.p = 2;
+              _t3 = _context3.v;
+              console.error("Error fetching categories:", _t3);
+            case 3:
+              return _context3.a(2);
           }
-        }, _callee3, null, [[0, 8]]);
+        }, _callee3, null, [[0, 2]]);
       }))();
     },
     // get all brands
     getBrands: function getBrands() {
       var _this5 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        var _yield$axios$get2, data;
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+        var _yield$axios$get2, data, _t4;
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.p = _context4.n) {
             case 0:
-              _context4.prev = 0;
-              _context4.next = 3;
+              _context4.p = 0;
+              _context4.n = 1;
               return axios_default().get(window.location.origin + "/api/all-brands");
-            case 3:
-              _yield$axios$get2 = _context4.sent;
+            case 1:
+              _yield$axios$get2 = _context4.v;
               data = _yield$axios$get2.data;
               _this5.brands = data.data;
-              _context4.next = 11;
+              _context4.n = 3;
               break;
-            case 8:
-              _context4.prev = 8;
-              _context4.t0 = _context4["catch"](0);
-              console.error("Error fetching brands:", _context4.t0);
-            case 11:
-            case "end":
-              return _context4.stop();
+            case 2:
+              _context4.p = 2;
+              _t4 = _context4.v;
+              console.error("Error fetching brands:", _t4);
+            case 3:
+              return _context4.a(2);
           }
-        }, _callee4, null, [[0, 8]]);
+        }, _callee4, null, [[0, 2]]);
       }))();
     },
     // get all units
     getUnits: function getUnits() {
       var _this6 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-        var _yield$axios$get3, data;
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+        var _yield$axios$get3, data, _t5;
+        return _regenerator().w(function (_context5) {
+          while (1) switch (_context5.p = _context5.n) {
             case 0:
-              _context5.prev = 0;
-              _context5.next = 3;
+              _context5.p = 0;
+              _context5.n = 1;
               return axios_default().get(window.location.origin + "/api/all-units");
-            case 3:
-              _yield$axios$get3 = _context5.sent;
+            case 1:
+              _yield$axios$get3 = _context5.v;
               data = _yield$axios$get3.data;
               _this6.units = data.data;
-              _context5.next = 11;
+              _context5.n = 3;
               break;
-            case 8:
-              _context5.prev = 8;
-              _context5.t0 = _context5["catch"](0);
-              console.error("Error fetching units:", _context5.t0);
-            case 11:
-            case "end":
-              return _context5.stop();
+            case 2:
+              _context5.p = 2;
+              _t5 = _context5.v;
+              console.error("Error fetching units:", _t5);
+            case 3:
+              return _context5.a(2);
           }
-        }, _callee5, null, [[0, 8]]);
+        }, _callee5, null, [[0, 2]]);
       }))();
     },
     // get all taxes
     getTaxes: function getTaxes() {
       var _this7 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
-        var _yield$axios$get4, data;
-        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-          while (1) switch (_context6.prev = _context6.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+        var _yield$axios$get4, data, _t6;
+        return _regenerator().w(function (_context6) {
+          while (1) switch (_context6.p = _context6.n) {
             case 0:
-              _context6.prev = 0;
-              _context6.next = 3;
+              _context6.p = 0;
+              _context6.n = 1;
               return axios_default().get(window.location.origin + "/api/all-vat-rates");
-            case 3:
-              _yield$axios$get4 = _context6.sent;
+            case 1:
+              _yield$axios$get4 = _context6.v;
               data = _yield$axios$get4.data;
               _this7.taxes = data.data;
               _this7.calculatePrice();
-              _context6.next = 12;
+              _context6.n = 3;
               break;
-            case 9:
-              _context6.prev = 9;
-              _context6.t0 = _context6["catch"](0);
-              console.error("Error fetching taxes:", _context6.t0);
-            case 12:
-            case "end":
-              return _context6.stop();
+            case 2:
+              _context6.p = 2;
+              _t6 = _context6.v;
+              console.error("Error fetching taxes:", _t6);
+            case 3:
+              return _context6.a(2);
           }
-        }, _callee6, null, [[0, 9]]);
+        }, _callee6, null, [[0, 2]]);
       }))();
     },
     // Load chart of accounts for sales and purchase account selection
     loadChartOfAccounts: function loadChartOfAccounts() {
       var _this8 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-        var _yield$axios$get5, data;
-        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-          while (1) switch (_context7.prev = _context7.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+        var _yield$axios$get5, data, _t7;
+        return _regenerator().w(function (_context7) {
+          while (1) switch (_context7.p = _context7.n) {
             case 0:
-              _context7.prev = 0;
-              _context7.next = 3;
+              _context7.p = 0;
+              _context7.n = 1;
               return axios_default().get(window.location.origin + "/api/products/chart-of-accounts");
-            case 3:
-              _yield$axios$get5 = _context7.sent;
+            case 1:
+              _yield$axios$get5 = _context7.v;
               data = _yield$axios$get5.data;
               _this8.chartOfAccounts = data || [];
-              _context7.next = 12;
+              _context7.n = 3;
               break;
-            case 8:
-              _context7.prev = 8;
-              _context7.t0 = _context7["catch"](0);
-              console.error("Error loading chart of accounts:", _context7.t0);
+            case 2:
+              _context7.p = 2;
+              _t7 = _context7.v;
+              console.error("Error loading chart of accounts:", _t7);
               _this8.chartOfAccounts = [];
-            case 12:
-            case "end":
-              return _context7.stop();
+            case 3:
+              return _context7.a(2);
           }
-        }, _callee7, null, [[0, 8]]);
+        }, _callee7, null, [[0, 2]]);
       }))();
     },
     // Load account routing settings
     loadAccountRoutingSettings: function loadAccountRoutingSettings() {
       var _this9 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
-        var response;
-        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-          while (1) switch (_context8.prev = _context8.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
+        var response, _t8;
+        return _regenerator().w(function (_context8) {
+          while (1) switch (_context8.p = _context8.n) {
             case 0:
-              _context8.prev = 0;
-              _context8.next = 3;
+              _context8.p = 0;
+              _context8.n = 1;
               return axios_default().get(window.location.origin + "/api/account-routing-settings/product-account-routing");
-            case 3:
-              response = _context8.sent;
+            case 1:
+              response = _context8.v;
               _this9.accountRoutingSettings = response.data.data || {};
 
               // Set flags for automatic routing
@@ -1550,20 +1544,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               console.log('Account routing settings loaded:', _this9.accountRoutingSettings);
               console.log('Sales automatic:', _this9.isSalesAccountAutomatic);
               console.log('Purchase automatic:', _this9.isPurchaseAccountAutomatic);
-              _context8.next = 19;
+              _context8.n = 3;
               break;
-            case 14:
-              _context8.prev = 14;
-              _context8.t0 = _context8["catch"](0);
-              console.error("Error loading account routing settings:", _context8.t0);
+            case 2:
+              _context8.p = 2;
+              _t8 = _context8.v;
+              console.error("Error loading account routing settings:", _t8);
               // Set defaults if API fails
               _this9.isSalesAccountAutomatic = false;
               _this9.isPurchaseAccountAutomatic = false;
-            case 19:
-            case "end":
-              return _context8.stop();
+            case 3:
+              return _context8.a(2);
           }
-        }, _callee8, null, [[0, 14]]);
+        }, _callee8, null, [[0, 2]]);
       }))();
     },
     calculatePrice: function calculatePrice() {
@@ -2660,12 +2653,13 @@ var vuex_esm = __webpack_require__(95353);
 var filter = __webpack_require__(44121);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
@@ -2865,12 +2859,12 @@ var toast = sweetalert2_all_default().mixin({
     },
     submitQuickAdjustment: function submitQuickAdjustment() {
       var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var adjustmentData;
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var adjustmentData, _t;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.p = _context.n) {
             case 0:
-              _context.prev = 0;
+              _context.p = 0;
               // Create a quick inventory adjustment
               adjustmentData = {
                 adjustmentReason: _this3.adjustmentForm.reason,
@@ -2884,9 +2878,9 @@ var toast = sweetalert2_all_default().mixin({
                   purchasePrice: _this3.product.avgPurchasePrice || 0
                 }]
               };
-              _context.next = 4;
+              _context.n = 1;
               return axios_default().post("/api/inventory-adjustments", adjustmentData);
-            case 4:
+            case 1:
               toast.fire({
                 type: "success",
                 title: _this3.$t("Stock added successfully"),
@@ -2899,22 +2893,21 @@ var toast = sweetalert2_all_default().mixin({
                 newQuantity: parseInt(_this3.adjustmentForm.quantity)
               });
               _this3.closeModal();
-              _context.next = 13;
+              _context.n = 3;
               break;
-            case 9:
-              _context.prev = 9;
-              _context.t0 = _context["catch"](0);
-              console.error("Error adding stock:", _context.t0);
+            case 2:
+              _context.p = 2;
+              _t = _context.v;
+              console.error("Error adding stock:", _t);
               toast.fire({
                 type: "error",
                 title: _this3.$t("Error"),
                 text: _this3.$t("Failed to add stock. Please try again.")
               });
-            case 13:
-            case "end":
-              return _context.stop();
+            case 3:
+              return _context.a(2);
           }
-        }, _callee, null, [[0, 9]]);
+        }, _callee, null, [[0, 2]]);
       }))();
     }
   }
@@ -4544,9 +4537,10 @@ var ChartOfAccountValidationvue_type_template_id_0ebdcb7a_scoped_true_render = f
 var ChartOfAccountValidationvue_type_template_id_0ebdcb7a_scoped_true_staticRenderFns = [];
 
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ChartOfAccountValidation.vue?vue&type=script&lang=js
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 
 /* harmony default export */ const ChartOfAccountValidationvue_type_script_lang_js = ({
@@ -4730,24 +4724,24 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
   methods: {
     autoAssignChartOfAccount: function autoAssignChartOfAccount(error) {
       var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var response;
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var response, _t;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.p = _context.n) {
             case 0:
               if (error.autoAssignUrl) {
-                _context.next = 2;
+                _context.n = 1;
                 break;
               }
-              return _context.abrupt("return");
-            case 2:
+              return _context.a(2);
+            case 1:
               console.log('Starting auto-assignment for:', error);
               _this2.$set(error, 'isAutoAssigning', true);
-              _context.prev = 4;
-              _context.next = 7;
+              _context.p = 2;
+              _context.n = 3;
               return axios_default().post(error.autoAssignUrl);
-            case 7:
-              response = _context.sent;
+            case 3:
+              response = _context.v;
               console.log('Auto-assignment response:', response.data);
               if (response.data.success) {
                 // Show success message
@@ -4773,26 +4767,25 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
                   _this2.$forceUpdate();
                 });
               }
-              _context.next = 16;
+              _context.n = 5;
               break;
-            case 12:
-              _context.prev = 12;
-              _context.t0 = _context["catch"](4);
-              console.error('Failed to auto-assign chart of account:', _context.t0);
+            case 4:
+              _context.p = 4;
+              _t = _context.v;
+              console.error('Failed to auto-assign chart of account:', _t);
               _this2.$toast.fire({
                 icon: 'error',
                 title: _this2.$t('Failed to assign Chart of Account automatically')
               });
-            case 16:
-              _context.prev = 16;
+            case 5:
+              _context.p = 5;
               _this2.$set(error, 'isAutoAssigning', false);
               console.log('Auto-assignment completed');
-              return _context.finish(16);
-            case 20:
-            case "end":
-              return _context.stop();
+              return _context.f(5);
+            case 6:
+              return _context.a(2);
           }
-        }, _callee, null, [[4, 12, 16, 20]]);
+        }, _callee, null, [[2, 4, 5, 6]]);
       }))();
     },
     // Method to refresh validation state
@@ -4858,19 +4851,21 @@ var sweetalert2_all = __webpack_require__(78465);
 var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/sales/quotations/invoice.vue?vue&type=script&lang=js
 function invoicevue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return invoicevue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, invoicevue_type_script_lang_js_typeof(o); }
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _regeneratorValues(e) { if (null != e) { var t = e["function" == typeof Symbol && Symbol.iterator || "@@iterator"], r = 0; if (t) return t.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) return { next: function next() { return e && r >= e.length && (e = void 0), { value: e && e[r++], done: !e }; } }; } throw new TypeError(invoicevue_type_script_lang_js_typeof(e) + " is not iterable"); }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t["return"] || t["return"](); } finally { if (u) throw o; } } }; }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function invoicevue_type_script_lang_js_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ invoicevue_type_script_lang_js_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == invoicevue_type_script_lang_js_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(invoicevue_type_script_lang_js_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function invoicevue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function invoicevue_type_script_lang_js_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { invoicevue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { invoicevue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function invoicevue_type_script_lang_js_regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return invoicevue_type_script_lang_js_regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (invoicevue_type_script_lang_js_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, invoicevue_type_script_lang_js_regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, invoicevue_type_script_lang_js_regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), invoicevue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", invoicevue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), invoicevue_type_script_lang_js_regeneratorDefine2(u), invoicevue_type_script_lang_js_regeneratorDefine2(u, o, "Generator"), invoicevue_type_script_lang_js_regeneratorDefine2(u, n, function () { return this; }), invoicevue_type_script_lang_js_regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (invoicevue_type_script_lang_js_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function invoicevue_type_script_lang_js_regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } invoicevue_type_script_lang_js_regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { invoicevue_type_script_lang_js_regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, invoicevue_type_script_lang_js_regeneratorDefine2(e, r, n, t); }
+function invoicevue_type_script_lang_js_asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function invoicevue_type_script_lang_js_asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { invoicevue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { invoicevue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == invoicevue_type_script_lang_js_typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != invoicevue_type_script_lang_js_typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != invoicevue_type_script_lang_js_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
@@ -5088,15 +5083,15 @@ var toast = sweetalert2_all_default().mixin({
     // get the quotation
     getQuotation: function getQuotation() {
       var _this = this;
-      return invoicevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/invoicevue_type_script_lang_js_regeneratorRuntime().mark(function _callee() {
+      return invoicevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/invoicevue_type_script_lang_js_regenerator().m(function _callee() {
         var _yield$axios$get, data, totalUnitPrice, totalProductDiscount, totalAfterDiscount, totalProductTax, totalAfterTax;
-        return invoicevue_type_script_lang_js_regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
+        return invoicevue_type_script_lang_js_regenerator().w(function (_context) {
+          while (1) switch (_context.n) {
             case 0:
-              _context.next = 2;
+              _context.n = 1;
               return axios_default().get(window.location.origin + '/api/quotations/' + _this.$route.params.slug);
-            case 2:
-              _yield$axios$get = _context.sent;
+            case 1:
+              _yield$axios$get = _context.v;
               data = _yield$axios$get.data;
               _this.form.client = data.data.client;
               _this.form.reference = data.data.reference;
@@ -5175,9 +5170,8 @@ var toast = sweetalert2_all_default().mixin({
                 allProductsHaveSalesAccounts: _this.allProductsHaveSalesAccounts,
                 isFormReady: _this.isFormReady
               });
-            case 29:
-            case "end":
-              return _context.stop();
+            case 2:
+              return _context.a(2);
           }
         }, _callee);
       }))();
@@ -5185,17 +5179,16 @@ var toast = sweetalert2_all_default().mixin({
     // get all clients
     getClients: function getClients() {
       var _this2 = this;
-      return invoicevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/invoicevue_type_script_lang_js_regeneratorRuntime().mark(function _callee2() {
-        return invoicevue_type_script_lang_js_regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
+      return invoicevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/invoicevue_type_script_lang_js_regenerator().m(function _callee2() {
+        return invoicevue_type_script_lang_js_regenerator().w(function (_context2) {
+          while (1) switch (_context2.n) {
             case 0:
-              _context2.next = 2;
+              _context2.n = 1;
               return _this2.$store.dispatch('operations/allData', {
                 path: '/api/all-clients'
               });
-            case 2:
-            case "end":
-              return _context2.stop();
+            case 1:
+              return _context2.a(2);
           }
         }, _callee2);
       }))();
@@ -5203,20 +5196,19 @@ var toast = sweetalert2_all_default().mixin({
     // get products
     getProducts: function getProducts() {
       var _this3 = this;
-      return invoicevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/invoicevue_type_script_lang_js_regeneratorRuntime().mark(function _callee3() {
+      return invoicevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/invoicevue_type_script_lang_js_regenerator().m(function _callee3() {
         var _yield$axios$get2, data;
-        return invoicevue_type_script_lang_js_regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
+        return invoicevue_type_script_lang_js_regenerator().w(function (_context3) {
+          while (1) switch (_context3.n) {
             case 0:
-              _context3.next = 2;
+              _context3.n = 1;
               return axios_default().get(window.location.origin + '/api/all-products');
-            case 2:
-              _yield$axios$get2 = _context3.sent;
+            case 1:
+              _yield$axios$get2 = _context3.v;
               data = _yield$axios$get2.data;
               _this3.products = data.data;
-            case 5:
-            case "end":
-              return _context3.stop();
+            case 2:
+              return _context3.a(2);
           }
         }, _callee3);
       }))();
@@ -5224,15 +5216,15 @@ var toast = sweetalert2_all_default().mixin({
     // get taxes
     getTaxes: function getTaxes() {
       var _this4 = this;
-      return invoicevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/invoicevue_type_script_lang_js_regeneratorRuntime().mark(function _callee4() {
+      return invoicevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/invoicevue_type_script_lang_js_regenerator().m(function _callee4() {
         var _yield$axios$get3, data;
-        return invoicevue_type_script_lang_js_regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
+        return invoicevue_type_script_lang_js_regenerator().w(function (_context4) {
+          while (1) switch (_context4.n) {
             case 0:
-              _context4.next = 2;
+              _context4.n = 1;
               return axios_default().get(window.location.origin + '/api/all-vat-rates');
-            case 2:
-              _yield$axios$get3 = _context4.sent;
+            case 1:
+              _yield$axios$get3 = _context4.v;
               data = _yield$axios$get3.data;
               _this4.taxes = data.data;
 
@@ -5259,9 +5251,8 @@ var toast = sweetalert2_all_default().mixin({
                   };
                 })
               });
-            case 8:
-            case "end":
-              return _context4.stop();
+            case 2:
+              return _context4.a(2);
           }
         }, _callee4);
       }))();
@@ -5281,20 +5272,19 @@ var toast = sweetalert2_all_default().mixin({
     // get accounts
     getAccounts: function getAccounts() {
       var _this5 = this;
-      return invoicevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/invoicevue_type_script_lang_js_regeneratorRuntime().mark(function _callee5() {
+      return invoicevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/invoicevue_type_script_lang_js_regenerator().m(function _callee5() {
         var _yield$axios$get4, data;
-        return invoicevue_type_script_lang_js_regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
+        return invoicevue_type_script_lang_js_regenerator().w(function (_context5) {
+          while (1) switch (_context5.n) {
             case 0:
-              _context5.next = 2;
+              _context5.n = 1;
               return axios_default().get(window.location.origin + '/api/all-accounts');
-            case 2:
-              _yield$axios$get4 = _context5.sent;
+            case 1:
+              _yield$axios$get4 = _context5.v;
               data = _yield$axios$get4.data;
               _this5.accounts = data.data;
-            case 5:
-            case "end":
-              return _context5.stop();
+            case 2:
+              return _context5.a(2);
           }
         }, _callee5);
       }))();
@@ -5655,13 +5645,13 @@ var toast = sweetalert2_all_default().mixin({
     // create invoice
     createInvoice: function createInvoice() {
       var _this7 = this;
-      return invoicevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/invoicevue_type_script_lang_js_regeneratorRuntime().mark(function _callee6() {
-        var validationErrors, productsWithoutSalesAccount, productNames, productsWithoutVatRate, _productNames, paymentValidation;
-        return invoicevue_type_script_lang_js_regeneratorRuntime().wrap(function _callee6$(_context6) {
-          while (1) switch (_context6.prev = _context6.next) {
+      return invoicevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/invoicevue_type_script_lang_js_regenerator().m(function _callee6() {
+        var validationErrors, productsWithoutSalesAccount, productNames, productsWithoutVatRate, _productNames, paymentValidation, _t;
+        return invoicevue_type_script_lang_js_regenerator().w(function (_context6) {
+          while (1) switch (_context6.p = _context6.n) {
             case 0:
               console.log('createInvoice method called');
-              _context6.prev = 1;
+              _context6.p = 1;
               // Ensure all monetary values are properly formatted to 2 decimal places before submission
               _this7.formatFormValues();
 
@@ -5738,13 +5728,13 @@ var toast = sweetalert2_all_default().mixin({
 
               // If there are validation errors, show them all and return
               if (!(validationErrors.length > 0)) {
-                _context6.next = 16;
+                _context6.n = 2;
                 break;
               }
               _this7.showMultipleValidationErrors(validationErrors);
-              return _context6.abrupt("return");
-            case 16:
-              _context6.next = 18;
+              return _context6.a(2);
+            case 2:
+              _context6.n = 3;
               return _this7.form.post(window.location.origin + '/api/invoices').then(function () {
                 toast.fire({
                   type: 'success',
@@ -5760,22 +5750,21 @@ var toast = sweetalert2_all_default().mixin({
                   title: _this7.$t('Please check your input and try again.')
                 });
               });
-            case 18:
-              _context6.next = 24;
+            case 3:
+              _context6.n = 5;
               break;
-            case 20:
-              _context6.prev = 20;
-              _context6.t0 = _context6["catch"](1);
-              console.error('Unexpected error:', _context6.t0);
+            case 4:
+              _context6.p = 4;
+              _t = _context6.v;
+              console.error('Unexpected error:', _t);
               toast.fire({
                 type: 'error',
                 title: _this7.$t('Please check your input and try again.')
               });
-            case 24:
-            case "end":
-              return _context6.stop();
+            case 5:
+              return _context6.a(2);
           }
-        }, _callee6, null, [[1, 20]]);
+        }, _callee6, null, [[1, 4]]);
       }))();
     },
     // Handle chart of account assignment
@@ -5791,19 +5780,19 @@ var toast = sweetalert2_all_default().mixin({
     // Auto-assign client chart of account
     autoAssignClientChartOfAccount: function autoAssignClientChartOfAccount() {
       var _this8 = this;
-      return invoicevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/invoicevue_type_script_lang_js_regeneratorRuntime().mark(function _callee7() {
-        var response, newAccountId, idx, errorMessage, _error$response$data;
-        return invoicevue_type_script_lang_js_regeneratorRuntime().wrap(function _callee7$(_context7) {
-          while (1) switch (_context7.prev = _context7.next) {
+      return invoicevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/invoicevue_type_script_lang_js_regenerator().m(function _callee7() {
+        var response, newAccountId, idx, errorMessage, _error$response$data, _t2;
+        return invoicevue_type_script_lang_js_regenerator().w(function (_context7) {
+          while (1) switch (_context7.p = _context7.n) {
             case 0:
               if (_this8.form.client) {
-                _context7.next = 2;
+                _context7.n = 1;
                 break;
               }
-              return _context7.abrupt("return");
-            case 2:
+              return _context7.a(2);
+            case 1:
               if (_this8.form.client.slug) {
-                _context7.next = 5;
+                _context7.n = 2;
                 break;
               }
               toast.fire({
@@ -5811,14 +5800,14 @@ var toast = sweetalert2_all_default().mixin({
                 title: _this8.$t('Error'),
                 text: _this8.$t('Client missing required information. Please refresh and try again.')
               });
-              return _context7.abrupt("return");
-            case 5:
+              return _context7.a(2);
+            case 2:
               _this8.isAutoAssigningClient = true;
-              _context7.prev = 6;
-              _context7.next = 9;
+              _context7.p = 3;
+              _context7.n = 4;
               return axios_default().post(window.location.origin + '/api/clients/' + _this8.form.client.slug + '/auto-assign-chart-of-account');
-            case 9:
-              response = _context7.sent;
+            case 4:
+              response = _context7.v;
               if (response && response.data && response.data.success) {
                 // Update the client data with new chart of account
                 newAccountId = response.data.chart_of_account_id || response.data.data && response.data.data.chart_of_account_id || null;
@@ -5843,82 +5832,81 @@ var toast = sweetalert2_all_default().mixin({
                   text: response && response.data && response.data.message || _this8.$t('Please try again')
                 });
               }
-              _context7.next = 19;
+              _context7.n = 6;
               break;
-            case 13:
-              _context7.prev = 13;
-              _context7.t0 = _context7["catch"](6);
-              console.error('Error assigning client chart of account:', _context7.t0);
+            case 5:
+              _context7.p = 5;
+              _t2 = _context7.v;
+              console.error('Error assigning client chart of account:', _t2);
               errorMessage = _this8.$t('Failed to assign Chart of Account. Please try again.');
-              if (_context7.t0 && _context7.t0.response) {
-                errorMessage = ((_error$response$data = _context7.t0.response.data) === null || _error$response$data === void 0 ? void 0 : _error$response$data.message) || _context7.t0.message || errorMessage;
-              } else if (_context7.t0 && _context7.t0.message) {
-                errorMessage = _context7.t0.message;
+              if (_t2 && _t2.response) {
+                errorMessage = ((_error$response$data = _t2.response.data) === null || _error$response$data === void 0 ? void 0 : _error$response$data.message) || _t2.message || errorMessage;
+              } else if (_t2 && _t2.message) {
+                errorMessage = _t2.message;
               }
               toast.fire({
                 type: 'error',
                 title: _this8.$t('Error'),
                 text: errorMessage
               });
-            case 19:
-              _context7.prev = 19;
+            case 6:
+              _context7.p = 6;
               _this8.isAutoAssigningClient = false;
-              return _context7.finish(19);
-            case 22:
-            case "end":
-              return _context7.stop();
+              return _context7.f(6);
+            case 7:
+              return _context7.a(2);
           }
-        }, _callee7, null, [[6, 13, 19, 22]]);
+        }, _callee7, null, [[3, 5, 6, 7]]);
       }))();
     },
     // Auto-assign all products chart of account
     autoAssignAllProductsChartOfAccount: function autoAssignAllProductsChartOfAccount() {
       var _this9 = this;
-      return invoicevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/invoicevue_type_script_lang_js_regeneratorRuntime().mark(function _callee8() {
-        var productsWithoutSalesAccount, _iterator, _step, _loop2, errorMessage, _error$response$data2;
-        return invoicevue_type_script_lang_js_regeneratorRuntime().wrap(function _callee8$(_context9) {
-          while (1) switch (_context9.prev = _context9.next) {
+      return invoicevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/invoicevue_type_script_lang_js_regenerator().m(function _callee8() {
+        var productsWithoutSalesAccount, _iterator, _step, _loop2, errorMessage, _error$response$data2, _t3, _t4;
+        return invoicevue_type_script_lang_js_regenerator().w(function (_context9) {
+          while (1) switch (_context9.p = _context9.n) {
             case 0:
               if (!(!_this9.form.selectedProducts || _this9.form.selectedProducts.length === 0)) {
-                _context9.next = 2;
+                _context9.n = 1;
                 break;
               }
-              return _context9.abrupt("return");
-            case 2:
+              return _context9.a(2);
+            case 1:
               _this9.isAutoAssigningProduct = true;
-              _context9.prev = 3;
+              _context9.p = 2;
               productsWithoutSalesAccount = _this9.form.selectedProducts.filter(function (product) {
                 return !product.sales_account_id;
               });
               if (!(productsWithoutSalesAccount.length === 0)) {
-                _context9.next = 8;
+                _context9.n = 3;
                 break;
               }
               toast.fire({
                 type: 'info',
                 title: _this9.$t('All products already have sales accounts assigned')
               });
-              return _context9.abrupt("return");
-            case 8:
+              return _context9.a(2);
+            case 3:
               _iterator = _createForOfIteratorHelper(productsWithoutSalesAccount);
-              _context9.prev = 9;
-              _loop2 = /*#__PURE__*/invoicevue_type_script_lang_js_regeneratorRuntime().mark(function _loop2() {
+              _context9.p = 4;
+              _loop2 = /*#__PURE__*/invoicevue_type_script_lang_js_regenerator().m(function _loop2() {
                 var product, response, productIndex;
-                return invoicevue_type_script_lang_js_regeneratorRuntime().wrap(function _loop2$(_context8) {
-                  while (1) switch (_context8.prev = _context8.next) {
+                return invoicevue_type_script_lang_js_regenerator().w(function (_context8) {
+                  while (1) switch (_context8.n) {
                     case 0:
                       product = _step.value;
                       if (product.slug) {
-                        _context8.next = 4;
+                        _context8.n = 1;
                         break;
                       }
                       console.warn('Product missing slug:', product);
-                      return _context8.abrupt("return", 1);
-                    case 4:
-                      _context8.next = 6;
+                      return _context8.a(2, 1);
+                    case 1:
+                      _context8.n = 2;
                       return axios_default().post(window.location.origin + '/api/products/' + product.slug + '/sales/auto-assign-chart-of-account');
-                    case 6:
-                      response = _context8.sent;
+                    case 2:
+                      response = _context8.v;
                       if (response.data && response.data.success) {
                         // Update the product data with new chart of account
                         product.sales_account_id = response.data.sales_account_id;
@@ -5931,94 +5919,91 @@ var toast = sweetalert2_all_default().mixin({
                           _this9.$set(_this9.products[productIndex], 'sales_account_id', response.data.sales_account_id);
                         }
                       }
-                    case 8:
-                    case "end":
-                      return _context8.stop();
+                    case 3:
+                      return _context8.a(2);
                   }
                 }, _loop2);
               });
               _iterator.s();
-            case 12:
+            case 5:
               if ((_step = _iterator.n()).done) {
-                _context9.next = 18;
+                _context9.n = 8;
                 break;
               }
-              return _context9.delegateYield(_loop2(), "t0", 14);
-            case 14:
-              if (!_context9.t0) {
-                _context9.next = 16;
+              return _context9.d(_regeneratorValues(_loop2()), 6);
+            case 6:
+              if (!_context9.v) {
+                _context9.n = 7;
                 break;
               }
-              return _context9.abrupt("continue", 16);
-            case 16:
-              _context9.next = 12;
+              return _context9.a(3, 7);
+            case 7:
+              _context9.n = 5;
               break;
-            case 18:
-              _context9.next = 23;
+            case 8:
+              _context9.n = 10;
               break;
-            case 20:
-              _context9.prev = 20;
-              _context9.t1 = _context9["catch"](9);
-              _iterator.e(_context9.t1);
-            case 23:
-              _context9.prev = 23;
+            case 9:
+              _context9.p = 9;
+              _t3 = _context9.v;
+              _iterator.e(_t3);
+            case 10:
+              _context9.p = 10;
               _iterator.f();
-              return _context9.finish(23);
-            case 26:
+              return _context9.f(10);
+            case 11:
               toast.fire({
                 type: 'success',
                 title: _this9.$t('Chart of Accounts assigned successfully')
               });
-              _context9.next = 35;
+              _context9.n = 13;
               break;
-            case 29:
-              _context9.prev = 29;
-              _context9.t2 = _context9["catch"](3);
-              console.error('Error assigning product chart of accounts:', _context9.t2);
+            case 12:
+              _context9.p = 12;
+              _t4 = _context9.v;
+              console.error('Error assigning product chart of accounts:', _t4);
               errorMessage = _this9.$t('Failed to assign Chart of Accounts. Please try again.');
-              if (_context9.t2 && _context9.t2.response) {
-                errorMessage = ((_error$response$data2 = _context9.t2.response.data) === null || _error$response$data2 === void 0 ? void 0 : _error$response$data2.message) || _context9.t2.message || errorMessage;
-              } else if (_context9.t2 && _context9.t2.message) {
-                errorMessage = _context9.t2.message;
+              if (_t4 && _t4.response) {
+                errorMessage = ((_error$response$data2 = _t4.response.data) === null || _error$response$data2 === void 0 ? void 0 : _error$response$data2.message) || _t4.message || errorMessage;
+              } else if (_t4 && _t4.message) {
+                errorMessage = _t4.message;
               }
               toast.fire({
                 type: 'error',
                 title: _this9.$t('Error'),
                 text: errorMessage
               });
-            case 35:
-              _context9.prev = 35;
+            case 13:
+              _context9.p = 13;
               _this9.isAutoAssigningProduct = false;
-              return _context9.finish(35);
-            case 38:
-            case "end":
-              return _context9.stop();
+              return _context9.f(13);
+            case 14:
+              return _context9.a(2);
           }
-        }, _callee8, null, [[3, 29, 35, 38], [9, 20, 23, 26]]);
+        }, _callee8, null, [[4, 9, 10, 11], [2, 12, 13, 14]]);
       }))();
     },
     // Auto-assign bank account chart of account
     autoAssignBankAccountChartOfAccount: function autoAssignBankAccountChartOfAccount() {
       var _this0 = this;
-      return invoicevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/invoicevue_type_script_lang_js_regeneratorRuntime().mark(function _callee9() {
-        return invoicevue_type_script_lang_js_regeneratorRuntime().wrap(function _callee9$(_context0) {
-          while (1) switch (_context0.prev = _context0.next) {
+      return invoicevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/invoicevue_type_script_lang_js_regenerator().m(function _callee9() {
+        return invoicevue_type_script_lang_js_regenerator().w(function (_context0) {
+          while (1) switch (_context0.n) {
             case 0:
               if (_this0.form.account) {
-                _context0.next = 2;
+                _context0.n = 1;
                 break;
               }
-              return _context0.abrupt("return");
-            case 2:
+              return _context0.a(2);
+            case 1:
               // For now, show a message that this feature is not available
               toast.fire({
                 type: 'info',
                 title: _this0.$t('Feature Not Available'),
                 text: _this0.$t('Auto-assign for bank accounts is not yet available. Please assign Chart of Account manually.')
               });
-            case 3:
-            case "end":
-              return _context0.stop();
+            case 2:
+              return _context0.a(2);
           }
         }, _callee9);
       }))();
