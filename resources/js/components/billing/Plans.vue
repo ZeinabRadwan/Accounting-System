@@ -34,7 +34,7 @@
             <template v-else>
               <span v-if="centralCurrency">
                 <span class="saudi-riyal">ê</span>{{ getAdjustedPrice(plan.amount) }} /
-                {{ selectedPlanType === "year" ? "Year" : "Month" }}
+                {{ selectedPlanType === "year" ? $t("Year") : $t("Month") }}
               </span>
             </template>
           </span>
