@@ -1891,6 +1891,137 @@ class ReportController extends Controller
         }
     }
 
+    /**
+     * Get Supplier Payable report data for printing (all data, no pagination)
+     */
+    public function supplierDueReportForPrint(Request $request, $user = null)
+    {
+        // Increase memory limit for large datasets
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+
+        try {
+            $user = $user ?? Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
+
+            // Apply search filter if provided
+            $term = $request->input('term', '');
+
+            // Get ALL suppliers - NO PAGINATION
+            $query = Supplier::with(['purchases.purchaseReturn'])
+                ->whereIn('branch_id', $branchIds);
+
+            // Apply search filter
+            if (! empty($term)) {
+                $query->where(function ($q) use ($term) {
+                    $q->where('name', 'like', '%'.$term.'%')
+                        ->orWhere('supplier_id', 'like', '%'.$term.'%')
+                        ->orWhere('email', 'like', '%'.$term.'%')
+                        ->orWhere('phone_number', 'like', '%'.$term.'%')
+                        ->orWhere('company_name', 'like', '%'.$term.'%');
+                });
+            }
+
+            $suppliers = $query->latest()->get();
+
+            // Transform suppliers to match view expectations
+            $suppliersData = $suppliers->map(function ($supplier) {
+                return [
+                    'id' => $supplier->id,
+                    'supplier_id' => $supplier->supplier_id,
+                    'name' => $supplier->name,
+                    'phone' => $supplier->phone_number ?: $supplier->phone_legacy,
+                    'email' => $supplier->email,
+                    'company_name' => $supplier->company_name,
+                    'address' => $supplier->address,
+                    'status' => (bool) $supplier->status,
+                    'supplier_due' => round($supplier->purchaseTotalDue(), 2),
+                    'supplier_return_due' => round($supplier->purchaseReturnTotal(), 2),
+                ];
+            })->toArray();
+
+            return [
+                'success' => true,
+                'data' => $suppliersData,
+            ];
+        } catch (\Exception $e) {
+            Log::error('Supplier Due Report For Print Error: '.$e->getMessage());
+
+            return [
+                'success' => false,
+                'message' => 'Failed to generate supplier payable report for print',
+                'error' => $e->getMessage(),
+            ];
+        }
+    }
+
+    /**
+     * Get Client Receivable report data for printing (all data, no pagination)
+     */
+    public function clientDueReportForPrint(Request $request, $user = null)
+    {
+        // Increase memory limit for large datasets
+        ini_set('memory_limit', '1G');
+        set_time_limit(300);
+
+        try {
+            $user = $user ?? Auth::user();
+            $branchIds = $this->getUserBranchIds($user);
+
+            // Apply search filter if provided
+            $term = $request->input('term', '');
+
+            // Get ALL clients - NO PAGINATION
+            $query = Client::query()
+                ->whereIn('branch_id', $branchIds);
+
+            // Apply search filter
+            if (! empty($term)) {
+                $query->where(function ($q) use ($term) {
+                    $q->where('name', 'like', '%'.$term.'%')
+                        ->orWhere('client_id', 'like', '%'.$term.'%')
+                        ->orWhere('email', 'like', '%'.$term.'%')
+                        ->orWhere('phone_number', 'like', '%'.$term.'%')
+                        ->orWhere('phone', 'like', '%'.$term.'%')
+                        ->orWhere('company_name', 'like', '%'.$term.'%')
+                        ->orWhere('business_name', 'like', '%'.$term.'%')
+                        ->orWhere('commercial_name', 'like', '%'.$term.'%');
+                });
+            }
+
+            $clients = $query->latest()->get();
+
+            // Transform clients to match view expectations
+            $clientsData = $clients->map(function ($client) {
+                return [
+                    'id' => $client->id,
+                    'client_id' => $client->client_id,
+                    'name' => $client->name,
+                    'phone' => $client->phone_number ?: $client->phone,
+                    'email' => $client->email,
+                    'company_name' => $client->business_name ?: $client->commercial_name ?: $client->company_name,
+                    'address' => $client->address,
+                    'status' => (bool) $client->status,
+                    'client_due' => round($client->clientDue(), 2),
+                    'non_invoice_current_due' => round($client->nonInvoiceCurrentDue(), 2),
+                ];
+            })->toArray();
+
+            return [
+                'success' => true,
+                'data' => $clientsData,
+            ];
+        } catch (\Exception $e) {
+            Log::error('Client Due Report For Print Error: '.$e->getMessage());
+
+            return [
+                'success' => false,
+                'message' => 'Failed to generate client receivable report for print',
+                'error' => $e->getMessage(),
+            ];
+        }
+    }
+
     // get client due reports
     public function clientDueReport(Request $request)
     {
