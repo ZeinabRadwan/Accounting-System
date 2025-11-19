@@ -22,6 +22,7 @@
                     <i class="fas fa-sync"></i>
                   </a>
                   <a
+                    v-if="reportGenerated"
                     :href="exportUrl"
                     v-tooltip="$t('Export to Excel')"
                     class="btn export-excel-btn"
@@ -41,6 +42,7 @@
                     </svg>
                   </a>
                   <button 
+                    v-if="reportGenerated"
                     type="button"
                     @click="downloadPDF" 
                     v-tooltip="$t('Export to PDF')" 
@@ -49,6 +51,7 @@
                     <i class="fas fa-file-export"></i>
                   </button>
                   <button 
+                    v-if="reportGenerated"
                     type="button"
                     @click="previewPDF" 
                     v-tooltip="$t('Preview')" 
@@ -57,6 +60,7 @@
                     <i class="fas fa-eye"></i>
                   </button>
                   <a
+                    v-if="reportGenerated"
                     @click="print"
                     v-tooltip="$t('Print Table')"
                     class="btn print-btn"
@@ -265,6 +269,7 @@ export default {
     allData: "",
     date: new Date(),
     prefix: "",
+    reportGenerated: false,
   }),
 
   computed: {
@@ -517,9 +522,11 @@ export default {
         .then((response) => {
           this.allData = response.data;
           this.loading = false;
+          this.reportGenerated = true;
         })
         .catch((error) => {
           this.loading = false;
+          this.reportGenerated = false;
           
           // Handle validation errors
           if (error.response?.status === 422 && error.response?.data?.errors) {

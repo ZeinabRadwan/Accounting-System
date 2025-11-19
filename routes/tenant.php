@@ -375,6 +375,8 @@ Route::middleware([
         // Cost Center routes
         Route::get('/cost-centers/search', [CostCenterController::class, 'search']);
         Route::get('/cost-centers/all', [CostCenterController::class, 'getAll']);
+        Route::get('/cost-centers/tree', [CostCenterController::class, 'getTree']);
+        Route::post('/cost-centers/{id}/move', [CostCenterController::class, 'move']);
         Route::apiResource('cost-centers', CostCenterController::class);
 
         // Cost Allocation routes

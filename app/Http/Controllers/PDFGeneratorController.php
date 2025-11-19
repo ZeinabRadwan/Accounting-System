@@ -3,103 +3,119 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invoice;
+use App\Models\PrintTemplate;
 use App\Models\Purchase;
 use App\Models\PurchaseOrder;
 use App\Models\Quotation;
-use App\Models\PrintTemplate;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class PDFGeneratorController extends Controller
 {
     // generate invoice pdf
-    public function generateInvoicePDF($slug){
+    public function generateInvoicePDF($slug)
+    {
         $invoice = Invoice::where('slug', $slug)->with('client', 'invoiceProducts.invoice', 'invoicePayments.invoicePaymentTransaction.cashbookAccount', 'invoiceProducts.product.productUnit', 'invoiceProducts.product.productTax', 'invoiceTax', 'user')->first();
-        
+
         // Get the default template for invoices
         $template = PrintTemplate::byModule('invoice')->default()->first();
-        
+
         if ($template) {
             // Use the template system
             $html = $this->renderTemplate($template, $invoice, 'invoice');
             $pdf = Pdf::loadHTML($html);
         } else {
             // Fallback to original template
-        $pdf = Pdf::loadHTML(view('pdf.invoice-template', [
-            'invoice' => $invoice
-        ]));
+            $pdf = Pdf::loadHTML(view('pdf.invoice-template', [
+                'invoice' => $invoice,
+            ]));
         }
-        
+
         $pdf->setPaper('A4', 'portrait');
         $pdf->render();
+
         return $pdf->stream('Invoice-'.$invoice->slug.'.pdf');
     }
 
     // generate purchase pdf
-    public function generatePurchasePDF($slug){
-        $purchase = Purchase::with('supplier', 'purchaseProducts.purchase', 'purchaseReturn', 'purchasePayments.purchasePaymentTransaction.cashbookAccount', 'purchaseProducts.product.productUnit', 'purchaseProducts.product.productTax',  'user')->where('slug', $slug)->first();
-        
+    public function generatePurchasePDF($slug)
+    {
+        $purchase = Purchase::with('supplier', 'purchaseProducts.purchase', 'purchaseReturn', 'purchasePayments.purchasePaymentTransaction.cashbookAccount', 'purchaseProducts.product.productUnit', 'purchaseProducts.product.productTax', 'user')->where('slug', $slug)->first();
+
         // Get the default template for purchases
         $template = PrintTemplate::byModule('purchase')->default()->first();
-        
+
         if ($template) {
             // Use the template system
             $html = $this->renderTemplate($template, $purchase, 'purchase');
             $pdf = Pdf::loadHTML($html);
         } else {
             // Fallback to original template
-        $pdf = Pdf::loadHTML(view('pdf.purchase-template', [
-            'purchase' => $purchase
-        ]));
+            $pdf = Pdf::loadHTML(view('pdf.purchase-template', [
+                'purchase' => $purchase,
+            ]));
         }
-        
+
         $pdf->setPaper('A4', 'portrait');
         $pdf->render();
+
         return $pdf->stream('Purchase-'.$purchase->slug.'.pdf');
     }
 
     // generate quotation pdf
-    public function generateQuotationPDF($slug){
+    public function generateQuotationPDF($slug)
+    {
+        $locale = \Auth::user()->locale ?? app()->getLocale();
+        \App::setLocale($locale);
+
         $quotation = Quotation::with('client', 'quotationProducts.product.productUnit', 'quotationProducts.product.productTax', 'user')->where('slug', $slug)->firstOrFail();
-        
+
         // Get the default template for quotations
         $template = PrintTemplate::byModule('quotation')->default()->first();
-        
-        if ($template) {
-            // Use the template system
-            $html = $this->renderTemplate($template, $quotation, 'quotation');
-            $pdf = Pdf::loadHTML($html);
-        } else {
-            // Fallback to original template
-        $pdf = Pdf::loadHTML(view('pdf.quotation-template', [
-            'quotation' => $quotation
-        ]));
-        }
-        
-        $pdf->setPaper('A4', 'portrait');
-        $pdf->render();
-        return $pdf->stream('Quotation-'.$quotation->slug.'.pdf');
+
+        // Convert logo to base64 for PDF compatibility
+        $logoBase64 = $template ? $this->getLogoAsBase64($template) : null;
+
+        // Generate filename
+        $filename = 'Quotation-'.$quotation->quotation_no.'.pdf';
+
+        // Use Utility::buildPdf to generate PDF (same method as PrintController)
+        return \App\Models\Utility::buildPdf([
+            'view' => $template ? 'print.quotation' : 'print.quotation-basic',
+            'view_data' => compact('quotation', 'template', 'locale', 'logoBase64'),
+            'type' => 'download',
+            'file_name' => $filename,
+            'header' => '',
+            'footer' => '',
+            'header_spacing' => '2',
+            'margins' => [
+                'top' => '10mm',
+                'bottom' => '10mm',
+            ],
+        ], 'portrait', false);
     }
 
     // generate purchase order pdf
-    public function generatePurchaseOrderPDF($slug){
+    public function generatePurchaseOrderPDF($slug)
+    {
         $purchaseOrder = PurchaseOrder::with('supplier', 'purchaseOrderProducts.product.productUnit', 'purchaseOrderProducts.product.productTax', 'user')->where('slug', $slug)->firstOrFail();
-        
+
         // Get the default template for purchase orders
         $template = PrintTemplate::byModule('purchase_order')->default()->first();
-        
+
         if ($template) {
             // Use the template system
             $html = $this->renderTemplate($template, $purchaseOrder, 'purchase_order');
             $pdf = Pdf::loadHTML($html);
         } else {
             // Fallback to original template
-        $pdf = Pdf::loadHTML(view('pdf.purchase-order-template', [
-            'purchaseOrder' => $purchaseOrder
-        ]));
+            $pdf = Pdf::loadHTML(view('pdf.purchase-order-template', [
+                'purchaseOrder' => $purchaseOrder,
+            ]));
         }
-        
+
         $pdf->setPaper('A4', 'portrait');
         $pdf->render();
+
         return $pdf->stream('Purchase-Order-'.$purchaseOrder->slug.'.pdf');
     }
 
@@ -109,13 +125,13 @@ class PDFGeneratorController extends Controller
     public function previewTemplate($id)
     {
         $template = PrintTemplate::findOrFail($id);
-        
+
         // Generate sample data based on module
         $sampleData = $this->generateSampleData($template->module);
-        
+
         // Render the template
         $html = $this->renderTemplate($template, $sampleData, $template->module);
-        
+
         return response($html)->header('Content-Type', 'text/html');
     }
 
@@ -127,16 +143,16 @@ class PDFGeneratorController extends Controller
         // Get the HTML template
         $html = $template->html_template;
         $css = $template->css_styles;
-        
+
         // Prepare data for template
         $templateData = $this->prepareTemplateData($data, $module);
-        
+
         // Replace placeholders in the template
         $html = $this->replaceTemplatePlaceholders($html, $templateData);
-        
+
         // Add CSS styles
-        $html = str_replace('</head>', '<style>' . $css . '</style></head>', $html);
-        
+        $html = str_replace('</head>', '<style>'.$css.'</style></head>', $html);
+
         return $html;
     }
 
@@ -146,7 +162,7 @@ class PDFGeneratorController extends Controller
     private function prepareTemplateData($data, $module)
     {
         $templateData = [];
-        
+
         switch ($module) {
             case 'invoice':
                 $templateData = [
@@ -159,7 +175,7 @@ class PDFGeneratorController extends Controller
                     'invoice_prefix' => config('config.invoicePrefix'),
                 ];
                 break;
-                
+
             case 'purchase':
                 $templateData = [
                     'purchase' => $data,
@@ -171,7 +187,7 @@ class PDFGeneratorController extends Controller
                     'purchase_prefix' => config('config.purchasePrefix'),
                 ];
                 break;
-                
+
             case 'quotation':
                 $templateData = [
                     'quotation' => $data,
@@ -184,7 +200,7 @@ class PDFGeneratorController extends Controller
                 ];
                 break;
         }
-        
+
         return $templateData;
     }
 
@@ -198,11 +214,11 @@ class PDFGeneratorController extends Controller
                 // Handle nested arrays (like invoice data)
                 $html = $this->replaceNestedPlaceholders($html, $value, $key);
             } else {
-                $html = str_replace('{{ $' . $key . ' }}', $value, $html);
-                $html = str_replace('{{ config("config.' . $key . '") }}', $value, $html);
+                $html = str_replace('{{ $'.$key.' }}', $value, $html);
+                $html = str_replace('{{ config("config.'.$key.'") }}', $value, $html);
             }
         }
-        
+
         return $html;
     }
 
@@ -213,13 +229,13 @@ class PDFGeneratorController extends Controller
     {
         foreach ($data as $key => $value) {
             if (is_array($value)) {
-                $html = $this->replaceNestedPlaceholders($html, $value, $prefix . '.' . $key);
+                $html = $this->replaceNestedPlaceholders($html, $value, $prefix.'.'.$key);
             } else {
-                $placeholder = '{{ $' . $prefix . '["' . $key . '"] }}';
+                $placeholder = '{{ $'.$prefix.'["'.$key.'"] }}';
                 $html = str_replace($placeholder, $value, $html);
             }
         }
-        
+
         return $html;
     }
 
@@ -233,14 +249,57 @@ class PDFGeneratorController extends Controller
             if (str_contains($logoPath, 'images')) {
                 $path = global_asset($logoPath);
             } else {
-                $path = global_asset('images/' . $logoPath);
+                $path = global_asset('images/'.$logoPath);
             }
-            
+
             $type = pathinfo($path, PATHINFO_EXTENSION);
             $data = file_get_contents($path);
-            return 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+            return 'data:image/'.$type.';base64,'.base64_encode($data);
         } catch (\Exception $e) {
             return '';
+        }
+    }
+
+    /**
+     * Get logo as base64 from template
+     */
+    private function getLogoAsBase64($template)
+    {
+        try {
+            if (! $template) {
+                return null;
+            }
+
+            // Use the logo_path accessor which handles all fallbacks
+            $logoPath = $template->logo_path;
+
+            if (! $logoPath || ! file_exists($logoPath)) {
+                return null;
+            }
+
+            $imageData = file_get_contents($logoPath);
+            if ($imageData === false) {
+                return null;
+            }
+
+            $mimeType = mime_content_type($logoPath);
+            if (! $mimeType) {
+                // Fallback to extension-based detection
+                $extension = strtolower(pathinfo($logoPath, PATHINFO_EXTENSION));
+                $mimeTypes = [
+                    'jpg' => 'image/jpeg',
+                    'jpeg' => 'image/jpeg',
+                    'png' => 'image/png',
+                    'gif' => 'image/gif',
+                    'svg' => 'image/svg+xml',
+                ];
+                $mimeType = $mimeTypes[$extension] ?? 'image/png';
+            }
+
+            return 'data:'.$mimeType.';base64,'.base64_encode($imageData);
+        } catch (\Exception $e) {
+            return null;
         }
     }
 
@@ -259,9 +318,9 @@ class PDFGeneratorController extends Controller
                     'name' => 'Sample Product 1',
                     'quantity' => 2,
                     'price' => 500.00,
-                    'total' => 1000.00
-                ]
-            ]
+                    'total' => 1000.00,
+                ],
+            ],
         ];
 
         switch ($module) {
@@ -273,12 +332,12 @@ class PDFGeneratorController extends Controller
                         'company_name' => 'Acme Corp',
                         'email' => 'john@acme.com',
                         'phone' => '+1 234 567 8900',
-                        'address' => '123 Main St, City, State 12345'
+                        'address' => '123 Main St, City, State 12345',
                     ],
                     'invoice_date' => now()->format('Y-m-d'),
                     'due_date' => now()->addDays(30)->format('Y-m-d'),
                 ]);
-                
+
             case 'purchase':
                 return (object) array_merge($baseData, [
                     'purchase_no' => 'PUR-001',
@@ -287,11 +346,11 @@ class PDFGeneratorController extends Controller
                         'company_name' => 'Supplier Corp',
                         'email' => 'supplier@example.com',
                         'phone' => '+1 234 567 8900',
-                        'address' => '123 Supplier St, City, State 12345'
+                        'address' => '123 Supplier St, City, State 12345',
                     ],
                     'purchase_date' => now()->format('Y-m-d'),
                 ]);
-                
+
             case 'quotation':
                 return (object) array_merge($baseData, [
                     'quotation_no' => 'QUO-001',
@@ -300,12 +359,12 @@ class PDFGeneratorController extends Controller
                         'company_name' => 'Client Corp',
                         'email' => 'client@example.com',
                         'phone' => '+1 234 567 8900',
-                        'address' => '123 Client St, City, State 12345'
+                        'address' => '123 Client St, City, State 12345',
                     ],
                     'quotation_date' => now()->format('Y-m-d'),
                     'valid_until' => now()->addDays(30)->format('Y-m-d'),
                 ]);
-                
+
             default:
                 return (object) $baseData;
         }

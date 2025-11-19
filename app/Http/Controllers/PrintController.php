@@ -337,7 +337,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
@@ -394,7 +394,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
@@ -526,7 +526,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
@@ -583,7 +583,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
@@ -731,7 +731,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
@@ -800,7 +800,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
@@ -869,7 +869,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         // Set locale for translations
         $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
@@ -911,7 +911,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
@@ -966,7 +966,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         // Set locale for translations
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
@@ -1325,14 +1325,13 @@ class PrintController extends Controller
     /**
      * Get user from token or fallback to authenticated user
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \App\Models\User|null
      */
     protected function getUserFromToken(Request $request)
     {
         // First, try to get user from token if provided
         $token = $request->input('token') ?? $request->query('token');
-        
+
         if ($token) {
             try {
                 $personalAccessToken = PersonalAccessToken::findToken($token);
@@ -1343,7 +1342,7 @@ class PrintController extends Controller
                 Log::warning('Failed to get user from token: '.$e->getMessage());
             }
         }
-        
+
         // Fallback to authenticated user (for backward compatibility)
         return \Auth::user();
     }
@@ -1995,7 +1994,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         // Set locale for translations
         $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
@@ -2028,7 +2027,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
@@ -2073,7 +2072,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
@@ -2193,7 +2192,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
@@ -2250,7 +2249,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
@@ -2382,7 +2381,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
@@ -2439,7 +2438,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
@@ -2571,7 +2570,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
@@ -2628,7 +2627,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
@@ -2685,7 +2684,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         // Set locale for translations
         $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
@@ -2749,14 +2748,13 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-       
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Get inventory report data
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $inventoryData = $reportController->inventoryReport($request,$user  );
+        $inventoryData = $reportController->inventoryReport($request, $user);
 
         // Handle JsonResponse
         if ($inventoryData instanceof \Illuminate\Http\JsonResponse) {
@@ -2811,13 +2809,13 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         // Get inventory report data
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $inventoryData = $reportController->inventoryReport($request,$user  );
+        $inventoryData = $reportController->inventoryReport($request, $user);
 
         // Handle JsonResponse
         if ($inventoryData instanceof \Illuminate\Http\JsonResponse) {
@@ -2872,7 +2870,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         // Set locale for translations
         $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
@@ -2957,7 +2955,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
@@ -3072,7 +3070,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
@@ -3182,7 +3180,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         // Set locale for translations
         $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
@@ -3245,7 +3243,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
@@ -3307,7 +3305,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
@@ -3415,17 +3413,24 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         // Set locale for translations
         $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
 
-        // Get client receivable report data
+        // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $reportData = $reportController->clientDueReport($request);
+        $reportResponse = $reportController->clientDueReportForPrint($request, $user);
 
-        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
-            $reportData = $reportData->getData(true);
+        // Handle JsonResponse
+        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportResponse->getData(true);
+        } else {
+            $reportData = $reportResponse;
+        }
+
+        if (! $reportData['success']) {
+            abort(404, 'Report data not found');
         }
 
         // Get the default template for reports
@@ -3448,16 +3453,23 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
-        // Get client receivable report data
+        // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $reportData = $reportController->clientDueReport($request);
+        $reportResponse = $reportController->clientDueReportForPrint($request, $user);
 
-        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
-            $reportData = $reportData->getData(true);
+        // Handle JsonResponse
+        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportResponse->getData(true);
+        } else {
+            $reportData = $reportResponse;
+        }
+
+        if (! $reportData['success']) {
+            abort(404, 'Report data not found');
         }
 
         // Get the default template for reports
@@ -3492,16 +3504,23 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
-        // Get client receivable report data
+        // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $reportData = $reportController->clientDueReport($request);
+        $reportResponse = $reportController->clientDueReportForPrint($request, $user);
 
-        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
-            $reportData = $reportData->getData(true);
+        // Handle JsonResponse
+        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportResponse->getData(true);
+        } else {
+            $reportData = $reportResponse;
+        }
+
+        if (! $reportData['success']) {
+            abort(404, 'Report data not found');
         }
 
         // Get the default template for reports
@@ -3536,17 +3555,24 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         // Set locale for translations
         $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
 
-        // Get supplier payable report data
+        // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $reportData = $reportController->supplierDueReport($request,$user  );
+        $reportResponse = $reportController->supplierDueReportForPrint($request, $user);
 
-        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
-            $reportData = $reportData->getData(true);
+        // Handle JsonResponse
+        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportResponse->getData(true);
+        } else {
+            $reportData = $reportResponse;
+        }
+
+        if (! $reportData['success']) {
+            abort(404, 'Report data not found');
         }
 
         // Get the default template for reports
@@ -3569,16 +3595,23 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
-        // Get supplier payable report data
+        // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $reportData = $reportController->supplierDueReport($request,$user  );
+        $reportResponse = $reportController->supplierDueReportForPrint($request, $user);
 
-        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
-            $reportData = $reportData->getData(true);
+        // Handle JsonResponse
+        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportResponse->getData(true);
+        } else {
+            $reportData = $reportResponse;
+        }
+
+        if (! $reportData['success']) {
+            abort(404, 'Report data not found');
         }
 
         // Get the default template for reports
@@ -3613,16 +3646,23 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
-        // Get supplier payable report data
+        // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $reportData = $reportController->supplierDueReport($request,$user  );
+        $reportResponse = $reportController->supplierDueReportForPrint($request, $user);
 
-        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
-            $reportData = $reportData->getData(true);
+        // Handle JsonResponse
+        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportResponse->getData(true);
+        } else {
+            $reportData = $reportResponse;
+        }
+
+        if (! $reportData['success']) {
+            abort(404, 'Report data not found');
         }
 
         // Get the default template for reports
@@ -3657,24 +3697,30 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         // Set locale for translations
         $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
 
         try {
-            // Get sales by user report data
+            // Use the dedicated print method that gets ALL data without pagination
             $reportController = new \App\Http\Controllers\API\ReportController();
-            $salesData = $reportController->salesByUserReport($request,$user  );
+            $reportResponse = $reportController->salesByUserReportForPrint($request, $user);
 
-            // Handle JsonResponse (the sales by user API returns a collection resource)
-            if ($salesData instanceof \Illuminate\Http\JsonResponse) {
-                $salesData = $salesData->getData(true);
+            // Handle JsonResponse
+            if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $reportResponse->getData(true);
+            } else {
+                $reportData = $reportResponse;
+            }
+
+            if (! $reportData['success']) {
+                abort(404, 'Report data not found');
             }
 
             // Structure the data for the template
             $salesByUserReportData = [
-                'data' => $salesData,
+                'data' => $reportData['data'],
                 'filters' => [
                     'from_date' => $request->fromDate,
                     'to_date' => $request->toDate,
@@ -3683,7 +3729,7 @@ class PrintController extends Controller
             ];
 
             Log::info('Print Sales By User Report - Data generated successfully', [
-                'data_count' => count($salesData ?? []),
+                'data_count' => count($reportData['data'] ?? []),
                 'filters' => $salesByUserReportData['filters'],
             ]);
 
@@ -3719,22 +3765,28 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
-        // Get sales by user report data
+        // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $salesData = $reportController->salesByUserReport($request,$user  );
+        $reportResponse = $reportController->salesByUserReportForPrint($request, $user);
 
         // Handle JsonResponse
-        if ($salesData instanceof \Illuminate\Http\JsonResponse) {
-            $salesData = $salesData->getData(true);
+        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportResponse->getData(true);
+        } else {
+            $reportData = $reportResponse;
+        }
+
+        if (! $reportData['success']) {
+            abort(404, 'Report data not found');
         }
 
         // Structure the data for the template
         $salesByUserReportData = [
-            'data' => $salesData,
+            'data' => $reportData['data'],
             'filters' => [
                 'from_date' => $request->fromDate,
                 'to_date' => $request->toDate,
@@ -3778,22 +3830,28 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
-        // Get sales by user report data
+        // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $salesData = $reportController->salesByUserReport($request,$user  );
+        $reportResponse = $reportController->salesByUserReportForPrint($request, $user);
 
         // Handle JsonResponse
-        if ($salesData instanceof \Illuminate\Http\JsonResponse) {
-            $salesData = $salesData->getData(true);
+        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportResponse->getData(true);
+        } else {
+            $reportData = $reportResponse;
+        }
+
+        if (! $reportData['success']) {
+            abort(404, 'Report data not found');
         }
 
         // Structure the data for the template
         $salesByUserReportData = [
-            'data' => $salesData,
+            'data' => $reportData['data'],
             'filters' => [
                 'from_date' => $request->fromDate,
                 'to_date' => $request->toDate,
@@ -3837,24 +3895,30 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         // Set locale for translations
         $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
 
         try {
-            // Get collection by user report data
+            // Use the dedicated print method that gets ALL data without pagination
             $reportController = new \App\Http\Controllers\API\ReportController();
-            $collectionData = $reportController->collectionByUserReport($request,$user  );
+            $reportResponse = $reportController->collectionByUserReportForPrint($request, $user);
 
-            // Handle JsonResponse (the collection by user API returns a collection resource)
-            if ($collectionData instanceof \Illuminate\Http\JsonResponse) {
-                $collectionData = $collectionData->getData(true);
+            // Handle JsonResponse
+            if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+                $reportData = $reportResponse->getData(true);
+            } else {
+                $reportData = $reportResponse;
+            }
+
+            if (! $reportData['success']) {
+                abort(404, 'Report data not found');
             }
 
             // Structure the data for the template
             $collectionByUserReportData = [
-                'data' => $collectionData,
+                'data' => $reportData['data'],
                 'filters' => [
                     'from_date' => $request->fromDate,
                     'to_date' => $request->toDate,
@@ -3863,7 +3927,7 @@ class PrintController extends Controller
             ];
 
             Log::info('Print Collection By User Report - Data generated successfully', [
-                'data_count' => count($collectionData ?? []),
+                'data_count' => count($reportData['data'] ?? []),
                 'filters' => $collectionByUserReportData['filters'],
             ]);
 
@@ -3899,22 +3963,28 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
-        // Get collection by user report data
+        // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $collectionData = $reportController->collectionByUserReport($request,$user  );
+        $reportResponse = $reportController->collectionByUserReportForPrint($request, $user);
 
         // Handle JsonResponse
-        if ($collectionData instanceof \Illuminate\Http\JsonResponse) {
-            $collectionData = $collectionData->getData(true);
+        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportResponse->getData(true);
+        } else {
+            $reportData = $reportResponse;
+        }
+
+        if (! $reportData['success']) {
+            abort(404, 'Report data not found');
         }
 
         // Structure the data for the template
         $collectionByUserReportData = [
-            'data' => $collectionData,
+            'data' => $reportData['data'],
             'filters' => [
                 'from_date' => $request->fromDate,
                 'to_date' => $request->toDate,
@@ -3958,22 +4028,28 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
-        // Get collection by user report data
+        // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $collectionData = $reportController->collectionByUserReport($request,$user  );
+        $reportResponse = $reportController->collectionByUserReportForPrint($request, $user);
 
         // Handle JsonResponse
-        if ($collectionData instanceof \Illuminate\Http\JsonResponse) {
-            $collectionData = $collectionData->getData(true);
+        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportResponse->getData(true);
+        } else {
+            $reportData = $reportResponse;
+        }
+
+        if (! $reportData['success']) {
+            abort(404, 'Report data not found');
         }
 
         // Structure the data for the template
         $collectionByUserReportData = [
-            'data' => $collectionData,
+            'data' => $reportData['data'],
             'filters' => [
                 'from_date' => $request->fromDate,
                 'to_date' => $request->toDate,
@@ -4017,7 +4093,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         // Set locale for translations
         $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
@@ -4061,7 +4137,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
@@ -4119,7 +4195,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
@@ -4177,7 +4253,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         // Set locale for translations
         $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
@@ -4225,7 +4301,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
@@ -4272,7 +4348,7 @@ class PrintController extends Controller
     {
         // Get user from token
         $user = $this->getUserFromToken($request);
-        
+
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 

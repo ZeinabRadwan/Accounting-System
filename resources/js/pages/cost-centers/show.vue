@@ -122,11 +122,33 @@ export default {
   },
   methods: {
     async getCostCenter() {
-      await this.$http
-        .get(`/api/cost-centers/${this.$route.params.slug}`)
-        .then(({ data }) => {
+      try {
+        const response = await this.$http.get(`/api/cost-centers/${this.$route.params.slug}`)
+        const { data } = response
+        
+        // Check if response has error
+        if (data && data.error) {
+          this.$toast.error(this.$t('Error'), data.message || this.$t('Cost center not found'))
+          this.$router.push({ name: 'cost-centers.index' })
+          return
+        }
+        
+        // Check if data exists
+        if (data && data.data) {
+          this.costCenter = data.data
+        } else if (data && data.id) {
+          // Direct resource response
           this.costCenter = data
-        })
+        } else {
+          this.$toast.error(this.$t('Error'), this.$t('Cost center not found'))
+          this.$router.push({ name: 'cost-centers.index' })
+        }
+      } catch (error) {
+        console.error('Error loading cost center:', error)
+        const errorMessage = error.response?.data?.message || this.$t('Failed to load cost center')
+        this.$toast.error(this.$t('Error'), errorMessage)
+        this.$router.push({ name: 'cost-centers.index' })
+      }
     }
   }
 }

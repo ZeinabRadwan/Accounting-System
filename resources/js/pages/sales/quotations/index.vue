@@ -56,7 +56,8 @@
                     </svg>
                   </a>
                   <a
-                    :href="pdfExportUrl"
+                    @click="exportToPDF"
+                    href="#"
                     v-tooltip="$t('Export to PDF')"
                     class="btn export-pdf-btn"
                     title="Export to PDF"
@@ -89,7 +90,7 @@
               </div>
             </div>
             <table-loading v-show="loading" />
-            <div class="table-responsive table-custom mt-3" id="printMe">
+            <div class="table-responsive table-custom mt-3" id="printMe" :dir="$i18n.locale === 'ar' ? 'rtl' : 'ltr'">
               <table class="table quotations-table">
                 <thead>
                   <th>{{ $t("#") }}</th>
@@ -238,6 +239,7 @@ import DateRangePicker from "vue2-daterange-picker";
 import moment from "moment";
 import { mapGetters } from "vuex";
 import Swal from "sweetalert2";
+import html2pdf from "html2pdf.js";
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
@@ -301,10 +303,6 @@ export default {
       // Create a dynamic export URL with query parameters
       const locale = this.$i18n.locale;
       return `/quotations/export/excel?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}&locale=${locale}`;
-    },
-    pdfExportUrl() {
-      // Use simple PDF export URL like invoices
-      return `/quotations/pdf`;
     },
   },
   watch: {
@@ -451,7 +449,79 @@ export default {
 
     // print table
     async print() {
+      // Set direction for print based on current locale
+      const printElement = document.getElementById('printMe');
+      if (printElement) {
+        const currentDir = this.$i18n.locale === 'ar' ? 'rtl' : 'ltr';
+        printElement.setAttribute('dir', currentDir);
+      }
       await this.$htmlToPaper("printMe");
+    },
+
+    // export table to PDF using html2pdf
+    async exportToPDF() {
+      try {
+        // Get the table element
+        const element = document.getElementById("printMe");
+        if (!element) {
+          this.$toast.error(
+            this.$t("Error!"),
+            this.$t("Table not found")
+          );
+          return;
+        }
+
+        // Hide action columns and no-print elements
+        const style = document.createElement('style');
+        style.setAttribute('data-pdf-export', 'true');
+        style.textContent = `
+          .no-print,
+          .no-print * {
+            display: none !important;
+          }
+        `;
+        document.head.appendChild(style);
+
+        // Configure PDF options
+        const opt = {
+          margin: [10, 10, 10, 10],
+          filename: `quotations-${moment().format("YYYY-MM-DD")}.pdf`,
+          image: { type: "jpeg", quality: 0.98 },
+          html2canvas: { 
+            scale: 2,
+            useCORS: true,
+            logging: false
+          },
+          jsPDF: { 
+            unit: "mm", 
+            format: "a4", 
+            orientation: "landscape" 
+          },
+          pagebreak: { mode: ["avoid-all", "css", "legacy"] }
+        };
+
+        // Generate and download PDF
+        await html2pdf().set(opt).from(element).save();
+        
+        // Remove the style after PDF generation
+        document.head.removeChild(style);
+        
+        this.$toast.success(
+          this.$t("Success!"),
+          this.$t("PDF exported successfully")
+        );
+      } catch (error) {
+        console.error("PDF export error:", error);
+        // Remove style if still exists
+        const pdfStyle = document.querySelector('style[data-pdf-export]');
+        if (pdfStyle) {
+          document.head.removeChild(pdfStyle);
+        }
+        this.$toast.error(
+          this.$t("Error!"),
+          this.$t("Failed to export PDF")
+        );
+      }
     },
 
     // delete data
