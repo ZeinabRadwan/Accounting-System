@@ -22,6 +22,7 @@
                     <i class="fas fa-sync"></i>
                   </a>
                   <a
+                    v-if="reportGenerated"
                     :href="exportUrl"
                     v-tooltip="$t('Export to Excel')"
                     class="btn export-excel-btn"

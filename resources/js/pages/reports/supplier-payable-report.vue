@@ -24,7 +24,7 @@
                             <button type="button" @click="refreshTable()" class="btn refresh-btn">
                                 <i class="fas fa-sync"></i> {{ $t('Refresh') }}
                             </button>
-                            <a :href="exportUrl" v-tooltip="$t('Export to Excel')" class="btn export-excel-btn ml-2">
+                            <a v-if="reportGenerated" :href="exportUrl" v-tooltip="$t('Export to Excel')" class="btn export-excel-btn ml-2">
                                 <i class="fa fa-arrow-circle-down"></i>
                             </a>
                             <button v-if="reportGenerated" @click="previewPDF" v-tooltip="$t('Preview PDF')" class="btn preview-btn ml-2">
