@@ -3418,12 +3418,19 @@ class PrintController extends Controller
         $locale = $user?->locale ?? app()->getLocale();
         \App::setLocale($locale);
 
-        // Get client receivable report data
+        // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $reportData = $reportController->clientDueReport($request);
+        $reportResponse = $reportController->clientDueReportForPrint($request, $user);
 
-        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
-            $reportData = $reportData->getData(true);
+        // Handle JsonResponse
+        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportResponse->getData(true);
+        } else {
+            $reportData = $reportResponse;
+        }
+
+        if (! $reportData['success']) {
+            abort(404, 'Report data not found');
         }
 
         // Get the default template for reports
@@ -3450,12 +3457,19 @@ class PrintController extends Controller
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
-        // Get client receivable report data
+        // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $reportData = $reportController->clientDueReport($request);
+        $reportResponse = $reportController->clientDueReportForPrint($request, $user);
 
-        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
-            $reportData = $reportData->getData(true);
+        // Handle JsonResponse
+        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportResponse->getData(true);
+        } else {
+            $reportData = $reportResponse;
+        }
+
+        if (! $reportData['success']) {
+            abort(404, 'Report data not found');
         }
 
         // Get the default template for reports
@@ -3494,12 +3508,19 @@ class PrintController extends Controller
         $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
-        // Get client receivable report data
+        // Use the dedicated print method that gets ALL data without pagination
         $reportController = new \App\Http\Controllers\API\ReportController();
-        $reportData = $reportController->clientDueReport($request);
+        $reportResponse = $reportController->clientDueReportForPrint($request, $user);
 
-        if ($reportData instanceof \Illuminate\Http\JsonResponse) {
-            $reportData = $reportData->getData(true);
+        // Handle JsonResponse
+        if ($reportResponse instanceof \Illuminate\Http\JsonResponse) {
+            $reportData = $reportResponse->getData(true);
+        } else {
+            $reportData = $reportResponse;
+        }
+
+        if (! $reportData['success']) {
+            abort(404, 'Report data not found');
         }
 
         // Get the default template for reports
