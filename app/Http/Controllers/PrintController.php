@@ -3545,7 +3545,7 @@ class PrintController extends Controller
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportData = $reportController->supplierDueReport($request,$user  );
 
-        return $reportData;
+        
 
         if ($reportData instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportData->getData(true);
@@ -3578,6 +3578,8 @@ class PrintController extends Controller
         // Get supplier payable report data
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportData = $reportController->supplierDueReport($request,$user  );
+
+        return $reportData;
 
         if ($reportData instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportData->getData(true);
