@@ -29,6 +29,7 @@
                     <i class="fas fa-sync"></i>
                   </a>
                   <a
+                    v-if="reportGenerated"
                     :href="exportUrl"
                     v-tooltip="$t('Export to Excel')"
                     class="btn export-excel-btn"
@@ -48,6 +49,7 @@
                     </svg>
                   </a>
                   <button
+                    v-if="reportGenerated"
                     @click="previewPDF"
                     v-tooltip="$t('Preview PDF')"
                     class="btn preview-btn"
@@ -56,6 +58,7 @@
                     <i class="fas fa-eye"></i>
                   </button>
                   <button
+                    v-if="reportGenerated"
                     @click="downloadPDF"
                     v-tooltip="$t('Export to PDF')"
                     class="btn export-pdf-btn"
@@ -75,6 +78,7 @@
                     </svg>
                   </button>
                   <a
+                    v-if="reportGenerated"
                     :href="printTemplateUrl"
                     target="_blank"
                     v-tooltip="$t('Print Table')"
@@ -229,6 +233,7 @@ export default {
     clientPrefix: "",
     selectedIds: [],
     selectAll: false,
+    reportGenerated: false,
   }),
   // Map Getters
   computed: {
@@ -290,6 +295,7 @@ export default {
         path: "/api/reports/client-due-report?page=",
         currentPage: currentPage + "&perPage=" + this.perPage,
       });
+      this.reportGenerated = true;
     },
 
     // Pagination

@@ -22,6 +22,7 @@
                     <i class="fas fa-sync"></i>
                   </a>
                   <a
+                    v-if="reportGenerated"
                     :href="exportUrl"
                     v-tooltip="$t('Export to Excel')"
                     class="btn export-excel-btn"
@@ -41,6 +42,7 @@
                     </svg>
                   </a>
                   <button
+                    v-if="reportGenerated"
                     @click="previewPDF"
                     v-tooltip="$t('Preview PDF')"
                     class="btn preview-btn"
@@ -49,6 +51,7 @@
                     <i class="fas fa-eye"></i>
                   </button>
                   <button
+                    v-if="reportGenerated"
                     @click="downloadPDF"
                     v-tooltip="$t('Export to PDF')"
                     class="btn export-pdf-btn"
@@ -68,6 +71,7 @@
                     </svg>
                   </button>
                   <a
+                    v-if="reportGenerated"
                     :href="printTemplateUrl"
                     target="_blank"
                     v-tooltip="$t('Print Table')"
@@ -246,6 +250,7 @@ export default {
     stockOut: 0,
     stockInHand: 0,
     prefix: "",
+    reportGenerated: false,
   }),
 
   computed: {
@@ -420,11 +425,14 @@ export default {
         .then((response) => {
           this.inventoryData = response.data;
           this.calculateSum(this.inventoryData);
+          this.loading = false;
+          this.reportGenerated = true;
         })
         .catch(() => {
+          this.loading = false;
+          this.reportGenerated = false;
           toast.fire({ type: "error", title: this.$t("There was something wrong.") });
         });
-      this.loading = false;
     },
 
     // count inventory items
