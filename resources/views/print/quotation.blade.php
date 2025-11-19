@@ -88,6 +88,79 @@
             }
         }
 
+        .client-info {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .items-section {
+            margin-bottom: 30px;
+        }
+
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .items-table th,
+        .items-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+        }
+
+        .items-table th {
+            background-color: #f9fafb;
+            font-weight: 600;
+        }
+
+        .items-table tbody tr:nth-of-type(odd) {
+            background-color: #f9fafb;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .totals-section {
+            margin-top: 30px;
+            display: flex;
+            justify-content: {{ $isRTL ? 'flex-start' : 'flex-end' }};
+        }
+
+        .totals-table {
+            width: 300px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            background: #f9fafb;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 5px 0;
+        }
+
+        .total-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .total-final {
+            font-weight: 700;
+            border-top: 2px solid #e5e7eb;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
         @if(isset($config['customCSS']) && !empty($config['customCSS']))
         {!! $config['customCSS'] !!}
         @endif
@@ -146,56 +219,56 @@
             
             @if($elements['showClientInfo'] ?? true)
             <!-- Client Info -->
-            <div style="margin-bottom: 30px; padding: 15px; background-color: #f9fafb; border-radius: 8px;">
+            <div class="client-info">
                 <h3 style="color: {{ $colors['primary'] ?? '#2563eb' }}; margin-bottom: 10px;">@lang('print.Quote For'):</h3>
-                <p style="margin: 0; font-weight: 600; font-family: 'DINNextLTArabic' !important;">{{ $quotation->client->name ?? __('print.N/A') }}</p>
+                <p style="margin: 0; font-weight: 600;" class="arabic-text">{{ $quotation->client->name ?? __('print.N/A') }}</p>
                 @if($quotation->client->companyName)
-                <p style="margin: 5px 0 0 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
+                <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
                     {{ $quotation->client->companyName }}
                 </p>
                 @endif
-                <p style="margin: 5px 0 0 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
+                <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
                     {{ $quotation->client->address ?? __('print.N/A') }}
                 </p>
-                <p style="margin: 5px 0 0 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
-                    {{ $quotation->client->email ?? __('print.N/A') }} • {{ $quotation->client->phoneNumber ?? __('print.N/A') }}
+                <p style="margin: 0; color: {{ $colors['secondary'] ?? '#6b7280' }};">
+                    {{ $quotation->client->email ?? __('print.N/A') }} • {{ $quotation->client->phone ?? __('print.N/A') }}
                 </p>
             </div>
             @endif
             
             @if($elements['showItemsTable'] ?? true)
             <!-- Items Table -->
-            <div style="margin-bottom: 30px;">
-                <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+            <div class="items-section">
+                <table class="items-table">
                     <thead>
                         <tr>
-                            <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; background-color: #f9fafb; font-weight: 600;">@lang('print.Row Number')</th>
-                            <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; background-color: #f9fafb; font-weight: 600;">@lang('print.Product Code')</th>
-                            <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; background-color: #f9fafb; font-weight: 600;">@lang('print.Product Name')</th>
-                            <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; background-color: #f9fafb; font-weight: 600;">@lang('print.Quantity')</th>
-                            <th style="padding: 12px; text-align: right; border: 1px solid #e5e7eb; background-color: #f9fafb; font-weight: 600;">@lang('print.Price')</th>
-                            <th style="padding: 12px; text-align: right; border: 1px solid #e5e7eb; background-color: #f9fafb; font-weight: 600;">@lang('print.Total')</th>
-                            <th style="padding: 12px; text-align: center; border: 1px solid #e5e7eb; background-color: #f9fafb; font-weight: 600;">@lang('print.Discount')</th>
-                            <th style="padding: 12px; text-align: right; border: 1px solid #e5e7eb; background-color: #f9fafb; font-weight: 600;">@lang('print.Total After Discount')</th>
-                            <th style="padding: 12px; text-align: right; border: 1px solid #e5e7eb; background-color: #f9fafb; font-weight: 600;">@lang('print.VAT')</th>
-                            <th style="padding: 12px; text-align: right; border: 1px solid #e5e7eb; background-color: #f9fafb; font-weight: 600;">@lang('print.Total with Tax')</th>
+                            <th class="text-center">@lang('print.Row Number')</th>
+                            <th class="text-center">@lang('print.Product Code')</th>
+                            <th class="text-center">@lang('print.Product Name')</th>
+                            <th class="text-center">@lang('print.Quantity')</th>
+                            <th class="text-right">@lang('print.Price')</th>
+                            <th class="text-right">@lang('print.Total')</th>
+                            <th class="text-center">@lang('print.Discount')</th>
+                            <th class="text-right">@lang('print.Total After Discount')</th>
+                            <th class="text-right">@lang('print.VAT')</th>
+                            <th class="text-right">@lang('print.Total with Tax')</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($quotation->quotationProducts as $index => $product)
                         <tr>
-                            <td style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;{{ $index % 2 == 0 ? ' background-color: #f9fafb;' : '' }}">{{ $index + 1 }}</td>
-                            <td style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;{{ $index % 2 == 0 ? ' background-color: #f9fafb;' : '' }}">{{ $product->product->code ?? __('print.N/A') }}</td>
-                            <td style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;{{ $index % 2 == 0 ? ' background-color: #f9fafb;' : '' }}">
-                                <strong style="font-family: 'DINNextLTArabic' !important;">{{ $product->product->name ?? __('print.N/A') }}</strong>
+                            <td class="text-center">{{ $index + 1 }}</td>
+                            <td class="text-center">{{ $product->product->code ?? __('print.N/A') }}</td>
+                            <td>
+                                <strong>{{ $product->product->name ?? __('print.N/A') }}</strong>
                                 @if($product->product->description)
                                 <br><small style="color: {{ $colors['secondary'] ?? '#6b7280' }};">{{ $product->product->description }}</small>
                                 @endif
                             </td>
-                            <td style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;{{ $index % 2 == 0 ? ' background-color: #f9fafb;' : '' }}">{{ $product->quantity }} {{ $product->product->productUnit->name ?? __('print.Pcs') }}</td>
-                            <td style="padding: 12px; text-align: right; border: 1px solid #e5e7eb;{{ $index % 2 == 0 ? ' background-color: #f9fafb;' : '' }}">{{ formatPdfCurrency($product->sale_price) }}</td>
-                            <td style="padding: 12px; text-align: right; border: 1px solid #e5e7eb;{{ $index % 2 == 0 ? ' background-color: #f9fafb;' : '' }}">{{ formatPdfCurrency($product->quantity * $product->sale_price) }}</td>
-                            <td style="padding: 12px; text-align: center; border: 1px solid #e5e7eb;{{ $index % 2 == 0 ? ' background-color: #f9fafb;' : '' }}">
+                            <td class="text-center">{{ $product->quantity }} {{ $product->product->productUnit->name ?? __('print.Pcs') }}</td>
+                            <td class="text-right">{{ formatPdfCurrency($product->sale_price) }}</td>
+                            <td class="text-right">{{ formatPdfCurrency($product->quantity * $product->sale_price) }}</td>
+                            <td class="text-center">
                                 @if($product->discount > 0)
                                     @if($product->discount_type === 'percentage')
                                         {{ $product->discount }}% ({{ formatPdfCurrency($product->discount_amount ?? 0) }})
@@ -206,18 +279,15 @@
                                     @lang('print.No Discount')
                                 @endif
                             </td>
-                            <td style="padding: 12px; text-align: right; border: 1px solid #e5e7eb;{{ $index % 2 == 0 ? ' background-color: #f9fafb;' : '' }}">{{ formatPdfCurrency($product->getTotalAfterDiscountAttribute()) }}</td>
-                            <td style="padding: 12px; text-align: right; border: 1px solid #e5e7eb;{{ $index % 2 == 0 ? ' background-color: #f9fafb;' : '' }}">
+                            <td class="text-right">{{ formatPdfCurrency($product->getTotalAfterDiscountAttribute()) }}</td>
+                            <td class="text-right">
                                 @if($product->tax_amount > 0)
                                     {{ formatPdfCurrency($product->tax_amount) }}
-                                    @if($product->vatRate)
-                                    <br><small style="color: {{ $colors['secondary'] ?? '#6b7280' }};">({{ $product->vatRate->rate }}%)</small>
-                                    @endif
                                 @else
                                     @lang('print.No VAT')
                                 @endif
                             </td>
-                            <td style="padding: 12px; text-align: right; border: 1px solid #e5e7eb;{{ $index % 2 == 0 ? ' background-color: #f9fafb;' : '' }}">{{ formatPdfCurrency($product->getTotalAfterDiscountAttribute() + $product->tax_amount) }}</td>
+                            <td class="text-right">{{ formatPdfCurrency($product->getTotalAfterDiscountAttribute() + $product->tax_amount) }}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -227,45 +297,50 @@
             
             @if($elements['showTotals'] ?? true)
             <!-- Totals -->
-            <div style="display: flex; justify-content: {{ $isRTL ? 'flex-start' : 'flex-end' }}; margin-bottom: 30px;">
-                <div style="width: 300px; border: 1px solid #e5e7eb; border-radius: 8px; padding: 15px; background-color: #ffffff;">
+            <div class="totals-section">
+                <div class="totals-table">
                     @php
                         // Calculate totals similar to invoice structure
+                        // Calculate subtotal from actual products (sum of quantity × price)
                         $subtotal = $quotation->quotationProducts->sum(function($product) {
                             return $product->quantity * $product->sale_price;
                         });
                         
-                        $totalProductDiscount = $quotation->quotationProducts->sum('discount_amount');
-                        $totalAfterDiscount = $subtotal - $totalProductDiscount;
+                        // Calculate total product discount
+                        $totalProductDiscount = $quotation->quotationProducts->sum(function($product) {
+                            return $product->discount_amount ?? 0;
+                        });
                         
+                        // Calculate total product VAT
                         $totalProductVat = $quotation->quotationProducts->sum('tax_amount');
                         
+                        $totalAfterDiscount = $subtotal - $totalProductDiscount;
                         $totalWithVat = $totalAfterDiscount + $totalProductVat;
                     @endphp
                     
-                    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">
+                    <div class="total-row">
                         <span>@lang('print.Subtotal'):</span>
                         <span>{{ formatPdfCurrency($subtotal) }}</span>
                     </div>
                     
-                    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">
+                    <div class="total-row">
                         <span>@lang('print.Discount'):</span>
                         <span>{{ formatPdfCurrency($totalProductDiscount) }}</span>
                     </div>
                     
-                    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">
+                    <div class="total-row">
                         <span>@lang('print.Total After Discount'):</span>
                         <span>{{ formatPdfCurrency($totalAfterDiscount) }}</span>
                     </div>
                     
                     @if($totalProductVat > 0)
-                    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">
+                    <div class="total-row">
                         <span>@lang('print.VAT'):</span>
                         <span>{{ formatPdfCurrency($totalProductVat) }}</span>
                     </div>
                     @endif
                     
-                    <div style="display: flex; justify-content: space-between; padding: 12px 0; margin-top: 10px; font-weight: 700; font-size: 16px; border-top: 2px solid #e5e7eb; border-bottom: 2px solid #e5e7eb;">
+                    <div class="total-row total-final">
                         <span>@lang('print.Total with VAT'):</span>
                         <span>{{ formatPdfCurrency($totalWithVat) }}</span>
                     </div>
