@@ -41,6 +41,7 @@
                     </svg>
                   </a>
                   <button
+                    v-if="reportGenerated"
                     @click="previewPDF"
                     v-tooltip="$t('Preview PDF')"
                     class="btn preview-btn"
@@ -49,6 +50,7 @@
                     <i class="fas fa-eye"></i>
                   </button>
                   <button
+                    v-if="reportGenerated"
                     @click="downloadPDF"
                     v-tooltip="$t('Export to PDF')"
                     class="btn export-pdf-btn"
@@ -68,6 +70,7 @@
                     </svg>
                   </button>
                   <a
+                    v-if="reportGenerated"
                     :href="printTemplateUrl"
                     target="_blank"
                     v-tooltip="$t('Print Table')"
@@ -187,6 +190,7 @@ export default {
     items: '',
     loading: false,
     date: new Date(),
+    reportGenerated: false,
   }),
 
   computed: {
@@ -248,9 +252,11 @@ export default {
         );
         this.items = response.data.data;
         this.loading = false;
+        this.reportGenerated = true;
         return true;
       } catch (e) {
         this.loading = false;
+        this.reportGenerated = false;
         toast.fire({ type: "error", title: this.$t("There was something wrong.") });
         return false;
       }

@@ -27,13 +27,13 @@
                             <a :href="exportUrl" v-tooltip="$t('Export to Excel')" class="btn export-excel-btn ml-2">
                                 <i class="fa fa-arrow-circle-down"></i>
                             </a>
-                            <button @click="previewPDF" v-tooltip="$t('Preview PDF')" class="btn preview-btn ml-2">
+                            <button v-if="reportGenerated" @click="previewPDF" v-tooltip="$t('Preview PDF')" class="btn preview-btn ml-2">
                                 <i class="fas fa-eye"></i>
                             </button>
-                            <button @click="downloadPDF" v-tooltip="$t('Export to PDF')" class="btn export-pdf-btn ml-2">
+                            <button v-if="reportGenerated" @click="downloadPDF" v-tooltip="$t('Export to PDF')" class="btn export-pdf-btn ml-2">
                                 <i class="fas fa-file-export"></i>
                             </button>
-                            <a :href="printTemplateUrl" target="_blank" v-tooltip="$t('Print Table')" class="btn print-btn ml-2">
+                            <a v-if="reportGenerated" :href="printTemplateUrl" target="_blank" v-tooltip="$t('Print Table')" class="btn print-btn ml-2">
                                 <i class="fas fa-print"></i>
                             </a>
                         </div>
@@ -160,6 +160,7 @@ export default {
         query: "",
         perPage: 10,
         supplierPrefix: "",
+        reportGenerated: false,
     }),
     // Map Getters
     computed: {
@@ -221,6 +222,7 @@ export default {
                 path: "/api/reports/supplier-due-report?page=",
                 currentPage: currentPage + "&perPage=" + this.perPage,
             });
+            this.reportGenerated = true;
         },
 
         // Pagination

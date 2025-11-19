@@ -57653,28 +57653,28 @@ var map = {
 		2924
 	],
 	"./reports/client-receivable-report": [
-		96060,
-		6060
+		88775,
+		8775
 	],
 	"./reports/client-receivable-report.vue": [
-		96060,
-		6060
+		88775,
+		8775
 	],
 	"./reports/collection-by-user-report": [
-		80080,
-		80
+		2110,
+		2110
 	],
 	"./reports/collection-by-user-report.vue": [
-		80080,
-		80
+		2110,
+		2110
 	],
 	"./reports/expenses": [
-		17501,
-		7501
+		55358,
+		5358
 	],
 	"./reports/expenses.vue": [
-		17501,
-		7501
+		55358,
+		5358
 	],
 	"./reports/group-account-statement": [
 		10324,
@@ -57685,12 +57685,12 @@ var map = {
 		324
 	],
 	"./reports/inventory": [
-		14145,
-		4145
+		42605,
+		2605
 	],
 	"./reports/inventory.vue": [
-		14145,
-		4145
+		42605,
+		2605
 	],
 	"./reports/invoice-summary": [
 		39843,
@@ -57701,12 +57701,12 @@ var map = {
 		9843
 	],
 	"./reports/items": [
-		89232,
-		9232
+		24344,
+		4344
 	],
 	"./reports/items.vue": [
-		89232,
-		9232
+		24344,
+		4344
 	],
 	"./reports/profit-loss": [
 		35885,
@@ -57725,12 +57725,12 @@ var map = {
 		4137
 	],
 	"./reports/sales-by-user-report": [
-		54891,
-		4891
+		98301,
+		8301
 	],
 	"./reports/sales-by-user-report.vue": [
-		54891,
-		4891
+		98301,
+		8301
 	],
 	"./reports/summary": [
 		15636,
@@ -57741,12 +57741,12 @@ var map = {
 		5636
 	],
 	"./reports/supplier-payable-report": [
-		95150,
-		5150
+		82937,
+		2937
 	],
 	"./reports/supplier-payable-report.vue": [
-		95150,
-		5150
+		82937,
+		2937
 	],
 	"./reports/today-report": [
 		7114,
