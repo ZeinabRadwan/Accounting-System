@@ -3545,6 +3545,8 @@ class PrintController extends Controller
         $reportController = new \App\Http\Controllers\API\ReportController();
         $reportData = $reportController->supplierDueReport($request,$user  );
 
+        return $reportData;
+
         if ($reportData instanceof \Illuminate\Http\JsonResponse) {
             $reportData = $reportData->getData(true);
         }
