@@ -580,6 +580,15 @@
                   <p>{{ $t("All Cost Centers") }}</p>
                 </router-link>
               </li>
+              <li v-if="$can('view_cost_centers')" class="nav-item">
+                <router-link
+                  :to="{ name: 'cost-centers.tree' }"
+                  class="nav-link"
+                >
+                  <i class="fas fa-sitemap nav-icon" />
+                  <p>{{ $t("Tree View") }}</p>
+                </router-link>
+              </li>
               <li v-if="$can('create_cost_center')" class="nav-item">
                 <router-link
                   :to="{ name: 'cost-centers.create' }"
