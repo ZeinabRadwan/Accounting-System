@@ -588,8 +588,16 @@ export default {
         }
       }
     },
-    currentStep(newStep) {
-      // Reinitialize Select2 when step 1 is shown
+    currentStep(newStep, oldStep) {
+      // Destroy Select2 when leaving step 1
+      if (oldStep === 1 && newStep !== 1) {
+        if (this.select2Instance) {
+          this.select2Instance.destroy()
+          this.select2Instance = null
+        }
+      }
+
+      // Initialize Select2 only when step 1 is shown
       if (newStep === 1) {
         this.$nextTick(() => {
           this.initSelect2()
@@ -626,10 +634,12 @@ export default {
       this.taxNumberFormat = this.taxNumberRules[this.form.country].format
     }
 
-    // Initialize Select2 after DOM is ready
-    this.$nextTick(() => {
-      this.initSelect2()
-    })
+    // Initialize Select2 only if we're on step 1
+    if (this.currentStep === 1) {
+      this.$nextTick(() => {
+        this.initSelect2()
+      })
+    }
   },
 
   beforeDestroy() {
@@ -698,6 +708,11 @@ export default {
     },
 
     initSelect2() {
+      // Only initialize if we're on step 1
+      if (this.currentStep !== 1) {
+        return
+      }
+
       if (!this.$refs.countrySelect) {
         return
       }
@@ -705,6 +720,7 @@ export default {
       // Destroy existing instance if any
       if (this.select2Instance) {
         this.select2Instance.destroy()
+        this.select2Instance = null
       }
 
       // Wait for Select2 to be available
