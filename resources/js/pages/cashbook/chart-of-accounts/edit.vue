@@ -304,10 +304,15 @@ export default {
     // load parent accounts
     async loadParentAccounts() {
       try {
-        const response = await this.$axios.get('/api/chart-of-accounts/all');
+        const locale = this.$i18n.locale || this.$store.getters['lang/locale'] || 'en';
+        console.log('Loading parent accounts with locale:', locale);
+        const response = await this.$axios.get('/api/chart-of-accounts/all', {
+          params: { locale }
+        });
         this.allParentAccounts = response.data.data || [];
+        console.log('Parent Accounts loaded:', this.allParentAccounts.slice(0, 3).map(a => ({ id: a.id, name: a.name })));
         this.filterParentAccounts();
-        console.log('Parent Accounts loaded:', this.parentAccounts);
+        console.log('Filtered Parent Accounts:', this.parentAccounts.slice(0, 3).map(a => ({ id: a.id, name: a.name })));
       } catch (error) {
         console.error('Error loading parent accounts:', error);
       }

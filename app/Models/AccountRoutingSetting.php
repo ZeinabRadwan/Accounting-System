@@ -20,7 +20,7 @@ class AccountRoutingSetting extends Model
         'account_type',
         'description',
         'is_required',
-        'is_active'
+        'is_active',
     ];
 
     protected $casts = [
@@ -63,41 +63,60 @@ class AccountRoutingSetting extends Model
 
     /**
      * Get all accounts (parent + children) for this setting
+     * Filters to only show accounts at level 4 and below
      */
     public function getAllAccounts()
     {
         $branchId = \Illuminate\Support\Facades\Auth::user()->default_branch_id ?? null;
         $accounts = collect();
-        
+
         // Check for main account first (newer approach)
         if ($this->main_account_id) {
-            $mainAccount = ChartOfAccount::forBranch($branchId)->find($this->main_account_id);
+            $mainAccount = ChartOfAccount::forBranch($branchId)
+                ->with(['parent.parent.parent.parent'])
+                ->find($this->main_account_id);
             if ($mainAccount && $mainAccount->is_active) {
-                $accounts->push($mainAccount);
-                
-                // Get child accounts
+                // Only include main account if it's at level 4 or below
+                if ($mainAccount->getLevel() <= 4) {
+                    $accounts->push($mainAccount);
+                }
+
+                // Get child accounts and filter by level
                 $childAccounts = ChartOfAccount::forBranch($branchId)
                     ->where('parent_id', $this->main_account_id)
                     ->where('is_active', true)
-                    ->get();
+                    ->with(['parent.parent.parent.parent'])
+                    ->get()
+                    ->filter(function ($account) {
+                        return $account->getLevel() <= 4;
+                    });
                 $accounts = $accounts->merge($childAccounts);
             }
         }
         // Fallback to parent account (legacy approach)
         elseif ($this->parent_account_id) {
-            $parentAccount = ChartOfAccount::forBranch($branchId)->find($this->parent_account_id);
+            $parentAccount = ChartOfAccount::forBranch($branchId)
+                ->with(['parent.parent.parent.parent'])
+                ->find($this->parent_account_id);
             if ($parentAccount && $parentAccount->is_active) {
-                $accounts->push($parentAccount);
-                
-                // Get child accounts
+                // Only include parent account if it's at level 4 or below
+                if ($parentAccount->getLevel() <= 4) {
+                    $accounts->push($parentAccount);
+                }
+
+                // Get child accounts and filter by level
                 $childAccounts = ChartOfAccount::forBranch($branchId)
                     ->where('parent_id', $this->parent_account_id)
                     ->where('is_active', true)
-                    ->get();
+                    ->with(['parent.parent.parent.parent'])
+                    ->get()
+                    ->filter(function ($account) {
+                        return $account->getLevel() <= 4;
+                    });
                 $accounts = $accounts->merge($childAccounts);
             }
         }
-        
+
         return $accounts;
     }
 
@@ -111,7 +130,7 @@ class AccountRoutingSetting extends Model
                 'id' => $account->id,
                 'name' => $account->name,
                 'code' => $account->code,
-                'type' => $account->type ? $account->type->name : 'Unknown'
+                'type' => $account->type ? $account->type->name : 'Unknown',
             ];
         });
     }
@@ -123,11 +142,11 @@ class AccountRoutingSetting extends Model
     {
         switch ($this->routing_type) {
             case 'automatic':
-                return !is_null($this->main_account_id);
+                return ! is_null($this->main_account_id);
             case 'per_each':
                 return true; // No account needed for per each routing
             case 'main_account_per_each':
-                return !is_null($this->main_account_id);
+                return ! is_null($this->main_account_id);
             case 'cancel':
                 return true; // No account needed for cancel routing
             default:
@@ -140,7 +159,7 @@ class AccountRoutingSetting extends Model
      */
     public function getValidationMessage()
     {
-        if (!$this->isConfigured()) {
+        if (! $this->isConfigured()) {
             switch ($this->routing_type) {
                 case 'automatic':
                     return "{$this->setting_name} is not configured. Please set a main account in Accounting Settings.";
@@ -150,6 +169,7 @@ class AccountRoutingSetting extends Model
                     return "{$this->setting_name} is not configured.";
             }
         }
+
         return null;
     }
 
@@ -188,24 +208,24 @@ class AccountRoutingSetting extends Model
         if ($this->routing_type_options && is_array($this->routing_type_options)) {
             return $this->routing_type_options;
         }
-        
+
         // Default options if none specified
         return [
             [
                 'label' => 'Automatic Account Routing',
                 'description' => 'System automatically routes to the selected parent account',
-                'value' => 'automatic'
+                'value' => 'automatic',
             ],
             [
                 'label' => 'Specify Per Each',
                 'description' => 'You will specify accounts individually for each item',
-                'value' => 'per_each'
+                'value' => 'per_each',
             ],
             [
                 'label' => 'Specify Main Account Per Each',
                 'description' => 'You will specify a main account and then individual accounts',
-                'value' => 'main_account_per_each'
-            ]
+                'value' => 'main_account_per_each',
+            ],
         ];
     }
 }

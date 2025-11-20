@@ -24,61 +24,51 @@
         >
           <!-- Tree Lines - Vertical connectors to show parent-child relationship -->
           <div v-if="item.level > 0" class="tree-lines-wrapper">
-            <!-- Vertical lines for each parent level -->
+            <!-- Vertical lines for each ancestor level (always continue) -->
             <div
-              v-for="level in item.level"
-              :key="'line-' + level"
+              v-for="levelIndex in (item.level - 1)"
+              :key="'ancestor-' + levelIndex"
+              class="tree-line-vertical tree-line-ancestor"
+              :style="isRTL ? { right: ((levelIndex - 1) * 20 + 10) + 'px' } : { left: ((levelIndex - 1) * 20 + 10) + 'px' }"
+            ></div>
+            <!-- Vertical line for direct parent (continues through all siblings) -->
+            <div
+              :key="'parent-' + item.level"
               class="tree-line-vertical"
               :class="{ 
-                'tree-line-last': level === item.level && isLastSibling(item),
-                'tree-line-continue': level === item.level && !isLastSibling(item)
+                'tree-line-last': isLastSibling(item),
+                'tree-line-continue': !isLastSibling(item)
               }"
-              :style="{ left: ((level - 1) * 20 + 10) + 'px' }"
+              :style="isRTL ? { right: ((item.level - 1) * 20 + 10) + 'px' } : { left: ((item.level - 1) * 20 + 10) + 'px' }"
             ></div>
             <!-- Horizontal connector from vertical line to item -->
             <div
               class="tree-line-horizontal"
-              :style="{ left: ((item.level - 1) * 20 + 10) + 'px' }"
+              :style="isRTL ? { right: ((item.level - 1) * 20 + 10) + 'px' } : { left: ((item.level - 1) * 20 + 10) + 'px' }"
             ></div>
           </div>
           
           <div
             class="tree-item-content"
-            :style="{ paddingLeft: (item.level * 20 + 20) + 'px' }"
+            :class="{ 'tree-item-has-children': item.hasChildren }"
+            :style="isRTL ? { paddingRight: (item.level * 20 + 20) + 'px' } : { paddingLeft: (item.level * 20 + 20) + 'px' }"
+            @click="handleItemClick(item)"
           >
-            <!-- Expand/Collapse Icon -->
-            <div class="tree-item-expand" @click.stop="onToggleExpand(item.id)">
-              <i
-                v-if="item.hasChildren"
-                :class="item.expanded ? 'fas fa-chevron-down' : (isRTL ? 'fas fa-chevron-left' : 'fas fa-chevron-right')"
-              ></i>
-              <span v-else class="tree-item-spacer"></span>
-            </div>
-
             <!-- Folder/File Icon -->
-            <div class="tree-item-icon-container">
+            <div class="tree-item-icon-container" @click.stop="handleItemClick(item)">
               <i
                 v-if="item.hasChildren"
                 :class="item.expanded ? 'fas fa-folder-open' : 'fas fa-folder'"
               ></i>
-              <i v-else class="fas fa-file-alt"></i>
+              <i v-else class="fas fa-circle"></i>
             </div>
 
-            <!-- Item Info -->
+            <!-- Item Name -->
             <div class="tree-item-info">
-              <div class="tree-item-main">
-                <span class="tree-item-name">{{ getDisplayName(item) }}</span>
-                <span class="tree-item-code">{{ item.code }}</span>
-                <slot name="badges" :item="item">
-                  <!-- Default badges slot -->
-                </slot>
-                <span v-if="item.children_count && item.children_count > 0" class="tree-item-children-count">
-                  <i class="fas fa-sitemap"></i> {{ item.children_count }}
-                </span>
-              </div>
+              <span class="tree-item-name">{{ getDisplayName(item) }}</span>
             </div>
 
-            <!-- Action Icons -->
+            <!-- Action Buttons -->
             <div class="tree-item-actions" @click.stop>
               <slot name="actions" :item="item">
                 <!-- Default actions slot -->
@@ -134,6 +124,11 @@ export default {
     },
   },
   methods: {
+    handleItemClick(item) {
+      if (item.hasChildren) {
+        this.onToggleExpand(item.id);
+      }
+    },
     onToggleExpand(itemId) {
       this.$emit('toggle-expand', itemId);
     },
@@ -165,16 +160,48 @@ export default {
 <style scoped>
 /* Tree Search Wrapper */
 .tree-search-wrapper {
-  padding: 20px;
-  border-bottom: 1px solid #e9ecef;
-  background: #fafbfc;
+  padding: 16px 20px;
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.tree-search-wrapper :deep(.search-area) {
+  position: relative;
+}
+
+.tree-search-wrapper :deep(.search-input) {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 10px 40px;
+  font-size: 14px;
+  color: #1a1a1a;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.tree-search-wrapper :deep(.search-input:focus) {
+  outline: none;
+  background: #fff;
+  border-color: #2AB930;
+  box-shadow: 0 0 0 3px rgba(42, 185, 48, 0.1);
+}
+
+.tree-search-wrapper :deep(.search-input::placeholder) {
+  color: #adb5bd;
+}
+
+.tree-search-wrapper :deep(.search-icon) {
+  color: #6c757d;
 }
 
 .tree-body-container {
-  padding: 0;
+  padding: 8px 0;
   max-height: calc(100vh - 280px);
   overflow-y: auto;
+  overflow-x: visible;
   background: #fff;
+  position: relative;
 }
 
 /* Tree List */
@@ -182,199 +209,212 @@ export default {
   list-style: none;
   padding: 0;
   margin: 0;
+  position: relative;
+  overflow: visible;
 }
 
 .tree-item {
   position: relative;
   transition: all 0.2s ease;
+  overflow: visible;
 }
 
-/* Tree Lines - Clear vertical lines connecting parent to children */
+/* Tree Lines - Vertical lines connecting parent to children */
 .tree-lines-wrapper {
   position: absolute;
   left: 0;
   top: 0;
-  bottom: 0;
   width: 100%;
+  height: 100%;
   pointer-events: none;
   z-index: 0;
+  overflow: visible;
+}
+
+[dir="rtl"] .tree-lines-wrapper {
+  right: 0;
+  left: auto;
 }
 
 .tree-line-vertical {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: #d0d0d0;
-  z-index: 0;
+  top: 50%;
+  width: 3px;
+  background: #4b5563;
+  z-index: 1;
+  opacity: 1 !important;
+  display: block !important;
+  visibility: visible !important;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
-/* Continue vertical line through all children */
+/* Vertical line for ancestor levels - always continues through all children */
+.tree-line-vertical.tree-line-ancestor {
+  top: 50%;
+  bottom: -10000px;
+  background: #4b5563;
+  opacity: 1 !important;
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Continue vertical line through all children when not last sibling */
 .tree-line-vertical.tree-line-continue {
-  bottom: 0;
+  top: 50%;
+  bottom: -10000px;
+  background: #4b5563;
+  opacity: 1 !important;
+  display: block !important;
+  visibility: visible !important;
 }
 
 /* Stop vertical line at middle of last child */
 .tree-line-vertical.tree-line-last {
-  bottom: 50%;
+  top: 50%;
+  bottom: 0;
+  background: #4b5563;
+  opacity: 1 !important;
+  display: block !important;
+  visibility: visible !important;
 }
 
 .tree-line-horizontal {
   position: absolute;
   top: 50%;
-  width: 12px;
-  height: 2px;
-  background: #d0d0d0;
-  z-index: 0;
-  margin-top: -1px;
+  width: 24px;
+  height: 3px;
+  background: #4b5563;
+  z-index: 1;
+  margin-top: -1.5px;
+  opacity: 1 !important;
+  display: block !important;
+  visibility: visible !important;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+/* RTL Support for tree lines */
+[dir="rtl"] .tree-line-vertical {
+  right: 0;
+  left: auto;
+}
+
+[dir="rtl"] .tree-line-horizontal {
+  right: 0;
+  left: auto;
 }
 
 .tree-item-dragging {
   opacity: 0.5;
 }
 
-.tree-item-drag-over {
+.tree-item-drag-over .tree-item-content {
   background-color: #e3f2fd !important;
-  border-left: 3px solid #1976d2;
-  box-shadow: none;
-  transform: none;
+  border: 1px dashed #2AB930;
+  box-shadow: 0 2px 8px rgba(42, 185, 48, 0.15);
 }
 
 .tree-item-content {
   display: flex;
   align-items: center;
-  padding: 14px 20px;
-  min-height: 56px;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 10px 16px;
+  min-height: 44px;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: default;
-  border-left: 3px solid transparent;
-  margin: 1px 0;
-  border-radius: 0;
   position: relative;
-  z-index: 1;
+  z-index: 2;
   background: #fff;
-  border-bottom: 1px solid #f5f5f5;
+  border: none;
+  border-radius: 6px;
+  margin: 2px 8px;
+}
+
+.tree-item-content.tree-item-has-children {
+  cursor: pointer;
 }
 
 .tree-item-content:hover {
-  background-color: #fafbfc;
-  border-left-color: #2AB930;
-  box-shadow: none;
+  background-color: #f8f9fa;
+  transform: translateX(2px);
 }
 
-/* Expand/Collapse */
-.tree-item-expand {
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 8px;
-  cursor: pointer;
-  color: #666;
-  flex-shrink: 0;
-  transition: all 0.2s ease;
-  border-radius: 4px;
-}
-
-.tree-item-expand:hover {
-  color: #2AB930;
-  background-color: #f6fef4;
-}
-
-.tree-item-spacer {
-  width: 20px;
-  height: 20px;
+[dir="rtl"] .tree-item-content:hover {
+  transform: translateX(-2px);
 }
 
 /* Icon Container */
 .tree-item-icon-container {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 10px;
   flex-shrink: 0;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+}
+
+[dir="rtl"] .tree-item-icon-container {
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+.tree-item-icon-container:hover {
+  background-color: #f0f0f0;
 }
 
 .tree-item-icon-container .fa-folder {
-  color: #ffc107;
-  font-size: 16px;
+  color: #ffb300;
+  font-size: 18px;
 }
 
 .tree-item-icon-container .fa-folder-open {
-  color: #ff9800;
-  font-size: 16px;
+  color: #ff8f00;
+  font-size: 18px;
 }
 
-.tree-item-icon-container .fa-file-alt {
-  color: #9e9e9e;
-  font-size: 14px;
+.tree-item-icon-container .fa-circle {
+  color: #bdbdbd;
+  font-size: 6px;
 }
 
 /* Info Section */
 .tree-item-info {
   flex: 1;
   min-width: 0;
-}
-
-.tree-item-main {
   display: flex;
   align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
 }
 
 .tree-item-name {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   color: #1a1a1a;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 1.5;
   letter-spacing: -0.01em;
-  line-height: 1.4;
 }
 
-.tree-item-code {
-  font-size: 11px;
-  color: #666;
-  background: #f8f9fa;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-family: 'Courier New', monospace;
-  font-weight: 400;
-  border: 1px solid #e9ecef;
-  line-height: 1.2;
-}
-
-.tree-item-children-count {
-  font-size: 11px;
-  color: #666;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  background: #f8f9fa;
-  padding: 3px 8px;
-  border-radius: 10px;
-  border: 1px solid #e9ecef;
-  line-height: 1.2;
-}
-
-.tree-item-children-count i {
-  font-size: 10px;
-  color: #999;
-}
-
-/* Action Buttons */
+/* Action Buttons - Modern grouped style */
 .tree-item-actions {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
   margin-left: auto;
   opacity: 0;
   transition: opacity 0.2s ease;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+[dir="rtl"] .tree-item-actions {
+  margin-left: 0;
+  margin-right: auto;
 }
 
 .tree-item:hover .tree-item-actions {
@@ -382,25 +422,29 @@ export default {
 }
 
 .tree-action-btn {
-  width: 28px;
-  height: 28px;
+  padding: 6px 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
   text-decoration: none;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.15s ease;
   border: none;
   background: transparent;
   cursor: pointer;
   color: #666;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
   position: relative;
-  font-size: 13px;
 }
 
 .tree-action-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: #f5f5f5;
+  color: #1a1a1a;
+}
+
+.tree-action-btn:active {
+  transform: scale(0.98);
 }
 
 .tree-action-btn.disabled {
@@ -410,49 +454,43 @@ export default {
 }
 
 .tree-action-view {
-  color: #33a0d9;
+  color: #666;
 }
 
 .tree-action-view:hover {
-  background: #e3f2fd;
-  color: #1976d2;
+  background: #e0e0e0;
+  color: #333;
 }
 
 .tree-action-edit {
-  color: #ffc107;
+  color: #666;
 }
 
 .tree-action-edit:hover {
-  background: #fff8e1;
-  color: #f57c00;
+  background: #e0e0e0;
+  color: #333;
 }
 
 .tree-action-add {
-  color: #2AB930;
+  color: #666;
 }
 
 .tree-action-add:hover {
-  background: #f6fef4;
-  color: #1e8e26;
+  background: #e0e0e0;
+  color: #333;
 }
 
 .tree-action-delete {
-  color: #dc3545;
+  color: #666;
 }
 
 .tree-action-delete:hover {
   background: #fee;
-  color: #c82333;
+  color: #d32f2f;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .tree-item-main {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-  }
-
   .tree-item-actions {
     opacity: 1;
   }
@@ -468,7 +506,7 @@ export default {
 }
 
 .tree-body-container::-webkit-scrollbar-track {
-  background: #fafbfc;
+  background: #fafafa;
   border-radius: 3px;
 }
 
@@ -495,11 +533,9 @@ export default {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-4px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 

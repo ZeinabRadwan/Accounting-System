@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\API;
 
-use Exception;
+use App\Http\Controllers\Controller;
 use App\Models\AccountRoutingSetting;
 use App\Models\ChartOfAccount;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use App\Traits\ApiResponse;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AccountRoutingController extends Controller
 {
     use ApiResponse;
+
     /**
      * Display a listing of account routing settings
      */
@@ -39,15 +40,15 @@ class AccountRoutingController extends Controller
             $request->validate([
                 'settings' => 'required|array',
                 'settings.*.id' => 'required|exists:account_routing_settings,id',
-                'settings.*.parent_account_id' => 'nullable|exists:chart_of_accounts,id'
+                'settings.*.parent_account_id' => 'nullable|exists:chart_of_accounts,id',
             ]);
 
             foreach ($request->settings as $settingData) {
                 $setting = AccountRoutingSetting::find($settingData['id']);
-                
+
                 if ($setting) {
                     $setting->update([
-                        'parent_account_id' => $settingData['parent_account_id'] ?? null
+                        'parent_account_id' => $settingData['parent_account_id'] ?? null,
                     ]);
                 }
             }
@@ -66,16 +67,16 @@ class AccountRoutingController extends Controller
         try {
             $request->validate([
                 'routing_type' => 'required|in:automatic,per_each,main_account_per_each,cancel',
-                'main_account_id' => 'nullable|exists:chart_of_accounts,id'
+                'main_account_id' => 'nullable|exists:chart_of_accounts,id',
             ]);
 
             $setting = AccountRoutingSetting::findOrFail($id);
-            
+
             $updateData = [
                 'routing_type' => $request->routing_type,
-                'main_account_id' => $request->main_account_id
+                'main_account_id' => $request->main_account_id,
             ];
-            
+
             $setting->update($updateData);
 
             return $this->responseWithSuccess('Setting updated successfully', $setting);
@@ -94,16 +95,16 @@ class AccountRoutingController extends Controller
                 'updates' => 'required|array',
                 'updates.*.id' => 'required|exists:account_routing_settings,id',
                 'updates.*.routing_type' => 'required|in:automatic,per_each,main_account_per_each,cancel',
-                'updates.*.main_account_id' => 'nullable|exists:chart_of_accounts,id'
+                'updates.*.main_account_id' => 'nullable|exists:chart_of_accounts,id',
             ]);
 
             foreach ($request->updates as $updateData) {
                 $setting = AccountRoutingSetting::find($updateData['id']);
-                
+
                 if ($setting) {
                     $setting->update([
                         'routing_type' => $updateData['routing_type'],
-                        'main_account_id' => $updateData['main_account_id']
+                        'main_account_id' => $updateData['main_account_id'],
                     ]);
                 }
             }
@@ -124,7 +125,7 @@ class AccountRoutingController extends Controller
                 ->with('mainAccount.type')
                 ->first();
 
-            if (!$setting) {
+            if (! $setting) {
                 return $this->responseWithError('Setting not found');
             }
 
@@ -132,7 +133,7 @@ class AccountRoutingController extends Controller
 
             return $this->responseWithSuccess('Accounts retrieved successfully', [
                 'setting' => $setting,
-                'accounts' => $accounts
+                'accounts' => $accounts,
             ]);
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
@@ -146,19 +147,23 @@ class AccountRoutingController extends Controller
     {
         try {
             $branchId = Auth::user()->default_branch_id ?? null;
-            
+
+            // Get top-level accounts (level 1) - these are already at level 1, but filter for consistency
             $accounts = ChartOfAccount::where('is_active', true)
                 ->forBranch($branchId)
                 ->whereNull('parent_id') // Only top-level accounts
-                ->with('type')
+                ->with(['type', 'parent.parent.parent.parent'])
                 ->orderBy('name')
                 ->get()
+                ->filter(function ($account) {
+                    return $account->getLevel() <= 4;
+                })
                 ->map(function ($account) {
                     return [
                         'id' => $account->id,
                         'name' => $account->name,
                         'code' => $account->code,
-                        'type' => $account->type ? $account->type->name : 'Unknown'
+                        'type' => $account->type ? $account->type->name : 'Unknown',
                     ];
                 });
 
@@ -176,7 +181,7 @@ class AccountRoutingController extends Controller
         try {
             $requiredSettings = AccountRoutingSetting::where('is_required', true)->get();
             $unconfiguredSettings = $requiredSettings->filter(function ($setting) {
-                return !$setting->isConfigured();
+                return ! $setting->isConfigured();
             });
 
             $configurationStatus = [
@@ -189,9 +194,9 @@ class AccountRoutingController extends Controller
                         'module' => $setting->module,
                         'setting_key' => $setting->setting_key,
                         'setting_name' => $setting->setting_name,
-                        'message' => $setting->getValidationMessage()
+                        'message' => $setting->getValidationMessage(),
                     ];
-                })
+                }),
             ];
 
             return $this->responseWithSuccess('Configuration status checked successfully', $configurationStatus);
@@ -217,16 +222,16 @@ class AccountRoutingController extends Controller
             $settings = [
                 'sales' => $salesSetting ? [
                     'routing_type' => $salesSetting->routing_type,
-                   'parent_account_id' => $salesSetting->main_account_id, // Use main_account_id for consistency
+                    'parent_account_id' => $salesSetting->main_account_id, // Use main_account_id for consistency
                     'main_account_id' => $salesSetting->main_account_id, // Add both for backward compatibility
-                    'routing_type_options' => $salesSetting->routing_type_options
+                    'routing_type_options' => $salesSetting->routing_type_options,
                 ] : null,
                 'purchase' => $purchaseSetting ? [
                     'routing_type' => $purchaseSetting->routing_type,
                     'parent_account_id' => $purchaseSetting->main_account_id, // Use main_account_id for consistency
                     'main_account_id' => $purchaseSetting->main_account_id, // Add both for backward compatibility
-                    'routing_type_options' => $purchaseSetting->routing_type_options
-                ] : null
+                    'routing_type_options' => $purchaseSetting->routing_type_options,
+                ] : null,
             ];
 
             return $this->responseWithSuccess('Product account routing settings retrieved successfully', $settings);

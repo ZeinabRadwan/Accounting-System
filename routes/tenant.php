@@ -356,6 +356,7 @@ Route::middleware([
         Route::get('/chart-of-accounts/translations/search', [ChartOfAccountController::class, 'searchTranslations']);
         Route::get('/chart-of-accounts/translations/stats', [ChartOfAccountController::class, 'getTranslationStats']);
         Route::get('/chart-of-accounts/translations/export', [ChartOfAccountController::class, 'exportTranslations']);
+        Route::post('/chart-of-accounts/{id}/move', [ChartOfAccountController::class, 'move']);
 
         Route::apiResource('chart-of-accounts', ChartOfAccountController::class);
 

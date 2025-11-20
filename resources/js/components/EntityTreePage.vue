@@ -74,34 +74,30 @@
             v-if="hasPermission('view') && resolveRoute('view', item)"
             :to="resolveRoute('view', item)"
             class="tree-action-btn tree-action-view"
-            v-tooltip="$t('View')"
           >
-            <i class="fas fa-eye"></i>
+            {{ $t('View') }}
           </router-link>
           <router-link
             v-if="hasPermission('edit') && resolveRoute('edit', item)"
             :to="resolveRoute('edit', item)"
             class="tree-action-btn tree-action-edit"
-            v-tooltip="$t('Edit')"
           >
-            <i class="fas fa-edit"></i>
+            {{ $t('Edit') }}
           </router-link>
           <router-link
-            v-if="hasPermission('create') && resolveRoute('createChild', item)"
+            v-if="hasPermission('create') && resolveRoute('createChild', item) && canAddChild(item)"
             :to="resolveRoute('createChild', item)"
             class="tree-action-btn tree-action-add"
-            v-tooltip="$t('Create Child')"
           >
-            <i class="fas fa-plus"></i>
+            {{ $t('Add Child') }}
           </router-link>
           <a
             v-if="hasPermission('delete') && config.api?.delete"
             href="#"
             @click.prevent="deleteData(item)"
             :class="['tree-action-btn', 'tree-action-delete', { disabled: !canDelete(item) }]"
-            v-tooltip="$t('Delete')"
           >
-            <i class="fas fa-trash"></i>
+            {{ $t('Delete') }}
           </a>
         </template>
       </tree-view>
@@ -158,6 +154,9 @@ export default {
     childrenCountField() {
       return this.config?.fields?.childrenCount || "children_count";
     },
+    storeLocale() {
+      return this.$store?.getters?.["lang/locale"];
+    },
   },
   watch: {
     query(newQuery) {
@@ -167,15 +166,18 @@ export default {
         this.searchData();
       }
     },
-    '$store.getters["lang/locale"]': async function(newLocale) {
-      if (newLocale && newLocale !== this.currentLocale) {
-        this.currentLocale = newLocale;
-        if (!this.query) {
-          await this.getData();
-        } else {
-          await this.searchData();
+    storeLocale: {
+      handler: async function(newLocale) {
+        if (newLocale && newLocale !== this.currentLocale) {
+          this.currentLocale = newLocale;
+          if (!this.query) {
+            await this.getData();
+          } else {
+            await this.searchData();
+          }
         }
-      }
+      },
+      immediate: false,
     },
     '$i18n.locale': async function(newLocale) {
       if (newLocale && newLocale !== this.currentLocale) {
@@ -253,6 +255,15 @@ export default {
         return resolver(item);
       }
       return true;
+    },
+    canAddChild(item) {
+      const resolver = this.config?.canAddChild;
+      if (typeof resolver === "function") {
+        return resolver(item);
+      }
+      // Default: only allow adding children to accounts at level 4 and below (level <= 4)
+      const level = item.level || 0;
+      return level <= 4;
     },
     buildDefaultParams() {
       const defaultParams = this.config?.api?.defaultParams;

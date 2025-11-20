@@ -4,18 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ChartOfAccount extends Model
 {
     use HasFactory, SoftDeletes;
+
     protected $table = 'chart_of_accounts';
-    
+
     protected $fillable = [
         'name',
         'code',
@@ -53,7 +52,7 @@ class ChartOfAccount extends Model
         $locale = $locale ?: app()->getLocale();
 
         // Only support dedicated fields
-        if (!in_array($field, ['name', 'description'])) {
+        if (! in_array($field, ['name', 'description'])) {
             return $this->getAttribute($field);
         }
 
@@ -107,7 +106,7 @@ class ChartOfAccount extends Model
     public function getTotalDebits()
     {
         return $this->journalEntryLines()
-            ->whereHas('journalEntry', function($query) {
+            ->whereHas('journalEntry', function ($query) {
                 $query->where('status', 'posted');
             })
             ->sum('debit_amount');
@@ -119,7 +118,7 @@ class ChartOfAccount extends Model
     public function getTotalCredits()
     {
         return $this->journalEntryLines()
-            ->whereHas('journalEntry', function($query) {
+            ->whereHas('journalEntry', function ($query) {
                 $query->where('status', 'posted');
             })
             ->sum('credit_amount');
@@ -142,6 +141,7 @@ class ChartOfAccount extends Model
     public function getBalanceType()
     {
         $balance = $this->getBalance();
+
         return $balance >= 0 ? 'Debit' : 'Credit';
     }
 
@@ -160,7 +160,8 @@ class ChartOfAccount extends Model
     {
         $amount = $this->getBalanceAmount();
         $type = $this->getBalanceType();
-        return number_format($amount, 2) . ' ' . $type;
+
+        return number_format($amount, 2).' '.$type;
     }
 
     /**
@@ -169,18 +170,18 @@ class ChartOfAccount extends Model
     public function getBalanceForDateRange($startDate = null, $endDate = null)
     {
         $query = $this->journalEntryLines()
-            ->whereHas('journalEntry', function($q) {
+            ->whereHas('journalEntry', function ($q) {
                 $q->where('status', 'posted');
             });
 
         if ($startDate) {
-            $query->whereHas('journalEntry', function($q) use ($startDate) {
+            $query->whereHas('journalEntry', function ($q) use ($startDate) {
                 $q->where('entry_date', '>=', $startDate);
             });
         }
 
         if ($endDate) {
-            $query->whereHas('journalEntry', function($q) use ($endDate) {
+            $query->whereHas('journalEntry', function ($q) use ($endDate) {
                 $q->where('entry_date', '<=', $endDate);
             });
         }
@@ -192,17 +193,52 @@ class ChartOfAccount extends Model
     }
 
     /**
+     * Calculate the level/depth of this account in the hierarchy
+     * Level 1 is the root (no parent), Level 2 has a Level 1 parent, etc.
+     * This method works with eager-loaded parent relationships to avoid N+1 queries
+     */
+    public function getLevel(): int
+    {
+        $level = 1;
+        $current = $this;
+
+        // Use a set to detect cycles (shouldn't happen, but safety check)
+        $visited = [];
+
+        while ($current->parent_id !== null) {
+            // Check for cycle
+            if (isset($visited[$current->id])) {
+                break;
+            }
+            $visited[$current->id] = true;
+
+            $level++;
+
+            // If parent is already loaded, use it; otherwise we'd need to query
+            if ($current->relationLoaded('parent') && $current->parent) {
+                $current = $current->parent;
+            } else {
+                // If parent not loaded, we can't traverse further
+                // This means we're at a deeper level than we can calculate
+                break;
+            }
+        }
+
+        return $level;
+    }
+
+    /**
      * Get all child accounts (recursive)
      */
     public function getAllChildren()
     {
         $children = collect();
-        
+
         foreach ($this->children as $child) {
             $children->push($child);
             $children = $children->merge($child->getAllChildren());
         }
-        
+
         return $children;
     }
 
@@ -220,10 +256,10 @@ class ChartOfAccount extends Model
     public function getTotalBalance()
     {
         $ownBalance = $this->getBalance();
-        $childrenBalance = $this->getAllChildren()->sum(function($child) {
+        $childrenBalance = $this->getAllChildren()->sum(function ($child) {
             return $child->getBalance();
         });
-        
+
         return $ownBalance + $childrenBalance;
     }
 
@@ -233,6 +269,7 @@ class ChartOfAccount extends Model
     public function getTotalBalanceType()
     {
         $totalBalance = $this->getTotalBalance();
+
         return $totalBalance >= 0 ? 'Debit' : 'Credit';
     }
 
@@ -251,7 +288,8 @@ class ChartOfAccount extends Model
     {
         $amount = $this->getTotalBalanceAmount();
         $type = $this->getTotalBalanceType();
-        return number_format($amount, 2) . ' ' . $type;
+
+        return number_format($amount, 2).' '.$type;
     }
 
     /**
@@ -260,10 +298,10 @@ class ChartOfAccount extends Model
     public function getTotalDebitsIncludingChildren()
     {
         $ownDebits = $this->getTotalDebits();
-        $childrenDebits = $this->getAllChildren()->sum(function($child) {
+        $childrenDebits = $this->getAllChildren()->sum(function ($child) {
             return $child->getTotalDebits();
         });
-        
+
         return $ownDebits + $childrenDebits;
     }
 
@@ -273,10 +311,10 @@ class ChartOfAccount extends Model
     public function getTotalCreditsIncludingChildren()
     {
         $ownCredits = $this->getTotalCredits();
-        $childrenCredits = $this->getAllChildren()->sum(function($child) {
+        $childrenCredits = $this->getAllChildren()->sum(function ($child) {
             return $child->getTotalCredits();
         });
-        
+
         return $ownCredits + $childrenCredits;
     }
 
@@ -311,7 +349,7 @@ class ChartOfAccount extends Model
     {
         // First get all account IDs including children
         $allAccountIds = collect();
-        
+
         if ($accountIds) {
             foreach ($accountIds as $accountId) {
                 $account = static::find($accountId);
@@ -330,7 +368,7 @@ class ChartOfAccount extends Model
         // Group by parent accounts
         $result = [];
         $targetAccountIds = $accountIds ?? static::pluck('id');
-        
+
         foreach ($targetAccountIds as $accountId) {
             $account = static::find($accountId);
             if ($account) {
@@ -373,12 +411,63 @@ class ChartOfAccount extends Model
     }
 
     /**
+     * Scope to filter accounts by maximum level
+     * Only includes accounts at or below the specified level
+     */
+    public function scopeMaxLevel($query, int $maxLevel)
+    {
+        // We need to calculate level for each account
+        // This is done in memory after fetching, as calculating level in SQL is complex
+        return $query;
+    }
+
+    /**
+     * Scope to filter accounts that are descendants of a parent account up to a maximum level
+     * When a parent is selected, only shows descendants up to level 4 (excluding level 5+)
+     */
+    public function scopeDescendantsOf($query, $parentId, int $maxLevel = 4)
+    {
+        if (! $parentId) {
+            return $query;
+        }
+
+        // Load parent with its parent chain to calculate level
+        $parent = static::with(['parent.parent.parent.parent'])->find($parentId);
+        if (! $parent) {
+            return $query->whereRaw('1 = 0'); // Return empty result
+        }
+
+        // Get all descendant IDs recursively
+        // Exclude the parent itself, only show its descendants
+        $allDescendantIds = collect();
+        $children = $parent->getAllChildren();
+
+        // Load parent relationships for all children to calculate levels
+        $children->load(['parent.parent.parent.parent']);
+
+        foreach ($children as $child) {
+            $childLevel = $child->getLevel();
+            // Only include descendants at level 4 or below
+            if ($childLevel <= $maxLevel) {
+                $allDescendantIds->push($child->id);
+            }
+        }
+
+        // If no valid descendants found, return empty
+        if ($allDescendantIds->isEmpty()) {
+            return $query->whereRaw('1 = 0');
+        }
+
+        return $query->whereIn('id', $allDescendantIds->unique());
+    }
+
+    /**
      * Scope to filter by branch
      * If branch_id is NULL, account is available to all branches
      * If branch_id is not NULL, account is only available to that specific branch
-     * 
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param int|null $branchId Current branch ID (from user's default_branch_id)
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  int|null  $branchId  Current branch ID (from user's default_branch_id)
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeForBranch($query, $branchId = null)
@@ -394,9 +483,9 @@ class ChartOfAccount extends Model
         }
 
         // Filter: branch_id IS NULL (shared) OR branch_id = current_branch_id
-        return $query->where(function($q) use ($branchId) {
+        return $query->where(function ($q) use ($branchId) {
             $q->whereNull('branch_id')
-              ->orWhere('branch_id', $branchId);
+                ->orWhere('branch_id', $branchId);
         });
     }
 
@@ -408,21 +497,20 @@ class ChartOfAccount extends Model
         return $this->getTranslatedField('name');
     }
 
-
     /**
      * Get all translations for this account
      */
     public function getAllTranslations()
     {
         $translations = [];
-        
+
         foreach ($this->translations as $translation) {
             $translations[$translation->locale] = [
                 'name' => $translation->name,
                 'description' => $translation->description,
             ];
         }
-        
+
         return $translations;
     }
 
@@ -441,12 +529,12 @@ class ChartOfAccount extends Model
     {
         return $query->where(function ($q) use ($searchTerm, $locale) {
             $q->where('name', 'like', "%{$searchTerm}%")
-              ->orWhereHas('translations', function ($translationQuery) use ($searchTerm, $locale) {
-                  $translationQuery->where('name', 'like', "%{$searchTerm}%");
-                  if ($locale) {
-                      $translationQuery->where('locale', $locale);
-                  }
-              });
+                ->orWhereHas('translations', function ($translationQuery) use ($searchTerm, $locale) {
+                    $translationQuery->where('name', 'like', "%{$searchTerm}%");
+                    if ($locale) {
+                        $translationQuery->where('locale', $locale);
+                    }
+                });
         });
     }
 
@@ -457,15 +545,14 @@ class ChartOfAccount extends Model
     {
         return $query->where(function ($q) use ($searchTerm, $locale) {
             $q->where('description', 'like', "%{$searchTerm}%")
-              ->orWhereHas('translations', function ($translationQuery) use ($searchTerm, $locale) {
-                  $translationQuery->where('description', 'like', "%{$searchTerm}%");
-                  if ($locale) {
-                      $translationQuery->where('locale', $locale);
-                  }
-              });
+                ->orWhereHas('translations', function ($translationQuery) use ($searchTerm, $locale) {
+                    $translationQuery->where('description', 'like', "%{$searchTerm}%");
+                    if ($locale) {
+                        $translationQuery->where('locale', $locale);
+                    }
+                });
         });
     }
-
 
     /**
      * Create or update account with translations
@@ -473,15 +560,15 @@ class ChartOfAccount extends Model
     public static function createWithTranslations($data, $translations = [])
     {
         $account = static::create($data);
-        
-        if (!empty($translations)) {
+
+        if (! empty($translations)) {
             foreach ($translations as $field => $fieldTranslations) {
                 if (in_array($field, $account->translatable)) {
                     $account->setTranslations($field, $fieldTranslations);
                 }
             }
         }
-        
+
         return $account;
     }
 
@@ -491,15 +578,15 @@ class ChartOfAccount extends Model
     public function updateWithTranslations($data, $translations = [])
     {
         $this->update($data);
-        
-        if (!empty($translations)) {
+
+        if (! empty($translations)) {
             foreach ($translations as $field => $fieldTranslations) {
                 if (in_array($field, $this->translatable)) {
                     $this->setTranslations($field, $fieldTranslations);
                 }
             }
         }
-        
+
         return $this;
     }
 }

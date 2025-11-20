@@ -2,31 +2,30 @@
 
 namespace App\Http\Controllers\API;
 
-use Exception;
-use ZipArchive;
-use App\Models\Unit;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\ProductListingResource;
+use App\Http\Resources\ProductResource;
+use App\Http\Resources\ProductSelectResource;
+use App\Models\AccountRoutingSetting;
 use App\Models\Brand;
-use App\Models\Product;
-use App\Models\VatRate;
 use App\Models\ChartOfAccount;
-use Illuminate\Http\Request;
+use App\Models\ChartOfAccountType;
 use App\Models\GeneralSetting;
+use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductSubCategory;
+use App\Models\Unit;
+use App\Models\VatRate;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Resources\ProductResource;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
 use Spatie\SimpleExcel\SimpleExcelReader;
-use App\Http\Resources\ProductSelectResource;
-use App\Http\Resources\ProductListingResource;
-use Intervention\Image\Facades\Image as Image;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use App\Models\AccountRoutingSetting;
-use App\Models\ChartOfAccountType;
-
+use ZipArchive;
 
 class ProductController extends Controller
 {
@@ -55,27 +54,27 @@ class ProductController extends Controller
             'salesAccount.type',
             'purchaseAccount.type'
         );
-        
+
         // Apply branch filter for non-superadmin users
         $user = Auth::user();
         // if ((int) $user->account_role !== 1) {
-            $branchIds = $this->getUserBranchIds($user);
-            $query->whereIn('branch_id', $branchIds);
+        $branchIds = $this->getUserBranchIds($user);
+        $query->whereIn('branch_id', $branchIds);
         // }
-        
+
         return ProductListingResource::collection($query->latest()->paginate($request->perPage));
     }
-    
+
     private function getUserBranchIds($user)
     {
         $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+
         return [$defaultBranchId > 0 ? $defaultBranchId : 0];
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -112,7 +111,7 @@ class ProductController extends Controller
             // generate code
             $code = 1;
             if ($request->itemCode) {
-                //$code = ltrim($request->itemCode, '0');
+                // $code = ltrim($request->itemCode, '0');
                 $code = $request->itemCode;
             } else {
                 $product = Product::latest()->first();
@@ -124,11 +123,11 @@ class ProductController extends Controller
             // upload thumbnail and set the name
             $imageName = '';
             if ($request->image) {
-                $imageName = time() . '.' . explode(
+                $imageName = time().'.'.explode(
                     '/',
                     explode(':', substr($request->image, 0, strpos($request->image, ';')))[1]
                 )[1];
-                Image::make($request->image)->save(public_path('images/products/') . $imageName);
+                Image::make($request->image)->save(public_path('images/products/').$imageName);
             }
 
             $brand = $tax = $discount = null;
@@ -159,8 +158,8 @@ class ProductController extends Controller
             // Handle Sales Account
             $isSalesAutomatic = $sales_settings && $sales_settings->routing_type == 'automatic';
             $overrideSales = $request->boolean('overrideSalesAccount', false);
-            
-            if ($isSalesAutomatic && !$overrideSales) {
+
+            if ($isSalesAutomatic && ! $overrideSales) {
                 // Use automatic routing
                 $salesAccountId = $sales_settings?->main_account_id;
                 if ($salesAccountId == null || $salesAccountId == '' || $salesAccountId == 0) {
@@ -180,8 +179,8 @@ class ProductController extends Controller
             // Handle Purchase Account
             $isPurchaseAutomatic = $purchase_settings && $purchase_settings->routing_type == 'automatic';
             $overridePurchase = $request->boolean('overridePurchaseAccount', false);
-            
-            if ($isPurchaseAutomatic && !$overridePurchase) {
+
+            if ($isPurchaseAutomatic && ! $overridePurchase) {
                 // Use automatic routing
                 $purchaseAccountId = $purchase_settings?->main_account_id;
                 if ($purchaseAccountId == null || $purchaseAccountId == '' || $purchaseAccountId == 0) {
@@ -231,10 +230,10 @@ class ProductController extends Controller
                 ->performedOn($product)
                 ->withProperties([
                     'name' => $request->name,
-                    'code' => '[' . config('config.productPrefix') . '-' . $code . ']',
+                    'code' => '['.config('config.productPrefix').'-'.$code.']',
                     'event' => 'Create',
                     'slug' => $product->slug,
-                    'routeName' => 'products.show'
+                    'routeName' => 'products.show',
                 ])
                 ->useLog('Product Created')
                 ->log('Product Created');
@@ -247,6 +246,7 @@ class ProductController extends Controller
             return $this->responseWithSuccess('Product added successfully', new ProductSelectResource($product));
         } catch (Exception $e) {
             DB::rollback();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -258,20 +258,25 @@ class ProductController extends Controller
     {
         try {
             $branchId = Auth::user()->default_branch_id ?? null;
-            
+
+            // Filter to only show accounts at level 4 and below
             $chartOfAccounts = ChartOfAccount::where('is_active', true)
                 ->forBranch($branchId)
-                ->with('type')
+                ->with(['type', 'parent.parent.parent.parent'])
                 ->orderBy('name')
                 ->get()
+                ->filter(function ($account) {
+                    return $account->getLevel() <= 4;
+                })
                 ->map(function ($account) {
                     return [
                         'id' => $account->id,
                         'name' => $account->name,
                         'code' => $account->code,
-                        'type' => $account->type ? $account->type->name : 'Unknown'
+                        'type' => $account->type ? $account->type->name : 'Unknown',
                     ];
                 });
+
             return response()->json($chartOfAccounts);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Failed to retrieve chart of accounts.'], 500);
@@ -289,11 +294,11 @@ class ProductController extends Controller
         try {
             // Try to find product by slug first, then by ID if slug lookup fails
             $product = Product::where('slug', $identifier)->with('proSubCategory.category', 'salesAccount.type', 'purchaseAccount.type')->first();
-            if (!$product && is_numeric($identifier)) {
+            if (! $product && is_numeric($identifier)) {
                 $product = Product::where('id', $identifier)->with('proSubCategory.category', 'salesAccount.type', 'purchaseAccount.type')->first();
             }
-            
-            if (!$product) {
+
+            if (! $product) {
                 return $this->responseWithError('Product not found');
             }
 
@@ -306,7 +311,6 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -314,18 +318,18 @@ class ProductController extends Controller
     {
         // Try to find product by slug first, then by ID if slug lookup fails
         $product = Product::where('slug', $identifier)->first();
-        if (!$product && is_numeric($identifier)) {
+        if (! $product && is_numeric($identifier)) {
             $product = Product::find($identifier);
         }
-        
-        if (!$product) {
+
+        if (! $product) {
             return $this->responseWithError('Product not found');
         }
         // validate request
         $this->validate($request, [
             'itemType' => 'required|string',
             'itemName' => 'required|string|max:255',
-            'itemCode' => 'required|unique:products,code,' . $product->id,
+            'itemCode' => 'required|unique:products,code,'.$product->id,
             'itemModel' => 'nullable|string|min:2|max:255',
             'barcodeSymbology' => 'required|string|max:20',
             'subCategory' => 'required',
@@ -346,19 +350,17 @@ class ProductController extends Controller
         try {
             DB::beginTransaction();
 
-
-
             // upload thumbnail and set the name
             $imageName = $product->image_path;
             if ($request->image) {
                 if ($imageName) {
-                    @unlink(public_path('images/products/' . $imageName));
+                    @unlink(public_path('images/products/'.$imageName));
                 }
-                $imageName = time() . '.' . explode(
+                $imageName = time().'.'.explode(
                     '/',
                     explode(':', substr($request->image, 0, strpos($request->image, ';')))[1]
                 )[1];
-                Image::make($request->image)->save(public_path('images/products/') . $imageName);
+                Image::make($request->image)->save(public_path('images/products/').$imageName);
             }
 
             $brand = $product->brand_id;
@@ -398,7 +400,7 @@ class ProductController extends Controller
                 if ($totalStockCount > 0) {
                     $purchasePrice = $totalStockValue / $totalStockCount;
                 }
-                
+
                 // Update the opening stock unit price to the new weighted average
                 $newOpeningStockUnitPrice = $purchasePrice;
             }
@@ -475,10 +477,10 @@ class ProductController extends Controller
                 ->performedOn($product)
                 ->withProperties([
                     'name' => $product->name,
-                    'code' => '[' . config('config.productPrefix') . '-' . $product->code . ']',
+                    'code' => '['.config('config.productPrefix').'-'.$product->code.']',
                     'event' => 'Update',
                     'slug' => $product->slug,
-                    'routeName' => 'products.show'
+                    'routeName' => 'products.show',
                 ])
                 ->useLog('Product Updated')
                 ->log('Product Updated');
@@ -488,6 +490,7 @@ class ProductController extends Controller
             return $this->responseWithSuccess('Product updated successfully');
         } catch (Exception $e) {
             DB::rollback();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -504,9 +507,9 @@ class ProductController extends Controller
             DB::beginTransaction();
 
             $product = Product::where('slug', $slug)->first();
-            //delete image from storage
+            // delete image from storage
             if ($product->image_path) {
-                @unlink(public_path('images/products/' . $product->image_path));
+                @unlink(public_path('images/products/'.$product->image_path));
             }
 
             // add activity log
@@ -515,12 +518,11 @@ class ProductController extends Controller
                 ->performedOn($product)
                 ->withProperties([
                     'name' => $product->name,
-                    'code' => '[' . config('config.productPrefix') . '-' . $product->code . ']',
-                    'event' => 'Delete'
+                    'code' => '['.config('config.productPrefix').'-'.$product->code.']',
+                    'event' => 'Delete',
                 ])
                 ->useLog('Product Deleted')
                 ->log('Product Deleted');
-
 
             $product->delete();
 
@@ -529,6 +531,7 @@ class ProductController extends Controller
             return $this->responseWithSuccess('Product deleted successfully');
         } catch (Exception $e) {
             DB::rollback();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -544,24 +547,24 @@ class ProductController extends Controller
         $term = $request->term;
 
         $query = Product::with('proSubCategory.category');
-        
+
         // Apply branch filter for non-superadmin users
         $user = Auth::user();
         if ((int) $user->account_role !== 1) {
             $branchIds = $this->getUserBranchIds($user);
             $query->whereIn('branch_id', $branchIds);
         }
-        
-        $query->where('name', 'LIKE', '%' . $term . '%')
-            ->orWhere('slug', 'LIKE', '%' . $term . '%')
-            ->orWhere('model', 'LIKE', '%' . $term . '%')
-            ->orWhere('code', 'LIKE', '%' . $term . '%')
-            ->orWhere('regular_price', 'LIKE', '%' . $term . '%')
-            ->orWhere('purchase_price', 'LIKE', '%' . $term . '%')
+
+        $query->where('name', 'LIKE', '%'.$term.'%')
+            ->orWhere('slug', 'LIKE', '%'.$term.'%')
+            ->orWhere('model', 'LIKE', '%'.$term.'%')
+            ->orWhere('code', 'LIKE', '%'.$term.'%')
+            ->orWhere('regular_price', 'LIKE', '%'.$term.'%')
+            ->orWhere('purchase_price', 'LIKE', '%'.$term.'%')
             ->orWhereHas('proSubCategory', function ($newQuery) use ($term) {
-                $newQuery->where('name', 'LIKE', '%' . $term . '%')
+                $newQuery->where('name', 'LIKE', '%'.$term.'%')
                     ->orWhereHas('category', function ($newQuery) use ($term) {
-                        $newQuery->where('name', 'LIKE', '%' . $term . '%');
+                        $newQuery->where('name', 'LIKE', '%'.$term.'%');
                     });
             });
 
@@ -588,7 +591,7 @@ class ProductController extends Controller
             if ($subCategory) {
                 $query = $query->where('sub_cat_id', $subCategory->id);
             }
-        } elseif (isset($request->catSlug) && !isset($request->subCatSlug)) {
+        } elseif (isset($request->catSlug) && ! isset($request->subCatSlug)) {
             $category = ProductCategory::where('slug', $request->catSlug)
                 ->whereIn('branch_id', $branchIds)
                 ->firstOrFail();
@@ -598,11 +601,12 @@ class ProductController extends Controller
             $query = $query->whereIn('sub_cat_id', $subCategories);
         }
         $query = $query->where(function ($query) use ($term) {
-            $query->where('name', 'LIKE', '%' . $term . '%')
-                ->orWhere('slug', 'LIKE', '%' . $term . '%')
-                ->orWhere('model', 'LIKE', '%' . $term . '%')
-                ->orWhere('code', 'LIKE', '%' . $term . '%');
+            $query->where('name', 'LIKE', '%'.$term.'%')
+                ->orWhere('slug', 'LIKE', '%'.$term.'%')
+                ->orWhere('model', 'LIKE', '%'.$term.'%')
+                ->orWhere('code', 'LIKE', '%'.$term.'%');
         });
+
         return ProductSelectResource::collection($query->orderBy('code', 'ASC')->limit(24)->get());
     }
 
@@ -615,7 +619,7 @@ class ProductController extends Controller
     {
         $user = Auth::user();
         $branchIds = $this->getUserBranchIds($user);
-        
+
         $products = Product::with(
             'purchaseProducts',
             'adjustmentProducts',
@@ -625,9 +629,9 @@ class ProductController extends Controller
             'salesAccount',
             'purchaseAccount'
         )->where('status', 1)
-        ->whereIn('branch_id', $branchIds)
-        ->latest()
-        ->get();
+            ->whereIn('branch_id', $branchIds)
+            ->latest()
+            ->get();
 
         return ProductSelectResource::collection($products);
     }
@@ -641,7 +645,7 @@ class ProductController extends Controller
     {
         $user = Auth::user();
         $branchIds = $this->getUserBranchIds($user);
-        
+
         $products = Product::where('is_service', false)->with(
             'purchaseProducts',
             'adjustmentProducts',
@@ -651,9 +655,9 @@ class ProductController extends Controller
             'salesAccount',
             'purchaseAccount'
         )->where('status', 1)
-        ->whereIn('branch_id', $branchIds)
-        ->latest()
-        ->get();
+            ->whereIn('branch_id', $branchIds)
+            ->latest()
+            ->get();
 
         return ProductSelectResource::collection($products);
     }
@@ -665,7 +669,7 @@ class ProductController extends Controller
     {
         $user = Auth::user();
         $branchIds = $this->getUserBranchIds($user);
-        
+
         $products = Product::with(
             'purchaseProducts',
             'adjustmentProducts',
@@ -675,9 +679,9 @@ class ProductController extends Controller
             'salesAccount',
             'purchaseAccount'
         )->where('status', 1)
-        ->whereIn('branch_id', $branchIds)
-        ->latest()
-        ->paginate(24);
+            ->whereIn('branch_id', $branchIds)
+            ->latest()
+            ->paginate(24);
 
         return ProductSelectResource::collection($products);
     }
@@ -691,7 +695,7 @@ class ProductController extends Controller
     {
         $user = Auth::user();
         $branchIds = $this->getUserBranchIds($user);
-        
+
         $products = Product::with(
             'purchaseProducts',
             'adjustmentProducts',
@@ -701,9 +705,9 @@ class ProductController extends Controller
             'salesAccount',
             'purchaseAccount'
         )->where('status', 1)
-        ->whereIn('branch_id', $branchIds)
-        ->latest()
-        ->get();
+            ->whereIn('branch_id', $branchIds)
+            ->latest()
+            ->get();
 
         return ProductSelectResource::collection($products);
     }
@@ -717,34 +721,34 @@ class ProductController extends Controller
         $codeLength = 6; // Default code length
         $user = Auth::user();
         $branchIds = $this->getUserBranchIds($user);
-        
+
         // Get the product prefix setting first
         $setting = GeneralSetting::where('key', 'product_prefix')->first();
         if ($setting) {
             $prefix = $setting->value;
         }
-        
+
         // Fetch the latest product (including soft-deleted ones) ordered by id descending
         $latestProduct = Product::withTrashed()
             ->whereIn('branch_id', $branchIds)
             ->orderBy('id', 'desc')
             ->first();
 
-        if ($latestProduct && !empty($latestProduct->code)) {
+        if ($latestProduct && ! empty($latestProduct->code)) {
             // Extract the numeric part from the code
             $code = $latestProduct->code;
-            
+
             // Remove prefix if it exists
-            if (!empty($prefix) && strpos($code, $prefix) === 0) {
+            if (! empty($prefix) && strpos($code, $prefix) === 0) {
                 $code = substr($code, strlen($prefix));
             }
-            
+
             // Extract numeric part from the code (handles codes like "000001", "00123", etc.)
             if (preg_match('/\d+/', $code, $matches)) {
                 $numericPart = $matches[0];
                 $numericValue = (int) $numericPart;
                 $nextCode = $numericValue + 1;
-                
+
                 // Preserve the format (leading zeros) by determining the length
                 $codeLength = strlen($numericPart);
                 // Use the same length, or default to 6 if it's shorter
@@ -770,14 +774,14 @@ class ProductController extends Controller
     {
         $user = Auth::user();
         $branchIds = $this->getUserBranchIds($user);
-        
+
         if ($catSlug == 'all' && $subCatSlug == 'all') {
             $products = Product::whereIn('branch_id', $branchIds)->latest()->get();
         } elseif ($catSlug != 'all' && $subCatSlug == 'all') {
             $category = ProductCategory::where('slug', $catSlug)
                 ->whereIn('branch_id', $branchIds)
                 ->first();
-            if (!$category) {
+            if (! $category) {
                 return ProductResource::collection(collect());
             }
             $products = Product::with('proSubCategory.category')
@@ -793,7 +797,7 @@ class ProductController extends Controller
             $subCat = ProductSubCategory::where('slug', $subCatSlug)
                 ->whereIn('branch_id', $branchIds)
                 ->first();
-            if (!$subCat) {
+            if (! $subCat) {
                 return ProductResource::collection(collect());
             }
             $products = Product::where('sub_cat_id', $subCat->id)
@@ -810,14 +814,14 @@ class ProductController extends Controller
     {
         $user = Auth::user();
         $branchIds = $this->getUserBranchIds($user);
-        
+
         if ($catSlug == 'all' && $subCatSlug == 'all') {
             $products = Product::whereIn('branch_id', $branchIds)->latest()->get();
         } elseif ($catSlug != 'all' && $subCatSlug == 'all') {
             $category = ProductCategory::where('slug', $catSlug)
                 ->whereIn('branch_id', $branchIds)
                 ->first();
-            if (!$category) {
+            if (! $category) {
                 return ProductSelectResource::collection(collect());
             }
             $products = Product::with('proSubCategory.category')
@@ -833,7 +837,7 @@ class ProductController extends Controller
             $subCat = ProductSubCategory::where('slug', $subCatSlug)
                 ->whereIn('branch_id', $branchIds)
                 ->first();
-            if (!$subCat) {
+            if (! $subCat) {
                 return ProductSelectResource::collection(collect());
             }
             $products = Product::where('sub_cat_id', $subCat->id)
@@ -885,13 +889,14 @@ class ProductController extends Controller
                 } else {
                     return response()->json([
                         'message' => $validator->errors()->first(),
-                        'row_number' => $key + 1
+                        'row_number' => $key + 1,
                     ], 422);
                 }
                 // if($key == 100) break;
             }
+
             return response()->json([
-                'message' => 'Supplier imported successfully'
+                'message' => 'Supplier imported successfully',
             ]);
         }
     }
@@ -903,8 +908,9 @@ class ProductController extends Controller
         if ($lastProduct) {
             $codeNo = (int) $lastProduct->code + 1;
         }
+
         return [
-            'code' => $codeNo
+            'code' => $codeNo,
         ];
     }
 
@@ -927,13 +933,10 @@ class ProductController extends Controller
         $zip->addFile(public_path('demo-csv-file/products.csv'), 'products.csv');
         $zip->close();
 
-
-
-
-
         // download zip file
         return response()->download('products.zip');
     }
+
     public function subCategoryImportTemplate()
     {
         $handle = fopen(public_path('demo-csv-file/sub-categories.csv'), 'w');
@@ -947,6 +950,7 @@ class ProductController extends Controller
 
         return response()->download(public_path('demo-csv-file/sub-categories.csv'));
     }
+
     public function brandImportTemplate()
     {
         $handle = fopen(public_path('demo-csv-file/brands.csv'), 'w');
@@ -958,6 +962,7 @@ class ProductController extends Controller
         });
         fclose($handle);
     }
+
     public function unitImportTemplate()
     {
         $handle = fopen(public_path('demo-csv-file/units.csv'), 'w');
@@ -969,6 +974,7 @@ class ProductController extends Controller
         });
         fclose($handle);
     }
+
     public function taxImportTemplate()
     {
         $handle = fopen(public_path('demo-csv-file/taxes.csv'), 'w');
@@ -987,15 +993,16 @@ class ProductController extends Controller
     public function autoAssignChartOfAccount($slug, $type = 'purchase')
     {
         try {
-            Log::info('Product auto-assign started for slug: ' . $slug);
+            Log::info('Product auto-assign started for slug: '.$slug);
 
             $product = Product::where('slug', $slug)->first();
 
-            if (!$product) {
-                Log::error('Product not found for slug: ' . $slug);
+            if (! $product) {
+                Log::error('Product not found for slug: '.$slug);
+
                 return response()->json([
                     'success' => false,
-                    'message' => 'Product not found'
+                    'message' => 'Product not found',
                 ], 404);
             }
 
@@ -1004,40 +1011,41 @@ class ProductController extends Controller
                 'name' => $product->name,
                 'is_service' => $product->is_service,
                 'current_sales_account_id' => $product->sales_account_id,
-                'current_purchase_account_id' => $product->purchase_account_id
+                'current_purchase_account_id' => $product->purchase_account_id,
             ]);
 
             // Resolve routing setting based on type
             if ($type === 'sales') {
                 $routing = AccountRoutingSetting::where('module', 'sales')->where('setting_key', 'product_sales_account')->first();
 
-                if (!$routing) {
+                if (! $routing) {
                     return response()->json([
                         'error' => true,
-                        'message' => 'Sales routing not configured. Please configure Account Routing.'
+                        'message' => 'Sales routing not configured. Please configure Account Routing.',
                     ], 400);
                 }
 
                 if ($routing->routing_type === 'automatic') {
-                    if (!$routing->main_account_id) {
+                    if (! $routing->main_account_id) {
                         return response()->json([
                             'error' => true,
-                            'message' => 'Sales main account missing in routing settings.'
+                            'message' => 'Sales main account missing in routing settings.',
                         ], 400);
                     }
                     $product->update(['sales_account_id' => $routing->main_account_id]);
+
                     return response()->json([
                         'success' => true,
                         'message' => 'Main Sales Account assigned to product successfully',
-                        'sales_account_id' => $routing->main_account_id
+                        'sales_account_id' => $routing->main_account_id,
                     ]);
                 }
 
                 if ($routing->routing_type === 'main_account_per_each') {
-                    if (!$routing->main_account_id) {
+                    if (! $routing->main_account_id) {
                         return response()->json([
                             'error' => true,
-                            'message' => 'Sales main account missing in routing settings.'
+                            'message' => 'Sales main account missing in routing settings.',
                         ], 400);
                     }
                     // Create child account under main account with product name
@@ -1051,48 +1059,50 @@ class ProductController extends Controller
                         'branch_id' => Auth::user()->default_branch_id,
                     ]);
                     $product->update(['sales_account_id' => $newAccount->id]);
+
                     return response()->json([
                         'success' => true,
                         'message' => 'Sales Account created under main account and assigned to product',
-                        'sales_account_id' => $newAccount->id
+                        'sales_account_id' => $newAccount->id,
                     ]);
                 }
 
                 return response()->json([
                     'error' => true,
-                    'message' => 'Routing type not supported for auto-assign. Please assign manually.'
+                    'message' => 'Routing type not supported for auto-assign. Please assign manually.',
                 ], 400);
             } else {
                 // purchase flow
                 $routing = AccountRoutingSetting::where('module', 'purchase')->where('setting_key', 'product_purchase_account')->first();
 
-                if (!$routing) {
+                if (! $routing) {
                     return response()->json([
                         'error' => true,
-                        'message' => 'Purchase routing not configured. Please configure Account Routing.'
+                        'message' => 'Purchase routing not configured. Please configure Account Routing.',
                     ], 400);
                 }
 
                 if ($routing->routing_type === 'automatic') {
-                    if (!$routing->main_account_id) {
+                    if (! $routing->main_account_id) {
                         return response()->json([
                             'error' => true,
-                            'message' => 'Purchase main account missing in routing settings.'
+                            'message' => 'Purchase main account missing in routing settings.',
                         ], 400);
                     }
                     $product->update(['purchase_account_id' => $routing->main_account_id]);
+
                     return response()->json([
                         'success' => true,
                         'message' => 'Main Purchase Account assigned to product successfully',
-                        'purchase_account_id' => $routing->main_account_id
+                        'purchase_account_id' => $routing->main_account_id,
                     ]);
                 }
 
                 if ($routing->routing_type === 'main_account_per_each') {
-                    if (!$routing->main_account_id) {
+                    if (! $routing->main_account_id) {
                         return response()->json([
                             'error' => true,
-                            'message' => 'Purchase main account missing in routing settings.'
+                            'message' => 'Purchase main account missing in routing settings.',
                         ], 400);
                     }
                     $newAccount = ChartOfAccount::create([
@@ -1105,27 +1115,29 @@ class ProductController extends Controller
                         'branch_id' => Auth::user()->default_branch_id,
                     ]);
                     $product->update(['purchase_account_id' => $newAccount->id]);
+
                     return response()->json([
                         'success' => true,
                         'message' => 'Purchase Account created under main account and assigned to product',
-                        'purchase_account_id' => $newAccount->id
+                        'purchase_account_id' => $newAccount->id,
                     ]);
                 }
 
                 return response()->json([
                     'error' => true,
-                    'message' => 'Routing type not supported for auto-assign. Please assign manually.'
+                    'message' => 'Routing type not supported for auto-assign. Please assign manually.',
                 ], 400);
             }
         } catch (Exception $e) {
-            Log::error('Product auto-assign failed: ' . $e->getMessage(), [
+            Log::error('Product auto-assign failed: '.$e->getMessage(), [
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
-                'trace' => $e->getTraceAsString()
+                'trace' => $e->getTraceAsString(),
             ]);
+
             return response()->json([
                 'error' => true,
-                'message' => 'Failed to assign Chart of Account: ' . $e->getMessage()
+                'message' => 'Failed to assign Chart of Account: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -1134,35 +1146,38 @@ class ProductController extends Controller
     {
         $branchId = Auth::user()->default_branch_id ?? null;
         $parent = ChartOfAccount::forBranch($branchId)->find($parentId);
-        if (!$parent) {
-            return 'PRD-' . (time() % 1000000);
+        if (! $parent) {
+            return 'PRD-'.(time() % 1000000);
         }
         $baseCode = $parent->code;
         // Collect existing child codes that start with baseCode-
         $existingCodes = ChartOfAccount::forBranch($branchId)
             ->where('parent_id', $parentId)
-            ->where('code', 'like', $baseCode . '-%')
+            ->where('code', 'like', $baseCode.'-%')
             ->pluck('code')
             ->toArray();
 
         $counter = 1;
-        $newCode = $baseCode . '-' . str_pad($counter, 3, '0', STR_PAD_LEFT);
+        $newCode = $baseCode.'-'.str_pad($counter, 3, '0', STR_PAD_LEFT);
         while (in_array($newCode, $existingCodes)) {
             $counter++;
-            $newCode = $baseCode . '-' . str_pad($counter, 3, '0', STR_PAD_LEFT);
+            $newCode = $baseCode.'-'.str_pad($counter, 3, '0', STR_PAD_LEFT);
         }
+
         return $newCode;
     }
 
     private function getRevenueAccountTypeId()
     {
         $type = ChartOfAccountType::where('name', 'Revenue')->first();
+
         return $type ? $type->id : 1;
     }
 
     private function getExpenseAccountTypeId()
     {
         $type = ChartOfAccountType::where('name', 'Expense')->first();
+
         return $type ? $type->id : 1;
     }
 }

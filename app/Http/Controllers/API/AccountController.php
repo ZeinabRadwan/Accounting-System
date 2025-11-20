@@ -2,26 +2,28 @@
 
 namespace App\Http\Controllers\API;
 
-use Exception;
-use App\Models\Account;
-use Illuminate\Http\Request;
-use App\Services\ImageService;
-use App\Models\AccountTransaction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Account\StoreAccountRequest;
+use App\Http\Requests\Account\UpdateAccountRequest;
+use App\Http\Resources\AccountResource;
+use App\Http\Resources\AccountTransactionResource;
+use App\Models\Account;
+use App\Models\AccountTransaction;
+use App\Models\ChartOfAccount;
+use App\Services\ImageService;
+use App\Traits\ApiResponse;
+use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use App\Http\Resources\AccountResource;
-use Intervention\Image\Facades\Image as Image;
-use App\Http\Requests\Account\StoreAccountRequest;
-use App\Http\Resources\AccountTransactionResource;
-use App\Http\Requests\Account\UpdateAccountRequest;
-use App\Models\ChartOfAccount;
-use App\Traits\ApiResponse;
+use Intervention\Image\Facades\Image;
 
 class AccountController extends Controller
 {
     use ApiResponse;
+
     private $imageService;
+
     // define middleware
     public function __construct(ImageService $imageService)
     {
@@ -56,23 +58,23 @@ class AccountController extends Controller
             // get logged in user
             $user = Auth::user();
             $branchId = (int) ($user->default_branch_id ?? 0);
-            
+
             // Validate that chart of account is selected
-            if (!$request->chartOfAccountId) {
+            if (! $request->chartOfAccountId) {
                 return $this->responseWithError('Chart of Account is required. Please select a Chart of Account for this cashbook account.');
             }
-            
+
             // upload thumbnail and set the name
             $imageName = '';
             if ($request->image) {
                 $imagePath = public_path('images/accounts/');
 
-                if (!File::exists($imagePath)) {
+                if (! File::exists($imagePath)) {
                     File::makeDirectory($imagePath, 0755, true);
                 }
-            
-                $imageName = time() . '.' . explode('/',explode(':', substr($request->image, 0, strpos($request->image, ';')))[1])[1];
-                Image::make($request->image)->save($imagePath . $imageName);
+
+                $imageName = time().'.'.explode('/', explode(':', substr($request->image, 0, strpos($request->image, ';')))[1])[1];
+                Image::make($request->image)->save($imagePath.$imageName);
             }
 
             // store account
@@ -94,16 +96,16 @@ class AccountController extends Controller
                 ->causedBy(Auth::user())
                 ->performedOn($account)
                 ->withProperties([
-                    'name' => "",
-                    'code' => '[' . $request->accountNumber . ']',
-                    'event' => 'Create'
+                    'name' => '',
+                    'code' => '['.$request->accountNumber.']',
+                    'event' => 'Create',
                 ])
                 ->useLog('Account Created')
                 ->log('Account Created');
 
             // Load the account with relationships for response
             $account->load('chartOfAccount.type');
-            
+
             return $this->responseWithSuccess('Account added successfully!', new AccountResource($account));
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
@@ -140,28 +142,28 @@ class AccountController extends Controller
 
         try {
             // Validate that chart of account is selected
-            if (!$request->chartOfAccountId) {
+            if (! $request->chartOfAccountId) {
                 return $this->responseWithError('Chart of Account is required. Please select a Chart of Account for this cashbook account.');
             }
-            
+
             // upload thumbnail and set the name
             $imageName = $account->image_path;
             if ($request->image) {
                 $imagePath = public_path('images/accounts/');
-            
+
                 // Ensure the directory exists
-                if (!File::exists($imagePath)) {
+                if (! File::exists($imagePath)) {
                     File::makeDirectory($imagePath, 0755, true);
                 }
-            
+
                 // Delete the existing image if it exists
-                if (!empty($imageName) && File::exists($imagePath . $imageName)) {
-                    File::delete($imagePath . $imageName);
+                if (! empty($imageName) && File::exists($imagePath.$imageName)) {
+                    File::delete($imagePath.$imageName);
                 }
-            
+
                 // Generate a new image name and save it
-                $imageName = time() . '.' . explode('/',explode(':', substr($request->image, 0, strpos($request->image, ';')))[1])[1];
-                Image::make($request->image)->save($imagePath . $imageName);
+                $imageName = time().'.'.explode('/', explode(':', substr($request->image, 0, strpos($request->image, ';')))[1])[1];
+                Image::make($request->image)->save($imagePath.$imageName);
             }
 
             // update account
@@ -181,9 +183,9 @@ class AccountController extends Controller
                 ->causedBy(Auth::user())
                 ->performedOn($account)
                 ->withProperties([
-                    'name' => "",
-                    'code' => '[' . $request->accountNumber . ']',
-                    'event' => 'Update'
+                    'name' => '',
+                    'code' => '['.$request->accountNumber.']',
+                    'event' => 'Update',
                 ])
                 ->useLog('Account Updated')
                 ->log('Account Updated');
@@ -204,7 +206,7 @@ class AccountController extends Controller
     {
         try {
             $account = Account::where('slug', $slug)->first();
-            
+
             // Check for any transactions linked to this account
             $transactionCount = AccountTransaction::where('account_id', $account->id)->count();
             if ($transactionCount > 0) {
@@ -217,9 +219,9 @@ class AccountController extends Controller
                 return $this->responseWithError('This account is used in other transactions and cannot be deleted.', 422);
             }
 
-            //delete asset image
+            // delete asset image
             if ($account->image_path) {
-                @unlink(public_path('images/accounts/' . $account->image_path));
+                @unlink(public_path('images/accounts/'.$account->image_path));
             }
 
             // add activity log
@@ -227,9 +229,9 @@ class AccountController extends Controller
                 ->causedBy(Auth::user())
                 ->performedOn($account)
                 ->withProperties([
-                    'name' => "",
-                    'code' => '[' . $account->account_number . ']',
-                    'event' => 'Delete'
+                    'name' => '',
+                    'code' => '['.$account->account_number.']',
+                    'event' => 'Delete',
                 ])
                 ->useLog('Account Deleted')
                 ->log('Account Deleted');
@@ -251,18 +253,22 @@ class AccountController extends Controller
     {
         try {
             $branchId = Auth::user()->default_branch_id ?? null;
-            
+
+            // Filter to only show accounts at level 4 and below
             $chartOfAccounts = ChartOfAccount::where('is_active', true)
                 ->forBranch($branchId)
-                ->with('type')
+                ->with(['type', 'parent.parent.parent.parent'])
                 ->orderBy('name')
                 ->get()
+                ->filter(function ($account) {
+                    return $account->getLevel() <= 4;
+                })
                 ->map(function ($account) {
                     return [
                         'id' => $account->id,
                         'name' => $account->name,
                         'code' => $account->code,
-                        'type' => $account->type ? $account->type->name : 'Unknown'
+                        'type' => $account->type ? $account->type->name : 'Unknown',
                     ];
                 });
 
@@ -288,7 +294,7 @@ class AccountController extends Controller
                         'id' => $account->id,
                         'bankName' => $account->bank_name,
                         'accountNumber' => $account->account_number,
-                        'message' => $account->getChartOfAccountValidationMessage()
+                        'message' => $account->getChartOfAccountValidationMessage(),
                     ];
                 });
 
@@ -302,7 +308,7 @@ class AccountController extends Controller
                 'unconnectedAccounts' => $unconnectedAccounts,
                 'connectedAccounts' => $connectedAccounts,
                 'totalAccounts' => $totalAccounts,
-                'connectionPercentage' => $totalAccounts > 0 ? round(($connectedAccounts / $totalAccounts) * 100, 2) : 0
+                'connectionPercentage' => $totalAccounts > 0 ? round(($connectedAccounts / $totalAccounts) * 100, 2) : 0,
             ]);
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
@@ -325,9 +331,9 @@ class AccountController extends Controller
         }
 
         $query->where(function ($query) use ($term) {
-            $query->where('bank_name', 'Like', '%' . $term . '%')
-                ->orWhere('branch_name', 'Like', '%' . $term . '%')
-                ->orWhere('account_number', 'Like', '%' . $term . '%');
+            $query->where('bank_name', 'Like', '%'.$term.'%')
+                ->orWhere('branch_name', 'Like', '%'.$term.'%')
+                ->orWhere('account_number', 'Like', '%'.$term.'%');
         });
 
         return AccountResource::collection($query->latest()->paginate($request->perPage));
@@ -365,7 +371,7 @@ class AccountController extends Controller
 
         $account = Account::where('slug', $slug)->first();
         $transactions = AccountTransaction::with('user', 'cashbookAccount')->where('account_id', $account->id)->where(function ($query) use ($term) {
-            $query->orWhere('reason', 'LIKE', '%' . $term . '%')->orWhere('amount', 'LIKE', '%' . $term . '%');
+            $query->orWhere('reason', 'LIKE', '%'.$term.'%')->orWhere('amount', 'LIKE', '%'.$term.'%');
         })->latest()->paginate($request->perPage);
 
         return AccountTransactionResource::collection($transactions);

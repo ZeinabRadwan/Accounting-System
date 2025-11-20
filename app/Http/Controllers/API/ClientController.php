@@ -990,11 +990,16 @@ ORDER BY `date`');
 
             if (! $routingSetting || ! $routingSetting->parent_account_id) {
                 // Fallback to all active accounts if routing is not configured
+                // Filter to only show accounts at level 4 and below
                 $branchId = Auth::user()->default_branch_id ?? null;
                 $accounts = \App\Models\ChartOfAccount::where('is_active', true)
                     ->forBranch($branchId)
+                    ->with(['parent.parent.parent.parent'])
                     ->orderBy('name')
-                    ->get();
+                    ->get()
+                    ->filter(function ($account) {
+                        return $account->getLevel() <= 4;
+                    });
 
                 return $this->formatChartOfAccounts($accounts, 'Fallback to all accounts');
             }

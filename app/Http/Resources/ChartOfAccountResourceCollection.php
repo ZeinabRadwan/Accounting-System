@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
 use App\Models\ChartOfAccount;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class ChartOfAccountResourceCollection extends ResourceCollection
 {
@@ -11,13 +11,17 @@ class ChartOfAccountResourceCollection extends ResourceCollection
 
     public function toArray($request)
     {
+        // Get locale from request (same as ChartOfAccountTranslationResource)
+        $locale = $request->get('locale', app()->getLocale());
+        
+
         // Get bulk balances for all accounts in the collection
         if ($this->bulkBalances === null) {
             $accountIds = $this->collection->pluck('id')->toArray();
             $this->bulkBalances = ChartOfAccount::getBulkBalancesWithChildren($accountIds);
         }
 
-        return $this->collection->map(function ($account) {
+        return $this->collection->map(function ($account) use ($locale) {
             $balanceData = $this->bulkBalances[$account->id] ?? [
                 'debits' => 0,
                 'credits' => 0,
@@ -27,9 +31,19 @@ class ChartOfAccountResourceCollection extends ResourceCollection
                 'total_balance' => 0,
             ];
 
+            // Get translated name
+            $translatedName = $account->name; // Fallback to original name 
+
+            $translatedName = $account->getTranslatedField('name', $locale);
+
+            // If translation is empty, use original name
+            if (empty($translatedName)) {
+                $translatedName = $account->name;
+            }
+
             return [
                 'id' => $account->id,
-                'name' => $account->name,
+                'name' => $translatedName,
                 'code' => $account->code,
                 'type_id' => $account->type_id,
                 'parent_id' => $account->parent_id,
@@ -60,22 +74,22 @@ class ChartOfAccountResourceCollection extends ResourceCollection
                 'formatted_balance' => number_format($balanceData['balance'], 2),
                 'formatted_total_balance' => number_format($balanceData['total_balance'], 2),
                 // Include relationships
-                'type' => $account->whenLoaded('type', function() use ($account) {
+                'type' => $account->whenLoaded('type', function () use ($account, $locale) {
                     return [
                         'id' => $account->type->id,
-                        'name' => $account->type->name,
+                        'name' => method_exists($account->type, 'getTranslatedField') ? $account->type->getTranslatedField('name', $locale) : $account->type->name,
                     ];
                 }),
-                'types' => $account->whenLoaded('type', function() use ($account) {
+                'types' => $account->whenLoaded('type', function () use ($account, $locale) {
                     return [
                         'id' => $account->type->id,
-                        'name' => $account->type->name,
+                        'name' => method_exists($account->type, 'getTranslatedField') ? $account->type->getTranslatedField('name', $locale) : $account->type->name,
                     ];
                 }),
-                'parent' => $account->whenLoaded('parent', function() use ($account) {
+                'parent' => $account->whenLoaded('parent', function () use ($account, $locale) {
                     return [
                         'id' => $account->parent->id,
-                        'name' => $account->parent->name,
+                        'name' => method_exists($account->parent, 'getTranslatedField') ? $account->parent->getTranslatedField('name', $locale) : $account->parent->name,
                     ];
                 }),
             ];

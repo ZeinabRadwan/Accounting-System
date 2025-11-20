@@ -54,6 +54,7 @@ export default {
             search_field: "name",
           }),
           delete: (item) => `/api/chart-of-accounts/${item.code}`,
+          move: (itemId, { locale }) => `/api/chart-of-accounts/${itemId}/move`,
         },
         fields: {
           id: "id",
@@ -72,9 +73,14 @@ export default {
           return entity.name || entity.original_name || "";
         },
         canDelete: () => true,
+        canAddChild: (item) => {
+          // Only allow adding children to accounts at level 4 and below (level <= 4)
+          const level = item.level || 0;
+          return level <= 4;
+        },
         features: {
-          dragAndDrop: false,
-          showStatusBadge: true,
+          dragAndDrop: true,
+          showStatusBadge: false,
         },
         messages: {
           entityLabel: this.$t("Chart of Account"),

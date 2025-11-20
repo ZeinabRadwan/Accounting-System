@@ -976,11 +976,15 @@ ORDER BY `date`');
             $branchId = Auth::user()->default_branch_id ?? null;
 
             // Get all active chart of accounts with eager loading of type relationship
-            $accounts = \App\Models\ChartOfAccount::with('type')
+            // Filter to only show accounts at level 4 and below
+            $accounts = \App\Models\ChartOfAccount::with(['type', 'parent.parent.parent.parent'])
                 ->where('is_active', true)
                 ->forBranch($branchId)
                 ->orderBy('name')
-                ->get();
+                ->get()
+                ->filter(function ($account) {
+                    return $account->getLevel() <= 4;
+                });
 
             $chartOfAccounts = collect();
 
@@ -1046,9 +1050,11 @@ ORDER BY `date`');
 
             if (! $routingSetting || ! $routingSetting->main_account_id) {
                 // Fallback to all active accounts if routing is not configured
+                // Filter to only show accounts at level 4 and below
                 $branchId = Auth::user()->default_branch_id ?? null;
                 $query = \App\Models\ChartOfAccount::where('is_active', true)
-                    ->forBranch($branchId);
+                    ->forBranch($branchId)
+                    ->with(['parent.parent.parent.parent']);
 
                 if ($search) {
                     $query->where(function ($q) use ($search) {
@@ -1057,7 +1063,11 @@ ORDER BY `date`');
                     });
                 }
 
-                $accounts = $query->orderBy('name')->get();
+                $accounts = $query->orderBy('name')
+                    ->get()
+                    ->filter(function ($account) {
+                        return $account->getLevel() <= 4;
+                    });
 
                 return $this->formatChartOfAccounts($accounts, 'Fallback to all accounts');
             }

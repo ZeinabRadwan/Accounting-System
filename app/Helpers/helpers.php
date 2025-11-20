@@ -1,16 +1,15 @@
 <?php
 
-use Carbon\Carbon;
+use App\Http\Controllers\API\GeneralController;
+use App\Http\Resources\CurrencyResource;
 use App\Models\Currency;
 use App\Models\GeneralSetting;
 use App\Services\ImageService;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
-use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Resources\CurrencyResource;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\API\GeneralController;
+use Intervention\Image\Facades\Image;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 if (! function_exists('arrayToCollection')) {
@@ -29,8 +28,6 @@ if (! function_exists('getActivePaymentMethods')) {
     }
 }
 
-
-
 if (! function_exists('public_tenant_path')) {
     function public_tenant_path($value)
     {
@@ -38,9 +35,8 @@ if (! function_exists('public_tenant_path')) {
     }
 }
 
-
 if (! function_exists('store_in_tenant')) {
-    function store_in_tenant($path,$image,$extension)
+    function store_in_tenant($path, $image, $extension)
     {
         $partition = config('tenancy.filesystem.suffix_base').tenant()->id;
         $newPath = Storage::disk('tenant-public')->putFileAs(
@@ -48,10 +44,10 @@ if (! function_exists('store_in_tenant')) {
             $image,
             Carbon::now()->format('YmdHis').".$extension"
         );
+
         return str_replace($partition, '', $newPath);
     }
 }
-
 
 if (! function_exists('formatCurrency')) {
     function formatCurrency($value)
@@ -103,12 +99,11 @@ function getGeneralSettingsInfo()
     return $settings;
 }
 
-
-function centralCurrencySymbolFormat($amount){
+function centralCurrencySymbolFormat($amount)
+{
     // Return only the formatted number without currency symbol as requested
     return number_format($amount, 2);
 }
-
 
 /**
  * Get Excel-compatible currency symbol for exports
@@ -130,37 +125,39 @@ function getPdfCompatibleCurrencySymbol()
     return '';
 }
 
-function centralCurrencyCodeFormat($amount){
+function centralCurrencyCodeFormat($amount)
+{
     // Return only the formatted number without currency code as requested
     return number_format($amount, 2);
 }
 
-function getPrefix(){
-    $imageService = new ImageService();
+function getPrefix()
+{
+    $imageService = new ImageService;
     $generalController = new GeneralController($imageService);
     $getGeneralSettings = $generalController->getGeneralSettings();
+
     return $getGeneralSettings;
 }
 
-
-function getBase64Extension($base64Src){
+function getBase64Extension($base64Src)
+{
     $pattern = '/^data:image\/[^;]+;base64,/';
 
     if (preg_match($pattern, $base64Src, $matches)) {
-        return explode(';',explode('/', $matches[0])[1])[0];
+        return explode(';', explode('/', $matches[0])[1])[0];
     }
+
     return null;
 }
-
-
 
 // save multiple images
 function saveMultipleImages($model, $request, $collectionName = 'default')
 {
-    if (!empty($request->images)) {
+    if (! empty($request->images)) {
         foreach ($request->images as $index => $image) {
             $extension = getBase64Extension($image['path']);
-            if($extension == null){
+            if ($extension == null) {
                 continue;
             }
 
@@ -168,8 +165,8 @@ function saveMultipleImages($model, $request, $collectionName = 'default')
                 ->addMediaFromBase64($image['path'])
                 ->withCustomProperties([
                     'path' => $collectionName,
-                    'highlight' => isset($image['highlight'])? $image['highlight']: 0,
-                    'default' => isset($image['default'])? $image['default']: 0,
+                    'highlight' => isset($image['highlight']) ? $image['highlight'] : 0,
+                    'default' => isset($image['default']) ? $image['default'] : 0,
 
                 ])
                 ->usingFileName(Carbon::now()->format('YmdHis').".$extension")
@@ -178,12 +175,11 @@ function saveMultipleImages($model, $request, $collectionName = 'default')
     }
 }
 
-
 function saveBase64Image($model, $image, $collectionName = 'default')
 {
-    if (!empty($image)) {
+    if (! empty($image)) {
         $extension = getBase64Extension($image['path']);
-        if($extension == null){
+        if ($extension == null) {
             return;
         }
 
@@ -191,8 +187,8 @@ function saveBase64Image($model, $image, $collectionName = 'default')
             ->addMediaFromBase64($image['path'])
             ->withCustomProperties([
                 'path' => $collectionName,
-                'highlight' => isset($image['highlight'])? $image['highlight']: 0,
-                'default' => isset($image['default'])? $image['default']: 0,
+                'highlight' => isset($image['highlight']) ? $image['highlight'] : 0,
+                'default' => isset($image['default']) ? $image['default'] : 0,
 
             ])
             ->usingFileName(Carbon::now()->format('YmdHis').".$extension")
@@ -200,86 +196,87 @@ function saveBase64Image($model, $image, $collectionName = 'default')
     }
 }
 
-
-
 // update multiple images
 function updateMultipleImages($model, $request, $collectionName = 'default')
 {
     // Delete unwanted images
-    foreach($request->deleted_image_uuids as $uuid){
-        Media::where('uuid',$uuid)->delete();
+    foreach ($request->deleted_image_uuids as $uuid) {
+        Media::where('uuid', $uuid)->delete();
     }
 
     // Process new and updated images
     foreach ($request->images as $index => $image) {
-        $existingImage = Media::where('uuid',isset($image['uuid'])?$image['uuid']:null)->first();
+        $existingImage = Media::where('uuid', isset($image['uuid']) ? $image['uuid'] : null)->first();
         if ($existingImage) {
-            $search_string = "data:image";
-            
-            if(preg_match("/$search_string/", $image['path'])){
+            $search_string = 'data:image';
+
+            if (preg_match("/$search_string/", $image['path'])) {
                 saveBase64Image($model, $image, $collectionName);
                 $existingImage->delete();
-            }else{
+            } else {
                 $existingImage->custom_properties = [
                     'path' => $collectionName,
                     'highlight' => $image['highlight'],
-                    'default' =>$image['default'],
+                    'default' => $image['default'],
                 ];
                 $existingImage->save();
             }
 
-        }else{
+        } else {
             saveBase64Image($model, $image, $collectionName);
         }
     }
 }
 
-function isWindowsOS() {
+function isWindowsOS()
+{
     return strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
 }
 
-function windowsTestSubHostReg($domainTenant){
+function windowsTestSubHostReg($domainTenant)
+{
     if (isWindowsOS()) {
         $hostEntry = "127.0.0.1      $domainTenant";
-        $filePath = "C:\\Windows\\System32\\drivers\\etc\\hosts";
-    
+        $filePath = 'C:\\Windows\\System32\\drivers\\etc\\hosts';
+
         // Check if the host entry is already present
         $hostsFileContent = file_get_contents($filePath);
         if (strpos($hostsFileContent, $hostEntry) === false) {
-            $command = 'powershell.exe -Command "Start-Process cmd -ArgumentList \'/c echo ' . $hostEntry . ' >> ' . $filePath . '\' -Verb RunAs"';
+            $command = 'powershell.exe -Command "Start-Process cmd -ArgumentList \'/c echo '.$hostEntry.' >> '.$filePath.'\' -Verb RunAs"';
             shell_exec($command);
         }
     }
 }
 
-function invoiceThankYouMessage(){
+function invoiceThankYouMessage()
+{
     return $message = GeneralSetting::where('key', 'invoice_thank_you_message')->first()->value ?? null;
- }
+}
 
- if (!function_exists('handleGeneralSettingsImage')) {
+if (! function_exists('handleGeneralSettingsImage')) {
     function handleGeneralSettingsImage($imageData, $existingImageName, $imagePrefix)
-        {
-            if ($existingImageName) {
-                @unlink(public_path('images/' . $existingImageName));
-            }
-        
-            $imageExtension = explode(
-                '/',
-                explode(':', substr($imageData, 0, strpos($imageData, ';')))[1]
-            )[1];
-            $currentDateTime = date('Ymd_His');
-            $imageName = $imagePrefix . '_' . $currentDateTime . '.' . $imageExtension;
-        
-            if ($imageExtension === 'svg' || $imageExtension === 'svg+xml') {
-                $imageName = $imagePrefix . '_' . $currentDateTime . '.' . 'svg';
-                $imageData = explode(',', $imageData)[1];
-                File::put(public_path('images/') . $imageName, base64_decode($imageData));
-            } else {
-                Image::make($imageData)->save(public_path('images/') . $imageName);
-            }
-        
-            return $imageName;
+    {
+        if ($existingImageName) {
+            @unlink(public_path('images/'.$existingImageName));
         }
+
+        $imageExtension = explode(
+            '/',
+            explode(':', substr($imageData, 0, strpos($imageData, ';')))[1]
+        )[1];
+        $currentDateTime = date('Ymd_His');
+        $imageName = $imagePrefix.'_'.$currentDateTime.'.'.$imageExtension;
+
+        if ($imageExtension === 'svg' || $imageExtension === 'svg+xml') {
+            $imageName = $imagePrefix.'_'.$currentDateTime.'.'.'svg';
+            $imageData = explode(',', $imageData)[1];
+            File::put(public_path('images/').$imageName, base64_decode($imageData));
+        } else {
+            Image::make($imageData)->save(public_path('images/').$imageName);
+        }
+
+        return $imageName;
+    }
 }
 
 /**
@@ -288,14 +285,14 @@ function invoiceThankYouMessage(){
 function getLogoWithFallback($query, $logoKey, $defaultLogo)
 {
     $logoValue = $query->where('key', $logoKey)->first()?->value;
-    
+
     // If tenant has a logo, use it
-    if (!empty($logoValue)) {
-        return asset('images/' . $logoValue);
+    if (! empty($logoValue)) {
+        return asset('images/'.$logoValue);
     }
-    
+
     // Fallback to default logo
-    return asset('images/' . $defaultLogo);
+    return asset('images/'.$defaultLogo);
 }
 
 /**
@@ -304,68 +301,85 @@ function getLogoWithFallback($query, $logoKey, $defaultLogo)
 function getLogoWithFallbackGlobal($query, $logoKey, $defaultLogo)
 {
     $logoValue = $query->where('key', $logoKey)->first()?->value;
-    
+
     // If tenant has a logo, use it
-    if (!empty($logoValue)) {
-        return global_asset('images/' . $logoValue);
+    if (! empty($logoValue)) {
+        return global_asset('images/'.$logoValue);
     }
-    
+
     // Fallback to default logo
-    return global_asset('images/' . $defaultLogo);
+    return global_asset('images/'.$defaultLogo);
 }
 
 /**
  * Get avatar with fallback to default avatar if image doesn't exist
- * 
- * @param string|null $imagePath The image path (can be null or empty)
- * @param string $directory The directory where the image is stored (e.g., 'clients', 'suppliers', 'employees')
- * @param string $defaultAvatar The default avatar filename (defaults to 'default-avatar.jpeg')
+ *
+ * @param  string|null  $imagePath  The image path (can be null or empty)
+ * @param  string  $directory  The directory where the image is stored (e.g., 'clients', 'suppliers', 'employees')
+ * @param  string  $defaultAvatar  The default avatar filename (defaults to 'default-avatar.jpeg')
  * @return string The full URL to the avatar image
  */
 function getAvatarWithFallback($imagePath, $directory = '', $defaultAvatar = 'default-avatar.jpeg')
 {
     // If no image path provided, return default avatar
     if (empty($imagePath)) {
-        return global_asset('images/' . $defaultAvatar);
+        return global_asset('images/'.$defaultAvatar);
     }
-    
+
     // Build the full image path
     $fullImagePath = $directory ? "images/{$directory}/{$imagePath}" : "images/{$imagePath}";
     $physicalPath = public_path($fullImagePath);
-    
+
     // Check if the image file actually exists
     if (file_exists($physicalPath)) {
         return global_asset($fullImagePath);
     }
-    
+
     // If image doesn't exist, return default avatar
-    return global_asset('images/' . $defaultAvatar);
+    return global_asset('images/'.$defaultAvatar);
 }
 
 /**
  * Get avatar with fallback to default avatar if image doesn't exist (using asset instead of global_asset)
- * 
- * @param string|null $imagePath The image path (can be null or empty)
- * @param string $directory The directory where the image is stored (e.g., 'clients', 'suppliers', 'employees')
- * @param string $defaultAvatar The default avatar filename (defaults to 'default-avatar.jpeg')
+ *
+ * @param  string|null  $imagePath  The image path (can be null or empty)
+ * @param  string  $directory  The directory where the image is stored (e.g., 'clients', 'suppliers', 'employees')
+ * @param  string  $defaultAvatar  The default avatar filename (defaults to 'default-avatar.jpeg')
  * @return string The full URL to the avatar image
  */
 function getAvatarWithFallbackLocal($imagePath, $directory = '', $defaultAvatar = 'default-avatar.jpeg')
 {
     // If no image path provided, return default avatar
     if (empty($imagePath)) {
-        return asset('images/' . $defaultAvatar);
+        return asset('images/'.$defaultAvatar);
     }
-    
+
     // Build the full image path
     $fullImagePath = $directory ? "images/{$directory}/{$imagePath}" : "images/{$imagePath}";
     $physicalPath = public_path($fullImagePath);
-    
+
     // Check if the image file actually exists
     if (file_exists($physicalPath)) {
         return asset($fullImagePath);
     }
-    
+
     // If image doesn't exist, return default avatar
-    return asset('images/' . $defaultAvatar);
+    return asset('images/'.$defaultAvatar);
+}
+
+if (! function_exists('based_on_lang')) {
+    /**
+     * Return value based on current locale
+     * If locale is 'ar', returns first argument, otherwise returns second argument
+     *
+     * @param  mixed  $arKey  Value to return if locale is Arabic
+     * @param  mixed  $enKey  Value to return if locale is not Arabic
+     * @return mixed
+     */
+    function based_on_lang($arKey, $enKey)
+    {
+        $locale = app()->getLocale();
+
+        return $locale === 'ar' ? $arKey : $enKey;
+    }
 }
