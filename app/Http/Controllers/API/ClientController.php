@@ -1380,24 +1380,13 @@ ORDER BY `date`');
      */
     private function createChartOfAccountForClient($clientData, $routingSetting)
     {
-        $maxRetries = 5;
-        $attempt = 0;
-        $lastException = null;
+        try {
+            // Use a database transaction with locking to ensure atomicity and prevent race conditions
+            $newAccount = \Illuminate\Support\Facades\DB::transaction(function () use ($clientData, $routingSetting) {
+                // Generate code inside transaction with proper locking
+                $code = $this->generateAccountCodeWithLock($routingSetting->main_account_id);
 
-        while ($attempt < $maxRetries) {
-            try {
-                $code = $this->generateAccountCode($routingSetting->main_account_id);
-
-                // Double-check code doesn't exist before creating (helps prevent race conditions)
-                $branchId = Auth::user()->default_branch_id ?? null;
-                if (\App\Models\ChartOfAccount::forBranch($branchId)->where('code', $code)->exists()) {
-                    // Code was taken between generation and creation, regenerate
-                    $attempt++;
-
-                    continue;
-                }
-
-                $newAccount = \App\Models\ChartOfAccount::create([
+                return \App\Models\ChartOfAccount::create([
                     'name' => $this->getClientDisplayName($clientData),
                     'code' => $code,
                     'type_id' => $this->getAssetAccountTypeId(),
@@ -1406,42 +1395,33 @@ ORDER BY `date`');
                     'created_by' => Auth::id(),
                     'branch_id' => Auth::user()->default_branch_id,
                 ]);
+            });
 
-                \Illuminate\Support\Facades\Log::info('Created new chart of account for client', [
-                    'account_id' => $newAccount->id,
-                    'account_name' => $newAccount->name,
-                    'account_code' => $newAccount->code,
-                    'parent_account_id' => $routingSetting->main_account_id,
+            \Illuminate\Support\Facades\Log::info('Created new chart of account for client', [
+                'account_id' => $newAccount->id,
+                'account_name' => $newAccount->name,
+                'account_code' => $newAccount->code,
+                'parent_account_id' => $routingSetting->main_account_id,
+            ]);
+
+            return $newAccount;
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Check if it's a duplicate entry error
+            if ($e->getCode() == 23000 && strpos($e->getMessage(), 'Duplicate entry') !== false) {
+                \Illuminate\Support\Facades\Log::error('Duplicate entry error creating chart of account for client', [
+                    'client_data' => $clientData,
+                    'routing_setting' => $routingSetting->toArray(),
+                    'error' => $e->getMessage(),
                 ]);
-
-                return $newAccount;
-            } catch (\Illuminate\Database\QueryException $e) {
-                // Check if it's a duplicate key error
-                if ($e->getCode() === '23000' || str_contains($e->getMessage(), 'Duplicate entry')) {
-                    $attempt++;
-                    $lastException = $e;
-                    \Illuminate\Support\Facades\Log::warning('Duplicate code detected, retrying account creation', [
-                        'attempt' => $attempt,
-                        'max_retries' => $maxRetries,
-                        'error' => $e->getMessage(),
-                    ]);
-                    // Small delay to reduce collision probability
-                    usleep(100000); // 0.1 seconds
-
-                    continue;
-                }
-                // If it's not a duplicate key error, throw immediately
-                \Illuminate\Support\Facades\Log::error('Error creating chart of account for client: '.$e->getMessage());
-                throw $e;
-            } catch (\Exception $e) {
-                \Illuminate\Support\Facades\Log::error('Error creating chart of account for client: '.$e->getMessage());
-                throw $e;
+                throw new \Exception('Failed to create chart of account: the generated code already exists. Please try again.');
             }
+            // If it's not a duplicate error, re-throw
+            \Illuminate\Support\Facades\Log::error('Error creating chart of account for client: '.$e->getMessage());
+            throw $e;
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Error creating chart of account for client: '.$e->getMessage());
+            throw $e;
         }
-
-        // If we've exhausted retries, throw the last exception
-        \Illuminate\Support\Facades\Log::error('Failed to create chart of account after '.$maxRetries.' attempts');
-        throw $lastException ?? new \Exception('Failed to create chart of account: Maximum retry attempts exceeded');
     }
 
     /**
@@ -1457,9 +1437,18 @@ ORDER BY `date`');
     }
 
     /**
-     * Generate unique account code
+     * Generate unique account code (without locking - for backward compatibility)
      */
     private function generateAccountCode($mainAccountId)
+    {
+        return $this->generateAccountCodeWithLock($mainAccountId);
+    }
+
+    /**
+     * Generate unique account code with database locking
+     * This method should be called within a transaction to ensure proper locking
+     */
+    private function generateAccountCodeWithLock($mainAccountId)
     {
         try {
             $branchId = Auth::user()->default_branch_id ?? null;
@@ -1470,27 +1459,45 @@ ORDER BY `date`');
 
             $baseCode = $mainAccount->code;
 
-            // Query existing codes directly from database to get the latest state
-            $existingCodes = \App\Models\ChartOfAccount::forBranch($branchId)
+            // Use a more efficient approach: find the maximum existing code number
+            // Lock the rows to prevent concurrent access
+            $existingCodes = \Illuminate\Support\Facades\DB::table('chart_of_accounts')
                 ->where('code', 'like', $baseCode.'-%')
+                ->lockForUpdate() // Lock rows to prevent race conditions
                 ->pluck('code')
                 ->toArray();
 
-            $counter = 1;
-            $newCode = $baseCode.'-'.str_pad($counter, 3, '0', STR_PAD_LEFT);
+            // Extract the maximum number from existing codes
+            $maxNumber = 0;
+            $pattern = '/^'.preg_quote($baseCode, '/').'-(\d+)$/';
+            foreach ($existingCodes as $existingCode) {
+                if (preg_match($pattern, $existingCode, $matches)) {
+                    $number = (int) $matches[1];
+                    $maxNumber = max($maxNumber, $number);
+                }
+            }
 
-            // Find the next available code
-            while (in_array($newCode, $existingCodes)) {
+            // Generate the next code
+            $nextNumber = $maxNumber + 1;
+            $newCode = $baseCode.'-'.str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+
+            // Double-check the code doesn't exist (extra safety)
+            $maxAttempts = 1000;
+            $counter = 0;
+            while (\App\Models\ChartOfAccount::where('code', $newCode)->exists()) {
                 $counter++;
-                $newCode = $baseCode.'-'.str_pad($counter, 3, '0', STR_PAD_LEFT);
-
-                // Safety check to prevent infinite loop
-                if ($counter > 999) {
-                    \Illuminate\Support\Facades\Log::warning('Reached maximum counter for code generation, using timestamp fallback');
+                if ($counter > $maxAttempts) {
+                    \Illuminate\Support\Facades\Log::error('Max attempts reached while generating account code', [
+                        'base_code' => $baseCode,
+                        'max_attempts' => $maxAttempts,
+                    ]);
+                    // Fallback to timestamp-based code
                     $timestamp = time() % 1000000;
 
-                    return $baseCode.'-'.$timestamp;
+                    return 'CLI-'.$timestamp;
                 }
+                $nextNumber++;
+                $newCode = $baseCode.'-'.str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
             }
 
             return $newCode;
