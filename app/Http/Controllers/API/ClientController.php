@@ -335,58 +335,134 @@ class ClientController extends Controller
 
             }
 
-            // update client
-            $updateData = [
-                // Legacy fields for backward compatibility
-                'name' => $request->name ?? ($request->type === 'Individual' ? $request->fullName : $request->businessName),
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'phone_number' => $request->phoneNumber,
-                'company_name' => $request->companyName ?? $request->businessName,
-                'tax_registration_number' => $request->taxRegistrationNumber ?? $request->taxCard,
-                'address' => $request->address ?? $request->streetAddress1,
-                'status' => $request->status,
-                'image_path' => $imageName,
-                'type' => $request->type ?? 'Company',
-                'tax_status' => $request->taxStatus ?? $request->tax_status ?? 'non_taxable',
-                'chart_of_account_id' => $request->chartOfAccountId ? (is_array($request->chartOfAccountId) ? $request->chartOfAccountId['id'] : $request->chartOfAccountId) : null,
+            // update client - only include fields that are present in the request
+            $updateData = [];
 
-                // New fields for enhanced client form
-                'code_number' => $request->codeNumber,
-                'notes' => $request->notes,
-                'display_language' => $request->displayLanguage,
+            // Always update image_path if image was processed
+            if ($request->has('image') || $imageName !== $client->image_path) {
+                $updateData['image_path'] = $imageName;
+            }
 
-                // Enhanced client details based on type
-                'full_name' => $request->type === 'Individual' ? $request->fullName : null,
-                'business_name' => $request->type === 'Company' ? $request->businessName : null,
-                'first_name' => $request->firstName,
-                'last_name' => $request->lastName,
-                'phone' => $request->phone,
-                'phone_number' => $request->phoneNumber,
-                'street_address1' => $request->streetAddress1,
-                'street_address2' => $request->streetAddress2,
-                'city' => $request->city,
-                'state' => $request->state,
-                'postal_code' => $request->postalCode,
-                'country' => $request->country,
-                'neighbourhood' => $request->neighbourhood,
-                'commercial_register' => $request->commercialRegister,
-                'tax_card' => $request->taxCard,
+            // Legacy fields for backward compatibility
+            if ($request->has('name') || $request->has('fullName') || $request->has('businessName') || $request->has('type')) {
+                $updateData['name'] = $request->name ?? ($request->type === 'Individual' ? $request->fullName : $request->businessName);
+            }
+            if ($request->has('email')) {
+                $updateData['email'] = $request->email;
+            }
+            if ($request->has('phone')) {
+                $updateData['phone'] = $request->phone;
+            }
+            if ($request->has('phoneNumber')) {
+                $updateData['phone_number'] = $request->phoneNumber;
+            }
+            if ($request->has('companyName') || $request->has('businessName')) {
+                $updateData['company_name'] = $request->companyName ?? $request->businessName;
+            }
+            if ($request->has('taxRegistrationNumber') || $request->has('taxCard')) {
+                $updateData['tax_registration_number'] = $request->taxRegistrationNumber ?? $request->taxCard;
+            }
+            if ($request->has('address') || $request->has('streetAddress1')) {
+                $updateData['address'] = $request->address ?? $request->streetAddress1;
+            }
+            if ($request->has('status')) {
+                $updateData['status'] = $request->status;
+            }
+            if ($request->has('type')) {
+                $updateData['type'] = $request->type ?? 'Company';
+            }
+            if ($request->has('taxStatus') || $request->has('tax_status')) {
+                $updateData['tax_status'] = $request->taxStatus ?? $request->tax_status ?? 'non_taxable';
+            }
+            if ($request->has('chartOfAccountId')) {
+                $updateData['chart_of_account_id'] = $request->chartOfAccountId ? (is_array($request->chartOfAccountId) ? $request->chartOfAccountId['id'] : $request->chartOfAccountId) : null;
+            }
 
-                // Saudi National Address fields
-                'building_number' => $request->buildingNumber,
-                'street_number' => $request->streetNumber,
-                'district_number' => $request->districtNumber,
-                'unit_number' => $request->unitNumber,
-                'additional_number' => $request->additionalNumber,
+            // New fields for enhanced client form
+            if ($request->has('codeNumber')) {
+                $updateData['code_number'] = $request->codeNumber;
+            }
+            if ($request->has('notes')) {
+                $updateData['notes'] = $request->notes;
+            }
+            if ($request->has('displayLanguage')) {
+                $updateData['display_language'] = $request->displayLanguage;
+            }
 
-                // Additional fields
-                'is_send_email' => $request->isSendEmail,
-                'is_send_sms' => $request->isSendSMS,
+            // Enhanced client details based on type
+            if ($request->has('type') && $request->has('fullName')) {
+                $updateData['full_name'] = $request->type === 'Individual' ? $request->fullName : null;
+            } elseif ($request->has('fullName')) {
+                $updateData['full_name'] = $request->fullName;
+            }
+            if ($request->has('type') && $request->has('businessName')) {
+                $updateData['business_name'] = $request->type === 'Company' ? $request->businessName : null;
+            } elseif ($request->has('businessName')) {
+                $updateData['business_name'] = $request->businessName;
+            }
+            if ($request->has('firstName')) {
+                $updateData['first_name'] = $request->firstName;
+            }
+            if ($request->has('lastName')) {
+                $updateData['last_name'] = $request->lastName;
+            }
+            if ($request->has('streetAddress1')) {
+                $updateData['street_address1'] = $request->streetAddress1;
+            }
+            if ($request->has('streetAddress2')) {
+                $updateData['street_address2'] = $request->streetAddress2;
+            }
+            if ($request->has('city')) {
+                $updateData['city'] = $request->city;
+            }
+            if ($request->has('state')) {
+                $updateData['state'] = $request->state;
+            }
+            if ($request->has('postalCode')) {
+                $updateData['postal_code'] = $request->postalCode;
+            }
+            if ($request->has('country')) {
+                $updateData['country'] = $request->country;
+            }
+            if ($request->has('neighbourhood')) {
+                $updateData['neighbourhood'] = $request->neighbourhood;
+            }
+            if ($request->has('commercialRegister')) {
+                $updateData['commercial_register'] = $request->commercialRegister;
+            }
+            if ($request->has('taxCard')) {
+                $updateData['tax_card'] = $request->taxCard;
+            }
 
-                // Handle attachments if provided
-                'attachments' => $request->attachments ? json_encode($request->attachments) : null,
-            ];
+            // Saudi National Address fields
+            if ($request->has('buildingNumber')) {
+                $updateData['building_number'] = $request->buildingNumber;
+            }
+            if ($request->has('streetNumber')) {
+                $updateData['street_number'] = $request->streetNumber;
+            }
+            if ($request->has('districtNumber')) {
+                $updateData['district_number'] = $request->districtNumber;
+            }
+            if ($request->has('unitNumber')) {
+                $updateData['unit_number'] = $request->unitNumber;
+            }
+            if ($request->has('additionalNumber')) {
+                $updateData['additional_number'] = $request->additionalNumber;
+            }
+
+            // Additional fields
+            if ($request->has('isSendEmail')) {
+                $updateData['is_send_email'] = $request->isSendEmail;
+            }
+            if ($request->has('isSendSMS')) {
+                $updateData['is_send_sms'] = $request->isSendSMS;
+            }
+
+            // Handle attachments if provided
+            if ($request->has('attachments')) {
+                $updateData['attachments'] = $request->attachments ? json_encode($request->attachments) : null;
+            }
 
             // Auto-assign Chart of Account if not provided (only if client doesn't already have one)
             $updateData = $this->autoAssignChartOfAccountForClient($updateData, $client);
