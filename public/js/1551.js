@@ -20,7 +20,191 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".refresh-btn[data-v-2b2f80d0]{backgrou
 
 /***/ }),
 
-/***/ 29164:
+/***/ 41551:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ tree)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cost-centers/tree.vue?vue&type=template&id=78781e62
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('entity-tree-page', {
+    attrs: {
+      "config": _vm.treeConfig
+    }
+  });
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./resources/js/components/EntityTreePage.vue + 11 modules
+var EntityTreePage = __webpack_require__(71152);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cost-centers/tree.vue?vue&type=script&lang=js
+
+/* harmony default export */ const treevue_type_script_lang_js = ({
+  components: {
+    EntityTreePage: EntityTreePage/* default */.A
+  },
+  middleware: ["auth", "check-permissions"],
+  metaInfo: function metaInfo() {
+    return {
+      title: this.$t("Cost Centers - Tree View")
+    };
+  },
+  computed: {
+    treeConfig: function treeConfig() {
+      return {
+        title: this.$t("Cost Centers - Tree View"),
+        breadcrumbs: [{
+          name: "Dashboard",
+          url: "home"
+        }, {
+          name: "Cost Centers",
+          url: ""
+        }],
+        permissions: {
+          list: "view_cost_centers",
+          create: "create_cost_center",
+          view: "view_cost_centers",
+          edit: "update_cost_center",
+          "delete": "delete_cost_center",
+          drag: "update_cost_center"
+        },
+        routes: {
+          list: function list() {
+            return {
+              name: "cost-centers.index"
+            };
+          },
+          create: function create() {
+            return {
+              name: "cost-centers.create"
+            };
+          },
+          view: function view(item) {
+            return {
+              name: "cost-centers.show",
+              params: {
+                slug: item.id
+              }
+            };
+          },
+          edit: function edit(item) {
+            return {
+              name: "cost-centers.edit",
+              params: {
+                slug: item.id
+              }
+            };
+          },
+          createChild: function createChild(item) {
+            return {
+              name: "cost-centers.create",
+              query: {
+                parent_id: item.id
+              }
+            };
+          }
+        },
+        api: {
+          list: "/api/cost-centers/tree",
+          search: "/api/cost-centers/tree",
+          searchParam: "search",
+          defaultParams: function defaultParams() {
+            return {};
+          },
+          "delete": function _delete(item) {
+            return "/api/cost-centers/".concat(item.id);
+          },
+          move: function move(itemId) {
+            return "/api/cost-centers/".concat(itemId, "/move");
+          }
+        },
+        displayNameResolver: function displayNameResolver(item, _ref) {
+          var locale = _ref.locale;
+          if (!item) {
+            return "";
+          }
+          if (item.localized_name) {
+            return item.localized_name;
+          }
+          if ((locale === "en" || !locale) && item.name_en) {
+            return item.name_en;
+          }
+          return item.name || "";
+        },
+        canDelete: function canDelete(item) {
+          return (item === null || item === void 0 ? void 0 : item.can_delete) !== false;
+        },
+        features: {
+          dragAndDrop: true,
+          showStatusBadge: true
+        },
+        messages: {
+          entityLabel: this.$t("Cost Center"),
+          loadError: this.$t("Failed to load cost centers"),
+          searchError: this.$t("Failed to search cost centers"),
+          moveSuccess: this.$t("Cost center moved successfully"),
+          moveError: this.$t("Failed to move cost center"),
+          deleteError: this.$t("Sorry you can't remove this cost center!")
+        }
+      };
+    }
+  }
+});
+;// ./resources/js/pages/cost-centers/tree.vue?vue&type=script&lang=js
+ /* harmony default export */ const cost_centers_treevue_type_script_lang_js = (treevue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/pages/cost-centers/tree.vue
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,componentNormalizer/* default */.A)(
+  cost_centers_treevue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ const tree = (component.exports);
+
+/***/ }),
+
+/***/ 62252:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".tree-search-wrapper[data-v-ec853128]{background:#fff;border-bottom:1px solid #f0f0f0;padding:16px 20px}.tree-search-wrapper[data-v-ec853128] .search-area{position:relative}.tree-search-wrapper[data-v-ec853128] .search-input{background:#f8f9fa;border:1px solid #e9ecef;border-radius:8px;color:#1a1a1a;font-size:14px;padding:10px 40px;transition:all .2s ease;width:100%}.tree-search-wrapper[data-v-ec853128] .search-input:focus{background:#fff;border-color:#2ab930;box-shadow:0 0 0 3px rgba(42,185,48,.1);outline:none}.tree-search-wrapper[data-v-ec853128] .search-input::-moz-placeholder{color:#adb5bd}.tree-search-wrapper[data-v-ec853128] .search-input::placeholder{color:#adb5bd}.tree-search-wrapper[data-v-ec853128] .search-icon{color:#6c757d}.tree-body-container[data-v-ec853128]{background:#fff;display:flex;justify-content:center;max-height:calc(100vh - 280px);overflow-x:visible;overflow-y:auto;padding:8px 0;position:relative}.tree-view-list[data-v-ec853128]{list-style:none;margin:0;max-width:1200px;padding:0;width:100%}.tree-item[data-v-ec853128],.tree-view-list[data-v-ec853128]{overflow:visible;position:relative}.tree-item[data-v-ec853128]{transition:all .2s ease}.tree-item-dragging[data-v-ec853128]{opacity:.5}.tree-item-drag-over .tree-item-content[data-v-ec853128]{background-color:#e3f2fd!important;border:1px dashed #2ab930;box-shadow:0 2px 8px rgba(42,185,48,.15)}.tree-item-content[data-v-ec853128]{align-items:center;background:#fff;border:none;border-radius:6px;cursor:default;display:flex;margin:2px 8px;min-height:44px;padding:10px 16px;position:relative;transition:all .15s cubic-bezier(.4,0,.2,1);z-index:2}.tree-item-content.tree-item-has-children[data-v-ec853128]{cursor:pointer}.tree-item-content[data-v-ec853128]:hover{background-color:#f8f9fa;transform:translateX(2px)}[dir=rtl] .tree-item-content[data-v-ec853128]:hover{transform:translateX(-2px)}.tree-item-icon-container[data-v-ec853128]{align-items:center;border-radius:4px;cursor:pointer;display:flex;flex-shrink:0;height:24px;justify-content:center;margin-right:10px;transition:all .15s ease;width:24px}[dir=rtl] .tree-item-icon-container[data-v-ec853128]{margin-left:10px;margin-right:0}.tree-item-icon-container[data-v-ec853128]:hover{background-color:#f0f0f0}.tree-item-icon-container .fa-folder[data-v-ec853128]{color:#ffb300;font-size:18px}.tree-item-icon-container .fa-folder-open[data-v-ec853128]{color:#ff8f00;font-size:18px}.tree-item-icon-container .fa-circle[data-v-ec853128]{color:#bdbdbd;font-size:6px}.tree-item-info[data-v-ec853128]{align-items:center;display:flex;flex:1;min-width:0}.tree-item-name[data-v-ec853128]{color:#1a1a1a;font-size:14px;font-weight:500;letter-spacing:-.01em;line-height:1.5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.tree-item-code[data-v-ec853128]{background:#f3f4f6;border-radius:4px;color:#6b7280;flex-shrink:0;font-family:Courier New,monospace;font-size:12px;font-weight:400;margin-left:8px;padding:2px 8px;white-space:nowrap}[dir=rtl] .tree-item-code[data-v-ec853128]{margin-left:0;margin-right:8px}.tree-item-actions[data-v-ec853128]{align-items:center;background:#fff;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,.1);display:flex;gap:2px;margin-left:auto;opacity:0;overflow:hidden;transition:opacity .2s ease}[dir=rtl] .tree-item-actions[data-v-ec853128]{margin-left:0;margin-right:auto}.tree-item:hover .tree-item-actions[data-v-ec853128]{opacity:1}.tree-action-btn[data-v-ec853128]{align-items:center;background:transparent;border:none;color:#666;cursor:pointer;display:flex;font-size:12px;font-weight:500;justify-content:center;padding:6px 14px;position:relative;text-decoration:none;transition:all .15s ease;white-space:nowrap}.tree-action-btn[data-v-ec853128]:hover{background:#f5f5f5;color:#1a1a1a}.tree-action-btn[data-v-ec853128]:active{transform:scale(.98)}.tree-action-btn.disabled[data-v-ec853128]{cursor:not-allowed;opacity:.4;pointer-events:none}.tree-action-view[data-v-ec853128]{color:#666}.tree-action-view[data-v-ec853128]:hover{background:#e0e0e0;color:#333}.tree-action-edit[data-v-ec853128]{color:#666}.tree-action-edit[data-v-ec853128]:hover{background:#e0e0e0;color:#333}.tree-action-add[data-v-ec853128]{color:#666}.tree-action-add[data-v-ec853128]:hover{background:#e0e0e0;color:#333}.tree-action-delete[data-v-ec853128]{color:#666}.tree-action-delete[data-v-ec853128]:hover{background:#fee;color:#d32f2f}@media (max-width:768px){.tree-item-actions[data-v-ec853128]{opacity:1}.tree-body-container[data-v-ec853128]{max-height:calc(100vh - 200px)}}.tree-body-container[data-v-ec853128]::-webkit-scrollbar{width:6px}.tree-body-container[data-v-ec853128]::-webkit-scrollbar-track{background:#fafafa;border-radius:3px}.tree-body-container[data-v-ec853128]::-webkit-scrollbar-thumb{background:#d0d0d0;border-radius:3px;-webkit-transition:background .2s ease;transition:background .2s ease}.tree-body-container[data-v-ec853128]::-webkit-scrollbar-thumb:hover{background:#b0b0b0}.tree-item[draggable=true] .tree-item-content[data-v-ec853128]{cursor:grab}.tree-item[draggable=true] .tree-item-content[data-v-ec853128]:active{cursor:grabbing}@keyframes fadeIn-ec853128{0%{opacity:0}to{opacity:1}}.tree-item[data-v-ec853128]{animation:fadeIn-ec853128 .2s ease-out}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 71152:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -179,8 +363,8 @@ var vuex_esm = __webpack_require__(95353);
 // EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
 var sweetalert2_all = __webpack_require__(78465);
 var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TreeView.vue?vue&type=template&id=c88c75b2&scoped=true
-var TreeViewvue_type_template_id_c88c75b2_scoped_true_render = function render() {
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TreeView.vue?vue&type=template&id=ec853128&scoped=true
+var TreeViewvue_type_template_id_ec853128_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c('div', {
@@ -237,38 +421,7 @@ var TreeViewvue_type_template_id_c88c75b2_scoped_true_render = function render()
           _vm.handleDragEnd && _vm.handleDragEnd;
         }
       }
-    }, [item.level > 0 ? _c('div', {
-      staticClass: "tree-lines-wrapper"
-    }, [_vm._l(item.level - 1, function (levelIndex) {
-      return _c('div', {
-        key: 'ancestor-' + levelIndex,
-        staticClass: "tree-line-vertical tree-line-ancestor",
-        style: _vm.isRTL ? {
-          right: (levelIndex - 1) * 20 + 10 + 'px'
-        } : {
-          left: (levelIndex - 1) * 20 + 10 + 'px'
-        }
-      });
-    }), _vm._v(" "), _c('div', {
-      key: 'parent-' + item.level,
-      staticClass: "tree-line-vertical",
-      "class": {
-        'tree-line-last': _vm.isLastSibling(item),
-        'tree-line-continue': !_vm.isLastSibling(item)
-      },
-      style: _vm.isRTL ? {
-        right: (item.level - 1) * 20 + 10 + 'px'
-      } : {
-        left: (item.level - 1) * 20 + 10 + 'px'
-      }
-    }), _vm._v(" "), _c('div', {
-      staticClass: "tree-line-horizontal",
-      style: _vm.isRTL ? {
-        right: (item.level - 1) * 20 + 10 + 'px'
-      } : {
-        left: (item.level - 1) * 20 + 10 + 'px'
-      }
-    })], 2) : _vm._e(), _vm._v(" "), _c('div', {
+    }, [_c('div', {
       staticClass: "tree-item-content",
       "class": {
         'tree-item-has-children': item.hasChildren
@@ -299,7 +452,9 @@ var TreeViewvue_type_template_id_c88c75b2_scoped_true_render = function render()
       staticClass: "tree-item-info"
     }, [_c('span', {
       staticClass: "tree-item-name"
-    }, [_vm._v(_vm._s(_vm.getDisplayName(item)))])]), _vm._v(" "), _c('div', {
+    }, [_vm._v(_vm._s(_vm.getDisplayName(item)))]), _vm._v(" "), item.code ? _c('span', {
+      staticClass: "tree-item-code"
+    }, [_vm._v(_vm._s(item.code))]) : _vm._e()]), _vm._v(" "), _c('div', {
       staticClass: "tree-item-actions",
       on: {
         "click": function click($event) {
@@ -311,7 +466,7 @@ var TreeViewvue_type_template_id_c88c75b2_scoped_true_render = function render()
     })], 2)])]);
   }), 0)])]);
 };
-var TreeViewvue_type_template_id_c88c75b2_scoped_true_staticRenderFns = [];
+var TreeViewvue_type_template_id_ec853128_scoped_true_staticRenderFns = [];
 
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TreeView.vue?vue&type=script&lang=js
 /* harmony default export */ const TreeViewvue_type_script_lang_js = ({
@@ -350,12 +505,81 @@ var TreeViewvue_type_template_id_c88c75b2_scoped_true_staticRenderFns = [];
       required: true
     }
   },
+  data: function data() {
+    return {
+      isRTL: false
+    };
+  },
   computed: {
-    isRTL: function isRTL() {
-      return document.documentElement.dir === 'rtl' || document.documentElement.getAttribute('dir') === 'rtl';
+    currentLocale: function currentLocale() {
+      var _this$$store, _this$$i18n;
+      return ((_this$$store = this.$store) === null || _this$$store === void 0 || (_this$$store = _this$$store.getters) === null || _this$$store === void 0 ? void 0 : _this$$store['lang/locale']) || ((_this$$i18n = this.$i18n) === null || _this$$i18n === void 0 ? void 0 : _this$$i18n.locale) || window.config && window.config.locale || 'en';
     }
   },
+  watch: {
+    currentLocale: {
+      handler: function handler(newLocale) {
+        this.updateRTLStatus(newLocale);
+      },
+      immediate: true
+    },
+    '$i18n.locale': {
+      handler: function handler(newLocale) {
+        this.updateRTLStatus(newLocale);
+      },
+      immediate: true
+    }
+  },
+  mounted: function mounted() {
+    this.updateRTLStatus(this.currentLocale);
+    // Listen for locale change events
+    window.addEventListener('locale-changed', this.handleLocaleChange);
+    window.addEventListener('rtl-forced', this.handleRTLChange);
+  },
+  beforeDestroy: function beforeDestroy() {
+    window.removeEventListener('locale-changed', this.handleLocaleChange);
+    window.removeEventListener('rtl-forced', this.handleRTLChange);
+  },
   methods: {
+    isRTLLocale: function isRTLLocale(locale) {
+      var rtlLanguages = ['ar', 'he', 'fa', 'ur', 'ps', 'sd', 'ku', 'yi'];
+      return rtlLanguages.includes((locale || '').toLowerCase());
+    },
+    updateRTLStatus: function updateRTLStatus(locale) {
+      var localeToCheck = locale || this.currentLocale;
+      // Check from locale first
+      this.isRTL = this.isRTLLocale(localeToCheck);
+      // Also check document direction as fallback
+      if (!this.isRTL) {
+        this.isRTL = document.documentElement.dir === 'rtl' || document.documentElement.getAttribute('dir') === 'rtl';
+      }
+    },
+    handleLocaleChange: function handleLocaleChange(event) {
+      if (event && event.detail) {
+        var _event$detail = event.detail,
+          locale = _event$detail.locale,
+          isRTL = _event$detail.isRTL;
+        if (locale) {
+          this.updateRTLStatus(locale);
+        } else if (isRTL !== undefined) {
+          this.isRTL = isRTL;
+        }
+      } else {
+        this.updateRTLStatus(this.currentLocale);
+      }
+    },
+    handleRTLChange: function handleRTLChange(event) {
+      if (event && event.detail) {
+        var _event$detail2 = event.detail,
+          locale = _event$detail2.locale,
+          isRTL = _event$detail2.isRTL;
+        if (locale) {
+          this.updateRTLStatus(locale);
+        } else if (isRTL !== undefined) {
+          this.isRTL = isRTL;
+        }
+      }
+    },
     handleItemClick: function handleItemClick(item) {
       if (item.hasChildren) {
         this.onToggleExpand(item.id);
@@ -392,9 +616,9 @@ var TreeViewvue_type_template_id_c88c75b2_scoped_true_staticRenderFns = [];
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TreeView.vue?vue&type=style&index=0&id=c88c75b2&prod&scoped=true&lang=css
-var TreeViewvue_type_style_index_0_id_c88c75b2_prod_scoped_true_lang_css = __webpack_require__(67225);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TreeView.vue?vue&type=style&index=0&id=c88c75b2&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TreeView.vue?vue&type=style&index=0&id=ec853128&prod&scoped=true&lang=css
+var TreeViewvue_type_style_index_0_id_ec853128_prod_scoped_true_lang_css = __webpack_require__(62252);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TreeView.vue?vue&type=style&index=0&id=ec853128&prod&scoped=true&lang=css
 
             
 
@@ -403,12 +627,12 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(TreeViewvue_type_style_index_0_id_c88c75b2_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(TreeViewvue_type_style_index_0_id_ec853128_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const components_TreeViewvue_type_style_index_0_id_c88c75b2_prod_scoped_true_lang_css = (TreeViewvue_type_style_index_0_id_c88c75b2_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/TreeView.vue?vue&type=style&index=0&id=c88c75b2&prod&scoped=true&lang=css
+/* harmony default export */ const components_TreeViewvue_type_style_index_0_id_ec853128_prod_scoped_true_lang_css = (TreeViewvue_type_style_index_0_id_ec853128_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/TreeView.vue?vue&type=style&index=0&id=ec853128&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
@@ -423,11 +647,11 @@ var componentNormalizer = __webpack_require__(14486);
 
 var component = (0,componentNormalizer/* default */.A)(
   components_TreeViewvue_type_script_lang_js,
-  TreeViewvue_type_template_id_c88c75b2_scoped_true_render,
-  TreeViewvue_type_template_id_c88c75b2_scoped_true_staticRenderFns,
+  TreeViewvue_type_template_id_ec853128_scoped_true_render,
+  TreeViewvue_type_template_id_ec853128_scoped_true_staticRenderFns,
   false,
   null,
-  "c88c75b2",
+  "ec853128",
   null
   
 )
@@ -1151,190 +1375,6 @@ var EntityTreePage_component = (0,componentNormalizer/* default */.A)(
 )
 
 /* harmony default export */ const EntityTreePage = (EntityTreePage_component.exports);
-
-/***/ }),
-
-/***/ 41551:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ tree)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cost-centers/tree.vue?vue&type=template&id=78781e62
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('entity-tree-page', {
-    attrs: {
-      "config": _vm.treeConfig
-    }
-  });
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./resources/js/components/EntityTreePage.vue + 11 modules
-var EntityTreePage = __webpack_require__(29164);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cost-centers/tree.vue?vue&type=script&lang=js
-
-/* harmony default export */ const treevue_type_script_lang_js = ({
-  components: {
-    EntityTreePage: EntityTreePage/* default */.A
-  },
-  middleware: ["auth", "check-permissions"],
-  metaInfo: function metaInfo() {
-    return {
-      title: this.$t("Cost Centers - Tree View")
-    };
-  },
-  computed: {
-    treeConfig: function treeConfig() {
-      return {
-        title: this.$t("Cost Centers - Tree View"),
-        breadcrumbs: [{
-          name: "Dashboard",
-          url: "home"
-        }, {
-          name: "Cost Centers",
-          url: ""
-        }],
-        permissions: {
-          list: "view_cost_centers",
-          create: "create_cost_center",
-          view: "view_cost_centers",
-          edit: "update_cost_center",
-          "delete": "delete_cost_center",
-          drag: "update_cost_center"
-        },
-        routes: {
-          list: function list() {
-            return {
-              name: "cost-centers.index"
-            };
-          },
-          create: function create() {
-            return {
-              name: "cost-centers.create"
-            };
-          },
-          view: function view(item) {
-            return {
-              name: "cost-centers.show",
-              params: {
-                slug: item.id
-              }
-            };
-          },
-          edit: function edit(item) {
-            return {
-              name: "cost-centers.edit",
-              params: {
-                slug: item.id
-              }
-            };
-          },
-          createChild: function createChild(item) {
-            return {
-              name: "cost-centers.create",
-              query: {
-                parent_id: item.id
-              }
-            };
-          }
-        },
-        api: {
-          list: "/api/cost-centers/tree",
-          search: "/api/cost-centers/tree",
-          searchParam: "search",
-          defaultParams: function defaultParams() {
-            return {};
-          },
-          "delete": function _delete(item) {
-            return "/api/cost-centers/".concat(item.id);
-          },
-          move: function move(itemId) {
-            return "/api/cost-centers/".concat(itemId, "/move");
-          }
-        },
-        displayNameResolver: function displayNameResolver(item, _ref) {
-          var locale = _ref.locale;
-          if (!item) {
-            return "";
-          }
-          if (item.localized_name) {
-            return item.localized_name;
-          }
-          if ((locale === "en" || !locale) && item.name_en) {
-            return item.name_en;
-          }
-          return item.name || "";
-        },
-        canDelete: function canDelete(item) {
-          return (item === null || item === void 0 ? void 0 : item.can_delete) !== false;
-        },
-        features: {
-          dragAndDrop: true,
-          showStatusBadge: true
-        },
-        messages: {
-          entityLabel: this.$t("Cost Center"),
-          loadError: this.$t("Failed to load cost centers"),
-          searchError: this.$t("Failed to search cost centers"),
-          moveSuccess: this.$t("Cost center moved successfully"),
-          moveError: this.$t("Failed to move cost center"),
-          deleteError: this.$t("Sorry you can't remove this cost center!")
-        }
-      };
-    }
-  }
-});
-;// ./resources/js/pages/cost-centers/tree.vue?vue&type=script&lang=js
- /* harmony default export */ const cost_centers_treevue_type_script_lang_js = (treevue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/cost-centers/tree.vue
-
-
-
-
-
-/* normalize component */
-;
-var component = (0,componentNormalizer/* default */.A)(
-  cost_centers_treevue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ const tree = (component.exports);
-
-/***/ }),
-
-/***/ 67225:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".tree-search-wrapper[data-v-c88c75b2]{background:#fff;border-bottom:1px solid #f0f0f0;padding:16px 20px}.tree-search-wrapper[data-v-c88c75b2] .search-area{position:relative}.tree-search-wrapper[data-v-c88c75b2] .search-input{background:#f8f9fa;border:1px solid #e9ecef;border-radius:8px;color:#1a1a1a;font-size:14px;padding:10px 40px;transition:all .2s ease;width:100%}.tree-search-wrapper[data-v-c88c75b2] .search-input:focus{background:#fff;border-color:#2ab930;box-shadow:0 0 0 3px rgba(42,185,48,.1);outline:none}.tree-search-wrapper[data-v-c88c75b2] .search-input::-moz-placeholder{color:#adb5bd}.tree-search-wrapper[data-v-c88c75b2] .search-input::placeholder{color:#adb5bd}.tree-search-wrapper[data-v-c88c75b2] .search-icon{color:#6c757d}.tree-body-container[data-v-c88c75b2]{background:#fff;max-height:calc(100vh - 280px);overflow-x:visible;overflow-y:auto;padding:8px 0;position:relative}.tree-view-list[data-v-c88c75b2]{list-style:none;margin:0;padding:0}.tree-item[data-v-c88c75b2],.tree-view-list[data-v-c88c75b2]{overflow:visible;position:relative}.tree-item[data-v-c88c75b2]{transition:all .2s ease}.tree-lines-wrapper[data-v-c88c75b2]{height:100%;left:0;overflow:visible;pointer-events:none;position:absolute;top:0;width:100%;z-index:0}[dir=rtl] .tree-lines-wrapper[data-v-c88c75b2]{left:auto;right:0}.tree-line-vertical[data-v-c88c75b2]{background:#4b5563;box-shadow:0 0 1px rgba(0,0,0,.1);display:block!important;opacity:1!important;position:absolute;top:50%;visibility:visible!important;width:3px;z-index:1}.tree-line-vertical.tree-line-ancestor[data-v-c88c75b2],.tree-line-vertical.tree-line-continue[data-v-c88c75b2]{background:#4b5563;bottom:-10000px;display:block!important;opacity:1!important;top:50%;visibility:visible!important}.tree-line-vertical.tree-line-last[data-v-c88c75b2]{bottom:0}.tree-line-horizontal[data-v-c88c75b2],.tree-line-vertical.tree-line-last[data-v-c88c75b2]{background:#4b5563;display:block!important;opacity:1!important;top:50%;visibility:visible!important}.tree-line-horizontal[data-v-c88c75b2]{box-shadow:0 0 1px rgba(0,0,0,.1);height:3px;margin-top:-1.5px;position:absolute;width:24px;z-index:1}[dir=rtl] .tree-line-horizontal[data-v-c88c75b2],[dir=rtl] .tree-line-vertical[data-v-c88c75b2]{left:auto;right:0}.tree-item-dragging[data-v-c88c75b2]{opacity:.5}.tree-item-drag-over .tree-item-content[data-v-c88c75b2]{background-color:#e3f2fd!important;border:1px dashed #2ab930;box-shadow:0 2px 8px rgba(42,185,48,.15)}.tree-item-content[data-v-c88c75b2]{align-items:center;background:#fff;border:none;border-radius:6px;cursor:default;display:flex;margin:2px 8px;min-height:44px;padding:10px 16px;position:relative;transition:all .15s cubic-bezier(.4,0,.2,1);z-index:2}.tree-item-content.tree-item-has-children[data-v-c88c75b2]{cursor:pointer}.tree-item-content[data-v-c88c75b2]:hover{background-color:#f8f9fa;transform:translateX(2px)}[dir=rtl] .tree-item-content[data-v-c88c75b2]:hover{transform:translateX(-2px)}.tree-item-icon-container[data-v-c88c75b2]{align-items:center;border-radius:4px;cursor:pointer;display:flex;flex-shrink:0;height:24px;justify-content:center;margin-right:10px;transition:all .15s ease;width:24px}[dir=rtl] .tree-item-icon-container[data-v-c88c75b2]{margin-left:10px;margin-right:0}.tree-item-icon-container[data-v-c88c75b2]:hover{background-color:#f0f0f0}.tree-item-icon-container .fa-folder[data-v-c88c75b2]{color:#ffb300;font-size:18px}.tree-item-icon-container .fa-folder-open[data-v-c88c75b2]{color:#ff8f00;font-size:18px}.tree-item-icon-container .fa-circle[data-v-c88c75b2]{color:#bdbdbd;font-size:6px}.tree-item-info[data-v-c88c75b2]{align-items:center;display:flex;flex:1;min-width:0}.tree-item-name[data-v-c88c75b2]{color:#1a1a1a;font-size:14px;font-weight:500;letter-spacing:-.01em;line-height:1.5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.tree-item-actions[data-v-c88c75b2]{align-items:center;background:#fff;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,.1);display:flex;gap:2px;margin-left:auto;opacity:0;overflow:hidden;transition:opacity .2s ease}[dir=rtl] .tree-item-actions[data-v-c88c75b2]{margin-left:0;margin-right:auto}.tree-item:hover .tree-item-actions[data-v-c88c75b2]{opacity:1}.tree-action-btn[data-v-c88c75b2]{align-items:center;background:transparent;border:none;color:#666;cursor:pointer;display:flex;font-size:12px;font-weight:500;justify-content:center;padding:6px 14px;position:relative;text-decoration:none;transition:all .15s ease;white-space:nowrap}.tree-action-btn[data-v-c88c75b2]:hover{background:#f5f5f5;color:#1a1a1a}.tree-action-btn[data-v-c88c75b2]:active{transform:scale(.98)}.tree-action-btn.disabled[data-v-c88c75b2]{cursor:not-allowed;opacity:.4;pointer-events:none}.tree-action-view[data-v-c88c75b2]{color:#666}.tree-action-view[data-v-c88c75b2]:hover{background:#e0e0e0;color:#333}.tree-action-edit[data-v-c88c75b2]{color:#666}.tree-action-edit[data-v-c88c75b2]:hover{background:#e0e0e0;color:#333}.tree-action-add[data-v-c88c75b2]{color:#666}.tree-action-add[data-v-c88c75b2]:hover{background:#e0e0e0;color:#333}.tree-action-delete[data-v-c88c75b2]{color:#666}.tree-action-delete[data-v-c88c75b2]:hover{background:#fee;color:#d32f2f}@media (max-width:768px){.tree-item-actions[data-v-c88c75b2]{opacity:1}.tree-body-container[data-v-c88c75b2]{max-height:calc(100vh - 200px)}}.tree-body-container[data-v-c88c75b2]::-webkit-scrollbar{width:6px}.tree-body-container[data-v-c88c75b2]::-webkit-scrollbar-track{background:#fafafa;border-radius:3px}.tree-body-container[data-v-c88c75b2]::-webkit-scrollbar-thumb{background:#d0d0d0;border-radius:3px;-webkit-transition:background .2s ease;transition:background .2s ease}.tree-body-container[data-v-c88c75b2]::-webkit-scrollbar-thumb:hover{background:#b0b0b0}.tree-item[draggable=true] .tree-item-content[data-v-c88c75b2]{cursor:grab}.tree-item[draggable=true] .tree-item-content[data-v-c88c75b2]:active{cursor:grabbing}@keyframes fadeIn-c88c75b2{0%{opacity:0}to{opacity:1}}.tree-item[data-v-c88c75b2]{animation:fadeIn-c88c75b2 .2s ease-out}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
 
 /***/ })
 

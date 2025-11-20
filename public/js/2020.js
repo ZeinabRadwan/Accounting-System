@@ -7847,7 +7847,7 @@
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(true)
-		module.exports = factory(__webpack_require__(94733), __webpack_require__(20354));
+		module.exports = factory(__webpack_require__(41371), __webpack_require__(20354));
 	else // removed by dead control flow
 {}
 })(self, function(__WEBPACK_EXTERNAL_MODULE_jspdf__, __WEBPACK_EXTERNAL_MODULE_html2canvas__) {
@@ -13711,654 +13711,7 @@ __nested_webpack_exports__ = __nested_webpack_exports__.default;
 
 /***/ }),
 
-/***/ 49112:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".nav-pills .nav-item[data-v-22549200]{background:#ddd;border-radius:.25rem;margin:2px}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 82020:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ show)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/vouchers/send/show.vue?vue&type=template&id=22549200&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c('breadcrumbs', {
-    attrs: {
-      "items": _vm.breadcrumbs,
-      "current": _vm.breadcrumbsCurrent
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "row no-print mb-2"
-  }, [_c('div', {
-    staticClass: "w-100 text-right float-right"
-  }, [_vm.voucher ? _c('div', {
-    staticClass: "d-flex justify-content-between"
-  }, [_c('div', {
-    staticClass: "btn-group"
-  }, [_c('ul', {
-    staticClass: "nav nav-pills"
-  }, [_c('li', {
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link active",
-    attrs: {
-      "href": "#details",
-      "data-toggle": "tab"
-    },
-    on: {
-      "click": _vm.getVoucher
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-info"
-  }), _vm._v(" " + _vm._s(_vm.$t('Details')) + "\n              ")])]), _vm._v(" "), _c('li', {
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link",
-    attrs: {
-      "href": "#activity-log",
-      "data-toggle": "tab"
-    },
-    on: {
-      "click": _vm.getActivity
-    }
-  }, [_c('i', {
-    staticClass: "nav-icon fa fa-bell",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Activity log")))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "btn-group"
-  }, [_c('a', {
-    staticClass: "btn btn-info",
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": _vm.generatePDF
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-download"
-  }), _vm._v(" " + _vm._s(_vm.$t('download')) + "\n          ")]), _vm._v(" "), _c('a', {
-    staticClass: "btn btn-secondary",
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": _vm.printWindow
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-print"
-  }), _vm._v(" " + _vm._s(_vm.$t('Print')) + "\n          ")]), _vm._v(" "), _vm.$can('payment-voucher-edit') ? _c('router-link', {
-    staticClass: "btn btn-info",
-    attrs: {
-      "to": {
-        name: 'sendVouchers.edit',
-        params: {
-          slug: _vm.voucher.slug
-        }
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-edit"
-  }), _vm._v(" " + _vm._s(_vm.$t('Edit')) + "\n          ")]) : _vm._e(), _vm._v(" "), _c('router-link', {
-    staticClass: "btn btn-info",
-    attrs: {
-      "to": {
-        name: 'sendVouchers.index'
-      }
-    }
-  }, [_vm.$i18n.locale === 'ar' || typeof _vm.document !== 'undefined' && _vm.document.documentElement.getAttribute('dir') === 'rtl' ? [_vm._v("\n\n              " + _vm._s(_vm.$t('Back')) + " "), _c('i', {
-    staticClass: "fas fa-long-arrow-alt-left"
-  })] : [_vm.$i18n.locale === 'ar' || typeof _vm.document !== 'undefined' && _vm.document.documentElement.getAttribute('dir') === 'rtl' ? [_vm._v("\n\n\n                " + _vm._s(_vm.$t('Back')) + " "), _c('i', {
-    staticClass: "fas fa-long-arrow-alt-left"
-  })] : [_c('i', {
-    staticClass: "fas fa-long-arrow-alt-left"
-  }), _vm._v(" " + _vm._s(_vm.$t('Back')) + "\n\n\n              ")]]], 2)], 1)]) : _vm._e()])]), _vm._v(" "), _c('div', {
-    staticClass: "tab-content"
-  }, [_c('div', {
-    staticClass: "tab-pane active",
-    attrs: {
-      "id": "details"
-    }
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "invoice p-3 mb-3 w-100",
-    attrs: {
-      "id": "content-to-pdf"
-    }
-  }, [_c('div', {
-    staticClass: "row invoice-info"
-  }, [_c('div', {
-    staticClass: "col-sm-6 invoice-col"
-  }, [_c('h5', {
-    staticClass: "mb-3"
-  }, [_vm._v(_vm._s(_vm.$t('Voucher Details')))]), _vm._v(" "), _c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Type')) + ":")]), _vm._v(" "), _vm.voucher.voucherType === 1 ? _c('span', [_vm._v(_vm._s(_vm.$t('Receive Vouchers')))]) : _c('span', [_vm._v(_vm._s(_vm.$t('Send Vouchers')))])]), _vm._v(" "), _c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Payment Method')) + ":")]), _vm._v(" " + _vm._s(_vm.readablePaymentMethod))]), _vm._v(" "), _vm.voucher.account ? _c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Account')) + ":")]), _vm._v(" " + _vm._s(_vm.voucher.account.label))]) : _vm._e(), _vm._v(" "), _c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Amount')) + ":")]), _vm._v(" " + _vm._s(_vm.voucher.amount))]), _vm._v(" "), _vm.voucher.date ? _c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Payment Date')) + ":")]), _vm._v(" " + _vm._s(_vm._f("moment")(_vm.voucher.date, 'Do MMM, YYYY')))]) : _vm._e(), _vm._v(" "), _vm.voucher.chequeNo ? _c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Cheque No')) + ":")]), _vm._v(" " + _vm._s(_vm.voucher.chequeNo))]) : _vm._e(), _vm._v(" "), _vm.voucher.receiptNo ? _c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Receipt No')) + ":")]), _vm._v(" " + _vm._s(_vm.voucher.receiptNo))]) : _vm._e(), _vm._v(" "), _vm.voucher.note ? _c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Note')) + ":")]), _vm._v(" " + _vm._s(_vm.voucher.note))]) : _vm._e(), _vm._v(" "), _c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Status')) + ":")]), _vm._v(" "), _vm.voucher.status === 1 ? _c('span', {
-    staticClass: "badge bg-success"
-  }, [_vm._v(_vm._s(_vm.$t('Active')))]) : _vm.voucher.status === 2 ? _c('span', {
-    staticClass: "badge bg-secondary"
-  }, [_vm._v(_vm._s(_vm.$t('Cancelled')))]) : _c('span', {
-    staticClass: "badge bg-danger"
-  }, [_vm._v(_vm._s(_vm.$t('Inactive')))])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-sm-6 invoice-col"
-  }, [_c('h5', {
-    staticClass: "mb-3"
-  }, [_vm._v(_vm._s(_vm.$t('Entity Details')))]), _vm._v(" "), _vm.voucher.entityType === 'client' && _vm.voucher.client ? [_c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Client')) + ":")]), _vm._v(" " + _vm._s(_vm.voucher.client.name))])] : _vm.voucher.entityType === 'supplier' && _vm.voucher.supplier ? [_c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Supplier')) + ":")]), _vm._v(" " + _vm._s(_vm.voucher.supplier.name))])] : _vm.voucher.entityType === 'chart_of_account' && _vm.voucher.chartOfAccount ? [_c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Chart of Account')) + ":")]), _vm._v(" " + _vm._s(_vm.voucher.chartOfAccount.name))])] : _vm._e(), _vm._v(" "), _vm.voucher.paymentMethod === 'invoice' && _vm.voucher.invoice ? [_c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Invoice No')) + ":")]), _vm._v(" " + _vm._s(_vm.voucher.invoice.invoiceNo))])] : _vm._e(), _vm._v(" "), _vm.voucher.paymentMethod === 'purchase' && _vm.voucher.purchase ? [_c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Purchase No')) + ":")]), _vm._v(" " + _vm._s(_vm.voucher.purchase.purchaseNo))])] : _vm._e()], 2)])])])]), _vm._v(" "), _c('div', {
-    staticClass: "tab-pane",
-    attrs: {
-      "id": "activity-log"
-    }
-  }, [_c('div', {
-    staticClass: "card custom-card w-100 mt-5 no-print"
-  }, [_c('div', {
-    staticClass: "card-header setings-header"
-  }, [_c('div', {
-    staticClass: "col-xl-4 col-4"
-  }, [_c('h3', {
-    staticClass: "card-title"
-  }, [_vm._v("\n              " + _vm._s(_vm.$t("Activity log")) + "\n            ")])]), _vm._v(" "), _c('div', {
-    staticClass: "col-xl-8 col-8 float-right text-right"
-  }, [_c('div', {
-    staticClass: "btn-group c-w-100"
-  }, [_c('a', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.$t('Refresh'),
-      expression: "$t('Refresh')"
-    }],
-    staticClass: "btn btn-success",
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.refreshTable();
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-sync"
-  })]), _vm._v(" "), _c('a', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.$t('Print Table'),
-      expression: "$t('Print Table')"
-    }],
-    staticClass: "btn btn-info",
-    on: {
-      "click": _vm.print
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-print"
-  })])])])]), _vm._v(" "), _c('table-loading', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.loading,
-      expression: "loading"
-    }]
-  }), _vm._v(" "), _c('div', {
-    staticClass: "card-body position-relative"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-6 col-xl-4 mb-2"
-  }, [_c('search', {
-    on: {
-      "reset-pagination": function resetPagination($event) {
-        return _vm.resetPagination();
-      },
-      "reload": _vm.reload
-    },
-    model: {
-      value: _vm.query,
-      callback: function callback($$v) {
-        _vm.query = $$v;
-      },
-      expression: "query"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "table-responsive table-custom mt-3",
-    attrs: {
-      "id": "printMe"
-    }
-  }, [_vm._l(_vm.items, function (data, i) {
-    return _c('div', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.items.length > 0,
-        expression: "items.length > 0"
-      }],
-      key: i
-    }, [_c('div', {
-      staticClass: "card mb-0 border border-gray"
-    }, [_c('div', {
-      staticClass: "card-body py-1"
-    }, [_c('div', {
-      staticClass: "row"
-    }, [_c('div', {
-      staticClass: "col-1 d-flex justify-content-center align-items-center"
-    }, [data.event == 'Update' ? _c('i', {
-      staticClass: "fa fa-magic",
-      attrs: {
-        "aria-hidden": "true"
-      }
-    }) : _vm._e(), _vm._v(" "), data.event == 'Create' ? _c('i', {
-      staticClass: "fa fa-plus-circle",
-      attrs: {
-        "aria-hidden": "true"
-      }
-    }) : _vm._e(), _vm._v(" "), data.event == 'Delete' ? _c('i', {
-      staticClass: "fa fa-trash",
-      attrs: {
-        "aria-hidden": "true"
-      }
-    }) : _vm._e()]), _vm._v(" "), _c('div', {
-      staticClass: "col-11"
-    }, [_c('div', {
-      staticClass: "row"
-    }, [_c('div', {
-      staticClass: "col-12"
-    }, [_c('p', {
-      staticClass: "text-bold mb-0"
-    }, [_vm._v(_vm._s(data.causer_name))])]), _vm._v(" "), _c('div', {
-      staticClass: "col-12"
-    }, [_c('p', {
-      staticClass: "mb-0"
-    }, [_vm._v(_vm._s(_vm.$t(data.description)))])]), _vm._v(" "), _c('div', {
-      staticClass: "col-12"
-    }, [_c('p', {
-      staticClass: "mb-0"
-    }, [_vm._v(_vm._s(data.performedAt))])])])])])])])]);
-  }), _vm._v(" "), _c('div', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: !_vm.loading && !_vm.items.length,
-      expression: "!loading && !items.length"
-    }],
-    staticClass: "text-center"
-  }, [_c('EmptyTable')], 1)], 2)]), _vm._v(" "), _c('div', {
-    staticClass: "card-footer"
-  }, [_c('div', {
-    staticClass: "dtable-footer"
-  }, [_c('div', {
-    staticClass: "form-group row display-per-page"
-  }, [_c('label', [_vm._v(_vm._s(_vm.$t("per_page")) + " ")]), _vm._v(" "), _c('div', [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.perPage,
-      expression: "perPage"
-    }],
-    staticClass: "form-control form-control-sm ml-1",
-    on: {
-      "change": [function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.perPage = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
-      }, _vm.updatePerPager]
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "10"
-    }
-  }, [_vm._v("10")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "25"
-    }
-  }, [_vm._v("25")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "50"
-    }
-  }, [_vm._v("50")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "100"
-    }
-  }, [_vm._v("100")])])])]), _vm._v(" "), _vm.pagination && _vm.pagination.last_page > 1 ? _c('pagination', {
-    staticClass: "justify-flex-end",
-    attrs: {
-      "pagination": _vm.pagination,
-      "offset": 5
-    },
-    on: {
-      "paginate": _vm.paginate
-    }
-  }) : _vm._e()], 1)])], 1)])])], 1);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__(95353);
-// EXTERNAL MODULE: ./node_modules/html2pdf.js/dist/html2pdf.js
-var html2pdf = __webpack_require__(33833);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/vouchers/send/show.vue?vue&type=script&lang=js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-
-
-/* harmony default export */ const showvue_type_script_lang_js = ({
-  name: 'show-send-voucher',
-  middleware: ['auth', 'check-permissions'],
-  metaInfo: function metaInfo() {
-    return {
-      title: this.$t('Send Voucher Details')
-    };
-  },
-  data: function data() {
-    return {
-      breadcrumbsCurrent: this.$t('Details'),
-      breadcrumbs: [{
-        name: this.$t('Dashboard'),
-        url: 'home'
-      }, {
-        name: this.$t('Vouchers'),
-        url: ''
-      }, {
-        name: this.$t('Send Vouchers'),
-        url: 'sendVouchers.index'
-      }, {
-        name: this.$t('Details'),
-        active: true
-      }],
-      voucher: null,
-      loading: false,
-      query: "",
-      perPage: 10
-    };
-  },
-  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)('operations', ['appInfo', 'items', 'pagination'])), {}, {
-    readablePaymentMethod: function readablePaymentMethod() {
-      if (!this.voucher) return '';
-      if (this.voucher.paymentMethod === 'direct') return this.$t('Direct Payment');
-      if (this.voucher.paymentMethod === 'invoice') return this.$t('Invoice Payment');
-      if (this.voucher.paymentMethod === 'purchase') return this.$t('Purchase Payment');
-      return this.voucher.paymentMethod;
-    }
-  }),
-  watch: {
-    // watch search data
-    query: function query(newQ) {
-      if (newQ === "") {
-        this.getActivity();
-      } else {
-        this.searchData();
-      }
-    }
-  },
-  created: function created() {
-    this.fetchVoucher();
-  },
-  methods: {
-    fetchVoucher: function fetchVoucher() {
-      var _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var _yield$axios$get, data;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.n) {
-            case 0:
-              _context.n = 1;
-              return axios_default().get(window.location.origin + '/api/vouchers/' + _this.$route.params.slug);
-            case 1:
-              _yield$axios$get = _context.v;
-              data = _yield$axios$get.data;
-              _this.voucher = data.data;
-            case 2:
-              return _context.a(2);
-          }
-        }, _callee);
-      }))();
-    },
-    getVoucher: function getVoucher() {
-      this.fetchVoucher();
-    },
-    printWindow: function printWindow() {
-      var printUrl = "/print/voucher/".concat(this.$route.params.slug);
-      window.open(printUrl, '_blank');
-    },
-    generatePDF: function generatePDF() {
-      var printUrl = "/print/voucher/".concat(this.$route.params.slug);
-      window.open(printUrl, '_blank');
-    },
-    // get activity logs
-    getActivity: function getActivity() {
-      var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        var currentPage, slug, modelName;
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
-            case 0:
-              currentPage = _this2.pagination ? _this2.pagination.current_page : 1;
-              _this2.$store.state.operations.loading = true;
-              slug = _this2.$route.params.slug;
-              modelName = "PaymentVoucher";
-              _context2.n = 1;
-              return _this2.$store.dispatch("operations/fetchSpecificLogs", {
-                path: "/api/activity-log-specific?page=",
-                currentPage: currentPage + "&perPage=" + _this2.perPage,
-                slug: slug,
-                modelName: modelName
-              });
-            case 1:
-              return _context2.a(2);
-          }
-        }, _callee2);
-      }))();
-    },
-    // search data
-    searchData: function searchData() {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-        var slug, modelName;
-        return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.n) {
-            case 0:
-              _this3.$store.state.operations.loading = true;
-              slug = _this3.$route.params.slug;
-              modelName = "PaymentVoucher";
-              _context3.n = 1;
-              return _this3.$store.dispatch("operations/fetchSpecificLogs", {
-                path: "/api/activity-log-specific?page=",
-                currentPage: _this3.pagination.current_page + "&perPage=" + _this3.perPage,
-                term: _this3.query,
-                slug: slug,
-                modelName: modelName
-              });
-            case 1:
-              return _context3.a(2);
-          }
-        }, _callee3);
-      }))();
-    },
-    // pagination
-    paginate: function paginate() {
-      var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.n) {
-            case 0:
-              _this4.getActivity();
-            case 1:
-              return _context4.a(2);
-          }
-        }, _callee4);
-      }))();
-    },
-    updatePerPager: function updatePerPager() {
-      this.pagination.current_page = 1;
-      this.query === "" ? this.getActivity() : this.searchData();
-    },
-    // reload after search
-    reload: function reload() {
-      var _this5 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-        return _regenerator().w(function (_context5) {
-          while (1) switch (_context5.n) {
-            case 0:
-              _this5.query = "";
-            case 1:
-              return _context5.a(2);
-          }
-        }, _callee5);
-      }))();
-    },
-    // refresh table
-    refreshTable: function refreshTable() {
-      this.query = "";
-      this.query === "" ? this.getActivity() : this.searchData();
-    },
-    // reset pagination
-    resetPagination: function resetPagination() {
-      var _this6 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
-        return _regenerator().w(function (_context6) {
-          while (1) switch (_context6.n) {
-            case 0:
-              _this6.pagination.current_page = 1;
-            case 1:
-              return _context6.a(2);
-          }
-        }, _callee6);
-      }))();
-    },
-    // print table
-    print: function print() {
-      var _this7 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
-        return _regenerator().w(function (_context7) {
-          while (1) switch (_context7.n) {
-            case 0:
-              _context7.n = 1;
-              return _this7.$htmlToPaper("printMe");
-            case 1:
-              return _context7.a(2);
-          }
-        }, _callee7);
-      }))();
-    }
-  }
-});
-;// ./resources/js/pages/vouchers/send/show.vue?vue&type=script&lang=js
- /* harmony default export */ const send_showvue_type_script_lang_js = (showvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/vouchers/send/show.vue?vue&type=style&index=0&id=22549200&prod&scoped=true&lang=css
-var showvue_type_style_index_0_id_22549200_prod_scoped_true_lang_css = __webpack_require__(49112);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/vouchers/send/show.vue?vue&type=style&index=0&id=22549200&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(showvue_type_style_index_0_id_22549200_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const send_showvue_type_style_index_0_id_22549200_prod_scoped_true_lang_css = (showvue_type_style_index_0_id_22549200_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/vouchers/send/show.vue?vue&type=style&index=0&id=22549200&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/vouchers/send/show.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  send_showvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "22549200",
-  null
-  
-)
-
-/* harmony default export */ const show = (component.exports);
-
-/***/ }),
-
-/***/ 94733:
+/***/ 41371:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17750,7 +17103,7 @@ class IOBuffer {
     }
 }
 //# sourceMappingURL=IOBuffer.js.map
-;// ./node_modules/fast-png/node_modules/pako/dist/pako.esm.mjs
+;// ./node_modules/pako/dist/pako.esm.mjs
 
 /*! pako 2.1.0 https://github.com/nodeca/pako @license (MIT AND Zlib) */
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -26098,6 +25451,653 @@ function(t){var e=function(){return void 0===this.internal.vFS&&(this.internal.v
 function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var n,r,i,a,o,s,u,c=e,l=[[0,3,0,1,0,0,0],[0,3,0,1,2,2,0],[0,3,0,17,2,0,1],[0,3,5,5,4,1,0],[0,3,21,21,4,0,1],[0,3,5,5,4,2,0]],h=[[2,0,1,1,0,1,0],[2,0,1,1,0,2,0],[2,0,2,1,3,2,0],[2,0,2,33,3,1,1]],f={L:0,R:1,EN:2,AN:3,N:4,B:5,S:6},d={0:0,5:1,6:2,7:3,32:4,251:5,254:6,255:7},p=["(",")","(","<",">","<","[","]","[","{","}","{","«","»","«","‹","›","‹","⁅","⁆","⁅","⁽","⁾","⁽","₍","₎","₍","≤","≥","≤","〈","〉","〈","﹙","﹚","﹙","﹛","﹜","﹛","﹝","﹞","﹝","﹤","﹥","﹤"],g=new RegExp(/^([1-4|9]|1[0-9]|2[0-9]|3[0168]|4[04589]|5[012]|7[78]|159|16[0-9]|17[0-2]|21[569]|22[03489]|250)$/),m=!1,v=0;this.__bidiEngine__={};var b=function(t){var e=t.charCodeAt(),n=e>>8,r=d[n];return void 0!==r?c[256*r+(255&e)]:252===n||253===n?"AL":g.test(n)?"L":8===n?"R":"N"},y=function(t){for(var e,n=0;n<t.length;n++){if("L"===(e=b(t.charAt(n))))return!1;if("R"===e)return!0}return!1},w=function(t,e,o,s){var u,c,l,h,f=e[s];switch(f){case"L":case"R":case"LRE":case"RLE":case"LRO":case"RLO":case"PDF":m=!1;break;case"N":case"AN":break;case"EN":m&&(f="AN");break;case"AL":m=!0,f="R";break;case"WS":case"BN":f="N";break;case"CS":s<1||s+1>=e.length||"EN"!==(u=o[s-1])&&"AN"!==u||"EN"!==(c=e[s+1])&&"AN"!==c?f="N":m&&(c="AN"),f=c===u?c:"N";break;case"ES":f="EN"===(u=s>0?o[s-1]:"B")&&s+1<e.length&&"EN"===e[s+1]?"EN":"N";break;case"ET":if(s>0&&"EN"===o[s-1]){f="EN";break}if(m){f="N";break}for(l=s+1,h=e.length;l<h&&"ET"===e[l];)l++;f=l<h&&"EN"===e[l]?"EN":"N";break;case"NSM":if(i&&!a){for(h=e.length,l=s+1;l<h&&"NSM"===e[l];)l++;if(l<h){var d=t[s],p=d>=1425&&d<=2303||64286===d;if(u=e[l],p&&("R"===u||"AL"===u)){f="R";break}}}f=s<1||"B"===(u=e[s-1])?"N":o[s-1];break;case"B":m=!1,n=!0,f=v;break;case"S":r=!0,f="N"}return f},N=function(t,e,n){var r=t.split("");return n&&L(r,n,{hiLevel:v}),r.reverse(),e&&e.reverse(),r.join("")},L=function(t,e,i){var a,o,s,u,c,d=-1,p=t.length,g=0,y=[],N=v?h:l,L=[];for(m=!1,n=!1,r=!1,o=0;o<p;o++)L[o]=b(t[o]);for(s=0;s<p;s++){if(c=g,y[s]=w(t,L,y,s),a=240&(g=N[c][f[y[s]]]),g&=15,e[s]=u=N[g][5],a>0)if(16===a){for(o=d;o<s;o++)e[o]=1;d=-1}else d=-1;if(N[g][6])-1===d&&(d=s);else if(d>-1){for(o=d;o<s;o++)e[o]=u;d=-1}"B"===L[s]&&(e[s]=0),i.hiLevel|=u}r&&function(t,e,n){for(var r=0;r<n;r++)if("S"===t[r]){e[r]=v;for(var i=r-1;i>=0&&"WS"===t[i];i--)e[i]=v}}(L,e,p)},x=function(t,e,r,i,a){if(!(a.hiLevel<t)){if(1===t&&1===v&&!n)return e.reverse(),void(r&&r.reverse());for(var o,s,u,c,l=e.length,h=0;h<l;){if(i[h]>=t){for(u=h+1;u<l&&i[u]>=t;)u++;for(c=h,s=u-1;c<s;c++,s--)o=e[c],e[c]=e[s],e[s]=o,r&&(o=r[c],r[c]=r[s],r[s]=o);h=u}h++}}},A=function(t,e,n){var r=t.split(""),i={hiLevel:v};return n||(n=[]),L(r,n,i),function(t,e,n){if(0!==n.hiLevel&&u)for(var r,i=0;i<t.length;i++)1===e[i]&&(r=p.indexOf(t[i]))>=0&&(t[i]=p[r+1])}(r,n,i),x(2,r,e,n,i),x(1,r,e,n,i),r.join("")};return this.__bidiEngine__.doBidiReorder=function(t,e,n){if(function(t,e){if(e)for(var n=0;n<t.length;n++)e[n]=n;void 0===a&&(a=y(t)),void 0===s&&(s=y(t))}(t,e),i||!o||s)if(i&&o&&a^s)v=a?1:0,t=N(t,e,n);else if(!i&&o&&s)v=a?1:0,t=A(t,e,n),t=N(t,e);else if(!i||a||o||s){if(i&&!o&&a^s)t=N(t,e),a?(v=0,t=A(t,e,n)):(v=1,t=A(t,e,n),t=N(t,e));else if(i&&a&&!o&&s)v=1,t=A(t,e,n),t=N(t,e);else if(!i&&!o&&a^s){var r=u;a?(v=1,t=A(t,e,n),v=0,u=!1,t=A(t,e,n),u=r):(v=0,t=A(t,e,n),t=N(t,e),v=1,u=!1,t=A(t,e,n),u=r,t=N(t,e))}}else v=0,t=A(t,e,n);else v=a?1:0,t=A(t,e,n);return t},this.__bidiEngine__.setOptions=function(t){t&&(i=t.isInputVisual,o=t.isOutputVisual,a=t.isInputRtl,s=t.isOutputRtl,u=t.isSymmetricSwapping)},this.__bidiEngine__.setOptions(t),this.__bidiEngine__};var e=["BN","BN","BN","BN","BN","BN","BN","BN","BN","S","B","S","WS","B","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","B","B","B","S","WS","N","N","ET","ET","ET","N","N","N","N","N","ES","CS","ES","CS","CS","EN","EN","EN","EN","EN","EN","EN","EN","EN","EN","CS","N","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","N","BN","BN","BN","BN","BN","BN","B","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","CS","N","ET","ET","ET","ET","N","N","N","N","L","N","N","BN","N","N","ET","ET","EN","EN","N","L","N","N","N","EN","L","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","L","L","L","L","L","L","L","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","L","N","N","N","N","N","ET","N","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","R","NSM","R","NSM","NSM","R","NSM","NSM","R","NSM","N","N","N","N","N","N","N","N","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","N","N","N","N","N","R","R","R","R","R","N","N","N","N","N","N","N","N","N","N","N","AN","AN","AN","AN","AN","AN","N","N","AL","ET","ET","AL","CS","AL","N","N","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","AL","AL","N","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","AN","AN","AN","AN","AN","AN","AN","AN","AN","AN","ET","AN","AN","AL","AL","AL","NSM","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","NSM","NSM","NSM","NSM","NSM","NSM","NSM","AN","N","NSM","NSM","NSM","NSM","NSM","NSM","AL","AL","NSM","NSM","N","NSM","NSM","NSM","NSM","AL","AL","EN","EN","EN","EN","EN","EN","EN","EN","EN","EN","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","N","AL","AL","NSM","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","N","N","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","AL","N","N","N","N","N","N","N","N","N","N","N","N","N","N","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","R","R","N","N","N","N","R","N","N","N","N","N","WS","WS","WS","WS","WS","WS","WS","WS","WS","WS","WS","BN","BN","BN","L","R","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","WS","B","LRE","RLE","PDF","LRO","RLO","CS","ET","ET","ET","ET","ET","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","CS","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","WS","BN","BN","BN","BN","BN","N","LRI","RLI","FSI","PDI","BN","BN","BN","BN","BN","BN","EN","L","N","N","EN","EN","EN","EN","EN","EN","ES","ES","N","N","N","L","EN","EN","EN","EN","EN","EN","EN","EN","EN","EN","ES","ES","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","L","L","L","L","L","L","L","N","N","N","N","N","N","N","N","N","N","N","N","L","L","L","L","L","N","N","N","N","N","R","NSM","R","R","R","R","R","R","R","R","R","R","ES","R","R","R","R","R","R","R","R","R","R","R","R","R","N","R","R","R","R","R","N","R","N","R","R","N","R","R","N","R","R","R","R","R","R","R","R","R","R","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","CS","N","CS","N","N","CS","N","N","N","N","N","N","N","N","N","ET","N","N","ES","ES","N","N","N","N","N","ET","ET","N","N","N","N","N","AL","AL","AL","AL","AL","N","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","N","N","BN","N","N","N","ET","ET","ET","N","N","N","N","N","ES","CS","ES","CS","CS","EN","EN","EN","EN","EN","EN","EN","EN","EN","EN","CS","N","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","N","N","N","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","L","L","L","L","L","L","N","N","L","L","L","L","L","L","N","N","L","L","L","L","L","L","N","N","L","L","L","N","N","N","ET","ET","N","N","N","ET","ET","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N"],n=new t.__bidiEngine__({isInputVisual:!0});t.API.events.push(["postProcessText",function(t){var e=t.text;t.x,t.y;var r=t.options||{};t.mutex,r.lang;var i=[];if(r.isInputVisual="boolean"!=typeof r.isInputVisual||r.isInputVisual,n.setOptions(r),"[object Array]"===Object.prototype.toString.call(e)){var a=0;for(i=[],a=0;a<e.length;a+=1)"[object Array]"===Object.prototype.toString.call(e[a])?i.push([n.doBidiReorder(e[a][0]),e[a][1],e[a][2]]):i.push([n.doBidiReorder(e[a])]);t.text=i}else t.text=n.doBidiReorder(e);n.setOptions({isInputVisual:!0})}])}(E),E.API.TTFFont=function(){function t(t){var e;if(this.rawData=t,e=this.contents=new fe(t),this.contents.pos=4,"ttcf"===e.readString(4))throw new Error("TTCF not supported.");e.pos=0,this.parse(),this.subset=new je(this),this.registerTTF()}return t.open=function(e){return new t(e)},t.prototype.parse=function(){return this.directory=new de(this.contents),this.head=new me(this),this.name=new xe(this),this.cmap=new be(this),this.toUnicode={},this.hhea=new ye(this),this.maxp=new Ae(this),this.hmtx=new Se(this),this.post=new Ne(this),this.os2=new we(this),this.loca=new Ie(this),this.glyf=new Pe(this),this.ascender=this.os2.exists&&this.os2.ascender||this.hhea.ascender,this.decender=this.os2.exists&&this.os2.decender||this.hhea.decender,this.lineGap=this.os2.exists&&this.os2.lineGap||this.hhea.lineGap,this.bbox=[this.head.xMin,this.head.yMin,this.head.xMax,this.head.yMax]},t.prototype.registerTTF=function(){var t,e,n,r,i;if(this.scaleFactor=1e3/this.head.unitsPerEm,this.bbox=function(){var e,n,r,i;for(i=[],e=0,n=(r=this.bbox).length;e<n;e++)t=r[e],i.push(Math.round(t*this.scaleFactor));return i}.call(this),this.stemV=0,this.post.exists?(n=255&(r=this.post.italic_angle),32768&(e=r>>16)&&(e=-(1+(65535^e))),this.italicAngle=+(e+"."+n)):this.italicAngle=0,this.ascender=Math.round(this.ascender*this.scaleFactor),this.decender=Math.round(this.decender*this.scaleFactor),this.lineGap=Math.round(this.lineGap*this.scaleFactor),this.capHeight=this.os2.exists&&this.os2.capHeight||this.ascender,this.xHeight=this.os2.exists&&this.os2.xHeight||0,this.familyClass=(this.os2.exists&&this.os2.familyClass||0)>>8,this.isSerif=1===(i=this.familyClass)||2===i||3===i||4===i||5===i||7===i,this.isScript=10===this.familyClass,this.flags=0,this.post.isFixedPitch&&(this.flags|=1),this.isSerif&&(this.flags|=2),this.isScript&&(this.flags|=8),0!==this.italicAngle&&(this.flags|=64),this.flags|=32,!this.cmap.unicode)throw new Error("No unicode cmap for font")},t.prototype.characterToGlyph=function(t){var e;return(null!=(e=this.cmap.unicode)?e.codeMap[t]:void 0)||0},t.prototype.widthOfGlyph=function(t){var e;return e=1e3/this.head.unitsPerEm,this.hmtx.forGlyph(t).advance*e},t.prototype.widthOfString=function(t,e,n){var r,i,a,o;for(a=0,i=0,o=(t=""+t).length;0<=o?i<o:i>o;i=0<=o?++i:--i)r=t.charCodeAt(i),a+=this.widthOfGlyph(this.characterToGlyph(r))+n*(1e3/e)||0;return a*(e/1e3)},t.prototype.lineHeight=function(t,e){var n;return null==e&&(e=!1),n=e?this.lineGap:0,(this.ascender+n-this.decender)/1e3*t},t}();var he,fe=function(){function t(t){this.data=null!=t?t:[],this.pos=0,this.length=this.data.length}return t.prototype.readByte=function(){return this.data[this.pos++]},t.prototype.writeByte=function(t){return this.data[this.pos++]=t},t.prototype.readUInt32=function(){return 16777216*this.readByte()+(this.readByte()<<16)+(this.readByte()<<8)+this.readByte()},t.prototype.writeUInt32=function(t){return this.writeByte(t>>>24&255),this.writeByte(t>>16&255),this.writeByte(t>>8&255),this.writeByte(255&t)},t.prototype.readInt32=function(){var t;return(t=this.readUInt32())>=2147483648?t-4294967296:t},t.prototype.writeInt32=function(t){return t<0&&(t+=4294967296),this.writeUInt32(t)},t.prototype.readUInt16=function(){return this.readByte()<<8|this.readByte()},t.prototype.writeUInt16=function(t){return this.writeByte(t>>8&255),this.writeByte(255&t)},t.prototype.readInt16=function(){var t;return(t=this.readUInt16())>=32768?t-65536:t},t.prototype.writeInt16=function(t){return t<0&&(t+=65536),this.writeUInt16(t)},t.prototype.readString=function(t){var e,n;for(n=[],e=0;0<=t?e<t:e>t;e=0<=t?++e:--e)n[e]=String.fromCharCode(this.readByte());return n.join("")},t.prototype.writeString=function(t){var e,n,r;for(r=[],e=0,n=t.length;0<=n?e<n:e>n;e=0<=n?++e:--e)r.push(this.writeByte(t.charCodeAt(e)));return r},t.prototype.readShort=function(){return this.readInt16()},t.prototype.writeShort=function(t){return this.writeInt16(t)},t.prototype.readLongLong=function(){var t,e,n,r,i,a,o,s;return t=this.readByte(),e=this.readByte(),n=this.readByte(),r=this.readByte(),i=this.readByte(),a=this.readByte(),o=this.readByte(),s=this.readByte(),128&t?-1*(72057594037927940*(255^t)+281474976710656*(255^e)+1099511627776*(255^n)+4294967296*(255^r)+16777216*(255^i)+65536*(255^a)+256*(255^o)+(255^s)+1):72057594037927940*t+281474976710656*e+1099511627776*n+4294967296*r+16777216*i+65536*a+256*o+s},t.prototype.writeLongLong=function(t){var e,n;return e=Math.floor(t/4294967296),n=4294967295&t,this.writeByte(e>>24&255),this.writeByte(e>>16&255),this.writeByte(e>>8&255),this.writeByte(255&e),this.writeByte(n>>24&255),this.writeByte(n>>16&255),this.writeByte(n>>8&255),this.writeByte(255&n)},t.prototype.readInt=function(){return this.readInt32()},t.prototype.writeInt=function(t){return this.writeInt32(t)},t.prototype.read=function(t){var e,n;for(e=[],n=0;0<=t?n<t:n>t;n=0<=t?++n:--n)e.push(this.readByte());return e},t.prototype.write=function(t){var e,n,r,i;for(i=[],n=0,r=t.length;n<r;n++)e=t[n],i.push(this.writeByte(e));return i},t}(),de=function(){var t;function e(t){var e,n,r;for(this.scalarType=t.readInt(),this.tableCount=t.readShort(),this.searchRange=t.readShort(),this.entrySelector=t.readShort(),this.rangeShift=t.readShort(),this.tables={},n=0,r=this.tableCount;0<=r?n<r:n>r;n=0<=r?++n:--n)e={tag:t.readString(4),checksum:t.readInt(),offset:t.readInt(),length:t.readInt()},this.tables[e.tag]=e}return e.prototype.encode=function(e){var n,r,i,a,o,s,u,c,l,h,f,d,p;for(p in f=Object.keys(e).length,s=Math.log(2),l=16*Math.floor(Math.log(f)/s),a=Math.floor(l/s),c=16*f-l,(r=new fe).writeInt(this.scalarType),r.writeShort(f),r.writeShort(l),r.writeShort(a),r.writeShort(c),i=16*f,u=r.pos+i,o=null,d=[],e)for(h=e[p],r.writeString(p),r.writeInt(t(h)),r.writeInt(u),r.writeInt(h.length),d=d.concat(h),"head"===p&&(o=u),u+=h.length;u%4;)d.push(0),u++;return r.write(d),n=2981146554-t(r.data),r.pos=o+8,r.writeUInt32(n),r.data},t=function(t){var e,n,r,i;for(t=_e.call(t);t.length%4;)t.push(0);for(r=new fe(t),n=0,e=0,i=t.length;e<i;e=e+=4)n+=r.readUInt32();return 4294967295&n},e}(),pe={}.hasOwnProperty,ge=function(t,e){for(var n in e)pe.call(e,n)&&(t[n]=e[n]);function r(){this.constructor=t}return r.prototype=e.prototype,t.prototype=new r,t.__super__=e.prototype,t};he=function(){function t(t){var e;this.file=t,e=this.file.directory.tables[this.tag],this.exists=!!e,e&&(this.offset=e.offset,this.length=e.length,this.parse(this.file.contents))}return t.prototype.parse=function(){},t.prototype.encode=function(){},t.prototype.raw=function(){return this.exists?(this.file.contents.pos=this.offset,this.file.contents.read(this.length)):null},t}();var me=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="head",t.prototype.parse=function(t){return t.pos=this.offset,this.version=t.readInt(),this.revision=t.readInt(),this.checkSumAdjustment=t.readInt(),this.magicNumber=t.readInt(),this.flags=t.readShort(),this.unitsPerEm=t.readShort(),this.created=t.readLongLong(),this.modified=t.readLongLong(),this.xMin=t.readShort(),this.yMin=t.readShort(),this.xMax=t.readShort(),this.yMax=t.readShort(),this.macStyle=t.readShort(),this.lowestRecPPEM=t.readShort(),this.fontDirectionHint=t.readShort(),this.indexToLocFormat=t.readShort(),this.glyphDataFormat=t.readShort()},t.prototype.encode=function(t){var e;return(e=new fe).writeInt(this.version),e.writeInt(this.revision),e.writeInt(this.checkSumAdjustment),e.writeInt(this.magicNumber),e.writeShort(this.flags),e.writeShort(this.unitsPerEm),e.writeLongLong(this.created),e.writeLongLong(this.modified),e.writeShort(this.xMin),e.writeShort(this.yMin),e.writeShort(this.xMax),e.writeShort(this.yMax),e.writeShort(this.macStyle),e.writeShort(this.lowestRecPPEM),e.writeShort(this.fontDirectionHint),e.writeShort(t),e.writeShort(this.glyphDataFormat),e.data},t}(),ve=function(){function t(t,e){var n,r,i,a,o,s,u,c,l,h,f,d,p,g,m,v,b;switch(this.platformID=t.readUInt16(),this.encodingID=t.readShort(),this.offset=e+t.readInt(),l=t.pos,t.pos=this.offset,this.format=t.readUInt16(),this.length=t.readUInt16(),this.language=t.readUInt16(),this.isUnicode=3===this.platformID&&1===this.encodingID&&4===this.format||0===this.platformID&&4===this.format,this.codeMap={},this.format){case 0:for(s=0;s<256;++s)this.codeMap[s]=t.readByte();break;case 4:for(f=t.readUInt16(),h=f/2,t.pos+=6,i=function(){var e,n;for(n=[],s=e=0;0<=h?e<h:e>h;s=0<=h?++e:--e)n.push(t.readUInt16());return n}(),t.pos+=2,p=function(){var e,n;for(n=[],s=e=0;0<=h?e<h:e>h;s=0<=h?++e:--e)n.push(t.readUInt16());return n}(),u=function(){var e,n;for(n=[],s=e=0;0<=h?e<h:e>h;s=0<=h?++e:--e)n.push(t.readUInt16());return n}(),c=function(){var e,n;for(n=[],s=e=0;0<=h?e<h:e>h;s=0<=h?++e:--e)n.push(t.readUInt16());return n}(),r=(this.length-t.pos+this.offset)/2,o=function(){var e,n;for(n=[],s=e=0;0<=r?e<r:e>r;s=0<=r?++e:--e)n.push(t.readUInt16());return n}(),s=m=0,b=i.length;m<b;s=++m)for(g=i[s],n=v=d=p[s];d<=g?v<=g:v>=g;n=d<=g?++v:--v)0===c[s]?a=n+u[s]:0!==(a=o[c[s]/2+(n-d)-(h-s)]||0)&&(a+=u[s]),this.codeMap[n]=65535&a}t.pos=l}return t.encode=function(t,e){var n,r,i,a,o,s,u,c,l,h,f,d,p,g,m,v,b,y,w,N,L,x,A,S,_,P,k,F,I,j,C,O,B,M,q,E,R,D,T,z,U,H,W,V,G,Y;switch(F=new fe,a=Object.keys(t).sort(function(t,e){return t-e}),e){case"macroman":for(p=0,g=function(){var t=[];for(d=0;d<256;++d)t.push(0);return t}(),v={0:0},i={},I=0,B=a.length;I<B;I++)null==v[W=t[r=a[I]]]&&(v[W]=++p),i[r]={old:t[r],new:v[t[r]]},g[r]=v[t[r]];return F.writeUInt16(1),F.writeUInt16(0),F.writeUInt32(12),F.writeUInt16(0),F.writeUInt16(262),F.writeUInt16(0),F.write(g),{charMap:i,subtable:F.data,maxGlyphID:p+1};case"unicode":for(P=[],l=[],b=0,v={},n={},m=u=null,j=0,M=a.length;j<M;j++)null==v[w=t[r=a[j]]]&&(v[w]=++b),n[r]={old:w,new:v[w]},o=v[w]-r,null!=m&&o===u||(m&&l.push(m),P.push(r),u=o),m=r;for(m&&l.push(m),l.push(65535),P.push(65535),S=2*(A=P.length),x=2*Math.pow(Math.log(A)/Math.LN2,2),h=Math.log(x/2)/Math.LN2,L=2*A-x,s=[],N=[],f=[],d=C=0,q=P.length;C<q;d=++C){if(_=P[d],c=l[d],65535===_){s.push(0),N.push(0);break}if(_-(k=n[_].new)>=32768)for(s.push(0),N.push(2*(f.length+A-d)),r=O=_;_<=c?O<=c:O>=c;r=_<=c?++O:--O)f.push(n[r].new);else s.push(k-_),N.push(0)}for(F.writeUInt16(3),F.writeUInt16(1),F.writeUInt32(12),F.writeUInt16(4),F.writeUInt16(16+8*A+2*f.length),F.writeUInt16(0),F.writeUInt16(S),F.writeUInt16(x),F.writeUInt16(h),F.writeUInt16(L),U=0,E=l.length;U<E;U++)r=l[U],F.writeUInt16(r);for(F.writeUInt16(0),H=0,R=P.length;H<R;H++)r=P[H],F.writeUInt16(r);for(V=0,D=s.length;V<D;V++)o=s[V],F.writeUInt16(o);for(G=0,T=N.length;G<T;G++)y=N[G],F.writeUInt16(y);for(Y=0,z=f.length;Y<z;Y++)p=f[Y],F.writeUInt16(p);return{charMap:n,subtable:F.data,maxGlyphID:b+1}}},t}(),be=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="cmap",t.prototype.parse=function(t){var e,n,r;for(t.pos=this.offset,this.version=t.readUInt16(),r=t.readUInt16(),this.tables=[],this.unicode=null,n=0;0<=r?n<r:n>r;n=0<=r?++n:--n)e=new ve(t,this.offset),this.tables.push(e),e.isUnicode&&null==this.unicode&&(this.unicode=e);return!0},t.encode=function(t,e){var n,r;return null==e&&(e="macroman"),n=ve.encode(t,e),(r=new fe).writeUInt16(0),r.writeUInt16(1),n.table=r.data.concat(n.subtable),n},t}(),ye=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="hhea",t.prototype.parse=function(t){return t.pos=this.offset,this.version=t.readInt(),this.ascender=t.readShort(),this.decender=t.readShort(),this.lineGap=t.readShort(),this.advanceWidthMax=t.readShort(),this.minLeftSideBearing=t.readShort(),this.minRightSideBearing=t.readShort(),this.xMaxExtent=t.readShort(),this.caretSlopeRise=t.readShort(),this.caretSlopeRun=t.readShort(),this.caretOffset=t.readShort(),t.pos+=8,this.metricDataFormat=t.readShort(),this.numberOfMetrics=t.readUInt16()},t}(),we=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="OS/2",t.prototype.parse=function(t){if(t.pos=this.offset,this.version=t.readUInt16(),this.averageCharWidth=t.readShort(),this.weightClass=t.readUInt16(),this.widthClass=t.readUInt16(),this.type=t.readShort(),this.ySubscriptXSize=t.readShort(),this.ySubscriptYSize=t.readShort(),this.ySubscriptXOffset=t.readShort(),this.ySubscriptYOffset=t.readShort(),this.ySuperscriptXSize=t.readShort(),this.ySuperscriptYSize=t.readShort(),this.ySuperscriptXOffset=t.readShort(),this.ySuperscriptYOffset=t.readShort(),this.yStrikeoutSize=t.readShort(),this.yStrikeoutPosition=t.readShort(),this.familyClass=t.readShort(),this.panose=function(){var e,n;for(n=[],e=0;e<10;++e)n.push(t.readByte());return n}(),this.charRange=function(){var e,n;for(n=[],e=0;e<4;++e)n.push(t.readInt());return n}(),this.vendorID=t.readString(4),this.selection=t.readShort(),this.firstCharIndex=t.readShort(),this.lastCharIndex=t.readShort(),this.version>0&&(this.ascent=t.readShort(),this.descent=t.readShort(),this.lineGap=t.readShort(),this.winAscent=t.readShort(),this.winDescent=t.readShort(),this.codePageRange=function(){var e,n;for(n=[],e=0;e<2;e=++e)n.push(t.readInt());return n}(),this.version>1))return this.xHeight=t.readShort(),this.capHeight=t.readShort(),this.defaultChar=t.readShort(),this.breakChar=t.readShort(),this.maxContext=t.readShort()},t}(),Ne=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="post",t.prototype.parse=function(t){var e,n,r;switch(t.pos=this.offset,this.format=t.readInt(),this.italicAngle=t.readInt(),this.underlinePosition=t.readShort(),this.underlineThickness=t.readShort(),this.isFixedPitch=t.readInt(),this.minMemType42=t.readInt(),this.maxMemType42=t.readInt(),this.minMemType1=t.readInt(),this.maxMemType1=t.readInt(),this.format){case 65536:case 196608:break;case 131072:var i;for(n=t.readUInt16(),this.glyphNameIndex=[],i=0;0<=n?i<n:i>n;i=0<=n?++i:--i)this.glyphNameIndex.push(t.readUInt16());for(this.names=[],r=[];t.pos<this.offset+this.length;)e=t.readByte(),r.push(this.names.push(t.readString(e)));return r;case 151552:return n=t.readUInt16(),this.offsets=t.read(n);case 262144:return this.map=function(){var e,n,r;for(r=[],i=e=0,n=this.file.maxp.numGlyphs;0<=n?e<n:e>n;i=0<=n?++e:--e)r.push(t.readUInt32());return r}.call(this)}},t}(),Le=function(t,e){this.raw=t,this.length=t.length,this.platformID=e.platformID,this.encodingID=e.encodingID,this.languageID=e.languageID},xe=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="name",t.prototype.parse=function(t){var e,n,r,i,a,o,s,u,c,l,h;for(t.pos=this.offset,t.readShort(),e=t.readShort(),o=t.readShort(),n=[],i=0;0<=e?i<e:i>e;i=0<=e?++i:--i)n.push({platformID:t.readShort(),encodingID:t.readShort(),languageID:t.readShort(),nameID:t.readShort(),length:t.readShort(),offset:this.offset+o+t.readShort()});for(s={},i=c=0,l=n.length;c<l;i=++c)r=n[i],t.pos=r.offset,u=t.readString(r.length),a=new Le(u,r),null==s[h=r.nameID]&&(s[h]=[]),s[r.nameID].push(a);this.strings=s,this.copyright=s[0],this.fontFamily=s[1],this.fontSubfamily=s[2],this.uniqueSubfamily=s[3],this.fontName=s[4],this.version=s[5];try{this.postscriptName=s[6][0].raw.replace(/[\x00-\x19\x80-\xff]/g,"")}catch(f){this.postscriptName=s[4][0].raw.replace(/[\x00-\x19\x80-\xff]/g,"")}return this.trademark=s[7],this.manufacturer=s[8],this.designer=s[9],this.description=s[10],this.vendorUrl=s[11],this.designerUrl=s[12],this.license=s[13],this.licenseUrl=s[14],this.preferredFamily=s[15],this.preferredSubfamily=s[17],this.compatibleFull=s[18],this.sampleText=s[19]},t}(),Ae=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="maxp",t.prototype.parse=function(t){return t.pos=this.offset,this.version=t.readInt(),this.numGlyphs=t.readUInt16(),this.maxPoints=t.readUInt16(),this.maxContours=t.readUInt16(),this.maxCompositePoints=t.readUInt16(),this.maxComponentContours=t.readUInt16(),this.maxZones=t.readUInt16(),this.maxTwilightPoints=t.readUInt16(),this.maxStorage=t.readUInt16(),this.maxFunctionDefs=t.readUInt16(),this.maxInstructionDefs=t.readUInt16(),this.maxStackElements=t.readUInt16(),this.maxSizeOfInstructions=t.readUInt16(),this.maxComponentElements=t.readUInt16(),this.maxComponentDepth=t.readUInt16()},t}(),Se=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="hmtx",t.prototype.parse=function(t){var e,n,r,i,a,o,s;for(t.pos=this.offset,this.metrics=[],e=0,o=this.file.hhea.numberOfMetrics;0<=o?e<o:e>o;e=0<=o?++e:--e)this.metrics.push({advance:t.readUInt16(),lsb:t.readInt16()});for(r=this.file.maxp.numGlyphs-this.file.hhea.numberOfMetrics,this.leftSideBearings=function(){var n,i;for(i=[],e=n=0;0<=r?n<r:n>r;e=0<=r?++n:--n)i.push(t.readInt16());return i}(),this.widths=function(){var t,e,n,r;for(r=[],t=0,e=(n=this.metrics).length;t<e;t++)i=n[t],r.push(i.advance);return r}.call(this),n=this.widths[this.widths.length-1],s=[],e=a=0;0<=r?a<r:a>r;e=0<=r?++a:--a)s.push(this.widths.push(n));return s},t.prototype.forGlyph=function(t){return t in this.metrics?this.metrics[t]:{advance:this.metrics[this.metrics.length-1].advance,lsb:this.leftSideBearings[t-this.metrics.length]}},t}(),_e=[].slice,Pe=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="glyf",t.prototype.parse=function(){return this.cache={}},t.prototype.glyphFor=function(t){var e,n,r,i,a,o,s,u,c,l;return t in this.cache?this.cache[t]:(i=this.file.loca,e=this.file.contents,n=i.indexOf(t),0===(r=i.lengthOf(t))?this.cache[t]=null:(e.pos=this.offset+n,a=(o=new fe(e.read(r))).readShort(),u=o.readShort(),l=o.readShort(),s=o.readShort(),c=o.readShort(),this.cache[t]=-1===a?new Fe(o,u,l,s,c):new ke(o,a,u,l,s,c),this.cache[t]))},t.prototype.encode=function(t,e,n){var r,i,a,o,s;for(a=[],i=[],o=0,s=e.length;o<s;o++)r=t[e[o]],i.push(a.length),r&&(a=a.concat(r.encode(n)));return i.push(a.length),{table:a,offsets:i}},t}(),ke=function(){function t(t,e,n,r,i,a){this.raw=t,this.numberOfContours=e,this.xMin=n,this.yMin=r,this.xMax=i,this.yMax=a,this.compound=!1}return t.prototype.encode=function(){return this.raw.data},t}(),Fe=function(){function t(t,e,n,r,i){var a,o;for(this.raw=t,this.xMin=e,this.yMin=n,this.xMax=r,this.yMax=i,this.compound=!0,this.glyphIDs=[],this.glyphOffsets=[],a=this.raw;o=a.readShort(),this.glyphOffsets.push(a.pos),this.glyphIDs.push(a.readUInt16()),32&o;)a.pos+=1&o?4:2,128&o?a.pos+=8:64&o?a.pos+=4:8&o&&(a.pos+=2)}return t.prototype.encode=function(){var t,e,n;for(e=new fe(_e.call(this.raw.data)),t=0,n=this.glyphIDs.length;t<n;++t)e.pos=this.glyphOffsets[t];return e.data},t}(),Ie=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="loca",t.prototype.parse=function(t){var e,n;return t.pos=this.offset,e=this.file.head.indexToLocFormat,this.offsets=0===e?function(){var e,r;for(r=[],n=0,e=this.length;n<e;n+=2)r.push(2*t.readUInt16());return r}.call(this):function(){var e,r;for(r=[],n=0,e=this.length;n<e;n+=4)r.push(t.readUInt32());return r}.call(this)},t.prototype.indexOf=function(t){return this.offsets[t]},t.prototype.lengthOf=function(t){return this.offsets[t+1]-this.offsets[t]},t.prototype.encode=function(t,e){for(var n=new Uint32Array(this.offsets.length),r=0,i=0,a=0;a<n.length;++a)if(n[a]=r,i<e.length&&e[i]==a){++i,n[a]=r;var o=this.offsets[a],s=this.offsets[a+1]-o;s>0&&(r+=s)}for(var u=new Array(4*n.length),c=0;c<n.length;++c)u[4*c+3]=255&n[c],u[4*c+2]=(65280&n[c])>>8,u[4*c+1]=(16711680&n[c])>>16,u[4*c]=(4278190080&n[c])>>24;return u},t}(),je=function(){function t(t){this.font=t,this.subset={},this.unicodes={},this.next=33}return t.prototype.generateCmap=function(){var t,e,n,r,i;for(e in r=this.font.cmap.tables[0].codeMap,t={},i=this.subset)n=i[e],t[e]=r[n];return t},t.prototype.glyphsFor=function(t){var e,n,r,i,a,o,s;for(r={},a=0,o=t.length;a<o;a++)r[i=t[a]]=this.font.glyf.glyphFor(i);for(i in e=[],r)(null!=(n=r[i])?n.compound:void 0)&&e.push.apply(e,n.glyphIDs);if(e.length>0)for(i in s=this.glyphsFor(e))n=s[i],r[i]=n;return r},t.prototype.encode=function(t,e){var n,r,i,a,o,s,u,c,l,h,f,d,p,g,m;for(r in n=be.encode(this.generateCmap(),"unicode"),a=this.glyphsFor(t),f={0:0},m=n.charMap)f[(s=m[r]).old]=s.new;for(d in h=n.maxGlyphID,a)d in f||(f[d]=h++);return c=function(t){var e,n;for(e in n={},t)n[t[e]]=e;return n}(f),l=Object.keys(c).sort(function(t,e){return t-e}),p=function(){var t,e,n;for(n=[],t=0,e=l.length;t<e;t++)o=l[t],n.push(c[o]);return n}(),i=this.font.glyf.encode(a,p,f),u=this.font.loca.encode(i.offsets,p),g={cmap:this.font.cmap.raw(),glyf:i.table,loca:u,hmtx:this.font.hmtx.raw(),hhea:this.font.hhea.raw(),maxp:this.font.maxp.raw(),post:this.font.post.raw(),name:this.font.name.raw(),head:this.font.head.encode(e)},this.font.os2.exists&&(g["OS/2"]=this.font.os2.raw()),this.font.directory.encode(g)},t}();E.API.PDFObject=function(){var t;function e(){}return t=function(t,e){return(Array(e+1).join("0")+t).slice(-e)},e.convert=function(n){var r,i,a,o;if(Array.isArray(n))return"["+function(){var t,i,a;for(a=[],t=0,i=n.length;t<i;t++)r=n[t],a.push(e.convert(r));return a}().join(" ")+"]";if("string"==typeof n)return"/"+n;if(null!=n?n.isString:void 0)return"("+n+")";if(n instanceof Date)return"(D:"+t(n.getUTCFullYear(),4)+t(n.getUTCMonth(),2)+t(n.getUTCDate(),2)+t(n.getUTCHours(),2)+t(n.getUTCMinutes(),2)+t(n.getUTCSeconds(),2)+"Z)";if("[object Object]"==={}.toString.call(n)){for(i in a=["<<"],n)o=n[i],a.push("/"+i+" "+e.convert(o));return a.push(">>"),a.join("\n")}return""+n},e}();
 //# sourceMappingURL=jspdf.es.min.js.map
 
+
+/***/ }),
+
+/***/ 49112:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".nav-pills .nav-item[data-v-22549200]{background:#ddd;border-radius:.25rem;margin:2px}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 82020:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ show)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/vouchers/send/show.vue?vue&type=template&id=22549200&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', [_c('breadcrumbs', {
+    attrs: {
+      "items": _vm.breadcrumbs,
+      "current": _vm.breadcrumbsCurrent
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "row no-print mb-2"
+  }, [_c('div', {
+    staticClass: "w-100 text-right float-right"
+  }, [_vm.voucher ? _c('div', {
+    staticClass: "d-flex justify-content-between"
+  }, [_c('div', {
+    staticClass: "btn-group"
+  }, [_c('ul', {
+    staticClass: "nav nav-pills"
+  }, [_c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link active",
+    attrs: {
+      "href": "#details",
+      "data-toggle": "tab"
+    },
+    on: {
+      "click": _vm.getVoucher
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-info"
+  }), _vm._v(" " + _vm._s(_vm.$t('Details')) + "\n              ")])]), _vm._v(" "), _c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link",
+    attrs: {
+      "href": "#activity-log",
+      "data-toggle": "tab"
+    },
+    on: {
+      "click": _vm.getActivity
+    }
+  }, [_c('i', {
+    staticClass: "nav-icon fa fa-bell",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Activity log")))])])])]), _vm._v(" "), _c('div', {
+    staticClass: "btn-group"
+  }, [_c('a', {
+    staticClass: "btn btn-info",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": _vm.generatePDF
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-download"
+  }), _vm._v(" " + _vm._s(_vm.$t('download')) + "\n          ")]), _vm._v(" "), _c('a', {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": _vm.printWindow
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-print"
+  }), _vm._v(" " + _vm._s(_vm.$t('Print')) + "\n          ")]), _vm._v(" "), _vm.$can('payment-voucher-edit') ? _c('router-link', {
+    staticClass: "btn btn-info",
+    attrs: {
+      "to": {
+        name: 'sendVouchers.edit',
+        params: {
+          slug: _vm.voucher.slug
+        }
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-edit"
+  }), _vm._v(" " + _vm._s(_vm.$t('Edit')) + "\n          ")]) : _vm._e(), _vm._v(" "), _c('router-link', {
+    staticClass: "btn btn-info",
+    attrs: {
+      "to": {
+        name: 'sendVouchers.index'
+      }
+    }
+  }, [_vm.$i18n.locale === 'ar' || typeof _vm.document !== 'undefined' && _vm.document.documentElement.getAttribute('dir') === 'rtl' ? [_vm._v("\n\n              " + _vm._s(_vm.$t('Back')) + " "), _c('i', {
+    staticClass: "fas fa-long-arrow-alt-left"
+  })] : [_vm.$i18n.locale === 'ar' || typeof _vm.document !== 'undefined' && _vm.document.documentElement.getAttribute('dir') === 'rtl' ? [_vm._v("\n\n\n                " + _vm._s(_vm.$t('Back')) + " "), _c('i', {
+    staticClass: "fas fa-long-arrow-alt-left"
+  })] : [_c('i', {
+    staticClass: "fas fa-long-arrow-alt-left"
+  }), _vm._v(" " + _vm._s(_vm.$t('Back')) + "\n\n\n              ")]]], 2)], 1)]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "tab-content"
+  }, [_c('div', {
+    staticClass: "tab-pane active",
+    attrs: {
+      "id": "details"
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "invoice p-3 mb-3 w-100",
+    attrs: {
+      "id": "content-to-pdf"
+    }
+  }, [_c('div', {
+    staticClass: "row invoice-info"
+  }, [_c('div', {
+    staticClass: "col-sm-6 invoice-col"
+  }, [_c('h5', {
+    staticClass: "mb-3"
+  }, [_vm._v(_vm._s(_vm.$t('Voucher Details')))]), _vm._v(" "), _c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Type')) + ":")]), _vm._v(" "), _vm.voucher.voucherType === 1 ? _c('span', [_vm._v(_vm._s(_vm.$t('Receive Vouchers')))]) : _c('span', [_vm._v(_vm._s(_vm.$t('Send Vouchers')))])]), _vm._v(" "), _c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Payment Method')) + ":")]), _vm._v(" " + _vm._s(_vm.readablePaymentMethod))]), _vm._v(" "), _vm.voucher.account ? _c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Account')) + ":")]), _vm._v(" " + _vm._s(_vm.voucher.account.label))]) : _vm._e(), _vm._v(" "), _c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Amount')) + ":")]), _vm._v(" " + _vm._s(_vm.voucher.amount))]), _vm._v(" "), _vm.voucher.date ? _c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Payment Date')) + ":")]), _vm._v(" " + _vm._s(_vm._f("moment")(_vm.voucher.date, 'Do MMM, YYYY')))]) : _vm._e(), _vm._v(" "), _vm.voucher.chequeNo ? _c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Cheque No')) + ":")]), _vm._v(" " + _vm._s(_vm.voucher.chequeNo))]) : _vm._e(), _vm._v(" "), _vm.voucher.receiptNo ? _c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Receipt No')) + ":")]), _vm._v(" " + _vm._s(_vm.voucher.receiptNo))]) : _vm._e(), _vm._v(" "), _vm.voucher.note ? _c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Note')) + ":")]), _vm._v(" " + _vm._s(_vm.voucher.note))]) : _vm._e(), _vm._v(" "), _c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Status')) + ":")]), _vm._v(" "), _vm.voucher.status === 1 ? _c('span', {
+    staticClass: "badge bg-success"
+  }, [_vm._v(_vm._s(_vm.$t('Active')))]) : _vm.voucher.status === 2 ? _c('span', {
+    staticClass: "badge bg-secondary"
+  }, [_vm._v(_vm._s(_vm.$t('Cancelled')))]) : _c('span', {
+    staticClass: "badge bg-danger"
+  }, [_vm._v(_vm._s(_vm.$t('Inactive')))])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-6 invoice-col"
+  }, [_c('h5', {
+    staticClass: "mb-3"
+  }, [_vm._v(_vm._s(_vm.$t('Entity Details')))]), _vm._v(" "), _vm.voucher.entityType === 'client' && _vm.voucher.client ? [_c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Client')) + ":")]), _vm._v(" " + _vm._s(_vm.voucher.client.name))])] : _vm.voucher.entityType === 'supplier' && _vm.voucher.supplier ? [_c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Supplier')) + ":")]), _vm._v(" " + _vm._s(_vm.voucher.supplier.name))])] : _vm.voucher.entityType === 'chart_of_account' && _vm.voucher.chartOfAccount ? [_c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Chart of Account')) + ":")]), _vm._v(" " + _vm._s(_vm.voucher.chartOfAccount.name))])] : _vm._e(), _vm._v(" "), _vm.voucher.paymentMethod === 'invoice' && _vm.voucher.invoice ? [_c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Invoice No')) + ":")]), _vm._v(" " + _vm._s(_vm.voucher.invoice.invoiceNo))])] : _vm._e(), _vm._v(" "), _vm.voucher.paymentMethod === 'purchase' && _vm.voucher.purchase ? [_c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t('Purchase No')) + ":")]), _vm._v(" " + _vm._s(_vm.voucher.purchase.purchaseNo))])] : _vm._e()], 2)])])])]), _vm._v(" "), _c('div', {
+    staticClass: "tab-pane",
+    attrs: {
+      "id": "activity-log"
+    }
+  }, [_c('div', {
+    staticClass: "card custom-card w-100 mt-5 no-print"
+  }, [_c('div', {
+    staticClass: "card-header setings-header"
+  }, [_c('div', {
+    staticClass: "col-xl-4 col-4"
+  }, [_c('h3', {
+    staticClass: "card-title"
+  }, [_vm._v("\n              " + _vm._s(_vm.$t("Activity log")) + "\n            ")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-xl-8 col-8 float-right text-right"
+  }, [_c('div', {
+    staticClass: "btn-group c-w-100"
+  }, [_c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Refresh'),
+      expression: "$t('Refresh')"
+    }],
+    staticClass: "btn btn-success",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.refreshTable();
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-sync"
+  })]), _vm._v(" "), _c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Print Table'),
+      expression: "$t('Print Table')"
+    }],
+    staticClass: "btn btn-info",
+    on: {
+      "click": _vm.print
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-print"
+  })])])])]), _vm._v(" "), _c('table-loading', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.loading,
+      expression: "loading"
+    }]
+  }), _vm._v(" "), _c('div', {
+    staticClass: "card-body position-relative"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-6 col-xl-4 mb-2"
+  }, [_c('search', {
+    on: {
+      "reset-pagination": function resetPagination($event) {
+        return _vm.resetPagination();
+      },
+      "reload": _vm.reload
+    },
+    model: {
+      value: _vm.query,
+      callback: function callback($$v) {
+        _vm.query = $$v;
+      },
+      expression: "query"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "table-responsive table-custom mt-3",
+    attrs: {
+      "id": "printMe"
+    }
+  }, [_vm._l(_vm.items, function (data, i) {
+    return _c('div', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.items.length > 0,
+        expression: "items.length > 0"
+      }],
+      key: i
+    }, [_c('div', {
+      staticClass: "card mb-0 border border-gray"
+    }, [_c('div', {
+      staticClass: "card-body py-1"
+    }, [_c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "col-1 d-flex justify-content-center align-items-center"
+    }, [data.event == 'Update' ? _c('i', {
+      staticClass: "fa fa-magic",
+      attrs: {
+        "aria-hidden": "true"
+      }
+    }) : _vm._e(), _vm._v(" "), data.event == 'Create' ? _c('i', {
+      staticClass: "fa fa-plus-circle",
+      attrs: {
+        "aria-hidden": "true"
+      }
+    }) : _vm._e(), _vm._v(" "), data.event == 'Delete' ? _c('i', {
+      staticClass: "fa fa-trash",
+      attrs: {
+        "aria-hidden": "true"
+      }
+    }) : _vm._e()]), _vm._v(" "), _c('div', {
+      staticClass: "col-11"
+    }, [_c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "col-12"
+    }, [_c('p', {
+      staticClass: "text-bold mb-0"
+    }, [_vm._v(_vm._s(data.causer_name))])]), _vm._v(" "), _c('div', {
+      staticClass: "col-12"
+    }, [_c('p', {
+      staticClass: "mb-0"
+    }, [_vm._v(_vm._s(_vm.$t(data.description)))])]), _vm._v(" "), _c('div', {
+      staticClass: "col-12"
+    }, [_c('p', {
+      staticClass: "mb-0"
+    }, [_vm._v(_vm._s(data.performedAt))])])])])])])])]);
+  }), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: !_vm.loading && !_vm.items.length,
+      expression: "!loading && !items.length"
+    }],
+    staticClass: "text-center"
+  }, [_c('EmptyTable')], 1)], 2)]), _vm._v(" "), _c('div', {
+    staticClass: "card-footer"
+  }, [_c('div', {
+    staticClass: "dtable-footer"
+  }, [_c('div', {
+    staticClass: "form-group row display-per-page"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t("per_page")) + " ")]), _vm._v(" "), _c('div', [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.perPage,
+      expression: "perPage"
+    }],
+    staticClass: "form-control form-control-sm ml-1",
+    on: {
+      "change": [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.perPage = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }, _vm.updatePerPager]
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "10"
+    }
+  }, [_vm._v("10")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "25"
+    }
+  }, [_vm._v("25")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "50"
+    }
+  }, [_vm._v("50")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "100"
+    }
+  }, [_vm._v("100")])])])]), _vm._v(" "), _vm.pagination && _vm.pagination.last_page > 1 ? _c('pagination', {
+    staticClass: "justify-flex-end",
+    attrs: {
+      "pagination": _vm.pagination,
+      "offset": 5
+    },
+    on: {
+      "paginate": _vm.paginate
+    }
+  }) : _vm._e()], 1)])], 1)])])], 1);
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__(95353);
+// EXTERNAL MODULE: ./node_modules/html2pdf.js/dist/html2pdf.js
+var html2pdf = __webpack_require__(33833);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/vouchers/send/show.vue?vue&type=script&lang=js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+
+/* harmony default export */ const showvue_type_script_lang_js = ({
+  name: 'show-send-voucher',
+  middleware: ['auth', 'check-permissions'],
+  metaInfo: function metaInfo() {
+    return {
+      title: this.$t('Send Voucher Details')
+    };
+  },
+  data: function data() {
+    return {
+      breadcrumbsCurrent: this.$t('Details'),
+      breadcrumbs: [{
+        name: this.$t('Dashboard'),
+        url: 'home'
+      }, {
+        name: this.$t('Vouchers'),
+        url: ''
+      }, {
+        name: this.$t('Send Vouchers'),
+        url: 'sendVouchers.index'
+      }, {
+        name: this.$t('Details'),
+        active: true
+      }],
+      voucher: null,
+      loading: false,
+      query: "",
+      perPage: 10
+    };
+  },
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)('operations', ['appInfo', 'items', 'pagination'])), {}, {
+    readablePaymentMethod: function readablePaymentMethod() {
+      if (!this.voucher) return '';
+      if (this.voucher.paymentMethod === 'direct') return this.$t('Direct Payment');
+      if (this.voucher.paymentMethod === 'invoice') return this.$t('Invoice Payment');
+      if (this.voucher.paymentMethod === 'purchase') return this.$t('Purchase Payment');
+      return this.voucher.paymentMethod;
+    }
+  }),
+  watch: {
+    // watch search data
+    query: function query(newQ) {
+      if (newQ === "") {
+        this.getActivity();
+      } else {
+        this.searchData();
+      }
+    }
+  },
+  created: function created() {
+    this.fetchVoucher();
+  },
+  methods: {
+    fetchVoucher: function fetchVoucher() {
+      var _this = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var _yield$axios$get, data;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.n) {
+            case 0:
+              _context.n = 1;
+              return axios_default().get(window.location.origin + '/api/vouchers/' + _this.$route.params.slug);
+            case 1:
+              _yield$axios$get = _context.v;
+              data = _yield$axios$get.data;
+              _this.voucher = data.data;
+            case 2:
+              return _context.a(2);
+          }
+        }, _callee);
+      }))();
+    },
+    getVoucher: function getVoucher() {
+      this.fetchVoucher();
+    },
+    printWindow: function printWindow() {
+      var printUrl = "/print/voucher/".concat(this.$route.params.slug);
+      window.open(printUrl, '_blank');
+    },
+    generatePDF: function generatePDF() {
+      var printUrl = "/print/voucher/".concat(this.$route.params.slug);
+      window.open(printUrl, '_blank');
+    },
+    // get activity logs
+    getActivity: function getActivity() {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var currentPage, slug, modelName;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.n) {
+            case 0:
+              currentPage = _this2.pagination ? _this2.pagination.current_page : 1;
+              _this2.$store.state.operations.loading = true;
+              slug = _this2.$route.params.slug;
+              modelName = "PaymentVoucher";
+              _context2.n = 1;
+              return _this2.$store.dispatch("operations/fetchSpecificLogs", {
+                path: "/api/activity-log-specific?page=",
+                currentPage: currentPage + "&perPage=" + _this2.perPage,
+                slug: slug,
+                modelName: modelName
+              });
+            case 1:
+              return _context2.a(2);
+          }
+        }, _callee2);
+      }))();
+    },
+    // search data
+    searchData: function searchData() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var slug, modelName;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.n) {
+            case 0:
+              _this3.$store.state.operations.loading = true;
+              slug = _this3.$route.params.slug;
+              modelName = "PaymentVoucher";
+              _context3.n = 1;
+              return _this3.$store.dispatch("operations/fetchSpecificLogs", {
+                path: "/api/activity-log-specific?page=",
+                currentPage: _this3.pagination.current_page + "&perPage=" + _this3.perPage,
+                term: _this3.query,
+                slug: slug,
+                modelName: modelName
+              });
+            case 1:
+              return _context3.a(2);
+          }
+        }, _callee3);
+      }))();
+    },
+    // pagination
+    paginate: function paginate() {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.n) {
+            case 0:
+              _this4.getActivity();
+            case 1:
+              return _context4.a(2);
+          }
+        }, _callee4);
+      }))();
+    },
+    updatePerPager: function updatePerPager() {
+      this.pagination.current_page = 1;
+      this.query === "" ? this.getActivity() : this.searchData();
+    },
+    // reload after search
+    reload: function reload() {
+      var _this5 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+        return _regenerator().w(function (_context5) {
+          while (1) switch (_context5.n) {
+            case 0:
+              _this5.query = "";
+            case 1:
+              return _context5.a(2);
+          }
+        }, _callee5);
+      }))();
+    },
+    // refresh table
+    refreshTable: function refreshTable() {
+      this.query = "";
+      this.query === "" ? this.getActivity() : this.searchData();
+    },
+    // reset pagination
+    resetPagination: function resetPagination() {
+      var _this6 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+        return _regenerator().w(function (_context6) {
+          while (1) switch (_context6.n) {
+            case 0:
+              _this6.pagination.current_page = 1;
+            case 1:
+              return _context6.a(2);
+          }
+        }, _callee6);
+      }))();
+    },
+    // print table
+    print: function print() {
+      var _this7 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+        return _regenerator().w(function (_context7) {
+          while (1) switch (_context7.n) {
+            case 0:
+              _context7.n = 1;
+              return _this7.$htmlToPaper("printMe");
+            case 1:
+              return _context7.a(2);
+          }
+        }, _callee7);
+      }))();
+    }
+  }
+});
+;// ./resources/js/pages/vouchers/send/show.vue?vue&type=script&lang=js
+ /* harmony default export */ const send_showvue_type_script_lang_js = (showvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/vouchers/send/show.vue?vue&type=style&index=0&id=22549200&prod&scoped=true&lang=css
+var showvue_type_style_index_0_id_22549200_prod_scoped_true_lang_css = __webpack_require__(49112);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/vouchers/send/show.vue?vue&type=style&index=0&id=22549200&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(showvue_type_style_index_0_id_22549200_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const send_showvue_type_style_index_0_id_22549200_prod_scoped_true_lang_css = (showvue_type_style_index_0_id_22549200_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/vouchers/send/show.vue?vue&type=style&index=0&id=22549200&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/pages/vouchers/send/show.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  send_showvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "22549200",
+  null
+  
+)
+
+/* harmony default export */ const show = (component.exports);
 
 /***/ })
 

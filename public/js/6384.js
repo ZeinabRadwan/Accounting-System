@@ -8474,7 +8474,7 @@ var component = (0,componentNormalizer/* default */.A)(
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(true)
-		module.exports = factory(__webpack_require__(94733), __webpack_require__(20354));
+		module.exports = factory(__webpack_require__(41371), __webpack_require__(20354));
 	else // removed by dead control flow
 {}
 })(self, function(__WEBPACK_EXTERNAL_MODULE_jspdf__, __WEBPACK_EXTERNAL_MODULE_html2canvas__) {
@@ -14338,7 +14338,7 @@ __nested_webpack_exports__ = __nested_webpack_exports__.default;
 
 /***/ }),
 
-/***/ 94733:
+/***/ 41371:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17730,7 +17730,7 @@ class IOBuffer {
     }
 }
 //# sourceMappingURL=IOBuffer.js.map
-;// ./node_modules/fast-png/node_modules/pako/dist/pako.esm.mjs
+;// ./node_modules/pako/dist/pako.esm.mjs
 
 /*! pako 2.1.0 https://github.com/nodeca/pako @license (MIT AND Zlib) */
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
