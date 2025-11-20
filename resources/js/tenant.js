@@ -13,8 +13,8 @@ import Clipboard from 'v-clipboard'
 import VueMasonry from 'vue-masonry-css'
 import VueHtmlToPaper from 'vue-html-to-paper'
 import DateRangePicker from 'vue-mj-daterangepicker'
-import vSelect from 'vue-select'
 import VTooltip from 'v-tooltip'
+import VueSelectLocalization from '~/plugins/vueSelectLocalization'
 import axios from 'axios'
 import VueMoment from 'vue-moment'
 import { vfmPlugin } from "vue-final-modal"
@@ -53,7 +53,8 @@ const options = {
 }
 Vue.use(VueHtmlToPaper, options)
 
-Vue.component('VSelect', vSelect)
+// Use localized v-select plugin (replaces vSelect with localized version)
+Vue.use(VueSelectLocalization)
 
 VTooltip.options.defaultTemplate = '<div class="tooltip-vue" role="tooltip"><div class="tooltip-vue-arrow"></div><div class="tooltip-vue-inner"></div></div>'
 VTooltip.options.defaultArrowSelector = '.tooltip-vue-arrow, .tooltip-vue__arrow'

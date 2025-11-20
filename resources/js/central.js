@@ -30,10 +30,9 @@ import VueMasonry from 'vue-masonry-css'
 import VueHtmlToPaper from 'vue-html-to-paper'
 // vue date range picker
 import DateRangePicker from 'vue-mj-daterangepicker'
-// vue v-select
-import vSelect from 'vue-select'
 // vue tooltip
 import VTooltip from 'v-tooltip'
+import VueSelectLocalization from '~/plugins/vueSelectLocalization'
 import axios from 'axios'
 import { vfmPlugin } from "vue-final-modal"
 
@@ -62,7 +61,8 @@ Vue.use(DateRangePicker)
 // Use RTL DateRangePicker Plugin
 Vue.use(rtlDaterangepickerPlugin)
 
-Vue.component('VSelect', vSelect)
+// Use localized v-select plugin (replaces vSelect with localized version)
+Vue.use(VueSelectLocalization)
 
 import VueMoment from 'vue-moment'
 // vue moment js

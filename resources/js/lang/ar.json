@@ -3902,5 +3902,6 @@
 "QR Code Generation": "إنشاء رمز الاستجابة السريعة",
 "Testing QR code generation for invoices": "اختبار إنشاء رمز الاستجابة السريعة للفواتير",
 "Digital Signature": "التوقيع الرقمي",
-"Validating digital signature implementation": "التحقق من تنفيذ التوقيع الرقمي"
+"Validating digital signature implementation": "التحقق من تنفيذ التوقيع الرقمي",
+"Sorry, no matching options.": "عذراً، لا توجد خيارات مطابقة."
 }

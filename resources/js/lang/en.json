@@ -3573,5 +3573,6 @@
 "QR Code Generation": "QR Code Generation",
 "Testing QR code generation for invoices": "Testing QR code generation for invoices",
 "Digital Signature": "Digital Signature",
-"Validating digital signature implementation": "Validating digital signature implementation"
+"Validating digital signature implementation": "Validating digital signature implementation",
+"Sorry, no matching options.": "Sorry, no matching options."
 }
