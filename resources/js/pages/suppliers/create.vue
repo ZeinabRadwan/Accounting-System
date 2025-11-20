@@ -10,7 +10,8 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'suppliers.index' }" class="btn btn-info">
-                  <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                  <template
+                    v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
                     {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
 
@@ -18,7 +19,8 @@
 
                   <template v-else>
 
-                    <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                    <template
+                      v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
 
                       {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
@@ -37,7 +39,8 @@
 
                   </template>
                 </router-link>
-                <button type="button" class="btn btn-success" @click="submitForm" :disabled="isSubmitting" :title="$t('Save')">
+                <button type="button" class="btn btn-success" @click="submitForm" :disabled="isSubmitting"
+                  :title="$t('Save')">
                   <i v-if="isSubmitting" class="fas fa-spinner fa-spin"></i>
                   <i v-else class="fas fa-save"></i>
                 </button>
@@ -47,11 +50,7 @@
           <!-- /.card-header -->
           <div class="card-body">
             <!-- form start -->
-            <SupplierForm 
-              ref="supplierForm"
-              :showCardBody="false"
-              @submit="saveSupplier"
-            />
+            <SupplierForm ref="supplierForm" :showCardBody="false" :fullWidthSections="true" @submit="saveSupplier" />
           </div>
           <!-- /.card-body -->
           <div class="card-footer">
@@ -59,7 +58,7 @@
               <div class="form-group row display-per-page footer-buttons d-flex justify-content-between w-100">
                 <button @click="submitForm" :disabled="isSubmitting" class="btn btn-success">
                   <i v-if="isSubmitting" class="fas fa-spinner fa-spin"></i>
-                  <i v-else class="fas fa-save"></i> 
+                  <i v-else class="fas fa-save"></i>
                   {{ isSubmitting ? $t("Saving...") : $t("Save") }}
                 </button>
                 <button type="reset" class="btn btn-info" @click="resetForm">
@@ -117,23 +116,23 @@ export default {
         this.$refs.supplierForm.submitForm();
       }
     },
-    
+
     // save supplier
     async saveSupplier(formData) {
       if (this.isSubmitting) return;
-      
+
       this.isSubmitting = true;
-      
+
       try {
         // Build FormData to properly send all fields including taxStatus
         const fd = new FormData();
-        
+
         const appendIfDefined = (key, value) => {
           if (value !== undefined && value !== null && value !== '') {
             fd.append(key, value);
           }
         };
-        
+
         // Debug: Log formData before building FormData - CRITICAL
         console.log('=== SUPPLIER CREATE - FORM DATA RECEIVED ===');
         console.log('Supplier Create - formData received:', {
@@ -151,40 +150,40 @@ export default {
           console.log('Supplier Create - form.taxStatus:', this.$refs.supplierForm.form.taxStatus);
           console.log('Supplier Create - form.data() taxStatus:', this.$refs.supplierForm.form.data ? this.$refs.supplierForm.form.data().taxStatus : 'N/A');
         }
-        
+
         // Explicitly append all fields to ensure taxStatus is sent
         appendIfDefined('codeNumber', formData.codeNumber);
         appendIfDefined('notes', formData.notes);
         appendIfDefined('displayLanguage', formData.displayLanguage);
         appendIfDefined('type', formData.type);
-        
+
         // CRITICAL: Always append taxStatus - don't use appendIfDefined to ensure it's always sent
         // Get taxStatus from formData, or try to get it from form object if available
         let taxStatusValue = formData.taxStatus || formData.tax_status;
-        
+
         console.log('Supplier Create - Initial taxStatus check:', {
           formDataTaxStatus: formData.taxStatus,
           formDataTax_status: formData.tax_status,
           currentTaxStatusValue: taxStatusValue
         });
-        
+
         // If still not found, try to get it from the form component
         if (!taxStatusValue && this.$refs.supplierForm && this.$refs.supplierForm.form) {
           taxStatusValue = this.$refs.supplierForm.form.taxStatus;
           console.log('Supplier Create - Got taxStatus from form object:', taxStatusValue);
         }
-        
+
         // Default to non_taxable if still not found
         taxStatusValue = taxStatusValue || 'non_taxable';
-        
+
         console.log('Supplier Create - Final taxStatusValue before appending:', taxStatusValue);
-        
+
         // Always append taxStatus - never skip it, even if it's the default value
         // CRITICAL: Use explicit string conversion and ensure it's never null/undefined
         const taxStatusToSend = String(taxStatusValue || 'non_taxable');
         fd.append('taxStatus', taxStatusToSend);
         fd.append('tax_status', taxStatusToSend);
-        
+
         console.log('=== SUPPLIER CREATE - APPENDING TAX STATUS ===');
         console.log('Supplier Create - taxStatusValue:', taxStatusValue);
         console.log('Supplier Create - taxStatusToSend:', taxStatusToSend);
@@ -192,7 +191,7 @@ export default {
         console.log('Supplier Create - formData.taxStatus:', formData.taxStatus);
         console.log('Supplier Create - formData.tax_status:', formData.tax_status);
         console.log('Supplier Create - form.taxStatus:', this.$refs.supplierForm?.form?.taxStatus);
-        
+
         // Verify it was added
         console.log('Supplier Create - FormData has taxStatus:', fd.has('taxStatus'));
         console.log('Supplier Create - FormData has tax_status:', fd.has('tax_status'));
@@ -224,14 +223,14 @@ export default {
         appendIfDefined('isSendSMS', formData.isSendSMS ? 1 : 0);
         appendIfDefined('chartOfAccountId', formData.chartOfAccountId);
         appendIfDefined('saudi_region', formData.saudi_region);
-        
+
         // Handle name field
         const name = formData.name || (formData.type === 'Individual' ? formData.fullName : formData.businessName);
         appendIfDefined('name', name);
-        
+
         // Handle address field
         appendIfDefined('address', formData.address || formData.streetAddress1);
-        
+
         // Handle image if it's a File object
         if (formData.image instanceof File) {
           fd.append('image', formData.image);
@@ -239,7 +238,7 @@ export default {
           // If it's a base64 string, we might need to handle it differently
           // For now, skip it as it's handled in the controller
         }
-        
+
         // Handle attachments
         if (formData.attachments && Array.isArray(formData.attachments)) {
           formData.attachments.forEach((file, index) => {
@@ -248,7 +247,7 @@ export default {
             }
           });
         }
-        
+
         // Handle representatives
         if (formData.representatives && Array.isArray(formData.representatives)) {
           formData.representatives.forEach((rep, index) => {
@@ -262,7 +261,7 @@ export default {
             }
           });
         }
-        
+
         // Debug: Log FormData contents - CRITICAL for debugging
         console.log('Supplier Create - FormData contents:');
         const formDataEntries = [];
@@ -273,12 +272,12 @@ export default {
         console.log('Supplier Create - FormData entries array:', formDataEntries);
         console.log('Supplier Create - taxStatus in FormData:', formDataEntries.find(e => e.key === 'taxStatus'));
         console.log('Supplier Create - tax_status in FormData:', formDataEntries.find(e => e.key === 'tax_status'));
-        
+
         // Use FormData with proper headers
         const response = await this.$http.post("/api/suppliers", fd, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
-        
+
         if (response.data.success) {
           toast.fire({
             type: "success",
@@ -302,18 +301,18 @@ export default {
         const serverErrors = error.response.data.errors || {}
         const translatedErrors = {}
         const errorMessages = []
-        
+
         Object.keys(serverErrors).forEach((field) => {
           const fieldErrors = serverErrors[field] || []
           const translatedFieldErrors = fieldErrors.map((message) => this.translateValidationMessage(message, field))
           translatedErrors[field] = translatedFieldErrors
-          
+
           // Collect error messages for toast notification
           translatedFieldErrors.forEach((msg) => {
             errorMessages.push(msg)
           })
         })
-        
+
         // Set errors on the form if it exists
         if (this.$refs.supplierForm && this.$refs.supplierForm.form) {
           if (typeof this.$refs.supplierForm.form.errors.set === 'function') {
@@ -331,21 +330,21 @@ export default {
             console.warn('Supplier Create - Form errors object not available or invalid');
           }
         }
-        
+
         // Show detailed error messages in toast
-        const errorTitle = errorMessages.length > 0 
+        const errorTitle = errorMessages.length > 0
           ? errorMessages.slice(0, 3).join(' | ') + (errorMessages.length > 3 ? ` (+${errorMessages.length - 3} more)` : '')
           : this.$t('Please fix the highlighted errors and try again')
-        
+
         console.log('Supplier Create - Error messages for toast:', errorMessages);
         console.log('Supplier Create - Error title:', errorTitle);
         console.log('Supplier Create - Translated errors:', translatedErrors);
-        
-        toast.fire({ 
-          type: 'error', 
+
+        toast.fire({
+          type: 'error',
           title: this.$t('Validation Error'),
           text: errorTitle,
-          html: errorMessages.length > 0 
+          html: errorMessages.length > 0
             ? `<div style="text-align: left; max-height: 200px; overflow-y: auto;">${errorMessages.map(msg => `<div>• ${msg}</div>`).join('')}</div>`
             : undefined
         })
@@ -404,7 +403,6 @@ export default {
         // Legacy field mappings
         name: this.$t('Name'),
         companyName: this.$t('Company Name'),
-        taxRegistrationNumber: this.$t('Tax Registration Number'),
         address: this.$t('Address'),
       }
       const fieldLabel = fieldLabelMap[field] || field
@@ -412,367 +410,367 @@ export default {
       // Common Laravel validation patterns with localized messages
       const patterns = [
         // Required field patterns
-        { 
-          re: /The\s+.+?\s+field\s+is\s+required\.?/i, 
+        {
+          re: /The\s+.+?\s+field\s+is\s+required\.?/i,
           en: `This field is required`,
-          ar: `هذا الحقل مطلوب` 
+          ar: `هذا الحقل مطلوب`
         },
-        { 
-          re: /Please\s+select\s+an?\s+.+?\.?/i, 
+        {
+          re: /Please\s+select\s+an?\s+.+?\.?/i,
           en: `Please select`,
-          ar: `يرجى اختيار` 
+          ar: `يرجى اختيار`
         },
-        { 
-          re: /Please\s+enter\s+a\s+.+?\.?/i, 
+        {
+          re: /Please\s+enter\s+a\s+.+?\.?/i,
           en: `Please enter`,
-          ar: `يرجى إدخال` 
+          ar: `يرجى إدخال`
         },
-        { 
-          re: /Please\s+provide\s+a\s+.+?\.?/i, 
+        {
+          re: /Please\s+provide\s+a\s+.+?\.?/i,
           en: `Please provide`,
-          ar: `يرجى تقديم` 
+          ar: `يرجى تقديم`
         },
-        
+
         // Selection and choice patterns
-        { 
-          re: /The\s+selected\s+.+?\s+is\s+invalid\.?/i, 
+        {
+          re: /The\s+selected\s+.+?\s+is\s+invalid\.?/i,
           en: `The selected value is invalid`,
-          ar: `القيمة المحددة غير صالحة` 
+          ar: `القيمة المحددة غير صالحة`
         },
-        { 
-          re: /The\s+selected\s+.+?\s+does\s+not\s+exist\.?/i, 
+        {
+          re: /The\s+selected\s+.+?\s+does\s+not\s+exist\.?/i,
           en: `The selected value does not exist`,
-          ar: `القيمة المحددة غير موجودة` 
+          ar: `القيمة المحددة غير موجودة`
         },
-        { 
-          re: /Please\s+choose\s+a\s+.+?\.?/i, 
+        {
+          re: /Please\s+choose\s+a\s+.+?\.?/i,
           en: `Please choose`,
-          ar: `يرجى اختيار` 
+          ar: `يرجى اختيار`
         },
-        { 
-          re: /You\s+must\s+select\s+a\s+.+?\.?/i, 
+        {
+          re: /You\s+must\s+select\s+a\s+.+?\.?/i,
           en: `You must select`,
-          ar: `يجب اختيار` 
+          ar: `يجب اختيار`
         },
-        
+
         // Data type patterns
-        { 
-          re: /The\s+.+?\s+must\s+be\s+a\s+number\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+a\s+number\.?/i,
           en: `Must be a number`,
-          ar: `يجب أن يكون رقماً` 
+          ar: `يجب أن يكون رقماً`
         },
-        { 
-          re: /The\s+.+?\s+must\s+be\s+an\s+integer\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+an\s+integer\.?/i,
           en: `Must be an integer`,
-          ar: `يجب أن يكون عدداً صحيحاً` 
+          ar: `يجب أن يكون عدداً صحيحاً`
         },
-        { 
-          re: /The\s+.+?\s+must\s+be\s+a\s+string\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+a\s+string\.?/i,
           en: `Must be a string`,
-          ar: `يجب أن يكون نصاً` 
+          ar: `يجب أن يكون نصاً`
         },
-        { 
-          re: /The\s+.+?\s+must\s+be\s+an\s+array\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+an\s+array\.?/i,
           en: `Must be an array`,
-          ar: `يجب أن يكون مصفوفة` 
+          ar: `يجب أن يكون مصفوفة`
         },
-        { 
-          re: /The\s+.+?\s+must\s+be\s+a\s+boolean\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+a\s+boolean\.?/i,
           en: `Must be true or false`,
-          ar: `يجب أن يكون صحيح أو خطأ` 
+          ar: `يجب أن يكون صحيح أو خطأ`
         },
-        { 
-          re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+email\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+email\.?/i,
           en: `Must be a valid email`,
-          ar: `يجب أن يكون بريد إلكتروني صحيح` 
+          ar: `يجب أن يكون بريد إلكتروني صحيح`
         },
-        { 
-          re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+url\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+url\.?/i,
           en: `Must be a valid URL`,
-          ar: `يجب أن يكون رابط صحيح` 
+          ar: `يجب أن يكون رابط صحيح`
         },
-        
+
         // Numeric validation patterns
-        { 
-          re: /The\s+.+?\s+must\s+be\s+at\s+least\s+(\d+)\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+at\s+least\s+(\d+)\.?/i,
           en: (_, n) => `Must be at least ${n}`,
-          ar: (_, n) => `يجب ألا يقل عن ${n}` 
+          ar: (_, n) => `يجب ألا يقل عن ${n}`
         },
-        { 
-          re: /The\s+.+?\s+must\s+be\s+greater\s+than\s+(\d+)\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+greater\s+than\s+(\d+)\.?/i,
           en: (_, n) => `Must be greater than ${n}`,
-          ar: (_, n) => `يجب أن يكون أكبر من ${n}` 
+          ar: (_, n) => `يجب أن يكون أكبر من ${n}`
         },
-        { 
-          re: /The\s+.+?\s+may\s+not\s+be\s+greater\s+than\s+(\d+)\.?/i, 
+        {
+          re: /The\s+.+?\s+may\s+not\s+be\s+greater\s+than\s+(\d+)\.?/i,
           en: (_, n) => `May not be greater than ${n}`,
-          ar: (_, n) => `يجب ألا يزيد عن ${n}` 
+          ar: (_, n) => `يجب ألا يزيد عن ${n}`
         },
-        { 
-          re: /The\s+.+?\s+must\s+be\s+between\s+(\d+)\s+and\s+(\d+)\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+between\s+(\d+)\s+and\s+(\d+)\.?/i,
           en: (_, min, max) => `Must be between ${min} and ${max}`,
-          ar: (_, min, max) => `يجب أن يكون بين ${min} و ${max}` 
+          ar: (_, min, max) => `يجب أن يكون بين ${min} و ${max}`
         },
-        { 
-          re: /The\s+.+?\s+must\s+be\s+exactly\s+(\d+)\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+exactly\s+(\d+)\.?/i,
           en: (_, n) => `Must be exactly ${n}`,
-          ar: (_, n) => `يجب أن يكون بالضبط ${n}` 
+          ar: (_, n) => `يجب أن يكون بالضبط ${n}`
         },
-        
+
         // String length patterns
-        { 
-          re: /The\s+.+?\s+may\s+not\s+be\s+greater\s+than\s+(\d+)\s+characters\.?/i, 
+        {
+          re: /The\s+.+?\s+may\s+not\s+be\s+greater\s+than\s+(\d+)\s+characters\.?/i,
           en: (_, n) => `May not be greater than ${n} characters`,
-          ar: (_, n) => `يجب ألا يتجاوز ${n} حرفاً` 
+          ar: (_, n) => `يجب ألا يتجاوز ${n} حرفاً`
         },
-        { 
-          re: /The\s+.+?\s+must\s+be\s+at\s+least\s+(\d+)\s+characters\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+at\s+least\s+(\d+)\s+characters\.?/i,
           en: (_, n) => `Must be at least ${n} characters`,
-          ar: (_, n) => `يجب أن يكون على الأقل ${n} حرفاً` 
+          ar: (_, n) => `يجب أن يكون على الأقل ${n} حرفاً`
         },
-        { 
-          re: /The\s+.+?\s+must\s+be\s+between\s+(\d+)\s+and\s+(\d+)\s+characters\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+between\s+(\d+)\s+and\s+(\d+)\s+characters\.?/i,
           en: (_, min, max) => `Must be between ${min} and ${max} characters`,
-          ar: (_, min, max) => `يجب أن يكون بين ${min} و ${max} حرفاً` 
+          ar: (_, min, max) => `يجب أن يكون بين ${min} و ${max} حرفاً`
         },
-        
+
         // Date validation patterns
-        { 
-          re: /The\s+.+?\s+is\s+not\s+a\s+valid\s+date\.?/i, 
+        {
+          re: /The\s+.+?\s+is\s+not\s+a\s+valid\s+date\.?/i,
           en: `Is not a valid date`,
-          ar: `ليس تاريخاً صحيحاً` 
+          ar: `ليس تاريخاً صحيحاً`
         },
-        { 
-          re: /The\s+.+?\s+does\s+not\s+match\s+the\s+format\s+.+?\.?/i, 
+        {
+          re: /The\s+.+?\s+does\s+not\s+match\s+the\s+format\s+.+?\.?/i,
           en: `Does not match the required format`,
-          ar: `لا يطابق التنسيق المطلوب` 
+          ar: `لا يطابق التنسيق المطلوب`
         },
-        { 
-          re: /The\s+.+?\s+must\s+be\s+after\s+or\s+equal\s+to\s+.+?\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+after\s+or\s+equal\s+to\s+.+?\.?/i,
           en: `Must be after or equal to the specified date`,
-          ar: `يجب أن يكون بعد أو يساوي التاريخ المحدد` 
+          ar: `يجب أن يكون بعد أو يساوي التاريخ المحدد`
         },
-        { 
-          re: /The\s+.+?\s+must\s+be\s+before\s+or\s+equal\s+to\s+.+?\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+before\s+or\s+equal\s+to\s+.+?\.?/i,
           en: `Must be before or equal to the specified date`,
-          ar: `يجب أن يكون قبل أو يساوي التاريخ المحدد` 
+          ar: `يجب أن يكون قبل أو يساوي التاريخ المحدد`
         },
-        { 
-          re: /The\s+.+?\s+must\s+be\s+after\s+.+?\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+after\s+.+?\.?/i,
           en: `Must be after the specified date`,
-          ar: `يجب أن يكون بعد التاريخ المحدد` 
+          ar: `يجب أن يكون بعد التاريخ المحدد`
         },
-        { 
-          re: /The\s+.+?\s+must\s+be\s+before\s+.+?\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+before\s+.+?\.?/i,
           en: `Must be before the specified date`,
-          ar: `يجب أن يكون قبل التاريخ المحدد` 
+          ar: `يجب أن يكون قبل التاريخ المحدد`
         },
-        { 
-          re: /The\s+.+?\s+must\s+be\s+a\s+date\s+after\s+or\s+equal\s+to\s+today\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+a\s+date\s+after\s+or\s+equal\s+to\s+today\.?/i,
           en: `Must be a date after or equal to today`,
-          ar: `يجب أن يكون تاريخ بعد أو يساوي اليوم` 
+          ar: `يجب أن يكون تاريخ بعد أو يساوي اليوم`
         },
-        
+
         // Format validation patterns
-        { 
-          re: /The\s+.+?\s+format\s+is\s+invalid\.?/i, 
+        {
+          re: /The\s+.+?\s+format\s+is\s+invalid\.?/i,
           en: `Invalid format`,
-          ar: `تنسيق غير صالح` 
+          ar: `تنسيق غير صالح`
         },
-        { 
-          re: /The\s+.+?\s+does\s+not\s+match\s+the\s+required\s+format\.?/i, 
+        {
+          re: /The\s+.+?\s+does\s+not\s+match\s+the\s+required\s+format\.?/i,
           en: `Does not match the required format`,
-          ar: `لا يطابق التنسيق المطلوب` 
+          ar: `لا يطابق التنسيق المطلوب`
         },
-        { 
-          re: /The\s+.+?\s+must\s+match\s+the\s+pattern\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+match\s+the\s+pattern\.?/i,
           en: `Must match the required pattern`,
-          ar: `يجب أن يطابق النمط المطلوب` 
+          ar: `يجب أن يطابق النمط المطلوب`
         },
-        
+
         // Uniqueness patterns
-        { 
-          re: /The\s+.+?\s+has\s+already\s+been\s+taken\.?/i, 
+        {
+          re: /The\s+.+?\s+has\s+already\s+been\s+taken\.?/i,
           en: `This value has already been taken`,
-          ar: `هذه القيمة مستخدمة بالفعل` 
+          ar: `هذه القيمة مستخدمة بالفعل`
         },
-        { 
-          re: /The\s+.+?\s+already\s+exists\.?/i, 
+        {
+          re: /The\s+.+?\s+already\s+exists\.?/i,
           en: `Already exists`,
-          ar: `موجود بالفعل` 
+          ar: `موجود بالفعل`
         },
-        { 
-          re: /This\s+.+?\s+is\s+already\s+in\s+use\.?/i, 
+        {
+          re: /This\s+.+?\s+is\s+already\s+in\s+use\.?/i,
           en: `This is already in use`,
-          ar: `هذا مستخدم بالفعل` 
+          ar: `هذا مستخدم بالفعل`
         },
-        
+
         // File upload patterns
-        { 
-          re: /The\s+.+?\s+must\s+be\s+a\s+file\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+a\s+file\.?/i,
           en: `Must be a file`,
-          ar: `يجب أن يكون ملفاً` 
+          ar: `يجب أن يكون ملفاً`
         },
-        { 
-          re: /The\s+.+?\s+must\s+be\s+an\s+image\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+an\s+image\.?/i,
           en: `Must be an image`,
-          ar: `يجب أن يكون صورة` 
+          ar: `يجب أن يكون صورة`
         },
-        { 
-          re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+image\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+image\.?/i,
           en: `Must be a valid image`,
-          ar: `يجب أن يكون صورة صحيحة` 
+          ar: `يجب أن يكون صورة صحيحة`
         },
-        { 
-          re: /The\s+.+?\s+file\s+is\s+too\s+large\.?/i, 
+        {
+          re: /The\s+.+?\s+file\s+is\s+too\s+large\.?/i,
           en: `File is too large`,
-          ar: `الملف كبير جداً` 
+          ar: `الملف كبير جداً`
         },
-        { 
-          re: /The\s+.+?\s+file\s+size\s+must\s+not\s+exceed\s+(\d+)\s+KB\.?/i, 
+        {
+          re: /The\s+.+?\s+file\s+size\s+must\s+not\s+exceed\s+(\d+)\s+KB\.?/i,
           en: (_, n) => `File size must not exceed ${n} KB`,
-          ar: (_, n) => `حجم الملف يجب ألا يتجاوز ${n} كيلوبايت` 
+          ar: (_, n) => `حجم الملف يجب ألا يتجاوز ${n} كيلوبايت`
         },
-        
+
         // Confirmation patterns
-        { 
-          re: /The\s+.+?\s+confirmation\s+does\s+not\s+match\.?/i, 
+        {
+          re: /The\s+.+?\s+confirmation\s+does\s+not\s+match\.?/i,
           en: `Confirmation does not match`,
-          ar: `التأكيد غير متطابق` 
+          ar: `التأكيد غير متطابق`
         },
-        { 
-          re: /The\s+.+?\s+and\s+.+?\s+must\s+match\.?/i, 
+        {
+          re: /The\s+.+?\s+and\s+.+?\s+must\s+match\.?/i,
           en: `Must match`,
-          ar: `يجب أن يتطابقا` 
+          ar: `يجب أن يتطابقا`
         },
-        
+
         // Custom validation patterns for supplier form
-        { 
-          re: /Mobile\s+number\s+is\s+required\.?/i, 
+        {
+          re: /Mobile\s+number\s+is\s+required\.?/i,
           en: `Mobile number is required`,
-          ar: `رقم الهاتف المحمول مطلوب` 
+          ar: `رقم الهاتف المحمول مطلوب`
         },
-        { 
-          re: /Business\s+name\s+is\s+required\s+for\s+company\s+suppliers\.?/i, 
+        {
+          re: /Business\s+name\s+is\s+required\s+for\s+company\s+suppliers\.?/i,
           en: `Business name is required for company suppliers`,
-          ar: `اسم الشركة مطلوب لموردي الشركات` 
+          ar: `اسم الشركة مطلوب لموردي الشركات`
         },
-        { 
-          re: /Phone\s+number\s+is\s+required\.?/i, 
+        {
+          re: /Phone\s+number\s+is\s+required\.?/i,
           en: `Phone number is required`,
-          ar: `رقم الهاتف مطلوب` 
+          ar: `رقم الهاتف مطلوب`
         },
-        { 
-          re: /Email\s+is\s+required\.?/i, 
+        {
+          re: /Email\s+is\s+required\.?/i,
           en: `Email is required`,
-          ar: `البريد الإلكتروني مطلوب` 
+          ar: `البريد الإلكتروني مطلوب`
         },
-        { 
-          re: /Full\s+name\s+is\s+required\.?/i, 
+        {
+          re: /Full\s+name\s+is\s+required\.?/i,
           en: `Full name is required`,
-          ar: `الاسم الكامل مطلوب` 
+          ar: `الاسم الكامل مطلوب`
         },
-        { 
-          re: /First\s+name\s+is\s+required\.?/i, 
+        {
+          re: /First\s+name\s+is\s+required\.?/i,
           en: `First name is required`,
-          ar: `الاسم الأول مطلوب` 
+          ar: `الاسم الأول مطلوب`
         },
-        { 
-          re: /Last\s+name\s+is\s+required\.?/i, 
+        {
+          re: /Last\s+name\s+is\s+required\.?/i,
           en: `Last name is required`,
-          ar: `الاسم الأخير مطلوب` 
+          ar: `الاسم الأخير مطلوب`
         },
-        { 
-          re: /Company\s+name\s+is\s+required\.?/i, 
+        {
+          re: /Company\s+name\s+is\s+required\.?/i,
           en: `Company name is required`,
-          ar: `اسم الشركة مطلوب` 
+          ar: `اسم الشركة مطلوب`
         },
-        { 
-          re: /Please\s+enter\s+a\s+mobile\s+number\.?/i, 
+        {
+          re: /Please\s+enter\s+a\s+mobile\s+number\.?/i,
           en: `Please enter a mobile number`,
-          ar: `يرجى إدخال رقم هاتف محمول` 
+          ar: `يرجى إدخال رقم هاتف محمول`
         },
-        { 
-          re: /Please\s+enter\s+a\s+business\s+name\.?/i, 
+        {
+          re: /Please\s+enter\s+a\s+business\s+name\.?/i,
           en: `Please enter a business name`,
-          ar: `يرجى إدخال اسم شركة` 
+          ar: `يرجى إدخال اسم شركة`
         },
-        { 
-          re: /Please\s+enter\s+a\s+phone\s+number\.?/i, 
+        {
+          re: /Please\s+enter\s+a\s+phone\s+number\.?/i,
           en: `Please enter a phone number`,
-          ar: `يرجى إدخال رقم هاتف` 
+          ar: `يرجى إدخال رقم هاتف`
         },
-        { 
-          re: /Please\s+enter\s+an\s+email\.?/i, 
+        {
+          re: /Please\s+enter\s+an\s+email\.?/i,
           en: `Please enter an email`,
-          ar: `يرجى إدخال بريد إلكتروني` 
+          ar: `يرجى إدخال بريد إلكتروني`
         },
-        { 
-          re: /Please\s+enter\s+a\s+full\s+name\.?/i, 
+        {
+          re: /Please\s+enter\s+a\s+full\s+name\.?/i,
           en: `Please enter a full name`,
-          ar: `يرجى إدخال اسم كامل` 
+          ar: `يرجى إدخال اسم كامل`
         },
-        { 
-          re: /Please\s+enter\s+a\s+first\s+name\.?/i, 
+        {
+          re: /Please\s+enter\s+a\s+first\s+name\.?/i,
           en: `Please enter a first name`,
-          ar: `يرجى إدخال اسم أول` 
+          ar: `يرجى إدخال اسم أول`
         },
-        { 
-          re: /Please\s+enter\s+a\s+last\s+name\.?/i, 
+        {
+          re: /Please\s+enter\s+a\s+last\s+name\.?/i,
           en: `Please enter a last name`,
-          ar: `يرجى إدخال اسم أخير` 
+          ar: `يرجى إدخال اسم أخير`
         },
-        { 
-          re: /Please\s+enter\s+a\s+company\s+name\.?/i, 
+        {
+          re: /Please\s+enter\s+a\s+company\s+name\.?/i,
           en: `Please enter a company name`,
-          ar: `يرجى إدخال اسم شركة` 
+          ar: `يرجى إدخال اسم شركة`
         },
-        { 
-          re: /Please\s+select\s+a\s+type\.?/i, 
+        {
+          re: /Please\s+select\s+a\s+type\.?/i,
           en: `Please select a type`,
-          ar: `يرجى اختيار نوع` 
+          ar: `يرجى اختيار نوع`
         },
-        { 
-          re: /Type\s+is\s+required\.?/i, 
+        {
+          re: /Type\s+is\s+required\.?/i,
           en: `Type is required`,
-          ar: `النوع مطلوب` 
+          ar: `النوع مطلوب`
         },
-        { 
-          re: /Status\s+is\s+required\.?/i, 
+        {
+          re: /Status\s+is\s+required\.?/i,
           en: `Status is required`,
-          ar: `الحالة مطلوبة` 
+          ar: `الحالة مطلوبة`
         },
-        { 
-          re: /Please\s+select\s+a\s+status\.?/i, 
+        {
+          re: /Please\s+select\s+a\s+status\.?/i,
           en: `Please select a status`,
-          ar: `يرجى اختيار حالة` 
+          ar: `يرجى اختيار حالة`
         },
-        
+
         // Generic fallback patterns
-        { 
-          re: /This\s+field\s+is\s+required\.?/i, 
+        {
+          re: /This\s+field\s+is\s+required\.?/i,
           en: `This field is required`,
-          ar: `هذا الحقل مطلوب` 
+          ar: `هذا الحقل مطلوب`
         },
-        { 
-          re: /This\s+field\s+must\s+be\s+filled\.?/i, 
+        {
+          re: /This\s+field\s+must\s+be\s+filled\.?/i,
           en: `This field must be filled`,
-          ar: `يجب ملء هذا الحقل` 
+          ar: `يجب ملء هذا الحقل`
         },
-        { 
-          re: /This\s+value\s+is\s+invalid\.?/i, 
+        {
+          re: /This\s+value\s+is\s+invalid\.?/i,
           en: `This value is invalid`,
-          ar: `هذه القيمة غير صالحة` 
+          ar: `هذه القيمة غير صالحة`
         },
-        { 
-          re: /Invalid\s+input\.?/i, 
+        {
+          re: /Invalid\s+input\.?/i,
           en: `Invalid input`,
-          ar: `إدخال غير صالح` 
+          ar: `إدخال غير صالح`
         },
-        { 
-          re: /Please\s+check\s+your\s+input\.?/i, 
+        {
+          re: /Please\s+check\s+your\s+input\.?/i,
           en: `Please check your input`,
-          ar: `يرجى التحقق من المدخلات` 
+          ar: `يرجى التحقق من المدخلات`
         },
       ]
 
@@ -827,7 +825,7 @@ export default {
           timestamp: new Date().toISOString()
         }
         localStorage.setItem('supplierTempData', JSON.stringify(tempData))
-         
+
       }
     },
     // load temporary data
