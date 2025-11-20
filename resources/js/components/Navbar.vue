@@ -1,10 +1,8 @@
 <template>
   <!-- Navbar -->
-  <nav 
-    class="main-header navbar navbar-expand navbar-white navbar-light" 
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light"
     :class="{ 'full-width-navbar': isSelectBranchPage }"
-    :style="isSelectBranchPage ? { marginLeft: '0', marginRight: '0', left: '0', right: '0', width: '100%', maxWidth: '100%' } : {}"
-  >
+    :style="isSelectBranchPage ? { marginLeft: '0', marginRight: '0', left: '0', right: '0', width: '100%', maxWidth: '100%' } : {}">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li v-if="showSidebarToggle" class="nav-item">
@@ -20,8 +18,8 @@
     <!-- Search beside sidebar toggle -->
     <div class="navbar-search d-none d-md-block" :style="showSidebarToggle ? 'margin-left: 10px;' : 'margin-left: 0;'">
       <div class="search-area position-relative">
-        <input ref="searchInput" type="text" v-model="menuSearchQuery" @input="searchMenu"
-          class="search-input" :placeholder="`${$t('Search...')}`">
+        <input ref="searchInput" type="text" v-model="menuSearchQuery" @input="searchMenu" class="search-input"
+          :placeholder="`${$t('Search...')}`">
         <span class="search-icon" :class="[this.menuSearchQuery !== '' ? 'd-none' : '']">
           <i class="fas fa-search"></i>
         </span>
@@ -29,9 +27,11 @@
           <i class="fas fa-times"></i>
         </button>
       </div>
-      <div v-if="menuSearchQuery" class="dropdown-menu show w-100 mt-1 shadow" style="display:block; max-height: 320px; overflow:auto;">
+      <div v-if="menuSearchQuery" class="dropdown-menu show w-100 mt-1 shadow"
+        style="display:block; max-height: 320px; overflow:auto;">
         <div v-if="menuItems.length">
-          <router-link v-for="(menuItem, index) in menuItems" :key="index" :to="{ name: menuItem.route }" class="dropdown-item d-flex align-items-center">
+          <router-link v-for="(menuItem, index) in menuItems" :key="index" :to="{ name: menuItem.route }"
+            class="dropdown-item d-flex align-items-center">
             <i v-if="menuItem.icon" :class="menuItem.icon + ' mr-2'" />
             <span>{{ $t(menuItem.text) }}</span>
           </router-link>
@@ -43,9 +43,10 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <li v-if="currentBranchName" class="nav-item d-flex align-items-center mr-2" v-tooltip="displayBranchName">
-        <span class="branch-pill d-inline-flex align-items-center" >
+        <span class="branch-pill d-inline-flex align-items-center">
           <i class="fas fa-code-branch mr-2"></i>
-          <a href="#" @click.prevent="goSelectBranch" class="text-truncate" style="max-width: 180px;">{{ displayBranchName }}</a>
+          <a href="#" @click.prevent="goSelectBranch" class="text-truncate" style="max-width: 180px;">{{
+            displayBranchName }}</a>
         </span>
       </li>
       <!-- <li class="nav-item" v-tooltip="$t('Change Branch')">
@@ -54,7 +55,9 @@
         </a>
       </li> -->
       <li v-if="$can('today-profit')" v-tooltip="$t('Today Report')" class="nav-item">
-        <a class="nav-link custom-nav-btn" :href="`#${$route.name === 'reports.todayReport' ? '' : 'reports.todayReport'}`" @click.prevent="$router.push({ name: 'reports.todayReport' })">
+        <a class="nav-link custom-nav-btn"
+          :href="`#${$route.name === 'reports.todayReport' ? '' : 'reports.todayReport'}`"
+          @click.prevent="$router.push({ name: 'reports.todayReport' })">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
             stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 1v22M17 5v14M7 5v14M5 10h14M5 14h14" />
@@ -67,7 +70,7 @@
         $can('invoice-create') ||
         $can('expense-create') ||
         $can('international-purchase-create')
-        " class="nav-item dropdown" v-tooltip="$t('Quick Add')">
+      " class="nav-item dropdown" v-tooltip="$t('Quick Add')">
         <a class="nav-link custom-nav-btn" data-toggle="dropdown" href="#" aria-expanded="true">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
             stroke-width="2">
@@ -165,17 +168,9 @@
       <li v-if="user" class="nav-item dropdown">
         <a class="nav-link user-profile" data-toggle="dropdown" href="#">
           <div>
-            <img 
-              v-if="!imageError"
-              :src="user.photo_url" 
-              :alt="user.name" 
-              @error="handleImageError"
-              class="profile-avatar"
-            />
-            <div 
-              v-else
-              class="profile-avatar profile-avatar-fallback"
-            >
+            <img v-if="!imageError" :src="user.photo_url" :alt="user.name" @error="handleImageError"
+              class="profile-avatar" />
+            <div v-else class="profile-avatar profile-avatar-fallback">
               <i class="fas fa-user"></i>
             </div>
           </div>
@@ -244,6 +239,8 @@ export default {
     imageError: false,
     currentBranchName: '',
     navbarEnforcerInterval: null,
+    searchDebounceTimer: null,
+    cachedRoutes: null,
   }),
 
   computed: {
@@ -308,6 +305,8 @@ export default {
   watch: {
     '$i18n.locale'() {
       this.updateSearchPlaceholder();
+      // Clear cached routes when locale changes
+      this.cachedRoutes = null;
     },
     '$route'(to, from) {
       // Clear any existing interval first
@@ -315,14 +314,14 @@ export default {
         clearInterval(this.navbarEnforcerInterval);
         this.navbarEnforcerInterval = null;
       }
-      
+
       // Reset styles when leaving select-branch page
       if (from && from.name === 'branches.select' && to.name !== 'branches.select') {
         this.$nextTick(() => {
           this.resetNavbarStyles();
         });
       }
-      
+
       // Force navbar full width when route changes to select-branch
       if (to.name === 'branches.select') {
         this.$nextTick(() => {
@@ -399,6 +398,11 @@ export default {
     },
 
     clearMenuSearch() {
+      // Clear debounce timer
+      if (this.searchDebounceTimer) {
+        clearTimeout(this.searchDebounceTimer);
+        this.searchDebounceTimer = null;
+      }
       this.menuSearchQuery = "";
       this.menuItems = [];
     },
@@ -406,15 +410,15 @@ export default {
     // Get all routes from Sidebar structure
     getAllSidebarRoutes() {
       const routes = [];
-      
+
       // Helper function to add route
       const addRoute = (routeName, translationKey, icon = null) => {
         if (!routeName) return;
-        
+
         // Get translations in both languages
         const enTranslation = this.getTranslation('en', translationKey);
         const arTranslation = this.getTranslation('ar', translationKey);
-        
+
         routes.push({
           route: routeName,
           text: translationKey,
@@ -423,10 +427,10 @@ export default {
           arText: arTranslation
         });
       };
-      
+
       // Dashboard
       addRoute('home', 'Dashboard', 'fas fa-home');
-      
+
       // Sales section
       if (this.$can('invoice-list') || this.$can('invoice-create') || this.$can('quotation-list') || this.$can('quotation-create')) {
         addRoute('pos.create', 'POS', 'fas fa-cash-register');
@@ -435,7 +439,7 @@ export default {
         addRoute('invoiceReturns.index', 'Returns List', 'fas fa-undo-alt');
         addRoute('clients.index', 'Clients', 'fas fa-users');
       }
-      
+
       // Purchases section
       if (this.$can('purchase-list') || this.$can('purchase-create') || this.$can('purchase-order-list')) {
         addRoute('purchase-order.index', 'Purchase Orders', 'fas fa-file-invoice');
@@ -443,32 +447,32 @@ export default {
         addRoute('purchaseReturns.index', 'Returns List', 'fas fa-undo-alt');
         addRoute('suppliers.index', 'Suppliers', 'fas fa-people-carry');
       }
-      
+
       // Employees section
       if (this.$can('employee-list') || this.$can('department-list') || this.$can('increment-list')) {
         addRoute('departments.index', 'Departments', 'fas fa-server');
         addRoute('employees.index', 'Employees List', 'fas fa-list-ul');
         addRoute('increments.index', 'Increments', 'fas fa-list-ul');
       }
-      
+
       // Accounting section
-      if ((this.$can('account-list') || this.$can('chart-of-account-list') || this.$can('account-balance-list')) && 
-          (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
+      if ((this.$can('account-list') || this.$can('chart-of-account-list') || this.$can('account-balance-list')) &&
+        (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
         addRoute('chart-of-accounts.index', 'Chart of Accounts', 'fas fa-chart-line');
         addRoute('accounts.index', 'Bank Accounts', 'fas fa-university');
         addRoute('balances.index', 'Balance Adjustments', 'fas fa-sliders-h');
         addRoute('transferBalances.index', 'Balance Transfers', 'fas fa-exchange-alt');
         addRoute('transactions.index', 'Transaction History', 'fas fa-history');
       }
-      
+
       // Cost Centers
-      if ((this.$can('view_cost_centers') || this.$can('create_cost_center')) && 
-          (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
+      if ((this.$can('view_cost_centers') || this.$can('create_cost_center')) &&
+        (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
         addRoute('cost-centers.index', 'All Cost Centers', 'fas fa-list');
         addRoute('cost-centers.tree', 'Tree View', 'fas fa-sitemap');
         addRoute('cost-centers.create', 'Create Cost Center', 'fas fa-plus');
       }
-      
+
       // Cost Allocations
       // Hidden for now
       /*
@@ -478,27 +482,27 @@ export default {
         addRoute('cost-allocations.create', 'Create Rule', 'fas fa-plus');
       }
       */
-      
+
       // Journal Entries
-      if ((this.$can('journal-entry-list') || this.$can('journal-entry-create')) && 
-          (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
+      if ((this.$can('journal-entry-list') || this.$can('journal-entry-create')) &&
+        (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
         addRoute('journal-entries.index', 'All Entries', 'fas fa-list');
         addRoute('journal-entries.create', 'New Entry', 'fas fa-plus');
       }
-      
+
       // Expenses
       if (!this.$isPOS() && (this.$can('expense-list') || this.$can('expense-category-list'))) {
         addRoute('expenseCats.index', 'Categories', 'fas fa-tags');
         addRoute('expenseSubCats.index', 'Sub Categories', 'fas fa-code-branch');
         addRoute('expenses.index', 'Expenses List', 'fas fa-list-ul');
       }
-      
+
       // Vouchers
       if (!this.$isPOS() && this.$can('payment-voucher-list')) {
         addRoute('receiveVouchers.index', 'Receive Vouchers', 'fas fa-arrow-down');
         addRoute('sendVouchers.index', 'Send Vouchers', 'fas fa-arrow-up');
       }
-      
+
       // Payments
       if (!this.$isPOS()) {
         if (this.$can('invoice-payment-list') || this.$can('non-invoice-payment-list')) {
@@ -510,25 +514,25 @@ export default {
           addRoute('nonPurchasePayments.index', 'Non Purchase', 'fas fa-truck-pickup');
         }
       }
-      
+
       // Loan Management
       if (!this.$isPOS() && (this.$can('loan-list') || this.$can('loan-authority-list'))) {
         addRoute('authorities.index', 'Authorities', 'fas fa-building');
         addRoute('loans.index', 'Loans', 'fas fa-list-ul');
         addRoute('loanPayments.index', 'Payments', 'fas fa-receipt');
       }
-      
+
       // Asset Management
       if (!this.$isPOS() && (this.$can('asset-list') || this.$can('asset-type-list'))) {
         addRoute('assetTypes.index', 'Types', 'fas fa-tags');
         addRoute('assets.index', 'Assets', 'fas fa-list-ul');
       }
-      
+
       // Payroll
       if (!this.$isPOS() && this.$can('payroll-list')) {
         addRoute('payroll.index', 'Payroll', 'fas fa-clipboard-list');
       }
-      
+
       // Inventory
       if (this.$can('product-create') || this.$can('product-category-create')) {
         addRoute('productCats.index', 'Categories', 'fas fa-tags');
@@ -538,14 +542,14 @@ export default {
           addRoute('barcode.print', 'Barcode', 'fas fa-barcode');
         }
       }
-      
+
       if (this.$can('inventory') || this.$can('adjustment-create')) {
         addRoute('inventory.index', 'View Inventory', 'fas fa-pallet');
         addRoute('inventory.history-general', 'Inventory History', 'fas fa-history');
         addRoute('inventory.count', 'Inventory Count', 'fas fa-clipboard-check');
         addRoute('adjustments.index', 'Inventory Adjustment', 'fas fa-sliders-h');
       }
-      
+
       // Reports
       if (!this.$isPOS()) {
         if (this.$can('account-statement')) {
@@ -590,7 +594,7 @@ export default {
           addRoute('reports.collectionByUserReport', 'Collection By User Report', 'fas fa-chart-bar');
         }
       }
-      
+
       // Others
       if (!this.$isPOS()) {
         if (this.$can('branches-list') || this.$can('branches-create')) {
@@ -613,44 +617,57 @@ export default {
           addRoute('backup', 'Database Backup', 'fas fa-download');
         }
       }
-      
+
       return routes;
     },
-    
-    // Helper to get translation in specific language
+
+    // Helper to get translation in specific language (optimized)
     getTranslation(locale, key) {
       try {
         const i18n = this.$i18n;
-        // Access messages directly from i18n
+        // Access messages directly from i18n without switching locale
         if (i18n && i18n.messages && i18n.messages[locale]) {
           const messages = i18n.messages[locale];
           if (messages && messages[key]) {
             return messages[key];
           }
         }
-        // Fallback: try using $t with locale override
-        const originalLocale = i18n.locale;
-        i18n.locale = locale;
-        const translation = this.$t(key);
-        i18n.locale = originalLocale;
-        return translation !== key ? translation : key;
+        // Fallback: return key if translation not found
+        return key;
       } catch (error) {
         return key;
       }
     },
-    
-    // Search through routes
+
+    // Search through routes with debouncing
     searchMenu() {
+      // Clear existing timer
+      if (this.searchDebounceTimer) {
+        clearTimeout(this.searchDebounceTimer);
+      }
+
+      // Debounce the search to avoid running on every keystroke
+      this.searchDebounceTimer = setTimeout(() => {
+        this.performSearch();
+      }, 150); // 150ms delay
+    },
+
+    // Perform the actual search
+    performSearch() {
       const menuSearchQuery = this.menuSearchQuery.trim().toLowerCase();
       if (!menuSearchQuery) {
         this.menuItems = [];
         return;
       }
-      
+
       try {
-        // Get all available routes
-        const allRoutes = this.getAllSidebarRoutes();
-        
+        // Get cached routes or calculate them once
+        if (!this.cachedRoutes) {
+          this.cachedRoutes = this.getAllSidebarRoutes();
+        }
+
+        const allRoutes = this.cachedRoutes;
+
         // Filter routes based on search query
         const matchedRoutes = allRoutes.filter(route => {
           // Search in English translation
@@ -661,10 +678,10 @@ export default {
           const routeMatch = route.route && route.route.toLowerCase().includes(menuSearchQuery);
           // Search in translation key
           const keyMatch = route.text && route.text.toLowerCase().includes(menuSearchQuery);
-          
+
           return enMatch || arMatch || routeMatch || keyMatch;
         });
-        
+
         // Format results
         this.menuItems = matchedRoutes.map(route => ({
           route: route.route,
@@ -693,7 +710,7 @@ export default {
         this.resetNavbarStyles();
         return;
       }
-      
+
       // Force navbar to full width by directly manipulating the DOM
       const navbar = this.$el;
       if (navbar) {
@@ -704,7 +721,7 @@ export default {
         navbar.style.setProperty('right', '0', 'important');
         navbar.style.setProperty('width', '100%', 'important');
         navbar.style.setProperty('max-width', '100%', 'important');
-        
+
         // Also set on content-wrapper and footer
         const contentWrapper = document.querySelector('.content-wrapper');
         const mainFooter = document.querySelector('.main-footer');
@@ -729,7 +746,7 @@ export default {
         navbar.style.removeProperty('width');
         navbar.style.removeProperty('max-width');
       }
-      
+
       const contentWrapper = document.querySelector('.content-wrapper');
       const mainFooter = document.querySelector('.main-footer');
       if (contentWrapper) {
@@ -742,12 +759,17 @@ export default {
       }
     },
   },
-  
+
   beforeDestroy() {
     // Clean up interval
     if (this.navbarEnforcerInterval) {
       clearInterval(this.navbarEnforcerInterval);
       this.navbarEnforcerInterval = null;
+    }
+    // Clean up debounce timer
+    if (this.searchDebounceTimer) {
+      clearTimeout(this.searchDebounceTimer);
+      this.searchDebounceTimer = null;
     }
     // Reset styles when component is destroyed
     this.resetNavbarStyles();
@@ -936,5 +958,9 @@ export default {
   font-weight: 600;
   font-size: 0.85rem;
 }
-[dir="rtl"] .branch-pill .mr-2 { margin-right: 0 !important; margin-left: .5rem !important; }
+
+[dir="rtl"] .branch-pill .mr-2 {
+  margin-right: 0 !important;
+  margin-left: .5rem !important;
+}
 </style>
