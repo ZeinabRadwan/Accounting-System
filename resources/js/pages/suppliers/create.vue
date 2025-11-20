@@ -224,9 +224,11 @@ export default {
         appendIfDefined('chartOfAccountId', formData.chartOfAccountId);
         appendIfDefined('saudi_region', formData.saudi_region);
 
-        // Handle name field
+        // Handle name field - always required when type is Individual
         const name = formData.name || (formData.type === 'Individual' ? formData.fullName : formData.businessName);
-        appendIfDefined('name', name);
+        if (name) {
+          fd.append('name', name);
+        }
 
         // Handle address field
         appendIfDefined('address', formData.address || formData.streetAddress1);
