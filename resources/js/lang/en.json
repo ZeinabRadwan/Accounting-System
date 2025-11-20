@@ -1403,6 +1403,7 @@
 "You will not be able to return to this! This will delete the non-purchase payment permanently.": "You will not be able to return to this! This will delete the non-purchase payment permanently.",
 "You will not be able to return to this! This will delete the loan authority permanently.": "You will not be able to return to this! This will delete the loan authority permanently.",
 "You will not be able to return to this! This will delete the asset permanently.": "You will not be able to return to this! This will delete the asset permanently.",
+"You will not be able to return to this! This will void the journal entry permanently.": "You will not be able to return to this! This will void the journal entry permanently.",
 "Create Adjustment": "Create Adjustment",
 "Create adjustment": "Create adjustment",
 "Adjustment added successfully": "Adjustment added successfully",

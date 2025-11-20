@@ -517,20 +517,40 @@ export default {
     },
 
     async voidEntry(id) {
-      if (!confirm('Are you sure you want to void this journal entry?')) return
-
-      try {
-        const response = await this.$axios.post(`/api/journal-entries/${id}/void`)
-        if (response.data.success) {
-          window.toast.success('Journal entry voided successfully')
-          this.getData()
-        } else {
-          window.toast.error(response.data.message || 'Error voiding journal entry')
+      Swal.fire({
+        title: this.$t("Are you sure?"),
+        text: this.$t("You will not be able to return to this! This will void the journal entry permanently."),
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: this.$t("Confirm"),
+        cancelButtonText: this.$t("Cancel"),
+      }).then((result) => {
+        if (result.value) {
+          this.$axios
+            .post(`/api/journal-entries/${id}/void`)
+            .then((response) => {
+              if (response.data.success) {
+                this.$toast.success(
+                  this.$t("Voided!"),
+                  this.$t("Journal entry voided successfully.")
+                );
+                this.getData();
+              } else {
+                this.$toast.warning(
+                  this.$t("Failed!"),
+                  response.data.message || this.$t("Sorry you can't void this journal entry!")
+                );
+              }
+            })
+            .catch((error) => {
+              console.error('Error voiding journal entry:', error);
+              this.$toast.error(
+                this.$t("Error!"),
+                this.$t("Error voiding journal entry")
+              );
+            });
         }
-      } catch (error) {
-        console.error('Error voiding journal entry:', error)
-        window.toast.error('Error voiding journal entry')
-      }
+      });
     },
 
     async deleteEntry(id) {

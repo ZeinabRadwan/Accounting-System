@@ -1380,6 +1380,7 @@
 "Adjustments": "التعديلات",
 "You will not be able to return to this!": "لن تتمكن من التراجع عن هذا!",
 "You will not be able to return to this! This will delete the quotation permanently.": "لن تتمكن من العودة إلى هذا! سيتم حذف العرض نهائياً.",
+"You will not be able to return to this! This will void the journal entry permanently.": "لن تتمكن من العودة إلى هذا! سيتم إلغاء قيد اليومية نهائياً.",
 "Create Adjustment": "إنشاء تعديل",
 "Create adjustment": "إنشاء تعديل",
 "Adjustment added successfully": "تم إضافة التعديل بنجاح",
