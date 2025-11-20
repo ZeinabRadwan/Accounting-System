@@ -1049,15 +1049,11 @@ class ProductController extends Controller
                         ], 400);
                     }
                     // Create child account under main account with product name
-                    $newAccount = ChartOfAccount::create([
-                        'name' => $product->name,
-                        'code' => $this->generateChildAccountCode($routing->main_account_id),
-                        'type_id' => $this->getRevenueAccountTypeId(),
-                        'parent_id' => $routing->main_account_id,
-                        'is_active' => true,
-                        'created_by' => Auth::id(),
-                        'branch_id' => Auth::user()->default_branch_id,
-                    ]);
+                    $newAccount = $this->createChartOfAccountForProduct(
+                        $product->name,
+                        $routing->main_account_id,
+                        $this->getRevenueAccountTypeId()
+                    );
                     $product->update(['sales_account_id' => $newAccount->id]);
 
                     return response()->json([
@@ -1105,15 +1101,11 @@ class ProductController extends Controller
                             'message' => 'Purchase main account missing in routing settings.',
                         ], 400);
                     }
-                    $newAccount = ChartOfAccount::create([
-                        'name' => $product->name,
-                        'code' => $this->generateChildAccountCode($routing->main_account_id),
-                        'type_id' => $this->getExpenseAccountTypeId(),
-                        'parent_id' => $routing->main_account_id,
-                        'is_active' => true,
-                        'created_by' => Auth::id(),
-                        'branch_id' => Auth::user()->default_branch_id,
-                    ]);
+                    $newAccount = $this->createChartOfAccountForProduct(
+                        $product->name,
+                        $routing->main_account_id,
+                        $this->getExpenseAccountTypeId()
+                    );
                     $product->update(['purchase_account_id' => $newAccount->id]);
 
                     return response()->json([
@@ -1142,6 +1134,72 @@ class ProductController extends Controller
         }
     }
 
+    private function createChartOfAccountForProduct($name, $parentId, $typeId)
+    {
+        $maxRetries = 5;
+        $attempt = 0;
+        $lastException = null;
+
+        while ($attempt < $maxRetries) {
+            try {
+                $code = $this->generateChildAccountCode($parentId);
+
+                // Double-check code doesn't exist before creating (helps prevent race conditions)
+                $branchId = Auth::user()->default_branch_id ?? null;
+                if (ChartOfAccount::forBranch($branchId)->where('code', $code)->exists()) {
+                    // Code was taken between generation and creation, regenerate
+                    $attempt++;
+
+                    continue;
+                }
+
+                $newAccount = ChartOfAccount::create([
+                    'name' => $name,
+                    'code' => $code,
+                    'type_id' => $typeId,
+                    'parent_id' => $parentId,
+                    'is_active' => true,
+                    'created_by' => Auth::id(),
+                    'branch_id' => Auth::user()->default_branch_id,
+                ]);
+
+                Log::info('Created new chart of account for product', [
+                    'account_id' => $newAccount->id,
+                    'account_name' => $newAccount->name,
+                    'account_code' => $newAccount->code,
+                    'parent_account_id' => $parentId,
+                ]);
+
+                return $newAccount;
+            } catch (\Illuminate\Database\QueryException $e) {
+                // Check if it's a duplicate key error
+                if ($e->getCode() === '23000' || str_contains($e->getMessage(), 'Duplicate entry')) {
+                    $attempt++;
+                    $lastException = $e;
+                    Log::warning('Duplicate code detected, retrying account creation', [
+                        'attempt' => $attempt,
+                        'max_retries' => $maxRetries,
+                        'error' => $e->getMessage(),
+                    ]);
+                    // Small delay to reduce collision probability
+                    usleep(100000); // 0.1 seconds
+
+                    continue;
+                }
+                // If it's not a duplicate key error, throw immediately
+                Log::error('Error creating chart of account for product: '.$e->getMessage());
+                throw $e;
+            } catch (\Exception $e) {
+                Log::error('Error creating chart of account for product: '.$e->getMessage());
+                throw $e;
+            }
+        }
+
+        // If we've exhausted retries, throw the last exception
+        Log::error('Failed to create chart of account after '.$maxRetries.' attempts');
+        throw $lastException ?? new \Exception('Failed to create chart of account: Maximum retry attempts exceeded');
+    }
+
     private function generateChildAccountCode($parentId)
     {
         $branchId = Auth::user()->default_branch_id ?? null;
@@ -1150,7 +1208,8 @@ class ProductController extends Controller
             return 'PRD-'.(time() % 1000000);
         }
         $baseCode = $parent->code;
-        // Collect existing child codes that start with baseCode-
+
+        // Query existing codes directly from database to get the latest state
         $existingCodes = ChartOfAccount::forBranch($branchId)
             ->where('parent_id', $parentId)
             ->where('code', 'like', $baseCode.'-%')
@@ -1159,9 +1218,19 @@ class ProductController extends Controller
 
         $counter = 1;
         $newCode = $baseCode.'-'.str_pad($counter, 3, '0', STR_PAD_LEFT);
+
+        // Find the next available code
         while (in_array($newCode, $existingCodes)) {
             $counter++;
             $newCode = $baseCode.'-'.str_pad($counter, 3, '0', STR_PAD_LEFT);
+
+            // Safety check to prevent infinite loop
+            if ($counter > 999) {
+                Log::warning('Reached maximum counter for code generation, using timestamp fallback');
+                $timestamp = time() % 1000000;
+
+                return $baseCode.'-'.$timestamp;
+            }
         }
 
         return $newCode;
