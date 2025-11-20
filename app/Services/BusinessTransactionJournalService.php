@@ -495,6 +495,12 @@ class BusinessTransactionJournalService
             Log::info("Purchase Discount: {$purchase->discount}");
             Log::info("Purchase Tax ID: {$purchase->tax_id}");
             
+            // Validate that debits equal credits before creating journal entry
+            $balanceDifference = abs($totalDebit - $totalCredit);
+            if ($balanceDifference > 0.01) {
+                throw new Exception("Journal entry is not balanced. Total debits ({$totalDebit}) must equal total credits ({$totalCredit}). Difference: {$balanceDifference}");
+            }
+            
             // Get default fiscal year and accounting period
             $defaults = $this->getDefaultFiscalYearAndPeriod();
 
@@ -519,8 +525,9 @@ class BusinessTransactionJournalService
 
             $lineNumber = 1;
 
-            // Line 1: Credit to Supplier's Accounts Payable (net amount after discount)
-            $accountsPayableAmount = $totalAmount - $totalDiscountAmount;
+            // Line 1: Credit to Supplier's Accounts Payable (total amount including VAT)
+            // The totalAmount already includes all costs (products after discount + VAT + transport)
+            $accountsPayableAmount = $totalAmount;
             Log::info("Creating journal line 1: Credit to Supplier Accounts Payable - Amount: {$accountsPayableAmount}");
             $this->createJournalEntryLine($journalEntry, $supplierAccountsPayableAccount->id, 0, $accountsPayableAmount, $lineNumber, __('journal.accounts_payable_for_purchase', ['number' => $purchase->purchase_no]));
             $lineNumber++;
