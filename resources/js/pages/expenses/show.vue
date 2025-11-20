@@ -133,7 +133,7 @@
             <!-- Table row -->
             <div class="row mt-5">
               <div class="table-responsive table-custom mt-3 text-center">
-                <table class="table" v-if="allData.transaction">
+                <table class="table products-table" v-if="allData.transaction">
                   <thead>
                     <tr>
                       <th>{{ $t("Image") }}</th>
@@ -674,5 +674,63 @@ export default {
   background: #ddd;
   margin: 2px;
   border-radius: 0.25rem;
+}
+
+.table-custom {
+  border: none !important;
+}
+
+.products-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.products-table thead th {
+  background-color: #33a0d9;
+  color: #ffffff;
+  padding: 8px;
+  border: none !important;
+  border-color: inherit !important;
+  font-weight: 400;
+}
+
+.products-table thead tr {
+  border: none !important;
+}
+
+.products-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.products-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+/* RTL styles for Arabic language */
+[dir="rtl"] .products-table thead th:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .products-table thead th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
+}
+
+/* Custom Status Badge Styling */
+.products-table .badge.bg-success {
+  background: #F6FEF4 !important;
+  color: #2AB930 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 10px 16px;
+}
+
+.products-table .badge.bg-danger {
+  background: #FEF4F4 !important;
+  color: #DC3545 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 10px 16px;
 }
 </style>

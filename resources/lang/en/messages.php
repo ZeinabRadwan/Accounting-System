@@ -30,4 +30,8 @@ return [
     
     // Authentication Messages
     'The provided credentials are incorrect.' => 'The provided credentials are incorrect.',
+    
+    // Inventory / UI Messages
+    'Filter by Operation Type' => 'Filter by Operation Type',
+    'Select a branch' => 'Select a branch',
 ];

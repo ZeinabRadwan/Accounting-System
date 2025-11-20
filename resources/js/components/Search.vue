@@ -73,7 +73,7 @@ export default {
 
 [dir="ltr"] .search-icon {
   position: absolute;
-  left: 12px;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 1;

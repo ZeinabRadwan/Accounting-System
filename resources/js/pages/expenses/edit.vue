@@ -10,7 +10,8 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'expenses.index' }" class="btn btn-info">
-                  <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                  <template
+                    v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
                     {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
 
@@ -18,7 +19,8 @@
 
                   <template v-else>
 
-                    <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                    <template
+                      v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
 
                       {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
@@ -37,9 +39,6 @@
 
                   </template>
                 </router-link>
-                <button type="button" class="btn btn-success" @click="saveTemporary" :title="$t('Save Temporarily')">
-                  <i class="fas fa-save" />
-                </button>
               </div>
             </div>
           </div>
@@ -51,7 +50,7 @@
                 <div class="form-group col-md-6">
                   <label for="reason">{{
                     $t('Expense Reason')
-                  }}</label>
+                    }}</label>
                   <input id="reason" v-model="form.reason" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('reason') }" name="reason" :placeholder="$t('Enter a reason')
                       " />
@@ -60,7 +59,7 @@
                 <div v-if="items" class="form-group col-md-6">
                   <label for="subCategory">{{
                     $t('Category Name')
-                  }}</label>
+                    }}</label>
                   <v-select v-model="form.subCategory" :options="items" label="name"
                     :class="{ 'is-invalid': form.errors.has('subCategory') }" name="subCategory"
                     :placeholder="$t('Select a category')" />
@@ -73,9 +72,9 @@
                   <v-select v-model="form.account" :options="accounts" label="label"
                     :class="{ 'is-invalid': form.errors.has('account') }" name="account"
                     :placeholder="$t('Select an account')" @input="updateBalance">
-                     <template slot="option" slot-scope="option">
-                        <img :src="option.image" style="width: 30px; height: 30px;" />
-                        {{ option.label }}
+                    <template slot="option" slot-scope="option">
+                      <img :src="option.image" style="width: 30px; height: 30px;" />
+                      {{ option.label }}
                     </template>
                   </v-select>
                   <has-error :form="form" field="account" />
@@ -83,7 +82,7 @@
                 <div class="form-group col-md-6">
                   <label for="availableBalance">{{
                     $t('Available Balance')
-                  }}</label>
+                    }}</label>
                   <input id="availableBalance" v-model="form.availableBalance" type="number" step="any"
                     class="form-control" :class="{
                       'is-invalid': form.errors.has('availableBalance'),
@@ -147,7 +146,7 @@
                       :class="{ 'is-invalid': form.errors.has('image') }" @change="onFileChange" />
                     <label class="custom-file-label" for="image">{{
                       $t('Choose file')
-                    }}</label>
+                      }}</label>
                   </div>
                   <has-error :form="form" field="image" />
                   <div class="bg-light mt-4 w-25">
@@ -306,7 +305,7 @@ export default {
           }
         }
       }
-      
+
       await this.form
         .patch(
           window.location.origin + '/api/expenses/' + this.$route.params.slug
@@ -322,7 +321,7 @@ export default {
           if (error?.response?.status === 422 && error?.response?.data?.errors) {
             const errors = error.response.data.errors
             const errorMessages = []
-            
+
             // Collect all error messages
             Object.keys(errors).forEach((key) => {
               if (Array.isArray(errors[key])) {
@@ -335,7 +334,7 @@ export default {
                 errorMessages.push(errors[key])
               }
             })
-            
+
             // Display the first error message or all messages
             if (errorMessages.length > 0) {
               // Show first error message
@@ -371,7 +370,7 @@ export default {
         timestamp: new Date().toISOString()
       }
       localStorage.setItem('expenseEditTempData', JSON.stringify(tempData))
-      
+
     },
     // load temporary data
     loadTemporaryData() {
@@ -445,7 +444,7 @@ export default {
 }
 
 /* Search Input Background Override */
-.form-control{
+.form-control {
   background: #fff !important;
 }
 
@@ -471,4 +470,3 @@ export default {
   box-shadow: 0 4px 8px rgba(51, 160, 217, 0.3);
 }
 </style>
-

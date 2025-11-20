@@ -91,4 +91,8 @@ return [
     'The current password is incorrect.' => 'كلمة المرور الحالية غير صحيحة.',
     'The provided credentials are incorrect.' => 'البيانات المقدمة غير صحيحة.',
     'Tenant not found for this domain.' => 'لم يتم العثور على مستأجر لهذا النطاق.',
+    
+    // Inventory / UI Messages
+    'Filter by Operation Type' => 'تصفية حسب نوع العملية',
+    'Select a branch' => 'اختر فرع',
 ];

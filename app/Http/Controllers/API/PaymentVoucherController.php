@@ -291,7 +291,7 @@ class PaymentVoucherController extends Controller
             ])->where('slug', $slug)->first();
 
             if (!$voucher) {
-                return $this->responseWithError('Voucher not found.');
+                return $this->responseWithError(__('Voucher not found.'));
             }
 
             return new PaymentVoucherResource($voucher);
@@ -314,7 +314,7 @@ class PaymentVoucherController extends Controller
 
             $voucher = PaymentVoucher::where('slug', $slug)->first();
             if (!$voucher) {
-                return $this->responseWithError('Voucher not found.');
+                return $this->responseWithError(__('Voucher not found.'));
             }
 
             $userId = auth()->user()->id;
@@ -384,7 +384,7 @@ class PaymentVoucherController extends Controller
 
             $voucher = PaymentVoucher::where('slug', $slug)->first();
             if (!$voucher) {
-                return $this->responseWithError('Voucher not found.');
+                return $this->responseWithError(__('Voucher not found.'));
             }
 
             // Delete transaction if exists
@@ -428,7 +428,7 @@ class PaymentVoucherController extends Controller
 
             $voucher = PaymentVoucher::where('slug', $slug)->first();
             if (!$voucher) {
-                return $this->responseWithError('Voucher not found.');
+                return $this->responseWithError(__('Voucher not found.'));
             }
 
             if ($voucher->status === 2) {

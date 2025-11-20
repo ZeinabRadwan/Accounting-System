@@ -54,21 +54,54 @@ class ExpenseExport implements FromCollection,  WithHeadings, ShouldAutoSize, Wi
         // Retrieve expenses
         $expenses = $expensesQuery->get()->map(function ($expense) {
             $currencySymbol = getExcelCompatibleCurrencySymbol();
+            
+            // Safely get category name
+            $categoryName = 'N/A';
+            if ($expense->expSubCategory && $expense->expSubCategory->expCategory) {
+                $categoryName = $expense->expSubCategory->expCategory->name . ' [' . config('config.expCatPrefix') . '-' . $expense->expSubCategory->expCategory->code . ']';
+            }
+            
+            // Safely get sub category name
+            $subCategoryName = 'N/A';
+            if ($expense->expSubCategory) {
+                $subCategoryName = $expense->expSubCategory->name . ' [' . config('config.expSubCatPrefix') . '-' . $expense->expSubCategory->code . ']';
+            }
+            
+            // Safely get account information
+            $accountInfo = 'N/A';
+            if ($expense->expTransaction && $expense->expTransaction->cashbookAccount) {
+                $cashbookAccount = $expense->expTransaction->cashbookAccount;
+                $bankName = $cashbookAccount->bank_name ?? '';
+                $accountNumber = $cashbookAccount->account_number ?? '';
+                if ($bankName || $accountNumber) {
+                    $accountInfo = $bankName . '[' . $accountNumber . ']';
+                }
+            }
+            
+            // Safely get amount
+            $amount = '0';
+            if ($expense->expTransaction) {
+                $amount = $currencySymbol . strval($expense->expTransaction->amount ?? 0);
+            }
+            
             return [
                 $expense->reason ?? 'N/A',
                 date('jS M, Y', strtotime($expense->date)),
                 $expense->status ? 'Active' : 'Inactive',
-                $expense->expSubCategory->expCategory->name . ' [' . config('config.expCatPrefix') . '-' . $expense->expSubCategory->expCategory->code . ']' ?? 'N/A',
-                $expense->expSubCategory->name . ' [' . config('config.expSubCatPrefix') . '-' . $expense->expSubCategory->code . ']' ?? 'N/A',
-                $expense->expTransaction->cashbookAccount->bank_name . '[' . $expense->expTransaction->cashbookAccount->account_number . ']' ?? 'N/A',
-                $currencySymbol . strval($expense->expTransaction->amount),
+                $categoryName,
+                $subCategoryName,
+                $accountInfo,
+                $amount,
             ];
         });
 
         // Calculate total amount
         $currencySymbol = getExcelCompatibleCurrencySymbol();
         $totalAmount = $expenses->sum(function ($row) use ($currencySymbol) {
-            return floatval(str_replace($currencySymbol, '',  $row[6] ?? 0));
+            $amountStr = $row[6] ?? '0';
+            // Remove currency symbol and convert to float
+            $amountValue = str_replace($currencySymbol, '', $amountStr);
+            return floatval($amountValue) ?: 0;
         });
 
         // Add total amount as a new row
