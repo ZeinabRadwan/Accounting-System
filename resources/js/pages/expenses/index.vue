@@ -79,13 +79,6 @@
                       />
                     </svg>
                   </a>
-                  <a
-                    @click="print"
-                    v-tooltip="$t('Print Table')"
-                    class="btn print-btn"
-                  >
-                    <i class="fas fa-print"></i>
-                  </a>
                   <router-link v-if="$can('expense-create')" :to="{ name: 'expenses.create' }" class="btn btn-primary">
                     <i class="fa fa-plus"></i> {{ $t("Create") }}
                   </router-link>

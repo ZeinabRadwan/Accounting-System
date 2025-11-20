@@ -30,12 +30,9 @@
             </div>
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100">
-                <a @click="print" v-tooltip="$t('Print Table')" class="btn btn-info">
-                  <i class="fas fa-print"></i>
-                </a>
                 <router-link v-if="tenant.plan.limit_domains === 0 ||
                   (pagination && tenant.plan.limit_domains > pagination.total)
-                  " :to="{ name: 'domain-requests.create' }" class="btn btn-primary">
+                " :to="{ name: 'domain-requests.create' }" class="btn btn-primary">
                   {{ $t("Create") }}
                   <i class="fas fa-plus-circle d-none d-sm-inline-block" />
                 </router-link>
@@ -192,7 +189,7 @@ export default {
         text: this.$t("Do you really want to delete this Domain Request?"),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
+        confirmButtonText: this.$t("Confirm"), cancelButtonText: this.$t("Cancel"),
       }).then((result) => {
         // Send request to the server
         if (result.value) {
@@ -224,19 +221,19 @@ export default {
 
 <style>
 .dtable-footer {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-    padding: 0 0 0 10px;
-    flex-direction: column;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  padding: 0 0 0 10px;
+  flex-direction: column;
 }
+
 .card-footer .form-group.row.display-per-page {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-    width: 100%;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  width: 100%;
+  align-items: center;
 }
 </style>
-

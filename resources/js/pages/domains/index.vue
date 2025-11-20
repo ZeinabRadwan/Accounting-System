@@ -14,9 +14,6 @@
             </div>
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100">
-                <a @click="print" v-tooltip="$t('Print Table')" class="btn btn-info">
-                  <i class="fas fa-print"></i>
-                </a>
               </div>
             </div>
           </div>
@@ -211,19 +208,19 @@ export default {
 
 <style>
 .dtable-footer {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-    padding: 0 0 0 10px;
-    flex-direction: column;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  padding: 0 0 0 10px;
+  flex-direction: column;
 }
+
 .card-footer .form-group.row.display-per-page {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-    width: 100%;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  width: 100%;
+  align-items: center;
 }
 </style>
-

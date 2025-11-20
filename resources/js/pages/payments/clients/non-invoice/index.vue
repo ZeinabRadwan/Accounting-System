@@ -77,17 +77,6 @@
                       />
                     </svg>
                   </a>
-                  <a
-                    v-if="$can('non-invoice-payment-edit') ||
-                      $can('non-invoice-payment-show') ||
-                      $can('non-invoice-payment-delete')
-                      "
-                    @click="print"
-                    v-tooltip="$t('Print Table')"
-                    class="btn print-btn"
-                  >
-                    <i class="fas fa-print"></i>
-                  </a>
                   <router-link v-if="$can('non-invoice-payment-create')" :to="{ name: 'nonInvoicePayments.create' }"
                     class="btn btn-primary">
                     <i class="fa fa-plus"></i> {{ $t("Create") }}

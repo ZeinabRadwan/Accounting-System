@@ -15,9 +15,6 @@
             </div>
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group">
-                <a @click="print" v-tooltip="$t('Print Table')" class="btn btn-info">
-                  <i class="fas fa-print"></i>
-                </a>
                 <router-link v-if="$can('product-create')" :to="{ name: 'products.create' }" class="btn btn-primary">
                   {{ $t("Create") }}
                   <i class="fas fa-plus-circle d-none d-sm-inline-block" />

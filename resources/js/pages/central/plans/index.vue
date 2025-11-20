@@ -14,29 +14,12 @@
                         </div>
                         <div class="col-xl-8 col-8 float-right text-right">
                             <div class="btn-group c-w-100">
-                                <a
-                                    @click="refreshTable()"
-                                    href="#"
-                                    v-tooltip="$t('Refresh')"
-                                    class="btn btn-success"
-                                >
+                                <a @click="refreshTable()" href="#" v-tooltip="$t('Refresh')" class="btn btn-success">
                                     <i class="fas fa-sync"></i>
                                 </a>
-                                <a
-                                    @click="print"
-                                    v-tooltip="$t('Print Table')"
-                                    class="btn btn-info"
-                                >
-                                    <i class="fas fa-print"></i>
-                                </a>
-                                <router-link
-                                    :to="{ name: 'plans.create' }"
-                                    class="btn btn-primary"
-                                >
+                                <router-link :to="{ name: 'plans.create' }" class="btn btn-primary">
                                     {{ $t('Create') }}
-                                    <i
-                                        class="fas fa-plus-circle d-none d-sm-inline-block"
-                                    />
+                                    <i class="fas fa-plus-circle d-none d-sm-inline-block" />
                                 </router-link>
                             </div>
                         </div>
@@ -45,18 +28,11 @@
                     <div class="card-body position-relative">
                         <div class="row">
                             <div class="col-6 col-xl-4 mb-2">
-                                <search
-                                    v-model="query"
-                                    @reset-pagination="resetPagination()"
-                                    @reload="reload"
-                                />
+                                <search v-model="query" @reset-pagination="resetPagination()" @reload="reload" />
                             </div>
                         </div>
                         <table-loading v-show="loading" />
-                        <div
-                            id="printMe"
-                            class="table-responsive table-custom mt-3"
-                        >
+                        <div id="printMe" class="table-responsive table-custom mt-3">
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -80,49 +56,31 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr
-                                        v-show="items.length"
-                                        v-for="(data, i) in items"
-                                        :key="i"
-                                    >
+                                    <tr v-show="items.length" v-for="(data, i) in items" :key="i">
                                         <td>
-                                            <span
-                                                v-if="
-                                                    pagination &&
-                                                    pagination.current_page > 1
-                                                "
-                                            >
+                                            <span v-if="
+                                                pagination &&
+                                                pagination.current_page > 1
+                                            ">
                                                 {{
                                                     pagination.per_page *
-                                                        (pagination.current_page -
-                                                            1) +
+                                                    (pagination.current_page -
+                                                        1) +
                                                     (i + 1)
                                                 }}
                                             </span>
                                             <span v-else>{{ i + 1 }}</span>
                                         </td>
                                         <td>
-                                            <a
-                                                v-if="data.image"
-                                                href="#"
-                                                id="show-modal"
-                                                @click="
-                                                    previewModal(data.image)
-                                                "
-                                            >
-                                                <img
-                                                    :src="data.image"
-                                                    class="rounded preview-sm"
-                                                    loading="lazy"
-                                                />
+                                            <a v-if="data.image" href="#" id="show-modal" @click="
+                                                previewModal(data.image)
+                                                ">
+                                                <img :src="data.image" class="rounded preview-sm" loading="lazy" />
                                             </a>
-                                            <div
-                                                v-else
-                                                class="bg-secondary rounded no-preview-sm"
-                                            >
+                                            <div v-else class="bg-secondary rounded no-preview-sm">
                                                 <small>{{
                                                     $t('No Preview')
-                                                }}</small>
+                                                    }}</small>
                                             </div>
                                         </td>
                                         <td>{{ data.name }}</td>
@@ -131,26 +89,16 @@
                                         <td>{{ data.description }}</td>
                                         <td class="text-right no-print">
                                             <div class="btn-group">
-                                                <router-link
-                                                    v-tooltip="
-                                                        $t('Edit')
-                                                    "
-                                                    :to="{
+                                                <router-link v-tooltip="$t('Edit')
+                                                    " :to="{
                                                         name: 'plans.edit',
                                                         params: { id: data.id },
-                                                    }"
-                                                    class="btn btn-info btn-sm"
-                                                >
+                                                    }" class="btn btn-info btn-sm">
                                                     <i class="fas fa-edit" />
                                                 </router-link>
-                                                <a
-                                                    v-tooltip="
-                                                        $t('Delete')
-                                                    "
-                                                    href="#"
-                                                    class="btn btn-danger btn-sm"
-                                                    @click="deleteData(data.id)"
-                                                >
+                                                <a v-tooltip="$t('Delete')
+                                                    " href="#" class="btn btn-danger btn-sm"
+                                                    @click="deleteData(data.id)">
                                                     <i class="fas fa-trash" />
                                                 </a>
                                             </div>
@@ -170,11 +118,8 @@
                             <div class="form-group row display-per-page">
                                 <label>{{ $t('per_page') }} </label>
                                 <div>
-                                    <select
-                                        @change="updatePerPager"
-                                        v-model="perPage"
-                                        class="form-control form-control-sm ml-1"
-                                    >
+                                    <select @change="updatePerPager" v-model="perPage"
+                                        class="form-control form-control-sm ml-1">
                                         <option value="10">10</option>
                                         <option value="25">25</option>
                                         <option value="50">50</option>
@@ -183,13 +128,8 @@
                                 </div>
                             </div>
                             <!-- pagination-start -->
-                            <pagination
-                                v-if="pagination && pagination.last_page > 1"
-                                :pagination="pagination"
-                                :offset="5"
-                                class="justify-flex-end"
-                                @paginate="paginate"
-                            />
+                            <pagination v-if="pagination && pagination.last_page > 1" :pagination="pagination"
+                                :offset="5" class="justify-flex-end" @paginate="paginate" />
                             <!-- pagination-end -->
                         </div>
                     </div>
@@ -199,11 +139,7 @@
                         {{ $t('Plan Logo') }}
                     </h5>
                     <div class="w-100" slot="body">
-                        <img
-                            :src="imagePath"
-                            class="rounded img-fluid"
-                            loading="lazy"
-                        />
+                        <img :src="imagePath" class="rounded img-fluid" loading="lazy" />
                     </div>
                 </Modal>
             </div>
@@ -241,7 +177,7 @@ export default {
     }),
     // Map Getters
     computed: {
-        ...mapGetters('operations', ['appInfo','items', 'loading', 'pagination']),
+        ...mapGetters('operations', ['appInfo', 'items', 'loading', 'pagination']),
     },
     watch: {
         // watch search data
@@ -379,6 +315,7 @@ export default {
     padding: 0 0 0 10px;
     flex-direction: column;
 }
+
 .card-footer .form-group.row.display-per-page {
     display: flex;
     gap: 10px;
@@ -387,4 +324,3 @@ export default {
     align-items: center;
 }
 </style>
-

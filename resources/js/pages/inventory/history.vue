@@ -58,9 +58,6 @@
               />
             </svg>
           </a>
-          <a @click="printWindow()" href="#" class="btn print-btn">
-            <i class="fas fa-print"></i>
-          </a>
           <router-link :to="{ name: 'inventory.index' }" class="btn btn-info float-right">
             <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 

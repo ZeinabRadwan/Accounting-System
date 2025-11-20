@@ -397,13 +397,6 @@
                                     />
                                   </svg>
                                 </a>
-                                <a
-                                  @click="print()"
-                                  v-tooltip="$t('Print Table')"
-                                  class="btn print-btn"
-                                >
-                                  <i class="fas fa-print"></i>
-                                </a>
                                 <router-link
                                   :to="{ name: 'suppliers.index' }"
                                   class="btn btn-primary"
@@ -1459,13 +1452,6 @@
                     class="btn btn-success refresh-btn"
                 >
                   <i class="fas fa-sync"></i>
-                </a>
-                <a
-                  @click="printActivityLog"
-                  v-tooltip="$t('Print Table')"
-                    class="btn print-btn"
-                >
-                  <i class="fas fa-print"></i>
                 </a>
               </div>
               </div>

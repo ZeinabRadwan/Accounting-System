@@ -10,26 +10,14 @@
           <div class="btn-group">
             <ul class="nav nav-pills">
               <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  href="#details"
-                  data-toggle="tab"
-                  @click="getInvoicePayment"
-                >
+                <a class="nav-link active" href="#details" data-toggle="tab" @click="getInvoicePayment">
                   <i class="fa fa-info"></i>
-                  {{ $t("Details") }}</a
-                >
+                  {{ $t("Details") }}</a>
               </li>
               <li class="nav-item">
-                <a
-                  @click="getActivity"
-                  class="nav-link"
-                  href="#activity-log"
-                  data-toggle="tab"
-                >
+                <a @click="getActivity" class="nav-link" href="#activity-log" data-toggle="tab">
                   <i class="nav-icon fa fa-bell" aria-hidden="true"></i>
-                  {{ $t("Activity log") }}</a
-                >
+                  {{ $t("Activity log") }}</a>
               </li>
             </ul>
           </div>
@@ -37,24 +25,15 @@
             <a @click="generatePDF()" href="#" class="btn btn-info">
               <i class="fas fa-download"></i> {{ $t("download") }}
             </a>
-            <a @click="printWindow()" href="#" class="btn btn-secondary">
-              <i class="fas fa-print"></i> {{ $t("Print") }}
-            </a>
-            <router-link
-              v-if="$can('invoice-payment-edit')"
-              :to="{
-                name: 'invoicePayments.edit',
-                params: { slug: allData.slug },
-              }"
-              class="btn btn-info"
-            >
+            <router-link v-if="$can('invoice-payment-edit')" :to="{
+              name: 'invoicePayments.edit',
+              params: { slug: allData.slug },
+            }" class="btn btn-info">
               <i class="fas fa-edit" /> {{ $t("Edit") }}
             </router-link>
-            <router-link
-              :to="{ name: 'invoicePayments.index' }"
-              class="btn btn-info float-right"
-            >
-              <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+            <router-link :to="{ name: 'invoicePayments.index' }" class="btn btn-info float-right">
+              <template
+                v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
                 {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
 
@@ -62,7 +41,8 @@
 
               <template v-else>
 
-                <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                <template
+                  v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
 
                   {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
@@ -97,33 +77,21 @@
                 <CompanyInfo />
               </div>
               <!-- /.col -->
-              <div
-                class="col-sm-8 invoice-col float-right text-md-right"
-              >
+              <div class="col-sm-8 invoice-col float-right text-md-right">
                 <h5>{{ $t("Client Details") }}</h5>
                 <div v-if="allData.client">
-                  <span v-if="allData.client.clientID"
-                    ><strong>{{ $t("Client ID") }}:</strong>
-                    {{ allData.client.clientID | withPrefix(clientPrefix) }}<br
-                  /></span>
+                  <span v-if="allData.client.clientID"><strong>{{ $t("Client ID") }}:</strong>
+                    {{ allData.client.clientID | withPrefix(clientPrefix) }}<br /></span>
                   <strong>{{ $t("Client Name") }}:</strong>
                   {{ allData.client.name }}<br />
-                  <span v-if="allData.client.companyName"
-                    ><strong>{{ $t("Company Name") }}:</strong>
-                    {{ allData.client.companyName }}<br
-                  /></span>
-                  <span v-if="allData.client.email"
-                    ><strong>{{ $t("Email") }}:</strong>
-                    {{ allData.client.email }}<br
-                  /></span>
-                  <span v-if="allData.client.phoneNumber"
-                    ><strong>{{ $t("Contact Number") }}:</strong>
-                    {{ allData.client.phoneNumber }}<br
-                  /></span>
-                  <span v-if="allData.client.address"
-                    ><strong>{{ $t("Address") }}:</strong>
-                    {{ allData.client.address }}<br
-                  /></span>
+                  <span v-if="allData.client.companyName"><strong>{{ $t("Company Name") }}:</strong>
+                    {{ allData.client.companyName }}<br /></span>
+                  <span v-if="allData.client.email"><strong>{{ $t("Email") }}:</strong>
+                    {{ allData.client.email }}<br /></span>
+                  <span v-if="allData.client.phoneNumber"><strong>{{ $t("Contact Number") }}:</strong>
+                    {{ allData.client.phoneNumber }}<br /></span>
+                  <span v-if="allData.client.address"><strong>{{ $t("Address") }}:</strong>
+                    {{ allData.client.address }}<br /></span>
                 </div>
               </div>
               <!-- /.col -->
@@ -132,27 +100,25 @@
             <!-- Table row -->
             <div class="row mt-4">
               <div class="col-12">
-                <strong class="mt-4 d-block mb-2"
-                  >{{ $t("Payment Details") }}:</strong
-                >
+                <strong class="mt-4 d-block mb-2">{{ $t("Payment Details") }}:</strong>
                 <div class="table-responsive table-custom">
                   <table class="table">
                     <thead>
-                        <th>{{ $t("Invoice No") }}</th>
-                        <th>{{ $t("Invoice Date") }}</th>
-                        <th>{{ $t("Invoice Total") }}</th>
-                        <th>{{ $t("Paid Amount") }}</th>
-                        <th>{{ $t("Account") }}</th>
-                        <th class="text-right">
-                          {{ $t("Payment Date") }}
-                        </th>
+                      <th>{{ $t("Invoice No") }}</th>
+                      <th>{{ $t("Invoice Date") }}</th>
+                      <th>{{ $t("Invoice Total") }}</th>
+                      <th>{{ $t("Paid Amount") }}</th>
+                      <th>{{ $t("Account") }}</th>
+                      <th class="text-right">
+                        {{ $t("Payment Date") }}
+                      </th>
                     </thead>
                     <tbody v-if="allData.invoice">
                       <tr>
                         <td>
                           {{
                             allData.invoice.invoiceNo
-                              | withPrefix(invoicePrefix)
+                            | withPrefix(invoicePrefix)
                           }}
                         </td>
                         <td>
@@ -161,9 +127,9 @@
                           }}
                         </td>
                         <td>
-                          {{ allData.invoice.invoiceTotal  }} <span class="saudi-riyal">ê</span>
+                          {{ allData.invoice.invoiceTotal }} <span class="saudi-riyal">ê</span>
                         </td>
-                        <td>{{ allData.amount  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ allData.amount }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <span v-if="allData.account">{{
                             allData.account.label
@@ -188,19 +154,15 @@
                   <table v-if="allData.transaction" class="table">
                     <thead>
                       <tr>
-                        <th
-                          v-if="
-                            allData.transaction && allData.transaction.cheque_no
-                          "
-                        >
+                        <th v-if="
+                          allData.transaction && allData.transaction.cheque_no
+                        ">
                           {{ $t("Cheque No") }}
                         </th>
-                        <th
-                          v-if="
-                            allData.transaction &&
-                            allData.transaction.receipt_no
-                          "
-                        >
+                        <th v-if="
+                          allData.transaction &&
+                          allData.transaction.receipt_no
+                        ">
                           {{ $t("Receipt No") }}
                         </th>
                         <th v-if="allData.note">{{ $t("Note") }}</th>
@@ -212,19 +174,15 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td
-                          v-if="
-                            allData.transaction && allData.transaction.cheque_no
-                          "
-                        >
+                        <td v-if="
+                          allData.transaction && allData.transaction.cheque_no
+                        ">
                           {{ allData.transaction.cheque_no }}
                         </td>
-                        <td
-                          v-if="
-                            allData.transaction &&
-                            allData.transaction.receipt_no
-                          "
-                        >
+                        <td v-if="
+                          allData.transaction &&
+                          allData.transaction.receipt_no
+                        ">
                           {{ allData.transaction.receipt_no }}
                         </td>
                         <td v-if="allData.note">{{ allData.note }}</td>
@@ -232,11 +190,7 @@
                           {{ allData.createdBy }}
                         </td>
                         <td class="text-right">
-                          <span
-                            v-if="allData.status === 1"
-                            class="badge bg-success"
-                            >{{ $t("Active") }}</span
-                          >
+                          <span v-if="allData.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
                           <span v-else class="badge bg-danger">{{
                             $t("Inactive")
                           }}</span>
@@ -247,53 +201,47 @@
                 </div>
               </div>
               <div class="col-lg-12 col-xl-4 text-lg-right">
-                <div
-                  class="table-responsive table-custom table-border-y-0"
-                  v-if="allData.invoice"
-                >
+                <div class="table-responsive table-custom table-border-y-0" v-if="allData.invoice">
                   <table v-if="allData.invoice" class="table">
                     <tbody>
                       <tr class="bg-sub-light text-bold">
                         <th>{{ $t("Subtotal") }}:</th>
-                        <td>{{ allData.invoice.subTotal  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ allData.invoice.subTotal }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr v-if="allData.costOfReturn">
                         <th>{{ $t("Cost of Return Products") }}:</th>
                         <td>
                           <span class="minus-sign">-</span>
-                          {{ allData.costOfReturn  }} <span class="saudi-riyal">ê</span>
+                          {{ allData.costOfReturn }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>
                           {{ $t("Discount") }}
-                          <span v-if="allData.invoice.discountType == 1"
-                            >({{ allData.invoice.discountPercentage }}%)</span
-                          >
+                          <span v-if="allData.invoice.discountType == 1">({{ allData.invoice.discountPercentage
+                            }}%)</span>
                           :
                         </th>
                         <td>
                           <span class="minus-sign">-</span>
-                          {{ allData.invoice.discount  }} <span class="saudi-riyal">ê</span>
+                          {{ allData.invoice.discount }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Transport") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.invoice.transport  }} <span class="saudi-riyal">ê</span>
+                          {{ allData.invoice.transport }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>
                           {{ $t("Tax") }}
-                          <span v-if="allData.invoice.taxRate"
-                            >({{ allData.invoice.taxRate }}%)</span
-                          >:
+                          <span v-if="allData.invoice.taxRate">({{ allData.invoice.taxRate }}%)</span>:
                         </th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.invoice.tax  }} <span class="saudi-riyal">ê</span>
+                          {{ allData.invoice.tax }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="bg-indigo-light">
@@ -314,19 +262,16 @@
                         <th>{{ $t("Total Paid") }}:</th>
                         <td>
                           <span class="minus-sign">-</span>
-                          {{ allData.invoice.totalPaid  }} <span class="saudi-riyal">ê</span>
+                          {{ allData.invoice.totalPaid }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr class="bg-red-light">
                         <th>{{ $t("Due") }}:</th>
-                        <td>{{ allData.invoice.due  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ allData.invoice.due }} <span class="saudi-riyal">ê</span></td>
                       </tr>
-                      <tr
-                        class="bg-green-light"
-                        v-if="allData.accountPayable > 0"
-                      >
+                      <tr class="bg-green-light" v-if="allData.accountPayable > 0">
                         <th>{{ $t("Account Payable") }}:</th>
-                        <td>{{ allData.accountPayable  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ allData.accountPayable }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                     </tbody>
                   </table>
@@ -349,20 +294,8 @@
             </div>
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100">
-                <a
-                  @click="refreshTable()"
-                  href="#"
-                  v-tooltip="$t('Refresh')"
-                  class="btn btn-success"
-                >
+                <a @click="refreshTable()" href="#" v-tooltip="$t('Refresh')" class="btn btn-success">
                   <i class="fas fa-sync"></i>
-                </a>
-                <a
-                  @click="print"
-                  v-tooltip="$t('Print Table')"
-                  class="btn btn-info"
-                >
-                  <i class="fas fa-print"></i>
                 </a>
               </div>
             </div>
@@ -371,40 +304,18 @@
           <div class="card-body position-relative">
             <div class="row">
               <div class="col-6 col-xl-4 mb-2">
-                <search
-                  v-model="query"
-                  @reset-pagination="resetPagination()"
-                  @reload="reload"
-                />
+                <search v-model="query" @reset-pagination="resetPagination()" @reload="reload" />
               </div>
             </div>
             <div id="printMe" class="table-responsive table-custom mt-3">
-              <div
-                v-show="items.length > 0"
-                v-for="(data, i) in items"
-                :key="i"
-              >
+              <div v-show="items.length > 0" v-for="(data, i) in items" :key="i">
                 <div class="card mb-0 border border-gray">
                   <div class="card-body py-1">
                     <div class="row">
-                      <div
-                        class="col-1 d-flex justify-content-center align-items-center"
-                      >
-                        <i
-                          v-if="data.event == 'Update'"
-                          class="fa fa-magic"
-                          aria-hidden="true"
-                        ></i>
-                        <i
-                          v-if="data.event == 'Create'"
-                          class="fa fa-plus-circle"
-                          aria-hidden="true"
-                        ></i>
-                        <i
-                          v-if="data.event == 'Delete'"
-                          class="fa fa-trash"
-                          aria-hidden="true"
-                        ></i>
+                      <div class="col-1 d-flex justify-content-center align-items-center">
+                        <i v-if="data.event == 'Update'" class="fa fa-magic" aria-hidden="true"></i>
+                        <i v-if="data.event == 'Create'" class="fa fa-plus-circle" aria-hidden="true"></i>
+                        <i v-if="data.event == 'Delete'" class="fa fa-trash" aria-hidden="true"></i>
                       </div>
                       <div class="col-11">
                         <div class="row">
@@ -433,11 +344,7 @@
               <div class="form-group row display-per-page">
                 <label>{{ $t("per_page") }} </label>
                 <div>
-                  <select
-                    @change="updatePerPager"
-                    v-model="perPage"
-                    class="form-control form-control-sm ml-1"
-                  >
+                  <select @change="updatePerPager" v-model="perPage" class="form-control form-control-sm ml-1">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
@@ -446,13 +353,8 @@
                 </div>
               </div>
               <!-- pagination-start -->
-              <pagination
-                v-if="pagination && pagination.last_page > 1"
-                :pagination="pagination"
-                :offset="5"
-                class="justify-flex-end"
-                @paginate="paginate"
-              />
+              <pagination v-if="pagination && pagination.last_page > 1" :pagination="pagination" :offset="5"
+                class="justify-flex-end" @paginate="paginate" />
               <!-- pagination-end -->
             </div>
           </div>
@@ -523,8 +425,8 @@ export default {
     async getInvoicePayment() {
       const { data } = await axios.get(
         window.location.origin +
-          "/api/payments/invoice/" +
-          this.$route.params.slug
+        "/api/payments/invoice/" +
+        this.$route.params.slug
       );
       this.allData = data.data;
     },

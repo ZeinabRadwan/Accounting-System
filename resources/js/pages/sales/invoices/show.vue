@@ -9,56 +9,32 @@
           <div class="btn-group">
             <ul class="nav nav-pills">
               <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  href="#details"
-                  data-toggle="tab"
-                  @click="getInvoice"
-                >
+                <a class="nav-link active" href="#details" data-toggle="tab" @click="getInvoice">
                   <i class="fa fa-info"></i>
-                  {{ $t("Details") }}</a
-                >
+                  {{ $t("Details") }}</a>
               </li>
               <li class="nav-item">
-                <a
-                  @click="getActivity"
-                  class="nav-link"
-                  href="#activity-log"
-                  data-toggle="tab"
-                >
+                <a @click="getActivity" class="nav-link" href="#activity-log" data-toggle="tab">
                   <i class="nav-icon fa fa-bell" aria-hidden="true"></i>
-                  {{ $t("Activity log") }}</a
-                >
+                  {{ $t("Activity log") }}</a>
               </li>
             </ul>
           </div>
           <div class="btn-group">
-            <a
-              @click="communicationConfig.sms_configured ? notify((form.isSendSMS = true)) : null"
-              href="#"
-              :class="[
-                'btn',
-                communicationConfig.sms_configured ? 'btn-secondary' : 'btn-secondary disabled'
-              ]"
-              :disabled="!communicationConfig.sms_configured"
+            <a @click="communicationConfig.sms_configured ? notify((form.isSendSMS = true)) : null" href="#" :class="[
+              'btn',
+              communicationConfig.sms_configured ? 'btn-secondary' : 'btn-secondary disabled'
+            ]" :disabled="!communicationConfig.sms_configured"
               :title="!communicationConfig.sms_configured ? $t('SMS settings not configured') : ''"
-              v-tooltip="!communicationConfig.sms_configured ? $t('SMS settings not configured') : ''"
-            >
+              v-tooltip="!communicationConfig.sms_configured ? $t('SMS settings not configured') : ''">
               <i class="fas fa-sms"></i> {{ $t("SMS") }}
             </a>
-            <a
-              @click="notify((form.isSendEmail = true))"
-              href="#"
-              class="btn btn-success"
-              ><i class="fas fa-paper-plane"></i> {{ $t("email") }}</a
-            >
+            <a @click="notify((form.isSendEmail = true))" href="#" class="btn btn-success"><i
+                class="fas fa-paper-plane"></i> {{ $t("email") }}</a>
             <!-- Commented out old download and print buttons -->
             <!-- <a @click="generatePDF()" href="#" class="btn btn-info">
               <i class="fas fa-download"></i> {{ $t("download") }}
             </a>
-            <a @click="printWindow()" href="#" class="btn btn-secondary">
-              <i class="fas fa-print"></i> {{ $t("Print") }}
-            </a> -->
             <!-- New preview and download PDF buttons -->
             <a @click="previewPDF" href="#" class="btn btn-info">
               <i class="fas fa-eye"></i> {{ $t("Preview PDF") }}
@@ -66,50 +42,33 @@
             <a @click="downloadPDF" href="#" class="btn btn-info">
               <i class="fas fa-download"></i> {{ $t("download") }}
             </a>
-            <a 
-              v-if="isSaudiArabia && allData && allData.status === 0"
-              @click="sendInvoice(allData)" 
-              href="#" 
-              class="btn btn-success"
-            >
+            <a v-if="isSaudiArabia && allData && allData.status === 0" @click="sendInvoice(allData)" href="#"
+              class="btn btn-success">
               <i class="fas fa-paper-plane"></i> {{ $t("Send Invoice to ZATCA") }}
             </a>
 
-            <router-link
-              v-if="$can('invoice-edit') && !(isSaudiArabia && allData && allData.status === 1)"
-              :to="{
-                name: 'invoices.edit',
-                params: { slug: allData.slug },
-              }"
-              class="btn btn-info"
-            >
+            <router-link v-if="$can('invoice-edit') && !(isSaudiArabia && allData && allData.status === 1)" :to="{
+              name: 'invoices.edit',
+              params: { slug: allData.slug },
+            }" class="btn btn-info">
               <i class="fas fa-edit" /> {{ $t("Edit") }}
             </router-link>
-            <a
-              v-if="allData && allData.status === 1 && calculateDueAmount > 0"
-              @click.prevent="addPayment()"
-              href="#"
-              class="btn btn-primary"
-            >
+            <a v-if="allData && allData.status === 1 && calculateDueAmount > 0" @click.prevent="addPayment()" href="#"
+              class="btn btn-primary">
               <i class="fas fa-money-bill" /> {{ $t("Add Payment") }}
             </a>
-            <a
-              v-if="$can('invoice-return-create') && allData && allData.status === 1"
-              @click.prevent="returnInvoice(allData)"
-              href="#"
-              class="btn btn-warning"
-            >
+            <a v-if="$can('invoice-return-create') && allData && allData.status === 1"
+              @click.prevent="returnInvoice(allData)" href="#" class="btn btn-warning">
               <i class="fas fa-undo" /> {{ $t("Return Invoice") }}
             </a>
-            <router-link
-              :to="{ name: 'invoices.index' }"
-              class="btn btn-info float-right"
-            >
-              <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+            <router-link :to="{ name: 'invoices.index' }" class="btn btn-info float-right">
+              <template
+                v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
                 {{ $t("Back") }} <i class="fas fa-long-arrow-alt-left" />
               </template>
               <template v-else>
-                <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                <template
+                  v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
                   {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
 
@@ -117,7 +76,8 @@
 
                 <template v-else>
 
-                  <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                  <template
+                    v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
 
                     {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
@@ -154,33 +114,21 @@
                 <CompanyInfo />
               </div>
               <!-- /.col -->
-              <div
-                class="col-sm-8  invoice-col float-right text-md-right"
-              >
+              <div class="col-sm-8  invoice-col float-right text-md-right">
                 <h5>{{ $t("Client Details") }}</h5>
                 <div v-if="allData.client">
-                  <span v-if="allData.client.companyName"
-                    ><strong>{{ $t("Client ID") }}:</strong>
-                    {{ allData.client.clientID | withPrefix(clientPrefix) }}<br
-                  /></span>
+                  <span v-if="allData.client.companyName"><strong>{{ $t("Client ID") }}:</strong>
+                    {{ allData.client.clientID | withPrefix(clientPrefix) }}<br /></span>
                   <strong>{{ $t("Client Name") }}:</strong>
                   {{ allData.client.name }}<br />
-                  <span v-if="allData.client.companyName"
-                    ><strong>{{ $t("Company Name") }}:</strong>
-                    {{ allData.client.companyName }}<br
-                  /></span>
-                  <span v-if="allData.client.email"
-                    ><strong>{{ $t("Email") }}:</strong>
-                    {{ allData.client.email }}<br
-                  /></span>
-                  <span v-if="allData.client.phoneNumber"
-                    ><strong>{{ $t("Contact Number") }}:</strong>
-                    {{ allData.client.phoneNumber }}<br
-                  /></span>
-                  <span v-if="allData.client.address"
-                    ><strong>{{ $t("Address") }}:</strong>
-                    {{ allData.client.address }}<br
-                  /></span>
+                  <span v-if="allData.client.companyName"><strong>{{ $t("Company Name") }}:</strong>
+                    {{ allData.client.companyName }}<br /></span>
+                  <span v-if="allData.client.email"><strong>{{ $t("Email") }}:</strong>
+                    {{ allData.client.email }}<br /></span>
+                  <span v-if="allData.client.phoneNumber"><strong>{{ $t("Contact Number") }}:</strong>
+                    {{ allData.client.phoneNumber }}<br /></span>
+                  <span v-if="allData.client.address"><strong>{{ $t("Address") }}:</strong>
+                    {{ allData.client.address }}<br /></span>
                 </div>
               </div>
               <!-- /.col -->
@@ -240,11 +188,7 @@
                         </td>
                         <td v-if="allData.note">{{ allData.note }}</td>
                         <td>
-                          <span
-                            v-if="allData.status === 1"
-                            class="badge bg-success"
-                            >{{ $t("Active") }}</span
-                          >
+                          <span v-if="allData.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
                           <span v-else class="badge bg-danger">{{
                             $t("Inactive")
                           }}</span>
@@ -262,34 +206,32 @@
             <!-- Table row -->
             <div class="row mt-4">
               <div class="col-12">
-                <strong class="mb-2 d-block"
-                  >{{ $t("Invoice Products") }}:</strong
-                >
+                <strong class="mb-2 d-block">{{ $t("Invoice Products") }}:</strong>
                 <div class="table-responsive table-custom">
                   <table class="table table-sm text-center">
-                                         <thead>
-                       <tr>
-                         <th>{{ $t("#") }}</th>
-                         <th>{{ $t("Code") }}</th>
-                         <th>{{ $t("Item Name") }}</th>
-                         <th>{{ $t("Qty") }}</th>
-                         <th v-if="allData.totalInvoiceReturn">
-                           {{ $t("Return Qty") }}
-                         </th>
-                         <th>{{ $t("Price") }}</th>
-                         <th>{{ $t("Total") }}</th>
-                         <th>{{ $t("Discount") }}</th>
-                         <th>{{ $t("Total After Discount") }}</th>
-                         <th>{{ $t("VAT") }}</th>
-                         <th>{{ $t("Total with VAT") }}</th>
-                         <!-- <th
+                    <thead>
+                      <tr>
+                        <th>{{ $t("#") }}</th>
+                        <th>{{ $t("Code") }}</th>
+                        <th>{{ $t("Item Name") }}</th>
+                        <th>{{ $t("Qty") }}</th>
+                        <th v-if="allData.totalInvoiceReturn">
+                          {{ $t("Return Qty") }}
+                        </th>
+                        <th>{{ $t("Price") }}</th>
+                        <th>{{ $t("Total") }}</th>
+                        <th>{{ $t("Discount") }}</th>
+                        <th>{{ $t("Total After Discount") }}</th>
+                        <th>{{ $t("VAT") }}</th>
+                        <th>{{ $t("Total with VAT") }}</th>
+                        <!-- <th
                            v-if="allData.totalInvoiceReturn"
                            class="text-right"
                          >
                            {{ $t("Total Return") }}
                          </th> -->
-                       </tr>
-                     </thead>
+                      </tr>
+                    </thead>
                     <tbody v-if="invoiceProducts">
                       <tr v-for="(data, i) in invoiceProducts" :key="i">
                         <td>{{ ++i }}</td>
@@ -302,10 +244,12 @@
                           {{ data.returnQty }} {{ data.productUnit }}
                         </td>
                         <td>{{ formatNumber(data.salePrice) }} <span class="saudi-riyal">ê</span></td>
-                        <td class="align-middle">{{ formatNumber(data.salePrice * data.quantity) }} <span class="saudi-riyal">ê</span></td>
+                        <td class="align-middle">{{ formatNumber(data.salePrice * data.quantity) }} <span
+                            class="saudi-riyal">ê</span></td>
                         <td>
                           <span v-if="data.discountType === 'percentage'">
-                            {{ data.discountPercentage }}% ({{ formatNumber(calculateProductDiscountAmount(data)) }} <span class="saudi-riyal">ê</span>)
+                            {{ data.discountPercentage }}% ({{ formatNumber(calculateProductDiscountAmount(data)) }}
+                            <span class="saudi-riyal">ê</span>)
                           </span>
                           <span v-else-if="data.productDiscount > 0">
                             {{ formatNumber(calculateProductDiscountAmount(data)) }} <span class="saudi-riyal">ê</span>
@@ -314,7 +258,8 @@
                             {{ $t('No Discount') }}
                           </span>
                         </td>
-                        <td class="align-middle">{{ formatNumber((data.salePrice * data.quantity) - calculateProductDiscountAmount(data)) }} <span class="saudi-riyal">ê</span></td>
+                        <td class="align-middle">{{ formatNumber((data.salePrice * data.quantity) -
+                          calculateProductDiscountAmount(data)) }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <span v-if="data.productTax > 0">
                             {{ formatNumber(data.productTax) }} <span class="saudi-riyal">ê</span>
@@ -326,7 +271,9 @@
                             {{ $t('No VAT') }}
                           </span>
                         </td>
-                        <td class="align-middle">{{ formatNumber((data.salePrice * data.quantity) - calculateProductDiscountAmount(data) + (data.productTax || 0)) }} <span class="saudi-riyal">ê</span></td>
+                        <td class="align-middle">{{ formatNumber((data.salePrice * data.quantity) -
+                          calculateProductDiscountAmount(data) + (data.productTax || 0)) }} <span
+                            class="saudi-riyal">ê</span></td>
                         <!-- <td>{{ data.unitCost  }} <span class="saudi-riyal">ê</span></td>
                         <td
                           v-if="allData.totalInvoiceReturn"
@@ -357,10 +304,7 @@
                         </td> -->
                       </tr>
                       <tr>
-                        <td
-                          :colspan="allData.totalInvoiceReturn ? 10 : 9"
-                          class="text-center"
-                        >
+                        <td :colspan="allData.totalInvoiceReturn ? 10 : 9" class="text-center">
                           <strong>
                             {{ formatNumber(allData.subTotal) }} <span class="saudi-riyal">ê</span>
                           </strong>
@@ -372,8 +316,8 @@
               </div>
             </div>
 
-                         <!-- Product-level VAT and Discount Notice -->
-             <!-- <div class="row mt-3">
+            <!-- Product-level VAT and Discount Notice -->
+            <!-- <div class="row mt-3">
                <div class="col-12">
                  <div class="alert alert-info">
                    <i class="fas fa-info-circle"></i>
@@ -382,9 +326,9 @@
                  </div>
                </div>
              </div> -->
-             
-                           <!-- Product Summary -->
-              <!-- <div class="row mt-3">
+
+            <!-- Product Summary -->
+            <!-- <div class="row mt-3">
                <div class="col-12">
                  <div class="table-responsive table-custom">
                    <table class="table table-sm">
@@ -406,39 +350,35 @@
                  </div>
                </div>
              </div> -->
-            
-                         <!-- Debug Information (remove in production) -->
-             <div class="row mt-3" v-if="false">
-               <div class="col-12">
-                 <div class="alert alert-warning">
-                   <strong>Debug Info:</strong><br>
-                   Country: {{ appInfo?.country || 'Not set' }}<br>
-                   Is Saudi Arabia: {{ isSaudiArabia }}<br>
-                   Subtotal: {{ allData?.subTotal }}<br>
-                   Discount: {{ allData?.discount }} (Type: {{ allData?.discountType }})<br>
-                   Transport: {{ allData?.transport }}<br>
-                   Tax: {{ allData?.tax }}<br>
-                   Calculated Total: {{ calculatedTotal }}<br>
-                   Total Product VAT: {{ totalProductVat }}<br>
-                   Total Product Discount: {{ totalProductDiscount }}<br>
-                   Products with VAT: {{ productsWithVat }}<br>
-                   Products with Discount: {{ productsWithDiscount }}
-                 </div>
-               </div>
-             </div>
-            
+
+            <!-- Debug Information (remove in production) -->
+            <div class="row mt-3" v-if="false">
+              <div class="col-12">
+                <div class="alert alert-warning">
+                  <strong>Debug Info:</strong><br>
+                  Country: {{ appInfo?.country || 'Not set' }}<br>
+                  Is Saudi Arabia: {{ isSaudiArabia }}<br>
+                  Subtotal: {{ allData?.subTotal }}<br>
+                  Discount: {{ allData?.discount }} (Type: {{ allData?.discountType }})<br>
+                  Transport: {{ allData?.transport }}<br>
+                  Tax: {{ allData?.tax }}<br>
+                  Calculated Total: {{ calculatedTotal }}<br>
+                  Total Product VAT: {{ totalProductVat }}<br>
+                  Total Product Discount: {{ totalProductDiscount }}<br>
+                  Products with VAT: {{ productsWithVat }}<br>
+                  Products with Discount: {{ productsWithDiscount }}
+                </div>
+              </div>
+            </div>
+
             <!-- /.row -->
             <div class="row mt-4" id="page-break">
               <div class="col-lg-12 col-xl-8">
-                <div
-                  v-if="
-                    allData.invoicePayments &&
-                    allData.invoicePayments.length > 0
-                  "
-                >
-                  <strong class="mb-2 d-block"
-                    >{{ $t("Payment History") }}:</strong
-                  >
+                <div v-if="
+                  allData.invoicePayments &&
+                  allData.invoicePayments.length > 0
+                ">
+                  <strong class="mb-2 d-block">{{ $t("Payment History") }}:</strong>
                   <div class="table-responsive table-custom">
                     <table class="table table-sm">
                       <thead>
@@ -453,10 +393,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr
-                          v-for="(data, i) in allData.invoicePayments"
-                          :key="i"
-                        >
+                        <tr v-for="(data, i) in allData.invoicePayments" :key="i">
                           <td>{{ ++i }}</td>
                           <td>
                             <span v-if="data.date">{{ data.date }}</span>
@@ -474,11 +411,7 @@
                             {{ data.transaction?.receipt_no || data.receiptNo || '-' }}
                           </td>
                           <td class="text-right">
-                            <span
-                              v-if="data.status === 1"
-                              class="badge bg-success"
-                              >{{ $t("Active") }}</span
-                            >
+                            <span v-if="data.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
                             <span v-else class="badge bg-danger">{{
                               $t("Inactive")
                             }}</span>
@@ -500,15 +433,16 @@
                 </div>
                 <div class="no-print callout callout-danger mt-4 w-100" v-else>
                   <h5>{{ $t("No payments available yet!") }}</h5>
-                  <p>{{ $t("You haven/'t add any payment for this purchase. After adding payments you will see the list here.") }}</p>
+                  <p>{{ $t("You haven/'t add any payment for this purchase. After adding payments you will see the list
+                    here.") }}</p>
                 </div>
               </div>
               <div class="col-lg-12 col-xl-4 text-lg-right mt-4">
                 <div class="table-responsive table-custom table-border-y-0">
                   <table class="table">
                     <tbody>
-                    
-                     
+
+
                       <tr class="bg-sub-light text-bold">
                         <th>{{ $t("Subtotal") }}:</th>
                         <td>{{ formatNumber(totalPrice) }} <span class="saudi-riyal">ê</span></td>
@@ -522,7 +456,8 @@
 
                       <tr class="bg-green-light text-bold">
                         <th>{{ $t("Total After Discount") }}:</th>
-                        <td>{{ formatNumber(totalPrice - totalProductDiscount) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatNumber(totalPrice - totalProductDiscount) }} <span class="saudi-riyal">ê</span>
+                        </td>
                       </tr>
 
                       <tr>
@@ -545,9 +480,7 @@
                       <tr v-if="!isSaudiArabia && allData.discount > 0">
                         <th>
                           {{ $t("Discount") }}
-                          <span v-if="allData.discountType == 1"
-                            >({{ allData.discount }}%)</span
-                          >
+                          <span v-if="allData.discountType == 1">({{ allData.discount }}%)</span>
                           :
                         </th>
                         <td>
@@ -563,30 +496,19 @@
                       <tr v-if="!isSaudiArabia && allData.tax > 0">
                         <th>
                           {{ $t("Tax") }}
-                          <span v-if="allData.taxRate"
-                            >({{ allData.taxRate.rate }}%)</span
-                          >: <br />
-                          <span
-                            v-if="
-                              allData.taxRate &&
-                              allData.taxRate.group_tax_details &&
-                              allData.taxRate.group_tax_details.length
-                            "
-                          >
-                            (                              <span
-                                v-for="(tax, index) in allData.taxRate
-                                  .group_tax_details"
-                                :key="tax.id"
-                              >
-                              {{ tax.rate }}%<span
-                                v-if="
-                                  index <
-                                  allData.taxRate.group_tax_details.length - 1
-                                "
-                              >
-                                +</span
-                              > </span
-                            >)
+                          <span v-if="allData.taxRate">({{ allData.taxRate.rate }}%)</span>: <br />
+                          <span v-if="
+                            allData.taxRate &&
+                            allData.taxRate.group_tax_details &&
+                            allData.taxRate.group_tax_details.length
+                          ">
+                            ( <span v-for="(tax, index) in allData.taxRate
+                              .group_tax_details" :key="tax.id">
+                              {{ tax.rate }}%<span v-if="
+                                index <
+                                allData.taxRate.group_tax_details.length - 1
+                              ">
+                                +</span> </span>)
                           </span>
                         </th>
                         <td>
@@ -597,7 +519,8 @@
                         <th>{{ $t("Total with VAT") }}:</th>
                         <td>
                           <span class="equal-sign">=</span>
-                          {{ formatNumber(totalPrice - totalProductDiscount + totalProductVat) }} <span class="saudi-riyal">ê</span>
+                          {{ formatNumber(totalPrice - totalProductDiscount + totalProductVat) }} <span
+                            class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr v-if="allData.invoicePayments">
@@ -608,7 +531,9 @@
                       </tr>
                       <tr class="bg-red-light">
                         <th>{{ $t("Due") }}:</th>
-                        <td>{{ formatNumber((totalPrice - totalProductDiscount + totalProductVat) - (allData.totalPaid || 0)) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatNumber((totalPrice - totalProductDiscount + totalProductVat) - (allData.totalPaid
+                          ||
+                          0)) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr class="bg-green-light" v-if="allData.accountPayable">
                         <th>{{ $t("Account Payable") }}:</th>
@@ -636,20 +561,8 @@
             </div>
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100">
-                <a
-                  @click="refreshTable()"
-                  href="#"
-                  v-tooltip="$t('Refresh')"
-                  class="btn btn-success"
-                >
+                <a @click="refreshTable()" href="#" v-tooltip="$t('Refresh')" class="btn btn-success">
                   <i class="fas fa-sync"></i>
-                </a>
-                <a
-                  @click="print"
-                  v-tooltip="$t('Print Table')"
-                  class="btn btn-info"
-                >
-                  <i class="fas fa-print"></i>
                 </a>
               </div>
             </div>
@@ -658,40 +571,18 @@
           <div class="card-body position-relative">
             <div class="row">
               <div class="col-6 col-xl-4 mb-2">
-                <search
-                  v-model="query"
-                  @reset-pagination="resetPagination()"
-                  @reload="reload"
-                />
+                <search v-model="query" @reset-pagination="resetPagination()" @reload="reload" />
               </div>
             </div>
             <div id="printMe" class="table-responsive table-custom mt-3">
-              <div
-                v-show="items.length > 0"
-                v-for="(data, i) in items"
-                :key="i"
-              >
+              <div v-show="items.length > 0" v-for="(data, i) in items" :key="i">
                 <div class="card mb-0 border border-gray">
                   <div class="card-body py-1">
                     <div class="row">
-                      <div
-                        class="col-1 d-flex justify-content-center align-items-center"
-                      >
-                        <i
-                          v-if="data.event == 'Update'"
-                          class="fa fa-magic"
-                          aria-hidden="true"
-                        ></i>
-                        <i
-                          v-if="data.event == 'Create'"
-                          class="fa fa-plus-circle"
-                          aria-hidden="true"
-                        ></i>
-                        <i
-                          v-if="data.event == 'Delete'"
-                          class="fa fa-trash"
-                          aria-hidden="true"
-                        ></i>
+                      <div class="col-1 d-flex justify-content-center align-items-center">
+                        <i v-if="data.event == 'Update'" class="fa fa-magic" aria-hidden="true"></i>
+                        <i v-if="data.event == 'Create'" class="fa fa-plus-circle" aria-hidden="true"></i>
+                        <i v-if="data.event == 'Delete'" class="fa fa-trash" aria-hidden="true"></i>
                       </div>
                       <div class="col-11">
                         <div class="row">
@@ -720,11 +611,7 @@
               <div class="form-group row display-per-page">
                 <label>{{ $t("per_page") }} </label>
                 <div>
-                  <select
-                    @change="updatePerPager"
-                    v-model="perPage"
-                    class="form-control form-control-sm ml-1"
-                  >
+                  <select @change="updatePerPager" v-model="perPage" class="form-control form-control-sm ml-1">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
@@ -733,13 +620,8 @@
                 </div>
               </div>
               <!-- pagination-start -->
-              <pagination
-                v-if="pagination && pagination.last_page > 1"
-                :pagination="pagination"
-                :offset="5"
-                class="justify-flex-end"
-                @paginate="paginate"
-              />
+              <pagination v-if="pagination && pagination.last_page > 1" :pagination="pagination" :offset="5"
+                class="justify-flex-end" @paginate="paginate" />
               <!-- pagination-end -->
             </div>
           </div>
@@ -770,8 +652,8 @@
           <div class="row">
             <div class="form-group col-md-4">
               <label for="paidAmount">{{ $t("Paid Amount") }}</label>
-              <input type="number" step="any" class="form-control" :placeholder="$t('Enter an amount')"
-                required min="1" v-model="paymentForm.paidAmount" :max="calculateDueAmount" />
+              <input type="number" step="any" class="form-control" :placeholder="$t('Enter an amount')" required min="1"
+                v-model="paymentForm.paidAmount" :max="calculateDueAmount" />
             </div>
             <div class="form-group col-md-8">
               <label for="account">{{ $t("Account") }}
@@ -780,9 +662,9 @@
                 <v-select v-model="paymentForm.account" :options="accounts" label="label"
                   :class="{ 'is-invalid': paymentForm.errors.has('account') }" name="account"
                   :placeholder="$t('Select an account')" class="flex-grow-1">
-                   <template slot="option" slot-scope="option">
-                      <img :src="option.image" style="width: 30px; height: 30px;" />
-                      {{ option.label }}
+                  <template slot="option" slot-scope="option">
+                    <img :src="option.image" style="width: 30px; height: 30px;" />
+                    {{ option.label }}
                   </template>
                 </v-select>
                 <AccountCreateModal @accountCreated="handleAccountCreated">
@@ -813,8 +695,7 @@
             <div class="form-group col-md-6">
               <label for="status">{{ $t("Status") }}</label>
               <select id="status" v-model="paymentForm.status" class="form-control"
-                :class="{ 'is-invalid': paymentForm.errors.has('status') }"
-                :disabled="allData && allData.status === 0">
+                :class="{ 'is-invalid': paymentForm.errors.has('status') }" :disabled="allData && allData.status === 0">
                 <option v-if="!allData || allData.status === 1" value="1">{{ $t("Active") }}</option>
                 <option value="0">{{ $t("Inactive") }}</option>
               </select>
@@ -830,24 +711,22 @@
           </div>
           <div class="form-group col-12 d-flex flex-wrap">
             <div class="pr-5 d-flex align-items-center">
-              <toggle-button 
-                v-model="paymentForm.isSendEmail" 
+              <toggle-button v-model="paymentForm.isSendEmail"
                 :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.email_configured" />
               <span class="ml-3">{{ $t("Send Email Notification") }}</span>
-              <span v-if="!communicationConfig.loading && !communicationConfig.email_configured" 
-                    class="ml-2 text-muted small">
+              <span v-if="!communicationConfig.loading && !communicationConfig.email_configured"
+                class="ml-2 text-muted small">
                 ({{ $t("Email not configured") }})
               </span>
             </div>
           </div>
           <div class="form-group col-12 d-flex flex-wrap">
             <div class="pr-5 d-flex align-items-center">
-              <toggle-button 
-                v-model="paymentForm.isSendSMS" 
+              <toggle-button v-model="paymentForm.isSendSMS"
                 :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.sms_configured" />
               <span class="ml-3">{{ $t("Send SMS Notification") }}</span>
-              <span v-if="!communicationConfig.loading && !communicationConfig.sms_configured" 
-                    class="ml-2 text-muted small">
+              <span v-if="!communicationConfig.loading && !communicationConfig.sms_configured"
+                class="ml-2 text-muted small">
                 ({{ $t("SMS not configured") }})
               </span>
             </div>
@@ -937,89 +816,89 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters("operations", ["appInfo", "items", "pagination"]),
-    
+
     // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
     isSaudiArabia() {
       const result = !this.appInfo?.country || this.appInfo.country === 'SA';
       console.log('[InvoiceDetails] isSaudiArabia:', result, 'appInfo.country:', this.appInfo?.country);
       return result;
     },
-    
-    
-    // Calculate correct total based on Saudi Arabia rules
-     calculatedTotal() {
-       if (!this.allData) return 0;
-       
-       if (this.isSaudiArabia) {
-         // For Saudi Arabia: subTotal already includes discount and VAT
-         return this.allData.subTotal;
-       } else {
-         // For other countries: Subtotal - Returns - Global Discount + Transport + Tax
-         return this.allData.subTotal - 
-                (this.allData.totalInvoiceReturn || 0) - 
-                this.globalDiscountAmount + 
-                (this.allData.transport || 0) + 
-                (this.allData.tax || 0);
-       }
-     },
-     
-     // Calculate total product VAT
-     totalProductVat() {
-       if (!this.invoiceProducts) return 0;
-       return this.invoiceProducts.reduce((total, product) => {
-         return total + (product.productTax || 0);
-       }, 0);
-     },
-     
-     // Calculate total product discount
-     totalProductDiscount() {
-       if (!this.invoiceProducts) return 0;
-       return this.invoiceProducts.reduce((total, product) => {
-         return total + this.calculateProductDiscountAmount(product);
-       }, 0);
-     },
-     
-     // Calculate total price (sum of Total column in items table)
-     totalPrice() {
-       if (!this.invoiceProducts) return 0;
-       return this.invoiceProducts.reduce((total, product) => {
-         return total + (product.salePrice * product.quantity);
-       }, 0);
-     },
-     
-     // Count products with VAT
-     productsWithVat() {
-       if (!this.invoiceProducts) return 0;
-       return this.invoiceProducts.filter(product => product.productTax && product.productTax > 0).length;
-     },
-     
-     // Count products with discount
-     productsWithDiscount() {
-       if (!this.invoiceProducts) return 0;
-       return this.invoiceProducts.filter(product => product.productDiscount && product.productDiscount > 0).length;
-     },
-     
 
-     
-     // Calculate global discount amount (handles both percentage and fixed)
-     globalDiscountAmount() {
-       if (!this.allData || !this.allData.discount || this.allData.discount <= 0) return 0;
-       
-       // Global invoice discounts use numeric values: 1 for percentage, 0 for fixed
-       if (this.allData.discountType == 1) { // Percentage
-         return (this.allData.subTotal * this.allData.discount) / 100;
-       } else { // Fixed
-         return this.allData.discount;
-       }
-     },
-     
-     // Calculate due amount
-     calculateDueAmount() {
-       if (!this.allData) return 0;
-       const total = this.totalPrice - this.totalProductDiscount + this.totalProductVat;
-       const paid = this.allData.totalPaid || 0;
-       return total - paid;
-     },
+
+    // Calculate correct total based on Saudi Arabia rules
+    calculatedTotal() {
+      if (!this.allData) return 0;
+
+      if (this.isSaudiArabia) {
+        // For Saudi Arabia: subTotal already includes discount and VAT
+        return this.allData.subTotal;
+      } else {
+        // For other countries: Subtotal - Returns - Global Discount + Transport + Tax
+        return this.allData.subTotal -
+          (this.allData.totalInvoiceReturn || 0) -
+          this.globalDiscountAmount +
+          (this.allData.transport || 0) +
+          (this.allData.tax || 0);
+      }
+    },
+
+    // Calculate total product VAT
+    totalProductVat() {
+      if (!this.invoiceProducts) return 0;
+      return this.invoiceProducts.reduce((total, product) => {
+        return total + (product.productTax || 0);
+      }, 0);
+    },
+
+    // Calculate total product discount
+    totalProductDiscount() {
+      if (!this.invoiceProducts) return 0;
+      return this.invoiceProducts.reduce((total, product) => {
+        return total + this.calculateProductDiscountAmount(product);
+      }, 0);
+    },
+
+    // Calculate total price (sum of Total column in items table)
+    totalPrice() {
+      if (!this.invoiceProducts) return 0;
+      return this.invoiceProducts.reduce((total, product) => {
+        return total + (product.salePrice * product.quantity);
+      }, 0);
+    },
+
+    // Count products with VAT
+    productsWithVat() {
+      if (!this.invoiceProducts) return 0;
+      return this.invoiceProducts.filter(product => product.productTax && product.productTax > 0).length;
+    },
+
+    // Count products with discount
+    productsWithDiscount() {
+      if (!this.invoiceProducts) return 0;
+      return this.invoiceProducts.filter(product => product.productDiscount && product.productDiscount > 0).length;
+    },
+
+
+
+    // Calculate global discount amount (handles both percentage and fixed)
+    globalDiscountAmount() {
+      if (!this.allData || !this.allData.discount || this.allData.discount <= 0) return 0;
+
+      // Global invoice discounts use numeric values: 1 for percentage, 0 for fixed
+      if (this.allData.discountType == 1) { // Percentage
+        return (this.allData.subTotal * this.allData.discount) / 100;
+      } else { // Fixed
+        return this.allData.discount;
+      }
+    },
+
+    // Calculate due amount
+    calculateDueAmount() {
+      if (!this.allData) return 0;
+      const total = this.totalPrice - this.totalProductDiscount + this.totalProductVat;
+      const paid = this.allData.totalPaid || 0;
+      return total - paid;
+    },
   },
 
   watch: {
@@ -1052,9 +931,9 @@ export default {
     async loadCommunicationConfigStatus() {
       try {
         this.communicationConfig.loading = true;
-        
+
         const response = await axios.get('/api/communication-config-status');
-        
+
         this.communicationConfig.email_configured = response.data.email_configured;
         this.communicationConfig.sms_configured = response.data.sms_configured;
         this.communicationConfig.loading = false;
@@ -1073,7 +952,7 @@ export default {
       // No need to multiply by quantity - just return the stored discount_amount
       return product.productDiscount || 0;
     },
-    
+
     // get the invoice
     async getInvoice() {
       this.loading = true;
@@ -1083,7 +962,7 @@ export default {
       this.allData = data.data;
       this.invoiceProducts = this.allData.invoiceProducts;
       this.invoiceProducts.sort(this.sortProducts);
-      
+
       // Debug: Check what we're getting
       console.log('[InvoiceDetails] allData.subTotal:', this.allData.subTotal);
       console.log('[InvoiceDetails] totalProductVat:', this.totalProductVat);
@@ -1091,7 +970,7 @@ export default {
       console.log('[InvoiceDetails] calculatedTotal:', this.calculatedTotal);
       console.log('[InvoiceDetails] isSaudiArabia:', this.isSaudiArabia);
       console.log('[InvoiceDetails] appInfo:', this.appInfo);
-      
+
       this.loading = false;
     },
     sortProducts(a, b) {
@@ -1110,7 +989,7 @@ export default {
     //   const printUrl = `/print/invoice/${this.$route.params.slug}`;
     //   window.open(printUrl, '_blank');
     // },
-    
+
     // download PDF
     downloadPDF() {
       window.location.href = `/print/invoice/${this.$route.params.slug}/pdf`;
@@ -1127,8 +1006,8 @@ export default {
         await this.form
           .post(
             window.location.origin +
-              "/api/invoice/notify/" +
-              this.$route.params.slug
+            "/api/invoice/notify/" +
+            this.$route.params.slug
           )
           .then(() => {
             toast.fire({
@@ -1219,7 +1098,7 @@ export default {
       console.log('Send invoice clicked for:', data);
       console.log('isSaudiArabia:', this.isSaudiArabia);
       console.log('data.status:', data.status);
-      
+
       SwalOriginal.fire({
         title: this.$t("Send Invoice to ZATCA"),
         text: this.$t("Do you want to send this invoice to ZATCA?"),
@@ -1245,10 +1124,10 @@ export default {
 
             // Send invoice to ZATCA and create journal entries
             const response = await axios.post(`/api/invoices/${data.slug}/send-to-zatca`);
-            
+
             // Close the loading dialog
             SwalOriginal.close();
-            
+
             if (response.data.success) {
               this.$toast.success(
                 this.$t("Sent Successfully!"),
@@ -1281,7 +1160,7 @@ export default {
       // We'll fetch the client info from the invoice on the create page
       console.log('Full invoice data:', JSON.stringify(data, null, 2))
       console.log('Invoice slug:', data.slug)
-      
+
       this.$router.push({
         name: 'invoiceReturns.create',
         query: {
@@ -1301,14 +1180,14 @@ export default {
       if (!this.allData) {
         return;
       }
-      
+
       // Set invoice data
       this.paymentForm.invoice_id = this.allData.id;
       const dueAmount = this.calculateDueAmount;
       // Set paid amount to total due amount as default
       this.paymentForm.paidAmount = dueAmount > 0 ? dueAmount : 1;
       this.paymentForm.status = this.allData.status === 0 ? 0 : 1;
-      
+
       // Set default account if available
       if (this.accounts && this.accounts.length > 0 && !this.paymentForm.account) {
         let defaultAccountSlug = this.appInfo.defaultAccountSlug;
@@ -1316,7 +1195,7 @@ export default {
           (account) => account.slug == defaultAccountSlug
         ) || this.accounts[0];
       }
-      
+
       this.showPaymentModal = true;
     },
 
@@ -1340,21 +1219,21 @@ export default {
     async handleAccountCreated(newAccount) {
       // Refresh accounts list
       await this.getAccounts();
-      
+
       // Find and select the newly created account
       if (newAccount && newAccount.id) {
         // Wait for accounts to be updated
         await this.$nextTick();
-        
+
         // Find the account by id, slug, or label
         const account = this.accounts.find(
-          (acc) => 
-            acc.id === newAccount.id || 
+          (acc) =>
+            acc.id === newAccount.id ||
             acc.slug === newAccount.slug ||
             acc.label === newAccount.label ||
             (acc.bankName === newAccount.bankName && acc.accountNumber === newAccount.accountNumber)
         );
-        
+
         if (account) {
           this.paymentForm.account = account;
         } else if (newAccount.id) {

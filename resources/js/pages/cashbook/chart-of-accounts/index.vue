@@ -75,13 +75,6 @@
                       />
                     </svg>
                   </a>
-                  <a
-                    @click="print"
-                    v-tooltip="$t('Print Table')"
-                    class="btn print-btn"
-                  >
-                    <i class="fas fa-print"></i>
-                  </a>
                   <router-link
                     :to="{ name: 'chart-of-accounts.create' }"
                     class="btn btn-primary"

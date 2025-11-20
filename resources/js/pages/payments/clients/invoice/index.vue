@@ -78,18 +78,6 @@
                       />
                     </svg>
                   </a>
-                  <a
-                    v-if="$can('invoice-payment-list') ||
-                      $can('invoice-payment-edit') ||
-                      $can('invoice-payment-view') ||
-                      $can('invoice-payment-delete')
-                      "
-                    @click="print"
-                    v-tooltip="$t('Print Table')"
-                    class="btn print-btn"
-                  >
-                    <i class="fas fa-print"></i>
-                  </a>
                   <router-link v-if="$can('invoice-payment-create')" :to="{ name: 'invoicePayments.create' }" class="btn btn-primary">
                     {{ $t("Create") }}
                     <i class="fas fa-plus-circle d-none d-sm-inline-block" />

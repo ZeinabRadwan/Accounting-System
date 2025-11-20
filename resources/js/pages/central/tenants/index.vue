@@ -23,9 +23,6 @@
                 <a @click="exportToPDF" href="#" v-tooltip="$t('Export to PDF')" class="btn btn-secondary">
                   <i class="fas fa-file-export"></i>
                 </a>
-                <a @click="print" v-tooltip="$t('Export PDF')" class="btn btn-info">
-                  <i class="fas fa-print"></i>
-                </a>
               </div>
             </div>
           </div>
@@ -34,12 +31,14 @@
             <!-- Tabs Navigation -->
             <ul class="nav nav-tabs" id="tenantTabs" role="tablist">
               <li class="nav-item" role="presentation">
-                <button class="nav-link" :class="{ active: activeTab === 'active' }" @click="switchTab('active')" type="button">
+                <button class="nav-link" :class="{ active: activeTab === 'active' }" @click="switchTab('active')"
+                  type="button">
                   {{ $t("Active Tenants") }}
                 </button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link" :class="{ active: activeTab === 'archived' }" @click="switchTab('archived')" type="button">
+                <button class="nav-link" :class="{ active: activeTab === 'archived' }" @click="switchTab('archived')"
+                  type="button">
                   {{ $t("Archived Tenants") }}
                 </button>
               </li>
@@ -53,9 +52,10 @@
                     <search v-model="query" @reset-pagination="resetPagination()" @reload="reload" />
                   </div>
                   <div class="col-6 col-xl-8 mb-2 text-right">
-                    <date-range-picker ref="picker" opens="left" :locale-data="locale" :minDate="minDate" :maxDate="maxDate"
-                      :singleDatePicker="false" :showWeekNumbers="false" :showDropdowns="true" :autoApply="true"
-                      v-model="dateRange" @update="updateValues" :linkedCalendars="true" class="c-w-100" style="display: none;">
+                    <date-range-picker ref="picker" opens="left" :locale-data="locale" :minDate="minDate"
+                      :maxDate="maxDate" :singleDatePicker="false" :showWeekNumbers="false" :showDropdowns="true"
+                      :autoApply="true" v-model="dateRange" @update="updateValues" :linkedCalendars="true"
+                      class="c-w-100" style="display: none;">
                       <template v-slot:input="picker" style="min-width: 350px">
                         {{ picker.startDate | startDate }} -
                         {{ picker.endDate | endDate }}
@@ -63,126 +63,126 @@
                     </date-range-picker>
                   </div>
                 </div>
-            <table-loading v-show="loading" />
-            <div id="printMe" class="table-responsive table-custom mt-3">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>{{ $t("S.No") }}</th>
-                    <th>{{ $t("Domain") }}</th>
-                    <th>{{ $t("Name & Email") }}</th>
-                    <th>{{ $t("Plan") }}</th>
-                    <th>{{ $t("On Trial") }}</th>
-                    <th>{{ $t("Is Verified") }}</th>
-                    <th>{{ $t("Is Subscribed") }}</th>
-                    <th>{{ $t("Banned") }}</th>
-                    <th class="text-right no-print" v-if="!isDemoMode">
-                      {{ $t("Action") }}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-show="items.length" v-for="(data, i) in items" :key="i">
-                    <td>
-                      <span v-if="pagination && pagination.current_page > 1">
-                        {{
-                          pagination.per_page * (pagination.current_page - 1) +
-                          (i + 1)
-                        }}
-                      </span>
-                      <span v-else>{{ i + 1 }}</span>
-                    </td>
-                    <td>
-                      {{ data.domain }}
-                    </td>
-                    <td class="profile-area">
-                      <div class="mr-2 img">
-                        <img :src="data.photo_url" :alt="data.name" class="rounded-circle" />
-                      </div>
-                      <div>
-                        <span class="text-capitalize">{{ data.name }}</span>
-                        <a :href="`mailto:${data.email}`">{{ data.email }}</a>
-                      </div>
-                    </td>
-                    <td>{{ data.plan && data.plan.name }}</td>
-                    <td>
-                      <span v-if="data.on_trial" class="badge bg-success">
-                        {{ $t("True") }}
-                      </span>
-                      <span v-else class="badge bg-danger">
-                        {{ $t("False") }}
-                      </span>
-                    </td>
-                    <td>
-                      <span v-if="data.email_verified_at" class="badge bg-success">
-                        {{ $t("True") }}
-                      </span>
-                      <span v-else class="badge bg-danger">
-                        {{ $t("False") }}
-                      </span>
-                    </td>
-                    <td>
-                      <span v-if="data.is_subscribed" class="badge bg-success">
-                        {{ $t("True") }}
-                      </span>
-                      <span v-else class="badge bg-danger">
-                        {{ $t("False") }}
-                      </span>
-                    </td>
-                    <td>
-                      <span v-if="data.is_banned == false" class="badge bg-success">{{ $t("False")
-                      }}</span>
-                      <span v-else class="badge bg-danger">{{
-                        $t("True")
-                      }}</span>
-                    </td>
-                    <td class="text-right no-print" v-if="!isDemoMode">
-                      <div class="btn-group">
-                        <router-link v-if="data.email_verified_at" v-tooltip="$t('View')" :to="{
-                          name: 'tenants.show',
-                          params: { id: data.id },
-                        }" class="btn btn-primary btn-sm">
-                          <i class="fas fa-eye" />
-                        </router-link>
-                        <button v-if="data.email_verified_at" @click="impersonate(data.id)"
-                          v-tooltip="$t('Impersonate')" class="btn btn-info btn-sm">
-                          <i class="fas fa-user-secret" />
-                        </button>
-                        <router-link v-if="data.email_verified_at" :to="{
-                          name: 'send-notification',
-                          params: { id: data.id },
-                        }" v-tooltip="$t('Send Email')" class="btn btn-secondary btn-sm">
-                          <i class="fas fa-envelope" />
-                        </router-link>
+                <table-loading v-show="loading" />
+                <div id="printMe" class="table-responsive table-custom mt-3">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>{{ $t("S.No") }}</th>
+                        <th>{{ $t("Domain") }}</th>
+                        <th>{{ $t("Name & Email") }}</th>
+                        <th>{{ $t("Plan") }}</th>
+                        <th>{{ $t("On Trial") }}</th>
+                        <th>{{ $t("Is Verified") }}</th>
+                        <th>{{ $t("Is Subscribed") }}</th>
+                        <th>{{ $t("Banned") }}</th>
+                        <th class="text-right no-print" v-if="!isDemoMode">
+                          {{ $t("Action") }}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-show="items.length" v-for="(data, i) in items" :key="i">
+                        <td>
+                          <span v-if="pagination && pagination.current_page > 1">
+                            {{
+                              pagination.per_page * (pagination.current_page - 1) +
+                              (i + 1)
+                            }}
+                          </span>
+                          <span v-else>{{ i + 1 }}</span>
+                        </td>
+                        <td>
+                          {{ data.domain }}
+                        </td>
+                        <td class="profile-area">
+                          <div class="mr-2 img">
+                            <img :src="data.photo_url" :alt="data.name" class="rounded-circle" />
+                          </div>
+                          <div>
+                            <span class="text-capitalize">{{ data.name }}</span>
+                            <a :href="`mailto:${data.email}`">{{ data.email }}</a>
+                          </div>
+                        </td>
+                        <td>{{ data.plan && data.plan.name }}</td>
+                        <td>
+                          <span v-if="data.on_trial" class="badge bg-success">
+                            {{ $t("True") }}
+                          </span>
+                          <span v-else class="badge bg-danger">
+                            {{ $t("False") }}
+                          </span>
+                        </td>
+                        <td>
+                          <span v-if="data.email_verified_at" class="badge bg-success">
+                            {{ $t("True") }}
+                          </span>
+                          <span v-else class="badge bg-danger">
+                            {{ $t("False") }}
+                          </span>
+                        </td>
+                        <td>
+                          <span v-if="data.is_subscribed" class="badge bg-success">
+                            {{ $t("True") }}
+                          </span>
+                          <span v-else class="badge bg-danger">
+                            {{ $t("False") }}
+                          </span>
+                        </td>
+                        <td>
+                          <span v-if="data.is_banned == false" class="badge bg-success">{{ $t("False")
+                            }}</span>
+                          <span v-else class="badge bg-danger">{{
+                            $t("True")
+                            }}</span>
+                        </td>
+                        <td class="text-right no-print" v-if="!isDemoMode">
+                          <div class="btn-group">
+                            <router-link v-if="data.email_verified_at" v-tooltip="$t('View')" :to="{
+                              name: 'tenants.show',
+                              params: { id: data.id },
+                            }" class="btn btn-primary btn-sm">
+                              <i class="fas fa-eye" />
+                            </router-link>
+                            <button v-if="data.email_verified_at" @click="impersonate(data.id)"
+                              v-tooltip="$t('Impersonate')" class="btn btn-info btn-sm">
+                              <i class="fas fa-user-secret" />
+                            </button>
+                            <router-link v-if="data.email_verified_at" :to="{
+                              name: 'send-notification',
+                              params: { id: data.id },
+                            }" v-tooltip="$t('Send Email')" class="btn btn-secondary btn-sm">
+                              <i class="fas fa-envelope" />
+                            </router-link>
 
-                        <router-link v-if="data.email_verified_at" v-tooltip="$t('Edit')" :to="{
-                          name: 'tenants.edit',
-                          params: { id: data.id },
-                        }" class="btn btn-info btn-sm">
-                          <i class="fas fa-edit" />
-                        </router-link>
-                        <a v-if="data.email_verified_at" href="#" v-tooltip="data.is_banned
-                          ? $t('Unban')
-                          : $t('Ban')
-                          " class="btn btn-sm" :class="data.is_banned ? 'btn-success' : 'btn-warning'"
-                          @click="ban(data.id)">
-                          <i class="fas fa-ban" />
-                        </a>
-                        <a href="#" v-tooltip="$t('Archive')" class="btn btn-danger btn-sm"
-                          @click="deleteData(data.id)">
-                          <i class="fas fa-archive" />
-                        </a>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr v-show="!loading && !items.length">
-                    <td colspan="9">
-                      <EmptyTable />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                            <router-link v-if="data.email_verified_at" v-tooltip="$t('Edit')" :to="{
+                              name: 'tenants.edit',
+                              params: { id: data.id },
+                            }" class="btn btn-info btn-sm">
+                              <i class="fas fa-edit" />
+                            </router-link>
+                            <a v-if="data.email_verified_at" href="#" v-tooltip="data.is_banned
+                              ? $t('Unban')
+                              : $t('Ban')
+                              " class="btn btn-sm" :class="data.is_banned ? 'btn-success' : 'btn-warning'"
+                              @click="ban(data.id)">
+                              <i class="fas fa-ban" />
+                            </a>
+                            <a href="#" v-tooltip="$t('Archive')" class="btn btn-danger btn-sm"
+                              @click="deleteData(data.id)">
+                              <i class="fas fa-archive" />
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr v-show="!loading && !items.length">
+                        <td colspan="9">
+                          <EmptyTable />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
 
               <!-- Archived Tab Content -->
@@ -192,9 +192,10 @@
                     <search v-model="archivedQuery" @reset-pagination="resetPagination()" @reload="reloadArchived" />
                   </div>
                   <div class="col-6 col-xl-8 mb-2 text-right">
-                    <date-range-picker ref="archivedPicker" opens="left" :locale-data="locale" :minDate="minDate" :maxDate="maxDate"
-                      :singleDatePicker="false" :showWeekNumbers="false" :showDropdowns="true" :autoApply="true"
-                      v-model="archivedDateRange" @update="updateArchivedValues" :linkedCalendars="true" class="c-w-100" style="display: none;">
+                    <date-range-picker ref="archivedPicker" opens="left" :locale-data="locale" :minDate="minDate"
+                      :maxDate="maxDate" :singleDatePicker="false" :showWeekNumbers="false" :showDropdowns="true"
+                      :autoApply="true" v-model="archivedDateRange" @update="updateArchivedValues"
+                      :linkedCalendars="true" class="c-w-100" style="display: none;">
                       <template v-slot:input="picker" style="min-width: 350px">
                         {{ picker.startDate | startDate }} -
                         {{ picker.endDate | endDate }}
@@ -246,10 +247,12 @@
                         <td>{{ data.archived_by_name || '-' }}</td>
                         <td class="text-right no-print" v-if="!isDemoMode">
                           <div class="btn-group">
-                            <button @click="restoreTenant(data.id)" v-tooltip="$t('Restore')" class="btn btn-success btn-sm">
+                            <button @click="restoreTenant(data.id)" v-tooltip="$t('Restore')"
+                              class="btn btn-success btn-sm">
                               <i class="fas fa-undo" />
                             </button>
-                            <button @click="permanentDeleteTenant(data.id)" v-tooltip="$t('Permanent Delete')" class="btn btn-danger btn-sm">
+                            <button @click="permanentDeleteTenant(data.id)" v-tooltip="$t('Permanent Delete')"
+                              class="btn btn-danger btn-sm">
                               <i class="fas fa-trash" />
                             </button>
                           </div>
@@ -506,7 +509,7 @@ export default {
 
         const opt = {
           margin: [10, 10, 10, 10],
-          filename: `tenants-${(new Date()).toISOString().slice(0,10)}.pdf`,
+          filename: `tenants-${(new Date()).toISOString().slice(0, 10)}.pdf`,
           image: { type: "jpeg", quality: 0.98 },
           html2canvas: { scale: 2, useCORS: true, logging: false },
           jsPDF: { unit: "mm", format: "a4", orientation: "landscape" },
@@ -526,20 +529,20 @@ export default {
     // delete data
     async deleteData(slug) {
       console.log('Delete function called with slug:', slug);
-      
+
       const confirmed = confirm(this.$t("Are you sure you want to archive this tenant? The tenant will be moved to archived section and can be restored later."));
-      
+
       if (confirmed) {
         console.log('Sending delete request for tenant:', slug);
-        
+
         try {
           const response = await this.$store.dispatch("operations/deleteData", {
             path: "/api/tenants/",
             slug: slug,
           });
-          
+
           console.log('Delete response:', response);
-          
+
           if (response === true) {
             this.$toast.success(
               this.$t("Archived"),
@@ -616,7 +619,7 @@ export default {
           term: this.archivedQuery,
           perPage: this.perPage,
         });
-        
+
         if (this.archivedDateRange.startDate && this.archivedDateRange.endDate) {
           params.append('startDate', this.archivedDateRange.startDate);
           params.append('endDate', this.archivedDateRange.endDate);
@@ -649,7 +652,7 @@ export default {
     // Restore tenant
     async restoreTenant(id) {
       const confirmed = confirm(this.$t("Are you sure you want to restore this tenant?"));
-      
+
       if (confirmed) {
         try {
           const response = await axios.post(`/api/tenants/${id}/restore`);
@@ -679,7 +682,7 @@ export default {
     // Permanent delete tenant
     async permanentDeleteTenant(id) {
       const confirmed = confirm(this.$t("Are you sure you want to permanently delete this tenant? This action cannot be undone and will delete all data including the database."));
-      
+
       if (confirmed) {
         try {
           const response = await axios.delete(`/api/tenants/${id}/permanent-delete`);
@@ -731,66 +734,66 @@ export default {
 
 <style>
 .dtable-footer {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-    padding: 0 0 0 10px;
-    flex-direction: column;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  padding: 0 0 0 10px;
+  flex-direction: column;
 }
+
 .card-footer .form-group.row.display-per-page {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-    width: 100%;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  width: 100%;
+  align-items: center;
 }
 
 /* Tab styles */
 .nav-tabs {
-    border-bottom: 1px solid #dee2e6;
-    margin-bottom: 0;
+  border-bottom: 1px solid #dee2e6;
+  margin-bottom: 0;
 }
 
 .nav-tabs .nav-link {
-    border: 1px solid transparent;
-    border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem;
-    color: #495057;
-    background-color: transparent;
-    border-color: transparent;
-    padding: 0.5rem 1rem;
-    margin-bottom: -1px;
+  border: 1px solid transparent;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  color: #495057;
+  background-color: transparent;
+  border-color: transparent;
+  padding: 0.5rem 1rem;
+  margin-bottom: -1px;
 }
 
 .nav-tabs .nav-link:hover {
-    border-color: #e9ecef #e9ecef #dee2e6;
-    isolation: isolate;
+  border-color: #e9ecef #e9ecef #dee2e6;
+  isolation: isolate;
 }
 
 .nav-tabs .nav-link.active {
-    color: #495057;
-    background-color: #fff;
-    border-color: #dee2e6 #dee2e6 #fff;
+  color: #495057;
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
 }
 
 .nav-tabs .nav-link.active:hover {
-    border-color: #dee2e6 #dee2e6 #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
 }
 
 .tab-content {
-    border: 1px solid #dee2e6;
-    border-top: none;
-    padding: 1rem;
-    background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-top: none;
+  padding: 1rem;
+  background-color: #fff;
 }
 
 .tab-pane {
-    display: none;
+  display: none;
 }
 
 .tab-pane.active {
-    display: block;
+  display: block;
 }
 </style>
-

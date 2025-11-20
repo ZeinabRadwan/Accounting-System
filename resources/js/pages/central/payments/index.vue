@@ -17,9 +17,6 @@
                 <a @click="refreshTable()" href="#" v-tooltip="$t('Refresh')" class="btn btn-success">
                   <i class="fas fa-sync"></i>
                 </a>
-                <a @click="print" v-tooltip="$t('Print Table')" class="btn btn-info">
-                  <i class="fas fa-print"></i>
-                </a>
               </div>
             </div>
           </div>
@@ -36,8 +33,7 @@
                     <th>{{ $t('Transaction Type') }}</th>
                     <th>{{ $t('Trx ID') }}</th>
                     <th>{{ $t('Amount') }}
-                      <span class="badge badge-info"
-                        v-tooltip="'Base Currency  <br/><small>(Converted USD)</small>'">
+                      <span class="badge badge-info" v-tooltip="'Base Currency  <br/><small>(Converted USD)</small>'">
                         <i class="fas fa-info"></i>
                       </span>
                     </th>
@@ -54,7 +50,7 @@
                     <td>{{ payment.method }}</td>
                     <td>{{ payment.system_trx_id }}</td>
                     <td>
-                      {{ payment.default_amount_rate * payment.quantity}} <span class="saudi-riyal">ê</span><br>
+                      {{ payment.default_amount_rate * payment.quantity }} <span class="saudi-riyal">ê</span><br>
                       (${{ payment.amount * payment.quantity }})
                     </td>
                     <td>{{ payment.status }}</td>
@@ -68,7 +64,7 @@
                       </div>
                       <div v-else class="text-center">
                         <p>N/A</p>
-                      </div>  
+                      </div>
                     </td>
                   </tr>
                   <tr v-show="!loading && !items.length">
@@ -209,19 +205,19 @@ export default {
 
 <style>
 .dtable-footer {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-    padding: 0 0 0 10px;
-    flex-direction: column;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  padding: 0 0 0 10px;
+  flex-direction: column;
 }
+
 .card-footer .form-group.row.display-per-page {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-    width: 100%;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  width: 100%;
+  align-items: center;
 }
 </style>
-
