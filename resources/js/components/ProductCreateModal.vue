@@ -161,7 +161,7 @@
             </div>
           </div>
 
-          <!-- Conditional Fields Section -->
+          <!-- Conditional Fields Section for Products -->
           <div class="form-card" v-if="form.itemType === 'product'">
             <div class="card-header">
               <h5 class="section-title">
@@ -205,6 +205,30 @@
                       class="form-control" :class="{ 'is-invalid': form.errors.has('alertQuantity') }"
                       name="alertQuantity" :placeholder="$t('Enter alert quantity')" />
                     <has-error :form="form" field="alertQuantity" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Conditional Fields Section for Services -->
+          <div class="form-card" v-if="form.itemType === 'service'">
+            <div class="card-header">
+              <h5 class="section-title">
+                <i class="fas fa-cogs mr-2"></i>
+                {{ $t("Service Information") }}
+              </h5>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-form-6">
+                  <div class="form-group">
+                    <label for="servicePurchasePrice">{{ $t("Service Purchase Price") }} <span
+                        class="required">*</span></label>
+                    <input id="servicePurchasePrice" v-model="form.servicePurchasePrice" type="number" step="any"
+                      min="0" class="form-control" :class="{ 'is-invalid': form.errors.has('servicePurchasePrice') }"
+                      name="servicePurchasePrice" :placeholder="$t('Enter service purchase price')" />
+                    <has-error :form="form" field="servicePurchasePrice" />
                   </div>
                 </div>
               </div>
@@ -773,13 +797,24 @@ export default {
         }
       }
 
+      // For services, ensure isOpeningStock is false and clear product-specific fields
+      if (this.form.itemType === 'service') {
+        this.form.isOpeningStock = false;
+        this.form.openingStockCount = "";
+        this.form.openingStockUnitPrice = "";
+        this.form.purchasePrice = "";
+      }
+
       // Validate required fields based on item type
-      if (this.form.itemType === 'service' && !this.form.servicePurchasePrice) {
-        toast.fire({
-          type: "error",
-          title: this.$t("Service Purchase Price is required for services")
-        });
-        return;
+      if (this.form.itemType === 'service') {
+        const servicePurchasePrice = parseFloat(this.form.servicePurchasePrice) || 0;
+        if (!this.form.servicePurchasePrice || servicePurchasePrice <= 0) {
+          toast.fire({
+            type: "error",
+            title: this.$t("Service Purchase Price is required for services")
+          });
+          return;
+        }
       }
 
       // Debug: Log validation state
@@ -814,9 +849,11 @@ export default {
 
       // Debug: Log form data being sent
       console.log("=== FORM SUBMISSION DEBUG ===");
+      console.log("Item Type:", this.form.itemType);
       console.log("Form data being sent:", this.form.data());
       console.log("Purchase Price (openingStockUnitPrice):", this.form.openingStockUnitPrice);
       console.log("Purchase Price (purchasePrice):", this.form.purchasePrice);
+      console.log("Service Purchase Price:", this.form.servicePurchasePrice);
       console.log("Is Opening Stock (isOpeningStock):", this.form.isOpeningStock);
       console.log("Opening Stock Count:", this.form.openingStockCount);
       console.log("Account routing settings:", this.accountRoutingSettings);
