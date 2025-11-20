@@ -41,7 +41,7 @@
                   <div v-if="currentStep === 1" class="wizard-step">
                     <div class="form-group">
                       <label class="form-label">{{ $t('country') }} <span class="text-danger">*</span></label>
-                      <select ref="countrySelect" v-model="form.country"
+                      <select ref="countrySelect" id="country" name="country" v-model="form.country"
                         class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary country-select"
                         :class="{ 'is-invalid': errors.country }" @change="onCountryChange">
                         <option value="">{{ $t('select_country') }}</option>
@@ -58,7 +58,7 @@
                   <div v-if="currentStep === 2" class="wizard-step">
                     <div class="form-group mb-4">
                       <label class="form-label">{{ $t('company_name') }} <span class="text-danger">*</span></label>
-                      <input v-model="form.company_name" type="text"
+                      <input id="company_name" name="company_name" v-model="form.company_name" type="text"
                         class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary"
                         :class="{ 'is-invalid': errors.company_name }" :placeholder="$t('enter_company_name')"
                         required />
@@ -133,7 +133,7 @@
                         {{ $t('tax_number') }}
                         <span class="text-muted">({{ $t('optional') }})</span>
                       </label>
-                      <input v-model="form.tax_number" type="text"
+                      <input id="tax_number" name="tax_number" v-model="form.tax_number" type="text"
                         class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary"
                         :class="{ 'is-invalid': errors.tax_number || taxNumberInvalid }"
                         :placeholder="getTaxNumberPlaceholder()" @input="validateTaxNumber" @blur="validateTaxNumber" />
@@ -152,7 +152,7 @@
                     <div class="form-group mb-4">
                       <label class="form-label">{{ $t('Main Eamil for the company') }} <span
                           class="text-danger">*</span></label>
-                      <input v-model="form.email_address" type="email"
+                      <input id="email_address" name="email_address" v-model="form.email_address" type="email"
                         class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary"
                         :class="{ 'is-invalid': errors.email_address }" :placeholder="$t('enter_email_address')"
                         required />
@@ -170,7 +170,7 @@
                         {{ $t('address') }}
                         <span class="text-muted">({{ $t('optional') }})</span>
                       </label>
-                      <textarea v-model="form.address"
+                      <textarea id="address" name="address" v-model="form.address"
                         class="form-control form-control-lg border-0 shadow-sm px-4 py-3 text-primary" rows="3"
                         :placeholder="$t('enter_address')" style="border-radius: 15px; resize: none;"></textarea>
                     </div>
@@ -180,7 +180,7 @@
                   <div v-if="currentStep === 4" class="wizard-step">
                     <div class="form-group mb-4">
                       <label class="form-label">{{ $t('default_currency') }} <span class="text-danger">*</span></label>
-                      <select v-model="form.default_currency"
+                      <select id="default_currency" name="default_currency" v-model="form.default_currency"
                         class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary"
                         :class="{ 'is-invalid': errors.default_currency }" required>
                         <option value="">{{ $t('select_currency') }}</option>
@@ -198,7 +198,7 @@
                     <div class="row">
                       <div class="col-md-6 mb-3">
                         <label class="form-label">{{ $t('invoice_prefix') }} <span class="text-danger">*</span></label>
-                        <input v-model="form.invoice_prefix" type="text"
+                        <input id="invoice_prefix" name="invoice_prefix" v-model="form.invoice_prefix" type="text"
                           class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary"
                           :class="{ 'is-invalid': errors.invoice_prefix }" placeholder="INV-" required />
                         <div v-if="errors.invoice_prefix" class="invalid-feedback d-block mt-2">{{ errors.invoice_prefix
@@ -207,7 +207,7 @@
 
                       <div class="col-md-6 mb-3">
                         <label class="form-label">{{ $t('purchase_prefix') }} <span class="text-danger">*</span></label>
-                        <input v-model="form.purchase_prefix" type="text"
+                        <input id="purchase_prefix" name="purchase_prefix" v-model="form.purchase_prefix" type="text"
                           class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary"
                           :class="{ 'is-invalid': errors.purchase_prefix }" placeholder="PUR-" required />
                         <div v-if="errors.purchase_prefix" class="invalid-feedback d-block mt-2">{{
@@ -217,7 +217,7 @@
                       <div class="col-md-6 mb-3">
                         <label class="form-label">{{ $t('quotation_prefix') }} <span
                             class="text-danger">*</span></label>
-                        <input v-model="form.quotation_prefix" type="text"
+                        <input id="quotation_prefix" name="quotation_prefix" v-model="form.quotation_prefix" type="text"
                           class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary"
                           :class="{ 'is-invalid': errors.quotation_prefix }" placeholder="QUO-" required />
                         <div v-if="errors.quotation_prefix" class="invalid-feedback d-block mt-2">{{
@@ -227,7 +227,8 @@
                       <div class="col-md-6 mb-3">
                         <label class="form-label">{{ $t('invoice_return_prefix') }} <span
                             class="text-danger">*</span></label>
-                        <input v-model="form.invoice_return_prefix" type="text"
+                        <input id="invoice_return_prefix" name="invoice_return_prefix"
+                          v-model="form.invoice_return_prefix" type="text"
                           class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary"
                           :class="{ 'is-invalid': errors.invoice_return_prefix }" placeholder="INVR-" required />
                         <div v-if="errors.invoice_return_prefix" class="invalid-feedback d-block mt-2">{{
@@ -238,7 +239,8 @@
                       <div class="col-md-6 mb-3">
                         <label class="form-label">{{ $t('purchase_return_prefix') }} <span
                             class="text-danger">*</span></label>
-                        <input v-model="form.purchase_return_prefix" type="text"
+                        <input id="purchase_return_prefix" name="purchase_return_prefix"
+                          v-model="form.purchase_return_prefix" type="text"
                           class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary"
                           :class="{ 'is-invalid': errors.purchase_return_prefix }" placeholder="PURR-" required />
                         <div v-if="errors.purchase_return_prefix" class="invalid-feedback d-block mt-2">{{
@@ -257,7 +259,7 @@
                       <div class="row g-3">
                         <div class="col-md-4 mb-3">
                           <div class="system-type-card" :class="{ active: form.system_type === 'accounting' }"
-                            @click="form.system_type = 'accounting'">
+                            @click.stop.prevent="selectSystemType('accounting')">
                             <div class="card-icon">
                               <i class="fas fa-calculator"></i>
                             </div>
@@ -268,7 +270,7 @@
 
                         <div class="col-md-4 mb-3">
                           <div class="system-type-card" :class="{ active: form.system_type === 'pos' }"
-                            @click="form.system_type = 'pos'">
+                            @click.stop.prevent="selectSystemType('pos')">
                             <div class="card-icon">
                               <i class="fas fa-cash-register"></i>
                             </div>
@@ -279,7 +281,7 @@
 
                         <div class="col-md-4 mb-3">
                           <div class="system-type-card" :class="{ active: form.system_type === 'both' }"
-                            @click="form.system_type = 'both'">
+                            @click.stop.prevent="selectSystemType('both')">
                             <div class="card-icon">
                               <i class="fas fa-store"></i>
                             </div>
@@ -289,7 +291,7 @@
                         </div>
                       </div>
 
-                      <input type="hidden" v-model="form.system_type" required />
+                      <input type="hidden" id="system_type" name="system_type" v-model="form.system_type" required />
                       <div v-if="errors.system_type" class="invalid-feedback d-block text-center mt-3">{{
                         errors.system_type }}</div>
                     </div>
@@ -591,10 +593,7 @@ export default {
     currentStep(newStep, oldStep) {
       // Destroy Select2 when leaving step 1
       if (oldStep === 1 && newStep !== 1) {
-        if (this.select2Instance) {
-          this.select2Instance.destroy()
-          this.select2Instance = null
-        }
+        this.destroySelect2()
       }
 
       // Initialize Select2 only when step 1 is shown
@@ -655,10 +654,7 @@ export default {
     }
 
     // Cleanup Select2
-    if (this.select2Instance) {
-      this.select2Instance.destroy()
-      this.select2Instance = null
-    }
+    this.destroySelect2()
   },
 
   methods: {
@@ -784,6 +780,38 @@ export default {
       // Set initial value if form.country is already set
       if (this.form.country) {
         $(this.$refs.countrySelect).val(this.form.country).trigger('change')
+      }
+    },
+
+    destroySelect2() {
+      if (this.select2Instance) {
+        try {
+          this.select2Instance.destroy()
+        } catch (e) {
+          // Ignore errors if already destroyed
+        }
+        this.select2Instance = null
+      }
+
+      // Also remove any Select2 DOM elements that might persist
+      if (window.jQuery) {
+        const $ = window.jQuery
+
+        // Remove Select2 container next to country select
+        if (this.$refs.countrySelect) {
+          const $select = $(this.$refs.countrySelect)
+          const $container = $select.next('.select2-container')
+          if ($container.length) {
+            $container.remove()
+          }
+        }
+
+        // Remove any orphaned Select2 dropdowns and containers within the wizard
+        const $wizard = $('.wizard-step')
+        if ($wizard.length) {
+          $wizard.find('.select2-container').remove()
+          $wizard.find('.select2-dropdown').remove()
+        }
       }
     },
 
@@ -1211,6 +1239,15 @@ export default {
     previousStep() {
       if (this.currentStep > 1) {
         this.currentStep--
+      }
+    },
+
+    selectSystemType(type) {
+      // Prevent any event bubbling that might trigger form submission
+      this.form.system_type = type
+      // Clear any errors when selecting
+      if (this.errors.system_type) {
+        delete this.errors.system_type
       }
     },
 

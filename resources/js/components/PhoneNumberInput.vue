@@ -17,6 +17,8 @@
         
         <!-- Phone Number Input -->
         <input
+          id="phone_number"
+          name="phone_number"
           v-model="phoneNumber"
           type="tel"
           class="phone-input"
@@ -32,6 +34,8 @@
       <div v-if="showCountryDropdown" class="country-dropdown" @click.stop>
         <div class="country-search">
           <input
+            id="country_search"
+            name="country_search"
             v-model="countrySearch"
             type="text"
             class="form-control"
