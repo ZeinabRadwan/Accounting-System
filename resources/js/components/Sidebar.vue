@@ -602,6 +602,8 @@
           </li>
 
           <!-- Cost Allocations -->
+          <!-- Hidden for now -->
+          <!--
           <li
             v-if="
               ($can('view_cost_centers') ||
@@ -646,6 +648,7 @@
               </li>
             </ul>
           </li>
+          -->
 
           <!-- القيود المحاسبية -->
           <li

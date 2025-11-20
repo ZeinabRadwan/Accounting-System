@@ -49,7 +49,8 @@
                 </router-link>
               </div>
             </div>
-            <div class="card-body">
+          </div>
+          <div class="card-body">
               <div class="invoice p-3 mb-3">
                 <div class="table-responsive table-custom">
                   <table class="table">
@@ -181,7 +182,7 @@
           <img :src="allData.image" class="rounded img-fluid" loading="lazy" />
         </div>
       </Modal>
-    </div>
+  </div>
 </template>
 
 <script>

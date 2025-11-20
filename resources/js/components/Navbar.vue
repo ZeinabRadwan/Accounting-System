@@ -470,11 +470,14 @@ export default {
       }
       
       // Cost Allocations
+      // Hidden for now
+      /*
       if ((this.$can('view_cost_centers') || this.$can('create_cost_center')) && 
           (this.$canAccessModule('accounting') || this.$canAccessModule('both'))) {
         addRoute('cost-allocations.index', 'Allocation Rules', 'fas fa-list');
         addRoute('cost-allocations.create', 'Create Rule', 'fas fa-plus');
       }
+      */
       
       // Journal Entries
       if ((this.$can('journal-entry-list') || this.$can('journal-entry-create')) && 
