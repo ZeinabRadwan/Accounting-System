@@ -368,16 +368,27 @@ class BusinessTransactionJournalService
 
         try {
             // Check if journal entry already exists for this purchase
-            $existingJournalEntry = JournalEntry::where('reference', $purchase->purchase_no)
-                ->where('source_type', Purchase::class)
+            // First check by source_type and source_id (most specific)
+            $existingJournalEntry = JournalEntry::where('source_type', Purchase::class)
                 ->where('source_id', $purchase->id)
                 ->first();
 
             if ($existingJournalEntry) {
-                Log::info("Journal entry already exists for purchase {$purchase->purchase_no} with ID: {$existingJournalEntry->id}");
+                Log::info("Journal entry already exists for purchase {$purchase->purchase_no} (ID: {$purchase->id}) with journal entry ID: {$existingJournalEntry->id}");
                 DB::rollBack();
 
                 return $existingJournalEntry;
+            }
+
+            // Also check if reference already exists (to avoid unique constraint violation)
+            // This could happen if a journal entry was created manually with the same reference
+            // If it exists, we'll use a unique reference by appending the purchase ID
+            $reference = $purchase->purchase_no;
+            $existingByReference = JournalEntry::where('reference', $reference)->first();
+
+            if ($existingByReference) {
+                Log::warning("Journal entry with reference '{$reference}' already exists (ID: {$existingByReference->id}). Using unique reference: {$reference}-PUR-{$purchase->id}");
+                $reference = $purchase->purchase_no.'-PUR-'.$purchase->id;
             }
 
             // Validate supplier has chart of account
@@ -545,7 +556,7 @@ class BusinessTransactionJournalService
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $purchase->purchase_date,
-                'reference' => $purchase->purchase_no,
+                'reference' => $reference,
                 'description' => __('journal.purchase', ['number' => $purchase->purchase_no]),
                 'total_debit' => $actualTotalDebit,
                 'total_credit' => $actualTotalCredit,
