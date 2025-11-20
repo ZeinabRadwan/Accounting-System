@@ -12,8 +12,8 @@
             <!-- Header -->
             <div class="text-center mb-4">
               <router-link to="/">
-                <img v-if="appInfo" :src="appInfo.blackLogo" :alt="appInfo.companyName"
-                  class="lg-logo img-fluid mb-3" style="max-width: 200px;" />
+                <img v-if="appInfo" :src="appInfo.blackLogo" :alt="appInfo.companyName" class="lg-logo img-fluid mb-3"
+                  style="max-width: 200px;" />
               </router-link>
               <h3 class="text-primary mb-2">{{ $t('setup_wizard_title') }}</h3>
               <p class="text-muted">{{ $t('setup_wizard_subtitle') }}</p>
@@ -22,12 +22,8 @@
             <!-- Progress Steps -->
             <div class="wizard-progress mb-4">
               <div class="progress-container">
-                <div 
-                  v-for="(step, index) in steps" 
-                  :key="index"
-                  class="progress-item"
-                  :class="{ active: currentStep === (index + 1), completed: currentStep > (index + 1) }"
-                >
+                <div v-for="(step, index) in steps" :key="index" class="progress-item"
+                  :class="{ active: currentStep === (index + 1), completed: currentStep > (index + 1) }">
                   <div class="step-indicator">
                     <span class="step-number" v-if="currentStep <= (index + 1)">{{ index + 1 }}</span>
                     <i v-if="currentStep > (index + 1)" class="fas fa-check step-check"></i>
@@ -45,36 +41,15 @@
                   <div v-if="currentStep === 1" class="wizard-step">
                     <div class="form-group">
                       <label class="form-label">{{ $t('country') }} <span class="text-danger">*</span></label>
-                      <v-select
-                        v-model="form.country"
-                        :options="countries"
-                        label="name"
-                        :reduce="option => option.code"
-                        :placeholder="$t('select_country')"
-                        :searchable="true"
-                        :clearable="false"
-                        class="country-select"
-                        :class="{ 'is-invalid': errors.country }"
-                        @input="onCountryChange"
-                      >
-                        <template #option="{ flag, name }">
-                          <div class="country-option">
-                            <span class="country-flag">{{ flag }}</span>
-                            <span class="country-name">{{ name }}</span>
-                          </div>
-                        </template>
-                        <template #selected-option="{ flag, name }">
-                          <div class="country-selected">
-                            <span class="country-flag">{{ flag }}</span>
-                            <span class="country-name">{{ name }}</span>
-                          </div>
-                        </template>
-                        <template #no-options>
-                          <div class="text-center text-muted p-2">
-                            {{ $t('No countries found') }}
-                          </div>
-                        </template>
-                      </v-select>
+                      <select ref="countrySelect" v-model="form.country"
+                        class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary country-select"
+                        :class="{ 'is-invalid': errors.country }" @change="onCountryChange">
+                        <option value="">{{ $t('select_country') }}</option>
+                        <option v-for="country in countries" :key="country.code" :value="country.code"
+                          :data-flag="country.flagImage">
+                          {{ country.name }}
+                        </option>
+                      </select>
                       <div v-if="errors.country" class="invalid-feedback d-block mt-2">{{ errors.country }}</div>
                     </div>
                   </div>
@@ -83,19 +58,18 @@
                   <div v-if="currentStep === 2" class="wizard-step">
                     <div class="form-group mb-4">
                       <label class="form-label">{{ $t('company_name') }} <span class="text-danger">*</span></label>
-                      <input 
-                        v-model="form.company_name" 
-                        type="text" 
-                        class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary" 
-                        :class="{ 'is-invalid': errors.company_name }"
-                        :placeholder="$t('enter_company_name')"
-                        required
-                      />
-                      <div v-if="errors.company_name" class="invalid-feedback d-block mt-2">{{ errors.company_name }}</div>
+                      <input v-model="form.company_name" type="text"
+                        class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary"
+                        :class="{ 'is-invalid': errors.company_name }" :placeholder="$t('enter_company_name')"
+                        required />
+                      <div v-if="errors.company_name" class="invalid-feedback d-block mt-2">{{ errors.company_name }}
+                      </div>
                     </div>
 
                     <div class="form-group mb-4">
-                      <label class="form-label">{{ $t('company_logo') || 'شعار الشركة' }} <span class="text-muted">({{ $t('optional') }})</span></label>
+                      <label class="form-label">{{ $t('company_logo') || 'شعار الشركة' }} <span class="text-muted">({{
+                        $t('optional')
+                      }})</span></label>
                       <div class="logo-upload-container">
                         <!-- Crop Area (shown when image is selected) -->
                         <div v-if="cropImageSrc" class="logo-crop-wrapper mb-3">
@@ -110,9 +84,10 @@
                               <i class="fas fa-check mr-1"></i> {{ $t('Crop & Save') }}
                             </button>
                           </div>
-                          <small class="d-block text-muted mt-2 text-center">{{ $t('Adjust the selection to crop your logo. Recommended size: 300x300 pixels') }}</small>
+                          <small class="d-block text-muted mt-2 text-center">{{ $t('Adjust the selection to crop')
+                          }}</small>
                         </div>
-                        
+
                         <!-- Preview (shown after crop) -->
                         <div v-else-if="logoPreview" class="logo-preview mb-3">
                           <div class="logo-preview-wrapper">
@@ -123,28 +98,21 @@
                               </button>
                             </div>
                           </div>
-                          <small class="d-block text-muted mt-2 text-center">{{ $t('Logo size') }}: 300x300 {{ $t('pixels') }}</small>
+                          <small class="d-block text-muted mt-2 text-center">{{ $t('Logo size') }}: 300x300 {{
+                            $t('pixels') }}</small>
                         </div>
-                        
+
                         <!-- Upload Area (hidden when crop is active) -->
                         <div v-if="!cropImageSrc" class="file-upload-area" :class="{ 'has-logo': logoPreview }">
-                          <input 
-                            type="file" 
-                            ref="logoInput"
-                            @change="onLogoChange"
-                            accept="image/jpeg,image/png,image/gif"
-                            class="d-none"
-                            id="company-logo-upload"
-                          />
-                          <label 
-                            for="company-logo-upload" 
-                            class="file-upload-label"
-                          >
+                          <input type="file" ref="logoInput" @change="onLogoChange"
+                            accept="image/jpeg,image/png,image/gif" class="d-none" id="company-logo-upload" />
+                          <label for="company-logo-upload" class="file-upload-label">
                             <div class="upload-icon-wrapper">
                               <i class="fas fa-cloud-upload-alt"></i>
                             </div>
                             <div class="upload-text">
-                              <span class="upload-title">{{ logoPreview ? $t('Change Logo') : $t('Upload Logo') }}</span>
+                              <span class="upload-title">{{ logoPreview ? $t('Change Logo') : $t('Upload Logo')
+                              }}</span>
                               <span class="upload-subtitle">{{ $t('Click to upload or drag and drop') }}</span>
                             </div>
                           </label>
@@ -156,23 +124,19 @@
                           </div>
                         </div>
                       </div>
-                      <div v-if="errors.company_logo" class="invalid-feedback d-block mt-2">{{ errors.company_logo }}</div>
+                      <div v-if="errors.company_logo" class="invalid-feedback d-block mt-2">{{ errors.company_logo }}
+                      </div>
                     </div>
 
                     <div class="form-group mb-4">
                       <label class="form-label">
-                        {{ $t('tax_number') }} 
+                        {{ $t('tax_number') }}
                         <span class="text-muted">({{ $t('optional') }})</span>
                       </label>
-                      <input 
-                        v-model="form.tax_number" 
-                        type="text" 
-                        class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary" 
+                      <input v-model="form.tax_number" type="text"
+                        class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary"
                         :class="{ 'is-invalid': errors.tax_number || taxNumberInvalid }"
-                        :placeholder="getTaxNumberPlaceholder()"
-                        @input="validateTaxNumber"
-                        @blur="validateTaxNumber"
-                      />
+                        :placeholder="getTaxNumberPlaceholder()" @input="validateTaxNumber" @blur="validateTaxNumber" />
                       <div v-if="errors.tax_number" class="invalid-feedback d-block mt-2">{{ errors.tax_number }}</div>
                       <div v-else-if="taxNumberInvalid && form.tax_number" class="invalid-feedback d-block mt-2">
                         {{ taxNumberErrorMessage }}
@@ -180,47 +144,35 @@
                       <small v-if="form.country && taxNumberFormat" class="form-text text-muted mt-1">
                         {{ $t('Format') }}: {{ taxNumberFormat }}
                       </small>
-                    </div> 
+                    </div>
                   </div>
 
                   <!-- Step 3: Contact Details -->
                   <div v-if="currentStep === 3" class="wizard-step">
                     <div class="form-group mb-4">
-                      <label class="form-label">{{ $t('Main Eamil for the company') }} <span class="text-danger">*</span></label>
-                      <input 
-                        v-model="form.email_address" 
-                        type="email" 
-                        class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary" 
-                        :class="{ 'is-invalid': errors.email_address }"
-                        :placeholder="$t('enter_email_address')"
-                        required
-                      />
-                      <div v-if="errors.email_address" class="invalid-feedback d-block mt-2">{{ errors.email_address }}</div>
+                      <label class="form-label">{{ $t('Main Eamil for the company') }} <span
+                          class="text-danger">*</span></label>
+                      <input v-model="form.email_address" type="email"
+                        class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary"
+                        :class="{ 'is-invalid': errors.email_address }" :placeholder="$t('enter_email_address')"
+                        required />
+                      <div v-if="errors.email_address" class="invalid-feedback d-block mt-2">{{ errors.email_address }}
+                      </div>
                     </div>
 
                     <div class="form-group mb-4">
-                      <PhoneNumberInput
-                        v-model="form.phone_number"
-                        :label="$t('phone_number')"
-                        :required="true"
-                        :country="form.country"
-                        :default-country="form.country || 'SA'"
-                        @validated="onPhoneValidated"
-                      />
+                      <PhoneNumberInput v-model="form.phone_number" :label="$t('phone_number')" :required="true"
+                        :country="form.country" :default-country="form.country || 'SA'" @validated="onPhoneValidated" />
                     </div>
 
                     <div class="form-group">
                       <label class="form-label">
-                        {{ $t('address') }} 
+                        {{ $t('address') }}
                         <span class="text-muted">({{ $t('optional') }})</span>
                       </label>
-                      <textarea 
-                        v-model="form.address" 
-                        class="form-control form-control-lg border-0 shadow-sm px-4 py-3 text-primary" 
-                        rows="3"
-                        :placeholder="$t('enter_address')"
-                        style="border-radius: 15px; resize: none;"
-                      ></textarea>
+                      <textarea v-model="form.address"
+                        class="form-control form-control-lg border-0 shadow-sm px-4 py-3 text-primary" rows="3"
+                        :placeholder="$t('enter_address')" style="border-radius: 15px; resize: none;"></textarea>
                     </div>
                   </div>
 
@@ -228,18 +180,16 @@
                   <div v-if="currentStep === 4" class="wizard-step">
                     <div class="form-group mb-4">
                       <label class="form-label">{{ $t('default_currency') }} <span class="text-danger">*</span></label>
-                      <select 
-                        v-model="form.default_currency" 
-                        class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary" 
-                        :class="{ 'is-invalid': errors.default_currency }" 
-                        required
-                      >
+                      <select v-model="form.default_currency"
+                        class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary"
+                        :class="{ 'is-invalid': errors.default_currency }" required>
                         <option value="">{{ $t('select_currency') }}</option>
                         <option v-for="currency in currencies" :key="currency.id" :value="currency.id">
-                          {{ currency.code }} - {{ currency.name }}  
+                          {{ currency.code }} - {{ currency.name }}
                         </option>
                       </select>
-                      <div v-if="errors.default_currency" class="invalid-feedback d-block mt-2">{{ errors.default_currency }}</div>
+                      <div v-if="errors.default_currency" class="invalid-feedback d-block mt-2">{{
+                        errors.default_currency }}</div>
                     </div>
 
                     <h6 class="mb-3 mt-4">{{ $t('document_prefixes') }}</h6>
@@ -248,67 +198,52 @@
                     <div class="row">
                       <div class="col-md-6 mb-3">
                         <label class="form-label">{{ $t('invoice_prefix') }} <span class="text-danger">*</span></label>
-                        <input 
-                          v-model="form.invoice_prefix" 
-                          type="text" 
-                          class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary" 
-                          :class="{ 'is-invalid': errors.invoice_prefix }"
-                          placeholder="INV-"
-                          required
-                        />
-                        <div v-if="errors.invoice_prefix" class="invalid-feedback d-block mt-2">{{ errors.invoice_prefix }}</div>
+                        <input v-model="form.invoice_prefix" type="text"
+                          class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary"
+                          :class="{ 'is-invalid': errors.invoice_prefix }" placeholder="INV-" required />
+                        <div v-if="errors.invoice_prefix" class="invalid-feedback d-block mt-2">{{ errors.invoice_prefix
+                        }}</div>
                       </div>
 
                       <div class="col-md-6 mb-3">
                         <label class="form-label">{{ $t('purchase_prefix') }} <span class="text-danger">*</span></label>
-                        <input 
-                          v-model="form.purchase_prefix" 
-                          type="text" 
-                          class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary" 
-                          :class="{ 'is-invalid': errors.purchase_prefix }"
-                          placeholder="PUR-"
-                          required
-                        />
-                        <div v-if="errors.purchase_prefix" class="invalid-feedback d-block mt-2">{{ errors.purchase_prefix }}</div>
+                        <input v-model="form.purchase_prefix" type="text"
+                          class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary"
+                          :class="{ 'is-invalid': errors.purchase_prefix }" placeholder="PUR-" required />
+                        <div v-if="errors.purchase_prefix" class="invalid-feedback d-block mt-2">{{
+                          errors.purchase_prefix }}</div>
                       </div>
 
                       <div class="col-md-6 mb-3">
-                        <label class="form-label">{{ $t('quotation_prefix') }} <span class="text-danger">*</span></label>
-                        <input 
-                          v-model="form.quotation_prefix" 
-                          type="text" 
-                          class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary" 
-                          :class="{ 'is-invalid': errors.quotation_prefix }"
-                          placeholder="QUO-"
-                          required
-                        />
-                        <div v-if="errors.quotation_prefix" class="invalid-feedback d-block mt-2">{{ errors.quotation_prefix }}</div>
+                        <label class="form-label">{{ $t('quotation_prefix') }} <span
+                            class="text-danger">*</span></label>
+                        <input v-model="form.quotation_prefix" type="text"
+                          class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary"
+                          :class="{ 'is-invalid': errors.quotation_prefix }" placeholder="QUO-" required />
+                        <div v-if="errors.quotation_prefix" class="invalid-feedback d-block mt-2">{{
+                          errors.quotation_prefix }}</div>
                       </div>
 
                       <div class="col-md-6 mb-3">
-                        <label class="form-label">{{ $t('invoice_return_prefix') }} <span class="text-danger">*</span></label>
-                        <input 
-                          v-model="form.invoice_return_prefix" 
-                          type="text" 
-                          class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary" 
-                          :class="{ 'is-invalid': errors.invoice_return_prefix }"
-                          placeholder="INVR-"
-                          required
-                        />
-                        <div v-if="errors.invoice_return_prefix" class="invalid-feedback d-block mt-2">{{ errors.invoice_return_prefix }}</div>
+                        <label class="form-label">{{ $t('invoice_return_prefix') }} <span
+                            class="text-danger">*</span></label>
+                        <input v-model="form.invoice_return_prefix" type="text"
+                          class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary"
+                          :class="{ 'is-invalid': errors.invoice_return_prefix }" placeholder="INVR-" required />
+                        <div v-if="errors.invoice_return_prefix" class="invalid-feedback d-block mt-2">{{
+                          errors.invoice_return_prefix }}
+                        </div>
                       </div>
 
                       <div class="col-md-6 mb-3">
-                        <label class="form-label">{{ $t('purchase_return_prefix') }} <span class="text-danger">*</span></label>
-                        <input 
-                          v-model="form.purchase_return_prefix" 
-                          type="text" 
-                          class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary" 
-                          :class="{ 'is-invalid': errors.purchase_return_prefix }"
-                          placeholder="PURR-"
-                          required
-                        />
-                        <div v-if="errors.purchase_return_prefix" class="invalid-feedback d-block mt-2">{{ errors.purchase_return_prefix }}</div>
+                        <label class="form-label">{{ $t('purchase_return_prefix') }} <span
+                            class="text-danger">*</span></label>
+                        <input v-model="form.purchase_return_prefix" type="text"
+                          class="form-control form-control-lg border-0 shadow-sm rounded-pill px-4 text-primary"
+                          :class="{ 'is-invalid': errors.purchase_return_prefix }" placeholder="PURR-" required />
+                        <div v-if="errors.purchase_return_prefix" class="invalid-feedback d-block mt-2">{{
+                          errors.purchase_return_prefix
+                        }}</div>
                       </div>
                     </div>
                   </div>
@@ -318,14 +253,11 @@
                     <div class="system-type-selection">
                       <h5 class="mb-3">{{ $t('what_system_type') }}</h5>
                       <p class="text-muted mb-4">{{ $t('select_system_type_description') }}</p>
-                      
+
                       <div class="row g-3">
                         <div class="col-md-4 mb-3">
-                          <div 
-                            class="system-type-card" 
-                            :class="{ active: form.system_type === 'accounting' }"
-                            @click="form.system_type = 'accounting'"
-                          >
+                          <div class="system-type-card" :class="{ active: form.system_type === 'accounting' }"
+                            @click="form.system_type = 'accounting'">
                             <div class="card-icon">
                               <i class="fas fa-calculator"></i>
                             </div>
@@ -335,11 +267,8 @@
                         </div>
 
                         <div class="col-md-4 mb-3">
-                          <div 
-                            class="system-type-card" 
-                            :class="{ active: form.system_type === 'pos' }"
-                            @click="form.system_type = 'pos'"
-                          >
+                          <div class="system-type-card" :class="{ active: form.system_type === 'pos' }"
+                            @click="form.system_type = 'pos'">
                             <div class="card-icon">
                               <i class="fas fa-cash-register"></i>
                             </div>
@@ -349,11 +278,8 @@
                         </div>
 
                         <div class="col-md-4 mb-3">
-                          <div 
-                            class="system-type-card" 
-                            :class="{ active: form.system_type === 'both' }"
-                            @click="form.system_type = 'both'"
-                          >
+                          <div class="system-type-card" :class="{ active: form.system_type === 'both' }"
+                            @click="form.system_type = 'both'">
                             <div class="card-icon">
                               <i class="fas fa-store"></i>
                             </div>
@@ -364,7 +290,8 @@
                       </div>
 
                       <input type="hidden" v-model="form.system_type" required />
-                      <div v-if="errors.system_type" class="invalid-feedback d-block text-center mt-3">{{ errors.system_type }}</div>
+                      <div v-if="errors.system_type" class="invalid-feedback d-block text-center mt-3">{{
+                        errors.system_type }}</div>
                     </div>
                   </div>
                 </form>
@@ -373,29 +300,22 @@
               <!-- Footer Actions -->
               <div class="card-footer bg-white border-0 px-4 py-3">
                 <div class="d-flex justify-content-between">
-                  <button 
-                    type="button" 
-                    class="btn btn-outline-secondary btn-lg rounded-pill px-4" 
-                    @click="previousStep"
-                    :disabled="currentStep === 1 || loading"
-                    v-if="currentStep > 1"
-                  >
+                  <button type="button" class="btn btn-outline-secondary btn-lg rounded-pill px-4" @click="previousStep"
+                    :disabled="currentStep === 1 || loading" v-if="currentStep > 1">
                     <i :class="['fas', isRTL ? 'fa-arrow-right' : 'fa-arrow-left', isRTL ? 'ml-2' : 'mr-2']"></i>
                     {{ $t('previous') }}
                   </button>
                   <div v-else></div>
-                  
-                  <button 
-                    type="button" 
-                    class="btn btn-primary btn-lg rounded-pill px-4 shadow-sm" 
-                    @click="currentStep === totalSteps ? submitForm() : nextStep()"
-                    :disabled="loading"
-                  >
-                    <span v-if="loading" class="spinner-border spinner-border-sm" :class="isRTL ? 'ml-2' : 'mr-2'"></span>
+
+                  <button type="button" class="btn btn-primary btn-lg rounded-pill px-4 shadow-sm"
+                    @click="currentStep === totalSteps ? submitForm() : nextStep()" :disabled="loading">
+                    <span v-if="loading" class="spinner-border spinner-border-sm"
+                      :class="isRTL ? 'ml-2' : 'mr-2'"></span>
                     <template v-else>
                       {{ currentStep === totalSteps ? $t('complete_setup') : $t('next') }}
                       <i v-if="currentStep === totalSteps" class="fas fa-check" :class="isRTL ? 'mr-2' : 'ml-2'"></i>
-                      <i v-else :class="['fas', isRTL ? 'fa-arrow-left' : 'fa-arrow-right', isRTL ? 'mr-2' : 'ml-2']"></i>
+                      <i v-else
+                        :class="['fas', isRTL ? 'fa-arrow-left' : 'fa-arrow-right', isRTL ? 'mr-2' : 'ml-2']"></i>
                     </template>
                   </button>
                 </div>
@@ -412,12 +332,15 @@
 import Form from 'vform'
 import axios from 'axios'
 import PhoneNumberInput from '../components/PhoneNumberInput.vue'
+import RTLMixin from '~/mixins/RTLMixin'
 
 export default {
   name: 'TenantInitialization',
   layout: 'basic',
   middleware: [],
-  
+
+  mixins: [RTLMixin],
+
   components: {
     PhoneNumberInput
   },
@@ -435,75 +358,76 @@ export default {
       cropImageSrc: null,
       cropper: null,
       countriesData: [
-        { code: 'SA', nameKey: 'Saudi Arabia', flag: '🇸🇦' },
-        { code: 'AE', nameKey: 'United Arab Emirates', flag: '🇦🇪' },
-        { code: 'EG', nameKey: 'Egypt', flag: '🇪🇬' },
-        { code: 'JO', nameKey: 'Jordan', flag: '🇯🇴' },
-        { code: 'LB', nameKey: 'Lebanon', flag: '🇱🇧' },
-        { code: 'MA', nameKey: 'Morocco', flag: '🇲🇦' },
-        { code: 'TN', nameKey: 'Tunisia', flag: '🇹🇳' },
-        { code: 'DZ', nameKey: 'Algeria', flag: '🇩🇿' },
-        { code: 'KW', nameKey: 'Kuwait', flag: '🇰🇼' },
-        { code: 'QA', nameKey: 'Qatar', flag: '🇶🇦' },
-        { code: 'BH', nameKey: 'Bahrain', flag: '🇧🇭' },
-        { code: 'OM', nameKey: 'Oman', flag: '🇴🇲' },
-        { code: 'YE', nameKey: 'Yemen', flag: '🇾🇪' },
-        { code: 'IQ', nameKey: 'Iraq', flag: '🇮🇶' },
-        { code: 'US', nameKey: 'United States', flag: '🇺🇸' },
-        { code: 'GB', nameKey: 'United Kingdom', flag: '🇬🇧' },
-        { code: 'CA', nameKey: 'Canada', flag: '🇨🇦' },
-        { code: 'AU', nameKey: 'Australia', flag: '🇦🇺' },
-        { code: 'DE', nameKey: 'Germany', flag: '🇩🇪' },
-        { code: 'FR', nameKey: 'France', flag: '🇫🇷' },
-        { code: 'ES', nameKey: 'Spain', flag: '🇪🇸' },
-        { code: 'IT', nameKey: 'Italy', flag: '🇮🇹' },
-        { code: 'NL', nameKey: 'Netherlands', flag: '🇳🇱' },
-        { code: 'BE', nameKey: 'Belgium', flag: '🇧🇪' },
-        { code: 'CH', nameKey: 'Switzerland', flag: '🇨🇭' },
-        { code: 'AT', nameKey: 'Austria', flag: '🇦🇹' },
-        { code: 'SE', nameKey: 'Sweden', flag: '🇸🇪' },
-        { code: 'NO', nameKey: 'Norway', flag: '🇳🇴' },
-        { code: 'DK', nameKey: 'Denmark', flag: '🇩🇰' },
-        { code: 'FI', nameKey: 'Finland', flag: '🇫🇮' },
-        { code: 'PL', nameKey: 'Poland', flag: '🇵🇱' },
-        { code: 'IE', nameKey: 'Ireland', flag: '🇮🇪' },
-        { code: 'PT', nameKey: 'Portugal', flag: '🇵🇹' },
-        { code: 'GR', nameKey: 'Greece', flag: '🇬🇷' },
-        { code: 'LU', nameKey: 'Luxembourg', flag: '🇱🇺' },
-        { code: 'TR', nameKey: 'Turkey', flag: '🇹🇷' },
-        { code: 'IN', nameKey: 'India', flag: '🇮🇳' },
-        { code: 'CN', nameKey: 'China', flag: '🇨🇳' },
-        { code: 'JP', nameKey: 'Japan', flag: '🇯🇵' },
-        { code: 'KR', nameKey: 'South Korea', flag: '🇰🇷' },
-        { code: 'BR', nameKey: 'Brazil', flag: '🇧🇷' },
-        { code: 'MX', nameKey: 'Mexico', flag: '🇲🇽' },
-        { code: 'AR', nameKey: 'Argentina', flag: '🇦🇷' },
-        { code: 'ZA', nameKey: 'South Africa', flag: '🇿🇦' },
-        { code: 'NG', nameKey: 'Nigeria', flag: '🇳🇬' },
-        { code: 'KE', nameKey: 'Kenya', flag: '🇰🇪' },
-        { code: 'PK', nameKey: 'Pakistan', flag: '🇵🇰' },
-        { code: 'BD', nameKey: 'Bangladesh', flag: '🇧🇩' },
-        { code: 'ID', nameKey: 'Indonesia', flag: '🇮🇩' },
-        { code: 'PH', nameKey: 'Philippines', flag: '🇵🇭' },
-        { code: 'VN', nameKey: 'Vietnam', flag: '🇻🇳' },
-        { code: 'TH', nameKey: 'Thailand', flag: '🇹🇭' },
-        { code: 'MY', nameKey: 'Malaysia', flag: '🇲🇾' },
-        { code: 'SG', nameKey: 'Singapore', flag: '🇸🇬' },
-        { code: 'NZ', nameKey: 'New Zealand', flag: '🇳🇿' },
-        { code: 'RU', nameKey: 'Russia', flag: '🇷🇺' },
-        { code: 'UA', nameKey: 'Ukraine', flag: '🇺🇦' },
-        { code: 'CZ', nameKey: 'Czech Republic', flag: '🇨🇿' },
-        { code: 'HU', nameKey: 'Hungary', flag: '🇭🇺' },
-        { code: 'RO', nameKey: 'Romania', flag: '🇷🇴' },
-        { code: 'BG', nameKey: 'Bulgaria', flag: '🇧🇬' },
-        { code: 'HR', nameKey: 'Croatia', flag: '🇭🇷' },
-        { code: 'SI', nameKey: 'Slovenia', flag: '🇸🇮' },
-        { code: 'SK', nameKey: 'Slovakia', flag: '🇸🇰' },
-        { code: 'EE', nameKey: 'Estonia', flag: '🇪🇪' },
-        { code: 'LV', nameKey: 'Latvia', flag: '🇱🇻' },
-        { code: 'LT', nameKey: 'Lithuania', flag: '🇱🇹' },
-        { code: 'IS', nameKey: 'Iceland', flag: '🇮🇸' },
+        { code: 'SA', nameKey: 'Saudi Arabia', flag: '🇸🇦', flagImage: 'https://flagcdn.com/w40/sa.png' },
+        { code: 'AE', nameKey: 'United Arab Emirates', flag: '🇦🇪', flagImage: 'https://flagcdn.com/w40/ae.png' },
+        { code: 'EG', nameKey: 'Egypt', flag: '🇪🇬', flagImage: 'https://flagcdn.com/w40/eg.png' },
+        { code: 'JO', nameKey: 'Jordan', flag: '🇯🇴', flagImage: 'https://flagcdn.com/w40/jo.png' },
+        { code: 'LB', nameKey: 'Lebanon', flag: '🇱🇧', flagImage: 'https://flagcdn.com/w40/lb.png' },
+        { code: 'MA', nameKey: 'Morocco', flag: '🇲🇦', flagImage: 'https://flagcdn.com/w40/ma.png' },
+        { code: 'TN', nameKey: 'Tunisia', flag: '🇹🇳', flagImage: 'https://flagcdn.com/w40/tn.png' },
+        { code: 'DZ', nameKey: 'Algeria', flag: '🇩🇿', flagImage: 'https://flagcdn.com/w40/dz.png' },
+        { code: 'KW', nameKey: 'Kuwait', flag: '🇰🇼', flagImage: 'https://flagcdn.com/w40/kw.png' },
+        { code: 'QA', nameKey: 'Qatar', flag: '🇶🇦', flagImage: 'https://flagcdn.com/w40/qa.png' },
+        { code: 'BH', nameKey: 'Bahrain', flag: '🇧🇭', flagImage: 'https://flagcdn.com/w40/bh.png' },
+        { code: 'OM', nameKey: 'Oman', flag: '🇴🇲', flagImage: 'https://flagcdn.com/w40/om.png' },
+        { code: 'YE', nameKey: 'Yemen', flag: '🇾🇪', flagImage: 'https://flagcdn.com/w40/ye.png' },
+        { code: 'IQ', nameKey: 'Iraq', flag: '🇮🇶', flagImage: 'https://flagcdn.com/w40/iq.png' },
+        { code: 'US', nameKey: 'United States', flag: '🇺🇸', flagImage: 'https://flagcdn.com/w40/us.png' },
+        { code: 'GB', nameKey: 'United Kingdom', flag: '🇬🇧', flagImage: 'https://flagcdn.com/w40/gb.png' },
+        { code: 'CA', nameKey: 'Canada', flag: '🇨🇦', flagImage: 'https://flagcdn.com/w40/ca.png' },
+        { code: 'AU', nameKey: 'Australia', flag: '🇦🇺', flagImage: 'https://flagcdn.com/w40/au.png' },
+        { code: 'DE', nameKey: 'Germany', flag: '🇩🇪', flagImage: 'https://flagcdn.com/w40/de.png' },
+        { code: 'FR', nameKey: 'France', flag: '🇫🇷', flagImage: 'https://flagcdn.com/w40/fr.png' },
+        { code: 'ES', nameKey: 'Spain', flag: '🇪🇸', flagImage: 'https://flagcdn.com/w40/es.png' },
+        { code: 'IT', nameKey: 'Italy', flag: '🇮🇹', flagImage: 'https://flagcdn.com/w40/it.png' },
+        { code: 'NL', nameKey: 'Netherlands', flag: '🇳🇱', flagImage: 'https://flagcdn.com/w40/nl.png' },
+        { code: 'BE', nameKey: 'Belgium', flag: '🇧🇪', flagImage: 'https://flagcdn.com/w40/be.png' },
+        { code: 'CH', nameKey: 'Switzerland', flag: '🇨🇭', flagImage: 'https://flagcdn.com/w40/ch.png' },
+        { code: 'AT', nameKey: 'Austria', flag: '🇦🇹', flagImage: 'https://flagcdn.com/w40/at.png' },
+        { code: 'SE', nameKey: 'Sweden', flag: '🇸🇪', flagImage: 'https://flagcdn.com/w40/se.png' },
+        { code: 'NO', nameKey: 'Norway', flag: '🇳🇴', flagImage: 'https://flagcdn.com/w40/no.png' },
+        { code: 'DK', nameKey: 'Denmark', flag: '🇩🇰', flagImage: 'https://flagcdn.com/w40/dk.png' },
+        { code: 'FI', nameKey: 'Finland', flag: '🇫🇮', flagImage: 'https://flagcdn.com/w40/fi.png' },
+        { code: 'PL', nameKey: 'Poland', flag: '🇵🇱', flagImage: 'https://flagcdn.com/w40/pl.png' },
+        { code: 'IE', nameKey: 'Ireland', flag: '🇮🇪', flagImage: 'https://flagcdn.com/w40/ie.png' },
+        { code: 'PT', nameKey: 'Portugal', flag: '🇵🇹', flagImage: 'https://flagcdn.com/w40/pt.png' },
+        { code: 'GR', nameKey: 'Greece', flag: '🇬🇷', flagImage: 'https://flagcdn.com/w40/gr.png' },
+        { code: 'LU', nameKey: 'Luxembourg', flag: '🇱🇺', flagImage: 'https://flagcdn.com/w40/lu.png' },
+        { code: 'TR', nameKey: 'Turkey', flag: '🇹🇷', flagImage: 'https://flagcdn.com/w40/tr.png' },
+        { code: 'IN', nameKey: 'India', flag: '🇮🇳', flagImage: 'https://flagcdn.com/w40/in.png' },
+        { code: 'CN', nameKey: 'China', flag: '🇨🇳', flagImage: 'https://flagcdn.com/w40/cn.png' },
+        { code: 'JP', nameKey: 'Japan', flag: '🇯🇵', flagImage: 'https://flagcdn.com/w40/jp.png' },
+        { code: 'KR', nameKey: 'South Korea', flag: '🇰🇷', flagImage: 'https://flagcdn.com/w40/kr.png' },
+        { code: 'BR', nameKey: 'Brazil', flag: '🇧🇷', flagImage: 'https://flagcdn.com/w40/br.png' },
+        { code: 'MX', nameKey: 'Mexico', flag: '🇲🇽', flagImage: 'https://flagcdn.com/w40/mx.png' },
+        { code: 'AR', nameKey: 'Argentina', flag: '🇦🇷', flagImage: 'https://flagcdn.com/w40/ar.png' },
+        { code: 'ZA', nameKey: 'South Africa', flag: '🇿🇦', flagImage: 'https://flagcdn.com/w40/za.png' },
+        { code: 'NG', nameKey: 'Nigeria', flag: '🇳🇬', flagImage: 'https://flagcdn.com/w40/ng.png' },
+        { code: 'KE', nameKey: 'Kenya', flag: '🇰🇪', flagImage: 'https://flagcdn.com/w40/ke.png' },
+        { code: 'PK', nameKey: 'Pakistan', flag: '🇵🇰', flagImage: 'https://flagcdn.com/w40/pk.png' },
+        { code: 'BD', nameKey: 'Bangladesh', flag: '🇧🇩', flagImage: 'https://flagcdn.com/w40/bd.png' },
+        { code: 'ID', nameKey: 'Indonesia', flag: '🇮🇩', flagImage: 'https://flagcdn.com/w40/id.png' },
+        { code: 'PH', nameKey: 'Philippines', flag: '🇵🇭', flagImage: 'https://flagcdn.com/w40/ph.png' },
+        { code: 'VN', nameKey: 'Vietnam', flag: '🇻🇳', flagImage: 'https://flagcdn.com/w40/vn.png' },
+        { code: 'TH', nameKey: 'Thailand', flag: '🇹🇭', flagImage: 'https://flagcdn.com/w40/th.png' },
+        { code: 'MY', nameKey: 'Malaysia', flag: '🇲🇾', flagImage: 'https://flagcdn.com/w40/my.png' },
+        { code: 'SG', nameKey: 'Singapore', flag: '🇸🇬', flagImage: 'https://flagcdn.com/w40/sg.png' },
+        { code: 'NZ', nameKey: 'New Zealand', flag: '🇳🇿', flagImage: 'https://flagcdn.com/w40/nz.png' },
+        { code: 'RU', nameKey: 'Russia', flag: '🇷🇺', flagImage: 'https://flagcdn.com/w40/ru.png' },
+        { code: 'UA', nameKey: 'Ukraine', flag: '🇺🇦', flagImage: 'https://flagcdn.com/w40/ua.png' },
+        { code: 'CZ', nameKey: 'Czech Republic', flag: '🇨🇿', flagImage: 'https://flagcdn.com/w40/cz.png' },
+        { code: 'HU', nameKey: 'Hungary', flag: '🇭🇺', flagImage: 'https://flagcdn.com/w40/hu.png' },
+        { code: 'RO', nameKey: 'Romania', flag: '🇷🇴', flagImage: 'https://flagcdn.com/w40/ro.png' },
+        { code: 'BG', nameKey: 'Bulgaria', flag: '🇧🇬', flagImage: 'https://flagcdn.com/w40/bg.png' },
+        { code: 'HR', nameKey: 'Croatia', flag: '🇭🇷', flagImage: 'https://flagcdn.com/w40/hr.png' },
+        { code: 'SI', nameKey: 'Slovenia', flag: '🇸🇮', flagImage: 'https://flagcdn.com/w40/si.png' },
+        { code: 'SK', nameKey: 'Slovakia', flag: '🇸🇰', flagImage: 'https://flagcdn.com/w40/sk.png' },
+        { code: 'EE', nameKey: 'Estonia', flag: '🇪🇪', flagImage: 'https://flagcdn.com/w40/ee.png' },
+        { code: 'LV', nameKey: 'Latvia', flag: '🇱🇻', flagImage: 'https://flagcdn.com/w40/lv.png' },
+        { code: 'LT', nameKey: 'Lithuania', flag: '🇱🇹', flagImage: 'https://flagcdn.com/w40/lt.png' },
+        { code: 'IS', nameKey: 'Iceland', flag: '🇮🇸', flagImage: 'https://flagcdn.com/w40/is.png' },
       ],
+      select2Instance: null,
       form: new Form({
         country: 'SA',
         company_name: '',
@@ -530,11 +454,6 @@ export default {
   },
 
   computed: {
-    // Check if current locale is RTL
-    isRTL() {
-      const rtlLanguages = ['ar', 'he', 'fa', 'ur', 'ps', 'sd', 'ku', 'yi']
-      return rtlLanguages.includes(this.$i18n.locale?.toLowerCase())
-    },
     // Make steps reactive to locale changes
     steps() {
       return [
@@ -549,7 +468,8 @@ export default {
     countries() {
       return this.countriesData.map(country => ({
         ...country,
-        name: this.$t(country.nameKey) || country.nameKey
+        name: this.$t(country.nameKey) || country.nameKey,
+        flagImage: country.flagImage
       }))
     },
     // Tax number validation rules by country
@@ -647,19 +567,33 @@ export default {
   watch: {
     'form.country'(newCountry, oldCountry) {
       if (newCountry !== oldCountry) {
+        // Sync Select2 value
+        if (this.select2Instance && this.$refs.countrySelect) {
+          const $ = window.jQuery
+          $(this.$refs.countrySelect).val(newCountry).trigger('change')
+        }
+
         // Update tax number format when country changes
         if (newCountry && this.taxNumberRules[newCountry]) {
           this.taxNumberFormat = this.taxNumberRules[newCountry].format
         } else {
           this.taxNumberFormat = ''
         }
-        
+
         // Re-validate tax number if it exists
         if (this.form.tax_number && this.form.tax_number.trim()) {
           this.$nextTick(() => {
             this.validateTaxNumber()
           })
         }
+      }
+    },
+    currentStep(newStep) {
+      // Reinitialize Select2 when step 1 is shown
+      if (newStep === 1) {
+        this.$nextTick(() => {
+          this.initSelect2()
+        })
       }
     }
   },
@@ -670,24 +604,32 @@ export default {
       return
     }
     this._mounted = true
-    
+
     // Load Cropper.js library
     await this.loadCropperJS()
-    
+
+    // Load Select2 if not already loaded
+    await this.loadSelect2()
+
     // Mark that we're on initialization page
     if (typeof sessionStorage !== 'undefined') {
       sessionStorage.setItem('on_initialization_page', 'true')
     }
-    
+
     await this.fetchAppInfo()
     await this.fetchCurrencies()
     await this.fetchTenantCompanyName()
     await this.checkInitializationStatus()
-    
+
     // Initialize tax number format if country is already selected
     if (this.form.country && this.taxNumberRules[this.form.country]) {
       this.taxNumberFormat = this.taxNumberRules[this.form.country].format
     }
+
+    // Initialize Select2 after DOM is ready
+    this.$nextTick(() => {
+      this.initSelect2()
+    })
   },
 
   beforeDestroy() {
@@ -695,15 +637,140 @@ export default {
     if (typeof sessionStorage !== 'undefined') {
       sessionStorage.removeItem('on_initialization_page')
     }
-    
+
     // Cleanup cropper
     if (this.cropper) {
       this.cropper.destroy()
       this.cropper = null
     }
+
+    // Cleanup Select2
+    if (this.select2Instance) {
+      this.select2Instance.destroy()
+      this.select2Instance = null
+    }
   },
-  
+
   methods: {
+    loadSelect2() {
+      return new Promise((resolve) => {
+        // Check if Select2 is already loaded
+        if (window.jQuery && window.jQuery.fn && window.jQuery.fn.select2) {
+          resolve()
+          return
+        }
+
+        // Check if jQuery is loaded
+        if (!window.jQuery) {
+          // Load jQuery first
+          const jqueryScript = document.createElement('script')
+          jqueryScript.src = 'https://code.jquery.com/jquery-3.6.0.min.js'
+          jqueryScript.onload = () => {
+            // Then load Select2 CSS
+            const cssLink = document.createElement('link')
+            cssLink.rel = 'stylesheet'
+            cssLink.href = 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
+            document.head.appendChild(cssLink)
+
+            // Then load Select2 JS
+            const select2Script = document.createElement('script')
+            select2Script.src = 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
+            select2Script.onload = () => resolve()
+            select2Script.onerror = () => resolve() // Resolve anyway to not block
+            document.body.appendChild(select2Script)
+          }
+          jqueryScript.onerror = () => resolve() // Resolve anyway to not block
+          document.body.appendChild(jqueryScript)
+        } else {
+          // jQuery is loaded, just load Select2
+          const cssLink = document.createElement('link')
+          cssLink.rel = 'stylesheet'
+          cssLink.href = 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
+          document.head.appendChild(cssLink)
+
+          const select2Script = document.createElement('script')
+          select2Script.src = 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
+          select2Script.onload = () => resolve()
+          select2Script.onerror = () => resolve() // Resolve anyway to not block
+          document.body.appendChild(select2Script)
+        }
+      })
+    },
+
+    initSelect2() {
+      if (!this.$refs.countrySelect) {
+        return
+      }
+
+      // Destroy existing instance if any
+      if (this.select2Instance) {
+        this.select2Instance.destroy()
+      }
+
+      // Wait for Select2 to be available
+      if (!window.jQuery || !window.jQuery.fn.select2) {
+        setTimeout(() => this.initSelect2(), 100)
+        return
+      }
+
+      const $ = window.jQuery
+      const self = this
+
+      // Initialize Select2
+      this.select2Instance = $(this.$refs.countrySelect).select2({
+        placeholder: this.$t('select_country'),
+        allowClear: false,
+        width: '100%',
+        escapeMarkup: function (markup) {
+          return markup // Allow HTML rendering
+        },
+        templateResult: function (data) {
+          if (!data.id) {
+            return data.text
+          }
+
+          const $option = $(data.element)
+          const flagImage = $option.data('flag') || ''
+          const countryName = data.text
+
+          if (flagImage) {
+            return $('<span><img src="' + flagImage + '" width="18" height="12" style="margin-right: 8px; vertical-align: middle;" /> ' + countryName + '</span>')
+          }
+
+          return $('<span>' + countryName + '</span>')
+        },
+        templateSelection: function (data) {
+          if (!data.id) {
+            return data.text
+          }
+
+          const $option = $(data.element)
+          const flagImage = $option.data('flag') || ''
+          const countryName = data.text
+
+          if (flagImage) {
+            return $('<span><img src="' + flagImage + '" width="18" height="12" style="margin-right: 8px; vertical-align: middle;" /> ' + countryName + '</span>')
+          }
+
+          return $('<span>' + countryName + '</span>')
+        }
+      })
+
+      // Add inline style to set height to 40px
+      $(this.$refs.countrySelect).next('.select2-container').find('.select2-selection--single').css('height', '40px')
+
+      // Handle change event to sync with Vue model
+      $(this.$refs.countrySelect).on('change', function () {
+        self.form.country = $(this).val()
+        self.onCountryChange()
+      })
+
+      // Set initial value if form.country is already set
+      if (this.form.country) {
+        $(this.$refs.countrySelect).val(this.form.country).trigger('change')
+      }
+    },
+
     loadCropperJS() {
       return new Promise((resolve, reject) => {
         // Check if Cropper is already loaded
@@ -711,13 +778,13 @@ export default {
           resolve()
           return
         }
-        
+
         // Load CSS
         const link = document.createElement('link')
         link.rel = 'stylesheet'
         link.href = 'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css'
         document.head.appendChild(link)
-        
+
         // Load JS
         const script = document.createElement('script')
         script.src = 'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js'
@@ -786,15 +853,15 @@ export default {
       }
       reader.readAsDataURL(file)
     },
-    
+
     initCropper() {
       if (!this.$refs.cropImage) return
-      
+
       // Destroy existing cropper if any
       if (this.cropper) {
         this.cropper.destroy()
       }
-      
+
       // Initialize cropper with fixed aspect ratio (1:1 for square logo)
       this.cropper = new Cropper(this.$refs.cropImage, {
         aspectRatio: 1,
@@ -823,10 +890,10 @@ export default {
         }
       })
     },
-    
+
     cropLogo() {
       if (!this.cropper) return
-      
+
       // Get cropped canvas
       const canvas = this.cropper.getCroppedCanvas({
         width: 300,
@@ -834,25 +901,25 @@ export default {
         imageSmoothingEnabled: true,
         imageSmoothingQuality: 'high'
       })
-      
+
       // Convert to base64
       const croppedDataUrl = canvas.toDataURL('image/png')
-      
+
       // Update form and preview
       this.form.company_logo = croppedDataUrl
       this.logoPreview = croppedDataUrl
-      
+
       // Cleanup and reset
       this.cancelCrop()
     },
-    
+
     cancelCrop() {
       if (this.cropper) {
         this.cropper.destroy()
         this.cropper = null
       }
       this.cropImageSrc = null
-      
+
       // Reset file input
       if (this.$refs.logoInput) {
         this.$refs.logoInput.value = ''
@@ -880,23 +947,23 @@ export default {
           this.form.default_currency = sarCurrency.id
         }
       }
-      
+
       // Reset tax number validation when country changes
       this.taxNumberInvalid = false
       this.taxNumberErrorMessage = ''
       this.taxNumberFormat = ''
-      
+
       // Update tax number format display
       if (this.form.country && this.taxNumberRules[this.form.country]) {
         this.taxNumberFormat = this.taxNumberRules[this.form.country].format
       }
-      
+
       // Re-validate tax number if it exists
       if (this.form.tax_number && this.form.tax_number.trim()) {
         this.validateTaxNumber()
       }
     },
-    
+
     validateTaxNumber() {
       // If tax number is empty, it's valid (optional field)
       if (!this.form.tax_number || !this.form.tax_number.trim()) {
@@ -904,17 +971,17 @@ export default {
         this.taxNumberErrorMessage = ''
         return true
       }
-      
+
       // If no country selected, skip validation
       if (!this.form.country) {
         this.taxNumberInvalid = false
         this.taxNumberErrorMessage = ''
         return true
       }
-      
+
       // Get validation rule for selected country
       const rule = this.taxNumberRules[this.form.country]
-      
+
       // If no rule exists for this country, allow any format
       if (!rule) {
         this.taxNumberInvalid = false
@@ -922,13 +989,13 @@ export default {
         this.taxNumberFormat = ''
         return true
       }
-      
+
       // Update format display
       this.taxNumberFormat = rule.format
-      
+
       // Remove spaces and convert to uppercase for validation
       const taxNumber = this.form.tax_number.trim().replace(/\s+/g, '').toUpperCase()
-      
+
       // Test against pattern
       if (rule.pattern.test(taxNumber)) {
         this.taxNumberInvalid = false
@@ -940,11 +1007,11 @@ export default {
         return false
       }
     },
-    
+
     getTaxNumberPlaceholder() {
       return this.$t('enter_tax_number')
     },
-    
+
     onPhoneValidated(isValid) {
       this.phoneNumberValid = isValid
       if (!isValid && this.form.phone_number) {
@@ -959,16 +1026,16 @@ export default {
       try {
         const response = await axios.get('/api/all-currencies')
         console.log('Currencies response:', response)
-        
+
         // Handle the response structure properly
         if (response.data && response.data.data) {
           this.currencies = response.data.data
         } else if (response.data) {
           this.currencies = response.data
         }
-        
+
         console.log('Currencies loaded:', this.currencies)
-        
+
         // Auto-set SAR currency for Saudi Arabia
         if (this.form.country === 'SA' && this.currencies.length > 0) {
           const sarCurrency = this.currencies.find(c => c.code === 'SAR')
@@ -1010,14 +1077,14 @@ export default {
       if (this.statusChecked) {
         return
       }
-      
+
       this.statusChecked = true
-      
+
       try {
         const response = await axios.get('/api/tenant-initialization/check', {
           timeout: 5000
         })
-        
+
         if (response.data && response.data.data && response.data.data.is_initialized) {
           this.initialized = true
           // Clear session flags
@@ -1058,7 +1125,7 @@ export default {
           this.errors.company_name = this.$t('company_name_required')
           return
         }
-        
+
         // Validate tax number if provided
         if (this.form.tax_number && this.form.tax_number.trim()) {
           if (!this.validateTaxNumber()) {
@@ -1066,7 +1133,7 @@ export default {
             return
           }
         }
-        
+
         this.errors = {}
       }
       // Step 3: Contact Details
@@ -1121,7 +1188,7 @@ export default {
         }
         this.errors = {}
       }
-      
+
       this.currentStep++
     },
 
@@ -1187,20 +1254,20 @@ export default {
 
       try {
         await this.form.post('/api/tenant-initialization')
-        
+
         toast.fire({
           type: 'success',
           title: this.$t('setup_completed_successfully'),
         })
 
         this.initialized = true
-        
+
         // Clear any session flags that might interfere
         if (typeof sessionStorage !== 'undefined') {
           sessionStorage.removeItem('cross_domain_login_processed')
           sessionStorage.removeItem('on_initialization_page')
         }
-        
+
         setTimeout(() => {
           window.location.href = '/dashboard'
         }, 1500)
@@ -1321,6 +1388,7 @@ export default {
     transform: scale(0);
     opacity: 0;
   }
+
   to {
     transform: scale(1);
     opacity: 1;
@@ -1391,6 +1459,7 @@ export default {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1589,17 +1658,17 @@ export default {
   .file-upload-area {
     padding: 30px 15px;
   }
-  
+
   .upload-icon-wrapper {
     width: 50px;
     height: 50px;
     font-size: 20px;
   }
-  
+
   .upload-title {
     font-size: 14px;
   }
-  
+
   .upload-subtitle {
     font-size: 12px;
   }
@@ -1688,19 +1757,19 @@ export default {
   .logo-crop-wrapper {
     padding: 15px;
   }
-  
+
   .crop-container-inline {
     max-height: 300px;
   }
-  
+
   .crop-actions {
     flex-direction: column;
   }
-  
+
   .crop-actions .btn {
     width: 100%;
   }
-  
+
   .logo-preview-image {
     width: 200px;
     height: 200px;
@@ -1711,52 +1780,75 @@ export default {
   width: 100%;
 }
 
-.country-select .vs__dropdown-toggle {
+/* Select2 styling for country select */
+.country-select+.select2-container {
+  width: 100% !important;
+}
+
+/* Override all height restrictions from Select2 min.css and app.scss */
+.country-select+.select2-container .select2-selection--single,
+.country-select+.select2-container--default .select2-selection--single,
+.country-select+.select2-container .select2-selection--single {
   border: 0;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
   border-radius: 50px;
   padding: 0.5rem 1rem;
   min-height: 3rem;
+  background-color: white;
+  height: auto !important;
 }
 
-.country-select .vs__search {
+/* Remove height from base Select2 container selection */
+.country-select+.select2-container .select2-selection {
+  height: auto !important;
+}
+
+.country-select+.select2-container .select2-selection--single .select2-selection__rendered {
   padding: 0;
-  margin: 0;
-  font-size: 1rem;
-}
-
-.country-option,
-.country-selected {
+  line-height: 2rem;
+  color: #333;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
 }
 
-.country-flag {
-  font-size: 1.25rem;
-  line-height: 1;
+.country-select+.select2-container .select2-selection--single .select2-selection__arrow {
+  height: auto !important;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 1rem;
 }
 
-.country-name {
-  font-size: 1rem;
-}
-
-.country-select.is-invalid .vs__dropdown-toggle {
+.country-select.is-invalid+.select2-container .select2-selection--single {
   border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
 }
 
-.country-select .vs__dropdown-menu {
+.country-select+.select2-container .select2-dropdown {
   border-radius: 15px;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   margin-top: 0.5rem;
+  border: 1px solid #e9ecef;
 }
 
-.country-select .vs__dropdown-option {
+.country-select+.select2-container .select2-results__option {
   padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
 }
 
-.country-select .vs__dropdown-option--highlight {
+.country-select+.select2-container .select2-results__option:hover {
+  background-color: #f8f9fa;
+}
+
+.country-select+.select2-container .select2-results__option--highlighted {
   background-color: #33a0d9;
   color: white;
+}
+
+.country-select+.select2-container .select2-results__option img {
+  margin-right: 8px;
+  vertical-align: middle;
 }
 </style>
