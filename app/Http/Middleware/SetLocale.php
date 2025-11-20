@@ -10,7 +10,6 @@ class SetLocale
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -31,6 +30,11 @@ class SetLocale
         $locales = config('app.locales');
 
         $locale = $request->server('HTTP_ACCEPT_LANGUAGE');
+
+        if (empty($locale)) {
+            return null;
+        }
+
         $locale = substr($locale, 0, strpos($locale, ',') ?: strlen($locale));
 
         if (array_key_exists($locale, $locales)) {
@@ -41,5 +45,7 @@ class SetLocale
         if (array_key_exists($locale, $locales)) {
             return $locale;
         }
+
+        return null;
     }
 }

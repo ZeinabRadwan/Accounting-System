@@ -239,11 +239,23 @@ function windowsTestSubHostReg($domainTenant)
         $hostEntry = "127.0.0.1      $domainTenant";
         $filePath = 'C:\\Windows\\System32\\drivers\\etc\\hosts';
 
-        // Check if the host entry is already present
-        $hostsFileContent = file_get_contents($filePath);
-        if (strpos($hostsFileContent, $hostEntry) === false) {
-            $command = 'powershell.exe -Command "Start-Process cmd -ArgumentList \'/c echo '.$hostEntry.' >> '.$filePath.'\' -Verb RunAs"';
-            shell_exec($command);
+        try {
+            // Skip in web context to prevent UAC prompt from hanging the request
+            // Modifying hosts file requires admin privileges which can't be automated safely in web context
+            if (php_sapi_name() === 'cli') {
+                // Only attempt in CLI context (like during seeding)
+                if (file_exists($filePath)) {
+                    $hostsFileContent = @file_get_contents($filePath);
+                    if ($hostsFileContent !== false && strpos($hostsFileContent, $hostEntry) === false) {
+                        // Note: This may still prompt for UAC in CLI, but won't hang web requests
+                        $command = 'powershell.exe -Command "Start-Process cmd -ArgumentList \'/c echo '.$hostEntry.' >> '.$filePath.'\' -Verb RunAs"';
+                        @shell_exec($command);
+                    }
+                }
+            }
+            // In web context, silently skip to prevent timeout
+        } catch (\Exception $e) {
+            // Silently fail to prevent breaking the registration process
         }
     }
 }
