@@ -85,7 +85,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-if="invoices && invoices.length" v-for="(data, i) in invoices" :key="i">
+                <tr v-show="invoices.length" v-for="(data, i) in invoices" :key="i">
                   <td>{{ ++i }}</td>
                   <td>
                     <router-link
@@ -115,13 +115,9 @@
                     }}</span>
                   </td>
                 </tr>
-                <tr v-if="!invoices || !invoices.length">
-                  <td colspan="8" class="text-center no-data-message">
-                    <div class="no-data-content">
-                      <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
-                      <h5 class="text-muted">{{ $t("No Invoices Found") }}</h5>
-                      <p class="text-muted">{{ $t("There are no recent invoices to display.") }}</p>
-                    </div>
+                <tr v-show="!loading && !invoices.length">
+                  <td colspan="8">
+                    <EmptyTable />
                   </td>
                 </tr>
               </tbody>
@@ -150,7 +146,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-if="purchases && purchases.length" v-for="(data, i) in purchases" :key="i">
+                <tr v-show="purchases.length" v-for="(data, i) in purchases" :key="i">
                   <td>{{ ++i }}</td>
                   <td>
                     <router-link
@@ -180,13 +176,9 @@
                     }}</span>
                   </td>
                 </tr>
-                <tr v-if="!purchases || !purchases.length">
-                  <td colspan="8" class="text-center no-data-message">
-                    <div class="no-data-content">
-                      <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
-                      <h5 class="text-muted">{{ $t("No Purchases Found") }}</h5>
-                      <p class="text-muted">{{ $t("There are no recent purchases to display.") }}</p>
-                    </div>
+                <tr v-show="!loading && !purchases.length">
+                  <td colspan="8">
+                    <EmptyTable />
                   </td>
                 </tr>
               </tbody>
@@ -214,7 +206,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-if="expenses && expenses.length" v-for="(data, i) in expenses" :key="i">
+                <tr v-show="expenses.length" v-for="(data, i) in expenses" :key="i">
                   <td>{{ ++i }}</td>
                   <td>
                     <span v-if="data.subCategory">
@@ -257,13 +249,9 @@
                     }}</span>
                   </td>
                 </tr>
-                <tr v-if="!expenses || !expenses.length">
-                  <td colspan="7" class="text-center no-data-message">
-                    <div class="no-data-content">
-                      <i class="fas fa-receipt fa-3x text-muted mb-3"></i>
-                      <h5 class="text-muted">{{ $t("No Expenses Found") }}</h5>
-                      <p class="text-muted">{{ $t("There are no recent expenses to display.") }}</p>
-                    </div>
+                <tr v-show="!loading && !expenses.length">
+                  <td colspan="7">
+                    <EmptyTable />
                   </td>
                 </tr>
               </tbody>
@@ -291,7 +279,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-if="transactions && transactions.length" v-for="(data, i) in transactions" :key="i">
+                <tr v-show="transactions.length" v-for="(data, i) in transactions" :key="i">
                   <td>{{ ++i }}</td>
                   <td>{{ data.reason }}</td>
                   <td>
@@ -318,13 +306,9 @@
                     }}</span>
                   </td>
                 </tr>
-                <tr v-if="!transactions || !transactions.length">
-                  <td colspan="7" class="text-center no-data-message">
-                    <div class="no-data-content">
-                      <i class="fas fa-exchange-alt fa-3x text-muted mb-3"></i>
-                      <h5 class="text-muted">{{ $t("No Transactions Found") }}</h5>
-                      <p class="text-muted">{{ $t("There are no recent transactions to display.") }}</p>
-                    </div>
+                <tr v-show="!loading && !transactions.length">
+                  <td colspan="7">
+                    <EmptyTable />
                   </td>
                 </tr>
               </tbody>
@@ -343,10 +327,10 @@ import { mapGetters } from "vuex";
 export default {
   name: "RecentActivities",
   data: () => ({
-    invoices: "",
-    purchases: "",
-    expenses: "",
-    transactions: "",
+    invoices: [],
+    purchases: [],
+    expenses: [],
+    transactions: [],
     prefix: "",
     subCatPrefix: "",
     loading: false,
