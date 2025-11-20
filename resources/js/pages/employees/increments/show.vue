@@ -375,9 +375,16 @@ export default {
     },
 
     // refresh table
-    refreshTable() {
+    async refreshTable() {
       this.query = "";
-      this.query === "" ? this.getActivity() : this.searchData();
+      if (this.pagination) {
+        this.pagination.current_page = 1;
+      }
+      this.query === "" ? await this.getActivity() : await this.searchData();
+      this.$toast.success(
+        this.$t("Refreshed"),
+        this.$t("Activity log has been refreshed successfully")
+      );
     },
 
     // reset pagination

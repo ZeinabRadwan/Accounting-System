@@ -10,32 +10,19 @@
           <div class="btn-group">
             <ul class="nav nav-pills">
               <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  href="#details"
-                  data-toggle="tab"
-                  @click="getInvoiceReturn"
-                >
+                <a class="nav-link active" href="#details" data-toggle="tab" @click="getInvoiceReturn">
                   <i class="fa fa-info"></i>
-                  {{ $t("Details") }}</a
-                >
+                  {{ $t("Details") }}</a>
               </li>
               <li class="nav-item">
-                <a
-                  @click="getActivity"
-                  class="nav-link"
-                  href="#activity-log"
-                  data-toggle="tab"
-                >
+                <a @click="getActivity" class="nav-link" href="#activity-log" data-toggle="tab">
                   <i class="nav-icon fa fa-bell" aria-hidden="true"></i>
-                  {{ $t("Activity log") }}</a
-                >
+                  {{ $t("Activity log") }}</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#journal-entry" data-toggle="tab">
                   <i class="nav-icon fa fa-book" aria-hidden="true"></i>
-                  {{ $t("Journal Entry") }}</a
-                >
+                  {{ $t("Journal Entry") }}</a>
               </li>
             </ul>
           </div>
@@ -47,29 +34,19 @@
             <a @click="downloadPDF" href="#" class="btn btn-info">
               <i class="fas fa-download"></i> {{ $t("download") }}
             </a>
-            <a 
-              v-if="isSaudiArabia && allData && allData.status === 0"
-              @click="sendPurchaseReturn(allData)" 
-              href="#" 
-              class="btn btn-success"
-            >
+            <a v-if="isSaudiArabia && allData && allData.status === 0" @click="sendPurchaseReturn(allData)" href="#"
+              class="btn btn-success">
               <i class="fas fa-paper-plane"></i> {{ $t("Send Purchase Return to ZATCA") }}
             </a>
-            <router-link
-              v-if="$can('purchase-return-edit') && !(isSaudiArabia && allData && allData.status === 1)"
-              :to="{
-                name: 'purchaseReturns.edit',
-                params: { slug: allData.slug },
-              }"
-              class="btn btn-info"
-            >
+            <router-link v-if="$can('purchase-return-edit') && !(isSaudiArabia && allData && allData.status === 1)" :to="{
+              name: 'purchaseReturns.edit',
+              params: { slug: allData.slug },
+            }" class="btn btn-info">
               <i class="fas fa-edit" /> {{ $t("Edit") }}
             </router-link>
-            <router-link
-              :to="{ name: 'purchaseReturns.index' }"
-              class="btn btn-info float-right"
-            >
-              <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+            <router-link :to="{ name: 'purchaseReturns.index' }" class="btn btn-info float-right">
+              <template
+                v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
                 {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
 
@@ -77,7 +54,8 @@
 
               <template v-else>
 
-                <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                <template
+                  v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
 
                   {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
@@ -112,34 +90,22 @@
                 <CompanyInfo />
               </div>
               <!-- /.col -->
-              <div
-                class="col-sm-8 invoice-col float-right text-md-right"
-              >
+              <div class="col-sm-8 invoice-col float-right text-md-right">
                 <h5>{{ $t("Supplier Details") }}</h5>
                 <div v-if="allData.purchase && allData.supplier">
-                  <span v-if="allData.supplier.companyName"
-                    ><strong>{{ $t("Supplier ID") }}:</strong>
+                  <span v-if="allData.supplier.companyName"><strong>{{ $t("Supplier ID") }}:</strong>
                     {{ allData.supplier.supplierID | withPrefix(supplierPrefix)
-                    }}<br
-                  /></span>
+                    }}<br /></span>
                   <strong>{{ $t("Supplier Name") }}:</strong>
                   {{ allData.supplier.name }}<br />
-                  <span v-if="allData.supplier.companyName"
-                    ><strong>{{ $t("Company Name") }}:</strong>
-                    {{ allData.supplier.companyName }}<br
-                  /></span>
-                  <span v-if="allData.supplier.email"
-                    ><strong>{{ $t("Email") }}:</strong>
-                    {{ allData.supplier.email }}<br
-                  /></span>
-                  <span v-if="allData.supplier.phoneNumber"
-                    ><strong>{{ $t("Contact Number") }}:</strong>
-                    {{ allData.supplier.phoneNumber }}<br
-                  /></span>
-                  <span v-if="allData.supplier.address"
-                    ><strong>{{ $t("Address") }}:</strong>
-                    {{ allData.supplier.address }}<br
-                  /></span>
+                  <span v-if="allData.supplier.companyName"><strong>{{ $t("Company Name") }}:</strong>
+                    {{ allData.supplier.companyName }}<br /></span>
+                  <span v-if="allData.supplier.email"><strong>{{ $t("Email") }}:</strong>
+                    {{ allData.supplier.email }}<br /></span>
+                  <span v-if="allData.supplier.phoneNumber"><strong>{{ $t("Contact Number") }}:</strong>
+                    {{ allData.supplier.phoneNumber }}<br /></span>
+                  <span v-if="allData.supplier.address"><strong>{{ $t("Address") }}:</strong>
+                    {{ allData.supplier.address }}<br /></span>
                 </div>
               </div>
               <!-- /.col -->
@@ -187,7 +153,7 @@
                         <td v-if="allData.purchase.purchaseDate">
                           {{
                             allData.purchase.purchaseDate
-                              | moment("Do MMM, YYYY")
+                            | moment("Do MMM, YYYY")
                           }}
                         </td>
                         <td v-if="allData.returnDate">
@@ -196,14 +162,10 @@
                         <td v-if="allData.reason">{{ allData.reason }}</td>
                         <td v-if="allData.note">{{ allData.note }}</td>
                         <td>
-                          <span
-                            v-if="allData.status === 1"
-                            class="badge bg-success"
-                            >{{ $t("Active") }}</span
-                          >
+                          <span v-if="allData.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
                           <span v-else class="badge bg-danger">{{
                             $t("Inactive")
-                          }}</span>
+                            }}</span>
                         </td>
                         <td v-if="allData.createdBy" class="text-right">
                           {{ allData.createdBy }}
@@ -219,9 +181,7 @@
             <div class="row position-relative mt-4">
               <table-loading v-show="loading" />
               <div v-if="allData.purchase" class="col-12 table-responsive">
-                <strong class="mb-2 d-block"
-                  >{{ $t("Return Products") }}:</strong
-                >
+                <strong class="mb-2 d-block">{{ $t("Return Products") }}:</strong>
                 <div class="table-custom table-responsive text-center">
                   <table class="table table-sm purchases-create-table">
                     <thead>
@@ -250,11 +210,13 @@
                           {{ data.returnQty }}
                           <span v-if="data.product.itemUnit">{{
                             data.product.itemUnit.code
-                          }}</span>
+                            }}</span>
                         </td>
                         <td>{{ formatToTwoDecimals(data.purchasePrice) }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ formatToTwoDecimals(data.purchasePrice * data.returnQty) }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ formatToTwoDecimals(calculateUnitDiscount(data)) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatToTwoDecimals(data.purchasePrice * data.returnQty) }} <span
+                            class="saudi-riyal">ê</span></td>
+                        <td>{{ formatToTwoDecimals(calculateUnitDiscount(data)) }} <span class="saudi-riyal">ê</span>
+                        </td>
                         <td>{{ formatToTwoDecimals(calculateUnitNet(data)) }} <span class="saudi-riyal">ê</span></td>
                         <td>{{ getVatRate(data) }}%</td>
                         <td>{{ formatToTwoDecimals(calculateUnitVat(data)) }} <span class="saudi-riyal">ê</span></td>
@@ -265,20 +227,26 @@
                           <strong>{{ $t("Subtotal") }}</strong>
                         </td>
                         <td>
-                          <strong>{{ formatToTwoDecimals(calculateTotalReturnedProductCost()) }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ formatToTwoDecimals(calculateTotalReturnedProductCost()) }} <span
+                              class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ formatToTwoDecimals(calculateTotalReturnDiscount()) }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ formatToTwoDecimals(calculateTotalReturnDiscount()) }} <span
+                              class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ formatToTwoDecimals(calculateTotalReturnedProductCost() - calculateTotalReturnDiscount()) }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ formatToTwoDecimals(calculateTotalReturnedProductCost() -
+                            calculateTotalReturnDiscount()) }} <span class="saudi-riyal">ê</span></strong>
                         </td>
                         <td></td>
                         <td>
-                          <strong>{{ formatToTwoDecimals(calculateTotalReturnTax()) }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ formatToTwoDecimals(calculateTotalReturnTax()) }} <span
+                              class="saudi-riyal">ê</span></strong>
                         </td>
                         <td>
-                          <strong>{{ formatToTwoDecimals(calculateTotalReturnedProductCost() - calculateTotalReturnDiscount() + calculateTotalReturnTax()) }} <span class="saudi-riyal">ê</span></strong>
+                          <strong>{{ formatToTwoDecimals(calculateTotalReturnedProductCost() -
+                            calculateTotalReturnDiscount() + calculateTotalReturnTax()) }} <span
+                              class="saudi-riyal">ê</span></strong>
                         </td>
                       </tr>
                     </tbody>
@@ -298,7 +266,8 @@
                     <tbody>
                       <tr class="bg-sub-light text-bold">
                         <th>{{ $t("Subtotal") }}:</th>
-                        <td>{{ formatToTwoDecimals(calculateTotalReturnedProductCost()) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatToTwoDecimals(calculateTotalReturnedProductCost()) }} <span
+                            class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr>
                         <th>{{ $t("Product Discount") }}:</th>
@@ -309,7 +278,10 @@
 
                       <tr class="bg-green-light text-bold">
                         <th>{{ $t("Total After Discount") }}:</th>
-                        <td>{{ formatToTwoDecimals(calculateTotalReturnedProductCost() - calculateTotalReturnDiscount()) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatToTwoDecimals(calculateTotalReturnedProductCost() - calculateTotalReturnDiscount())
+                          }}
+                          <span class="saudi-riyal">ê</span>
+                        </td>
                       </tr>
 
                       <tr>
@@ -323,7 +295,8 @@
                         <th>{{ $t("Total with VAT") }}:</th>
                         <td>
                           <span class="equal-sign">=</span>
-                          {{ formatToTwoDecimals(calculateTotalReturnedProductCost() - calculateTotalReturnDiscount() + calculateTotalReturnTax()) }} <span class="saudi-riyal">ê</span>
+                          {{ formatToTwoDecimals(calculateTotalReturnedProductCost() - calculateTotalReturnDiscount() +
+                            calculateTotalReturnTax()) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                     </tbody>
@@ -348,13 +321,8 @@
             </div>
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100">
-                <a
-                @click.prevent="!loading && refreshTable()"
-                  href="#"
-                  v-tooltip="$t('Refresh')"
-                  :class="['btn', 'btn-success', loading ? 'disabled' : '']"
-                  :aria-busy="loading ? 'true' : 'false'"
-                >
+                <a @click.prevent="!loading && refreshTable()" href="#" v-tooltip="$t('Refresh')"
+                  :class="['btn', 'btn-success', loading ? 'disabled' : '']" :aria-busy="loading ? 'true' : 'false'">
                   <i v-if="!loading" class="fas fa-sync"></i>
                   <i v-else class="fas fa-spinner fa-spin"></i>
                 </a>
@@ -365,40 +333,18 @@
           <div class="card-body position-relative">
             <div class="row">
               <div class="col-6 col-xl-4 mb-2">
-                <search
-                  v-model="query"
-                  @reset-pagination="resetPagination()"
-                  @reload="reload"
-                />
+                <search v-model="query" @reset-pagination="resetPagination()" @reload="reload" />
               </div>
             </div>
             <div id="printMe" class="table-responsive table-custom mt-3">
-              <div
-                v-show="items.length > 0"
-                v-for="(data, i) in items"
-                :key="i"
-              >
+              <div v-show="items.length > 0" v-for="(data, i) in items" :key="i">
                 <div class="card mb-0 border border-gray">
                   <div class="card-body py-1">
                     <div class="row">
-                      <div
-                        class="col-1 d-flex justify-content-center align-items-center"
-                      >
-                        <i
-                          v-if="data.event == 'Update'"
-                          class="fa fa-magic"
-                          aria-hidden="true"
-                        ></i>
-                        <i
-                          v-if="data.event == 'Create'"
-                          class="fa fa-plus-circle"
-                          aria-hidden="true"
-                        ></i>
-                        <i
-                          v-if="data.event == 'Delete'"
-                          class="fa fa-trash"
-                          aria-hidden="true"
-                        ></i>
+                      <div class="col-1 d-flex justify-content-center align-items-center">
+                        <i v-if="data.event == 'Update'" class="fa fa-magic" aria-hidden="true"></i>
+                        <i v-if="data.event == 'Create'" class="fa fa-plus-circle" aria-hidden="true"></i>
+                        <i v-if="data.event == 'Delete'" class="fa fa-trash" aria-hidden="true"></i>
                       </div>
                       <div class="col-11">
                         <div class="row">
@@ -427,11 +373,7 @@
               <div class="form-group row display-per-page">
                 <label>{{ $t("per_page") }} </label>
                 <div>
-                  <select
-                    @change="updatePerPager"
-                    v-model="perPage"
-                    class="form-control form-control-sm ml-1"
-                  >
+                  <select @change="updatePerPager" v-model="perPage" class="form-control form-control-sm ml-1">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
@@ -440,13 +382,8 @@
                 </div>
               </div>
               <!-- pagination-start -->
-              <pagination
-                v-if="pagination && pagination.last_page > 1"
-                :pagination="pagination"
-                :offset="5"
-                class="justify-flex-end"
-                @paginate="paginate"
-              />
+              <pagination v-if="pagination && pagination.last_page > 1" :pagination="pagination" :offset="5"
+                class="justify-flex-end" @paginate="paginate" />
               <!-- pagination-end -->
             </div>
           </div>
@@ -464,37 +401,27 @@
             </div>
           </div>
           <div class="card-body">
-            <div
-              v-if="allData.journalEntries && allData.journalEntries.length > 0"
-            >
-              <div
-                v-for="(journalEntry, index) in sortedJournalEntries"
-                :key="index"
-                class="mb-4"
-              >
+            <div v-if="allData.journalEntries && allData.journalEntries.length > 0">
+              <div v-for="(journalEntry, index) in sortedJournalEntries" :key="index" class="mb-4">
                 <div class="row mb-3">
                   <div class="col-md-3">
                     <strong>{{ $t("Entry Number") }}:</strong>
                     <span class="ml-2">{{
                       journalEntry.formatted_entry_number
-                    }}</span>
+                      }}</span>
                   </div>
                   <div class="col-md-3">
                     <strong>{{ $t("Entry Date") }}:</strong>
                     <span class="ml-2">{{
                       journalEntry.entry_date | formatDate
-                    }}</span>
+                      }}</span>
                   </div>
                   <div class="col-md-3">
                     <strong>{{ $t("Status") }}:</strong>
-                    <span
-                      class="ml-2 badge"
-                      :class="
-                        journalEntry.status === 'posted'
-                          ? 'badge-success'
-                          : 'badge-warning'
-                      "
-                    >
+                    <span class="ml-2 badge" :class="journalEntry.status === 'posted'
+                      ? 'badge-success'
+                      : 'badge-warning'
+                      ">
                       {{ journalEntry.formatted_status }}
                     </span>
                   </div>
@@ -525,29 +452,26 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr
-                        v-for="(line, lineIndex) in journalEntry.lines"
-                        :key="lineIndex"
-                      >
+                      <tr v-for="(line, lineIndex) in journalEntry.lines" :key="lineIndex">
                         <td>{{ line.line_number }}</td>
                         <td>
                           <strong>{{ line.chart_of_account.name }}</strong>
                           <br />
                           <small class="text-muted">{{
                             line.chart_of_account.type.name
-                          }}</small>
+                            }}</small>
                         </td>
                         <td>{{ line.description }}</td>
                         <td class="text-right">
                           <span v-if="line.debit_amount > 0">{{
                             line.debit_amount
-                          }}<span class="saudi-riyal">ê</span>
+                            }}<span class="saudi-riyal">ê</span>
                           </span>
                           <span v-else class="text-muted">-</span>
                         </td>
                         <td class="text-right">
                           <span v-if="line.credit_amount > 0">{{
-                            line.credit_amount 
+                            line.credit_amount
                           }} <span class="saudi-riyal">ê</span>
                           </span>
                           <span v-else class="text-muted">-</span>
@@ -560,10 +484,10 @@
                           {{ $t("Total") }}:
                         </th>
                         <th class="text-right">
-                          {{ journalEntry.total_debit  }} <span class="saudi-riyal">ê</span>
+                          {{ journalEntry.total_debit }} <span class="saudi-riyal">ê</span>
                         </th>
                         <th class="text-right">
-                          {{ journalEntry.total_credit  }} <span class="saudi-riyal">ê</span>
+                          {{ journalEntry.total_credit }} <span class="saudi-riyal">ê</span>
                         </th>
                       </tr>
                       <tr>
@@ -571,14 +495,10 @@
                           {{ $t("Balance") }}:
                         </th>
                         <th colspan="2" class="text-center">
-                          <span
-                            class="badge"
-                            :class="
-                              journalEntry.is_balanced
-                                ? 'badge-success'
-                                : 'badge-danger'
-                            "
-                          >
+                          <span class="badge" :class="journalEntry.is_balanced
+                            ? 'badge-success'
+                            : 'badge-danger'
+                            ">
                             {{
                               journalEntry.is_balanced
                                 ? $t("Balanced")
@@ -607,9 +527,7 @@
 <script>
 import axios from "axios";
 import { mapGetters } from "vuex";
-import html2pdf from "html2pdf.js";
 import SwalOriginal from "sweetalert2/dist/sweetalert2";
-import iziToast from "izitoast";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -678,7 +596,7 @@ export default {
       if (!this.allData || !this.allData.journalEntries) {
         return [];
       }
-      
+
       return this.allData.journalEntries.map(journalEntry => ({
         ...journalEntry,
         lines: this.sortJournalEntryLines(journalEntry.lines || [])
@@ -688,7 +606,7 @@ export default {
 
   watch: {
     // watch search data
-    query: function (newQ, oldQ) {
+    query: function (newQ) {
       if (newQ === "") {
         this.getActivity();
       } else {
@@ -723,8 +641,8 @@ export default {
       this.loading = true;
       const { data } = await axios.get(
         window.location.origin +
-          "/api/purchase-returns/" +
-          this.$route.params.slug
+        "/api/purchase-returns/" +
+        this.$route.params.slug
       );
       this.allData = data.data;
       this.returnProducts = this.allData.returnProducts;
@@ -748,15 +666,15 @@ export default {
       if (!lines || lines.length === 0) {
         return [];
       }
-      
+
       return [...lines].sort((a, b) => {
         // If both are debits or both are credits, maintain original order
         const aIsDebit = a.debit_amount > 0;
         const bIsDebit = b.debit_amount > 0;
-        
+
         if (aIsDebit && !bIsDebit) return -1; // a is debit, b is credit - a comes first
         if (!aIsDebit && bIsDebit) return 1;  // a is credit, b is debit - b comes first
-        
+
         // If both are same type, maintain original order by line number
         return a.line_number - b.line_number;
       });
@@ -963,17 +881,10 @@ export default {
         this.pagination.current_page = 1;
       }
       await this.getActivity();
-      const refreshedText = (this.$te && this.$te('Refreshed'))
-        ? this.$t('Refreshed')
-        : 'Refreshed';
-      if (typeof iziToast !== 'undefined') {
-        iziToast.success({
-          title: refreshedText,
-          message: '',
-          position: 'topRight',
-          timeout: 3000
-        });
-      }
+      this.$toast.success(
+        this.$t("Refreshed"),
+        this.$t("Activity log has been refreshed successfully")
+      );
     },
 
     // reset pagination
@@ -1008,10 +919,10 @@ export default {
 
             // Send purchase return to ZATCA and create journal entries
             const response = await axios.post(`/api/purchase-returns/${data.slug}/send-to-zatca`);
-            
+
             // Close the loading dialog
             SwalOriginal.close();
-            
+
             if (response.data.success) {
               this.$toast.success(
                 this.$t("Sent Successfully!"),
@@ -1104,4 +1015,3 @@ export default {
   font-size: 0.75rem;
 }
 </style>
-

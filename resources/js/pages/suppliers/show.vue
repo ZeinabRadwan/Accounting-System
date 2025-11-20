@@ -1813,18 +1813,29 @@ export default {
     },
 
     // refresh table
-    refreshTable(tabName) {
+    async refreshTable(tabName) {
       this.query = "";
       this.dateRange.startDate = null;
       this.dateRange.endDate = null;
-      setTimeout(
-        function () {
-          this.dateRange.startDate = "";
-          this.dateRange.endDate = "";
-          this.switchTab(tabName);
-        }.bind(this),
-        1000
-      );
+      if (tabName === "activity-log") {
+        if (this.allActivityLogPagination) {
+          this.allActivityLogPagination.current_page = 1;
+        }
+        await this.getActivity();
+        this.$toast.success(
+          this.$t("Refreshed"),
+          this.$t("Activity log has been refreshed successfully")
+        );
+      } else {
+        setTimeout(
+          function () {
+            this.dateRange.startDate = "";
+            this.dateRange.endDate = "";
+            this.switchTab(tabName);
+          }.bind(this),
+          1000
+        );
+      }
     },
 
     // get the supplier

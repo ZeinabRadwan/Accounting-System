@@ -570,17 +570,10 @@ export default {
         this.pagination.current_page = 1;
       }
       await this.getActivity();
-      const refreshedText = (this.$te && this.$te('Refreshed'))
-        ? this.$t('Refreshed')
-        : 'Refreshed';
-      if (typeof iziToast !== 'undefined') {
-        iziToast.success({
-          title: refreshedText,
-          message: '',
-          position: 'topRight',
-          timeout: 3000
-        });
-      }
+      this.$toast.success(
+        this.$t("Refreshed"),
+        this.$t("Activity log has been refreshed successfully")
+      );
     },
 
     // reset pagination
