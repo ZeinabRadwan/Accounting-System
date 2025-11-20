@@ -45,9 +45,6 @@
                 <h3 class="card-title">{{ $t('Supplier Payable Report') }}</h3>
             </div>
             <div class="card-body position-relative">
-                <div v-if="loading" class="overlay">
-                    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
-                </div>
                 <div class="table-responsive table-custom mt-3" id="printMe">
                     <table class="table account-statement-table">
                                 <thead>
