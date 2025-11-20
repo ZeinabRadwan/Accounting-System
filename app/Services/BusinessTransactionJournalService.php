@@ -413,7 +413,7 @@ class BusinessTransactionJournalService
             // Calculate totals for proper journal entry
             // Note: sub_total already includes: products (after discount) + VAT + transport
             // So totalDebit must equal totalCredit (which is sub_total)
-            
+
             // Calculate purchase amounts for journal entry lines (grouped by account)
             $purchaseExpensesByAccount = [];
             $totalDiscountAmount = 0;
@@ -463,7 +463,7 @@ class BusinessTransactionJournalService
 
             // Calculate total debit: products (after discount) + transport base + VAT (products + transport)
             $totalDebit = 0;
-            
+
             // Add purchase expense amounts (products after discount, without VAT)
             foreach ($purchaseExpensesByAccount as $expense) {
                 $totalDebit += $expense['total'];
@@ -495,7 +495,7 @@ class BusinessTransactionJournalService
             Log::info('Balance Check: '.($totalDebit - $totalCredit));
             Log::info("Purchase Sub Total: {$purchase->sub_total}");
             Log::info("Purchase Transport: {$purchase->transport}");
-            Log::info("Purchase Transport Taxable: ".($purchase->transport_taxable ?? 'NULL'));
+            Log::info('Purchase Transport Taxable: '.($purchase->transport_taxable ?? 'NULL'));
             Log::info("Purchase Discount: {$purchase->discount}");
             Log::info("Purchase Tax ID: {$purchase->tax_id}");
             Log::info("Total Product VAT: {$totalVatAmount}");
