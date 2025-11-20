@@ -141,7 +141,7 @@
                     </small>
                   </div>
 
-                  <div class="form-group">
+                  <div class="form-group" style="display: none;">
                     <label for="discount">{{ $t("Discount (%)") }}</label>
                     <input v-model="form.discount" type="number" min="0" max="100" class="form-control"
                       :class="{ 'is-invalid': form.errors.has('discount') }" name="discount"
