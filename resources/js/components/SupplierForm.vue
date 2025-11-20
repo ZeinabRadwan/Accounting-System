@@ -265,7 +265,7 @@
                     <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
                   </label>
                   <v-select
-                    v-if="saudiCities.length > 0"
+                    v-if="saudiCities.length > 0 && form.saudi_region"
                     v-model="form.city"
                     :options="saudiCities"
                     label="name"
@@ -285,15 +285,15 @@
                     </template>
                   </v-select>
                   <input
-                    v-else-if="form.saudi_region"
+                    v-else
                     id="city"
                     v-model="form.city"
                     type="text"
                     class="form-control"
                     :class="{ 'is-invalid': form.errors.has('city') }"
                     name="city"
-                    :placeholder="$t('Enter city name')"
-                    :disabled="!form.saudi_region"
+                    :placeholder="form.saudi_region ? $t('Enter city name') : $t('Select region or type city manually')"
+                    :disabled="false"
                   />
                   <has-error :form="form" field="city" />
                 </div>
