@@ -799,7 +799,7 @@
   "Available CC Loan": "Mevcut CC Kredisi",
   "All Loans": "Tüm Krediler",
   "No loans are available yet!": "Henüz kredi mevcut değil!",
-  "You haven't added any loan for this authority. After adding loans you will see the list here.": "Bu yetki için herhangi bir kredi eklemediniz. ",
+  "You haven't added any loan for this authority.": "Bu yetki için herhangi bir kredi eklemediniz. ",
   "Authority Details": "Yetki Detayları",
   "Payable Amount": "Ödenecek Tutar",
   "Duration": "Süre",

@@ -219,7 +219,7 @@
                         <th>
                           {{ $t("Discount") }}
                           <span v-if="allData.invoice.discountType == 1">({{ allData.invoice.discountPercentage
-                            }}%)</span>
+                          }}%)</span>
                           :
                         </th>
                         <td>

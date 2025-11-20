@@ -70,4237 +70,6 @@ exports["default"] = Locale;
 
 /***/ }),
 
-/***/ 4973:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ SupplierForm)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=template&id=3328d9b2&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    "class": {
-      'card-body': _vm.showCardBody
-    }
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-user-circle mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Supplier Details")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "codeNumber"
-    }
-  }, [_vm._v("\n              " + _vm._s(_vm.$t("Supplier Number")) + "\n            ")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.codeNumber,
-      expression: "form.codeNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('codeNumber')
-    },
-    attrs: {
-      "id": "codeNumber",
-      "type": "text",
-      "name": "codeNumber",
-      "placeholder": _vm.$t('Loading...'),
-      "readonly": "",
-      "aria-readonly": "true"
-    },
-    domProps: {
-      "value": _vm.form.codeNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "codeNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('small', {
-    staticClass: "form-text text-muted"
-  }, [_vm._v("\n              " + _vm._s(_vm.$t("This supplier number is automatically generated and cannot be changed")) + "\n            ")]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "codeNumber"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', [_vm._v(_vm._s(_vm.$t("Supplier Type")))]), _vm._v(" "), _c('div', {
-    staticClass: "radio-group"
-  }, [_c('label', {
-    staticClass: "radio-inline"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.type,
-      expression: "form.type"
-    }],
-    attrs: {
-      "type": "radio",
-      "value": "Individual"
-    },
-    domProps: {
-      "checked": _vm._q(_vm.form.type, "Individual")
-    },
-    on: {
-      "change": function change($event) {
-        return _vm.$set(_vm.form, "type", "Individual");
-      }
-    }
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Individual")) + "\n              ")]), _vm._v(" "), _c('label', {
-    staticClass: "radio-inline"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.type,
-      expression: "form.type"
-    }],
-    attrs: {
-      "type": "radio",
-      "value": "Company"
-    },
-    domProps: {
-      "checked": _vm._q(_vm.form.type, "Company")
-    },
-    on: {
-      "change": function change($event) {
-        return _vm.$set(_vm.form, "type", "Company");
-      }
-    }
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Business")) + "\n              ")])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "type"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    staticClass: "form-label font-weight-bold text-primary mb-2 d-block"
-  }, [_c('i', {
-    staticClass: "fas fa-receipt mr-2"
-  }), _vm._v("\n              " + _vm._s(_vm.$t("Tax Status")) + "\n              "), _c('span', {
-    staticClass: "required text-danger"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
-    staticClass: "tax-status-options"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-6"
-  }, [_c('label', {
-    staticClass: "tax-status-card-compact",
-    "class": {
-      'active': _vm.form.taxStatus === 'taxable',
-      'border-primary': _vm.form.taxStatus === 'taxable'
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.setTaxStatus('taxable');
-      }
-    }
-  }, [_c('div', {
-    staticClass: "tax-status-header-compact"
-  }, [_c('input', {
-    staticClass: "tax-status-radio",
-    attrs: {
-      "type": "radio",
-      "value": "taxable"
-    },
-    domProps: {
-      "checked": _vm.form.taxStatus === 'taxable'
-    },
-    on: {
-      "change": function change($event) {
-        return _vm.setTaxStatus('taxable');
-      },
-      "click": function click($event) {
-        $event.stopPropagation();
-        return _vm.setTaxStatus('taxable');
-      }
-    }
-  }), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('span', {
-    staticClass: "tax-status-title-compact"
-  }, [_vm._v(_vm._s(_vm.$t("Taxable")))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
-  }, [_c('label', {
-    staticClass: "tax-status-card-compact",
-    "class": {
-      'active': _vm.form.taxStatus === 'non_taxable',
-      'border-success': _vm.form.taxStatus === 'non_taxable'
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.setTaxStatus('non_taxable');
-      }
-    }
-  }, [_c('div', {
-    staticClass: "tax-status-header-compact"
-  }, [_c('input', {
-    staticClass: "tax-status-radio",
-    attrs: {
-      "type": "radio",
-      "value": "non_taxable"
-    },
-    domProps: {
-      "checked": _vm.form.taxStatus === 'non_taxable'
-    },
-    on: {
-      "change": function change($event) {
-        return _vm.setTaxStatus('non_taxable');
-      },
-      "click": function click($event) {
-        $event.stopPropagation();
-        return _vm.setTaxStatus('non_taxable');
-      }
-    }
-  }), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('span', {
-    staticClass: "tax-status-title-compact"
-  }, [_vm._v(_vm._s(_vm.$t("Non-Taxable")))])])])])])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "taxStatus"
-    }
-  })], 1), _vm._v(" "), _vm.form.type === 'Individual' ? _c('div', [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "fullName"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Full Name")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.fullName,
-      expression: "form.fullName"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('fullName')
-    },
-    attrs: {
-      "id": "fullName",
-      "type": "text",
-      "name": "fullName",
-      "placeholder": _vm.$t('Enter full name')
-    },
-    domProps: {
-      "value": _vm.form.fullName
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "fullName", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "fullName"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "firstName"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("First Name")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.firstName,
-      expression: "form.firstName"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('firstName')
-    },
-    attrs: {
-      "id": "firstName",
-      "type": "text",
-      "name": "firstName",
-      "placeholder": _vm.$t('Enter first name')
-    },
-    domProps: {
-      "value": _vm.form.firstName
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "firstName", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "firstName"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "lastName"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Last Name")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.lastName,
-      expression: "form.lastName"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('lastName')
-    },
-    attrs: {
-      "id": "lastName",
-      "type": "text",
-      "name": "lastName",
-      "placeholder": _vm.$t('Enter last name')
-    },
-    domProps: {
-      "value": _vm.form.lastName
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "lastName", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "lastName"
-    }
-  })], 1)])]) : _vm._e(), _vm._v(" "), _vm.form.type === 'Company' ? _c('div', [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "businessName"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Business Name")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.businessName,
-      expression: "form.businessName"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('businessName')
-    },
-    attrs: {
-      "id": "businessName",
-      "type": "text",
-      "name": "businessName",
-      "placeholder": _vm.$t('Enter business name')
-    },
-    domProps: {
-      "value": _vm.form.businessName
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "businessName", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "businessName"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "phone"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Telephone")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.phone,
-      expression: "form.phone"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('phone')
-    },
-    attrs: {
-      "id": "phone",
-      "type": "text",
-      "name": "phone",
-      "placeholder": _vm.$t('Enter telephone number')
-    },
-    domProps: {
-      "value": _vm.form.phone
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "phone", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "phone"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('PhoneNumberInput', {
-    attrs: {
-      "label": _vm.$t('Mobile'),
-      "required": true,
-      "country": _vm.form.country,
-      "default-country": _vm.form.country || 'SA'
-    },
-    on: {
-      "validated": _vm.onPhoneValidated
-    },
-    model: {
-      value: _vm.form.phoneNumber,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "phoneNumber", $$v);
-      },
-      expression: "form.phoneNumber"
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "phoneNumber"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "email"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Email")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.email,
-      expression: "form.email"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('email')
-    },
-    attrs: {
-      "id": "email",
-      "type": "email",
-      "name": "email",
-      "placeholder": _vm.$t('Enter your email address')
-    },
-    domProps: {
-      "value": _vm.form.email
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "email", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "email"
-    }
-  })], 1)])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-map-marked-alt mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("National Address")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "country"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Country")) + " \n                "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c('v-select', {
-    staticClass: "country-select",
-    "class": {
-      'is-invalid': _vm.form.errors.has('country')
-    },
-    attrs: {
-      "options": _vm.countries,
-      "label": "name",
-      "reduce": function reduce(option) {
-        return option.code;
-      },
-      "placeholder": _vm.$t('Select Country'),
-      "searchable": true,
-      "clearable": false
-    },
-    on: {
-      "input": _vm.onCountryChange
-    },
-    scopedSlots: _vm._u([{
-      key: "option",
-      fn: function fn(_ref) {
-        var flag = _ref.flag,
-          name = _ref.name;
-        return [_c('div', {
-          staticClass: "country-option"
-        }, [_c('span', {
-          staticClass: "country-flag"
-        }, [_vm._v(_vm._s(flag))]), _vm._v(" "), _c('span', {
-          staticClass: "country-name"
-        }, [_vm._v(_vm._s(name))])])];
-      }
-    }, {
-      key: "selected-option",
-      fn: function fn(_ref2) {
-        var flag = _ref2.flag,
-          name = _ref2.name;
-        return [_c('div', {
-          staticClass: "country-selected"
-        }, [_c('span', {
-          staticClass: "country-flag"
-        }, [_vm._v(_vm._s(flag))]), _vm._v(" "), _c('span', {
-          staticClass: "country-name"
-        }, [_vm._v(_vm._s(name))])])];
-      }
-    }, {
-      key: "no-options",
-      fn: function fn() {
-        return [_c('div', {
-          staticClass: "text-center text-muted p-2"
-        }, [_vm._v("\n                    " + _vm._s(_vm.$t('No countries found')) + "\n                  ")])];
-      },
-      proxy: true
-    }]),
-    model: {
-      value: _vm.form.country,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "country", $$v);
-      },
-      expression: "form.country"
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "country"
-    }
-  })], 1), _vm._v(" "), _vm.form.country !== 'SA' ? _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "state"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("State")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.state,
-      expression: "form.state"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('state')
-    },
-    attrs: {
-      "id": "state",
-      "type": "text",
-      "name": "state",
-      "placeholder": _vm.$t('Enter state')
-    },
-    domProps: {
-      "value": _vm.form.state
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "state", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "state"
-    }
-  })], 1) : _vm._e(), _vm._v(" "), _vm.form.country === 'SA' ? [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "saudi_region"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Region")))]), _vm._v(" "), _c('v-select', {
-    staticClass: "saudi-location-select",
-    "class": {
-      'is-invalid': _vm.form.errors.has('saudi_region')
-    },
-    attrs: {
-      "options": _vm.saudiRegions,
-      "label": "name",
-      "reduce": function reduce(option) {
-        return option.id;
-      },
-      "placeholder": _vm.$t('Select Region'),
-      "searchable": true,
-      "clearable": false
-    },
-    on: {
-      "input": _vm.onSaudiRegionChange
-    },
-    scopedSlots: _vm._u([{
-      key: "option",
-      fn: function fn(_ref3) {
-        var name_ar = _ref3.name_ar,
-          name_en = _ref3.name_en;
-        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
-      }
-    }, {
-      key: "selected-option",
-      fn: function fn(_ref4) {
-        var name_ar = _ref4.name_ar,
-          name_en = _ref4.name_en;
-        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
-      }
-    }], null, false, 2274166349),
-    model: {
-      value: _vm.form.saudi_region,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "saudi_region", $$v);
-      },
-      expression: "form.saudi_region"
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "saudi_region"
-    }
-  })], 1)] : _vm._e()], 2), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_vm.form.country === 'SA' ? [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "city"
-    }
-  }, [_vm._v("\n                  " + _vm._s(_vm.$t("City")) + " \n                  "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _vm.saudiCities.length > 0 ? _c('v-select', {
-    staticClass: "saudi-location-select",
-    "class": {
-      'is-invalid': _vm.form.errors.has('city')
-    },
-    attrs: {
-      "options": _vm.saudiCities,
-      "label": "name",
-      "reduce": function reduce(option) {
-        return option.name;
-      },
-      "placeholder": _vm.$t('Select City'),
-      "searchable": true,
-      "clearable": false,
-      "disabled": !_vm.form.saudi_region
-    },
-    scopedSlots: _vm._u([{
-      key: "option",
-      fn: function fn(_ref5) {
-        var name_ar = _ref5.name_ar,
-          name_en = _ref5.name_en;
-        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
-      }
-    }, {
-      key: "selected-option",
-      fn: function fn(_ref6) {
-        var name_ar = _ref6.name_ar,
-          name_en = _ref6.name_en;
-        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
-      }
-    }], null, false, 2274166349),
-    model: {
-      value: _vm.form.city,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "city", $$v);
-      },
-      expression: "form.city"
-    }
-  }) : _vm.form.saudi_region ? _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.city,
-      expression: "form.city"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('city')
-    },
-    attrs: {
-      "id": "city",
-      "type": "text",
-      "name": "city",
-      "placeholder": _vm.$t('Enter city name'),
-      "disabled": !_vm.form.saudi_region
-    },
-    domProps: {
-      "value": _vm.form.city
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "city", $event.target.value);
-      }
-    }
-  }) : _vm._e(), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "city"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "neighbourhood"
-    }
-  }, [_vm._v("\n                  " + _vm._s(_vm.$t("Neighbourhood")) + " \n                  "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.neighbourhood,
-      expression: "form.neighbourhood"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('neighbourhood')
-    },
-    attrs: {
-      "id": "neighbourhood",
-      "type": "text",
-      "name": "neighbourhood",
-      "placeholder": _vm.$t('Enter neighbourhood')
-    },
-    domProps: {
-      "value": _vm.form.neighbourhood
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "neighbourhood", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "neighbourhood"
-    }
-  })], 1)] : _vm._e(), _vm._v(" "), _vm.form.country !== 'SA' ? [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "city"
-    }
-  }, [_vm._v("\n                  " + _vm._s(_vm.$t("City")) + " \n                  "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.city,
-      expression: "form.city"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('city')
-    },
-    attrs: {
-      "id": "city",
-      "type": "text",
-      "name": "city",
-      "placeholder": _vm.$t('Enter city')
-    },
-    domProps: {
-      "value": _vm.form.city
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "city", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "city"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "neighbourhood"
-    }
-  }, [_vm._v("\n                  " + _vm._s(_vm.$t("Neighbourhood")) + " \n                  "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.neighbourhood,
-      expression: "form.neighbourhood"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('neighbourhood')
-    },
-    attrs: {
-      "id": "neighbourhood",
-      "type": "text",
-      "name": "neighbourhood",
-      "placeholder": _vm.$t('Enter neighbourhood')
-    },
-    domProps: {
-      "value": _vm.form.neighbourhood
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "neighbourhood", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "neighbourhood"
-    }
-  })], 1)] : _vm._e()], 2), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "streetAddress1"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Street Name")) + " \n                "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.streetAddress1,
-      expression: "form.streetAddress1"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('streetAddress1')
-    },
-    attrs: {
-      "id": "streetAddress1",
-      "type": "text",
-      "name": "streetAddress1",
-      "placeholder": _vm.$t('Enter street name')
-    },
-    domProps: {
-      "value": _vm.form.streetAddress1
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "streetAddress1", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "streetAddress1"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "postalCode"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Postal Code")) + " \n                "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.postalCode,
-      expression: "form.postalCode"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('postalCode')
-    },
-    attrs: {
-      "id": "postalCode",
-      "type": "text",
-      "name": "postalCode",
-      "placeholder": _vm.$t('Enter postal code')
-    },
-    domProps: {
-      "value": _vm.form.postalCode
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "postalCode", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "postalCode"
-    }
-  })], 1)]), _vm._v(" "), _vm.form.country === 'SA' ? _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "buildingNumber"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Building Number")) + " "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _c('span', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.buildingNumber,
-      expression: "form.buildingNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('buildingNumber')
-    },
-    attrs: {
-      "id": "buildingNumber",
-      "type": "text",
-      "name": "buildingNumber",
-      "placeholder": _vm.$t('Enter building number'),
-      "maxlength": "5"
-    },
-    domProps: {
-      "value": _vm.form.buildingNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "buildingNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "buildingNumber"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "streetNumber"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Street Number")) + " "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _c('span', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.streetNumber,
-      expression: "form.streetNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('streetNumber')
-    },
-    attrs: {
-      "id": "streetNumber",
-      "type": "text",
-      "name": "streetNumber",
-      "placeholder": _vm.$t('Enter street number'),
-      "maxlength": "5"
-    },
-    domProps: {
-      "value": _vm.form.streetNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "streetNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "streetNumber"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.country === 'SA' ? _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "districtNumber"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("District Number")) + " "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _c('span', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.districtNumber,
-      expression: "form.districtNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('districtNumber')
-    },
-    attrs: {
-      "id": "districtNumber",
-      "type": "text",
-      "name": "districtNumber",
-      "placeholder": _vm.$t('Enter district number'),
-      "maxlength": "5"
-    },
-    domProps: {
-      "value": _vm.form.districtNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "districtNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "districtNumber"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "unitNumber"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Unit Number")) + " "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _c('span', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.unitNumber,
-      expression: "form.unitNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('unitNumber')
-    },
-    attrs: {
-      "id": "unitNumber",
-      "type": "text",
-      "name": "unitNumber",
-      "placeholder": _vm.$t('Enter unit number'),
-      "maxlength": "5"
-    },
-    domProps: {
-      "value": _vm.form.unitNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "unitNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "unitNumber"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "additionalNumber"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Additional Number")) + " "), _c('span', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.additionalNumber,
-      expression: "form.additionalNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('additionalNumber')
-    },
-    attrs: {
-      "id": "additionalNumber",
-      "type": "text",
-      "name": "additionalNumber",
-      "placeholder": _vm.$t('Enter additional number'),
-      "maxlength": "5"
-    },
-    domProps: {
-      "value": _vm.form.additionalNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "additionalNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "additionalNumber"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.taxStatus === 'taxable' ? _c('div', {
-    staticClass: "row mt-3"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('hr', {
-    staticStyle: {
-      "margin": "15px 0",
-      "border-color": "#e0e0e0"
-    }
-  }), _vm._v(" "), _c('h6', {
-    staticClass: "text-muted mb-3"
-  }, [_c('i', {
-    staticClass: "fas fa-file-invoice-dollar mr-2"
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Tax Information (Required for Taxable Suppliers)")) + "\n              ")])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "commercialRegister"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Commercial Register")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.commercialRegister,
-      expression: "form.commercialRegister"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('commercialRegister')
-    },
-    attrs: {
-      "id": "commercialRegister",
-      "type": "text",
-      "name": "commercialRegister",
-      "placeholder": _vm.$t('Enter commercial register number')
-    },
-    domProps: {
-      "value": _vm.form.commercialRegister
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "commercialRegister", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "commercialRegister"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "taxRegistrationNumber"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Tax Registration Number")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.taxRegistrationNumber,
-      expression: "form.taxRegistrationNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('taxRegistrationNumber')
-    },
-    attrs: {
-      "id": "taxRegistrationNumber",
-      "type": "text",
-      "name": "taxRegistrationNumber",
-      "placeholder": _vm.$t('Enter 15-digit tax registration number'),
-      "maxlength": "15"
-    },
-    domProps: {
-      "value": _vm.form.taxRegistrationNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "taxRegistrationNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('small', {
-    staticClass: "form-text text-muted"
-  }, [_vm._v(_vm._s(_vm.$t("Must be exactly 15 digits")))]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "taxRegistrationNumber"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.type === 'Company' && _vm.form.taxStatus !== 'taxable' ? _c('div', {
-    staticClass: "row mt-3"
-  }, [_vm._m(2), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "commercialRegister"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("CR")) + " "), _c('span', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.commercialRegister,
-      expression: "form.commercialRegister"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('commercialRegister')
-    },
-    attrs: {
-      "id": "commercialRegister",
-      "type": "text",
-      "name": "commercialRegister",
-      "placeholder": _vm.$t('Enter commercial register number')
-    },
-    domProps: {
-      "value": _vm.form.commercialRegister
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "commercialRegister", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "commercialRegister"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "taxCard"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Tax ID (Optional)")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.taxCard,
-      expression: "form.taxCard"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('taxCard')
-    },
-    attrs: {
-      "id": "taxCard",
-      "type": "text",
-      "name": "taxCard",
-      "placeholder": _vm.$t('Enter tax ID number')
-    },
-    domProps: {
-      "value": _vm.form.taxCard
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "taxCard", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "taxCard"
-    }
-  })], 1)]) : _vm._e()])])])]), _vm._v(" "), _c('div', {
-    staticClass: "row mt-4"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-cog mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Account Details")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "displayLanguage"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Display Language")))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.displayLanguage,
-      expression: "form.displayLanguage"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('displayLanguage')
-    },
-    attrs: {
-      "id": "displayLanguage"
-    },
-    on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "displayLanguage", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Select Language")))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "en"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("English")))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "ar"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Arabic")))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "displayLanguage"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "status"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.status,
-      expression: "form.status"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('status')
-    },
-    attrs: {
-      "id": "status"
-    },
-    on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "1"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Active")))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "0"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "status"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "image"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Profile Image")))]), _vm._v(" "), _c('div', {
-    staticClass: "custom-file"
-  }, [_c('input', {
-    staticClass: "custom-file-input",
-    "class": {
-      'is-invalid': _vm.form.errors.has('image')
-    },
-    attrs: {
-      "id": "image",
-      "type": "file",
-      "name": "image",
-      "accept": "image/*"
-    },
-    on: {
-      "change": _vm.onFileChange
-    }
-  }), _vm._v(" "), _c('label', {
-    staticClass: "custom-file-label",
-    attrs: {
-      "for": "image"
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-image mr-2"
-  }), _vm._v("\n                  " + _vm._s(_vm.$t("Choose file")) + "\n                ")])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "image"
-    }
-  }), _vm._v(" "), _vm.url ? _c('div', {
-    staticClass: "image-preview mt-2"
-  }, [_c('img', {
-    staticClass: "img-fluid rounded",
-    staticStyle: {
-      "max-height": "100px"
-    },
-    attrs: {
-      "src": _vm.url,
-      "alt": _vm.$t('Profile Image')
-    }
-  })]) : _vm._e()], 1)])])])])]), _vm._v(" "), _vm.form.type === 'Company' ? _c('div', {
-    staticClass: "row mt-4"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-users mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Supplier Representative Info")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('RepresentativesList', {
-    attrs: {
-      "representatives": _vm.form.representatives || []
-    },
-    on: {
-      "representatives-changed": _vm.handleRepresentativesChanged
-    }
-  })], 1)])])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "row mt-4"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-map-marked-alt mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("National Address")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "country"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Country")))]), _vm._v(" "), _c('v-select', {
-    staticClass: "country-select",
-    "class": {
-      'is-invalid': _vm.form.errors.has('country')
-    },
-    attrs: {
-      "options": _vm.countries,
-      "label": "name",
-      "reduce": function reduce(option) {
-        return option.code;
-      },
-      "placeholder": _vm.$t('Select Country'),
-      "searchable": true,
-      "clearable": false
-    },
-    on: {
-      "input": _vm.onCountryChange
-    },
-    scopedSlots: _vm._u([{
-      key: "option",
-      fn: function fn(_ref7) {
-        var flag = _ref7.flag,
-          name = _ref7.name;
-        return [_c('div', {
-          staticClass: "country-option"
-        }, [_c('span', {
-          staticClass: "country-flag"
-        }, [_vm._v(_vm._s(flag))]), _vm._v(" "), _c('span', {
-          staticClass: "country-name"
-        }, [_vm._v(_vm._s(name))])])];
-      }
-    }, {
-      key: "selected-option",
-      fn: function fn(_ref8) {
-        var flag = _ref8.flag,
-          name = _ref8.name;
-        return [_c('div', {
-          staticClass: "country-selected"
-        }, [_c('span', {
-          staticClass: "country-flag"
-        }, [_vm._v(_vm._s(flag))]), _vm._v(" "), _c('span', {
-          staticClass: "country-name"
-        }, [_vm._v(_vm._s(name))])])];
-      }
-    }, {
-      key: "no-options",
-      fn: function fn() {
-        return [_c('div', {
-          staticClass: "text-center text-muted p-2"
-        }, [_vm._v("\n                    " + _vm._s(_vm.$t('No countries found')) + "\n                  ")])];
-      },
-      proxy: true
-    }]),
-    model: {
-      value: _vm.form.country,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "country", $$v);
-      },
-      expression: "form.country"
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "country"
-    }
-  })], 1), _vm._v(" "), _vm.form.country !== 'SA' ? _c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "state"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("State")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.state,
-      expression: "form.state"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('state')
-    },
-    attrs: {
-      "id": "state",
-      "type": "text",
-      "name": "state",
-      "placeholder": _vm.$t('Enter state')
-    },
-    domProps: {
-      "value": _vm.form.state
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "state", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "state"
-    }
-  })], 1) : _vm._e(), _vm._v(" "), _vm.form.country === 'SA' ? [_c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "saudi_region"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Region")))]), _vm._v(" "), _c('v-select', {
-    staticClass: "saudi-location-select",
-    "class": {
-      'is-invalid': _vm.form.errors.has('saudi_region')
-    },
-    attrs: {
-      "options": _vm.saudiRegions,
-      "label": "name",
-      "reduce": function reduce(option) {
-        return option.id;
-      },
-      "placeholder": _vm.$t('Select Region'),
-      "searchable": true,
-      "clearable": false
-    },
-    on: {
-      "input": _vm.onSaudiRegionChange
-    },
-    scopedSlots: _vm._u([{
-      key: "option",
-      fn: function fn(_ref9) {
-        var name_ar = _ref9.name_ar,
-          name_en = _ref9.name_en;
-        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
-      }
-    }, {
-      key: "selected-option",
-      fn: function fn(_ref0) {
-        var name_ar = _ref0.name_ar,
-          name_en = _ref0.name_en;
-        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
-      }
-    }], null, false, 2274166349),
-    model: {
-      value: _vm.form.saudi_region,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "saudi_region", $$v);
-      },
-      expression: "form.saudi_region"
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "saudi_region"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "city"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("City")))]), _vm._v(" "), _vm.saudiCities.length > 0 ? _c('v-select', {
-    staticClass: "saudi-location-select",
-    "class": {
-      'is-invalid': _vm.form.errors.has('city')
-    },
-    attrs: {
-      "options": _vm.saudiCities,
-      "label": "name",
-      "reduce": function reduce(option) {
-        return option.name;
-      },
-      "placeholder": _vm.$t('Select City'),
-      "searchable": true,
-      "clearable": false,
-      "disabled": !_vm.form.saudi_region
-    },
-    scopedSlots: _vm._u([{
-      key: "option",
-      fn: function fn(_ref1) {
-        var name_ar = _ref1.name_ar,
-          name_en = _ref1.name_en;
-        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
-      }
-    }, {
-      key: "selected-option",
-      fn: function fn(_ref10) {
-        var name_ar = _ref10.name_ar,
-          name_en = _ref10.name_en;
-        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
-      }
-    }], null, false, 2274166349),
-    model: {
-      value: _vm.form.city,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "city", $$v);
-      },
-      expression: "form.city"
-    }
-  }) : _vm.form.saudi_region ? _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.city,
-      expression: "form.city"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('city')
-    },
-    attrs: {
-      "id": "city",
-      "type": "text",
-      "name": "city",
-      "placeholder": _vm.$t('Enter city name'),
-      "disabled": !_vm.form.saudi_region
-    },
-    domProps: {
-      "value": _vm.form.city
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "city", $event.target.value);
-      }
-    }
-  }) : _vm._e(), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "city"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "neighbourhood"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Neighbourhood")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.neighbourhood,
-      expression: "form.neighbourhood"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('neighbourhood')
-    },
-    attrs: {
-      "id": "neighbourhood",
-      "type": "text",
-      "name": "neighbourhood",
-      "placeholder": _vm.$t('Enter neighbourhood')
-    },
-    domProps: {
-      "value": _vm.form.neighbourhood
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "neighbourhood", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "neighbourhood"
-    }
-  })], 1)] : _vm._e(), _vm._v(" "), _vm.form.country !== 'SA' ? [_c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "city"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("City")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.city,
-      expression: "form.city"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('city')
-    },
-    attrs: {
-      "id": "city",
-      "type": "text",
-      "name": "city",
-      "placeholder": _vm.$t('Enter city')
-    },
-    domProps: {
-      "value": _vm.form.city
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "city", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "city"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "neighbourhood"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Neighbourhood")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.neighbourhood,
-      expression: "form.neighbourhood"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('neighbourhood')
-    },
-    attrs: {
-      "id": "neighbourhood",
-      "type": "text",
-      "name": "neighbourhood",
-      "placeholder": _vm.$t('Enter neighbourhood')
-    },
-    domProps: {
-      "value": _vm.form.neighbourhood
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "neighbourhood", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "neighbourhood"
-    }
-  })], 1)] : _vm._e()], 2), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "streetAddress1"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Street Name")) + " \n                "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.streetAddress1,
-      expression: "form.streetAddress1"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('streetAddress1')
-    },
-    attrs: {
-      "id": "streetAddress1",
-      "type": "text",
-      "name": "streetAddress1",
-      "placeholder": _vm.$t('Enter street name')
-    },
-    domProps: {
-      "value": _vm.form.streetAddress1
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "streetAddress1", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "streetAddress1"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "postalCode"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Postal Code")) + " \n                "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.postalCode,
-      expression: "form.postalCode"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('postalCode')
-    },
-    attrs: {
-      "id": "postalCode",
-      "type": "text",
-      "name": "postalCode",
-      "placeholder": _vm.$t('Enter postal code')
-    },
-    domProps: {
-      "value": _vm.form.postalCode
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "postalCode", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "postalCode"
-    }
-  })], 1), _vm._v(" "), _vm.form.country === 'SA' ? _c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "buildingNumber"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Building Number")) + " "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _c('span', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.buildingNumber,
-      expression: "form.buildingNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('buildingNumber')
-    },
-    attrs: {
-      "id": "buildingNumber",
-      "type": "text",
-      "name": "buildingNumber",
-      "placeholder": _vm.$t('Enter building number'),
-      "maxlength": "5"
-    },
-    domProps: {
-      "value": _vm.form.buildingNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "buildingNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "buildingNumber"
-    }
-  })], 1) : _vm._e()]), _vm._v(" "), _vm.form.country === 'SA' ? _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "streetNumber"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Street Number")) + " "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _c('span', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.streetNumber,
-      expression: "form.streetNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('streetNumber')
-    },
-    attrs: {
-      "id": "streetNumber",
-      "type": "text",
-      "name": "streetNumber",
-      "placeholder": _vm.$t('Enter street number'),
-      "maxlength": "5"
-    },
-    domProps: {
-      "value": _vm.form.streetNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "streetNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "streetNumber"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "districtNumber"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("District Number")) + " "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _c('span', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.districtNumber,
-      expression: "form.districtNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('districtNumber')
-    },
-    attrs: {
-      "id": "districtNumber",
-      "type": "text",
-      "name": "districtNumber",
-      "placeholder": _vm.$t('Enter district number'),
-      "maxlength": "5"
-    },
-    domProps: {
-      "value": _vm.form.districtNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "districtNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "districtNumber"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "unitNumber"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Unit Number")) + " "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _c('span', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.unitNumber,
-      expression: "form.unitNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('unitNumber')
-    },
-    attrs: {
-      "id": "unitNumber",
-      "type": "text",
-      "name": "unitNumber",
-      "placeholder": _vm.$t('Enter unit number'),
-      "maxlength": "5"
-    },
-    domProps: {
-      "value": _vm.form.unitNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "unitNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "unitNumber"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-3"
-  }, [_c('label', {
-    attrs: {
-      "for": "additionalNumber"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Additional Number")) + " "), _c('span', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.additionalNumber,
-      expression: "form.additionalNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('additionalNumber')
-    },
-    attrs: {
-      "id": "additionalNumber",
-      "type": "text",
-      "name": "additionalNumber",
-      "placeholder": _vm.$t('Enter additional number'),
-      "maxlength": "5"
-    },
-    domProps: {
-      "value": _vm.form.additionalNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "additionalNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "additionalNumber"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.taxStatus === 'taxable' ? _c('div', {
-    staticClass: "row mt-4"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('hr', {
-    staticStyle: {
-      "margin": "20px 0",
-      "border-color": "#e0e0e0"
-    }
-  }), _vm._v(" "), _c('h6', {
-    staticClass: "text-muted mb-3"
-  }, [_vm._v(_vm._s(_vm.$t("Tax Information (Required for Taxable Suppliers)")))])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "commercialRegister"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Commercial Register")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.commercialRegister,
-      expression: "form.commercialRegister"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('commercialRegister')
-    },
-    attrs: {
-      "id": "commercialRegister",
-      "type": "text",
-      "name": "commercialRegister",
-      "placeholder": _vm.$t('Enter commercial register number')
-    },
-    domProps: {
-      "value": _vm.form.commercialRegister
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "commercialRegister", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "commercialRegister"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "taxRegistrationNumber"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Tax Registration Number")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.taxRegistrationNumber,
-      expression: "form.taxRegistrationNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('taxRegistrationNumber')
-    },
-    attrs: {
-      "id": "taxRegistrationNumber",
-      "type": "text",
-      "name": "taxRegistrationNumber",
-      "placeholder": _vm.$t('Enter 15-digit tax registration number'),
-      "maxlength": "15"
-    },
-    domProps: {
-      "value": _vm.form.taxRegistrationNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "taxRegistrationNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('small', {
-    staticClass: "form-text text-muted"
-  }, [_vm._v(_vm._s(_vm.$t("Must be exactly 15 digits")))]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "taxRegistrationNumber"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.type === 'Company' && _vm.form.taxStatus !== 'taxable' ? _c('div', {
-    staticClass: "row mt-4"
-  }, [_vm._m(3), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "commercialRegister"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("CR")) + " "), _c('span', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.commercialRegister,
-      expression: "form.commercialRegister"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('commercialRegister')
-    },
-    attrs: {
-      "id": "commercialRegister",
-      "type": "text",
-      "name": "commercialRegister",
-      "placeholder": _vm.$t('Enter commercial register number')
-    },
-    domProps: {
-      "value": _vm.form.commercialRegister
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "commercialRegister", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "commercialRegister"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "taxCard"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Tax ID (Optional)")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.taxCard,
-      expression: "form.taxCard"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('taxCard')
-    },
-    attrs: {
-      "id": "taxCard",
-      "type": "text",
-      "name": "taxCard",
-      "placeholder": _vm.$t('Enter tax ID number')
-    },
-    domProps: {
-      "value": _vm.form.taxCard
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "taxCard", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "taxCard"
-    }
-  })], 1)]) : _vm._e()])])])]), _vm._v(" "), _c('div', {
-    staticClass: "row mt-4 equal-height"
-  }, [_c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-info-circle mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Additional Information")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "notes"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Notes")))]), _vm._v(" "), _c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.notes,
-      expression: "form.notes"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('notes')
-    },
-    attrs: {
-      "id": "notes",
-      "rows": "3",
-      "placeholder": _vm.$t('Enter additional notes')
-    },
-    domProps: {
-      "value": _vm.form.notes
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "notes", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "notes"
-    }
-  })], 1)])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-file-alt mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Documents & Settings")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "attachments"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Attachments")))]), _vm._v(" "), _c('div', {
-    staticClass: "file-upload-area"
-  }, [_c('input', {
-    staticClass: "file-input",
-    "class": {
-      'is-invalid': _vm.form.errors.has('attachments')
-    },
-    attrs: {
-      "id": "attachments",
-      "type": "file",
-      "name": "attachments",
-      "multiple": "",
-      "accept": ".pdf,.doc,.docx,.xls,.xlsx,.txt,.jpg,.jpeg,.png,.gif"
-    },
-    on: {
-      "change": _vm.onFileChange
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "file-upload-content"
-  }, [_c('i', {
-    staticClass: "fas fa-cloud-upload-alt"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Drop files here or click to browse")))]), _vm._v(" "), _c('small', {
-    staticClass: "text-muted"
-  }, [_vm._v(_vm._s(_vm.$t("Supported formats: PDF, DOC, XLS, TXT, Images")))])])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "attachments"
-    }
-  }), _vm._v(" "), _vm.form.attachments && _vm.form.attachments.length > 0 ? _c('div', {
-    staticClass: "selected-files mt-2"
-  }, _vm._l(_vm.form.attachments, function (file, index) {
-    return _c('div', {
-      key: index,
-      staticClass: "selected-file-item"
-    }, [_c('i', {
-      staticClass: "fas fa-file mr-2"
-    }), _vm._v(" "), _c('span', [_vm._v(_vm._s(file.name))]), _vm._v(" "), _c('button', {
-      staticClass: "btn btn-sm btn-outline-danger ml-2",
-      attrs: {
-        "type": "button"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.removeFile(index);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-times"
-    })])]);
-  }), 0) : _vm._e()], 1)])])])]), _vm._v(" "), _vm.routingSetting && _vm.routingSetting.routing_type !== 'automatic' ? _c('div', {
-    staticClass: "row mt-4",
-    staticStyle: {
-      "display": "none"
-    }
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-chart-line mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Chart of Account")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "alert alert-info"
-  }, [_c('i', {
-    staticClass: "fas fa-info-circle mr-2"
-  }), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Current Routing Type")) + ":")]), _vm._v(" " + _vm._s(_vm.routingSetting.routing_type_display) + "\n         ")])])])])]) : _vm._e(), _vm._v(" "), _vm.routingSetting && _vm.routingSetting.routing_type === 'automatic' ? _c('div', {
-    staticClass: "row mt-4",
-    staticStyle: {
-      "display": "none"
-    }
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-chart-line mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Chart of Account")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "alert alert-success"
-  }, [_c('i', {
-    staticClass: "fas fa-check-circle mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Chart of account will be automatically assigned based on your accounting configuration.")) + "\n          ")])])])])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "row mt-4"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-bell mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Communication Preferences")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('div', {
-    staticClass: "d-flex align-items-center"
-  }, [_c('toggle-button', {
-    attrs: {
-      "disabled": _vm.isDemoMode || _vm.communicationConfig.loading || !_vm.communicationConfig.email_configured
-    },
-    model: {
-      value: _vm.form.isSendEmail,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "isSendEmail", $$v);
-      },
-      expression: "form.isSendEmail"
-    }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "ml-3"
-  }, [_vm._v(_vm._s(_vm.$t("Send Welcome Email")))]), _vm._v(" "), !_vm.communicationConfig.loading && !_vm.communicationConfig.email_configured ? _c('span', {
-    staticClass: "ml-2 text-muted small"
-  }, [_vm._v("\n              (" + _vm._s(_vm.$t("Email not configured")) + ")\n            ")]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('div', {
-    staticClass: "d-flex align-items-center"
-  }, [_c('toggle-button', {
-    attrs: {
-      "disabled": _vm.isDemoMode || _vm.communicationConfig.loading || !_vm.communicationConfig.sms_configured
-    },
-    model: {
-      value: _vm.form.isSendSMS,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "isSendSMS", $$v);
-      },
-      expression: "form.isSendSMS"
-    }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "ml-3"
-  }, [_vm._v(_vm._s(_vm.$t("Send Welcome SMS")))]), _vm._v(" "), !_vm.communicationConfig.loading && !_vm.communicationConfig.sms_configured ? _c('span', {
-    staticClass: "ml-2 text-muted small"
-  }, [_vm._v("\n              (" + _vm._s(_vm.$t("SMS not configured")) + ")\n            ")]) : _vm._e()], 1)])])])])])])]);
-};
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "tax-status-icon-compact taxable-icon"
-  }, [_c('i', {
-    staticClass: "fas fa-file-invoice-dollar"
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "tax-status-icon-compact non-taxable-icon"
-  }, [_c('i', {
-    staticClass: "fas fa-file-invoice"
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "col-md-12"
-  }, [_c('hr', {
-    staticStyle: {
-      "margin": "15px 0",
-      "border-color": "#e0e0e0"
-    }
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "col-md-12"
-  }, [_c('hr', {
-    staticStyle: {
-      "margin": "20px 0",
-      "border-color": "#e0e0e0"
-    }
-  })]);
-}];
-
-;// ./resources/js/components/SupplierForm.vue?vue&type=template&id=3328d9b2&scoped=true
-
-// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
-var vform_es = __webpack_require__(63216);
-// EXTERNAL MODULE: ./node_modules/vue-js-toggle-button/dist/index.js
-var dist = __webpack_require__(12616);
-// EXTERNAL MODULE: ./resources/js/components/RepresentativesList.vue + 11 modules
-var RepresentativesList = __webpack_require__(89812);
-// EXTERNAL MODULE: ./resources/js/components/PhoneNumberInput.vue + 5 modules
-var PhoneNumberInput = __webpack_require__(57683);
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-// EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
-var sweetalert2_all = __webpack_require__(78465);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=script&lang=js
-function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
-function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-
-
-
-
-
-/* harmony default export */ const SupplierFormvue_type_script_lang_js = ({
-  name: "SupplierForm",
-  components: {
-    ToggleButton: dist.ToggleButton,
-    RepresentativesList: RepresentativesList/* default */.A,
-    PhoneNumberInput: PhoneNumberInput/* default */.A
-  },
-  props: {
-    // Whether to show the card-body wrapper (for create page) or not (for modal)
-    showCardBody: {
-      type: Boolean,
-      "default": true
-    },
-    // Initial form data (optional)
-    initialData: {
-      type: Object,
-      "default": function _default() {
-        return {};
-      }
-    }
-  },
-  data: function data() {
-    return {
-      isDemoMode: window.config.isDemoMode,
-      loading: true,
-      url: null,
-      form: null,
-      // Will be initialized in created()
-
-      // Add missing properties for chart of accounts
-      routingSetting: null,
-      loadingChartOfAccounts: false,
-      chartOfAccountsError: null,
-      chartOfAccounts: [],
-      isCreatingAccount: false,
-      isAutoAssigningSupplier: false,
-      // Communication configuration status
-      communicationConfig: {
-        email_configured: false,
-        sms_configured: false,
-        loading: true
-      },
-      // Phone number validation
-      phoneNumberValid: false,
-      // Saudi Arabia location data
-      saudiRegions: [],
-      saudiCities: [],
-      loadingRegions: false,
-      loadingCities: false,
-      // Countries data with flags (same as ClientForm)
-      countriesData: [{
-        code: 'SA',
-        nameKey: 'Saudi Arabia',
-        flag: '🇸🇦'
-      }, {
-        code: 'AE',
-        nameKey: 'United Arab Emirates',
-        flag: '🇦🇪'
-      }, {
-        code: 'EG',
-        nameKey: 'Egypt',
-        flag: '🇪🇬'
-      }, {
-        code: 'JO',
-        nameKey: 'Jordan',
-        flag: '🇯🇴'
-      }, {
-        code: 'LB',
-        nameKey: 'Lebanon',
-        flag: '🇱🇧'
-      }, {
-        code: 'MA',
-        nameKey: 'Morocco',
-        flag: '🇲🇦'
-      }, {
-        code: 'TN',
-        nameKey: 'Tunisia',
-        flag: '🇹🇳'
-      }, {
-        code: 'DZ',
-        nameKey: 'Algeria',
-        flag: '🇩🇿'
-      }, {
-        code: 'KW',
-        nameKey: 'Kuwait',
-        flag: '🇰🇼'
-      }, {
-        code: 'QA',
-        nameKey: 'Qatar',
-        flag: '🇶🇦'
-      }, {
-        code: 'BH',
-        nameKey: 'Bahrain',
-        flag: '🇧🇭'
-      }, {
-        code: 'OM',
-        nameKey: 'Oman',
-        flag: '🇴🇲'
-      }, {
-        code: 'YE',
-        nameKey: 'Yemen',
-        flag: '🇾🇪'
-      }, {
-        code: 'IQ',
-        nameKey: 'Iraq',
-        flag: '🇮🇶'
-      }, {
-        code: 'US',
-        nameKey: 'United States',
-        flag: '🇺🇸'
-      }, {
-        code: 'GB',
-        nameKey: 'United Kingdom',
-        flag: '🇬🇧'
-      }, {
-        code: 'CA',
-        nameKey: 'Canada',
-        flag: '🇨🇦'
-      }, {
-        code: 'AU',
-        nameKey: 'Australia',
-        flag: '🇦🇺'
-      }, {
-        code: 'DE',
-        nameKey: 'Germany',
-        flag: '🇩🇪'
-      }, {
-        code: 'FR',
-        nameKey: 'France',
-        flag: '🇫🇷'
-      }, {
-        code: 'ES',
-        nameKey: 'Spain',
-        flag: '🇪🇸'
-      }, {
-        code: 'IT',
-        nameKey: 'Italy',
-        flag: '🇮🇹'
-      }, {
-        code: 'NL',
-        nameKey: 'Netherlands',
-        flag: '🇳🇱'
-      }, {
-        code: 'BE',
-        nameKey: 'Belgium',
-        flag: '🇧🇪'
-      }, {
-        code: 'CH',
-        nameKey: 'Switzerland',
-        flag: '🇨🇭'
-      }, {
-        code: 'AT',
-        nameKey: 'Austria',
-        flag: '🇦🇹'
-      }, {
-        code: 'SE',
-        nameKey: 'Sweden',
-        flag: '🇸🇪'
-      }, {
-        code: 'NO',
-        nameKey: 'Norway',
-        flag: '🇳🇴'
-      }, {
-        code: 'DK',
-        nameKey: 'Denmark',
-        flag: '🇩🇰'
-      }, {
-        code: 'FI',
-        nameKey: 'Finland',
-        flag: '🇫🇮'
-      }, {
-        code: 'PL',
-        nameKey: 'Poland',
-        flag: '🇵🇱'
-      }, {
-        code: 'IE',
-        nameKey: 'Ireland',
-        flag: '🇮🇪'
-      }, {
-        code: 'PT',
-        nameKey: 'Portugal',
-        flag: '🇵🇹'
-      }, {
-        code: 'GR',
-        nameKey: 'Greece',
-        flag: '🇬🇷'
-      }, {
-        code: 'LU',
-        nameKey: 'Luxembourg',
-        flag: '🇱🇺'
-      }, {
-        code: 'TR',
-        nameKey: 'Turkey',
-        flag: '🇹🇷'
-      }, {
-        code: 'IN',
-        nameKey: 'India',
-        flag: '🇮🇳'
-      }, {
-        code: 'CN',
-        nameKey: 'China',
-        flag: '🇨🇳'
-      }, {
-        code: 'JP',
-        nameKey: 'Japan',
-        flag: '🇯🇵'
-      }, {
-        code: 'KR',
-        nameKey: 'South Korea',
-        flag: '🇰🇷'
-      }, {
-        code: 'BR',
-        nameKey: 'Brazil',
-        flag: '🇧🇷'
-      }, {
-        code: 'MX',
-        nameKey: 'Mexico',
-        flag: '🇲🇽'
-      }, {
-        code: 'AR',
-        nameKey: 'Argentina',
-        flag: '🇦🇷'
-      }, {
-        code: 'ZA',
-        nameKey: 'South Africa',
-        flag: '🇿🇦'
-      }, {
-        code: 'NG',
-        nameKey: 'Nigeria',
-        flag: '🇳🇬'
-      }, {
-        code: 'KE',
-        nameKey: 'Kenya',
-        flag: '🇰🇪'
-      }, {
-        code: 'PK',
-        nameKey: 'Pakistan',
-        flag: '🇵🇰'
-      }, {
-        code: 'BD',
-        nameKey: 'Bangladesh',
-        flag: '🇧🇩'
-      }, {
-        code: 'ID',
-        nameKey: 'Indonesia',
-        flag: '🇮🇩'
-      }, {
-        code: 'PH',
-        nameKey: 'Philippines',
-        flag: '🇵🇭'
-      }, {
-        code: 'VN',
-        nameKey: 'Vietnam',
-        flag: '🇻🇳'
-      }, {
-        code: 'TH',
-        nameKey: 'Thailand',
-        flag: '🇹🇭'
-      }, {
-        code: 'MY',
-        nameKey: 'Malaysia',
-        flag: '🇲🇾'
-      }, {
-        code: 'SG',
-        nameKey: 'Singapore',
-        flag: '🇸🇬'
-      }, {
-        code: 'NZ',
-        nameKey: 'New Zealand',
-        flag: '🇳🇿'
-      }, {
-        code: 'RU',
-        nameKey: 'Russia',
-        flag: '🇷🇺'
-      }, {
-        code: 'UA',
-        nameKey: 'Ukraine',
-        flag: '🇺🇦'
-      }, {
-        code: 'CZ',
-        nameKey: 'Czech Republic',
-        flag: '🇨🇿'
-      }, {
-        code: 'HU',
-        nameKey: 'Hungary',
-        flag: '🇭🇺'
-      }, {
-        code: 'RO',
-        nameKey: 'Romania',
-        flag: '🇷🇴'
-      }, {
-        code: 'BG',
-        nameKey: 'Bulgaria',
-        flag: '🇧🇬'
-      }, {
-        code: 'HR',
-        nameKey: 'Croatia',
-        flag: '🇭🇷'
-      }, {
-        code: 'SI',
-        nameKey: 'Slovenia',
-        flag: '🇸🇮'
-      }, {
-        code: 'SK',
-        nameKey: 'Slovakia',
-        flag: '🇸🇰'
-      }, {
-        code: 'EE',
-        nameKey: 'Estonia',
-        flag: '🇪🇪'
-      }, {
-        code: 'LV',
-        nameKey: 'Latvia',
-        flag: '🇱🇻'
-      }, {
-        code: 'LT',
-        nameKey: 'Lithuania',
-        flag: '🇱🇹'
-      }, {
-        code: 'IS',
-        nameKey: 'Iceland',
-        flag: '🇮🇸'
-      }]
-    };
-  },
-  computed: {
-    // Countries with translated names
-    countries: function countries() {
-      var _this = this;
-      return this.countriesData.map(function (country) {
-        return _objectSpread(_objectSpread({}, country), {}, {
-          name: _this.$t(country.nameKey) || country.nameKey
-        });
-      });
-    },
-    // Check if this is edit mode (has initial data with slug)
-    isEditMode: function isEditMode() {
-      return this.initialData && this.initialData.slug && this.initialData.slug !== 'new';
-    }
-  },
-  watch: {
-    // Watch for changes in initialData prop
-    initialData: {
-      handler: function handler(newData) {
-        var _this2 = this;
-        console.log('InitialData watcher triggered:', newData);
-        if (newData && Object.keys(newData).length > 0) {
-          console.log('Form before setting values:', this.form);
-
-          // Set form values from initial data
-          Object.keys(newData).forEach(function (key) {
-            if (_this2.form && Object.prototype.hasOwnProperty.call(_this2.form, key)) {
-              console.log("Setting form.".concat(key, " ="), newData[key]);
-              _this2.form[key] = newData[key];
-            } else {
-              console.log("Form field ".concat(key, " not found or form not initialized"));
-            }
-          });
-
-          // Handle special cases
-          if (newData.image_path) {
-            this.url = newData.image_path;
-          }
-          if (newData.attachments !== undefined) {
-            this.form.attachments = Array.isArray(newData.attachments) ? newData.attachments : [];
-          } else {
-            // Ensure attachments is always an array
-            this.form.attachments = [];
-          }
-          console.log('Form after setting values:', this.form);
-
-          // Load representatives if this is an existing supplier
-          if (newData.slug && newData.slug !== 'new') {
-            this.loadRepresentatives();
-          } else {
-            // Load next code number only for new suppliers
-            console.log('Loading next code number for new supplier');
-            this.loadNextCodeNumber();
-          }
-        }
-      },
-      immediate: true,
-      deep: true
-    },
-    // Watch for country changes - clear state when Saudi Arabia is selected
-    'form.country': {
-      handler: function handler(newValue, oldValue) {
-        if (newValue === 'SA') {
-          // Clear state field when Saudi Arabia is selected
-          this.form.state = '';
-          // Load Saudi regions
-          this.loadSaudiRegions();
-        } else {
-          // Clear Saudi-specific fields when switching away from SA
-          this.form.saudi_region = null;
-          this.saudiCities = [];
-        }
-      },
-      immediate: true
-    },
-    // Watch for Saudi region changes - load cities
-    'form.saudi_region': {
-      handler: function handler(newValue) {
-        if (newValue && this.form.country === 'SA') {
-          this.loadSaudiCities(newValue);
-        } else {
-          this.saudiCities = [];
-          this.form.city = '';
-        }
-      }
-    },
-    // Watch for changes in phoneNumber field
-    'form.phoneNumber': {
-      handler: function handler(newValue, oldValue) {
-        console.log('Phone number changed:', {
-          old: oldValue,
-          "new": newValue
-        });
-      },
-      immediate: true
-    }
-  },
-  created: function created() {
-    console.log('SupplierForm component created');
-    this.initializeForm();
-  },
-  mounted: function mounted() {
-    var _this3 = this;
-    console.log('SupplierForm component mounted, form:', this.form);
-    console.log('Form data in mounted:', this.form ? Object.keys(this.form) : 'No form');
-
-    // Test if form is working
-    if (this.form) {
-      console.log('Form codeNumber:', this.form.codeNumber);
-      console.log('Form type:', this.form.type);
-      console.log('Form email:', this.form.email);
-    }
-
-    // Load routing settings first, then chart of accounts
-    this.loadRoutingSettings().then(function () {
-      _this3.loadChartOfAccounts();
-    });
-
-    // Load communication configuration status
-    this.loadCommunicationConfigStatus();
-
-    // Load Saudi regions if country is SA
-    if (this.form.country === 'SA') {
-      this.loadSaudiRegions();
-    }
-  },
-  methods: {
-    // Load communication configuration status
-    loadCommunicationConfigStatus: function loadCommunicationConfigStatus() {
-      var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var response, _t;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
-            case 0:
-              _context.p = 0;
-              _this4.communicationConfig.loading = true;
-              _context.n = 1;
-              return axios_default().get('/api/communication-config-status');
-            case 1:
-              response = _context.v;
-              _this4.communicationConfig.email_configured = response.data.email_configured;
-              _this4.communicationConfig.sms_configured = response.data.sms_configured;
-              _this4.communicationConfig.loading = false;
-              _context.n = 3;
-              break;
-            case 2:
-              _context.p = 2;
-              _t = _context.v;
-              console.error('Error loading communication config status:', _t);
-              // Default to false if there's an error
-              _this4.communicationConfig.email_configured = false;
-              _this4.communicationConfig.sms_configured = false;
-              _this4.communicationConfig.loading = false;
-            case 3:
-              return _context.a(2);
-          }
-        }, _callee, null, [[0, 2]]);
-      }))();
-    },
-    // Initialize the form
-    initializeForm: function initializeForm() {
-      this.form = new vform_es/* default */.Ay(_objectSpread(_defineProperty(_defineProperty(_defineProperty(_defineProperty({
-        // Account Details
-        codeNumber: "000001",
-        notes: "",
-        displayLanguage: "",
-        // Supplier Details
-        type: "Company",
-        taxStatus: "non_taxable",
-        fullName: "",
-        businessName: "",
-        firstName: "",
-        lastName: "",
-        phone: "",
-        phoneNumber: "",
-        email: "",
-        streetAddress1: "",
-        city: "",
-        state: "",
-        postalCode: "",
-        country: "SA",
-        saudi_region: null,
-        neighbourhood: "",
-        commercialRegister: "",
-        taxCard: "",
-        // Saudi National Address Fields
-        buildingNumber: "",
-        streetNumber: "",
-        districtNumber: "",
-        unitNumber: "",
-        additionalNumber: "",
-        taxRegistrationNumber: "",
-        // Additional Fields
-        image: "",
-        attachments: [],
-        status: 1,
-        isSendEmail: false,
-        isSendSMS: false,
-        // Legacy fields for backward compatibility
-        name: "",
-        companyName: ""
-      }, "taxRegistrationNumber", ""), "address", ""), "representatives", []), "chartOfAccountId", null), this.initialData || {}));
-      console.log('Form initialized:', this.form);
-      console.log('Form type:', _typeof(this.form));
-      console.log('Form methods:', Object.getOwnPropertyNames(this.form));
-    },
-    // Load the next available code number for new suppliers
-    loadNextCodeNumber: function loadNextCodeNumber() {
-      var _this5 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        var response, _t2;
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.p = _context2.n) {
-            case 0:
-              _context2.p = 0;
-              if (!(!_this5.initialData || Object.keys(_this5.initialData).length === 0)) {
-                _context2.n = 2;
-                break;
-              }
-              _context2.n = 1;
-              return axios_default().get('/api/suppliers/next-code');
-            case 1:
-              response = _context2.v;
-              if (response.data.success) {
-                _this5.form.codeNumber = response.data.formatted_code;
-              } else {
-                console.error('Failed to load next code number:', response.data.message);
-                // Fallback to default
-                _this5.form.codeNumber = '000001';
-              }
-            case 2:
-              _context2.n = 4;
-              break;
-            case 3:
-              _context2.p = 3;
-              _t2 = _context2.v;
-              console.error('Error loading next code number:', _t2);
-              // Fallback to default
-              _this5.form.codeNumber = '000001';
-            case 4:
-              return _context2.a(2);
-          }
-        }, _callee2, null, [[0, 3]]);
-      }))();
-    },
-    // vue file upload
-    onFileChange: function onFileChange(e) {
-      var _this6 = this;
-      var files = Array.from(e.target.files);
-      var validFiles = [];
-      files.forEach(function (file) {
-        // Check file size (2MB limit)
-        if (file.size < 2111775) {
-          // For image, only allow image files
-          if (e.target.id === 'image') {
-            if (file.type.startsWith('image/')) {
-              validFiles.push(file);
-            } else {
-              _this6.$toast.error("Error!", "Please select a valid image file");
-            }
-          } else {
-            // For attachments, allow various document types
-            var allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'text/plain', 'image/jpeg', 'image/png', 'image/gif'];
-            if (allowedTypes.includes(file.type)) {
-              validFiles.push(file);
-            } else {
-              _this6.$toast.error("Error!", "Please select a valid file type");
-            }
-          }
-        } else {
-          _this6.$toast.error("Error!", "Please select a file with size less than 2 MB");
-        }
-      });
-      if (validFiles.length > 0) {
-        // Check if this is for image or attachments
-        if (e.target.id === 'image') {
-          // Single image file
-          this.form.image = validFiles[0];
-          this.url = URL.createObjectURL(validFiles[0]);
-        } else {
-          // Multiple attachment files
-          this.form.attachments = [].concat(_toConsumableArray(this.form.attachments), validFiles);
-        }
-      }
-    },
-    // Handle attachment file changes
-    onAttachmentChange: function onAttachmentChange(e) {
-      var _this7 = this;
-      var files = Array.from(e.target.files);
-      var validFiles = [];
-      files.forEach(function (file) {
-        // Check file size (2MB limit)
-        if (file.size < 2111775) {
-          // For attachments, allow various document types
-          var allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'text/plain', 'image/jpeg', 'image/png', 'image/gif'];
-          if (allowedTypes.includes(file.type)) {
-            validFiles.push(file);
-          } else {
-            _this7.$toast.error(_this7.$t("Error!"), _this7.$t("Please select a valid file type"));
-          }
-        } else {
-          _this7.$toast.error(_this7.$t("Error!"), _this7.$t("Please select a file with size less than 2 MB"));
-        }
-      });
-
-      // Add valid files to attachments
-      this.form.attachments = [].concat(_toConsumableArray(this.form.attachments || []), validFiles);
-    },
-    // Remove attachment file
-    removeFile: function removeFile(index) {
-      if (this.form.attachments && Array.isArray(this.form.attachments)) {
-        this.form.attachments.splice(index, 1);
-      }
-    },
-    // Set tax status explicitly to ensure it's reactive
-    setTaxStatus: function setTaxStatus(status) {
-      console.log('Setting taxStatus to:', status);
-      console.log('form.taxStatus before:', this.form.taxStatus);
-
-      // CRITICAL: Use form object's method to set the value if available
-      // Otherwise, use Vue.set or direct assignment
-      if (this.form && typeof this.form.taxStatus !== 'undefined') {
-        // Direct assignment
-        this.form.taxStatus = status;
-
-        // Also try to update via form's internal data if it exists
-        if (this.form.$data && this.form.$data.taxStatus !== undefined) {
-          this.form.$data.taxStatus = status;
-        }
-      } else {
-        // Fallback: use Vue.set
-        if (this.$set) {
-          this.$set(this.form, 'taxStatus', status);
-        } else {
-          this.form.taxStatus = status;
-        }
-      }
-
-      // Force update
-      this.$forceUpdate();
-
-      // Verify the value was set
-      console.log('taxStatus after setting:', this.form.taxStatus);
-      console.log('form object keys:', Object.keys(this.form));
-      console.log('form.data() taxStatus:', this.form.data ? this.form.data().taxStatus : 'N/A');
-    },
-    // Validate form before submission
-    validateForm: function validateForm() {
-      console.log('=== VALIDATING SUPPLIER FORM ===');
-      var isValid = true;
-
-      // Basic validation - check if form exists
-      if (!this.form) {
-        console.error('Form is not initialized');
-        return false;
-      }
-
-      // Clear previous errors
-      this.form.errors.clear();
-      console.log('Form data for validation:', {
-        phoneNumber: this.form.phoneNumber,
-        phone: this.form.phone,
-        type: this.form.type,
-        fullName: this.form.fullName,
-        businessName: this.form.businessName
-      });
-
-      // Required field validations
-      if (!this.form.phoneNumber || this.form.phoneNumber.trim() === '') {
-        console.log('Phone number validation failed');
-        if (window.toast && typeof window.toast.fire === 'function') {
-          window.toast.fire({
-            type: "error",
-            title: this.$t("Mobile number is required")
-          });
-        } else {
-          alert(this.$t("Mobile number is required"));
-        }
-        isValid = false;
-      }
-
-      // Check if phone number is valid
-      if (!this.phoneNumberValid) {
-        console.log('Phone number validation failed - phoneNumberValid:', this.phoneNumberValid);
-        if (window.toast && typeof window.toast.fire === 'function') {
-          window.toast.fire({
-            type: "error",
-            title: this.$t("Invalid phone number format")
-          });
-        } else {
-          alert(this.$t("Invalid phone number format"));
-        }
-        isValid = false;
-      }
-      if (this.form.type === 'Individual' && (!this.form.fullName || this.form.fullName.trim() === '')) {
-        console.log('Full name validation failed for individual');
-        this.form.errors.set('fullName', this.$t('Full name is required for individual suppliers'));
-        isValid = false;
-      }
-      if (this.form.type === 'Company' && (!this.form.businessName || this.form.businessName.trim() === '')) {
-        console.log('Business name validation failed for company');
-        this.form.errors.set('businessName', this.$t('Business name is required for company suppliers'));
-        isValid = false;
-      }
-
-      // Chart of account validation removed to match ClientForm behavior
-
-      console.log('=== SUPPLIER FORM VALIDATION RESULT:', isValid, '===');
-      return isValid;
-    },
-    // Submit form
-    submitForm: function submitForm() {
-      var _this8 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-        var formDataObj, taxStatusValue, submitData;
-        return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.n) {
-            case 0:
-              // Debug: Log form.taxStatus before validation
-              console.log('SupplierForm submitForm - form.taxStatus before validation:', _this8.form.taxStatus);
-              console.log('SupplierForm submitForm - form object:', {
-                taxStatus: _this8.form.taxStatus,
-                type: _this8.form.type,
-                businessName: _this8.form.businessName,
-                phoneNumber: _this8.form.phoneNumber
-              });
-              if (_this8.validateForm()) {
-                _context3.n = 1;
-                break;
-              }
-              // Provide clear feedback if validation fails
-              if (_this8.$toast) {
-                _this8.$toast.fire({
-                  type: 'error',
-                  title: _this8.$t('Please fix the highlighted errors and try again')
-                });
-              }
-              return _context3.a(2);
-            case 1:
-              // CRITICAL: Ensure taxStatus is set on form object before getting data
-              if (!_this8.form.taxStatus) {
-                _this8.form.taxStatus = 'non_taxable';
-              }
-
-              // Get form data first
-              formDataObj = _this8.form.data(); // Debug: Log formDataObj.taxStatus
-              console.log('SupplierForm submitForm - formDataObj.taxStatus:', formDataObj.taxStatus);
-              console.log('SupplierForm submitForm - form.taxStatus after check:', _this8.form.taxStatus);
-
-              // Map form data to API format - explicitly include all fields
-              // CRITICAL: Always use this.form.taxStatus directly, not from formDataObj
-              taxStatusValue = _this8.form.taxStatus || 'non_taxable';
-              submitData = {
-                // Account Details
-                codeNumber: _this8.form.codeNumber || formDataObj.codeNumber,
-                notes: _this8.form.notes || formDataObj.notes,
-                displayLanguage: _this8.form.displayLanguage || formDataObj.displayLanguage,
-                // Supplier Details - CRITICAL: taxStatus must be explicitly set from form object
-                type: _this8.form.type || formDataObj.type,
-                taxStatus: taxStatusValue,
-                // Always use form.taxStatus directly
-                tax_status: taxStatusValue,
-                // Also send as snake_case
-                fullName: _this8.form.fullName || formDataObj.fullName,
-                businessName: _this8.form.businessName || formDataObj.businessName,
-                firstName: _this8.form.firstName || formDataObj.firstName,
-                lastName: _this8.form.lastName || formDataObj.lastName,
-                phone: _this8.form.phone || formDataObj.phone,
-                phoneNumber: _this8.form.phoneNumber || formDataObj.phoneNumber,
-                email: _this8.form.email || formDataObj.email,
-                streetAddress1: _this8.form.streetAddress1 || formDataObj.streetAddress1,
-                streetAddress2: _this8.form.streetAddress2 || formDataObj.streetAddress2,
-                city: _this8.form.city || formDataObj.city,
-                state: _this8.form.state || formDataObj.state,
-                postalCode: _this8.form.postalCode || formDataObj.postalCode,
-                country: _this8.form.country || formDataObj.country,
-                neighbourhood: _this8.form.neighbourhood || formDataObj.neighbourhood,
-                commercialRegister: _this8.form.commercialRegister || formDataObj.commercialRegister,
-                taxCard: _this8.form.taxCard || formDataObj.taxCard,
-                // Saudi National Address Fields
-                buildingNumber: _this8.form.buildingNumber || formDataObj.buildingNumber,
-                streetNumber: _this8.form.streetNumber || formDataObj.streetNumber,
-                districtNumber: _this8.form.districtNumber || formDataObj.districtNumber,
-                unitNumber: _this8.form.unitNumber || formDataObj.unitNumber,
-                additionalNumber: _this8.form.additionalNumber || formDataObj.additionalNumber,
-                taxRegistrationNumber: _this8.form.taxRegistrationNumber || _this8.form.taxCard || formDataObj.taxRegistrationNumber,
-                // Additional Fields
-                image: _this8.form.image || formDataObj.image,
-                attachments: _this8.form.attachments || formDataObj.attachments || [],
-                status: _this8.form.status !== undefined ? _this8.form.status : formDataObj.status !== undefined ? formDataObj.status : 1,
-                isSendEmail: _this8.form.isSendEmail !== undefined ? _this8.form.isSendEmail : formDataObj.isSendEmail !== undefined ? formDataObj.isSendEmail : false,
-                isSendSMS: _this8.form.isSendSMS !== undefined ? _this8.form.isSendSMS : formDataObj.isSendSMS !== undefined ? formDataObj.isSendSMS : false,
-                chartOfAccountId: _this8.form.chartOfAccountId || formDataObj.chartOfAccountId,
-                saudi_region: _this8.form.saudi_region || formDataObj.saudi_region,
-                // Map legacy fields for backward compatibility
-                name: _this8.form.type === 'Individual' ? _this8.form.fullName || formDataObj.fullName : _this8.form.businessName || formDataObj.businessName,
-                companyName: _this8.form.businessName || formDataObj.businessName,
-                address: _this8.form.streetAddress1 || formDataObj.streetAddress1,
-                // Include representatives data
-                representatives: _this8.form.representatives && Array.isArray(_this8.form.representatives) ? _this8.form.representatives : formDataObj.representatives && Array.isArray(formDataObj.representatives) ? formDataObj.representatives : []
-              }; // Debug logging - CRITICAL
-              console.log('SupplierForm - Submitting data:', {
-                taxStatus: submitData.taxStatus,
-                tax_status: submitData.tax_status,
-                formTaxStatus: _this8.form.taxStatus,
-                formDataObjTaxStatus: formDataObj.taxStatus,
-                taxStatusValue: taxStatusValue,
-                allData: submitData
-              });
-
-              // CRITICAL: Ensure taxStatus is always in submitData
-              if (!submitData.taxStatus) {
-                console.warn('WARNING: taxStatus is missing in submitData! Setting to:', taxStatusValue);
-                submitData.taxStatus = taxStatusValue;
-                submitData.tax_status = taxStatusValue;
-              }
-              console.log('SupplierForm - Final submitData with taxStatus:', {
-                taxStatus: submitData.taxStatus,
-                tax_status: submitData.tax_status,
-                hasTaxStatus: 'taxStatus' in submitData,
-                hasTax_status: 'tax_status' in submitData
-              });
-
-              // Emit submit event with form data
-              _this8.$emit('submit', submitData);
-            case 2:
-              return _context3.a(2);
-          }
-        }, _callee3);
-      }))();
-    },
-    // Get form data for parent component
-    getFormData: function getFormData() {
-      return this.form;
-    },
-    // Reset form to default values
-    resetForm: function resetForm() {
-      this.form.reset();
-
-      // Reset to default values for specific fields
-      this.form.type = "Company";
-      this.form.status = 1;
-      this.form.country = "SA";
-      this.form.isSendEmail = false;
-      this.form.isSendSMS = false;
-
-      // Load the next available code number
-      this.loadNextCodeNumber();
-
-      // Clear all other fields
-      this.url = null;
-      this.form.attachments = [];
-      this.form.image = "";
-      this.form.fullName = "";
-      this.form.businessName = "";
-      this.form.firstName = "";
-      this.form.lastName = "";
-      this.form.phone = "";
-      this.form.phoneNumber = "";
-      this.form.email = "";
-      this.form.streetAddress1 = "";
-      this.form.city = "";
-      this.form.state = "";
-      this.form.postalCode = "";
-      this.form.neighbourhood = "";
-      this.form.commercialRegister = "";
-      this.form.taxCard = "";
-      // Clear Saudi National Address Fields
-      this.form.buildingNumber = "";
-      this.form.unitNumber = "";
-      this.form.additionalNumber = "";
-      this.form.saudi_region = null;
-      this.form.notes = "";
-      this.form.displayLanguage = "";
-      this.form.representatives = [];
-      this.form.chartOfAccountId = null; // Clear chart of account
-
-      // Clear image preview
-      this.url = null;
-
-      // Clear validation errors
-      this.form.errors.clear();
-
-      // Reset phone number validation
-      this.phoneNumberValid = false;
-    },
-    // Load representatives for existing supplier
-    loadRepresentatives: function loadRepresentatives() {
-      var _this9 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-        var slug, response, _t3;
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.p = _context4.n) {
-            case 0:
-              // Try to get slug from route params first, then from initialData
-              slug = _this9.$route && _this9.$route.params && _this9.$route.params.slug || _this9.initialData && _this9.initialData.slug;
-              console.log('Loading representatives for supplier:', slug);
-              if (!(slug && slug !== 'new')) {
-                _context4.n = 5;
-                break;
-              }
-              _context4.p = 1;
-              _context4.n = 2;
-              return axios_default().get("/api/supplier/".concat(slug, "/representatives"));
-            case 2:
-              response = _context4.v;
-              console.log('Representatives API response:', response.data);
-              if (response.data.success) {
-                _this9.form.representatives = response.data.data;
-                console.log('Representatives loaded:', _this9.form.representatives);
-              }
-              _context4.n = 4;
-              break;
-            case 3:
-              _context4.p = 3;
-              _t3 = _context4.v;
-              console.error('Error loading representatives:', _t3);
-            case 4:
-              _context4.n = 6;
-              break;
-            case 5:
-              console.log('No slug or new supplier, skipping representatives load');
-            case 6:
-              return _context4.a(2);
-          }
-        }, _callee4, null, [[1, 3]]);
-      }))();
-    },
-    // Handle when representatives are changed (added, edited, deleted)
-    handleRepresentativesChanged: function handleRepresentativesChanged(representatives) {
-      this.form.representatives = representatives;
-    },
-    // Handle country change
-    onCountryChange: function onCountryChange() {
-      // Clear state field when Saudi Arabia is selected (handled by watcher)
-      // This method can be used for additional country-specific logic
-    },
-    // Load Saudi Arabia regions
-    loadSaudiRegions: function loadSaudiRegions() {
-      var _this0 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-        var response, _t4;
-        return _regenerator().w(function (_context5) {
-          while (1) switch (_context5.p = _context5.n) {
-            case 0:
-              if (!_this0.loadingRegions) {
-                _context5.n = 1;
-                break;
-              }
-              return _context5.a(2);
-            case 1:
-              _this0.loadingRegions = true;
-              _context5.p = 2;
-              _context5.n = 3;
-              return axios_default().get('/api/locations/saudi/regions');
-            case 3:
-              response = _context5.v;
-              if (response.data.success) {
-                _this0.saudiRegions = response.data.data.map(function (region) {
-                  return {
-                    id: region.id,
-                    name: _this0.$i18n.locale === 'ar' ? region.name_ar : region.name_en,
-                    name_ar: region.name_ar,
-                    name_en: region.name_en,
-                    code: region.code
-                  };
-                });
-              }
-              _context5.n = 5;
-              break;
-            case 4:
-              _context5.p = 4;
-              _t4 = _context5.v;
-              console.error('Error loading Saudi regions:', _t4);
-              _this0.$toast.error(_this0.$t('Error loading regions'));
-            case 5:
-              _context5.p = 5;
-              _this0.loadingRegions = false;
-              return _context5.f(5);
-            case 6:
-              return _context5.a(2);
-          }
-        }, _callee5, null, [[2, 4, 5, 6]]);
-      }))();
-    },
-    // Load Saudi Arabia cities by region
-    loadSaudiCities: function loadSaudiCities(regionId) {
-      var _this1 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
-        var response, cities, selectedRegion, _selectedRegion, _selectedRegion2, _t5;
-        return _regenerator().w(function (_context6) {
-          while (1) switch (_context6.p = _context6.n) {
-            case 0:
-              if (regionId) {
-                _context6.n = 1;
-                break;
-              }
-              _this1.saudiCities = [];
-              return _context6.a(2);
-            case 1:
-              if (!_this1.loadingCities) {
-                _context6.n = 2;
-                break;
-              }
-              return _context6.a(2);
-            case 2:
-              _this1.loadingCities = true;
-              _context6.p = 3;
-              _context6.n = 4;
-              return axios_default().get('/api/locations/saudi/cities-by-region', {
-                params: {
-                  region_id: regionId
-                }
-              });
-            case 4:
-              response = _context6.v;
-              if (response.data.success) {
-                cities = response.data.data || [];
-                _this1.saudiCities = cities.map(function (city) {
-                  return {
-                    id: city.id,
-                    name: _this1.$i18n.locale === 'ar' ? city.name_ar : city.name_en,
-                    name_ar: city.name_ar,
-                    name_en: city.name_en,
-                    region_id: city.region_id
-                  };
-                });
-
-                // If no cities found, add the region name as a city option
-                if (_this1.saudiCities.length === 0) {
-                  selectedRegion = _this1.saudiRegions.find(function (region) {
-                    return region.id === regionId;
-                  });
-                  if (selectedRegion) {
-                    _this1.saudiCities = [{
-                      id: "region_".concat(regionId),
-                      name: selectedRegion.name,
-                      name_ar: selectedRegion.name_ar,
-                      name_en: selectedRegion.name_en,
-                      region_id: regionId,
-                      is_region: true
-                    }];
-                  }
-                }
-              } else {
-                // If API call failed, add region name as fallback
-                _selectedRegion = _this1.saudiRegions.find(function (region) {
-                  return region.id === regionId;
-                });
-                if (_selectedRegion) {
-                  _this1.saudiCities = [{
-                    id: "region_".concat(regionId),
-                    name: _selectedRegion.name,
-                    name_ar: _selectedRegion.name_ar,
-                    name_en: _selectedRegion.name_en,
-                    region_id: regionId,
-                    is_region: true
-                  }];
-                } else {
-                  _this1.saudiCities = [];
-                }
-              }
-              _context6.n = 6;
-              break;
-            case 5:
-              _context6.p = 5;
-              _t5 = _context6.v;
-              console.error('Error loading Saudi cities:', _t5);
-              // If error occurred, add region name as fallback
-              _selectedRegion2 = _this1.saudiRegions.find(function (region) {
-                return region.id === regionId;
-              });
-              if (_selectedRegion2) {
-                _this1.saudiCities = [{
-                  id: "region_".concat(regionId),
-                  name: _selectedRegion2.name,
-                  name_ar: _selectedRegion2.name_ar,
-                  name_en: _selectedRegion2.name_en,
-                  region_id: regionId,
-                  is_region: true
-                }];
-              } else {
-                _this1.saudiCities = [];
-              }
-              // Don't show error toast for empty cities - it's normal for some regions
-              if (_t5.response && _t5.response.status !== 404) {
-                _this1.$toast.error(_this1.$t('Error loading cities'));
-              }
-            case 6:
-              _context6.p = 6;
-              _this1.loadingCities = false;
-              return _context6.f(6);
-            case 7:
-              return _context6.a(2);
-          }
-        }, _callee6, null, [[3, 5, 6, 7]]);
-      }))();
-    },
-    // Handle Saudi region change
-    onSaudiRegionChange: function onSaudiRegionChange() {
-      // Clear city when region changes
-      this.form.city = '';
-      this.saudiCities = [];
-      // Cities will be loaded by watcher
-    },
-    // Handle phone number validation
-    onPhoneValidated: function onPhoneValidated(isValid) {
-      this.phoneNumberValid = isValid;
-      if (!isValid && this.form.phoneNumber) {
-        // Clear the error if validation passes
-        if (this.form.errors.has('phoneNumber') && this.form.errors.get('phoneNumber') === this.$t('phone_invalid')) {
-          this.form.errors.clear('phoneNumber');
-        }
-      }
-    },
-    // Load routing settings
-    loadRoutingSettings: function loadRoutingSettings() {
-      var _this10 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
-        var response, _t6;
-        return _regenerator().w(function (_context7) {
-          while (1) switch (_context7.p = _context7.n) {
-            case 0:
-              _context7.p = 0;
-              console.log('Loading routing settings...');
-              // Get the specific suppliers_account routing setting
-              _context7.n = 1;
-              return _this10.$http.get('/api/account-routing-settings');
-            case 1:
-              response = _context7.v;
-              console.log('Routing settings response:', response);
-              if (response.data && response.data.success) {
-                console.log('Routing settings data:', response.data.data);
-                // Find the suppliers_account setting
-                _this10.routingSetting = response.data.data.find(function (setting) {
-                  return setting.setting_key === 'suppliers_account';
-                });
-                console.log('Found suppliers_account setting:', _this10.routingSetting);
-                if (_this10.routingSetting) {
-                  // Add routing type display name
-                  _this10.routingSetting.routing_type_display = _this10.getRoutingTypeDisplayName(_this10.routingSetting.routing_type);
-                  console.log('Routing setting with display name:', _this10.routingSetting);
-                } else {
-                  console.log('No suppliers_account setting found in:', response.data.data);
-                  // Set a default routing setting if none found
-                  _this10.routingSetting = {
-                    routing_type: 'per_each',
-                    routing_type_display: 'Specify Per Each',
-                    main_account_id: null
-                  };
-                  console.log('Using default routing setting:', _this10.routingSetting);
-                }
-              } else {
-                console.log('Routing settings response not successful:', response.data);
-                // Set a default routing setting if API fails
-                _this10.routingSetting = {
-                  routing_type: 'per_each',
-                  routing_type_display: 'Specify Per Each',
-                  main_account_id: null
-                };
-                console.log('Using default routing setting due to API failure:', _this10.routingSetting);
-              }
-              _context7.n = 3;
-              break;
-            case 2:
-              _context7.p = 2;
-              _t6 = _context7.v;
-              console.error('Error loading routing settings:', _t6);
-              // Set a default routing setting if error occurs
-              _this10.routingSetting = {
-                routing_type: 'per_each',
-                routing_type_display: 'Specify Per Each',
-                main_account_id: null
-              };
-              console.log('Using default routing setting due to error:', _this10.routingSetting);
-            case 3:
-              return _context7.a(2);
-          }
-        }, _callee7, null, [[0, 2]]);
-      }))();
-    },
-    // Set default routing setting
-    setDefaultRoutingSetting: function setDefaultRoutingSetting() {
-      this.routingSetting = {
-        routing_type: 'per_each',
-        routing_type_display: 'Specify Per Each',
-        main_account_id: null
-      };
-      console.log('Using default routing setting:', this.routingSetting);
-    },
-    // Get routing type display name
-    getRoutingTypeDisplayName: function getRoutingTypeDisplayName(routingType) {
-      var displays = {
-        'automatic': 'Automatic',
-        'per_each': 'Specify Per Each',
-        'main_account_per_each': 'Specify Main Account Per Each',
-        'cancel': 'Cancel'
-      };
-      return displays[routingType] || routingType;
-    },
-    // Load chart of accounts
-    loadChartOfAccounts: function loadChartOfAccounts() {
-      var _this11 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
-        var response, fallbackResponse, _response, altResponse, _t7, _t8, _t9;
-        return _regenerator().w(function (_context8) {
-          while (1) switch (_context8.p = _context8.n) {
-            case 0:
-              _context8.p = 0;
-              console.log('Loading chart of accounts...');
-              console.log('Current routing setting:', _this11.routingSetting);
-              _this11.loadingChartOfAccounts = true;
-              _this11.chartOfAccountsError = null;
-
-              // If routing is automatic, we don't need to load all accounts
-              if (!(_this11.routingSetting && _this11.routingSetting.routing_type === 'automatic')) {
-                _context8.n = 1;
-                break;
-              }
-              console.log('Routing type is automatic, not loading chart of accounts');
-              _this11.chartOfAccounts = [];
-              _this11.loadingChartOfAccounts = false;
-              return _context8.a(2);
-            case 1:
-              if (!(_this11.routingSetting && _this11.routingSetting.main_account_id)) {
-                _context8.n = 9;
-                break;
-              }
-              console.log('Loading accounts from routing setup...');
-              _context8.p = 2;
-              _context8.n = 3;
-              return _this11.$http.get("/api/account-routing-settings/".concat(_this11.routingSetting.setting_key, "/accounts"));
-            case 3:
-              response = _context8.v;
-              console.log('Routing accounts response:', response);
-              if (!(response.data && response.data.success)) {
-                _context8.n = 4;
-                break;
-              }
-              _this11.chartOfAccounts = response.data.accounts || [];
-              console.log('Loaded accounts from routing setup:', _this11.chartOfAccounts.length);
-              _context8.n = 5;
-              break;
-            case 4:
-              throw new Error('Routing accounts response not successful');
-            case 5:
-              _context8.n = 8;
-              break;
-            case 6:
-              _context8.p = 6;
-              _t7 = _context8.v;
-              console.log('Routing accounts failed, falling back to all accounts:', _t7);
-              // Fallback to all accounts
-              _context8.n = 7;
-              return _this11.$http.get('/api/suppliers/chart-of-accounts');
-            case 7:
-              fallbackResponse = _context8.v;
-              _this11.chartOfAccounts = fallbackResponse.data || [];
-              console.log('Loaded fallback accounts:', _this11.chartOfAccounts.length);
-            case 8:
-              _context8.n = 11;
-              break;
-            case 9:
-              console.log('No main account ID, loading all accounts as fallback');
-              // Load all active accounts as fallback
-              _context8.n = 10;
-              return _this11.$http.get('/api/suppliers/chart-of-accounts');
-            case 10:
-              _response = _context8.v;
-              _this11.chartOfAccounts = _response.data || [];
-              console.log('Loaded all accounts as fallback:', _this11.chartOfAccounts.length);
-            case 11:
-              if (!(_this11.chartOfAccounts.length === 0)) {
-                _context8.n = 15;
-                break;
-              }
-              console.log('No accounts loaded, trying alternative endpoint...');
-              _context8.p = 12;
-              _context8.n = 13;
-              return _this11.$http.get('/api/chart-of-accounts/dropdown');
-            case 13:
-              altResponse = _context8.v;
-              _this11.chartOfAccounts = altResponse.data.data || altResponse.data || [];
-              console.log('Loaded accounts from dropdown endpoint:', _this11.chartOfAccounts.length);
-              _context8.n = 15;
-              break;
-            case 14:
-              _context8.p = 14;
-              _t8 = _context8.v;
-              console.error('Alternative endpoint also failed:', _t8);
-              // Set a minimal fallback to prevent empty dropdown
-              _this11.chartOfAccounts = [{
-                id: 'placeholder',
-                name: 'No accounts available - Please configure chart of accounts',
-                code: 'N/A',
-                type: 'Error'
-              }];
-              _this11.chartOfAccountsError = 'No chart of accounts available. Please check your configuration.';
-            case 15:
-              _context8.n = 17;
-              break;
-            case 16:
-              _context8.p = 16;
-              _t9 = _context8.v;
-              console.error('Error loading chart of accounts:', _t9);
-              _this11.chartOfAccountsError = _t9.message || 'Failed to load chart of accounts';
-              _this11.chartOfAccounts = [];
-            case 17:
-              _context8.p = 17;
-              _this11.loadingChartOfAccounts = false;
-              return _context8.f(17);
-            case 18:
-              return _context8.a(2);
-          }
-        }, _callee8, null, [[12, 14], [2, 6], [0, 16, 17, 18]]);
-      }))();
-    },
-    // Search chart of accounts (for v-select search)
-    searchChartOfAccounts: function searchChartOfAccounts(search, loading) {
-      var _this12 = this;
-      console.log('Searching for:', search);
-      if (!search || search.length < 2) {
-        console.log('Search too short, returning first 50 accounts');
-        var result = this.chartOfAccounts.slice(0, 50);
-        loading(false);
-        return Promise.resolve(result);
-      }
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
-        var filtered, response, apiData, _filtered, _t0;
-        return _regenerator().w(function (_context9) {
-          while (1) switch (_context9.p = _context9.n) {
-            case 0:
-              _context9.p = 0;
-              // Filter locally first for better performance
-              filtered = _this12.chartOfAccounts.filter(function (account) {
-                return account.name.toLowerCase().includes(search.toLowerCase()) || account.code.toLowerCase().includes(search.toLowerCase());
-              });
-              console.log('Local filtered results:', filtered.length);
-
-              // If we have enough results locally, return them
-              if (!(filtered.length >= 10)) {
-                _context9.n = 1;
-                break;
-              }
-              console.log('Enough local results, returning filtered');
-              return _context9.a(2, filtered.slice(0, 50));
-            case 1:
-              // Otherwise, search from API
-              console.log('Searching from API...');
-              _context9.n = 2;
-              return _this12.$http.get('/api/chart-of-accounts/search', {
-                params: {
-                  term: search
-                }
-              });
-            case 2:
-              response = _context9.v;
-              console.log('API search response:', response);
-              if (!(response.data && (response.data.data || response.data))) {
-                _context9.n = 3;
-                break;
-              }
-              console.log('API returned data, returning results');
-              apiData = response.data.data || response.data;
-              return _context9.a(2, apiData.slice(0, 50));
-            case 3:
-              console.log('API returned no data, returning local filtered');
-              return _context9.a(2, filtered.slice(0, 50));
-            case 4:
-              _context9.n = 6;
-              break;
-            case 5:
-              _context9.p = 5;
-              _t0 = _context9.v;
-              console.error('Search error:', _t0);
-              // Return local filtered results on error
-              _filtered = _this12.chartOfAccounts.filter(function (account) {
-                return account.name.toLowerCase().includes(search.toLowerCase()) || account.code.toLowerCase().includes(search.toLowerCase());
-              });
-              return _context9.a(2, _filtered.slice(0, 50));
-            case 6:
-              _context9.p = 6;
-              loading(false);
-              return _context9.f(6);
-            case 7:
-              return _context9.a(2);
-          }
-        }, _callee9, null, [[0, 5, 6, 7]]);
-      }))();
-    },
-    // Create new chart of account
-    createNewAccount: function createNewAccount() {
-      var _this13 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
-        var assetTypeResponse, typeId, assetType, parentId, codeResponse, accountCode, response, _newAccount$type, newAccount, errorMessage, _t1;
-        return _regenerator().w(function (_context0) {
-          while (1) switch (_context0.p = _context0.n) {
-            case 0:
-              if (!_this13.isCreatingAccount) {
-                _context0.n = 1;
-                break;
-              }
-              return _context0.a(2);
-            case 1:
-              _this13.isCreatingAccount = true;
-              _context0.p = 2;
-              _context0.n = 3;
-              return axios_default().get('/api/chart-of-account-types');
-            case 3:
-              assetTypeResponse = _context0.v;
-              typeId = 1; // Default fallback
-              if (assetTypeResponse.data && assetTypeResponse.data.data) {
-                assetType = assetTypeResponse.data.data.find(function (type) {
-                  return type.name && type.name.toLowerCase().includes('asset');
-                });
-                if (assetType) {
-                  typeId = assetType.id;
-                }
-              }
-
-              // Determine parent_id based on routing settings
-              parentId = null;
-              if (_this13.routingSetting && _this13.routingSetting.routing_type === 'main_account_per_each' && _this13.routingSetting.main_account_id) {
-                parentId = _this13.routingSetting.main_account_id;
-              }
-
-              // Generate account code
-              _context0.n = 4;
-              return axios_default().post('/api/chart-of-accounts/generate-code', {
-                parent_id: parentId
-              });
-            case 4:
-              codeResponse = _context0.v;
-              accountCode = codeResponse.data.code || '1000';
-              _context0.n = 5;
-              return axios_default().post('/api/chart-of-accounts', {
-                name: _this13.form.type === 'Individual' ? _this13.form.fullName : _this13.form.businessName,
-                code: accountCode,
-                type_id: typeId,
-                parent_id: parentId,
-                order: 0,
-                is_active: true
-              });
-            case 5:
-              response = _context0.v;
-              if (!(response.data && response.data.data)) {
-                _context0.n = 6;
-                break;
-              }
-              // Add to local chartOfAccounts array
-              newAccount = response.data.data;
-              _this13.chartOfAccounts.push({
-                id: newAccount.id,
-                name: newAccount.name,
-                code: newAccount.code,
-                type: ((_newAccount$type = newAccount.type) === null || _newAccount$type === void 0 ? void 0 : _newAccount$type.name) || 'Asset'
-              });
-
-              // Set as selected
-              _this13.form.chartOfAccountId = newAccount.id;
-              _this13.$toast.success("Success!", "New chart of account created successfully.");
-              _context0.n = 7;
-              break;
-            case 6:
-              throw new Error(response.data.message || "Failed to create new chart of account.");
-            case 7:
-              _context0.n = 9;
-              break;
-            case 8:
-              _context0.p = 8;
-              _t1 = _context0.v;
-              console.error('Error creating chart of account:', _t1);
-              errorMessage = "Failed to create new chart of account.";
-              if (_t1.response && _t1.response.data) {
-                if (_t1.response.data.message) {
-                  errorMessage = _t1.response.data.message;
-                } else if (_t1.response.data.error) {
-                  errorMessage = _t1.response.data.error;
-                }
-              } else if (_t1.message) {
-                errorMessage = _t1.message;
-              }
-              _this13.$toast.error("Error!", errorMessage);
-            case 9:
-              _context0.p = 9;
-              _this13.isCreatingAccount = false;
-              return _context0.f(9);
-            case 10:
-              return _context0.a(2);
-          }
-        }, _callee0, null, [[2, 8, 9, 10]]);
-      }))();
-    },
-    // Auto-assign Chart of Account for supplier
-    autoAssignSupplierChartOfAccount: function autoAssignSupplierChartOfAccount() {
-      var _this14 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1() {
-        var supplierSlug, response, _t10;
-        return _regenerator().w(function (_context1) {
-          while (1) switch (_context1.p = _context1.n) {
-            case 0:
-              if (!(!_this14.form || _this14.isAutoAssigningSupplier)) {
-                _context1.n = 1;
-                break;
-              }
-              return _context1.a(2);
-            case 1:
-              _this14.isAutoAssigningSupplier = true;
-              _context1.p = 2;
-              // Get the current supplier slug from the form or route
-              supplierSlug = _this14.form.slug || _this14.$route && _this14.$route.params && _this14.$route.params.slug;
-              if (!(!supplierSlug || supplierSlug === 'new')) {
-                _context1.n = 3;
-                break;
-              }
-              console.log('No supplier slug available for auto-assign');
-              return _context1.a(2);
-            case 3:
-              _context1.n = 4;
-              return _this14.$http.post("/api/suppliers/".concat(supplierSlug, "/auto-assign-chart-of-account"));
-            case 4:
-              response = _context1.v;
-              if (response.data.success) {
-                console.log('Auto-assign response:', response.data);
-
-                // Update the form with new chart of account
-                _this14.form.chartOfAccountId = response.data.chart_of_account_id;
-
-                // Force Vue to re-render the component to update the UI
-                _this14.$nextTick(function () {
-                  _this14.$forceUpdate();
-                });
-
-                // Show success message
-                _this14.$toast.fire({
-                  type: "success",
-                  title: _this14.$t("Chart of Account assigned successfully")
-                });
-              } else {
-                _this14.$toast.fire({
-                  type: "error",
-                  title: _this14.$t("Failed to assign Chart of Account"),
-                  text: response.data.message || _this14.$t("Please try again or assign manually")
-                });
-              }
-              _context1.n = 6;
-              break;
-            case 5:
-              _context1.p = 5;
-              _t10 = _context1.v;
-              console.error('Error auto-assigning chart of account:', _t10);
-              _this14.$toast.fire({
-                type: "error",
-                title: _this14.$t("An error occurred while assigning Chart of Account")
-              });
-            case 6:
-              _context1.p = 6;
-              _this14.isAutoAssigningSupplier = false;
-              return _context1.f(6);
-            case 7:
-              return _context1.a(2);
-          }
-        }, _callee1, null, [[2, 5, 6, 7]]);
-      }))();
-    }
-  }
-});
-;// ./resources/js/components/SupplierForm.vue?vue&type=script&lang=js
- /* harmony default export */ const components_SupplierFormvue_type_script_lang_js = (SupplierFormvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=3328d9b2&prod&scoped=true&lang=css
-var SupplierFormvue_type_style_index_0_id_3328d9b2_prod_scoped_true_lang_css = __webpack_require__(14633);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=3328d9b2&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(SupplierFormvue_type_style_index_0_id_3328d9b2_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const components_SupplierFormvue_type_style_index_0_id_3328d9b2_prod_scoped_true_lang_css = (SupplierFormvue_type_style_index_0_id_3328d9b2_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=3328d9b2&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/SupplierForm.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  components_SupplierFormvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "3328d9b2",
-  null
-  
-)
-
-/* harmony default export */ const SupplierForm = (component.exports);
-
-/***/ }),
-
 /***/ 8550:
 /***/ ((__unused_webpack_module, exports) => {
 
@@ -4460,25 +229,6 @@ class Locale {
     }
 }
 exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 14633:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-3328d9b2]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:20px}.form-card .card-header[data-v-3328d9b2]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:22px 16px}.form-card .section-title[data-v-3328d9b2]{color:#fff;font-size:14px;font-weight:600;margin:0}.form-card .card-body[data-v-3328d9b2]{padding:16px}.form-control[data-v-3328d9b2]{background:#fff!important}input[readonly][data-v-3328d9b2]{background-color:#f8f9fa!important;border-color:#ced4da;color:#6c757d;cursor:not-allowed}.form-control[data-v-3328d9b2]:focus,select.form-control[data-v-3328d9b2]:focus,textarea.form-control[data-v-3328d9b2]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.radio-group[data-v-3328d9b2]{align-items:center;display:flex;gap:16px}.radio-group .radio-inline[data-v-3328d9b2]{align-items:center;display:inline-flex;gap:6px;margin:0}.v-select .vs__dropdown-toggle[data-v-3328d9b2]{border-color:#ced4da;border-radius:6px}.v-select .vs__dropdown-toggle.vs__open[data-v-3328d9b2],.v-select .vs__dropdown-toggle[data-v-3328d9b2]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.v-select .vs__dropdown-menu[data-v-3328d9b2],.v-select .vs__search[data-v-3328d9b2],.v-select .vs__selected[data-v-3328d9b2]{font-size:.95rem}.custom-file-input:focus~.custom-file-label[data-v-3328d9b2]{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.custom-file-label[data-v-3328d9b2]{border-radius:6px}.file-upload-area[data-v-3328d9b2]{background:#f8fdfe;border:2px dashed #33a0d9;border-radius:12px;padding:20px;position:relative;text-align:center}.file-upload-area .file-input[data-v-3328d9b2]{cursor:pointer;height:100%;inset:0;opacity:0;position:absolute;width:100%}.file-upload-area .file-upload-content[data-v-3328d9b2]{color:#33a0d9}.selected-files .selected-file-item[data-v-3328d9b2]{align-items:center;background:#f5faff;border:1px solid #e3f3f7;border-radius:6px;display:inline-flex;margin-bottom:8px;margin-right:8px;padding:6px 10px}.d-flex.align-items-center span.ml-3[data-v-3328d9b2]{font-weight:500}.required[data-v-3328d9b2]{color:#dc3545}.tax-status-options[data-v-3328d9b2]{margin-top:.5rem}.tax-status-card-compact[data-v-3328d9b2]{background-color:#fff;border:2px solid #e0e0e0;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.06);cursor:pointer;display:block;padding:.75rem 1rem;position:relative;transition:all .2s ease}.tax-status-card-compact[data-v-3328d9b2]:hover{border-color:#007bff;box-shadow:0 2px 8px rgba(0,123,255,.12);transform:translateY(-1px)}.tax-status-card-compact.active[data-v-3328d9b2]{background:linear-gradient(135deg,#f8f9ff,#fff);border-color:#007bff;box-shadow:0 2px 10px rgba(0,123,255,.15)}.tax-status-card-compact.border-success.active[data-v-3328d9b2]{background:linear-gradient(135deg,#f0fff4,#fff);border-color:#28a745;box-shadow:0 2px 10px rgba(40,167,69,.15)}.tax-status-card-compact.border-primary.active[data-v-3328d9b2]{background:linear-gradient(135deg,#f8f9ff,#fff);border-color:#007bff;box-shadow:0 2px 10px rgba(0,123,255,.15)}.tax-status-header-compact[data-v-3328d9b2]{align-items:center;display:flex;position:relative}.tax-status-radio[data-v-3328d9b2]{opacity:0;pointer-events:none;position:absolute}.tax-status-icon-compact[data-v-3328d9b2]{align-items:center;border-radius:8px;display:flex;flex-shrink:0;font-size:1rem;height:32px;justify-content:center;margin-right:.75rem;transition:all .2s ease;width:32px}.tax-status-icon-compact.taxable-icon[data-v-3328d9b2]{background:linear-gradient(135deg,#007bff,#0056b3);box-shadow:0 2px 6px rgba(0,123,255,.25);color:#fff}.tax-status-icon-compact.non-taxable-icon[data-v-3328d9b2]{background:linear-gradient(135deg,#28a745,#1e7e34);box-shadow:0 2px 6px rgba(40,167,69,.25);color:#fff}.tax-status-card-compact.active .tax-status-icon-compact.taxable-icon[data-v-3328d9b2]{box-shadow:0 3px 10px rgba(0,123,255,.35);transform:scale(1.05)}.tax-status-card-compact.active .tax-status-icon-compact.non-taxable-icon[data-v-3328d9b2]{box-shadow:0 3px 10px rgba(40,167,69,.35);transform:scale(1.05)}.tax-status-title-compact[data-v-3328d9b2]{color:#2c3e50;flex:1;font-size:.95rem;font-weight:600}.tax-status-card-compact.active .tax-status-title-compact[data-v-3328d9b2]{color:#007bff}.tax-status-card-compact.border-success.active .tax-status-title-compact[data-v-3328d9b2]{color:#28a745}[dir=rtl] .tax-status-icon-compact[data-v-3328d9b2]{margin-left:.75rem;margin-right:0}[dir=rtl] .form-card .card-header[data-v-3328d9b2]{border-radius:20px 20px 0 0}.custom-file-label[data-v-3328d9b2],[dir=rtl] .custom-file-label[data-v-3328d9b2]{text-align:left!important}.btn-primary[data-v-3328d9b2]{background:#33a0d9!important;border-color:#33a0d9!important}.btn-primary[data-v-3328d9b2]:hover{filter:brightness(.95)}.equal-height>[class*=\" col-\"][data-v-3328d9b2],.equal-height>[class^=col-][data-v-3328d9b2]{display:flex}.equal-height .form-card[data-v-3328d9b2]{display:flex;flex-direction:column;width:100%}.equal-height .form-card .card-body[data-v-3328d9b2]{flex:1 1 auto}.country-select[data-v-3328d9b2]{width:100%}.country-select .vs__dropdown-toggle[data-v-3328d9b2]{border:1px solid #ced4da;border-radius:6px;max-width:100%;min-height:2.5rem;overflow:hidden;padding:.5rem 1rem}.country-select .vs__search[data-v-3328d9b2]{font-size:.95rem;margin:0;padding:0}.country-select .vs__selected[data-v-3328d9b2]{align-items:center;display:flex;gap:.5rem;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.country-option[data-v-3328d9b2],.country-selected[data-v-3328d9b2]{align-items:center;display:flex;gap:.5rem;min-width:0}.country-flag[data-v-3328d9b2]{flex-shrink:0;font-size:1.25rem;line-height:1}.country-name[data-v-3328d9b2]{flex:1;font-size:.95rem;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.country-select.is-invalid .vs__dropdown-toggle[data-v-3328d9b2]{border-color:#dc3545}.country-select .vs__dropdown-menu[data-v-3328d9b2]{border-radius:6px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);margin-top:.5rem}.country-select .vs__dropdown-option[data-v-3328d9b2]{padding:.75rem 1rem}.country-select .vs__dropdown-option--highlight[data-v-3328d9b2]{background-color:#33a0d9;color:#fff}.saudi-location-select[data-v-3328d9b2]{width:100%}.saudi-location-select .vs__dropdown-toggle[data-v-3328d9b2]{background-color:#fff;border:1px solid #ced4da;border-radius:6px;min-height:2.5rem;padding:.375rem .75rem}.saudi-location-select .vs__dropdown-toggle.vs__open[data-v-3328d9b2],.saudi-location-select .vs__dropdown-toggle[data-v-3328d9b2]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15);outline:none}.saudi-location-select.is-invalid .vs__dropdown-toggle[data-v-3328d9b2]{border-color:#dc3545}.saudi-location-select .vs__search[data-v-3328d9b2]{font-size:.95rem;margin:0;padding:0}.saudi-location-select .vs__dropdown-menu[data-v-3328d9b2]{border-radius:6px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);margin-top:.5rem}.saudi-location-select .vs__dropdown-option[data-v-3328d9b2]{padding:.75rem 1rem}.saudi-location-select .vs__dropdown-option--highlight[data-v-3328d9b2]{background-color:#33a0d9;color:#fff}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
@@ -5333,217 +1083,6 @@ class Locale {
                 { number: 1000000000, value: 'Arab' },
                 { number: 10000000, value: 'Crore' },
                 { number: 100000, value: 'Lakh' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 27002:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'ರೂಪಾಯಿ',
-                plural: 'ರೂಪಾಯಿಗಳು',
-                singular: 'ರೂಪಾಯಿ',
-                symbol: '₹',
-                fractionalUnit: {
-                    name: 'ಪೈಸೆ',
-                    singular: 'ಪೈಸೆ',
-                    plural: 'ಪೈಸೆಗಳು',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'ಮತ್ತು',
-                minus: 'ಋಣ',
-                only: '',
-                point: 'ದಶಾಂಶ',
-            },
-            numberWordsMapping: [
-                { number: 10000000, value: 'ಕೋಟಿ' },
-                { number: 100000, value: 'ಲಕ್ಷ' },
-                { number: 1000, value: 'ಸಾವಿರ' },
-                { number: 100, value: 'ನೂರು' },
-                { number: 99, value: 'ತೊಂಬತ್ತೊಂಬತ್ತು' },
-                { number: 98, value: 'ತೊಂಬತ್ತೆಂಟು' },
-                { number: 97, value: 'ತೊಂಬತ್ತೇಳು' },
-                { number: 96, value: 'ತೊಂಬತ್ತಾರು' },
-                { number: 95, value: 'ತೊಂಬತ್ತೈದು' },
-                { number: 94, value: 'ತೊಂಬತ್ತನಾಲ್ಕು' },
-                { number: 93, value: 'ತೊಂಬತ್ತಮೂರು' },
-                { number: 92, value: 'ತೊಂಬತ್ತೆರಡು' },
-                { number: 91, value: 'ತೊಂಬತ್ತೊಂದು' },
-                { number: 90, value: 'ತೊಂಬತ್ತು' },
-                { number: 89, value: 'ಎಂಭತ್ತೊಂಬತ್ತು' },
-                { number: 88, value: 'ಎಂಭತ್ತೆಂಟು' },
-                { number: 87, value: 'ಎಂಭತ್ತೇಳು' },
-                { number: 86, value: 'ಎಂಭತ್ತಾರು' },
-                { number: 85, value: 'ಎಂಭತ್ತೈದು' },
-                { number: 84, value: 'ಎಂಭತ್ತನಾಲ್ಕು' },
-                { number: 83, value: 'ಎಂಭತ್ತಮೂರು' },
-                { number: 82, value: 'ಎಂಭತ್ತೆರಡು' },
-                { number: 81, value: 'ಎಂಭತ್ತೊಂದು' },
-                { number: 80, value: 'ಎಂಭತ್ತು' },
-                { number: 79, value: 'ಎಪ್ಪತ್ತೊಂಬತ್ತು' },
-                { number: 78, value: 'ಎಪ್ಪತ್ತೆಂಟು' },
-                { number: 77, value: 'ಎಪ್ಪತ್ತೇಳು' },
-                { number: 76, value: 'ಎಪ್ಪತ್ತಾರು' },
-                { number: 75, value: 'ಎಪ್ಪತ್ತೈದು' },
-                { number: 74, value: 'ಎಪ್ಪತ್ತನಾಲ್ಕು' },
-                { number: 73, value: 'ಎಪ್ಪತ್ತಮೂರು' },
-                { number: 72, value: 'ಎಪ್ಪತ್ತೆರಡು' },
-                { number: 71, value: 'ಎಪ್ಪತ್ತೊಂದು' },
-                { number: 70, value: 'ಎಪ್ಪತ್ತು' },
-                { number: 69, value: 'ಅರುವತ್ತೊಂಬತ್ತು' },
-                { number: 68, value: 'ಅರುವತ್ತೆಂಟು' },
-                { number: 67, value: 'ಅರುವತ್ತೇಳು' },
-                { number: 66, value: 'ಅರುವತ್ತಾರು' },
-                { number: 65, value: 'ಅರುವತ್ತೈದು' },
-                { number: 64, value: 'ಅರುವತ್ತನಾಲ್ಕು' },
-                { number: 63, value: 'ಅರುವತ್ತಮೂರು' },
-                { number: 62, value: 'ಅರುವತ್ತೆರಡು' },
-                { number: 61, value: 'ಅರುವತ್ತೊಂದು' },
-                { number: 60, value: 'ಅರುವತ್ತು' },
-                { number: 59, value: 'ಐವತ್ತೊಂಬತ್ತು' },
-                { number: 58, value: 'ಐವತ್ತೆಂಟು' },
-                { number: 57, value: 'ಐವತ್ತೇಳು' },
-                { number: 56, value: 'ಐವತ್ತಾರು' },
-                { number: 55, value: 'ಐವತ್ತೈದು' },
-                { number: 54, value: 'ಐವತ್ತನಾಲ್ಕು' },
-                { number: 53, value: 'ಐವತ್ತಮೂರು' },
-                { number: 52, value: 'ಐವತ್ತೆರಡು' },
-                { number: 51, value: 'ಐವತ್ತೊಂದು' },
-                { number: 50, value: 'ಐವತ್ತು' },
-                { number: 49, value: 'ನಲವತ್ತೊಂಬತ್ತು' },
-                { number: 48, value: 'ನಲವತ್ತೆಂಟು' },
-                { number: 47, value: 'ನಲವತ್ತೇಳು' },
-                { number: 46, value: 'ನಲವತ್ತಾರು' },
-                { number: 45, value: 'ನಲವತ್ತೈದು' },
-                { number: 44, value: 'ನಲವತ್ತನಾಲ್ಕು' },
-                { number: 43, value: 'ನಲವತ್ತಮೂರು' },
-                { number: 42, value: 'ನಲವತ್ತೆರಡು' },
-                { number: 41, value: 'ನಲವತ್ತೊಂದು' },
-                { number: 40, value: 'ನಲವತ್ತು' },
-                { number: 39, value: 'ಮೂವತ್ತೊಂಬತ್ತು' },
-                { number: 38, value: 'ಮೂವತ್ತೆಂಟು' },
-                { number: 37, value: 'ಮೂವತ್ತೇಳು' },
-                { number: 36, value: 'ಮೂವತ್ತಾರು' },
-                { number: 35, value: 'ಮೂವತ್ತೈದು' },
-                { number: 34, value: 'ಮೂವತ್ತನಾಲ್ಕು' },
-                { number: 33, value: 'ಮೂವತ್ತಮೂರು' },
-                { number: 32, value: 'ಮೂವತ್ತೆರಡು' },
-                { number: 31, value: 'ಮೂವತ್ತೊಂದು' },
-                { number: 30, value: 'ಮೂವತ್ತು' },
-                { number: 29, value: 'ಇಪ್ಪತ್ತೊಂಬತ್ತು' },
-                { number: 28, value: 'ಇಪ್ಪತ್ತೆಂಟು' },
-                { number: 27, value: 'ಇಪ್ಪತ್ತೇಳು' },
-                { number: 26, value: 'ಇಪ್ಪತ್ತಾರು' },
-                { number: 25, value: 'ಇಪ್ಪತ್ತೈದು' },
-                { number: 24, value: 'ಇಪ್ಪತ್ತನಾಲ್ಕು' },
-                { number: 23, value: 'ಇಪ್ಪತ್ತಮೂರು' },
-                { number: 22, value: 'ಇಪ್ಪತ್ತೆರಡು' },
-                { number: 21, value: 'ಇಪ್ಪತ್ತೊಂದು' },
-                { number: 20, value: 'ಇಪ್ಪತ್ತು' },
-                { number: 19, value: 'ಹತ್ತೊಂಬತ್ತು' },
-                { number: 18, value: 'ಹದಿನೆಂಟು' },
-                { number: 17, value: 'ಹದಿನೇಳು' },
-                { number: 16, value: 'ಹದಿನಾರು' },
-                { number: 15, value: 'ಹದಿನೈದು' },
-                { number: 14, value: 'ಹದಿನಾಲ್ಕು' },
-                { number: 13, value: 'ಹದಿಮೂರು' },
-                { number: 12, value: 'ಹನ್ನೆರಡು' },
-                { number: 11, value: 'ಹನ್ನೊಂದು' },
-                { number: 10, value: 'ಹತ್ತು' },
-                { number: 9, value: 'ಒಂಬತ್ತು' },
-                { number: 8, value: 'ಎಂಟು' },
-                { number: 7, value: 'ಏಳು' },
-                { number: 6, value: 'ಆರು' },
-                { number: 5, value: 'ಐದು' },
-                { number: 4, value: 'ನಾಲ್ಕು' },
-                { number: 3, value: 'ಮೂರು' },
-                { number: 2, value: 'ಎರಡು' },
-                { number: 1, value: 'ಒಂದು' },
-                { number: 0, value: 'ಶೂನ್ಯ' },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 28787:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Omani Rial',
-                plural: 'Omani Rials',
-                singular: 'Omani Rial',
-                symbol: 'OMR',
-                fractionalUnit: {
-                    name: 'Baisa',
-                    singular: 'Baisa',
-                    plural: 'Baisa',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Quadrillion' },
-                { number: 1000000000000, value: 'Trillion' },
-                { number: 1000000000, value: 'Billion' },
-                { number: 1000000, value: 'Million' },
                 { number: 1000, value: 'Thousand' },
                 { number: 100, value: 'Hundred' },
                 { number: 90, value: 'Ninety' },
@@ -6754,7 +2293,7 @@ var dist = __webpack_require__(12616);
 // EXTERNAL MODULE: ./resources/js/components/ProductCreateModal.vue + 17 modules
 var ProductCreateModal = __webpack_require__(57594);
 // EXTERNAL MODULE: ./resources/js/components/SupplierCreateModal.vue + 5 modules
-var SupplierCreateModal = __webpack_require__(34847);
+var SupplierCreateModal = __webpack_require__(78159);
 // EXTERNAL MODULE: ./resources/js/components/ItemsTable.vue + 5 modules
 var ItemsTable = __webpack_require__(20899);
 // EXTERNAL MODULE: ./resources/js/mixins/RTLMixin.js
@@ -6762,18 +2301,16 @@ var RTLMixin = __webpack_require__(64744);
 // EXTERNAL MODULE: ./node_modules/to-words/dist/ToWords.js
 var ToWords = __webpack_require__(54923);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/purchases/create.vue?vue&type=script&lang=js
-function _regeneratorValues(e) { if (null != e) { var t = e["function" == typeof Symbol && Symbol.iterator || "@@iterator"], r = 0; if (t) return t.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) return { next: function next() { return e && r >= e.length && (e = void 0), { value: e && e[r++], done: !e }; } }; } throw new TypeError(_typeof(e) + " is not iterable"); }
-function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t["return"] || t["return"](); } finally { if (u) throw o; } } }; }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
@@ -6958,26 +2495,27 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
   },
   created: function created() {
     var _this = this;
-    return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-      return _regenerator().w(function (_context) {
-        while (1) switch (_context.n) {
+    return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) switch (_context.prev = _context.next) {
           case 0:
             console.log('=== Component Created ===');
             console.log('appInfo at creation:', _this.appInfo);
             _this.prefix = _this.appInfo.productPrefix;
 
             // Load initial data
-            _context.n = 1;
+            _context.next = 5;
             return Promise.all([_this.getSuppliers(), _this.getProducts(), _this.getAccounts(), _this.getTaxes(), _this.loadCommunicationConfigStatus()]);
-          case 1:
+          case 5:
             if (!_this.$route.query.fromPurchaseOrder) {
-              _context.n = 2;
+              _context.next = 8;
               break;
             }
-            _context.n = 2;
+            _context.next = 8;
             return _this.loadPurchaseOrderData(_this.$route.query.fromPurchaseOrder);
-          case 2:
-            return _context.a(2);
+          case 8:
+          case "end":
+            return _context.stop();
         }
       }, _callee);
     }))();
@@ -6986,50 +2524,51 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // Load communication configuration status
     loadCommunicationConfigStatus: function loadCommunicationConfigStatus() {
       var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        var response, _t;
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.p = _context2.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.p = 0;
+              _context2.prev = 0;
               _this2.communicationConfig.loading = true;
-              _context2.n = 1;
+              _context2.next = 4;
               return axios_default().get('/api/communication-config-status');
-            case 1:
-              response = _context2.v;
+            case 4:
+              response = _context2.sent;
               _this2.communicationConfig.email_configured = response.data.email_configured;
               _this2.communicationConfig.sms_configured = response.data.sms_configured;
               _this2.communicationConfig.loading = false;
-              _context2.n = 3;
+              _context2.next = 16;
               break;
-            case 2:
-              _context2.p = 2;
-              _t = _context2.v;
-              console.error('Error loading communication config status:', _t);
+            case 10:
+              _context2.prev = 10;
+              _context2.t0 = _context2["catch"](0);
+              console.error('Error loading communication config status:', _context2.t0);
               // Default to false if there's an error
               _this2.communicationConfig.email_configured = false;
               _this2.communicationConfig.sms_configured = false;
               _this2.communicationConfig.loading = false;
-            case 3:
-              return _context2.a(2);
+            case 16:
+            case "end":
+              return _context2.stop();
           }
-        }, _callee2, null, [[0, 2]]);
+        }, _callee2, null, [[0, 10]]);
       }))();
     },
     // get all local suppliers
     getSuppliers: function getSuppliers() {
       var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
         var currentSupplierId, _yield$axios$get, data, currentSupplier;
-        return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.n) {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
             case 0:
               // Store the current supplier ID if one is selected
               currentSupplierId = _this3.form.supplier ? _this3.form.supplier.id : null;
-              _context3.n = 1;
+              _context3.next = 3;
               return axios_default().get(window.location.origin + "/api/all-suppliers");
-            case 1:
-              _yield$axios$get = _context3.v;
+            case 3:
+              _yield$axios$get = _context3.sent;
               data = _yield$axios$get.data;
               _this3.suppliers = data.data || [];
 
@@ -7050,8 +2589,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   _this3.form.supplier = _this3.suppliers[0];
                 }
               }
-            case 2:
-              return _context3.a(2);
+            case 7:
+            case "end":
+              return _context3.stop();
           }
         }, _callee3);
       }))();
@@ -7059,19 +2599,19 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // get products
     getProducts: function getProducts() {
       var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
         var currentProductIds, _yield$axios$get2, data;
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.n) {
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
             case 0:
               // Store the current selected products IDs
               currentProductIds = _this4.form.selectedProducts ? _this4.form.selectedProducts.map(function (p) {
                 return p.id;
               }) : [];
-              _context4.n = 1;
+              _context4.next = 3;
               return axios_default().get(window.location.origin + "/api/all-products-not-service");
-            case 1:
-              _yield$axios$get2 = _context4.v;
+            case 3:
+              _yield$axios$get2 = _context4.sent;
               data = _yield$axios$get2.data;
               _this4.products = data.data;
               _this4.products.sort(_this4.sortProducts);
@@ -7088,8 +2628,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   }
                 });
               }
-            case 2:
-              return _context4.a(2);
+            case 8:
+            case "end":
+              return _context4.stop();
           }
         }, _callee4);
       }))();
@@ -7122,15 +2663,15 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // get taxes
     getTaxes: function getTaxes() {
       var _this5 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
         var _yield$axios$get3, data, defaultVatRateSlug;
-        return _regenerator().w(function (_context5) {
-          while (1) switch (_context5.n) {
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
             case 0:
-              _context5.n = 1;
+              _context5.next = 2;
               return axios_default().get(window.location.origin + "/api/all-vat-rates");
-            case 1:
-              _yield$axios$get3 = _context5.v;
+            case 2:
+              _yield$axios$get3 = _context5.sent;
               data = _yield$axios$get3.data;
               _this5.taxes = data.data;
               // assign default vat rate
@@ -7141,8 +2682,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                 });
               }
               _this5.updateTax();
-            case 2:
-              return _context5.a(2);
+            case 7:
+            case "end":
+              return _context5.stop();
           }
         }, _callee5);
       }))();
@@ -7150,15 +2692,15 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // get accounts
     getAccounts: function getAccounts() {
       var _this6 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
         var _yield$axios$get4, data, defaultAccountSlug;
-        return _regenerator().w(function (_context6) {
-          while (1) switch (_context6.n) {
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
             case 0:
-              _context6.n = 1;
+              _context6.next = 2;
               return axios_default().get(window.location.origin + "/api/all-accounts");
-            case 1:
-              _yield$axios$get4 = _context6.v;
+            case 2:
+              _yield$axios$get4 = _context6.sent;
               data = _yield$axios$get4.data;
               _this6.accounts = data.data;
               // assign default account
@@ -7169,8 +2711,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                 });
               }
               _this6.updateBalance();
-            case 2:
-              return _context6.a(2);
+            case 7:
+            case "end":
+              return _context6.stop();
           }
         }, _callee6);
       }))();
@@ -7732,17 +3275,17 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // save purchase
     savePurchase: function savePurchase() {
       var _this7 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
-        var validationErrors, errorList, formData, response, errorMessages, _errorList, ErrorHandler, _t2;
-        return _regenerator().w(function (_context7) {
-          while (1) switch (_context7.p = _context7.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+        var validationErrors, errorList, formData, response, errorMessages, _errorList, ErrorHandler;
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
             case 0:
               if (!_this7.form.busy) {
-                _context7.n = 1;
+                _context7.next = 2;
                 break;
               }
-              return _context7.a(2);
-            case 1:
+              return _context7.abrupt("return");
+            case 2:
               // Validate required fields - collect all errors first
               validationErrors = []; // Check supplier
               if (!_this7.form.supplier) {
@@ -7778,7 +3321,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
               // Show all validation errors if any
               if (!(validationErrors.length > 0)) {
-                _context7.n = 2;
+                _context7.next = 12;
                 break;
               }
               errorList = validationErrors.map(function (error) {
@@ -7790,9 +3333,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                 timer: 8000,
                 timerProgressBar: true
               });
-              return _context7.a(2);
-            case 2:
-              _context7.p = 2;
+              return _context7.abrupt("return");
+            case 12:
+              _context7.prev = 12;
               // Clear any existing form errors to prevent individual error display
               _this7.form.errors.clear();
 
@@ -7818,10 +3361,10 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
               }
 
               // Use direct axios call instead of form.post to have better control over error handling
-              _context7.n = 3;
+              _context7.next = 20;
               return _this7.$axios.post("/api/purchases", formData);
-            case 3:
-              response = _context7.v;
+            case 20:
+              response = _context7.sent;
               toast.fire({
                 type: "success",
                 title: _this7.$t("Purchase added successfully")
@@ -7833,14 +3376,14 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   slug: response.data.data.slug
                 }
               });
-              _context7.n = 5;
+              _context7.next = 29;
               break;
-            case 4:
-              _context7.p = 4;
-              _t2 = _context7.v;
-              if (_t2.response && _t2.response.data && _t2.response.data.errors) {
+            case 26:
+              _context7.prev = 26;
+              _context7.t0 = _context7["catch"](12);
+              if (_context7.t0.response && _context7.t0.response.data && _context7.t0.response.data.errors) {
                 // Validation errors from backend - show all errors in one notification
-                errorMessages = Object.values(_t2.response.data.errors).flat();
+                errorMessages = Object.values(_context7.t0.response.data.errors).flat();
                 _errorList = errorMessages.map(function (error) {
                   return "\u2022 ".concat(error);
                 }).join('\n');
@@ -7850,46 +3393,47 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   timer: 8000,
                   timerProgressBar: true
                 });
-              } else if (_t2.response && _t2.response.data && _t2.response.data.message) {
+              } else if (_context7.t0.response && _context7.t0.response.data && _context7.t0.response.data.message) {
                 // Custom error message from backend
                 toast.fire({
                   type: "error",
                   title: _this7.$t("Error"),
-                  text: _t2.response.data.message
+                  text: _context7.t0.response.data.message
                 });
               } else {
                 // Use centralized error handler
                 ErrorHandler = (__webpack_require__(36694)/* ["default"] */ .A);
-                ErrorHandler.handleApiError(_t2, {
+                ErrorHandler.handleApiError(_context7.t0, {
                   showValidationErrors: true
                 });
               }
-            case 5:
-              return _context7.a(2);
+            case 29:
+            case "end":
+              return _context7.stop();
           }
-        }, _callee7, null, [[2, 4]]);
+        }, _callee7, null, [[12, 26]]);
       }))();
     },
     // Auto-assign Chart of Account for supplier
     autoAssignSupplierChartOfAccount: function autoAssignSupplierChartOfAccount() {
       var _this8 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
-        var response, _t3;
-        return _regenerator().w(function (_context8) {
-          while (1) switch (_context8.p = _context8.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
             case 0:
               if (!(!_this8.form.supplier || _this8.isAutoAssigningSupplier)) {
-                _context8.n = 1;
+                _context8.next = 2;
                 break;
               }
-              return _context8.a(2);
-            case 1:
+              return _context8.abrupt("return");
+            case 2:
               _this8.isAutoAssigningSupplier = true;
-              _context8.p = 2;
-              _context8.n = 3;
+              _context8.prev = 3;
+              _context8.next = 6;
               return _this8.$http.post("/api/suppliers/".concat(_this8.form.supplier.slug, "/auto-assign-chart-of-account"));
-            case 3:
-              response = _context8.v;
+            case 6:
+              response = _context8.sent;
               if (response.data.success) {
                 console.log('Auto-assign response:', response.data);
                 console.log('Current supplier before update:', _this8.form.supplier);
@@ -7915,46 +3459,47 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   text: response.data.message || _this8.$t("Please try again or assign manually")
                 });
               }
-              _context8.n = 5;
+              _context8.next = 14;
               break;
-            case 4:
-              _context8.p = 4;
-              _t3 = _context8.v;
-              console.error('Error auto-assigning chart of account:', _t3);
+            case 10:
+              _context8.prev = 10;
+              _context8.t0 = _context8["catch"](3);
+              console.error('Error auto-assigning chart of account:', _context8.t0);
               toast.fire({
                 type: "error",
                 title: _this8.$t("An error occurred while assigning Chart of Account")
               });
-            case 5:
-              _context8.p = 5;
+            case 14:
+              _context8.prev = 14;
               _this8.isAutoAssigningSupplier = false;
-              return _context8.f(5);
-            case 6:
-              return _context8.a(2);
+              return _context8.finish(14);
+            case 17:
+            case "end":
+              return _context8.stop();
           }
-        }, _callee8, null, [[2, 4, 5, 6]]);
+        }, _callee8, null, [[3, 10, 14, 17]]);
       }))();
     },
     // Auto-assign Chart of Account for a specific product
     autoAssignProductChartOfAccount: function autoAssignProductChartOfAccount(product) {
       var _this9 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
-        var response, _t4;
-        return _regenerator().w(function (_context9) {
-          while (1) switch (_context9.p = _context9.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+          while (1) switch (_context9.prev = _context9.next) {
             case 0:
               if (!(!product || _this9.isAutoAssigningProduct === product.id)) {
-                _context9.n = 1;
+                _context9.next = 2;
                 break;
               }
-              return _context9.a(2);
-            case 1:
+              return _context9.abrupt("return");
+            case 2:
               _this9.isAutoAssigningProduct = product.id;
-              _context9.p = 2;
-              _context9.n = 3;
+              _context9.prev = 3;
+              _context9.next = 6;
               return _this9.$http.post("/api/products/".concat(product.slug, "/auto-assign-chart-of-account"));
-            case 3:
-              response = _context9.v;
+            case 6:
+              response = _context9.sent;
               if (response.data.success) {
                 // Update the product data with new chart of account
                 product.purchase_account_id = response.data.purchase_account_id;
@@ -7976,24 +3521,25 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   text: response.data.message || _this9.$t("Please try again or assign manually")
                 });
               }
-              _context9.n = 5;
+              _context9.next = 14;
               break;
-            case 4:
-              _context9.p = 4;
-              _t4 = _context9.v;
-              console.error('Error auto-assigning chart of account:', _t4);
+            case 10:
+              _context9.prev = 10;
+              _context9.t0 = _context9["catch"](3);
+              console.error('Error auto-assigning chart of account:', _context9.t0);
               toast.fire({
                 type: "error",
                 title: _this9.$t("An error occurred while assigning Chart of Account")
               });
-            case 5:
-              _context9.p = 5;
+            case 14:
+              _context9.prev = 14;
               _this9.isAutoAssigningProduct = false;
-              return _context9.f(5);
-            case 6:
-              return _context9.a(2);
+              return _context9.finish(14);
+            case 17:
+            case "end":
+              return _context9.stop();
           }
-        }, _callee9, null, [[2, 4, 5, 6]]);
+        }, _callee9, null, [[3, 10, 14, 17]]);
       }))();
     },
     // Handle supplier change
@@ -8075,19 +3621,19 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // Load purchase order data and populate form
     loadPurchaseOrderData: function loadPurchaseOrderData(purchaseOrderSlug) {
       var _this1 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
-        var _yield$axios$get5, data, purchaseOrder, supplier, selectedProducts, _iterator, _step, _loop, _error$response, _t5, _t6;
-        return _regenerator().w(function (_context1) {
-          while (1) switch (_context1.p = _context1.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee0() {
+        var _yield$axios$get5, data, purchaseOrder, supplier, selectedProducts, _iterator, _step, _loop, _error$response;
+        return _regeneratorRuntime().wrap(function _callee0$(_context1) {
+          while (1) switch (_context1.prev = _context1.next) {
             case 0:
-              _context1.p = 0;
+              _context1.prev = 0;
               _this1.$store.state.operations.loading = true;
 
               // Fetch purchase order data
-              _context1.n = 1;
+              _context1.next = 4;
               return axios_default().get(window.location.origin + "/api/purchase-order/" + purchaseOrderSlug);
-            case 1:
-              _yield$axios$get5 = _context1.v;
+            case 4:
+              _yield$axios$get5 = _context1.sent;
               data = _yield$axios$get5.data;
               purchaseOrder = data.data; // Set supplier
               if (purchaseOrder.supplier && _this1.suppliers && _this1.suppliers.length > 0) {
@@ -8124,16 +3670,16 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
               // Map purchase order products to form products
               if (!(purchaseOrder.purchase_order_products && purchaseOrder.purchase_order_products.length > 0)) {
-                _context1.n = 9;
+                _context1.next = 35;
                 break;
               }
               selectedProducts = [];
               _iterator = _createForOfIteratorHelper(purchaseOrder.purchase_order_products);
-              _context1.p = 2;
-              _loop = /*#__PURE__*/_regenerator().m(function _loop() {
+              _context1.prev = 17;
+              _loop = /*#__PURE__*/_regeneratorRuntime().mark(function _loop() {
                 var poProduct, product, selectedVatRate, _lineTotal, _discountAmount, _totalAfterDiscount, calculatedVatRate, lineTotal, discountAmount, totalAfterDiscount, formProduct;
-                return _regenerator().w(function (_context0) {
-                  while (1) switch (_context0.n) {
+                return _regeneratorRuntime().wrap(function _loop$(_context0) {
+                  while (1) switch (_context0.prev = _context0.next) {
                     case 0:
                       poProduct = _step.value;
                       // Find the product in the products list
@@ -8186,33 +3732,34 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                         };
                         selectedProducts.push(formProduct);
                       }
-                    case 1:
-                      return _context0.a(2);
+                    case 3:
+                    case "end":
+                      return _context0.stop();
                   }
                 }, _loop);
               });
               _iterator.s();
-            case 3:
+            case 20:
               if ((_step = _iterator.n()).done) {
-                _context1.n = 5;
+                _context1.next = 24;
                 break;
               }
-              return _context1.d(_regeneratorValues(_loop()), 4);
-            case 4:
-              _context1.n = 3;
+              return _context1.delegateYield(_loop(), "t0", 22);
+            case 22:
+              _context1.next = 20;
               break;
-            case 5:
-              _context1.n = 7;
+            case 24:
+              _context1.next = 29;
               break;
-            case 6:
-              _context1.p = 6;
-              _t5 = _context1.v;
-              _iterator.e(_t5);
-            case 7:
-              _context1.p = 7;
+            case 26:
+              _context1.prev = 26;
+              _context1.t1 = _context1["catch"](17);
+              _iterator.e(_context1.t1);
+            case 29:
+              _context1.prev = 29;
               _iterator.f();
-              return _context1.f(7);
-            case 8:
+              return _context1.finish(29);
+            case 32:
               // Set selected products
               _this1.form.selectedProducts = selectedProducts;
 
@@ -8224,29 +3771,30 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
               // Recalculate totals
               _this1.calculateSum();
-            case 9:
+            case 35:
               // Show success message
               toast.fire({
                 type: "success",
                 title: _this1.$t("Purchase order data loaded successfully")
               });
               _this1.$store.state.operations.loading = false;
-              _context1.n = 11;
+              _context1.next = 44;
               break;
-            case 10:
-              _context1.p = 10;
-              _t6 = _context1.v;
-              console.error('Error loading purchase order data:', _t6);
+            case 39:
+              _context1.prev = 39;
+              _context1.t2 = _context1["catch"](0);
+              console.error('Error loading purchase order data:', _context1.t2);
               _this1.$store.state.operations.loading = false;
               toast.fire({
                 type: "error",
                 title: _this1.$t("Failed to load purchase order data"),
-                text: ((_error$response = _t6.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this1.$t("Please try again")
+                text: ((_error$response = _context1.t2.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this1.$t("Please try again")
               });
-            case 11:
-              return _context1.a(2);
+            case 44:
+            case "end":
+              return _context1.stop();
           }
-        }, _callee0, null, [[2, 6, 7, 8], [0, 10]]);
+        }, _callee0, null, [[0, 39], [17, 26, 29, 32]]);
       }))();
     }
   },
@@ -8452,780 +4000,6 @@ exports["default"] = Locale;
 
 /***/ }),
 
-/***/ 34847:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ SupplierCreateModal)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierCreateModal.vue?vue&type=template&id=4c491078&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c('VModal', {
-    on: {
-      "close": function close($event) {
-        _vm.showSupplierCreateModal = false;
-      }
-    },
-    scopedSlots: _vm._u([{
-      key: "title",
-      fn: function fn() {
-        return [_vm._v(_vm._s(_vm.$t("Create Supplier")))];
-      },
-      proxy: true
-    }]),
-    model: {
-      value: _vm.showSupplierCreateModal,
-      callback: function callback($$v) {
-        _vm.showSupplierCreateModal = $$v;
-      },
-      expression: "showSupplierCreateModal"
-    }
-  }, [_vm._v(" "), [_c('SupplierForm', {
-    ref: "supplierForm",
-    attrs: {
-      "showCardBody": false
-    },
-    on: {
-      "submit": _vm.saveSupplier
-    }
-  }), _vm._v(" "), _c('div', {
-    attrs: {
-      "slot": "modal-footer"
-    },
-    slot: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "disabled": _vm.isSubmitting
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.submitItem($event);
-      }
-    }
-  }, [_vm.isSubmitting ? _c('i', {
-    staticClass: "fas fa-spinner fa-spin"
-  }) : _c('i', {
-    staticClass: "fas fa-save"
-  }), _vm._v(" \n          " + _vm._s(_vm.isSubmitting ? _vm.$t("Saving...") : _vm.$t("Save")) + "\n        ")])])]], 2), _vm._v(" "), _c('a', {
-    staticClass: "create-button",
-    on: {
-      "click": _vm.toggleModal
-    }
-  }, [_vm._t("default")], 2)], 1);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./resources/js/components/SupplierForm.vue + 6 modules
-var SupplierForm = __webpack_require__(4973);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierCreateModal.vue?vue&type=script&lang=js
-function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-
-/* harmony default export */ const SupplierCreateModalvue_type_script_lang_js = ({
-  name: "SupplierCreateModal",
-  middleware: ["auth", "check-permissions"],
-  components: {
-    SupplierForm: SupplierForm/* default */.A
-  },
-  data: function data() {
-    return {
-      showSupplierCreateModal: false,
-      form: null,
-      isSubmitting: false
-    };
-  },
-  methods: {
-    // save supplier
-    saveSupplier: function saveSupplier() {
-      var _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var _this$$refs$supplierF, formData, fd, appendIfDefined, taxStatusValue, taxStatusToSend, response, status, serverErrors, form, errorMessages, errorsObject, mapped, errorTitle, _error$response, errorMessage, _t;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
-            case 0:
-              if (!_this.isSubmitting) {
-                _context.n = 1;
-                break;
-              }
-              return _context.a(2);
-            case 1:
-              _this.isSubmitting = true;
-              _context.p = 2;
-              if (_this.$refs.supplierForm.validateForm()) {
-                _context.n = 3;
-                break;
-              }
-              _this.isSubmitting = false;
-              return _context.a(2);
-            case 3:
-              // Get the form data from the SupplierForm component
-              formData = _this.$refs.supplierForm.getFormData(); // Build multipart/form-data to properly send files and handle boolean conversion
-              fd = new FormData();
-              appendIfDefined = function appendIfDefined(key, value) {
-                if (value !== undefined && value !== null && value !== '') {
-                  fd.append(key, value);
-                }
-              }; // Debug: Log formData before building FormData - CRITICAL
-              console.log('SupplierCreateModal - formData received:', {
-                taxStatus: formData.taxStatus,
-                tax_status: formData.tax_status,
-                allFormData: formData
-              });
-              console.log('SupplierCreateModal - formData keys:', Object.keys(formData || {}));
-              console.log('SupplierCreateModal - formData.taxStatus type:', _typeof(formData.taxStatus));
-              console.log('SupplierCreateModal - formData.taxStatus value:', formData.taxStatus);
-              console.log('SupplierCreateModal - formData.tax_status value:', formData.tax_status);
-              console.log('SupplierCreateModal - $refs.supplierForm exists:', !!_this.$refs.supplierForm);
-              console.log('SupplierCreateModal - $refs.supplierForm.form exists:', !!(_this.$refs.supplierForm && _this.$refs.supplierForm.form));
-              if (_this.$refs.supplierForm && _this.$refs.supplierForm.form) {
-                console.log('SupplierCreateModal - form.taxStatus:', _this.$refs.supplierForm.form.taxStatus);
-                console.log('SupplierCreateModal - form.data() taxStatus:', _this.$refs.supplierForm.form.data ? _this.$refs.supplierForm.form.data().taxStatus : 'N/A');
-              }
-
-              // Simple scalar fields
-              appendIfDefined('codeNumber', formData.codeNumber);
-              appendIfDefined('notes', formData.notes);
-              appendIfDefined('displayLanguage', formData.displayLanguage);
-              appendIfDefined('type', formData.type);
-
-              // CRITICAL: Always append taxStatus - don't use appendIfDefined to ensure it's always sent
-              // Get taxStatus from formData, or try to get it from form object if available
-              taxStatusValue = formData.taxStatus || formData.tax_status;
-              console.log('SupplierCreateModal - Initial taxStatus check:', {
-                formDataTaxStatus: formData.taxStatus,
-                formDataTax_status: formData.tax_status,
-                currentTaxStatusValue: taxStatusValue
-              });
-
-              // If still not found, try to get it from the form component
-              if (!taxStatusValue && _this.$refs.supplierForm && _this.$refs.supplierForm.form) {
-                taxStatusValue = _this.$refs.supplierForm.form.taxStatus;
-                console.log('SupplierCreateModal - Got taxStatus from form object:', taxStatusValue);
-              }
-
-              // Default to non_taxable if still not found
-              taxStatusValue = taxStatusValue || 'non_taxable';
-              console.log('SupplierCreateModal - Final taxStatusValue before appending:', taxStatusValue);
-
-              // Always append taxStatus - never skip it, even if it's the default value
-              // CRITICAL: Use explicit string conversion and ensure it's never null/undefined
-              taxStatusToSend = String(taxStatusValue || 'non_taxable');
-              fd.append('taxStatus', taxStatusToSend);
-              fd.append('tax_status', taxStatusToSend);
-              console.log('=== SUPPLIER CREATE MODAL - APPENDING TAX STATUS ===');
-              console.log('SupplierCreateModal - taxStatusValue:', taxStatusValue);
-              console.log('SupplierCreateModal - taxStatusToSend:', taxStatusToSend);
-              console.log('SupplierCreateModal - Appended taxStatus to FormData:', taxStatusToSend);
-              console.log('SupplierCreateModal - formData.taxStatus:', formData.taxStatus);
-              console.log('SupplierCreateModal - formData.tax_status:', formData.tax_status);
-              console.log('SupplierCreateModal - form.taxStatus:', (_this$$refs$supplierF = _this.$refs.supplierForm) === null || _this$$refs$supplierF === void 0 || (_this$$refs$supplierF = _this$$refs$supplierF.form) === null || _this$$refs$supplierF === void 0 ? void 0 : _this$$refs$supplierF.taxStatus);
-
-              // Verify it was added
-              console.log('SupplierCreateModal - FormData has taxStatus:', fd.has('taxStatus'));
-              console.log('SupplierCreateModal - FormData has tax_status:', fd.has('tax_status'));
-              appendIfDefined('fullName', formData.fullName);
-              appendIfDefined('businessName', formData.businessName);
-              appendIfDefined('companyName', formData.businessName);
-              appendIfDefined('firstName', formData.firstName);
-              appendIfDefined('lastName', formData.lastName);
-              appendIfDefined('phone', formData.phone);
-              appendIfDefined('phoneNumber', formData.phoneNumber);
-              appendIfDefined('email', formData.email);
-              appendIfDefined('streetAddress1', formData.streetAddress1);
-              appendIfDefined('streetAddress2', formData.streetAddress2);
-              appendIfDefined('city', formData.city);
-              appendIfDefined('state', formData.state);
-              appendIfDefined('postalCode', formData.postalCode);
-              appendIfDefined('country', formData.country);
-              appendIfDefined('saudi_region', formData.saudi_region);
-              appendIfDefined('neighbourhood', formData.neighbourhood);
-              appendIfDefined('commercialRegister', formData.commercialRegister);
-              appendIfDefined('taxCard', formData.taxCard);
-              appendIfDefined('status', formData.status);
-
-              // Saudi National Address Fields
-              appendIfDefined('buildingNumber', formData.buildingNumber);
-              appendIfDefined('streetNumber', formData.streetNumber);
-              appendIfDefined('districtNumber', formData.districtNumber);
-              appendIfDefined('unitNumber', formData.unitNumber);
-              appendIfDefined('additionalNumber', formData.additionalNumber);
-              appendIfDefined('taxRegistrationNumber', formData.taxRegistrationNumber || formData.taxCard);
-
-              // Convert boolean values to integers for Laravel validation
-              appendIfDefined('isSendEmail', formData.isSendEmail ? 1 : 0);
-              appendIfDefined('isSendSMS', formData.isSendSMS ? 1 : 0);
-
-              // Chart of account id (number or object)
-              if (formData.chartOfAccountId && _typeof(formData.chartOfAccountId) === 'object' && formData.chartOfAccountId.id) {
-                appendIfDefined('chartOfAccountId', formData.chartOfAccountId.id);
-              } else {
-                appendIfDefined('chartOfAccountId', formData.chartOfAccountId);
-              }
-
-              // Image file
-              if (formData.image instanceof File) {
-                fd.append('image', formData.image);
-              }
-
-              // Attachments as files
-              if (Array.isArray(formData.attachments)) {
-                formData.attachments.forEach(function (file, idx) {
-                  if (file instanceof File) {
-                    fd.append("attachments[".concat(idx, "]"), file);
-                  }
-                });
-              }
-
-              // Representatives array (as nested fields)
-              if (Array.isArray(formData.representatives)) {
-                formData.representatives.forEach(function (rep, i) {
-                  if (!rep) return;
-                  if (rep.name !== undefined && rep.name !== null) fd.append("representatives[".concat(i, "][name]"), rep.name);
-                  if (rep.email) fd.append("representatives[".concat(i, "][email]"), rep.email);
-                  if (rep.phone) fd.append("representatives[".concat(i, "][phone]"), rep.phone);
-                  if (rep.position) fd.append("representatives[".concat(i, "][position]"), rep.position);
-                  if (rep.is_primary !== undefined && rep.is_primary !== null) fd.append("representatives[".concat(i, "][is_primary]"), rep.is_primary ? 1 : 0);
-                  if (rep.notes) fd.append("representatives[".concat(i, "][notes]"), rep.notes);
-                });
-              }
-              _context.n = 4;
-              return _this.$http.post("/api/suppliers", fd, {
-                headers: {
-                  'Content-Type': 'multipart/form-data'
-                }
-              });
-            case 4:
-              response = _context.v;
-              if (!response.data.success) {
-                _context.n = 5;
-                break;
-              }
-              toast.fire({
-                type: "success",
-                title: _this.$t("Supplier added successfully")
-              });
-              _this.$emit("reloadSuppliers");
-              _this.$refs.supplierForm.resetForm();
-              _this.showSupplierCreateModal = false;
-              _this.form = null; // Reset form reference
-              _context.n = 6;
-              break;
-            case 5:
-              throw new Error(response.data.message || 'Failed to create supplier');
-            case 6:
-              _context.n = 8;
-              break;
-            case 7:
-              _context.p = 7;
-              _t = _context.v;
-              console.error("Error creating supplier:", _t);
-              status = _t && _t.response && _t.response.status;
-              serverErrors = _t && _t.response && _t.response.data && _t.response.data.errors;
-              if (status === 422 && serverErrors && _this.$refs.supplierForm) {
-                // Get form object directly from SupplierForm component
-                form = _this.$refs.supplierForm.form;
-                errorMessages = []; // Prepare errors object for vform
-                errorsObject = {};
-                Object.keys(serverErrors).forEach(function (key) {
-                  var messages = serverErrors[key];
-                  if (Array.isArray(messages) && messages.length > 0) {
-                    // Translate messages before adding to errorsObject
-                    var translatedMessages = messages.map(function (msg) {
-                      return _this.translateValidationMessage(msg, key);
-                    });
-                    errorsObject[key] = translatedMessages;
-
-                    // Collect error messages for toast notification
-                    var fieldLabel = _this.getFieldLabel(key);
-                    translatedMessages.forEach(function (msg) {
-                      errorMessages.push("".concat(fieldLabel, ": ").concat(msg));
-                    });
-
-                    // Also map attachments.* to attachments field for UI display
-                    if (key.startsWith('attachments.')) {
-                      if (!errorsObject.attachments) {
-                        errorsObject.attachments = translatedMessages;
-                      }
-                    }
-                  }
-                });
-
-                // Set errors on form using vform's set method
-                if (form && form.errors && typeof form.errors.set === 'function') {
-                  form.errors.set(errorsObject);
-                  console.log('SupplierCreateModal - Set errors on form:', errorsObject);
-                } else if (form && form.errors && typeof form.errors.record === 'function') {
-                  // Fallback to record method if set is not available
-                  mapped = {};
-                  Object.keys(errorsObject).forEach(function (key) {
-                    mapped[key] = Array.isArray(errorsObject[key]) ? errorsObject[key][0] : errorsObject[key];
-                  });
-                  form.errors.record(mapped);
-                  console.log('SupplierCreateModal - Recorded errors on form (fallback):', mapped);
-                } else {
-                  console.warn('SupplierCreateModal - Form errors object not available or invalid');
-                }
-
-                // Show detailed error messages in toast
-                errorTitle = errorMessages.length > 0 ? errorMessages.slice(0, 3).join(' | ') + (errorMessages.length > 3 ? " (+".concat(errorMessages.length - 3, " more)") : '') : _this.$t("Please check the form for errors and try again.");
-                toast.fire({
-                  type: "error",
-                  title: _this.$t("Validation Error"),
-                  text: errorTitle,
-                  html: errorMessages.length > 0 ? "<div style=\"text-align: left; max-height: 200px; overflow-y: auto;\">".concat(errorMessages.map(function (msg) {
-                    return "<div>\u2022 ".concat(msg, "</div>");
-                  }).join(''), "</div>") : undefined
-                });
-              } else {
-                errorMessage = ((_error$response = _t.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this.$t("Please check your input and try again.");
-                toast.fire({
-                  type: "error",
-                  title: errorMessage
-                });
-              }
-            case 8:
-              _context.p = 8;
-              _this.isSubmitting = false;
-              return _context.f(8);
-            case 9:
-              return _context.a(2);
-          }
-        }, _callee, null, [[2, 7, 8, 9]]);
-      }))();
-    },
-    toggleModal: function toggleModal() {
-      this.showSupplierCreateModal = !this.showSupplierCreateModal;
-      // Reset form when opening modal
-      if (this.showSupplierCreateModal) {
-        this.form = null;
-        this.isSubmitting = false;
-      }
-    },
-    submitItem: function submitItem(evt) {
-      evt.preventDefault();
-      this.saveSupplier();
-    },
-    // Get field label for error messages
-    getFieldLabel: function getFieldLabel(field) {
-      var fieldLabelMap = {
-        codeNumber: this.$t('Code Number'),
-        notes: this.$t('Notes'),
-        displayLanguage: this.$t('Display Language'),
-        type: this.$t('Type'),
-        fullName: this.$t('Full Name'),
-        businessName: this.$t('Business Name'),
-        firstName: this.$t('First Name'),
-        lastName: this.$t('Last Name'),
-        phone: this.$t('Phone'),
-        phoneNumber: this.$t('Mobile Number'),
-        email: this.$t('Email'),
-        streetAddress1: this.$t('Street Address 1'),
-        streetAddress2: this.$t('Street Address 2'),
-        city: this.$t('City'),
-        state: this.$t('State'),
-        postalCode: this.$t('Postal Code'),
-        country: this.$t('Country'),
-        neighbourhood: this.$t('Neighbourhood'),
-        commercialRegister: this.$t('Commercial Register'),
-        taxCard: this.$t('Tax Card'),
-        buildingNumber: this.$t('Building Number'),
-        streetNumber: this.$t('Street Number'),
-        districtNumber: this.$t('District Number'),
-        unitNumber: this.$t('Unit Number'),
-        additionalNumber: this.$t('Additional Number'),
-        taxStatus: this.$t('Tax Status'),
-        taxRegistrationNumber: this.$t('Tax Registration Number'),
-        image: this.$t('Image'),
-        attachments: this.$t('Attachments'),
-        status: this.$t('Status'),
-        chartOfAccountId: this.$t('Chart of Account')
-      };
-      return fieldLabelMap[field] || field;
-    },
-    // translate validation messages from backend to localized messages
-    translateValidationMessage: function translateValidationMessage(message, field) {
-      // If there is a direct translation key, use it
-      var direct = this.$t(message);
-      if (direct && direct !== message) return direct;
-
-      // Get current locale
-      var currentLocale = this.$i18n.locale || 'en';
-      var isArabic = currentLocale === 'ar';
-
-      // Field label mapping for supplier form fields
-      var fieldLabelMap = {
-        codeNumber: this.$t('Code Number'),
-        notes: this.$t('Notes'),
-        displayLanguage: this.$t('Display Language'),
-        type: this.$t('Type'),
-        fullName: this.$t('Full Name'),
-        businessName: this.$t('Business Name'),
-        firstName: this.$t('First Name'),
-        lastName: this.$t('Last Name'),
-        phone: this.$t('Phone'),
-        phoneNumber: this.$t('Mobile Number'),
-        email: this.$t('Email'),
-        streetAddress1: this.$t('Street Address 1'),
-        streetAddress2: this.$t('Street Address 2'),
-        city: this.$t('City'),
-        state: this.$t('State'),
-        postalCode: this.$t('Postal Code'),
-        country: this.$t('Country'),
-        neighbourhood: this.$t('Neighbourhood'),
-        commercialRegister: this.$t('Commercial Register'),
-        taxCard: this.$t('Tax Card'),
-        buildingNumber: this.$t('Building Number'),
-        streetNumber: this.$t('Street Number'),
-        districtNumber: this.$t('District Number'),
-        unitNumber: this.$t('Unit Number'),
-        additionalNumber: this.$t('Additional Number'),
-        taxStatus: this.$t('Tax Status'),
-        taxRegistrationNumber: this.$t('Tax Registration Number'),
-        image: this.$t('Image'),
-        attachments: this.$t('Attachments'),
-        status: this.$t('Status'),
-        chartOfAccountId: this.$t('Chart of Account')
-      };
-
-      // Try to translate common validation messages
-      var commonMessages = {
-        'required': isArabic ? 'مطلوب' : 'required',
-        'must be exactly 15 digits': isArabic ? 'يجب أن يكون 15 رقم بالضبط' : 'must be exactly 15 digits',
-        'must contain only numbers and be 15 digits': isArabic ? 'يجب أن يحتوي على أرقام فقط ويكون 15 رقم' : 'must contain only numbers and be 15 digits'
-      };
-
-      // Check if message contains common patterns
-      for (var _i = 0, _Object$entries = Object.entries(commonMessages); _i < _Object$entries.length; _i++) {
-        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
-          pattern = _Object$entries$_i[0],
-          translation = _Object$entries$_i[1];
-        if (message.toLowerCase().includes(pattern.toLowerCase())) {
-          var fieldLabel = fieldLabelMap[field] || field;
-          return "".concat(fieldLabel, ": ").concat(translation);
-        }
-      }
-
-      // Return original message if no translation found
-      return message;
-    }
-  }
-});
-;// ./resources/js/components/SupplierCreateModal.vue?vue&type=script&lang=js
- /* harmony default export */ const components_SupplierCreateModalvue_type_script_lang_js = (SupplierCreateModalvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierCreateModal.vue?vue&type=style&index=0&id=4c491078&prod&scoped=true&lang=css
-var SupplierCreateModalvue_type_style_index_0_id_4c491078_prod_scoped_true_lang_css = __webpack_require__(34915);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierCreateModal.vue?vue&type=style&index=0&id=4c491078&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(SupplierCreateModalvue_type_style_index_0_id_4c491078_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const components_SupplierCreateModalvue_type_style_index_0_id_4c491078_prod_scoped_true_lang_css = (SupplierCreateModalvue_type_style_index_0_id_4c491078_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/SupplierCreateModal.vue?vue&type=style&index=0&id=4c491078&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/SupplierCreateModal.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  components_SupplierCreateModalvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "4c491078",
-  null
-  
-)
-
-/* harmony default export */ const SupplierCreateModal = (component.exports);
-
-/***/ }),
-
-/***/ 34915:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".create-button[data-v-4c491078]{cursor:pointer;text-decoration:none}.modal-content[data-v-4c491078]{margin:1.75rem auto;max-width:1000px}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 34922:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'eiro',
-                plural: 'eiro',
-                symbol: '€',
-                fractionalUnit: {
-                    name: 'cents',
-                    plural: 'centi',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'un',
-                minus: 'mīnus',
-                only: '',
-                point: 'komats',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'kvadriljon' },
-                { number: 1000000000000, value: 'triljon' },
-                { number: 1000000000, value: 'miljard' },
-                { number: 1000000, value: 'miljoni', singularValue: 'miljons' },
-                { number: 1000, value: 'tūkstoši', singularValue: 'tūkstotis' },
-                { number: 900, value: 'deviņi simti' },
-                { number: 800, value: 'astoņi simti' },
-                { number: 700, value: 'septiņi simti' },
-                { number: 600, value: 'seši simti' },
-                { number: 500, value: 'pieci simti' },
-                { number: 400, value: 'četri simti' },
-                { number: 300, value: 'trīs simti' },
-                { number: 200, value: 'divi simti' },
-                { number: 100, value: 'simtu' },
-                { number: 90, value: 'deviņdesmit' },
-                { number: 80, value: 'astoņdesmit' },
-                { number: 70, value: 'septiņdesmit' },
-                { number: 60, value: 'sešdesmit' },
-                { number: 50, value: 'piecdesmit' },
-                { number: 40, value: 'četrdesmit' },
-                { number: 30, value: 'trīsdesmit' },
-                { number: 20, value: 'divdesmit' },
-                { number: 19, value: 'deviņpadsmit' },
-                { number: 18, value: 'astoņpadsmit' },
-                { number: 17, value: 'septiņpadsmit' },
-                { number: 16, value: 'sešpadsmit' },
-                { number: 15, value: 'piecpadsmit' },
-                { number: 14, value: 'četrdpadsmit' },
-                { number: 13, value: 'trīspadsmit' },
-                { number: 12, value: 'divpadsmit' },
-                { number: 11, value: 'vienpadsmit' },
-                { number: 10, value: 'desmit' },
-                { number: 9, value: 'deviņi' },
-                { number: 8, value: 'astoņi' },
-                { number: 7, value: 'septiņi' },
-                { number: 6, value: 'seši' },
-                { number: 5, value: 'pieci' },
-                { number: 4, value: 'četri' },
-                { number: 3, value: 'trīs' },
-                { number: 2, value: 'divi' },
-                { number: 1, value: 'viens' },
-                { number: 0, value: 'nulle' },
-            ],
-            ignoreOneForWords: [
-                'simtu',
-                'divi simti',
-                'trīs simti',
-                'četri simti',
-                'pieci simti',
-                'seši simti',
-                'septiņi simti',
-                'astoņi simti',
-                'deviņi simti',
-            ],
-            exactWordsMapping: [{ number: 100, value: 'Simtu' }],
-            pluralMark: 'i',
-            pluralWords: ['kvadriljon', 'triljon', 'miljard'],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 35262:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'रुपैयाँ',
-                plural: 'रुपैयाँ',
-                singular: 'रुपैयाँ',
-                symbol: 'रु',
-                fractionalUnit: {
-                    name: 'पैसा',
-                    singular: 'पैसा',
-                    plural: 'पैसा',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'र',
-                minus: 'माइनस',
-                only: 'मात्र',
-                point: 'दशमलब',
-            },
-            numberWordsMapping: [
-                { number: 100000000000, value: 'खर्ब' },
-                { number: 1000000000, value: 'अर्ब' },
-                { number: 10000000, value: 'करोड' },
-                { number: 100000, value: 'लाख' },
-                { number: 1000, value: 'हजार' },
-                { number: 100, value: 'सय' },
-                { number: 99, value: 'उनान्सय' },
-                { number: 98, value: 'अन्ठानब्बे' },
-                { number: 97, value: 'सन्तानब्बे' },
-                { number: 96, value: 'छयानब्बे' },
-                { number: 95, value: 'पन्चानब्बे' },
-                { number: 94, value: 'चौरानब्बे' },
-                { number: 93, value: 'त्रियानब्बे' },
-                { number: 92, value: 'बयान्नब्बे' },
-                { number: 91, value: 'एकानब्बे' },
-                { number: 90, value: 'नब्बे' },
-                { number: 89, value: 'उनान्नब्बे' },
-                { number: 88, value: 'अठासी' },
-                { number: 87, value: 'सतासी' },
-                { number: 86, value: 'छयासी' },
-                { number: 85, value: 'पचासी' },
-                { number: 84, value: 'चौरासी' },
-                { number: 83, value: 'त्रियासी' },
-                { number: 82, value: 'बयासी' },
-                { number: 81, value: 'एकासी' },
-                { number: 80, value: 'अस्सी' },
-                { number: 79, value: 'उनासी' },
-                { number: 78, value: 'अठहत्तर' },
-                { number: 77, value: 'सतहत्तर' },
-                { number: 76, value: 'छयहत्तर' },
-                { number: 75, value: 'पचहत्तर' },
-                { number: 74, value: 'चौहत्तर' },
-                { number: 73, value: 'त्रिहत्तर' },
-                { number: 72, value: 'बहत्तर' },
-                { number: 71, value: 'एकहत्तर' },
-                { number: 70, value: 'सत्तरी' },
-                { number: 69, value: 'उनन्सत्तरी' },
-                { number: 68, value: 'अठसट्ठी' },
-                { number: 67, value: 'सड्सट्ठी' },
-                { number: 66, value: 'छैंसट्ठी' },
-                { number: 65, value: 'पैंसट्ठी' },
-                { number: 64, value: 'चौंसट्ठी' },
-                { number: 63, value: 'त्रिसट्ठी' },
-                { number: 62, value: 'बइसट्ठी' },
-                { number: 61, value: 'एकसट्ठी' },
-                { number: 60, value: 'साठी' },
-                { number: 59, value: 'उनन्साठी' },
-                { number: 58, value: 'अन्ठाउन्न' },
-                { number: 57, value: 'सन्ताउन्न' },
-                { number: 56, value: 'छपन्न' },
-                { number: 55, value: 'पचपन्न' },
-                { number: 54, value: 'चवन्न' },
-                { number: 53, value: 'त्रिपन्न' },
-                { number: 52, value: 'बाउन्न' },
-                { number: 51, value: 'एकाउन्न' },
-                { number: 50, value: 'पचास' },
-                { number: 49, value: 'उनन्चास' },
-                { number: 48, value: 'अठचालीस' },
-                { number: 47, value: 'सट्चालीस' },
-                { number: 46, value: 'छयालीस' },
-                { number: 45, value: 'पैंतालीस' },
-                { number: 44, value: 'चवालीस' },
-                { number: 43, value: 'त्रिचालीस' },
-                { number: 42, value: 'बयालीस' },
-                { number: 41, value: 'एकचालीस' },
-                { number: 40, value: 'चालीस' },
-                { number: 39, value: 'उनन्चालीस' },
-                { number: 38, value: 'अठतीस' },
-                { number: 37, value: 'सैंतीस' },
-                { number: 36, value: 'छत्तीस' },
-                { number: 35, value: 'पैंतीस' },
-                { number: 34, value: 'चौँतीस' },
-                { number: 33, value: 'तेत्तीस' },
-                { number: 32, value: 'बत्तीस' },
-                { number: 31, value: 'एकतीस' },
-                { number: 30, value: 'तीस' },
-                { number: 29, value: 'उनन्तिस' },
-                { number: 28, value: 'अठ्ठाइस' },
-                { number: 27, value: 'सत्ताइस' },
-                { number: 26, value: 'छब्बिस' },
-                { number: 25, value: 'पच्चिस' },
-                { number: 24, value: 'चौबीस' },
-                { number: 23, value: 'तेइस' },
-                { number: 22, value: 'बाइस' },
-                { number: 21, value: 'एक्काइस' },
-                { number: 20, value: 'बीस' },
-                { number: 19, value: 'उन्नाइस' },
-                { number: 18, value: 'अठार' },
-                { number: 17, value: 'सत्र' },
-                { number: 16, value: 'सोह्र' },
-                { number: 15, value: 'पन्ध्र' },
-                { number: 14, value: 'चौध' },
-                { number: 13, value: 'तेह्र' },
-                { number: 12, value: 'बाह्र' },
-                { number: 11, value: 'एघार' },
-                { number: 10, value: 'दश' },
-                { number: 9, value: 'नौ' },
-                { number: 8, value: 'आठ' },
-                { number: 7, value: 'सात' },
-                { number: 6, value: 'छ' },
-                { number: 5, value: 'पाँच' },
-                { number: 4, value: 'चार' },
-                { number: 3, value: 'तीन' },
-                { number: 2, value: 'दुई' },
-                { number: 1, value: 'एक' },
-                { number: 0, value: 'शून्य' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'एक सय' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
 /***/ 36694:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -9235,16 +4009,15 @@ exports["default"] = Locale;
 /* unused harmony export ErrorHandler */
 /* harmony import */ var _plugins_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(37225);
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
-function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
-function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
@@ -9582,32 +4355,33 @@ var ErrorHandler = /*#__PURE__*/function () {
   }, {
     key: "sendErrorToBackend",
     value: (function () {
-      var _sendErrorToBackend = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(errorInfo) {
-        var _window$auth, _window$auth2, _t;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
+      var _sendErrorToBackend = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(errorInfo) {
+        var _window$auth, _window$auth2;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
             case 0:
-              _context.p = 0;
+              _context.prev = 0;
               if (!(window.axios && "production" === 'production')) {
-                _context.n = 1;
+                _context.next = 4;
                 break;
               }
-              _context.n = 1;
+              _context.next = 4;
               return window.axios.post('/api/log-frontend-error', _objectSpread(_objectSpread({}, errorInfo), {}, {
                 user_id: ((_window$auth = window.auth) === null || _window$auth === void 0 || (_window$auth = _window$auth.user) === null || _window$auth === void 0 ? void 0 : _window$auth.id) || null,
                 tenant_id: ((_window$auth2 = window.auth) === null || _window$auth2 === void 0 || (_window$auth2 = _window$auth2.tenant) === null || _window$auth2 === void 0 ? void 0 : _window$auth2.id) || null
               }));
-            case 1:
-              _context.n = 3;
+            case 4:
+              _context.next = 9;
               break;
-            case 2:
-              _context.p = 2;
-              _t = _context.v;
-              console.warn('Failed to send error to backend:', _t);
-            case 3:
-              return _context.a(2);
+            case 6:
+              _context.prev = 6;
+              _context.t0 = _context["catch"](0);
+              console.warn('Failed to send error to backend:', _context.t0);
+            case 9:
+            case "end":
+              return _context.stop();
           }
-        }, _callee, null, [[0, 2]]);
+        }, _callee, null, [[0, 6]]);
       }));
       function sendErrorToBackend(_x) {
         return _sendErrorToBackend.apply(this, arguments);
@@ -9757,6 +4531,3424 @@ class Locale {
 }
 exports["default"] = Locale;
 
+
+/***/ }),
+
+/***/ 37952:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ SupplierForm)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=template&id=74008f4c&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    "class": {
+      'card-body': _vm.showCardBody
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    "class": _vm.sectionColumnClass
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-user-circle mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Supplier Details")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "codeNumber"
+    }
+  }, [_vm._v("\n              " + _vm._s(_vm.$t("Supplier Number")) + "\n            ")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.codeNumber,
+      expression: "form.codeNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('codeNumber')
+    },
+    attrs: {
+      "id": "codeNumber",
+      "type": "text",
+      "name": "codeNumber",
+      "placeholder": _vm.$t('Loading...'),
+      "readonly": "",
+      "aria-readonly": "true"
+    },
+    domProps: {
+      "value": _vm.form.codeNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "codeNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('small', {
+    staticClass: "form-text text-muted"
+  }, [_vm._v("\n              " + _vm._s(_vm.$t("This supplier number is automatically generated and cannot be changed")) + "\n            ")]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "codeNumber"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t("Supplier Type")))]), _vm._v(" "), _c('div', {
+    staticClass: "radio-group"
+  }, [_c('label', {
+    staticClass: "radio-inline"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.type,
+      expression: "form.type"
+    }],
+    attrs: {
+      "type": "radio",
+      "value": "Individual"
+    },
+    domProps: {
+      "checked": _vm._q(_vm.form.type, "Individual")
+    },
+    on: {
+      "change": function change($event) {
+        return _vm.$set(_vm.form, "type", "Individual");
+      }
+    }
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Individual")) + "\n              ")]), _vm._v(" "), _c('label', {
+    staticClass: "radio-inline"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.type,
+      expression: "form.type"
+    }],
+    attrs: {
+      "type": "radio",
+      "value": "Company"
+    },
+    domProps: {
+      "checked": _vm._q(_vm.form.type, "Company")
+    },
+    on: {
+      "change": function change($event) {
+        return _vm.$set(_vm.form, "type", "Company");
+      }
+    }
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Business")) + "\n              ")])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "type"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "form-label font-weight-bold text-primary mb-2 d-block"
+  }, [_c('i', {
+    staticClass: "fas fa-receipt mr-2"
+  }), _vm._v("\n              " + _vm._s(_vm.$t("Tax Status")) + "\n              "), _c('span', {
+    staticClass: "required text-danger"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
+    staticClass: "tax-status-options"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('label', {
+    staticClass: "tax-status-card-compact",
+    "class": {
+      'active': _vm.form.taxStatus === 'taxable',
+      'border-primary': _vm.form.taxStatus === 'taxable'
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.setTaxStatus('taxable');
+      }
+    }
+  }, [_c('div', {
+    staticClass: "tax-status-header-compact"
+  }, [_c('input', {
+    staticClass: "tax-status-radio",
+    attrs: {
+      "type": "radio",
+      "value": "taxable"
+    },
+    domProps: {
+      "checked": _vm.form.taxStatus === 'taxable'
+    },
+    on: {
+      "change": function change($event) {
+        return _vm.setTaxStatus('taxable');
+      },
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.setTaxStatus('taxable');
+      }
+    }
+  }), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('span', {
+    staticClass: "tax-status-title-compact"
+  }, [_vm._v(_vm._s(_vm.$t("Taxable")))])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('label', {
+    staticClass: "tax-status-card-compact",
+    "class": {
+      'active': _vm.form.taxStatus === 'non_taxable',
+      'border-success': _vm.form.taxStatus === 'non_taxable'
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.setTaxStatus('non_taxable');
+      }
+    }
+  }, [_c('div', {
+    staticClass: "tax-status-header-compact"
+  }, [_c('input', {
+    staticClass: "tax-status-radio",
+    attrs: {
+      "type": "radio",
+      "value": "non_taxable"
+    },
+    domProps: {
+      "checked": _vm.form.taxStatus === 'non_taxable'
+    },
+    on: {
+      "change": function change($event) {
+        return _vm.setTaxStatus('non_taxable');
+      },
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.setTaxStatus('non_taxable');
+      }
+    }
+  }), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('span', {
+    staticClass: "tax-status-title-compact"
+  }, [_vm._v(_vm._s(_vm.$t("Non-Taxable")))])])])])])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "taxStatus"
+    }
+  })], 1), _vm._v(" "), _vm.form.type === 'Individual' ? _c('div', [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "fullName"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Full Name")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.fullName,
+      expression: "form.fullName"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('fullName')
+    },
+    attrs: {
+      "id": "fullName",
+      "type": "text",
+      "name": "fullName",
+      "placeholder": _vm.$t('Enter full name')
+    },
+    domProps: {
+      "value": _vm.form.fullName
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "fullName", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "fullName"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "firstName"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("First Name")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.firstName,
+      expression: "form.firstName"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('firstName')
+    },
+    attrs: {
+      "id": "firstName",
+      "type": "text",
+      "name": "firstName",
+      "placeholder": _vm.$t('Enter first name')
+    },
+    domProps: {
+      "value": _vm.form.firstName
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "firstName", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "firstName"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "lastName"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Last Name")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.lastName,
+      expression: "form.lastName"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('lastName')
+    },
+    attrs: {
+      "id": "lastName",
+      "type": "text",
+      "name": "lastName",
+      "placeholder": _vm.$t('Enter last name')
+    },
+    domProps: {
+      "value": _vm.form.lastName
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "lastName", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "lastName"
+    }
+  })], 1)])]) : _vm._e(), _vm._v(" "), _vm.form.type === 'Company' ? _c('div', [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "businessName"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Business Name")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.businessName,
+      expression: "form.businessName"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('businessName')
+    },
+    attrs: {
+      "id": "businessName",
+      "type": "text",
+      "name": "businessName",
+      "placeholder": _vm.$t('Enter business name')
+    },
+    domProps: {
+      "value": _vm.form.businessName
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "businessName", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "businessName"
+    }
+  })], 1)]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "phone"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Telephone")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.phone,
+      expression: "form.phone"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('phone')
+    },
+    attrs: {
+      "id": "phone",
+      "type": "text",
+      "name": "phone",
+      "placeholder": _vm.$t('Enter telephone number')
+    },
+    domProps: {
+      "value": _vm.form.phone
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "phone", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "phone"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('PhoneNumberInput', {
+    attrs: {
+      "label": _vm.$t('Mobile'),
+      "required": true,
+      "country": _vm.form.country,
+      "default-country": _vm.form.country || 'SA'
+    },
+    on: {
+      "validated": _vm.onPhoneValidated
+    },
+    model: {
+      value: _vm.form.phoneNumber,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "phoneNumber", $$v);
+      },
+      expression: "form.phoneNumber"
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "phoneNumber"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "email"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Email")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.email,
+      expression: "form.email"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('email')
+    },
+    attrs: {
+      "id": "email",
+      "type": "email",
+      "name": "email",
+      "placeholder": _vm.$t('Enter your email address')
+    },
+    domProps: {
+      "value": _vm.form.email
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "email", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "email"
+    }
+  })], 1)])])]), _vm._v(" "), _c('div', {
+    "class": _vm.sectionColumnClass
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-map-marked-alt mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("National Address")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "country"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Country")) + "\n                "), _vm.form.taxStatus === 'taxable' ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c('v-select', {
+    staticClass: "country-select",
+    "class": {
+      'is-invalid': _vm.form.errors.has('country')
+    },
+    attrs: {
+      "options": _vm.countries,
+      "label": "name",
+      "reduce": function reduce(option) {
+        return option.code;
+      },
+      "placeholder": _vm.$t('Select Country'),
+      "searchable": true,
+      "clearable": false
+    },
+    on: {
+      "input": _vm.onCountryChange
+    },
+    scopedSlots: _vm._u([{
+      key: "option",
+      fn: function fn(_ref) {
+        var flag = _ref.flag,
+          name = _ref.name;
+        return [_c('div', {
+          staticClass: "country-option"
+        }, [_c('span', {
+          staticClass: "country-flag"
+        }, [_vm._v(_vm._s(flag))]), _vm._v(" "), _c('span', {
+          staticClass: "country-name"
+        }, [_vm._v(_vm._s(name))])])];
+      }
+    }, {
+      key: "selected-option",
+      fn: function fn(_ref2) {
+        var flag = _ref2.flag,
+          name = _ref2.name;
+        return [_c('div', {
+          staticClass: "country-selected"
+        }, [_c('span', {
+          staticClass: "country-flag"
+        }, [_vm._v(_vm._s(flag))]), _vm._v(" "), _c('span', {
+          staticClass: "country-name"
+        }, [_vm._v(_vm._s(name))])])];
+      }
+    }, {
+      key: "no-options",
+      fn: function fn() {
+        return [_c('div', {
+          staticClass: "text-center text-muted p-2"
+        }, [_vm._v("\n                    " + _vm._s(_vm.$t('No countries found')) + "\n                  ")])];
+      },
+      proxy: true
+    }]),
+    model: {
+      value: _vm.form.country,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "country", $$v);
+      },
+      expression: "form.country"
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "country"
+    }
+  })], 1), _vm._v(" "), _vm.form.country !== 'SA' ? _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "state"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("State")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.state,
+      expression: "form.state"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('state')
+    },
+    attrs: {
+      "id": "state",
+      "type": "text",
+      "name": "state",
+      "placeholder": _vm.$t('Enter state')
+    },
+    domProps: {
+      "value": _vm.form.state
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "state", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "state"
+    }
+  })], 1) : _vm._e(), _vm._v(" "), _vm.form.country === 'SA' ? [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "saudi_region"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Region")))]), _vm._v(" "), _c('v-select', {
+    staticClass: "saudi-location-select",
+    "class": {
+      'is-invalid': _vm.form.errors.has('saudi_region')
+    },
+    attrs: {
+      "options": _vm.saudiRegions,
+      "label": "name",
+      "reduce": function reduce(option) {
+        return option.id;
+      },
+      "placeholder": _vm.$t('Select Region'),
+      "searchable": true,
+      "clearable": false
+    },
+    on: {
+      "input": _vm.onSaudiRegionChange
+    },
+    scopedSlots: _vm._u([{
+      key: "option",
+      fn: function fn(_ref3) {
+        var name_ar = _ref3.name_ar,
+          name_en = _ref3.name_en;
+        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
+      }
+    }, {
+      key: "selected-option",
+      fn: function fn(_ref4) {
+        var name_ar = _ref4.name_ar,
+          name_en = _ref4.name_en;
+        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
+      }
+    }], null, false, 2274166349),
+    model: {
+      value: _vm.form.saudi_region,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "saudi_region", $$v);
+      },
+      expression: "form.saudi_region"
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "saudi_region"
+    }
+  })], 1)] : _vm._e()], 2), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_vm.form.country === 'SA' ? [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "city"
+    }
+  }, [_vm._v("\n                  " + _vm._s(_vm.$t("City")) + "\n                  "), _vm.form.taxStatus === 'taxable' ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _vm.saudiCities.length > 0 && _vm.form.saudi_region ? _c('v-select', {
+    staticClass: "saudi-location-select",
+    "class": {
+      'is-invalid': _vm.form.errors.has('city')
+    },
+    attrs: {
+      "options": _vm.saudiCities,
+      "label": "name",
+      "reduce": function reduce(option) {
+        return option.name;
+      },
+      "placeholder": _vm.$t('Select City'),
+      "searchable": true,
+      "clearable": false,
+      "disabled": !_vm.form.saudi_region
+    },
+    scopedSlots: _vm._u([{
+      key: "option",
+      fn: function fn(_ref5) {
+        var name_ar = _ref5.name_ar,
+          name_en = _ref5.name_en;
+        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
+      }
+    }, {
+      key: "selected-option",
+      fn: function fn(_ref6) {
+        var name_ar = _ref6.name_ar,
+          name_en = _ref6.name_en;
+        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
+      }
+    }], null, false, 2274166349),
+    model: {
+      value: _vm.form.city,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "city", $$v);
+      },
+      expression: "form.city"
+    }
+  }) : _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.city,
+      expression: "form.city"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('city')
+    },
+    attrs: {
+      "id": "city",
+      "type": "text",
+      "name": "city",
+      "placeholder": _vm.form.saudi_region ? _vm.$t('Enter city name') : _vm.$t('Select region or type city manually'),
+      "disabled": false
+    },
+    domProps: {
+      "value": _vm.form.city
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "city", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "city"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "neighbourhood"
+    }
+  }, [_vm._v("\n                  " + _vm._s(_vm.$t("Neighbourhood")) + "\n                  "), _vm.form.taxStatus === 'taxable' ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.neighbourhood,
+      expression: "form.neighbourhood"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('neighbourhood')
+    },
+    attrs: {
+      "id": "neighbourhood",
+      "type": "text",
+      "name": "neighbourhood",
+      "placeholder": _vm.$t('Enter neighbourhood')
+    },
+    domProps: {
+      "value": _vm.form.neighbourhood
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "neighbourhood", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "neighbourhood"
+    }
+  })], 1)] : _vm._e(), _vm._v(" "), _vm.form.country !== 'SA' ? [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "city"
+    }
+  }, [_vm._v("\n                  " + _vm._s(_vm.$t("City")) + "\n                  "), _vm.form.taxStatus === 'taxable' ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.city,
+      expression: "form.city"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('city')
+    },
+    attrs: {
+      "id": "city",
+      "type": "text",
+      "name": "city",
+      "placeholder": _vm.$t('Enter city')
+    },
+    domProps: {
+      "value": _vm.form.city
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "city", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "city"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "neighbourhood"
+    }
+  }, [_vm._v("\n                  " + _vm._s(_vm.$t("Neighbourhood")) + "\n                  "), _vm.form.taxStatus === 'taxable' ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.neighbourhood,
+      expression: "form.neighbourhood"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('neighbourhood')
+    },
+    attrs: {
+      "id": "neighbourhood",
+      "type": "text",
+      "name": "neighbourhood",
+      "placeholder": _vm.$t('Enter neighbourhood')
+    },
+    domProps: {
+      "value": _vm.form.neighbourhood
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "neighbourhood", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "neighbourhood"
+    }
+  })], 1)] : _vm._e()], 2), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "streetAddress1"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Street Name")) + "\n                "), _vm.form.taxStatus === 'taxable' ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.streetAddress1,
+      expression: "form.streetAddress1"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('streetAddress1')
+    },
+    attrs: {
+      "id": "streetAddress1",
+      "type": "text",
+      "name": "streetAddress1",
+      "placeholder": _vm.$t('Enter street name')
+    },
+    domProps: {
+      "value": _vm.form.streetAddress1
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "streetAddress1", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "streetAddress1"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "postalCode"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Postal Code")) + "\n                "), _vm.form.taxStatus === 'taxable' ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.postalCode,
+      expression: "form.postalCode"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('postalCode')
+    },
+    attrs: {
+      "id": "postalCode",
+      "type": "text",
+      "name": "postalCode",
+      "placeholder": _vm.$t('Enter postal code')
+    },
+    domProps: {
+      "value": _vm.form.postalCode
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "postalCode", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "postalCode"
+    }
+  })], 1)]), _vm._v(" "), _vm.form.country === 'SA' ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "buildingNumber"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Building Number")) + " "), _vm.form.taxStatus === 'taxable' ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.buildingNumber,
+      expression: "form.buildingNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('buildingNumber')
+    },
+    attrs: {
+      "id": "buildingNumber",
+      "type": "text",
+      "name": "buildingNumber",
+      "placeholder": _vm.$t('Enter building number'),
+      "maxlength": "5"
+    },
+    domProps: {
+      "value": _vm.form.buildingNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "buildingNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "buildingNumber"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "streetNumber"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Street Number")) + " "), _vm.form.taxStatus === 'taxable' ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.streetNumber,
+      expression: "form.streetNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('streetNumber')
+    },
+    attrs: {
+      "id": "streetNumber",
+      "type": "text",
+      "name": "streetNumber",
+      "placeholder": _vm.$t('Enter street number'),
+      "maxlength": "5"
+    },
+    domProps: {
+      "value": _vm.form.streetNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "streetNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "streetNumber"
+    }
+  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.country === 'SA' ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "districtNumber"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("District Number")) + " "), _vm.form.taxStatus === 'taxable' ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.districtNumber,
+      expression: "form.districtNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('districtNumber')
+    },
+    attrs: {
+      "id": "districtNumber",
+      "type": "text",
+      "name": "districtNumber",
+      "placeholder": _vm.$t('Enter district number'),
+      "maxlength": "5"
+    },
+    domProps: {
+      "value": _vm.form.districtNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "districtNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "districtNumber"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "unitNumber"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Unit Number")) + " "), _vm.form.taxStatus === 'taxable' ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.unitNumber,
+      expression: "form.unitNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('unitNumber')
+    },
+    attrs: {
+      "id": "unitNumber",
+      "type": "text",
+      "name": "unitNumber",
+      "placeholder": _vm.$t('Enter unit number'),
+      "maxlength": "5"
+    },
+    domProps: {
+      "value": _vm.form.unitNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "unitNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "unitNumber"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "additionalNumber"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Additional Number")) + " "), _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.additionalNumber,
+      expression: "form.additionalNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('additionalNumber')
+    },
+    attrs: {
+      "id": "additionalNumber",
+      "type": "text",
+      "name": "additionalNumber",
+      "placeholder": _vm.$t('Enter additional number'),
+      "maxlength": "5"
+    },
+    domProps: {
+      "value": _vm.form.additionalNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "additionalNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "additionalNumber"
+    }
+  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.taxStatus === 'taxable' ? _c('div', {
+    staticClass: "row mt-3"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('hr', {
+    staticStyle: {
+      "margin": "15px 0",
+      "border-color": "#e0e0e0"
+    }
+  }), _vm._v(" "), _c('h6', {
+    staticClass: "text-muted mb-3"
+  }, [_c('i', {
+    staticClass: "fas fa-file-invoice-dollar mr-2"
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Tax Information (Required for Taxable Suppliers)")) + "\n              ")])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "commercialRegister"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Commercial Register")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.commercialRegister,
+      expression: "form.commercialRegister"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('commercialRegister')
+    },
+    attrs: {
+      "id": "commercialRegister",
+      "type": "text",
+      "name": "commercialRegister",
+      "placeholder": _vm.$t('Enter commercial register number')
+    },
+    domProps: {
+      "value": _vm.form.commercialRegister
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "commercialRegister", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "commercialRegister"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "taxRegistrationNumber"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Tax Registration Number")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.taxRegistrationNumber,
+      expression: "form.taxRegistrationNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('taxRegistrationNumber')
+    },
+    attrs: {
+      "id": "taxRegistrationNumber",
+      "type": "text",
+      "name": "taxRegistrationNumber",
+      "placeholder": _vm.$t('Enter 15-digit tax registration number'),
+      "maxlength": "15"
+    },
+    domProps: {
+      "value": _vm.form.taxRegistrationNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "taxRegistrationNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('small', {
+    staticClass: "form-text text-muted"
+  }, [_vm._v(_vm._s(_vm.$t("Must be exactly 15 digits")))]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "taxRegistrationNumber"
+    }
+  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.type === 'Company' && _vm.form.taxStatus !== 'taxable' ? _c('div', {
+    staticClass: "row mt-3"
+  }, [_vm._m(2), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "commercialRegister"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("CR")) + " "), _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.commercialRegister,
+      expression: "form.commercialRegister"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('commercialRegister')
+    },
+    attrs: {
+      "id": "commercialRegister",
+      "type": "text",
+      "name": "commercialRegister",
+      "placeholder": _vm.$t('Enter commercial register number')
+    },
+    domProps: {
+      "value": _vm.form.commercialRegister
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "commercialRegister", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "commercialRegister"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "taxCard"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Tax ID (Optional)")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.taxCard,
+      expression: "form.taxCard"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('taxCard')
+    },
+    attrs: {
+      "id": "taxCard",
+      "type": "text",
+      "name": "taxCard",
+      "placeholder": _vm.$t('Enter tax ID number')
+    },
+    domProps: {
+      "value": _vm.form.taxCard
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "taxCard", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "taxCard"
+    }
+  })], 1)]) : _vm._e()])])])]), _vm._v(" "), _c('div', {
+    staticClass: "row mt-4"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-cog mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Account Details")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "displayLanguage"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Display Language")))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.displayLanguage,
+      expression: "form.displayLanguage"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('displayLanguage')
+    },
+    attrs: {
+      "id": "displayLanguage"
+    },
+    on: {
+      "change": function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "displayLanguage", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": ""
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Select Language")))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "en"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("English")))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "ar"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Arabic")))])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "displayLanguage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "status"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.status,
+      expression: "form.status"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('status')
+    },
+    attrs: {
+      "id": "status"
+    },
+    on: {
+      "change": function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Active")))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "status"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "image"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Profile Image")))]), _vm._v(" "), _c('div', {
+    staticClass: "custom-file"
+  }, [_c('input', {
+    staticClass: "custom-file-input",
+    "class": {
+      'is-invalid': _vm.form.errors.has('image')
+    },
+    attrs: {
+      "id": "image",
+      "type": "file",
+      "name": "image",
+      "accept": "image/*"
+    },
+    on: {
+      "change": _vm.onFileChange
+    }
+  }), _vm._v(" "), _c('label', {
+    staticClass: "custom-file-label",
+    attrs: {
+      "for": "image"
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-image mr-2"
+  }), _vm._v("\n                  " + _vm._s(_vm.$t("Choose file")) + "\n                ")])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "image"
+    }
+  }), _vm._v(" "), _vm.url ? _c('div', {
+    staticClass: "image-preview mt-2"
+  }, [_c('img', {
+    staticClass: "img-fluid rounded",
+    staticStyle: {
+      "max-height": "100px"
+    },
+    attrs: {
+      "src": _vm.url,
+      "alt": _vm.$t('Profile Image')
+    }
+  })]) : _vm._e()], 1)])])])])]), _vm._v(" "), _vm.form.type === 'Company' ? _c('div', {
+    staticClass: "row mt-4"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-users mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Supplier Representative Info")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('RepresentativesList', {
+    attrs: {
+      "representatives": _vm.form.representatives || []
+    },
+    on: {
+      "representatives-changed": _vm.handleRepresentativesChanged
+    }
+  })], 1)])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "row mt-4 equal-height"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-info-circle mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Additional Information")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "notes"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Notes")))]), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.notes,
+      expression: "form.notes"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('notes')
+    },
+    attrs: {
+      "id": "notes",
+      "rows": "3",
+      "placeholder": _vm.$t('Enter additional notes')
+    },
+    domProps: {
+      "value": _vm.form.notes
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "notes", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "notes"
+    }
+  })], 1)])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-file-alt mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Documents & Settings")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "attachments"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Attachments")))]), _vm._v(" "), _c('div', {
+    staticClass: "file-upload-area"
+  }, [_c('input', {
+    staticClass: "file-input",
+    "class": {
+      'is-invalid': _vm.form.errors.has('attachments')
+    },
+    attrs: {
+      "id": "attachments",
+      "type": "file",
+      "name": "attachments",
+      "multiple": "",
+      "accept": ".pdf,.doc,.docx,.xls,.xlsx,.txt,.jpg,.jpeg,.png,.gif"
+    },
+    on: {
+      "change": _vm.onFileChange
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "file-upload-content"
+  }, [_c('i', {
+    staticClass: "fas fa-cloud-upload-alt"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Drop files here or click to browse")))]), _vm._v(" "), _c('small', {
+    staticClass: "text-muted"
+  }, [_vm._v(_vm._s(_vm.$t("Supported formats: PDF, DOC, XLS, TXT, Images")))])])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "attachments"
+    }
+  }), _vm._v(" "), _vm.form.attachments && _vm.form.attachments.length > 0 ? _c('div', {
+    staticClass: "selected-files mt-2"
+  }, _vm._l(_vm.form.attachments, function (file, index) {
+    return _c('div', {
+      key: index,
+      staticClass: "selected-file-item"
+    }, [_c('i', {
+      staticClass: "fas fa-file mr-2"
+    }), _vm._v(" "), _c('span', [_vm._v(_vm._s(file.name))]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-sm btn-outline-danger ml-2",
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.removeFile(index);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-times"
+    })])]);
+  }), 0) : _vm._e()], 1)])])])]), _vm._v(" "), _vm.routingSetting && _vm.routingSetting.routing_type !== 'automatic' ? _c('div', {
+    staticClass: "row mt-4",
+    staticStyle: {
+      "display": "none"
+    }
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-chart-line mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Chart of Account")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "alert alert-info"
+  }, [_c('i', {
+    staticClass: "fas fa-info-circle mr-2"
+  }), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Current Routing Type")) + ":")]), _vm._v(" " + _vm._s(_vm.routingSetting.routing_type_display) + "\n            ")])])])])]) : _vm._e(), _vm._v(" "), _vm.routingSetting && _vm.routingSetting.routing_type === 'automatic' ? _c('div', {
+    staticClass: "row mt-4",
+    staticStyle: {
+      "display": "none"
+    }
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-chart-line mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Chart of Account")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "alert alert-success"
+  }, [_c('i', {
+    staticClass: "fas fa-check-circle mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Chart of account will be automatically assigned based on your accounting configuration.")) + "\n          ")])])])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "row mt-4"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-bell mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Communication Preferences")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('div', {
+    staticClass: "d-flex align-items-center"
+  }, [_c('toggle-button', {
+    attrs: {
+      "disabled": _vm.isDemoMode || _vm.communicationConfig.loading || !_vm.communicationConfig.email_configured
+    },
+    model: {
+      value: _vm.form.isSendEmail,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "isSendEmail", $$v);
+      },
+      expression: "form.isSendEmail"
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "ml-3"
+  }, [_vm._v(_vm._s(_vm.$t("Send Welcome Email")))]), _vm._v(" "), !_vm.communicationConfig.loading && !_vm.communicationConfig.email_configured ? _c('span', {
+    staticClass: "ml-2 text-muted small"
+  }, [_vm._v("\n                  (" + _vm._s(_vm.$t("Email not configured")) + ")\n                ")]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('div', {
+    staticClass: "d-flex align-items-center"
+  }, [_c('toggle-button', {
+    attrs: {
+      "disabled": _vm.isDemoMode || _vm.communicationConfig.loading || !_vm.communicationConfig.sms_configured
+    },
+    model: {
+      value: _vm.form.isSendSMS,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "isSendSMS", $$v);
+      },
+      expression: "form.isSendSMS"
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "ml-3"
+  }, [_vm._v(_vm._s(_vm.$t("Send Welcome SMS")))]), _vm._v(" "), !_vm.communicationConfig.loading && !_vm.communicationConfig.sms_configured ? _c('span', {
+    staticClass: "ml-2 text-muted small"
+  }, [_vm._v("\n                  (" + _vm._s(_vm.$t("SMS not configured")) + ")\n                ")]) : _vm._e()], 1)])])])])])])]);
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "tax-status-icon-compact taxable-icon"
+  }, [_c('i', {
+    staticClass: "fas fa-file-invoice-dollar"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "tax-status-icon-compact non-taxable-icon"
+  }, [_c('i', {
+    staticClass: "fas fa-file-invoice"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "col-md-12"
+  }, [_c('hr', {
+    staticStyle: {
+      "margin": "15px 0",
+      "border-color": "#e0e0e0"
+    }
+  })]);
+}];
+
+;// ./resources/js/components/SupplierForm.vue?vue&type=template&id=74008f4c&scoped=true
+
+// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
+var vform_es = __webpack_require__(63216);
+// EXTERNAL MODULE: ./node_modules/vue-js-toggle-button/dist/index.js
+var dist = __webpack_require__(12616);
+// EXTERNAL MODULE: ./resources/js/components/RepresentativesList.vue + 11 modules
+var RepresentativesList = __webpack_require__(89812);
+// EXTERNAL MODULE: ./resources/js/components/PhoneNumberInput.vue + 5 modules
+var PhoneNumberInput = __webpack_require__(57683);
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=script&lang=js
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+
+
+
+/* harmony default export */ const SupplierFormvue_type_script_lang_js = ({
+  name: "SupplierForm",
+  components: {
+    ToggleButton: dist.ToggleButton,
+    RepresentativesList: RepresentativesList/* default */.A,
+    PhoneNumberInput: PhoneNumberInput/* default */.A
+  },
+  props: {
+    // Whether to show the card-body wrapper (for create page) or not (for modal)
+    showCardBody: {
+      type: Boolean,
+      "default": true
+    },
+    // Whether primary sections should span full width (used in modals)
+    fullWidthSections: {
+      type: Boolean,
+      "default": false
+    },
+    // Initial form data (optional)
+    initialData: {
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
+    }
+  },
+  data: function data() {
+    return {
+      isDemoMode: window.config.isDemoMode,
+      loading: true,
+      url: null,
+      form: null,
+      // Will be initialized in created()
+
+      // Add missing properties for chart of accounts
+      routingSetting: null,
+      loadingChartOfAccounts: false,
+      chartOfAccountsError: null,
+      chartOfAccounts: [],
+      isCreatingAccount: false,
+      isAutoAssigningSupplier: false,
+      // Communication configuration status
+      communicationConfig: {
+        email_configured: false,
+        sms_configured: false,
+        loading: true
+      },
+      // Phone number validation
+      phoneNumberValid: false,
+      // Saudi Arabia location data
+      saudiRegions: [],
+      saudiCities: [],
+      loadingRegions: false,
+      loadingCities: false,
+      // Countries data with flags (same as ClientForm)
+      countriesData: [{
+        code: 'SA',
+        nameKey: 'Saudi Arabia',
+        flag: '🇸🇦'
+      }, {
+        code: 'AE',
+        nameKey: 'United Arab Emirates',
+        flag: '🇦🇪'
+      }, {
+        code: 'EG',
+        nameKey: 'Egypt',
+        flag: '🇪🇬'
+      }, {
+        code: 'JO',
+        nameKey: 'Jordan',
+        flag: '🇯🇴'
+      }, {
+        code: 'LB',
+        nameKey: 'Lebanon',
+        flag: '🇱🇧'
+      }, {
+        code: 'MA',
+        nameKey: 'Morocco',
+        flag: '🇲🇦'
+      }, {
+        code: 'TN',
+        nameKey: 'Tunisia',
+        flag: '🇹🇳'
+      }, {
+        code: 'DZ',
+        nameKey: 'Algeria',
+        flag: '🇩🇿'
+      }, {
+        code: 'KW',
+        nameKey: 'Kuwait',
+        flag: '🇰🇼'
+      }, {
+        code: 'QA',
+        nameKey: 'Qatar',
+        flag: '🇶🇦'
+      }, {
+        code: 'BH',
+        nameKey: 'Bahrain',
+        flag: '🇧🇭'
+      }, {
+        code: 'OM',
+        nameKey: 'Oman',
+        flag: '🇴🇲'
+      }, {
+        code: 'YE',
+        nameKey: 'Yemen',
+        flag: '🇾🇪'
+      }, {
+        code: 'IQ',
+        nameKey: 'Iraq',
+        flag: '🇮🇶'
+      }, {
+        code: 'US',
+        nameKey: 'United States',
+        flag: '🇺🇸'
+      }, {
+        code: 'GB',
+        nameKey: 'United Kingdom',
+        flag: '🇬🇧'
+      }, {
+        code: 'CA',
+        nameKey: 'Canada',
+        flag: '🇨🇦'
+      }, {
+        code: 'AU',
+        nameKey: 'Australia',
+        flag: '🇦🇺'
+      }, {
+        code: 'DE',
+        nameKey: 'Germany',
+        flag: '🇩🇪'
+      }, {
+        code: 'FR',
+        nameKey: 'France',
+        flag: '🇫🇷'
+      }, {
+        code: 'ES',
+        nameKey: 'Spain',
+        flag: '🇪🇸'
+      }, {
+        code: 'IT',
+        nameKey: 'Italy',
+        flag: '🇮🇹'
+      }, {
+        code: 'NL',
+        nameKey: 'Netherlands',
+        flag: '🇳🇱'
+      }, {
+        code: 'BE',
+        nameKey: 'Belgium',
+        flag: '🇧🇪'
+      }, {
+        code: 'CH',
+        nameKey: 'Switzerland',
+        flag: '🇨🇭'
+      }, {
+        code: 'AT',
+        nameKey: 'Austria',
+        flag: '🇦🇹'
+      }, {
+        code: 'SE',
+        nameKey: 'Sweden',
+        flag: '🇸🇪'
+      }, {
+        code: 'NO',
+        nameKey: 'Norway',
+        flag: '🇳🇴'
+      }, {
+        code: 'DK',
+        nameKey: 'Denmark',
+        flag: '🇩🇰'
+      }, {
+        code: 'FI',
+        nameKey: 'Finland',
+        flag: '🇫🇮'
+      }, {
+        code: 'PL',
+        nameKey: 'Poland',
+        flag: '🇵🇱'
+      }, {
+        code: 'IE',
+        nameKey: 'Ireland',
+        flag: '🇮🇪'
+      }, {
+        code: 'PT',
+        nameKey: 'Portugal',
+        flag: '🇵🇹'
+      }, {
+        code: 'GR',
+        nameKey: 'Greece',
+        flag: '🇬🇷'
+      }, {
+        code: 'LU',
+        nameKey: 'Luxembourg',
+        flag: '🇱🇺'
+      }, {
+        code: 'TR',
+        nameKey: 'Turkey',
+        flag: '🇹🇷'
+      }, {
+        code: 'IN',
+        nameKey: 'India',
+        flag: '🇮🇳'
+      }, {
+        code: 'CN',
+        nameKey: 'China',
+        flag: '🇨🇳'
+      }, {
+        code: 'JP',
+        nameKey: 'Japan',
+        flag: '🇯🇵'
+      }, {
+        code: 'KR',
+        nameKey: 'South Korea',
+        flag: '🇰🇷'
+      }, {
+        code: 'BR',
+        nameKey: 'Brazil',
+        flag: '🇧🇷'
+      }, {
+        code: 'MX',
+        nameKey: 'Mexico',
+        flag: '🇲🇽'
+      }, {
+        code: 'AR',
+        nameKey: 'Argentina',
+        flag: '🇦🇷'
+      }, {
+        code: 'ZA',
+        nameKey: 'South Africa',
+        flag: '🇿🇦'
+      }, {
+        code: 'NG',
+        nameKey: 'Nigeria',
+        flag: '🇳🇬'
+      }, {
+        code: 'KE',
+        nameKey: 'Kenya',
+        flag: '🇰🇪'
+      }, {
+        code: 'PK',
+        nameKey: 'Pakistan',
+        flag: '🇵🇰'
+      }, {
+        code: 'BD',
+        nameKey: 'Bangladesh',
+        flag: '🇧🇩'
+      }, {
+        code: 'ID',
+        nameKey: 'Indonesia',
+        flag: '🇮🇩'
+      }, {
+        code: 'PH',
+        nameKey: 'Philippines',
+        flag: '🇵🇭'
+      }, {
+        code: 'VN',
+        nameKey: 'Vietnam',
+        flag: '🇻🇳'
+      }, {
+        code: 'TH',
+        nameKey: 'Thailand',
+        flag: '🇹🇭'
+      }, {
+        code: 'MY',
+        nameKey: 'Malaysia',
+        flag: '🇲🇾'
+      }, {
+        code: 'SG',
+        nameKey: 'Singapore',
+        flag: '🇸🇬'
+      }, {
+        code: 'NZ',
+        nameKey: 'New Zealand',
+        flag: '🇳🇿'
+      }, {
+        code: 'RU',
+        nameKey: 'Russia',
+        flag: '🇷🇺'
+      }, {
+        code: 'UA',
+        nameKey: 'Ukraine',
+        flag: '🇺🇦'
+      }, {
+        code: 'CZ',
+        nameKey: 'Czech Republic',
+        flag: '🇨🇿'
+      }, {
+        code: 'HU',
+        nameKey: 'Hungary',
+        flag: '🇭🇺'
+      }, {
+        code: 'RO',
+        nameKey: 'Romania',
+        flag: '🇷🇴'
+      }, {
+        code: 'BG',
+        nameKey: 'Bulgaria',
+        flag: '🇧🇬'
+      }, {
+        code: 'HR',
+        nameKey: 'Croatia',
+        flag: '🇭🇷'
+      }, {
+        code: 'SI',
+        nameKey: 'Slovenia',
+        flag: '🇸🇮'
+      }, {
+        code: 'SK',
+        nameKey: 'Slovakia',
+        flag: '🇸🇰'
+      }, {
+        code: 'EE',
+        nameKey: 'Estonia',
+        flag: '🇪🇪'
+      }, {
+        code: 'LV',
+        nameKey: 'Latvia',
+        flag: '🇱🇻'
+      }, {
+        code: 'LT',
+        nameKey: 'Lithuania',
+        flag: '🇱🇹'
+      }, {
+        code: 'IS',
+        nameKey: 'Iceland',
+        flag: '🇮🇸'
+      }]
+    };
+  },
+  computed: {
+    // Countries with translated names
+    countries: function countries() {
+      var _this = this;
+      return this.countriesData.map(function (country) {
+        return _objectSpread(_objectSpread({}, country), {}, {
+          name: _this.$t(country.nameKey) || country.nameKey
+        });
+      });
+    },
+    sectionColumnClass: function sectionColumnClass() {
+      return this.fullWidthSections ? 'col-12' : 'col-md-6';
+    },
+    // Check if this is edit mode (has initial data with slug)
+    isEditMode: function isEditMode() {
+      return this.initialData && this.initialData.slug && this.initialData.slug !== 'new';
+    }
+  },
+  watch: {
+    // Watch for changes in initialData prop
+    initialData: {
+      handler: function handler(newData) {
+        var _this2 = this;
+        console.log('InitialData watcher triggered:', newData);
+        if (newData && Object.keys(newData).length > 0) {
+          console.log('Form before setting values:', this.form);
+
+          // Set form values from initial data
+          Object.keys(newData).forEach(function (key) {
+            if (_this2.form && Object.prototype.hasOwnProperty.call(_this2.form, key)) {
+              console.log("Setting form.".concat(key, " ="), newData[key]);
+              _this2.form[key] = newData[key];
+            } else {
+              console.log("Form field ".concat(key, " not found or form not initialized"));
+            }
+          });
+
+          // Handle special cases
+          if (newData.image_path) {
+            this.url = newData.image_path;
+          }
+          if (newData.attachments !== undefined) {
+            this.form.attachments = Array.isArray(newData.attachments) ? newData.attachments : [];
+          } else {
+            // Ensure attachments is always an array
+            this.form.attachments = [];
+          }
+          console.log('Form after setting values:', this.form);
+
+          // Load representatives if this is an existing supplier
+          if (newData.slug && newData.slug !== 'new') {
+            this.loadRepresentatives();
+          } else {
+            // Load next code number only for new suppliers
+            console.log('Loading next code number for new supplier');
+            this.loadNextCodeNumber();
+          }
+        }
+      },
+      immediate: true,
+      deep: true
+    },
+    // Watch for country changes - clear state when Saudi Arabia is selected
+    'form.country': {
+      handler: function handler(newValue) {
+        if (newValue === 'SA') {
+          // Clear state field when Saudi Arabia is selected
+          this.form.state = '';
+          // Load Saudi regions
+          this.loadSaudiRegions();
+        } else {
+          // Clear Saudi-specific fields when switching away from SA
+          this.form.saudi_region = null;
+          this.saudiCities = [];
+        }
+      },
+      immediate: true
+    },
+    // Watch for Saudi region changes - load cities
+    'form.saudi_region': {
+      handler: function handler(newValue) {
+        if (newValue && this.form.country === 'SA') {
+          this.loadSaudiCities(newValue);
+        } else {
+          this.saudiCities = [];
+          this.form.city = '';
+        }
+      }
+    },
+    // Watch for changes in phoneNumber field
+    'form.phoneNumber': {
+      handler: function handler(newValue, oldValue) {
+        console.log('Phone number changed:', {
+          old: oldValue,
+          "new": newValue
+        });
+      },
+      immediate: true
+    }
+  },
+  created: function created() {
+    console.log('SupplierForm component created');
+    this.initializeForm();
+  },
+  mounted: function mounted() {
+    var _this3 = this;
+    console.log('SupplierForm component mounted, form:', this.form);
+    console.log('Form data in mounted:', this.form ? Object.keys(this.form) : 'No form');
+
+    // Test if form is working
+    if (this.form) {
+      console.log('Form codeNumber:', this.form.codeNumber);
+      console.log('Form type:', this.form.type);
+      console.log('Form email:', this.form.email);
+    }
+
+    // Load routing settings first, then chart of accounts
+    this.loadRoutingSettings().then(function () {
+      _this3.loadChartOfAccounts();
+    });
+
+    // Load communication configuration status
+    this.loadCommunicationConfigStatus();
+
+    // Load Saudi regions if country is SA
+    if (this.form.country === 'SA') {
+      this.loadSaudiRegions();
+    }
+  },
+  methods: {
+    // Load communication configuration status
+    loadCommunicationConfigStatus: function loadCommunicationConfigStatus() {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _this4.communicationConfig.loading = true;
+              _context.next = 4;
+              return axios_default().get('/api/communication-config-status');
+            case 4:
+              response = _context.sent;
+              _this4.communicationConfig.email_configured = response.data.email_configured;
+              _this4.communicationConfig.sms_configured = response.data.sms_configured;
+              _this4.communicationConfig.loading = false;
+              _context.next = 16;
+              break;
+            case 10:
+              _context.prev = 10;
+              _context.t0 = _context["catch"](0);
+              console.error('Error loading communication config status:', _context.t0);
+              // Default to false if there's an error
+              _this4.communicationConfig.email_configured = false;
+              _this4.communicationConfig.sms_configured = false;
+              _this4.communicationConfig.loading = false;
+            case 16:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, null, [[0, 10]]);
+      }))();
+    },
+    // Initialize the form
+    initializeForm: function initializeForm() {
+      this.form = new vform_es/* default */.Ay(_objectSpread({
+        // Account Details
+        codeNumber: "000001",
+        notes: "",
+        displayLanguage: "",
+        // Supplier Details
+        type: "Company",
+        taxStatus: "non_taxable",
+        fullName: "",
+        businessName: "",
+        firstName: "",
+        lastName: "",
+        phone: "",
+        phoneNumber: "",
+        email: "",
+        streetAddress1: "",
+        city: "",
+        state: "",
+        postalCode: "",
+        country: "SA",
+        saudi_region: null,
+        neighbourhood: "",
+        commercialRegister: "",
+        taxCard: "",
+        // Saudi National Address Fields
+        buildingNumber: "",
+        streetNumber: "",
+        districtNumber: "",
+        unitNumber: "",
+        additionalNumber: "",
+        taxRegistrationNumber: "",
+        // Additional Fields
+        image: "",
+        attachments: [],
+        status: 1,
+        isSendEmail: false,
+        isSendSMS: false,
+        // Legacy fields for backward compatibility
+        name: "",
+        companyName: "",
+        address: "",
+        // Representatives
+        representatives: [],
+        // Chart of Account
+        chartOfAccountId: null
+      }, this.initialData || {}));
+      console.log('Form initialized:', this.form);
+      console.log('Form type:', _typeof(this.form));
+      console.log('Form methods:', Object.getOwnPropertyNames(this.form));
+    },
+    // Load the next available code number for new suppliers
+    loadNextCodeNumber: function loadNextCodeNumber() {
+      var _this5 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              if (!(!_this5.initialData || Object.keys(_this5.initialData).length === 0)) {
+                _context2.next = 6;
+                break;
+              }
+              _context2.next = 4;
+              return axios_default().get('/api/suppliers/next-code');
+            case 4:
+              response = _context2.sent;
+              if (response.data.success) {
+                _this5.form.codeNumber = response.data.formatted_code;
+              } else {
+                console.error('Failed to load next code number:', response.data.message);
+                // Fallback to default
+                _this5.form.codeNumber = '000001';
+              }
+            case 6:
+              _context2.next = 12;
+              break;
+            case 8:
+              _context2.prev = 8;
+              _context2.t0 = _context2["catch"](0);
+              console.error('Error loading next code number:', _context2.t0);
+              // Fallback to default
+              _this5.form.codeNumber = '000001';
+            case 12:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, null, [[0, 8]]);
+      }))();
+    },
+    // vue file upload
+    onFileChange: function onFileChange(e) {
+      var _this6 = this;
+      var files = Array.from(e.target.files);
+      var validFiles = [];
+      files.forEach(function (file) {
+        // Check file size (2MB limit)
+        if (file.size < 2111775) {
+          // For image, only allow image files
+          if (e.target.id === 'image') {
+            if (file.type.startsWith('image/')) {
+              validFiles.push(file);
+            } else {
+              _this6.$toast.error("Error!", "Please select a valid image file");
+            }
+          } else {
+            // For attachments, allow various document types
+            var allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'text/plain', 'image/jpeg', 'image/png', 'image/gif'];
+            if (allowedTypes.includes(file.type)) {
+              validFiles.push(file);
+            } else {
+              _this6.$toast.error("Error!", "Please select a valid file type");
+            }
+          }
+        } else {
+          _this6.$toast.error("Error!", "Please select a file with size less than 2 MB");
+        }
+      });
+      if (validFiles.length > 0) {
+        // Check if this is for image or attachments
+        if (e.target.id === 'image') {
+          // Single image file
+          this.form.image = validFiles[0];
+          this.url = URL.createObjectURL(validFiles[0]);
+        } else {
+          // Multiple attachment files
+          this.form.attachments = [].concat(_toConsumableArray(this.form.attachments), validFiles);
+        }
+      }
+    },
+    // Handle attachment file changes
+    onAttachmentChange: function onAttachmentChange(e) {
+      var _this7 = this;
+      var files = Array.from(e.target.files);
+      var validFiles = [];
+      files.forEach(function (file) {
+        // Check file size (2MB limit)
+        if (file.size < 2111775) {
+          // For attachments, allow various document types
+          var allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'text/plain', 'image/jpeg', 'image/png', 'image/gif'];
+          if (allowedTypes.includes(file.type)) {
+            validFiles.push(file);
+          } else {
+            _this7.$toast.error(_this7.$t("Error!"), _this7.$t("Please select a valid file type"));
+          }
+        } else {
+          _this7.$toast.error(_this7.$t("Error!"), _this7.$t("Please select a file with size less than 2 MB"));
+        }
+      });
+
+      // Add valid files to attachments
+      this.form.attachments = [].concat(_toConsumableArray(this.form.attachments || []), validFiles);
+    },
+    // Remove attachment file
+    removeFile: function removeFile(index) {
+      if (this.form.attachments && Array.isArray(this.form.attachments)) {
+        this.form.attachments.splice(index, 1);
+      }
+    },
+    // Set tax status explicitly to ensure it's reactive
+    setTaxStatus: function setTaxStatus(status) {
+      console.log('Setting taxStatus to:', status);
+      console.log('form.taxStatus before:', this.form.taxStatus);
+
+      // CRITICAL: Use form object's method to set the value if available
+      // Otherwise, use Vue.set or direct assignment
+      if (this.form && typeof this.form.taxStatus !== 'undefined') {
+        // Direct assignment
+        this.form.taxStatus = status;
+
+        // Also try to update via form's internal data if it exists
+        if (this.form.$data && this.form.$data.taxStatus !== undefined) {
+          this.form.$data.taxStatus = status;
+        }
+      } else {
+        // Fallback: use Vue.set
+        if (this.$set) {
+          this.$set(this.form, 'taxStatus', status);
+        } else {
+          this.form.taxStatus = status;
+        }
+      }
+
+      // Force update
+      this.$forceUpdate();
+
+      // Verify the value was set
+      console.log('taxStatus after setting:', this.form.taxStatus);
+      console.log('form object keys:', Object.keys(this.form));
+      console.log('form.data() taxStatus:', this.form.data ? this.form.data().taxStatus : 'N/A');
+    },
+    // Validate form before submission
+    validateForm: function validateForm() {
+      console.log('=== VALIDATING SUPPLIER FORM ===');
+      var isValid = true;
+
+      // Basic validation - check if form exists
+      if (!this.form) {
+        console.error('Form is not initialized');
+        return false;
+      }
+
+      // Clear previous errors
+      this.form.errors.clear();
+      console.log('Form data for validation:', {
+        phoneNumber: this.form.phoneNumber,
+        phone: this.form.phone,
+        type: this.form.type,
+        fullName: this.form.fullName,
+        businessName: this.form.businessName
+      });
+
+      // Required field validations
+      if (!this.form.phoneNumber || this.form.phoneNumber.trim() === '') {
+        console.log('Phone number validation failed');
+        if (window.toast && typeof window.toast.fire === 'function') {
+          window.toast.fire({
+            type: "error",
+            title: this.$t("Mobile number is required")
+          });
+        } else {
+          alert(this.$t("Mobile number is required"));
+        }
+        isValid = false;
+      }
+
+      // Check if phone number is valid
+      if (!this.phoneNumberValid) {
+        console.log('Phone number validation failed - phoneNumberValid:', this.phoneNumberValid);
+        if (window.toast && typeof window.toast.fire === 'function') {
+          window.toast.fire({
+            type: "error",
+            title: this.$t("Invalid phone number format")
+          });
+        } else {
+          alert(this.$t("Invalid phone number format"));
+        }
+        isValid = false;
+      }
+      if (this.form.type === 'Individual' && (!this.form.fullName || this.form.fullName.trim() === '')) {
+        console.log('Full name validation failed for individual');
+        this.form.errors.set('fullName', this.$t('Full name is required for individual suppliers'));
+        isValid = false;
+      }
+      if (this.form.type === 'Company' && (!this.form.businessName || this.form.businessName.trim() === '')) {
+        console.log('Business name validation failed for company');
+        this.form.errors.set('businessName', this.$t('Business name is required for company suppliers'));
+        isValid = false;
+      }
+
+      // Chart of account validation removed to match ClientForm behavior
+
+      console.log('=== SUPPLIER FORM VALIDATION RESULT:', isValid, '===');
+      return isValid;
+    },
+    // Submit form
+    submitForm: function submitForm() {
+      var _this8 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var formDataObj, taxStatusValue, submitData;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              // Debug: Log form.taxStatus before validation
+              console.log('SupplierForm submitForm - form.taxStatus before validation:', _this8.form.taxStatus);
+              console.log('SupplierForm submitForm - form object:', {
+                taxStatus: _this8.form.taxStatus,
+                type: _this8.form.type,
+                businessName: _this8.form.businessName,
+                phoneNumber: _this8.form.phoneNumber
+              });
+              if (_this8.validateForm()) {
+                _context3.next = 5;
+                break;
+              }
+              // Provide clear feedback if validation fails
+              if (_this8.$toast) {
+                _this8.$toast.fire({
+                  type: 'error',
+                  title: _this8.$t('Please fix the highlighted errors and try again')
+                });
+              }
+              return _context3.abrupt("return");
+            case 5:
+              // CRITICAL: Ensure taxStatus is set on form object before getting data
+              if (!_this8.form.taxStatus) {
+                _this8.form.taxStatus = 'non_taxable';
+              }
+
+              // Get form data first
+              formDataObj = _this8.form.data(); // Debug: Log formDataObj.taxStatus
+              console.log('SupplierForm submitForm - formDataObj.taxStatus:', formDataObj.taxStatus);
+              console.log('SupplierForm submitForm - form.taxStatus after check:', _this8.form.taxStatus);
+
+              // Map form data to API format - explicitly include all fields
+              // CRITICAL: Always use this.form.taxStatus directly, not from formDataObj
+              taxStatusValue = _this8.form.taxStatus || 'non_taxable';
+              submitData = {
+                // Account Details
+                codeNumber: _this8.form.codeNumber || formDataObj.codeNumber,
+                notes: _this8.form.notes || formDataObj.notes,
+                displayLanguage: _this8.form.displayLanguage || formDataObj.displayLanguage,
+                // Supplier Details - CRITICAL: taxStatus must be explicitly set from form object
+                type: _this8.form.type || formDataObj.type,
+                taxStatus: taxStatusValue,
+                // Always use form.taxStatus directly
+                tax_status: taxStatusValue,
+                // Also send as snake_case
+                fullName: _this8.form.fullName || formDataObj.fullName,
+                businessName: _this8.form.businessName || formDataObj.businessName,
+                firstName: _this8.form.firstName || formDataObj.firstName,
+                lastName: _this8.form.lastName || formDataObj.lastName,
+                phone: _this8.form.phone || formDataObj.phone,
+                phoneNumber: _this8.form.phoneNumber || formDataObj.phoneNumber,
+                email: _this8.form.email || formDataObj.email,
+                streetAddress1: _this8.form.streetAddress1 || formDataObj.streetAddress1,
+                streetAddress2: _this8.form.streetAddress2 || formDataObj.streetAddress2,
+                city: _this8.form.city || formDataObj.city,
+                state: _this8.form.state || formDataObj.state,
+                postalCode: _this8.form.postalCode || formDataObj.postalCode,
+                country: _this8.form.country || formDataObj.country,
+                neighbourhood: _this8.form.neighbourhood || formDataObj.neighbourhood,
+                commercialRegister: _this8.form.commercialRegister || formDataObj.commercialRegister,
+                taxCard: _this8.form.taxCard || formDataObj.taxCard,
+                // Saudi National Address Fields
+                buildingNumber: _this8.form.buildingNumber || formDataObj.buildingNumber,
+                streetNumber: _this8.form.streetNumber || formDataObj.streetNumber,
+                districtNumber: _this8.form.districtNumber || formDataObj.districtNumber,
+                unitNumber: _this8.form.unitNumber || formDataObj.unitNumber,
+                additionalNumber: _this8.form.additionalNumber || formDataObj.additionalNumber,
+                taxRegistrationNumber: _this8.form.taxRegistrationNumber || _this8.form.taxCard || formDataObj.taxRegistrationNumber,
+                // Additional Fields
+                image: _this8.form.image || formDataObj.image,
+                attachments: _this8.form.attachments || formDataObj.attachments || [],
+                status: _this8.form.status !== undefined ? _this8.form.status : formDataObj.status !== undefined ? formDataObj.status : 1,
+                isSendEmail: _this8.form.isSendEmail !== undefined ? _this8.form.isSendEmail : formDataObj.isSendEmail !== undefined ? formDataObj.isSendEmail : false,
+                isSendSMS: _this8.form.isSendSMS !== undefined ? _this8.form.isSendSMS : formDataObj.isSendSMS !== undefined ? formDataObj.isSendSMS : false,
+                chartOfAccountId: _this8.form.chartOfAccountId || formDataObj.chartOfAccountId,
+                saudi_region: _this8.form.saudi_region || formDataObj.saudi_region,
+                // Map legacy fields for backward compatibility
+                name: _this8.form.type === 'Individual' ? _this8.form.fullName || formDataObj.fullName : _this8.form.businessName || formDataObj.businessName,
+                companyName: _this8.form.businessName || formDataObj.businessName,
+                address: _this8.form.streetAddress1 || formDataObj.streetAddress1,
+                // Include representatives data
+                representatives: _this8.form.representatives && Array.isArray(_this8.form.representatives) ? _this8.form.representatives : formDataObj.representatives && Array.isArray(formDataObj.representatives) ? formDataObj.representatives : []
+              }; // Debug logging - CRITICAL
+              console.log('SupplierForm - Submitting data:', {
+                taxStatus: submitData.taxStatus,
+                tax_status: submitData.tax_status,
+                formTaxStatus: _this8.form.taxStatus,
+                formDataObjTaxStatus: formDataObj.taxStatus,
+                taxStatusValue: taxStatusValue,
+                allData: submitData
+              });
+
+              // CRITICAL: Ensure taxStatus is always in submitData
+              if (!submitData.taxStatus) {
+                console.warn('WARNING: taxStatus is missing in submitData! Setting to:', taxStatusValue);
+                submitData.taxStatus = taxStatusValue;
+                submitData.tax_status = taxStatusValue;
+              }
+              console.log('SupplierForm - Final submitData with taxStatus:', {
+                taxStatus: submitData.taxStatus,
+                tax_status: submitData.tax_status,
+                hasTaxStatus: 'taxStatus' in submitData,
+                hasTax_status: 'tax_status' in submitData
+              });
+
+              // Emit submit event with form data
+              _this8.$emit('submit', submitData);
+            case 15:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3);
+      }))();
+    },
+    // Get form data for parent component
+    getFormData: function getFormData() {
+      return this.form;
+    },
+    // Reset form to default values
+    resetForm: function resetForm() {
+      this.form.reset();
+
+      // Reset to default values for specific fields
+      this.form.type = "Company";
+      this.form.status = 1;
+      this.form.country = "SA";
+      this.form.isSendEmail = false;
+      this.form.isSendSMS = false;
+
+      // Load the next available code number
+      this.loadNextCodeNumber();
+
+      // Clear all other fields
+      this.url = null;
+      this.form.attachments = [];
+      this.form.image = "";
+      this.form.fullName = "";
+      this.form.businessName = "";
+      this.form.firstName = "";
+      this.form.lastName = "";
+      this.form.phone = "";
+      this.form.phoneNumber = "";
+      this.form.email = "";
+      this.form.streetAddress1 = "";
+      this.form.city = "";
+      this.form.state = "";
+      this.form.postalCode = "";
+      this.form.neighbourhood = "";
+      this.form.commercialRegister = "";
+      this.form.taxCard = "";
+      // Clear Saudi National Address Fields
+      this.form.buildingNumber = "";
+      this.form.unitNumber = "";
+      this.form.additionalNumber = "";
+      this.form.saudi_region = null;
+      this.form.notes = "";
+      this.form.displayLanguage = "";
+      this.form.representatives = [];
+      this.form.chartOfAccountId = null; // Clear chart of account
+
+      // Clear image preview
+      this.url = null;
+
+      // Clear validation errors
+      this.form.errors.clear();
+
+      // Reset phone number validation
+      this.phoneNumberValid = false;
+    },
+    // Load representatives for existing supplier
+    loadRepresentatives: function loadRepresentatives() {
+      var _this9 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var slug, response;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              // Try to get slug from route params first, then from initialData
+              slug = _this9.$route && _this9.$route.params && _this9.$route.params.slug || _this9.initialData && _this9.initialData.slug;
+              console.log('Loading representatives for supplier:', slug);
+              if (!(slug && slug !== 'new')) {
+                _context4.next = 16;
+                break;
+              }
+              _context4.prev = 3;
+              _context4.next = 6;
+              return axios_default().get("/api/supplier/".concat(slug, "/representatives"));
+            case 6:
+              response = _context4.sent;
+              console.log('Representatives API response:', response.data);
+              if (response.data.success) {
+                _this9.form.representatives = response.data.data;
+                console.log('Representatives loaded:', _this9.form.representatives);
+              }
+              _context4.next = 14;
+              break;
+            case 11:
+              _context4.prev = 11;
+              _context4.t0 = _context4["catch"](3);
+              console.error('Error loading representatives:', _context4.t0);
+            case 14:
+              _context4.next = 17;
+              break;
+            case 16:
+              console.log('No slug or new supplier, skipping representatives load');
+            case 17:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4, null, [[3, 11]]);
+      }))();
+    },
+    // Handle when representatives are changed (added, edited, deleted)
+    handleRepresentativesChanged: function handleRepresentativesChanged(representatives) {
+      this.form.representatives = representatives;
+    },
+    // Handle country change
+    onCountryChange: function onCountryChange() {
+      // Clear state field when Saudi Arabia is selected (handled by watcher)
+      // This method can be used for additional country-specific logic
+    },
+    // Load Saudi Arabia regions
+    loadSaudiRegions: function loadSaudiRegions() {
+      var _this0 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              if (!_this0.loadingRegions) {
+                _context5.next = 2;
+                break;
+              }
+              return _context5.abrupt("return");
+            case 2:
+              _this0.loadingRegions = true;
+              _context5.prev = 3;
+              _context5.next = 6;
+              return axios_default().get('/api/locations/saudi/regions');
+            case 6:
+              response = _context5.sent;
+              if (response.data.success) {
+                _this0.saudiRegions = response.data.data.map(function (region) {
+                  return {
+                    id: region.id,
+                    name: _this0.$i18n.locale === 'ar' ? region.name_ar : region.name_en,
+                    name_ar: region.name_ar,
+                    name_en: region.name_en,
+                    code: region.code
+                  };
+                });
+              }
+              _context5.next = 14;
+              break;
+            case 10:
+              _context5.prev = 10;
+              _context5.t0 = _context5["catch"](3);
+              console.error('Error loading Saudi regions:', _context5.t0);
+              _this0.$toast.error(_this0.$t('Error loading regions'));
+            case 14:
+              _context5.prev = 14;
+              _this0.loadingRegions = false;
+              return _context5.finish(14);
+            case 17:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5, null, [[3, 10, 14, 17]]);
+      }))();
+    },
+    // Load Saudi Arabia cities by region
+    loadSaudiCities: function loadSaudiCities(regionId) {
+      var _this1 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        var response, cities, selectedRegion, _selectedRegion, _selectedRegion2;
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
+            case 0:
+              if (regionId) {
+                _context6.next = 3;
+                break;
+              }
+              _this1.saudiCities = [];
+              return _context6.abrupt("return");
+            case 3:
+              if (!_this1.loadingCities) {
+                _context6.next = 5;
+                break;
+              }
+              return _context6.abrupt("return");
+            case 5:
+              _this1.loadingCities = true;
+              _context6.prev = 6;
+              _context6.next = 9;
+              return axios_default().get('/api/locations/saudi/cities-by-region', {
+                params: {
+                  region_id: regionId
+                }
+              });
+            case 9:
+              response = _context6.sent;
+              if (response.data.success) {
+                cities = response.data.data || [];
+                _this1.saudiCities = cities.map(function (city) {
+                  return {
+                    id: city.id,
+                    name: _this1.$i18n.locale === 'ar' ? city.name_ar : city.name_en,
+                    name_ar: city.name_ar,
+                    name_en: city.name_en,
+                    region_id: city.region_id
+                  };
+                });
+
+                // If no cities found, add the region name as a city option
+                if (_this1.saudiCities.length === 0) {
+                  selectedRegion = _this1.saudiRegions.find(function (region) {
+                    return region.id === regionId;
+                  });
+                  if (selectedRegion) {
+                    _this1.saudiCities = [{
+                      id: "region_".concat(regionId),
+                      name: selectedRegion.name,
+                      name_ar: selectedRegion.name_ar,
+                      name_en: selectedRegion.name_en,
+                      region_id: regionId,
+                      is_region: true
+                    }];
+                  }
+                }
+              } else {
+                // If API call failed, add region name as fallback
+                _selectedRegion = _this1.saudiRegions.find(function (region) {
+                  return region.id === regionId;
+                });
+                if (_selectedRegion) {
+                  _this1.saudiCities = [{
+                    id: "region_".concat(regionId),
+                    name: _selectedRegion.name,
+                    name_ar: _selectedRegion.name_ar,
+                    name_en: _selectedRegion.name_en,
+                    region_id: regionId,
+                    is_region: true
+                  }];
+                } else {
+                  _this1.saudiCities = [];
+                }
+              }
+              _context6.next = 19;
+              break;
+            case 13:
+              _context6.prev = 13;
+              _context6.t0 = _context6["catch"](6);
+              console.error('Error loading Saudi cities:', _context6.t0);
+              // If error occurred, add region name as fallback
+              _selectedRegion2 = _this1.saudiRegions.find(function (region) {
+                return region.id === regionId;
+              });
+              if (_selectedRegion2) {
+                _this1.saudiCities = [{
+                  id: "region_".concat(regionId),
+                  name: _selectedRegion2.name,
+                  name_ar: _selectedRegion2.name_ar,
+                  name_en: _selectedRegion2.name_en,
+                  region_id: regionId,
+                  is_region: true
+                }];
+              } else {
+                _this1.saudiCities = [];
+              }
+              // Don't show error toast for empty cities - it's normal for some regions
+              if (_context6.t0.response && _context6.t0.response.status !== 404) {
+                _this1.$toast.error(_this1.$t('Error loading cities'));
+              }
+            case 19:
+              _context6.prev = 19;
+              _this1.loadingCities = false;
+              return _context6.finish(19);
+            case 22:
+            case "end":
+              return _context6.stop();
+          }
+        }, _callee6, null, [[6, 13, 19, 22]]);
+      }))();
+    },
+    // Handle Saudi region change
+    onSaudiRegionChange: function onSaudiRegionChange() {
+      // Clear city when region changes
+      this.form.city = '';
+      this.saudiCities = [];
+      // Cities will be loaded by watcher
+    },
+    // Handle phone number validation
+    onPhoneValidated: function onPhoneValidated(isValid) {
+      this.phoneNumberValid = isValid;
+      if (!isValid && this.form.phoneNumber) {
+        // Clear the error if validation passes
+        if (this.form.errors.has('phoneNumber') && this.form.errors.get('phoneNumber') === this.$t('phone_invalid')) {
+          this.form.errors.clear('phoneNumber');
+        }
+      }
+    },
+    // Load routing settings
+    loadRoutingSettings: function loadRoutingSettings() {
+      var _this10 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
+            case 0:
+              _context7.prev = 0;
+              console.log('Loading routing settings...');
+              // Get the specific suppliers_account routing setting
+              _context7.next = 4;
+              return _this10.$http.get('/api/account-routing-settings');
+            case 4:
+              response = _context7.sent;
+              console.log('Routing settings response:', response);
+              if (response.data && response.data.success) {
+                console.log('Routing settings data:', response.data.data);
+                // Find the suppliers_account setting
+                _this10.routingSetting = response.data.data.find(function (setting) {
+                  return setting.setting_key === 'suppliers_account';
+                });
+                console.log('Found suppliers_account setting:', _this10.routingSetting);
+                if (_this10.routingSetting) {
+                  // Add routing type display name
+                  _this10.routingSetting.routing_type_display = _this10.getRoutingTypeDisplayName(_this10.routingSetting.routing_type);
+                  console.log('Routing setting with display name:', _this10.routingSetting);
+                } else {
+                  console.log('No suppliers_account setting found in:', response.data.data);
+                  // Set a default routing setting if none found
+                  _this10.routingSetting = {
+                    routing_type: 'per_each',
+                    routing_type_display: 'Specify Per Each',
+                    main_account_id: null
+                  };
+                  console.log('Using default routing setting:', _this10.routingSetting);
+                }
+              } else {
+                console.log('Routing settings response not successful:', response.data);
+                // Set a default routing setting if API fails
+                _this10.routingSetting = {
+                  routing_type: 'per_each',
+                  routing_type_display: 'Specify Per Each',
+                  main_account_id: null
+                };
+                console.log('Using default routing setting due to API failure:', _this10.routingSetting);
+              }
+              _context7.next = 14;
+              break;
+            case 9:
+              _context7.prev = 9;
+              _context7.t0 = _context7["catch"](0);
+              console.error('Error loading routing settings:', _context7.t0);
+              // Set a default routing setting if error occurs
+              _this10.routingSetting = {
+                routing_type: 'per_each',
+                routing_type_display: 'Specify Per Each',
+                main_account_id: null
+              };
+              console.log('Using default routing setting due to error:', _this10.routingSetting);
+            case 14:
+            case "end":
+              return _context7.stop();
+          }
+        }, _callee7, null, [[0, 9]]);
+      }))();
+    },
+    // Set default routing setting
+    setDefaultRoutingSetting: function setDefaultRoutingSetting() {
+      this.routingSetting = {
+        routing_type: 'per_each',
+        routing_type_display: 'Specify Per Each',
+        main_account_id: null
+      };
+      console.log('Using default routing setting:', this.routingSetting);
+    },
+    // Get routing type display name
+    getRoutingTypeDisplayName: function getRoutingTypeDisplayName(routingType) {
+      var displays = {
+        'automatic': 'Automatic',
+        'per_each': 'Specify Per Each',
+        'main_account_per_each': 'Specify Main Account Per Each',
+        'cancel': 'Cancel'
+      };
+      return displays[routingType] || routingType;
+    },
+    // Load chart of accounts
+    loadChartOfAccounts: function loadChartOfAccounts() {
+      var _this11 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+        var response, fallbackResponse, _response, altResponse;
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
+            case 0:
+              _context8.prev = 0;
+              console.log('Loading chart of accounts...');
+              console.log('Current routing setting:', _this11.routingSetting);
+              _this11.loadingChartOfAccounts = true;
+              _this11.chartOfAccountsError = null;
+
+              // If routing is automatic, we don't need to load all accounts
+              if (!(_this11.routingSetting && _this11.routingSetting.routing_type === 'automatic')) {
+                _context8.next = 10;
+                break;
+              }
+              console.log('Routing type is automatic, not loading chart of accounts');
+              _this11.chartOfAccounts = [];
+              _this11.loadingChartOfAccounts = false;
+              return _context8.abrupt("return");
+            case 10:
+              if (!(_this11.routingSetting && _this11.routingSetting.main_account_id)) {
+                _context8.next = 35;
+                break;
+              }
+              console.log('Loading accounts from routing setup...');
+              _context8.prev = 12;
+              _context8.next = 15;
+              return _this11.$http.get("/api/account-routing-settings/".concat(_this11.routingSetting.setting_key, "/accounts"));
+            case 15:
+              response = _context8.sent;
+              console.log('Routing accounts response:', response);
+              if (!(response.data && response.data.success)) {
+                _context8.next = 22;
+                break;
+              }
+              _this11.chartOfAccounts = response.data.accounts || [];
+              console.log('Loaded accounts from routing setup:', _this11.chartOfAccounts.length);
+              _context8.next = 23;
+              break;
+            case 22:
+              throw new Error('Routing accounts response not successful');
+            case 23:
+              _context8.next = 33;
+              break;
+            case 25:
+              _context8.prev = 25;
+              _context8.t0 = _context8["catch"](12);
+              console.log('Routing accounts failed, falling back to all accounts:', _context8.t0);
+              // Fallback to all accounts
+              _context8.next = 30;
+              return _this11.$http.get('/api/suppliers/chart-of-accounts');
+            case 30:
+              fallbackResponse = _context8.sent;
+              _this11.chartOfAccounts = fallbackResponse.data || [];
+              console.log('Loaded fallback accounts:', _this11.chartOfAccounts.length);
+            case 33:
+              _context8.next = 41;
+              break;
+            case 35:
+              console.log('No main account ID, loading all accounts as fallback');
+              // Load all active accounts as fallback
+              _context8.next = 38;
+              return _this11.$http.get('/api/suppliers/chart-of-accounts');
+            case 38:
+              _response = _context8.sent;
+              _this11.chartOfAccounts = _response.data || [];
+              console.log('Loaded all accounts as fallback:', _this11.chartOfAccounts.length);
+            case 41:
+              if (!(_this11.chartOfAccounts.length === 0)) {
+                _context8.next = 56;
+                break;
+              }
+              console.log('No accounts loaded, trying alternative endpoint...');
+              _context8.prev = 43;
+              _context8.next = 46;
+              return _this11.$http.get('/api/chart-of-accounts/dropdown');
+            case 46:
+              altResponse = _context8.sent;
+              _this11.chartOfAccounts = altResponse.data.data || altResponse.data || [];
+              console.log('Loaded accounts from dropdown endpoint:', _this11.chartOfAccounts.length);
+              _context8.next = 56;
+              break;
+            case 51:
+              _context8.prev = 51;
+              _context8.t1 = _context8["catch"](43);
+              console.error('Alternative endpoint also failed:', _context8.t1);
+              // Set a minimal fallback to prevent empty dropdown
+              _this11.chartOfAccounts = [{
+                id: 'placeholder',
+                name: 'No accounts available - Please configure chart of accounts',
+                code: 'N/A',
+                type: 'Error'
+              }];
+              _this11.chartOfAccountsError = 'No chart of accounts available. Please check your configuration.';
+            case 56:
+              _context8.next = 63;
+              break;
+            case 58:
+              _context8.prev = 58;
+              _context8.t2 = _context8["catch"](0);
+              console.error('Error loading chart of accounts:', _context8.t2);
+              _this11.chartOfAccountsError = _context8.t2.message || 'Failed to load chart of accounts';
+              _this11.chartOfAccounts = [];
+            case 63:
+              _context8.prev = 63;
+              _this11.loadingChartOfAccounts = false;
+              return _context8.finish(63);
+            case 66:
+            case "end":
+              return _context8.stop();
+          }
+        }, _callee8, null, [[0, 58, 63, 66], [12, 25], [43, 51]]);
+      }))();
+    },
+    // Search chart of accounts (for v-select search)
+    searchChartOfAccounts: function searchChartOfAccounts(search, loading) {
+      var _this12 = this;
+      console.log('Searching for:', search);
+      if (!search || search.length < 2) {
+        console.log('Search too short, returning first 50 accounts');
+        var result = this.chartOfAccounts.slice(0, 50);
+        loading(false);
+        return Promise.resolve(result);
+      }
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+        var filtered, response, apiData, _filtered;
+        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+          while (1) switch (_context9.prev = _context9.next) {
+            case 0:
+              _context9.prev = 0;
+              // Filter locally first for better performance
+              filtered = _this12.chartOfAccounts.filter(function (account) {
+                return account.name.toLowerCase().includes(search.toLowerCase()) || account.code.toLowerCase().includes(search.toLowerCase());
+              });
+              console.log('Local filtered results:', filtered.length);
+
+              // If we have enough results locally, return them
+              if (!(filtered.length >= 10)) {
+                _context9.next = 6;
+                break;
+              }
+              console.log('Enough local results, returning filtered');
+              return _context9.abrupt("return", filtered.slice(0, 50));
+            case 6:
+              // Otherwise, search from API
+              console.log('Searching from API...');
+              _context9.next = 9;
+              return _this12.$http.get('/api/chart-of-accounts/search', {
+                params: {
+                  term: search
+                }
+              });
+            case 9:
+              response = _context9.sent;
+              console.log('API search response:', response);
+              if (!(response.data && (response.data.data || response.data))) {
+                _context9.next = 17;
+                break;
+              }
+              console.log('API returned data, returning results');
+              apiData = response.data.data || response.data;
+              return _context9.abrupt("return", apiData.slice(0, 50));
+            case 17:
+              console.log('API returned no data, returning local filtered');
+              return _context9.abrupt("return", filtered.slice(0, 50));
+            case 19:
+              _context9.next = 26;
+              break;
+            case 21:
+              _context9.prev = 21;
+              _context9.t0 = _context9["catch"](0);
+              console.error('Search error:', _context9.t0);
+              // Return local filtered results on error
+              _filtered = _this12.chartOfAccounts.filter(function (account) {
+                return account.name.toLowerCase().includes(search.toLowerCase()) || account.code.toLowerCase().includes(search.toLowerCase());
+              });
+              return _context9.abrupt("return", _filtered.slice(0, 50));
+            case 26:
+              _context9.prev = 26;
+              loading(false);
+              return _context9.finish(26);
+            case 29:
+            case "end":
+              return _context9.stop();
+          }
+        }, _callee9, null, [[0, 21, 26, 29]]);
+      }))();
+    },
+    // Create new chart of account
+    createNewAccount: function createNewAccount() {
+      var _this13 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee0() {
+        var assetTypeResponse, typeId, assetType, parentId, codeResponse, accountCode, response, _newAccount$type, newAccount, errorMessage;
+        return _regeneratorRuntime().wrap(function _callee0$(_context0) {
+          while (1) switch (_context0.prev = _context0.next) {
+            case 0:
+              if (!_this13.isCreatingAccount) {
+                _context0.next = 2;
+                break;
+              }
+              return _context0.abrupt("return");
+            case 2:
+              _this13.isCreatingAccount = true;
+              _context0.prev = 3;
+              _context0.next = 6;
+              return axios_default().get('/api/chart-of-account-types');
+            case 6:
+              assetTypeResponse = _context0.sent;
+              typeId = 1; // Default fallback
+              if (assetTypeResponse.data && assetTypeResponse.data.data) {
+                assetType = assetTypeResponse.data.data.find(function (type) {
+                  return type.name && type.name.toLowerCase().includes('asset');
+                });
+                if (assetType) {
+                  typeId = assetType.id;
+                }
+              }
+
+              // Determine parent_id based on routing settings
+              parentId = null;
+              if (_this13.routingSetting && _this13.routingSetting.routing_type === 'main_account_per_each' && _this13.routingSetting.main_account_id) {
+                parentId = _this13.routingSetting.main_account_id;
+              }
+
+              // Generate account code
+              _context0.next = 13;
+              return axios_default().post('/api/chart-of-accounts/generate-code', {
+                parent_id: parentId
+              });
+            case 13:
+              codeResponse = _context0.sent;
+              accountCode = codeResponse.data.code || '1000';
+              _context0.next = 17;
+              return axios_default().post('/api/chart-of-accounts', {
+                name: _this13.form.type === 'Individual' ? _this13.form.fullName : _this13.form.businessName,
+                code: accountCode,
+                type_id: typeId,
+                parent_id: parentId,
+                order: 0,
+                is_active: true
+              });
+            case 17:
+              response = _context0.sent;
+              if (!(response.data && response.data.data)) {
+                _context0.next = 25;
+                break;
+              }
+              // Add to local chartOfAccounts array
+              newAccount = response.data.data;
+              _this13.chartOfAccounts.push({
+                id: newAccount.id,
+                name: newAccount.name,
+                code: newAccount.code,
+                type: ((_newAccount$type = newAccount.type) === null || _newAccount$type === void 0 ? void 0 : _newAccount$type.name) || 'Asset'
+              });
+
+              // Set as selected
+              _this13.form.chartOfAccountId = newAccount.id;
+              _this13.$toast.success("Success!", "New chart of account created successfully.");
+              _context0.next = 26;
+              break;
+            case 25:
+              throw new Error(response.data.message || "Failed to create new chart of account.");
+            case 26:
+              _context0.next = 34;
+              break;
+            case 28:
+              _context0.prev = 28;
+              _context0.t0 = _context0["catch"](3);
+              console.error('Error creating chart of account:', _context0.t0);
+              errorMessage = "Failed to create new chart of account.";
+              if (_context0.t0.response && _context0.t0.response.data) {
+                if (_context0.t0.response.data.message) {
+                  errorMessage = _context0.t0.response.data.message;
+                } else if (_context0.t0.response.data.error) {
+                  errorMessage = _context0.t0.response.data.error;
+                }
+              } else if (_context0.t0.message) {
+                errorMessage = _context0.t0.message;
+              }
+              _this13.$toast.error("Error!", errorMessage);
+            case 34:
+              _context0.prev = 34;
+              _this13.isCreatingAccount = false;
+              return _context0.finish(34);
+            case 37:
+            case "end":
+              return _context0.stop();
+          }
+        }, _callee0, null, [[3, 28, 34, 37]]);
+      }))();
+    },
+    // Auto-assign Chart of Account for supplier
+    autoAssignSupplierChartOfAccount: function autoAssignSupplierChartOfAccount() {
+      var _this14 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee1() {
+        var supplierSlug, response;
+        return _regeneratorRuntime().wrap(function _callee1$(_context1) {
+          while (1) switch (_context1.prev = _context1.next) {
+            case 0:
+              if (!(!_this14.form || _this14.isAutoAssigningSupplier)) {
+                _context1.next = 2;
+                break;
+              }
+              return _context1.abrupt("return");
+            case 2:
+              _this14.isAutoAssigningSupplier = true;
+              _context1.prev = 3;
+              // Get the current supplier slug from the form or route
+              supplierSlug = _this14.form.slug || _this14.$route && _this14.$route.params && _this14.$route.params.slug;
+              if (!(!supplierSlug || supplierSlug === 'new')) {
+                _context1.next = 8;
+                break;
+              }
+              console.log('No supplier slug available for auto-assign');
+              return _context1.abrupt("return");
+            case 8:
+              _context1.next = 10;
+              return _this14.$http.post("/api/suppliers/".concat(supplierSlug, "/auto-assign-chart-of-account"));
+            case 10:
+              response = _context1.sent;
+              if (response.data.success) {
+                console.log('Auto-assign response:', response.data);
+
+                // Update the form with new chart of account
+                _this14.form.chartOfAccountId = response.data.chart_of_account_id;
+
+                // Force Vue to re-render the component to update the UI
+                _this14.$nextTick(function () {
+                  _this14.$forceUpdate();
+                });
+
+                // Show success message
+                _this14.$toast.fire({
+                  type: "success",
+                  title: _this14.$t("Chart of Account assigned successfully")
+                });
+              } else {
+                _this14.$toast.fire({
+                  type: "error",
+                  title: _this14.$t("Failed to assign Chart of Account"),
+                  text: response.data.message || _this14.$t("Please try again or assign manually")
+                });
+              }
+              _context1.next = 18;
+              break;
+            case 14:
+              _context1.prev = 14;
+              _context1.t0 = _context1["catch"](3);
+              console.error('Error auto-assigning chart of account:', _context1.t0);
+              _this14.$toast.fire({
+                type: "error",
+                title: _this14.$t("An error occurred while assigning Chart of Account")
+              });
+            case 18:
+              _context1.prev = 18;
+              _this14.isAutoAssigningSupplier = false;
+              return _context1.finish(18);
+            case 21:
+            case "end":
+              return _context1.stop();
+          }
+        }, _callee1, null, [[3, 14, 18, 21]]);
+      }))();
+    }
+  }
+});
+;// ./resources/js/components/SupplierForm.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_SupplierFormvue_type_script_lang_js = (SupplierFormvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=74008f4c&prod&scoped=true&lang=css
+var SupplierFormvue_type_style_index_0_id_74008f4c_prod_scoped_true_lang_css = __webpack_require__(77552);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=74008f4c&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(SupplierFormvue_type_style_index_0_id_74008f4c_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_SupplierFormvue_type_style_index_0_id_74008f4c_prod_scoped_true_lang_css = (SupplierFormvue_type_style_index_0_id_74008f4c_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=74008f4c&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/SupplierForm.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_SupplierFormvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "74008f4c",
+  null
+  
+)
+
+/* harmony default export */ const SupplierForm = (component.exports);
 
 /***/ }),
 
@@ -10009,118 +8201,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".form-group[data-v-3d82b5ae]{margin-bo
 
 /***/ }),
 
-/***/ 46709:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Peso Argentino',
-                plural: 'Pesos Argentinos',
-                singular: 'Peso Argentino',
-                symbol: '$',
-                fractionalUnit: {
-                    name: 'Centavo',
-                    plural: 'Centavos',
-                    singular: 'Centavo',
-                    symbol: '¢',
-                },
-            },
-            texts: {
-                and: 'Y',
-                minus: 'Menos',
-                only: '',
-                point: 'Coma',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Trillon' },
-                { number: 1000000000000, value: 'Billon' },
-                { number: 1000000, value: 'Millon' },
-                { number: 1000, value: 'Mil' },
-                { number: 900, value: 'Novecientos' },
-                { number: 800, value: 'Ochocientos' },
-                { number: 700, value: 'Setecientos' },
-                { number: 600, value: 'Seiscientos' },
-                { number: 500, value: 'Quinientos' },
-                { number: 400, value: 'Cuatrocientos' },
-                { number: 300, value: 'Trescientos' },
-                { number: 200, value: 'Doscientos' },
-                { number: 100, value: 'Ciento' },
-                { number: 90, value: 'Noventa Y' },
-                { number: 80, value: 'Ochenta Y' },
-                { number: 70, value: 'Setenta Y' },
-                { number: 60, value: 'Sesenta Y' },
-                { number: 50, value: 'Cincuenta Y' },
-                { number: 40, value: 'Cuarenta Y' },
-                { number: 30, value: 'Treinta Y' },
-                { number: 29, value: 'Veintinueve' },
-                { number: 28, value: 'Veintiocho' },
-                { number: 27, value: 'Veintisiete' },
-                { number: 26, value: 'Veintiseis' },
-                { number: 25, value: 'Veinticinco' },
-                { number: 24, value: 'Veinticuatro' },
-                { number: 23, value: 'Veintitrés' },
-                { number: 22, value: 'Veintidos' },
-                { number: 21, value: 'Veintiuno' },
-                { number: 20, value: 'Veinte' },
-                { number: 19, value: 'Diecinueve' },
-                { number: 18, value: 'Dieciocho' },
-                { number: 17, value: 'Dieciciete' },
-                { number: 16, value: 'Dieciseis' },
-                { number: 15, value: 'Quince' },
-                { number: 14, value: 'Catorce' },
-                { number: 13, value: 'Trece' },
-                { number: 12, value: 'Doce' },
-                { number: 11, value: 'Once' },
-                { number: 10, value: 'Diez' },
-                { number: 9, value: 'Nueve' },
-                { number: 8, value: 'Ocho' },
-                { number: 7, value: 'Siete' },
-                { number: 6, value: 'Seis' },
-                { number: 5, value: 'Cinco' },
-                { number: 4, value: 'Cuatro' },
-                { number: 3, value: 'Tres' },
-                { number: 2, value: 'Dos' },
-                { number: 1, value: 'Uno' },
-                { number: 0, value: 'Cero' },
-            ],
-            ignoreOneForWords: [
-                'Cien',
-                'Ciento',
-                'Doscientos',
-                'Trescientos',
-                'Cuatrocientos',
-                'Quinientos',
-                'Seiscientos',
-                'Setecientos',
-                'Ochocientos',
-                'Novecientos',
-                'Mil',
-            ],
-            pluralMark: 'es',
-            pluralWords: ['Millon', 'Billon', 'Trillon'],
-            exactWordsMapping: [
-                { number: 100, value: 'Cien' },
-                { number: 90, value: 'Noventa' },
-                { number: 80, value: 'Ochenta' },
-                { number: 70, value: 'Setenta' },
-                { number: 60, value: 'Sesenta' },
-                { number: 50, value: 'Cincuenta' },
-                { number: 40, value: 'Cuarenta' },
-                { number: 30, value: 'Treinta' },
-                { number: 1, value: ['Un', 'Uno'] },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
 /***/ 47229:
 /***/ ((__unused_webpack_module, exports) => {
 
@@ -10360,9 +8440,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ToWords = exports.DefaultToWordsOptions = exports.DefaultConverterOptions = exports.LOCALES = void 0;
-const locales_1 = __importDefault(__webpack_require__(71545));
-exports.LOCALES = locales_1.default;
+exports.ToWords = exports.DefaultToWordsOptions = exports.DefaultConverterOptions = void 0;
+const en_AE_1 = __importDefault(__webpack_require__(8550));
+const en_BD_1 = __importDefault(__webpack_require__(41061));
+const en_GH_1 = __importDefault(__webpack_require__(59096));
+const en_IE_1 = __importDefault(__webpack_require__(21470));
+const en_IN_1 = __importDefault(__webpack_require__(144));
+const en_MM_1 = __importDefault(__webpack_require__(38765));
+const en_MU_1 = __importDefault(__webpack_require__(74261));
+const en_NG_1 = __importDefault(__webpack_require__(92952));
+const en_NP_1 = __importDefault(__webpack_require__(26365));
+const en_US_1 = __importDefault(__webpack_require__(84463));
+const en_GB_1 = __importDefault(__webpack_require__(54330));
+const en_PH_1 = __importDefault(__webpack_require__(82779));
+const fa_IR_1 = __importDefault(__webpack_require__(10982));
+const fr_BE_1 = __importDefault(__webpack_require__(69543));
+const fr_FR_1 = __importDefault(__webpack_require__(28834));
+const gu_IN_1 = __importDefault(__webpack_require__(47229));
+const hi_IN_1 = __importDefault(__webpack_require__(37460));
+const mr_IN_1 = __importDefault(__webpack_require__(33972));
+const pt_BR_1 = __importDefault(__webpack_require__(21722));
+const tr_TR_1 = __importDefault(__webpack_require__(44130));
+const nl_SR_1 = __importDefault(__webpack_require__(55101));
+const ee_EE_1 = __importDefault(__webpack_require__(74938));
+const ko_KR_1 = __importDefault(__webpack_require__(58041));
 exports.DefaultConverterOptions = {
     currency: false,
     ignoreDecimal: false,
@@ -10380,10 +8481,57 @@ class ToWords {
         this.options = Object.assign({}, exports.DefaultToWordsOptions, options);
     }
     getLocaleClass() {
-        if (!(this.options.localeCode in locales_1.default)) {
-            throw new Error(`Unknown Locale "${this.options.localeCode}"`);
+        /* eslint-disable @typescript-eslint/no-var-requires */
+        switch (this.options.localeCode) {
+            case 'ee-EE':
+                return ee_EE_1.default;
+            case 'en-AE':
+                return en_AE_1.default;
+            case 'en-BD':
+                return en_BD_1.default;
+            case 'en-GH':
+                return en_GH_1.default;
+            case 'en-IE':
+                return en_IE_1.default;
+            case 'en-IN':
+                return en_IN_1.default;
+            case 'en-MM':
+                return en_MM_1.default;
+            case 'en-MU':
+                return en_MU_1.default;
+            case 'en-NG':
+                return en_NG_1.default;
+            case 'en-NP':
+                return en_NP_1.default;
+            case 'en-US':
+                return en_US_1.default;
+            case 'en-GB':
+                return en_GB_1.default;
+            case 'en-PH':
+                return en_PH_1.default;
+            case 'fa-IR':
+                return fa_IR_1.default;
+            case 'fr-BE':
+                return fr_BE_1.default;
+            case 'fr-FR':
+                return fr_FR_1.default;
+            case 'gu-IN':
+                return gu_IN_1.default;
+            case 'hi-IN':
+                return hi_IN_1.default;
+            case 'mr-IN':
+                return mr_IN_1.default;
+            case 'pt-BR':
+                return pt_BR_1.default;
+            case 'tr-TR':
+                return tr_TR_1.default;
+            case 'nl-SR':
+                return nl_SR_1.default;
+            case 'ko-KR':
+                return ko_KR_1.default;
         }
-        return locales_1.default[this.options.localeCode];
+        /* eslint-enable @typescript-eslint/no-var-requires */
+        throw new Error(`Unknown Locale "${this.options.localeCode}"`);
     }
     getLocale() {
         if (this.locale === undefined) {
@@ -10422,7 +8570,7 @@ class ToWords {
         }
         const split = number.toString().split('.');
         const ignoreZero = this.isNumberZero(number) && locale.config.ignoreZeroInDecimals;
-        let words = this.convertInternal(Number(split[0]), true);
+        let words = this.convertInternal(Number(split[0]));
         const isFloat = this.isFloat(number);
         if (isFloat && ignoreZero) {
             words = [];
@@ -10435,12 +8583,12 @@ class ToWords {
             if (split[1].startsWith('0') && !((_a = locale.config) === null || _a === void 0 ? void 0 : _a.decimalLengthWordMapping)) {
                 const zeroWords = [];
                 for (const num of split[1]) {
-                    zeroWords.push(...this.convertInternal(Number(num), true));
+                    zeroWords.push(...this.convertInternal(Number(num)));
                 }
                 wordsWithDecimal.push(...zeroWords);
             }
             else {
-                wordsWithDecimal.push(...this.convertInternal(Number(split[1]), true));
+                wordsWithDecimal.push(...this.convertInternal(Number(split[1])));
                 const decimalLengthWord = (_c = (_b = locale.config) === null || _b === void 0 ? void 0 : _b.decimalLengthWordMapping) === null || _c === void 0 ? void 0 : _c[split[1].length];
                 if (decimalLengthWord) {
                     wordsWithDecimal.push(decimalLengthWord);
@@ -10469,7 +8617,7 @@ class ToWords {
         // Determine if the main currency should be in singular form
         // e.g. 1 Dollar Only instead of 1 Dollars Only
         if (Number(split[0]) === 1 && currencyOptions.singular) {
-            words.push(currencyOptions.singular);
+            words.push(currencyOptions.name);
         }
         else if (currencyOptions.plural) {
             words.push(currencyOptions.plural);
@@ -10518,7 +8666,7 @@ class ToWords {
         }
         return words;
     }
-    convertInternal(number, trailing = false) {
+    convertInternal(number) {
         var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
         const locale = this.getLocale();
         if (locale.config.exactWordsMapping) {
@@ -10526,7 +8674,7 @@ class ToWords {
                 return number === elem.number;
             });
             if (exactMatch) {
-                return [Array.isArray(exactMatch.value) ? exactMatch.value[+trailing] : exactMatch.value];
+                return [exactMatch.value];
             }
         }
         const match = locale.config.numberWordsMapping.find((elem) => {
@@ -10534,30 +8682,27 @@ class ToWords {
         });
         const words = [];
         if (number <= 100 || (number < 1000 && locale.config.namedLessThan1000)) {
-            words.push(Array.isArray(match.value) ? match.value[0] : match.value);
+            words.push(match.value);
             number -= match.number;
             if (number > 0) {
                 if ((_d = (_c = locale.config) === null || _c === void 0 ? void 0 : _c.splitWord) === null || _d === void 0 ? void 0 : _d.length) {
                     words.push(locale.config.splitWord);
                 }
-                words.push(...this.convertInternal(number, trailing));
+                words.push(...this.convertInternal(number));
             }
             return words;
         }
         const quotient = Math.floor(number / match.number);
         const remainder = number % match.number;
-        let matchValue = Array.isArray(match.value) ? match.value[0] : match.value;
+        let matchValue = match.value;
         if (quotient > 1 && ((_f = (_e = locale.config) === null || _e === void 0 ? void 0 : _e.pluralWords) === null || _f === void 0 ? void 0 : _f.find((word) => word === match.value)) && ((_g = locale.config) === null || _g === void 0 ? void 0 : _g.pluralMark)) {
             matchValue += locale.config.pluralMark;
-        }
-        if (quotient % 10 === 1) {
-            matchValue = match.singularValue || (Array.isArray(matchValue) ? matchValue[0] : matchValue);
         }
         if (quotient === 1 && ((_j = (_h = locale.config) === null || _h === void 0 ? void 0 : _h.ignoreOneForWords) === null || _j === void 0 ? void 0 : _j.includes(matchValue))) {
             words.push(matchValue);
         }
         else {
-            words.push(...this.convertInternal(quotient, false), matchValue);
+            words.push(...this.convertInternal(quotient), matchValue);
         }
         if (remainder > 0) {
             if ((_l = (_k = locale.config) === null || _k === void 0 ? void 0 : _k.splitWord) === null || _l === void 0 ? void 0 : _l.length) {
@@ -10565,7 +8710,7 @@ class ToWords {
                     words.push(locale.config.splitWord);
                 }
             }
-            words.push(...this.convertInternal(remainder, trailing));
+            words.push(...this.convertInternal(remainder));
         }
         return words;
     }
@@ -10722,147 +8867,6 @@ class Locale {
                 { number: 0, value: 'Nul' },
             ],
             exactWordsMapping: [{ number: 100, value: 'Honderd' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 56386:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'روپیہ',
-                plural: 'روپے',
-                singular: 'روپے',
-                symbol: '₨',
-                fractionalUnit: {
-                    name: 'پیسہ',
-                    plural: 'پیسے',
-                    singular: 'پیسہ',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'اور',
-                minus: 'منفی',
-                only: 'صرف',
-                point: 'اعشاریہ',
-            },
-            numberWordsMapping: [
-                { number: 10000000, value: 'کروڑ' },
-                { number: 100000, value: 'لاکھ' },
-                { number: 1000, value: 'ہزار' },
-                { number: 100, value: 'سو' },
-                { number: 99, value: 'نناوے' },
-                { number: 98, value: 'اٹھانوے' },
-                { number: 97, value: 'ستانوے' },
-                { number: 96, value: 'چھیانوے' },
-                { number: 95, value: 'پچانوے' },
-                { number: 94, value: 'چورانوے' },
-                { number: 93, value: 'ترانوے' },
-                { number: 92, value: 'بانوے' },
-                { number: 91, value: 'اکانوے' },
-                { number: 90, value: 'نوے' },
-                { number: 89, value: 'نواسی' },
-                { number: 88, value: 'اٹھاسی' },
-                { number: 87, value: 'ستاسی' },
-                { number: 86, value: 'چھیاسی' },
-                { number: 85, value: 'پچاسی' },
-                { number: 84, value: 'چوراسی' },
-                { number: 83, value: 'تراسی' },
-                { number: 82, value: 'بیاسی' },
-                { number: 81, value: 'اکیاسی' },
-                { number: 80, value: 'اسی' },
-                { number: 79, value: 'انہتر' },
-                { number: 78, value: 'اٹھہتر' },
-                { number: 77, value: 'ستتر' },
-                { number: 76, value: 'چھہتر' },
-                { number: 75, value: 'پچھتر' },
-                { number: 74, value: 'چوہتر' },
-                { number: 73, value: 'تہتر' },
-                { number: 72, value: 'بہتر' },
-                { number: 71, value: 'اکہتر' },
-                { number: 70, value: 'ستر' },
-                { number: 69, value: 'انہتر' },
-                { number: 68, value: 'اڑسٹھ' },
-                { number: 67, value: 'سڑسٹھ' },
-                { number: 66, value: 'چھیاسٹھ' },
-                { number: 65, value: 'پینسٹھ' },
-                { number: 64, value: 'چونسٹھ' },
-                { number: 63, value: 'تریسٹھ' },
-                { number: 62, value: 'باسٹھ' },
-                { number: 61, value: 'اکسٹھ' },
-                { number: 60, value: 'ساٹھ' },
-                { number: 59, value: 'انسٹھ' },
-                { number: 58, value: 'اٹھاون' },
-                { number: 57, value: 'ستاون' },
-                { number: 56, value: 'چھپن' },
-                { number: 55, value: 'پچپن' },
-                { number: 54, value: 'چون' },
-                { number: 53, value: 'ترپن' },
-                { number: 52, value: 'باون' },
-                { number: 51, value: 'اکیاون' },
-                { number: 50, value: 'پچاس' },
-                { number: 49, value: 'انچاس' },
-                { number: 48, value: 'اڑتالیس' },
-                { number: 47, value: 'سینتالیس' },
-                { number: 46, value: 'چھیالیس' },
-                { number: 45, value: 'پینتالیس' },
-                { number: 44, value: 'چوالیس' },
-                { number: 43, value: 'تینتالیس' },
-                { number: 42, value: 'بیالیس' },
-                { number: 41, value: 'اکتالیس' },
-                { number: 40, value: 'چالیس' },
-                { number: 39, value: 'انتالیس' },
-                { number: 38, value: 'اڑتیس' },
-                { number: 37, value: 'سینتیس' },
-                { number: 36, value: 'چھتیس' },
-                { number: 35, value: 'پینتیس' },
-                { number: 34, value: 'چونتیس' },
-                { number: 33, value: 'تینتیس' },
-                { number: 32, value: 'بتیس' },
-                { number: 31, value: 'اکتیس' },
-                { number: 30, value: 'تیس' },
-                { number: 29, value: 'انتیس' },
-                { number: 28, value: 'اٹھائیس' },
-                { number: 27, value: 'ستائیس' },
-                { number: 26, value: 'چھبیس' },
-                { number: 25, value: 'پچیس' },
-                { number: 24, value: 'چوبیس' },
-                { number: 23, value: 'تئیس' },
-                { number: 22, value: 'بائیس' },
-                { number: 21, value: 'اکیس' },
-                { number: 20, value: 'بیس' },
-                { number: 19, value: 'انیس' },
-                { number: 18, value: 'اٹھارہ' },
-                { number: 17, value: 'سترہ' },
-                { number: 16, value: 'سولہ' },
-                { number: 15, value: 'پندرہ' },
-                { number: 14, value: 'چودہ' },
-                { number: 13, value: 'تیرہ' },
-                { number: 12, value: 'بارہ' },
-                { number: 11, value: 'گیارہ' },
-                { number: 10, value: 'دس' },
-                { number: 9, value: 'نو' },
-                { number: 8, value: 'آٹھ' },
-                { number: 7, value: 'سات' },
-                { number: 6, value: 'چھ' },
-                { number: 5, value: 'پانچ' },
-                { number: 4, value: 'چار' },
-                { number: 3, value: 'تین' },
-                { number: 2, value: 'دو' },
-                { number: 1, value: 'ایک' },
-                { number: 0, value: 'صفر' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'ایک سو' }],
         };
     }
 }
@@ -12319,13 +10323,12 @@ var CategorySubcategoryCreateModalvue_type_template_id_5be7e019_scoped_true_stat
 
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
@@ -12387,16 +10390,17 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // Get all product categories for subcategory form
     getCategories: function getCategories() {
       var _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
             case 0:
-              _context.n = 1;
+              _context.next = 2;
               return _this.$store.dispatch('operations/allData', {
                 path: '/api/all-product-categories'
               });
-            case 1:
-              return _context.a(2);
+            case 2:
+            case "end":
+              return _context.stop();
           }
         }, _callee);
       }))();
@@ -12404,9 +10408,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // Save based on active tab
     saveCurrent: function saveCurrent(event) {
       var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
             case 0:
               // Stop event propagation to prevent closing parent modals
               if (event) {
@@ -12414,19 +10418,20 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                 event.preventDefault();
               }
               if (!(_this2.activeTab === 'category')) {
-                _context2.n = 2;
+                _context2.next = 6;
                 break;
               }
-              _context2.n = 1;
+              _context2.next = 4;
               return _this2.saveCategory();
-            case 1:
-              _context2.n = 3;
+            case 4:
+              _context2.next = 8;
               break;
-            case 2:
-              _context2.n = 3;
+            case 6:
+              _context2.next = 8;
               return _this2.saveSubCategory();
-            case 3:
-              return _context2.a(2);
+            case 8:
+            case "end":
+              return _context2.stop();
           }
         }, _callee2);
       }))();
@@ -12434,27 +10439,27 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // Save category
     saveCategory: function saveCategory() {
       var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
         var categoryName;
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.n) {
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
             case 0:
               // Store the category name before saving
               categoryName = _this3.categoryForm.name;
-              _context4.n = 1;
-              return _this3.categoryForm.post(window.location.origin + '/api/product-categories').then(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+              _context4.next = 3;
+              return _this3.categoryForm.post(window.location.origin + '/api/product-categories').then(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
                 var createdCategory;
-                return _regenerator().w(function (_context3) {
-                  while (1) switch (_context3.n) {
+                return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+                  while (1) switch (_context3.prev = _context3.next) {
                     case 0:
                       toast.fire({
                         type: 'success',
                         title: _this3.$t('Category added successfully')
                       });
                       // Refresh categories list for subcategory form
-                      _context3.n = 1;
+                      _context3.next = 3;
                       return _this3.getCategories();
-                    case 1:
+                    case 3:
                       // Create a simple object with the name for parent to find it
                       createdCategory = {
                         name: categoryName
@@ -12466,8 +10471,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                       // Close only this modal, not parent modals
                       _this3.showModal = false;
                       _this3.resetForms();
-                    case 2:
-                      return _context3.a(2);
+                    case 9:
+                    case "end":
+                      return _context3.stop();
                   }
                 }, _callee3);
               })))["catch"](function (error) {
@@ -12503,8 +10509,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   });
                 }
               });
-            case 1:
-              return _context4.a(2);
+            case 3:
+            case "end":
+              return _context4.stop();
           }
         }, _callee4);
       }))();
@@ -12512,18 +10519,18 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // Save subcategory
     saveSubCategory: function saveSubCategory() {
       var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
         var subcategoryName;
-        return _regenerator().w(function (_context6) {
-          while (1) switch (_context6.n) {
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
             case 0:
               // Store the subcategory name before saving
               subcategoryName = _this4.subcategoryForm.name;
-              _context6.n = 1;
-              return _this4.subcategoryForm.post(window.location.origin + '/api/product-sub-categories').then(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+              _context6.next = 3;
+              return _this4.subcategoryForm.post(window.location.origin + '/api/product-sub-categories').then(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
                 var createdSubcategory;
-                return _regenerator().w(function (_context5) {
-                  while (1) switch (_context5.n) {
+                return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+                  while (1) switch (_context5.prev = _context5.next) {
                     case 0:
                       toast.fire({
                         type: 'success',
@@ -12541,8 +10548,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                       // Close only this modal, not parent modals
                       _this4.showModal = false;
                       _this4.resetForms();
-                    case 1:
-                      return _context5.a(2);
+                    case 8:
+                    case "end":
+                      return _context5.stop();
                   }
                 }, _callee5);
               })))["catch"](function (error) {
@@ -12578,8 +10586,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                   });
                 }
               });
-            case 1:
-              return _context6.a(2);
+            case 3:
+            case "end":
+              return _context6.stop();
           }
         }, _callee6);
       }))();
@@ -12888,10 +10897,10 @@ var UnitCreateModalvue_type_template_id_3d82b5ae_scoped_true_render = function r
 var UnitCreateModalvue_type_template_id_3d82b5ae_scoped_true_staticRenderFns = [];
 
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/UnitCreateModal.vue?vue&type=script&lang=js
-function UnitCreateModalvue_type_script_lang_js_regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u), UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u, o, "Generator"), UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u, n, function () { return this; }), UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (UnitCreateModalvue_type_script_lang_js_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } UnitCreateModalvue_type_script_lang_js_regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, n, t); }
-function UnitCreateModalvue_type_script_lang_js_asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function UnitCreateModalvue_type_script_lang_js_asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { UnitCreateModalvue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { UnitCreateModalvue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function UnitCreateModalvue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return UnitCreateModalvue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, UnitCreateModalvue_type_script_lang_js_typeof(o); }
+function UnitCreateModalvue_type_script_lang_js_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ UnitCreateModalvue_type_script_lang_js_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == UnitCreateModalvue_type_script_lang_js_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(UnitCreateModalvue_type_script_lang_js_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function UnitCreateModalvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function UnitCreateModalvue_type_script_lang_js_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { UnitCreateModalvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { UnitCreateModalvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 /* harmony default export */ const UnitCreateModalvue_type_script_lang_js = ({
   middleware: ["auth", "check-permissions"],
@@ -12930,10 +10939,10 @@ function UnitCreateModalvue_type_script_lang_js_asyncToGenerator(n) { return fun
     // Save unit
     saveUnit: function saveUnit(event) {
       var _this = this;
-      return UnitCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/UnitCreateModalvue_type_script_lang_js_regenerator().m(function _callee2() {
+      return UnitCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/UnitCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee2() {
         var unitName, unitCode;
-        return UnitCreateModalvue_type_script_lang_js_regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
+        return UnitCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
             case 0:
               // Stop event propagation to prevent closing parent modals
               if (event) {
@@ -12944,11 +10953,11 @@ function UnitCreateModalvue_type_script_lang_js_asyncToGenerator(n) { return fun
               // Store the unit name before saving
               unitName = _this.form.name;
               unitCode = _this.form.code;
-              _context2.n = 1;
-              return _this.form.post(window.location.origin + '/api/units').then(/*#__PURE__*/UnitCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/UnitCreateModalvue_type_script_lang_js_regenerator().m(function _callee() {
+              _context2.next = 5;
+              return _this.form.post(window.location.origin + '/api/units').then(/*#__PURE__*/UnitCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/UnitCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee() {
                 var createdUnit;
-                return UnitCreateModalvue_type_script_lang_js_regenerator().w(function (_context) {
-                  while (1) switch (_context.n) {
+                return UnitCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee$(_context) {
+                  while (1) switch (_context.prev = _context.next) {
                     case 0:
                       toast.fire({
                         type: 'success',
@@ -12966,8 +10975,9 @@ function UnitCreateModalvue_type_script_lang_js_asyncToGenerator(n) { return fun
                       // Close only this modal, not parent modals
                       _this.showModal = false;
                       _this.resetForm();
-                    case 1:
-                      return _context.a(2);
+                    case 7:
+                    case "end":
+                      return _context.stop();
                   }
                 }, _callee);
               })))["catch"](function () {
@@ -12976,8 +10986,9 @@ function UnitCreateModalvue_type_script_lang_js_asyncToGenerator(n) { return fun
                   title: _this.$t('Please check your input and try again.')
                 });
               });
-            case 1:
-              return _context2.a(2);
+            case 5:
+            case "end":
+              return _context2.stop();
           }
         }, _callee2);
       }))();
@@ -13027,13 +11038,12 @@ var UnitCreateModal_component = (0,componentNormalizer/* default */.A)(
 /* harmony default export */ const UnitCreateModal = (UnitCreateModal_component.exports);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=script&lang=js
 function ProductCreateModalvue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return ProductCreateModalvue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, ProductCreateModalvue_type_script_lang_js_typeof(o); }
-function ProductCreateModalvue_type_script_lang_js_regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, o, "Generator"), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, n, function () { return this; }), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (ProductCreateModalvue_type_script_lang_js_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } ProductCreateModalvue_type_script_lang_js_regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, n, t); }
-function ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function ProductCreateModalvue_type_script_lang_js_asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function ProductCreateModalvue_type_script_lang_js_regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ ProductCreateModalvue_type_script_lang_js_regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == ProductCreateModalvue_type_script_lang_js_typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(ProductCreateModalvue_type_script_lang_js_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function ProductCreateModalvue_type_script_lang_js_asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function ProductCreateModalvue_type_script_lang_js_ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function ProductCreateModalvue_type_script_lang_js_objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ProductCreateModalvue_type_script_lang_js_ownKeys(Object(t), !0).forEach(function (r) { ProductCreateModalvue_type_script_lang_js_defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ProductCreateModalvue_type_script_lang_js_ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function ProductCreateModalvue_type_script_lang_js_defineProperty(e, r, t) { return (r = ProductCreateModalvue_type_script_lang_js_toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function ProductCreateModalvue_type_script_lang_js_defineProperty(obj, key, value) { key = ProductCreateModalvue_type_script_lang_js_toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function ProductCreateModalvue_type_script_lang_js_toPropertyKey(t) { var i = ProductCreateModalvue_type_script_lang_js_toPrimitive(t, "string"); return "symbol" == ProductCreateModalvue_type_script_lang_js_typeof(i) ? i : i + ""; }
 function ProductCreateModalvue_type_script_lang_js_toPrimitive(t, r) { if ("object" != ProductCreateModalvue_type_script_lang_js_typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != ProductCreateModalvue_type_script_lang_js_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
@@ -13173,44 +11183,45 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     // Load chart of accounts for sales and purchase account selection
     loadChartOfAccounts: function loadChartOfAccounts() {
       var _this4 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee() {
-        var _yield$axios$get, data, _t;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee() {
+        var _yield$axios$get, data;
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
             case 0:
-              _context.p = 0;
-              _context.n = 1;
+              _context.prev = 0;
+              _context.next = 3;
               return axios_default().get(window.location.origin + "/api/products/chart-of-accounts");
-            case 1:
-              _yield$axios$get = _context.v;
+            case 3:
+              _yield$axios$get = _context.sent;
               data = _yield$axios$get.data;
               _this4.chartOfAccounts = data || [];
-              _context.n = 3;
+              _context.next = 12;
               break;
-            case 2:
-              _context.p = 2;
-              _t = _context.v;
-              console.error("Error loading chart of accounts:", _t);
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context["catch"](0);
+              console.error("Error loading chart of accounts:", _context.t0);
               _this4.chartOfAccounts = [];
-            case 3:
-              return _context.a(2);
+            case 12:
+            case "end":
+              return _context.stop();
           }
-        }, _callee, null, [[0, 2]]);
+        }, _callee, null, [[0, 8]]);
       }))();
     },
     // Load account routing settings
     loadAccountRoutingSettings: function loadAccountRoutingSettings() {
       var _this5 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee2() {
-        var _this5$accountRouting, _this5$accountRouting2, _this5$accountRouting3, _this5$accountRouting4, response, _t2;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context2) {
-          while (1) switch (_context2.p = _context2.n) {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee2() {
+        var _this5$accountRouting, _this5$accountRouting2, _this5$accountRouting3, _this5$accountRouting4, response;
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.p = 0;
-              _context2.n = 1;
+              _context2.prev = 0;
+              _context2.next = 3;
               return axios_default().get(window.location.origin + "/api/account-routing-settings/product-account-routing");
-            case 1:
-              response = _context2.v;
+            case 3:
+              response = _context2.sent;
               _this5.accountRoutingSettings = response.data.data || {};
 
               // Set flags for automatic routing
@@ -13237,37 +11248,39 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
               console.log('Form salesAccountId after auto-assignment:', _this5.form.salesAccountId);
               console.log('Form purchaseAccountId after auto-assignment:', _this5.form.purchaseAccountId);
               console.log('==============================');
-              _context2.n = 3;
+              _context2.next = 29;
               break;
-            case 2:
-              _context2.p = 2;
-              _t2 = _context2.v;
-              console.error("Error loading account routing settings:", _t2);
+            case 24:
+              _context2.prev = 24;
+              _context2.t0 = _context2["catch"](0);
+              console.error("Error loading account routing settings:", _context2.t0);
               // Set defaults if API fails
               _this5.isSalesAccountAutomatic = false;
               _this5.isPurchaseAccountAutomatic = false;
-            case 3:
-              return _context2.a(2);
+            case 29:
+            case "end":
+              return _context2.stop();
           }
-        }, _callee2, null, [[0, 2]]);
+        }, _callee2, null, [[0, 24]]);
       }))();
     },
     // get all product categories
     getSubCategories: function getSubCategories() {
       var _this6 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee3() {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee3() {
         var _yield$_this6$form$ge, data;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context3) {
-          while (1) switch (_context3.n) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
             case 0:
-              _context3.n = 1;
+              _context3.next = 2;
               return _this6.form.get(window.location.origin + "/api/all-product-sub-categories");
-            case 1:
-              _yield$_this6$form$ge = _context3.v;
+            case 2:
+              _yield$_this6$form$ge = _context3.sent;
               data = _yield$_this6$form$ge.data;
               _this6.categories = data.data;
-            case 2:
-              return _context3.a(2);
+            case 5:
+            case "end":
+              return _context3.stop();
           }
         }, _callee3);
       }))();
@@ -13275,14 +11288,15 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     // Handle category created event
     handleCategoryCreated: function handleCategoryCreated() {
       var _this7 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee4() {
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context4) {
-          while (1) switch (_context4.n) {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee4() {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              _context4.n = 1;
+              _context4.next = 2;
               return _this7.getSubCategories();
-            case 1:
-              return _context4.a(2);
+            case 2:
+            case "end":
+              return _context4.stop();
           }
         }, _callee4);
       }))();
@@ -13290,21 +11304,21 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     // Handle subcategory created event
     handleSubcategoryCreated: function handleSubcategoryCreated(createdSubcategory) {
       var _this8 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee5() {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee5() {
         var newSubcategory;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context5) {
-          while (1) switch (_context5.n) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
             case 0:
-              _context5.n = 1;
+              _context5.next = 2;
               return _this8.getSubCategories();
-            case 1:
+            case 2:
               if (!(createdSubcategory && createdSubcategory.name)) {
-                _context5.n = 3;
+                _context5.next = 7;
                 break;
               }
-              _context5.n = 2;
+              _context5.next = 5;
               return _this8.$nextTick();
-            case 2:
+            case 5:
               // Find the newly created subcategory in the refreshed list by name
               newSubcategory = _this8.categories.find(function (cat) {
                 return cat.name === createdSubcategory.name;
@@ -13312,8 +11326,9 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
               if (newSubcategory) {
                 _this8.form.subCategory = newSubcategory;
               }
-            case 3:
-              return _context5.a(2);
+            case 7:
+            case "end":
+              return _context5.stop();
           }
         }, _callee5);
       }))();
@@ -13321,21 +11336,21 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     // Handle unit created event
     handleUnitCreated: function handleUnitCreated(createdUnit) {
       var _this9 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee6() {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee6() {
         var newUnit;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context6) {
-          while (1) switch (_context6.n) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
             case 0:
-              _context6.n = 1;
+              _context6.next = 2;
               return _this9.getUnits();
-            case 1:
+            case 2:
               if (!(createdUnit && createdUnit.name)) {
-                _context6.n = 3;
+                _context6.next = 7;
                 break;
               }
-              _context6.n = 2;
+              _context6.next = 5;
               return _this9.$nextTick();
-            case 2:
+            case 5:
               // Find the newly created unit in the refreshed list by name or code
               newUnit = _this9.units.find(function (unit) {
                 return unit.name === createdUnit.name || unit.code === createdUnit.code;
@@ -13343,8 +11358,9 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
               if (newUnit) {
                 _this9.form.itemUnit = newUnit;
               }
-            case 3:
-              return _context6.a(2);
+            case 7:
+            case "end":
+              return _context6.stop();
           }
         }, _callee6);
       }))();
@@ -13352,19 +11368,20 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     // get all brands
     getBrands: function getBrands() {
       var _this0 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee7() {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee7() {
         var _yield$axios$get2, data;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context7) {
-          while (1) switch (_context7.n) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
             case 0:
-              _context7.n = 1;
+              _context7.next = 2;
               return axios_default().get(window.location.origin + "/api/all-brands");
-            case 1:
-              _yield$axios$get2 = _context7.v;
+            case 2:
+              _yield$axios$get2 = _context7.sent;
               data = _yield$axios$get2.data;
               _this0.brands = data.data;
-            case 2:
-              return _context7.a(2);
+            case 5:
+            case "end":
+              return _context7.stop();
           }
         }, _callee7);
       }))();
@@ -13372,19 +11389,20 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     // get all units
     getUnits: function getUnits() {
       var _this1 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee8() {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee8() {
         var _yield$axios$get3, data;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context8) {
-          while (1) switch (_context8.n) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
             case 0:
-              _context8.n = 1;
+              _context8.next = 2;
               return axios_default().get(window.location.origin + "/api/all-units");
-            case 1:
-              _yield$axios$get3 = _context8.v;
+            case 2:
+              _yield$axios$get3 = _context8.sent;
               data = _yield$axios$get3.data;
               _this1.units = data.data;
-            case 2:
-              return _context8.a(2);
+            case 5:
+            case "end":
+              return _context8.stop();
           }
         }, _callee8);
       }))();
@@ -13392,15 +11410,15 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     // get all taxes
     getTaxes: function getTaxes() {
       var _this10 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee9() {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee9() {
         var _yield$axios$get4, data, defaultVatRateSlug;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context9) {
-          while (1) switch (_context9.n) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee9$(_context9) {
+          while (1) switch (_context9.prev = _context9.next) {
             case 0:
-              _context9.n = 1;
+              _context9.next = 2;
               return axios_default().get(window.location.origin + "/api/all-vat-rates");
-            case 1:
-              _yield$axios$get4 = _context9.v;
+            case 2:
+              _yield$axios$get4 = _context9.sent;
               data = _yield$axios$get4.data;
               _this10.taxes = data.data;
               // assign default vat rate
@@ -13411,8 +11429,9 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
                 });
               }
               _this10.calculatePrice();
-            case 2:
-              return _context9.a(2);
+            case 7:
+            case "end":
+              return _context9.stop();
           }
         }, _callee9);
       }))();
@@ -13420,20 +11439,21 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     // get item code
     getItemCode: function getItemCode() {
       var _this11 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee0() {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee0() {
         var _yield$axios$get5, data;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context0) {
-          while (1) switch (_context0.n) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee0$(_context0) {
+          while (1) switch (_context0.prev = _context0.next) {
             case 0:
-              _context0.n = 1;
+              _context0.next = 2;
               return axios_default().get(window.location.origin + "/api/generate-itemcode");
-            case 1:
-              _yield$axios$get5 = _context0.v;
+            case 2:
+              _yield$axios$get5 = _context0.sent;
               data = _yield$axios$get5.data;
               _this11.form.itemCode = data.code;
               _this11.prefix = data.prefix;
-            case 2:
-              return _context0.a(2);
+            case 6:
+            case "end":
+              return _context0.stop();
           }
         }, _callee0);
       }))();
@@ -13498,19 +11518,19 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     // save product
     saveProduct: function saveProduct() {
       var _this13 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee10() {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee10() {
         var _this13$accountRoutin, _this13$accountRoutin2;
         var openingStockUnitPrice, openingStockCount, needsSalesAccount, needsPurchaseAccount;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context10) {
-          while (1) switch (_context10.n) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee10$(_context10) {
+          while (1) switch (_context10.prev = _context10.next) {
             case 0:
               if (_this13.form.itemCode) {
-                _context10.n = 1;
+                _context10.next = 3;
                 break;
               }
-              _context10.n = 1;
+              _context10.next = 3;
               return _this13.getItemCode();
-            case 1:
+            case 3:
               // Ensure price calculation is up-to-date before submission
               _this13.calculatePrice();
 
@@ -13549,15 +11569,15 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
 
               // Validate required fields based on item type
               if (!(_this13.form.itemType === 'service' && !_this13.form.servicePurchasePrice)) {
-                _context10.n = 2;
+                _context10.next = 8;
                 break;
               }
               ProductCreateModalvue_type_script_lang_js_toast.fire({
                 type: "error",
                 title: _this13.$t("Service Purchase Price is required for services")
               });
-              return _context10.a(2);
-            case 2:
+              return _context10.abrupt("return");
+            case 8:
               // Debug: Log validation state
               console.log("Validation state:", {
                 isSalesAccountAutomatic: _this13.isSalesAccountAutomatic,
@@ -13571,27 +11591,27 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
               // Validate sales account - required if not automatic OR if override is checked
               needsSalesAccount = !_this13.isSalesAccountAutomatic || _this13.form.overrideSalesAccount;
               if (!(needsSalesAccount && !_this13.form.salesAccountId)) {
-                _context10.n = 3;
+                _context10.next = 13;
                 break;
               }
               ProductCreateModalvue_type_script_lang_js_toast.fire({
                 type: "error",
                 title: _this13.$t("Sales Account is required")
               });
-              return _context10.a(2);
-            case 3:
+              return _context10.abrupt("return");
+            case 13:
               // Validate purchase account - required if not automatic OR if override is checked
               needsPurchaseAccount = !_this13.isPurchaseAccountAutomatic || _this13.form.overridePurchaseAccount;
               if (!(needsPurchaseAccount && !_this13.form.purchaseAccountId)) {
-                _context10.n = 4;
+                _context10.next = 17;
                 break;
               }
               ProductCreateModalvue_type_script_lang_js_toast.fire({
                 type: "error",
                 title: _this13.$t("Purchase Account is required")
               });
-              return _context10.a(2);
-            case 4:
+              return _context10.abrupt("return");
+            case 17:
               // Debug: Log form data being sent
               console.log("=== FORM SUBMISSION DEBUG ===");
               console.log("Form data being sent:", _this13.form.data());
@@ -13607,12 +11627,12 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
               console.log("Form salesAccountId:", _this13.form.salesAccountId);
               console.log("Form purchaseAccountId:", _this13.form.purchaseAccountId);
               console.log("=============================");
-              _context10.n = 5;
+              _context10.next = 33;
               return _this13.form.post(window.location.origin + "/api/products").then(/*#__PURE__*/function () {
-                var _ref = ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee1(response) {
-                  var openingStockCount, openingStockUnitPrice, purchasePrice, newProduct, formattedProduct, adjustmentPurchasePrice, _adjustmentError$resp, autoAssignedSalesAccountId, autoAssignedPurchaseAccountId, _t3;
-                  return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context1) {
-                    while (1) switch (_context1.p = _context1.n) {
+                var _ref = ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee1(response) {
+                  var openingStockCount, openingStockUnitPrice, purchasePrice, newProduct, formattedProduct, adjustmentPurchasePrice, _adjustmentError$resp, autoAssignedSalesAccountId, autoAssignedPurchaseAccountId;
+                  return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee1$(_context1) {
+                    while (1) switch (_context1.prev = _context1.next) {
                       case 0:
                         ProductCreateModalvue_type_script_lang_js_toast.fire({
                           type: "success",
@@ -13624,7 +11644,7 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
                         openingStockUnitPrice = parseFloat(_this13.form.openingStockUnitPrice) || 0; // Get purchasePrice from form (set before submission) or fallback to openingStockUnitPrice
                         purchasePrice = parseFloat(_this13.form.purchasePrice) || openingStockUnitPrice || 0; // Emit the newly created product data
                         if (!(response.data && response.data.data)) {
-                          _context1.n = 4;
+                          _context1.next = 19;
                           break;
                         }
                         newProduct = response.data.data; // Format the product data to match the expected structure for v-select
@@ -13653,32 +11673,32 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
 
                         // Create inventory adjustment if opening stock exists and item type is product
                         if (!(newProduct.itemType === 'product' && openingStockCount > 0 && newProduct.slug)) {
-                          _context1.n = 4;
+                          _context1.next = 19;
                           break;
                         }
-                        _context1.p = 1;
+                        _context1.prev = 9;
                         // Use purchasePrice (from form) or openingStockUnitPrice, with fallback to product's avgPurchasePrice
                         adjustmentPurchasePrice = purchasePrice > 0 ? purchasePrice : openingStockUnitPrice > 0 ? openingStockUnitPrice : newProduct.avgPurchasePrice || 0;
-                        _context1.n = 2;
+                        _context1.next = 13;
                         return _this13.createInventoryAdjustment({
                           productSlug: newProduct.slug,
                           quantity: openingStockCount,
                           purchasePrice: adjustmentPurchasePrice
                         });
-                      case 2:
-                        _context1.n = 4;
+                      case 13:
+                        _context1.next = 19;
                         break;
-                      case 3:
-                        _context1.p = 3;
-                        _t3 = _context1.v;
+                      case 15:
+                        _context1.prev = 15;
+                        _context1.t0 = _context1["catch"](9);
                         // Log error but don't block the product creation success
-                        console.error("Error creating inventory adjustment:", _t3);
+                        console.error("Error creating inventory adjustment:", _context1.t0);
                         ProductCreateModalvue_type_script_lang_js_toast.fire({
                           type: "warning",
                           title: _this13.$t("Product created, but inventory adjustment failed"),
-                          text: ((_adjustmentError$resp = _t3.response) === null || _adjustmentError$resp === void 0 || (_adjustmentError$resp = _adjustmentError$resp.data) === null || _adjustmentError$resp === void 0 ? void 0 : _adjustmentError$resp.message) || _this13.$t("Please create the adjustment manually.")
+                          text: ((_adjustmentError$resp = _context1.t0.response) === null || _adjustmentError$resp === void 0 || (_adjustmentError$resp = _adjustmentError$resp.data) === null || _adjustmentError$resp === void 0 ? void 0 : _adjustmentError$resp.message) || _this13.$t("Please create the adjustment manually.")
                         });
-                      case 4:
+                      case 19:
                         // Store auto-assigned account IDs before reset
                         autoAssignedSalesAccountId = _this13.isSalesAccountAutomatic ? _this13.form.salesAccountId : null;
                         autoAssignedPurchaseAccountId = _this13.isPurchaseAccountAutomatic ? _this13.form.purchaseAccountId : null;
@@ -13696,10 +11716,11 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
                         }
                         _this13.showProductCreateModal = false;
                         _this13.$emit('reloadProducts');
-                      case 5:
-                        return _context1.a(2);
+                      case 29:
+                      case "end":
+                        return _context1.stop();
                     }
-                  }, _callee1, null, [[1, 3]]);
+                  }, _callee1, null, [[9, 15]]);
                 }));
                 return function (_x) {
                   return _ref.apply(this, arguments);
@@ -13741,8 +11762,9 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
                   });
                 }
               });
-            case 5:
-              return _context10.a(2);
+            case 33:
+            case "end":
+              return _context10.stop();
           }
         }, _callee10);
       }))();
@@ -13750,10 +11772,10 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     // Create inventory adjustment for opening stock
     createInventoryAdjustment: function createInventoryAdjustment(_ref2) {
       var _this14 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee11() {
-        var productSlug, quantity, purchasePrice, adjustmentForm, response, _t4;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context11) {
-          while (1) switch (_context11.p = _context11.n) {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee11() {
+        var productSlug, quantity, purchasePrice, adjustmentForm, response;
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee11$(_context11) {
+          while (1) switch (_context11.prev = _context11.next) {
             case 0:
               productSlug = _ref2.productSlug, quantity = _ref2.quantity, purchasePrice = _ref2.purchasePrice;
               adjustmentForm = new vform_es/* default */.Ay({
@@ -13768,41 +11790,42 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
                   purchasePrice: purchasePrice
                 }]
               });
-              _context11.p = 1;
-              _context11.n = 2;
+              _context11.prev = 2;
+              _context11.next = 5;
               return adjustmentForm.post(window.location.origin + "/api/inventory-adjustments");
-            case 2:
-              response = _context11.v;
+            case 5:
+              response = _context11.sent;
               ProductCreateModalvue_type_script_lang_js_toast.fire({
                 type: "success",
                 title: _this14.$t("Inventory adjustment created successfully")
               });
-              return _context11.a(2, response);
-            case 3:
-              _context11.p = 3;
-              _t4 = _context11.v;
-              console.error("Error creating inventory adjustment:", _t4);
-              throw _t4;
-            case 4:
-              return _context11.a(2);
+              return _context11.abrupt("return", response);
+            case 10:
+              _context11.prev = 10;
+              _context11.t0 = _context11["catch"](2);
+              console.error("Error creating inventory adjustment:", _context11.t0);
+              throw _context11.t0;
+            case 14:
+            case "end":
+              return _context11.stop();
           }
-        }, _callee11, null, [[1, 3]]);
+        }, _callee11, null, [[2, 10]]);
       }))();
     },
     // Auto-assign sales account
     autoAssignSalesAccount: function autoAssignSalesAccount() {
       var _this15 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee12() {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee12() {
         var defaultAccount;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context12) {
-          while (1) switch (_context12.n) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee12$(_context12) {
+          while (1) switch (_context12.prev = _context12.next) {
             case 0:
               if (!_this15.isAutoAssigningSales) {
-                _context12.n = 1;
+                _context12.next = 2;
                 break;
               }
-              return _context12.a(2);
-            case 1:
+              return _context12.abrupt("return");
+            case 2:
               _this15.isAutoAssigningSales = true;
               try {
                 // For new products, we need to simulate the auto-assignment logic
@@ -13852,8 +11875,9 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
               } finally {
                 _this15.isAutoAssigningSales = false;
               }
-            case 2:
-              return _context12.a(2);
+            case 4:
+            case "end":
+              return _context12.stop();
           }
         }, _callee12);
       }))();
@@ -13861,17 +11885,17 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     // Auto-assign purchase account
     autoAssignPurchaseAccount: function autoAssignPurchaseAccount() {
       var _this16 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee13() {
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee13() {
         var defaultAccount;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context13) {
-          while (1) switch (_context13.n) {
+        return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee13$(_context13) {
+          while (1) switch (_context13.prev = _context13.next) {
             case 0:
               if (!_this16.isAutoAssigningPurchase) {
-                _context13.n = 1;
+                _context13.next = 2;
                 break;
               }
-              return _context13.a(2);
-            case 1:
+              return _context13.abrupt("return");
+            case 2:
               _this16.isAutoAssigningPurchase = true;
               try {
                 // For new products, we need to simulate the auto-assignment logic
@@ -13921,8 +11945,9 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
               } finally {
                 _this16.isAutoAssigningPurchase = false;
               }
-            case 2:
-              return _context13.a(2);
+            case 4:
+            case "end":
+              return _context13.stop();
           }
         }, _callee13);
       }))();
@@ -14136,118 +12161,6 @@ exports["default"] = Locale;
 
 /***/ }),
 
-/***/ 60130:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Euro',
-                plural: 'Euros',
-                singular: 'Euro',
-                symbol: '€',
-                fractionalUnit: {
-                    name: 'Centimo',
-                    plural: 'Centimos',
-                    singular: 'Centimo',
-                    symbol: '¢',
-                },
-            },
-            texts: {
-                and: 'Y',
-                minus: 'Menos',
-                only: '',
-                point: 'Punto',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Trillon' },
-                { number: 1000000000000, value: 'Billon' },
-                { number: 1000000, value: 'Millon' },
-                { number: 1000, value: 'Mil' },
-                { number: 900, value: 'Novecientos' },
-                { number: 800, value: 'Ochocientos' },
-                { number: 700, value: 'Setecientos' },
-                { number: 600, value: 'Seiscientos' },
-                { number: 500, value: 'Quinientos' },
-                { number: 400, value: 'Cuatrocientos' },
-                { number: 300, value: 'Trescientos' },
-                { number: 200, value: 'Doscientos' },
-                { number: 100, value: 'Ciento' },
-                { number: 90, value: 'Noventa Y' },
-                { number: 80, value: 'Ochenta Y' },
-                { number: 70, value: 'Setenta Y' },
-                { number: 60, value: 'Sesenta Y' },
-                { number: 50, value: 'Cincuenta Y' },
-                { number: 40, value: 'Cuarenta Y' },
-                { number: 30, value: 'Treinta Y' },
-                { number: 29, value: 'Veintinueve' },
-                { number: 28, value: 'Veintiocho' },
-                { number: 27, value: 'Veintisiete' },
-                { number: 26, value: 'Veintiseis' },
-                { number: 25, value: 'Veinticinco' },
-                { number: 24, value: 'Veinticuatro' },
-                { number: 23, value: 'Veintitrés' },
-                { number: 22, value: 'Veintidos' },
-                { number: 21, value: 'Veintiuno' },
-                { number: 20, value: 'Veinte' },
-                { number: 19, value: 'Diecinueve' },
-                { number: 18, value: 'Dieciocho' },
-                { number: 17, value: 'Dieciciete' },
-                { number: 16, value: 'Dieciseis' },
-                { number: 15, value: 'Quince' },
-                { number: 14, value: 'Catorce' },
-                { number: 13, value: 'Trece' },
-                { number: 12, value: 'Doce' },
-                { number: 11, value: 'Once' },
-                { number: 10, value: 'Diez' },
-                { number: 9, value: 'Nueve' },
-                { number: 8, value: 'Ocho' },
-                { number: 7, value: 'Siete' },
-                { number: 6, value: 'Seis' },
-                { number: 5, value: 'Cinco' },
-                { number: 4, value: 'Cuatro' },
-                { number: 3, value: 'Tres' },
-                { number: 2, value: 'Dos' },
-                { number: 1, value: 'Uno' },
-                { number: 0, value: 'Cero' },
-            ],
-            ignoreOneForWords: [
-                'Cien',
-                'Ciento',
-                'Doscientos',
-                'Trescientos',
-                'Cuatrocientos',
-                'Quinientos',
-                'Seiscientos',
-                'Setecientos',
-                'Ochocientos',
-                'Novecientos',
-                'Mil',
-            ],
-            pluralMark: 'es',
-            pluralWords: ['Millon', 'Billon', 'Trillon'],
-            exactWordsMapping: [
-                { number: 100, value: 'Cien' },
-                { number: 90, value: 'Noventa' },
-                { number: 80, value: 'Ochenta' },
-                { number: 70, value: 'Setenta' },
-                { number: 60, value: 'Sesenta' },
-                { number: 50, value: 'Cincuenta' },
-                { number: 40, value: 'Cuarenta' },
-                { number: 30, value: 'Treinta' },
-                { number: 1, value: ['Un', 'Uno'] },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
 /***/ 64744:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -14256,7 +12169,7 @@ exports["default"] = Locale;
 /* harmony export */ });
 /* harmony import */ var _services_RTLService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73948);
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
@@ -14361,230 +12274,6 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     }
   }
 });
-
-/***/ }),
-
-/***/ 65903:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Peso Mexicano',
-                plural: 'Pesos Mexicanos',
-                singular: 'Peso Mexicano',
-                symbol: '$',
-                fractionalUnit: {
-                    name: 'Centavo',
-                    plural: 'Centavos',
-                    singular: 'Centavo',
-                    symbol: '¢',
-                },
-            },
-            texts: {
-                and: 'Y',
-                minus: 'Menos',
-                only: '',
-                point: 'Punto',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Trillon' },
-                { number: 1000000000000, value: 'Billon' },
-                { number: 1000000, value: 'Millon' },
-                { number: 1000, value: 'Mil' },
-                { number: 900, value: 'Novecientos' },
-                { number: 800, value: 'Ochocientos' },
-                { number: 700, value: 'Setecientos' },
-                { number: 600, value: 'Seiscientos' },
-                { number: 500, value: 'Quinientos' },
-                { number: 400, value: 'Cuatrocientos' },
-                { number: 300, value: 'Trescientos' },
-                { number: 200, value: 'Doscientos' },
-                { number: 100, value: 'Ciento' },
-                { number: 90, value: 'Noventa Y' },
-                { number: 80, value: 'Ochenta Y' },
-                { number: 70, value: 'Setenta Y' },
-                { number: 60, value: 'Sesenta Y' },
-                { number: 50, value: 'Cincuenta Y' },
-                { number: 40, value: 'Cuarenta Y' },
-                { number: 30, value: 'Treinta Y' },
-                { number: 29, value: 'Veintinueve' },
-                { number: 28, value: 'Veintiocho' },
-                { number: 27, value: 'Veintisiete' },
-                { number: 26, value: 'Veintiseis' },
-                { number: 25, value: 'Veinticinco' },
-                { number: 24, value: 'Veinticuatro' },
-                { number: 23, value: 'Veintitrés' },
-                { number: 22, value: 'Veintidos' },
-                { number: 21, value: 'Veintiuno' },
-                { number: 20, value: 'Veinte' },
-                { number: 19, value: 'Diecinueve' },
-                { number: 18, value: 'Dieciocho' },
-                { number: 17, value: 'Dieciciete' },
-                { number: 16, value: 'Dieciseis' },
-                { number: 15, value: 'Quince' },
-                { number: 14, value: 'Catorce' },
-                { number: 13, value: 'Trece' },
-                { number: 12, value: 'Doce' },
-                { number: 11, value: 'Once' },
-                { number: 10, value: 'Diez' },
-                { number: 9, value: 'Nueve' },
-                { number: 8, value: 'Ocho' },
-                { number: 7, value: 'Siete' },
-                { number: 6, value: 'Seis' },
-                { number: 5, value: 'Cinco' },
-                { number: 4, value: 'Cuatro' },
-                { number: 3, value: 'Tres' },
-                { number: 2, value: 'Dos' },
-                { number: 1, value: 'Uno' },
-                { number: 0, value: 'Cero' },
-            ],
-            ignoreOneForWords: [
-                'Cien',
-                'Ciento',
-                'Doscientos',
-                'Trescientos',
-                'Cuatrocientos',
-                'Quinientos',
-                'Seiscientos',
-                'Setecientos',
-                'Ochocientos',
-                'Novecientos',
-                'Mil',
-            ],
-            pluralMark: 'es',
-            pluralWords: ['Millon', 'Billon', 'Trillon'],
-            exactWordsMapping: [
-                { number: 100, value: 'Cien' },
-                { number: 90, value: 'Noventa' },
-                { number: 80, value: 'Ochenta' },
-                { number: 70, value: 'Setenta' },
-                { number: 60, value: 'Sesenta' },
-                { number: 50, value: 'Cincuenta' },
-                { number: 40, value: 'Cuarenta' },
-                { number: 30, value: 'Treinta' },
-                { number: 1, value: ['Un', 'Uno'] },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 68224:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Bolivar',
-                plural: 'Bolivares',
-                singular: 'Bolivar',
-                symbol: '',
-                fractionalUnit: {
-                    name: 'Centimo',
-                    plural: 'Centimos',
-                    singular: 'Centimo',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'Con',
-                minus: 'Menos',
-                only: '',
-                point: 'Coma',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Trillon' },
-                { number: 1000000000000, value: 'Billon' },
-                { number: 1000000, value: 'Millon' },
-                { number: 1000, value: 'Mil' },
-                { number: 900, value: 'Novecientos' },
-                { number: 800, value: 'Ochocientos' },
-                { number: 700, value: 'Setecientos' },
-                { number: 600, value: 'Seiscientos' },
-                { number: 500, value: 'Quinientos' },
-                { number: 400, value: 'Cuatrocientos' },
-                { number: 300, value: 'Trescientos' },
-                { number: 200, value: 'Doscientos' },
-                { number: 100, value: 'Ciento' },
-                { number: 90, value: 'Noventa Y' },
-                { number: 80, value: 'Ochenta Y' },
-                { number: 70, value: 'Setenta Y' },
-                { number: 60, value: 'Sesenta Y' },
-                { number: 50, value: 'Cincuenta Y' },
-                { number: 40, value: 'Cuarenta Y' },
-                { number: 30, value: 'Treinta Y' },
-                { number: 29, value: 'Veintinueve' },
-                { number: 28, value: 'Veintiocho' },
-                { number: 27, value: 'Veintisiete' },
-                { number: 26, value: 'Veintiseis' },
-                { number: 25, value: 'Veinticinco' },
-                { number: 24, value: 'Veinticuatro' },
-                { number: 23, value: 'Veintitrés' },
-                { number: 22, value: 'Veintidos' },
-                { number: 21, value: 'Veintiuno' },
-                { number: 20, value: 'Veinte' },
-                { number: 19, value: 'Diecinueve' },
-                { number: 18, value: 'Dieciocho' },
-                { number: 17, value: 'Dieciciete' },
-                { number: 16, value: 'Dieciseis' },
-                { number: 15, value: 'Quince' },
-                { number: 14, value: 'Catorce' },
-                { number: 13, value: 'Trece' },
-                { number: 12, value: 'Doce' },
-                { number: 11, value: 'Once' },
-                { number: 10, value: 'Diez' },
-                { number: 9, value: 'Nueve' },
-                { number: 8, value: 'Ocho' },
-                { number: 7, value: 'Siete' },
-                { number: 6, value: 'Seis' },
-                { number: 5, value: 'Cinco' },
-                { number: 4, value: 'Cuatro' },
-                { number: 3, value: 'Tres' },
-                { number: 2, value: 'Dos' },
-                { number: 1, value: 'Uno' },
-                { number: 0, value: 'Cero' },
-            ],
-            ignoreOneForWords: [
-                'Cien',
-                'Ciento',
-                'Doscientos',
-                'Trescientos',
-                'Cuatrocientos',
-                'Quinientos',
-                'Seiscientos',
-                'Setecientos',
-                'Ochocientos',
-                'Novecientos',
-                'Mil',
-            ],
-            pluralMark: 'es',
-            pluralWords: ['Millon', 'Billon', 'Trillon'],
-            exactWordsMapping: [
-                { number: 100, value: 'Cien' },
-                { number: 90, value: 'Noventa' },
-                { number: 80, value: 'Ochenta' },
-                { number: 70, value: 'Setenta' },
-                { number: 60, value: 'Sesenta' },
-                { number: 50, value: 'Cincuenta' },
-                { number: 40, value: 'Cuarenta' },
-                { number: 30, value: 'Treinta' },
-                { number: 1, value: ['Un', 'Uno'] },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
 
 /***/ }),
 
@@ -14729,87 +12418,6 @@ class Locale {
     }
 }
 exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 71545:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const bn_IN_1 = __importDefault(__webpack_require__(82689));
-const ee_EE_1 = __importDefault(__webpack_require__(74938));
-const en_AE_1 = __importDefault(__webpack_require__(8550));
-const en_BD_1 = __importDefault(__webpack_require__(41061));
-const en_GB_1 = __importDefault(__webpack_require__(54330));
-const en_GH_1 = __importDefault(__webpack_require__(59096));
-const en_IE_1 = __importDefault(__webpack_require__(21470));
-const en_IN_1 = __importDefault(__webpack_require__(144));
-const en_MM_1 = __importDefault(__webpack_require__(38765));
-const en_MU_1 = __importDefault(__webpack_require__(74261));
-const en_NG_1 = __importDefault(__webpack_require__(92952));
-const en_NP_1 = __importDefault(__webpack_require__(26365));
-const en_OM_1 = __importDefault(__webpack_require__(28787));
-const en_PH_1 = __importDefault(__webpack_require__(82779));
-const en_US_1 = __importDefault(__webpack_require__(84463));
-const es_AR_1 = __importDefault(__webpack_require__(46709));
-const es_ES_1 = __importDefault(__webpack_require__(60130));
-const es_MX_1 = __importDefault(__webpack_require__(65903));
-const fa_IR_1 = __importDefault(__webpack_require__(10982));
-const fr_BE_1 = __importDefault(__webpack_require__(69543));
-const fr_FR_1 = __importDefault(__webpack_require__(28834));
-const gu_IN_1 = __importDefault(__webpack_require__(47229));
-const hi_IN_1 = __importDefault(__webpack_require__(37460));
-const kn_IN_1 = __importDefault(__webpack_require__(27002));
-const ko_KR_1 = __importDefault(__webpack_require__(58041));
-const lv_LV_1 = __importDefault(__webpack_require__(34922));
-const mr_IN_1 = __importDefault(__webpack_require__(33972));
-const nl_SR_1 = __importDefault(__webpack_require__(55101));
-const np_NP_1 = __importDefault(__webpack_require__(35262));
-const pt_BR_1 = __importDefault(__webpack_require__(21722));
-const tr_TR_1 = __importDefault(__webpack_require__(44130));
-const ur_PK_1 = __importDefault(__webpack_require__(56386));
-const es_VE_1 = __importDefault(__webpack_require__(68224));
-const LOCALES = {
-    'bn-IN': bn_IN_1.default,
-    'ee-EE': ee_EE_1.default,
-    'en-AE': en_AE_1.default,
-    'en-BD': en_BD_1.default,
-    'en-GB': en_GB_1.default,
-    'en-GH': en_GH_1.default,
-    'en-IE': en_IE_1.default,
-    'en-IN': en_IN_1.default,
-    'en-MM': en_MM_1.default,
-    'en-MU': en_MU_1.default,
-    'en-NG': en_NG_1.default,
-    'en-NP': en_NP_1.default,
-    'en-OM': en_OM_1.default,
-    'en-PH': en_PH_1.default,
-    'en-US': en_US_1.default,
-    'es-AR': es_AR_1.default,
-    'es-ES': es_ES_1.default,
-    'es-MX': es_MX_1.default,
-    'fa-IR': fa_IR_1.default,
-    'fr-BE': fr_BE_1.default,
-    'fr-FR': fr_FR_1.default,
-    'gu-IN': gu_IN_1.default,
-    'hi-IN': hi_IN_1.default,
-    'kn-IN': kn_IN_1.default,
-    'ko-KR': ko_KR_1.default,
-    'lv-LV': lv_LV_1.default,
-    'mr-IN': mr_IN_1.default,
-    'nl-SR': nl_SR_1.default,
-    'np-NP': np_NP_1.default,
-    'pt-BR': pt_BR_1.default,
-    'tr-TR': tr_TR_1.default,
-    'ur-PK': ur_PK_1.default,
-    'es-VE': es_VE_1.default,
-};
-exports["default"] = LOCALES;
 
 
 /***/ }),
@@ -14981,6 +12589,560 @@ exports["default"] = Locale;
 
 /***/ }),
 
+/***/ 77552:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-74008f4c]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:20px}.form-card .card-header[data-v-74008f4c]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:22px 16px}.form-card .section-title[data-v-74008f4c]{color:#fff;font-size:14px;font-weight:600;margin:0}.form-card .card-body[data-v-74008f4c]{padding:16px}.form-control[data-v-74008f4c]{background:#fff!important}input[readonly][data-v-74008f4c]{background-color:#f8f9fa!important;border-color:#ced4da;color:#6c757d;cursor:not-allowed}.form-control[data-v-74008f4c]:focus,select.form-control[data-v-74008f4c]:focus,textarea.form-control[data-v-74008f4c]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.radio-group[data-v-74008f4c]{align-items:center;display:flex;gap:16px}.radio-group .radio-inline[data-v-74008f4c]{align-items:center;display:inline-flex;gap:6px;margin:0}.v-select .vs__dropdown-toggle[data-v-74008f4c]{border-color:#ced4da;border-radius:6px}.v-select .vs__dropdown-toggle.vs__open[data-v-74008f4c],.v-select .vs__dropdown-toggle[data-v-74008f4c]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.v-select .vs__dropdown-menu[data-v-74008f4c],.v-select .vs__search[data-v-74008f4c],.v-select .vs__selected[data-v-74008f4c]{font-size:.95rem}.custom-file-input:focus~.custom-file-label[data-v-74008f4c]{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.custom-file-label[data-v-74008f4c]{border-radius:6px}.file-upload-area[data-v-74008f4c]{background:#f8fdfe;border:2px dashed #33a0d9;border-radius:12px;padding:20px;position:relative;text-align:center}.file-upload-area .file-input[data-v-74008f4c]{cursor:pointer;height:100%;inset:0;opacity:0;position:absolute;width:100%}.file-upload-area .file-upload-content[data-v-74008f4c]{color:#33a0d9}.selected-files .selected-file-item[data-v-74008f4c]{align-items:center;background:#f5faff;border:1px solid #e3f3f7;border-radius:6px;display:inline-flex;margin-bottom:8px;margin-right:8px;padding:6px 10px}.d-flex.align-items-center span.ml-3[data-v-74008f4c]{font-weight:500}.required[data-v-74008f4c]{color:#dc3545}.tax-status-options[data-v-74008f4c]{margin-top:.5rem}.tax-status-card-compact[data-v-74008f4c]{background-color:#fff;border:2px solid #e0e0e0;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.06);cursor:pointer;display:block;padding:.75rem 1rem;position:relative;transition:all .2s ease}.tax-status-card-compact[data-v-74008f4c]:hover{border-color:#007bff;box-shadow:0 2px 8px rgba(0,123,255,.12);transform:translateY(-1px)}.tax-status-card-compact.active[data-v-74008f4c]{background:linear-gradient(135deg,#f8f9ff,#fff);border-color:#007bff;box-shadow:0 2px 10px rgba(0,123,255,.15)}.tax-status-card-compact.border-success.active[data-v-74008f4c]{background:linear-gradient(135deg,#f0fff4,#fff);border-color:#28a745;box-shadow:0 2px 10px rgba(40,167,69,.15)}.tax-status-card-compact.border-primary.active[data-v-74008f4c]{background:linear-gradient(135deg,#f8f9ff,#fff);border-color:#007bff;box-shadow:0 2px 10px rgba(0,123,255,.15)}.tax-status-header-compact[data-v-74008f4c]{align-items:center;display:flex;position:relative}.tax-status-radio[data-v-74008f4c]{opacity:0;pointer-events:none;position:absolute}.tax-status-icon-compact[data-v-74008f4c]{align-items:center;border-radius:8px;display:flex;flex-shrink:0;font-size:1rem;height:32px;justify-content:center;margin-right:.75rem;transition:all .2s ease;width:32px}.tax-status-icon-compact.taxable-icon[data-v-74008f4c]{background:linear-gradient(135deg,#007bff,#0056b3);box-shadow:0 2px 6px rgba(0,123,255,.25);color:#fff}.tax-status-icon-compact.non-taxable-icon[data-v-74008f4c]{background:linear-gradient(135deg,#28a745,#1e7e34);box-shadow:0 2px 6px rgba(40,167,69,.25);color:#fff}.tax-status-card-compact.active .tax-status-icon-compact.taxable-icon[data-v-74008f4c]{box-shadow:0 3px 10px rgba(0,123,255,.35);transform:scale(1.05)}.tax-status-card-compact.active .tax-status-icon-compact.non-taxable-icon[data-v-74008f4c]{box-shadow:0 3px 10px rgba(40,167,69,.35);transform:scale(1.05)}.tax-status-title-compact[data-v-74008f4c]{color:#2c3e50;flex:1;font-size:.95rem;font-weight:600}.tax-status-card-compact.active .tax-status-title-compact[data-v-74008f4c]{color:#007bff}.tax-status-card-compact.border-success.active .tax-status-title-compact[data-v-74008f4c]{color:#28a745}[dir=rtl] .tax-status-icon-compact[data-v-74008f4c]{margin-left:.75rem;margin-right:0}[dir=rtl] .form-card .card-header[data-v-74008f4c]{border-radius:20px 20px 0 0}.custom-file-label[data-v-74008f4c],[dir=rtl] .custom-file-label[data-v-74008f4c]{text-align:left!important}.btn-primary[data-v-74008f4c]{background:#33a0d9!important;border-color:#33a0d9!important}.btn-primary[data-v-74008f4c]:hover{filter:brightness(.95)}.equal-height>[class*=\" col-\"][data-v-74008f4c],.equal-height>[class^=col-][data-v-74008f4c]{display:flex}.equal-height .form-card[data-v-74008f4c]{display:flex;flex-direction:column;width:100%}.equal-height .form-card .card-body[data-v-74008f4c]{flex:1 1 auto}.country-select[data-v-74008f4c]{width:100%}.country-select .vs__dropdown-toggle[data-v-74008f4c]{border:1px solid #ced4da;border-radius:6px;max-width:100%;min-height:2.5rem;overflow:hidden;padding:.5rem 1rem}.country-select .vs__search[data-v-74008f4c]{font-size:.95rem;margin:0;padding:0}.country-select .vs__selected[data-v-74008f4c]{align-items:center;display:flex;gap:.5rem;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.country-option[data-v-74008f4c],.country-selected[data-v-74008f4c]{align-items:center;display:flex;gap:.5rem;min-width:0}.country-flag[data-v-74008f4c]{flex-shrink:0;font-size:1.25rem;line-height:1}.country-name[data-v-74008f4c]{flex:1;font-size:.95rem;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.country-select.is-invalid .vs__dropdown-toggle[data-v-74008f4c]{border-color:#dc3545}.country-select .vs__dropdown-menu[data-v-74008f4c]{border-radius:6px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);margin-top:.5rem}.country-select .vs__dropdown-option[data-v-74008f4c]{padding:.75rem 1rem}.country-select .vs__dropdown-option--highlight[data-v-74008f4c]{background-color:#33a0d9;color:#fff}.saudi-location-select[data-v-74008f4c]{width:100%}.saudi-location-select .vs__dropdown-toggle[data-v-74008f4c]{background-color:#fff;border:1px solid #ced4da;border-radius:6px;min-height:2.5rem;padding:.375rem .75rem}.saudi-location-select .vs__dropdown-toggle.vs__open[data-v-74008f4c],.saudi-location-select .vs__dropdown-toggle[data-v-74008f4c]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15);outline:none}.saudi-location-select.is-invalid .vs__dropdown-toggle[data-v-74008f4c]{border-color:#dc3545}.saudi-location-select .vs__search[data-v-74008f4c]{font-size:.95rem;margin:0;padding:0}.saudi-location-select .vs__dropdown-menu[data-v-74008f4c]{border-radius:6px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);margin-top:.5rem}.saudi-location-select .vs__dropdown-option[data-v-74008f4c]{padding:.75rem 1rem}.saudi-location-select .vs__dropdown-option--highlight[data-v-74008f4c]{background-color:#33a0d9;color:#fff}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 78159:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ SupplierCreateModal)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierCreateModal.vue?vue&type=template&id=3a12f826&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', [_c('VModal', {
+    on: {
+      "close": function close($event) {
+        _vm.showSupplierCreateModal = false;
+      }
+    },
+    scopedSlots: _vm._u([{
+      key: "title",
+      fn: function fn() {
+        return [_vm._v(_vm._s(_vm.$t("Create Supplier")))];
+      },
+      proxy: true
+    }]),
+    model: {
+      value: _vm.showSupplierCreateModal,
+      callback: function callback($$v) {
+        _vm.showSupplierCreateModal = $$v;
+      },
+      expression: "showSupplierCreateModal"
+    }
+  }, [_vm._v(" "), [_c('SupplierForm', {
+    ref: "supplierForm",
+    attrs: {
+      "showCardBody": false,
+      "fullWidthSections": true
+    },
+    on: {
+      "submit": _vm.saveSupplier
+    }
+  }), _vm._v(" "), _c('div', {
+    attrs: {
+      "slot": "modal-footer"
+    },
+    slot: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "disabled": _vm.isSubmitting
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.submitItem($event);
+      }
+    }
+  }, [_vm.isSubmitting ? _c('i', {
+    staticClass: "fas fa-spinner fa-spin"
+  }) : _c('i', {
+    staticClass: "fas fa-save"
+  }), _vm._v("\n          " + _vm._s(_vm.isSubmitting ? _vm.$t("Saving...") : _vm.$t("Save")) + "\n        ")])])]], 2), _vm._v(" "), _c('a', {
+    staticClass: "create-button",
+    on: {
+      "click": _vm.toggleModal
+    }
+  }, [_vm._t("default")], 2)], 1);
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./resources/js/components/SupplierForm.vue + 6 modules
+var SupplierForm = __webpack_require__(37952);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierCreateModal.vue?vue&type=script&lang=js
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ const SupplierCreateModalvue_type_script_lang_js = ({
+  name: "SupplierCreateModal",
+  middleware: ["auth", "check-permissions"],
+  components: {
+    SupplierForm: SupplierForm/* default */.A
+  },
+  data: function data() {
+    return {
+      showSupplierCreateModal: false,
+      form: null,
+      isSubmitting: false
+    };
+  },
+  methods: {
+    // save supplier
+    saveSupplier: function saveSupplier() {
+      var _this = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var _this$$refs$supplierF, formData, fd, appendIfDefined, taxStatusValue, taxStatusToSend, name, address, response, status, serverErrors, form, errorMessages, errorsObject, mapped, errorTitle, _error$response, errorMessage;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              if (!_this.isSubmitting) {
+                _context.next = 2;
+                break;
+              }
+              return _context.abrupt("return");
+            case 2:
+              _this.isSubmitting = true;
+              _context.prev = 3;
+              if (_this.$refs.supplierForm.validateForm()) {
+                _context.next = 7;
+                break;
+              }
+              _this.isSubmitting = false;
+              return _context.abrupt("return");
+            case 7:
+              // Get the form data from the SupplierForm component
+              formData = _this.$refs.supplierForm.getFormData(); // Build multipart/form-data to properly send files and handle boolean conversion
+              fd = new FormData();
+              appendIfDefined = function appendIfDefined(key, value) {
+                if (value !== undefined && value !== null && value !== '') {
+                  fd.append(key, value);
+                }
+              }; // Debug: Log formData before building FormData - CRITICAL
+              console.log('SupplierCreateModal - formData received:', {
+                taxStatus: formData.taxStatus,
+                tax_status: formData.tax_status,
+                allFormData: formData
+              });
+              console.log('SupplierCreateModal - formData keys:', Object.keys(formData || {}));
+              console.log('SupplierCreateModal - formData.taxStatus type:', _typeof(formData.taxStatus));
+              console.log('SupplierCreateModal - formData.taxStatus value:', formData.taxStatus);
+              console.log('SupplierCreateModal - formData.tax_status value:', formData.tax_status);
+              console.log('SupplierCreateModal - $refs.supplierForm exists:', !!_this.$refs.supplierForm);
+              console.log('SupplierCreateModal - $refs.supplierForm.form exists:', !!(_this.$refs.supplierForm && _this.$refs.supplierForm.form));
+              if (_this.$refs.supplierForm && _this.$refs.supplierForm.form) {
+                console.log('SupplierCreateModal - form.taxStatus:', _this.$refs.supplierForm.form.taxStatus);
+                console.log('SupplierCreateModal - form.data() taxStatus:', _this.$refs.supplierForm.form.data ? _this.$refs.supplierForm.form.data().taxStatus : 'N/A');
+              }
+
+              // Simple scalar fields
+              appendIfDefined('codeNumber', formData.codeNumber);
+              appendIfDefined('notes', formData.notes);
+              appendIfDefined('displayLanguage', formData.displayLanguage);
+              appendIfDefined('type', formData.type);
+
+              // CRITICAL: Always append taxStatus - don't use appendIfDefined to ensure it's always sent
+              // Get taxStatus from formData, or try to get it from form object if available
+              taxStatusValue = formData.taxStatus || formData.tax_status;
+              console.log('SupplierCreateModal - Initial taxStatus check:', {
+                formDataTaxStatus: formData.taxStatus,
+                formDataTax_status: formData.tax_status,
+                currentTaxStatusValue: taxStatusValue
+              });
+
+              // If still not found, try to get it from the form component
+              if (!taxStatusValue && _this.$refs.supplierForm && _this.$refs.supplierForm.form) {
+                taxStatusValue = _this.$refs.supplierForm.form.taxStatus;
+                console.log('SupplierCreateModal - Got taxStatus from form object:', taxStatusValue);
+              }
+
+              // Default to non_taxable if still not found
+              taxStatusValue = taxStatusValue || 'non_taxable';
+              console.log('SupplierCreateModal - Final taxStatusValue before appending:', taxStatusValue);
+
+              // Always append taxStatus - never skip it, even if it's the default value
+              // CRITICAL: Use explicit string conversion and ensure it's never null/undefined
+              taxStatusToSend = String(taxStatusValue || 'non_taxable');
+              fd.append('taxStatus', taxStatusToSend);
+              fd.append('tax_status', taxStatusToSend);
+              console.log('=== SUPPLIER CREATE MODAL - APPENDING TAX STATUS ===');
+              console.log('SupplierCreateModal - taxStatusValue:', taxStatusValue);
+              console.log('SupplierCreateModal - taxStatusToSend:', taxStatusToSend);
+              console.log('SupplierCreateModal - Appended taxStatus to FormData:', taxStatusToSend);
+              console.log('SupplierCreateModal - formData.taxStatus:', formData.taxStatus);
+              console.log('SupplierCreateModal - formData.tax_status:', formData.tax_status);
+              console.log('SupplierCreateModal - form.taxStatus:', (_this$$refs$supplierF = _this.$refs.supplierForm) === null || _this$$refs$supplierF === void 0 || (_this$$refs$supplierF = _this$$refs$supplierF.form) === null || _this$$refs$supplierF === void 0 ? void 0 : _this$$refs$supplierF.taxStatus);
+
+              // Verify it was added
+              console.log('SupplierCreateModal - FormData has taxStatus:', fd.has('taxStatus'));
+              console.log('SupplierCreateModal - FormData has tax_status:', fd.has('tax_status'));
+              appendIfDefined('fullName', formData.fullName);
+              appendIfDefined('businessName', formData.businessName);
+              appendIfDefined('companyName', formData.businessName);
+              appendIfDefined('firstName', formData.firstName);
+              appendIfDefined('lastName', formData.lastName);
+              appendIfDefined('phone', formData.phone);
+              appendIfDefined('phoneNumber', formData.phoneNumber);
+              appendIfDefined('email', formData.email);
+              appendIfDefined('streetAddress1', formData.streetAddress1);
+              appendIfDefined('streetAddress2', formData.streetAddress2);
+              appendIfDefined('city', formData.city);
+              appendIfDefined('state', formData.state);
+              appendIfDefined('postalCode', formData.postalCode);
+              appendIfDefined('country', formData.country);
+              appendIfDefined('saudi_region', formData.saudi_region);
+              appendIfDefined('neighbourhood', formData.neighbourhood);
+              appendIfDefined('commercialRegister', formData.commercialRegister);
+              appendIfDefined('taxCard', formData.taxCard);
+              appendIfDefined('status', formData.status);
+
+              // Saudi National Address Fields
+              appendIfDefined('buildingNumber', formData.buildingNumber);
+              appendIfDefined('streetNumber', formData.streetNumber);
+              appendIfDefined('districtNumber', formData.districtNumber);
+              appendIfDefined('unitNumber', formData.unitNumber);
+              appendIfDefined('additionalNumber', formData.additionalNumber);
+              appendIfDefined('taxRegistrationNumber', formData.taxRegistrationNumber || formData.taxCard);
+
+              // Handle name field - always required when type is Individual
+              name = formData.name || (formData.type === 'Individual' ? formData.fullName : formData.businessName);
+              if (name) {
+                fd.append('name', name);
+              }
+
+              // Handle address field
+              address = formData.address || formData.streetAddress1;
+              if (address) {
+                fd.append('address', address);
+              }
+
+              // Convert boolean values to integers for Laravel validation
+              appendIfDefined('isSendEmail', formData.isSendEmail ? 1 : 0);
+              appendIfDefined('isSendSMS', formData.isSendSMS ? 1 : 0);
+
+              // Chart of account id (number or object)
+              if (formData.chartOfAccountId && _typeof(formData.chartOfAccountId) === 'object' && formData.chartOfAccountId.id) {
+                appendIfDefined('chartOfAccountId', formData.chartOfAccountId.id);
+              } else {
+                appendIfDefined('chartOfAccountId', formData.chartOfAccountId);
+              }
+
+              // Image file
+              if (formData.image instanceof File) {
+                fd.append('image', formData.image);
+              }
+
+              // Attachments as files
+              if (Array.isArray(formData.attachments)) {
+                formData.attachments.forEach(function (file, idx) {
+                  if (file instanceof File) {
+                    fd.append("attachments[".concat(idx, "]"), file);
+                  }
+                });
+              }
+
+              // Representatives array (as nested fields)
+              if (Array.isArray(formData.representatives)) {
+                formData.representatives.forEach(function (rep, i) {
+                  if (!rep) return;
+                  if (rep.name !== undefined && rep.name !== null) fd.append("representatives[".concat(i, "][name]"), rep.name);
+                  if (rep.email) fd.append("representatives[".concat(i, "][email]"), rep.email);
+                  if (rep.phone) fd.append("representatives[".concat(i, "][phone]"), rep.phone);
+                  if (rep.position) fd.append("representatives[".concat(i, "][position]"), rep.position);
+                  if (rep.is_primary !== undefined && rep.is_primary !== null) fd.append("representatives[".concat(i, "][is_primary]"), rep.is_primary ? 1 : 0);
+                  if (rep.notes) fd.append("representatives[".concat(i, "][notes]"), rep.notes);
+                });
+              }
+              _context.next = 76;
+              return _this.$http.post("/api/suppliers", fd, {
+                headers: {
+                  'Content-Type': 'multipart/form-data'
+                }
+              });
+            case 76:
+              response = _context.sent;
+              if (!response.data.success) {
+                _context.next = 85;
+                break;
+              }
+              toast.fire({
+                type: "success",
+                title: _this.$t("Supplier added successfully")
+              });
+              _this.$emit("reloadSuppliers");
+              _this.$refs.supplierForm.resetForm();
+              _this.showSupplierCreateModal = false;
+              _this.form = null; // Reset form reference
+              _context.next = 86;
+              break;
+            case 85:
+              throw new Error(response.data.message || 'Failed to create supplier');
+            case 86:
+              _context.next = 94;
+              break;
+            case 88:
+              _context.prev = 88;
+              _context.t0 = _context["catch"](3);
+              console.error("Error creating supplier:", _context.t0);
+              status = _context.t0 && _context.t0.response && _context.t0.response.status;
+              serverErrors = _context.t0 && _context.t0.response && _context.t0.response.data && _context.t0.response.data.errors;
+              if (status === 422 && serverErrors && _this.$refs.supplierForm) {
+                // Get form object directly from SupplierForm component
+                form = _this.$refs.supplierForm.form;
+                errorMessages = []; // Prepare errors object for vform
+                errorsObject = {};
+                Object.keys(serverErrors).forEach(function (key) {
+                  var messages = serverErrors[key];
+                  if (Array.isArray(messages) && messages.length > 0) {
+                    // Translate messages before adding to errorsObject
+                    var translatedMessages = messages.map(function (msg) {
+                      return _this.translateValidationMessage(msg, key);
+                    });
+                    errorsObject[key] = translatedMessages;
+
+                    // Collect error messages for toast notification
+                    var fieldLabel = _this.getFieldLabel(key);
+                    translatedMessages.forEach(function (msg) {
+                      errorMessages.push("".concat(fieldLabel, ": ").concat(msg));
+                    });
+
+                    // Also map attachments.* to attachments field for UI display
+                    if (key.startsWith('attachments.')) {
+                      if (!errorsObject.attachments) {
+                        errorsObject.attachments = translatedMessages;
+                      }
+                    }
+                  }
+                });
+
+                // Set errors on form using vform's set method
+                if (form && form.errors && typeof form.errors.set === 'function') {
+                  form.errors.set(errorsObject);
+                  console.log('SupplierCreateModal - Set errors on form:', errorsObject);
+                } else if (form && form.errors && typeof form.errors.record === 'function') {
+                  // Fallback to record method if set is not available
+                  mapped = {};
+                  Object.keys(errorsObject).forEach(function (key) {
+                    mapped[key] = Array.isArray(errorsObject[key]) ? errorsObject[key][0] : errorsObject[key];
+                  });
+                  form.errors.record(mapped);
+                  console.log('SupplierCreateModal - Recorded errors on form (fallback):', mapped);
+                } else {
+                  console.warn('SupplierCreateModal - Form errors object not available or invalid');
+                }
+
+                // Show detailed error messages in toast
+                errorTitle = errorMessages.length > 0 ? errorMessages.slice(0, 3).join(' | ') + (errorMessages.length > 3 ? " (+".concat(errorMessages.length - 3, " more)") : '') : _this.$t("Please check the form for errors and try again.");
+                toast.fire({
+                  type: "error",
+                  title: _this.$t("Validation Error"),
+                  text: errorTitle,
+                  html: errorMessages.length > 0 ? "<div style=\"text-align: left; max-height: 200px; overflow-y: auto;\">".concat(errorMessages.map(function (msg) {
+                    return "<div>\u2022 ".concat(msg, "</div>");
+                  }).join(''), "</div>") : undefined
+                });
+              } else {
+                errorMessage = ((_error$response = _context.t0.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this.$t("Please check your input and try again.");
+                toast.fire({
+                  type: "error",
+                  title: errorMessage
+                });
+              }
+            case 94:
+              _context.prev = 94;
+              _this.isSubmitting = false;
+              return _context.finish(94);
+            case 97:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, null, [[3, 88, 94, 97]]);
+      }))();
+    },
+    toggleModal: function toggleModal() {
+      this.showSupplierCreateModal = !this.showSupplierCreateModal;
+      // Reset form when opening modal
+      if (this.showSupplierCreateModal) {
+        this.form = null;
+        this.isSubmitting = false;
+      }
+    },
+    submitItem: function submitItem(evt) {
+      evt.preventDefault();
+      this.saveSupplier();
+    },
+    // Get field label for error messages
+    getFieldLabel: function getFieldLabel(field) {
+      var fieldLabelMap = {
+        codeNumber: this.$t('Code Number'),
+        notes: this.$t('Notes'),
+        displayLanguage: this.$t('Display Language'),
+        type: this.$t('Type'),
+        fullName: this.$t('Full Name'),
+        businessName: this.$t('Business Name'),
+        firstName: this.$t('First Name'),
+        lastName: this.$t('Last Name'),
+        phone: this.$t('Phone'),
+        phoneNumber: this.$t('Mobile Number'),
+        email: this.$t('Email'),
+        streetAddress1: this.$t('Street Address 1'),
+        streetAddress2: this.$t('Street Address 2'),
+        city: this.$t('City'),
+        state: this.$t('State'),
+        postalCode: this.$t('Postal Code'),
+        country: this.$t('Country'),
+        neighbourhood: this.$t('Neighbourhood'),
+        commercialRegister: this.$t('Commercial Register'),
+        taxCard: this.$t('Tax Card'),
+        buildingNumber: this.$t('Building Number'),
+        streetNumber: this.$t('Street Number'),
+        districtNumber: this.$t('District Number'),
+        unitNumber: this.$t('Unit Number'),
+        additionalNumber: this.$t('Additional Number'),
+        taxStatus: this.$t('Tax Status'),
+        taxRegistrationNumber: this.$t('Tax Registration Number'),
+        image: this.$t('Image'),
+        attachments: this.$t('Attachments'),
+        status: this.$t('Status'),
+        chartOfAccountId: this.$t('Chart of Account')
+      };
+      return fieldLabelMap[field] || field;
+    },
+    // translate validation messages from backend to localized messages
+    translateValidationMessage: function translateValidationMessage(message, field) {
+      // If there is a direct translation key, use it
+      var direct = this.$t(message);
+      if (direct && direct !== message) return direct;
+
+      // Get current locale
+      var currentLocale = this.$i18n.locale || 'en';
+      var isArabic = currentLocale === 'ar';
+
+      // Field label mapping for supplier form fields
+      var fieldLabelMap = {
+        codeNumber: this.$t('Code Number'),
+        notes: this.$t('Notes'),
+        displayLanguage: this.$t('Display Language'),
+        type: this.$t('Type'),
+        fullName: this.$t('Full Name'),
+        businessName: this.$t('Business Name'),
+        firstName: this.$t('First Name'),
+        lastName: this.$t('Last Name'),
+        phone: this.$t('Phone'),
+        phoneNumber: this.$t('Mobile Number'),
+        email: this.$t('Email'),
+        streetAddress1: this.$t('Street Address 1'),
+        streetAddress2: this.$t('Street Address 2'),
+        city: this.$t('City'),
+        state: this.$t('State'),
+        postalCode: this.$t('Postal Code'),
+        country: this.$t('Country'),
+        neighbourhood: this.$t('Neighbourhood'),
+        commercialRegister: this.$t('Commercial Register'),
+        taxCard: this.$t('Tax Card'),
+        buildingNumber: this.$t('Building Number'),
+        streetNumber: this.$t('Street Number'),
+        districtNumber: this.$t('District Number'),
+        unitNumber: this.$t('Unit Number'),
+        additionalNumber: this.$t('Additional Number'),
+        taxStatus: this.$t('Tax Status'),
+        taxRegistrationNumber: this.$t('Tax Registration Number'),
+        image: this.$t('Image'),
+        attachments: this.$t('Attachments'),
+        status: this.$t('Status'),
+        chartOfAccountId: this.$t('Chart of Account')
+      };
+
+      // Try to translate common validation messages
+      var commonMessages = {
+        'required': isArabic ? 'مطلوب' : 'required',
+        'must be exactly 15 digits': isArabic ? 'يجب أن يكون 15 رقم بالضبط' : 'must be exactly 15 digits',
+        'must contain only numbers and be 15 digits': isArabic ? 'يجب أن يحتوي على أرقام فقط ويكون 15 رقم' : 'must contain only numbers and be 15 digits'
+      };
+
+      // Check if message contains common patterns
+      for (var _i = 0, _Object$entries = Object.entries(commonMessages); _i < _Object$entries.length; _i++) {
+        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          pattern = _Object$entries$_i[0],
+          translation = _Object$entries$_i[1];
+        if (message.toLowerCase().includes(pattern.toLowerCase())) {
+          var fieldLabel = fieldLabelMap[field] || field;
+          return "".concat(fieldLabel, ": ").concat(translation);
+        }
+      }
+
+      // Return original message if no translation found
+      return message;
+    }
+  }
+});
+;// ./resources/js/components/SupplierCreateModal.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_SupplierCreateModalvue_type_script_lang_js = (SupplierCreateModalvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierCreateModal.vue?vue&type=style&index=0&id=3a12f826&prod&scoped=true&lang=css
+var SupplierCreateModalvue_type_style_index_0_id_3a12f826_prod_scoped_true_lang_css = __webpack_require__(90372);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierCreateModal.vue?vue&type=style&index=0&id=3a12f826&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(SupplierCreateModalvue_type_style_index_0_id_3a12f826_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_SupplierCreateModalvue_type_style_index_0_id_3a12f826_prod_scoped_true_lang_css = (SupplierCreateModalvue_type_style_index_0_id_3a12f826_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/SupplierCreateModal.vue?vue&type=style&index=0&id=3a12f826&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/SupplierCreateModal.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_SupplierCreateModalvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "3a12f826",
+  null
+  
+)
+
+/* harmony default export */ const SupplierCreateModal = (component.exports);
+
+/***/ }),
+
 /***/ 82609:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -14996,146 +13158,6 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 ___CSS_LOADER_EXPORT___.push([module.id, ".nav-tabs[data-v-5be7e019]{border-bottom:2px solid #dee2e6;margin-bottom:1.5rem}.nav-tabs .nav-item[data-v-5be7e019]{margin-bottom:-2px}.nav-tabs .nav-link[data-v-5be7e019]{background-color:transparent;border:1px solid transparent;border-top-left-radius:.25rem;border-top-right-radius:.25rem;color:#495057;cursor:pointer;font-weight:500;padding:.75rem 1.5rem;transition:all .2s ease}.nav-tabs .nav-link[data-v-5be7e019]:hover{border-color:#e9ecef #e9ecef #dee2e6;color:#33a0d9}.nav-tabs .nav-link.active[data-v-5be7e019]{background-color:#fff;border-color:#dee2e6 #dee2e6 transparent;color:#33a0d9;font-weight:600}.nav-tabs .nav-link i[data-v-5be7e019]{margin-right:.5rem}.tab-content[data-v-5be7e019]{min-height:200px}.tab-pane[data-v-5be7e019]{padding:0}.form-group[data-v-5be7e019]{margin-bottom:1rem}.form-group label[data-v-5be7e019]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-5be7e019]{color:#dc3545;font-weight:700}.form-control[data-v-5be7e019]{background:#fff!important;border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-5be7e019]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.is-invalid[data-v-5be7e019]{border-color:#dc3545!important}textarea.form-control[data-v-5be7e019]{min-height:100px;resize:vertical}.v-select[data-v-5be7e019]{background:#fff!important;border:1px solid #e5e7eb;border-radius:10px}.v-select .vs__dropdown-toggle[data-v-5be7e019]{background:#fff!important;border:1px solid #e5e7eb;padding:10px 16px}.btn-success[data-v-5be7e019]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-success[data-v-5be7e019]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-secondary[data-v-5be7e019]{background:#6c757d!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-secondary[data-v-5be7e019]:hover{background:#5a6268!important;box-shadow:0 4px 8px hsla(208,7%,46%,.3);transform:translateY(-1px)}.create-button[data-v-5be7e019]{cursor:pointer;text-decoration:none}.row[data-v-5be7e019]{margin-bottom:1rem}.row[data-v-5be7e019]:last-child{margin-bottom:0}@media (max-width:768px){.nav-tabs .nav-link[data-v-5be7e019]{font-size:.9rem;padding:.5rem 1rem}.tab-content[data-v-5be7e019]{padding:.5rem}}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 82689:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'টাকা',
-                plural: 'টাকা',
-                singular: 'টাকা',
-                symbol: '৳',
-                fractionalUnit: {
-                    name: 'পয়সা',
-                    singular: 'পয়সা',
-                    plural: 'পয়সা',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'এবং',
-                minus: 'ঋণ',
-                only: '',
-                point: 'দশমিক',
-            },
-            numberWordsMapping: [
-                { number: 10000000, value: 'কোটি' },
-                { number: 100000, value: 'লাখ' },
-                { number: 1000, value: 'হাজার' },
-                { number: 100, value: 'শত' },
-                { number: 99, value: 'নিরানব্বই' },
-                { number: 98, value: 'আটানব্বই' },
-                { number: 97, value: 'সাতানব্বই' },
-                { number: 96, value: 'ছিয়ানব্বই' },
-                { number: 95, value: 'পঁচানব্বই' },
-                { number: 94, value: 'চুরানব্বই' },
-                { number: 93, value: 'তিরানব্বই' },
-                { number: 92, value: 'বিরানব্বই' },
-                { number: 91, value: 'একানব্বই' },
-                { number: 90, value: 'নব্বই' },
-                { number: 89, value: 'ঊননব্বই' },
-                { number: 88, value: 'অষ্টআশি' },
-                { number: 87, value: 'সাতআশি' },
-                { number: 86, value: 'ছিয়াশী' },
-                { number: 85, value: 'পঁচাশী' },
-                { number: 84, value: 'চুরাশী' },
-                { number: 83, value: 'তিরাশী' },
-                { number: 82, value: 'বিরাশী' },
-                { number: 81, value: 'একাশী' },
-                { number: 80, value: 'আশি' },
-                { number: 79, value: 'ঊনআশি' },
-                { number: 78, value: 'অষ্টাত্তর' },
-                { number: 77, value: 'সাতাত্তর' },
-                { number: 76, value: 'ছিয়াত্তর' },
-                { number: 75, value: 'পঁচাত্তর' },
-                { number: 74, value: 'চুয়াত্তর' },
-                { number: 73, value: 'তিয়াত্তর' },
-                { number: 72, value: 'বাহাত্তর' },
-                { number: 71, value: 'একাত্তর' },
-                { number: 70, value: 'সত্তর' },
-                { number: 69, value: 'ঊনসত্তর' },
-                { number: 68, value: 'অষ্টষষ্টি' },
-                { number: 67, value: 'সাতষষ্টি' },
-                { number: 66, value: 'ছেষষ্টি' },
-                { number: 65, value: 'পঁয়ষট্টি' },
-                { number: 64, value: 'চৌষট্টি' },
-                { number: 63, value: 'তেষট্টি' },
-                { number: 62, value: 'বাষট্টি' },
-                { number: 61, value: 'একষট্টি' },
-                { number: 60, value: 'ষাট' },
-                { number: 59, value: 'ঊনষাট' },
-                { number: 58, value: 'আটান্ন' },
-                { number: 57, value: 'সাতান্ন' },
-                { number: 56, value: 'ছাপ্পান্ন' },
-                { number: 55, value: 'পঞ্চান্ন' },
-                { number: 54, value: 'চুয়ান্ন' },
-                { number: 53, value: 'তিপ্পান্ন' },
-                { number: 52, value: 'বায়ান্ন' },
-                { number: 51, value: 'একান্ন' },
-                { number: 50, value: 'পঞ্চাশ' },
-                { number: 49, value: 'ঊনপঞ্চাশ' },
-                { number: 48, value: 'আটচল্লিশ' },
-                { number: 47, value: 'সাতচল্লিশ' },
-                { number: 46, value: 'ছেচল্লিশ' },
-                { number: 45, value: 'পঁইঁতাল্লিশ' },
-                { number: 44, value: 'চুয়াল্লিশ' },
-                { number: 43, value: 'তেতাল্লিশ' },
-                { number: 42, value: 'বিয়াল্লিশ' },
-                { number: 41, value: 'একচল্লিশ' },
-                { number: 40, value: 'চল্লিশ' },
-                { number: 39, value: 'ঊনচল্লিশ' },
-                { number: 38, value: 'আটত্রিশ' },
-                { number: 37, value: 'সাঁইত্রিশ' },
-                { number: 36, value: 'ছত্রিশ' },
-                { number: 35, value: 'পঁইত্রিশ' },
-                { number: 34, value: 'চৌত্রিশ' },
-                { number: 33, value: 'তেত্রিশ' },
-                { number: 32, value: 'বত্রিশ' },
-                { number: 31, value: 'একত্রিশ' },
-                { number: 30, value: 'ত্রিশ' },
-                { number: 29, value: 'ঊনত্রিশ' },
-                { number: 28, value: 'আঠাশ' },
-                { number: 27, value: 'সাতাশ' },
-                { number: 26, value: 'ছাব্বিশ' },
-                { number: 25, value: 'পঁচিশ' },
-                { number: 24, value: 'চব্বিশ' },
-                { number: 23, value: 'তেইশ' },
-                { number: 22, value: 'বাইশ' },
-                { number: 21, value: 'একুশ' },
-                { number: 20, value: 'বিশ' },
-                { number: 19, value: 'ঊনিশ' },
-                { number: 18, value: 'আঠারো' },
-                { number: 17, value: 'সতেরো' },
-                { number: 16, value: 'ষোলো' },
-                { number: 15, value: 'পনেরো' },
-                { number: 14, value: 'চৌদ্দ' },
-                { number: 13, value: 'তেরো' },
-                { number: 12, value: 'বারো' },
-                { number: 11, value: 'এগারো' },
-                { number: 10, value: 'দশ' },
-                { number: 9, value: 'নয়' },
-                { number: 8, value: 'আট' },
-                { number: 7, value: 'সাত' },
-                { number: 6, value: 'ছয়' },
-                { number: 5, value: 'পাঁচ' },
-                { number: 4, value: 'চার' },
-                { number: 3, value: 'তিন' },
-                { number: 2, value: 'দুই' },
-                { number: 1, value: 'এক' },
-                { number: 0, value: 'শূন্য' },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
 
 
 /***/ }),
@@ -15295,6 +13317,25 @@ exports["default"] = Locale;
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, ".header-buttons[data-v-6acbff3e]{margin-bottom:15px}.footer-buttons[data-v-6acbff3e]{display:flex;gap:10px}.footer-buttons .btn[data-v-6acbff3e]{margin-right:10px}.footer-buttons .btn[data-v-6acbff3e]:last-child{margin-right:0}.create-btn[data-v-6acbff3e]{padding:11px}.chart-account-success[data-v-6acbff3e],.chart-account-warning[data-v-6acbff3e]{border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:16px}.chart-account-warning[data-v-6acbff3e]{background:linear-gradient(135deg,#fff3cd,#ffeaa7);border:1px solid #ffc107}.chart-account-success[data-v-6acbff3e]{background:linear-gradient(135deg,#d4edda,#c3e6cb);border:1px solid #28a745}.success-content[data-v-6acbff3e],.warning-content[data-v-6acbff3e]{align-items:center;display:flex;gap:16px}.success-icon[data-v-6acbff3e],.warning-icon[data-v-6acbff3e]{flex-shrink:0;font-size:24px}.warning-icon[data-v-6acbff3e]{color:#856404}.success-icon[data-v-6acbff3e]{color:#155724}.success-text[data-v-6acbff3e],.warning-text[data-v-6acbff3e]{flex-grow:1}.success-title[data-v-6acbff3e],.warning-title[data-v-6acbff3e]{font-size:14px;font-weight:600;margin:0 0 4px}.warning-title[data-v-6acbff3e]{color:#856404}.success-title[data-v-6acbff3e]{color:#155724}.success-description[data-v-6acbff3e],.warning-description[data-v-6acbff3e]{font-size:13px;margin:0;opacity:.8}.warning-description[data-v-6acbff3e]{color:#856404}.success-description[data-v-6acbff3e]{color:#155724}.warning-action[data-v-6acbff3e]{flex-shrink:0}.button-plus.icon-shape.icon-sm.btn-primary[data-v-6acbff3e]{padding:0}.card[data-v-6acbff3e]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-header[data-v-6acbff3e]{background-color:#fff;border-bottom:1px solid #ced4da;border-radius:20px 20px 0 0;padding:1.25rem 1.25rem 0}.card-body[data-v-6acbff3e]{padding:1.25rem}.card-footer[data-v-6acbff3e]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.form-control[data-v-6acbff3e]{border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-6acbff3e]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.form-group label[data-v-6acbff3e]{color:#374151;display:block;font-weight:500;margin-bottom:8px}.required[data-v-6acbff3e]{color:#dc3545;font-weight:700}.btn-primary[data-v-6acbff3e]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-primary[data-v-6acbff3e]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-secondary[data-v-6acbff3e]{background:#33a0d9!important;border:none!important;color:#fff!important;font-weight:500;margin-right:10px;padding:10px 20px!important}.btn-secondary[data-v-6acbff3e]:hover{background:#2a8bc4!important;box-shadow:0 4px 8px rgba(51,160,217,.3);transform:translateY(-1px)}.is-invalid[data-v-6acbff3e]{border-color:#dc3545!important}textarea.form-control[data-v-6acbff3e]{min-height:100px;resize:vertical}.v-select[data-v-6acbff3e],.v-select .vs__dropdown-toggle[data-v-6acbff3e]{background:#fff!important;border:1px solid #e5e7eb}.v-select .vs__dropdown-toggle[data-v-6acbff3e]{padding:10px 16px}.v-select .vs__search[data-v-6acbff3e]::-moz-placeholder{color:#6b7280}.v-select .vs__search[data-v-6acbff3e]::placeholder{color:#6b7280}.v-select .vs__selected[data-v-6acbff3e]{color:#374151}.v-select .vs__dropdown-menu[data-v-6acbff3e]{border-radius:10px;box-shadow:0 4px 6px -1px rgba(0,0,0,.1)}.table-custom[data-v-6acbff3e]{border-radius:10px;box-shadow:0 2px 4px rgba(0,0,0,.1);overflow:hidden}.table-custom thead th[data-v-6acbff3e]{background-color:#f8f9fa;border-bottom:2px solid #e5e7eb;color:#374151;font-weight:600;padding:12px 8px;text-align:center}.table-custom tbody td[data-v-6acbff3e]{border-bottom:1px solid #e5e7eb;padding:12px 8px;vertical-align:middle}.table-custom tbody tr[data-v-6acbff3e]:hover{background-color:#f8f9fa}.toggle-button[data-v-6acbff3e]{margin-right:10px}.product-status[data-v-6acbff3e],.supplier-status[data-v-6acbff3e]{font-size:13px}.product-warning[data-v-6acbff3e],.supplier-warning[data-v-6acbff3e]{align-items:center;background-color:#fff3cd;border:1px solid #ffeaa7;border-radius:6px;color:#856404;display:flex;font-weight:500;padding:8px 12px}.btn-outline-warning[data-v-6acbff3e]{border-color:#ffc107;border-radius:6px;color:#856404;font-size:12px;padding:4px 8px}.btn-outline-warning[data-v-6acbff3e]:hover{background-color:#ffc107;border-color:#ffc107;color:#212529}.btn-outline-warning[data-v-6acbff3e]:disabled{cursor:not-allowed;opacity:.6}.row[data-v-6acbff3e]{margin-bottom:1rem}.form-text[data-v-6acbff3e]{color:#6b7280;font-size:.875rem}.text-muted[data-v-6acbff3e]{color:#6b7280!important}@media (max-width:768px){.card-footer[data-v-6acbff3e]{flex-direction:column;gap:10px}.card-footer .btn[data-v-6acbff3e]{margin-right:0!important;width:100%}.card-footer div[data-v-6acbff3e]{display:flex;flex-direction:column;gap:10px;width:100%}.table-custom[data-v-6acbff3e]{font-size:12px}.table-custom tbody td[data-v-6acbff3e],.table-custom thead th[data-v-6acbff3e]{padding:8px 4px}}.btn-group.c-w-100[data-v-6acbff3e]{gap:10px}.quantity-field[data-v-6acbff3e]{border-radius:0!important;margin:0!important;min-height:50px!important}.table-custom[data-v-6acbff3e]{border:none!important}.invoices-create-table[data-v-6acbff3e]{border-collapse:separate;border-spacing:0}.invoices-create-table thead th[data-v-6acbff3e]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.invoices-create-table thead tr[data-v-6acbff3e]{border:none!important}.invoices-create-table thead th[data-v-6acbff3e]:first-child{border-top-left-radius:10px}.invoices-create-table thead th[data-v-6acbff3e]:last-child{border-top-right-radius:10px}[dir=rtl] .invoices-create-table thead th[data-v-6acbff3e]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .invoices-create-table thead th[data-v-6acbff3e]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.invoices-create-table .badge.badge-danger[data-v-6acbff3e]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.form-control[data-v-6acbff3e]{background:#fff!important}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 90372:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".create-button[data-v-3a12f826]{cursor:pointer;text-decoration:none}.modal-content[data-v-3a12f826]{margin:1.75rem auto;max-width:1000px}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

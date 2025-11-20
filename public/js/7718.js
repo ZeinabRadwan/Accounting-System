@@ -13872,7 +13872,7 @@ var render = function render() {
     }, [_vm._v("\n                        " + _vm._s(_vm._f("moment")(data.date, "Do MMM, YYYY")) + "\n                      ")])]);
   }), 0)])])]) : _c('div', {
     staticClass: "callout callout-danger mt-3 w-100"
-  }, [_c('h5', [_vm._v(_vm._s(_vm.$t("No loans are available yet!")))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("You haven't added any loan for this authority. After adding loans you will see the list here.")))])])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', [_vm._v(_vm._s(_vm.$t("No loans are available yet!")))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("You haven't added any loan for this authority.")))])])]), _vm._v(" "), _c('div', {
     staticClass: "row mt-4"
   }, [_c('div', {
     staticClass: "col-lg-12 col-xl-8"

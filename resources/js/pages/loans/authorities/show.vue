@@ -146,9 +146,6 @@
               </div>
               <div class="callout callout-danger mt-3 w-100" v-else>
                 <h5>{{ $t("No loans are available yet!") }}</h5>
-                <p>{{ $t("You haven't added any loan for this authority. After adding loans you will see the list
-                  here.") }}
-                </p>
               </div>
             </div>
 

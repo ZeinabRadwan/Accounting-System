@@ -433,8 +433,6 @@
                 </div>
                 <div class="no-print callout callout-danger mt-4 w-100" v-else>
                   <h5>{{ $t("No payments available yet!") }}</h5>
-                  <p>{{ $t("You haven/'t add any payment for this purchase. After adding payments you will see the list
-                    here.") }}</p>
                 </div>
               </div>
               <div class="col-lg-12 col-xl-4 text-lg-right mt-4">
