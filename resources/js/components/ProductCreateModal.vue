@@ -503,7 +503,7 @@ export default {
   },
   watch: {
     'form.openingStockUnitPrice': {
-      handler(newPrice) {
+      handler() {
         if (this.form.itemType === 'product') {
           // Use setTimeout to ensure value is updated in form
           setTimeout(() => {
@@ -514,7 +514,7 @@ export default {
       immediate: false
     },
     'form.regularPrice': {
-      handler(newPrice) {
+      handler() {
         if (this.form.itemType === 'product') {
           // Use setTimeout to ensure value is updated in form
           setTimeout(() => {
@@ -1409,7 +1409,7 @@ export default {
 /* Beautiful Item Type Selector - Balanced */
 .item-type-selector {
   display: flex;
-  gap: 0.75rem;
+  gap: 0.5rem;
   margin-top: 0.5rem;
 }
 
@@ -1431,13 +1431,13 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1rem 0.75rem;
+  padding: 0.6rem 0.5rem;
   background: #ffffff;
   border: 2px solid #e3e6f0;
-  border-radius: 8px;
+  border-radius: 6px;
   text-align: center;
   transition: all 0.2s ease;
-  min-height: 70px;
+  min-height: 55px;
 }
 
 .item-type-option:hover .option-content {
@@ -1455,8 +1455,8 @@ export default {
 }
 
 .option-content i {
-  font-size: 1.4rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
   color: #6c757d;
   transition: all 0.2s ease;
 }
@@ -1467,7 +1467,7 @@ export default {
 
 .option-content span {
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #495057;
   transition: all 0.2s ease;
 }
@@ -1480,21 +1480,21 @@ export default {
 @media (max-width: 768px) {
   .item-type-selector {
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
 
   .option-content {
-    padding: 0.75rem 0.5rem;
-    min-height: 60px;
+    padding: 0.5rem 0.4rem;
+    min-height: 50px;
   }
 
   .option-content i {
-    font-size: 1.25rem;
-    margin-bottom: 0.4rem;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
   }
 
   .option-content span {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
 
   /* Mobile checkbox adjustments */
