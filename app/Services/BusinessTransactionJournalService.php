@@ -450,22 +450,36 @@ class BusinessTransactionJournalService
             // Note: Discount received reduces the amount we owe, so it's a credit
             // We don't add it to totalDebit here as it reduces our liability
 
+            // Calculate transport VAT separately if transport has VAT
+            $transportVatAmount = 0;
+            $transportBaseAmount = 0;
+            if ($purchase->transport && $purchase->transport > 0) {
+                // If supplier is taxable and transport_taxable exists, calculate VAT separately
+                if ($purchase->transport_taxable && $purchase->transport_taxable > 0) {
+                    $transportBaseAmount = $purchase->transport_taxable;
+                    $transportVatAmount = $purchase->transport - $purchase->transport_taxable;
+                } else {
+                    // Transport without VAT
+                    $transportBaseAmount = $purchase->transport;
+                }
+            }
+
             // Add purchase expense amounts (products after discount, without VAT)
             foreach ($purchaseExpensesByAccount as $expense) {
                 $totalDebit += $expense['total'];
             }
 
-            // Add VAT amount (Debit to VAT Input account)
-            if ($totalVatAmount > 0) {
-                Log::info("Adding VAT amount: {$totalVatAmount}");
-                $totalDebit += $totalVatAmount;
+            // Add transport base amount (without VAT) to totalDebit
+            if ($transportBaseAmount > 0) {
+                Log::info("Adding transport base amount: {$transportBaseAmount}");
+                $totalDebit += $transportBaseAmount;
             }
 
-            // Add transport costs if applicable (Debit to Transport Expense account)
-            // Note: transport field may include VAT if supplier is taxable
-            if ($purchase->transport && $purchase->transport > 0) {
-                Log::info("Adding transport cost: {$purchase->transport}");
-                $totalDebit += $purchase->transport;
+            // Add VAT amount (Debit to VAT Input account) - includes product VAT + transport VAT
+            $totalVatAmount += $transportVatAmount;
+            if ($totalVatAmount > 0) {
+                Log::info("Adding total VAT amount (products + transport): {$totalVatAmount}");
+                $totalDebit += $totalVatAmount;
             }
 
             // Credit to supplier's accounts payable
@@ -540,22 +554,22 @@ class BusinessTransactionJournalService
                 }
             }
 
-            // Create transport cost journal entry if applicable (Debit)
-            if ($purchase->transport && $purchase->transport > 0) {
+            // Create transport cost journal entry if applicable (Debit) - only base amount without VAT
+            if ($transportBaseAmount > 0) {
                 $transportAccount = $this->getTransportExpenseAccount();
                 if ($transportAccount) {
-                    $this->createJournalEntryLine($journalEntry, $transportAccount->id, $purchase->transport, 0, $lineNumber, __('journal.transport_cost_for_purchase', ['number' => $purchase->purchase_no]));
+                    $this->createJournalEntryLine($journalEntry, $transportAccount->id, $transportBaseAmount, 0, $lineNumber, __('journal.transport_cost_for_purchase', ['number' => $purchase->purchase_no]));
                 } else {
                     // Fallback to first purchase account if transport account not configured
                     $firstPurchaseAccountId = array_key_first($purchaseExpensesByAccount);
                     if ($firstPurchaseAccountId) {
-                        $this->createJournalEntryLine($journalEntry, $firstPurchaseAccountId, $purchase->transport, 0, $lineNumber, __('journal.transport_cost_for_purchase', ['number' => $purchase->purchase_no]));
+                        $this->createJournalEntryLine($journalEntry, $firstPurchaseAccountId, $transportBaseAmount, 0, $lineNumber, __('journal.transport_cost_for_purchase', ['number' => $purchase->purchase_no]));
                     }
                 }
                 $lineNumber++;
             }
 
-            // Create VAT journal entry if applicable (Debit)
+            // Create VAT journal entry if applicable (Debit) - includes product VAT + transport VAT
             if ($totalVatAmount > 0) {
                 $vatAccount = $this->getVatAccountForPurchase($purchase);
                 if ($vatAccount) {
