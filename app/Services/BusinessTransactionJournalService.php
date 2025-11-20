@@ -464,9 +464,6 @@ class BusinessTransactionJournalService
                 $totalDebit += $expense['total'];
             }
 
-            // Get total amount from purchase (this is what we owe the supplier)
-            $totalAmount = $purchase->purchaseTotal();
-
             // Check which accounts are available to determine what lines will be created
             $discountAccount = $totalDiscountAmount > 0 ? $this->getDiscountReceivedAccount() : null;
             $vatAccount = $totalVatAmount > 0 ? $this->getVatAccountForPurchase($purchase) : null;
@@ -498,26 +495,36 @@ class BusinessTransactionJournalService
                 $actualTotalDebit += $totalVatAmount;
             }
 
+            // The total amount we owe = actual debits (which already includes everything correctly)
+            // This ensures debits and credits always balance
+            // Debits = Purchase expenses (after discount, with VAT if VAT account missing) + Transport + VAT (if VAT account exists)
+            // This equals: Purchase expenses (after discount) + Transport + VAT
+            $totalAmount = $actualTotalDebit;
+
             // Calculate actual credits that will be created
-            // The purchase total is what we owe the supplier (after discounts are already applied)
-            // Credits should always equal the purchase total
+            // Credits should equal the total amount we owe (what we calculated in debits)
             $actualTotalCredit = $totalAmount;
 
             // If discount account exists, we split the credit:
-            // - Accounts Payable = purchase total - discount (the net amount we owe)
+            // - Accounts Payable = total - discount (the net amount we owe)
             // - Discount Received = discount (the benefit we received)
-            // Total = (purchase total - discount) + discount = purchase total ✓
+            // Total = (total - discount) + discount = total ✓
             if ($discountAccount) {
                 $accountsPayableAmount = $totalAmount - $totalDiscountAmount;
             } else {
                 // Discount account doesn't exist: full amount to accounts payable
-                // (discount is already reflected in the purchase total being lower)
+                // (discount is already reflected in lower purchase expenses)
                 $accountsPayableAmount = $totalAmount;
             }
 
+            // Get purchase total from model for comparison
+            $purchaseTotalFromModel = $purchase->purchaseTotal();
+
             // Debug logging
             Log::info("Purchase Journal Calculation for PO {$purchase->purchase_no}:");
-            Log::info("Total Amount (purchaseTotal): {$totalAmount}");
+            Log::info("Purchase Total from Model: {$purchaseTotalFromModel}");
+            Log::info("Calculated Total (from components): {$totalAmount}");
+            Log::info('Difference: '.($totalAmount - $purchaseTotalFromModel));
             Log::info("Total Discount Amount: {$totalDiscountAmount}");
             Log::info("Total VAT Amount: {$totalVatAmount}");
             Log::info('Transport Amount: '.($purchase->transport ?? 0));
