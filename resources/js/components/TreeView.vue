@@ -22,32 +22,6 @@
           @drop="handleDrop && handleDrop($event, item)"
           @dragend="handleDragEnd && handleDragEnd"
         >
-          <!-- Tree Lines - Vertical connectors to show parent-child relationship -->
-          <div v-if="item.level > 0" class="tree-lines-wrapper">
-            <!-- Vertical lines for each ancestor level (always continue) -->
-            <div
-              v-for="levelIndex in (item.level - 1)"
-              :key="'ancestor-' + levelIndex"
-              class="tree-line-vertical tree-line-ancestor"
-              :style="isRTL ? { right: ((levelIndex - 1) * 20 + 10) + 'px' } : { left: ((levelIndex - 1) * 20 + 10) + 'px' }"
-            ></div>
-            <!-- Vertical line for direct parent (continues through all siblings) -->
-            <div
-              :key="'parent-' + item.level"
-              class="tree-line-vertical"
-              :class="{ 
-                'tree-line-last': isLastSibling(item),
-                'tree-line-continue': !isLastSibling(item)
-              }"
-              :style="isRTL ? { right: ((item.level - 1) * 20 + 10) + 'px' } : { left: ((item.level - 1) * 20 + 10) + 'px' }"
-            ></div>
-            <!-- Horizontal connector from vertical line to item -->
-            <div
-              class="tree-line-horizontal"
-              :style="isRTL ? { right: ((item.level - 1) * 20 + 10) + 'px' } : { left: ((item.level - 1) * 20 + 10) + 'px' }"
-            ></div>
-          </div>
-          
           <div
             class="tree-item-content"
             :class="{ 'tree-item-has-children': item.hasChildren }"
@@ -66,6 +40,7 @@
             <!-- Item Name -->
             <div class="tree-item-info">
               <span class="tree-item-name">{{ getDisplayName(item) }}</span>
+              <span v-if="item.code" class="tree-item-code">{{ item.code }}</span>
             </div>
 
             <!-- Action Buttons -->
@@ -118,12 +93,80 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      isRTL: false,
+    };
+  },
   computed: {
-    isRTL() {
-      return document.documentElement.dir === 'rtl' || document.documentElement.getAttribute('dir') === 'rtl';
+    currentLocale() {
+      return this.$store?.getters?.['lang/locale'] || 
+             this.$i18n?.locale || 
+             (window.config && window.config.locale) || 
+             'en';
     },
   },
+  watch: {
+    currentLocale: {
+      handler(newLocale) {
+        this.updateRTLStatus(newLocale);
+      },
+      immediate: true,
+    },
+    '$i18n.locale': {
+      handler(newLocale) {
+        this.updateRTLStatus(newLocale);
+      },
+      immediate: true,
+    },
+  },
+  mounted() {
+    this.updateRTLStatus(this.currentLocale);
+    // Listen for locale change events
+    window.addEventListener('locale-changed', this.handleLocaleChange);
+    window.addEventListener('rtl-forced', this.handleRTLChange);
+  },
+  beforeDestroy() {
+    window.removeEventListener('locale-changed', this.handleLocaleChange);
+    window.removeEventListener('rtl-forced', this.handleRTLChange);
+  },
   methods: {
+    isRTLLocale(locale) {
+      const rtlLanguages = ['ar', 'he', 'fa', 'ur', 'ps', 'sd', 'ku', 'yi'];
+      return rtlLanguages.includes((locale || '').toLowerCase());
+    },
+    updateRTLStatus(locale) {
+      const localeToCheck = locale || this.currentLocale;
+      // Check from locale first
+      this.isRTL = this.isRTLLocale(localeToCheck);
+      // Also check document direction as fallback
+      if (!this.isRTL) {
+        this.isRTL = document.documentElement.dir === 'rtl' || 
+                     document.documentElement.getAttribute('dir') === 'rtl';
+      }
+    },
+    handleLocaleChange(event) {
+      if (event && event.detail) {
+        const { locale, isRTL } = event.detail;
+        if (locale) {
+          this.updateRTLStatus(locale);
+        } else if (isRTL !== undefined) {
+          this.isRTL = isRTL;
+        }
+      } else {
+        this.updateRTLStatus(this.currentLocale);
+      }
+    },
+    handleRTLChange(event) {
+      if (event && event.detail) {
+        const { locale, isRTL } = event.detail;
+        if (locale) {
+          this.updateRTLStatus(locale);
+        } else if (isRTL !== undefined) {
+          this.isRTL = isRTL;
+        }
+      }
+    },
     handleItemClick(item) {
       if (item.hasChildren) {
         this.onToggleExpand(item.id);
@@ -202,6 +245,8 @@ export default {
   overflow-x: visible;
   background: #fff;
   position: relative;
+  display: flex;
+  justify-content: center;
 }
 
 /* Tree List */
@@ -211,96 +256,14 @@ export default {
   margin: 0;
   position: relative;
   overflow: visible;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .tree-item {
   position: relative;
   transition: all 0.2s ease;
   overflow: visible;
-}
-
-/* Tree Lines - Vertical lines connecting parent to children */
-.tree-lines-wrapper {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  overflow: visible;
-}
-
-[dir="rtl"] .tree-lines-wrapper {
-  right: 0;
-  left: auto;
-}
-
-.tree-line-vertical {
-  position: absolute;
-  top: 50%;
-  width: 3px;
-  background: #4b5563;
-  z-index: 1;
-  opacity: 1 !important;
-  display: block !important;
-  visibility: visible !important;
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
-}
-
-/* Vertical line for ancestor levels - always continues through all children */
-.tree-line-vertical.tree-line-ancestor {
-  top: 50%;
-  bottom: -10000px;
-  background: #4b5563;
-  opacity: 1 !important;
-  display: block !important;
-  visibility: visible !important;
-}
-
-/* Continue vertical line through all children when not last sibling */
-.tree-line-vertical.tree-line-continue {
-  top: 50%;
-  bottom: -10000px;
-  background: #4b5563;
-  opacity: 1 !important;
-  display: block !important;
-  visibility: visible !important;
-}
-
-/* Stop vertical line at middle of last child */
-.tree-line-vertical.tree-line-last {
-  top: 50%;
-  bottom: 0;
-  background: #4b5563;
-  opacity: 1 !important;
-  display: block !important;
-  visibility: visible !important;
-}
-
-.tree-line-horizontal {
-  position: absolute;
-  top: 50%;
-  width: 24px;
-  height: 3px;
-  background: #4b5563;
-  z-index: 1;
-  margin-top: -1.5px;
-  opacity: 1 !important;
-  display: block !important;
-  visibility: visible !important;
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
-}
-
-/* RTL Support for tree lines */
-[dir="rtl"] .tree-line-vertical {
-  right: 0;
-  left: auto;
-}
-
-[dir="rtl"] .tree-line-horizontal {
-  right: 0;
-  left: auto;
 }
 
 .tree-item-dragging {
@@ -396,6 +359,24 @@ export default {
   text-overflow: ellipsis;
   line-height: 1.5;
   letter-spacing: -0.01em;
+}
+
+.tree-item-code {
+  font-size: 12px;
+  font-weight: 400;
+  color: #6b7280;
+  background: #f3f4f6;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+[dir="rtl"] .tree-item-code {
+  margin-left: 0;
+  margin-right: 8px;
 }
 
 /* Action Buttons - Modern grouped style */
