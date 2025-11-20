@@ -867,7 +867,6 @@ export default {
 .info-box {
   display: flex;
   align-items: center;
-  padding: 1rem;
   margin-bottom: 1rem;
   background: #fff;
   border: 1px solid #dee2e6;
