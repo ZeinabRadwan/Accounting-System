@@ -2,7 +2,7 @@
   <div :class="{ 'card-body': showCardBody }">
     <!-- Supplier Details Section - Now First -->
     <div class="row">
-      <div class="col-md-6">
+      <div :class="sectionColumnClass">
         <div class="form-card">
           <div class="card-header">
             <h5 class="section-title">
@@ -172,7 +172,7 @@
       </div>
 
       <!-- National Address Section - Now Second, beside Supplier Details -->
-      <div class="col-md-6">
+      <div :class="sectionColumnClass">
         <div class="form-card">
           <div class="card-header">
             <h5 class="section-title">
@@ -973,6 +973,11 @@ export default {
       type: Boolean,
       default: true
     },
+    // Whether primary sections should span full width (used in modals)
+    fullWidthSections: {
+      type: Boolean,
+      default: false
+    },
     // Initial form data (optional)
     initialData: {
       type: Object,
@@ -1090,6 +1095,9 @@ export default {
         ...country,
         name: this.$t(country.nameKey) || country.nameKey
       }));
+    },
+    sectionColumnClass() {
+      return this.fullWidthSections ? 'col-12' : 'col-md-6';
     },
     // Check if this is edit mode (has initial data with slug)
     isEditMode() {
