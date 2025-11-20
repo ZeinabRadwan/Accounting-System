@@ -1068,11 +1068,18 @@ export default {
     },
 
     // refresh activity table
-    refreshActivityTable() {
+    async refreshActivityTable() {
       this.activitySearchQuery = "";
+      if (this.allActivityLogPagination) {
+        this.allActivityLogPagination.current_page = 1;
+      }
       this.activitySearchQuery === ""
-        ? this.getActivity()
-        : this.searchActivity();
+        ? await this.getActivity()
+        : await this.searchActivity();
+      this.$toast.success(
+        this.$t("Refreshed"),
+        this.$t("Activity log has been refreshed successfully")
+      );
     },
 
     // reset activity pagination
