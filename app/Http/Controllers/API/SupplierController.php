@@ -1452,81 +1452,48 @@ ORDER BY `date`');
      */
     private function createChartOfAccountForSupplier($supplierData, $routingSetting)
     {
-        $maxRetries = 3;
-        $retryCount = 0;
+        try {
+            // Use a database transaction with locking to ensure atomicity and prevent race conditions
+            $newAccount = \Illuminate\Support\Facades\DB::transaction(function () use ($supplierData, $routingSetting) {
+                // Generate code inside transaction with proper locking
+                $code = $this->generateSupplierAccountCodeWithLock($routingSetting->main_account_id);
 
-        while ($retryCount < $maxRetries) {
-            try {
-                // Generate a unique code
-                $code = $this->generateSupplierAccountCode($routingSetting->main_account_id);
-
-                // Use a database transaction to ensure atomicity
-                $newAccount = \Illuminate\Support\Facades\DB::transaction(function () use ($supplierData, $routingSetting, $code) {
-                    // Double-check the code doesn't exist (race condition protection)
-                    if (\App\Models\ChartOfAccount::where('code', $code)->exists()) {
-                        throw new \Exception("Code {$code} already exists, retrying...");
-                    }
-
-                    return \App\Models\ChartOfAccount::create([
-                        'name' => $this->getSupplierDisplayName($supplierData),
-                        'code' => $code,
-                        'type_id' => $this->getLiabilityAccountTypeId(),
-                        'parent_id' => $routingSetting->main_account_id,
-                        'is_active' => true,
-                        'created_by' => Auth::id(),
-                        'branch_id' => Auth::user()->default_branch_id,
-                    ]);
-                });
-
-                \Illuminate\Support\Facades\Log::info('Created new chart of account for supplier', [
-                    'account_id' => $newAccount->id,
-                    'account_name' => $newAccount->name,
-                    'account_code' => $newAccount->code,
-                    'parent_account_id' => $routingSetting->main_account_id,
+                return \App\Models\ChartOfAccount::create([
+                    'name' => $this->getSupplierDisplayName($supplierData),
+                    'code' => $code,
+                    'type_id' => $this->getLiabilityAccountTypeId(),
+                    'parent_id' => $routingSetting->main_account_id,
+                    'is_active' => true,
+                    'created_by' => Auth::id(),
+                    'branch_id' => Auth::user()->default_branch_id,
                 ]);
+            });
 
-                return $newAccount;
-            } catch (\Illuminate\Database\QueryException $e) {
-                // Check if it's a duplicate entry error
-                if ($e->getCode() == 23000 && strpos($e->getMessage(), 'Duplicate entry') !== false) {
-                    $retryCount++;
-                    if ($retryCount >= $maxRetries) {
-                        \Illuminate\Support\Facades\Log::error('Max retries reached for creating chart of account for supplier', [
-                            'supplier_data' => $supplierData,
-                            'routing_setting' => $routingSetting->toArray(),
-                            'retry_count' => $retryCount,
-                        ]);
-                        throw new \Exception('Failed to create chart of account: duplicate code after multiple retries. Please try again.');
-                    }
-                    // Wait a small random amount to avoid simultaneous retries
-                    usleep(rand(100000, 500000)); // 100-500ms
-                    continue;
-                }
-                // If it's not a duplicate error, re-throw
-                \Illuminate\Support\Facades\Log::error('Error creating chart of account for supplier: '.$e->getMessage());
-                throw $e;
-            } catch (\Exception $e) {
-                // If it's the retry exception, continue the loop
-                if (strpos($e->getMessage(), 'already exists, retrying') !== false) {
-                    $retryCount++;
-                    if ($retryCount >= $maxRetries) {
-                        \Illuminate\Support\Facades\Log::error('Max retries reached for creating chart of account for supplier', [
-                            'supplier_data' => $supplierData,
-                            'routing_setting' => $routingSetting->toArray(),
-                            'retry_count' => $retryCount,
-                        ]);
-                        throw new \Exception('Failed to create chart of account: duplicate code after multiple retries. Please try again.');
-                    }
-                    usleep(rand(100000, 500000)); // 100-500ms
-                    continue;
-                }
-                // For other exceptions, log and re-throw
-                \Illuminate\Support\Facades\Log::error('Error creating chart of account for supplier: '.$e->getMessage());
-                throw $e;
+            \Illuminate\Support\Facades\Log::info('Created new chart of account for supplier', [
+                'account_id' => $newAccount->id,
+                'account_name' => $newAccount->name,
+                'account_code' => $newAccount->code,
+                'parent_account_id' => $routingSetting->main_account_id,
+            ]);
+
+            return $newAccount;
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Check if it's a duplicate entry error
+            if ($e->getCode() == 23000 && strpos($e->getMessage(), 'Duplicate entry') !== false) {
+                \Illuminate\Support\Facades\Log::error('Duplicate entry error creating chart of account for supplier', [
+                    'supplier_data' => $supplierData,
+                    'routing_setting' => $routingSetting->toArray(),
+                    'error' => $e->getMessage(),
+                ]);
+                throw new \Exception('Failed to create chart of account: the generated code already exists. Please try again.');
             }
+            // If it's not a duplicate error, re-throw
+            \Illuminate\Support\Facades\Log::error('Error creating chart of account for supplier: '.$e->getMessage());
+            throw $e;
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Error creating chart of account for supplier: '.$e->getMessage());
+            throw $e;
         }
-
-        throw new \Exception('Failed to create chart of account after multiple retries.');
     }
 
     /**
@@ -1542,9 +1509,18 @@ ORDER BY `date`');
     }
 
     /**
-     * Generate unique account code for supplier
+     * Generate unique account code for supplier (without locking - for backward compatibility)
      */
     private function generateSupplierAccountCode($mainAccountId)
+    {
+        return $this->generateSupplierAccountCodeWithLock($mainAccountId);
+    }
+
+    /**
+     * Generate unique account code for supplier with database locking
+     * This method should be called within a transaction to ensure proper locking
+     */
+    private function generateSupplierAccountCodeWithLock($mainAccountId)
     {
         try {
             $branchId = Auth::user()->default_branch_id ?? null;
@@ -1554,14 +1530,32 @@ ORDER BY `date`');
             }
 
             $baseCode = $mainAccount->code;
-            
-            // Start with counter 1
-            $counter = 1;
-            $maxAttempts = 1000; // Prevent infinite loop
-            $newCode = $baseCode.'-'.str_pad($counter, 3, '0', STR_PAD_LEFT);
 
-            // Check if the exact code exists in the database (globally, not just branch-scoped)
-            // The unique constraint is on code globally, so we must check all codes
+            // Use a more efficient approach: find the maximum existing code number
+            // Lock the rows to prevent concurrent access
+            $existingCodes = \Illuminate\Support\Facades\DB::table('chart_of_accounts')
+                ->where('code', 'like', $baseCode.'-%')
+                ->lockForUpdate() // Lock rows to prevent race conditions
+                ->pluck('code')
+                ->toArray();
+
+            // Extract the maximum number from existing codes
+            $maxNumber = 0;
+            $pattern = '/^'.preg_quote($baseCode, '/').'-(\d+)$/';
+            foreach ($existingCodes as $existingCode) {
+                if (preg_match($pattern, $existingCode, $matches)) {
+                    $number = (int) $matches[1];
+                    $maxNumber = max($maxNumber, $number);
+                }
+            }
+
+            // Generate the next code
+            $nextNumber = $maxNumber + 1;
+            $newCode = $baseCode.'-'.str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+
+            // Double-check the code doesn't exist (extra safety)
+            $maxAttempts = 1000;
+            $counter = 0;
             while (\App\Models\ChartOfAccount::where('code', $newCode)->exists()) {
                 $counter++;
                 if ($counter > $maxAttempts) {
@@ -1571,9 +1565,11 @@ ORDER BY `date`');
                     ]);
                     // Fallback to timestamp-based code
                     $timestamp = time() % 1000000;
+
                     return 'SUP-'.$timestamp;
                 }
-                $newCode = $baseCode.'-'.str_pad($counter, 3, '0', STR_PAD_LEFT);
+                $nextNumber++;
+                $newCode = $baseCode.'-'.str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
             }
 
             return $newCode;
