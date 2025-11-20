@@ -100,10 +100,6 @@
                 class="btn preview-btn ml-2">
                 <i class="fas fa-eye"></i>
               </button>
-              <a v-if="reportData && entriesCount > 0" :href="printTemplateUrl" target="_blank"
-                class="btn print-btn ml-2">
-                <i class="fas fa-print"></i>
-              </a>
             </div>
           </div>
         </form>

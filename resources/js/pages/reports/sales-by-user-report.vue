@@ -70,15 +70,6 @@
                       />
                     </svg>
                   </button>
-                  <a
-                    v-if="reportGenerated"
-                    :href="printTemplateUrl"
-                    target="_blank"
-                    v-tooltip="$t('Print Table')"
-                    class="btn print-btn"
-                  >
-                    <i class="fas fa-print"></i>
-                  </a>
                 </div>
               </div>
             </div>

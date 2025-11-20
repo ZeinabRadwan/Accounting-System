@@ -93,10 +93,6 @@
                     <i class="fas fa-print me-1"></i>
                     {{ $t("Print") }}
                   </button> -->
-                  <a :href="printTemplateUrl" target="_blank" class="btn print-btn mb-3" :disabled="!reportData">
-                    <i class="fas fa-print me-1"></i>
-
-                  </a>
                   <!-- <button v-if="reportData && reportData.trial_balance && reportData.trial_balance.length > 0"
                     @click="expandAll" class="btn btn-outline-success mb-3" :disabled="loading">
                     <i class="fas fa-expand-arrows-alt me-1"></i>
