@@ -10,26 +10,14 @@
           <div class="btn-group">
             <ul class="nav nav-pills">
               <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  href="#details"
-                  data-toggle="tab"
-                  @click="getPayroll"
-                >
+                <a class="nav-link active" href="#details" data-toggle="tab" @click="getPayroll">
                   <i class="fa fa-info"></i>
-                  {{ $t("Details") }}</a
-                >
+                  {{ $t("Details") }}</a>
               </li>
               <li class="nav-item">
-                <a
-                  @click="getActivity"
-                  class="nav-link"
-                  href="#activity-log"
-                  data-toggle="tab"
-                >
+                <a @click="getActivity" class="nav-link" href="#activity-log" data-toggle="tab">
                   <i class="nav-icon fa fa-bell" aria-hidden="true"></i>
-                  {{ $t("Activity log") }}</a
-                >
+                  {{ $t("Activity log") }}</a>
               </li>
             </ul>
           </div>
@@ -37,24 +25,15 @@
             <a @click="generatePDF()" href="#" class="btn btn-info">
               <i class="fas fa-download"></i> {{ $t("download") }}
             </a>
-            <a @click="printWindow()" href="#" class="btn btn-secondary">
-              <i class="fas fa-print"></i> {{ $t("Print") }}
-            </a>
-            <router-link
-              v-if="$can('payroll-edit')"
-              :to="{
-                name: 'payroll.edit',
-                params: { slug: allData.slug },
-              }"
-              class="btn btn-info"
-            >
+            <router-link v-if="$can('payroll-edit')" :to="{
+              name: 'payroll.edit',
+              params: { slug: allData.slug },
+            }" class="btn btn-info">
               <i class="fas fa-edit" /> {{ $t("Edit") }}
             </router-link>
-            <router-link
-              :to="{ name: 'payroll.index' }"
-              class="btn btn-info float-right"
-            >
-              <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+            <router-link :to="{ name: 'payroll.index' }" class="btn btn-info float-right">
+              <template
+                v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
                 {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
 
@@ -62,7 +41,8 @@
 
               <template v-else>
 
-                <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                <template
+                  v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
 
                   {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
@@ -97,9 +77,7 @@
                 <CompanyInfo />
               </div>
               <!-- /.col -->
-              <div
-                class="col-sm-8 invoice-col float-right text-md-right"
-              >
+              <div class="col-sm-8 invoice-col float-right text-md-right">
                 <div v-if="allData.employee && allData.employee.department">
                   <h5>{{ $t("Employee Details") }}</h5>
                   <strong>{{ $t("Emp ID") }}:</strong>
@@ -117,18 +95,13 @@
             </div>
             <!-- /.row -->
             <!-- Table row -->
-            <div
-              class="row"
-              v-if="
-                allData.employee &&
-                allData.transaction &&
-                allData.transaction.cashbook_account
-              "
-            >
+            <div class="row" v-if="
+              allData.employee &&
+              allData.transaction &&
+              allData.transaction.cashbook_account
+            ">
               <div class="col-12">
-                <strong class="mt-3 mb-2 d-block"
-                  >{{ $t("Payroll Details") }}:</strong
-                >
+                <strong class="mt-3 mb-2 d-block">{{ $t("Payroll Details") }}:</strong>
                 <div class="table-responsive table-custom">
                   <table class="table">
                     <thead>
@@ -143,12 +116,10 @@
                         <th v-if="allData.transaction">
                           {{ $t("Paid") }}
                         </th>
-                        <th
-                          v-if="
-                            allData.transaction &&
-                            allData.transaction.cashbook_account
-                          "
-                        >
+                        <th v-if="
+                          allData.transaction &&
+                          allData.transaction.cashbook_account
+                        ">
                           {{ $t("Account") }}
                         </th>
                         <th v-if="allData.transaction.cheque_no">
@@ -171,11 +142,7 @@
                       <tr>
                         <td v-if="allData.image">
                           <a href="#" id="show-modal" @click="showModal = true">
-                            <img
-                              :src="allData.image"
-                              class="rounded preview-sm"
-                              loading="lazy"
-                            />
+                            <img :src="allData.image" class="rounded preview-sm" loading="lazy" />
                           </a>
                         </td>
                         <td v-if="allData.employee">
@@ -185,14 +152,12 @@
                           {{ allData.salaryMonth }}
                         </td>
                         <td v-if="allData.transaction">
-                          {{ allData.transaction.amount  }} <span class="saudi-riyal">ê</span>
+                          {{ allData.transaction.amount }} <span class="saudi-riyal">ê</span>
                         </td>
-                        <td
-                          v-if="
-                            allData.transaction &&
-                            allData.transaction.cashbook_account
-                          "
-                        >
+                        <td v-if="
+                          allData.transaction &&
+                          allData.transaction.cashbook_account
+                        ">
                           {{
                             allData.transaction.cashbook_account.account_number
                           }}
@@ -205,11 +170,7 @@
                         </td>
                         <td v-if="allData.note">{{ allData.note }}</td>
                         <td>
-                          <span
-                            v-if="allData.status === 1"
-                            class="badge bg-success"
-                            >{{ $t("Active") }}</span
-                          >
+                          <span v-if="allData.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
                           <span v-else class="badge bg-danger">{{
                             $t("Inactive")
                           }}</span>
@@ -231,87 +192,84 @@
 
             <!-- /.row -->
             <div class="row mb-5 mt-4">
-              <div
-                class="offset-xl-8 col-lg-12 col-xl-4 text-xl-right"
-                v-if="allData.employee && allData.transaction"
-              >
+              <div class="offset-xl-8 col-lg-12 col-xl-4 text-xl-right" v-if="allData.employee && allData.transaction">
                 <div class="table-responsive table-custom table-border-y-0">
                   <table class="table">
                     <tbody>
                       <tr class="bg-gray-light">
                         <th>{{ $t("Present Salary") }}:</th>
                         <td>
-                          {{ allData.employee.totalSalary  }} <span class="saudi-riyal">ê</span>
+                          {{ allData.employee.totalSalary }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Deduction Amount") }}:</th>
                         <td>
                           <span class="minus-sign">-</span>
-                          {{ allData.deductionAmount  }} <span class="saudi-riyal">ê</span>
+                          {{ allData.deductionAmount }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Mobile Bill") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.mobileBill  }} <span class="saudi-riyal">ê</span>
+                          {{ allData.mobileBill }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Food Bill") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.foodBill  }} <span class="saudi-riyal">ê</span>
+                          {{ allData.foodBill }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Bonus") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.bonus  }} <span class="saudi-riyal">ê</span>
+                          {{ allData.bonus }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Commission") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.commission  }} <span class="saudi-riyal">ê</span>
+                          {{ allData.commission }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Advance") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.advance  }} <span class="saudi-riyal">ê</span>
+                          {{ allData.advance }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Festival Bonus") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.festivalBonus  }} <span class="saudi-riyal">ê</span>
+                          {{ allData.festivalBonus }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Travel Allowance(TA)") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.travelAllowance  }} <span class="saudi-riyal">ê</span>
+                          {{ allData.travelAllowance }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
                         <th>{{ $t("Others") }}:</th>
                         <td>
                           <span class="plus-sign">+</span>
-                          {{ allData.others  }} <span class="saudi-riyal">ê</span>
+                          {{ allData.others }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr v-if="allData.transaction" class="bg-indigo-light">
                         <th>{{ $t("Total") }}:</th>
                         <td>
                           <span class="equal-sign">=</span>
-                          {{ allData.transaction.amount  }} <span class="saudi-riyal">ê</span>
+                          {{ allData.transaction.amount }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                     </tbody>
@@ -336,20 +294,8 @@
             </div>
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100">
-                <a
-                  @click="refreshTable()"
-                  href="#"
-                  v-tooltip="$t('Refresh')"
-                  class="btn btn-success"
-                >
+                <a @click="refreshTable()" href="#" v-tooltip="$t('Refresh')" class="btn btn-success">
                   <i class="fas fa-sync"></i>
-                </a>
-                <a
-                  @click="print"
-                  v-tooltip="$t('Print Table')"
-                  class="btn btn-info"
-                >
-                  <i class="fas fa-print"></i>
                 </a>
               </div>
             </div>
@@ -358,40 +304,18 @@
           <div class="card-body position-relative">
             <div class="row">
               <div class="col-6 col-xl-4 mb-2">
-                <search
-                  v-model="query"
-                  @reset-pagination="resetPagination()"
-                  @reload="reload"
-                />
+                <search v-model="query" @reset-pagination="resetPagination()" @reload="reload" />
               </div>
             </div>
             <div id="printMe" class="table-responsive table-custom mt-3">
-              <div
-                v-show="items.length > 0"
-                v-for="(data, i) in items"
-                :key="i"
-              >
+              <div v-show="items.length > 0" v-for="(data, i) in items" :key="i">
                 <div class="card mb-0 border border-gray">
                   <div class="card-body py-1">
                     <div class="row">
-                      <div
-                        class="col-1 d-flex justify-content-center align-items-center"
-                      >
-                        <i
-                          v-if="data.event == 'Update'"
-                          class="fa fa-magic"
-                          aria-hidden="true"
-                        ></i>
-                        <i
-                          v-if="data.event == 'Create'"
-                          class="fa fa-plus-circle"
-                          aria-hidden="true"
-                        ></i>
-                        <i
-                          v-if="data.event == 'Delete'"
-                          class="fa fa-trash"
-                          aria-hidden="true"
-                        ></i>
+                      <div class="col-1 d-flex justify-content-center align-items-center">
+                        <i v-if="data.event == 'Update'" class="fa fa-magic" aria-hidden="true"></i>
+                        <i v-if="data.event == 'Create'" class="fa fa-plus-circle" aria-hidden="true"></i>
+                        <i v-if="data.event == 'Delete'" class="fa fa-trash" aria-hidden="true"></i>
                       </div>
                       <div class="col-11">
                         <div class="row">
@@ -420,11 +344,7 @@
               <div class="form-group row display-per-page">
                 <label>{{ $t("per_page") }} </label>
                 <div>
-                  <select
-                    @change="updatePerPager"
-                    v-model="perPage"
-                    class="form-control form-control-sm ml-1"
-                  >
+                  <select @change="updatePerPager" v-model="perPage" class="form-control form-control-sm ml-1">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
@@ -433,13 +353,8 @@
                 </div>
               </div>
               <!-- pagination-start -->
-              <pagination
-                v-if="pagination && pagination.last_page > 1"
-                :pagination="pagination"
-                :offset="5"
-                class="justify-flex-end"
-                @paginate="paginate"
-              />
+              <pagination v-if="pagination && pagination.last_page > 1" :pagination="pagination" :offset="5"
+                class="justify-flex-end" @paginate="paginate" />
               <!-- pagination-end -->
             </div>
           </div>

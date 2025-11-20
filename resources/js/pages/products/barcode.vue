@@ -120,9 +120,6 @@
             <h3 class="card-title">
               {{ $t('Print Barcode') }}
             </h3>
-            <button class="btn btn-info float-right" @click="print">
-              <i class="fas fa-print" /> {{ $t('Print') }}
-            </button>
           </div>
           <div class="barcode-wrapper card-body" id="printMe">
             <div class="print-page-layout display-grid" :class="perPage" v-for="(pageNumber, i) in pages" :key="i">

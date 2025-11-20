@@ -799,7 +799,7 @@
   "Available CC Loan": "उपलब्ध सीसी ऋण",
   "All Loans": "सभी ऋण",
   "No loans are available yet!": "अभी तक कोई ऋण उपलब्ध नहीं है!",
-  "You haven't added any loan for this authority. After adding loans you will see the list here.": "आपने इस प्राधिकरण के लिए कोई ऋण नहीं जोड़ा है. ",
+  "You haven't added any loan for this authority.": "आपने इस प्राधिकरण के लिए कोई ऋण नहीं जोड़ा है. ",
   "Authority Details": "प्राधिकरण विवरण",
   "Payable Amount": "देय राशि",
   "Duration": "अवधि",

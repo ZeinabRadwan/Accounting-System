@@ -79,17 +79,6 @@
                       />
                     </svg>
                   </a>
-                  <a
-                    v-if="$can('purchase-edit') ||
-                      $can('purchase-view') ||
-                      $can('purchase-delete')
-                      "
-                    @click="print"
-                    v-tooltip="$t('Print Table')"
-                    class="btn print-btn"
-                  >
-                    <i class="fas fa-print"></i>
-                  </a>
                   <router-link v-if="$can('purchase-create')" :to="{ name: 'purchases.create' }" class="btn btn-primary">
                     {{ $t("Create") }}
                     <i class="fas fa-plus-circle d-none d-sm-inline-block" />

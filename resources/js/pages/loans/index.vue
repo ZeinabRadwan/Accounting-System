@@ -75,13 +75,6 @@
                       />
                     </svg>
                   </a>
-                  <a
-                    @click="print"
-                    v-tooltip="$t('Print Table')"
-                    class="btn print-btn"
-                  >
-                    <i class="fas fa-print"></i>
-                  </a>
                   <router-link v-if="$can('loan-create')" :to="{ name: 'loans.create' }" class="btn btn-primary">
                     {{ $t("Create") }}
                     <i class="fas fa-plus-circle d-none d-sm-inline-block" />
@@ -150,10 +143,10 @@
                     <td>{{ data.payable  }} <span class="saudi-riyal">ê</span></td>
                     <td>{{ data.due  }} <span class="saudi-riyal">ê</span></td>
                     <td>
-                      <div style="width: 130px;">
+                      <span style="width: 130px; display: inline-block;">
                         <CurrencyDisplay :amount="data.perMonth" />
-                        <div> {{ $t('Per Month') }} X {{ data.duration }} </div>
-                      </div>
+                        <span> {{ $t('Per Month') }} X {{ data.duration }} </span>
+                      </span>
                     </td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{

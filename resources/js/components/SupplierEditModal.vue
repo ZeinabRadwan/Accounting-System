@@ -3,7 +3,12 @@
     <VModal v-model="showSupplierEditModal" @close="closeModal">
       <template v-slot:title>{{ $t("Edit Supplier") }}</template>
       <template>
-        <SupplierForm ref="supplierForm" :showCardBody="false" :initialData="supplierData" />
+        <SupplierForm
+          ref="supplierForm"
+          :showCardBody="false"
+          :initialData="supplierData"
+          :fullWidthSections="true"
+        />
         <div slot="modal-footer">
           <button @click="submitItem($event)" :disabled="isSubmitting" class="btn btn-success">
             <i v-if="isSubmitting" class="fas fa-spinner fa-spin"></i>

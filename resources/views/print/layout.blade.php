@@ -45,23 +45,18 @@
             font-family: 'DINNextLTArabic' !important;
             padding: 5mm !important;
             font-size:
-                {{ $template->template_config['typography']['baseFontSize'] ?? 14 }}
-                px;
+                {{ $template->template_config['typography']['baseFontSize'] ?? 14 }} px;
             line-height: 1.6;
             color:
-                {{ $template->template_config['colors']['secondary'] ?? '#6b7280' }}
-            ;
+                {{ $template->template_config['colors']['secondary'] ?? '#6b7280' }};
             background:
-                {{ $template->template_config['colors']['background'] ?? '#ffffff' }}
-            ;
+                {{ $template->template_config['colors']['background'] ?? '#ffffff' }};
             margin: 0;
             padding:
-                {{ $template->template_config['layout']['margins'] ?? 20 }}
-                mm;
+                {{ $template->template_config['layout']['margins'] ?? 20 }} mm;
             min-height: 100vh;
             direction:
-                {{ $isRTL ? 'rtl' : 'ltr' }}
-            ;
+                {{ $isRTL ? 'rtl' : 'ltr' }};
         }
 
         .arabic-text {
@@ -70,7 +65,7 @@
             text-align: right;
         }
 
-        @if($isRTL)
+        @if ($isRTL)
             .document-header>div {
                 flex-direction: row-reverse;
             }
@@ -96,7 +91,8 @@
                 text-align: center !important;
             }
 
-        @endif .document-container {
+        @endif
+        .document-container {
             max-width: 800px;
             margin: 0 auto;
         }
@@ -105,8 +101,7 @@
         h2,
         h3 {
             color:
-                {{ $template->template_config['colors']['primary'] ?? '#2563eb' }}
-            ;
+                {{ $template->template_config['colors']['primary'] ?? '#2563eb' }};
         }
 
         /* ✅ Saudi Riyal symbol kept intact */
@@ -141,8 +136,7 @@
             body {
                 margin: 0 !important;
                 padding:
-                    {{ $template->template_config['layout']['margins'] ?? 20 }}
-                    mm !important;
+                    {{ $template->template_config['layout']['margins'] ?? 20 }} mm !important;
                 font-family: 'DINNextLTArabic' !important;
             }
 
@@ -213,8 +207,7 @@
 
         .document-title {
             font-size:
-                {{ $template->template_config['typography']['headerFontSize'] ?? 24 }}
-                px;
+                {{ $template->template_config['typography']['headerFontSize'] ?? 24 }} px;
             font-weight: 700;
             margin-bottom: 15px;
         }
@@ -317,7 +310,7 @@
         }
     </style>
 
-    @if($template && $template->css_styles)
+    @if ($template && $template->css_styles)
         <style>
             {!! $template->css_styles !!}
         </style>
@@ -326,9 +319,6 @@
 
 <body>
     <div class="action-buttons no-print">
-        <button class="print-button" onclick="window.print()">
-            <i class="fas fa-print"></i> @lang('print.Print Document')
-        </button>
         <button class="pdf-button" onclick="downloadPDF()">
             <i class="fas fa-download"></i> @lang('print.Download PDF')
         </button>
@@ -362,18 +352,18 @@
             const currentPath = window.location.pathname;
             let pdfUrl = '';
             let type = '';
-            
+
             // For account-statement, use backend route with query parameters
             if (currentPath.includes('/print/reports/account-statement')) {
                 // Get all query parameters from current URL
                 const urlParams = new URLSearchParams(window.location.search);
-                const pdfUrl = '{{ route("print.reports.account-statement.pdf") }}?' + urlParams.toString();
+                const pdfUrl = '{{ route('print.reports.account-statement.pdf') }}?' + urlParams.toString();
                 window.location.href = pdfUrl;
                 return;
             }
-            
+
             // For other types, use the existing html2pdf method
-            (async function () {
+            (async function() {
                 if (currentPath.includes('/print/invoice/')) {
                     type = 'invoice';
                 } else if (currentPath.includes('/print/purchase/')) {
@@ -394,7 +384,10 @@
                     const options = {
                         margin: 0, // let your CSS handle the margins
                         filename: fileName,
-                        image: { type: 'jpeg', quality: 0.98 },
+                        image: {
+                            type: 'jpeg',
+                            quality: 0.98
+                        },
                         html2canvas: {
                             scale: 3,
                             useCORS: true,
@@ -409,7 +402,7 @@
                             orientation: 'portrait',
                         },
                         pagebreak: {
-                            mode: [ 'css', 'legacy'],
+                            mode: ['css', 'legacy'],
                             before: '.page-break', // optional helper class
                         },
                     };
@@ -435,7 +428,7 @@
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
-                        success: function (response) {
+                        success: function(response) {
                             debugger;
                             if (response.success == true) {
 
@@ -450,7 +443,7 @@
                                 document.body.removeChild(link);
                             }
                         },
-                        error: function (xhr, status, error) {
+                        error: function(xhr, status, error) {
                             console.error('Upload failed:', error);
                         }
                     });

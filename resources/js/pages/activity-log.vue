@@ -1,15 +1,12 @@
 <template>
   <div class="mb-50">
     <div class="row">
-      <div
-        class="col-lg-12"
-        v-if="
-          $can('expense-category-list') ||
-          $can('expense-category-create') ||
-          $can('expense-category-edit') ||
-          $can('expense-category-delete')
-        "
-      >
+      <div class="col-lg-12" v-if="
+        $can('expense-category-list') ||
+        $can('expense-category-create') ||
+        $can('expense-category-edit') ||
+        $can('expense-category-delete')
+      ">
         <div class="card custom-card w-100">
           <div class="card-header setings-header">
             <!-- breadcrumbs Start -->
@@ -22,20 +19,8 @@
             </div>
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100">
-                <a
-                  @click="refreshTable()"
-                  href="#"
-                  v-tooltip="$t('Refresh')"
-                  class="btn btn-success"
-                >
+                <a @click="refreshTable()" href="#" v-tooltip="$t('Refresh')" class="btn btn-success">
                   <i class="fas fa-sync"></i>
-                </a>
-                <a
-                  @click="print"
-                  v-tooltip="$t('Print Table')"
-                  class="btn btn-info"
-                >
-                  <i class="fas fa-print"></i>
                 </a>
               </div>
             </div>
@@ -44,29 +29,13 @@
           <div class="card-body position-relative">
             <div class="row">
               <div class="col-6 col-xl-4 mb-2">
-                <search
-                  v-model="query"
-                  @reset-pagination="resetPagination()"
-                  @reload="reload"
-                />
+                <search v-model="query" @reset-pagination="resetPagination()" @reload="reload" />
               </div>
               <div class="col-6 col-xl-8 mb-2 text-right">
-                <date-range-picker
-                  ref="picker"
-                  opens="left"
-                  :locale-data="locale"
-                  :minDate="minDate"
-                  :maxDate="maxDate"
-                  :singleDatePicker="false"
-                  :showWeekNumbers="false"
-                  :showDropdowns="true"
-                  :autoApply="true"
-                  v-model="dateRange"
-                  @update="updateValues"
-                  :linkedCalendars="true"
-                  class="c-w-100"
-                  style="display: none;"
-                >
+                <date-range-picker ref="picker" opens="left" :locale-data="locale" :minDate="minDate" :maxDate="maxDate"
+                  :singleDatePicker="false" :showWeekNumbers="false" :showDropdowns="true" :autoApply="true"
+                  v-model="dateRange" @update="updateValues" :linkedCalendars="true" class="c-w-100"
+                  style="display: none;">
                   <template v-slot:input="picker" style="min-width: 350px">
                     {{ picker.startDate | startDate }} -
                     {{ picker.endDate | endDate }}
@@ -76,40 +45,19 @@
             </div>
             <table-loading v-show="loading" />
             <div id="printMe" class="table-responsive table-custom mt-3">
-              <div
-                v-show="items.length > 0"
-                v-for="(data, i) in items"
-                :key="i"
-              >
+              <div v-show="items.length > 0" v-for="(data, i) in items" :key="i">
                 <div class="card mb-0 border border-gray">
                   <div class="card-body py-1">
                     <div class="row">
-                      <div
-                        class="col-1 d-flex justify-content-center align-items-center"
-                      >
-                        <i
-                          v-if="data.event == 'Update'"
-                          class="fa fa-magic"
-                          aria-hidden="true"
-                        ></i>
-                        <i
-                          v-if="data.event == 'Create'"
-                          class="fa fa-plus-circle"
-                          aria-hidden="true"
-                        ></i>
-                        <i
-                          v-if="data.event == 'Delete'"
-                          class="fa fa-trash"
-                          aria-hidden="true"
-                        ></i>
+                      <div class="col-1 d-flex justify-content-center align-items-center">
+                        <i v-if="data.event == 'Update'" class="fa fa-magic" aria-hidden="true"></i>
+                        <i v-if="data.event == 'Create'" class="fa fa-plus-circle" aria-hidden="true"></i>
+                        <i v-if="data.event == 'Delete'" class="fa fa-trash" aria-hidden="true"></i>
                       </div>
 
                       <div class="col-11">
                         <div v-if="data.routeName && data.slug" class="row">
-                          <a
-                            :href="jumpToViewPage(data.routeName, data.slug)"
-                            target="_blank"
-                          >
+                          <a :href="jumpToViewPage(data.routeName, data.slug)" target="_blank">
                             <div class="col-12">
                               <p class="text-bold mb-0">
                                 {{ data.causer_name }}
@@ -156,11 +104,7 @@
             <div class="form-group row display-per-page">
               <label>{{ $t("per_page") }} </label>
               <div>
-                <select
-                  @change="updatePerPager"
-                  v-model="perPage"
-                  class="form-control form-control-sm ml-1"
-                >
+                <select @change="updatePerPager" v-model="perPage" class="form-control form-control-sm ml-1">
                   <option value="10">10</option>
                   <option value="25">25</option>
                   <option value="50">50</option>
@@ -169,13 +113,8 @@
               </div>
             </div>
             <!-- pagination-start -->
-            <pagination
-              v-if="pagination && pagination.last_page > 1"
-              :pagination="pagination"
-              :offset="5"
-              class="justify-flex-end"
-              @paginate="paginate"
-            />
+            <pagination v-if="pagination && pagination.last_page > 1" :pagination="pagination" :offset="5"
+              class="justify-flex-end" @paginate="paginate" />
             <!-- pagination-end -->
           </div>
         </div>
@@ -353,7 +292,7 @@ export default {
         text: this.$t("You will not be able to return to this!"),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
+        confirmButtonText: this.$t("Confirm"), cancelButtonText: this.$t("Cancel"),
       }).then((result) => {
         // Send request to the server
         if (result.value) {

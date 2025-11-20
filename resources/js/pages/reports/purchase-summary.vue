@@ -125,14 +125,6 @@
                       >
                         <i class="fas fa-eye"></i>
                       </button>
-                      <a 
-                        v-if="reportData && reportData.summary" 
-                        :href="printTemplateUrl" 
-                        target="_blank" 
-                        class="btn print-btn ml-2"
-                      >
-                        <i class="fas fa-print"></i> 
-                      </a>
                     </div>
                   </div>
                 </form>
@@ -875,7 +867,6 @@ export default {
 .info-box {
   display: flex;
   align-items: center;
-  padding: 1rem;
   margin-bottom: 1rem;
   background: #fff;
   border: 1px solid #dee2e6;

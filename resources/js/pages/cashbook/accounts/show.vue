@@ -11,7 +11,6 @@
             <i class="fas fa-download"></i> {{ $t("Download") }}
           </a>
 
-          <a href="#" @click="printWindow" class="btn btn-info"><i class="fas fa-print"></i> {{ $t("Print") }}</a>
           <router-link :to="{ name: 'accounts.index' }" class="btn btn-info float-right">
             <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 

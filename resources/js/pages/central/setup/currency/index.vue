@@ -14,17 +14,14 @@
                         <div class="col-xl-4 col-4">
                             <h3 class="card-title">
                                 {{
-            $t(
-                'Currency Settings'
-            )
-        }}
+                                    $t(
+                                'Currency Settings'
+                                )
+                                }}
                             </h3>
                         </div>
                         <div class="col-xl-8 col-8 float-right text-right">
                             <div class="btn-group">
-                                <a @click="print" v-tooltip="$t('Print Table')" class="btn btn-info">
-                                    <i class="fas fa-print"></i>
-                                </a>
                                 <router-link :to="{ name: 'currency.create' }" class="btn btn-primary">
                                     {{ $t('Create') }}
                                     <i class="fas fa-plus-circle d-none d-sm-inline-block" />
@@ -55,13 +52,13 @@
                                     <tr v-show="items.length" v-for="(data, i) in items" :key="i">
                                         <td>
                                             <span v-if="pagination.current_page > 1
-            ">
+                                            ">
                                                 {{
-            pagination.per_page *
-            (pagination.current_page -
-                1) +
-            (i + 1)
-        }}
+                                                    pagination.per_page *
+                                                    (pagination.current_page -
+                                                1) +
+                                                (i + 1)
+                                                }}
                                             </span>
                                             <span v-else>{{ i + 1 }}</span>
                                         </td>
@@ -78,22 +75,23 @@
                                         </td>
                                         <td>
                                             <span v-if="data.status === 1" class="badge bg-success">{{
-            $t("Active") }}</span>
+                                                $t("Active") }}</span>
                                             <span v-else class="badge bg-danger">{{
-            $t("Inactive")
-        }}</span>
+                                                $t("Inactive")
+                                                }}</span>
                                         </td>
                                         <td class="text-right no-print">
                                             <div class="btn-group">
                                                 <router-link v-tooltip="$t('Edit')" :to="{
-                name: 'currency.edit',
-                params: { slug: data.slug },
-            }" class="btn btn-info btn-sm">
+                                                    name: 'currency.edit',
+                                                    params: { slug: data.slug },
+                                                }" class="btn btn-info btn-sm">
                                                     <i class="fas fa-edit" />
                                                 </router-link>
                                                 <!-- Payment method's currency can not be deleted -->
-                                                <a v-if="appInfo.currency.symbol != data.symbol && data.code != 'NGN' && data.code != 'usd'" v-tooltip="$t('Delete')" href="#"
-                                                    class="btn btn-danger btn-sm" @click="deleteData(data.slug)">
+                                                <a v-if="appInfo.currency.symbol != data.symbol && data.code != 'NGN' && data.code != 'usd'"
+                                                    v-tooltip="$t('Delete')" href="#" class="btn btn-danger btn-sm"
+                                                    @click="deleteData(data.slug)">
                                                     <i class="fas fa-trash" />
                                                 </a>
                                             </div>
@@ -213,13 +211,13 @@ export default {
         },
 
         // delete data
-        async deleteData(slug) {    
+        async deleteData(slug) {
             Swal.fire({
                 title: this.$t("Are you sure?"),
                 text: this.$t("You will not be able to return to this!"),
                 type: "warning",
                 showCancelButton: true,
-                confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
+                confirmButtonText: this.$t("Confirm"), cancelButtonText: this.$t("Cancel"),
             }).then((result) => {
                 // Send request to the server
                 if (result.value) {
@@ -276,6 +274,7 @@ export default {
     padding: 0 0 0 10px;
     flex-direction: column;
 }
+
 .card-footer .form-group.row.display-per-page {
     display: flex;
     gap: 10px;
@@ -284,4 +283,3 @@ export default {
     align-items: center;
 }
 </style>
-

@@ -799,7 +799,7 @@
   "Available CC Loan": "CC대출 가능",
   "All Loans": "모든 대출",
   "No loans are available yet!": "아직 대출이 없습니다!",
-  "You haven't added any loan for this authority. After adding loans you will see the list here.": "이 기관에 대한 대출을 추가하지 않았습니다. ",
+  "You haven't added any loan for this authority.": "이 기관에 대한 대출을 추가하지 않았습니다. ",
   "Authority Details": "권한 세부정보",
   "Payable Amount": "지급금액",
   "Duration": "지속",

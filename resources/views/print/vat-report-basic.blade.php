@@ -1,9 +1,10 @@
 @php
     $currentLocale = app()->getLocale();
     $isRTL = $currentLocale === 'ar';
-    
+
     // Custom currency formatter for PDF - no currency symbols as requested
-    function formatPdfCurrency($amount) {
+    function formatPdfCurrency($amount)
+    {
         $formattedAmount = number_format($amount, 2, '.', ',');
         return $formattedAmount; // Return only the amount without currency symbol
     }
@@ -11,6 +12,7 @@
 
 <!DOCTYPE html>
 <html lang="{{ $currentLocale }}" dir="{{ $isRTL ? 'rtl' : 'ltr' }}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,38 +24,47 @@
             line-height: 1.6;
             color: #333;
         }
+
         .currency-symbol {
             font-family: "DejaVu Sans", "Arial Unicode MS", "Tahoma", sans-serif;
         }
+
         .header {
             text-align: center;
             margin-bottom: 30px;
             padding-bottom: 20px;
             border-bottom: 2px solid #2563eb;
         }
+
         .header h1 {
             color: #2563eb;
             margin: 0 0 10px 0;
         }
+
         .period-info {
             color: #6b7280;
             margin: 10px 0;
         }
+
         .table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
         }
-        .table th, .table td {
+
+        .table th,
+        .table td {
             border: 1px solid #e5e7eb;
             padding: 8px 12px;
             text-align: center;
         }
+
         .table th {
             background: #f8fafc;
             color: #2563eb;
             font-weight: bold;
         }
+
         .section-title {
             color: #2563eb;
             margin: 30px 0 15px 0;
@@ -61,11 +72,14 @@
             border-bottom: 1px solid #e5e7eb;
             padding-bottom: 5px;
         }
+
         .action-buttons {
             margin: 20px 0;
             text-align: center;
         }
-        .print-button, .pdf-button {
+
+        .print-button,
+        .pdf-button {
             background: #007bff;
             color: white;
             border: none;
@@ -77,9 +91,11 @@
             text-decoration: none;
             display: inline-block;
         }
+
         .pdf-button {
             background: #28a745;
         }
+
         .alert {
             background: #e0f2fe;
             border: 1px solid #0288d1;
@@ -88,19 +104,20 @@
             border-radius: 5px;
             margin: 20px 0;
         }
+
         @media print {
-            .no-print, .action-buttons {
+
+            .no-print,
+            .action-buttons {
                 display: none !important;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- Action Buttons -->
     <div class="action-buttons no-print">
-        <button class="print-button" onclick="window.print()">
-            <i class="fas fa-print"></i> @lang('print.Print')
-        </button>
         <button class="pdf-button" onclick="downloadPDF()">
             <i class="fas fa-download"></i> @lang('print.Download PDF')
         </button>
@@ -110,16 +127,17 @@
         <h1>@lang('print.VAT Report')</h1>
         <div class="period-info">
             @lang('print.Generated'): {{ date('d-M-Y') }}
-            @if(isset($vatReportData['filters']['from_date']) && isset($vatReportData['filters']['to_date']))
-                <br>@lang('print.Period'): {{ $vatReportData['filters']['from_date'] }} - {{ $vatReportData['filters']['to_date'] }}
+            @if (isset($vatReportData['filters']['from_date']) && isset($vatReportData['filters']['to_date']))
+                <br>@lang('print.Period'): {{ $vatReportData['filters']['from_date'] }} -
+                {{ $vatReportData['filters']['to_date'] }}
             @endif
         </div>
     </div>
 
     <!-- VAT Summary -->
-    @if(isset($vatReportData['summary']) && count($vatReportData['summary']) > 0)
+    @if (isset($vatReportData['summary']) && count($vatReportData['summary']) > 0)
         <h2 class="section-title">@lang('print.VAT Summary')</h2>
-        
+
         <table class="table">
             <thead>
                 <tr>
@@ -143,7 +161,7 @@
                         <td>{!! formatPdfCurrency($summary['purchase_vat'] ?? 0) !!}</td>
                         <td>{!! formatPdfCurrency($summary['journal_vat'] ?? 0) !!}</td>
                         <td>
-                            @if(($summary['net_vat'] ?? 0) >= 0)
+                            @if (($summary['net_vat'] ?? 0) >= 0)
                                 <span style="color: #059669;">
                                     {!! formatPdfCurrency($summary['net_vat'] ?? 0) !!}
                                 </span>
@@ -160,9 +178,9 @@
     @endif
 
     <!-- VAT Transactions -->
-    @if(isset($vatReportData['transactions']) && count($vatReportData['transactions']) > 0)
+    @if (isset($vatReportData['transactions']) && count($vatReportData['transactions']) > 0)
         <h2 class="section-title">@lang('print.VAT Transactions')</h2>
-        
+
         <table class="table">
             <thead>
                 <tr>
@@ -193,7 +211,9 @@
         </div>
     @endif
 
-    @if((!isset($vatReportData['summary']) || count($vatReportData['summary']) === 0) && (!isset($vatReportData['transactions']) || count($vatReportData['transactions']) === 0))
+    @if (
+        (!isset($vatReportData['summary']) || count($vatReportData['summary']) === 0) &&
+            (!isset($vatReportData['transactions']) || count($vatReportData['transactions']) === 0))
         <div class="alert">
             @lang('print.No VAT data found for the selected period.')
         </div>
@@ -203,13 +223,13 @@
         function downloadPDF() {
             // Get current URL parameters to maintain filters
             const urlParams = new URLSearchParams(window.location.search);
-            
+
             // Build PDF URL with same parameters
             let pdfUrl = '/vat-report/pdf';
             if (urlParams.toString()) {
                 pdfUrl += '?' + urlParams.toString();
             }
-            
+
             // Create a temporary link to download the PDF
             const link = document.createElement('a');
             link.href = pdfUrl;
@@ -220,4 +240,5 @@
         }
     </script>
 </body>
+
 </html>

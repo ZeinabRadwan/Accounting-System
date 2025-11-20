@@ -3,15 +3,11 @@
     <VModal v-model="showSupplierCreateModal" @close="showSupplierCreateModal = false">
       <template v-slot:title>{{ $t("Create Supplier") }}</template>
       <template>
-        <SupplierForm 
-          ref="supplierForm"
-          :showCardBody="false"
-          @submit="saveSupplier"
-        />
+        <SupplierForm ref="supplierForm" :showCardBody="false" :fullWidthSections="true" @submit="saveSupplier" />
         <div slot="modal-footer">
           <button @click="submitItem($event)" :disabled="isSubmitting" class="btn btn-success">
             <i v-if="isSubmitting" class="fas fa-spinner fa-spin"></i>
-            <i v-else class="fas fa-save"></i> 
+            <i v-else class="fas fa-save"></i>
             {{ isSubmitting ? $t("Saving...") : $t("Save") }}
           </button>
         </div>
@@ -41,9 +37,9 @@ export default {
     // save supplier
     async saveSupplier() {
       if (this.isSubmitting) return;
-      
+
       this.isSubmitting = true;
-      
+
       try {
         // Validate the form
         if (!this.$refs.supplierForm.validateForm()) {
@@ -53,7 +49,7 @@ export default {
 
         // Get the form data from the SupplierForm component
         const formData = this.$refs.supplierForm.getFormData();
-        
+
         // Build multipart/form-data to properly send files and handle boolean conversion
         const fd = new FormData();
 
@@ -85,34 +81,34 @@ export default {
         appendIfDefined('notes', formData.notes);
         appendIfDefined('displayLanguage', formData.displayLanguage);
         appendIfDefined('type', formData.type);
-        
+
         // CRITICAL: Always append taxStatus - don't use appendIfDefined to ensure it's always sent
         // Get taxStatus from formData, or try to get it from form object if available
         let taxStatusValue = formData.taxStatus || formData.tax_status;
-        
+
         console.log('SupplierCreateModal - Initial taxStatus check:', {
           formDataTaxStatus: formData.taxStatus,
           formDataTax_status: formData.tax_status,
           currentTaxStatusValue: taxStatusValue
         });
-        
+
         // If still not found, try to get it from the form component
         if (!taxStatusValue && this.$refs.supplierForm && this.$refs.supplierForm.form) {
           taxStatusValue = this.$refs.supplierForm.form.taxStatus;
           console.log('SupplierCreateModal - Got taxStatus from form object:', taxStatusValue);
         }
-        
+
         // Default to non_taxable if still not found
         taxStatusValue = taxStatusValue || 'non_taxable';
-        
+
         console.log('SupplierCreateModal - Final taxStatusValue before appending:', taxStatusValue);
-        
+
         // Always append taxStatus - never skip it, even if it's the default value
         // CRITICAL: Use explicit string conversion and ensure it's never null/undefined
         const taxStatusToSend = String(taxStatusValue || 'non_taxable');
         fd.append('taxStatus', taxStatusToSend);
         fd.append('tax_status', taxStatusToSend);
-        
+
         console.log('=== SUPPLIER CREATE MODAL - APPENDING TAX STATUS ===');
         console.log('SupplierCreateModal - taxStatusValue:', taxStatusValue);
         console.log('SupplierCreateModal - taxStatusToSend:', taxStatusToSend);
@@ -120,11 +116,11 @@ export default {
         console.log('SupplierCreateModal - formData.taxStatus:', formData.taxStatus);
         console.log('SupplierCreateModal - formData.tax_status:', formData.tax_status);
         console.log('SupplierCreateModal - form.taxStatus:', this.$refs.supplierForm?.form?.taxStatus);
-        
+
         // Verify it was added
         console.log('SupplierCreateModal - FormData has taxStatus:', fd.has('taxStatus'));
         console.log('SupplierCreateModal - FormData has tax_status:', fd.has('tax_status'));
-        
+
         appendIfDefined('fullName', formData.fullName);
         appendIfDefined('businessName', formData.businessName);
         appendIfDefined('companyName', formData.businessName);
@@ -144,7 +140,7 @@ export default {
         appendIfDefined('commercialRegister', formData.commercialRegister);
         appendIfDefined('taxCard', formData.taxCard);
         appendIfDefined('status', formData.status);
-        
+
         // Saudi National Address Fields
         appendIfDefined('buildingNumber', formData.buildingNumber);
         appendIfDefined('streetNumber', formData.streetNumber);
@@ -152,7 +148,19 @@ export default {
         appendIfDefined('unitNumber', formData.unitNumber);
         appendIfDefined('additionalNumber', formData.additionalNumber);
         appendIfDefined('taxRegistrationNumber', formData.taxRegistrationNumber || formData.taxCard);
-        
+
+        // Handle name field - always required when type is Individual
+        const name = formData.name || (formData.type === 'Individual' ? formData.fullName : formData.businessName);
+        if (name) {
+          fd.append('name', name);
+        }
+
+        // Handle address field
+        const address = formData.address || formData.streetAddress1;
+        if (address) {
+          fd.append('address', address);
+        }
+
         // Convert boolean values to integers for Laravel validation
         appendIfDefined('isSendEmail', formData.isSendEmail ? 1 : 0);
         appendIfDefined('isSendSMS', formData.isSendSMS ? 1 : 0);
@@ -194,7 +202,7 @@ export default {
         const response = await this.$http.post("/api/suppliers", fd, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
-        
+
         if (response.data.success) {
           toast.fire({
             type: "success",
@@ -211,28 +219,28 @@ export default {
         console.error("Error creating supplier:", error);
         const status = error && error.response && error.response.status;
         const serverErrors = error && error.response && error.response.data && error.response.data.errors;
-        
+
         if (status === 422 && serverErrors && this.$refs.supplierForm) {
           // Get form object directly from SupplierForm component
           const form = this.$refs.supplierForm.form;
           const errorMessages = [];
-          
+
           // Prepare errors object for vform
           const errorsObject = {};
-          
+
           Object.keys(serverErrors).forEach((key) => {
             const messages = serverErrors[key];
             if (Array.isArray(messages) && messages.length > 0) {
               // Translate messages before adding to errorsObject
               const translatedMessages = messages.map(msg => this.translateValidationMessage(msg, key));
               errorsObject[key] = translatedMessages;
-              
+
               // Collect error messages for toast notification
               const fieldLabel = this.getFieldLabel(key);
               translatedMessages.forEach(msg => {
                 errorMessages.push(`${fieldLabel}: ${msg}`);
               });
-              
+
               // Also map attachments.* to attachments field for UI display
               if (key.startsWith('attachments.')) {
                 if (!errorsObject.attachments) {
@@ -241,7 +249,7 @@ export default {
               }
             }
           });
-          
+
           // Set errors on form using vform's set method
           if (form && form.errors && typeof form.errors.set === 'function') {
             form.errors.set(errorsObject);
@@ -257,17 +265,17 @@ export default {
           } else {
             console.warn('SupplierCreateModal - Form errors object not available or invalid');
           }
-          
+
           // Show detailed error messages in toast
-          const errorTitle = errorMessages.length > 0 
+          const errorTitle = errorMessages.length > 0
             ? errorMessages.slice(0, 3).join(' | ') + (errorMessages.length > 3 ? ` (+${errorMessages.length - 3} more)` : '')
             : this.$t("Please check the form for errors and try again.")
-          
+
           toast.fire({
             type: "error",
             title: this.$t("Validation Error"),
             text: errorTitle,
-            html: errorMessages.length > 0 
+            html: errorMessages.length > 0
               ? `<div style="text-align: left; max-height: 200px; overflow-y: auto;">${errorMessages.map(msg => `<div>• ${msg}</div>`).join('')}</div>`
               : undefined
           });
@@ -293,7 +301,7 @@ export default {
       evt.preventDefault();
       this.saveSupplier();
     },
-    
+
     // Get field label for error messages
     getFieldLabel(field) {
       const fieldLabelMap = {
@@ -331,7 +339,7 @@ export default {
       };
       return fieldLabelMap[field] || field;
     },
-    
+
     // translate validation messages from backend to localized messages
     translateValidationMessage(message, field) {
       // If there is a direct translation key, use it

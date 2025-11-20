@@ -16,9 +16,6 @@
               <a @click="refreshTable()" href="#" v-tooltip="$t('Refresh')" class="btn btn-success">
                 <i class="fas fa-sync"></i>
               </a>
-              <a @click="print" v-tooltip="$t('Print Table')" class="btn btn-info">
-                <i class="fas fa-print"></i>
-              </a>
             </div>
           </div>
         </div>
@@ -42,7 +39,7 @@
                   <td>
                     <span v-if="pagination &&
                       pagination.current_page > 1
-                      ">
+                    ">
                       {{
                         pagination.per_page *
                         (pagination.current_page -
@@ -64,8 +61,7 @@
                   </td>
                   <td class="text-right no-print">
                     <div v-if="data.id" class="btn-group">
-                      <a v-tooltip="$t('Delete')" href="#" class="btn btn-danger btn-sm"
-                        @click="deleteData(data.id)">
+                      <a v-tooltip="$t('Delete')" href="#" class="btn btn-danger btn-sm" @click="deleteData(data.id)">
                         <i class="fas fa-trash" />
                       </a>
                     </div>
@@ -242,19 +238,19 @@ export default {
 
 <style>
 .dtable-footer {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-    padding: 0 0 0 10px;
-    flex-direction: column;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  padding: 0 0 0 10px;
+  flex-direction: column;
 }
+
 .card-footer .form-group.row.display-per-page {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-    width: 100%;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  width: 100%;
+  align-items: center;
 }
 </style>
-

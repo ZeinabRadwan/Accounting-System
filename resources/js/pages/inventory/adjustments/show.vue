@@ -9,26 +9,14 @@
           <div class="btn-group">
             <ul class="nav nav-pills">
               <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  href="#details"
-                  data-toggle="tab"
-                  @click="getAdjustment"
-                >
+                <a class="nav-link active" href="#details" data-toggle="tab" @click="getAdjustment">
                   <i class="fa fa-info"></i>
-                  {{ $t("Details") }}</a
-                >
+                  {{ $t("Details") }}</a>
               </li>
               <li class="nav-item">
-                <a
-                  @click="getActivity"
-                  class="nav-link"
-                  href="#activity-log"
-                  data-toggle="tab"
-                >
+                <a @click="getActivity" class="nav-link" href="#activity-log" data-toggle="tab">
                   <i class="nav-icon fa fa-bell" aria-hidden="true"></i>
-                  {{ $t("Activity log") }}</a
-                >
+                  {{ $t("Activity log") }}</a>
               </li>
             </ul>
           </div>
@@ -36,24 +24,15 @@
             <a @click="generatePDF()" href="#" class="btn btn-info">
               <i class="fas fa-download"></i> {{ $t("download") }}
             </a>
-            <a @click="printWindow()" href="#" class="btn btn-secondary">
-              <i class="fas fa-print"></i> {{ $t("Print") }}
-            </a>
-            <router-link
-              v-if="$can('adjustment-edit')"
-              :to="{
-                name: 'adjustments.edit',
-                params: { slug: allData.slug },
-              }"
-              class="btn btn-info"
-            >
+            <router-link v-if="$can('adjustment-edit')" :to="{
+              name: 'adjustments.edit',
+              params: { slug: allData.slug },
+            }" class="btn btn-info">
               <i class="fas fa-edit" /> {{ $t("Edit") }}
             </router-link>
-            <router-link
-              :to="{ name: 'adjustments.index' }"
-              class="btn btn-info float-right"
-            >
-              <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+            <router-link :to="{ name: 'adjustments.index' }" class="btn btn-info float-right">
+              <template
+                v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
                 {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
 
@@ -61,7 +40,8 @@
 
               <template v-else>
 
-                <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                <template
+                  v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
 
                   {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
@@ -96,9 +76,7 @@
                 <CompanyInfo />
               </div>
               <!-- /.col -->
-              <div
-                class="col-sm-8 invoice-col float-right text-md-right"
-              >
+              <div class="col-sm-8 invoice-col float-right text-md-right">
                 <h5>
                   {{ $t("Adjustment Details") }}
                 </h5>
@@ -113,8 +91,8 @@
 
             <div class="row mt-2">
               <div class="col-12">
-                <div class="table-responsive table-custom">
-                  <table class="table">
+                <div class="table-responsive table-custom mt-3">
+                  <table class="table adjustments-table">
                     <thead>
                       <tr>
                         <th v-if="allData.code">
@@ -140,11 +118,7 @@
                         </td>
                         <td v-if="allData.note">{{ allData.note }}</td>
                         <td>
-                          <span
-                            v-if="allData.status === 1"
-                            class="badge bg-success"
-                            >{{ $t("Active") }}</span
-                          >
+                          <span v-if="allData.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
                           <span v-else class="badge bg-danger">{{
                             $t("Inactive")
                           }}</span>
@@ -160,11 +134,9 @@
             <!-- Table row -->
             <div class="row mb-3 mt-3">
               <div class="col-12">
-                <strong class="mt-4 mb-2 d-block"
-                  >{{ $t("Adjustment Reason") }}:</strong
-                >
-                <div class="table-custom table-responsive">
-                  <table class="table table-sm">
+                <strong class="mt-4 mb-2 d-block">{{ $t("Adjustment Reason") }}:</strong>
+                <div class="table-responsive table-custom mt-3">
+                  <table class="table adjustments-table">
                     <thead>
                       <tr>
                         <th>{{ $t("#") }}</th>
@@ -184,18 +156,14 @@
                           {{ data.productCode | withPrefix(productPrefix) }}
                         </td>
                         <td>{{ data.productName }}</td>
-                        <td>{{ data.avgPurchasePrice  }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ data.avgPurchasePrice }} <span class="saudi-riyal">ê</span></td>
                         <td>
                           <span v-if="data.type == 1">+</span>
                           <span v-else>-</span>
                           {{ data.quantity }} {{ data.productUnit }}
                         </td>
                         <td class="text-right">
-                          <span
-                            v-if="data.type == 1"
-                            class="badge badge-primary"
-                            >{{ $t("Increment") }}</span
-                          >
+                          <span v-if="data.type == 1" class="badge badge-primary">{{ $t("Increment") }}</span>
                           <span v-else class="badge badge-danger">{{
                             $t("Decrement")
                           }}</span>
@@ -221,20 +189,8 @@
             </div>
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100">
-                <a
-                  @click="refreshTable()"
-                  href="#"
-                  v-tooltip="$t('Refresh')"
-                  class="btn btn-success"
-                >
+                <a @click="refreshTable()" href="#" v-tooltip="$t('Refresh')" class="btn btn-success">
                   <i class="fas fa-sync"></i>
-                </a>
-                <a
-                  @click="print"
-                  v-tooltip="$t('Print Table')"
-                  class="btn btn-info"
-                >
-                  <i class="fas fa-print"></i>
                 </a>
               </div>
             </div>
@@ -243,40 +199,18 @@
           <div class="card-body position-relative">
             <div class="row">
               <div class="col-6 col-xl-4 mb-2">
-                <search
-                  v-model="query"
-                  @reset-pagination="resetPagination()"
-                  @reload="reload"
-                />
+                <search v-model="query" @reset-pagination="resetPagination()" @reload="reload" />
               </div>
             </div>
             <div id="printMe" class="table-responsive table-custom mt-3">
-              <div
-                v-show="items.length > 0"
-                v-for="(data, i) in items"
-                :key="i"
-              >
+              <div v-show="items.length > 0" v-for="(data, i) in items" :key="i">
                 <div class="card mb-0 border border-gray">
                   <div class="card-body py-1">
                     <div class="row">
-                      <div
-                        class="col-1 d-flex justify-content-center align-items-center"
-                      >
-                        <i
-                          v-if="data.event == 'Update'"
-                          class="fa fa-magic"
-                          aria-hidden="true"
-                        ></i>
-                        <i
-                          v-if="data.event == 'Create'"
-                          class="fa fa-plus-circle"
-                          aria-hidden="true"
-                        ></i>
-                        <i
-                          v-if="data.event == 'Delete'"
-                          class="fa fa-trash"
-                          aria-hidden="true"
-                        ></i>
+                      <div class="col-1 d-flex justify-content-center align-items-center">
+                        <i v-if="data.event == 'Update'" class="fa fa-magic" aria-hidden="true"></i>
+                        <i v-if="data.event == 'Create'" class="fa fa-plus-circle" aria-hidden="true"></i>
+                        <i v-if="data.event == 'Delete'" class="fa fa-trash" aria-hidden="true"></i>
                       </div>
                       <div class="col-11">
                         <div class="row">
@@ -305,11 +239,7 @@
               <div class="form-group row display-per-page">
                 <label>{{ $t("per_page") }} </label>
                 <div>
-                  <select
-                    @change="updatePerPager"
-                    v-model="perPage"
-                    class="form-control form-control-sm ml-1"
-                  >
+                  <select @change="updatePerPager" v-model="perPage" class="form-control form-control-sm ml-1">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
@@ -318,13 +248,8 @@
                 </div>
               </div>
               <!-- pagination-start -->
-              <pagination
-                v-if="pagination && pagination.last_page > 1"
-                :pagination="pagination"
-                :offset="5"
-                class="justify-flex-end"
-                @paginate="paginate"
-              />
+              <pagination v-if="pagination && pagination.last_page > 1" :pagination="pagination" :offset="5"
+                class="justify-flex-end" @paginate="paginate" />
               <!-- pagination-end -->
             </div>
           </div>
@@ -374,7 +299,7 @@ export default {
 
   watch: {
     // watch search data
-    query: function (newQ, oldQ) {
+    query: function (newQ) {
       if (newQ === "") {
         this.getActivity();
       } else {
@@ -393,8 +318,8 @@ export default {
     async getAdjustment() {
       const { data } = await axios.get(
         window.location.origin +
-          "/api/inventory-adjustments/" +
-          this.$route.params.slug
+        "/api/inventory-adjustments/" +
+        this.$route.params.slug
       );
       this.allData = data.data;
       this.adjustedProducts = this.allData.adjustmentProducts;
@@ -499,5 +424,79 @@ export default {
   background: #ddd;
   margin: 2px;
   border-radius: 0.25rem;
+}
+
+.table-custom {
+  border: none !important;
+}
+
+.adjustments-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.adjustments-table thead th {
+  background-color: #33a0d9;
+  color: #ffffff;
+  padding: 8px;
+  border: none !important;
+  border-color: inherit !important;
+  font-weight: 400;
+}
+
+.adjustments-table thead tr {
+  border: none !important;
+}
+
+.adjustments-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.adjustments-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+/* RTL styles for Arabic language */
+[dir="rtl"] .adjustments-table thead th:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .adjustments-table thead th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
+}
+
+/* Custom Status Badge Styling */
+.adjustments-table .badge.bg-success {
+  background: #F6FEF4 !important;
+  color: #2AB930 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 10px 16px;
+}
+
+.adjustments-table .badge.bg-danger {
+  background: #FEF4F4 !important;
+  color: #DC3545 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 10px 16px;
+}
+
+.adjustments-table .badge.badge-primary {
+  background: #F6FEF4 !important;
+  color: #2AB930 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 10px 16px;
+}
+
+.adjustments-table .badge.badge-danger {
+  background: #FEF4F4 !important;
+  color: #DC3545 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 10px 16px;
 }
 </style>

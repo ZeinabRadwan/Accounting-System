@@ -66,9 +66,6 @@
                         fill="#2AB930" />
                     </svg>
                   </a>
-                  <a @click="print" v-tooltip="$t('Print Table')" class="btn print-btn">
-                    <i class="fas fa-print"></i>
-                  </a>
                   <router-link v-if="$can('product-create')" :to="{ name: 'products.create' }" class="btn btn-primary">
                     {{ $t("Create") }}
                     <i class="fas fa-plus-circle d-none d-sm-inline-block" />

@@ -54,13 +54,6 @@
                   >
                     <i class="fas fa-eye"></i>
                   </button>
-                  <a
-                    @click="print"
-                    v-tooltip="$t('Print Table')"
-                    class="btn print-btn"
-                  >
-                    <i class="fas fa-print"></i>
-                  </a>
                 </div>
               </div>
             </div>

@@ -80,13 +80,6 @@
                       />
                     </svg>
                   </a>
-                  <a
-                    @click="print"
-                    v-tooltip="$t('Print Table')"
-                    class="btn print-btn"
-                  >
-                    <i class="fas fa-print"></i>
-                  </a>
                   <router-link v-if="$can('account-transfer-balance-create')" :to="{ name: 'transferBalances.create' }"
                     class="btn btn-primary">
                     {{ $t("Add Transfer") }}

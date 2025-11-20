@@ -663,13 +663,6 @@
                 >
                   <i class="fas fa-sync"></i>
                 </a>
-                <a
-                  @click="printActivityLog"
-                  v-tooltip="$t('Print Table')"
-                  class="btn btn-info"
-                >
-                  <i class="fas fa-print"></i>
-                </a>
               </div>
             </div>
           </div>

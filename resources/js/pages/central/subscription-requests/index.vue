@@ -17,9 +17,6 @@
                 <a @click="refreshTable()" href="#" v-tooltip="$t('Refresh')" class="btn btn-success">
                   <i class="fas fa-sync"></i>
                 </a>
-                <a @click="print" v-tooltip="$t('Print Table')" class="btn btn-info">
-                  <i class="fas fa-print"></i>
-                </a>
               </div>
             </div>
           </div>
@@ -64,7 +61,7 @@
                       </div>
                     </td>
                     <td>{{ subscriptionRequest.plan.name }}</td>
-                    <td>{{ subscriptionRequest.plan.amount}} <span class="saudi-riyal">ê</span></td>
+                    <td>{{ subscriptionRequest.plan.amount }} <span class="saudi-riyal">ê</span></td>
                     <td>{{ subscriptionRequest.quantity }}</td>
                     <td v-html="subscriptionRequest.status_html" class="text-center"></td>
                     <td>
@@ -86,8 +83,8 @@
                           </a>
 
                           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <button :disabled="subscriptionRequest.status === STATUS_ACCEPTED" v-tooltip="$t('Accepted')"
-                              href="#" class="btn btn-success btn-sm dropdown-item"
+                            <button :disabled="subscriptionRequest.status === STATUS_ACCEPTED"
+                              v-tooltip="$t('Accepted')" href="#" class="btn btn-success btn-sm dropdown-item"
                               @click.prevent="update(subscriptionRequest.id, STATUS_ACCEPTED)">
                               <i class="fas fa-link" />
                               {{ $t("Accepted") }}
@@ -101,8 +98,8 @@
                               {{ $t("Rejected") }}
                             </button>
 
-                            <button :disabled="subscriptionRequest.status !== STATUS_PENDING"
-                              v-tooltip="$t('Delete')" href="#" class="btn btn-danger btn-sm dropdown-item"
+                            <button :disabled="subscriptionRequest.status !== STATUS_PENDING" v-tooltip="$t('Delete')"
+                              href="#" class="btn btn-danger btn-sm dropdown-item"
                               @click.prevent="deleteData(subscriptionRequest.id)">
                               <i class="fas fa-trash" /> {{ $t("Delete") }}
                             </button>
@@ -235,7 +232,7 @@ export default {
         text: this.$t("You will not be able to return to this!"),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
+        confirmButtonText: this.$t("Confirm"), cancelButtonText: this.$t("Cancel"),
       }).then((result) => {
         // Send request to the server
         if (result.value) {
@@ -270,7 +267,7 @@ export default {
         text: this.$t("subscription-requests.index.delete_warning"),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
+        confirmButtonText: this.$t("Confirm"), cancelButtonText: this.$t("Cancel"),
       }).then((result) => {
         // Send request to the server
         if (result.value) {
@@ -303,19 +300,19 @@ export default {
 
 <style>
 .dtable-footer {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-    padding: 0 0 0 10px;
-    flex-direction: column;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  padding: 0 0 0 10px;
+  flex-direction: column;
 }
+
 .card-footer .form-group.row.display-per-page {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-    width: 100%;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  width: 100%;
+  align-items: center;
 }
 </style>
-

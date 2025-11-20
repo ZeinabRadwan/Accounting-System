@@ -3,334 +3,272 @@
     <!-- Filters Card -->
     <div class="card">
       <div class="card-header">
-            <!-- breadcrumbs Start -->
-            <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-            <!-- breadcrumbs end -->
-            <h3 class="card-title">{{ $t('Filters') }}</h3>
-            <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
+        <!-- breadcrumbs Start -->
+        <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+        <!-- breadcrumbs end -->
+        <h3 class="card-title">{{ $t('Filters') }}</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <form @submit.prevent="generateReport" class="row">
+          <!-- Chart of Account -->
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>{{ $t('Chart of Account') }} <span class="text-danger">*</span></label>
+              <v-select v-model="filters.chartOfAccount" :options="chartOfAccounts" :reduce="account => account.id"
+                label="display_name" :placeholder="$t('Select Account')" :searchable="true" :clearable="false"
+                :loading="loadingAccounts" @search="searchAccounts" @input="onChartOfAccountChange" />
+              <div v-if="errors.chart_of_account_id" class="text-danger">
+                {{ errors.chart_of_account_id[0] }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Sub Chart of Account -->
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>{{ $t('Sub Chart of Account') }}</label>
+              <v-select v-model="filters.subChartOfAccount" :options="subChartOfAccounts"
+                :reduce="account => account.id" label="display_name" :placeholder="$t('Select Sub Account')"
+                :searchable="true" :clearable="true" :loading="loadingSubAccounts" @search="searchSubAccounts"
+                :disabled="!filters.chartOfAccount" />
+              <div v-if="errors.sub_chart_of_account_id" class="text-danger">
+                {{ errors.sub_chart_of_account_id[0] }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Fiscal Year -->
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>{{ $t('Fiscal Year') }}</label>
+              <v-select v-model="filters.fiscalYear" :options="fiscalYears" :reduce="year => year.id" label="name"
+                :placeholder="$t('Select Fiscal Year')" :searchable="true" :clearable="true"
+                :loading="loadingFiscalYears" @search="searchFiscalYears" />
+            </div>
+          </div>
+
+          <!-- Accounting Period -->
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>{{ $t('Accounting Period') }}</label>
+              <v-select v-model="filters.accountingPeriod" :options="accountingPeriods" :reduce="period => period.id"
+                label="name" :placeholder="$t('Select Period')" :searchable="true" :clearable="true"
+                :loading="loadingAccountingPeriods" :disabled="!filters.fiscalYear" @search="searchAccountingPeriods" />
+            </div>
+          </div>
+
+          <!-- Date Range -->
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>{{ $t('Date Range') }}</label>
+              <div class="input-group">
+                <input type="date" v-model="filters.fromDate" class="form-control" :placeholder="$t('From Date')" />
+                <div class="input-group-append">
+                  <span class="input-group-text">{{ $t('to') }}</span>
+                </div>
+                <input type="date" v-model="filters.toDate" class="form-control" :placeholder="$t('To Date')" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="col-12">
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary" :disabled="loading || !filters.chartOfAccount">
+                <i v-if="loading" class="fas fa-spinner fa-spin"></i>
+                <i v-else class="fas fa-search"></i>
+                {{ $t('Generate Report') }}
+              </button>
+              <button type="button" @click="resetFilters" class="btn btn-secondary ml-2">
+                <i class="fas fa-undo"></i>
+                {{ $t('Reset') }}
+              </button>
+              <a v-if="reportData && entriesCount > 0" :href="exportExcelUrl" v-tooltip="$t('Export to Excel')"
+                class="btn export-excel-btn ml-2">
+                <i class="fa fa-arrow-circle-down"></i>
+              </a>
+              <button v-if="reportData && entriesCount > 0" @click="downloadPDF" v-tooltip="$t('Export to PDF')"
+                class="btn export-pdf-btn ml-2">
+                <i class="fas fa-file-export"></i>
+              </button>
+              <button v-if="reportData && entriesCount > 0" @click="previewPDF" v-tooltip="$t('Preview')"
+                class="btn preview-btn ml-2">
+                <i class="fas fa-eye"></i>
               </button>
             </div>
           </div>
-          <div class="card-body">
-            <form @submit.prevent="generateReport" class="row">
-              <!-- Chart of Account -->
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label>{{ $t('Chart of Account') }} <span class="text-danger">*</span></label>
-                  <v-select
-                    v-model="filters.chartOfAccount"
-                    :options="chartOfAccounts"
-                    :reduce="account => account.id"
-                    label="display_name"
-                    :placeholder="$t('Select Account')"
-                    :searchable="true"
-                    :clearable="false"
-                    :loading="loadingAccounts"
-                    @search="searchAccounts"
-                    @input="onChartOfAccountChange"
-                  />
-                  <div v-if="errors.chart_of_account_id" class="text-danger">
-                    {{ errors.chart_of_account_id[0] }}
-                  </div>
-                </div>
-              </div>
+        </form>
+      </div>
+    </div>
 
-              <!-- Sub Chart of Account -->
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label>{{ $t('Sub Chart of Account') }}</label>
-                  <v-select
-                    v-model="filters.subChartOfAccount"
-                    :options="subChartOfAccounts"
-                    :reduce="account => account.id"
-                    label="display_name"
-                    :placeholder="$t('Select Sub Account')"
-                    :searchable="true"
-                    :clearable="true"
-                    :loading="loadingSubAccounts"
-                    @search="searchSubAccounts"
-                    :disabled="!filters.chartOfAccount"
-                  />
-                  <div v-if="errors.sub_chart_of_account_id" class="text-danger">
-                    {{ errors.sub_chart_of_account_id[0] }}
-                  </div>
-                </div>
+    <!-- Report Results -->
+    <div v-if="reportData" class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          {{ $t('Account Statement') }} -
+          <span v-if="reportData.report_account && reportData.report_account.id !== reportData.chart_of_account.id">
+            {{ reportData.report_account.code }} - {{ reportData.report_account.name }}
+            <small class="text-muted">({{ $t('Sub Account of') }} {{ reportData.chart_of_account.code }} - {{
+              reportData.chart_of_account.name }})</small>
+          </span>
+          <span v-else>
+            {{ reportData.chart_of_account.code }} - {{ reportData.chart_of_account.name }}
+          </span>
+        </h3>
+        <div class="card-tools">
+          <span class="badge badge-info">{{ $t('Type') }}: {{ reportData.chart_of_account.type }}</span>
+          <span v-if="reportData.report_account && reportData.report_account.id !== reportData.chart_of_account.id"
+            class="badge badge-secondary ml-2">
+            {{ $t('Sub Account Type') }}: {{ reportData.report_account.type }}
+          </span>
+        </div>
+      </div>
+      <div class="card-body">
+        <!-- Summary Section -->
+        <div class="row mb-4">
+          <div class="col-md-3">
+            <div class="info-box">
+              <span class="info-box-icon bg-info">
+                <i class="fas fa-balance-scale"></i>
+              </span>
+              <div class="info-box-content">
+                <span class="info-box-text">{{ $t('Opening Balance') }}</span>
+                <span class="info-box-number">
+                  {{ summary ? summary.opening_balance : 0 }} <span class="saudi-riyal">ê</span> {{ summary &&
+                    summary.opening_balance_type ? $t(summary.opening_balance_type) : '' }}
+                </span>
               </div>
-
-              <!-- Fiscal Year -->
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label>{{ $t('Fiscal Year') }}</label>
-                  <v-select
-                    v-model="filters.fiscalYear"
-                    :options="fiscalYears"
-                    :reduce="year => year.id"
-                    label="name"
-                    :placeholder="$t('Select Fiscal Year')"
-                    :searchable="true"
-                    :clearable="true"
-                    :loading="loadingFiscalYears"
-                    @search="searchFiscalYears"
-                  />
-                </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="info-box">
+              <span class="info-box-icon bg-success">
+                <i class="fas fa-arrow-up"></i>
+              </span>
+              <div class="info-box-content">
+                <span class="info-box-text">{{ $t('Period Debits') }}</span>
+                <span class="info-box-number">{{ summary ? summary.period_debits : 0 }} <span
+                    class="saudi-riyal">ê</span></span>
               </div>
-
-              <!-- Accounting Period -->
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label>{{ $t('Accounting Period') }}</label>
-                  <v-select
-                    v-model="filters.accountingPeriod"
-                    :options="accountingPeriods"
-                    :reduce="period => period.id"
-                    label="name"
-                    :placeholder="$t('Select Period')"
-                    :searchable="true"
-                    :clearable="true"
-                    :loading="loadingAccountingPeriods"
-                    :disabled="!filters.fiscalYear"
-                    @search="searchAccountingPeriods"
-                  />
-                </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="info-box">
+              <span class="info-box-icon bg-warning">
+                <i class="fas fa-arrow-down"></i>
+              </span>
+              <div class="info-box-content">
+                <span class="info-box-text">{{ $t('Period Credits') }}</span>
+                <span class="info-box-number">{{ summary ? summary.period_credits : 0 }} <span
+                    class="saudi-riyal">ê</span></span>
               </div>
-
-              <!-- Date Range -->
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label>{{ $t('Date Range') }}</label>
-                  <div class="input-group">
-                    <input
-                      type="date"
-                      v-model="filters.fromDate"
-                      class="form-control"
-                      :placeholder="$t('From Date')"
-                    />
-                    <div class="input-group-append">
-                      <span class="input-group-text">{{ $t('to') }}</span>
-                    </div>
-                    <input
-                      type="date"
-                      v-model="filters.toDate"
-                      class="form-control"
-                      :placeholder="$t('To Date')"
-                    />
-                  </div>
-                </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="info-box">
+              <span class="info-box-icon bg-primary">
+                <i class="fas fa-calculator"></i>
+              </span>
+              <div class="info-box-content">
+                <span class="info-box-text">{{ $t('Closing Balance') }}</span>
+                <span class="info-box-number">
+                  {{ summary ? summary.closing_balance : 0 }} <span class="saudi-riyal">ê</span> {{ summary &&
+                    summary.closing_balance_type ? $t(summary.closing_balance_type) : '' }}
+                </span>
               </div>
-
-              <!-- Action Buttons -->
-              <div class="col-12">
-                <div class="form-group">
-                  <button type="submit" class="btn btn-primary" :disabled="loading || !filters.chartOfAccount">
-                    <i v-if="loading" class="fas fa-spinner fa-spin"></i>
-                    <i v-else class="fas fa-search"></i>
-                    {{ $t('Generate Report') }}
-                  </button>
-                  <button type="button" @click="resetFilters" class="btn btn-secondary ml-2">
-                    <i class="fas fa-undo"></i>
-                    {{ $t('Reset') }}
-                  </button>
-                  <a 
-                    v-if="reportData && entriesCount > 0" 
-                    :href="exportExcelUrl" 
-                    v-tooltip="$t('Export to Excel')" 
-                    class="btn export-excel-btn ml-2"
-                  >
-                    <i class="fa fa-arrow-circle-down"></i>
-                  </a>
-                  <button 
-                    v-if="reportData && entriesCount > 0" 
-                    @click="downloadPDF" 
-                    v-tooltip="$t('Export to PDF')" 
-                    class="btn export-pdf-btn ml-2"
-                  >
-                    <i class="fas fa-file-export"></i>
-                  </button>
-                  <button 
-                    v-if="reportData && entriesCount > 0" 
-                    @click="previewPDF" 
-                    v-tooltip="$t('Preview')" 
-                    class="btn preview-btn ml-2"
-                  >
-                    <i class="fas fa-eye"></i>
-                  </button>
-                  <a 
-                    v-if="reportData && entriesCount > 0" 
-                    :href="printTemplateUrl" 
-                    target="_blank" 
-                    class="btn print-btn ml-2"
-                  >
-                    <i class="fas fa-print"></i> 
-                  </a>
-                </div>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
 
-        <!-- Report Results -->
-        <div v-if="reportData" class="card">
-          <div class="card-header">
-            <h3 class="card-title">
-              {{ $t('Account Statement') }} - 
-              <span v-if="reportData.report_account && reportData.report_account.id !== reportData.chart_of_account.id">
-                {{ reportData.report_account.code }} - {{ reportData.report_account.name }}
-                <small class="text-muted">({{ $t('Sub Account of') }} {{ reportData.chart_of_account.code }} - {{ reportData.chart_of_account.name }})</small>
-              </span>
-              <span v-else>
-                {{ reportData.chart_of_account.code }} - {{ reportData.chart_of_account.name }}
-              </span>
-            </h3>
-            <div class="card-tools">
-              <span class="badge badge-info">{{ $t('Type') }}: {{ reportData.chart_of_account.type }}</span>
-              <span v-if="reportData.report_account && reportData.report_account.id !== reportData.chart_of_account.id" 
-                    class="badge badge-secondary ml-2">
-                {{ $t('Sub Account Type') }}: {{ reportData.report_account.type }}
-              </span>
-            </div>
-          </div>
-          <div class="card-body">
-            <!-- Summary Section -->
-            <div class="row mb-4">
-              <div class="col-md-3">
-                <div class="info-box">
-                  <span class="info-box-icon bg-info">
-                    <i class="fas fa-balance-scale"></i>
-                  </span>
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ $t('Opening Balance') }}</span>
-                    <span class="info-box-number">
-                      {{ summary ? summary.opening_balance : 0}} <span class="saudi-riyal">ê</span> {{ summary ? summary.opening_balance_type : '' }}
+        <!-- Entries Table -->
+        <div class="table-responsive table-custom">
+          <table class="table account-statement-table">
+            <thead>
+              <th>{{ $t('Date') }}</th>
+              <th>{{ $t('Entry #') }}</th>
+              <th>{{ $t('Reference') }}</th>
+              <th>{{ $t('Description') }}</th>
+              <th class="text-right">{{ $t('Debit') }}</th>
+              <th class="text-right">{{ $t('Credit') }}</th>
+              <th class="text-right">{{ $t('Net Amount') }}</th>
+              <th class="text-right">{{ $t('Running Balance') }}</th>
+              <th class="text-center">{{ $t('Balance Type') }}</th>
+            </thead>
+            <tbody>
+              <tr v-if="loadingEntries">
+                <td colspan="9" class="text-center">
+                  <i class="fas fa-spinner fa-spin"></i> {{ $t('Loading entries...') }}
+                </td>
+              </tr>
+              <tr v-else-if="!loadingEntries && entriesCount === 0">
+                <td colspan="9" class="text-center text-muted">
+                  {{ $t('No entries found for the selected criteria') }}
+                </td>
+              </tr>
+              <template v-else-if="!loadingEntries">
+                <tr v-for="entry in safeAllEntries" :key="entry.id">
+                  <td>{{ entry.entry_date }}</td>
+                  <td>{{ entry.entry_number }}</td>
+                  <td>{{ entry.reference || '-' }}</td>
+                  <td>{{ entry.description || '-' }}</td>
+                  <td class="text-right">{{ entry.debit_amount }} <span class="saudi-riyal">ê</span></td>
+                  <td class="text-right">{{ entry.credit_amount }} <span class="saudi-riyal">ê</span></td>
+                  <td class="text-right">
+                    <span :class="entry.net_amount < 0 ? 'text-danger' : 'text-success'">
+                      {{ entry.net_amount }} <span class="saudi-riyal">ê</span>
                     </span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="info-box">
-                  <span class="info-box-icon bg-success">
-                    <i class="fas fa-arrow-up"></i>
-                  </span>
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ $t('Period Debits') }}</span>
-                    <span class="info-box-number">{{ summary ? summary.period_debits : 0}} <span class="saudi-riyal">ê</span></span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="info-box">
-                  <span class="info-box-icon bg-warning">
-                    <i class="fas fa-arrow-down"></i>
-                  </span>
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ $t('Period Credits') }}</span>
-                    <span class="info-box-number">{{ summary ? summary.period_credits : 0}} <span class="saudi-riyal">ê</span></span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="info-box">
-                  <span class="info-box-icon bg-primary">
-                    <i class="fas fa-calculator"></i>
-                  </span>
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{ $t('Closing Balance') }}</span>
-                    <span class="info-box-number">
-                      {{ summary ? summary.closing_balance : 0}} <span class="saudi-riyal">ê</span> {{ summary ? summary.closing_balance_type : '' }}
+                  </td>
+                  <td class="text-right">
+                    <span :class="entry.balance_type === 'Debit' ? 'text-success' : 'text-danger'">
+                      {{ entry.running_balance }} <span class="saudi-riyal">ê</span>
                     </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+                  </td>
+                  <td class="text-center">
+                    <span class="badge" :class="entry.balance_type === 'Debit' ? 'badge-success' : 'badge-danger'">
+                      {{ entry.balance_type ? $t(entry.balance_type) : '' }}
+                    </span>
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
 
-            <!-- Entries Table -->
-            <div class="table-responsive table-custom">
-              <table class="table account-statement-table">
-                <thead>
-                  <th>{{ $t('Date') }}</th>
-                  <th>{{ $t('Entry #') }}</th>
-                  <th>{{ $t('Reference') }}</th>
-                  <th>{{ $t('Description') }}</th>
-                  <th class="text-right">{{ $t('Debit') }}</th>
-                  <th class="text-right">{{ $t('Credit') }}</th>
-                  <th class="text-right">{{ $t('Net Amount') }}</th>
-                  <th class="text-right">{{ $t('Running Balance') }}</th>
-                  <th class="text-center">{{ $t('Balance Type') }}</th>
-                </thead>
-                <tbody>
-                  <tr v-if="loadingEntries">
-                    <td colspan="9" class="text-center">
-                      <i class="fas fa-spinner fa-spin"></i> {{ $t('Loading entries...') }}
-                    </td>
-                  </tr>
-                  <tr v-else-if="!loadingEntries && entriesCount === 0">
-                    <td colspan="9" class="text-center text-muted">
-                      {{ $t('No entries found for the selected criteria') }}
-                    </td>
-                  </tr>
-                  <template v-else-if="!loadingEntries">
-                    <tr v-for="entry in safeAllEntries" :key="entry.id">
-                    <td>{{ entry.entry_date }}</td>
-                    <td>{{ entry.entry_number }}</td>
-                    <td>{{ entry.reference || '-' }}</td>
-                    <td>{{ entry.description || '-' }}</td>
-                    <td class="text-right">{{ entry.debit_amount}} <span class="saudi-riyal">ê</span></td>
-                    <td class="text-right">{{ entry.credit_amount}} <span class="saudi-riyal">ê</span></td>
-                    <td class="text-right">
-                      <span :class="entry.net_amount < 0 ? 'text-danger' : 'text-success'">
-                        {{ entry.net_amount}} <span class="saudi-riyal">ê</span>
-                      </span>
-                    </td>
-                    <td class="text-right">
-                      <span :class="entry.balance_type === 'Debit' ? 'text-success' : 'text-danger'">
-                        {{ entry.running_balance}} <span class="saudi-riyal">ê</span>
-                      </span>
-                    </td>
-                    <td class="text-center">
-                      <span 
-                        class="badge"
-                        :class="entry.balance_type === 'Debit' ? 'badge-success' : 'badge-danger'"
-                      >
-                        {{ entry.balance_type }}
-                      </span>
-                    </td>
-                  </tr>
-                  </template>
-                </tbody>
-              </table>
-            </div>
-
-            <!-- Loading More Data Indicator -->
-            <div v-if="loadingMore" class="row mt-3">
-              <div class="col-12 text-center">
-                <div class="alert alert-info">
-                  <i class="fas fa-spinner fa-spin"></i> 
-                  {{ $t('Loading more entries...') }} ({{ entriesCount }} {{ $t('loaded') }})
-                </div>
-              </div>
-            </div>
-            
-            <!-- Load More Button (if needed) -->
-            
-            <!-- Data Summary -->
-            <div v-if="entriesCount > 0" class="row mt-3">
-              <div class="col-12">
-                <div class="dataTables_info">
-                  {{ $t('Total entries loaded') }}: {{ entriesCount }}
-                  <span v-if="!hasMoreData" class="text-success">
-                    <i class="fas fa-check"></i> {{ $t('All data loaded') }}
-                  </span>
-                </div>
-              </div>
+        <!-- Loading More Data Indicator -->
+        <div v-if="loadingMore" class="row mt-3">
+          <div class="col-12 text-center">
+            <div class="alert alert-info">
+              <i class="fas fa-spinner fa-spin"></i>
+              {{ $t('Loading more entries...') }} ({{ entriesCount }} {{ $t('loaded') }})
             </div>
           </div>
         </div>
 
-        <!-- Loading Overlay -->
-        <div v-if="loading" class="overlay">
-          <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+        <!-- Load More Button (if needed) -->
+
+        <!-- Data Summary -->
+        <div v-if="entriesCount > 0" class="row mt-3">
+          <div class="col-12">
+            <div class="dataTables_info">
+              {{ $t('Total entries loaded') }}: {{ entriesCount }}
+              <span v-if="!hasMoreData" class="text-success">
+                <i class="fas fa-check"></i> {{ $t('All data loaded') }}
+              </span>
+            </div>
+          </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div v-if="loading" class="overlay">
+      <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+    </div>
   </div>
 </template>
 
@@ -352,7 +290,7 @@ export default {
       summary: null,
       allEntries: [], // Store all loaded entries
       errors: {},
-      
+
       // Breadcrumbs
       breadcrumbs: [
         {
@@ -365,7 +303,7 @@ export default {
         }
       ],
       breadcrumbsCurrent: 'Account Statement',
-      
+
       // Filters
       filters: {
         chartOfAccount: null,
@@ -375,13 +313,13 @@ export default {
         fromDate: null,
         toDate: null,
       },
-      
+
       // Options
       chartOfAccounts: [],
       subChartOfAccounts: [],
       fiscalYears: [],
       accountingPeriods: [],
-      
+
       // Chunked loading
       currentChunk: 1,
       chunkSize: 30,
@@ -391,18 +329,18 @@ export default {
       maxRetries: 3,
     };
   },
-  
+
   computed: {
     // Safe access to allEntries with fallback
     safeAllEntries() {
       return this.allEntries || [];
     },
-    
+
     // Safe access to entries count
     entriesCount() {
       return this.safeAllEntries.length;
     },
-    
+
     // Export URLs
     exportExcelUrl() {
       const params = new URLSearchParams();
@@ -426,7 +364,7 @@ export default {
       }
       return `/account-statement/export?${params.toString()}`;
     },
-    
+
     exportPdfUrl() {
       const params = new URLSearchParams();
       if (this.filters.chartOfAccount) {
@@ -452,10 +390,10 @@ export default {
       if (token) {
         params.append('token', token);
       }
-      
+
       return `/print/reports/account-statement/pdf?${params.toString()}`;
     },
-    
+
     printTemplateUrl() {
       const params = new URLSearchParams();
       if (this.filters.chartOfAccount) {
@@ -481,15 +419,15 @@ export default {
       if (token) {
         params.append('token', token);
       }
-      
+
       return `/print/reports/account-statement?${params.toString()}`;
     },
-    
+
     ...mapGetters({
       appInfo: "appInfo",
     }),
   },
-  
+
   mounted() {
     this.loadInitialData();
   },
@@ -506,7 +444,7 @@ export default {
       this.loadAccountingPeriods();
     },
   },
-   
+
   methods: {
     async loadInitialData() {
       await Promise.all([
@@ -514,7 +452,7 @@ export default {
         this.loadFiscalYears(),
       ]);
     },
-    
+
     async loadChartOfAccounts(search = '') {
       this.loadingAccounts = true;
       try {
@@ -534,7 +472,7 @@ export default {
         this.loadingAccounts = false;
       }
     },
-    
+
     async loadFiscalYears(search = '') {
       this.loadingFiscalYears = true;
       try {
@@ -549,20 +487,20 @@ export default {
         this.loadingFiscalYears = false;
       }
     },
-    
+
     async loadAccountingPeriods(search = '') {
       if (!this.filters.fiscalYear) {
         this.accountingPeriods = [];
         return;
       }
-      
+
       this.loadingAccountingPeriods = true;
       try {
         const response = await axios.get('/api/accounting-periods/by-fiscal-year', {
-          params: { 
+          params: {
             fiscal_year_id: this.filters.fiscalYear,
             search,
-            perPage: 100 
+            perPage: 100
           }
         });
         // Handle paginated response
@@ -573,15 +511,15 @@ export default {
         this.loadingAccountingPeriods = false;
       }
     },
-    
+
     async searchAccounts(search) {
       await this.loadChartOfAccounts(search);
     },
-    
+
     async searchFiscalYears(search) {
       await this.loadFiscalYears(search);
     },
-    
+
     async searchAccountingPeriods(search) {
       await this.loadAccountingPeriods(search);
     },
@@ -590,7 +528,7 @@ export default {
       // Clear sub chart of account when parent changes
       this.filters.subChartOfAccount = null;
       this.subChartOfAccounts = [];
-      
+
       if (accountId) {
         await this.loadSubChartOfAccounts(accountId);
       }
@@ -605,7 +543,7 @@ export default {
             search: search
           }
         });
-        
+
         if (response.data.success) {
           this.subChartOfAccounts = response.data.data;
         }
@@ -622,13 +560,13 @@ export default {
         await this.loadSubChartOfAccounts(this.filters.chartOfAccount, search);
       }
     },
-    
+
     async generateReport() {
       if (!this.filters.chartOfAccount) {
         this.$toast.error('', this.$t('Please select a chart of account'));
         return;
       }
-      
+
       this.loading = true;
       this.loadingEntries = true;
       this.errors = {};
@@ -636,7 +574,7 @@ export default {
       this.currentChunk = 1;
       this.hasMoreData = true;
       this.retryCount = 0;
-      
+
       try {
         // Load first chunk
         await this.loadNextChunk();
@@ -653,60 +591,60 @@ export default {
         this.loadingEntries = false;
       }
     },
-    
+
     async loadNextChunk() {
       if (!this.hasMoreData || this.loadingMore) {
         return;
       }
-      
+
       this.loadingMore = true;
       this.retryCount = 0;
-      
+
       try {
         await this.loadChunkWithRetry();
       } finally {
         this.loadingMore = false;
       }
     },
-    
+
     async loadChunkWithRetry() {
       let lastError = null;
-      
+
       for (let attempt = 1; attempt <= this.maxRetries; attempt++) {
         try {
           console.log(`Loading chunk ${this.currentChunk}, attempt ${attempt}`);
-          
+
           const params = {
             chart_of_account_id: this.filters.chartOfAccount,
             page: this.currentChunk,
             per_page: this.chunkSize,
           };
-          
+
           if (this.filters.subChartOfAccount) {
             params.sub_chart_of_account_id = this.filters.subChartOfAccount;
           }
-          
+
           if (this.filters.fiscalYear) {
             params.fiscal_year_id = this.filters.fiscalYear;
           }
-          
+
           if (this.filters.accountingPeriod) {
             params.accounting_period_id = this.filters.accountingPeriod;
           }
-          
+
           if (this.filters.fromDate) {
             params.from_date = this.filters.fromDate;
           }
-          
+
           if (this.filters.toDate) {
             params.to_date = this.filters.toDate;
           }
-          
+
           const response = await axios.get('/api/reports/account-statement', { params });
-          
+
           if (response.data.success) {
             const data = response.data.data;
-            
+
             // Store summary and chart of account info on first chunk
             if (this.currentChunk === 1) {
               this.reportData = {
@@ -716,7 +654,7 @@ export default {
               };
               this.summary = data.summary;
             }
-            
+
             // Add new entries to the list
             if (data.entries && data.entries.length > 0) {
               // Ensure allEntries is always an array
@@ -725,11 +663,11 @@ export default {
               }
               this.allEntries = [...this.allEntries, ...data.entries];
             }
-            
+
             // Check if there's more data
             const pagination = data.pagination;
             this.hasMoreData = pagination.has_more;
-            
+
             if (this.hasMoreData) {
               this.currentChunk++;
               // Automatically load next chunk after a short delay
@@ -737,20 +675,20 @@ export default {
                 this.loadNextChunk();
               }, 100);
             }
-            
+
             console.log(`Chunk ${this.currentChunk - 1} loaded successfully. Total entries: ${this.allEntries ? this.allEntries.length : 0}`);
             return;
-            
+
           } else if (response.data.error) {
             throw new Error(response.data.message || this.$t('Failed to load chunk'));
           } else {
             throw new Error(this.$t('Failed to load chunk'));
           }
-          
+
         } catch (error) {
           lastError = error;
           console.error(`Chunk ${this.currentChunk} attempt ${attempt} failed:`, error);
-          
+
           if (attempt < this.maxRetries) {
             // Wait before retry (exponential backoff)
             const delay = Math.pow(2, attempt) * 1000;
@@ -759,13 +697,13 @@ export default {
           }
         }
       }
-      
+
       // All retries failed
       throw new Error(`Failed to load chunk ${this.currentChunk} after ${this.maxRetries} attempts: ${lastError?.message || 'Unknown error'}`);
     },
-    
-    
-    
+
+
+
     resetFilters() {
       this.filters = {
         chartOfAccount: null,
@@ -784,7 +722,7 @@ export default {
       this.hasMoreData = true;
       this.retryCount = 0;
     },
-    
+
     downloadPDF() {
       // Build query parameters from filters
       const params = new URLSearchParams();
@@ -806,14 +744,14 @@ export default {
       if (this.filters.toDate) {
         params.append('to_date', this.filters.toDate);
       }
-      
+
       // Redirect to backend PDF route with query parameters
       // Add token to URL
       const token = this.$store.getters['auth/token'];
       if (token) {
         params.append('token', token);
       }
-      
+
       const pdfUrl = `/print/reports/account-statement/pdf?${params.toString()}`;
       window.location.href = pdfUrl;
     },
@@ -839,18 +777,18 @@ export default {
       if (this.filters.toDate) {
         params.append('to_date', this.filters.toDate);
       }
-      
+
       // Redirect to backend PDF route with query parameters
       // Add token to URL
       const token = this.$store.getters['auth/token'];
       if (token) {
         params.append('token', token);
       }
-      
+
       const pdfUrl = `/print/reports/account-statement/preview?${params.toString()}`;
       window.location.href = pdfUrl;
     },
-    
+
   },
 };
 </script>
@@ -953,6 +891,7 @@ export default {
   padding: 0 1.25rem 0.625rem 1.25rem;
   border-radius: 0 0 20px 20px;
 }
+
 .overlay {
   position: fixed;
   top: 0;

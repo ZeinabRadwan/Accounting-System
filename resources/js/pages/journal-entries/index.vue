@@ -77,9 +77,6 @@
                         fill="#2AB930" />
                     </svg>
                   </a>
-                  <a @click="print" v-tooltip="$t('Print Table')" class="btn print-btn">
-                    <i class="fas fa-print"></i>
-                  </a>
                   <router-link to="/journal-entries/create" class="btn btn-primary">
                     <i class="fa fa-plus"></i> {{ $t('New Journal Entry') }}
                   </router-link>

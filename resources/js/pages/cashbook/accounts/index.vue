@@ -80,13 +80,6 @@
                       />
                     </svg>
                   </a>
-                  <a
-                    @click="print"
-                    v-tooltip="$t('Print Table')"
-                    class="btn print-btn"
-                  >
-                    <i class="fas fa-print"></i>
-                  </a>
                   <router-link v-if="$can('account-create')" :to="{ name: 'accounts.create' }" class="btn btn-primary">
                     {{ $t("Create") }}
                     <i class="fas fa-plus-circle d-none d-sm-inline-block" />
