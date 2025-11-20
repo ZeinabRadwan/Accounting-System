@@ -62,7 +62,7 @@
                       name="zatca_organization_identifier"
                       class="form-control"
                       :class="{ 'is-invalid': form.errors.has('zatca_organization_identifier') }"
-                      placeholder="15 digits, starts and ends with 3"
+                      :placeholder="$t('15 digits, starts and ends with 3')"
                       maxlength="15"
                     />
                     <has-error :form="form" field="zatca_organization_identifier" />
@@ -80,7 +80,7 @@
                       name="zatca_serial_number"
                       class="form-control"
                       :class="{ 'is-invalid': form.errors.has('zatca_serial_number') }"
-                      placeholder="Unique Device Serial Number"
+                      :placeholder="$t('Unique Device Serial Number')"
                     />
                     <has-error :form="form" field="zatca_serial_number" />
                   </div>
@@ -97,7 +97,7 @@
                       name="zatca_organization_name"
                       class="form-control"
                       :class="{ 'is-invalid': form.errors.has('zatca_organization_name') }"
-                      placeholder="Your Organization Name"
+                      :placeholder="$t('Your Organization Name')"
                     />
                     <has-error :form="form" field="zatca_organization_name" />
                   </div>
@@ -156,7 +156,7 @@
                       name="zatca_otp"
                       class="form-control"
                       :class="{ 'is-invalid': form.errors.has('zatca_otp') }"
-                      placeholder="Enter OTP from ZATCA"
+                      :placeholder="$t('Enter OTP from ZATCA')"
                     />
                     <has-error :form="form" field="zatca_otp" />
                   </div>
@@ -173,7 +173,7 @@
                       name="zatca_solution_name"
                       class="form-control"
                       :class="{ 'is-invalid': form.errors.has('zatca_solution_name') }"
-                      placeholder="Arqam"
+                      :placeholder="$t('Arqam')"
                     />
                     <has-error :form="form" field="zatca_solution_name" />
                   </div>
@@ -190,7 +190,7 @@
                       name="zatca_common_name"
                       class="form-control"
                       :class="{ 'is-invalid': form.errors.has('zatca_common_name') }"
-                      placeholder="Certificate Common Name"
+                      :placeholder="$t('Certificate Common Name')"
                     />
                     <has-error :form="form" field="zatca_common_name" />
                   </div>
@@ -207,7 +207,7 @@
                       name="zatca_organizational_unit"
                       class="form-control"
                       :class="{ 'is-invalid': form.errors.has('zatca_organizational_unit') }"
-                      placeholder="Department or Unit"
+                      :placeholder="$t('Department or Unit')"
                     />
                     <has-error :form="form" field="zatca_organizational_unit" />
                   </div>
@@ -226,7 +226,7 @@
                       name="zatca_business_category"
                       class="form-control"
                       :class="{ 'is-invalid': form.errors.has('zatca_business_category') }"
-                      placeholder="e.g., Food, Real Estate"
+                      :placeholder="$t('e.g., Food, Real Estate')"
                     />
                     <has-error :form="form" field="zatca_business_category" />
                   </div>
@@ -244,7 +244,7 @@
                       name="zatca_address"
                       class="form-control"
                       :class="{ 'is-invalid': form.errors.has('zatca_address') }"
-                      placeholder="Business Address"
+                      :placeholder="$t('Business Address')"
                       rows="3"
                     ></textarea>
                     <has-error :form="form" field="zatca_address" />
@@ -370,70 +370,28 @@ export default {
   metaInfo() {
     return { title: this.$t('ZATCA Integration Wizard') }
   },
-  data: () => ({
-    breadcrumbsCurrent: 'ZATCA Integration Wizard',
-    breadcrumbs: [
-      {
-        name: 'Dashboard',
-        url: 'home',
-      },
-      {
-        name: 'Setup',
-        url: 'setup.index',
-      },
-      {
-        name: 'ZATCA Integration Wizard',
-        url: '',
-      },
-    ],
-    currentStep: 1,
-    form: new Form({
-      zatca_organization_identifier: '',
-      zatca_serial_number: '',
-      zatca_organization_name: '',
-      zatca_address: '',
-      zatca_environment: 'developer',
-      zatca_otp: '',
-      zatca_solution_name: 'Arqam',
-      zatca_common_name: '',
-      zatca_organizational_unit: '',
-      zatca_invoice_type: 'both',
-      zatca_business_category: '',
-    }),
-    complianceTests: [
-      {
-        name: 'Certificate Validation',
-        description: 'Validating ZATCA certificate format and structure',
-        status: 'pending',
-        error: null,
-      },
-      {
-        name: 'API Connectivity',
-        description: 'Testing connection to ZATCA API endpoints',
-        status: 'pending',
-        error: null,
-      },
-      {
-        name: 'Invoice Compliance',
-        description: 'Validating invoice format against ZATCA standards',
-        status: 'pending',
-        error: null,
-      },
-      {
-        name: 'QR Code Generation',
-        description: 'Testing QR code generation for invoices',
-        status: 'pending',
-        error: null,
-      },
-      {
-        name: 'Digital Signature',
-        description: 'Validating digital signature implementation',
-        status: 'pending',
-        error: null,
-      },
-    ],
-    testingInProgress: false,
-  }),
+  data() {
+    return {
+      breadcrumbsCurrent: '',
+      breadcrumbs: [],
+      currentStep: 1,
+      form: new Form({
+        zatca_organization_identifier: '',
+        zatca_serial_number: '',
+        zatca_organization_name: '',
+        zatca_address: '',
+        zatca_environment: 'developer',
+        zatca_otp: '',
+        zatca_solution_name: 'Arqam',
+        zatca_common_name: '',
+        zatca_organizational_unit: '',
+        zatca_invoice_type: 'both',
+        zatca_business_category: '',
+      }),
+      complianceTests: [],
+      testingInProgress: false,
+    }
+  },
   computed: {
     ...mapGetters('operations', ['appInfo']),
     // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
@@ -445,6 +403,55 @@ export default {
     },
   },
   created() {
+    // Initialize localized strings
+    this.breadcrumbsCurrent = this.$t('ZATCA Integration Wizard');
+    this.breadcrumbs = [
+      {
+        name: this.$t('Dashboard'),
+        url: 'home',
+      },
+      {
+        name: this.$t('Setup'),
+        url: 'setup.index',
+      },
+      {
+        name: this.$t('ZATCA Integration Wizard'),
+        url: '',
+      },
+    ];
+    this.complianceTests = [
+      {
+        name: this.$t('Certificate Validation'),
+        description: this.$t('Validating ZATCA certificate format and structure'),
+        status: 'pending',
+        error: null,
+      },
+      {
+        name: this.$t('API Connectivity'),
+        description: this.$t('Testing connection to ZATCA API endpoints'),
+        status: 'pending',
+        error: null,
+      },
+      {
+        name: this.$t('Invoice Compliance'),
+        description: this.$t('Validating invoice format against ZATCA standards'),
+        status: 'pending',
+        error: null,
+      },
+      {
+        name: this.$t('QR Code Generation'),
+        description: this.$t('Testing QR code generation for invoices'),
+        status: 'pending',
+        error: null,
+      },
+      {
+        name: this.$t('Digital Signature'),
+        description: this.$t('Validating digital signature implementation'),
+        status: 'pending',
+        error: null,
+      },
+    ];
+    
     // Redirect if not Saudi Arabia
     if (!this.isSaudiArabia) {
       this.$router.push({ name: 'setup.index' });
@@ -501,7 +508,7 @@ export default {
           if (Math.random() > 0.1) {
             resolve();
           } else {
-            reject(new Error('Test failed due to compliance issue'));
+            reject(new Error(this.$t('Test failed due to compliance issue')));
           }
         }, 2000);
       });
