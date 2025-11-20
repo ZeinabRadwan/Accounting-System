@@ -236,178 +236,166 @@
           </div>
 
 
-          <!-- Chart of Accounts Section -->
-          <div class="form-card">
-            <div class="card-header">
-              <h5 class="section-title">
-                <i class="fas fa-chart-line mr-2"></i>
-                {{ $t("Chart of Accounts") }}
-              </h5>
-            </div>
-            <div class="card-body">
-              <!-- Override Automatic Routing Toggle Switches -->
-              <div v-if="isSalesAccountAutomatic || isPurchaseAccountAutomatic" class="row mb-3">
-                <div class="col-12">
-                  <div class="alert alert-info d-flex align-items-center">
-                    <i class="fas fa-info-circle mr-2"></i>
-                    <span>
-                      {{ $t("Accounts will be assigned automatically based on your settings.") }}
-                    </span>
-                  </div>
+          <!-- Chart of Accounts and Additional Details Sections - Inline -->
+          <div class="row">
+            <!-- Chart of Accounts Section -->
+            <div class="col-form-6">
+              <div class="form-card">
+                <div class="card-header">
+                  <h5 class="section-title">
+                    <i class="fas fa-chart-line mr-2"></i>
+                    {{ $t("Chart of Accounts") }}
+                  </h5>
                 </div>
-              </div>
-
-              <div class="row">
-                <div class="col-form-6">
-                  <!-- Sales Account -->
-                  <div class="form-group">
-                    <div class="account-label-row">
-                      <label for="salesAccountId" class="account-label">
-                        {{ $t("Sales Account") }}
-                        <span v-if="!isSalesAccountAutomatic || form.overrideSalesAccount" class="required">*</span>
-                      </label>
-
-                      <!-- Toggle Switch (shown when automatic routing is enabled) -->
-                      <div v-if="isSalesAccountAutomatic" class="toggle-switch-container">
-                        <label class="toggle-switch-label">
-                          <span class="toggle-switch-wrapper">
-                            <input type="checkbox" v-model="form.overrideSalesAccount" class="toggle-switch-input"
-                              @change="onOverrideSalesAccountChange" />
-                            <span class="toggle-switch-slider"></span>
-                          </span>
-                          <span class="toggle-switch-text">
-                            {{ form.overrideSalesAccount ? $t("Manual") : $t("Automatic") }}
-                          </span>
-                        </label>
+                <div class="card-body">
+                  <!-- Override Automatic Routing Toggle Switches -->
+                  <div v-if="isSalesAccountAutomatic || isPurchaseAccountAutomatic" class="row mb-3">
+                    <div class="col-12">
+                      <div class="alert alert-info d-flex align-items-center">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        <span>
+                          {{ $t("Accounts will be assigned automatically based on your settings.") }}
+                        </span>
                       </div>
-                    </div>
-
-                    <!-- Manual Selection (shown when override is checked or not automatic) -->
-                    <div v-if="!isSalesAccountAutomatic || form.overrideSalesAccount" class="form-group">
-                      <div class="d-flex align-items-center">
-                        <v-select v-model="form.salesAccountId" :options="chartOfAccounts" label="name"
-                          :reduce="option => option.id" :class="{ 'is-invalid': form.errors.has('salesAccountId') }"
-                          name="salesAccountId" :placeholder="$t('Select sales account')" class="flex-grow-1 mr-2"
-                          required />
-                        <!-- <button 
-                          type="button" 
-                          @click="autoAssignSalesAccount" 
-                          :disabled="isAutoAssigningSales"
-                          class="btn btn-outline-success btn-sm auto-assign-btn"
-                          :title="$t('Auto-assign')"
-                        >
-                          <i v-if="isAutoAssigningSales" class="fas fa-spinner fa-spin"></i>
-                          <i v-else class="fas fa-magic"></i>
-                        </button> -->
-                      </div>
-                      <has-error :form="form" field="salesAccountId" />
                     </div>
                   </div>
-                </div>
 
-                <div class="col-form-6">
-                  <!-- Purchase Account -->
-                  <div class="form-group">
-                    <div class="account-label-row">
-                      <label for="purchaseAccountId" class="account-label">
-                        {{ $t("Purchase Account") }}
-                        <span v-if="!isPurchaseAccountAutomatic || form.overridePurchaseAccount"
-                          class="required">*</span>
-                      </label>
+                  <div class="row">
+                    <div class="col-12">
+                      <!-- Sales Account -->
+                      <div class="form-group">
+                        <div class="account-label-row">
+                          <label for="salesAccountId" class="account-label">
+                            {{ $t("Sales Account") }}
+                            <span v-if="!isSalesAccountAutomatic || form.overrideSalesAccount" class="required">*</span>
+                          </label>
 
-                      <!-- Toggle Switch (shown when automatic routing is enabled) -->
-                      <div v-if="isPurchaseAccountAutomatic" class="toggle-switch-container">
-                        <label class="toggle-switch-label">
-                          <span class="toggle-switch-wrapper">
-                            <input type="checkbox" v-model="form.overridePurchaseAccount" class="toggle-switch-input"
-                              @change="onOverridePurchaseAccountChange" />
-                            <span class="toggle-switch-slider"></span>
-                          </span>
-                          <span class="toggle-switch-text">
-                            {{ form.overridePurchaseAccount ? $t("Manual") : $t("Automatic") }}
-                          </span>
-                        </label>
+                          <!-- Toggle Switch (shown when automatic routing is enabled) -->
+                          <div v-if="isSalesAccountAutomatic" class="toggle-switch-container">
+                            <label class="toggle-switch-label">
+                              <span class="toggle-switch-wrapper">
+                                <input type="checkbox" v-model="form.overrideSalesAccount" class="toggle-switch-input"
+                                  @change="onOverrideSalesAccountChange" />
+                                <span class="toggle-switch-slider"></span>
+                              </span>
+                              <span class="toggle-switch-text">
+                                {{ form.overrideSalesAccount ? $t("Manual") : $t("Automatic") }}
+                              </span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <!-- Manual Selection (shown when override is checked or not automatic) -->
+                        <div v-if="!isSalesAccountAutomatic || form.overrideSalesAccount" class="form-group">
+                          <div class="d-flex align-items-center">
+                            <v-select v-model="form.salesAccountId" :options="chartOfAccounts" label="name"
+                              :reduce="option => option.id" :class="{ 'is-invalid': form.errors.has('salesAccountId') }"
+                              name="salesAccountId" :placeholder="$t('Select sales account')" class="flex-grow-1 mr-2"
+                              required />
+                          </div>
+                          <has-error :form="form" field="salesAccountId" />
+                        </div>
                       </div>
                     </div>
 
-                    <!-- Manual Selection (shown when override is checked or not automatic) -->
-                    <div v-if="!isPurchaseAccountAutomatic || form.overridePurchaseAccount" class="form-group">
-                      <div class="d-flex align-items-center">
-                        <v-select v-model="form.purchaseAccountId" :options="chartOfAccounts" label="name"
-                          :reduce="option => option.id" :class="{ 'is-invalid': form.errors.has('purchaseAccountId') }"
-                          name="purchaseAccountId" :placeholder="$t('Select purchase account')" class="flex-grow-1 mr-2"
-                          required />
-                        <!-- <button 
-                          type="button" 
-                          @click="autoAssignPurchaseAccount" 
-                          :disabled="isAutoAssigningPurchase"
-                          class="btn btn-outline-info btn-sm auto-assign-btn"
-                          :title="$t('Auto-assign')"
-                        >
-                          <i v-if="isAutoAssigningPurchase" class="fas fa-spinner fa-spin"></i>
-                          <i v-else class="fas fa-magic"></i>
-                        </button> -->
+                    <div class="col-12">
+                      <!-- Purchase Account -->
+                      <div class="form-group">
+                        <div class="account-label-row">
+                          <label for="purchaseAccountId" class="account-label">
+                            {{ $t("Purchase Account") }}
+                            <span v-if="!isPurchaseAccountAutomatic || form.overridePurchaseAccount"
+                              class="required">*</span>
+                          </label>
+
+                          <!-- Toggle Switch (shown when automatic routing is enabled) -->
+                          <div v-if="isPurchaseAccountAutomatic" class="toggle-switch-container">
+                            <label class="toggle-switch-label">
+                              <span class="toggle-switch-wrapper">
+                                <input type="checkbox" v-model="form.overridePurchaseAccount"
+                                  class="toggle-switch-input" @change="onOverridePurchaseAccountChange" />
+                                <span class="toggle-switch-slider"></span>
+                              </span>
+                              <span class="toggle-switch-text">
+                                {{ form.overridePurchaseAccount ? $t("Manual") : $t("Automatic") }}
+                              </span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <!-- Manual Selection (shown when override is checked or not automatic) -->
+                        <div v-if="!isPurchaseAccountAutomatic || form.overridePurchaseAccount" class="form-group">
+                          <div class="d-flex align-items-center">
+                            <v-select v-model="form.purchaseAccountId" :options="chartOfAccounts" label="name"
+                              :reduce="option => option.id"
+                              :class="{ 'is-invalid': form.errors.has('purchaseAccountId') }" name="purchaseAccountId"
+                              :placeholder="$t('Select purchase account')" class="flex-grow-1 mr-2" required />
+                          </div>
+                          <has-error :form="form" field="purchaseAccountId" />
+                        </div>
                       </div>
-                      <has-error :form="form" field="purchaseAccountId" />
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Additional Details Section -->
-          <div class="form-card">
-            <div class="card-header">
-              <h5 class="section-title">
-                <i class="fas fa-plus-circle mr-2"></i>
-                {{ $t("Additional Details") }}
-              </h5>
-            </div>
-            <div class="card-body">
-              <!-- Status and Image in one row -->
-              <div class="row">
-                <div class="col-form-6">
-                  <div class="form-group">
-                    <label for="status">{{ $t("Status") }}</label>
-                    <select id="status" v-model="form.status" class="form-control"
-                      :class="{ 'is-invalid': form.errors.has('status') }">
-                      <option value="1">{{ $t("Active") }}</option>
-                      <option value="0">{{ $t("Inactive") }}</option>
-                    </select>
-                    <has-error :form="form" field="status" />
-                  </div>
+            <!-- Additional Details Section -->
+            <div class="col-form-6">
+              <div class="form-card">
+                <div class="card-header">
+                  <h5 class="section-title">
+                    <i class="fas fa-plus-circle mr-2"></i>
+                    {{ $t("Additional Details") }}
+                  </h5>
                 </div>
-
-                <div class="col-form-6">
-                  <div class="form-group">
-                    <label for="image">{{ $t("Image") }}</label>
-                    <div class="custom-file">
-                      <input id="image" type="file" class="custom-file-input" name="image"
-                        :class="{ 'is-invalid': form.errors.has('image') }" @change="onFileChange" />
-                      <label class="custom-file-label" for="image">
-                        <i class="fas fa-upload"></i> {{ $t("Upload") }}
-                      </label>
+                <div class="card-body">
+                  <!-- Status and Image in one row -->
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="form-group">
+                        <label for="status">{{ $t("Status") }}</label>
+                        <select id="status" v-model="form.status" class="form-control"
+                          :class="{ 'is-invalid': form.errors.has('status') }">
+                          <option value="1">{{ $t("Active") }}</option>
+                          <option value="0">{{ $t("Inactive") }}</option>
+                        </select>
+                        <has-error :form="form" field="status" />
+                      </div>
                     </div>
-                    <has-error :form="form" field="image" />
 
-                    <!-- Image preview -->
-                    <div class="image-preview mt-2" v-if="url">
-                      <img :src="url" class="img-fluid rounded" :alt="$t('Product Image')" style="max-height: 80px;" />
+                    <div class="col-12">
+                      <div class="form-group">
+                        <label for="image">{{ $t("Image") }}</label>
+                        <div class="custom-file">
+                          <input id="image" type="file" class="custom-file-input" name="image"
+                            :class="{ 'is-invalid': form.errors.has('image') }" @change="onFileChange" />
+                          <label class="custom-file-label" for="image">
+                            <i class="fas fa-upload"></i> {{ $t("Upload") }}
+                          </label>
+                        </div>
+                        <has-error :form="form" field="image" />
+
+                        <!-- Image preview -->
+                        <div class="image-preview mt-2" v-if="url">
+                          <img :src="url" class="img-fluid rounded" :alt="$t('Product Image')"
+                            style="max-height: 80px;" />
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
 
-              <!-- Notes take full row -->
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label for="note">{{ $t("Notes") }}</label>
-                    <textarea id="note" v-model="form.note" class="form-control" rows="3"
-                      :class="{ 'is-invalid': form.errors.has('note') }" name="note"
-                      :placeholder="$t('Add any additional notes...')"></textarea>
-                    <has-error :form="form" field="note" />
+                  <!-- Notes take full row -->
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="form-group">
+                        <label for="note">{{ $t("Notes") }}</label>
+                        <textarea id="note" v-model="form.note" class="form-control" rows="3"
+                          :class="{ 'is-invalid': form.errors.has('note') }" name="note"
+                          :placeholder="$t('Add any additional notes...')"></textarea>
+                        <has-error :form="form" field="note" />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1629,6 +1617,15 @@ export default {
 .col-form-6 {
   flex: 0 0 50%;
   max-width: 50%;
+}
+
+/* Ensure form-card takes 100% width within col-form-6 */
+.col-form-6 .form-card {
+  width: 100%;
+}
+
+.col-form-6 .form-card .card-body {
+  width: 100%;
 }
 
 /* When width is 1300px or less, make col-form-6 take full width */
