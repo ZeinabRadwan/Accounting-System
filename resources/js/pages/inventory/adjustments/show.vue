@@ -91,8 +91,8 @@
 
             <div class="row mt-2">
               <div class="col-12">
-                <div class="table-responsive table-custom">
-                  <table class="table">
+                <div class="table-responsive table-custom mt-3">
+                  <table class="table adjustments-table">
                     <thead>
                       <tr>
                         <th v-if="allData.code">
@@ -135,8 +135,8 @@
             <div class="row mb-3 mt-3">
               <div class="col-12">
                 <strong class="mt-4 mb-2 d-block">{{ $t("Adjustment Reason") }}:</strong>
-                <div class="table-custom table-responsive">
-                  <table class="table table-sm">
+                <div class="table-responsive table-custom mt-3">
+                  <table class="table adjustments-table">
                     <thead>
                       <tr>
                         <th>{{ $t("#") }}</th>
@@ -299,7 +299,7 @@ export default {
 
   watch: {
     // watch search data
-    query: function (newQ, oldQ) {
+    query: function (newQ) {
       if (newQ === "") {
         this.getActivity();
       } else {
@@ -424,5 +424,79 @@ export default {
   background: #ddd;
   margin: 2px;
   border-radius: 0.25rem;
+}
+
+.table-custom {
+  border: none !important;
+}
+
+.adjustments-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.adjustments-table thead th {
+  background-color: #33a0d9;
+  color: #ffffff;
+  padding: 8px;
+  border: none !important;
+  border-color: inherit !important;
+  font-weight: 400;
+}
+
+.adjustments-table thead tr {
+  border: none !important;
+}
+
+.adjustments-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.adjustments-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+/* RTL styles for Arabic language */
+[dir="rtl"] .adjustments-table thead th:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .adjustments-table thead th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
+}
+
+/* Custom Status Badge Styling */
+.adjustments-table .badge.bg-success {
+  background: #F6FEF4 !important;
+  color: #2AB930 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 10px 16px;
+}
+
+.adjustments-table .badge.bg-danger {
+  background: #FEF4F4 !important;
+  color: #DC3545 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 10px 16px;
+}
+
+.adjustments-table .badge.badge-primary {
+  background: #F6FEF4 !important;
+  color: #2AB930 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 10px 16px;
+}
+
+.adjustments-table .badge.badge-danger {
+  background: #FEF4F4 !important;
+  color: #DC3545 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 10px 16px;
 }
 </style>
