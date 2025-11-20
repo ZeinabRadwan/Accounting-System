@@ -6,6 +6,7 @@
         <SupplierForm 
           ref="supplierForm"
           :showCardBody="false"
+          :fullWidthSections="true"
           @submit="saveSupplier"
         />
         <div slot="modal-footer">
