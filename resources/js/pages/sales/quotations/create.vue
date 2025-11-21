@@ -14,7 +14,8 @@
                     {{ $t("Back") }} <i class="fas fa-long-arrow-alt-left" />
                   </template>
                   <template v-else>
-                    <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                    <template
+                      v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
                       {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
 
@@ -22,7 +23,8 @@
 
                     <template v-else>
 
-                      <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                      <template
+                        v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
 
                         {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
@@ -68,22 +70,20 @@
                   <div class="row">
                     <div class="col">
                       <div class="d-flex w-100">
-                        <v-select class="flex-grow-1" v-model="form.client" :options="clients" label="name"
-                          :class="{ 
-                            'is-invalid': form.errors.has('client'),
-                            'rtl-select': isRTL
-                          }" 
-                          name="client"
-                          :placeholder="$t('Select a client')" />
+                        <v-select class="flex-grow-1" v-model="form.client" :options="clients" label="name" :class="{
+                          'is-invalid': form.errors.has('client'),
+                          'rtl-select': isRTL
+                        }" name="client" :placeholder="$t('Select a client')" />
                         <!-- Show create button when no client selected -->
                         <ClientCreateModal v-if="!form.client" @reloadClients="getClients('latest')">
                           <div class="input-group-text create-btn">
                             <i class="fas fa-solid fa-plus-circle"></i>
                           </div>
                         </ClientCreateModal>
-                        
+
                         <!-- Show edit button when client is selected -->
-                        <div v-if="form.client" class="input-group-text create-btn edit-btn" @click="editSelectedClient">
+                        <div v-if="form.client" class="input-group-text create-btn edit-btn"
+                          @click="editSelectedClient">
                           <i class="fas fa-edit"></i>
                         </div>
                       </div>
@@ -109,8 +109,7 @@
                         <v-select v-model="form.product" :options="products" label="label" class="flex-grow-1" :class="{
                           'is-invalid': form.errors.has('selectedProducts'),
                           'rtl-select': isRTL
-                        }" name="product" :placeholder="$t('Search Items')"
-                          @input="storeProduct(form.product)" />
+                        }" name="product" :placeholder="$t('Search Items')" @input="storeProduct(form.product)" />
                         <ProductCreateModal @reloadProducts="getProducts" @productCreated="handleProductCreated">
                           <div class="input-group-text create-btn">
                             <i class="fas fa-solid fa-plus-circle"></i>
@@ -131,8 +130,10 @@
                     <div class="flex-grow-1">
                       <h6 class="mb-1">{{ $t("Insufficient Stock Alert") }}</h6>
                       <p class="mb-0">
-                        {{ $t("Some products have insufficient stock. Click on the red badges to manage stock levels.") }}
-                        <button type="button" class="btn btn-sm btn-outline-warning ml-2" @click="showAllInsufficientStock">
+                        {{ $t("Some products have insufficient stock. Click on the red badges to manage stock levels.")
+                        }}
+                        <button type="button" class="btn btn-sm btn-outline-warning ml-2"
+                          @click="showAllInsufficientStock">
                           <i class="fas fa-list mr-1"></i>
                           {{ $t("View All") }}
                         </button>
@@ -160,18 +161,22 @@
                           <i class="fas fa-calculator mr-1"></i>
                           Individual Item Calculations:
                         </h6>
-                        <div v-for="(item, index) in form.selectedProducts" :key="index" class="debug-item mb-3 p-3 border rounded">
+                        <div v-for="(item, index) in form.selectedProducts" :key="index"
+                          class="debug-item mb-3 p-3 border rounded">
                           <div class="font-weight-bold text-dark mb-2">{{ item.name }}</div>
                           <div class="row">
                             <div class="col-md-6">
                               <div class="debug-step">
-                                <strong>Subtotal:</strong> {{ formatToTwoDecimals(item.unitPrice) }} × {{ item.qty }} = {{ formatToTwoDecimals(item.unitPrice * item.qty) }}
+                                <strong>Subtotal:</strong> {{ formatToTwoDecimals(item.unitPrice) }} × {{ item.qty }} =
+                                {{
+                                  formatToTwoDecimals(item.unitPrice * item.qty) }}
                               </div>
                               <div class="debug-step">
                                 <strong>Discount:</strong> {{ formatToTwoDecimals(item.discountAmount || 0) }}
                               </div>
                               <div class="debug-step">
-                                <strong>After Discount:</strong> {{ formatToTwoDecimals((item.unitPrice * item.qty) - (item.discountAmount || 0)) }}
+                                <strong>After Discount:</strong> {{ formatToTwoDecimals((item.unitPrice * item.qty) -
+                                  (item.discountAmount || 0)) }}
                               </div>
                             </div>
                             <div class="col-md-6">
@@ -239,7 +244,7 @@
                         <div class="debug-steps">
                           <div class="step">Step 1: Sum of all item totals = {{ formatToTwoDecimals(subtotal) }}</div>
                           <div class="step">Step 2: form.netTotal = {{ formatToTwoDecimals(form.netTotal) }}</div>
-                          <div class="step">Step 3: Are they equal? 
+                          <div class="step">Step 3: Are they equal?
                             <span :class="subtotal === form.netTotal ? 'text-success' : 'text-danger'">
                               {{ subtotal === form.netTotal ? '✅ YES' : '❌ NO' }}
                             </span>
@@ -295,7 +300,8 @@
                                 <td>{{ formatToTwoDecimals(form.totalDiscount) }}</td>
                                 <td>{{ formatToTwoDecimals(totalProductDiscount) }}</td>
                                 <td>
-                                  <span :class="totalProductDiscount === form.totalDiscount ? 'text-success' : 'text-danger'">
+                                  <span
+                                    :class="totalProductDiscount === form.totalDiscount ? 'text-success' : 'text-danger'">
                                     {{ totalProductDiscount === form.totalDiscount ? '✅' : '❌' }}
                                   </span>
                                 </td>
@@ -306,7 +312,8 @@
                                 <td>{{ formatToTwoDecimals(form.subTotal - form.totalDiscount) }}</td>
                                 <td>{{ formatToTwoDecimals(totalAfterDiscount) }}</td>
                                 <td>
-                                  <span :class="totalAfterDiscount === (form.subTotal - form.totalDiscount) ? 'text-success' : 'text-danger'">
+                                  <span
+                                    :class="totalAfterDiscount === (form.subTotal - form.totalDiscount) ? 'text-success' : 'text-danger'">
                                     {{ totalAfterDiscount === (form.subTotal - form.totalDiscount) ? '✅' : '❌' }}
                                   </span>
                                 </td>
@@ -342,24 +349,12 @@
                 </div>
               </div>
 
-              <ItemsTable
-                :items="form.selectedProducts"
-                :prefix="prefix"
-                :taxes="taxes"
-                :form-errors="form.errors"
-                :total-unit-price="totalUnitPrice"
-                :total-product-discount="totalProductDiscount"
-                :total-after-discount="totalAfterDiscount"
-                :total-product-tax="totalProductTax"
-                :subtotal="subtotal"
-                :amount-in-words="toWord()"
-                @item-change="handleItemChange"
-                @discount-change="calculateProductDiscount"
-                @vat-change="calculateProductVat"
-                @remove-item="removeItem"
-                @open-stock-modal="openStockAdjustmentModal"
-                @edit-product="editProductFromTable"
-              />
+              <ItemsTable :items="form.selectedProducts" :prefix="prefix" :taxes="taxes" :form-errors="form.errors"
+                :total-unit-price="totalUnitPrice" :total-product-discount="totalProductDiscount"
+                :total-after-discount="totalAfterDiscount" :total-product-tax="totalProductTax" :subtotal="subtotal"
+                :amount-in-words="toWord()" @item-change="handleItemChange" @discount-change="calculateProductDiscount"
+                @vat-change="calculateProductVat" @remove-item="removeItem" @open-stock-modal="openStockAdjustmentModal"
+                @edit-product="editProductFromTable" />
 
               <div class="row" v-if="!isSaudiArabia">
                 <div class="form-group col-md-4">
@@ -367,7 +362,8 @@
                     $t("Discount Type")
                   }}</label>
                   <select id="discountType" v-model="form.discountType" step="any" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('discountType') }" name="discountType" @change="calculateSum">
+                    :class="{ 'is-invalid': form.errors.has('discountType') }" name="discountType"
+                    @change="calculateSum">
                     <option value="0">{{ $t("Fixed") }}</option>
                     <option value="1">{{ $t("Percentage") }}(%)</option>
                   </select>
@@ -395,9 +391,9 @@
                     $t("Transport Cost")
                   }}</label>
                   <input id="transportCost" v-model="form.transportCost" type="number" step="any" min="1"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('transportCost') }" name="transportCost"
-                    :placeholder="$t('Enter transport cost')" @change="calculateSum" />
-                    :placeholder="$t('Enter transport cost')" @change="calculateSum" @keyup="calculateSum" />
+                    class="form-control" :class="{ 'is-invalid': form.errors.has('transportCost') }"
+                    name="transportCost" :placeholder="$t('Enter transport cost')" @change="calculateSum" />
+                  :placeholder="$t('Enter transport cost')" @change="calculateSum" @keyup="calculateSum" />
                   <span class="saudi-riyal">ê</span>
                   <has-error :form="form" field="transportCost" />
                 </div>
@@ -407,13 +403,10 @@
                 <div v-if="taxes && !isSaudiArabia" class="form-group col-md-4">
                   <label for="orderTax">{{ $t("Quotation Tax") }}
                     <span class="required">*</span></label>
-                  <v-select v-model="form.orderTax" :options="taxes" label="code"
-                    :class="{ 
-                      'is-invalid': form.errors.has('orderTax'),
-                      'rtl-select': isRTL
-                    }" 
-                    name="orderTax"
-                    :placeholder="$t('Select a tax type')" @input="calculateSum" />
+                  <v-select v-model="form.orderTax" :options="taxes" label="code" :class="{
+                    'is-invalid': form.errors.has('orderTax'),
+                    'rtl-select': isRTL
+                  }" name="orderTax" :placeholder="$t('Select a tax type')" @input="calculateSum" />
                   <has-error :form="form" field="orderTax" />
                 </div>
                 <div v-if="taxes && !isSaudiArabia" class="form-group col-md-4">
@@ -423,13 +416,13 @@
                   <span class="saudi-riyal">ê</span>
                   <has-error :form="form" field="totalTax" />
                 </div>
-                <div class="form-group" :class="'col-md-4'">
+                <div class="form-group" :class="'col-md-4'" style="display: none;">
                   <label for="netTotal">{{ $t("Net Total") }}</label>
                   <input id="netTotal" v-model="form.netTotal" type="number" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('netTotal') }" name="netTotal" readonly />
-                  <span class="saudi-riyal">ê</span>
+
                   <has-error :form="form" field="netTotal" />
-                </div> 
+                </div>
                 <div class="form-group col-md-4" style="display: none;">
                   <label for="deliveryPlace">{{
                     $t("Delivery Place")
@@ -457,24 +450,22 @@
               </div>
               <div class="form-group col-12 d-flex flex-wrap">
                 <div class="pr-5 d-flex align-items-center">
-                  <toggle-button 
-                    v-model="form.isSendEmail" 
+                  <toggle-button v-model="form.isSendEmail"
                     :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.email_configured" />
                   <span class="ml-3">{{ $t("Send To Email") }}</span>
-                  <span v-if="!communicationConfig.loading && !communicationConfig.email_configured" 
-                        class="ml-2 text-muted small">
+                  <span v-if="!communicationConfig.loading && !communicationConfig.email_configured"
+                    class="ml-2 text-muted small">
                     ({{ $t("Email not configured") }})
                   </span>
                 </div>
               </div>
               <div class="form-group col-12 d-flex flex-wrap">
                 <div class="pr-5 d-flex align-items-center">
-                  <toggle-button 
-                    v-model="form.isSendSMS" 
+                  <toggle-button v-model="form.isSendSMS"
                     :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.sms_configured" />
                   <span class="ml-3">{{ $t("Send To SMS") }}</span>
-                  <span v-if="!communicationConfig.loading && !communicationConfig.sms_configured" 
-                        class="ml-2 text-muted small">
+                  <span v-if="!communicationConfig.loading && !communicationConfig.sms_configured"
+                    class="ml-2 text-muted small">
                     ({{ $t("SMS not configured") }})
                   </span>
                 </div>
@@ -498,27 +489,15 @@
       </div>
     </div>
     <!-- Client Edit Modal -->
-    <ClientEditModal 
-      ref="clientEditModal"
-      @reloadClients="getClients"
-    />
-    
+    <ClientEditModal ref="clientEditModal" @reloadClients="getClients" />
+
     <!-- Product Edit Modal -->
-    <ProductEditModal 
-      ref="productEditModal"
-      @reloadProducts="getProducts"
-      @productUpdated="handleProductUpdated"
-    />
-    
+    <ProductEditModal ref="productEditModal" @reloadProducts="getProducts" @productUpdated="handleProductUpdated" />
+
     <!-- Stock Adjustment Modal -->
-    <StockAdjustmentModal 
-      :is-open="showStockAdjustmentModal"
-      :product="selectedProductForStockAdjustment"
-      @close="closeStockAdjustmentModal"
-      @adjust-quantity="adjustProductQuantity"
-      @persist="saveTemporary"
-      @stock-updated="handleStockUpdated"
-    />
+    <StockAdjustmentModal :is-open="showStockAdjustmentModal" :product="selectedProductForStockAdjustment"
+      @close="closeStockAdjustmentModal" @adjust-quantity="adjustProductQuantity" @persist="saveTemporary"
+      @stock-updated="handleStockUpdated" />
   </div>
 </template>
 
@@ -594,14 +573,14 @@ export default {
     taxes: "",
     prefix: "",
     clients: [],
-    
+
     // Communication configuration status
     communicationConfig: {
       email_configured: false,
       sms_configured: false,
       loading: true,
     },
-    
+
     // Stock adjustment modal
     showStockAdjustmentModal: false,
     selectedProductForStockAdjustment: null,
@@ -609,12 +588,12 @@ export default {
   }),
   computed: {
     ...mapGetters("operations", ["appInfo"]),
-    
+
     // Check if country is Saudi Arabia or not selected (default to Saudi Arabia)
     isSaudiArabia() {
       return !this.appInfo?.country || this.appInfo.country === 'SA';
     },
-    
+
     // Calculate total unit price (sum of all unit prices * quantities)
     totalUnitPrice() {
       const total = this.form.selectedProducts.reduce((total, item) => {
@@ -622,7 +601,7 @@ export default {
       }, 0);
       return this.roundToTwoDecimals(total);
     },
-    
+
     // Calculate total discount from all products (reactive)
     totalProductDiscount() {
       const total = this.form.selectedProducts.reduce((total, item) => {
@@ -630,12 +609,12 @@ export default {
       }, 0);
       return this.roundToTwoDecimals(total);
     },
-    
+
     // Calculate total after discount (reactive)
     totalAfterDiscount() {
       return this.roundToTwoDecimals(this.totalUnitPrice - this.totalProductDiscount);
     },
-    
+
     // Calculate total product tax (reactive)
     totalProductTax() {
       const total = this.form.selectedProducts.reduce((total, item) => {
@@ -643,42 +622,42 @@ export default {
       }, 0);
       return this.roundToTwoDecimals(total);
     },
-    
+
     // Calculate subtotal (reactive) - WITH VAT for quotations
     subtotal() {
       return this.roundToTwoDecimals(this.totalAfterDiscount + this.totalProductTax);
     },
-    
+
     // Check if there are any products with insufficient stock
     hasInsufficientStock() {
-      return this.form.selectedProducts.some(item => 
-        item.itemType === 'product' && 
+      return this.form.selectedProducts.some(item =>
+        item.itemType === 'product' &&
         Number(item.inventoryCount) < Number(item.qty)
       );
     },
-    
+
     // Get all products with insufficient stock
     insufficientStockProducts() {
-      return this.form.selectedProducts.filter(item => 
-        item.itemType === 'product' && 
+      return this.form.selectedProducts.filter(item =>
+        item.itemType === 'product' &&
         Number(item.inventoryCount) < Number(item.qty)
       );
     },
-    
+
     // Page title computed property - static to prevent reactive updates
     pageTitle() {
       console.log('pageTitle computed property called');
       return this.$t("Create Quotation");
     }
   },
-  
+
   watch: {
     // Watch for any changes and ensure title stays correct
     '$route'() {
       this.setCorrectTitle();
     }
   },
-  
+
   created() {
     this.getClients();
     this.getProducts();
@@ -711,7 +690,7 @@ export default {
         document.title = correctTitle;
       }
     },
-    
+
     // get all clients
     async getClients(selectedClient = 'default') {
       try {
@@ -762,13 +741,13 @@ export default {
       // Add the new product to the products list
       this.products.unshift(newProduct);
       this.products.sort(this.sortProducts);
-      
+
       // Automatically select the newly created product
       this.form.product = newProduct;
-      
+
       // Automatically add it to the selected products list
       this.storeProduct(newProduct);
-      
+
       // Show success message
       // this.$toast.success(this.$t("Product created and added to quotation successfully!"));
     },
@@ -804,9 +783,9 @@ export default {
     async loadCommunicationConfigStatus() {
       try {
         this.communicationConfig.loading = true;
-        
+
         const response = await axios.get('/api/communication-config-status');
-        
+
         this.communicationConfig.email_configured = response.data.email_configured;
         this.communicationConfig.sms_configured = response.data.sms_configured;
         this.communicationConfig.loading = false;
@@ -860,7 +839,7 @@ export default {
           discountAmount: 0,
           selectedVatRate: this.findMatchingVatRate(product.taxRate) || this.form.orderTax || this.taxes?.[0],
         });
-        
+
         // Calculate totals immediately after adding the product
         this.generateItemTotalPrice(0);
         this.calculateSum();
@@ -901,7 +880,7 @@ export default {
           }
           this.$set(item, 'unitPrice', Number(newPrice));
         }
-        
+
         // Recalculate discount amount when quantity or price changes
         if (Number(item.discount) > 0) {
           if (item.discountType === "percentage") {
@@ -910,7 +889,7 @@ export default {
             this.$set(item, 'discountAmount', this.roundToTwoDecimals(Number(item.discount || 0)));
           }
         }
-        
+
         // Use the new method to calculate totals with discount and VAT
         this.generateItemTotalPrice(index);
       }
@@ -968,7 +947,7 @@ export default {
           if (item.taxRate) {
             item.selectedVatRate = this.findMatchingVatRate(item.taxRate);
           }
-          
+
           // If no match found or no taxRate, fall back to quotation default
           if (!item.selectedVatRate) {
             if (this.form.orderTax) {
@@ -990,7 +969,7 @@ export default {
         } else {
           this.$set(item, 'discountAmount', this.roundToTwoDecimals(Number(item.discount || 0)));
         }
-        
+
         // Recalculate totals
         this.generateItemTotalPrice(index);
         this.calculateSum();
@@ -1006,12 +985,12 @@ export default {
           if (item.taxRate) {
             item.selectedVatRate = this.findMatchingVatRate(item.taxRate);
           }
-          
+
           if (!item.selectedVatRate && this.taxes && this.taxes.length > 0) {
             item.selectedVatRate = this.taxes[0];
           }
         }
-        
+
         // Recalculate totals with new VAT rate
         this.generateItemTotalPrice(index);
         this.calculateSum();
@@ -1026,7 +1005,7 @@ export default {
         let unitPrice = Number(item.unitPrice) || 0;
         let qty = Number(item.qty) || 0;
         let discountAmount = Number(item.discountAmount) || 0;
-        
+
         // Calculate price after discount
         let priceAfterDiscount = this.roundToTwoDecimals((unitPrice * qty) - discountAmount);
 
@@ -1138,7 +1117,7 @@ export default {
         });
         return;
       }
-      
+
       // Open the client edit modal with the selected client
       this.$refs.clientEditModal.openModal(this.form.client);
     },
@@ -1155,7 +1134,7 @@ export default {
         });
         return;
       }
-      
+
       // Open the product edit modal with the specific product from the table
       this.$refs.productEditModal.openModal(product);
     },
@@ -1163,18 +1142,18 @@ export default {
     // handle product updated event
     handleProductUpdated(eventData) {
       const { originalProduct, updatedData } = eventData;
-      
+
       console.log('Product updated event received:', eventData);
-      
+
       // Find and update the product in selectedProducts array
-      const productIndex = this.form.selectedProducts.findIndex(p => 
+      const productIndex = this.form.selectedProducts.findIndex(p =>
         p.id === originalProduct.id || p.slug === originalProduct.slug
       );
-      
+
       if (productIndex !== -1) {
         // Update the product data in the selected products array
         const updatedProduct = { ...this.form.selectedProducts[productIndex] };
-        
+
         // Update relevant fields from the form data
         updatedProduct.name = updatedData.itemName || updatedProduct.name;
         updatedProduct.item_name = updatedData.itemName || updatedProduct.item_name;
@@ -1182,7 +1161,7 @@ export default {
         updatedProduct.price = updatedData.regularPrice || updatedProduct.price;
         updatedProduct.discount = updatedData.discount || updatedProduct.discount;
         updatedProduct.selling_price = updatedData.sellingPrice || updatedProduct.selling_price;
-        
+
         // Update related objects if they have IDs
         if (updatedData.subCategory) {
           updatedProduct.sub_category_id = updatedData.subCategory;
@@ -1197,12 +1176,12 @@ export default {
         if (updatedData.brand) {
           updatedProduct.brand_id = updatedData.brand;
         }
-        
+
         // Replace the product in the array
         this.$set(this.form.selectedProducts, productIndex, updatedProduct);
-        
+
         console.log('Updated product in selectedProducts array:', updatedProduct);
-        
+
         // Recalculate totals
         this.calculateTotal();
       } else {
@@ -1211,18 +1190,18 @@ export default {
     },
 
     // return number to word with language support
-    toWord(){
+    toWord() {
       const amount = this.subtotal || 0;
-      
+
       // Handle edge cases
       if (isNaN(amount) || amount < 0) {
         return this.isRTL && this.currentLocale === 'ar' ? 'مبلغ غير صحيح' : 'Invalid Amount';
       }
-      
+
       if (amount === 0) {
         return this.isRTL && this.currentLocale === 'ar' ? 'صفر ريال فقط' : 'Zero Only';
       }
-      
+
       if (this.isRTL && this.currentLocale === 'ar') {
         return this.convertToArabicWords(amount);
       } else {
@@ -1234,16 +1213,16 @@ export default {
     convertToArabicWords(amount) {
       const currencyInfo = this.getCurrencyInfo();
       if (amount === 0) return `صفر ${currencyInfo.main} فقط`;
-      
+
       const integerPart = Math.floor(amount);
       const decimalPart = Math.round((amount - integerPart) * 100);
-      
+
       let result = '';
-      
+
       if (integerPart > 0) {
         const arabicNumber = this.convertIntegerToArabic(integerPart);
         result += arabicNumber + ' ' + currencyInfo.main;
-        
+
         // Add proper pluralization for main currency
         if (integerPart === 1) {
           // Keep singular form
@@ -1255,12 +1234,12 @@ export default {
           // Keep plural form for larger numbers
         }
       }
-      
+
       if (decimalPart > 0) {
         if (result) result += ' و ';
         const arabicDecimal = this.convertIntegerToArabic(decimalPart);
         result += arabicDecimal + ' ' + currencyInfo.sub;
-        
+
         // Add proper pluralization for sub currency
         if (decimalPart === 1) {
           // Keep singular form
@@ -1272,7 +1251,7 @@ export default {
           // Keep plural form for larger numbers
         }
       }
-      
+
       return result + ' فقط';
     },
 
@@ -1280,7 +1259,7 @@ export default {
     getCurrencyInfo() {
       const currency = this.appInfo?.currency || 'SAR';
       const isArabic = this.isRTL && this.currentLocale === 'ar';
-      
+
       const currencyMap = {
         'SAR': {
           en: { main: 'Riyal', sub: 'Halala', symbol: 'ê' },
@@ -1299,7 +1278,7 @@ export default {
           ar: { main: 'جنيه', sub: 'قرش', symbol: '£' }
         }
       };
-      
+
       return currencyMap[currency]?.[isArabic ? 'ar' : 'en'] || currencyMap['SAR'][isArabic ? 'ar' : 'en'];
     },
 
@@ -1308,35 +1287,35 @@ export default {
       const currencyInfo = this.getCurrencyInfo();
       const toWords = new ToWords();
       let words = toWords.convert(amount);
-      
+
       // Add currency information
       const integerPart = Math.floor(amount);
       const decimalPart = Math.round((amount - integerPart) * 100);
-      
+
       let result = words;
-      
+
       if (integerPart > 0) {
         result += ' ' + currencyInfo.main;
         if (integerPart !== 1) result += 's';
       }
-      
+
       if (decimalPart > 0) {
         if (result) result += ' and ';
         result += this.convertIntegerToEnglish(decimalPart) + ' ' + currencyInfo.sub;
         if (decimalPart !== 1) result += 's';
       }
-      
+
       return result + ' Only';
     },
 
     // Convert integer to English words (for decimal parts)
     convertIntegerToEnglish(num) {
       if (num === 0) return 'zero';
-      
+
       const ones = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
       const tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
       const teens = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
-      
+
       if (num < 10) return ones[num];
       if (num < 20) return teens[num - 10];
       if (num < 100) {
@@ -1345,19 +1324,19 @@ export default {
         if (one === 0) return tens[ten];
         return tens[ten] + '-' + ones[one];
       }
-      
+
       return 'number';
     },
 
     // Convert integer to Arabic words
     convertIntegerToArabic(num) {
       if (num === 0) return 'صفر';
-      
+
       const ones = ['', 'واحد', 'اثنان', 'ثلاثة', 'أربعة', 'خمسة', 'ستة', 'سبعة', 'ثمانية', 'تسعة'];
       const tens = ['', '', 'عشرون', 'ثلاثون', 'أربعون', 'خمسون', 'ستون', 'سبعون', 'ثمانون', 'تسعون'];
       const teens = ['عشرة', 'أحد عشر', 'اثنا عشر', 'ثلاثة عشر', 'أربعة عشر', 'خمسة عشر', 'ستة عشر', 'سبعة عشر', 'ثمانية عشر', 'تسعة عشر'];
       const hundreds = ['', 'مائة', 'مائتان', 'ثلاثمائة', 'أربعمائة', 'خمسمائة', 'ستمائة', 'سبعمائة', 'ثمانمائة', 'تسعمائة'];
-      
+
       if (num < 10) return ones[num];
       if (num < 20) return teens[num - 10];
       if (num < 100) {
@@ -1394,7 +1373,7 @@ export default {
         }
         return this.convertIntegerToArabic(million) + ' مليون و ' + this.convertIntegerToArabic(remainder);
       }
-      
+
       return 'رقم كبير جداً';
     },
 
@@ -1460,45 +1439,45 @@ export default {
 
       // Common Laravel validation patterns with localized messages
       const patterns = [
-        { 
-          re: /The\s+.+?\s+field\s+is\s+required\.?/i, 
+        {
+          re: /The\s+.+?\s+field\s+is\s+required\.?/i,
           en: `This field is required`,
-          ar: `هذا الحقل مطلوب` 
+          ar: `هذا الحقل مطلوب`
         },
-        { 
-          re: /The\s+selected\s+.+?\s+is\s+invalid\.?/i, 
+        {
+          re: /The\s+selected\s+.+?\s+is\s+invalid\.?/i,
           en: `The selected value is invalid`,
-          ar: `القيمة المحددة غير صالحة` 
+          ar: `القيمة المحددة غير صالحة`
         },
-        { 
-          re: /The\s+.+?\s+must\s+be\s+a\s+number\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+a\s+number\.?/i,
           en: `Must be a number`,
-          ar: `يجب أن يكون رقماً` 
+          ar: `يجب أن يكون رقماً`
         },
-        { 
-          re: /The\s+.+?\s+must\s+be\s+an\s+integer\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+an\s+integer\.?/i,
           en: `Must be an integer`,
-          ar: `يجب أن يكون عدداً صحيحاً` 
+          ar: `يجب أن يكون عدداً صحيحاً`
         },
-        { 
-          re: /The\s+.+?\s+must\s+be\s+at\s+least\s+(\d+)\.?/i, 
+        {
+          re: /The\s+.+?\s+must\s+be\s+at\s+least\s+(\d+)\.?/i,
           en: (_, n) => `Must be at least ${n}`,
-          ar: (_, n) => `يجب ألا يقل عن ${n}` 
+          ar: (_, n) => `يجب ألا يقل عن ${n}`
         },
-        { 
-          re: /The\s+.+?\s+may\s+not\s+be\s+greater\s+than\s+(\d+)\.?/i, 
+        {
+          re: /The\s+.+?\s+may\s+not\s+be\s+greater\s+than\s+(\d+)\.?/i,
           en: (_, n) => `May not be greater than ${n}`,
-          ar: (_, n) => `يجب ألا يزيد عن ${n}` 
+          ar: (_, n) => `يجب ألا يزيد عن ${n}`
         },
-        { 
-          re: /The\s+.+?\s+format\s+is\s+invalid\.?/i, 
+        {
+          re: /The\s+.+?\s+format\s+is\s+invalid\.?/i,
           en: `Invalid format`,
-          ar: `تنسيق غير صالح` 
+          ar: `تنسيق غير صالح`
         },
-        { 
-          re: /The\s+.+?\s+has\s+already\s+been\s+taken\.?/i, 
+        {
+          re: /The\s+.+?\s+has\s+already\s+been\s+taken\.?/i,
           en: `This value has already been taken`,
-          ar: `هذه القيمة مستخدمة بالفعل` 
+          ar: `هذه القيمة مستخدمة بالفعل`
         },
       ];
 
@@ -1545,7 +1524,7 @@ export default {
         timestamp: new Date().toISOString()
       }
       localStorage.setItem('quotationTempData', JSON.stringify(tempData))
-       
+
     },
     // load temporary data
     loadTemporaryData() {
@@ -1602,7 +1581,7 @@ export default {
     openStockAdjustmentModal(product) {
       try {
         console.log("Opening stock adjustment modal for product:", product);
-        
+
         // Validate product object
         if (!product || !product.id) {
           console.error("Invalid product object:", product);
@@ -1613,7 +1592,7 @@ export default {
           });
           return;
         }
-        
+
         this.selectedProductForStockAdjustment = product;
         this.showStockAdjustmentModal = true;
         console.log("Modal should be open now");
@@ -1639,7 +1618,7 @@ export default {
         // Set quantity to available stock
         this.$set(this.form.selectedProducts[index], 'qty', product.inventoryCount);
         this.generateItemTotal(product.inventoryCount, "qty", index, "");
-        
+
         toast.fire({
           type: "info",
           title: this.$t("Quantity Adjusted"),
@@ -1652,14 +1631,14 @@ export default {
     handleStockUpdated(eventData) {
       // Refresh products to get updated stock levels
       this.getProducts();
-      
+
       // Update the specific product in selectedProducts if it exists
       const { product, newQuantity } = eventData;
       const index = this.form.selectedProducts.findIndex(p => p.id === product.id);
       if (index !== -1) {
-        this.$set(this.form.selectedProducts[index], 'inventoryCount', 
+        this.$set(this.form.selectedProducts[index], 'inventoryCount',
           (this.form.selectedProducts[index].inventoryCount || 0) + newQuantity);
-        
+
         // Recalculate totals
         this.calculateSum();
       }
@@ -1669,16 +1648,16 @@ export default {
       // Show a summary of all insufficient stock products
       const insufficientProducts = this.insufficientStockProducts;
       if (insufficientProducts.length === 0) return;
-      
+
       let message = this.$t("Products with insufficient stock:") + "\n\n";
       insufficientProducts.forEach((product, index) => {
         const shortage = Number(product.qty) - Number(product.inventoryCount);
         message += `${index + 1}. ${product.name}\n`;
         message += `   ${this.$t("Required")}: ${product.qty}, ${this.$t("Available")}: ${product.inventoryCount}, ${this.$t("Shortage")}: ${shortage}\n\n`;
       });
-      
+
       message += this.$t("Click on the red badges next to each product to manage stock levels.");
-      
+
       toast.fire({
         type: "warning",
         title: this.$t("Insufficient Stock Summary"),
@@ -1734,12 +1713,12 @@ export default {
   mounted() {
     this.loadTemporaryData();
     this.setCorrectTitle();
-    
+
     // Set up a periodic check to ensure title stays correct
     this.titleCheckInterval = setInterval(() => {
       this.setCorrectTitle();
     }, 1000); // Check every second
-    
+
     // Set up a MutationObserver to watch for title changes
     this.titleObserver = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
@@ -1749,20 +1728,20 @@ export default {
         }
       });
     });
-    
+
     // Observe the head element for title changes
     const head = document.querySelector('head');
     if (head) {
       this.titleObserver.observe(head, { childList: true, subtree: true });
     }
   },
-  
+
   beforeDestroy() {
     // Clean up the interval
     if (this.titleCheckInterval) {
       clearInterval(this.titleCheckInterval);
     }
-    
+
     // Clean up the observer
     if (this.titleObserver) {
       this.titleObserver.disconnect();
@@ -1883,7 +1862,7 @@ export default {
 }
 
 /* Search Input Background Override */
-.form-control{
+.form-control {
   background: #fff !important;
 }
 
@@ -1941,7 +1920,9 @@ export default {
   transform: scale(1.05);
 }
 
-.price-field {width: 100%}
+.price-field {
+  width: 100%
+}
 
 .quantity-field {
   width: 60px;
@@ -2023,7 +2004,8 @@ export default {
   border: 2px solid #ffc107;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(255, 193, 7, 0.2);
-  display: none; /* Hide debug panel by default */
+  display: none;
+  /* Hide debug panel by default */
 }
 
 .debug-panel .card-header {
@@ -2123,20 +2105,20 @@ export default {
   .debug-panel .card-body {
     padding: 15px;
   }
-  
+
   .debug-item .row {
     margin: 0;
   }
-  
+
   .debug-item .col-md-6 {
     padding: 0 5px;
   }
-  
+
   .debug-step {
     font-size: 0.8em;
     padding: 3px 6px;
   }
-  
+
   .debug-panel .table {
     font-size: 0.75em;
   }

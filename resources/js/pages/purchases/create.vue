@@ -200,7 +200,7 @@
                         " @change="calculateSum" @keyup="calculateSum" />
                   <has-error :form="form" field="transportCost" />
                 </div>
-                <div class="form-group col-md-6 col-xl-3">
+                <div class="form-group col-md-6 col-xl-3" style="display: none;">
                   <label for="netTotal">{{ $t("Net Total") }}</label>
                   <input id="netTotal" v-model="form.netTotal" type="number" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('netTotal') }" name="netTotal" readonly />
