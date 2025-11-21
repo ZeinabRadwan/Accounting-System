@@ -156,7 +156,7 @@
                         <th v-if="allData.paymentTerms">
                           {{ $t("Payment Terms") }}
                         </th>
-                        <th v-if="allData.deliveryPlace">
+                        <th v-if="allData.deliveryPlace" style="display: none;">
                           {{ $t("Delivery Place") }}
                         </th>
                         <th v-if="allData.note">{{ $t("Note") }}</th>
@@ -183,7 +183,7 @@
                         <td v-if="allData.paymentTerms">
                           {{ allData.paymentTerms }}
                         </td>
-                        <td v-if="allData.deliveryPlace">
+                        <td v-if="allData.deliveryPlace" style="display: none;">
                           {{ allData.deliveryPlace }}
                         </td>
                         <td v-if="allData.note">{{ allData.note }}</td>

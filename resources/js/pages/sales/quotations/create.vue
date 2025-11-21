@@ -430,7 +430,7 @@
                   <span class="saudi-riyal">ê</span>
                   <has-error :form="form" field="netTotal" />
                 </div> 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4" style="display: none;">
                   <label for="deliveryPlace">{{
                     $t("Delivery Place")
                   }}</label>

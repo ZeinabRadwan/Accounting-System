@@ -371,7 +371,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4" style="display: none;">
                   <label for="deliveryPlace">{{
                     $t("Delivery Place")
                   }}</label>

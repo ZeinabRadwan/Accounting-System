@@ -716,7 +716,7 @@
               />
               <has-error :form="form" field="reference" />
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6" style="display: none;">
               <label for="deliveryPlace">{{ $t("Delivery Place") }}</label>
               <input
                 id="deliveryPlace"
