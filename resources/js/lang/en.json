@@ -3577,5 +3577,7 @@
 "Sorry, no matching options.": "Sorry, no matching options.",
 "Automatic account assignment is enabled": "Automatic account assignment is enabled",
 "Quotation Status Approved": "Approved",
-"Quotation Status Not Approved": "Not Approved"
+"Quotation Status Not Approved": "Not Approved",
+"Invoice Status Sent": "Sent",
+"Invoice Status Not Sent": "Not Sent"
 }

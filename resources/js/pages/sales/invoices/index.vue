@@ -141,10 +141,10 @@
                     <td v-html="formatCurrency(data.due)"></td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
-                        $t("Active")
+                        $t("Invoice Status Sent")
                       }}</span>
                       <span v-else class="badge bg-danger">{{
-                        $t("Inactive")
+                        $t("Invoice Status Not Sent")
                       }}</span>
                     </td>
                     <td v-if="$can('invoice-view') ||
