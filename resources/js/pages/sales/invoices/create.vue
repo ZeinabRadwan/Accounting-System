@@ -387,7 +387,7 @@
                     :placeholder="$t('Enter a delivery place')" @input="clearFieldError('deliveryPlace')" />
                   <has-error :form="form" field="deliveryPlace" />
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4" style="display: none;">
                   <label for="date">{{ $t("Date") }}</label>
                   <input id="date" v-model="form.date" type="date" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('date') }" name="date" @change="clearFieldError('date')" />

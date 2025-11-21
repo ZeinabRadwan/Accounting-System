@@ -53,7 +53,7 @@
           <form id="quotationCreateForm" role="form" @submit.prevent="saveQuotation" @keydown="form.onKeydown($event)">
             <div class="card-body">
               <!-- Date Field - Standalone Row -->
-              <div class="row">
+              <div class="row" style="display: none;">
                 <div class="form-group col-md-4">
                   <label for="date">{{ $t("Date") }}</label>
                   <input id="date" v-model="form.date" type="date" class="form-control"

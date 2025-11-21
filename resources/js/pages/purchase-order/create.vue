@@ -222,7 +222,7 @@
                 <has-error :form="form" field="note" />
               </div>
               <div class="row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4" style="display: none;">
                   <label for="purchaseDate">{{
                     $t("Purchase Date")
                   }}</label>
@@ -230,7 +230,7 @@
                     :class="{ 'is-invalid': form.errors.has('purchaseDate') }" name="purchaseDate" />
                   <has-error :form="form" field="purchaseDate" />
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4" style="display: none;">
                   <label for="poDate">{{
                     $t("PO Date")
                   }}</label>
