@@ -74,9 +74,14 @@
                 <div v-if="categories" class="form-group col-md-6">
                   <label for="subcategoryCategory">{{ $t('Category Name') }}
                     <span class="required">*</span></label>
-                  <v-select v-model="subcategoryForm.category" :options="categories" label="name"
-                    :class="{ 'is-invalid': subcategoryForm.errors.has('category') }" name="category"
-                    :placeholder="$t('Select a category')" />
+                  <div class="d-flex w-100">
+                    <v-select class="flex-grow-1 category-select" v-model="subcategoryForm.category" :options="categories" label="name"
+                      :class="{ 'is-invalid': subcategoryForm.errors.has('category') }" name="category"
+                      :placeholder="$t('Select a category')" />
+                    <div class="input-group-text create-btn" @click="activeTab = 'category'" style="cursor: pointer;">
+                      <i class="fas fa-solid fa-plus-circle"></i>
+                    </div>
+                  </div>
                   <has-error :form="subcategoryForm" field="category" />
                 </div>
                 <div class="form-group col-md-6">
@@ -214,12 +219,17 @@ export default {
           const createdCategory = { name: categoryName }
           // Emit event with created category data to refresh in parent
           this.$emit('categoryCreated', createdCategory)
-          // Reset form
+          // Reset category form
           this.categoryForm.reset()
           this.categoryForm.status = 1
-          // Close only this modal, not parent modals
-          this.showModal = false
-          this.resetForms()
+          // Navigate to subcategory tab instead of closing modal
+          this.activeTab = 'subcategory'
+          // Auto-select the newly created category in subcategory form
+          await this.$nextTick()
+          const newCategory = this.categories.find(cat => cat.name === categoryName)
+          if (newCategory) {
+            this.subcategoryForm.category = newCategory
+          }
         })
         .catch((error) => {
           // Check if this is a validation error (status 422)
@@ -441,6 +451,47 @@ textarea.form-control {
 .create-button {
   text-decoration: none;
   cursor: pointer;
+}
+
+.create-btn {
+  padding: 11px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-left: none;
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+.create-btn:hover {
+  background-color: #e9ecef;
+}
+
+/* Category select with create button styling */
+.category-select {
+  margin-right: 0 !important;
+}
+
+.category-select .vs__dropdown-toggle {
+  border-right: none !important;
+  border-radius: 0.25rem 0 0 0.25rem !important;
+}
+
+[dir="rtl"] .category-select .vs__dropdown-toggle {
+  border-right: 1px solid #ced4da !important;
+  border-left: none !important;
+  border-radius: 0 0.25rem 0.25rem 0 !important;
+}
+
+/* RTL adjustments for create button */
+[dir="rtl"] .create-btn {
+  border-left: none;
+  border-right: 1px solid #ced4da;
+  border-radius: 0.25rem 0 0 0.25rem;
+}
+
+[dir="ltr"] .create-btn {
+  border-left: 1px solid #ced4da;
+  border-right: none;
+  border-radius: 0 0.25rem 0.25rem 0;
 }
 
 /* Row spacing */
