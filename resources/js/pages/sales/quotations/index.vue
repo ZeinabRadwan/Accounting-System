@@ -137,10 +137,10 @@
                     <td>{{ parseFloat(data.subTotal || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
-                        $t("Active")
+                        $t("Quotation Status Approved")
                       }}</span>
                       <span v-else class="badge bg-danger">{{
-                        $t("Inactive")
+                        $t("Quotation Status Not Approved")
                       }}</span>
                     </td>
                     <td v-if="$can('quotation-to-invoice') ||

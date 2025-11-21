@@ -3904,5 +3904,7 @@
 "Digital Signature": "التوقيع الرقمي",
 "Validating digital signature implementation": "التحقق من تنفيذ التوقيع الرقمي",
 "Sorry, no matching options.": "عذراً، لا توجد خيارات مطابقة.",
-"Automatic account assignment is enabled": "تم تفعيل تعيين الحسابات تلقائياً"
+"Automatic account assignment is enabled": "تم تفعيل تعيين الحسابات تلقائياً",
+"Quotation Status Approved": "موافق عليه",
+"Quotation Status Not Approved": "غير موافق عليه"
 }
