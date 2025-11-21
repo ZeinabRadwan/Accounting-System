@@ -188,7 +188,7 @@
             <div class="col-12">
               <div class="alert alert-info d-flex align-items-center">
                 <i class="fas fa-info-circle mr-2"></i>
-                <span>{{ $t("Accounts will be assigned automatically based on your settings.") }}</span>
+                <span>{{ $t("Automatic account assignment is enabled") }}</span>
               </div>
             </div>
           </div>

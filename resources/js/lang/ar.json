@@ -3903,5 +3903,6 @@
 "Testing QR code generation for invoices": "اختبار إنشاء رمز الاستجابة السريعة للفواتير",
 "Digital Signature": "التوقيع الرقمي",
 "Validating digital signature implementation": "التحقق من تنفيذ التوقيع الرقمي",
-"Sorry, no matching options.": "عذراً، لا توجد خيارات مطابقة."
+"Sorry, no matching options.": "عذراً، لا توجد خيارات مطابقة.",
+"Automatic account assignment is enabled": "تم تفعيل تعيين الحسابات تلقائياً"
 }
