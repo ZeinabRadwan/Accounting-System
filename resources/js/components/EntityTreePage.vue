@@ -15,18 +15,12 @@
               <a @click.prevent="refreshTree" href="#" v-tooltip="$t('Refresh')" class="btn refresh-btn">
                 <i class="fas fa-sync"></i>
               </a>
-              <router-link
-                v-if="hasPermission('list') && resolveRoute('list')"
-                :to="resolveRoute('list')"
-                class="btn tree-btn"
-              >
+              <router-link v-if="hasPermission('list') && resolveRoute('list')" :to="resolveRoute('list')"
+                class="btn tree-btn">
                 <i class="fas fa-list"></i>
               </router-link>
-              <router-link
-                v-if="hasPermission('create') && resolveRoute('create')"
-                :to="resolveRoute('create')"
-                class="btn btn-primary"
-              >
+              <router-link v-if="hasPermission('create') && resolveRoute('create')" :to="resolveRoute('create')"
+                class="btn btn-primary">
                 <i class="fas fa-plus-circle"></i> {{ $t('Create') }}
               </router-link>
             </div>
@@ -36,32 +30,19 @@
     </div>
 
     <div class="tree-page-container">
-      <tree-view
-        :items="allItems"
-        :hierarchical-items="hierarchicalItems"
-        :query="query"
+      <tree-view :items="allItems" :hierarchical-items="hierarchicalItems" :query.sync="query"
         :dragged-item-id="enableDragAndDrop ? draggedItemId : null"
         :drag-over-item-id="enableDragAndDrop ? dragOverItemId : null"
-        :can-drag="enableDragAndDrop ? canDragItem : null"
-        :get-display-name="resolveDisplayName"
-        :is-last-sibling="isLastSibling"
-        @toggle-expand="toggleExpand"
-        @reset-pagination="resetPagination"
-        @reload="reload"
-        @drag-start="handleDragStart"
-        @drag-over="handleDragOver"
-        @drag-leave="handleDragLeave"
-        @drop="handleDrop"
-        @drag-end="handleDragEnd"
-      >
+        :can-drag="enableDragAndDrop ? canDragItem : null" :get-display-name="resolveDisplayName"
+        :is-last-sibling="isLastSibling" @toggle-expand="toggleExpand" @reset-pagination="resetPagination"
+        @reload="reload" @drag-start="handleDragStart" @drag-over="handleDragOver" @drag-leave="handleDragLeave"
+        @drop="handleDrop" @drag-end="handleDragEnd">
         <template v-if="$scopedSlots.badges" #badges="{ item }">
           <slot name="badges" :item="item" />
         </template>
         <template v-else #badges="{ item }">
-          <span
-            v-if="showStatusBadge"
-            :class="item.is_active ? 'tree-badge tree-badge-active' : 'tree-badge tree-badge-inactive'"
-          >
+          <span v-if="showStatusBadge"
+            :class="item.is_active ? 'tree-badge tree-badge-active' : 'tree-badge tree-badge-inactive'">
             {{ item.is_active ? $t('Active') : $t('Inactive') }}
           </span>
         </template>
@@ -70,34 +51,21 @@
           <slot name="actions" :item="item" />
         </template>
         <template v-else #actions="{ item }">
-          <router-link
-            v-if="hasPermission('view') && resolveRoute('view', item)"
-            :to="resolveRoute('view', item)"
-            class="tree-action-btn tree-action-view"
-          >
-            {{ $t('View') }}
+          <router-link v-if="hasPermission('view') && resolveRoute('view', item)" :to="resolveRoute('view', item)"
+            class="tree-action-btn tree-action-view" v-tooltip="$t('View')">
+            <i class="fas fa-eye"></i>
           </router-link>
-          <router-link
-            v-if="hasPermission('edit') && resolveRoute('edit', item)"
-            :to="resolveRoute('edit', item)"
-            class="tree-action-btn tree-action-edit"
-          >
-            {{ $t('Edit') }}
+          <router-link v-if="hasPermission('edit') && resolveRoute('edit', item)" :to="resolveRoute('edit', item)"
+            class="tree-action-btn tree-action-edit" v-tooltip="$t('Edit')">
+            <i class="fas fa-edit"></i>
           </router-link>
-          <router-link
-            v-if="hasPermission('create') && resolveRoute('createChild', item) && canAddChild(item)"
-            :to="resolveRoute('createChild', item)"
-            class="tree-action-btn tree-action-add"
-          >
-            {{ $t('Add Child') }}
+          <router-link v-if="hasPermission('create') && resolveRoute('createChild', item) && canAddChild(item)"
+            :to="resolveRoute('createChild', item)" class="tree-action-btn tree-action-add" v-tooltip="$t('Add Child')">
+            <i class="fas fa-plus"></i>
           </router-link>
-          <a
-            v-if="hasPermission('delete') && config.api?.delete"
-            href="#"
-            @click.prevent="deleteData(item)"
-            :class="['tree-action-btn', 'tree-action-delete', { disabled: !canDelete(item) }]"
-          >
-            {{ $t('Delete') }}
+          <a v-if="hasPermission('delete') && config.api?.delete" href="#" @click.prevent="deleteData(item)"
+            :class="['tree-action-btn', 'tree-action-delete', { disabled: !canDelete(item) }]" v-tooltip="$t('Delete')">
+            <i class="fas fa-trash"></i>
           </a>
         </template>
       </tree-view>
@@ -160,6 +128,7 @@ export default {
   },
   watch: {
     query(newQuery) {
+      console.log('EntityTreePage: query changed', newQuery);
       if (!newQuery) {
         this.getData();
       } else {
@@ -167,7 +136,7 @@ export default {
       }
     },
     storeLocale: {
-      handler: async function(newLocale) {
+      handler: async function (newLocale) {
         if (newLocale && newLocale !== this.currentLocale) {
           this.currentLocale = newLocale;
           if (!this.query) {
@@ -179,7 +148,7 @@ export default {
       },
       immediate: false,
     },
-    '$i18n.locale': async function(newLocale) {
+    '$i18n.locale': async function (newLocale) {
       if (newLocale && newLocale !== this.currentLocale) {
         this.currentLocale = newLocale;
         if (!this.query) {
@@ -276,21 +245,32 @@ export default {
       return { ...(defaultParams || {}) };
     },
     buildSearchParams() {
+      console.log('EntityTreePage: buildSearchParams called');
       const params = { ...this.buildDefaultParams() };
+      console.log('EntityTreePage: params after default', params);
+
       const searchKey = this.config?.api?.searchParam || "search";
+      console.log('EntityTreePage: searchKey', searchKey);
+      console.log('EntityTreePage: this.query', this.query);
+
       params[searchKey] = this.query;
+      console.log('EntityTreePage: params after adding query', params);
+
       const extra = this.config?.api?.searchParams;
       if (typeof extra === "function") {
+        const extraParams = extra({
+          locale: this.currentLocale,
+          query: this.query,
+        }) || {};
+        console.log('EntityTreePage: extraParams', extraParams);
         Object.assign(
           params,
-          extra({
-            locale: this.currentLocale,
-            query: this.query,
-          }) || {}
+          extraParams
         );
       } else if (extra) {
         Object.assign(params, extra);
       }
+      console.log('EntityTreePage: final params', params);
       return params;
     },
     async getData() {
@@ -312,14 +292,19 @@ export default {
       }
     },
     async searchData() {
+      console.log('EntityTreePage: searchData called', this.query);
       if (!this.config?.api?.search) {
+        console.log('EntityTreePage: no search API config, calling getData');
         return this.getData();
       }
       this.$store.state.operations.loading = true;
       try {
+        const params = this.buildSearchParams();
+        console.log('EntityTreePage: search params', params);
         const response = await this.$axios.get(this.config.api.search, {
-          params: this.buildSearchParams(),
+          params: params,
         });
+        console.log('EntityTreePage: search response', response.data);
         this.allItems = response.data.data || [];
         this.buildHierarchy();
       } catch (error) {
@@ -332,6 +317,7 @@ export default {
     buildHierarchy() {
       const itemsMap = new Map();
       const rootItems = [];
+      const orphanedItems = [];
 
       this.allItems.forEach((item) => {
         const id = item[this.idField];
@@ -354,6 +340,9 @@ export default {
             parent.children.push(id);
             parent.hasChildren = true;
             parent.children_count = parent.children.length;
+          } else {
+            // Parent not in search results, treat as orphaned (root-level in search)
+            orphanedItems.push(id);
           }
         } else {
           rootItems.push(id);
@@ -362,6 +351,8 @@ export default {
 
       this.hierarchicalItems = [];
       this.buildHierarchicalList(rootItems, itemsMap, 0);
+      // Add orphaned items (children whose parents aren't in search results) as root items
+      this.buildHierarchicalList(orphanedItems, itemsMap, 0);
     },
     buildHierarchicalList(itemIds, itemsMap, level) {
       itemIds.forEach((id, index) => {
@@ -491,8 +482,8 @@ export default {
       const entityLabel = this.config?.messages?.entityLabel || this.$t("Item");
       const message = newParentId !== oldParentId
         ? this.$t('Move "{item}" to "{target}"?')
-            .replace("{item}", this.resolveDisplayName(draggedItem))
-            .replace("{target}", this.resolveDisplayName(targetItem))
+          .replace("{item}", this.resolveDisplayName(draggedItem))
+          .replace("{target}", this.resolveDisplayName(targetItem))
         : this.$t('Reorder "{item}"?').replace("{item}", this.resolveDisplayName(draggedItem));
 
       const result = await Swal.fire({
@@ -644,4 +635,3 @@ export default {
   border: 1px solid #ffebee;
 }
 </style>
-

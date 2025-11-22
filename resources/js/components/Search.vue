@@ -7,7 +7,7 @@
       </svg>
     </div>
     <input ref="autoFocusInput" type="text" :value="query" class="search-input form-control" :placeholder="$t('Search')"
-      @input="$emit('reset-pagination', $event.target.value)" />
+      @input="handleInput" />
     <label class="search-btn search-clear" :class="[query !== '' ? 'd-inline-block' : 'd-none']"
       @click="$emit('reload')">
       <i class="fas fa-times" />
@@ -34,8 +34,13 @@ export default {
       type: Boolean,
       default: false,
     },
-
-  }
+  },
+  methods: {
+    handleInput(event) {
+      const value = event.target.value;
+      this.$emit('reset-pagination', value);
+    },
+  },
 }
 </script>
 

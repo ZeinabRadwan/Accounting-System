@@ -95,4 +95,14 @@ return [
     // Inventory / UI Messages
     'Filter by Operation Type' => 'تصفية حسب نوع العملية',
     'Select a branch' => 'اختر فرع',
+    
+    // Tree View Messages
+    'Account Details' => 'تفاصيل الحساب',
+    'Select an account to view details' => 'اختر حساباً لعرض التفاصيل',
+    'Level' => 'المستوى',
+    'Children Count' => 'عدد الحسابات الفرعية',
+    'View' => 'عرض',
+    'Edit' => 'تعديل',
+    'Add Child' => 'إضافة حساب فرعي',
+    'Delete' => 'حذف',
 ];

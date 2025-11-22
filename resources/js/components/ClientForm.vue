@@ -122,14 +122,14 @@
             </div>
 
             <div class="row">
-              <div class="form-group col-form-6">
+              <div class="form-group col-12">
                 <label for="phone">{{ $t("Telephone") }}</label>
                 <input id="phone" v-model="form.phone" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('phone') }" name="phone"
                   :placeholder="$t('Enter telephone number')" />
                 <has-error :form="form" field="phone" />
               </div>
-              <div class="form-group col-form-6">
+              <div class="form-group col-12">
                 <PhoneNumberInput v-model="form.phoneNumber" :label="$t('Mobile')" :required="true"
                   :country="form.country" :default-country="form.country || 'SA'" @validated="onPhoneValidated" />
                 <has-error :form="form" field="phoneNumber" />
@@ -157,9 +157,9 @@
             </h5>
           </div>
           <div class="card-body">
-            <!-- Country and Region -->
+            <!-- Country -->
             <div class="row">
-              <div class="form-group col-form-6">
+              <div class="form-group col-12">
                 <label for="country">
                   {{ $t("Country") }}
                   <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
@@ -187,16 +187,20 @@
                 </v-select>
                 <has-error :form="form" field="country" />
               </div>
-              <div v-if="form.country !== 'SA'" class="form-group col-form-6">
+            </div>
+
+            <!-- State/County - Standalone Row -->
+            <div class="row">
+              <div v-if="form.country !== 'SA'" class="form-group col-12">
                 <label for="state">{{ $t("State") }}</label>
                 <input id="state" v-model="form.state" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('state') }" name="state" :placeholder="$t('Enter state')" />
                 <has-error :form="form" field="state" />
               </div>
 
-              <!-- Saudi Arabia Region, City and Neighbourhood -->
+              <!-- Saudi Arabia Region -->
               <template v-if="form.country === 'SA'">
-                <div class="form-group col-form-6">
+                <div class="form-group col-12">
                   <label for="saudi_region">{{ $t("Region") }}</label>
                   <v-select v-model="form.saudi_region" :options="saudiRegions" label="name"
                     :reduce="option => option.id" :placeholder="$t('Select Region')" :searchable="true"
@@ -216,16 +220,18 @@
 
             <!-- City and Neighbourhood -->
             <div class="row">
-              <template v-if="form.country === 'SA'">
-                <div class="form-group col-form-6">
-                  <label for="city">
-                    {{ $t("City") }}
-                    <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
-                  </label>
+              <!-- City - Always shown, disabled until country is selected -->
+              <div class="form-group col-form-6">
+                <label for="city">
+                  {{ $t("City") }}
+                  <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                </label>
+                <!-- Saudi Arabia City -->
+                <template v-if="form.country === 'SA'">
                   <v-select v-if="saudiCities.length > 0" v-model="form.city" :options="saudiCities" label="name"
                     :reduce="option => option.name" :placeholder="$t('Select City')" :searchable="true"
                     :clearable="false" class="saudi-location-select" :class="{ 'is-invalid': form.errors.has('city') }"
-                    :disabled="!form.saudi_region">
+                    :disabled="!form.country || !form.saudi_region">
                     <template #option="{ name_ar, name_en }">
                       <div>{{ $i18n.locale === 'ar' ? name_ar : name_en }}</div>
                     </template>
@@ -233,45 +239,26 @@
                       <div>{{ $i18n.locale === 'ar' ? name_ar : name_en }}</div>
                     </template>
                   </v-select>
-                  <input v-else-if="form.saudi_region" id="city" v-model="form.city" type="text" class="form-control"
+                  <input v-else id="city" v-model="form.city" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('city') }" name="city" :placeholder="$t('Enter city name')"
-                    :disabled="!form.saudi_region" />
-                  <has-error :form="form" field="city" />
-                </div>
-                <div class="form-group col-form-6">
-                  <label for="neighbourhood">
-                    {{ $t("Neighbourhood") }}
-                    <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
-                  </label>
-                  <input id="neighbourhood" v-model="form.neighbourhood" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('neighbourhood') }" name="neighbourhood"
-                    :placeholder="$t('Enter neighbourhood')" />
-                  <has-error :form="form" field="neighbourhood" />
-                </div>
-              </template>
-
-              <!-- Regular City and Neighbourhood Input for Non-Saudi Countries -->
-              <template v-if="form.country !== 'SA'">
-                <div class="form-group col-form-6">
-                  <label for="city">
-                    {{ $t("City") }}
-                    <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
-                  </label>
-                  <input id="city" v-model="form.city" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('city') }" name="city" :placeholder="$t('Enter city')" />
-                  <has-error :form="form" field="city" />
-                </div>
-                <div class="form-group col-form-6">
-                  <label for="neighbourhood">
-                    {{ $t("Neighbourhood") }}
-                    <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
-                  </label>
-                  <input id="neighbourhood" v-model="form.neighbourhood" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('neighbourhood') }" name="neighbourhood"
-                    :placeholder="$t('Enter neighbourhood')" />
-                  <has-error :form="form" field="neighbourhood" />
-                </div>
-              </template>
+                    :disabled="!form.country || !form.saudi_region" />
+                </template>
+                <!-- Non-Saudi City -->
+                <input v-else id="city" v-model="form.city" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('city') }" name="city" :placeholder="$t('Enter city')"
+                  :disabled="!form.country" />
+                <has-error :form="form" field="city" />
+              </div>
+              <div class="form-group col-form-6">
+                <label for="neighbourhood">
+                  {{ $t("Neighbourhood") }}
+                  <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                </label>
+                <input id="neighbourhood" v-model="form.neighbourhood" type="text" class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('neighbourhood') }" name="neighbourhood"
+                  :placeholder="$t('Enter neighbourhood')" />
+                <has-error :form="form" field="neighbourhood" />
+              </div>
             </div>
 
             <!-- Street Name and Postal Code -->
@@ -324,7 +311,7 @@
 
             <!-- Saudi National Address Fields - Additional Numbers -->
             <div v-if="form.country === 'SA'" class="row">
-              <div class="form-group col-md-4">
+              <div class="form-group col-form-6">
                 <label for="districtNumber">
                   {{ $t("District Number") }} <span v-if="form.taxStatus === 'taxable'" class="required">*</span><span
                     v-else class="text-muted">({{ $t("Optional") }})</span>
@@ -334,7 +321,7 @@
                   :placeholder="$t('Enter district number')" maxlength="5" />
                 <has-error :form="form" field="districtNumber" />
               </div>
-              <div class="form-group col-md-4">
+              <div class="form-group col-form-6">
                 <label for="unitNumber">
                   {{ $t("Unit Number") }} <span v-if="form.taxStatus === 'taxable'" class="required">*</span><span
                     v-else class="text-muted">({{ $t("Optional") }})</span>
@@ -344,7 +331,9 @@
                   :placeholder="$t('Enter unit number')" maxlength="5" />
                 <has-error :form="form" field="unitNumber" />
               </div>
-              <div class="form-group col-md-4">
+            </div>
+            <div v-if="form.country === 'SA'" class="row">
+              <div class="form-group col-form-6">
                 <label for="additionalNumber">
                   {{ $t("Additional Number") }} <span class="text-muted">({{ $t("Optional") }})</span>
                 </label>

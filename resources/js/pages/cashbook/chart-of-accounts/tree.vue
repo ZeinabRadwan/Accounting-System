@@ -41,7 +41,7 @@ export default {
         api: {
           list: "/api/chart-of-accounts/translations",
           search: "/api/chart-of-accounts/translations/search",
-          searchParam: "term",
+          searchParam: "search",
           defaultParams: ({ locale }) => ({
             locale,
             include_translations: true,
@@ -51,7 +51,8 @@ export default {
           }),
           searchParams: ({ locale }) => ({
             locale,
-            search_field: "name",
+            field: "name",
+            perPage: 1000,
           }),
           delete: (item) => `/api/chart-of-accounts/${item.code}`,
           move: (itemId, { locale }) => `/api/chart-of-accounts/${itemId}/move`,
@@ -93,4 +94,3 @@ export default {
   },
 };
 </script>
-
