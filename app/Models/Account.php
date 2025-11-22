@@ -70,10 +70,14 @@ class Account extends Model
 
     /**
      * Get the available balance
+     * For bank/cashbook accounts (Assets), balance = Debits - Credits
+     * This follows standard accounting principles where:
+     * - Debits increase asset accounts
+     * - Credits decrease asset accounts
      */
     public function availableBalance()
     {
-        return $this->totalCredits() - $this->totalDebits();
+        return $this->totalDebits() - $this->totalCredits();
     }
 
     /**
