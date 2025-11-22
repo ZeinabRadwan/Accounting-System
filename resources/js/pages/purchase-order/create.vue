@@ -106,9 +106,7 @@
                       <div class="product-status mt-2" v-if="form.selectedProducts && form.selectedProducts.length > 0">
                         <div v-if="!form.selectedProducts[0].purchase_account_id" class="product-warning">
                           <i class="fas fa-exclamation-triangle text-warning"></i>
-                          <span class="ml-2">{{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('needs
-                            Purchase
-                            Account') }}</span>
+                          <span class="ml-2">{{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('needs Purchase Account') }}</span>
                           <button type="button" class="btn btn-sm btn-outline-warning ml-2"
                             @click="autoAssignProductChartOfAccount(form.selectedProducts[0])"
                             :disabled="isAutoAssigningProduct === form.selectedProducts[0].id">

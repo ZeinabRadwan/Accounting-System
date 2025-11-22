@@ -123,8 +123,7 @@
                       <div class="product-status mt-2" v-if="form.product">
                         <div v-if="!form.product.sales_account_id" class="product-warning">
                           <i class="fas fa-exclamation-triangle text-warning"></i>
-                          <span class="ml-2">{{ $t('Product') }} "{{ form.product.name }}" {{ $t('needs Sales Account')
-                            }}</span>
+                          <span class="ml-2">{{ $t('Product') }} "{{ form.product.name }}" {{ $t('needs Sales Account') }}</span>
                           <button type="button" class="btn btn-sm btn-outline-warning ml-2"
                             @click="autoAssignProductChartOfAccount(form.product, 'sales')"
                             :disabled="isAutoAssigningProduct === form.product.id">
@@ -136,25 +135,20 @@
                         <div v-else-if="!form.product.productTax || !form.product.productTax.id"
                           class="product-warning">
                           <i class="fas fa-exclamation-triangle text-warning"></i>
-                          <span class="ml-2">{{ $t('Product') }} "{{ form.product.name }}" {{ $t('needs VAT Rate')
-                            }}</span>
+                          <span class="ml-2">{{ $t('Product') }} "{{ form.product.name }}" {{ $t('needs VAT Rate') }}</span>
                         </div>
                         <div
                           v-else-if="form.selectedProducts && form.selectedProducts.length > 0 && form.selectedProducts[0].sales_account_id"
                           class="product-success">
                           <i class="fas fa-check-circle text-success"></i>
-                          <span class="ml-2">{{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('Sales
-                            Account
-                            ready') }}</span>
+                          <span class="ml-2">{{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('Sales Account ready') }}</span>
                         </div>
                       </div>
 
                       <has-error :form="form" field="selectedProducts" />
                       <div v-if="!form.selectedProducts || form.selectedProducts.length === 0"
                         class="text-warning mt-1">
-                        <small><i class="fas fa-exclamation-triangle"></i> {{ $t('At least one product must be
-                          selected')
-                          }}</small>
+                        <small><i class="fas fa-exclamation-triangle"></i> {{ $t('At least one product must be selected') }}</small>
                       </div>
                     </div>
                   </div>
@@ -325,8 +319,7 @@
                   </div>
                 </div>
                 <div class="form-group col-md-2">
-                  <label for="paidAmount">{{ $t("Paid Amount")
-                  }}<span class="required">*</span></label>
+                  <label for="paidAmount">{{ $t("Paid Amount") }}<span class="required">*</span></label>
                   <input id="paidAmount" v-model="form.paidAmount" type="number" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('paidAmount') }" name="paidAmount" min="1"
                     :max="form.netTotal" :placeholder="$t('Enter an amount')" @input="onPaidAmountChange" />
@@ -335,8 +328,7 @@
                   <!-- Payment validation hint -->
                   <div v-if="form.addPayment == 1 && (!form.paidAmount || Number(form.paidAmount) <= 0)"
                     class="text-warning mt-1">
-                    <small><i class="fas fa-exclamation-triangle"></i> {{ $t("Paid amount must be greater than 0")
-                      }}</small>
+                    <small><i class="fas fa-exclamation-triangle"></i> {{ $t("Paid amount must be greater than 0") }}</small>
                   </div>
 
                   <!-- Due Amount Display -->
