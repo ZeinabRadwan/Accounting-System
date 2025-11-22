@@ -1481,9 +1481,12 @@ class PrintController extends Controller
     /**
      * Preview invoice as PDF using selected template
      */
-    public function previewInvoicePDF($slug)
+    public function previewInvoicePDF(Request $request, $slug)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         $invoice = Invoice::where('slug', $slug)
@@ -1520,9 +1523,12 @@ class PrintController extends Controller
     /**
      * Download invoice as PDF using selected template
      */
-    public function downloadInvoicePDF($slug)
+    public function downloadInvoicePDF(Request $request, $slug)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         $invoice = Invoice::where('slug', $slug)
@@ -1559,9 +1565,12 @@ class PrintController extends Controller
     /**
      * Preview purchase as PDF using selected template
      */
-    public function previewPurchasePDF($slug)
+    public function previewPurchasePDF(Request $request, $slug)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         $purchase = Purchase::where('slug', $slug)
@@ -1598,9 +1607,12 @@ class PrintController extends Controller
     /**
      * Download purchase as PDF using selected template
      */
-    public function downloadPurchasePDF($slug)
+    public function downloadPurchasePDF(Request $request, $slug)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         $purchase = Purchase::where('slug', $slug)
@@ -1637,9 +1649,12 @@ class PrintController extends Controller
     /**
      * Preview quotation as PDF using selected template
      */
-    public function previewQuotationPDF($slug)
+    public function previewQuotationPDF(Request $request, $slug)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         $quotation = Quotation::where('slug', $slug)
@@ -1674,9 +1689,12 @@ class PrintController extends Controller
     /**
      * Download quotation as PDF using selected template
      */
-    public function downloadQuotationPDF($slug)
+    public function downloadQuotationPDF(Request $request, $slug)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         $quotation = Quotation::where('slug', $slug)
@@ -1711,9 +1729,12 @@ class PrintController extends Controller
     /**
      * Preview invoice return (credit note) as PDF using selected template
      */
-    public function previewInvoiceReturnPDF($slug)
+    public function previewInvoiceReturnPDF(Request $request, $slug)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         $invoiceReturn = InvoiceReturn::where('slug', $slug)
@@ -1756,9 +1777,12 @@ class PrintController extends Controller
     /**
      * Download invoice return as PDF using selected template
      */
-    public function downloadInvoiceReturnPDF($slug)
+    public function downloadInvoiceReturnPDF(Request $request, $slug)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         $invoiceReturn = InvoiceReturn::where('slug', $slug)
@@ -1801,9 +1825,12 @@ class PrintController extends Controller
     /**
      * Preview purchase return (debit note) as PDF using selected template
      */
-    public function previewPurchaseReturnPDF($slug)
+    public function previewPurchaseReturnPDF(Request $request, $slug)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         $purchaseReturn = PurchaseReturn::where('slug', $slug)
@@ -1845,9 +1872,12 @@ class PrintController extends Controller
     /**
      * Download purchase return (debit note) as PDF using selected template
      */
-    public function downloadPurchaseReturnPDF($slug)
+    public function downloadPurchaseReturnPDF(Request $request, $slug)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         $purchaseReturn = PurchaseReturn::where('slug', $slug)
@@ -1916,9 +1946,12 @@ class PrintController extends Controller
     /**
      * Preview purchase order as PDF using selected template
      */
-    public function previewPurchaseOrderPDF($slug)
+    public function previewPurchaseOrderPDF(Request $request, $slug)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         $purchaseOrder = PurchaseOrder::where('slug', $slug)
@@ -1953,9 +1986,12 @@ class PrintController extends Controller
     /**
      * Download purchase order as PDF using selected template
      */
-    public function downloadPurchaseOrderPDF($slug)
+    public function downloadPurchaseOrderPDF(Request $request, $slug)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         $purchaseOrder = PurchaseOrder::where('slug', $slug)

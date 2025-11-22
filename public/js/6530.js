@@ -7867,7 +7867,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".dtable-footer{align-items:center;disp
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(true)
-		module.exports = factory(__webpack_require__(41371), __webpack_require__(20354));
+		module.exports = factory(__webpack_require__(94733), __webpack_require__(20354));
 	else // removed by dead control flow
 {}
 })(self, function(__WEBPACK_EXTERNAL_MODULE_jspdf__, __WEBPACK_EXTERNAL_MODULE_html2canvas__) {
@@ -13731,7 +13731,804 @@ __nested_webpack_exports__ = __nested_webpack_exports__.default;
 
 /***/ }),
 
-/***/ 41371:
+/***/ 56530:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ branches)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/branches/index.vue?vue&type=template&id=1439a92d&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "mb-50"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-12"
+  }, [_c('div', {
+    staticClass: "card custom-card w-100"
+  }, [_c('div', {
+    staticClass: "card-header setings-header"
+  }, [_c('breadcrumbs', {
+    attrs: {
+      "items": _vm.breadcrumbs,
+      "current": _vm.breadcrumbsCurrent
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "card-body position-relative"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-6 col-xl-4 mb-2"
+  }, [_c('search', {
+    on: {
+      "reset-pagination": function resetPagination($event) {
+        return _vm.resetPagination();
+      },
+      "reload": _vm.reload
+    },
+    model: {
+      value: _vm.query,
+      callback: function callback($$v) {
+        _vm.query = $$v;
+      },
+      expression: "query"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-xl-8 col-8 float-right text-right"
+  }, [_c('div', {
+    staticClass: "btn-group c-w-100"
+  }, [_c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Refresh'),
+      expression: "$t('Refresh')"
+    }],
+    staticClass: "btn btn-success refresh-btn",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.refreshTable();
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-sync"
+  })]), _vm._v(" "), _c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Export to Excel'),
+      expression: "$t('Export to Excel')"
+    }],
+    staticClass: "btn export-excel-btn",
+    attrs: {
+      "href": _vm.exportUrl,
+      "title": "Export to Excel"
+    }
+  }, [_c('svg', {
+    attrs: {
+      "width": "18",
+      "height": "19",
+      "viewBox": "0 0 18 19",
+      "fill": "none",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M11.625 17.5001C11.625 17.699 11.546 17.8898 11.4053 18.0305C11.2647 18.1711 11.0739 18.2501 10.875 18.2501H8.24998C8.05107 18.2501 7.86031 18.1711 7.71966 18.0305C7.579 17.8898 7.49998 17.699 7.49998 17.5001V12.2501C7.49998 12.0512 7.579 11.8604 7.71966 11.7198C7.86031 11.5791 8.05107 11.5001 8.24998 11.5001C8.4489 11.5001 8.63966 11.5791 8.78031 11.7198C8.92097 11.8604 8.99998 12.0512 8.99998 12.2501V16.7501H10.875C11.0739 16.7501 11.2647 16.8291 11.4053 16.9698C11.546 17.1104 11.625 17.3012 11.625 17.5001ZM5.68592 11.6398C5.60578 11.5826 5.51514 11.5417 5.41918 11.5194C5.32323 11.4972 5.22384 11.4941 5.12668 11.5103C5.02953 11.5265 4.93651 11.5617 4.85295 11.6138C4.76939 11.6659 4.69692 11.734 4.63967 11.8142L3.37498 13.5851L2.1103 11.8142C2.05509 11.7292 1.98324 11.6564 1.89909 11.5999C1.81495 11.5435 1.72024 11.5047 1.62069 11.4859C1.52114 11.4671 1.41882 11.4687 1.31988 11.4905C1.22095 11.5123 1.12747 11.554 1.04507 11.6129C0.962677 11.6719 0.893077 11.7469 0.840473 11.8335C0.787869 11.9201 0.753352 12.0164 0.739005 12.1167C0.724657 12.217 0.730776 12.3191 0.756994 12.417C0.783211 12.5148 0.828983 12.6064 0.891547 12.6861L2.45342 14.8751L0.889672 17.0642C0.784434 17.2261 0.74571 17.4224 0.781564 17.6121C0.817419 17.8019 0.925088 17.9705 1.08215 18.0829C1.23922 18.1952 1.43357 18.2427 1.62474 18.2153C1.81591 18.188 1.98916 18.088 2.10842 17.9361L3.37498 16.1651L4.63967 17.9361C4.75893 18.088 4.93219 18.188 5.12336 18.2153C5.31453 18.188 5.50888 18.1952 5.66594 18.0829C5.82301 17.9705 5.93068 17.8019 5.96653 17.6121C6.00239 17.4224 5.96366 17.2261 5.85842 17.0642L4.29655 14.8751L5.8603 12.6861C5.91755 12.6059 5.95845 12.5153 5.98067 12.4193C6.00289 12.3234 6.00599 12.224 5.9898 12.1268C5.97361 12.0297 5.93844 11.9367 5.8863 11.8531C5.83416 11.7695 5.76607 11.6971 5.68592 11.6398ZM14.9615 14.0604C14.5865 13.9517 14.1984 13.8401 13.9819 13.7004C13.8647 13.6236 13.8665 13.6067 13.8769 13.5223C13.8783 13.4541 13.896 13.3873 13.9287 13.3274C13.9613 13.2675 14.0078 13.2164 14.0644 13.1782C14.4956 12.8857 15.5025 13.017 15.9225 13.1257C16.1149 13.1763 16.3196 13.1484 16.4915 13.0481C16.6633 12.9478 16.7883 12.7834 16.8389 12.5909C16.8895 12.3985 16.8616 12.1938 16.7613 12.0219C16.661 11.8501 16.4965 11.7251 16.304 11.6745C16.1062 11.6229 14.3353 11.1851 13.2262 11.9332C12.9924 12.0913 12.796 12.2987 12.6511 12.5408C12.5061 12.783 12.416 13.054 12.3872 13.3348C12.1997 14.8236 13.6669 15.2482 14.5434 15.5014C15.674 15.8286 15.7734 15.9626 15.7415 16.2129C15.7125 16.4389 15.6234 16.5251 15.54 16.5814C15.1087 16.8682 14.1187 16.7267 13.7081 16.6142C13.516 16.5609 13.3106 16.586 13.1371 16.6841C13.0512 16.7327 12.9757 16.7977 12.9149 16.8755C12.8541 16.9532 12.8092 17.0422 12.7828 17.1373C12.7564 17.2324 12.749 17.3318 12.761 17.4298C12.773 17.5277 12.8041 17.6224 12.8527 17.7083C12.9508 17.8818 13.1138 18.0093 13.3059 18.0626C13.7708 18.1851 14.2493 18.2481 14.73 18.2501C15.2756 18.2501 15.8831 18.1564 16.3697 17.832C16.6097 17.6724 16.8114 17.4615 16.9602 17.2146C17.109 16.9678 17.2012 16.691 17.2303 16.4042C17.4375 14.7814 15.8887 14.3286 14.9615 14.0604ZM0.749985 8.50012V1.75012C0.749985 1.3523 0.90802 0.970767 1.18932 0.689462C1.47063 0.408157 1.85216 0.250122 2.24998 0.250122H11.25C11.3485 0.250045 11.4461 0.269379 11.5371 0.30702C11.6282 0.344661 11.7109 0.399872 11.7806 0.469497L17.0306 5.7195C17.1002 5.7892 17.1554 5.87194 17.1931 5.96299C17.2307 6.05403 17.2501 6.1516 17.25 6.25012V8.50012C17.25 8.69903 17.171 8.8898 17.0303 9.03045C16.8897 9.1711 16.6989 9.25012 16.5 9.25012C16.3011 9.25012 16.1103 9.1711 15.9697 9.03045C15.829 8.8898 15.75 8.69903 15.75 8.50012V7.00012H11.25C11.0511 7.00012 10.8603 6.9211 10.7197 6.78045C10.579 6.6398 10.5 6.44903 10.5 6.25012V1.75012H2.24998V8.50012C2.24998 8.69903 2.17097 8.8898 2.03031 9.03045C1.88966 9.1711 1.6989 9.25012 1.49998 9.25012C1.30107 9.25012 1.11031 9.1711 0.969655 9.03045C0.829003 8.8898 0.749985 8.69903 0.749985 8.50012ZM12 5.50012H14.6887L12 2.81043V5.50012Z",
+      "fill": "#2AB930"
+    }
+  })])]), _vm._v(" "), _c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Export to PDF'),
+      expression: "$t('Export to PDF')"
+    }],
+    staticClass: "btn export-pdf-btn",
+    attrs: {
+      "href": "#",
+      "title": "Export to PDF"
+    },
+    on: {
+      "click": _vm.exportToPDF
+    }
+  }, [_c('svg', {
+    attrs: {
+      "width": "24",
+      "height": "24",
+      "viewBox": "0 0 24 24",
+      "fill": "none",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M21 14.2501C21 14.449 20.921 14.6398 20.7803 14.7805C20.6397 14.9211 20.4489 15.0001 20.25 15.0001H18V16.5001H19.5C19.6989 16.5001 19.8897 16.5791 20.0303 16.7198C20.171 16.8604 20.25 17.0512 20.25 17.2501C20.25 17.449 20.171 17.6398 20.0303 17.7805C19.8897 17.9211 19.6989 18.0001 19.5 18.0001H18V19.5001C18 19.699 17.921 19.8898 17.7803 20.0305C17.6397 20.1711 17.4489 20.2501 17.25 20.2501C17.0511 20.2501 16.8603 20.1711 16.7197 20.0305C16.579 19.8898 16.5 19.699 16.5 19.5001V14.2501C16.5 14.0512 16.579 13.8604 16.7197 13.7198C16.8603 13.5791 17.0511 13.5001 17.25 13.5001H20.25C20.4489 13.5001 20.6397 13.5791 20.7803 13.7198C20.921 13.8604 21 14.0512 21 14.2501ZM8.625 16.1251C8.625 16.8213 8.34844 17.489 7.85616 17.9813C7.36387 18.4736 6.69619 18.7501 6 18.7501H5.25V19.5001C5.25 19.699 5.17098 19.8898 5.03033 20.0305C4.88968 20.1711 4.69891 20.2501 4.5 20.2501C4.30109 20.2501 4.11032 20.1711 3.96967 20.0305C3.82902 19.8898 3.75 19.699 3.75 19.5001V14.2501C3.75 14.0512 3.82902 13.8604 3.96967 13.7198C4.11032 13.5791 4.30109 13.5001 4.5 13.5001H6C6.69619 13.5001 7.36387 13.7767 7.85616 14.269C8.34844 14.7612 8.625 15.4289 8.625 16.1251ZM7.125 16.1251C7.125 15.8268 7.00647 15.5406 6.7955 15.3296C6.58452 15.1186 6.29837 15.0001 6 15.0001H5.25V17.2501H6C6.29837 17.2501 6.58452 17.1316 6.7955 16.9206C7.00647 16.7096 7.125 16.4235 7.125 16.1251ZM15.375 16.8751C15.375 17.7702 15.0194 18.6287 14.3865 19.2616C13.7535 19.8945 12.8951 20.2501 12 20.2501H10.5C10.3011 20.2501 10.1103 20.1711 9.96967 20.0305C9.82902 19.8898 9.75 19.699 9.75 19.5001V14.2501C9.75 14.0512 9.82902 13.8604 9.96967 13.7198C10.1103 13.5791 10.3011 13.5001 10.5 13.5001H12C12.8951 13.5001 13.7535 13.8557 14.3865 14.4886C15.0194 15.1216 15.375 15.98 15.375 16.8751ZM13.875 16.8751C13.875 16.3778 13.6775 15.9009 13.3258 15.5493C12.9742 15.1977 12.4973 15.0001 12 15.0001H11.25V18.7501H12C12.4973 18.7501 12.9742 18.5526 13.3258 18.2009C13.6775 17.8493 13.875 17.3724 13.875 16.8751ZM3.75 10.5001V3.75012C3.75 3.3523 3.90804 2.97077 4.18934 2.68946C4.47064 2.40816 4.85218 2.25012 5.25 2.25012H14.25C14.3485 2.25004 14.4461 2.26938 14.5371 2.30702C14.6282 2.34466 14.7109 2.39987 14.7806 2.4695L20.0306 7.7195C20.1003 7.7892 20.1555 7.87194 20.1931 7.96299C20.2307 8.05403 20.2501 8.1516 20.25 8.25012V10.5001C20.25 10.699 20.171 10.8898 20.0303 11.0305C19.8897 11.1711 19.6989 11.2501 19.5 11.2501C19.3011 11.2501 19.1103 11.1711 18.9697 11.0305C18.829 10.8898 18.75 10.699 18.75 10.5001V9.00012H14.25C14.0511 9.00012 13.8603 8.9211 13.7197 8.78045C13.579 8.6398 13.5 8.44903 13.5 8.25012V3.75012H5.25V10.5001C5.25 10.699 5.17098 10.8898 5.03033 11.0305C4.88968 11.1711 4.69891 11.2501 4.5 11.2501C4.30109 11.2501 4.11032 11.1711 3.96967 11.0305C3.82902 10.8898 3.75 10.699 3.75 10.5001ZM15 7.50012H17.6897L15 4.81043V7.50012Z",
+      "fill": "#2AB930"
+    }
+  })])]), _vm._v(" "), _vm.$can('branches-create') ? _c('router-link', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "to": {
+        name: 'branches.create'
+      }
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Create")) + "\n                "), _c('i', {
+    staticClass: "fas fa-plus-circle d-none d-sm-inline-block"
+  })]) : _vm._e()], 1)])]), _vm._v(" "), _c('table-loading', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.loading,
+      expression: "loading"
+    }]
+  }), _vm._v(" "), _c('div', {
+    staticClass: "table-responsive table-custom mt-3",
+    attrs: {
+      "id": "printMe"
+    }
+  }, [_c('table', {
+    staticClass: "table branches-table"
+  }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Name")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Phone")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Email")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Main Branch")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _vm.$can('branches-edit') || _vm.$can('branches-delete') || _vm.$can('branches-view') || _vm.$can('branches-assign-users') ? _c('th', {
+    staticClass: "text-right no-print"
+  }, [_vm._v("\n                    " + _vm._s(_vm.$t("Action")) + "\n                  ")]) : _vm._e()]), _vm._v(" "), _c('tbody', [_vm._l(_vm.items, function (data, i) {
+    return _c('tr', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.items && _vm.items.length,
+        expression: "items && items.length"
+      }],
+      key: i
+    }, [_c('td', [_vm.pagination && _vm.pagination.current_page > 1 ? _c('span', [_vm._v("\n                      " + _vm._s(_vm.pagination.per_page * (_vm.pagination.current_page - 1) + (i + 1)) + "\n                    ")]) : _c('span', [_vm._v(_vm._s(i + 1))])]), _vm._v(" "), _c('td', [data.slug ? _c('router-link', {
+      attrs: {
+        "to": {
+          name: 'branches.show',
+          params: {
+            slug: data.slug
+          }
+        }
+      }
+    }, [_vm._v("\n                      " + _vm._s(data.name) + "\n                    ")]) : _c('span', [_vm._v(_vm._s(data.name))])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.code))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.phone))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.email))]), _vm._v(" "), _c('td', [data.is_main ? _c('span', {
+      staticClass: "badge bg-success"
+    }, [_vm._v(_vm._s(_vm.$t("Yes")))]) : _c('span', {
+      staticClass: "badge bg-secondary"
+    }, [_vm._v(_vm._s(_vm.$t("No")))])]), _vm._v(" "), _c('td', [data.is_active ? _c('span', {
+      staticClass: "badge bg-success"
+    }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
+      staticClass: "badge bg-danger"
+    }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _vm.$can('branches-edit') || _vm.$can('branches-delete') || _vm.$can('branches-view') || _vm.$can('branches-assign-users') ? _c('td', {
+      staticClass: "text-right no-print"
+    }, [data.slug ? _c('div', {
+      staticClass: "action-dropdown",
+      "class": {
+        open: _vm.openActionIndex === i
+      }
+    }, [_c('button', {
+      staticClass: "action-icon-btn",
+      attrs: {
+        "type": "button",
+        "data-action-index": i
+      },
+      on: {
+        "click": function click($event) {
+          $event.stopPropagation();
+          return _vm.toggleAction(i);
+        }
+      }
+    }, [_c('svg', {
+      attrs: {
+        "xmlns": "http://www.w3.org/2000/svg",
+        "width": "24",
+        "height": "25",
+        "viewBox": "0 0 24 25",
+        "fill": "none"
+      }
+    }, [_c('path', {
+      attrs: {
+        "d": "M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z",
+        "fill": "#023033"
+      }
+    })])]), _vm._v(" "), _vm.openActionIndex === i ? _c('div', {
+      staticClass: "action-menu"
+    }, [_c('div', {
+      staticClass: "action-menu-header"
+    }, [_c('h6', {
+      staticClass: "action-menu-title"
+    }, [_vm._v(_vm._s(_vm.$t('Actions')))]), _vm._v(" "), _c('button', {
+      staticClass: "action-menu-close",
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function click($event) {
+          $event.stopPropagation();
+          return _vm.toggleAction(i);
+        }
+      }
+    }, [_c('svg', {
+      attrs: {
+        "xmlns": "http://www.w3.org/2000/svg",
+        "width": "16",
+        "height": "16",
+        "viewBox": "0 0 16 16",
+        "fill": "none"
+      }
+    }, [_c('path', {
+      attrs: {
+        "d": "M12 4L4 12M4 4L12 12",
+        "stroke": "#6B7280",
+        "stroke-width": "2",
+        "stroke-linecap": "round",
+        "stroke-linejoin": "round"
+      }
+    })])])]), _vm._v(" "), _c('ul', [_vm.$can('branches-view') ? _c('li', [_c('router-link', {
+      attrs: {
+        "to": {
+          name: 'branches.show',
+          params: {
+            slug: data.slug
+          }
+        }
+      }
+    }, [_c('svg', {
+      attrs: {
+        "xmlns": "http://www.w3.org/2000/svg",
+        "width": "16",
+        "height": "16",
+        "viewBox": "0 0 16 16",
+        "fill": "none"
+      }
+    }, [_c('path', {
+      attrs: {
+        "d": "M8 1C4.5 1 1.73 3.77 1.73 7C1.73 10.23 4.5 13 8 13C11.5 13 14.27 10.23 14.27 7C14.27 3.77 11.5 1 8 1ZM8 9.5C6.62 9.5 5.5 8.38 5.5 7C5.5 5.62 6.62 4.5 8 4.5C9.38 4.5 10.5 5.62 10.5 7C10.5 8.38 9.38 9.5 8 9.5Z",
+        "fill": "#6B7280"
+      }
+    })]), _vm._v("\n                              " + _vm._s(_vm.$t('View')) + "\n                            ")])], 1) : _vm._e(), _vm._v(" "), _vm.$can('branches-edit') ? _c('li', [_c('router-link', {
+      attrs: {
+        "to": {
+          name: 'branches.edit',
+          params: {
+            slug: data.slug
+          }
+        }
+      }
+    }, [_c('svg', {
+      attrs: {
+        "xmlns": "http://www.w3.org/2000/svg",
+        "width": "16",
+        "height": "16",
+        "viewBox": "0 0 16 16",
+        "fill": "none"
+      }
+    }, [_c('path', {
+      attrs: {
+        "d": "M11.5 1.5L14.5 4.5L5.5 13.5H2.5V10.5L11.5 1.5Z",
+        "stroke": "#6B7280",
+        "stroke-width": "1.5",
+        "stroke-linecap": "round",
+        "stroke-linejoin": "round"
+      }
+    })]), _vm._v("\n                              " + _vm._s(_vm.$t('Edit')) + "\n                            ")])], 1) : _vm._e(), _vm._v(" "), _vm.$can('branches-assign-users') ? _c('li', [_c('router-link', {
+      attrs: {
+        "to": {
+          name: 'branches.assign-users',
+          params: {
+            branchId: data.id
+          }
+        }
+      }
+    }, [_c('svg', {
+      attrs: {
+        "xmlns": "http://www.w3.org/2000/svg",
+        "width": "16",
+        "height": "16",
+        "viewBox": "0 0 16 16",
+        "fill": "none"
+      }
+    }, [_c('path', {
+      attrs: {
+        "d": "M8 2C5.2 2 3 4.2 3 7C3 9.8 5.2 12 8 12C10.8 12 13 9.8 13 7C13 4.2 10.8 2 8 2ZM8 10.5C6.6 10.5 5.5 9.4 5.5 8C5.5 6.6 6.6 5.5 8 5.5C9.4 5.5 10.5 6.6 10.5 8C10.5 9.4 9.4 10.5 8 10.5ZM13 13.5V12.5H15V13.5H16.5V15.5H15V16.5H13V15.5H11.5V13.5H13Z",
+        "fill": "#10B981"
+      }
+    })]), _vm._v("\n                              " + _vm._s(_vm.$t('Users List')) + "\n                            ")])], 1) : _vm._e(), _vm._v(" "), _vm.$can('branches-delete') && !data.is_main ? _c('li', [_c('a', {
+      attrs: {
+        "href": "#"
+      },
+      on: {
+        "click": function click($event) {
+          $event.preventDefault();
+          return _vm.deleteData(data.slug);
+        }
+      }
+    }, [_c('svg', {
+      attrs: {
+        "xmlns": "http://www.w3.org/2000/svg",
+        "width": "16",
+        "height": "16",
+        "viewBox": "0 0 16 16",
+        "fill": "none"
+      }
+    }, [_c('path', {
+      attrs: {
+        "d": "M2 4H14M5.5 4V2.5C5.5 2.2 5.7 2 6 2H10C10.3 2 10.5 2.2 10.5 2.5V4M12.5 4V13.5C12.5 13.8 12.3 14 12 14H4C3.7 14 3.5 13.8 3.5 13.5V4H12.5Z",
+        "stroke": "#EF4444",
+        "stroke-width": "1.5",
+        "stroke-linecap": "round",
+        "stroke-linejoin": "round"
+      }
+    })]), _vm._v("\n                              " + _vm._s(_vm.$t('Delete')) + "\n                            ")])]) : _vm._e()])]) : _vm._e()]) : _vm._e()]) : _vm._e()]);
+  }), _vm._v(" "), _c('tr', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: !_vm.loading && (!_vm.items || !_vm.items.length),
+      expression: "!loading && (!items || !items.length)"
+    }]
+  }, [_c('td', {
+    attrs: {
+      "colspan": "8"
+    }
+  }, [_c('EmptyTable')], 1)])], 2)])])], 1), _vm._v(" "), _c('div', {
+    staticClass: "card-footer"
+  }, [_c('div', {
+    staticClass: "dtable-footer"
+  }, [_c('div', {
+    staticClass: "form-group row display-per-page"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t("per_page")) + " ")]), _vm._v(" "), _c('div', [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.perPage,
+      expression: "perPage"
+    }],
+    staticClass: "form-control form-control-sm ml-1",
+    on: {
+      "change": [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.perPage = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }, _vm.updatePerPager]
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "10"
+    }
+  }, [_vm._v("10")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "25"
+    }
+  }, [_vm._v("25")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "50"
+    }
+  }, [_vm._v("50")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "100"
+    }
+  }, [_vm._v("100")])])])]), _vm._v(" "), _vm.pagination && _vm.pagination.last_page > 1 ? _c('pagination', {
+    staticClass: "justify-flex-end",
+    attrs: {
+      "pagination": _vm.pagination,
+      "offset": 5
+    },
+    on: {
+      "paginate": _vm.paginate
+    }
+  }) : _vm._e()], 1)])])])])]);
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__(95353);
+// EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
+var sweetalert2_all = __webpack_require__(78465);
+var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all);
+// EXTERNAL MODULE: ./node_modules/html2pdf.js/dist/html2pdf.js
+var html2pdf = __webpack_require__(33833);
+var html2pdf_default = /*#__PURE__*/__webpack_require__.n(html2pdf);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/branches/index.vue?vue&type=script&lang=js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+
+/* harmony default export */ const branchesvue_type_script_lang_js = ({
+  middleware: ["auth", "check-permissions"],
+  metaInfo: function metaInfo() {
+    return {
+      title: this.$t("Branches")
+    };
+  },
+  data: function data() {
+    return {
+      breadcrumbsCurrent: "",
+      breadcrumbs: [],
+      query: "",
+      perPage: 10,
+      openActionIndex: null
+    };
+  },
+  // Map Getters
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "loading", "pagination"])), {}, {
+    exportUrl: function exportUrl() {
+      // Create a dynamic export URL with query parameters
+      return "/branches/export/excel?term=".concat(this.query);
+    }
+  }),
+  watch: {
+    // watch search data
+    query: function query(newQ) {
+      if (newQ === "") {
+        this.getData();
+      } else {
+        this.searchData();
+      }
+    }
+  },
+  created: function created() {
+    this.getData();
+  },
+  mounted: function mounted() {
+    this.breadcrumbsCurrent = this.$t("Branches");
+    this.breadcrumbs = [{
+      name: this.$t("Dashboard"),
+      url: "home"
+    }, {
+      name: this.$t("Branches"),
+      url: ""
+    }];
+    document.addEventListener('click', this.onClickOutside);
+    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('resize', this.handleResize);
+  },
+  beforeDestroy: function beforeDestroy() {
+    document.removeEventListener('click', this.onClickOutside);
+    window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('resize', this.handleResize);
+  },
+  methods: {
+    toggleAction: function toggleAction(index) {
+      var _this = this;
+      this.openActionIndex = this.openActionIndex === index ? null : index;
+      if (this.openActionIndex === index) {
+        this.$nextTick(function () {
+          _this.positionDropdown(index);
+        });
+      }
+    },
+    positionDropdown: function positionDropdown(index) {
+      var button = document.querySelector("[data-action-index=\"".concat(index, "\"]"));
+      if (button) {
+        var rect = button.getBoundingClientRect();
+        var menu = document.querySelector('.action-menu');
+        if (menu) {
+          // Check if page direction is RTL
+          var isRTL = document.documentElement.dir === 'rtl' || document.documentElement.getAttribute('dir') === 'rtl';
+          if (isRTL) {
+            menu.style.left = '45px';
+            menu.style.right = 'auto';
+          } else {
+            menu.style.left = "".concat(rect.right - 200, "px"); // 200px is min-width
+            menu.style.right = 'auto';
+          }
+          menu.style.top = "".concat(rect.bottom + 8, "px");
+        }
+      }
+    },
+    onClickOutside: function onClickOutside() {
+      this.openActionIndex = null;
+    },
+    handleScroll: function handleScroll() {
+      if (this.openActionIndex !== null) {
+        this.positionDropdown(this.openActionIndex);
+      }
+    },
+    handleResize: function handleResize() {
+      if (this.openActionIndex !== null) {
+        this.positionDropdown(this.openActionIndex);
+      }
+    },
+    // update per page count
+    updatePerPager: function updatePerPager() {
+      this.pagination.current_page = 1;
+      this.query === "" ? this.getData() : this.searchData();
+    },
+    // get data
+    getData: function getData() {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var currentPage;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.n) {
+            case 0:
+              _this2.$store.state.operations.loading = true;
+              currentPage = _this2.pagination ? _this2.pagination.current_page : 1;
+              _context.n = 1;
+              return _this2.$store.dispatch("operations/fetchData", {
+                path: "/api/branches?page=",
+                currentPage: currentPage + "&perPage=" + _this2.perPage
+              });
+            case 1:
+              return _context.a(2);
+          }
+        }, _callee);
+      }))();
+    },
+    // Pagination
+    paginate: function paginate() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.n) {
+            case 0:
+              _this3.query === "" ? _this3.getData() : _this3.searchData();
+            case 1:
+              return _context2.a(2);
+          }
+        }, _callee2);
+      }))();
+    },
+    // Reset pagination
+    resetPagination: function resetPagination() {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.n) {
+            case 0:
+              _this4.pagination.current_page = 1;
+            case 1:
+              return _context3.a(2);
+          }
+        }, _callee3);
+      }))();
+    },
+    // search data
+    searchData: function searchData() {
+      var _this5 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+        var currentPage;
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.n) {
+            case 0:
+              _this5.$store.state.operations.loading = true;
+              currentPage = _this5.pagination ? _this5.pagination.current_page : 1;
+              _context4.n = 1;
+              return _this5.$store.dispatch("operations/searchData", {
+                path: "/api/branches/search",
+                term: _this5.query,
+                currentPage: currentPage + "&perPage=" + _this5.perPage
+              });
+            case 1:
+              return _context4.a(2);
+          }
+        }, _callee4);
+      }))();
+    },
+    // Reload after search
+    reload: function reload() {
+      var _this6 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+        return _regenerator().w(function (_context5) {
+          while (1) switch (_context5.n) {
+            case 0:
+              _this6.query = "";
+            case 1:
+              return _context5.a(2);
+          }
+        }, _callee5);
+      }))();
+    },
+    // print table
+    print: function print() {
+      var _this7 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+        return _regenerator().w(function (_context6) {
+          while (1) switch (_context6.n) {
+            case 0:
+              _context6.n = 1;
+              return _this7.$htmlToPaper("printMe");
+            case 1:
+              return _context6.a(2);
+          }
+        }, _callee6);
+      }))();
+    },
+    exportToPDF: function exportToPDF() {
+      var _this8 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+        var element, style, opt, pdfStyle, _t;
+        return _regenerator().w(function (_context7) {
+          while (1) switch (_context7.p = _context7.n) {
+            case 0:
+              _context7.p = 0;
+              element = document.getElementById("printMe");
+              if (element) {
+                _context7.n = 1;
+                break;
+              }
+              _this8.$toast.error(_this8.$t("Error!"), _this8.$t("Table not found"));
+              return _context7.a(2);
+            case 1:
+              style = document.createElement('style');
+              style.setAttribute('data-pdf-export', 'true');
+              style.textContent = ".no-print, .no-print * { display: none !important; }";
+              document.head.appendChild(style);
+              opt = {
+                margin: [10, 10, 10, 10],
+                filename: "branches-".concat(new Date().toISOString().slice(0, 10), ".pdf"),
+                image: {
+                  type: "jpeg",
+                  quality: 0.98
+                },
+                html2canvas: {
+                  scale: 2,
+                  useCORS: true,
+                  logging: false
+                },
+                jsPDF: {
+                  unit: "mm",
+                  format: "a4",
+                  orientation: "landscape"
+                },
+                pagebreak: {
+                  mode: ["avoid-all", "css", "legacy"]
+                }
+              };
+              _context7.n = 2;
+              return html2pdf_default()().set(opt).from(element).save();
+            case 2:
+              document.head.removeChild(style);
+              _this8.$toast.success(_this8.$t("Success!"), _this8.$t("PDF exported successfully"));
+              _context7.n = 4;
+              break;
+            case 3:
+              _context7.p = 3;
+              _t = _context7.v;
+              pdfStyle = document.querySelector('style[data-pdf-export]');
+              if (pdfStyle) document.head.removeChild(pdfStyle);
+              _this8.$toast.error(_this8.$t("Error!"), _this8.$t("Failed to export PDF"));
+            case 4:
+              return _context7.a(2);
+          }
+        }, _callee7, null, [[0, 3]]);
+      }))();
+    },
+    // refresh table
+    refreshTable: function refreshTable() {
+      this.query = "";
+      this.query === "" ? this.getData() : this.searchData();
+    },
+    // delete data
+    deleteData: function deleteData(slug) {
+      var _this9 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
+        return _regenerator().w(function (_context8) {
+          while (1) switch (_context8.n) {
+            case 0:
+              sweetalert2_all_default().fire({
+                title: _this9.$t("Are you sure?"),
+                text: _this9.$t("You will not be able to return to this! This will delete the branch permanently."),
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: _this9.$t("Confirm"),
+                cancelButtonText: _this9.$t("Cancel")
+              }).then(function (result) {
+                // Send request to the server
+                if (result.value) {
+                  _this9.$store.dispatch("operations/deleteData", {
+                    path: "/api/branches/",
+                    slug: slug
+                  }).then(function (response) {
+                    if (response === true) {
+                      _this9.$toast.success(_this9.$t("Deleted!"), _this9.$t("Deleted successfully."));
+                    } else {
+                      var msg = response && response.message ? response.message : _this9.$t("There was something wrong.");
+                      _this9.$toast.warning(_this9.$t("Failed!"), msg);
+                    }
+                  });
+                }
+              });
+            case 1:
+              return _context8.a(2);
+          }
+        }, _callee8);
+      }))();
+    }
+  }
+});
+;// ./resources/js/pages/branches/index.vue?vue&type=script&lang=js
+ /* harmony default export */ const pages_branchesvue_type_script_lang_js = (branchesvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/branches/index.vue?vue&type=style&index=0&id=1439a92d&prod&scoped=true&lang=css
+var branchesvue_type_style_index_0_id_1439a92d_prod_scoped_true_lang_css = __webpack_require__(98696);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/branches/index.vue?vue&type=style&index=0&id=1439a92d&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(branchesvue_type_style_index_0_id_1439a92d_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const pages_branchesvue_type_style_index_0_id_1439a92d_prod_scoped_true_lang_css = (branchesvue_type_style_index_0_id_1439a92d_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/branches/index.vue?vue&type=style&index=0&id=1439a92d&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/branches/index.vue?vue&type=style&index=1&id=1439a92d&prod&lang=css
+var branchesvue_type_style_index_1_id_1439a92d_prod_lang_css = __webpack_require__(13656);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/branches/index.vue?vue&type=style&index=1&id=1439a92d&prod&lang=css
+
+            
+
+var branchesvue_type_style_index_1_id_1439a92d_prod_lang_css_options = {};
+
+branchesvue_type_style_index_1_id_1439a92d_prod_lang_css_options.insert = "head";
+branchesvue_type_style_index_1_id_1439a92d_prod_lang_css_options.singleton = false;
+
+var branchesvue_type_style_index_1_id_1439a92d_prod_lang_css_update = injectStylesIntoStyleTag_default()(branchesvue_type_style_index_1_id_1439a92d_prod_lang_css/* default */.A, branchesvue_type_style_index_1_id_1439a92d_prod_lang_css_options);
+
+
+
+/* harmony default export */ const pages_branchesvue_type_style_index_1_id_1439a92d_prod_lang_css = (branchesvue_type_style_index_1_id_1439a92d_prod_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/branches/index.vue?vue&type=style&index=1&id=1439a92d&prod&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/pages/branches/index.vue
+
+
+
+;
+
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  pages_branchesvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "1439a92d",
+  null
+  
+)
+
+/* harmony default export */ const branches = (component.exports);
+
+/***/ }),
+
+/***/ 94733:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17123,7 +17920,7 @@ class IOBuffer {
     }
 }
 //# sourceMappingURL=IOBuffer.js.map
-;// ./node_modules/pako/dist/pako.esm.mjs
+;// ./node_modules/fast-png/node_modules/pako/dist/pako.esm.mjs
 
 /*! pako 2.1.0 https://github.com/nodeca/pako @license (MIT AND Zlib) */
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -25471,803 +26268,6 @@ function(t){var e=function(){return void 0===this.internal.vFS&&(this.internal.v
 function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var n,r,i,a,o,s,u,c=e,l=[[0,3,0,1,0,0,0],[0,3,0,1,2,2,0],[0,3,0,17,2,0,1],[0,3,5,5,4,1,0],[0,3,21,21,4,0,1],[0,3,5,5,4,2,0]],h=[[2,0,1,1,0,1,0],[2,0,1,1,0,2,0],[2,0,2,1,3,2,0],[2,0,2,33,3,1,1]],f={L:0,R:1,EN:2,AN:3,N:4,B:5,S:6},d={0:0,5:1,6:2,7:3,32:4,251:5,254:6,255:7},p=["(",")","(","<",">","<","[","]","[","{","}","{","«","»","«","‹","›","‹","⁅","⁆","⁅","⁽","⁾","⁽","₍","₎","₍","≤","≥","≤","〈","〉","〈","﹙","﹚","﹙","﹛","﹜","﹛","﹝","﹞","﹝","﹤","﹥","﹤"],g=new RegExp(/^([1-4|9]|1[0-9]|2[0-9]|3[0168]|4[04589]|5[012]|7[78]|159|16[0-9]|17[0-2]|21[569]|22[03489]|250)$/),m=!1,v=0;this.__bidiEngine__={};var b=function(t){var e=t.charCodeAt(),n=e>>8,r=d[n];return void 0!==r?c[256*r+(255&e)]:252===n||253===n?"AL":g.test(n)?"L":8===n?"R":"N"},y=function(t){for(var e,n=0;n<t.length;n++){if("L"===(e=b(t.charAt(n))))return!1;if("R"===e)return!0}return!1},w=function(t,e,o,s){var u,c,l,h,f=e[s];switch(f){case"L":case"R":case"LRE":case"RLE":case"LRO":case"RLO":case"PDF":m=!1;break;case"N":case"AN":break;case"EN":m&&(f="AN");break;case"AL":m=!0,f="R";break;case"WS":case"BN":f="N";break;case"CS":s<1||s+1>=e.length||"EN"!==(u=o[s-1])&&"AN"!==u||"EN"!==(c=e[s+1])&&"AN"!==c?f="N":m&&(c="AN"),f=c===u?c:"N";break;case"ES":f="EN"===(u=s>0?o[s-1]:"B")&&s+1<e.length&&"EN"===e[s+1]?"EN":"N";break;case"ET":if(s>0&&"EN"===o[s-1]){f="EN";break}if(m){f="N";break}for(l=s+1,h=e.length;l<h&&"ET"===e[l];)l++;f=l<h&&"EN"===e[l]?"EN":"N";break;case"NSM":if(i&&!a){for(h=e.length,l=s+1;l<h&&"NSM"===e[l];)l++;if(l<h){var d=t[s],p=d>=1425&&d<=2303||64286===d;if(u=e[l],p&&("R"===u||"AL"===u)){f="R";break}}}f=s<1||"B"===(u=e[s-1])?"N":o[s-1];break;case"B":m=!1,n=!0,f=v;break;case"S":r=!0,f="N"}return f},N=function(t,e,n){var r=t.split("");return n&&L(r,n,{hiLevel:v}),r.reverse(),e&&e.reverse(),r.join("")},L=function(t,e,i){var a,o,s,u,c,d=-1,p=t.length,g=0,y=[],N=v?h:l,L=[];for(m=!1,n=!1,r=!1,o=0;o<p;o++)L[o]=b(t[o]);for(s=0;s<p;s++){if(c=g,y[s]=w(t,L,y,s),a=240&(g=N[c][f[y[s]]]),g&=15,e[s]=u=N[g][5],a>0)if(16===a){for(o=d;o<s;o++)e[o]=1;d=-1}else d=-1;if(N[g][6])-1===d&&(d=s);else if(d>-1){for(o=d;o<s;o++)e[o]=u;d=-1}"B"===L[s]&&(e[s]=0),i.hiLevel|=u}r&&function(t,e,n){for(var r=0;r<n;r++)if("S"===t[r]){e[r]=v;for(var i=r-1;i>=0&&"WS"===t[i];i--)e[i]=v}}(L,e,p)},x=function(t,e,r,i,a){if(!(a.hiLevel<t)){if(1===t&&1===v&&!n)return e.reverse(),void(r&&r.reverse());for(var o,s,u,c,l=e.length,h=0;h<l;){if(i[h]>=t){for(u=h+1;u<l&&i[u]>=t;)u++;for(c=h,s=u-1;c<s;c++,s--)o=e[c],e[c]=e[s],e[s]=o,r&&(o=r[c],r[c]=r[s],r[s]=o);h=u}h++}}},A=function(t,e,n){var r=t.split(""),i={hiLevel:v};return n||(n=[]),L(r,n,i),function(t,e,n){if(0!==n.hiLevel&&u)for(var r,i=0;i<t.length;i++)1===e[i]&&(r=p.indexOf(t[i]))>=0&&(t[i]=p[r+1])}(r,n,i),x(2,r,e,n,i),x(1,r,e,n,i),r.join("")};return this.__bidiEngine__.doBidiReorder=function(t,e,n){if(function(t,e){if(e)for(var n=0;n<t.length;n++)e[n]=n;void 0===a&&(a=y(t)),void 0===s&&(s=y(t))}(t,e),i||!o||s)if(i&&o&&a^s)v=a?1:0,t=N(t,e,n);else if(!i&&o&&s)v=a?1:0,t=A(t,e,n),t=N(t,e);else if(!i||a||o||s){if(i&&!o&&a^s)t=N(t,e),a?(v=0,t=A(t,e,n)):(v=1,t=A(t,e,n),t=N(t,e));else if(i&&a&&!o&&s)v=1,t=A(t,e,n),t=N(t,e);else if(!i&&!o&&a^s){var r=u;a?(v=1,t=A(t,e,n),v=0,u=!1,t=A(t,e,n),u=r):(v=0,t=A(t,e,n),t=N(t,e),v=1,u=!1,t=A(t,e,n),u=r,t=N(t,e))}}else v=0,t=A(t,e,n);else v=a?1:0,t=A(t,e,n);return t},this.__bidiEngine__.setOptions=function(t){t&&(i=t.isInputVisual,o=t.isOutputVisual,a=t.isInputRtl,s=t.isOutputRtl,u=t.isSymmetricSwapping)},this.__bidiEngine__.setOptions(t),this.__bidiEngine__};var e=["BN","BN","BN","BN","BN","BN","BN","BN","BN","S","B","S","WS","B","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","B","B","B","S","WS","N","N","ET","ET","ET","N","N","N","N","N","ES","CS","ES","CS","CS","EN","EN","EN","EN","EN","EN","EN","EN","EN","EN","CS","N","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","N","BN","BN","BN","BN","BN","BN","B","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","BN","CS","N","ET","ET","ET","ET","N","N","N","N","L","N","N","BN","N","N","ET","ET","EN","EN","N","L","N","N","N","EN","L","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","L","L","L","L","L","L","L","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","L","N","N","N","N","N","ET","N","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","R","NSM","R","NSM","NSM","R","NSM","NSM","R","NSM","N","N","N","N","N","N","N","N","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","N","N","N","N","N","R","R","R","R","R","N","N","N","N","N","N","N","N","N","N","N","AN","AN","AN","AN","AN","AN","N","N","AL","ET","ET","AL","CS","AL","N","N","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","AL","AL","N","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","AN","AN","AN","AN","AN","AN","AN","AN","AN","AN","ET","AN","AN","AL","AL","AL","NSM","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","NSM","NSM","NSM","NSM","NSM","NSM","NSM","AN","N","NSM","NSM","NSM","NSM","NSM","NSM","AL","AL","NSM","NSM","N","NSM","NSM","NSM","NSM","AL","AL","EN","EN","EN","EN","EN","EN","EN","EN","EN","EN","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","N","AL","AL","NSM","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","N","N","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","AL","N","N","N","N","N","N","N","N","N","N","N","N","N","N","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","R","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","R","R","N","N","N","N","R","N","N","N","N","N","WS","WS","WS","WS","WS","WS","WS","WS","WS","WS","WS","BN","BN","BN","L","R","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","WS","B","LRE","RLE","PDF","LRO","RLO","CS","ET","ET","ET","ET","ET","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","CS","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","WS","BN","BN","BN","BN","BN","N","LRI","RLI","FSI","PDI","BN","BN","BN","BN","BN","BN","EN","L","N","N","EN","EN","EN","EN","EN","EN","ES","ES","N","N","N","L","EN","EN","EN","EN","EN","EN","EN","EN","EN","EN","ES","ES","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","ET","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","L","L","L","L","L","L","L","N","N","N","N","N","N","N","N","N","N","N","N","L","L","L","L","L","N","N","N","N","N","R","NSM","R","R","R","R","R","R","R","R","R","R","ES","R","R","R","R","R","R","R","R","R","R","R","R","R","N","R","R","R","R","R","N","R","N","R","R","N","R","R","N","R","R","R","R","R","R","R","R","R","R","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","NSM","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","CS","N","CS","N","N","CS","N","N","N","N","N","N","N","N","N","ET","N","N","ES","ES","N","N","N","N","N","ET","ET","N","N","N","N","N","AL","AL","AL","AL","AL","N","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","N","N","BN","N","N","N","ET","ET","ET","N","N","N","N","N","ES","CS","ES","CS","CS","EN","EN","EN","EN","EN","EN","EN","EN","EN","EN","CS","N","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","N","N","N","N","N","N","N","N","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","L","N","N","N","L","L","L","L","L","L","N","N","L","L","L","L","L","L","N","N","L","L","L","L","L","L","N","N","L","L","L","N","N","N","ET","ET","N","N","N","ET","ET","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N","N"],n=new t.__bidiEngine__({isInputVisual:!0});t.API.events.push(["postProcessText",function(t){var e=t.text;t.x,t.y;var r=t.options||{};t.mutex,r.lang;var i=[];if(r.isInputVisual="boolean"!=typeof r.isInputVisual||r.isInputVisual,n.setOptions(r),"[object Array]"===Object.prototype.toString.call(e)){var a=0;for(i=[],a=0;a<e.length;a+=1)"[object Array]"===Object.prototype.toString.call(e[a])?i.push([n.doBidiReorder(e[a][0]),e[a][1],e[a][2]]):i.push([n.doBidiReorder(e[a])]);t.text=i}else t.text=n.doBidiReorder(e);n.setOptions({isInputVisual:!0})}])}(E),E.API.TTFFont=function(){function t(t){var e;if(this.rawData=t,e=this.contents=new fe(t),this.contents.pos=4,"ttcf"===e.readString(4))throw new Error("TTCF not supported.");e.pos=0,this.parse(),this.subset=new je(this),this.registerTTF()}return t.open=function(e){return new t(e)},t.prototype.parse=function(){return this.directory=new de(this.contents),this.head=new me(this),this.name=new xe(this),this.cmap=new be(this),this.toUnicode={},this.hhea=new ye(this),this.maxp=new Ae(this),this.hmtx=new Se(this),this.post=new Ne(this),this.os2=new we(this),this.loca=new Ie(this),this.glyf=new Pe(this),this.ascender=this.os2.exists&&this.os2.ascender||this.hhea.ascender,this.decender=this.os2.exists&&this.os2.decender||this.hhea.decender,this.lineGap=this.os2.exists&&this.os2.lineGap||this.hhea.lineGap,this.bbox=[this.head.xMin,this.head.yMin,this.head.xMax,this.head.yMax]},t.prototype.registerTTF=function(){var t,e,n,r,i;if(this.scaleFactor=1e3/this.head.unitsPerEm,this.bbox=function(){var e,n,r,i;for(i=[],e=0,n=(r=this.bbox).length;e<n;e++)t=r[e],i.push(Math.round(t*this.scaleFactor));return i}.call(this),this.stemV=0,this.post.exists?(n=255&(r=this.post.italic_angle),32768&(e=r>>16)&&(e=-(1+(65535^e))),this.italicAngle=+(e+"."+n)):this.italicAngle=0,this.ascender=Math.round(this.ascender*this.scaleFactor),this.decender=Math.round(this.decender*this.scaleFactor),this.lineGap=Math.round(this.lineGap*this.scaleFactor),this.capHeight=this.os2.exists&&this.os2.capHeight||this.ascender,this.xHeight=this.os2.exists&&this.os2.xHeight||0,this.familyClass=(this.os2.exists&&this.os2.familyClass||0)>>8,this.isSerif=1===(i=this.familyClass)||2===i||3===i||4===i||5===i||7===i,this.isScript=10===this.familyClass,this.flags=0,this.post.isFixedPitch&&(this.flags|=1),this.isSerif&&(this.flags|=2),this.isScript&&(this.flags|=8),0!==this.italicAngle&&(this.flags|=64),this.flags|=32,!this.cmap.unicode)throw new Error("No unicode cmap for font")},t.prototype.characterToGlyph=function(t){var e;return(null!=(e=this.cmap.unicode)?e.codeMap[t]:void 0)||0},t.prototype.widthOfGlyph=function(t){var e;return e=1e3/this.head.unitsPerEm,this.hmtx.forGlyph(t).advance*e},t.prototype.widthOfString=function(t,e,n){var r,i,a,o;for(a=0,i=0,o=(t=""+t).length;0<=o?i<o:i>o;i=0<=o?++i:--i)r=t.charCodeAt(i),a+=this.widthOfGlyph(this.characterToGlyph(r))+n*(1e3/e)||0;return a*(e/1e3)},t.prototype.lineHeight=function(t,e){var n;return null==e&&(e=!1),n=e?this.lineGap:0,(this.ascender+n-this.decender)/1e3*t},t}();var he,fe=function(){function t(t){this.data=null!=t?t:[],this.pos=0,this.length=this.data.length}return t.prototype.readByte=function(){return this.data[this.pos++]},t.prototype.writeByte=function(t){return this.data[this.pos++]=t},t.prototype.readUInt32=function(){return 16777216*this.readByte()+(this.readByte()<<16)+(this.readByte()<<8)+this.readByte()},t.prototype.writeUInt32=function(t){return this.writeByte(t>>>24&255),this.writeByte(t>>16&255),this.writeByte(t>>8&255),this.writeByte(255&t)},t.prototype.readInt32=function(){var t;return(t=this.readUInt32())>=2147483648?t-4294967296:t},t.prototype.writeInt32=function(t){return t<0&&(t+=4294967296),this.writeUInt32(t)},t.prototype.readUInt16=function(){return this.readByte()<<8|this.readByte()},t.prototype.writeUInt16=function(t){return this.writeByte(t>>8&255),this.writeByte(255&t)},t.prototype.readInt16=function(){var t;return(t=this.readUInt16())>=32768?t-65536:t},t.prototype.writeInt16=function(t){return t<0&&(t+=65536),this.writeUInt16(t)},t.prototype.readString=function(t){var e,n;for(n=[],e=0;0<=t?e<t:e>t;e=0<=t?++e:--e)n[e]=String.fromCharCode(this.readByte());return n.join("")},t.prototype.writeString=function(t){var e,n,r;for(r=[],e=0,n=t.length;0<=n?e<n:e>n;e=0<=n?++e:--e)r.push(this.writeByte(t.charCodeAt(e)));return r},t.prototype.readShort=function(){return this.readInt16()},t.prototype.writeShort=function(t){return this.writeInt16(t)},t.prototype.readLongLong=function(){var t,e,n,r,i,a,o,s;return t=this.readByte(),e=this.readByte(),n=this.readByte(),r=this.readByte(),i=this.readByte(),a=this.readByte(),o=this.readByte(),s=this.readByte(),128&t?-1*(72057594037927940*(255^t)+281474976710656*(255^e)+1099511627776*(255^n)+4294967296*(255^r)+16777216*(255^i)+65536*(255^a)+256*(255^o)+(255^s)+1):72057594037927940*t+281474976710656*e+1099511627776*n+4294967296*r+16777216*i+65536*a+256*o+s},t.prototype.writeLongLong=function(t){var e,n;return e=Math.floor(t/4294967296),n=4294967295&t,this.writeByte(e>>24&255),this.writeByte(e>>16&255),this.writeByte(e>>8&255),this.writeByte(255&e),this.writeByte(n>>24&255),this.writeByte(n>>16&255),this.writeByte(n>>8&255),this.writeByte(255&n)},t.prototype.readInt=function(){return this.readInt32()},t.prototype.writeInt=function(t){return this.writeInt32(t)},t.prototype.read=function(t){var e,n;for(e=[],n=0;0<=t?n<t:n>t;n=0<=t?++n:--n)e.push(this.readByte());return e},t.prototype.write=function(t){var e,n,r,i;for(i=[],n=0,r=t.length;n<r;n++)e=t[n],i.push(this.writeByte(e));return i},t}(),de=function(){var t;function e(t){var e,n,r;for(this.scalarType=t.readInt(),this.tableCount=t.readShort(),this.searchRange=t.readShort(),this.entrySelector=t.readShort(),this.rangeShift=t.readShort(),this.tables={},n=0,r=this.tableCount;0<=r?n<r:n>r;n=0<=r?++n:--n)e={tag:t.readString(4),checksum:t.readInt(),offset:t.readInt(),length:t.readInt()},this.tables[e.tag]=e}return e.prototype.encode=function(e){var n,r,i,a,o,s,u,c,l,h,f,d,p;for(p in f=Object.keys(e).length,s=Math.log(2),l=16*Math.floor(Math.log(f)/s),a=Math.floor(l/s),c=16*f-l,(r=new fe).writeInt(this.scalarType),r.writeShort(f),r.writeShort(l),r.writeShort(a),r.writeShort(c),i=16*f,u=r.pos+i,o=null,d=[],e)for(h=e[p],r.writeString(p),r.writeInt(t(h)),r.writeInt(u),r.writeInt(h.length),d=d.concat(h),"head"===p&&(o=u),u+=h.length;u%4;)d.push(0),u++;return r.write(d),n=2981146554-t(r.data),r.pos=o+8,r.writeUInt32(n),r.data},t=function(t){var e,n,r,i;for(t=_e.call(t);t.length%4;)t.push(0);for(r=new fe(t),n=0,e=0,i=t.length;e<i;e=e+=4)n+=r.readUInt32();return 4294967295&n},e}(),pe={}.hasOwnProperty,ge=function(t,e){for(var n in e)pe.call(e,n)&&(t[n]=e[n]);function r(){this.constructor=t}return r.prototype=e.prototype,t.prototype=new r,t.__super__=e.prototype,t};he=function(){function t(t){var e;this.file=t,e=this.file.directory.tables[this.tag],this.exists=!!e,e&&(this.offset=e.offset,this.length=e.length,this.parse(this.file.contents))}return t.prototype.parse=function(){},t.prototype.encode=function(){},t.prototype.raw=function(){return this.exists?(this.file.contents.pos=this.offset,this.file.contents.read(this.length)):null},t}();var me=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="head",t.prototype.parse=function(t){return t.pos=this.offset,this.version=t.readInt(),this.revision=t.readInt(),this.checkSumAdjustment=t.readInt(),this.magicNumber=t.readInt(),this.flags=t.readShort(),this.unitsPerEm=t.readShort(),this.created=t.readLongLong(),this.modified=t.readLongLong(),this.xMin=t.readShort(),this.yMin=t.readShort(),this.xMax=t.readShort(),this.yMax=t.readShort(),this.macStyle=t.readShort(),this.lowestRecPPEM=t.readShort(),this.fontDirectionHint=t.readShort(),this.indexToLocFormat=t.readShort(),this.glyphDataFormat=t.readShort()},t.prototype.encode=function(t){var e;return(e=new fe).writeInt(this.version),e.writeInt(this.revision),e.writeInt(this.checkSumAdjustment),e.writeInt(this.magicNumber),e.writeShort(this.flags),e.writeShort(this.unitsPerEm),e.writeLongLong(this.created),e.writeLongLong(this.modified),e.writeShort(this.xMin),e.writeShort(this.yMin),e.writeShort(this.xMax),e.writeShort(this.yMax),e.writeShort(this.macStyle),e.writeShort(this.lowestRecPPEM),e.writeShort(this.fontDirectionHint),e.writeShort(t),e.writeShort(this.glyphDataFormat),e.data},t}(),ve=function(){function t(t,e){var n,r,i,a,o,s,u,c,l,h,f,d,p,g,m,v,b;switch(this.platformID=t.readUInt16(),this.encodingID=t.readShort(),this.offset=e+t.readInt(),l=t.pos,t.pos=this.offset,this.format=t.readUInt16(),this.length=t.readUInt16(),this.language=t.readUInt16(),this.isUnicode=3===this.platformID&&1===this.encodingID&&4===this.format||0===this.platformID&&4===this.format,this.codeMap={},this.format){case 0:for(s=0;s<256;++s)this.codeMap[s]=t.readByte();break;case 4:for(f=t.readUInt16(),h=f/2,t.pos+=6,i=function(){var e,n;for(n=[],s=e=0;0<=h?e<h:e>h;s=0<=h?++e:--e)n.push(t.readUInt16());return n}(),t.pos+=2,p=function(){var e,n;for(n=[],s=e=0;0<=h?e<h:e>h;s=0<=h?++e:--e)n.push(t.readUInt16());return n}(),u=function(){var e,n;for(n=[],s=e=0;0<=h?e<h:e>h;s=0<=h?++e:--e)n.push(t.readUInt16());return n}(),c=function(){var e,n;for(n=[],s=e=0;0<=h?e<h:e>h;s=0<=h?++e:--e)n.push(t.readUInt16());return n}(),r=(this.length-t.pos+this.offset)/2,o=function(){var e,n;for(n=[],s=e=0;0<=r?e<r:e>r;s=0<=r?++e:--e)n.push(t.readUInt16());return n}(),s=m=0,b=i.length;m<b;s=++m)for(g=i[s],n=v=d=p[s];d<=g?v<=g:v>=g;n=d<=g?++v:--v)0===c[s]?a=n+u[s]:0!==(a=o[c[s]/2+(n-d)-(h-s)]||0)&&(a+=u[s]),this.codeMap[n]=65535&a}t.pos=l}return t.encode=function(t,e){var n,r,i,a,o,s,u,c,l,h,f,d,p,g,m,v,b,y,w,N,L,x,A,S,_,P,k,F,I,j,C,O,B,M,q,E,R,D,T,z,U,H,W,V,G,Y;switch(F=new fe,a=Object.keys(t).sort(function(t,e){return t-e}),e){case"macroman":for(p=0,g=function(){var t=[];for(d=0;d<256;++d)t.push(0);return t}(),v={0:0},i={},I=0,B=a.length;I<B;I++)null==v[W=t[r=a[I]]]&&(v[W]=++p),i[r]={old:t[r],new:v[t[r]]},g[r]=v[t[r]];return F.writeUInt16(1),F.writeUInt16(0),F.writeUInt32(12),F.writeUInt16(0),F.writeUInt16(262),F.writeUInt16(0),F.write(g),{charMap:i,subtable:F.data,maxGlyphID:p+1};case"unicode":for(P=[],l=[],b=0,v={},n={},m=u=null,j=0,M=a.length;j<M;j++)null==v[w=t[r=a[j]]]&&(v[w]=++b),n[r]={old:w,new:v[w]},o=v[w]-r,null!=m&&o===u||(m&&l.push(m),P.push(r),u=o),m=r;for(m&&l.push(m),l.push(65535),P.push(65535),S=2*(A=P.length),x=2*Math.pow(Math.log(A)/Math.LN2,2),h=Math.log(x/2)/Math.LN2,L=2*A-x,s=[],N=[],f=[],d=C=0,q=P.length;C<q;d=++C){if(_=P[d],c=l[d],65535===_){s.push(0),N.push(0);break}if(_-(k=n[_].new)>=32768)for(s.push(0),N.push(2*(f.length+A-d)),r=O=_;_<=c?O<=c:O>=c;r=_<=c?++O:--O)f.push(n[r].new);else s.push(k-_),N.push(0)}for(F.writeUInt16(3),F.writeUInt16(1),F.writeUInt32(12),F.writeUInt16(4),F.writeUInt16(16+8*A+2*f.length),F.writeUInt16(0),F.writeUInt16(S),F.writeUInt16(x),F.writeUInt16(h),F.writeUInt16(L),U=0,E=l.length;U<E;U++)r=l[U],F.writeUInt16(r);for(F.writeUInt16(0),H=0,R=P.length;H<R;H++)r=P[H],F.writeUInt16(r);for(V=0,D=s.length;V<D;V++)o=s[V],F.writeUInt16(o);for(G=0,T=N.length;G<T;G++)y=N[G],F.writeUInt16(y);for(Y=0,z=f.length;Y<z;Y++)p=f[Y],F.writeUInt16(p);return{charMap:n,subtable:F.data,maxGlyphID:b+1}}},t}(),be=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="cmap",t.prototype.parse=function(t){var e,n,r;for(t.pos=this.offset,this.version=t.readUInt16(),r=t.readUInt16(),this.tables=[],this.unicode=null,n=0;0<=r?n<r:n>r;n=0<=r?++n:--n)e=new ve(t,this.offset),this.tables.push(e),e.isUnicode&&null==this.unicode&&(this.unicode=e);return!0},t.encode=function(t,e){var n,r;return null==e&&(e="macroman"),n=ve.encode(t,e),(r=new fe).writeUInt16(0),r.writeUInt16(1),n.table=r.data.concat(n.subtable),n},t}(),ye=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="hhea",t.prototype.parse=function(t){return t.pos=this.offset,this.version=t.readInt(),this.ascender=t.readShort(),this.decender=t.readShort(),this.lineGap=t.readShort(),this.advanceWidthMax=t.readShort(),this.minLeftSideBearing=t.readShort(),this.minRightSideBearing=t.readShort(),this.xMaxExtent=t.readShort(),this.caretSlopeRise=t.readShort(),this.caretSlopeRun=t.readShort(),this.caretOffset=t.readShort(),t.pos+=8,this.metricDataFormat=t.readShort(),this.numberOfMetrics=t.readUInt16()},t}(),we=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="OS/2",t.prototype.parse=function(t){if(t.pos=this.offset,this.version=t.readUInt16(),this.averageCharWidth=t.readShort(),this.weightClass=t.readUInt16(),this.widthClass=t.readUInt16(),this.type=t.readShort(),this.ySubscriptXSize=t.readShort(),this.ySubscriptYSize=t.readShort(),this.ySubscriptXOffset=t.readShort(),this.ySubscriptYOffset=t.readShort(),this.ySuperscriptXSize=t.readShort(),this.ySuperscriptYSize=t.readShort(),this.ySuperscriptXOffset=t.readShort(),this.ySuperscriptYOffset=t.readShort(),this.yStrikeoutSize=t.readShort(),this.yStrikeoutPosition=t.readShort(),this.familyClass=t.readShort(),this.panose=function(){var e,n;for(n=[],e=0;e<10;++e)n.push(t.readByte());return n}(),this.charRange=function(){var e,n;for(n=[],e=0;e<4;++e)n.push(t.readInt());return n}(),this.vendorID=t.readString(4),this.selection=t.readShort(),this.firstCharIndex=t.readShort(),this.lastCharIndex=t.readShort(),this.version>0&&(this.ascent=t.readShort(),this.descent=t.readShort(),this.lineGap=t.readShort(),this.winAscent=t.readShort(),this.winDescent=t.readShort(),this.codePageRange=function(){var e,n;for(n=[],e=0;e<2;e=++e)n.push(t.readInt());return n}(),this.version>1))return this.xHeight=t.readShort(),this.capHeight=t.readShort(),this.defaultChar=t.readShort(),this.breakChar=t.readShort(),this.maxContext=t.readShort()},t}(),Ne=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="post",t.prototype.parse=function(t){var e,n,r;switch(t.pos=this.offset,this.format=t.readInt(),this.italicAngle=t.readInt(),this.underlinePosition=t.readShort(),this.underlineThickness=t.readShort(),this.isFixedPitch=t.readInt(),this.minMemType42=t.readInt(),this.maxMemType42=t.readInt(),this.minMemType1=t.readInt(),this.maxMemType1=t.readInt(),this.format){case 65536:case 196608:break;case 131072:var i;for(n=t.readUInt16(),this.glyphNameIndex=[],i=0;0<=n?i<n:i>n;i=0<=n?++i:--i)this.glyphNameIndex.push(t.readUInt16());for(this.names=[],r=[];t.pos<this.offset+this.length;)e=t.readByte(),r.push(this.names.push(t.readString(e)));return r;case 151552:return n=t.readUInt16(),this.offsets=t.read(n);case 262144:return this.map=function(){var e,n,r;for(r=[],i=e=0,n=this.file.maxp.numGlyphs;0<=n?e<n:e>n;i=0<=n?++e:--e)r.push(t.readUInt32());return r}.call(this)}},t}(),Le=function(t,e){this.raw=t,this.length=t.length,this.platformID=e.platformID,this.encodingID=e.encodingID,this.languageID=e.languageID},xe=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="name",t.prototype.parse=function(t){var e,n,r,i,a,o,s,u,c,l,h;for(t.pos=this.offset,t.readShort(),e=t.readShort(),o=t.readShort(),n=[],i=0;0<=e?i<e:i>e;i=0<=e?++i:--i)n.push({platformID:t.readShort(),encodingID:t.readShort(),languageID:t.readShort(),nameID:t.readShort(),length:t.readShort(),offset:this.offset+o+t.readShort()});for(s={},i=c=0,l=n.length;c<l;i=++c)r=n[i],t.pos=r.offset,u=t.readString(r.length),a=new Le(u,r),null==s[h=r.nameID]&&(s[h]=[]),s[r.nameID].push(a);this.strings=s,this.copyright=s[0],this.fontFamily=s[1],this.fontSubfamily=s[2],this.uniqueSubfamily=s[3],this.fontName=s[4],this.version=s[5];try{this.postscriptName=s[6][0].raw.replace(/[\x00-\x19\x80-\xff]/g,"")}catch(f){this.postscriptName=s[4][0].raw.replace(/[\x00-\x19\x80-\xff]/g,"")}return this.trademark=s[7],this.manufacturer=s[8],this.designer=s[9],this.description=s[10],this.vendorUrl=s[11],this.designerUrl=s[12],this.license=s[13],this.licenseUrl=s[14],this.preferredFamily=s[15],this.preferredSubfamily=s[17],this.compatibleFull=s[18],this.sampleText=s[19]},t}(),Ae=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="maxp",t.prototype.parse=function(t){return t.pos=this.offset,this.version=t.readInt(),this.numGlyphs=t.readUInt16(),this.maxPoints=t.readUInt16(),this.maxContours=t.readUInt16(),this.maxCompositePoints=t.readUInt16(),this.maxComponentContours=t.readUInt16(),this.maxZones=t.readUInt16(),this.maxTwilightPoints=t.readUInt16(),this.maxStorage=t.readUInt16(),this.maxFunctionDefs=t.readUInt16(),this.maxInstructionDefs=t.readUInt16(),this.maxStackElements=t.readUInt16(),this.maxSizeOfInstructions=t.readUInt16(),this.maxComponentElements=t.readUInt16(),this.maxComponentDepth=t.readUInt16()},t}(),Se=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="hmtx",t.prototype.parse=function(t){var e,n,r,i,a,o,s;for(t.pos=this.offset,this.metrics=[],e=0,o=this.file.hhea.numberOfMetrics;0<=o?e<o:e>o;e=0<=o?++e:--e)this.metrics.push({advance:t.readUInt16(),lsb:t.readInt16()});for(r=this.file.maxp.numGlyphs-this.file.hhea.numberOfMetrics,this.leftSideBearings=function(){var n,i;for(i=[],e=n=0;0<=r?n<r:n>r;e=0<=r?++n:--n)i.push(t.readInt16());return i}(),this.widths=function(){var t,e,n,r;for(r=[],t=0,e=(n=this.metrics).length;t<e;t++)i=n[t],r.push(i.advance);return r}.call(this),n=this.widths[this.widths.length-1],s=[],e=a=0;0<=r?a<r:a>r;e=0<=r?++a:--a)s.push(this.widths.push(n));return s},t.prototype.forGlyph=function(t){return t in this.metrics?this.metrics[t]:{advance:this.metrics[this.metrics.length-1].advance,lsb:this.leftSideBearings[t-this.metrics.length]}},t}(),_e=[].slice,Pe=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="glyf",t.prototype.parse=function(){return this.cache={}},t.prototype.glyphFor=function(t){var e,n,r,i,a,o,s,u,c,l;return t in this.cache?this.cache[t]:(i=this.file.loca,e=this.file.contents,n=i.indexOf(t),0===(r=i.lengthOf(t))?this.cache[t]=null:(e.pos=this.offset+n,a=(o=new fe(e.read(r))).readShort(),u=o.readShort(),l=o.readShort(),s=o.readShort(),c=o.readShort(),this.cache[t]=-1===a?new Fe(o,u,l,s,c):new ke(o,a,u,l,s,c),this.cache[t]))},t.prototype.encode=function(t,e,n){var r,i,a,o,s;for(a=[],i=[],o=0,s=e.length;o<s;o++)r=t[e[o]],i.push(a.length),r&&(a=a.concat(r.encode(n)));return i.push(a.length),{table:a,offsets:i}},t}(),ke=function(){function t(t,e,n,r,i,a){this.raw=t,this.numberOfContours=e,this.xMin=n,this.yMin=r,this.xMax=i,this.yMax=a,this.compound=!1}return t.prototype.encode=function(){return this.raw.data},t}(),Fe=function(){function t(t,e,n,r,i){var a,o;for(this.raw=t,this.xMin=e,this.yMin=n,this.xMax=r,this.yMax=i,this.compound=!0,this.glyphIDs=[],this.glyphOffsets=[],a=this.raw;o=a.readShort(),this.glyphOffsets.push(a.pos),this.glyphIDs.push(a.readUInt16()),32&o;)a.pos+=1&o?4:2,128&o?a.pos+=8:64&o?a.pos+=4:8&o&&(a.pos+=2)}return t.prototype.encode=function(){var t,e,n;for(e=new fe(_e.call(this.raw.data)),t=0,n=this.glyphIDs.length;t<n;++t)e.pos=this.glyphOffsets[t];return e.data},t}(),Ie=function(){function t(){return t.__super__.constructor.apply(this,arguments)}return ge(t,he),t.prototype.tag="loca",t.prototype.parse=function(t){var e,n;return t.pos=this.offset,e=this.file.head.indexToLocFormat,this.offsets=0===e?function(){var e,r;for(r=[],n=0,e=this.length;n<e;n+=2)r.push(2*t.readUInt16());return r}.call(this):function(){var e,r;for(r=[],n=0,e=this.length;n<e;n+=4)r.push(t.readUInt32());return r}.call(this)},t.prototype.indexOf=function(t){return this.offsets[t]},t.prototype.lengthOf=function(t){return this.offsets[t+1]-this.offsets[t]},t.prototype.encode=function(t,e){for(var n=new Uint32Array(this.offsets.length),r=0,i=0,a=0;a<n.length;++a)if(n[a]=r,i<e.length&&e[i]==a){++i,n[a]=r;var o=this.offsets[a],s=this.offsets[a+1]-o;s>0&&(r+=s)}for(var u=new Array(4*n.length),c=0;c<n.length;++c)u[4*c+3]=255&n[c],u[4*c+2]=(65280&n[c])>>8,u[4*c+1]=(16711680&n[c])>>16,u[4*c]=(4278190080&n[c])>>24;return u},t}(),je=function(){function t(t){this.font=t,this.subset={},this.unicodes={},this.next=33}return t.prototype.generateCmap=function(){var t,e,n,r,i;for(e in r=this.font.cmap.tables[0].codeMap,t={},i=this.subset)n=i[e],t[e]=r[n];return t},t.prototype.glyphsFor=function(t){var e,n,r,i,a,o,s;for(r={},a=0,o=t.length;a<o;a++)r[i=t[a]]=this.font.glyf.glyphFor(i);for(i in e=[],r)(null!=(n=r[i])?n.compound:void 0)&&e.push.apply(e,n.glyphIDs);if(e.length>0)for(i in s=this.glyphsFor(e))n=s[i],r[i]=n;return r},t.prototype.encode=function(t,e){var n,r,i,a,o,s,u,c,l,h,f,d,p,g,m;for(r in n=be.encode(this.generateCmap(),"unicode"),a=this.glyphsFor(t),f={0:0},m=n.charMap)f[(s=m[r]).old]=s.new;for(d in h=n.maxGlyphID,a)d in f||(f[d]=h++);return c=function(t){var e,n;for(e in n={},t)n[t[e]]=e;return n}(f),l=Object.keys(c).sort(function(t,e){return t-e}),p=function(){var t,e,n;for(n=[],t=0,e=l.length;t<e;t++)o=l[t],n.push(c[o]);return n}(),i=this.font.glyf.encode(a,p,f),u=this.font.loca.encode(i.offsets,p),g={cmap:this.font.cmap.raw(),glyf:i.table,loca:u,hmtx:this.font.hmtx.raw(),hhea:this.font.hhea.raw(),maxp:this.font.maxp.raw(),post:this.font.post.raw(),name:this.font.name.raw(),head:this.font.head.encode(e)},this.font.os2.exists&&(g["OS/2"]=this.font.os2.raw()),this.font.directory.encode(g)},t}();E.API.PDFObject=function(){var t;function e(){}return t=function(t,e){return(Array(e+1).join("0")+t).slice(-e)},e.convert=function(n){var r,i,a,o;if(Array.isArray(n))return"["+function(){var t,i,a;for(a=[],t=0,i=n.length;t<i;t++)r=n[t],a.push(e.convert(r));return a}().join(" ")+"]";if("string"==typeof n)return"/"+n;if(null!=n?n.isString:void 0)return"("+n+")";if(n instanceof Date)return"(D:"+t(n.getUTCFullYear(),4)+t(n.getUTCMonth(),2)+t(n.getUTCDate(),2)+t(n.getUTCHours(),2)+t(n.getUTCMinutes(),2)+t(n.getUTCSeconds(),2)+"Z)";if("[object Object]"==={}.toString.call(n)){for(i in a=["<<"],n)o=n[i],a.push("/"+i+" "+e.convert(o));return a.push(">>"),a.join("\n")}return""+n},e}();
 //# sourceMappingURL=jspdf.es.min.js.map
 
-
-/***/ }),
-
-/***/ 56530:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ branches)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/branches/index.vue?vue&type=template&id=1439a92d&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "mb-50"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-lg-12"
-  }, [_c('div', {
-    staticClass: "card custom-card w-100"
-  }, [_c('div', {
-    staticClass: "card-header setings-header"
-  }, [_c('breadcrumbs', {
-    attrs: {
-      "items": _vm.breadcrumbs,
-      "current": _vm.breadcrumbsCurrent
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "card-body position-relative"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-6 col-xl-4 mb-2"
-  }, [_c('search', {
-    on: {
-      "reset-pagination": function resetPagination($event) {
-        return _vm.resetPagination();
-      },
-      "reload": _vm.reload
-    },
-    model: {
-      value: _vm.query,
-      callback: function callback($$v) {
-        _vm.query = $$v;
-      },
-      expression: "query"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-xl-8 col-8 float-right text-right"
-  }, [_c('div', {
-    staticClass: "btn-group c-w-100"
-  }, [_c('a', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.$t('Refresh'),
-      expression: "$t('Refresh')"
-    }],
-    staticClass: "btn btn-success refresh-btn",
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.refreshTable();
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-sync"
-  })]), _vm._v(" "), _c('a', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.$t('Export to Excel'),
-      expression: "$t('Export to Excel')"
-    }],
-    staticClass: "btn export-excel-btn",
-    attrs: {
-      "href": _vm.exportUrl,
-      "title": "Export to Excel"
-    }
-  }, [_c('svg', {
-    attrs: {
-      "width": "18",
-      "height": "19",
-      "viewBox": "0 0 18 19",
-      "fill": "none",
-      "xmlns": "http://www.w3.org/2000/svg"
-    }
-  }, [_c('path', {
-    attrs: {
-      "d": "M11.625 17.5001C11.625 17.699 11.546 17.8898 11.4053 18.0305C11.2647 18.1711 11.0739 18.2501 10.875 18.2501H8.24998C8.05107 18.2501 7.86031 18.1711 7.71966 18.0305C7.579 17.8898 7.49998 17.699 7.49998 17.5001V12.2501C7.49998 12.0512 7.579 11.8604 7.71966 11.7198C7.86031 11.5791 8.05107 11.5001 8.24998 11.5001C8.4489 11.5001 8.63966 11.5791 8.78031 11.7198C8.92097 11.8604 8.99998 12.0512 8.99998 12.2501V16.7501H10.875C11.0739 16.7501 11.2647 16.8291 11.4053 16.9698C11.546 17.1104 11.625 17.3012 11.625 17.5001ZM5.68592 11.6398C5.60578 11.5826 5.51514 11.5417 5.41918 11.5194C5.32323 11.4972 5.22384 11.4941 5.12668 11.5103C5.02953 11.5265 4.93651 11.5617 4.85295 11.6138C4.76939 11.6659 4.69692 11.734 4.63967 11.8142L3.37498 13.5851L2.1103 11.8142C2.05509 11.7292 1.98324 11.6564 1.89909 11.5999C1.81495 11.5435 1.72024 11.5047 1.62069 11.4859C1.52114 11.4671 1.41882 11.4687 1.31988 11.4905C1.22095 11.5123 1.12747 11.554 1.04507 11.6129C0.962677 11.6719 0.893077 11.7469 0.840473 11.8335C0.787869 11.9201 0.753352 12.0164 0.739005 12.1167C0.724657 12.217 0.730776 12.3191 0.756994 12.417C0.783211 12.5148 0.828983 12.6064 0.891547 12.6861L2.45342 14.8751L0.889672 17.0642C0.784434 17.2261 0.74571 17.4224 0.781564 17.6121C0.817419 17.8019 0.925088 17.9705 1.08215 18.0829C1.23922 18.1952 1.43357 18.2427 1.62474 18.2153C1.81591 18.188 1.98916 18.088 2.10842 17.9361L3.37498 16.1651L4.63967 17.9361C4.75893 18.088 4.93219 18.188 5.12336 18.2153C5.31453 18.188 5.50888 18.1952 5.66594 18.0829C5.82301 17.9705 5.93068 17.8019 5.96653 17.6121C6.00239 17.4224 5.96366 17.2261 5.85842 17.0642L4.29655 14.8751L5.8603 12.6861C5.91755 12.6059 5.95845 12.5153 5.98067 12.4193C6.00289 12.3234 6.00599 12.224 5.9898 12.1268C5.97361 12.0297 5.93844 11.9367 5.8863 11.8531C5.83416 11.7695 5.76607 11.6971 5.68592 11.6398ZM14.9615 14.0604C14.5865 13.9517 14.1984 13.8401 13.9819 13.7004C13.8647 13.6236 13.8665 13.6067 13.8769 13.5223C13.8783 13.4541 13.896 13.3873 13.9287 13.3274C13.9613 13.2675 14.0078 13.2164 14.0644 13.1782C14.4956 12.8857 15.5025 13.017 15.9225 13.1257C16.1149 13.1763 16.3196 13.1484 16.4915 13.0481C16.6633 12.9478 16.7883 12.7834 16.8389 12.5909C16.8895 12.3985 16.8616 12.1938 16.7613 12.0219C16.661 11.8501 16.4965 11.7251 16.304 11.6745C16.1062 11.6229 14.3353 11.1851 13.2262 11.9332C12.9924 12.0913 12.796 12.2987 12.6511 12.5408C12.5061 12.783 12.416 13.054 12.3872 13.3348C12.1997 14.8236 13.6669 15.2482 14.5434 15.5014C15.674 15.8286 15.7734 15.9626 15.7415 16.2129C15.7125 16.4389 15.6234 16.5251 15.54 16.5814C15.1087 16.8682 14.1187 16.7267 13.7081 16.6142C13.516 16.5609 13.3106 16.586 13.1371 16.6841C13.0512 16.7327 12.9757 16.7977 12.9149 16.8755C12.8541 16.9532 12.8092 17.0422 12.7828 17.1373C12.7564 17.2324 12.749 17.3318 12.761 17.4298C12.773 17.5277 12.8041 17.6224 12.8527 17.7083C12.9508 17.8818 13.1138 18.0093 13.3059 18.0626C13.7708 18.1851 14.2493 18.2481 14.73 18.2501C15.2756 18.2501 15.8831 18.1564 16.3697 17.832C16.6097 17.6724 16.8114 17.4615 16.9602 17.2146C17.109 16.9678 17.2012 16.691 17.2303 16.4042C17.4375 14.7814 15.8887 14.3286 14.9615 14.0604ZM0.749985 8.50012V1.75012C0.749985 1.3523 0.90802 0.970767 1.18932 0.689462C1.47063 0.408157 1.85216 0.250122 2.24998 0.250122H11.25C11.3485 0.250045 11.4461 0.269379 11.5371 0.30702C11.6282 0.344661 11.7109 0.399872 11.7806 0.469497L17.0306 5.7195C17.1002 5.7892 17.1554 5.87194 17.1931 5.96299C17.2307 6.05403 17.2501 6.1516 17.25 6.25012V8.50012C17.25 8.69903 17.171 8.8898 17.0303 9.03045C16.8897 9.1711 16.6989 9.25012 16.5 9.25012C16.3011 9.25012 16.1103 9.1711 15.9697 9.03045C15.829 8.8898 15.75 8.69903 15.75 8.50012V7.00012H11.25C11.0511 7.00012 10.8603 6.9211 10.7197 6.78045C10.579 6.6398 10.5 6.44903 10.5 6.25012V1.75012H2.24998V8.50012C2.24998 8.69903 2.17097 8.8898 2.03031 9.03045C1.88966 9.1711 1.6989 9.25012 1.49998 9.25012C1.30107 9.25012 1.11031 9.1711 0.969655 9.03045C0.829003 8.8898 0.749985 8.69903 0.749985 8.50012ZM12 5.50012H14.6887L12 2.81043V5.50012Z",
-      "fill": "#2AB930"
-    }
-  })])]), _vm._v(" "), _c('a', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.$t('Export to PDF'),
-      expression: "$t('Export to PDF')"
-    }],
-    staticClass: "btn export-pdf-btn",
-    attrs: {
-      "href": "#",
-      "title": "Export to PDF"
-    },
-    on: {
-      "click": _vm.exportToPDF
-    }
-  }, [_c('svg', {
-    attrs: {
-      "width": "24",
-      "height": "24",
-      "viewBox": "0 0 24 24",
-      "fill": "none",
-      "xmlns": "http://www.w3.org/2000/svg"
-    }
-  }, [_c('path', {
-    attrs: {
-      "d": "M21 14.2501C21 14.449 20.921 14.6398 20.7803 14.7805C20.6397 14.9211 20.4489 15.0001 20.25 15.0001H18V16.5001H19.5C19.6989 16.5001 19.8897 16.5791 20.0303 16.7198C20.171 16.8604 20.25 17.0512 20.25 17.2501C20.25 17.449 20.171 17.6398 20.0303 17.7805C19.8897 17.9211 19.6989 18.0001 19.5 18.0001H18V19.5001C18 19.699 17.921 19.8898 17.7803 20.0305C17.6397 20.1711 17.4489 20.2501 17.25 20.2501C17.0511 20.2501 16.8603 20.1711 16.7197 20.0305C16.579 19.8898 16.5 19.699 16.5 19.5001V14.2501C16.5 14.0512 16.579 13.8604 16.7197 13.7198C16.8603 13.5791 17.0511 13.5001 17.25 13.5001H20.25C20.4489 13.5001 20.6397 13.5791 20.7803 13.7198C20.921 13.8604 21 14.0512 21 14.2501ZM8.625 16.1251C8.625 16.8213 8.34844 17.489 7.85616 17.9813C7.36387 18.4736 6.69619 18.7501 6 18.7501H5.25V19.5001C5.25 19.699 5.17098 19.8898 5.03033 20.0305C4.88968 20.1711 4.69891 20.2501 4.5 20.2501C4.30109 20.2501 4.11032 20.1711 3.96967 20.0305C3.82902 19.8898 3.75 19.699 3.75 19.5001V14.2501C3.75 14.0512 3.82902 13.8604 3.96967 13.7198C4.11032 13.5791 4.30109 13.5001 4.5 13.5001H6C6.69619 13.5001 7.36387 13.7767 7.85616 14.269C8.34844 14.7612 8.625 15.4289 8.625 16.1251ZM7.125 16.1251C7.125 15.8268 7.00647 15.5406 6.7955 15.3296C6.58452 15.1186 6.29837 15.0001 6 15.0001H5.25V17.2501H6C6.29837 17.2501 6.58452 17.1316 6.7955 16.9206C7.00647 16.7096 7.125 16.4235 7.125 16.1251ZM15.375 16.8751C15.375 17.7702 15.0194 18.6287 14.3865 19.2616C13.7535 19.8945 12.8951 20.2501 12 20.2501H10.5C10.3011 20.2501 10.1103 20.1711 9.96967 20.0305C9.82902 19.8898 9.75 19.699 9.75 19.5001V14.2501C9.75 14.0512 9.82902 13.8604 9.96967 13.7198C10.1103 13.5791 10.3011 13.5001 10.5 13.5001H12C12.8951 13.5001 13.7535 13.8557 14.3865 14.4886C15.0194 15.1216 15.375 15.98 15.375 16.8751ZM13.875 16.8751C13.875 16.3778 13.6775 15.9009 13.3258 15.5493C12.9742 15.1977 12.4973 15.0001 12 15.0001H11.25V18.7501H12C12.4973 18.7501 12.9742 18.5526 13.3258 18.2009C13.6775 17.8493 13.875 17.3724 13.875 16.8751ZM3.75 10.5001V3.75012C3.75 3.3523 3.90804 2.97077 4.18934 2.68946C4.47064 2.40816 4.85218 2.25012 5.25 2.25012H14.25C14.3485 2.25004 14.4461 2.26938 14.5371 2.30702C14.6282 2.34466 14.7109 2.39987 14.7806 2.4695L20.0306 7.7195C20.1003 7.7892 20.1555 7.87194 20.1931 7.96299C20.2307 8.05403 20.2501 8.1516 20.25 8.25012V10.5001C20.25 10.699 20.171 10.8898 20.0303 11.0305C19.8897 11.1711 19.6989 11.2501 19.5 11.2501C19.3011 11.2501 19.1103 11.1711 18.9697 11.0305C18.829 10.8898 18.75 10.699 18.75 10.5001V9.00012H14.25C14.0511 9.00012 13.8603 8.9211 13.7197 8.78045C13.579 8.6398 13.5 8.44903 13.5 8.25012V3.75012H5.25V10.5001C5.25 10.699 5.17098 10.8898 5.03033 11.0305C4.88968 11.1711 4.69891 11.2501 4.5 11.2501C4.30109 11.2501 4.11032 11.1711 3.96967 11.0305C3.82902 10.8898 3.75 10.699 3.75 10.5001ZM15 7.50012H17.6897L15 4.81043V7.50012Z",
-      "fill": "#2AB930"
-    }
-  })])]), _vm._v(" "), _vm.$can('branches-create') ? _c('router-link', {
-    staticClass: "btn btn-primary",
-    attrs: {
-      "to": {
-        name: 'branches.create'
-      }
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Create")) + "\n                "), _c('i', {
-    staticClass: "fas fa-plus-circle d-none d-sm-inline-block"
-  })]) : _vm._e()], 1)])]), _vm._v(" "), _c('table-loading', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.loading,
-      expression: "loading"
-    }]
-  }), _vm._v(" "), _c('div', {
-    staticClass: "table-responsive table-custom mt-3",
-    attrs: {
-      "id": "printMe"
-    }
-  }, [_c('table', {
-    staticClass: "table branches-table"
-  }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Name")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Phone")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Email")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Main Branch")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _vm.$can('branches-edit') || _vm.$can('branches-delete') || _vm.$can('branches-view') || _vm.$can('branches-assign-users') ? _c('th', {
-    staticClass: "text-right no-print"
-  }, [_vm._v("\n                    " + _vm._s(_vm.$t("Action")) + "\n                  ")]) : _vm._e()]), _vm._v(" "), _c('tbody', [_vm._l(_vm.items, function (data, i) {
-    return _c('tr', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.items && _vm.items.length,
-        expression: "items && items.length"
-      }],
-      key: i
-    }, [_c('td', [_vm.pagination && _vm.pagination.current_page > 1 ? _c('span', [_vm._v("\n                      " + _vm._s(_vm.pagination.per_page * (_vm.pagination.current_page - 1) + (i + 1)) + "\n                    ")]) : _c('span', [_vm._v(_vm._s(i + 1))])]), _vm._v(" "), _c('td', [data.slug ? _c('router-link', {
-      attrs: {
-        "to": {
-          name: 'branches.show',
-          params: {
-            slug: data.slug
-          }
-        }
-      }
-    }, [_vm._v("\n                      " + _vm._s(data.name) + "\n                    ")]) : _c('span', [_vm._v(_vm._s(data.name))])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.code))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.phone))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.email))]), _vm._v(" "), _c('td', [data.is_main ? _c('span', {
-      staticClass: "badge bg-success"
-    }, [_vm._v(_vm._s(_vm.$t("Yes")))]) : _c('span', {
-      staticClass: "badge bg-secondary"
-    }, [_vm._v(_vm._s(_vm.$t("No")))])]), _vm._v(" "), _c('td', [data.is_active ? _c('span', {
-      staticClass: "badge bg-success"
-    }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
-      staticClass: "badge bg-danger"
-    }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _vm.$can('branches-edit') || _vm.$can('branches-delete') || _vm.$can('branches-view') || _vm.$can('branches-assign-users') ? _c('td', {
-      staticClass: "text-right no-print"
-    }, [data.slug ? _c('div', {
-      staticClass: "action-dropdown",
-      "class": {
-        open: _vm.openActionIndex === i
-      }
-    }, [_c('button', {
-      staticClass: "action-icon-btn",
-      attrs: {
-        "type": "button",
-        "data-action-index": i
-      },
-      on: {
-        "click": function click($event) {
-          $event.stopPropagation();
-          return _vm.toggleAction(i);
-        }
-      }
-    }, [_c('svg', {
-      attrs: {
-        "xmlns": "http://www.w3.org/2000/svg",
-        "width": "24",
-        "height": "25",
-        "viewBox": "0 0 24 25",
-        "fill": "none"
-      }
-    }, [_c('path', {
-      attrs: {
-        "d": "M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z",
-        "fill": "#023033"
-      }
-    })])]), _vm._v(" "), _vm.openActionIndex === i ? _c('div', {
-      staticClass: "action-menu"
-    }, [_c('div', {
-      staticClass: "action-menu-header"
-    }, [_c('h6', {
-      staticClass: "action-menu-title"
-    }, [_vm._v(_vm._s(_vm.$t('Actions')))]), _vm._v(" "), _c('button', {
-      staticClass: "action-menu-close",
-      attrs: {
-        "type": "button"
-      },
-      on: {
-        "click": function click($event) {
-          $event.stopPropagation();
-          return _vm.toggleAction(i);
-        }
-      }
-    }, [_c('svg', {
-      attrs: {
-        "xmlns": "http://www.w3.org/2000/svg",
-        "width": "16",
-        "height": "16",
-        "viewBox": "0 0 16 16",
-        "fill": "none"
-      }
-    }, [_c('path', {
-      attrs: {
-        "d": "M12 4L4 12M4 4L12 12",
-        "stroke": "#6B7280",
-        "stroke-width": "2",
-        "stroke-linecap": "round",
-        "stroke-linejoin": "round"
-      }
-    })])])]), _vm._v(" "), _c('ul', [_vm.$can('branches-view') ? _c('li', [_c('router-link', {
-      attrs: {
-        "to": {
-          name: 'branches.show',
-          params: {
-            slug: data.slug
-          }
-        }
-      }
-    }, [_c('svg', {
-      attrs: {
-        "xmlns": "http://www.w3.org/2000/svg",
-        "width": "16",
-        "height": "16",
-        "viewBox": "0 0 16 16",
-        "fill": "none"
-      }
-    }, [_c('path', {
-      attrs: {
-        "d": "M8 1C4.5 1 1.73 3.77 1.73 7C1.73 10.23 4.5 13 8 13C11.5 13 14.27 10.23 14.27 7C14.27 3.77 11.5 1 8 1ZM8 9.5C6.62 9.5 5.5 8.38 5.5 7C5.5 5.62 6.62 4.5 8 4.5C9.38 4.5 10.5 5.62 10.5 7C10.5 8.38 9.38 9.5 8 9.5Z",
-        "fill": "#6B7280"
-      }
-    })]), _vm._v("\n                              " + _vm._s(_vm.$t('View')) + "\n                            ")])], 1) : _vm._e(), _vm._v(" "), _vm.$can('branches-edit') ? _c('li', [_c('router-link', {
-      attrs: {
-        "to": {
-          name: 'branches.edit',
-          params: {
-            slug: data.slug
-          }
-        }
-      }
-    }, [_c('svg', {
-      attrs: {
-        "xmlns": "http://www.w3.org/2000/svg",
-        "width": "16",
-        "height": "16",
-        "viewBox": "0 0 16 16",
-        "fill": "none"
-      }
-    }, [_c('path', {
-      attrs: {
-        "d": "M11.5 1.5L14.5 4.5L5.5 13.5H2.5V10.5L11.5 1.5Z",
-        "stroke": "#6B7280",
-        "stroke-width": "1.5",
-        "stroke-linecap": "round",
-        "stroke-linejoin": "round"
-      }
-    })]), _vm._v("\n                              " + _vm._s(_vm.$t('Edit')) + "\n                            ")])], 1) : _vm._e(), _vm._v(" "), _vm.$can('branches-assign-users') ? _c('li', [_c('router-link', {
-      attrs: {
-        "to": {
-          name: 'branches.assign-users',
-          params: {
-            branchId: data.id
-          }
-        }
-      }
-    }, [_c('svg', {
-      attrs: {
-        "xmlns": "http://www.w3.org/2000/svg",
-        "width": "16",
-        "height": "16",
-        "viewBox": "0 0 16 16",
-        "fill": "none"
-      }
-    }, [_c('path', {
-      attrs: {
-        "d": "M8 2C5.2 2 3 4.2 3 7C3 9.8 5.2 12 8 12C10.8 12 13 9.8 13 7C13 4.2 10.8 2 8 2ZM8 10.5C6.6 10.5 5.5 9.4 5.5 8C5.5 6.6 6.6 5.5 8 5.5C9.4 5.5 10.5 6.6 10.5 8C10.5 9.4 9.4 10.5 8 10.5ZM13 13.5V12.5H15V13.5H16.5V15.5H15V16.5H13V15.5H11.5V13.5H13Z",
-        "fill": "#10B981"
-      }
-    })]), _vm._v("\n                              " + _vm._s(_vm.$t('Users List')) + "\n                            ")])], 1) : _vm._e(), _vm._v(" "), _vm.$can('branches-delete') && !data.is_main ? _c('li', [_c('a', {
-      attrs: {
-        "href": "#"
-      },
-      on: {
-        "click": function click($event) {
-          $event.preventDefault();
-          return _vm.deleteData(data.slug);
-        }
-      }
-    }, [_c('svg', {
-      attrs: {
-        "xmlns": "http://www.w3.org/2000/svg",
-        "width": "16",
-        "height": "16",
-        "viewBox": "0 0 16 16",
-        "fill": "none"
-      }
-    }, [_c('path', {
-      attrs: {
-        "d": "M2 4H14M5.5 4V2.5C5.5 2.2 5.7 2 6 2H10C10.3 2 10.5 2.2 10.5 2.5V4M12.5 4V13.5C12.5 13.8 12.3 14 12 14H4C3.7 14 3.5 13.8 3.5 13.5V4H12.5Z",
-        "stroke": "#EF4444",
-        "stroke-width": "1.5",
-        "stroke-linecap": "round",
-        "stroke-linejoin": "round"
-      }
-    })]), _vm._v("\n                              " + _vm._s(_vm.$t('Delete')) + "\n                            ")])]) : _vm._e()])]) : _vm._e()]) : _vm._e()]) : _vm._e()]);
-  }), _vm._v(" "), _c('tr', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: !_vm.loading && (!_vm.items || !_vm.items.length),
-      expression: "!loading && (!items || !items.length)"
-    }]
-  }, [_c('td', {
-    attrs: {
-      "colspan": "8"
-    }
-  }, [_c('EmptyTable')], 1)])], 2)])])], 1), _vm._v(" "), _c('div', {
-    staticClass: "card-footer"
-  }, [_c('div', {
-    staticClass: "dtable-footer"
-  }, [_c('div', {
-    staticClass: "form-group row display-per-page"
-  }, [_c('label', [_vm._v(_vm._s(_vm.$t("per_page")) + " ")]), _vm._v(" "), _c('div', [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.perPage,
-      expression: "perPage"
-    }],
-    staticClass: "form-control form-control-sm ml-1",
-    on: {
-      "change": [function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.perPage = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
-      }, _vm.updatePerPager]
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "10"
-    }
-  }, [_vm._v("10")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "25"
-    }
-  }, [_vm._v("25")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "50"
-    }
-  }, [_vm._v("50")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "100"
-    }
-  }, [_vm._v("100")])])])]), _vm._v(" "), _vm.pagination && _vm.pagination.last_page > 1 ? _c('pagination', {
-    staticClass: "justify-flex-end",
-    attrs: {
-      "pagination": _vm.pagination,
-      "offset": 5
-    },
-    on: {
-      "paginate": _vm.paginate
-    }
-  }) : _vm._e()], 1)])])])])]);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__(95353);
-// EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
-var sweetalert2_all = __webpack_require__(78465);
-var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all);
-// EXTERNAL MODULE: ./node_modules/html2pdf.js/dist/html2pdf.js
-var html2pdf = __webpack_require__(33833);
-var html2pdf_default = /*#__PURE__*/__webpack_require__.n(html2pdf);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/branches/index.vue?vue&type=script&lang=js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-
-
-/* harmony default export */ const branchesvue_type_script_lang_js = ({
-  middleware: ["auth", "check-permissions"],
-  metaInfo: function metaInfo() {
-    return {
-      title: this.$t("Branches")
-    };
-  },
-  data: function data() {
-    return {
-      breadcrumbsCurrent: "",
-      breadcrumbs: [],
-      query: "",
-      perPage: 10,
-      openActionIndex: null
-    };
-  },
-  // Map Getters
-  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "loading", "pagination"])), {}, {
-    exportUrl: function exportUrl() {
-      // Create a dynamic export URL with query parameters
-      return "/branches/export/excel?term=".concat(this.query);
-    }
-  }),
-  watch: {
-    // watch search data
-    query: function query(newQ) {
-      if (newQ === "") {
-        this.getData();
-      } else {
-        this.searchData();
-      }
-    }
-  },
-  created: function created() {
-    this.getData();
-  },
-  mounted: function mounted() {
-    this.breadcrumbsCurrent = this.$t("Branches");
-    this.breadcrumbs = [{
-      name: this.$t("Dashboard"),
-      url: "home"
-    }, {
-      name: this.$t("Branches"),
-      url: ""
-    }];
-    document.addEventListener('click', this.onClickOutside);
-    window.addEventListener('scroll', this.handleScroll);
-    window.addEventListener('resize', this.handleResize);
-  },
-  beforeDestroy: function beforeDestroy() {
-    document.removeEventListener('click', this.onClickOutside);
-    window.removeEventListener('scroll', this.handleScroll);
-    window.removeEventListener('resize', this.handleResize);
-  },
-  methods: {
-    toggleAction: function toggleAction(index) {
-      var _this = this;
-      this.openActionIndex = this.openActionIndex === index ? null : index;
-      if (this.openActionIndex === index) {
-        this.$nextTick(function () {
-          _this.positionDropdown(index);
-        });
-      }
-    },
-    positionDropdown: function positionDropdown(index) {
-      var button = document.querySelector("[data-action-index=\"".concat(index, "\"]"));
-      if (button) {
-        var rect = button.getBoundingClientRect();
-        var menu = document.querySelector('.action-menu');
-        if (menu) {
-          // Check if page direction is RTL
-          var isRTL = document.documentElement.dir === 'rtl' || document.documentElement.getAttribute('dir') === 'rtl';
-          if (isRTL) {
-            menu.style.left = '45px';
-            menu.style.right = 'auto';
-          } else {
-            menu.style.left = "".concat(rect.right - 200, "px"); // 200px is min-width
-            menu.style.right = 'auto';
-          }
-          menu.style.top = "".concat(rect.bottom + 8, "px");
-        }
-      }
-    },
-    onClickOutside: function onClickOutside() {
-      this.openActionIndex = null;
-    },
-    handleScroll: function handleScroll() {
-      if (this.openActionIndex !== null) {
-        this.positionDropdown(this.openActionIndex);
-      }
-    },
-    handleResize: function handleResize() {
-      if (this.openActionIndex !== null) {
-        this.positionDropdown(this.openActionIndex);
-      }
-    },
-    // update per page count
-    updatePerPager: function updatePerPager() {
-      this.pagination.current_page = 1;
-      this.query === "" ? this.getData() : this.searchData();
-    },
-    // get data
-    getData: function getData() {
-      var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var currentPage;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.n) {
-            case 0:
-              _this2.$store.state.operations.loading = true;
-              currentPage = _this2.pagination ? _this2.pagination.current_page : 1;
-              _context.n = 1;
-              return _this2.$store.dispatch("operations/fetchData", {
-                path: "/api/branches?page=",
-                currentPage: currentPage + "&perPage=" + _this2.perPage
-              });
-            case 1:
-              return _context.a(2);
-          }
-        }, _callee);
-      }))();
-    },
-    // Pagination
-    paginate: function paginate() {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
-            case 0:
-              _this3.query === "" ? _this3.getData() : _this3.searchData();
-            case 1:
-              return _context2.a(2);
-          }
-        }, _callee2);
-      }))();
-    },
-    // Reset pagination
-    resetPagination: function resetPagination() {
-      var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-        return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.n) {
-            case 0:
-              _this4.pagination.current_page = 1;
-            case 1:
-              return _context3.a(2);
-          }
-        }, _callee3);
-      }))();
-    },
-    // search data
-    searchData: function searchData() {
-      var _this5 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-        var currentPage;
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.n) {
-            case 0:
-              _this5.$store.state.operations.loading = true;
-              currentPage = _this5.pagination ? _this5.pagination.current_page : 1;
-              _context4.n = 1;
-              return _this5.$store.dispatch("operations/searchData", {
-                path: "/api/branches/search",
-                term: _this5.query,
-                currentPage: currentPage + "&perPage=" + _this5.perPage
-              });
-            case 1:
-              return _context4.a(2);
-          }
-        }, _callee4);
-      }))();
-    },
-    // Reload after search
-    reload: function reload() {
-      var _this6 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-        return _regenerator().w(function (_context5) {
-          while (1) switch (_context5.n) {
-            case 0:
-              _this6.query = "";
-            case 1:
-              return _context5.a(2);
-          }
-        }, _callee5);
-      }))();
-    },
-    // print table
-    print: function print() {
-      var _this7 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
-        return _regenerator().w(function (_context6) {
-          while (1) switch (_context6.n) {
-            case 0:
-              _context6.n = 1;
-              return _this7.$htmlToPaper("printMe");
-            case 1:
-              return _context6.a(2);
-          }
-        }, _callee6);
-      }))();
-    },
-    exportToPDF: function exportToPDF() {
-      var _this8 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
-        var element, style, opt, pdfStyle, _t;
-        return _regenerator().w(function (_context7) {
-          while (1) switch (_context7.p = _context7.n) {
-            case 0:
-              _context7.p = 0;
-              element = document.getElementById("printMe");
-              if (element) {
-                _context7.n = 1;
-                break;
-              }
-              _this8.$toast.error(_this8.$t("Error!"), _this8.$t("Table not found"));
-              return _context7.a(2);
-            case 1:
-              style = document.createElement('style');
-              style.setAttribute('data-pdf-export', 'true');
-              style.textContent = ".no-print, .no-print * { display: none !important; }";
-              document.head.appendChild(style);
-              opt = {
-                margin: [10, 10, 10, 10],
-                filename: "branches-".concat(new Date().toISOString().slice(0, 10), ".pdf"),
-                image: {
-                  type: "jpeg",
-                  quality: 0.98
-                },
-                html2canvas: {
-                  scale: 2,
-                  useCORS: true,
-                  logging: false
-                },
-                jsPDF: {
-                  unit: "mm",
-                  format: "a4",
-                  orientation: "landscape"
-                },
-                pagebreak: {
-                  mode: ["avoid-all", "css", "legacy"]
-                }
-              };
-              _context7.n = 2;
-              return html2pdf_default()().set(opt).from(element).save();
-            case 2:
-              document.head.removeChild(style);
-              _this8.$toast.success(_this8.$t("Success!"), _this8.$t("PDF exported successfully"));
-              _context7.n = 4;
-              break;
-            case 3:
-              _context7.p = 3;
-              _t = _context7.v;
-              pdfStyle = document.querySelector('style[data-pdf-export]');
-              if (pdfStyle) document.head.removeChild(pdfStyle);
-              _this8.$toast.error(_this8.$t("Error!"), _this8.$t("Failed to export PDF"));
-            case 4:
-              return _context7.a(2);
-          }
-        }, _callee7, null, [[0, 3]]);
-      }))();
-    },
-    // refresh table
-    refreshTable: function refreshTable() {
-      this.query = "";
-      this.query === "" ? this.getData() : this.searchData();
-    },
-    // delete data
-    deleteData: function deleteData(slug) {
-      var _this9 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
-        return _regenerator().w(function (_context8) {
-          while (1) switch (_context8.n) {
-            case 0:
-              sweetalert2_all_default().fire({
-                title: _this9.$t("Are you sure?"),
-                text: _this9.$t("You will not be able to return to this! This will delete the branch permanently."),
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonText: _this9.$t("Confirm"),
-                cancelButtonText: _this9.$t("Cancel")
-              }).then(function (result) {
-                // Send request to the server
-                if (result.value) {
-                  _this9.$store.dispatch("operations/deleteData", {
-                    path: "/api/branches/",
-                    slug: slug
-                  }).then(function (response) {
-                    if (response === true) {
-                      _this9.$toast.success(_this9.$t("Deleted!"), _this9.$t("Deleted successfully."));
-                    } else {
-                      var msg = response && response.message ? response.message : _this9.$t("There was something wrong.");
-                      _this9.$toast.warning(_this9.$t("Failed!"), msg);
-                    }
-                  });
-                }
-              });
-            case 1:
-              return _context8.a(2);
-          }
-        }, _callee8);
-      }))();
-    }
-  }
-});
-;// ./resources/js/pages/branches/index.vue?vue&type=script&lang=js
- /* harmony default export */ const pages_branchesvue_type_script_lang_js = (branchesvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/branches/index.vue?vue&type=style&index=0&id=1439a92d&prod&scoped=true&lang=css
-var branchesvue_type_style_index_0_id_1439a92d_prod_scoped_true_lang_css = __webpack_require__(98696);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/branches/index.vue?vue&type=style&index=0&id=1439a92d&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(branchesvue_type_style_index_0_id_1439a92d_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const pages_branchesvue_type_style_index_0_id_1439a92d_prod_scoped_true_lang_css = (branchesvue_type_style_index_0_id_1439a92d_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/branches/index.vue?vue&type=style&index=0&id=1439a92d&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/branches/index.vue?vue&type=style&index=1&id=1439a92d&prod&lang=css
-var branchesvue_type_style_index_1_id_1439a92d_prod_lang_css = __webpack_require__(13656);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/branches/index.vue?vue&type=style&index=1&id=1439a92d&prod&lang=css
-
-            
-
-var branchesvue_type_style_index_1_id_1439a92d_prod_lang_css_options = {};
-
-branchesvue_type_style_index_1_id_1439a92d_prod_lang_css_options.insert = "head";
-branchesvue_type_style_index_1_id_1439a92d_prod_lang_css_options.singleton = false;
-
-var branchesvue_type_style_index_1_id_1439a92d_prod_lang_css_update = injectStylesIntoStyleTag_default()(branchesvue_type_style_index_1_id_1439a92d_prod_lang_css/* default */.A, branchesvue_type_style_index_1_id_1439a92d_prod_lang_css_options);
-
-
-
-/* harmony default export */ const pages_branchesvue_type_style_index_1_id_1439a92d_prod_lang_css = (branchesvue_type_style_index_1_id_1439a92d_prod_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/branches/index.vue?vue&type=style&index=1&id=1439a92d&prod&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/branches/index.vue
-
-
-
-;
-
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  pages_branchesvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "1439a92d",
-  null
-  
-)
-
-/* harmony default export */ const branches = (component.exports);
 
 /***/ }),
 

@@ -549,12 +549,26 @@ export default {
 
     // download PDF
     downloadPDF() {
-      window.location.href = `/print/purchase-order/${this.$route.params.slug}/pdf`;
+      const params = new URLSearchParams();
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      const pdfUrl = `/print/purchase-order/${this.$route.params.slug}/pdf?${params.toString()}`;
+      window.location.href = pdfUrl;
     },
 
     // preview PDF
     previewPDF() {
-      window.location.href = `/print/purchase-order/${this.$route.params.slug}/preview`;
+      const params = new URLSearchParams();
+      // Add token to URL
+      const token = this.$store.getters['auth/token'];
+      if (token) {
+        params.append('token', token);
+      }
+      const pdfUrl = `/print/purchase-order/${this.$route.params.slug}/preview?${params.toString()}`;
+      window.location.href = pdfUrl;
     },
 
     // print table
