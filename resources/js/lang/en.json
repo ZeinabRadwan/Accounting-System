@@ -3255,6 +3255,7 @@
 "This domain has already been taken": "This domain has already been taken",
 "This domain has been banned. Please contact site admin for more details.": "This domain has been banned. Please contact site admin for more details.",
 "The email has already been taken": "The email has already been taken",
+"This email address is already taken.": "This email address is already taken.",
 "The password confirmation does not match": "The password confirmation does not match",
 "Password confirmation does not match": "Password confirmation does not match",
 "The password and password confirmation must match": "The password and password confirmation must match",

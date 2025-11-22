@@ -3157,6 +3157,7 @@
     "You must select a value": "يجب اختيار قيمة",
     "This domain has been banned. Please contact site admin for more details.": "هذا النطاق محظور. يرجى الاتصال بمدير الموقع لمزيد من التفاصيل.",
     "The email has already been taken": "البريد الإلكتروني مستخدم بالفعل",
+    "This email address is already taken.": "البريد الإلكتروني مستخدم بالفعل",
     "The password confirmation does not match": "تأكيد كلمة المرور غير متطابق",
     "Password confirmation does not match": "تأكيد كلمة المرور غير متطابق",
     "The password and password confirmation must match": "كلمة المرور وتأكيدها يجب أن يتطابقا",

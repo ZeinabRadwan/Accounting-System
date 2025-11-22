@@ -1726,24 +1726,13 @@ export default {
           }
         }
 
-        // Ensure discount amount doesn't exceed the new total before discount
-        if (updatedItem.discountAmount > (updatedItem.unitPrice * updatedItem.qty)) {
-          updatedItem.discountAmount = this.roundToTwoDecimals(updatedItem.unitPrice * updatedItem.qty);
-        }
-
         this.logDebug('generateItemTotal:after-mutate', { index, item: JSON.parse(JSON.stringify(updatedItem)) });
 
-        // Recalculate totals
-        // persist row change so Vue updates the row immediately
+        // Persist row change so Vue updates the row immediately
         this.$set(this.form.selectedProducts, index, updatedItem);
-        this.generateItemTotalPrice(index);
-        this.calculateSum();
 
-        // Update reactive totals
-        this.updateReactiveTotals();
-
-        // Force update to ensure template re-renders
-        this.$forceUpdate();
+        // Recalculate all amounts (discount, price, tax, total) using unified function
+        this.calculateItemAmounts(index);
 
         // Force update totals row specifically
         this.forceUpdateTotals();
@@ -1772,161 +1761,125 @@ export default {
       return numValue.toFixed(2);
     },
 
-    // calculate product discount
-    calculateProductDiscount(index) {
+    // Calculate all item amounts (discount, price, tax, total) - single function for all calculations
+    calculateItemAmounts(index) {
       this.debugBreak();
       let item = this.form.selectedProducts[index];
-      if (item) {
-        this.logDebug('calculateProductDiscount:start', { index, before: JSON.parse(JSON.stringify(item)) });
-        // Clear discount validation errors when values change
-        this.clearProductErrors(index);
-
-        // Calculate discount amount based on type
-        let discountAmount;
-        if (item.discountType === "percentage") {
-          discountAmount = this.roundToTwoDecimals((item.unitPrice * item.qty * item.discount) / 100);
-        } else {
-          discountAmount = this.roundToTwoDecimals(Number(item.discount || 0));
-        }
-
-        // Ensure discount amount doesn't exceed the total before discount
-        if (discountAmount > (item.unitPrice * item.qty)) {
-          discountAmount = this.roundToTwoDecimals(item.unitPrice * item.qty);
-        }
-
-        // Create updated item with new discount amount
-        const updatedItem = {
-          ...item,
-          discountAmount
-        };
-
-        // Persist reactive change and recalc
-        this.$set(this.form.selectedProducts, index, updatedItem);
-        this.generateItemTotalPrice(index);
-        this.calculateSum();
-
-        // Update reactive totals
-        this.updateReactiveTotals();
-
-        // Force update to ensure template re-renders
-        this.$forceUpdate();
-
-        this.logDebug('calculateProductDiscount:end', { index, row: JSON.parse(JSON.stringify(this.form.selectedProducts[index])) });
+      if (!item) {
+        return;
       }
+
+      this.logDebug('calculateItemAmounts:start', { index, before: JSON.parse(JSON.stringify(item)) });
+
+      // Clear validation errors when values change
+      this.clearProductErrors(index);
+
+      // Normalize numeric inputs
+      const unitPriceNumber = Number(item.unitPrice) || 0;
+      const qtyNumber = Number(item.qty) || 0;
+
+      // Calculate total before discount (unit price × quantity)
+      const totalBeforeDiscount = this.roundToTwoDecimals(unitPriceNumber * qtyNumber);
+
+      // Calculate discount amount based on type
+      let discountAmount;
+      if (item.discountType === "percentage") {
+        discountAmount = this.roundToTwoDecimals((unitPriceNumber * qtyNumber * (item.discount || 0)) / 100);
+      } else {
+        discountAmount = this.roundToTwoDecimals(Number(item.discount || 0));
+      }
+
+      // Ensure discount amount doesn't exceed the total before discount
+      if (discountAmount > totalBeforeDiscount) {
+        discountAmount = this.roundToTwoDecimals(totalBeforeDiscount);
+      }
+
+      // Calculate price after discount
+      const priceAfterDiscount = this.roundToTwoDecimals(totalBeforeDiscount - discountAmount);
+
+      // Use selected VAT rate if available, otherwise fall back to product's default tax rate
+      let vatRate = 0;
+      if (item.selectedVatRate && item.selectedVatRate.rate !== undefined && item.selectedVatRate.rate !== null) {
+        vatRate = Number(item.selectedVatRate.rate);
+      } else if (item.taxRate !== undefined && item.taxRate !== null) {
+        vatRate = Number(item.taxRate);
+      }
+
+      // Ensure vatRate is a valid number
+      if (isNaN(vatRate) || vatRate < 0) {
+        vatRate = 0;
+      }
+
+      // Ensure the selectedVatRate is properly set for VAT calculations
+      let updatedItem = { ...item };
+      if (!updatedItem.selectedVatRate && vatRate > 0) {
+        // First try to use the product's default VAT rate, then fall back to available taxes
+        if (updatedItem.productTax) {
+          updatedItem.selectedVatRate = this.findMatchingVatRate(updatedItem.productTax);
+        }
+
+        // If no match found or no productTax, fall back to available taxes
+        if (!updatedItem.selectedVatRate && this.taxes && this.taxes.length > 0) {
+          updatedItem.selectedVatRate = this.taxes[0];
+        }
+      }
+
+      // Calculate tax and total based on tax type
+      let productTax, totalTax, totalPrice;
+
+      if (item.taxType == "Exclusive") {
+        // VAT on discounted amount
+        productTax = this.roundToTwoDecimals(priceAfterDiscount * (vatRate / 100));
+        totalTax = this.roundToTwoDecimals(productTax);
+        totalPrice = this.roundToTwoDecimals(priceAfterDiscount + totalTax);
+      } else {
+        // Inclusive: VAT is included in unit price; derive VAT from discounted price
+        let discountedUnitPrice = this.roundToTwoDecimals(qtyNumber > 0 ? (priceAfterDiscount / qtyNumber) : 0);
+        productTax = this.roundToTwoDecimals(discountedUnitPrice - (discountedUnitPrice / (1 + vatRate / 100)));
+        totalTax = this.roundToTwoDecimals(productTax * qtyNumber);
+        totalPrice = this.roundToTwoDecimals(priceAfterDiscount);
+      }
+
+      // Create updated item with all calculated values
+      updatedItem = {
+        ...updatedItem,
+        discountAmount,
+        totalBeforeDiscount,
+        totalAfterDiscount: priceAfterDiscount,
+        productTax,
+        totalTax,
+        totalPrice
+      };
+
+      // Use Vue.set to ensure reactivity
+      this.$set(this.form.selectedProducts, index, updatedItem);
+
+      // Recalculate sum and update reactive totals
+      this.calculateSum();
+      this.updateReactiveTotals();
+
+      // Force update to ensure template re-renders
+      this.$forceUpdate();
+
+      this.logDebug('calculateItemAmounts:end', {
+        index,
+        row: JSON.parse(JSON.stringify(this.form.selectedProducts[index]))
+      });
+    },
+
+    // calculate product discount
+    calculateProductDiscount(index) {
+      this.calculateItemAmounts(index);
     },
 
     // calculate product VAT
     calculateProductVat(index) {
-      this.debugBreak();
-      let item = this.form.selectedProducts[index];
-      if (item) {
-        this.logDebug('calculateProductVat:start', { index, before: JSON.parse(JSON.stringify(item)) });
-        // Clear VAT validation errors when values change
-        this.clearProductErrors(index);
-
-        let updatedItem = { ...item };
-
-        // Ensure the selectedVatRate is properly set
-        if (!updatedItem.selectedVatRate) {
-          // First try to use the product's default VAT rate, then fall back to available taxes
-          if (updatedItem.productTax) {
-            updatedItem.selectedVatRate = this.findMatchingVatRate(updatedItem.productTax);
-          }
-
-          // If no match found or no productTax, fall back to available taxes
-          if (!updatedItem.selectedVatRate && this.taxes && this.taxes.length > 0) {
-            updatedItem.selectedVatRate = this.taxes[0];
-          }
-        }
-
-        // Persist reactive change and recalc
-        this.$set(this.form.selectedProducts, index, updatedItem);
-        this.generateItemTotalPrice(index);
-        this.calculateSum();
-
-        // Update reactive totals
-        this.updateReactiveTotals();
-
-        // Force update to ensure template re-renders
-        this.$forceUpdate();
-
-        this.logDebug('calculateProductVat:end', { index, row: JSON.parse(JSON.stringify(this.form.selectedProducts[index])) });
-      }
+      this.calculateItemAmounts(index);
     },
 
-
-
-    // generate item total price
+    // generate item total price (kept for backward compatibility, now calls calculateItemAmounts)
     generateItemTotalPrice(index) {
-      this.debugBreak();
-      let item = this.form.selectedProducts[index];
-      if (item) {
-        this.logDebug('generateItemTotalPrice:start', { index, before: JSON.parse(JSON.stringify(item)) });
-
-        // Normalize numeric inputs
-        const unitPriceNumber = Number(item.unitPrice) || 0;
-        const qtyNumber = Number(item.qty) || 0;
-
-        // Calculate total before discount (unit price × quantity)
-        const totalBeforeDiscount = this.roundToTwoDecimals(unitPriceNumber * qtyNumber);
-
-        // Calculate price after discount
-        let priceAfterDiscount = this.roundToTwoDecimals((unitPriceNumber * qtyNumber) - (item.discountAmount || 0));
-
-        // Use selected VAT rate if available, otherwise fall back to product's default tax rate
-        let vatRate = 0;
-        if (item.selectedVatRate && item.selectedVatRate.rate !== undefined && item.selectedVatRate.rate !== null) {
-          vatRate = Number(item.selectedVatRate.rate);
-        } else if (item.taxRate !== undefined && item.taxRate !== null) {
-          vatRate = Number(item.taxRate);
-        }
-
-        // Ensure vatRate is a valid number
-        if (isNaN(vatRate) || vatRate < 0) {
-          vatRate = 0;
-        }
-
-        // Set totals used by summary/subtotal
-        item.totalBeforeDiscount = totalBeforeDiscount;
-        item.totalAfterDiscount = this.roundToTwoDecimals(priceAfterDiscount);
-
-        let productTax, totalTax, totalPrice;
-
-        if (item.taxType == "Exclusive") {
-          // VAT on discounted amount
-          productTax = this.roundToTwoDecimals(priceAfterDiscount * (vatRate / 100));
-          totalTax = this.roundToTwoDecimals(productTax);
-          totalPrice = this.roundToTwoDecimals(priceAfterDiscount + totalTax);
-        } else {
-          // Inclusive: VAT is included in unit price; derive VAT from discounted price
-          let discountedUnitPrice = this.roundToTwoDecimals(qtyNumber > 0 ? (priceAfterDiscount / qtyNumber) : 0);
-          item.unitPrice = discountedUnitPrice;
-          productTax = this.roundToTwoDecimals(discountedUnitPrice - (discountedUnitPrice / (1 + vatRate / 100)));
-          totalTax = this.roundToTwoDecimals(productTax * qtyNumber);
-          totalPrice = this.roundToTwoDecimals(priceAfterDiscount);
-        }
-
-        // Create a new object with all the calculated values to ensure reactivity
-        const updatedItem = {
-          ...item,
-          totalBeforeDiscount: item.totalBeforeDiscount,
-          totalAfterDiscount: item.totalAfterDiscount,
-          productTax,
-          totalTax,
-          totalPrice
-        };
-
-        // Use Vue.set to ensure reactivity
-        this.$set(this.form.selectedProducts, index, updatedItem);
-
-        // Force update to ensure template re-renders
-        this.$forceUpdate();
-
-        this.logDebug('generateItemTotalPrice:end', {
-          index,
-          row: JSON.parse(JSON.stringify(this.form.selectedProducts[index]))
-        });
-      }
+      this.calculateItemAmounts(index);
     },
 
     // remove item from array

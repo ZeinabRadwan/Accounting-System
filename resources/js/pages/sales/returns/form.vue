@@ -529,10 +529,28 @@ export default {
         const selectedVatRate = this.findMatchingVatRate(invoiceItem.productTax) || this.form.orderTax || this.taxes?.[0]
         const totalBeforeDiscount = Number((presetReturnQty * invoiceItem.salePrice).toFixed(2))
         let discountAmount = 0
+        // Calculate discount value: if percentage type, use discountPercentage or calculate from discount_amount
+        let discountValue = 0
         if ((invoiceItem.discountType || 'fixed') === 'percentage') {
-          discountAmount = Number(((totalBeforeDiscount) * (invoiceItem.productDiscount || 0) / 100).toFixed(2))
+          // For percentage type, use discountPercentage if available, otherwise calculate from productDiscount
+          if (invoiceItem.discountPercentage !== null && 
+              invoiceItem.discountPercentage !== undefined && 
+              !isNaN(invoiceItem.discountPercentage)) {
+            discountValue = Number(invoiceItem.discountPercentage)
+          } else {
+            // Fallback: calculate percentage from discount_amount and total_before_discount
+            const originalTotalBeforeDiscount = (invoiceItem.quantity || 0) * (invoiceItem.salePrice || 0)
+            if (originalTotalBeforeDiscount > 0 && invoiceItem.productDiscount > 0) {
+              discountValue = Number(((invoiceItem.productDiscount / originalTotalBeforeDiscount) * 100).toFixed(2))
+            } else {
+              discountValue = 0
+            }
+          }
+          discountAmount = Number(((totalBeforeDiscount * discountValue) / 100).toFixed(2))
         } else {
-          discountAmount = Number((invoiceItem.productDiscount || 0).toFixed ? (invoiceItem.productDiscount || 0).toFixed(2) : Number(invoiceItem.productDiscount || 0))
+          // Fixed discount: use productDiscount (the amount)
+          discountValue = invoiceItem.productDiscount || 0
+          discountAmount = Number((discountValue).toFixed(2))
         }
         let totalAfterDiscount = Number((totalBeforeDiscount - discountAmount).toFixed(2))
         let productTax = 0
@@ -569,7 +587,7 @@ export default {
           productDiscount: invoiceItem.productDiscount || 0,
           discountType: invoiceItem.discountType || 'fixed',
           discountAmount: discountAmount,
-          discount: invoiceItem.productDiscount || 0,
+          discount: discountValue,
           vatRate: invoiceItem.vatRate,
           selectedVatRate: selectedVatRate,
           totalBeforeDiscount: totalBeforeDiscount,
@@ -656,6 +674,14 @@ export default {
       if (selectedProduct && value >= 0 && value <= selectedProduct.maxQty) {
         selectedProduct.returnQty = Number(value)
         selectedProduct.totalBeforeDiscount = Number((selectedProduct.returnQty * selectedProduct.unitCost).toFixed(2))
+        // Recalculate discount amount when quantity changes
+        if (selectedProduct.discountType === 'percentage') {
+          selectedProduct.discountAmount = Number(((selectedProduct.totalBeforeDiscount * (selectedProduct.discount || 0)) / 100).toFixed(2))
+        } else {
+          // For fixed discount, recalculate proportionally
+          const discountPerUnit = (selectedProduct.discount || 0) / (selectedProduct.qty || 1)
+          selectedProduct.discountAmount = Number((discountPerUnit * selectedProduct.returnQty).toFixed(2))
+        }
         selectedProduct.totalAfterDiscount = Number((selectedProduct.totalBeforeDiscount - (selectedProduct.discountAmount || 0)).toFixed(2))
         if (selectedProduct.selectedVatRate && selectedProduct.selectedVatRate.rate) {
           const vatAmount = Number((selectedProduct.totalAfterDiscount * (selectedProduct.selectedVatRate.rate / 100)).toFixed(2))
@@ -675,6 +701,14 @@ export default {
       if (item.returnQty < 0) item.returnQty = 0
       else if (item.returnQty > item.maxQty) item.returnQty = item.maxQty
       item.totalBeforeDiscount = Number((item.returnQty * item.unitCost).toFixed(2))
+      // Recalculate discount amount when quantity changes
+      if (item.discountType === 'percentage') {
+        item.discountAmount = Number(((item.totalBeforeDiscount * (item.discount || 0)) / 100).toFixed(2))
+      } else {
+        // For fixed discount, keep the original discount amount or recalculate proportionally
+        const discountPerUnit = (item.discount || 0) / (item.qty || 1)
+        item.discountAmount = Number((discountPerUnit * item.returnQty).toFixed(2))
+      }
       item.totalAfterDiscount = Number((item.totalBeforeDiscount - (item.discountAmount || 0)).toFixed(2))
       if (item.selectedVatRate && item.selectedVatRate.rate) {
         const vatAmount = Number((item.totalAfterDiscount * (item.selectedVatRate.rate / 100)).toFixed(2))
