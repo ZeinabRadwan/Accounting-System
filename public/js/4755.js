@@ -5,14 +5,14 @@
 
 "use strict";
 
-var global = __webpack_require__(24475);
+var globalThis = __webpack_require__(44576);
 var shared = __webpack_require__(25745);
 var hasOwn = __webpack_require__(39297);
 var uid = __webpack_require__(33392);
 var NATIVE_SYMBOL = __webpack_require__(4495);
 var USE_SYMBOL_AS_UID = __webpack_require__(7040);
 
-var Symbol = global.Symbol;
+var Symbol = globalThis.Symbol;
 var WellKnownSymbolsStore = shared('wks');
 var createWellKnownSymbol = USE_SYMBOL_AS_UID ? Symbol['for'] || Symbol : Symbol && Symbol.withoutSetter || uid;
 
@@ -126,7 +126,8 @@ var NullProtoObjectViaActiveX = function (activeXDocument) {
   activeXDocument.write(scriptTag(''));
   activeXDocument.close();
   var temp = activeXDocument.parentWindow.Object;
-  activeXDocument = null; // avoid memory leak
+  // eslint-disable-next-line no-useless-assignment -- avoid memory leak
+  activeXDocument = null;
   return temp;
 };
 
@@ -262,10 +263,10 @@ __webpack_require__(40280);
 
 "use strict";
 
-var global = __webpack_require__(24475);
+var globalThis = __webpack_require__(44576);
 var isObject = __webpack_require__(20034);
 
-var document = global.document;
+var document = globalThis.document;
 // typeof document.createElement is 'object' in old IE
 var EXISTS = isObject(document) && isObject(document.createElement);
 
@@ -282,11 +283,11 @@ module.exports = function (it) {
 "use strict";
 
 /* eslint-disable es/no-symbol -- required for testing */
-var V8_VERSION = __webpack_require__(55007);
+var V8_VERSION = __webpack_require__(39519);
 var fails = __webpack_require__(79039);
-var global = __webpack_require__(24475);
+var globalThis = __webpack_require__(44576);
 
-var $String = global.String;
+var $String = globalThis.String;
 
 // eslint-disable-next-line es/no-object-getownpropertysymbols -- required for testing
 module.exports = !!Object.getOwnPropertySymbols && !fails(function () {
@@ -357,9 +358,9 @@ module.exports = function (bitmap, value) {
 /* eslint-disable es/no-symbol -- required for testing */
 var NATIVE_SYMBOL = __webpack_require__(4495);
 
-module.exports = NATIVE_SYMBOL
-  && !Symbol.sham
-  && typeof Symbol.iterator == 'symbol';
+module.exports = NATIVE_SYMBOL &&
+  !Symbol.sham &&
+  typeof Symbol.iterator == 'symbol';
 
 
 /***/ }),
@@ -394,6 +395,18 @@ $({ target: 'Promise', stat: true, forced: PROMISE_STATICS_INCORRECT_ITERATION }
     return capability.promise;
   }
 });
+
+
+/***/ }),
+
+/***/ 7860:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var userAgent = __webpack_require__(82839);
+
+module.exports = /web0s(?!.*chrome)/i.test(userAgent);
 
 
 /***/ }),
@@ -463,8 +476,9 @@ module.exports = {
 
 var $ = __webpack_require__(46518);
 var IS_PURE = __webpack_require__(96395);
-var IS_NODE = __webpack_require__(19088);
-var global = __webpack_require__(24475);
+var IS_NODE = __webpack_require__(16193);
+var globalThis = __webpack_require__(44576);
+var path = __webpack_require__(19167);
 var call = __webpack_require__(69565);
 var defineBuiltIn = __webpack_require__(36840);
 var setPrototypeOf = __webpack_require__(75348);
@@ -494,13 +508,13 @@ var setInternalState = InternalStateModule.set;
 var NativePromisePrototype = NativePromiseConstructor && NativePromiseConstructor.prototype;
 var PromiseConstructor = NativePromiseConstructor;
 var PromisePrototype = NativePromisePrototype;
-var TypeError = global.TypeError;
-var document = global.document;
-var process = global.process;
+var TypeError = globalThis.TypeError;
+var document = globalThis.document;
+var process = globalThis.process;
 var newPromiseCapability = newPromiseCapabilityModule.f;
 var newGenericPromiseCapability = newPromiseCapability;
 
-var DISPATCH_EVENT = !!(document && document.createEvent && global.dispatchEvent);
+var DISPATCH_EVENT = !!(document && document.createEvent && globalThis.dispatchEvent);
 var UNHANDLED_REJECTION = 'unhandledrejection';
 var REJECTION_HANDLED = 'rejectionhandled';
 var PENDING = 0;
@@ -573,14 +587,14 @@ var dispatchEvent = function (name, promise, reason) {
     event.promise = promise;
     event.reason = reason;
     event.initEvent(name, false, true);
-    global.dispatchEvent(event);
+    globalThis.dispatchEvent(event);
   } else event = { promise: promise, reason: reason };
-  if (!NATIVE_PROMISE_REJECTION_EVENT && (handler = global['on' + name])) handler(event);
+  if (!NATIVE_PROMISE_REJECTION_EVENT && (handler = globalThis['on' + name])) handler(event);
   else if (name === UNHANDLED_REJECTION) hostReportErrors('Unhandled promise rejection', reason);
 };
 
 var onUnhandled = function (state) {
-  call(task, global, function () {
+  call(task, globalThis, function () {
     var promise = state.facade;
     var value = state.value;
     var IS_UNHANDLED = isUnhandled(state);
@@ -603,7 +617,7 @@ var isUnhandled = function (state) {
 };
 
 var onHandleUnhandled = function (state) {
-  call(task, global, function () {
+  call(task, globalThis, function () {
     var promise = state.facade;
     if (IS_NODE) {
       process.emit('rejectionHandled', promise);
@@ -682,7 +696,7 @@ if (FORCED_PROMISE_CONSTRUCTOR) {
       reactions: new Queue(),
       rejection: false,
       state: PENDING,
-      value: undefined
+      value: null
     });
   };
 
@@ -742,9 +756,13 @@ if (FORCED_PROMISE_CONSTRUCTOR) {
   }
 }
 
+// `Promise` constructor
+// https://tc39.es/ecma262/#sec-promise-executor
 $({ global: true, constructor: true, wrap: true, forced: FORCED_PROMISE_CONSTRUCTOR }, {
   Promise: PromiseConstructor
 });
+
+PromiseWrapper = path.Promise;
 
 setToStringTag(PromiseConstructor, PROMISE, false, true);
 setSpecies(PROMISE);
@@ -800,21 +818,20 @@ module.exports = USE_SYMBOL_AS_UID ? function (it) {
 
 "use strict";
 
-var global = __webpack_require__(24475);
+var globalThis = __webpack_require__(44576);
 var NativePromiseConstructor = __webpack_require__(80550);
 var isCallable = __webpack_require__(17282);
 var isForced = __webpack_require__(92796);
 var inspectSource = __webpack_require__(33706);
 var wellKnownSymbol = __webpack_require__(608);
-var IS_BROWSER = __webpack_require__(87290);
-var IS_DENO = __webpack_require__(50516);
+var ENVIRONMENT = __webpack_require__(84215);
 var IS_PURE = __webpack_require__(96395);
-var V8_VERSION = __webpack_require__(55007);
+var V8_VERSION = __webpack_require__(39519);
 
 var NativePromisePrototype = NativePromiseConstructor && NativePromiseConstructor.prototype;
 var SPECIES = wellKnownSymbol('species');
 var SUBCLASSING = false;
-var NATIVE_PROMISE_REJECTION_EVENT = isCallable(global.PromiseRejectionEvent);
+var NATIVE_PROMISE_REJECTION_EVENT = isCallable(globalThis.PromiseRejectionEvent);
 
 var FORCED_PROMISE_CONSTRUCTOR = isForced('Promise', function () {
   var PROMISE_CONSTRUCTOR_SOURCE = inspectSource(NativePromiseConstructor);
@@ -839,7 +856,7 @@ var FORCED_PROMISE_CONSTRUCTOR = isForced('Promise', function () {
     SUBCLASSING = promise.then(function () { /* empty */ }) instanceof FakePromise;
     if (!SUBCLASSING) return true;
   // Unhandled rejections tracking support, NodeJS Promise without it fails @@species test
-  } return !GLOBAL_CORE_JS_PROMISE && (IS_BROWSER || IS_DENO) && !NATIVE_PROMISE_REJECTION_EVENT;
+  } return !GLOBAL_CORE_JS_PROMISE && (ENVIRONMENT === 'BROWSER' || ENVIRONMENT === 'DENO') && !NATIVE_PROMISE_REJECTION_EVENT;
 });
 
 module.exports = {
@@ -962,6 +979,18 @@ var isObject = __webpack_require__(20034);
 module.exports = function (argument) {
   return isObject(argument) || argument === null;
 };
+
+
+/***/ }),
+
+/***/ 16193:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var ENVIRONMENT = __webpack_require__(84215);
+
+module.exports = ENVIRONMENT === 'NODE';
 
 
 /***/ }),
@@ -1114,7 +1143,7 @@ var FunctionPrototype = Function.prototype;
 var apply = FunctionPrototype.apply;
 var call = FunctionPrototype.call;
 
-// eslint-disable-next-line es/no-reflect -- safe
+// eslint-disable-next-line es/no-function-prototype-bind, es/no-reflect -- safe
 module.exports = typeof Reflect == 'object' && Reflect.apply || (NATIVE_BIND ? call.bind(apply) : function () {
   return call.apply(apply, arguments);
 });
@@ -1128,10 +1157,10 @@ module.exports = typeof Reflect == 'object' && Reflect.apply || (NATIVE_BIND ? c
 "use strict";
 
 var fails = __webpack_require__(79039);
-var global = __webpack_require__(24475);
+var globalThis = __webpack_require__(44576);
 
 // babel-minify and Closure Compiler transpiles RegExp('(?<a>b)', 'g') -> /(?<a>b)/g and it causes SyntaxError
-var $RegExp = global.RegExp;
+var $RegExp = globalThis.RegExp;
 
 module.exports = fails(function () {
   var re = $RegExp('(?<a>b)', 'g');
@@ -1142,15 +1171,14 @@ module.exports = fails(function () {
 
 /***/ }),
 
-/***/ 19088:
+/***/ 19167:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
-var global = __webpack_require__(24475);
-var classof = __webpack_require__(44576);
+var globalThis = __webpack_require__(44576);
 
-module.exports = classof(global.process) === 'process';
+module.exports = globalThis;
 
 
 /***/ }),
@@ -1193,18 +1221,6 @@ module.exports = {
   // https://tc39.es/ecma262/#sec-array.prototype.indexof
   indexOf: createMethod(false)
 };
-
-
-/***/ }),
-
-/***/ 20028:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-var userAgent = __webpack_require__(79392);
-
-module.exports = /ipad|iphone|ipod/i.test(userAgent) && typeof Pebble != 'undefined';
 
 
 /***/ }),
@@ -1260,6 +1276,23 @@ $({ target: 'String', proto: true, forced: !correctIsRegExpLogic('includes') }, 
     );
   }
 });
+
+
+/***/ }),
+
+/***/ 22195:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var uncurryThis = __webpack_require__(79504);
+
+var toString = uncurryThis({}.toString);
+var stringSlice = uncurryThis(''.slice);
+
+module.exports = function (it) {
+  return stringSlice(toString(it), 8, -1);
+};
 
 
 /***/ }),
@@ -1322,7 +1355,7 @@ module.exports = defineIterator(Array, 'Array', function (iterated, kind) {
   var target = state.target;
   var index = state.index++;
   if (!target || index >= target.length) {
-    state.target = undefined;
+    state.target = null;
     return createIterResultObject(undefined, true);
   }
   switch (state.kind) {
@@ -1345,30 +1378,6 @@ addToUnscopables('entries');
 if (!IS_PURE && DESCRIPTORS && values.name !== 'values') try {
   defineProperty(values, 'name', { value: 'values' });
 } catch (error) { /* empty */ }
-
-
-/***/ }),
-
-/***/ 24475:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-var check = function (it) {
-  return it && it.Math === Math && it;
-};
-
-// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
-module.exports =
-  // eslint-disable-next-line es/no-global-this -- safe
-  check(typeof globalThis == 'object' && globalThis) ||
-  check(typeof window == 'object' && window) ||
-  // eslint-disable-next-line no-restricted-globals -- safe
-  check(typeof self == 'object' && self) ||
-  check(typeof __webpack_require__.g == 'object' && __webpack_require__.g) ||
-  check(typeof this == 'object' && this) ||
-  // eslint-disable-next-line no-new-func -- fallback
-  (function () { return this; })() || Function('return this')();
 
 
 /***/ }),
@@ -1484,7 +1493,7 @@ var fixRegExpWellKnownSymbolLogic = __webpack_require__(89228);
 var fails = __webpack_require__(79039);
 var anObject = __webpack_require__(28551);
 var isCallable = __webpack_require__(17282);
-var isNullOrUndefined = __webpack_require__(64117);
+var isObject = __webpack_require__(20034);
 var toIntegerOrInfinity = __webpack_require__(91291);
 var toLength = __webpack_require__(18014);
 var toString = __webpack_require__(655);
@@ -1492,6 +1501,7 @@ var requireObjectCoercible = __webpack_require__(67750);
 var advanceStringIndex = __webpack_require__(57829);
 var getMethod = __webpack_require__(55966);
 var getSubstitution = __webpack_require__(2478);
+var getRegExpFlags = __webpack_require__(61034);
 var regExpExec = __webpack_require__(56682);
 var wellKnownSymbol = __webpack_require__(608);
 
@@ -1542,7 +1552,7 @@ fixRegExpWellKnownSymbolLogic('replace', function (_, nativeReplace, maybeCallNa
     // https://tc39.es/ecma262/#sec-string.prototype.replace
     function replace(searchValue, replaceValue) {
       var O = requireObjectCoercible(this);
-      var replacer = isNullOrUndefined(searchValue) ? undefined : getMethod(searchValue, REPLACE);
+      var replacer = isObject(searchValue) ? getMethod(searchValue, REPLACE) : undefined;
       return replacer
         ? call(replacer, searchValue, O, replaceValue)
         : call(nativeReplace, toString(O), searchValue, replaceValue);
@@ -1565,10 +1575,11 @@ fixRegExpWellKnownSymbolLogic('replace', function (_, nativeReplace, maybeCallNa
       var functionalReplace = isCallable(replaceValue);
       if (!functionalReplace) replaceValue = toString(replaceValue);
 
-      var global = rx.global;
+      var flags = toString(getRegExpFlags(rx));
+      var global = stringIndexOf(flags, 'g') !== -1;
       var fullUnicode;
       if (global) {
-        fullUnicode = rx.unicode;
+        fullUnicode = stringIndexOf(flags, 'u') !== -1;
         rx.lastIndex = 0;
       }
 
@@ -1667,7 +1678,7 @@ module.exports = {};
 
 "use strict";
 
-var classofRaw = __webpack_require__(44576);
+var classofRaw = __webpack_require__(22195);
 var uncurryThis = __webpack_require__(79504);
 
 module.exports = function (fn) {
@@ -1735,7 +1746,7 @@ var uncurryThis = __webpack_require__(79504);
 
 var id = 0;
 var postfix = Math.random();
-var toString = uncurryThis(1.0.toString);
+var toString = uncurryThis(1.1.toString);
 
 module.exports = function (key) {
   return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString(++id + postfix, 36);
@@ -1867,7 +1878,7 @@ module.exports = function (IteratorConstructor, NAME, next, ENUMERABLE_NEXT) {
 
 "use strict";
 
-var classof = __webpack_require__(44576);
+var classof = __webpack_require__(22195);
 
 // `IsArray` abstract operation
 // https://tc39.es/ecma262/#sec-isarray
@@ -2009,18 +2020,6 @@ module.exports.f = function (C) {
 
 /***/ }),
 
-/***/ 36765:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-var userAgent = __webpack_require__(79392);
-
-module.exports = /web0s(?!.*chrome)/i.test(userAgent);
-
-
-/***/ }),
-
 /***/ 36840:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -2064,7 +2063,7 @@ module.exports = function (O, key, value, options) {
 
 var TO_STRING_TAG_SUPPORT = __webpack_require__(92140);
 var isCallable = __webpack_require__(17282);
-var classofRaw = __webpack_require__(44576);
+var classofRaw = __webpack_require__(22195);
 var wellKnownSymbol = __webpack_require__(608);
 
 var TO_STRING_TAG = wellKnownSymbol('toStringTag');
@@ -2174,16 +2173,16 @@ module.exports = Object.hasOwn || function hasOwn(it, key) {
 
 "use strict";
 
-var global = __webpack_require__(24475);
+var globalThis = __webpack_require__(44576);
 
 // eslint-disable-next-line es/no-object-defineproperty -- safe
 var defineProperty = Object.defineProperty;
 
 module.exports = function (key, value) {
   try {
-    defineProperty(global, key, { value: value, configurable: true, writable: true });
+    defineProperty(globalThis, key, { value: value, configurable: true, writable: true });
   } catch (error) {
-    global[key] = value;
+    globalThis[key] = value;
   } return value;
 };
 
@@ -2215,6 +2214,42 @@ module.exports = function (object, names) {
   }
   return result;
 };
+
+
+/***/ }),
+
+/***/ 39519:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var globalThis = __webpack_require__(44576);
+var userAgent = __webpack_require__(82839);
+
+var process = globalThis.process;
+var Deno = globalThis.Deno;
+var versions = process && process.versions || Deno && Deno.version;
+var v8 = versions && versions.v8;
+var match, version;
+
+if (v8) {
+  match = v8.split('.');
+  // in old Chrome, versions of V8 isn't V8 = Chrome / 10
+  // but their correct versions are not interesting for us
+  version = match[0] > 0 && match[0] < 4 ? 1 : +(match[0] + match[1]);
+}
+
+// BrowserFS NodeJS `process` polyfill incorrectly set `.v8` to `0.0`
+// so check `userAgent` even if `.v8` exists, but 0
+if (!version && userAgent) {
+  match = userAgent.match(/Edge\/(\d+)/);
+  if (!match || match[1] >= 74) {
+    match = userAgent.match(/Chrome\/(\d+)/);
+    if (match) version = +match[1];
+  }
+}
+
+module.exports = version;
 
 
 /***/ }),
@@ -2411,18 +2446,25 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ 44576:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
-var uncurryThis = __webpack_require__(79504);
-
-var toString = uncurryThis({}.toString);
-var stringSlice = uncurryThis(''.slice);
-
-module.exports = function (it) {
-  return stringSlice(toString(it), 8, -1);
+var check = function (it) {
+  return it && it.Math === Math && it;
 };
+
+// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+module.exports =
+  // eslint-disable-next-line es/no-global-this -- safe
+  check(typeof globalThis == 'object' && globalThis) ||
+  check(typeof window == 'object' && window) ||
+  // eslint-disable-next-line no-restricted-globals -- safe
+  check(typeof self == 'object' && self) ||
+  check(typeof __webpack_require__.g == 'object' && __webpack_require__.g) ||
+  check(typeof this == 'object' && this) ||
+  // eslint-disable-next-line no-new-func -- fallback
+  (function () { return this; })() || Function('return this')();
 
 
 /***/ }),
@@ -2432,7 +2474,7 @@ module.exports = function (it) {
 
 "use strict";
 
-var global = __webpack_require__(24475);
+var globalThis = __webpack_require__(44576);
 var getOwnPropertyDescriptor = (__webpack_require__(77347).f);
 var createNonEnumerableProperty = __webpack_require__(66699);
 var defineBuiltIn = __webpack_require__(36840);
@@ -2461,11 +2503,11 @@ module.exports = function (options, source) {
   var STATIC = options.stat;
   var FORCED, target, key, targetProperty, sourceProperty, descriptor;
   if (GLOBAL) {
-    target = global;
+    target = globalThis;
   } else if (STATIC) {
-    target = global[TARGET] || defineGlobalProperty(TARGET, {});
+    target = globalThis[TARGET] || defineGlobalProperty(TARGET, {});
   } else {
-    target = global[TARGET] && global[TARGET].prototype;
+    target = globalThis[TARGET] && globalThis[TARGET].prototype;
   }
   if (target) for (key in source) {
     sourceProperty = source[key];
@@ -2515,7 +2557,7 @@ module.exports = function (object, key, method) {
 
 var uncurryThis = __webpack_require__(79504);
 var fails = __webpack_require__(79039);
-var classof = __webpack_require__(44576);
+var classof = __webpack_require__(22195);
 
 var $Object = Object;
 var split = uncurryThis(''.split);
@@ -2540,19 +2582,6 @@ module.exports = fails(function () {
 // a string of all valid unicode whitespaces
 module.exports = '\u0009\u000A\u000B\u000C\u000D\u0020\u00A0\u1680\u2000\u2001\u2002' +
   '\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF';
-
-
-/***/ }),
-
-/***/ 48119:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-var userAgent = __webpack_require__(79392);
-
-// eslint-disable-next-line redos/no-vulnerable -- safe
-module.exports = /(?:ipad|iphone|ipod).*applewebkit/i.test(userAgent);
 
 
 /***/ }),
@@ -2677,17 +2706,6 @@ var makeBuiltIn = module.exports = function (value, name, options) {
 Function.prototype.toString = makeBuiltIn(function toString() {
   return isCallable(this) && getInternalState(this).source || inspectSource(this);
 }, 'toString');
-
-
-/***/ }),
-
-/***/ 50516:
-/***/ ((module) => {
-
-"use strict";
-
-/* global Deno -- Deno case */
-module.exports = typeof Deno == 'object' && Deno && typeof Deno.version == 'object';
 
 
 /***/ }),
@@ -2847,42 +2865,6 @@ $({ target: 'Promise', stat: true, forced: FORCED_PROMISE_CONSTRUCTOR }, {
 
 /***/ }),
 
-/***/ 55007:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-var global = __webpack_require__(24475);
-var userAgent = __webpack_require__(79392);
-
-var process = global.process;
-var Deno = global.Deno;
-var versions = process && process.versions || Deno && Deno.version;
-var v8 = versions && versions.v8;
-var match, version;
-
-if (v8) {
-  match = v8.split('.');
-  // in old Chrome, versions of V8 isn't V8 = Chrome / 10
-  // but their correct versions are not interesting for us
-  version = match[0] > 0 && match[0] < 4 ? 1 : +(match[0] + match[1]);
-}
-
-// BrowserFS NodeJS `process` polyfill incorrectly set `.v8` to `0.0`
-// so check `userAgent` even if `.v8` exists, but 0
-if (!version && userAgent) {
-  match = userAgent.match(/Edge\/(\d+)/);
-  if (!match || match[1] >= 74) {
-    match = userAgent.match(/Chrome\/(\d+)/);
-    if (match) version = +match[1];
-  }
-}
-
-module.exports = version;
-
-
-/***/ }),
-
 /***/ 55966:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -2909,7 +2891,7 @@ module.exports = function (V, P) {
 var call = __webpack_require__(69565);
 var anObject = __webpack_require__(28551);
 var isCallable = __webpack_require__(17282);
-var classof = __webpack_require__(44576);
+var classof = __webpack_require__(22195);
 var regexpExec = __webpack_require__(57323);
 
 var $TypeError = TypeError;
@@ -3152,10 +3134,10 @@ module.exports = function (S, index, unicode) {
 "use strict";
 
 var fails = __webpack_require__(79039);
-var global = __webpack_require__(24475);
+var globalThis = __webpack_require__(44576);
 
 // babel-minify and Closure Compiler transpiles RegExp('a', 'y') -> /a/y and it causes SyntaxError
-var $RegExp = global.RegExp;
+var $RegExp = globalThis.RegExp;
 
 var UNSUPPORTED_Y = fails(function () {
   var re = $RegExp('a', 'y');
@@ -3190,10 +3172,10 @@ module.exports = {
 
 "use strict";
 
-var global = __webpack_require__(24475);
+var globalThis = __webpack_require__(44576);
 var isCallable = __webpack_require__(17282);
 
-var WeakMap = global.WeakMap;
+var WeakMap = globalThis.WeakMap;
 
 module.exports = isCallable(WeakMap) && /native code/.test(String(WeakMap));
 
@@ -3205,7 +3187,7 @@ module.exports = isCallable(WeakMap) && /native code/.test(String(WeakMap));
 
 "use strict";
 
-var global = __webpack_require__(24475);
+var globalThis = __webpack_require__(44576);
 var apply = __webpack_require__(18745);
 var bind = __webpack_require__(76080);
 var isCallable = __webpack_require__(17282);
@@ -3215,16 +3197,16 @@ var html = __webpack_require__(20397);
 var arraySlice = __webpack_require__(67680);
 var createElement = __webpack_require__(4055);
 var validateArgumentsLength = __webpack_require__(22812);
-var IS_IOS = __webpack_require__(48119);
-var IS_NODE = __webpack_require__(19088);
+var IS_IOS = __webpack_require__(89544);
+var IS_NODE = __webpack_require__(16193);
 
-var set = global.setImmediate;
-var clear = global.clearImmediate;
-var process = global.process;
-var Dispatch = global.Dispatch;
-var Function = global.Function;
-var MessageChannel = global.MessageChannel;
-var String = global.String;
+var set = globalThis.setImmediate;
+var clear = globalThis.clearImmediate;
+var process = globalThis.process;
+var Dispatch = globalThis.Dispatch;
+var Function = globalThis.Function;
+var MessageChannel = globalThis.MessageChannel;
+var String = globalThis.String;
 var counter = 0;
 var queue = {};
 var ONREADYSTATECHANGE = 'onreadystatechange';
@@ -3232,7 +3214,7 @@ var $location, defer, channel, port;
 
 fails(function () {
   // Deno throws a ReferenceError on `location` access without `--location` flag
-  $location = global.location;
+  $location = globalThis.location;
 });
 
 var run = function (id) {
@@ -3255,7 +3237,7 @@ var eventListener = function (event) {
 
 var globalPostMessageDefer = function (id) {
   // old engines have not location.origin
-  global.postMessage(String(id), $location.protocol + '//' + $location.host);
+  globalThis.postMessage(String(id), $location.protocol + '//' + $location.host);
 };
 
 // Node.js 0.9+ & IE10+ has setImmediate, otherwise:
@@ -3293,14 +3275,14 @@ if (!set || !clear) {
   // Browsers with postMessage, skip WebWorkers
   // IE8 has postMessage, but it's sync & typeof its postMessage is 'object'
   } else if (
-    global.addEventListener &&
-    isCallable(global.postMessage) &&
-    !global.importScripts &&
+    globalThis.addEventListener &&
+    isCallable(globalThis.postMessage) &&
+    !globalThis.importScripts &&
     $location && $location.protocol !== 'file:' &&
     !fails(globalPostMessageDefer)
   ) {
     defer = globalPostMessageDefer;
-    global.addEventListener('message', eventListener, false);
+    globalThis.addEventListener('message', eventListener, false);
   // IE8-
   } else if (ONREADYSTATECHANGE in createElement('script')) {
     defer = function (id) {
@@ -3373,7 +3355,7 @@ module.exports = function (METHOD_NAME) {
 "use strict";
 
 var isObject = __webpack_require__(20034);
-var classof = __webpack_require__(44576);
+var classof = __webpack_require__(22195);
 var wellKnownSymbol = __webpack_require__(608);
 
 var MATCH = wellKnownSymbol('match');
@@ -3396,14 +3378,17 @@ module.exports = function (it) {
 var call = __webpack_require__(69565);
 var hasOwn = __webpack_require__(39297);
 var isPrototypeOf = __webpack_require__(1625);
-var regExpFlags = __webpack_require__(67979);
+var regExpFlagsDetection = __webpack_require__(65213);
+var regExpFlagsGetterImplementation = __webpack_require__(67979);
 
 var RegExpPrototype = RegExp.prototype;
 
-module.exports = function (R) {
-  var flags = R.flags;
-  return flags === undefined && !('flags' in RegExpPrototype) && !hasOwn(R, 'flags') && isPrototypeOf(RegExpPrototype, R)
-    ? call(regExpFlags, R) : flags;
+module.exports = regExpFlagsDetection.correct ? function (it) {
+  return it.flags;
+} : function (it) {
+  return (!regExpFlagsDetection.correct && isPrototypeOf(RegExpPrototype, it) && !hasOwn(it, 'flags'))
+    ? call(regExpFlagsGetterImplementation, it)
+    : it.flags;
 };
 
 
@@ -3445,7 +3430,7 @@ module.exports = function (value, done) {
 
 "use strict";
 
-var global = __webpack_require__(24475);
+var globalThis = __webpack_require__(44576);
 var DOMIterables = __webpack_require__(67400);
 var DOMTokenListPrototype = __webpack_require__(79296);
 var ArrayIteratorMethods = __webpack_require__(23792);
@@ -3477,7 +3462,7 @@ var handlePrototype = function (CollectionPrototype, COLLECTION_NAME) {
 };
 
 for (var COLLECTION_NAME in DOMIterables) {
-  handlePrototype(global[COLLECTION_NAME] && global[COLLECTION_NAME].prototype, COLLECTION_NAME);
+  handlePrototype(globalThis[COLLECTION_NAME] && globalThis[COLLECTION_NAME].prototype, COLLECTION_NAME);
 }
 
 handlePrototype(DOMTokenListPrototype, 'DOMTokenList');
@@ -3499,6 +3484,61 @@ module.exports = function (it) {
 
 /***/ }),
 
+/***/ 65213:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var globalThis = __webpack_require__(44576);
+var fails = __webpack_require__(79039);
+
+// babel-minify and Closure Compiler transpiles RegExp('.', 'd') -> /./d and it causes SyntaxError
+var RegExp = globalThis.RegExp;
+
+var FLAGS_GETTER_IS_CORRECT = !fails(function () {
+  var INDICES_SUPPORT = true;
+  try {
+    RegExp('.', 'd');
+  } catch (error) {
+    INDICES_SUPPORT = false;
+  }
+
+  var O = {};
+  // modern V8 bug
+  var calls = '';
+  var expected = INDICES_SUPPORT ? 'dgimsy' : 'gimsy';
+
+  var addGetter = function (key, chr) {
+    // eslint-disable-next-line es/no-object-defineproperty -- safe
+    Object.defineProperty(O, key, { get: function () {
+      calls += chr;
+      return true;
+    } });
+  };
+
+  var pairs = {
+    dotAll: 's',
+    global: 'g',
+    ignoreCase: 'i',
+    multiline: 'm',
+    sticky: 'y'
+  };
+
+  if (INDICES_SUPPORT) pairs.hasIndices = 'd';
+
+  for (var key in pairs) addGetter(key, pairs[key]);
+
+  // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+  var result = Object.getOwnPropertyDescriptor(RegExp.prototype, 'flags').get.call(O);
+
+  return result !== expected || calls !== expected;
+});
+
+module.exports = { correct: FLAGS_GETTER_IS_CORRECT };
+
+
+/***/ }),
+
 /***/ 66119:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -3512,6 +3552,18 @@ var keys = shared('keys');
 module.exports = function (key) {
   return keys[key] || (keys[key] = uid(key));
 };
+
+
+/***/ }),
+
+/***/ 66646:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var userAgent = __webpack_require__(82839);
+
+module.exports = /ipad|iphone|ipod/i.test(userAgent) && typeof Pebble != 'undefined';
 
 
 /***/ }),
@@ -3689,7 +3741,7 @@ module.exports = {
 var NATIVE_BIND = __webpack_require__(40616);
 
 var call = Function.prototype.call;
-
+// eslint-disable-next-line es/no-function-prototype-bind -- safe
 module.exports = NATIVE_BIND ? call.bind(call) : function () {
   return call.apply(call, arguments);
 };
@@ -3743,15 +3795,19 @@ module.exports = Object.keys || function keys(O) {
 "use strict";
 
 var call = __webpack_require__(69565);
+var uncurryThis = __webpack_require__(79504);
 var fixRegExpWellKnownSymbolLogic = __webpack_require__(89228);
 var anObject = __webpack_require__(28551);
-var isNullOrUndefined = __webpack_require__(64117);
+var isObject = __webpack_require__(20034);
 var toLength = __webpack_require__(18014);
 var toString = __webpack_require__(655);
 var requireObjectCoercible = __webpack_require__(67750);
 var getMethod = __webpack_require__(55966);
 var advanceStringIndex = __webpack_require__(57829);
+var getRegExpFlags = __webpack_require__(61034);
 var regExpExec = __webpack_require__(56682);
+
+var stringIndexOf = uncurryThis(''.indexOf);
 
 // @@match logic
 fixRegExpWellKnownSymbolLogic('match', function (MATCH, nativeMatch, maybeCallNative) {
@@ -3760,7 +3816,7 @@ fixRegExpWellKnownSymbolLogic('match', function (MATCH, nativeMatch, maybeCallNa
     // https://tc39.es/ecma262/#sec-string.prototype.match
     function match(regexp) {
       var O = requireObjectCoercible(this);
-      var matcher = isNullOrUndefined(regexp) ? undefined : getMethod(regexp, MATCH);
+      var matcher = isObject(regexp) ? getMethod(regexp, MATCH) : undefined;
       return matcher ? call(matcher, regexp, O) : new RegExp(regexp)[MATCH](toString(O));
     },
     // `RegExp.prototype[@@match]` method
@@ -3772,9 +3828,11 @@ fixRegExpWellKnownSymbolLogic('match', function (MATCH, nativeMatch, maybeCallNa
 
       if (res.done) return res.value;
 
-      if (!rx.global) return regExpExec(rx, S);
+      var flags = toString(getRegExpFlags(rx));
 
-      var fullUnicode = rx.unicode;
+      if (stringIndexOf(flags, 'g') === -1) return regExpExec(rx, S);
+
+      var fullUnicode = stringIndexOf(flags, 'u') !== -1;
       rx.lastIndex = 0;
       var A = [];
       var n = 0;
@@ -3828,7 +3886,7 @@ module.exports = function (iterable, unboundFunction, options) {
   var iterator, iterFn, index, length, result, next, step;
 
   var stop = function (condition) {
-    if (iterator) iteratorClose(iterator, 'normal', condition);
+    if (iterator) iteratorClose(iterator, 'normal');
     return new Result(true, condition);
   };
 
@@ -3878,8 +3936,8 @@ module.exports = function (iterable, unboundFunction, options) {
 var $ = __webpack_require__(46518);
 var $reduce = (__webpack_require__(80926).left);
 var arrayMethodIsStrict = __webpack_require__(34598);
-var CHROME_VERSION = __webpack_require__(55007);
-var IS_NODE = __webpack_require__(19088);
+var CHROME_VERSION = __webpack_require__(39519);
+var IS_NODE = __webpack_require__(16193);
 
 // Chrome 80-82 has a critical bug
 // https://bugs.chromium.org/p/chromium/issues/detail?id=1049982
@@ -4046,17 +4104,17 @@ exports.f = DESCRIPTORS ? $getOwnPropertyDescriptor : function getOwnPropertyDes
 "use strict";
 
 var IS_PURE = __webpack_require__(96395);
-var globalThis = __webpack_require__(24475);
+var globalThis = __webpack_require__(44576);
 var defineGlobalProperty = __webpack_require__(39433);
 
 var SHARED = '__core-js_shared__';
 var store = module.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
 (store.versions || (store.versions = [])).push({
-  version: '3.37.0',
+  version: '3.45.1',
   mode: IS_PURE ? 'pure' : 'global',
-  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.37.0/LICENSE',
+  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
+  license: 'https://github.com/zloirock/core-js/blob/v3.45.1/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
 
@@ -4139,16 +4197,6 @@ module.exports = function (argument) {
 
 /***/ }),
 
-/***/ 79392:
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = typeof navigator != 'undefined' && String(navigator.userAgent) || '';
-
-
-/***/ }),
-
 /***/ 79504:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -4158,6 +4206,7 @@ var NATIVE_BIND = __webpack_require__(40616);
 
 var FunctionPrototype = Function.prototype;
 var call = FunctionPrototype.call;
+// eslint-disable-next-line es/no-function-prototype-bind -- safe
 var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
 
 module.exports = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
@@ -4174,9 +4223,9 @@ module.exports = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
 
 "use strict";
 
-var global = __webpack_require__(24475);
+var globalThis = __webpack_require__(44576);
 
-module.exports = global.Promise;
+module.exports = globalThis.Promise;
 
 
 /***/ }),
@@ -4284,6 +4333,21 @@ if (!IS_PURE && isCallable(NativePromiseConstructor)) {
     defineBuiltIn(NativePromisePrototype, 'catch', method, { unsafe: true });
   }
 }
+
+
+/***/ }),
+
+/***/ 82839:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var globalThis = __webpack_require__(44576);
+
+var navigator = globalThis.navigator;
+var userAgent = navigator && navigator.userAgent;
+
+module.exports = userAgent ? String(userAgent) : '';
 
 
 /***/ }),
@@ -4603,15 +4667,44 @@ module.exports = function(color_string) {
 "use strict";
 
 var fails = __webpack_require__(79039);
-var global = __webpack_require__(24475);
+var globalThis = __webpack_require__(44576);
 
 // babel-minify and Closure Compiler transpiles RegExp('.', 's') -> /./s and it causes SyntaxError
-var $RegExp = global.RegExp;
+var $RegExp = globalThis.RegExp;
 
 module.exports = fails(function () {
   var re = $RegExp('.', 's');
   return !(re.dotAll && re.test('\n') && re.flags === 's');
 });
+
+
+/***/ }),
+
+/***/ 84215:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+/* global Bun, Deno -- detection */
+var globalThis = __webpack_require__(44576);
+var userAgent = __webpack_require__(82839);
+var classof = __webpack_require__(22195);
+
+var userAgentStartsWith = function (string) {
+  return userAgent.slice(0, string.length) === string;
+};
+
+module.exports = (function () {
+  if (userAgentStartsWith('Bun/')) return 'BUN';
+  if (userAgentStartsWith('Cloudflare-Workers')) return 'CLOUDFLARE';
+  if (userAgentStartsWith('Deno/')) return 'DENO';
+  if (userAgentStartsWith('Node.js/')) return 'NODE';
+  if (globalThis.Bun && typeof Bun.version == 'string') return 'BUN';
+  if (globalThis.Deno && typeof Deno.version == 'object') return 'DENO';
+  if (classof(globalThis.process) === 'process') return 'NODE';
+  if (globalThis.window && globalThis.document) return 'BROWSER';
+  return 'REST';
+})();
 
 
 /***/ }),
@@ -12063,21 +12156,6 @@ class Canvg {
 
 /***/ }),
 
-/***/ 87290:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-var IS_DENO = __webpack_require__(50516);
-var IS_NODE = __webpack_require__(19088);
-
-module.exports = !IS_DENO && !IS_NODE
-  && typeof window == 'object'
-  && typeof document == 'object';
-
-
-/***/ }),
-
 /***/ 87633:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -12207,6 +12285,19 @@ module.exports = function (KEY, exec, FORCED, SHAM) {
 
 /***/ }),
 
+/***/ 89544:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var userAgent = __webpack_require__(82839);
+
+// eslint-disable-next-line redos/no-vulnerable -- safe
+module.exports = /(?:ipad|iphone|ipod).*applewebkit/i.test(userAgent);
+
+
+/***/ }),
+
 /***/ 90537:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -12249,7 +12340,7 @@ var call = __webpack_require__(69565);
 var uncurryThis = __webpack_require__(79504);
 var fixRegExpWellKnownSymbolLogic = __webpack_require__(89228);
 var anObject = __webpack_require__(28551);
-var isNullOrUndefined = __webpack_require__(64117);
+var isObject = __webpack_require__(20034);
 var requireObjectCoercible = __webpack_require__(67750);
 var speciesConstructor = __webpack_require__(2293);
 var advanceStringIndex = __webpack_require__(57829);
@@ -12297,7 +12388,7 @@ fixRegExpWellKnownSymbolLogic('split', function (SPLIT, nativeSplit, maybeCallNa
     // https://tc39.es/ecma262/#sec-string.prototype.split
     function split(separator, limit) {
       var O = requireObjectCoercible(this);
-      var splitter = isNullOrUndefined(separator) ? undefined : getMethod(separator, SPLIT);
+      var splitter = isObject(separator) ? getMethod(separator, SPLIT) : undefined;
       return splitter
         ? call(splitter, separator, O, limit)
         : call(internalSplit, toString(O), separator, limit);
@@ -12380,7 +12471,7 @@ module.exports = function (a, b) {
 "use strict";
 
 var NATIVE_WEAK_MAP = __webpack_require__(58622);
-var global = __webpack_require__(24475);
+var globalThis = __webpack_require__(44576);
 var isObject = __webpack_require__(20034);
 var createNonEnumerableProperty = __webpack_require__(66699);
 var hasOwn = __webpack_require__(39297);
@@ -12389,8 +12480,8 @@ var sharedKey = __webpack_require__(66119);
 var hiddenKeys = __webpack_require__(30421);
 
 var OBJECT_ALREADY_INITIALIZED = 'Object already initialized';
-var TypeError = global.TypeError;
-var WeakMap = global.WeakMap;
+var TypeError = globalThis.TypeError;
+var WeakMap = globalThis.WeakMap;
 var set, get, has;
 
 var enforce = function (it) {
@@ -12476,20 +12567,20 @@ module.exports = function (argument) {
 
 "use strict";
 
-var global = __webpack_require__(24475);
+var globalThis = __webpack_require__(44576);
 var safeGetBuiltIn = __webpack_require__(93389);
 var bind = __webpack_require__(76080);
 var macrotask = (__webpack_require__(59225).set);
 var Queue = __webpack_require__(18265);
-var IS_IOS = __webpack_require__(48119);
-var IS_IOS_PEBBLE = __webpack_require__(20028);
-var IS_WEBOS_WEBKIT = __webpack_require__(36765);
-var IS_NODE = __webpack_require__(19088);
+var IS_IOS = __webpack_require__(89544);
+var IS_IOS_PEBBLE = __webpack_require__(66646);
+var IS_WEBOS_WEBKIT = __webpack_require__(7860);
+var IS_NODE = __webpack_require__(16193);
 
-var MutationObserver = global.MutationObserver || global.WebKitMutationObserver;
-var document = global.document;
-var process = global.process;
-var Promise = global.Promise;
+var MutationObserver = globalThis.MutationObserver || globalThis.WebKitMutationObserver;
+var document = globalThis.document;
+var process = globalThis.process;
+var Promise = globalThis.Promise;
 var microtask = safeGetBuiltIn('queueMicrotask');
 var notify, toggle, node, promise, then;
 
@@ -12541,7 +12632,7 @@ if (!microtask) {
   // - setTimeout
   } else {
     // `webpack` dev server bug on IE global methods - use bind(fn, global)
-    macrotask = bind(macrotask, global);
+    macrotask = bind(macrotask, globalThis);
     notify = function () {
       macrotask(flush);
     };
@@ -12693,7 +12784,7 @@ module.exports.polyfill = function(object) {
 
 "use strict";
 
-var global = __webpack_require__(24475);
+var globalThis = __webpack_require__(44576);
 var DESCRIPTORS = __webpack_require__(43724);
 
 // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
@@ -12701,8 +12792,8 @@ var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
 
 // Avoid NodeJS experimental warning
 module.exports = function (name) {
-  if (!DESCRIPTORS) return global[name];
-  var descriptor = getOwnPropertyDescriptor(global, name);
+  if (!DESCRIPTORS) return globalThis[name];
+  var descriptor = getOwnPropertyDescriptor(globalThis, name);
   return descriptor && descriptor.value;
 };
 
@@ -12801,7 +12892,7 @@ exports.f = DESCRIPTORS && !V8_PROTOTYPE_DEFINE_BUG ? Object.defineProperties : 
 
 "use strict";
 
-var global = __webpack_require__(24475);
+var globalThis = __webpack_require__(44576);
 var isCallable = __webpack_require__(17282);
 
 var aFunction = function (argument) {
@@ -12809,7 +12900,7 @@ var aFunction = function (argument) {
 };
 
 module.exports = function (namespace, method) {
-  return arguments.length < 2 ? aFunction(global[namespace]) : global[namespace] && global[namespace][method];
+  return arguments.length < 2 ? aFunction(globalThis[namespace]) : globalThis[namespace] && globalThis[namespace][method];
 };
 
 
