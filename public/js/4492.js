@@ -10111,7 +10111,7 @@ class ViewDesc {
         // (one where the focus is before the anchor), but not all
         // browsers support it yet.
         let domSelExtended = false;
-        if ((domSel.extend || anchor == head) && !(brKludge && gecko)) {
+        if ((domSel.extend || anchor == head) && !brKludge) {
             domSel.collapse(anchorDOM.node, anchorDOM.offset);
             try {
                 if (anchor != head)
@@ -11372,14 +11372,17 @@ function removeClassOnSelectionChange(view) {
     });
 }
 function selectCursorWrapper(view) {
-    let domSel = view.domSelection();
+    let domSel = view.domSelection(), range = document.createRange();
     if (!domSel)
         return;
     let node = view.cursorWrapper.dom, img = node.nodeName == "IMG";
     if (img)
-        domSel.collapse(node.parentNode, domIndex(node) + 1);
+        range.setStart(node.parentNode, domIndex(node) + 1);
     else
-        domSel.collapse(node, 0);
+        range.setStart(node, 0);
+    range.collapse(true);
+    domSel.removeAllRanges();
+    domSel.addRange(range);
     // Kludge to kill 'control selection' in IE11 when selecting an
     // invisible cursor wrapper, since that would result in those weird
     // resize handles and a selection that considers the absolutely
@@ -11857,14 +11860,11 @@ function parseFromClipboard(view, text, html, plainText, $context) {
     let dom, slice;
     if (!html && !text)
         return null;
-    let asText = !!text && (plainText || inCode || !html);
+    let asText = text && (plainText || inCode || !html);
     if (asText) {
         view.someProp("transformPastedText", f => { text = f(text, inCode || plainText, view); });
-        if (inCode) {
-            slice = new dist_Slice(Fragment.from(view.state.schema.text(text.replace(/\r\n?/g, "\n"))), 0, 0);
-            view.someProp("transformPasted", f => { slice = f(slice, view, true); });
-            return slice;
-        }
+        if (inCode)
+            return text ? new dist_Slice(Fragment.from(view.state.schema.text(text.replace(/\r\n?/g, "\n"))), 0, 0) : dist_Slice.empty;
         let parsed = view.someProp("clipboardTextParser", f => f(text, $context, plainText, view));
         if (parsed) {
             slice = parsed;
@@ -11922,7 +11922,7 @@ function parseFromClipboard(view, text, html, plainText, $context) {
             slice = closeSlice(slice, openStart, openEnd);
         }
     }
-    view.someProp("transformPasted", f => { slice = f(slice, view, asText); });
+    view.someProp("transformPasted", f => { slice = f(slice, view); });
     return slice;
 }
 const inlineParents = /^(a|abbr|acronym|b|cite|code|del|em|i|ins|kbd|label|output|q|ruby|s|samp|span|strong|sub|sup|time|u|tt|var)$/i;
@@ -12782,7 +12782,7 @@ editHandlers.drop = (view, _event) => {
     let $mouse = view.state.doc.resolve(eventPos.pos);
     let slice = dragging && dragging.slice;
     if (slice) {
-        view.someProp("transformPasted", f => { slice = f(slice, view, false); });
+        view.someProp("transformPasted", f => { slice = f(slice, view); });
     }
     else {
         slice = parseFromClipboard(view, getText(event.dataTransfer), brokenClipboardAPI ? null : event.dataTransfer.getData("text/html"), false, $mouse);
@@ -44997,7 +44997,7 @@ var ViewDesc = function () {
       }
       if (!(force || brKludge && safari) && isEquivalentPosition(anchorDOM.node, anchorDOM.offset, selRange.anchorNode, selRange.anchorOffset) && isEquivalentPosition(headDOM.node, headDOM.offset, selRange.focusNode, selRange.focusOffset)) return;
       var domSelExtended = false;
-      if ((domSel.extend || anchor == head) && !(brKludge && gecko)) {
+      if ((domSel.extend || anchor == head) && !brKludge) {
         domSel.collapse(anchorDOM.node, anchorDOM.offset);
         try {
           if (anchor != head) domSel.extend(headDOM.node, headDOM.offset);
@@ -46270,11 +46270,15 @@ function removeClassOnSelectionChange(view) {
   });
 }
 function selectCursorWrapper(view) {
-  var domSel = view.domSelection();
+  var domSel = view.domSelection(),
+    range = document.createRange();
   if (!domSel) return;
   var node = view.cursorWrapper.dom,
     img = node.nodeName == "IMG";
-  if (img) domSel.collapse(node.parentNode, domIndex(node) + 1);else domSel.collapse(node, 0);
+  if (img) range.setStart(node.parentNode, domIndex(node) + 1);else range.setStart(node, 0);
+  range.collapse(true);
+  domSel.removeAllRanges();
+  domSel.addRange(range);
   if (!img && !view.state.selection.visible && ie && ie_version <= 11) {
     node.disabled = true;
     node.disabled = false;
@@ -46672,18 +46676,12 @@ function parseFromClipboard(view, text, html, plainText, $context) {
   var inCode = $context.parent.type.spec.code;
   var dom, slice;
   if (!html && !text) return null;
-  var asText = !!text && (plainText || inCode || !html);
+  var asText = text && (plainText || inCode || !html);
   if (asText) {
     view.someProp("transformPastedText", function (f) {
       text = f(text, inCode || plainText, view);
     });
-    if (inCode) {
-      slice = new prosemirrorModel.Slice(prosemirrorModel.Fragment.from(view.state.schema.text(text.replace(/\r\n?/g, "\n"))), 0, 0);
-      view.someProp("transformPasted", function (f) {
-        slice = f(slice, view, true);
-      });
-      return slice;
-    }
+    if (inCode) return text ? new prosemirrorModel.Slice(prosemirrorModel.Fragment.from(view.state.schema.text(text.replace(/\r\n?/g, "\n"))), 0, 0) : prosemirrorModel.Slice.empty;
     var parsed = view.someProp("clipboardTextParser", function (f) {
       return f(text, $context, plainText, view);
     });
@@ -46740,7 +46738,7 @@ function parseFromClipboard(view, text, html, plainText, $context) {
     }
   }
   view.someProp("transformPasted", function (f) {
-    slice = f(slice, view, asText);
+    slice = f(slice, view);
   });
   return slice;
 }
@@ -47493,7 +47491,7 @@ editHandlers.drop = function (view, _event) {
   var slice = dragging && dragging.slice;
   if (slice) {
     view.someProp("transformPasted", function (f) {
-      slice = f(slice, view, false);
+      slice = f(slice, view);
     });
   } else {
     slice = parseFromClipboard(view, getText(event.dataTransfer), brokenClipboardAPI ? null : event.dataTransfer.getData("text/html"), false, $mouse);
