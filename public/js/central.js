@@ -30676,12 +30676,12 @@ var map = {
 		8347
 	],
 	"./purchase-order/show": [
-		16612,
-		6612
+		76284,
+		6284
 	],
 	"./purchase-order/show.vue": [
-		16612,
-		6612
+		76284,
+		6284
 	],
 	"./purchases": [
 		51945,
@@ -30748,12 +30748,12 @@ var map = {
 		9389
 	],
 	"./purchases/returns/show": [
-		46846,
-		6846
+		9616,
+		9616
 	],
 	"./purchases/returns/show.vue": [
-		46846,
-		6846
+		9616,
+		9616
 	],
 	"./purchases/show": [
 		71709,
@@ -31036,12 +31036,12 @@ var map = {
 		5346
 	],
 	"./sales/returns/show": [
-		76132,
-		6132
+		77480,
+		7480
 	],
 	"./sales/returns/show.vue": [
-		76132,
-		6132
+		77480,
+		7480
 	],
 	"./settings": [
 		67241,
