@@ -1481,9 +1481,12 @@ class PrintController extends Controller
     /**
      * Preview invoice as PDF using selected template
      */
-    public function previewInvoicePDF($slug)
+    public function previewInvoicePDF(Request $request, $slug)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         $invoice = Invoice::where('slug', $slug)
@@ -1520,9 +1523,12 @@ class PrintController extends Controller
     /**
      * Download invoice as PDF using selected template
      */
-    public function downloadInvoicePDF($slug)
+    public function downloadInvoicePDF(Request $request, $slug)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         $invoice = Invoice::where('slug', $slug)
@@ -1559,9 +1565,12 @@ class PrintController extends Controller
     /**
      * Preview purchase as PDF using selected template
      */
-    public function previewPurchasePDF($slug)
+    public function previewPurchasePDF(Request $request, $slug)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         $purchase = Purchase::where('slug', $slug)
@@ -1598,9 +1607,12 @@ class PrintController extends Controller
     /**
      * Download purchase as PDF using selected template
      */
-    public function downloadPurchasePDF($slug)
+    public function downloadPurchasePDF(Request $request, $slug)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         $purchase = Purchase::where('slug', $slug)
@@ -1637,9 +1649,12 @@ class PrintController extends Controller
     /**
      * Preview quotation as PDF using selected template
      */
-    public function previewQuotationPDF($slug)
+    public function previewQuotationPDF(Request $request, $slug)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         $quotation = Quotation::where('slug', $slug)
@@ -1674,9 +1689,12 @@ class PrintController extends Controller
     /**
      * Download quotation as PDF using selected template
      */
-    public function downloadQuotationPDF($slug)
+    public function downloadQuotationPDF(Request $request, $slug)
     {
-        $locale = \Auth::user()->locale ?? 'ar';
+        // Get user from token
+        $user = $this->getUserFromToken($request);
+
+        $locale = $user?->locale ?? 'ar';
         \App::setLocale($locale);
 
         $quotation = Quotation::where('slug', $slug)
