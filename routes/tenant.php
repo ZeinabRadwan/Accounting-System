@@ -591,6 +591,7 @@ Route::middleware([
         Route::get('/generate-itemcode', [ProductController::class, 'generateItemCode']);
         Route::get('/products-by-sub-categories/{catSlug}/{subCatSlug}', [ProductController::class, 'productsBySubCategory']);
         Route::get('/all-products-by-sub-categories/{catSlug}/{subCatSlug}', [ProductController::class, 'allProductsBySubCategory']);
+        Route::get('/products/tree', [ProductController::class, 'getTree']);
         Route::apiResource('products', ProductController::class);
         Route::get('/products/trashed', [ProductController::class, 'trashed']);
         Route::post('/products/{slug}/restore', [ProductController::class, 'restore']);

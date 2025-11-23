@@ -1244,10 +1244,11 @@
           </li>
 
           <li class="nav-header text-bold">
-            {{ $t("INVENTORY") }}
+            {{ $t("Inventory Management") }}
           </li>
           <li
             v-if="
+              $can('units-management') ||
               $can('product-category-create') ||
               $can('product-category-edit') ||
               $can('product-category-delete') ||
@@ -1258,67 +1259,130 @@
               $can('product-view') ||
               $can('product-edit') ||
               $can('product-delete') ||
-              $can('print-barcode')
+              $can('inventory-view')
             "
             class="nav-item has-treeview"
             :class="
+              menuOpen('inventorySettings') ||
+              menuOpen('units') ||
+              menuOpen('warehouses') ||
               menuOpen('productCats') ||
               menuOpen('productSubCats') ||
               menuOpen('products') ||
-              menuOpen('barcode')
+              menuOpen('itemsDirectory')
                 ? 'menu-is-opening menu-open'
                 : ''
             "
           >
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-boxes" />
+              <i class="nav-icon fas fa-cog" />
               <p>
-                {{ $t("Items") }}
+                {{ $t("Settings") }}
                 <span class="toggle-icon"></span>
               </p>
             </a>
             <ul
               class="nav nav-treeview"
               :style="
+                menuOpen('inventorySettings') ||
+                menuOpen('units') ||
+                menuOpen('warehouses') ||
                 menuOpen('productCats') ||
                 menuOpen('productSubCats') ||
                 menuOpen('products') ||
-                menuOpen('barcode')
+                menuOpen('itemsDirectory')
                   ? 'display: block'
                   : 'display: none'
               "
             >
               <li
-                v-if="
-                  $can('product-category-create') ||
-                  $can('product-category-edit') ||
-                  $can('product-category-delete')
-                "
+                v-if="$can('units-management')"
                 class="nav-item"
               >
                 <router-link
-                  :to="{ name: 'productCats.index' }"
+                  :to="{ name: 'units.index' }"
                   class="nav-link"
                 >
-                  <i class="fas fa-tags nav-icon" />
-                  <p>{{ $t("Categories") }}</p>
+                  <i class="fas fa-balance-scale nav-icon" />
+                  <p>{{ $t("Units of Measurement") }}</p>
+                </router-link>
+              </li>
+              <li
+                v-if="$can('inventory-view')"
+                class="nav-item"
+              >
+                <router-link
+                  :to="{ name: 'inventory.warehouses.index' }"
+                  class="nav-link"
+                >
+                  <i class="fas fa-warehouse nav-icon" />
+                  <p>{{ $t("Warehouses") }}</p>
                 </router-link>
               </li>
               <li
                 v-if="
+                  $can('product-category-create') ||
+                  $can('product-category-edit') ||
+                  $can('product-category-delete') ||
                   $can('product-sub-category-create') ||
                   $can('product-sub-category-edit') ||
                   $can('product-sub-category-delete')
                 "
-                class="nav-item"
+                class="nav-item has-treeview"
+                :class="
+                  menuOpen('productCats') || menuOpen('productSubCats')
+                    ? 'menu-is-opening menu-open'
+                    : ''
+                "
               >
-                <router-link
-                  :to="{ name: 'productSubCats.index' }"
-                  class="nav-link"
+                <a href="#" class="nav-link">
+                  <i class="fas fa-tags nav-icon" />
+                  <p>
+                    {{ $t("Item Categories") }}
+                    <span class="toggle-icon"></span>
+                  </p>
+                </a>
+                <ul
+                  class="nav nav-treeview"
+                  :style="
+                    menuOpen('productCats') || menuOpen('productSubCats')
+                      ? 'display: block'
+                      : 'display: none'
+                  "
                 >
-                  <i class="fas fa-code-branch nav-icon" />
-                  <p>{{ $t("Sub Categories") }}</p>
-                </router-link>
+                  <li
+                    v-if="
+                      $can('product-category-create') ||
+                      $can('product-category-edit') ||
+                      $can('product-category-delete')
+                    "
+                    class="nav-item"
+                  >
+                    <router-link
+                      :to="{ name: 'productCats.index' }"
+                      class="nav-link"
+                    >
+                      <i class="fas fa-tags nav-icon" />
+                      <p>{{ $t("Categories") }}</p>
+                    </router-link>
+                  </li>
+                  <li
+                    v-if="
+                      $can('product-sub-category-create') ||
+                      $can('product-sub-category-edit') ||
+                      $can('product-sub-category-delete')
+                    "
+                    class="nav-item"
+                  >
+                    <router-link
+                      :to="{ name: 'productSubCats.index' }"
+                      class="nav-link"
+                    >
+                      <i class="fas fa-code-branch nav-icon" />
+                      <p>{{ $t("Sub Categories") }}</p>
+                    </router-link>
+                  </li>
+                </ul>
               </li>
               <li
                 v-if="
@@ -1331,85 +1395,80 @@
               >
                 <router-link :to="{ name: 'products.index' }" class="nav-link">
                   <i class="fas fa-list-ul nav-icon" />
-                  <p>{{ $t("Item List") }}</p>
+                  <p>{{ $t("Items") }}</p>
                 </router-link>
               </li>
-
-              <li v-if="$can('print-barcode')" class="nav-item">
-                <router-link :to="{ name: 'barcode.print' }" class="nav-link">
-                  <i class="fas fa-barcode nav-icon" />
-                  <p>{{ $t("Barcode") }}</p>
+              <li
+                v-if="$can('inventory-view')"
+                class="nav-item"
+              >
+                <router-link
+                  :to="{ name: 'inventory.itemsDirectory.index' }"
+                  class="nav-link"
+                >
+                  <i class="fas fa-book nav-icon" />
+                  <p>{{ $t("Items Directory") }}</p>
                 </router-link>
               </li>
             </ul>
           </li>
 
           <li
+            v-if="$can('inventory-view')"
+            class="nav-item"
+          >
+            <router-link
+              :to="{ name: 'inventory.operations.index' }"
+              class="nav-link"
+            >
+              <i class="nav-icon fas fa-tasks" />
+              <p>{{ $t("Operations") }}</p>
+            </router-link>
+          </li>
+
+          <li
             v-if="
-              $can('inventory') ||
-              $can('adjustment-create') ||
-              $can('adjustment-view') ||
-              $can('adjustment-edit') ||
-              $can('adjustment-delete')
+              $can('item-report') ||
+              $can('inventory-report')
             "
             class="nav-item has-treeview"
-            :class="
-              menuOpen('inventory') || menuOpen('adjustments')
-                ? 'menu-is-opening menu-open'
-                : ''
-            "
+            :class="menuOpen('inventoryReports') ? 'menu-is-opening menu-open' : ''"
           >
-            <a href="" class="nav-link">
-              <i class="nav-icon fas fa-warehouse" />
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-chart-bar" />
               <p>
-                {{ $t("Inventory") }}
+                {{ $t("Reports") }}
                 <span class="toggle-icon"></span>
               </p>
             </a>
             <ul
               class="nav nav-treeview"
-              :style="
-                menuOpen('inventory') || menuOpen('adjustments')
-                  ? 'display: block'
-                  : 'display: none'
-              "
+              :style="menuOpen('inventoryReports') ? 'display: block' : 'display: none'"
             >
-              <li v-if="$can('inventory-history')" class="nav-item">
-                <router-link :to="{ name: 'inventory.index' }" class="nav-link">
-                  <i class="fas fa-pallet nav-icon" />
-                  <p>{{ $t("View Inventory") }}</p>
+              <li v-if="$can('item-report')" class="nav-item">
+                <router-link :to="{ name: 'reports.items' }" class="nav-link">
+                  <p>{{ $t("Item Report") }}</p>
                 </router-link>
               </li>
-              <li v-if="$can('inventory-history')" class="nav-item">
-                <router-link :to="{ name: 'inventory.history-general' }" class="nav-link">
-                  <i class="fas fa-history nav-icon" />
-                  <p>{{ $t("Inventory History") }}</p>
-                </router-link>
-              </li>
-              <li v-if="$can('inventory-view')" class="nav-item">
-                <router-link :to="{ name: 'inventory.count' }" class="nav-link">
-                  <i class="fas fa-clipboard-check nav-icon" />
-                  <p>{{ $t("Inventory Count") }}</p>
-                </router-link>
-              </li>
-              <li
-                v-if="
-                  $can('adjustment-create') ||
-                  $can('adjustment-view') ||
-                  $can('adjustment-edit') ||
-                  $can('adjustment-delete')
-                "
-                class="nav-item"
-              >
+              <li v-if="$can('inventory-report')" class="nav-item">
                 <router-link
-                  :to="{ name: 'adjustments.index' }"
+                  :to="{ name: 'reports.inventory' }"
                   class="nav-link"
                 >
-                  <i class="fas fa-sliders-h nav-icon" />
-                  <p>{{ $t("Inventory Adjustment") }}</p>
+                  <p>{{ $t("Inventory Report") }}</p>
                 </router-link>
               </li>
             </ul>
+          </li>
+
+          <li
+            v-if="$can('inventory-view')"
+            class="nav-item"
+          >
+            <router-link :to="{ name: 'inventory.count' }" class="nav-link">
+              <i class="nav-icon fas fa-clipboard-check" />
+              <p>{{ $t("Inventory Count") }}</p>
+            </router-link>
           </li>
 
           <li class="nav-header text-bold" v-if="!$isPOS()">{{ $t("REPORTS") }}</li>
@@ -1422,8 +1481,6 @@
               $can('summary-report') ||
               $can('profit-loss') ||
               $can('expense-report') ||
-              $can('item-report') ||
-              $can('inventory-report') ||
               $can('sales-by-user-report') ||
               $can('collection-by-user-report')
             )"
@@ -1524,19 +1581,6 @@
                   class="nav-link"
                 >
                   <p>{{ $t("Expense Report") }}</p>
-                </router-link>
-              </li>
-              <li v-if="$can('item-report')" class="nav-item">
-                <router-link :to="{ name: 'reports.items' }" class="nav-link">
-                  <p>{{ $t("Item Report") }}</p>
-                </router-link>
-              </li>
-              <li v-if="$can('inventory-report')" class="nav-item">
-                <router-link
-                  :to="{ name: 'reports.inventory' }"
-                  class="nav-link"
-                >
-                  <p>{{ $t("Inventory Report") }}</p>
                 </router-link>
               </li>
               <li v-if="$can('balance-sheet')" class="nav-item">

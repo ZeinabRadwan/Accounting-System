@@ -29,7 +29,7 @@
 
               <!-- Expand/Collapse Icon -->
               <div v-if="item.hasChildren" class="tree-item-expand-icon" @click.stop="onToggleExpand(item.id)">
-                <i :class="item.expanded ? 'fas fa-chevron-down' : 'fas fa-chevron-right'"></i>
+                <i :class="item.expanded ? 'fas fa-chevron-down' : (isRTL ? 'fas fa-chevron-left' : 'fas fa-chevron-right')"></i>
               </div>
               <div v-else class="tree-item-expand-icon tree-item-expand-placeholder"></div>
 
@@ -101,6 +101,42 @@
               </span>
             </div>
           </div>
+
+          <!-- Account Balance Section -->
+          <div v-if="accountBalanceData || loadingBalance" class="balance-section">
+            <div class="balance-section-header">
+              <h4 class="balance-section-title">
+                <i class="fas fa-calculator"></i>
+                {{ $t('Account Balance') }}
+              </h4>
+            </div>
+            <div v-if="loadingBalance" class="balance-loading">
+              <i class="fas fa-spinner fa-spin"></i>
+              <span>{{ $t('Loading...') }}</span>
+            </div>
+            <div v-else-if="accountBalanceData" class="balance-details">
+              <div class="balance-detail-row">
+                <span class="balance-detail-label">{{ $t('Total Debits') }}</span>
+                <span class="balance-detail-value balance-debit-value">
+                  {{ accountBalanceData.formatted_debit_amount || '0.00' }}
+                </span>
+              </div>
+              <div class="balance-detail-row">
+                <span class="balance-detail-label">{{ $t('Total Credits') }}</span>
+                <span class="balance-detail-value balance-credit-value">
+                  {{ accountBalanceData.formatted_credit_amount || '0.00' }}
+                </span>
+              </div>
+              <div class="balance-divider"></div>
+              <div class="balance-detail-row balance-total-row">
+                <span class="balance-detail-label">{{ $t('Current Balance') }}</span>
+                <span class="balance-detail-value balance-total-value" 
+                      :class="accountBalanceData.balance_type === 'Debit' ? 'balance-debit-total' : 'balance-credit-total'">
+                  {{ accountBalanceData.formatted_balance_with_type || '0.00 ' + $t('Debit') }}
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -153,6 +189,8 @@ export default {
     return {
       isRTL: false,
       selectedAccount: null,
+      accountBalanceData: null,
+      loadingBalance: false,
       searchQuery: '',
     };
   },
@@ -237,16 +275,36 @@ export default {
         }
       }
     },
-    handleItemClick(item) {
+    async handleItemClick(item) {
       // Select the account to show details
       this.selectedAccount = item;
       this.$emit('select-account', item);
+      
+      // Fetch full account details with balance
+      await this.fetchAccountBalance(item.code);
+    },
+    async fetchAccountBalance(accountCode) {
+      if (!accountCode) {
+        return;
+      }
+      
+      try {
+        this.loadingBalance = true;
+        const response = await this.$axios.get(`/api/chart-of-accounts/${accountCode}`);
+        this.accountBalanceData = response.data.data;
+      } catch (error) {
+        console.error('Error fetching account balance:', error);
+        this.accountBalanceData = null;
+      } finally {
+        this.loadingBalance = false;
+      }
     },
     onToggleExpand(itemId) {
       this.$emit('toggle-expand', itemId);
     },
     closeDetails() {
       this.selectedAccount = null;
+      this.accountBalanceData = null;
       this.$emit('select-account', null);
     },
     getVerticalLineStyle(item, parentLevel) {
@@ -316,7 +374,7 @@ export default {
 /* ===== Split Layout ===== */
 .tree-split-layout {
   display: grid;
-  grid-template-columns: 2fr 320px;
+  grid-template-columns: 3fr 2fr;
   gap: 0;
   background: #fff;
   border-radius: 8px;
@@ -324,10 +382,11 @@ export default {
   border: 1px solid #e9ecef;
   min-height: 600px;
   max-height: calc(100vh - 200px);
+  height: calc(100vh - 200px);
 }
 
 [dir="rtl"] .tree-split-layout {
-  grid-template-columns: 320px 2fr;
+  grid-template-columns: 2fr 3fr;
 }
 
 .tree-panel {
@@ -336,6 +395,8 @@ export default {
   border-right: 1px solid #e9ecef;
   background: #fff;
   overflow: hidden;
+  min-height: 0;
+  height: 100%;
 }
 
 [dir="rtl"] .tree-panel {
@@ -396,6 +457,9 @@ export default {
   overflow-x: visible;
   background: #fff;
   position: relative;
+  min-height: 0;
+  max-height: 100%;
+  height: 0; /* This allows flex to work properly with overflow */
 }
 
 /* ===== Tree List ===== */
@@ -816,14 +880,113 @@ export default {
   border: 1px solid #FFCDD2;
 }
 
+/* ===== Account Balance Section ===== */
+.balance-section {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 2px solid #e9ecef;
+}
+
+.balance-section-header {
+  margin-bottom: 16px;
+}
+
+.balance-section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #495057;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.balance-section-title i {
+  color: #2AB930;
+  font-size: 16px;
+}
+
+.balance-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.balance-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.balance-detail-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #6c757d;
+}
+
+.balance-detail-value {
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.balance-debit-value {
+  color: #28a745;
+}
+
+.balance-credit-value {
+  color: #dc3545;
+}
+
+.balance-divider {
+  height: 1px;
+  background: #e9ecef;
+  margin: 4px 0;
+}
+
+.balance-total-row {
+  background: #f8f9fa;
+  margin: 0 -20px;
+  padding: 12px 20px;
+  border-top: 2px solid #e9ecef;
+  font-weight: 600;
+}
+
+.balance-total-value {
+  font-size: 14px;
+}
+
+.balance-debit-total {
+  color: #28a745;
+}
+
+.balance-credit-total {
+  color: #dc3545;
+}
+
+.balance-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.balance-loading i {
+  font-size: 16px;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 1024px) {
   .tree-split-layout {
-    grid-template-columns: 2fr 280px;
+    grid-template-columns: 3fr 2fr;
   }
 
   [dir="rtl"] .tree-split-layout {
-    grid-template-columns: 280px 2fr;
+    grid-template-columns: 2fr 3fr;
   }
 }
 

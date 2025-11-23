@@ -32,7 +32,7 @@ class ProductController extends Controller
     // define middleware
     public function __construct()
     {
-        $this->middleware('can:product-list', ['only' => ['index', 'search']]);
+        $this->middleware('can:product-list', ['only' => ['index', 'search', 'getTree']]);
         $this->middleware('can:product-create', ['only' => ['create']]);
         $this->middleware('can:product-view', ['only' => ['show']]);
         $this->middleware('can:product-edit', ['only' => ['update']]);
@@ -807,6 +807,137 @@ class ProductController extends Controller
         }
 
         return ProductResource::collection($products);
+    }
+
+    /**
+     * Get products tree structure for items directory
+     * Returns categories, subcategories, and products in a unified tree format
+     */
+    public function getTree(Request $request)
+    {
+        try {
+            $user = Auth::user();
+            $search = $request->input('search');
+
+            // Get current branch ID - prioritize app context, then session, then user default
+            $currentBranchId = null;
+            if (app()->has('current_branch_id')) {
+                $currentBranchId = app('current_branch_id');
+            } else {
+                $currentBranchId = session('current_branch_id') 
+                    ?? $user->default_branch_id 
+                    ?? null;
+            }
+            
+            // Use only the current branch ID, not all user branches
+            $branchIds = $currentBranchId ? [(int) $currentBranchId] : [0];
+
+            // Get all categories - filter by current branch only
+            $categories = ProductCategory::whereIn('branch_id', $branchIds)
+                ->when($search, function ($query) use ($search) {
+                    $query->where('name', 'LIKE', '%' . $search . '%');
+                })
+                ->orderBy('name', 'asc')
+                ->get();
+
+            // Get all subcategories - filter by current branch only
+            $subCategories = ProductSubCategory::whereIn('branch_id', $branchIds)
+                ->when($search, function ($query) use ($search) {
+                    $query->where('name', 'LIKE', '%' . $search . '%');
+                })
+                ->orderBy('name', 'asc')
+                ->get();
+
+            // Get all products - filter by current branch only
+            $products = Product::whereIn('branch_id', $branchIds)
+                ->when($search, function ($query) use ($search) {
+                    $query->where(function ($q) use ($search) {
+                        $q->where('name', 'LIKE', '%' . $search . '%')
+                            ->orWhere('code', 'LIKE', '%' . $search . '%')
+                            ->orWhere('model', 'LIKE', '%' . $search . '%');
+                    });
+                })
+                ->orderBy('name', 'asc')
+                ->get();
+
+            $treeItems = collect();
+
+            // Add categories
+            foreach ($categories as $category) {
+                $subCatsCount = $subCategories->where('cat_id', $category->id)->count();
+                $treeItems->push([
+                    'id' => 'cat_' . $category->id,
+                    'name' => $category->name,
+                    'type' => 'category',
+                    'parent_id' => null,
+                    'children_count' => $subCatsCount,
+                    'original_id' => $category->id,
+                    'slug' => $category->slug,
+                    'status' => $category->status,
+                ]);
+            }
+
+            // Add subcategories
+            foreach ($subCategories as $subCategory) {
+                $productsCount = $products->where('sub_cat_id', $subCategory->id)->count();
+                $treeItems->push([
+                    'id' => 'subcat_' . $subCategory->id,
+                    'name' => $subCategory->name,
+                    'type' => 'subcategory',
+                    'parent_id' => 'cat_' . $subCategory->cat_id,
+                    'children_count' => $productsCount,
+                    'original_id' => $subCategory->id,
+                    'slug' => $subCategory->slug,
+                    'status' => $subCategory->status,
+                ]);
+            }
+
+            // Add products
+            foreach ($products as $product) {
+                // Determine parent_id based on sub_cat_id
+                $parentId = null;
+                if ($product->sub_cat_id) {
+                    // Product belongs to a subcategory
+                    $parentId = 'subcat_' . $product->sub_cat_id;
+                } else {
+                    // Product doesn't have a subcategory, show at root level
+                    $parentId = null;
+                }
+                
+                $treeItems->push([
+                    'id' => 'prod_' . $product->id,
+                    'name' => $product->name,
+                    'type' => 'product',
+                    'parent_id' => $parentId,
+                    'children_count' => 0,
+                    'original_id' => $product->id,
+                    'slug' => $product->slug,
+                    'code' => $product->code,
+                    'status' => $product->status,
+                ]);
+            }
+
+            $treeData = $treeItems->values()->all();
+            
+            // Log for debugging
+            Log::info('Products tree data', [
+                'categories_count' => $categories->count(),
+                'subcategories_count' => $subCategories->count(),
+                'products_count' => $products->count(),
+                'tree_items_count' => count($treeData),
+                'branch_ids' => $branchIds,
+            ]);
+            
+            return $this->responseWithSuccess('Products tree retrieved successfully', $treeData);
+        } catch (Exception $e) {
+            Log::error('Error loading products tree: ' . $e->getMessage(), [
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+            
+            return $this->responseWithError('Error loading products tree: ' . $e->getMessage());
+        }
     }
 
     // return all products by sub category

@@ -1301,6 +1301,30 @@ export default [
     meta: {permissions: ['adjustment-edit']},
   },
 
+  // Inventory Management - Warehouses
+  {
+    path: '/inventory/warehouses',
+    name: 'inventory.warehouses.index',
+    component: page('inventory/warehouses/index.vue'),
+    meta: {permissions: ['inventory-view']},
+  },
+
+  // Inventory Management - Items Directory
+  {
+    path: '/inventory/items-directory',
+    name: 'inventory.itemsDirectory.index',
+    component: page('inventory/items-directory/index.vue'),
+    meta: {permissions: ['inventory-view']},
+  },
+
+  // Inventory Management - Operations
+  {
+    path: '/inventory/operations',
+    name: 'inventory.operations.index',
+    component: page('inventory/operations/index.vue'),
+    meta: {permissions: ['inventory-view']},
+  },
+
   // Report Routes
   {
     path: "/reports/sales-by-user-report",

@@ -47,6 +47,7 @@ export default {
             include_translations: true,
             include: "type",
             include_type_translations: true,
+            include_balance: true,
             perPage: 1000,
           }),
           searchParams: ({ locale }) => ({
