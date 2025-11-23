@@ -1,7 +1,7 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[7597],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[6425],{
 
-/***/ 21025:
+/***/ 4692:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -13,14 +13,14 @@
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".tree-split-layout[data-v-14c856b7]{background:#fff;border:1px solid #e9ecef;border-radius:8px;display:grid;gap:0;grid-template-columns:2fr 320px;max-height:calc(100vh - 200px);min-height:600px;overflow:hidden}[dir=rtl] .tree-split-layout[data-v-14c856b7]{grid-template-columns:320px 2fr}.tree-panel[data-v-14c856b7]{background:#fff;border-right:1px solid #e9ecef;display:flex;flex-direction:column;overflow:hidden}[dir=rtl] .tree-panel[data-v-14c856b7]{border-left:1px solid #e9ecef;border-right:none}.details-panel[data-v-14c856b7]{background:#f8f9fa;overflow-x:hidden;overflow-y:auto;transition:all .3s ease}.tree-search-wrapper[data-v-14c856b7]{background:#fff;border-bottom:1px solid #f0f0f0;flex-shrink:0;padding:16px 20px}.tree-search-wrapper[data-v-14c856b7] .search-area{position:relative}.tree-search-wrapper[data-v-14c856b7] .search-input{background:#f8f9fa;border:1px solid #e9ecef;border-radius:8px;color:#1a1a1a;font-size:14px;padding:10px 40px;transition:all .2s ease;width:100%}.tree-search-wrapper[data-v-14c856b7] .search-input:focus{background:#fff;border-color:#2ab930;box-shadow:0 0 0 3px rgba(42,185,48,.1);outline:none}.tree-search-wrapper[data-v-14c856b7] .search-input::-moz-placeholder{color:#adb5bd}.tree-search-wrapper[data-v-14c856b7] .search-input::placeholder{color:#adb5bd}.tree-search-wrapper[data-v-14c856b7] .search-icon{color:#6c757d}.tree-body-container[data-v-14c856b7]{background:#fff;flex:1;overflow-x:visible;overflow-y:auto;padding:8px 0;position:relative}.tree-view-list[data-v-14c856b7]{list-style:none;margin:0;padding:0}.tree-item[data-v-14c856b7],.tree-view-list[data-v-14c856b7]{overflow:visible;position:relative}.tree-item[data-v-14c856b7]{transition:all .2s ease}.tree-item-dragging[data-v-14c856b7]{opacity:.5}.tree-item-drag-over .tree-item-content[data-v-14c856b7]{background-color:#e3f2fd!important;border:1px dashed #2ab930;box-shadow:0 2px 8px rgba(42,185,48,.15)}.tree-item-selected .tree-item-content[data-v-14c856b7]{background-color:#e8f5e9!important;border-left:3px solid #2ab930}[dir=rtl] .tree-item-selected .tree-item-content[data-v-14c856b7]{border-left:none;border-right:3px solid #2ab930}.tree-vertical-line[data-v-14c856b7]{bottom:0;top:0;width:1px}.tree-horizontal-line[data-v-14c856b7],.tree-vertical-line[data-v-14c856b7]{background:#d0d0d0;pointer-events:none;position:absolute;z-index:1}.tree-horizontal-line[data-v-14c856b7]{height:1px;top:50%}.tree-item-content[data-v-14c856b7]{align-items:flex-start;background:#fff;border:none;border-radius:6px;cursor:pointer;display:flex;gap:6px;margin:2px 8px;min-height:52px;padding:12px 16px;position:relative;transition:all .15s cubic-bezier(.4,0,.2,1);z-index:2}.tree-item-content[data-v-14c856b7]:hover{background-color:#f8f9fa;transform:translateX(2px)}[dir=rtl] .tree-item-content[data-v-14c856b7]:hover{transform:translateX(-2px)}.tree-item-expand-icon[data-v-14c856b7]{align-items:center;border-radius:4px;color:#6c757d;cursor:pointer;display:flex;flex-shrink:0;height:18px;justify-content:center;margin-top:2px;transition:all .15s ease;width:18px}.tree-item-expand-icon[data-v-14c856b7]:hover{background-color:#e9ecef;color:#2ab930}.tree-item-expand-icon i[data-v-14c856b7]{font-size:11px}.tree-item-expand-placeholder[data-v-14c856b7]{cursor:default}.tree-item-expand-placeholder[data-v-14c856b7]:hover{background-color:transparent}.tree-item-icon-container[data-v-14c856b7]{align-items:center;border-radius:4px;display:flex;flex-shrink:0;height:20px;justify-content:center;margin-top:2px;transition:all .15s ease;width:20px}.tree-item-icon-container .fa-folder[data-v-14c856b7]{color:#ffb300;font-size:16px}.tree-item-icon-container .fa-folder-open[data-v-14c856b7]{color:#ff8f00;font-size:16px}.tree-item-icon-container .fa-file-invoice[data-v-14c856b7]{color:#2ab930;font-size:14px}.tree-item-info[data-v-14c856b7]{align-items:flex-start;display:flex;flex:1 1 auto;flex-direction:column;gap:4px;margin-right:8px;max-width:100%;min-width:0}[dir=rtl] .tree-item-info[data-v-14c856b7]{margin-left:8px;margin-right:0}.tree-item-name[data-v-14c856b7]{color:#1a1a1a;font-size:14px;font-weight:500;letter-spacing:-.01em;line-height:1.5;min-width:150px;overflow-wrap:break-word;white-space:normal;width:100%}.tree-item-code[data-v-14c856b7]{background:#f3f4f6;border-radius:4px;color:#6b7280;flex-shrink:0;font-family:Courier New,monospace;font-size:12px;font-weight:400;padding:2px 8px;white-space:nowrap}.tree-item-actions[data-v-14c856b7]{align-items:center;background:#fff;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,.1);display:flex;flex-shrink:0;gap:2px;margin-left:auto;opacity:0;overflow:hidden;padding:2px;transition:opacity .2s ease}[dir=rtl] .tree-item-actions[data-v-14c856b7]{margin-left:0;margin-right:auto}.tree-item:hover .tree-item-actions[data-v-14c856b7]{opacity:1}.tree-item-actions[data-v-14c856b7] .tree-action-btn{align-items:center;background:transparent;border:none;border-radius:4px;color:#666;cursor:pointer;display:flex;font-size:13px;height:28px;justify-content:center;position:relative;text-decoration:none;transition:all .15s ease;width:28px}.tree-item-actions[data-v-14c856b7] .tree-action-btn:hover{background:#f5f5f5;color:#1a1a1a}.tree-item-actions[data-v-14c856b7] .tree-action-btn:active{transform:scale(.95)}.tree-item-actions[data-v-14c856b7] .tree-action-btn.disabled{cursor:not-allowed;opacity:.4;pointer-events:none}.tree-item-actions[data-v-14c856b7] .tree-action-view{color:#2196f3}.tree-item-actions[data-v-14c856b7] .tree-action-view:hover{background:#e3f2fd;color:#1976d2}.tree-item-actions[data-v-14c856b7] .tree-action-edit{color:#ff9800}.tree-item-actions[data-v-14c856b7] .tree-action-edit:hover{background:#fff3e0;color:#f57c00}.tree-item-actions[data-v-14c856b7] .tree-action-add{color:#2ab930}.tree-item-actions[data-v-14c856b7] .tree-action-add:hover{background:#e8f5e9;color:#1b5e20}.tree-item-actions[data-v-14c856b7] .tree-action-delete{color:#f44336}.tree-item-actions[data-v-14c856b7] .tree-action-delete:hover{background:#ffebee;color:#c62828}.details-panel[data-v-14c856b7]{padding:20px}.details-empty[data-v-14c856b7]{align-items:center;color:#9ca3af;display:flex;flex-direction:column;height:100%;justify-content:center;padding:40px 20px}.details-empty-icon[data-v-14c856b7]{font-size:48px;margin-bottom:16px;opacity:.5}.details-empty-text[data-v-14c856b7]{font-size:14px;margin:0;text-align:center}.account-details-card[data-v-14c856b7]{animation:slideIn-14c856b7 .3s ease-out;background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.08);overflow:hidden}@keyframes slideIn-14c856b7{0%{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}.details-header[data-v-14c856b7]{align-items:center;background:#f8f9fa;border-bottom:1px solid #e9ecef;display:flex;justify-content:space-between;padding:16px 20px}.details-title[data-v-14c856b7]{color:#1a1a1a;font-size:16px;font-weight:600;margin:0}.details-close-btn[data-v-14c856b7]{align-items:center;background:transparent;border:none;border-radius:4px;color:#6c757d;cursor:pointer;display:flex;height:32px;justify-content:center;transition:all .15s ease;width:32px}.details-close-btn[data-v-14c856b7]:hover{background:#e9ecef;color:#1a1a1a}.details-body[data-v-14c856b7]{padding:20px}.detail-item[data-v-14c856b7]{margin-bottom:16px}.detail-item[data-v-14c856b7]:last-child{margin-bottom:0}.detail-label[data-v-14c856b7]{color:#6c757d;display:block;font-size:12px;font-weight:600;letter-spacing:.5px;margin-bottom:6px;text-transform:uppercase}.detail-value[data-v-14c856b7]{word-wrap:break-word;color:#1a1a1a;font-size:14px;font-weight:500}.detail-code[data-v-14c856b7]{background:#f3f4f6;border-radius:4px;color:#2ab930;font-family:Courier New,monospace;padding:6px 10px}.detail-code[data-v-14c856b7],.status-badge[data-v-14c856b7]{display:inline-block;font-weight:600}.status-badge[data-v-14c856b7]{border-radius:12px;font-size:12px;letter-spacing:.5px;padding:4px 12px;text-transform:uppercase}.status-active[data-v-14c856b7]{background:#e8f5e9;border:1px solid #c8e6c9;color:#2ab930}.status-inactive[data-v-14c856b7]{background:#ffebee;border:1px solid #ffcdd2;color:#f44336}@media (max-width:1024px){.tree-split-layout[data-v-14c856b7]{grid-template-columns:2fr 280px}[dir=rtl] .tree-split-layout[data-v-14c856b7]{grid-template-columns:280px 2fr}}@media (max-width:768px){.tree-split-layout[data-v-14c856b7]{grid-template-rows:1fr auto}.tree-split-layout[data-v-14c856b7],[dir=rtl] .tree-split-layout[data-v-14c856b7]{grid-template-columns:1fr}.tree-panel[data-v-14c856b7]{border-bottom:1px solid #e9ecef;border-right:none}[dir=rtl] .tree-panel[data-v-14c856b7]{border-bottom:1px solid #e9ecef;border-left:none}.details-panel[data-v-14c856b7]{max-height:300px}.tree-item-actions[data-v-14c856b7]{opacity:1}.tree-body-container[data-v-14c856b7]{max-height:calc(100vh - 400px)}}.details-panel[data-v-14c856b7]::-webkit-scrollbar,.tree-body-container[data-v-14c856b7]::-webkit-scrollbar{width:6px}.details-panel[data-v-14c856b7]::-webkit-scrollbar-track,.tree-body-container[data-v-14c856b7]::-webkit-scrollbar-track{background:#fafafa;border-radius:3px}.details-panel[data-v-14c856b7]::-webkit-scrollbar-thumb,.tree-body-container[data-v-14c856b7]::-webkit-scrollbar-thumb{background:#d0d0d0;border-radius:3px;-webkit-transition:background .2s ease;transition:background .2s ease}.details-panel[data-v-14c856b7]::-webkit-scrollbar-thumb:hover,.tree-body-container[data-v-14c856b7]::-webkit-scrollbar-thumb:hover{background:#b0b0b0}.tree-item[draggable=true] .tree-item-content[data-v-14c856b7]{cursor:grab}.tree-item[draggable=true] .tree-item-content[data-v-14c856b7]:active{cursor:grabbing}@keyframes fadeIn-14c856b7{0%{opacity:0}to{opacity:1}}.tree-item[data-v-14c856b7]{animation:fadeIn-14c856b7 .2s ease-out}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".tree-split-layout[data-v-30babe2d]{background:#fff;border:1px solid #e9ecef;border-radius:8px;display:grid;gap:0;grid-template-columns:3fr 2fr;height:calc(100vh - 200px);max-height:calc(100vh - 200px);min-height:600px;overflow:hidden}[dir=rtl] .tree-split-layout[data-v-30babe2d]{grid-template-columns:2fr 3fr}.tree-panel[data-v-30babe2d]{background:#fff;border-right:1px solid #e9ecef;display:flex;flex-direction:column;height:100%;min-height:0;overflow:hidden}[dir=rtl] .tree-panel[data-v-30babe2d]{border-left:1px solid #e9ecef;border-right:none}.details-panel[data-v-30babe2d]{background:#f8f9fa;overflow-x:hidden;overflow-y:auto;transition:all .3s ease}.tree-search-wrapper[data-v-30babe2d]{background:#fff;border-bottom:1px solid #f0f0f0;flex-shrink:0;padding:16px 20px}.tree-search-wrapper[data-v-30babe2d] .search-area{position:relative}.tree-search-wrapper[data-v-30babe2d] .search-input{background:#f8f9fa;border:1px solid #e9ecef;border-radius:8px;color:#1a1a1a;font-size:14px;padding:10px 40px;transition:all .2s ease;width:100%}.tree-search-wrapper[data-v-30babe2d] .search-input:focus{background:#fff;border-color:#2ab930;box-shadow:0 0 0 3px rgba(42,185,48,.1);outline:none}.tree-search-wrapper[data-v-30babe2d] .search-input::-moz-placeholder{color:#adb5bd}.tree-search-wrapper[data-v-30babe2d] .search-input::placeholder{color:#adb5bd}.tree-search-wrapper[data-v-30babe2d] .search-icon{color:#6c757d}.tree-body-container[data-v-30babe2d]{background:#fff;flex:1;height:0;max-height:100%;min-height:0;overflow-x:visible;overflow-y:auto;padding:8px 0;position:relative}.tree-view-list[data-v-30babe2d]{list-style:none;margin:0;padding:0}.tree-item[data-v-30babe2d],.tree-view-list[data-v-30babe2d]{overflow:visible;position:relative}.tree-item[data-v-30babe2d]{transition:all .2s ease}.tree-item-dragging[data-v-30babe2d]{opacity:.5}.tree-item-drag-over .tree-item-content[data-v-30babe2d]{background-color:#e3f2fd!important;border:1px dashed #2ab930;box-shadow:0 2px 8px rgba(42,185,48,.15)}.tree-item-selected .tree-item-content[data-v-30babe2d]{background-color:#e8f5e9!important;border-left:3px solid #2ab930}[dir=rtl] .tree-item-selected .tree-item-content[data-v-30babe2d]{border-left:none;border-right:3px solid #2ab930}.tree-vertical-line[data-v-30babe2d]{bottom:0;top:0;width:1px}.tree-horizontal-line[data-v-30babe2d],.tree-vertical-line[data-v-30babe2d]{background:#d0d0d0;pointer-events:none;position:absolute;z-index:1}.tree-horizontal-line[data-v-30babe2d]{height:1px;top:50%}.tree-item-content[data-v-30babe2d]{align-items:flex-start;background:#fff;border:none;border-radius:6px;cursor:pointer;display:flex;gap:6px;margin:2px 8px;min-height:52px;padding:12px 16px;position:relative;transition:all .15s cubic-bezier(.4,0,.2,1);z-index:2}.tree-item-content[data-v-30babe2d]:hover{background-color:#f8f9fa;transform:translateX(2px)}[dir=rtl] .tree-item-content[data-v-30babe2d]:hover{transform:translateX(-2px)}.tree-item-expand-icon[data-v-30babe2d]{align-items:center;border-radius:4px;color:#6c757d;cursor:pointer;display:flex;flex-shrink:0;height:18px;justify-content:center;margin-top:2px;transition:all .15s ease;width:18px}.tree-item-expand-icon[data-v-30babe2d]:hover{background-color:#e9ecef;color:#2ab930}.tree-item-expand-icon i[data-v-30babe2d]{font-size:11px}.tree-item-expand-placeholder[data-v-30babe2d]{cursor:default}.tree-item-expand-placeholder[data-v-30babe2d]:hover{background-color:transparent}.tree-item-icon-container[data-v-30babe2d]{align-items:center;border-radius:4px;display:flex;flex-shrink:0;height:20px;justify-content:center;margin-top:2px;transition:all .15s ease;width:20px}.tree-item-icon-container .fa-folder[data-v-30babe2d]{color:#ffb300;font-size:16px}.tree-item-icon-container .fa-folder-open[data-v-30babe2d]{color:#ff8f00;font-size:16px}.tree-item-icon-container .fa-file-invoice[data-v-30babe2d]{color:#2ab930;font-size:14px}.tree-item-info[data-v-30babe2d]{align-items:flex-start;display:flex;flex:1 1 auto;flex-direction:column;gap:4px;margin-right:8px;max-width:100%;min-width:0}[dir=rtl] .tree-item-info[data-v-30babe2d]{margin-left:8px;margin-right:0}.tree-item-name[data-v-30babe2d]{color:#1a1a1a;font-size:14px;font-weight:500;letter-spacing:-.01em;line-height:1.5;min-width:150px;overflow-wrap:break-word;white-space:normal;width:100%}.tree-item-code[data-v-30babe2d]{background:#f3f4f6;border-radius:4px;color:#6b7280;flex-shrink:0;font-family:Courier New,monospace;font-size:12px;font-weight:400;padding:2px 8px;white-space:nowrap}.tree-item-actions[data-v-30babe2d]{align-items:center;background:#fff;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,.1);display:flex;flex-shrink:0;gap:2px;margin-left:auto;opacity:0;overflow:hidden;padding:2px;transition:opacity .2s ease}[dir=rtl] .tree-item-actions[data-v-30babe2d]{margin-left:0;margin-right:auto}.tree-item:hover .tree-item-actions[data-v-30babe2d]{opacity:1}.tree-item-actions[data-v-30babe2d] .tree-action-btn{align-items:center;background:transparent;border:none;border-radius:4px;color:#666;cursor:pointer;display:flex;font-size:13px;height:28px;justify-content:center;position:relative;text-decoration:none;transition:all .15s ease;width:28px}.tree-item-actions[data-v-30babe2d] .tree-action-btn:hover{background:#f5f5f5;color:#1a1a1a}.tree-item-actions[data-v-30babe2d] .tree-action-btn:active{transform:scale(.95)}.tree-item-actions[data-v-30babe2d] .tree-action-btn.disabled{cursor:not-allowed;opacity:.4;pointer-events:none}.tree-item-actions[data-v-30babe2d] .tree-action-view{color:#2196f3}.tree-item-actions[data-v-30babe2d] .tree-action-view:hover{background:#e3f2fd;color:#1976d2}.tree-item-actions[data-v-30babe2d] .tree-action-edit{color:#ff9800}.tree-item-actions[data-v-30babe2d] .tree-action-edit:hover{background:#fff3e0;color:#f57c00}.tree-item-actions[data-v-30babe2d] .tree-action-add{color:#2ab930}.tree-item-actions[data-v-30babe2d] .tree-action-add:hover{background:#e8f5e9;color:#1b5e20}.tree-item-actions[data-v-30babe2d] .tree-action-delete{color:#f44336}.tree-item-actions[data-v-30babe2d] .tree-action-delete:hover{background:#ffebee;color:#c62828}.details-panel[data-v-30babe2d]{padding:20px}.details-empty[data-v-30babe2d]{align-items:center;color:#9ca3af;display:flex;flex-direction:column;height:100%;justify-content:center;padding:40px 20px}.details-empty-icon[data-v-30babe2d]{font-size:48px;margin-bottom:16px;opacity:.5}.details-empty-text[data-v-30babe2d]{font-size:14px;margin:0;text-align:center}.account-details-card[data-v-30babe2d]{animation:slideIn-30babe2d .3s ease-out;background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.08);overflow:hidden}@keyframes slideIn-30babe2d{0%{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}.details-header[data-v-30babe2d]{align-items:center;background:#f8f9fa;border-bottom:1px solid #e9ecef;display:flex;justify-content:space-between;padding:16px 20px}.details-title[data-v-30babe2d]{color:#1a1a1a;font-size:16px;font-weight:600;margin:0}.details-close-btn[data-v-30babe2d]{align-items:center;background:transparent;border:none;border-radius:4px;color:#6c757d;cursor:pointer;display:flex;height:32px;justify-content:center;transition:all .15s ease;width:32px}.details-close-btn[data-v-30babe2d]:hover{background:#e9ecef;color:#1a1a1a}.details-body[data-v-30babe2d]{padding:20px}.detail-item[data-v-30babe2d]{margin-bottom:16px}.detail-item[data-v-30babe2d]:last-child{margin-bottom:0}.detail-label[data-v-30babe2d]{color:#6c757d;display:block;font-size:12px;font-weight:600;letter-spacing:.5px;margin-bottom:6px;text-transform:uppercase}.detail-value[data-v-30babe2d]{word-wrap:break-word;color:#1a1a1a;font-size:14px;font-weight:500}.detail-code[data-v-30babe2d]{background:#f3f4f6;border-radius:4px;color:#2ab930;font-family:Courier New,monospace;padding:6px 10px}.detail-code[data-v-30babe2d],.status-badge[data-v-30babe2d]{display:inline-block;font-weight:600}.status-badge[data-v-30babe2d]{border-radius:12px;font-size:12px;letter-spacing:.5px;padding:4px 12px;text-transform:uppercase}.status-active[data-v-30babe2d]{background:#e8f5e9;border:1px solid #c8e6c9;color:#2ab930}.status-inactive[data-v-30babe2d]{background:#ffebee;border:1px solid #ffcdd2;color:#f44336}.balance-section[data-v-30babe2d]{border-top:2px solid #e9ecef;margin-top:24px;padding-top:20px}.balance-section-header[data-v-30babe2d]{margin-bottom:16px}.balance-section-title[data-v-30babe2d]{align-items:center;color:#495057;display:flex;font-size:14px;font-weight:600;gap:8px;margin:0}.balance-section-title i[data-v-30babe2d]{color:#2ab930;font-size:16px}.balance-details[data-v-30babe2d]{display:flex;flex-direction:column;gap:12px}.balance-detail-row[data-v-30babe2d]{align-items:center;display:flex;justify-content:space-between;padding:8px 0}.balance-detail-label[data-v-30babe2d]{color:#6c757d;font-size:12px;font-weight:500}.balance-detail-value[data-v-30babe2d]{font-family:Monaco,Menlo,Ubuntu Mono,monospace;font-size:13px;font-weight:600}.balance-debit-value[data-v-30babe2d]{color:#28a745}.balance-credit-value[data-v-30babe2d]{color:#dc3545}.balance-divider[data-v-30babe2d]{background:#e9ecef;height:1px;margin:4px 0}.balance-total-row[data-v-30babe2d]{background:#f8f9fa;border-top:2px solid #e9ecef;font-weight:600;margin:0 -20px;padding:12px 20px}.balance-total-value[data-v-30babe2d]{font-size:14px}.balance-debit-total[data-v-30babe2d]{color:#28a745}.balance-credit-total[data-v-30babe2d]{color:#dc3545}.balance-loading[data-v-30babe2d]{align-items:center;color:#6c757d;display:flex;font-size:14px;gap:8px;justify-content:center;padding:20px}.balance-loading i[data-v-30babe2d]{font-size:16px}@media (max-width:1024px){.tree-split-layout[data-v-30babe2d]{grid-template-columns:3fr 2fr}[dir=rtl] .tree-split-layout[data-v-30babe2d]{grid-template-columns:2fr 3fr}}@media (max-width:768px){.tree-split-layout[data-v-30babe2d]{grid-template-rows:1fr auto}.tree-split-layout[data-v-30babe2d],[dir=rtl] .tree-split-layout[data-v-30babe2d]{grid-template-columns:1fr}.tree-panel[data-v-30babe2d]{border-bottom:1px solid #e9ecef;border-right:none}[dir=rtl] .tree-panel[data-v-30babe2d]{border-bottom:1px solid #e9ecef;border-left:none}.details-panel[data-v-30babe2d]{max-height:300px}.tree-item-actions[data-v-30babe2d]{opacity:1}.tree-body-container[data-v-30babe2d]{max-height:calc(100vh - 400px)}}.details-panel[data-v-30babe2d]::-webkit-scrollbar,.tree-body-container[data-v-30babe2d]::-webkit-scrollbar{width:6px}.details-panel[data-v-30babe2d]::-webkit-scrollbar-track,.tree-body-container[data-v-30babe2d]::-webkit-scrollbar-track{background:#fafafa;border-radius:3px}.details-panel[data-v-30babe2d]::-webkit-scrollbar-thumb,.tree-body-container[data-v-30babe2d]::-webkit-scrollbar-thumb{background:#d0d0d0;border-radius:3px;-webkit-transition:background .2s ease;transition:background .2s ease}.details-panel[data-v-30babe2d]::-webkit-scrollbar-thumb:hover,.tree-body-container[data-v-30babe2d]::-webkit-scrollbar-thumb:hover{background:#b0b0b0}.tree-item[draggable=true] .tree-item-content[data-v-30babe2d]{cursor:grab}.tree-item[draggable=true] .tree-item-content[data-v-30babe2d]:active{cursor:grabbing}@keyframes fadeIn-30babe2d{0%{opacity:0}to{opacity:1}}.tree-item[data-v-30babe2d]{animation:fadeIn-30babe2d .2s ease-out}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
 
-/***/ 44070:
+/***/ 43722:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -214,8 +214,8 @@ var vuex_esm = __webpack_require__(95353);
 // EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
 var sweetalert2_all = __webpack_require__(78465);
 var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TreeView.vue?vue&type=template&id=14c856b7&scoped=true
-var TreeViewvue_type_template_id_14c856b7_scoped_true_render = function render() {
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TreeView.vue?vue&type=template&id=30babe2d&scoped=true
+var TreeViewvue_type_template_id_30babe2d_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -304,7 +304,7 @@ var TreeViewvue_type_template_id_14c856b7_scoped_true_render = function render()
         }
       }
     }, [_c('i', {
-      "class": item.expanded ? 'fas fa-chevron-down' : 'fas fa-chevron-right'
+      "class": item.expanded ? 'fas fa-chevron-down' : _vm.isRTL ? 'fas fa-chevron-left' : 'fas fa-chevron-right'
     })]) : _c('div', {
       staticClass: "tree-item-expand-icon tree-item-expand-placeholder"
     }), _vm._v(" "), _c('div', {
@@ -387,7 +387,42 @@ var TreeViewvue_type_template_id_14c856b7_scoped_true_render = function render()
     staticClass: "detail-value"
   }, [_c('span', {
     "class": _vm.selectedAccount.is_active ? 'status-badge status-active' : 'status-badge status-inactive'
-  }, [_vm._v("\n              " + _vm._s(_vm.selectedAccount.is_active ? _vm.$t('Active') : _vm.$t('Inactive')) + "\n            ")])])]) : _vm._e()])]) : _c('div', {
+  }, [_vm._v("\n              " + _vm._s(_vm.selectedAccount.is_active ? _vm.$t('Active') : _vm.$t('Inactive')) + "\n            ")])])]) : _vm._e(), _vm._v(" "), _vm.accountBalanceData || _vm.loadingBalance ? _c('div', {
+    staticClass: "balance-section"
+  }, [_c('div', {
+    staticClass: "balance-section-header"
+  }, [_c('h4', {
+    staticClass: "balance-section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-calculator"
+  }), _vm._v("\n              " + _vm._s(_vm.$t('Account Balance')) + "\n            ")])]), _vm._v(" "), _vm.loadingBalance ? _c('div', {
+    staticClass: "balance-loading"
+  }, [_c('i', {
+    staticClass: "fas fa-spinner fa-spin"
+  }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t('Loading...')))])]) : _vm.accountBalanceData ? _c('div', {
+    staticClass: "balance-details"
+  }, [_c('div', {
+    staticClass: "balance-detail-row"
+  }, [_c('span', {
+    staticClass: "balance-detail-label"
+  }, [_vm._v(_vm._s(_vm.$t('Total Debits')))]), _vm._v(" "), _c('span', {
+    staticClass: "balance-detail-value balance-debit-value"
+  }, [_vm._v("\n                " + _vm._s(_vm.accountBalanceData.formatted_debit_amount || '0.00') + "\n              ")])]), _vm._v(" "), _c('div', {
+    staticClass: "balance-detail-row"
+  }, [_c('span', {
+    staticClass: "balance-detail-label"
+  }, [_vm._v(_vm._s(_vm.$t('Total Credits')))]), _vm._v(" "), _c('span', {
+    staticClass: "balance-detail-value balance-credit-value"
+  }, [_vm._v("\n                " + _vm._s(_vm.accountBalanceData.formatted_credit_amount || '0.00') + "\n              ")])]), _vm._v(" "), _c('div', {
+    staticClass: "balance-divider"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "balance-detail-row balance-total-row"
+  }, [_c('span', {
+    staticClass: "balance-detail-label"
+  }, [_vm._v(_vm._s(_vm.$t('Current Balance')))]), _vm._v(" "), _c('span', {
+    staticClass: "balance-detail-value balance-total-value",
+    "class": _vm.accountBalanceData.balance_type === 'Debit' ? 'balance-debit-total' : 'balance-credit-total'
+  }, [_vm._v("\n                " + _vm._s(_vm.accountBalanceData.formatted_balance_with_type || '0.00 ' + _vm.$t('Debit')) + "\n              ")])])]) : _vm._e()]) : _vm._e()])]) : _c('div', {
     staticClass: "details-empty"
   }, [_c('i', {
     staticClass: "fas fa-hand-pointer details-empty-icon"
@@ -395,13 +430,17 @@ var TreeViewvue_type_template_id_14c856b7_scoped_true_render = function render()
     staticClass: "details-empty-text"
   }, [_vm._v(_vm._s(_vm.$t('Select an account to view details')))])])])]);
 };
-var TreeViewvue_type_template_id_14c856b7_scoped_true_staticRenderFns = [];
+var TreeViewvue_type_template_id_30babe2d_scoped_true_staticRenderFns = [];
 
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TreeView.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 /* harmony default export */ const TreeViewvue_type_script_lang_js = ({
   name: 'TreeView',
   props: {
@@ -442,6 +481,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     return {
       isRTL: false,
       selectedAccount: null,
+      accountBalanceData: null,
+      loadingBalance: false,
       searchQuery: ''
     };
   },
@@ -528,15 +569,67 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       }
     },
     handleItemClick: function handleItemClick(item) {
-      // Select the account to show details
-      this.selectedAccount = item;
-      this.$emit('select-account', item);
+      var _this = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.n) {
+            case 0:
+              // Select the account to show details
+              _this.selectedAccount = item;
+              _this.$emit('select-account', item);
+
+              // Fetch full account details with balance
+              _context.n = 1;
+              return _this.fetchAccountBalance(item.code);
+            case 1:
+              return _context.a(2);
+          }
+        }, _callee);
+      }))();
+    },
+    fetchAccountBalance: function fetchAccountBalance(accountCode) {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var response, _t;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.p = _context2.n) {
+            case 0:
+              if (accountCode) {
+                _context2.n = 1;
+                break;
+              }
+              return _context2.a(2);
+            case 1:
+              _context2.p = 1;
+              _this2.loadingBalance = true;
+              _context2.n = 2;
+              return _this2.$axios.get("/api/chart-of-accounts/".concat(accountCode));
+            case 2:
+              response = _context2.v;
+              _this2.accountBalanceData = response.data.data;
+              _context2.n = 4;
+              break;
+            case 3:
+              _context2.p = 3;
+              _t = _context2.v;
+              console.error('Error fetching account balance:', _t);
+              _this2.accountBalanceData = null;
+            case 4:
+              _context2.p = 4;
+              _this2.loadingBalance = false;
+              return _context2.f(4);
+            case 5:
+              return _context2.a(2);
+          }
+        }, _callee2, null, [[1, 3, 4, 5]]);
+      }))();
     },
     onToggleExpand: function onToggleExpand(itemId) {
       this.$emit('toggle-expand', itemId);
     },
     closeDetails: function closeDetails() {
       this.selectedAccount = null;
+      this.accountBalanceData = null;
       this.$emit('select-account', null);
     },
     getVerticalLineStyle: function getVerticalLineStyle(item, parentLevel) {
@@ -600,9 +693,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TreeView.vue?vue&type=style&index=0&id=14c856b7&prod&scoped=true&lang=css
-var TreeViewvue_type_style_index_0_id_14c856b7_prod_scoped_true_lang_css = __webpack_require__(21025);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TreeView.vue?vue&type=style&index=0&id=14c856b7&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TreeView.vue?vue&type=style&index=0&id=30babe2d&prod&scoped=true&lang=css
+var TreeViewvue_type_style_index_0_id_30babe2d_prod_scoped_true_lang_css = __webpack_require__(4692);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TreeView.vue?vue&type=style&index=0&id=30babe2d&prod&scoped=true&lang=css
 
             
 
@@ -611,12 +704,12 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(TreeViewvue_type_style_index_0_id_14c856b7_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(TreeViewvue_type_style_index_0_id_30babe2d_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const components_TreeViewvue_type_style_index_0_id_14c856b7_prod_scoped_true_lang_css = (TreeViewvue_type_style_index_0_id_14c856b7_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/TreeView.vue?vue&type=style&index=0&id=14c856b7&prod&scoped=true&lang=css
+/* harmony default export */ const components_TreeViewvue_type_style_index_0_id_30babe2d_prod_scoped_true_lang_css = (TreeViewvue_type_style_index_0_id_30babe2d_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/TreeView.vue?vue&type=style&index=0&id=30babe2d&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
@@ -631,11 +724,11 @@ var componentNormalizer = __webpack_require__(14486);
 
 var component = (0,componentNormalizer/* default */.A)(
   components_TreeViewvue_type_script_lang_js,
-  TreeViewvue_type_template_id_14c856b7_scoped_true_render,
-  TreeViewvue_type_template_id_14c856b7_scoped_true_staticRenderFns,
+  TreeViewvue_type_template_id_30babe2d_scoped_true_render,
+  TreeViewvue_type_template_id_30babe2d_scoped_true_staticRenderFns,
   false,
   null,
-  "14c856b7",
+  "30babe2d",
   null
   
 )
@@ -643,10 +736,10 @@ var component = (0,componentNormalizer/* default */.A)(
 /* harmony default export */ const TreeView = (component.exports);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EntityTreePage.vue?vue&type=script&lang=js
 function EntityTreePagevue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return EntityTreePagevue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, EntityTreePagevue_type_script_lang_js_typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function EntityTreePagevue_type_script_lang_js_regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return EntityTreePagevue_type_script_lang_js_regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (EntityTreePagevue_type_script_lang_js_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, EntityTreePagevue_type_script_lang_js_regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, EntityTreePagevue_type_script_lang_js_regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), EntityTreePagevue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", EntityTreePagevue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), EntityTreePagevue_type_script_lang_js_regeneratorDefine2(u), EntityTreePagevue_type_script_lang_js_regeneratorDefine2(u, o, "Generator"), EntityTreePagevue_type_script_lang_js_regeneratorDefine2(u, n, function () { return this; }), EntityTreePagevue_type_script_lang_js_regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (EntityTreePagevue_type_script_lang_js_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function EntityTreePagevue_type_script_lang_js_regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } EntityTreePagevue_type_script_lang_js_regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { EntityTreePagevue_type_script_lang_js_regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, EntityTreePagevue_type_script_lang_js_regeneratorDefine2(e, r, n, t); }
+function EntityTreePagevue_type_script_lang_js_asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function EntityTreePagevue_type_script_lang_js_asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { EntityTreePagevue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { EntityTreePagevue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { EntityTreePagevue_type_script_lang_js_defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function EntityTreePagevue_type_script_lang_js_defineProperty(e, r, t) { return (r = EntityTreePagevue_type_script_lang_js_toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
@@ -723,8 +816,8 @@ function EntityTreePagevue_type_script_lang_js_toPrimitive(t, r) { if ("object" 
     },
     storeLocale: {
       handler: function () {
-        var _handler = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(newLocale) {
-          return _regenerator().w(function (_context) {
+        var _handler = EntityTreePagevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/EntityTreePagevue_type_script_lang_js_regenerator().m(function _callee(newLocale) {
+          return EntityTreePagevue_type_script_lang_js_regenerator().w(function (_context) {
             while (1) switch (_context.n) {
               case 0:
                 if (!(newLocale && newLocale !== this.currentLocale)) {
@@ -757,8 +850,8 @@ function EntityTreePagevue_type_script_lang_js_toPrimitive(t, r) { if ("object" 
       immediate: false
     },
     '$i18n.locale': function () {
-      var _$i18nLocale = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(newLocale) {
-        return _regenerator().w(function (_context2) {
+      var _$i18nLocale = EntityTreePagevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/EntityTreePagevue_type_script_lang_js_regenerator().m(function _callee2(newLocale) {
+        return EntityTreePagevue_type_script_lang_js_regenerator().w(function (_context2) {
           while (1) switch (_context2.n) {
             case 0:
               if (!(newLocale && newLocale !== this.currentLocale)) {
@@ -901,10 +994,10 @@ function EntityTreePagevue_type_script_lang_js_toPrimitive(t, r) { if ("object" 
     },
     getData: function getData() {
       var _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+      return EntityTreePagevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/EntityTreePagevue_type_script_lang_js_regenerator().m(function _callee3() {
         var _this$config16;
         var response, _this$config17, _t;
-        return _regenerator().w(function (_context3) {
+        return EntityTreePagevue_type_script_lang_js_regenerator().w(function (_context3) {
           while (1) switch (_context3.p = _context3.n) {
             case 0:
               if ((_this$config16 = _this.config) !== null && _this$config16 !== void 0 && (_this$config16 = _this$config16.api) !== null && _this$config16 !== void 0 && _this$config16.list) {
@@ -942,10 +1035,10 @@ function EntityTreePagevue_type_script_lang_js_toPrimitive(t, r) { if ("object" 
     },
     searchData: function searchData() {
       var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+      return EntityTreePagevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/EntityTreePagevue_type_script_lang_js_regenerator().m(function _callee4() {
         var _this2$config;
         var params, response, _this2$config2, _t2;
-        return _regenerator().w(function (_context4) {
+        return EntityTreePagevue_type_script_lang_js_regenerator().w(function (_context4) {
           while (1) switch (_context4.p = _context4.n) {
             case 0:
               console.log('EntityTreePage: searchData called', _this2.query);
@@ -1070,8 +1163,8 @@ function EntityTreePagevue_type_script_lang_js_toPrimitive(t, r) { if ("object" 
       this.getData();
     },
     resetPagination: function resetPagination() {
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-        return _regenerator().w(function (_context5) {
+      return EntityTreePagevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/EntityTreePagevue_type_script_lang_js_regenerator().m(function _callee5() {
+        return EntityTreePagevue_type_script_lang_js_regenerator().w(function (_context5) {
           while (1) switch (_context5.n) {
             case 0:
               return _context5.a(2, Promise.resolve());
@@ -1081,8 +1174,8 @@ function EntityTreePagevue_type_script_lang_js_toPrimitive(t, r) { if ("object" 
     },
     reload: function reload() {
       var _this6 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
-        return _regenerator().w(function (_context6) {
+      return EntityTreePagevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/EntityTreePagevue_type_script_lang_js_regenerator().m(function _callee6() {
+        return EntityTreePagevue_type_script_lang_js_regenerator().w(function (_context6) {
           while (1) switch (_context6.n) {
             case 0:
               _this6.query = "";
@@ -1174,10 +1267,10 @@ function EntityTreePagevue_type_script_lang_js_toPrimitive(t, r) { if ("object" 
     },
     confirmMove: function confirmMove(draggedItem, targetItem, newParentId, oldParentId) {
       var _this8 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
+      return EntityTreePagevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/EntityTreePagevue_type_script_lang_js_regenerator().m(function _callee7() {
         var _this8$config;
         var entityLabel, message, result;
-        return _regenerator().w(function (_context7) {
+        return EntityTreePagevue_type_script_lang_js_regenerator().w(function (_context7) {
           while (1) switch (_context7.n) {
             case 0:
               entityLabel = ((_this8$config = _this8.config) === null || _this8$config === void 0 || (_this8$config = _this8$config.messages) === null || _this8$config === void 0 ? void 0 : _this8$config.entityLabel) || _this8.$t("Item");
@@ -1209,10 +1302,10 @@ function EntityTreePagevue_type_script_lang_js_toPrimitive(t, r) { if ("object" 
     },
     moveItem: function moveItem(itemId, newParentId) {
       var _this9 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
+      return EntityTreePagevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/EntityTreePagevue_type_script_lang_js_regenerator().m(function _callee8() {
         var _this9$config;
         var endpoint, response, _this9$config2, _error$response, _this9$config3, errorMessage, _t3;
-        return _regenerator().w(function (_context8) {
+        return EntityTreePagevue_type_script_lang_js_regenerator().w(function (_context8) {
           while (1) switch (_context8.p = _context8.n) {
             case 0:
               if ((_this9$config = _this9.config) !== null && _this9$config !== void 0 && (_this9$config = _this9$config.api) !== null && _this9$config !== void 0 && _this9$config.move) {
@@ -1255,10 +1348,10 @@ function EntityTreePagevue_type_script_lang_js_toPrimitive(t, r) { if ("object" 
     },
     deleteData: function deleteData(item) {
       var _this0 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
+      return EntityTreePagevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/EntityTreePagevue_type_script_lang_js_regenerator().m(function _callee9() {
         var _this0$config, _this0$config2;
         var entityLabel;
-        return _regenerator().w(function (_context9) {
+        return EntityTreePagevue_type_script_lang_js_regenerator().w(function (_context9) {
           while (1) switch (_context9.n) {
             case 0:
               if (!(!((_this0$config = _this0.config) !== null && _this0$config !== void 0 && (_this0$config = _this0$config.api) !== null && _this0$config !== void 0 && _this0$config["delete"]) || !_this0.canDelete(item))) {
@@ -1308,9 +1401,9 @@ function EntityTreePagevue_type_script_lang_js_toPrimitive(t, r) { if ("object" 
     },
     handleLocaleChange: function handleLocaleChange(event) {
       var _this1 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
+      return EntityTreePagevue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/EntityTreePagevue_type_script_lang_js_regenerator().m(function _callee0() {
         var _event$detail;
-        return _regenerator().w(function (_context0) {
+        return EntityTreePagevue_type_script_lang_js_regenerator().w(function (_context0) {
           while (1) switch (_context0.n) {
             case 0:
               if (!(event !== null && event !== void 0 && (_event$detail = event.detail) !== null && _event$detail !== void 0 && _event$detail.locale && event.detail.locale !== _this1.currentLocale)) {
@@ -1382,7 +1475,7 @@ var EntityTreePage_component = (0,componentNormalizer/* default */.A)(
 
 /***/ }),
 
-/***/ 77597:
+/***/ 76425:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -1390,10 +1483,10 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ tree)
+  "default": () => (/* binding */ items_directory)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/chart-of-accounts/tree.vue?vue&type=template&id=6092b12e
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/inventory/items-directory/index.vue?vue&type=template&id=7e10fba6
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -1406,100 +1499,130 @@ var render = function render() {
 var staticRenderFns = [];
 
 // EXTERNAL MODULE: ./resources/js/components/EntityTreePage.vue + 11 modules
-var EntityTreePage = __webpack_require__(44070);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/chart-of-accounts/tree.vue?vue&type=script&lang=js
+var EntityTreePage = __webpack_require__(43722);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/inventory/items-directory/index.vue?vue&type=script&lang=js
 
-/* harmony default export */ const treevue_type_script_lang_js = ({
+/* harmony default export */ const items_directoryvue_type_script_lang_js = ({
   components: {
     EntityTreePage: EntityTreePage/* default */.A
   },
   middleware: ["auth", "check-permissions"],
   metaInfo: function metaInfo() {
     return {
-      title: this.$t("Chart of Accounts - Tree View")
+      title: this.$t("Items Directory")
     };
   },
   computed: {
     treeConfig: function treeConfig() {
-      var buildRoute = function buildRoute(name) {
-        var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-        var query = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-        return {
-          name: name,
-          params: params,
-          query: query
-        };
-      };
       return {
-        title: this.$t("Chart of Accounts - Tree View"),
+        title: this.$t("Items Directory"),
         breadcrumbs: [{
           name: "Dashboard",
           url: "home"
         }, {
-          name: "Cashbook",
+          name: "Inventory Management",
           url: ""
         }, {
-          name: "Chart of Accounts",
+          name: "Items Directory",
           url: ""
         }],
         permissions: {
-          list: "chart-of-account-list",
-          create: "chart-of-account-create",
-          view: "chart-of-account-view",
-          edit: "chart-of-account-edit",
-          "delete": "chart-of-account-delete"
+          list: "product-list",
+          create: "product-create",
+          view: "product-view",
+          edit: "product-edit",
+          "delete": "product-delete"
         },
         routes: {
           list: function list() {
-            return buildRoute("chart-of-accounts.index");
+            return {
+              name: "products.index"
+            };
           },
           create: function create() {
-            return buildRoute("chart-of-accounts.create");
+            return {
+              name: "products.create"
+            };
           },
           view: function view(item) {
-            return buildRoute("chart-of-accounts.show", {
-              slug: item.code
-            });
+            if (item.type === 'product') {
+              return {
+                name: "products.show",
+                params: {
+                  slug: item.slug
+                }
+              };
+            } else if (item.type === 'subcategory') {
+              return {
+                name: "productSubCats.index"
+              };
+            } else if (item.type === 'category') {
+              return {
+                name: "productCats.index"
+              };
+            }
+            return null;
           },
           edit: function edit(item) {
-            return buildRoute("chart-of-accounts.edit", {
-              slug: item.code
-            });
+            if (item.type === 'product') {
+              return {
+                name: "products.edit",
+                params: {
+                  slug: item.slug
+                }
+              };
+            } else if (item.type === 'subcategory') {
+              return {
+                name: "productSubCats.edit",
+                params: {
+                  slug: item.slug
+                }
+              };
+            } else if (item.type === 'category') {
+              return {
+                name: "productCats.edit",
+                params: {
+                  slug: item.slug
+                }
+              };
+            }
+            return null;
           },
           createChild: function createChild(item) {
-            return buildRoute("chart-of-accounts.create", {}, {
-              parent_id: item.id
-            });
+            if (item.type === 'category') {
+              return {
+                name: "productSubCats.create",
+                query: {
+                  category_id: item.original_id
+                }
+              };
+            } else if (item.type === 'subcategory') {
+              return {
+                name: "products.create",
+                query: {
+                  sub_category_id: item.original_id
+                }
+              };
+            }
+            return null;
           }
         },
         api: {
-          list: "/api/chart-of-accounts/translations",
-          search: "/api/chart-of-accounts/translations/search",
+          list: "/api/products/tree",
+          search: "/api/products/tree",
           searchParam: "search",
-          defaultParams: function defaultParams(_ref) {
-            var locale = _ref.locale;
-            return {
-              locale: locale,
-              include_translations: true,
-              include: "type",
-              include_type_translations: true,
-              perPage: 1000
-            };
-          },
-          searchParams: function searchParams(_ref2) {
-            var locale = _ref2.locale;
-            return {
-              locale: locale,
-              field: "name",
-              perPage: 1000
-            };
+          defaultParams: function defaultParams() {
+            return {};
           },
           "delete": function _delete(item) {
-            return "/api/chart-of-accounts/".concat(item.code);
-          },
-          move: function move(itemId, _ref3) {
-            var locale = _ref3.locale;
-            return "/api/chart-of-accounts/".concat(itemId, "/move");
+            if (item.type === 'product') {
+              return "/api/products/".concat(item.slug);
+            } else if (item.type === 'subcategory') {
+              return "/api/product-sub-categories/".concat(item.slug);
+            } else if (item.type === 'category') {
+              return "/api/product-categories/".concat(item.slug);
+            }
+            return null;
           }
         },
         fields: {
@@ -1507,46 +1630,40 @@ var EntityTreePage = __webpack_require__(44070);
           parentId: "parent_id",
           childrenCount: "children_count"
         },
-        displayNameResolver: function displayNameResolver(entity, _ref4) {
-          var locale = _ref4.locale,
-            fallbackLocale = _ref4.fallbackLocale;
-          if (!entity) {
+        displayNameResolver: function displayNameResolver(item, _ref) {
+          var locale = _ref.locale;
+          if (!item) {
             return "";
           }
-          var translations = entity.translations && entity.translations.name;
-          var activeLocale = locale || fallbackLocale || "en";
-          if (translations && translations[activeLocale] && translations[activeLocale].trim() !== "") {
-            return translations[activeLocale];
-          }
-          return entity.name || entity.original_name || "";
+          return item.name || "";
         },
-        canDelete: function canDelete() {
+        canDelete: function canDelete(item) {
+          // Can delete products, subcategories, and categories
           return true;
         },
         canAddChild: function canAddChild(item) {
-          // Only allow adding children to accounts at level 4 and below (level <= 4)
-          var level = item.level || 0;
-          return level <= 4;
+          // Can add subcategory to category, and product to subcategory
+          return item.type === 'category' || item.type === 'subcategory';
         },
         features: {
-          dragAndDrop: true,
-          showStatusBadge: false
+          dragAndDrop: false,
+          showStatusBadge: true
         },
         messages: {
-          entityLabel: this.$t("Chart of Account"),
-          loadError: this.$t("Failed to load chart of accounts"),
-          searchError: this.$t("Failed to search chart of accounts"),
-          deleteError: this.$t("Sorry you can't remove this chart of account!")
+          entityLabel: this.$t("Item"),
+          loadError: this.$t("Failed to load items"),
+          searchError: this.$t("Failed to search items"),
+          deleteError: this.$t("Sorry you can't remove this item!")
         }
       };
     }
   }
 });
-;// ./resources/js/pages/cashbook/chart-of-accounts/tree.vue?vue&type=script&lang=js
- /* harmony default export */ const chart_of_accounts_treevue_type_script_lang_js = (treevue_type_script_lang_js); 
+;// ./resources/js/pages/inventory/items-directory/index.vue?vue&type=script&lang=js
+ /* harmony default export */ const inventory_items_directoryvue_type_script_lang_js = (items_directoryvue_type_script_lang_js); 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/cashbook/chart-of-accounts/tree.vue
+;// ./resources/js/pages/inventory/items-directory/index.vue
 
 
 
@@ -1555,7 +1672,7 @@ var componentNormalizer = __webpack_require__(14486);
 /* normalize component */
 ;
 var component = (0,componentNormalizer/* default */.A)(
-  chart_of_accounts_treevue_type_script_lang_js,
+  inventory_items_directoryvue_type_script_lang_js,
   render,
   staticRenderFns,
   false,
@@ -1565,7 +1682,7 @@ var component = (0,componentNormalizer/* default */.A)(
   
 )
 
-/* harmony default export */ const tree = (component.exports);
+/* harmony default export */ const items_directory = (component.exports);
 
 /***/ }),
 

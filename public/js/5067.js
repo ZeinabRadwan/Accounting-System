@@ -1,5 +1,5 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[1551],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[5067],{
 
 /***/ 4692:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
@@ -17,171 +17,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".tree-split-layout[data-v-30babe2d]{ba
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
-
-/***/ }),
-
-/***/ 41551:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ tree)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cost-centers/tree.vue?vue&type=template&id=78781e62
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('entity-tree-page', {
-    attrs: {
-      "config": _vm.treeConfig
-    }
-  });
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./resources/js/components/EntityTreePage.vue + 11 modules
-var EntityTreePage = __webpack_require__(43722);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cost-centers/tree.vue?vue&type=script&lang=js
-
-/* harmony default export */ const treevue_type_script_lang_js = ({
-  components: {
-    EntityTreePage: EntityTreePage/* default */.A
-  },
-  middleware: ["auth", "check-permissions"],
-  metaInfo: function metaInfo() {
-    return {
-      title: this.$t("Cost Centers - Tree View")
-    };
-  },
-  computed: {
-    treeConfig: function treeConfig() {
-      return {
-        title: this.$t("Cost Centers - Tree View"),
-        breadcrumbs: [{
-          name: "Dashboard",
-          url: "home"
-        }, {
-          name: "Cost Centers",
-          url: ""
-        }],
-        permissions: {
-          list: "view_cost_centers",
-          create: "create_cost_center",
-          view: "view_cost_centers",
-          edit: "update_cost_center",
-          "delete": "delete_cost_center",
-          drag: "update_cost_center"
-        },
-        routes: {
-          list: function list() {
-            return {
-              name: "cost-centers.index"
-            };
-          },
-          create: function create() {
-            return {
-              name: "cost-centers.create"
-            };
-          },
-          view: function view(item) {
-            return {
-              name: "cost-centers.show",
-              params: {
-                slug: item.id
-              }
-            };
-          },
-          edit: function edit(item) {
-            return {
-              name: "cost-centers.edit",
-              params: {
-                slug: item.id
-              }
-            };
-          },
-          createChild: function createChild(item) {
-            return {
-              name: "cost-centers.create",
-              query: {
-                parent_id: item.id
-              }
-            };
-          }
-        },
-        api: {
-          list: "/api/cost-centers/tree",
-          search: "/api/cost-centers/tree",
-          searchParam: "search",
-          defaultParams: function defaultParams() {
-            return {};
-          },
-          "delete": function _delete(item) {
-            return "/api/cost-centers/".concat(item.id);
-          },
-          move: function move(itemId) {
-            return "/api/cost-centers/".concat(itemId, "/move");
-          }
-        },
-        displayNameResolver: function displayNameResolver(item, _ref) {
-          var locale = _ref.locale;
-          if (!item) {
-            return "";
-          }
-          if (item.localized_name) {
-            return item.localized_name;
-          }
-          if ((locale === "en" || !locale) && item.name_en) {
-            return item.name_en;
-          }
-          return item.name || "";
-        },
-        canDelete: function canDelete(item) {
-          return (item === null || item === void 0 ? void 0 : item.can_delete) !== false;
-        },
-        features: {
-          dragAndDrop: true,
-          showStatusBadge: true
-        },
-        messages: {
-          entityLabel: this.$t("Cost Center"),
-          loadError: this.$t("Failed to load cost centers"),
-          searchError: this.$t("Failed to search cost centers"),
-          moveSuccess: this.$t("Cost center moved successfully"),
-          moveError: this.$t("Failed to move cost center"),
-          deleteError: this.$t("Sorry you can't remove this cost center!")
-        }
-      };
-    }
-  }
-});
-;// ./resources/js/pages/cost-centers/tree.vue?vue&type=script&lang=js
- /* harmony default export */ const cost_centers_treevue_type_script_lang_js = (treevue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/cost-centers/tree.vue
-
-
-
-
-
-/* normalize component */
-;
-var component = (0,componentNormalizer/* default */.A)(
-  cost_centers_treevue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ const tree = (component.exports);
 
 /***/ }),
 
@@ -1637,6 +1472,194 @@ var EntityTreePage_component = (0,componentNormalizer/* default */.A)(
 )
 
 /* harmony default export */ const EntityTreePage = (EntityTreePage_component.exports);
+
+/***/ }),
+
+/***/ 75067:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ tree)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/chart-of-accounts/tree.vue?vue&type=template&id=2ca5c5e4
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('entity-tree-page', {
+    attrs: {
+      "config": _vm.treeConfig
+    }
+  });
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./resources/js/components/EntityTreePage.vue + 11 modules
+var EntityTreePage = __webpack_require__(43722);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/chart-of-accounts/tree.vue?vue&type=script&lang=js
+
+/* harmony default export */ const treevue_type_script_lang_js = ({
+  components: {
+    EntityTreePage: EntityTreePage/* default */.A
+  },
+  middleware: ["auth", "check-permissions"],
+  metaInfo: function metaInfo() {
+    return {
+      title: this.$t("Chart of Accounts - Tree View")
+    };
+  },
+  computed: {
+    treeConfig: function treeConfig() {
+      var buildRoute = function buildRoute(name) {
+        var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+        var query = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+        return {
+          name: name,
+          params: params,
+          query: query
+        };
+      };
+      return {
+        title: this.$t("Chart of Accounts - Tree View"),
+        breadcrumbs: [{
+          name: "Dashboard",
+          url: "home"
+        }, {
+          name: "Cashbook",
+          url: ""
+        }, {
+          name: "Chart of Accounts",
+          url: ""
+        }],
+        permissions: {
+          list: "chart-of-account-list",
+          create: "chart-of-account-create",
+          view: "chart-of-account-view",
+          edit: "chart-of-account-edit",
+          "delete": "chart-of-account-delete"
+        },
+        routes: {
+          list: function list() {
+            return buildRoute("chart-of-accounts.index");
+          },
+          create: function create() {
+            return buildRoute("chart-of-accounts.create");
+          },
+          view: function view(item) {
+            return buildRoute("chart-of-accounts.show", {
+              slug: item.code
+            });
+          },
+          edit: function edit(item) {
+            return buildRoute("chart-of-accounts.edit", {
+              slug: item.code
+            });
+          },
+          createChild: function createChild(item) {
+            return buildRoute("chart-of-accounts.create", {}, {
+              parent_id: item.id
+            });
+          }
+        },
+        api: {
+          list: "/api/chart-of-accounts/translations",
+          search: "/api/chart-of-accounts/translations/search",
+          searchParam: "search",
+          defaultParams: function defaultParams(_ref) {
+            var locale = _ref.locale;
+            return {
+              locale: locale,
+              include_translations: true,
+              include: "type",
+              include_type_translations: true,
+              include_balance: true,
+              perPage: 1000
+            };
+          },
+          searchParams: function searchParams(_ref2) {
+            var locale = _ref2.locale;
+            return {
+              locale: locale,
+              field: "name",
+              perPage: 1000
+            };
+          },
+          "delete": function _delete(item) {
+            return "/api/chart-of-accounts/".concat(item.code);
+          },
+          move: function move(itemId, _ref3) {
+            var locale = _ref3.locale;
+            return "/api/chart-of-accounts/".concat(itemId, "/move");
+          }
+        },
+        fields: {
+          id: "id",
+          parentId: "parent_id",
+          childrenCount: "children_count"
+        },
+        displayNameResolver: function displayNameResolver(entity, _ref4) {
+          var locale = _ref4.locale,
+            fallbackLocale = _ref4.fallbackLocale;
+          if (!entity) {
+            return "";
+          }
+          var translations = entity.translations && entity.translations.name;
+          var activeLocale = locale || fallbackLocale || "en";
+          if (translations && translations[activeLocale] && translations[activeLocale].trim() !== "") {
+            return translations[activeLocale];
+          }
+          return entity.name || entity.original_name || "";
+        },
+        canDelete: function canDelete() {
+          return true;
+        },
+        canAddChild: function canAddChild(item) {
+          // Only allow adding children to accounts at level 4 and below (level <= 4)
+          var level = item.level || 0;
+          return level <= 4;
+        },
+        features: {
+          dragAndDrop: true,
+          showStatusBadge: false
+        },
+        messages: {
+          entityLabel: this.$t("Chart of Account"),
+          loadError: this.$t("Failed to load chart of accounts"),
+          searchError: this.$t("Failed to search chart of accounts"),
+          deleteError: this.$t("Sorry you can't remove this chart of account!")
+        }
+      };
+    }
+  }
+});
+;// ./resources/js/pages/cashbook/chart-of-accounts/tree.vue?vue&type=script&lang=js
+ /* harmony default export */ const chart_of_accounts_treevue_type_script_lang_js = (treevue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/pages/cashbook/chart-of-accounts/tree.vue
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,componentNormalizer/* default */.A)(
+  chart_of_accounts_treevue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ const tree = (component.exports);
 
 /***/ }),
 
