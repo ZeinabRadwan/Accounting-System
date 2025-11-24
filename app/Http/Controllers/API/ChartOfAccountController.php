@@ -286,11 +286,14 @@ class ChartOfAccountController extends Controller
         try {
             $branchId = Auth::user()->default_branch_id ?? null;
 
-            $chartOfAccount = ChartOfAccount::with(['type', 'parent'])
+            // Load with relationships including translations for full details
+            $chartOfAccount = ChartOfAccount::with(['type', 'parent', 'translations'])
                 ->forBranch($branchId)
                 ->where('code', $slug)
                 ->firstOrFail();
 
+            // Balance calculations are done in ChartOfAccountResource
+            // This is acceptable for a single account view
             return new ChartOfAccountResource($chartOfAccount);
         } catch (Exception $e) {
             return response()->json([
@@ -603,17 +606,27 @@ class ChartOfAccountController extends Controller
 
     /**
      * Get chart of accounts with translations
+     * Note: Balance calculations are NOT included here for performance.
+     * Use the show() method to get balance details for a specific account.
      */
     public function indexWithTranslations(Request $request)
     {
-        $perPage = $request->perPage ?? 10;
+        $perPage = $request->perPage ?? 1000; // Tree view needs all accounts, not paginated
         $locale = $request->get('locale', app()->getLocale());
         $branchId = Auth::user()->default_branch_id ?? null;
 
-        $accounts = ChartOfAccount::with(['type', 'parent', 'translations'])
+        // Eager load all relationships including nested translations to avoid N+1 queries
+        $accounts = ChartOfAccount::with([
+            'type.translations', // Eager load type translations
+            'parent.translations', // Eager load parent translations
+            'translations', // Eager load account translations
+        ])
             ->forBranch($branchId)
             ->ordered()
-            ->paginate($perPage);
+            ->get(); // Use get() instead of paginate() for tree view
+
+        // Do NOT calculate balances here - tree view should be fast
+        // Balances are loaded only when viewing a specific account (show method)
 
         return ChartOfAccountTranslationResource::collection($accounts);
     }

@@ -47,7 +47,7 @@ export default {
             include_translations: true,
             include: "type",
             include_type_translations: true,
-            include_balance: true,
+            include_balance: false, // Don't load balances in tree view for performance
             perPage: 1000,
           }),
           searchParams: ({ locale }) => ({

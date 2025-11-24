@@ -15,7 +15,7 @@ class ChartOfAccountTranslationResource extends JsonResource
     public function toArray($request)
     {
         $locale = $request->get('locale', app()->getLocale());
-        
+
         return [
             'id' => $this->id,
             'code' => $this->code,
@@ -33,11 +33,21 @@ class ChartOfAccountTranslationResource extends JsonResource
                 if ($request->get('include_type_translations', false)) {
                     $payload['translations'] = $type->translations ?? [];
                 }
+
                 return $payload;
             }),
             'parent_id' => $this->parent_id,
-            'parent' => $this->whenLoaded('parent', function () {
-                return new ChartOfAccountTranslationResource($this->parent);
+            'parent' => $this->whenLoaded('parent', function () use ($request) {
+                // Only return basic parent info to avoid recursive loading
+                $parent = $this->parent;
+                $locale = $request->get('locale', app()->getLocale());
+
+                return [
+                    'id' => $parent->id,
+                    'code' => $parent->code,
+                    'name' => $parent->getTranslatedField('name', $locale),
+                    'original_name' => $parent->name,
+                ];
             }),
             'order' => $this->order,
             'is_active' => $this->is_active,
@@ -57,6 +67,26 @@ class ChartOfAccountTranslationResource extends JsonResource
                 return app(\App\Services\TranslationService::class)->getTranslationStats($this->resource);
             }),
             'balance' => $this->when($request->get('include_balance', false), function () {
+                // Use pre-calculated bulk balance data if available (much faster)
+                $bulkBalanceData = $this->getAttribute('_bulk_balance_data');
+
+                if ($bulkBalanceData !== null) {
+                    $currentBalance = $bulkBalanceData['balance'] ?? 0;
+                    $totalBalance = $bulkBalanceData['total_balance'] ?? 0;
+
+                    return [
+                        'current_balance' => $currentBalance,
+                        'total_balance' => $totalBalance,
+                        'balance_type' => $totalBalance >= 0 ? 'Debit' : 'Credit',
+                        'formatted_balance' => number_format(abs($totalBalance), 2).' '.($totalBalance >= 0 ? 'Debit' : 'Credit'),
+                        'debit_amount' => $bulkBalanceData['debits'] ?? 0,
+                        'credit_amount' => $bulkBalanceData['credits'] ?? 0,
+                        'total_debit_amount' => $bulkBalanceData['total_debits'] ?? 0,
+                        'total_credit_amount' => $bulkBalanceData['total_credits'] ?? 0,
+                    ];
+                }
+
+                // Fallback to individual calculation if bulk data not available
                 return [
                     'current_balance' => $this->getBalance(),
                     'total_balance' => $this->getTotalBalance(),

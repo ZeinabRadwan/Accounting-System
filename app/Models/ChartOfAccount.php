@@ -374,6 +374,15 @@ class ChartOfAccount extends Model
      */
     public static function getBulkBalances($accountIds = null)
     {
+        // Quick check: if no journal entries exist, return empty collection immediately
+        $hasEntries = DB::table('journal_entries')
+            ->where('status', 'posted')
+            ->exists();
+
+        if (! $hasEntries) {
+            return collect();
+        }
+
         $query = DB::table('journal_entry_lines as jel')
             ->join('journal_entries as je', 'jel.journal_entry_id', '=', 'je.id')
             ->where('je.status', 'posted')

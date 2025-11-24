@@ -29,7 +29,8 @@
       </div>
     </div>
 
-    <div class="tree-page-container">
+    <div class="tree-page-container position-relative">
+      <table-loading v-show="loading" />
       <tree-view :items="allItems" :hierarchical-items="hierarchicalItems" :query.sync="query"
         :dragged-item-id="enableDragAndDrop ? draggedItemId : null"
         :drag-over-item-id="enableDragAndDrop ? dragOverItemId : null"
@@ -77,11 +78,13 @@
 import { mapGetters } from "vuex";
 import Swal from "sweetalert2";
 import TreeView from "@/components/TreeView.vue";
+import TableLoading from "@/components/TableLoading.vue";
 
 export default {
   name: "EntityTreePage",
   components: {
     TreeView,
+    TableLoading,
   },
   props: {
     config: {

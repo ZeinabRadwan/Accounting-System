@@ -4,14 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ChartOfAccountType extends Model
 {
     use HasFactory, SoftDeletes;
+
     protected $table = 'chart_of_account_types';
-    
+
     protected $fillable = [
         'name',
         'order',
@@ -28,10 +29,24 @@ class ChartOfAccountType extends Model
         if ($field !== 'name') {
             return $this->getAttribute($field);
         }
-        $translation = $this->translations()
-            ->where('locale', $locale)
-            ->value('name');
-        return $translation ?: $this->getAttribute($field);
+
+        // If translations are already loaded, use them to avoid N+1 queries
+        if ($this->relationLoaded('translations')) {
+            $translation = $this->translations->firstWhere('locale', $locale);
+            if ($translation && $translation->name) {
+                return $translation->name;
+            }
+        } else {
+            // Fallback to query if not eager loaded
+            $translation = $this->translations()
+                ->where('locale', $locale)
+                ->value('name');
+            if ($translation) {
+                return $translation;
+            }
+        }
+
+        return $this->getAttribute($field);
     }
 
     public function getNameTranslatedAttribute(): ?string

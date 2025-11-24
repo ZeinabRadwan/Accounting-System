@@ -20,7 +20,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".tree-split-layout[data-v-30babe2d]{ba
 
 /***/ }),
 
-/***/ 43722:
+/***/ 66806:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -29,7 +29,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ EntityTreePage)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EntityTreePage.vue?vue&type=template&id=4ec774a9&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EntityTreePage.vue?vue&type=template&id=0d07c7f0&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -88,8 +88,15 @@ var render = function render() {
   }, [_c('i', {
     staticClass: "fas fa-plus-circle"
   }), _vm._v(" " + _vm._s(_vm.$t('Create')) + "\n            ")]) : _vm._e()], 1)])])])]), _vm._v(" "), _c('div', {
-    staticClass: "tree-page-container"
-  }, [_c('tree-view', {
+    staticClass: "tree-page-container position-relative"
+  }, [_c('table-loading', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.loading,
+      expression: "loading"
+    }]
+  }), _vm._v(" "), _c('tree-view', {
     attrs: {
       "items": _vm.allItems,
       "hierarchical-items": _vm.hierarchicalItems,
@@ -734,6 +741,8 @@ var component = (0,componentNormalizer/* default */.A)(
 )
 
 /* harmony default export */ const TreeView = (component.exports);
+// EXTERNAL MODULE: ./resources/js/components/TableLoading.vue + 6 modules
+var TableLoading = __webpack_require__(17114);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EntityTreePage.vue?vue&type=script&lang=js
 function EntityTreePagevue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return EntityTreePagevue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, EntityTreePagevue_type_script_lang_js_typeof(o); }
 function EntityTreePagevue_type_script_lang_js_regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return EntityTreePagevue_type_script_lang_js_regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (EntityTreePagevue_type_script_lang_js_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, EntityTreePagevue_type_script_lang_js_regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, EntityTreePagevue_type_script_lang_js_regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), EntityTreePagevue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", EntityTreePagevue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), EntityTreePagevue_type_script_lang_js_regeneratorDefine2(u), EntityTreePagevue_type_script_lang_js_regeneratorDefine2(u, o, "Generator"), EntityTreePagevue_type_script_lang_js_regeneratorDefine2(u, n, function () { return this; }), EntityTreePagevue_type_script_lang_js_regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (EntityTreePagevue_type_script_lang_js_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
@@ -748,10 +757,12 @@ function EntityTreePagevue_type_script_lang_js_toPrimitive(t, r) { if ("object" 
 
 
 
+
 /* harmony default export */ const EntityTreePagevue_type_script_lang_js = ({
   name: "EntityTreePage",
   components: {
-    TreeView: TreeView
+    TreeView: TreeView,
+    TableLoading: TableLoading["default"]
   },
   props: {
     config: {
@@ -1433,23 +1444,23 @@ function EntityTreePagevue_type_script_lang_js_toPrimitive(t, r) { if ("object" 
 });
 ;// ./resources/js/components/EntityTreePage.vue?vue&type=script&lang=js
  /* harmony default export */ const components_EntityTreePagevue_type_script_lang_js = (EntityTreePagevue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EntityTreePage.vue?vue&type=style&index=0&id=4ec774a9&prod&scoped=true&lang=css
-var EntityTreePagevue_type_style_index_0_id_4ec774a9_prod_scoped_true_lang_css = __webpack_require__(89282);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EntityTreePage.vue?vue&type=style&index=0&id=4ec774a9&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EntityTreePage.vue?vue&type=style&index=0&id=0d07c7f0&prod&scoped=true&lang=css
+var EntityTreePagevue_type_style_index_0_id_0d07c7f0_prod_scoped_true_lang_css = __webpack_require__(85981);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EntityTreePage.vue?vue&type=style&index=0&id=0d07c7f0&prod&scoped=true&lang=css
 
             
 
-var EntityTreePagevue_type_style_index_0_id_4ec774a9_prod_scoped_true_lang_css_options = {};
+var EntityTreePagevue_type_style_index_0_id_0d07c7f0_prod_scoped_true_lang_css_options = {};
 
-EntityTreePagevue_type_style_index_0_id_4ec774a9_prod_scoped_true_lang_css_options.insert = "head";
-EntityTreePagevue_type_style_index_0_id_4ec774a9_prod_scoped_true_lang_css_options.singleton = false;
+EntityTreePagevue_type_style_index_0_id_0d07c7f0_prod_scoped_true_lang_css_options.insert = "head";
+EntityTreePagevue_type_style_index_0_id_0d07c7f0_prod_scoped_true_lang_css_options.singleton = false;
 
-var EntityTreePagevue_type_style_index_0_id_4ec774a9_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(EntityTreePagevue_type_style_index_0_id_4ec774a9_prod_scoped_true_lang_css/* default */.A, EntityTreePagevue_type_style_index_0_id_4ec774a9_prod_scoped_true_lang_css_options);
+var EntityTreePagevue_type_style_index_0_id_0d07c7f0_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(EntityTreePagevue_type_style_index_0_id_0d07c7f0_prod_scoped_true_lang_css/* default */.A, EntityTreePagevue_type_style_index_0_id_0d07c7f0_prod_scoped_true_lang_css_options);
 
 
 
-/* harmony default export */ const components_EntityTreePagevue_type_style_index_0_id_4ec774a9_prod_scoped_true_lang_css = (EntityTreePagevue_type_style_index_0_id_4ec774a9_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/EntityTreePage.vue?vue&type=style&index=0&id=4ec774a9&prod&scoped=true&lang=css
+/* harmony default export */ const components_EntityTreePagevue_type_style_index_0_id_0d07c7f0_prod_scoped_true_lang_css = (EntityTreePagevue_type_style_index_0_id_0d07c7f0_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/EntityTreePage.vue?vue&type=style&index=0&id=0d07c7f0&prod&scoped=true&lang=css
 
 ;// ./resources/js/components/EntityTreePage.vue
 
@@ -1466,7 +1477,7 @@ var EntityTreePage_component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "4ec774a9",
+  "0d07c7f0",
   null
   
 )
@@ -1499,7 +1510,7 @@ var render = function render() {
 var staticRenderFns = [];
 
 // EXTERNAL MODULE: ./resources/js/components/EntityTreePage.vue + 11 modules
-var EntityTreePage = __webpack_require__(43722);
+var EntityTreePage = __webpack_require__(66806);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/inventory/items-directory/index.vue?vue&type=script&lang=js
 
 /* harmony default export */ const items_directoryvue_type_script_lang_js = ({
@@ -1686,7 +1697,7 @@ var component = (0,componentNormalizer/* default */.A)(
 
 /***/ }),
 
-/***/ 89282:
+/***/ 85981:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -1698,7 +1709,7 @@ var component = (0,componentNormalizer/* default */.A)(
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".refresh-btn[data-v-4ec774a9]{background:#33a0d91a!important;color:#33a0d9!important}.refresh-btn[data-v-4ec774a9],.tree-btn[data-v-4ec774a9]{border:none;border-radius:10px;height:44px;padding:10px 16px;width:56px}.tree-btn[data-v-4ec774a9]{background:#f6fef4!important;color:#2ab930!important}.btn-primary[data-v-4ec774a9]{background:#2ab930!important;border:none!important;color:#fff!important;padding:10px 20px!important}.btn-group.c-w-100[data-v-4ec774a9]{gap:10px}.tree-page-container[data-v-4ec774a9]{background:#fff;border:1px solid #e9ecef;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.08);overflow:hidden}.tree-badge[data-v-4ec774a9]{border-radius:12px;font-size:11px;font-weight:500;line-height:1.2;padding:4px 10px;white-space:nowrap}.tree-badge-active[data-v-4ec774a9]{background:#f6fef4;border:1px solid #e8f5e9;color:#2ab930}.tree-badge-inactive[data-v-4ec774a9]{background:#fef4f4;border:1px solid #ffebee;color:#dc3545}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".refresh-btn[data-v-0d07c7f0]{background:#33a0d91a!important;color:#33a0d9!important}.refresh-btn[data-v-0d07c7f0],.tree-btn[data-v-0d07c7f0]{border:none;border-radius:10px;height:44px;padding:10px 16px;width:56px}.tree-btn[data-v-0d07c7f0]{background:#f6fef4!important;color:#2ab930!important}.btn-primary[data-v-0d07c7f0]{background:#2ab930!important;border:none!important;color:#fff!important;padding:10px 20px!important}.btn-group.c-w-100[data-v-0d07c7f0]{gap:10px}.tree-page-container[data-v-0d07c7f0]{background:#fff;border:1px solid #e9ecef;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.08);overflow:hidden}.tree-badge[data-v-0d07c7f0]{border-radius:12px;font-size:11px;font-weight:500;line-height:1.2;padding:4px 10px;white-space:nowrap}.tree-badge-active[data-v-0d07c7f0]{background:#f6fef4;border:1px solid #e8f5e9;color:#2ab930}.tree-badge-inactive[data-v-0d07c7f0]{background:#fef4f4;border:1px solid #ffebee;color:#dc3545}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
