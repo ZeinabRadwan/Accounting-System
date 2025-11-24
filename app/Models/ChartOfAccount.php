@@ -56,11 +56,23 @@ class ChartOfAccount extends Model
             return $this->getAttribute($field);
         }
 
-        $value = $this->translations()
-            ->where('locale', $locale)
-            ->value($field);
+        // If translations are already loaded, use them to avoid N+1 queries
+        if ($this->relationLoaded('translations')) {
+            $translation = $this->translations->firstWhere('locale', $locale);
+            if ($translation && $translation->{$field}) {
+                return $translation->{$field};
+            }
+        } else {
+            // Fallback to query if not eager loaded
+            $value = $this->translations()
+                ->where('locale', $locale)
+                ->value($field);
+            if ($value) {
+                return $value;
+            }
+        }
 
-        return $value ?: $this->getAttribute($field);
+        return $this->getAttribute($field);
     }
 
     /**
@@ -229,17 +241,55 @@ class ChartOfAccount extends Model
 
     /**
      * Get all child accounts (recursive)
+     * Optimized to use a single recursive query when children are not already loaded
      */
     public function getAllChildren()
     {
-        $children = collect();
+        // If children are already loaded, use them (for small trees)
+        if ($this->relationLoaded('children') && $this->children->count() < 100) {
+            $children = collect();
+            foreach ($this->children as $child) {
+                $children->push($child);
+                $children = $children->merge($child->getAllChildren());
+            }
 
-        foreach ($this->children as $child) {
-            $children->push($child);
-            $children = $children->merge($child->getAllChildren());
+            return $children;
         }
 
-        return $children;
+        // For large trees, use a single recursive query
+        return static::getAllDescendants($this->id);
+    }
+
+    /**
+     * Get all descendant account IDs using a single recursive query
+     * This is much more efficient than loading and traversing relationships
+     */
+    public static function getAllDescendants($parentId)
+    {
+        $allDescendantIds = collect([$parentId]);
+        $currentLevelIds = collect([$parentId]);
+
+        // Use iterative approach instead of recursive queries to avoid deep recursion
+        $maxDepth = 20; // Safety limit
+        $depth = 0;
+
+        while ($currentLevelIds->isNotEmpty() && $depth < $maxDepth) {
+            $nextLevelIds = static::whereIn('parent_id', $currentLevelIds)
+                ->pluck('id');
+
+            if ($nextLevelIds->isEmpty()) {
+                break;
+            }
+
+            $allDescendantIds = $allDescendantIds->merge($nextLevelIds);
+            $currentLevelIds = $nextLevelIds;
+            $depth++;
+        }
+
+        // Return all descendants except the parent itself
+        return static::whereIn('id', $allDescendantIds->unique())
+            ->where('id', '!=', $parentId)
+            ->get();
     }
 
     /**
@@ -343,55 +393,126 @@ class ChartOfAccount extends Model
 
     /**
      * Get balances for multiple accounts including children efficiently
-     * This method uses a single query with CTE for better performance
+     * Optimized to use bulk queries instead of individual finds
      */
     public static function getBulkBalancesWithChildren($accountIds = null)
     {
-        // First get all account IDs including children
-        $allAccountIds = collect();
+        // Get all account IDs (we need all for balance calculations)
+        $allAccountIds = $accountIds ? collect($accountIds) : static::pluck('id');
+        $targetAccountIds = $allAccountIds->toArray();
 
-        if ($accountIds) {
-            foreach ($accountIds as $accountId) {
-                $account = static::find($accountId);
-                if ($account) {
-                    $allAccountIds->push($accountId);
-                    $allAccountIds = $allAccountIds->merge($account->getAllChildren()->pluck('id'));
-                }
-            }
-        } else {
-            $allAccountIds = static::pluck('id');
+        // Build children map efficiently using a single query approach
+        $accountChildrenMap = static::buildChildrenMap($targetAccountIds);
+
+        // Get all descendant IDs for balance calculation
+        $allDescendantIds = $allAccountIds->toArray();
+        foreach ($accountChildrenMap as $childrenIds) {
+            $allDescendantIds = array_merge($allDescendantIds, $childrenIds);
         }
+        $allDescendantIds = array_unique($allDescendantIds);
 
-        // Get balances for all accounts
-        $balances = static::getBulkBalances($allAccountIds->unique()->toArray());
+        // Get balances for all accounts in a single query
+        $balances = static::getBulkBalances($allDescendantIds);
 
         // Group by parent accounts
         $result = [];
-        $targetAccountIds = $accountIds ?? static::pluck('id');
 
         foreach ($targetAccountIds as $accountId) {
-            $account = static::find($accountId);
-            if ($account) {
-                $ownBalance = $balances->get($accountId);
-                $ownDebits = $ownBalance ? $ownBalance->total_debits : 0;
-                $ownCredits = $ownBalance ? $ownBalance->total_credits : 0;
+            $ownBalance = $balances->get($accountId);
+            $ownDebits = $ownBalance ? $ownBalance->total_debits : 0;
+            $ownCredits = $ownBalance ? $ownBalance->total_credits : 0;
 
-                $childrenIds = $account->getAllChildren()->pluck('id');
-                $childrenDebits = $balances->whereIn('chart_of_account_id', $childrenIds)->sum('total_debits');
-                $childrenCredits = $balances->whereIn('chart_of_account_id', $childrenIds)->sum('total_credits');
+            $childrenIds = $accountChildrenMap[$accountId] ?? [];
+            $childrenDebits = $balances->whereIn('chart_of_account_id', $childrenIds)->sum('total_debits');
+            $childrenCredits = $balances->whereIn('chart_of_account_id', $childrenIds)->sum('total_credits');
 
-                $result[$accountId] = [
-                    'debits' => $ownDebits,
-                    'credits' => $ownCredits,
-                    'total_debits' => $ownDebits + $childrenDebits,
-                    'total_credits' => $ownCredits + $childrenCredits,
-                    'balance' => $ownDebits - $ownCredits,
-                    'total_balance' => ($ownDebits + $childrenDebits) - ($ownCredits + $childrenCredits),
-                ];
-            }
+            $result[$accountId] = [
+                'debits' => $ownDebits,
+                'credits' => $ownCredits,
+                'total_debits' => $ownDebits + $childrenDebits,
+                'total_credits' => $ownCredits + $childrenCredits,
+                'balance' => $ownDebits - $ownCredits,
+                'total_balance' => ($ownDebits + $childrenDebits) - ($ownCredits + $childrenCredits),
+            ];
         }
 
         return $result;
+    }
+
+    /**
+     * Build a map of account IDs to their descendant IDs efficiently
+     * Uses iterative breadth-first approach to avoid deep recursion
+     */
+    public static function buildChildrenMap($accountIds)
+    {
+        $childrenMap = [];
+
+        // Get all accounts with their parent relationships in one query
+        $allAccounts = static::select('id', 'parent_id')->get()->keyBy('id');
+
+        // Build direct parent-child map
+        $parentToChildren = [];
+        foreach ($allAccounts as $account) {
+            if ($account->parent_id) {
+                if (! isset($parentToChildren[$account->parent_id])) {
+                    $parentToChildren[$account->parent_id] = [];
+                }
+                $parentToChildren[$account->parent_id][] = $account->id;
+            }
+        }
+
+        // For each target account, get all descendants using iterative BFS
+        foreach ($accountIds as $accountId) {
+            $descendants = [];
+            $queue = [$accountId];
+            $visited = [$accountId => true];
+
+            while (! empty($queue)) {
+                $currentId = array_shift($queue);
+
+                if (isset($parentToChildren[$currentId])) {
+                    foreach ($parentToChildren[$currentId] as $childId) {
+                        if (! isset($visited[$childId])) {
+                            $visited[$childId] = true;
+                            $descendants[] = $childId;
+                            $queue[] = $childId;
+                        }
+                    }
+                }
+            }
+
+            $childrenMap[$accountId] = $descendants;
+        }
+
+        return $childrenMap;
+    }
+
+    /**
+     * Get all descendant account IDs for a given parent ID
+     * Uses iterative approach to avoid deep recursion
+     */
+    public static function getAllDescendantIds($parentId)
+    {
+        $allDescendantIds = collect();
+        $currentLevelIds = collect([$parentId]);
+
+        $maxDepth = 20; // Safety limit
+        $depth = 0;
+
+        while ($currentLevelIds->isNotEmpty() && $depth < $maxDepth) {
+            $nextLevelIds = static::whereIn('parent_id', $currentLevelIds)
+                ->pluck('id');
+
+            if ($nextLevelIds->isEmpty()) {
+                break;
+            }
+
+            $allDescendantIds = $allDescendantIds->merge($nextLevelIds);
+            $currentLevelIds = $nextLevelIds;
+            $depth++;
+        }
+
+        return $allDescendantIds->unique()->toArray();
     }
 
     /**

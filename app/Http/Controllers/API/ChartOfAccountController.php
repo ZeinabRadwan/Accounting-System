@@ -191,7 +191,7 @@ class ChartOfAccountController extends Controller
         try {
             $branchId = Auth::user()->default_branch_id ?? null;
 
-            $accounts = ChartOfAccount::with(['type', 'parent'])
+            $accounts = ChartOfAccount::with(['type', 'parent', 'translations'])
                 ->forBranch($branchId)
                 ->ordered()
                 ->get();
@@ -514,7 +514,6 @@ class ChartOfAccountController extends Controller
                 'parent_code' => $parentId ? $parent->code : null,
                 'is_child' => (bool) $parentId,
             ]);
-
         } catch (Exception $e) {
             // \Log::error('Code generation error', [
             //     'error' => $e->getMessage(),
@@ -594,7 +593,6 @@ class ChartOfAccountController extends Controller
                 'from' => $journalEntryLines->firstItem(),
                 'to' => $journalEntryLines->lastItem(),
             ]);
-
         } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error loading journal entries',
