@@ -348,6 +348,9 @@ export default {
       // Create a dynamic export URL with query parameters and locale for localized headers
       const locale = this.$i18n.locale;
       return `/chart-of-accounts/export/excel?term=${this.query}&search_field=${this.searchField}&type_filter=${this.typeFilter}&locale=${locale}`;
+    },
+    localeFromStore() {
+      return this.$store?.getters?.['lang/locale'] || null
     }
   },
   watch: {
@@ -359,8 +362,8 @@ export default {
         this.searchData();
       }
     },
-    // watch locale changes
-    '$store.getters["lang/locale"]': function(newLocale) {
+    // watch locale changes from store
+    localeFromStore(newLocale) {
       if (newLocale && newLocale !== this.currentLocale) {
         this.currentLocale = newLocale;
         if (this.query === "") {
