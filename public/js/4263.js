@@ -879,26 +879,6 @@ exports["default"] = CanvasRenderer;
 
 /***/ }),
 
-/***/ 11863:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-f983d382]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-bottom:1.25rem;margin-top:20px;transition:all .2s ease}.form-card[data-v-f983d382]:hover{box-shadow:0 .1rem .5rem 0 rgba(58,59,69,.15)}.form-card .card-header[data-v-f983d382]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:12px 16px}.form-card .card-header .section-title[data-v-f983d382]{border:none;color:#fff;font-size:14px;font-weight:600;margin:0;padding:0}.form-card .card-header .section-title[data-v-f983d382]:after{display:none}.form-card .card-header .section-title i[data-v-f983d382]{color:hsla(0,0%,100%,.8)}.form-card .card-body[data-v-f983d382]{padding:16px}.section-title[data-v-f983d382]{border-bottom:1px solid #e9ecef;color:#495057;font-weight:600;margin-bottom:15px;padding-bottom:8px}.form-group[data-v-f983d382]{margin-bottom:1rem}.form-group label[data-v-f983d382]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-f983d382]{color:#dc3545;font-weight:700}.row[data-v-f983d382]{margin-bottom:1rem}.row[data-v-f983d382]:last-child{margin-bottom:0}.auto-assign-btn[data-v-f983d382]{min-width:40px;padding:.375rem .5rem;white-space:nowrap}.auto-assign-btn[data-v-f983d382]:disabled{cursor:not-allowed;opacity:.6}.form-text[data-v-f983d382]{color:#6c757d;font-size:.8rem;margin-top:3px}.image-preview[data-v-f983d382]{text-align:center}.image-preview img[data-v-f983d382]{border:1px solid #dee2e6;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.1)}.custom-file-label[data-v-f983d382]{background-color:#f8f9fa;border:1px dashed #dee2e6;cursor:pointer;font-size:.85rem;transition:all .2s ease}.custom-file-label[data-v-f983d382]:hover{background-color:#e3f2fd;border-color:#007bff}.custom-file-label i[data-v-f983d382]{color:#6c757d}.create-button[data-v-f983d382]{cursor:pointer;text-decoration:none}.create-btn[data-v-f983d382]{border-left:none;border-radius:0 .25rem .25rem 0;cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-f983d382]:hover{background-color:#e9ecef}.category-select[data-v-f983d382]{margin-right:0!important}.category-select .vs__dropdown-toggle[data-v-f983d382]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .category-select .vs__dropdown-toggle[data-v-f983d382]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}[dir=rtl] .create-btn[data-v-f983d382]{border-left:none;border-radius:.25rem 0 0 .25rem;border-right:1px solid #ced4da}[dir=ltr] .create-btn[data-v-f983d382]{border-left:1px solid #ced4da;border-radius:0 .25rem .25rem 0;border-right:none}.unit-select[data-v-f983d382]{margin-right:0!important}.unit-select .vs__dropdown-toggle[data-v-f983d382]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .unit-select .vs__dropdown-toggle[data-v-f983d382]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}@media (max-width:768px){.section-title[data-v-f983d382]{font-size:.95rem;margin-bottom:12px}.form-card .card-body[data-v-f983d382]{padding:.75rem}.auto-assign-btn[data-v-f983d382]{font-size:.75rem;min-width:35px}}.input-group-prepend .input-group-text[data-v-f983d382]{background-color:#f8f9fa;border-color:#ced4da;color:#495057;font-size:.85rem}.v-select[data-v-f983d382]{margin-bottom:0}.is-invalid[data-v-f983d382]{border-color:#dc3545!important}.invalid-feedback[data-v-f983d382]{color:#dc3545;display:block;font-size:75%;margin-top:.2rem;width:100%}.item-type-selector[data-v-f983d382]{display:flex;gap:.5rem;margin-top:.5rem}.item-type-option[data-v-f983d382]{cursor:pointer;flex:1;position:relative;transition:all .2s ease}.item-type-option input[type=radio][data-v-f983d382]{opacity:0;pointer-events:none;position:absolute}.option-content[data-v-f983d382]{align-items:center;background:#fff;border:2px solid #e3e6f0;border-radius:6px;display:flex;flex-direction:column;justify-content:center;min-height:55px;padding:.6rem .5rem;text-align:center;transition:all .2s ease}.item-type-option:hover .option-content[data-v-f983d382]{border-color:#33a0d9;box-shadow:0 2px 6px rgba(51,160,217,.15);transform:translateY(-1px)}.item-type-option.active .option-content[data-v-f983d382]{background:#33a0d9;border-color:#33a0d9;box-shadow:0 3px 10px rgba(51,160,217,.25);color:#fff;transform:translateY(-1px)}.option-content i[data-v-f983d382]{color:#6c757d;font-size:1.1rem;margin-bottom:.3rem;transition:all .2s ease}.item-type-option.active .option-content i[data-v-f983d382]{color:hsla(0,0%,100%,.9)}.option-content span[data-v-f983d382]{color:#495057;font-size:.85rem;font-weight:600;transition:all .2s ease}.item-type-option.active .option-content span[data-v-f983d382]{color:#fff}@media (max-width:768px){.item-type-selector[data-v-f983d382]{flex-direction:column;gap:.4rem}.option-content[data-v-f983d382]{min-height:50px;padding:.5rem .4rem}.option-content i[data-v-f983d382]{font-size:1rem;margin-bottom:.25rem}.option-content span[data-v-f983d382]{font-size:.8rem}.override-checkbox-container .form-check-label[data-v-f983d382]{min-height:44px;padding:.6rem .8rem}.checkbox-text[data-v-f983d382]{font-size:.9rem}.form-check-input[data-v-f983d382]{height:16px;width:16px}}.account-label-row[data-v-f983d382]{align-items:flex-start;display:flex;flex-direction:column;gap:1rem;justify-content:space-between;margin-bottom:.5rem}.account-label[data-v-f983d382]{color:#495057;flex:1;font-size:.95rem;font-weight:500;margin-bottom:0}.toggle-switch-container[data-v-f983d382]{align-items:center;display:flex;flex-shrink:0}.toggle-switch-label[data-v-f983d382]{align-items:center;cursor:pointer;display:inline-flex;gap:.75rem;-webkit-user-select:none;-moz-user-select:none;user-select:none}.toggle-switch-wrapper[data-v-f983d382]{display:inline-block;flex-shrink:0;height:26px;position:relative;width:50px}.toggle-switch-input[data-v-f983d382]{appearance:none;-webkit-appearance:none;-moz-appearance:none;background-color:#ced4da;border-radius:26px;cursor:pointer;height:26px;left:0;margin:0;outline:none;padding:0;position:absolute;top:0;transition:background-color .3s ease;width:50px}.toggle-switch-input[data-v-f983d382]:checked{background-color:#33a0d9}.toggle-switch-input[data-v-f983d382]:focus{box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.toggle-switch-slider[data-v-f983d382]{background-color:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2);height:20px;left:3px;pointer-events:none;position:absolute;top:50%;transform:translateY(-50%);transition:transform .3s ease;width:20px}.toggle-switch-input:checked+.toggle-switch-slider[data-v-f983d382]{transform:translate(24px,-50%)}.toggle-switch-text[data-v-f983d382]{color:#495057;font-size:.9rem;font-weight:500;transition:color .2s ease;white-space:nowrap}.toggle-switch-label:has(.toggle-switch-input:checked) .toggle-switch-text[data-v-f983d382]{color:#33a0d9;font-weight:600}.alert-info[data-v-f983d382]{background-color:#d1ecf1;border-color:#bee5eb;border-radius:.375rem;font-size:.9rem;padding:.75rem 1rem}.alert-info[data-v-f983d382],.alert-info i[data-v-f983d382]{color:#0c5460}.col-form-6[data-v-f983d382]{flex:0 0 50%;max-width:50%}.col-form-6 .form-card[data-v-f983d382],.col-form-6 .form-card .card-body[data-v-f983d382]{width:100%}@media (max-width:1300px){.col-form-6[data-v-f983d382]{flex:0 0 100%;max-width:100%}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
 /***/ 13528:
 /***/ ((__unused_webpack_module, exports) => {
 
@@ -11064,3236 +11044,6 @@ exports["default"] = CODE128;
 
 /***/ }),
 
-/***/ 54773:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ ProductCreateModal)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=template&id=f983d382&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c('VModal', {
-    on: {
-      "close": function close($event) {
-        _vm.showProductCreateModal = false;
-      }
-    },
-    scopedSlots: _vm._u([{
-      key: "title",
-      fn: function fn() {
-        return [_vm._v(_vm._s(_vm.$t("Create Product")))];
-      },
-      proxy: true
-    }]),
-    model: {
-      value: _vm.showProductCreateModal,
-      callback: function callback($$v) {
-        _vm.showProductCreateModal = $$v;
-      },
-      expression: "showProductCreateModal"
-    }
-  }, [_vm._v(" "), _c('div', {
-    staticClass: "w-100"
-  }, [_c('form', {
-    attrs: {
-      "role": "form"
-    },
-    on: {
-      "keydown": function keydown($event) {
-        return _vm.form.onKeydown($event);
-      }
-    }
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-cube mr-2"
-  }), _vm._v("\n              " + _vm._s(_vm.$t("Item Type")) + "\n            ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "item-type-selector"
-  }, [_c('label', {
-    staticClass: "item-type-option",
-    "class": {
-      'active': _vm.form.itemType === 'product'
-    }
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.itemType,
-      expression: "form.itemType"
-    }],
-    attrs: {
-      "type": "radio",
-      "id": "product",
-      "name": "itemType",
-      "value": "product",
-      "autocomplete": "off"
-    },
-    domProps: {
-      "checked": _vm._q(_vm.form.itemType, "product")
-    },
-    on: {
-      "change": function change($event) {
-        return _vm.$set(_vm.form, "itemType", "product");
-      }
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "option-content"
-  }, [_c('i', {
-    staticClass: "fas fa-cube"
-  }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t("Product")))])])]), _vm._v(" "), _c('label', {
-    staticClass: "item-type-option",
-    "class": {
-      'active': _vm.form.itemType === 'service'
-    }
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.itemType,
-      expression: "form.itemType"
-    }],
-    attrs: {
-      "type": "radio",
-      "id": "service",
-      "name": "itemType",
-      "value": "service",
-      "autocomplete": "off"
-    },
-    domProps: {
-      "checked": _vm._q(_vm.form.itemType, "service")
-    },
-    on: {
-      "change": function change($event) {
-        return _vm.$set(_vm.form, "itemType", "service");
-      }
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "option-content"
-  }, [_c('i', {
-    staticClass: "fas fa-cogs"
-  }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t("Service")))])])])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "itemType"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-info-circle mr-2"
-  }), _vm._v("\n              " + _vm._s(_vm.$t("Product Details")) + "\n            ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-form-6"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "itemName"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Item Name")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.itemName,
-      expression: "form.itemName"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('itemName')
-    },
-    attrs: {
-      "id": "itemName",
-      "type": "text",
-      "name": "itemName",
-      "placeholder": _vm.$t('Enter a name')
-    },
-    domProps: {
-      "value": _vm.form.itemName
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "itemName", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "itemName"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "itemCode"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Item Code")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
-    staticClass: "input-group"
-  }, [_vm.prefix ? _c('span', {
-    staticClass: "input-group-text"
-  }, [_vm._v(_vm._s(_vm.prefix))]) : _vm._e(), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.itemCode,
-      expression: "form.itemCode"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('itemCode')
-    },
-    attrs: {
-      "type": "text",
-      "name": "itemCode",
-      "placeholder": _vm.$t('Enter item code')
-    },
-    domProps: {
-      "value": _vm.form.itemCode
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "itemCode", $event.target.value);
-      }
-    }
-  })]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "itemCode"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "subCategory"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Category")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
-    staticClass: "d-flex w-100"
-  }, [_c('v-select', {
-    staticClass: "flex-grow-1",
-    "class": {
-      'is-invalid': _vm.form.errors.has('subCategory'),
-      'category-select': true
-    },
-    attrs: {
-      "options": _vm.categories,
-      "label": "name",
-      "name": "subCategory",
-      "placeholder": _vm.$t('Select a category')
-    },
-    model: {
-      value: _vm.form.subCategory,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "subCategory", $$v);
-      },
-      expression: "form.subCategory"
-    }
-  }), _vm._v(" "), _c('CategorySubcategoryCreateModal', {
-    on: {
-      "categoryCreated": _vm.handleCategoryCreated,
-      "subcategoryCreated": _vm.handleSubcategoryCreated
-    }
-  }, [_c('div', {
-    staticClass: "input-group-text create-btn"
-  }, [_c('i', {
-    staticClass: "fas fa-solid fa-plus-circle"
-  })])])], 1), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "subCategory"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "itemUnit"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Unit")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
-    staticClass: "d-flex w-100"
-  }, [_c('v-select', {
-    staticClass: "flex-grow-1",
-    "class": {
-      'is-invalid': _vm.form.errors.has('itemUnit'),
-      'unit-select': true
-    },
-    attrs: {
-      "options": _vm.units,
-      "label": "name",
-      "name": "itemUnit",
-      "placeholder": _vm.$t('Select a unit')
-    },
-    model: {
-      value: _vm.form.itemUnit,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "itemUnit", $$v);
-      },
-      expression: "form.itemUnit"
-    }
-  }), _vm._v(" "), _c('UnitCreateModal', {
-    on: {
-      "unitCreated": _vm.handleUnitCreated
-    }
-  }, [_c('div', {
-    staticClass: "input-group-text create-btn"
-  }, [_c('i', {
-    staticClass: "fas fa-solid fa-plus-circle"
-  })])])], 1), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "itemUnit"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "productTax"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Tax Rate")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
-    "class": {
-      'is-invalid': _vm.form.errors.has('productTax')
-    },
-    attrs: {
-      "options": _vm.taxes,
-      "label": "code",
-      "name": "productTax",
-      "placeholder": _vm.$t('Select a tax')
-    },
-    on: {
-      "input": _vm.calculatePrice
-    },
-    model: {
-      value: _vm.form.productTax,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "productTax", $$v);
-      },
-      expression: "form.productTax"
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "productTax"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "col-form-6"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "itemModel"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Model")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.itemModel,
-      expression: "form.itemModel"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('itemModel')
-    },
-    attrs: {
-      "id": "itemModel",
-      "type": "text",
-      "name": "itemModel",
-      "placeholder": _vm.$t('Enter a model')
-    },
-    domProps: {
-      "value": _vm.form.itemModel
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "itemModel", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "itemModel"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "regularPrice"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Price")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.regularPrice,
-      expression: "form.regularPrice"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('regularPrice')
-    },
-    attrs: {
-      "id": "regularPrice",
-      "type": "number",
-      "step": "any",
-      "min": "0",
-      "name": "regularPrice",
-      "placeholder": _vm.$t('Enter price')
-    },
-    domProps: {
-      "value": _vm.form.regularPrice
-    },
-    on: {
-      "change": _vm.calculatePrice,
-      "keyup": _vm.calculatePrice,
-      "input": [function ($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "regularPrice", $event.target.value);
-      }, _vm.checkPurchasePriceWarning],
-      "blur": _vm.checkPurchasePriceWarning
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "regularPrice"
-    }
-  }), _vm._v(" "), _vm.showPurchasePriceWarning ? _c('small', {
-    staticClass: "text-warning d-block mt-1"
-  }, [_c('i', {
-    staticClass: "fas fa-exclamation-triangle"
-  }), _vm._v("\n                    " + _vm._s(_vm.$t("Warning: Purchase price is greater than selling price")) + "\n                  ")]) : _vm._e()], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group",
-    staticStyle: {
-      "display": "none"
-    }
-  }, [_c('label', {
-    attrs: {
-      "for": "discount"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Discount (%)")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.discount,
-      expression: "form.discount"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('discount')
-    },
-    attrs: {
-      "type": "number",
-      "min": "0",
-      "max": "100",
-      "name": "discount",
-      "placeholder": _vm.$t('Enter discount')
-    },
-    domProps: {
-      "value": _vm.form.discount
-    },
-    on: {
-      "change": _vm.calculatePrice,
-      "keyup": _vm.calculatePrice,
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "discount", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "discount"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "sellingPrice"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Final Price")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.sellingPrice,
-      expression: "form.sellingPrice"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('sellingPrice')
-    },
-    attrs: {
-      "id": "sellingPrice",
-      "type": "number",
-      "readonly": "",
-      "name": "sellingPrice",
-      "placeholder": _vm.$t('Calculated automatically')
-    },
-    domProps: {
-      "value": _vm.form.sellingPrice
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "sellingPrice", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "sellingPrice"
-    }
-  })], 1)])])])]), _vm._v(" "), _vm.form.itemType === 'product' ? _c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-warehouse mr-2"
-  }), _vm._v("\n              " + _vm._s(_vm.$t("Stock Information")) + "\n            ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-form-6"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "openingStockCount"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Opening Stock")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.openingStockCount,
-      expression: "form.openingStockCount"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('openingStockCount')
-    },
-    attrs: {
-      "id": "openingStockCount",
-      "type": "number",
-      "step": "any",
-      "min": "0",
-      "name": "openingStockCount",
-      "placeholder": _vm.$t('Enter opening stock')
-    },
-    domProps: {
-      "value": _vm.form.openingStockCount
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "openingStockCount", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "openingStockCount"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "col-form-6"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "openingStockUnitPrice"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Purchase Price")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.openingStockUnitPrice,
-      expression: "form.openingStockUnitPrice"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('openingStockUnitPrice')
-    },
-    attrs: {
-      "id": "openingStockUnitPrice",
-      "type": "number",
-      "step": "any",
-      "min": "0",
-      "name": "openingStockUnitPrice",
-      "placeholder": _vm.$t('Enter purchase price')
-    },
-    domProps: {
-      "value": _vm.form.openingStockUnitPrice
-    },
-    on: {
-      "input": [function ($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "openingStockUnitPrice", $event.target.value);
-      }, _vm.checkPurchasePriceWarning],
-      "change": _vm.checkPurchasePriceWarning,
-      "blur": _vm.checkPurchasePriceWarning
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "openingStockUnitPrice"
-    }
-  }), _vm._v(" "), _vm.showPurchasePriceWarning ? _c('small', {
-    staticClass: "text-warning d-block mt-1"
-  }, [_c('i', {
-    staticClass: "fas fa-exclamation-triangle"
-  }), _vm._v("\n                    " + _vm._s(_vm.$t("Warning: Purchase price is greater than selling price")) + "\n                  ")]) : _vm._e()], 1)])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-form-6"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "alertQuantity"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Alert Quantity")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.alertQuantity,
-      expression: "form.alertQuantity"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('alertQuantity')
-    },
-    attrs: {
-      "id": "alertQuantity",
-      "type": "number",
-      "min": "0",
-      "max": "1000",
-      "name": "alertQuantity",
-      "placeholder": _vm.$t('Enter alert quantity')
-    },
-    domProps: {
-      "value": _vm.form.alertQuantity
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "alertQuantity", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "alertQuantity"
-    }
-  })], 1)])])])]) : _vm._e(), _vm._v(" "), _vm.form.itemType === 'service' ? _c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-cogs mr-2"
-  }), _vm._v("\n              " + _vm._s(_vm.$t("Service Information")) + "\n            ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-form-6"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "servicePurchasePrice"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Service Purchase Price")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.servicePurchasePrice,
-      expression: "form.servicePurchasePrice"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('servicePurchasePrice')
-    },
-    attrs: {
-      "id": "servicePurchasePrice",
-      "type": "number",
-      "step": "any",
-      "min": "0",
-      "name": "servicePurchasePrice",
-      "placeholder": _vm.$t('Enter service purchase price')
-    },
-    domProps: {
-      "value": _vm.form.servicePurchasePrice
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "servicePurchasePrice", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "servicePurchasePrice"
-    }
-  })], 1)])])])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-form-6"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-chart-line mr-2"
-  }), _vm._v("\n                  " + _vm._s(_vm.$t("Chart of Accounts")) + "\n                ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_vm.isSalesAccountAutomatic || _vm.isPurchaseAccountAutomatic ? _c('div', {
-    staticClass: "row mb-3"
-  }, [_c('div', {
-    staticClass: "col-12"
-  }, [_c('div', {
-    staticClass: "alert alert-info d-flex align-items-center"
-  }, [_c('i', {
-    staticClass: "fas fa-info-circle mr-2"
-  }), _vm._v(" "), _c('span', [_vm._v("\n                        " + _vm._s(_vm.$t("Automatic account assignment is enabled")) + "\n                      ")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-12"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('div', {
-    staticClass: "account-label-row"
-  }, [_c('label', {
-    staticClass: "account-label",
-    attrs: {
-      "for": "salesAccountId"
-    }
-  }, [_vm._v("\n                          " + _vm._s(_vm.$t("Sales Account")) + "\n                          "), !_vm.isSalesAccountAutomatic || _vm.form.overrideSalesAccount ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _vm.isSalesAccountAutomatic ? _c('div', {
-    staticClass: "toggle-switch-container"
-  }, [_c('label', {
-    staticClass: "toggle-switch-label"
-  }, [_c('span', {
-    staticClass: "toggle-switch-wrapper"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.overrideSalesAccount,
-      expression: "form.overrideSalesAccount"
-    }],
-    staticClass: "toggle-switch-input",
-    attrs: {
-      "type": "checkbox"
-    },
-    domProps: {
-      "checked": Array.isArray(_vm.form.overrideSalesAccount) ? _vm._i(_vm.form.overrideSalesAccount, null) > -1 : _vm.form.overrideSalesAccount
-    },
-    on: {
-      "change": [function ($event) {
-        var $$a = _vm.form.overrideSalesAccount,
-          $$el = $event.target,
-          $$c = $$el.checked ? true : false;
-        if (Array.isArray($$a)) {
-          var $$v = null,
-            $$i = _vm._i($$a, $$v);
-          if ($$el.checked) {
-            $$i < 0 && _vm.$set(_vm.form, "overrideSalesAccount", $$a.concat([$$v]));
-          } else {
-            $$i > -1 && _vm.$set(_vm.form, "overrideSalesAccount", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
-          }
-        } else {
-          _vm.$set(_vm.form, "overrideSalesAccount", $$c);
-        }
-      }, _vm.onOverrideSalesAccountChange]
-    }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "toggle-switch-slider"
-  })]), _vm._v(" "), _c('span', {
-    staticClass: "toggle-switch-text"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form.overrideSalesAccount ? _vm.$t("Manual") : _vm.$t("Automatic")) + "\n                            ")])])]) : _vm._e()]), _vm._v(" "), !_vm.isSalesAccountAutomatic || _vm.form.overrideSalesAccount ? _c('div', {
-    staticClass: "form-group"
-  }, [_c('div', {
-    staticClass: "d-flex align-items-center"
-  }, [_c('v-select', {
-    staticClass: "flex-grow-1 mr-2",
-    "class": {
-      'is-invalid': _vm.form.errors.has('salesAccountId')
-    },
-    attrs: {
-      "options": _vm.chartOfAccounts,
-      "label": "name",
-      "reduce": function reduce(option) {
-        return option.id;
-      },
-      "name": "salesAccountId",
-      "placeholder": _vm.$t('Select sales account'),
-      "required": ""
-    },
-    model: {
-      value: _vm.form.salesAccountId,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "salesAccountId", $$v);
-      },
-      expression: "form.salesAccountId"
-    }
-  })], 1), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "salesAccountId"
-    }
-  })], 1) : _vm._e()])]), _vm._v(" "), _c('div', {
-    staticClass: "col-12"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('div', {
-    staticClass: "account-label-row"
-  }, [_c('label', {
-    staticClass: "account-label",
-    attrs: {
-      "for": "purchaseAccountId"
-    }
-  }, [_vm._v("\n                          " + _vm._s(_vm.$t("Purchase Account")) + "\n                          "), !_vm.isPurchaseAccountAutomatic || _vm.form.overridePurchaseAccount ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _vm.isPurchaseAccountAutomatic ? _c('div', {
-    staticClass: "toggle-switch-container"
-  }, [_c('label', {
-    staticClass: "toggle-switch-label"
-  }, [_c('span', {
-    staticClass: "toggle-switch-wrapper"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.overridePurchaseAccount,
-      expression: "form.overridePurchaseAccount"
-    }],
-    staticClass: "toggle-switch-input",
-    attrs: {
-      "type": "checkbox"
-    },
-    domProps: {
-      "checked": Array.isArray(_vm.form.overridePurchaseAccount) ? _vm._i(_vm.form.overridePurchaseAccount, null) > -1 : _vm.form.overridePurchaseAccount
-    },
-    on: {
-      "change": [function ($event) {
-        var $$a = _vm.form.overridePurchaseAccount,
-          $$el = $event.target,
-          $$c = $$el.checked ? true : false;
-        if (Array.isArray($$a)) {
-          var $$v = null,
-            $$i = _vm._i($$a, $$v);
-          if ($$el.checked) {
-            $$i < 0 && _vm.$set(_vm.form, "overridePurchaseAccount", $$a.concat([$$v]));
-          } else {
-            $$i > -1 && _vm.$set(_vm.form, "overridePurchaseAccount", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
-          }
-        } else {
-          _vm.$set(_vm.form, "overridePurchaseAccount", $$c);
-        }
-      }, _vm.onOverridePurchaseAccountChange]
-    }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "toggle-switch-slider"
-  })]), _vm._v(" "), _c('span', {
-    staticClass: "toggle-switch-text"
-  }, [_vm._v("\n                              " + _vm._s(_vm.form.overridePurchaseAccount ? _vm.$t("Manual") : _vm.$t("Automatic")) + "\n                            ")])])]) : _vm._e()]), _vm._v(" "), !_vm.isPurchaseAccountAutomatic || _vm.form.overridePurchaseAccount ? _c('div', {
-    staticClass: "form-group"
-  }, [_c('div', {
-    staticClass: "d-flex align-items-center"
-  }, [_c('v-select', {
-    staticClass: "flex-grow-1 mr-2",
-    "class": {
-      'is-invalid': _vm.form.errors.has('purchaseAccountId')
-    },
-    attrs: {
-      "options": _vm.chartOfAccounts,
-      "label": "name",
-      "reduce": function reduce(option) {
-        return option.id;
-      },
-      "name": "purchaseAccountId",
-      "placeholder": _vm.$t('Select purchase account'),
-      "required": ""
-    },
-    model: {
-      value: _vm.form.purchaseAccountId,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "purchaseAccountId", $$v);
-      },
-      expression: "form.purchaseAccountId"
-    }
-  })], 1), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "purchaseAccountId"
-    }
-  })], 1) : _vm._e()])])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-form-6"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-plus-circle mr-2"
-  }), _vm._v("\n                  " + _vm._s(_vm.$t("Additional Details")) + "\n                ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-12"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "status"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.status,
-      expression: "form.status"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('status')
-    },
-    attrs: {
-      "id": "status"
-    },
-    on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "1"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Active")))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "0"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "status"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "col-12"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "image"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Image")))]), _vm._v(" "), _c('div', {
-    staticClass: "custom-file"
-  }, [_c('input', {
-    staticClass: "custom-file-input",
-    "class": {
-      'is-invalid': _vm.form.errors.has('image')
-    },
-    attrs: {
-      "id": "image",
-      "type": "file",
-      "name": "image"
-    },
-    on: {
-      "change": _vm.onFileChange
-    }
-  }), _vm._v(" "), _c('label', {
-    staticClass: "custom-file-label",
-    attrs: {
-      "for": "image"
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-upload"
-  }), _vm._v(" " + _vm._s(_vm.$t("Upload")) + "\n                        ")])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "image"
-    }
-  }), _vm._v(" "), _vm.url ? _c('div', {
-    staticClass: "image-preview mt-2"
-  }, [_c('img', {
-    staticClass: "img-fluid rounded",
-    staticStyle: {
-      "max-height": "80px"
-    },
-    attrs: {
-      "src": _vm.url,
-      "alt": _vm.$t('Product Image')
-    }
-  })]) : _vm._e()], 1)])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-12"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "note"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Notes")))]), _vm._v(" "), _c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.note,
-      expression: "form.note"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('note')
-    },
-    attrs: {
-      "id": "note",
-      "rows": "3",
-      "name": "note",
-      "placeholder": _vm.$t('Add any additional notes...')
-    },
-    domProps: {
-      "value": _vm.form.note
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "note", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "note"
-    }
-  })], 1)])])])])])])])]), _vm._v(" "), _c('div', {
-    attrs: {
-      "slot": "modal-footer"
-    },
-    slot: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "loading": _vm.form.busy
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.submitItem($event);
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-save"
-  }), _vm._v(" " + _vm._s(_vm.$t("Save")) + "\n      ")])])]), _vm._v(" "), _c('a', {
-    staticClass: "create-button",
-    on: {
-      "click": _vm.toggleModal
-    }
-  }, [_vm._t("default")], 2)], 1);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
-var vform_es = __webpack_require__(63216);
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-// EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
-var sweetalert2_all = __webpack_require__(78465);
-var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all);
-// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__(95353);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=template&id=f891390a&scoped=true
-var CategorySubcategoryCreateModalvue_type_template_id_f891390a_scoped_true_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c('VModal', {
-    on: {
-      "close": _vm.closeModal
-    },
-    scopedSlots: _vm._u([{
-      key: "title",
-      fn: function fn() {
-        return [_vm._v(_vm._s(_vm.$t("Create Category / Subcategory")))];
-      },
-      proxy: true
-    }]),
-    model: {
-      value: _vm.showModal,
-      callback: function callback($$v) {
-        _vm.showModal = $$v;
-      },
-      expression: "showModal"
-    }
-  }, [_vm._v(" "), _c('div', {
-    staticClass: "w-100",
-    on: {
-      "click": function click($event) {
-        $event.stopPropagation();
-      }
-    }
-  }, [_c('ul', {
-    staticClass: "nav nav-tabs mb-3",
-    attrs: {
-      "role": "tablist"
-    }
-  }, [_c('li', {
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link",
-    "class": {
-      active: _vm.activeTab === 'subcategory'
-    },
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": [function ($event) {
-        _vm.activeTab = 'subcategory';
-      }, function ($event) {
-        $event.preventDefault();
-      }]
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-folder-open mr-2"
-  }), _vm._v("\n              " + _vm._s(_vm.$t("Subcategory")) + "\n            ")])]), _vm._v(" "), _c('li', {
-    staticClass: "nav-item"
-  }, [_c('a', {
-    staticClass: "nav-link",
-    "class": {
-      active: _vm.activeTab === 'category'
-    },
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": [function ($event) {
-        _vm.activeTab = 'category';
-      }, function ($event) {
-        $event.preventDefault();
-      }]
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-folder mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Main Category")) + "\n          ")])])]), _vm._v(" "), _c('div', {
-    staticClass: "tab-content"
-  }, [_c('div', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.activeTab === 'category',
-      expression: "activeTab === 'category'"
-    }],
-    staticClass: "tab-pane fade",
-    "class": {
-      'show active': _vm.activeTab === 'category'
-    }
-  }, [_c('form', {
-    attrs: {
-      "role": "form"
-    },
-    on: {
-      "keydown": function keydown($event) {
-        return _vm.categoryForm.onKeydown($event);
-      },
-      "submit": function submit($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-      }
-    }
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "categoryName"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Name')) + "\n                  "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.categoryForm.name,
-      expression: "categoryForm.name"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.categoryForm.errors.has('name')
-    },
-    attrs: {
-      "id": "categoryName",
-      "type": "text",
-      "name": "name",
-      "placeholder": _vm.$t('Enter a name')
-    },
-    domProps: {
-      "value": _vm.categoryForm.name
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.categoryForm, "name", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.categoryForm,
-      "field": "name"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "categoryStatus"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Status')))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.categoryForm.status,
-      expression: "categoryForm.status"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.categoryForm.errors.has('status')
-    },
-    attrs: {
-      "id": "categoryStatus"
-    },
-    on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.categoryForm, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "1"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Active')))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "0"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Inactive')))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.categoryForm,
-      "field": "status"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "categoryNote"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Note')))]), _vm._v(" "), _c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.categoryForm.note,
-      expression: "categoryForm.note"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.categoryForm.errors.has('note')
-    },
-    attrs: {
-      "id": "categoryNote",
-      "placeholder": _vm.$t('Write your note here!'),
-      "rows": "3"
-    },
-    domProps: {
-      "value": _vm.categoryForm.note
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.categoryForm, "note", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.categoryForm,
-      "field": "note"
-    }
-  })], 1)])]), _vm._v(" "), _c('div', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.activeTab === 'subcategory',
-      expression: "activeTab === 'subcategory'"
-    }],
-    staticClass: "tab-pane fade",
-    "class": {
-      'show active': _vm.activeTab === 'subcategory'
-    }
-  }, [_c('form', {
-    attrs: {
-      "role": "form"
-    },
-    on: {
-      "keydown": function keydown($event) {
-        return _vm.subcategoryForm.onKeydown($event);
-      },
-      "submit": function submit($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-      }
-    }
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "subcategoryName"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Name')) + "\n                "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.subcategoryForm.name,
-      expression: "subcategoryForm.name"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.subcategoryForm.errors.has('name')
-    },
-    attrs: {
-      "id": "subcategoryName",
-      "type": "text",
-      "name": "name",
-      "placeholder": _vm.$t('Enter a name')
-    },
-    domProps: {
-      "value": _vm.subcategoryForm.name
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.subcategoryForm, "name", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.subcategoryForm,
-      "field": "name"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_vm.categories ? _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "subcategoryCategory"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Category Name')) + "\n                  "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
-    staticClass: "d-flex w-100"
-  }, [_c('v-select', {
-    staticClass: "flex-grow-1 category-select",
-    "class": {
-      'is-invalid': _vm.subcategoryForm.errors.has('category')
-    },
-    attrs: {
-      "options": _vm.categories,
-      "label": "name",
-      "name": "category",
-      "placeholder": _vm.$t('Select a category')
-    },
-    model: {
-      value: _vm.subcategoryForm.category,
-      callback: function callback($$v) {
-        _vm.$set(_vm.subcategoryForm, "category", $$v);
-      },
-      expression: "subcategoryForm.category"
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "input-group-text create-btn",
-    staticStyle: {
-      "cursor": "pointer"
-    },
-    on: {
-      "click": function click($event) {
-        _vm.activeTab = 'category';
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-solid fa-plus-circle"
-  })])], 1), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.subcategoryForm,
-      "field": "category"
-    }
-  })], 1) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "subcategoryStatus"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Status')))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.subcategoryForm.status,
-      expression: "subcategoryForm.status"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.subcategoryForm.errors.has('status')
-    },
-    attrs: {
-      "id": "subcategoryStatus"
-    },
-    on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.subcategoryForm, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "1"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Active')))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "0"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Inactive')))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.subcategoryForm,
-      "field": "status"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "subcategoryNote"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('Note')))]), _vm._v(" "), _c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.subcategoryForm.note,
-      expression: "subcategoryForm.note"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.subcategoryForm.errors.has('note')
-    },
-    attrs: {
-      "id": "subcategoryNote",
-      "placeholder": _vm.$t('Write your note here!'),
-      "rows": "3"
-    },
-    domProps: {
-      "value": _vm.subcategoryForm.note
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.subcategoryForm, "note", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.subcategoryForm,
-      "field": "note"
-    }
-  })], 1)])])])]), _vm._v(" "), _c('div', {
-    attrs: {
-      "slot": "modal-footer"
-    },
-    slot: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "loading": _vm.categoryForm.busy || _vm.subcategoryForm.busy
-    },
-    on: {
-      "click": function click($event) {
-        $event.stopPropagation();
-        return _vm.saveCurrent.apply(null, arguments);
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-save"
-  }), _vm._v(" " + _vm._s(_vm.$t("Save")) + "\n      ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-secondary ml-2",
-    on: {
-      "click": function click($event) {
-        $event.stopPropagation();
-        return _vm.closeModal.apply(null, arguments);
-      }
-    }
-  }, [_vm._v("\n        " + _vm._s(_vm.$t("Cancel")) + "\n      ")])])]), _vm._v(" "), _c('a', {
-    staticClass: "create-button",
-    on: {
-      "click": _vm.toggleModal
-    }
-  }, [_vm._t("default")], 2)], 1);
-};
-var CategorySubcategoryCreateModalvue_type_template_id_f891390a_scoped_true_staticRenderFns = [];
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=script&lang=js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-
-/* harmony default export */ const CategorySubcategoryCreateModalvue_type_script_lang_js = ({
-  middleware: ["auth", "check-permissions"],
-  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items"])), {}, {
-    categories: function categories() {
-      return this.items || [];
-    }
-  }),
-  data: function data() {
-    return {
-      showModal: false,
-      activeTab: 'subcategory',
-      categoryForm: new vform_es/* default */.Ay({
-        name: '',
-        note: '',
-        status: 1
-      }),
-      subcategoryForm: new vform_es/* default */.Ay({
-        name: '',
-        note: '',
-        status: 1,
-        category: null
-      })
-    };
-  },
-  created: function created() {
-    this.getCategories();
-  },
-  methods: {
-    toggleModal: function toggleModal() {
-      this.showModal = !this.showModal;
-      if (this.showModal) {
-        // Reset forms when opening modal
-        this.resetForms();
-        this.activeTab = 'subcategory';
-        // Refresh categories list
-        this.getCategories();
-      }
-    },
-    closeModal: function closeModal(event) {
-      // Stop event propagation to prevent closing parent modals
-      if (event) {
-        event.stopPropagation();
-        event.preventDefault();
-      }
-      this.showModal = false;
-      this.resetForms();
-    },
-    resetForms: function resetForms() {
-      this.categoryForm.reset();
-      this.subcategoryForm.reset();
-      this.categoryForm.status = 1;
-      this.subcategoryForm.status = 1;
-      this.subcategoryForm.category = null;
-    },
-    // Get all product categories for subcategory form
-    getCategories: function getCategories() {
-      var _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.n) {
-            case 0:
-              _context.n = 1;
-              return _this.$store.dispatch('operations/allData', {
-                path: '/api/all-product-categories'
-              });
-            case 1:
-              return _context.a(2);
-          }
-        }, _callee);
-      }))();
-    },
-    // Save based on active tab
-    saveCurrent: function saveCurrent(event) {
-      var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
-            case 0:
-              // Stop event propagation to prevent closing parent modals
-              if (event) {
-                event.stopPropagation();
-                event.preventDefault();
-              }
-              if (!(_this2.activeTab === 'category')) {
-                _context2.n = 2;
-                break;
-              }
-              _context2.n = 1;
-              return _this2.saveCategory();
-            case 1:
-              _context2.n = 3;
-              break;
-            case 2:
-              _context2.n = 3;
-              return _this2.saveSubCategory();
-            case 3:
-              return _context2.a(2);
-          }
-        }, _callee2);
-      }))();
-    },
-    // Save category
-    saveCategory: function saveCategory() {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-        var categoryName;
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.n) {
-            case 0:
-              // Store the category name before saving
-              categoryName = _this3.categoryForm.name;
-              _context4.n = 1;
-              return _this3.categoryForm.post(window.location.origin + '/api/product-categories').then(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-                var createdCategory, newCategory;
-                return _regenerator().w(function (_context3) {
-                  while (1) switch (_context3.n) {
-                    case 0:
-                      toast.fire({
-                        type: 'success',
-                        title: _this3.$t('Category added successfully')
-                      });
-                      // Refresh categories list for subcategory form
-                      _context3.n = 1;
-                      return _this3.getCategories();
-                    case 1:
-                      // Create a simple object with the name for parent to find it
-                      createdCategory = {
-                        name: categoryName
-                      }; // Emit event with created category data to refresh in parent
-                      _this3.$emit('categoryCreated', createdCategory);
-                      // Reset category form
-                      _this3.categoryForm.reset();
-                      _this3.categoryForm.status = 1;
-                      // Navigate to subcategory tab instead of closing modal
-                      _this3.activeTab = 'subcategory';
-                      // Auto-select the newly created category in subcategory form
-                      _context3.n = 2;
-                      return _this3.$nextTick();
-                    case 2:
-                      newCategory = _this3.categories.find(function (cat) {
-                        return cat.name === categoryName;
-                      });
-                      if (newCategory) {
-                        _this3.subcategoryForm.category = newCategory;
-                      }
-                    case 3:
-                      return _context3.a(2);
-                  }
-                }, _callee3);
-              })))["catch"](function (error) {
-                // Check if this is a validation error (status 422)
-                var status = error && error.response && error.response.status;
-                var serverErrors = error && error.response && error.response.data && error.response.data.errors;
-                if (status === 422 && serverErrors) {
-                  // Show toast notification for validation errors
-                  toast.fire({
-                    type: 'error',
-                    title: _this3.$t('Validation Error'),
-                    text: _this3.$t('Please check the form for errors and try again.')
-                  });
-
-                  // Scroll to the first invalid input in the modal after DOM updates
-                  _this3.$nextTick(function () {
-                    // Wait a bit more to ensure vform has added the is-invalid class
-                    setTimeout(function () {
-                      var invalid = _this3.$el.querySelector('.is-invalid');
-                      if (invalid && typeof invalid.scrollIntoView === 'function') {
-                        invalid.scrollIntoView({
-                          behavior: 'smooth',
-                          block: 'center'
-                        });
-                      }
-                    }, 100);
-                  });
-                } else {
-                  // For other errors, show generic error message
-                  toast.fire({
-                    type: 'error',
-                    title: _this3.$t('Please check your input and try again.')
-                  });
-                }
-              });
-            case 1:
-              return _context4.a(2);
-          }
-        }, _callee4);
-      }))();
-    },
-    // Save subcategory
-    saveSubCategory: function saveSubCategory() {
-      var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
-        var subcategoryName;
-        return _regenerator().w(function (_context6) {
-          while (1) switch (_context6.n) {
-            case 0:
-              // Store the subcategory name before saving
-              subcategoryName = _this4.subcategoryForm.name;
-              _context6.n = 1;
-              return _this4.subcategoryForm.post(window.location.origin + '/api/product-sub-categories').then(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-                var createdSubcategory;
-                return _regenerator().w(function (_context5) {
-                  while (1) switch (_context5.n) {
-                    case 0:
-                      toast.fire({
-                        type: 'success',
-                        title: _this4.$t('Sub category added successfully')
-                      });
-                      // Create a simple object with the name for parent to find it
-                      createdSubcategory = {
-                        name: subcategoryName
-                      }; // Emit event with created subcategory data to refresh and select in parent
-                      _this4.$emit('subcategoryCreated', createdSubcategory);
-                      // Reset form
-                      _this4.subcategoryForm.reset();
-                      _this4.subcategoryForm.status = 1;
-                      _this4.subcategoryForm.category = null;
-                      // Close only this modal, not parent modals
-                      _this4.showModal = false;
-                      _this4.resetForms();
-                    case 1:
-                      return _context5.a(2);
-                  }
-                }, _callee5);
-              })))["catch"](function (error) {
-                // Check if this is a validation error (status 422)
-                var status = error && error.response && error.response.status;
-                var serverErrors = error && error.response && error.response.data && error.response.data.errors;
-                if (status === 422 && serverErrors) {
-                  // Show toast notification for validation errors
-                  toast.fire({
-                    type: 'error',
-                    title: _this4.$t('Validation Error'),
-                    text: _this4.$t('Please check the form for errors and try again.')
-                  });
-
-                  // Scroll to the first invalid input in the modal after DOM updates
-                  _this4.$nextTick(function () {
-                    // Wait a bit more to ensure vform has added the is-invalid class
-                    setTimeout(function () {
-                      var invalid = _this4.$el.querySelector('.is-invalid');
-                      if (invalid && typeof invalid.scrollIntoView === 'function') {
-                        invalid.scrollIntoView({
-                          behavior: 'smooth',
-                          block: 'center'
-                        });
-                      }
-                    }, 100);
-                  });
-                } else {
-                  // For other errors, show generic error message
-                  toast.fire({
-                    type: 'error',
-                    title: _this4.$t('Please check your input and try again.')
-                  });
-                }
-              });
-            case 1:
-              return _context6.a(2);
-          }
-        }, _callee6);
-      }))();
-    }
-  }
-});
-;// ./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=script&lang=js
- /* harmony default export */ const components_CategorySubcategoryCreateModalvue_type_script_lang_js = (CategorySubcategoryCreateModalvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=style&index=0&id=f891390a&prod&scoped=true&lang=css
-var CategorySubcategoryCreateModalvue_type_style_index_0_id_f891390a_prod_scoped_true_lang_css = __webpack_require__(57688);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=style&index=0&id=f891390a&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(CategorySubcategoryCreateModalvue_type_style_index_0_id_f891390a_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const components_CategorySubcategoryCreateModalvue_type_style_index_0_id_f891390a_prod_scoped_true_lang_css = (CategorySubcategoryCreateModalvue_type_style_index_0_id_f891390a_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=style&index=0&id=f891390a&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/CategorySubcategoryCreateModal.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  components_CategorySubcategoryCreateModalvue_type_script_lang_js,
-  CategorySubcategoryCreateModalvue_type_template_id_f891390a_scoped_true_render,
-  CategorySubcategoryCreateModalvue_type_template_id_f891390a_scoped_true_staticRenderFns,
-  false,
-  null,
-  "f891390a",
-  null
-  
-)
-
-/* harmony default export */ const CategorySubcategoryCreateModal = (component.exports);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/UnitCreateModal.vue?vue&type=template&id=3d82b5ae&scoped=true
-var UnitCreateModalvue_type_template_id_3d82b5ae_scoped_true_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c('VModal', {
-    on: {
-      "close": _vm.closeModal
-    },
-    scopedSlots: _vm._u([{
-      key: "title",
-      fn: function fn() {
-        return [_vm._v(_vm._s(_vm.$t("Create Unit")))];
-      },
-      proxy: true
-    }]),
-    model: {
-      value: _vm.showModal,
-      callback: function callback($$v) {
-        _vm.showModal = $$v;
-      },
-      expression: "showModal"
-    }
-  }, [_vm._v(" "), _c('div', {
-    staticClass: "w-100",
-    on: {
-      "click": function click($event) {
-        $event.stopPropagation();
-      }
-    }
-  }, [_c('form', {
-    attrs: {
-      "role": "form"
-    },
-    on: {
-      "keydown": function keydown($event) {
-        return _vm.form.onKeydown($event);
-      },
-      "submit": function submit($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-      }
-    }
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "unitName"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Name")) + "\n            "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.name,
-      expression: "form.name"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('name')
-    },
-    attrs: {
-      "id": "unitName",
-      "type": "text",
-      "name": "name",
-      "placeholder": _vm.$t('Enter a name')
-    },
-    domProps: {
-      "value": _vm.form.name
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "name", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "name"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "unitCode"
-    }
-  }, [_vm._v("\n            " + _vm._s(_vm.$t("Code")) + "\n            "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]), _vm._v(" "), _c('i', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.$t('Unit Code Tooltip'),
-      expression: "$t('Unit Code Tooltip')"
-    }],
-    staticClass: "fas fa-info-circle ml-2 text-info unit-code-tooltip",
-    staticStyle: {
-      "cursor": "help",
-      "font-size": "0.9rem"
-    }
-  })]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.code,
-      expression: "form.code"
-    }, {
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.$t('Unit Code Tooltip'),
-      expression: "$t('Unit Code Tooltip')"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('code')
-    },
-    attrs: {
-      "id": "unitCode",
-      "type": "text",
-      "name": "code",
-      "placeholder": _vm.$t('Enter unit code (1-5 characters)'),
-      "maxlength": "5"
-    },
-    domProps: {
-      "value": _vm.form.code
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "code", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('small', {
-    staticClass: "form-text text-muted"
-  }, [_vm._v(_vm._s(_vm.$t("Unit Code Helper")))]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "code"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "unitStatus"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.status,
-      expression: "form.status"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('status')
-    },
-    attrs: {
-      "id": "unitStatus"
-    },
-    on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "1"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Active")))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "0"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "status"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "unitNote"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Note")))]), _vm._v(" "), _c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.note,
-      expression: "form.note"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('note')
-    },
-    attrs: {
-      "id": "unitNote",
-      "placeholder": _vm.$t('Write your note here!'),
-      "rows": "3"
-    },
-    domProps: {
-      "value": _vm.form.note
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "note", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "note"
-    }
-  })], 1)])]), _vm._v(" "), _c('div', {
-    attrs: {
-      "slot": "modal-footer"
-    },
-    slot: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "loading": _vm.form.busy
-    },
-    on: {
-      "click": function click($event) {
-        $event.stopPropagation();
-        return _vm.saveUnit.apply(null, arguments);
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-save"
-  }), _vm._v(" " + _vm._s(_vm.$t("Save")) + "\n      ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-secondary ml-2",
-    on: {
-      "click": function click($event) {
-        $event.stopPropagation();
-        return _vm.closeModal.apply(null, arguments);
-      }
-    }
-  }, [_vm._v("\n        " + _vm._s(_vm.$t("Cancel")) + "\n      ")])])]), _vm._v(" "), _c('a', {
-    staticClass: "create-button",
-    on: {
-      "click": _vm.toggleModal
-    }
-  }, [_vm._t("default")], 2)], 1);
-};
-var UnitCreateModalvue_type_template_id_3d82b5ae_scoped_true_staticRenderFns = [];
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/UnitCreateModal.vue?vue&type=script&lang=js
-function UnitCreateModalvue_type_script_lang_js_regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u), UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u, o, "Generator"), UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u, n, function () { return this; }), UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (UnitCreateModalvue_type_script_lang_js_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } UnitCreateModalvue_type_script_lang_js_regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, n, t); }
-function UnitCreateModalvue_type_script_lang_js_asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function UnitCreateModalvue_type_script_lang_js_asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { UnitCreateModalvue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { UnitCreateModalvue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-
-/* harmony default export */ const UnitCreateModalvue_type_script_lang_js = ({
-  middleware: ["auth", "check-permissions"],
-  data: function data() {
-    return {
-      showModal: false,
-      form: new vform_es/* default */.Ay({
-        name: '',
-        code: '',
-        note: '',
-        status: 1
-      })
-    };
-  },
-  methods: {
-    toggleModal: function toggleModal() {
-      this.showModal = !this.showModal;
-      if (this.showModal) {
-        // Reset form when opening modal
-        this.resetForm();
-      }
-    },
-    closeModal: function closeModal(event) {
-      // Stop event propagation to prevent closing parent modals
-      if (event) {
-        event.stopPropagation();
-        event.preventDefault();
-      }
-      this.showModal = false;
-      this.resetForm();
-    },
-    resetForm: function resetForm() {
-      this.form.reset();
-      this.form.status = 1;
-    },
-    // Save unit
-    saveUnit: function saveUnit(event) {
-      var _this = this;
-      return UnitCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/UnitCreateModalvue_type_script_lang_js_regenerator().m(function _callee2() {
-        var unitName, unitCode;
-        return UnitCreateModalvue_type_script_lang_js_regenerator().w(function (_context2) {
-          while (1) switch (_context2.n) {
-            case 0:
-              // Stop event propagation to prevent closing parent modals
-              if (event) {
-                event.stopPropagation();
-                event.preventDefault();
-              }
-
-              // Store the unit name before saving
-              unitName = _this.form.name;
-              unitCode = _this.form.code;
-              _context2.n = 1;
-              return _this.form.post(window.location.origin + '/api/units').then(/*#__PURE__*/UnitCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/UnitCreateModalvue_type_script_lang_js_regenerator().m(function _callee() {
-                var createdUnit;
-                return UnitCreateModalvue_type_script_lang_js_regenerator().w(function (_context) {
-                  while (1) switch (_context.n) {
-                    case 0:
-                      toast.fire({
-                        type: 'success',
-                        title: _this.$t('Unit added successfully')
-                      });
-                      // Create a simple object with the name and code for parent to find it
-                      createdUnit = {
-                        name: unitName,
-                        code: unitCode
-                      }; // Emit event with created unit data to refresh and select in parent
-                      _this.$emit('unitCreated', createdUnit);
-                      // Reset form
-                      _this.form.reset();
-                      _this.form.status = 1;
-                      // Close only this modal, not parent modals
-                      _this.showModal = false;
-                      _this.resetForm();
-                    case 1:
-                      return _context.a(2);
-                  }
-                }, _callee);
-              })))["catch"](function () {
-                toast.fire({
-                  type: 'error',
-                  title: _this.$t('Please check your input and try again.')
-                });
-              });
-            case 1:
-              return _context2.a(2);
-          }
-        }, _callee2);
-      }))();
-    }
-  }
-});
-;// ./resources/js/components/UnitCreateModal.vue?vue&type=script&lang=js
- /* harmony default export */ const components_UnitCreateModalvue_type_script_lang_js = (UnitCreateModalvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/UnitCreateModal.vue?vue&type=style&index=0&id=3d82b5ae&prod&scoped=true&lang=css
-var UnitCreateModalvue_type_style_index_0_id_3d82b5ae_prod_scoped_true_lang_css = __webpack_require__(44659);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/UnitCreateModal.vue?vue&type=style&index=0&id=3d82b5ae&prod&scoped=true&lang=css
-
-            
-
-var UnitCreateModalvue_type_style_index_0_id_3d82b5ae_prod_scoped_true_lang_css_options = {};
-
-UnitCreateModalvue_type_style_index_0_id_3d82b5ae_prod_scoped_true_lang_css_options.insert = "head";
-UnitCreateModalvue_type_style_index_0_id_3d82b5ae_prod_scoped_true_lang_css_options.singleton = false;
-
-var UnitCreateModalvue_type_style_index_0_id_3d82b5ae_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(UnitCreateModalvue_type_style_index_0_id_3d82b5ae_prod_scoped_true_lang_css/* default */.A, UnitCreateModalvue_type_style_index_0_id_3d82b5ae_prod_scoped_true_lang_css_options);
-
-
-
-/* harmony default export */ const components_UnitCreateModalvue_type_style_index_0_id_3d82b5ae_prod_scoped_true_lang_css = (UnitCreateModalvue_type_style_index_0_id_3d82b5ae_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/UnitCreateModal.vue?vue&type=style&index=0&id=3d82b5ae&prod&scoped=true&lang=css
-
-;// ./resources/js/components/UnitCreateModal.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var UnitCreateModal_component = (0,componentNormalizer/* default */.A)(
-  components_UnitCreateModalvue_type_script_lang_js,
-  UnitCreateModalvue_type_template_id_3d82b5ae_scoped_true_render,
-  UnitCreateModalvue_type_template_id_3d82b5ae_scoped_true_staticRenderFns,
-  false,
-  null,
-  "3d82b5ae",
-  null
-  
-)
-
-/* harmony default export */ const UnitCreateModal = (UnitCreateModal_component.exports);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=script&lang=js
-function ProductCreateModalvue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return ProductCreateModalvue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, ProductCreateModalvue_type_script_lang_js_typeof(o); }
-function ProductCreateModalvue_type_script_lang_js_regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, o, "Generator"), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, n, function () { return this; }), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (ProductCreateModalvue_type_script_lang_js_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } ProductCreateModalvue_type_script_lang_js_regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, n, t); }
-function ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function ProductCreateModalvue_type_script_lang_js_asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function ProductCreateModalvue_type_script_lang_js_ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function ProductCreateModalvue_type_script_lang_js_objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ProductCreateModalvue_type_script_lang_js_ownKeys(Object(t), !0).forEach(function (r) { ProductCreateModalvue_type_script_lang_js_defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ProductCreateModalvue_type_script_lang_js_ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function ProductCreateModalvue_type_script_lang_js_defineProperty(e, r, t) { return (r = ProductCreateModalvue_type_script_lang_js_toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function ProductCreateModalvue_type_script_lang_js_toPropertyKey(t) { var i = ProductCreateModalvue_type_script_lang_js_toPrimitive(t, "string"); return "symbol" == ProductCreateModalvue_type_script_lang_js_typeof(i) ? i : i + ""; }
-function ProductCreateModalvue_type_script_lang_js_toPrimitive(t, r) { if ("object" != ProductCreateModalvue_type_script_lang_js_typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != ProductCreateModalvue_type_script_lang_js_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-
-
-
-
-
-var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true
-});
-/* harmony default export */ const ProductCreateModalvue_type_script_lang_js = ({
-  components: {
-    CategorySubcategoryCreateModal: CategorySubcategoryCreateModal,
-    UnitCreateModal: UnitCreateModal
-  },
-  middleware: ["auth", "check-permissions"],
-  metaInfo: function metaInfo() {
-    return {
-      title: this.$t("Create Product")
-    };
-  },
-  data: function data() {
-    return {
-      showProductCreateModal: false,
-      form: new vform_es/* default */.Ay({
-        itemType: "product",
-        itemName: "",
-        itemCode: "",
-        itemModel: "",
-        barcodeSymbology: "CODE128",
-        subCategory: "",
-        brand: "",
-        itemUnit: "",
-        productTax: "",
-        taxType: "Exclusive",
-        regularPrice: "",
-        servicePurchasePrice: "",
-        openingStockCount: "",
-        openingStockUnitPrice: "",
-        purchasePrice: "",
-        isOpeningStock: false,
-        discount: "",
-        sellingPrice: "",
-        taxAmount: "",
-        note: "",
-        alertQuantity: 1,
-        status: 1,
-        image: "",
-        salesAccountId: "",
-        purchaseAccountId: "",
-        overrideSalesAccount: false,
-        overridePurchaseAccount: false
-      }),
-      categories: [],
-      options: [],
-      units: [],
-      brands: [],
-      taxes: [],
-      chartOfAccounts: [],
-      prefix: "",
-      url: null,
-      isAutoAssigningSales: false,
-      isAutoAssigningPurchase: false,
-      accountRoutingSettings: null,
-      isSalesAccountAutomatic: false,
-      isPurchaseAccountAutomatic: false,
-      showPurchasePriceWarning: false
-    };
-  },
-  computed: ProductCreateModalvue_type_script_lang_js_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "appInfo"])),
-  watch: {
-    'form.openingStockUnitPrice': {
-      handler: function handler() {
-        var _this = this;
-        if (this.form.itemType === 'product') {
-          // Use setTimeout to ensure value is updated in form
-          setTimeout(function () {
-            _this.checkPurchasePriceWarning();
-          }, 200);
-        }
-      },
-      immediate: false
-    },
-    'form.regularPrice': {
-      handler: function handler() {
-        var _this2 = this;
-        if (this.form.itemType === 'product') {
-          // Use setTimeout to ensure value is updated in form
-          setTimeout(function () {
-            _this2.checkPurchasePriceWarning();
-          }, 200);
-        }
-      },
-      immediate: false
-    },
-    'form.itemType': {
-      handler: function handler(newType) {
-        var _this3 = this;
-        // Check when item type changes to product
-        if (newType === 'product') {
-          setTimeout(function () {
-            _this3.checkPurchasePriceWarning();
-          }, 200);
-        }
-      },
-      immediate: false
-    }
-  },
-  created: function created() {
-    this.getSubCategories();
-    this.getUnits();
-    // this.getBrands(); // Temporarily commented out
-    this.getTaxes();
-    this.getItemCode();
-    this.loadChartOfAccounts();
-    this.loadAccountRoutingSettings();
-  },
-  methods: {
-    toggleModal: function toggleModal() {
-      this.showProductCreateModal = !this.showProductCreateModal;
-
-      // When opening the modal, ensure account routing settings are loaded and generate item code
-      if (this.showProductCreateModal) {
-        this.loadAccountRoutingSettings();
-        this.getItemCode(); // Generate product code when modal opens
-      }
-    },
-    submitItem: function submitItem(evt) {
-      evt.preventDefault();
-      this.saveProduct();
-    },
-    // Load chart of accounts for sales and purchase account selection
-    loadChartOfAccounts: function loadChartOfAccounts() {
-      var _this4 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee() {
-        var _yield$axios$get, data, _t;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
-            case 0:
-              _context.p = 0;
-              _context.n = 1;
-              return axios_default().get(window.location.origin + "/api/products/chart-of-accounts");
-            case 1:
-              _yield$axios$get = _context.v;
-              data = _yield$axios$get.data;
-              _this4.chartOfAccounts = data || [];
-              _context.n = 3;
-              break;
-            case 2:
-              _context.p = 2;
-              _t = _context.v;
-              console.error("Error loading chart of accounts:", _t);
-              _this4.chartOfAccounts = [];
-            case 3:
-              return _context.a(2);
-          }
-        }, _callee, null, [[0, 2]]);
-      }))();
-    },
-    // Load account routing settings
-    loadAccountRoutingSettings: function loadAccountRoutingSettings() {
-      var _this5 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee2() {
-        var _this5$accountRouting, _this5$accountRouting2, _this5$accountRouting3, _this5$accountRouting4, response, _t2;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context2) {
-          while (1) switch (_context2.p = _context2.n) {
-            case 0:
-              _context2.p = 0;
-              _context2.n = 1;
-              return axios_default().get(window.location.origin + "/api/account-routing-settings/product-account-routing");
-            case 1:
-              response = _context2.v;
-              _this5.accountRoutingSettings = response.data.data || {};
-
-              // Set flags for automatic routing
-              _this5.isSalesAccountAutomatic = _this5.accountRoutingSettings.sales && _this5.accountRoutingSettings.sales.routing_type === 'automatic';
-              _this5.isPurchaseAccountAutomatic = _this5.accountRoutingSettings.purchase && _this5.accountRoutingSettings.purchase.routing_type === 'automatic';
-
-              // If automatic routing is enabled, set the account IDs from routing settings
-              if (_this5.isSalesAccountAutomatic && _this5.accountRoutingSettings.sales.main_account_id) {
-                _this5.form.salesAccountId = _this5.accountRoutingSettings.sales.main_account_id;
-              }
-              if (_this5.isPurchaseAccountAutomatic && _this5.accountRoutingSettings.purchase.main_account_id) {
-                _this5.form.purchaseAccountId = _this5.accountRoutingSettings.purchase.main_account_id;
-              }
-              console.log('=== ACCOUNT ROUTING DEBUG ===');
-              console.log('Full account routing settings:', _this5.accountRoutingSettings);
-              console.log('Sales settings:', _this5.accountRoutingSettings.sales);
-              console.log('Purchase settings:', _this5.accountRoutingSettings.purchase);
-              console.log('Sales routing type:', (_this5$accountRouting = _this5.accountRoutingSettings.sales) === null || _this5$accountRouting === void 0 ? void 0 : _this5$accountRouting.routing_type);
-              console.log('Sales main_account_id:', (_this5$accountRouting2 = _this5.accountRoutingSettings.sales) === null || _this5$accountRouting2 === void 0 ? void 0 : _this5$accountRouting2.main_account_id);
-              console.log('Purchase routing type:', (_this5$accountRouting3 = _this5.accountRoutingSettings.purchase) === null || _this5$accountRouting3 === void 0 ? void 0 : _this5$accountRouting3.routing_type);
-              console.log('Purchase main_account_id:', (_this5$accountRouting4 = _this5.accountRoutingSettings.purchase) === null || _this5$accountRouting4 === void 0 ? void 0 : _this5$accountRouting4.main_account_id);
-              console.log('isSalesAccountAutomatic:', _this5.isSalesAccountAutomatic);
-              console.log('isPurchaseAccountAutomatic:', _this5.isPurchaseAccountAutomatic);
-              console.log('Form salesAccountId after auto-assignment:', _this5.form.salesAccountId);
-              console.log('Form purchaseAccountId after auto-assignment:', _this5.form.purchaseAccountId);
-              console.log('==============================');
-              _context2.n = 3;
-              break;
-            case 2:
-              _context2.p = 2;
-              _t2 = _context2.v;
-              console.error("Error loading account routing settings:", _t2);
-              // Set defaults if API fails
-              _this5.isSalesAccountAutomatic = false;
-              _this5.isPurchaseAccountAutomatic = false;
-            case 3:
-              return _context2.a(2);
-          }
-        }, _callee2, null, [[0, 2]]);
-      }))();
-    },
-    // get all product categories
-    getSubCategories: function getSubCategories() {
-      var _this6 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee3() {
-        var _yield$_this6$form$ge, data;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context3) {
-          while (1) switch (_context3.n) {
-            case 0:
-              _context3.n = 1;
-              return _this6.form.get(window.location.origin + "/api/all-product-sub-categories");
-            case 1:
-              _yield$_this6$form$ge = _context3.v;
-              data = _yield$_this6$form$ge.data;
-              _this6.categories = data.data;
-            case 2:
-              return _context3.a(2);
-          }
-        }, _callee3);
-      }))();
-    },
-    // Handle category created event
-    handleCategoryCreated: function handleCategoryCreated() {
-      var _this7 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee4() {
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context4) {
-          while (1) switch (_context4.n) {
-            case 0:
-              _context4.n = 1;
-              return _this7.getSubCategories();
-            case 1:
-              return _context4.a(2);
-          }
-        }, _callee4);
-      }))();
-    },
-    // Handle subcategory created event
-    handleSubcategoryCreated: function handleSubcategoryCreated(createdSubcategory) {
-      var _this8 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee5() {
-        var newSubcategory;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context5) {
-          while (1) switch (_context5.n) {
-            case 0:
-              _context5.n = 1;
-              return _this8.getSubCategories();
-            case 1:
-              if (!(createdSubcategory && createdSubcategory.name)) {
-                _context5.n = 3;
-                break;
-              }
-              _context5.n = 2;
-              return _this8.$nextTick();
-            case 2:
-              // Find the newly created subcategory in the refreshed list by name
-              newSubcategory = _this8.categories.find(function (cat) {
-                return cat.name === createdSubcategory.name;
-              });
-              if (newSubcategory) {
-                _this8.form.subCategory = newSubcategory;
-              }
-            case 3:
-              return _context5.a(2);
-          }
-        }, _callee5);
-      }))();
-    },
-    // Handle unit created event
-    handleUnitCreated: function handleUnitCreated(createdUnit) {
-      var _this9 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee6() {
-        var newUnit;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context6) {
-          while (1) switch (_context6.n) {
-            case 0:
-              _context6.n = 1;
-              return _this9.getUnits();
-            case 1:
-              if (!(createdUnit && createdUnit.name)) {
-                _context6.n = 3;
-                break;
-              }
-              _context6.n = 2;
-              return _this9.$nextTick();
-            case 2:
-              // Find the newly created unit in the refreshed list by name or code
-              newUnit = _this9.units.find(function (unit) {
-                return unit.name === createdUnit.name || unit.code === createdUnit.code;
-              });
-              if (newUnit) {
-                _this9.form.itemUnit = newUnit;
-              }
-            case 3:
-              return _context6.a(2);
-          }
-        }, _callee6);
-      }))();
-    },
-    // get all brands
-    getBrands: function getBrands() {
-      var _this0 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee7() {
-        var _yield$axios$get2, data;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context7) {
-          while (1) switch (_context7.n) {
-            case 0:
-              _context7.n = 1;
-              return axios_default().get(window.location.origin + "/api/all-brands");
-            case 1:
-              _yield$axios$get2 = _context7.v;
-              data = _yield$axios$get2.data;
-              _this0.brands = data.data;
-            case 2:
-              return _context7.a(2);
-          }
-        }, _callee7);
-      }))();
-    },
-    // get all units
-    getUnits: function getUnits() {
-      var _this1 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee8() {
-        var _yield$axios$get3, data;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context8) {
-          while (1) switch (_context8.n) {
-            case 0:
-              _context8.n = 1;
-              return axios_default().get(window.location.origin + "/api/all-units");
-            case 1:
-              _yield$axios$get3 = _context8.v;
-              data = _yield$axios$get3.data;
-              _this1.units = data.data;
-            case 2:
-              return _context8.a(2);
-          }
-        }, _callee8);
-      }))();
-    },
-    // get all taxes
-    getTaxes: function getTaxes() {
-      var _this10 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee9() {
-        var _yield$axios$get4, data, defaultVatRateSlug;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context9) {
-          while (1) switch (_context9.n) {
-            case 0:
-              _context9.n = 1;
-              return axios_default().get(window.location.origin + "/api/all-vat-rates");
-            case 1:
-              _yield$axios$get4 = _context9.v;
-              data = _yield$axios$get4.data;
-              _this10.taxes = data.data;
-              // assign default vat rate
-              if (_this10.taxes && _this10.taxes.length > 0) {
-                defaultVatRateSlug = _this10.appInfo.defaultVatRateSlug;
-                _this10.form.productTax = _this10.taxes.find(function (tax) {
-                  return tax.slug === defaultVatRateSlug;
-                });
-              }
-              _this10.calculatePrice();
-            case 2:
-              return _context9.a(2);
-          }
-        }, _callee9);
-      }))();
-    },
-    // get item code
-    getItemCode: function getItemCode() {
-      var _this11 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee0() {
-        var _yield$axios$get5, data;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context0) {
-          while (1) switch (_context0.n) {
-            case 0:
-              _context0.n = 1;
-              return axios_default().get(window.location.origin + "/api/generate-itemcode");
-            case 1:
-              _yield$axios$get5 = _context0.v;
-              data = _yield$axios$get5.data;
-              _this11.form.itemCode = data.code;
-              _this11.prefix = data.prefix;
-            case 2:
-              return _context0.a(2);
-          }
-        }, _callee0);
-      }))();
-    },
-    // calculate selling price
-    calculatePrice: function calculatePrice() {
-      // Reset values if required fields are missing
-      if (!this.form.regularPrice || !this.form.productTax || !this.form.productTax.rate) {
-        this.form.taxAmount = "";
-        this.form.sellingPrice = this.form.regularPrice || "";
-        return;
-      }
-      var regularPrice = parseFloat(this.form.regularPrice) || 0;
-      var taxRate = parseFloat(this.form.productTax.rate) || 0;
-
-      // Calculate taxAmount = regularPrice * (taxRate / 100)
-      var taxAmount = regularPrice * (taxRate / 100);
-      this.form.taxAmount = parseFloat(taxAmount.toFixed(2));
-
-      // Calculate sellingPrice = regularPrice + taxAmount
-      var sellingPrice = regularPrice + taxAmount;
-      this.form.sellingPrice = parseFloat(sellingPrice.toFixed(2));
-    },
-    // Check if purchase price is greater than regular price
-    checkPurchasePriceWarning: function checkPurchasePriceWarning() {
-      // Only check for products, not services
-      if (this.form.itemType !== 'product') {
-        this.showPurchasePriceWarning = false;
-        return;
-      }
-
-      // Get values directly from form
-      var purchasePriceStr = String(this.form.openingStockUnitPrice || '').trim();
-      var regularPriceStr = String(this.form.regularPrice || '').trim();
-
-      // Convert to numbers
-      var purchasePrice = purchasePriceStr ? parseFloat(purchasePriceStr) : 0;
-      var regularPrice = regularPriceStr ? parseFloat(regularPriceStr) : 0;
-
-      // Show warning if both prices are valid numbers and purchase price is greater than regular price
-      if (!isNaN(purchasePrice) && !isNaN(regularPrice) && purchasePrice > 0 && regularPrice > 0 && purchasePrice > regularPrice) {
-        this.showPurchasePriceWarning = true;
-      } else {
-        this.showPurchasePriceWarning = false;
-      }
-    },
-    // vue file upload
-    onFileChange: function onFileChange(e) {
-      var _this12 = this;
-      var file = e.target.files[0];
-      var reader = new FileReader();
-      if (file.size < 2111775 && (file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/gif")) {
-        reader.onloadend = function () {
-          _this12.form.image = reader.result;
-        };
-        reader.readAsDataURL(file);
-        this.url = URL.createObjectURL(file);
-      } else {
-        this.$toast.error(this.$t("Error!"), this.$t("Please select a valid thumbnail with size less than 2 MB"));
-      }
-    },
-    // save product
-    saveProduct: function saveProduct() {
-      var _this13 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee10() {
-        var _this13$accountRoutin, _this13$accountRoutin2;
-        var openingStockUnitPrice, openingStockCount, servicePurchasePrice, needsSalesAccount, needsPurchaseAccount;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context10) {
-          while (1) switch (_context10.n) {
-            case 0:
-              if (_this13.form.itemCode) {
-                _context10.n = 1;
-                break;
-              }
-              _context10.n = 1;
-              return _this13.getItemCode();
-            case 1:
-              // Ensure price calculation is up-to-date before submission
-              _this13.calculatePrice();
-
-              // For products, ensure purchasePrice is set from openingStockUnitPrice
-              // This ensures purchase_price is saved correctly in the database
-              if (_this13.form.itemType === 'product') {
-                openingStockUnitPrice = parseFloat(_this13.form.openingStockUnitPrice) || 0;
-                openingStockCount = parseFloat(_this13.form.openingStockCount) || 0; // Set purchasePrice to openingStockUnitPrice for products
-                // The backend uses openingStockUnitPrice to set purchase_price, but we also send purchasePrice
-                // to ensure it's available in the payload for inventory adjustments
-                _this13.form.purchasePrice = openingStockUnitPrice;
-
-                // IMPORTANT: Set isOpeningStock flag to true if there's a purchase price OR opening stock
-                // This ensures the backend will use openingStockUnitPrice to set purchase_price
-                // The backend only sets purchase_price from openingStockUnitPrice when isOpeningStock is true
-                // (See ProductController.php line 147-150 and 218)
-                // Note: Backend validation requires openingStockCount >= 1 when isOpeningStock is true
-                if (openingStockUnitPrice > 0) {
-                  _this13.form.isOpeningStock = true;
-                  // Ensure openingStockCount is set to at least 1 when we have a purchase price
-                  // (Backend validation requires min:1 when isOpeningStock is true)
-                  if (_this13.form.openingStockCount === "" || _this13.form.openingStockCount === null || openingStockCount === 0) {
-                    _this13.form.openingStockCount = openingStockCount > 0 ? openingStockCount : 1;
-                  }
-                } else if (openingStockCount > 0) {
-                  _this13.form.isOpeningStock = true;
-                  // If there's opening stock but no purchase price, set a default purchase price
-                  if (!openingStockUnitPrice || openingStockUnitPrice === 0) {
-                    // You might want to set a default or use regularPrice as fallback
-                    // For now, we'll leave it as is and let the user enter it
-                  }
-                } else {
-                  _this13.form.isOpeningStock = false;
-                }
-              }
-
-              // For services, ensure isOpeningStock is false and clear product-specific fields
-              if (_this13.form.itemType === 'service') {
-                _this13.form.isOpeningStock = false;
-                _this13.form.openingStockCount = "";
-                _this13.form.openingStockUnitPrice = "";
-                _this13.form.purchasePrice = "";
-              }
-
-              // Validate required fields based on item type
-              if (!(_this13.form.itemType === 'service')) {
-                _context10.n = 2;
-                break;
-              }
-              servicePurchasePrice = parseFloat(_this13.form.servicePurchasePrice) || 0;
-              if (!(!_this13.form.servicePurchasePrice || servicePurchasePrice <= 0)) {
-                _context10.n = 2;
-                break;
-              }
-              ProductCreateModalvue_type_script_lang_js_toast.fire({
-                type: "error",
-                title: _this13.$t("Service Purchase Price is required for services")
-              });
-              return _context10.a(2);
-            case 2:
-              // Debug: Log validation state
-              console.log("Validation state:", {
-                isSalesAccountAutomatic: _this13.isSalesAccountAutomatic,
-                overrideSalesAccount: _this13.form.overrideSalesAccount,
-                salesAccountId: _this13.form.salesAccountId,
-                isPurchaseAccountAutomatic: _this13.isPurchaseAccountAutomatic,
-                overridePurchaseAccount: _this13.form.overridePurchaseAccount,
-                purchaseAccountId: _this13.form.purchaseAccountId
-              });
-
-              // Validate sales account - required if not automatic OR if override is checked
-              needsSalesAccount = !_this13.isSalesAccountAutomatic || _this13.form.overrideSalesAccount;
-              if (!(needsSalesAccount && !_this13.form.salesAccountId)) {
-                _context10.n = 3;
-                break;
-              }
-              ProductCreateModalvue_type_script_lang_js_toast.fire({
-                type: "error",
-                title: _this13.$t("Sales Account is required")
-              });
-              return _context10.a(2);
-            case 3:
-              // Validate purchase account - required if not automatic OR if override is checked
-              needsPurchaseAccount = !_this13.isPurchaseAccountAutomatic || _this13.form.overridePurchaseAccount;
-              if (!(needsPurchaseAccount && !_this13.form.purchaseAccountId)) {
-                _context10.n = 4;
-                break;
-              }
-              ProductCreateModalvue_type_script_lang_js_toast.fire({
-                type: "error",
-                title: _this13.$t("Purchase Account is required")
-              });
-              return _context10.a(2);
-            case 4:
-              // Debug: Log form data being sent
-              console.log("=== FORM SUBMISSION DEBUG ===");
-              console.log("Item Type:", _this13.form.itemType);
-              console.log("Form data being sent:", _this13.form.data());
-              console.log("Purchase Price (openingStockUnitPrice):", _this13.form.openingStockUnitPrice);
-              console.log("Purchase Price (purchasePrice):", _this13.form.purchasePrice);
-              console.log("Service Purchase Price:", _this13.form.servicePurchasePrice);
-              console.log("Is Opening Stock (isOpeningStock):", _this13.form.isOpeningStock);
-              console.log("Opening Stock Count:", _this13.form.openingStockCount);
-              console.log("Account routing settings:", _this13.accountRoutingSettings);
-              console.log("Sales settings:", _this13.accountRoutingSettings.sales);
-              console.log("Purchase settings:", _this13.accountRoutingSettings.purchase);
-              console.log("Sales routing type:", (_this13$accountRoutin = _this13.accountRoutingSettings.sales) === null || _this13$accountRoutin === void 0 ? void 0 : _this13$accountRoutin.routing_type);
-              console.log("Sales main_account_id:", (_this13$accountRoutin2 = _this13.accountRoutingSettings.sales) === null || _this13$accountRoutin2 === void 0 ? void 0 : _this13$accountRoutin2.main_account_id);
-              console.log("Form salesAccountId:", _this13.form.salesAccountId);
-              console.log("Form purchaseAccountId:", _this13.form.purchaseAccountId);
-              console.log("=============================");
-              _context10.n = 5;
-              return _this13.form.post(window.location.origin + "/api/products").then(/*#__PURE__*/function () {
-                var _ref = ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee1(response) {
-                  var openingStockCount, openingStockUnitPrice, purchasePrice, newProduct, formattedProduct, adjustmentPurchasePrice, _adjustmentError$resp, autoAssignedSalesAccountId, autoAssignedPurchaseAccountId, _t3;
-                  return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context1) {
-                    while (1) switch (_context1.p = _context1.n) {
-                      case 0:
-                        ProductCreateModalvue_type_script_lang_js_toast.fire({
-                          type: "success",
-                          title: _this13.$t("Product added successfully")
-                        });
-
-                        // Store opening stock values before reset
-                        openingStockCount = parseFloat(_this13.form.openingStockCount) || 0;
-                        openingStockUnitPrice = parseFloat(_this13.form.openingStockUnitPrice) || 0; // Get purchasePrice from form (set before submission) or fallback to openingStockUnitPrice
-                        purchasePrice = parseFloat(_this13.form.purchasePrice) || openingStockUnitPrice || 0; // Emit the newly created product data
-                        if (!(response.data && response.data.data)) {
-                          _context1.n = 4;
-                          break;
-                        }
-                        newProduct = response.data.data; // Format the product data to match the expected structure for v-select
-                        formattedProduct = {
-                          id: newProduct.id,
-                          slug: newProduct.slug,
-                          name: newProduct.name,
-                          code: newProduct.code,
-                          label: "".concat(newProduct.name, " [").concat(newProduct.code, "]"),
-                          itemType: newProduct.itemType,
-                          itemModel: newProduct.itemModel || '',
-                          avgPurchasePrice: newProduct.avgPurchasePrice || 0,
-                          regularPrice: newProduct.regularPrice || 0,
-                          priceWithDiscount: newProduct.sellingPrice,
-                          sellingPrice: newProduct.sellingPrice,
-                          taxAmount: newProduct.taxAmount || 0,
-                          taxType: newProduct.taxType,
-                          taxRate: newProduct.taxRate,
-                          productTax: newProduct.productTax,
-                          inventoryCount: newProduct.inventoryCount || 0,
-                          image: newProduct.image || '',
-                          sales_account_id: newProduct.sales_account_id,
-                          purchase_account_id: newProduct.purchase_account_id
-                        };
-                        _this13.$emit('productCreated', formattedProduct);
-
-                        // Create inventory adjustment if opening stock exists and item type is product
-                        if (!(newProduct.itemType === 'product' && openingStockCount > 0 && newProduct.slug)) {
-                          _context1.n = 4;
-                          break;
-                        }
-                        _context1.p = 1;
-                        // Use purchasePrice (from form) or openingStockUnitPrice, with fallback to product's avgPurchasePrice
-                        adjustmentPurchasePrice = purchasePrice > 0 ? purchasePrice : openingStockUnitPrice > 0 ? openingStockUnitPrice : newProduct.avgPurchasePrice || 0;
-                        _context1.n = 2;
-                        return _this13.createInventoryAdjustment({
-                          productSlug: newProduct.slug,
-                          quantity: openingStockCount,
-                          purchasePrice: adjustmentPurchasePrice
-                        });
-                      case 2:
-                        _context1.n = 4;
-                        break;
-                      case 3:
-                        _context1.p = 3;
-                        _t3 = _context1.v;
-                        // Log error but don't block the product creation success
-                        console.error("Error creating inventory adjustment:", _t3);
-                        ProductCreateModalvue_type_script_lang_js_toast.fire({
-                          type: "warning",
-                          title: _this13.$t("Product created, but inventory adjustment failed"),
-                          text: ((_adjustmentError$resp = _t3.response) === null || _adjustmentError$resp === void 0 || (_adjustmentError$resp = _adjustmentError$resp.data) === null || _adjustmentError$resp === void 0 ? void 0 : _adjustmentError$resp.message) || _this13.$t("Please create the adjustment manually.")
-                        });
-                      case 4:
-                        // Store auto-assigned account IDs before reset
-                        autoAssignedSalesAccountId = _this13.isSalesAccountAutomatic ? _this13.form.salesAccountId : null;
-                        autoAssignedPurchaseAccountId = _this13.isPurchaseAccountAutomatic ? _this13.form.purchaseAccountId : null;
-                        _this13.form.reset();
-                        _this13.form.itemType = "product"; // Reset to default
-                        _this13.form.overrideSalesAccount = false; // Reset override flags
-                        _this13.form.overridePurchaseAccount = false;
-
-                        // Restore auto-assigned account IDs after reset
-                        if (autoAssignedSalesAccountId) {
-                          _this13.form.salesAccountId = autoAssignedSalesAccountId;
-                        }
-                        if (autoAssignedPurchaseAccountId) {
-                          _this13.form.purchaseAccountId = autoAssignedPurchaseAccountId;
-                        }
-                        _this13.showProductCreateModal = false;
-                        _this13.$emit('reloadProducts');
-                      case 5:
-                        return _context1.a(2);
-                    }
-                  }, _callee1, null, [[1, 3]]);
-                }));
-                return function (_x) {
-                  return _ref.apply(this, arguments);
-                };
-              }())["catch"](function (error) {
-                console.error("Error creating product:", error);
-
-                // Check if this is a validation error (status 422)
-                var status = error && error.response && error.response.status;
-                var serverErrors = error && error.response && error.response.data && error.response.data.errors;
-                if (status === 422 && serverErrors) {
-                  // Show toast notification for validation errors
-                  ProductCreateModalvue_type_script_lang_js_toast.fire({
-                    type: 'error',
-                    title: _this13.$t('Validation Error'),
-                    text: _this13.$t('Please check the form for errors and try again.')
-                  });
-
-                  // Scroll to the first invalid input after DOM updates
-                  _this13.$nextTick(function () {
-                    // Wait a bit more to ensure vform has added the is-invalid class
-                    setTimeout(function () {
-                      var invalid = _this13.$el.querySelector('.is-invalid');
-                      if (invalid && typeof invalid.scrollIntoView === 'function') {
-                        invalid.scrollIntoView({
-                          behavior: 'smooth',
-                          block: 'center'
-                        });
-                      }
-                    }, 100);
-                  });
-                } else {
-                  var _error$response;
-                  // For other errors, show generic error message
-                  var errorMessage = ((_error$response = error.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this13.$t("Please check your input and try again.");
-                  ProductCreateModalvue_type_script_lang_js_toast.fire({
-                    type: "error",
-                    title: errorMessage
-                  });
-                }
-              });
-            case 5:
-              return _context10.a(2);
-          }
-        }, _callee10);
-      }))();
-    },
-    // Create inventory adjustment for opening stock
-    createInventoryAdjustment: function createInventoryAdjustment(_ref2) {
-      var _this14 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee11() {
-        var productSlug, quantity, purchasePrice, adjustmentForm, response, _t4;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context11) {
-          while (1) switch (_context11.p = _context11.n) {
-            case 0:
-              productSlug = _ref2.productSlug, quantity = _ref2.quantity, purchasePrice = _ref2.purchasePrice;
-              adjustmentForm = new vform_es/* default */.Ay({
-                adjustmentReason: _this14.$t("Opening Stock"),
-                adjustmentDate: new Date().toISOString().slice(0, 10),
-                note: _this14.$t("Initial inventory count for new product"),
-                status: 1,
-                selectedProducts: [{
-                  slug: productSlug,
-                  adjustType: "Increment",
-                  adjustQty: quantity,
-                  purchasePrice: purchasePrice
-                }]
-              });
-              _context11.p = 1;
-              _context11.n = 2;
-              return adjustmentForm.post(window.location.origin + "/api/inventory-adjustments");
-            case 2:
-              response = _context11.v;
-              ProductCreateModalvue_type_script_lang_js_toast.fire({
-                type: "success",
-                title: _this14.$t("Inventory adjustment created successfully")
-              });
-              return _context11.a(2, response);
-            case 3:
-              _context11.p = 3;
-              _t4 = _context11.v;
-              console.error("Error creating inventory adjustment:", _t4);
-              throw _t4;
-            case 4:
-              return _context11.a(2);
-          }
-        }, _callee11, null, [[1, 3]]);
-      }))();
-    },
-    // Auto-assign sales account
-    autoAssignSalesAccount: function autoAssignSalesAccount() {
-      var _this15 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee12() {
-        var defaultAccount;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context12) {
-          while (1) switch (_context12.n) {
-            case 0:
-              if (!_this15.isAutoAssigningSales) {
-                _context12.n = 1;
-                break;
-              }
-              return _context12.a(2);
-            case 1:
-              _this15.isAutoAssigningSales = true;
-              try {
-                // For new products, we need to simulate the auto-assignment logic
-                // since the product doesn't exist in the database yet
-                defaultAccount = null;
-                if (_this15.form.itemType === 'product') {
-                  // Look for "Sales of Goods" or similar
-                  defaultAccount = _this15.chartOfAccounts.find(function (account) {
-                    return account.name.toLowerCase().includes('sales') && (account.name.toLowerCase().includes('goods') || account.name.toLowerCase().includes('product'));
-                  });
-                } else if (_this15.form.itemType === 'service') {
-                  // Look for "Sales of Services" or similar
-                  defaultAccount = _this15.chartOfAccounts.find(function (account) {
-                    return account.name.toLowerCase().includes('sales') && account.name.toLowerCase().includes('service');
-                  });
-                }
-
-                // Fallback to any Sales account
-                if (!defaultAccount) {
-                  defaultAccount = _this15.chartOfAccounts.find(function (account) {
-                    return account.name.toLowerCase().includes('sales');
-                  });
-                }
-
-                // Final fallback to any active account
-                if (!defaultAccount && _this15.chartOfAccounts.length > 0) {
-                  defaultAccount = _this15.chartOfAccounts[0];
-                }
-                if (defaultAccount) {
-                  _this15.form.salesAccountId = defaultAccount.id;
-                  ProductCreateModalvue_type_script_lang_js_toast.fire({
-                    type: "success",
-                    title: _this15.$t("Sales Account auto-assigned successfully")
-                  });
-                } else {
-                  ProductCreateModalvue_type_script_lang_js_toast.fire({
-                    type: "error",
-                    title: _this15.$t("No suitable Sales Account found for automatic assignment")
-                  });
-                }
-              } catch (error) {
-                console.error("Error auto-assigning sales account:", error);
-                ProductCreateModalvue_type_script_lang_js_toast.fire({
-                  type: "error",
-                  title: _this15.$t("Failed to auto-assign Sales Account")
-                });
-              } finally {
-                _this15.isAutoAssigningSales = false;
-              }
-            case 2:
-              return _context12.a(2);
-          }
-        }, _callee12);
-      }))();
-    },
-    // Auto-assign purchase account
-    autoAssignPurchaseAccount: function autoAssignPurchaseAccount() {
-      var _this16 = this;
-      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee13() {
-        var defaultAccount;
-        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context13) {
-          while (1) switch (_context13.n) {
-            case 0:
-              if (!_this16.isAutoAssigningPurchase) {
-                _context13.n = 1;
-                break;
-              }
-              return _context13.a(2);
-            case 1:
-              _this16.isAutoAssigningPurchase = true;
-              try {
-                // For new products, we need to simulate the auto-assignment logic
-                // since the product doesn't exist in the database yet
-                defaultAccount = null;
-                if (_this16.form.itemType === 'product') {
-                  // Look for "Cost of Goods Sold" or similar
-                  defaultAccount = _this16.chartOfAccounts.find(function (account) {
-                    return account.name.toLowerCase().includes('cost') && (account.name.toLowerCase().includes('goods') || account.name.toLowerCase().includes('product'));
-                  });
-                } else if (_this16.form.itemType === 'service') {
-                  // Look for "Cost of Services" or similar
-                  defaultAccount = _this16.chartOfAccounts.find(function (account) {
-                    return account.name.toLowerCase().includes('cost') && account.name.toLowerCase().includes('service');
-                  });
-                }
-
-                // Fallback to any Cost account
-                if (!defaultAccount) {
-                  defaultAccount = _this16.chartOfAccounts.find(function (account) {
-                    return account.name.toLowerCase().includes('cost');
-                  });
-                }
-
-                // Final fallback to any active account
-                if (!defaultAccount && _this16.chartOfAccounts.length > 0) {
-                  defaultAccount = _this16.chartOfAccounts[0];
-                }
-                if (defaultAccount) {
-                  _this16.form.purchaseAccountId = defaultAccount.id;
-                  ProductCreateModalvue_type_script_lang_js_toast.fire({
-                    type: "success",
-                    title: _this16.$t("Purchase Account auto-assigned successfully")
-                  });
-                } else {
-                  ProductCreateModalvue_type_script_lang_js_toast.fire({
-                    type: "error",
-                    title: _this16.$t("No suitable Purchase Account found for automatic assignment")
-                  });
-                }
-              } catch (error) {
-                console.error("Error auto-assigning purchase account:", error);
-                ProductCreateModalvue_type_script_lang_js_toast.fire({
-                  type: "error",
-                  title: _this16.$t("Failed to auto-assign Purchase Account")
-                });
-              } finally {
-                _this16.isAutoAssigningPurchase = false;
-              }
-            case 2:
-              return _context13.a(2);
-          }
-        }, _callee13);
-      }))();
-    },
-    // Handle Select it manually checkbox change
-    onOverrideSalesAccountChange: function onOverrideSalesAccountChange() {
-      if (this.form.overrideSalesAccount) {
-        // When overriding, clear the current account selection to force manual selection
-        this.form.salesAccountId = "";
-      } else {
-        // When not overriding and automatic is enabled, restore the automatic account
-        if (this.isSalesAccountAutomatic && this.accountRoutingSettings.sales.main_account_id) {
-          this.form.salesAccountId = this.accountRoutingSettings.sales.main_account_id;
-        }
-      }
-    },
-    // Handle Select it manually checkbox change
-    onOverridePurchaseAccountChange: function onOverridePurchaseAccountChange() {
-      if (this.form.overridePurchaseAccount) {
-        // When overriding, clear the current account selection to force manual selection
-        this.form.purchaseAccountId = "";
-      } else {
-        // When not overriding and automatic is enabled, restore the automatic account
-        if (this.isPurchaseAccountAutomatic && this.accountRoutingSettings.purchase.main_account_id) {
-          this.form.purchaseAccountId = this.accountRoutingSettings.purchase.main_account_id;
-        }
-      }
-    }
-  }
-});
-;// ./resources/js/components/ProductCreateModal.vue?vue&type=script&lang=js
- /* harmony default export */ const components_ProductCreateModalvue_type_script_lang_js = (ProductCreateModalvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=f983d382&prod&scoped=true&lang=css
-var ProductCreateModalvue_type_style_index_0_id_f983d382_prod_scoped_true_lang_css = __webpack_require__(11863);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=f983d382&prod&scoped=true&lang=css
-
-            
-
-var ProductCreateModalvue_type_style_index_0_id_f983d382_prod_scoped_true_lang_css_options = {};
-
-ProductCreateModalvue_type_style_index_0_id_f983d382_prod_scoped_true_lang_css_options.insert = "head";
-ProductCreateModalvue_type_style_index_0_id_f983d382_prod_scoped_true_lang_css_options.singleton = false;
-
-var ProductCreateModalvue_type_style_index_0_id_f983d382_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(ProductCreateModalvue_type_style_index_0_id_f983d382_prod_scoped_true_lang_css/* default */.A, ProductCreateModalvue_type_style_index_0_id_f983d382_prod_scoped_true_lang_css_options);
-
-
-
-/* harmony default export */ const components_ProductCreateModalvue_type_style_index_0_id_f983d382_prod_scoped_true_lang_css = (ProductCreateModalvue_type_style_index_0_id_f983d382_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=f983d382&prod&scoped=true&lang=css
-
-;// ./resources/js/components/ProductCreateModal.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var ProductCreateModal_component = (0,componentNormalizer/* default */.A)(
-  components_ProductCreateModalvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "f983d382",
-  null
-  
-)
-
-/* harmony default export */ const ProductCreateModal = (ProductCreateModal_component.exports);
-
-/***/ }),
-
 /***/ 54890:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -14409,6 +11159,26 @@ exports.UPCE = _UPCE2.default;
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, ".nav-tabs[data-v-f891390a]{border-bottom:2px solid #dee2e6;margin-bottom:1.5rem}.nav-tabs .nav-item[data-v-f891390a]{margin-bottom:-2px}.nav-tabs .nav-link[data-v-f891390a]{background-color:transparent;border:1px solid transparent;border-top-left-radius:.25rem;border-top-right-radius:.25rem;color:#495057;cursor:pointer;font-weight:500;padding:.75rem 1.5rem;transition:all .2s ease}.nav-tabs .nav-link[data-v-f891390a]:hover{border-color:#e9ecef #e9ecef #dee2e6;color:#33a0d9}.nav-tabs .nav-link.active[data-v-f891390a]{background-color:#fff;border-color:#dee2e6 #dee2e6 transparent;color:#33a0d9;font-weight:600}.nav-tabs .nav-link i[data-v-f891390a]{margin-right:.5rem}.tab-content[data-v-f891390a]{min-height:200px}.tab-pane[data-v-f891390a]{padding:0}.form-group[data-v-f891390a]{margin-bottom:1rem}.form-group label[data-v-f891390a]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-f891390a]{color:#dc3545;font-weight:700}.form-control[data-v-f891390a]{background:#fff!important;border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-f891390a]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.is-invalid[data-v-f891390a]{border-color:#dc3545!important}textarea.form-control[data-v-f891390a]{min-height:100px;resize:vertical}.v-select[data-v-f891390a]{background:#fff!important;border:1px solid #e5e7eb;border-radius:10px}.v-select .vs__dropdown-toggle[data-v-f891390a]{background:#fff!important;border:1px solid #e5e7eb;padding:10px 16px}.btn-success[data-v-f891390a]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-success[data-v-f891390a]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-secondary[data-v-f891390a]{background:#6c757d!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-secondary[data-v-f891390a]:hover{background:#5a6268!important;box-shadow:0 4px 8px hsla(208,7%,46%,.3);transform:translateY(-1px)}.create-button[data-v-f891390a]{cursor:pointer;text-decoration:none}.create-btn[data-v-f891390a]{border-left:none;border-radius:0 .25rem .25rem 0;cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-f891390a]:hover{background-color:#e9ecef}.category-select[data-v-f891390a]{margin-right:0!important}.category-select .vs__dropdown-toggle[data-v-f891390a]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .category-select .vs__dropdown-toggle[data-v-f891390a]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}[dir=rtl] .create-btn[data-v-f891390a]{border-left:none;border-radius:.25rem 0 0 .25rem;border-right:1px solid #ced4da}[dir=ltr] .create-btn[data-v-f891390a]{border-left:1px solid #ced4da;border-radius:0 .25rem .25rem 0;border-right:none}.row[data-v-f891390a]{margin-bottom:1rem}.row[data-v-f891390a]:last-child{margin-bottom:0}@media (max-width:768px){.nav-tabs .nav-link[data-v-f891390a]{font-size:.9rem;padding:.5rem 1rem}.tab-content[data-v-f891390a]{padding:.5rem}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 59055:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-737beebd]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-bottom:1.25rem;margin-top:20px;transition:all .2s ease}.form-card[data-v-737beebd]:hover{box-shadow:0 .1rem .5rem 0 rgba(58,59,69,.15)}.form-card .card-header[data-v-737beebd]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:12px 16px}.form-card .card-header .section-title[data-v-737beebd]{border:none;color:#fff;font-size:14px;font-weight:600;margin:0;padding:0}.form-card .card-header .section-title[data-v-737beebd]:after{display:none}.form-card .card-header .section-title i[data-v-737beebd]{color:hsla(0,0%,100%,.8)}.form-card .card-body[data-v-737beebd]{padding:16px}.section-title[data-v-737beebd]{border-bottom:1px solid #e9ecef;color:#495057;font-weight:600;margin-bottom:15px;padding-bottom:8px}.form-group[data-v-737beebd]{margin-bottom:1rem}.form-group label[data-v-737beebd]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-737beebd]{color:#dc3545;font-weight:700}.row[data-v-737beebd]{margin-bottom:1rem}.row[data-v-737beebd]:last-child{margin-bottom:0}.auto-assign-btn[data-v-737beebd]{min-width:40px;padding:.375rem .5rem;white-space:nowrap}.auto-assign-btn[data-v-737beebd]:disabled{cursor:not-allowed;opacity:.6}.form-text[data-v-737beebd]{color:#6c757d;font-size:.8rem;margin-top:3px}.image-preview[data-v-737beebd]{text-align:center}.image-preview img[data-v-737beebd]{border:1px solid #dee2e6;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.1)}.custom-file-label[data-v-737beebd]{background-color:#f8f9fa;border:1px dashed #dee2e6;cursor:pointer;font-size:.85rem;transition:all .2s ease}.custom-file-label[data-v-737beebd]:hover{background-color:#e3f2fd;border-color:#007bff}.custom-file-label i[data-v-737beebd]{color:#6c757d}.create-button[data-v-737beebd]{cursor:pointer;text-decoration:none}.create-btn[data-v-737beebd]{border-left:none;border-radius:0 .25rem .25rem 0;cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-737beebd]:hover{background-color:#e9ecef}.category-select[data-v-737beebd]{margin-right:0!important}.category-select .vs__dropdown-toggle[data-v-737beebd]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .category-select .vs__dropdown-toggle[data-v-737beebd]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}[dir=rtl] .create-btn[data-v-737beebd]{border-left:none;border-radius:.25rem 0 0 .25rem;border-right:1px solid #ced4da}[dir=ltr] .create-btn[data-v-737beebd]{border-left:1px solid #ced4da;border-radius:0 .25rem .25rem 0;border-right:none}.unit-select[data-v-737beebd]{margin-right:0!important}.unit-select .vs__dropdown-toggle[data-v-737beebd]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .unit-select .vs__dropdown-toggle[data-v-737beebd]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}@media (max-width:768px){.section-title[data-v-737beebd]{font-size:.95rem;margin-bottom:12px}.form-card .card-body[data-v-737beebd]{padding:.75rem}.auto-assign-btn[data-v-737beebd]{font-size:.75rem;min-width:35px}}.input-group-prepend .input-group-text[data-v-737beebd]{background-color:#f8f9fa;border-color:#ced4da;color:#495057;font-size:.85rem}.v-select[data-v-737beebd]{margin-bottom:0}.is-invalid[data-v-737beebd]{border-color:#dc3545!important}.invalid-feedback[data-v-737beebd]{color:#dc3545;display:block;font-size:75%;margin-top:.2rem;width:100%}.item-type-selector[data-v-737beebd]{display:flex;gap:.5rem;margin-top:.5rem}.item-type-option[data-v-737beebd]{cursor:pointer;flex:1;position:relative;transition:all .2s ease}.item-type-option input[type=radio][data-v-737beebd]{opacity:0;pointer-events:none;position:absolute}.option-content[data-v-737beebd]{align-items:center;background:#fff;border:2px solid #e3e6f0;border-radius:6px;display:flex;flex-direction:column;justify-content:center;min-height:55px;padding:.6rem .5rem;text-align:center;transition:all .2s ease}.item-type-option:hover .option-content[data-v-737beebd]{border-color:#33a0d9;box-shadow:0 2px 6px rgba(51,160,217,.15);transform:translateY(-1px)}.item-type-option.active .option-content[data-v-737beebd]{background:#33a0d9;border-color:#33a0d9;box-shadow:0 3px 10px rgba(51,160,217,.25);color:#fff;transform:translateY(-1px)}.option-content i[data-v-737beebd]{color:#6c757d;font-size:1.1rem;margin-bottom:.3rem;transition:all .2s ease}.item-type-option.active .option-content i[data-v-737beebd]{color:hsla(0,0%,100%,.9)}.option-content span[data-v-737beebd]{color:#495057;font-size:.85rem;font-weight:600;transition:all .2s ease}.item-type-option.active .option-content span[data-v-737beebd]{color:#fff}@media (max-width:768px){.item-type-selector[data-v-737beebd]{flex-direction:column;gap:.4rem}.option-content[data-v-737beebd]{min-height:50px;padding:.5rem .4rem}.option-content i[data-v-737beebd]{font-size:1rem;margin-bottom:.25rem}.option-content span[data-v-737beebd]{font-size:.8rem}.override-checkbox-container .form-check-label[data-v-737beebd]{min-height:44px;padding:.6rem .8rem}.checkbox-text[data-v-737beebd]{font-size:.9rem}.form-check-input[data-v-737beebd]{height:16px;width:16px}}.account-label-row[data-v-737beebd]{align-items:flex-start;display:flex;flex-direction:column;gap:1rem;justify-content:space-between;margin-bottom:.5rem}.account-label[data-v-737beebd]{color:#495057;flex:1;font-size:.95rem;font-weight:500;margin-bottom:0}.toggle-switch-container[data-v-737beebd]{align-items:center;display:flex;flex-shrink:0}.toggle-switch-label[data-v-737beebd]{align-items:center;cursor:pointer;display:inline-flex;gap:.75rem;-webkit-user-select:none;-moz-user-select:none;user-select:none}.toggle-switch-wrapper[data-v-737beebd]{display:inline-block;flex-shrink:0;height:26px;position:relative;width:50px}.toggle-switch-input[data-v-737beebd]{appearance:none;-webkit-appearance:none;-moz-appearance:none;background-color:#ced4da;border-radius:26px;cursor:pointer;height:26px;left:0;margin:0;outline:none;padding:0;position:absolute;top:0;transition:background-color .3s ease;width:50px}.toggle-switch-input[data-v-737beebd]:checked{background-color:#33a0d9}.toggle-switch-input[data-v-737beebd]:focus{box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.toggle-switch-slider[data-v-737beebd]{background-color:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2);height:20px;left:3px;pointer-events:none;position:absolute;top:50%;transform:translateY(-50%);transition:transform .3s ease;width:20px}.toggle-switch-input:checked+.toggle-switch-slider[data-v-737beebd]{transform:translate(24px,-50%)}.toggle-switch-text[data-v-737beebd]{color:#495057;font-size:.9rem;font-weight:500;transition:color .2s ease;white-space:nowrap}.toggle-switch-label:has(.toggle-switch-input:checked) .toggle-switch-text[data-v-737beebd]{color:#33a0d9;font-weight:600}.alert-info[data-v-737beebd]{background-color:#d1ecf1;border-color:#bee5eb;border-radius:.375rem;font-size:.9rem;padding:.75rem 1rem}.alert-info[data-v-737beebd],.alert-info i[data-v-737beebd]{color:#0c5460}.col-form-6[data-v-737beebd]{flex:0 0 50%;max-width:50%}.col-form-6 .form-card[data-v-737beebd],.col-form-6 .form-card .card-body[data-v-737beebd]{width:100%}@media (max-width:1300px){.col-form-6[data-v-737beebd]{flex:0 0 100%;max-width:100%}}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -14722,7 +11492,7 @@ var render = function render() {
 var staticRenderFns = [];
 
 // EXTERNAL MODULE: ./resources/js/components/ClientForm.vue + 6 modules
-var ClientForm = __webpack_require__(99128);
+var ClientForm = __webpack_require__(79464);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientCreateModal.vue?vue&type=script&lang=js
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -16916,7 +13686,7 @@ var vue_barcode_default = /*#__PURE__*/__webpack_require__.n(vue_barcode);
 // EXTERNAL MODULE: ./resources/js/components/ClientCreateModal.vue + 5 modules
 var ClientCreateModal = __webpack_require__(65584);
 // EXTERNAL MODULE: ./resources/js/components/ProductCreateModal.vue + 17 modules
-var ProductCreateModal = __webpack_require__(54773);
+var ProductCreateModal = __webpack_require__(78362);
 // EXTERNAL MODULE: ./resources/js/components/StockAdjustmentModal.vue + 6 modules
 var StockAdjustmentModal = __webpack_require__(75528);
 // EXTERNAL MODULE: ./node_modules/html2canvas/dist/html2canvas.js
@@ -19558,6 +16328,3251 @@ var MULTI_SYMBOLS = exports.MULTI_SYMBOLS = {
 	'~': ['(%)', 'S'],
 	'\x7f': ['(%)', 'T']
 };
+
+/***/ }),
+
+/***/ 78362:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ ProductCreateModal)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=template&id=737beebd&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', [_c('VModal', {
+    on: {
+      "close": function close($event) {
+        _vm.showProductCreateModal = false;
+      }
+    },
+    scopedSlots: _vm._u([{
+      key: "title",
+      fn: function fn() {
+        return [_vm._v(_vm._s(_vm.$t("Create Product")))];
+      },
+      proxy: true
+    }]),
+    model: {
+      value: _vm.showProductCreateModal,
+      callback: function callback($$v) {
+        _vm.showProductCreateModal = $$v;
+      },
+      expression: "showProductCreateModal"
+    }
+  }, [_vm._v(" "), _c('div', {
+    staticClass: "w-100"
+  }, [_c('form', {
+    attrs: {
+      "role": "form"
+    },
+    on: {
+      "keydown": function keydown($event) {
+        return _vm.form.onKeydown($event);
+      }
+    }
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-cube mr-2"
+  }), _vm._v("\n              " + _vm._s(_vm.$t("Item Type")) + "\n            ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "item-type-selector"
+  }, [_c('label', {
+    staticClass: "item-type-option",
+    "class": {
+      'active': _vm.form.itemType === 'product'
+    }
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.itemType,
+      expression: "form.itemType"
+    }],
+    attrs: {
+      "type": "radio",
+      "id": "product",
+      "name": "itemType",
+      "value": "product",
+      "autocomplete": "off"
+    },
+    domProps: {
+      "checked": _vm._q(_vm.form.itemType, "product")
+    },
+    on: {
+      "change": function change($event) {
+        return _vm.$set(_vm.form, "itemType", "product");
+      }
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "option-content"
+  }, [_c('i', {
+    staticClass: "fas fa-cube"
+  }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t("Product")))])])]), _vm._v(" "), _c('label', {
+    staticClass: "item-type-option",
+    "class": {
+      'active': _vm.form.itemType === 'service'
+    }
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.itemType,
+      expression: "form.itemType"
+    }],
+    attrs: {
+      "type": "radio",
+      "id": "service",
+      "name": "itemType",
+      "value": "service",
+      "autocomplete": "off"
+    },
+    domProps: {
+      "checked": _vm._q(_vm.form.itemType, "service")
+    },
+    on: {
+      "change": function change($event) {
+        return _vm.$set(_vm.form, "itemType", "service");
+      }
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "option-content"
+  }, [_c('i', {
+    staticClass: "fas fa-cogs"
+  }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t("Service")))])])])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "itemType"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-info-circle mr-2"
+  }), _vm._v("\n              " + _vm._s(_vm.$t("Product Details")) + "\n            ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-form-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "itemName"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Item Name")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.itemName,
+      expression: "form.itemName"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('itemName')
+    },
+    attrs: {
+      "id": "itemName",
+      "type": "text",
+      "name": "itemName",
+      "placeholder": _vm.$t('Enter a name')
+    },
+    domProps: {
+      "value": _vm.form.itemName
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "itemName", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "itemName"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "itemCode"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Item Code")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
+    staticClass: "input-group"
+  }, [_vm.prefix ? _c('span', {
+    staticClass: "input-group-text"
+  }, [_vm._v(_vm._s(_vm.prefix))]) : _vm._e(), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.itemCode,
+      expression: "form.itemCode"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('itemCode')
+    },
+    attrs: {
+      "type": "text",
+      "name": "itemCode",
+      "placeholder": _vm.$t('Enter item code')
+    },
+    domProps: {
+      "value": _vm.form.itemCode
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "itemCode", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "itemCode"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "subCategory"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Category")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
+    staticClass: "d-flex w-100"
+  }, [_c('v-select', {
+    staticClass: "flex-grow-1",
+    "class": {
+      'is-invalid': _vm.form.errors.has('subCategory'),
+      'category-select': true
+    },
+    attrs: {
+      "options": _vm.categories,
+      "label": "name",
+      "name": "subCategory",
+      "placeholder": _vm.$t('Select a category')
+    },
+    model: {
+      value: _vm.form.subCategory,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "subCategory", $$v);
+      },
+      expression: "form.subCategory"
+    }
+  }), _vm._v(" "), _c('CategorySubcategoryCreateModal', {
+    on: {
+      "categoryCreated": _vm.handleCategoryCreated,
+      "subcategoryCreated": _vm.handleSubcategoryCreated
+    }
+  }, [_c('div', {
+    staticClass: "input-group-text create-btn"
+  }, [_c('i', {
+    staticClass: "fas fa-solid fa-plus-circle"
+  })])])], 1), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "subCategory"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "itemUnit"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Unit")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
+    staticClass: "d-flex w-100"
+  }, [_c('v-select', {
+    staticClass: "flex-grow-1",
+    "class": {
+      'is-invalid': _vm.form.errors.has('itemUnit'),
+      'unit-select': true
+    },
+    attrs: {
+      "options": _vm.units,
+      "label": "name",
+      "name": "itemUnit",
+      "placeholder": _vm.$t('Select a unit')
+    },
+    model: {
+      value: _vm.form.itemUnit,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "itemUnit", $$v);
+      },
+      expression: "form.itemUnit"
+    }
+  }), _vm._v(" "), _c('UnitCreateModal', {
+    on: {
+      "unitCreated": _vm.handleUnitCreated
+    }
+  }, [_c('div', {
+    staticClass: "input-group-text create-btn"
+  }, [_c('i', {
+    staticClass: "fas fa-solid fa-plus-circle"
+  })])])], 1), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "itemUnit"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "productTax"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Tax Rate")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
+    "class": {
+      'is-invalid': _vm.form.errors.has('productTax')
+    },
+    attrs: {
+      "options": _vm.taxes,
+      "label": "code",
+      "name": "productTax",
+      "placeholder": _vm.$t('Select a tax')
+    },
+    on: {
+      "input": _vm.calculatePrice
+    },
+    model: {
+      value: _vm.form.productTax,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "productTax", $$v);
+      },
+      expression: "form.productTax"
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "productTax"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "col-form-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "itemModel"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Model")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.itemModel,
+      expression: "form.itemModel"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('itemModel')
+    },
+    attrs: {
+      "id": "itemModel",
+      "type": "text",
+      "name": "itemModel",
+      "placeholder": _vm.$t('Enter a model')
+    },
+    domProps: {
+      "value": _vm.form.itemModel
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "itemModel", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "itemModel"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "regularPrice"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Price")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.regularPrice,
+      expression: "form.regularPrice"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('regularPrice')
+    },
+    attrs: {
+      "id": "regularPrice",
+      "type": "number",
+      "step": "any",
+      "min": "0",
+      "name": "regularPrice",
+      "placeholder": _vm.$t('Enter price')
+    },
+    domProps: {
+      "value": _vm.form.regularPrice
+    },
+    on: {
+      "change": _vm.calculatePrice,
+      "keyup": _vm.calculatePrice,
+      "input": [function ($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "regularPrice", $event.target.value);
+      }, _vm.checkPurchasePriceWarning],
+      "blur": _vm.checkPurchasePriceWarning
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "regularPrice"
+    }
+  }), _vm._v(" "), _vm.showPurchasePriceWarning ? _c('small', {
+    staticClass: "text-warning d-block mt-1"
+  }, [_c('i', {
+    staticClass: "fas fa-exclamation-triangle"
+  }), _vm._v("\n                    " + _vm._s(_vm.$t("Warning: Purchase price is greater than selling price")) + "\n                  ")]) : _vm._e()], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group",
+    staticStyle: {
+      "display": "none"
+    }
+  }, [_c('label', {
+    attrs: {
+      "for": "discount"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Discount (%)")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.discount,
+      expression: "form.discount"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('discount')
+    },
+    attrs: {
+      "type": "number",
+      "min": "0",
+      "max": "100",
+      "name": "discount",
+      "placeholder": _vm.$t('Enter discount')
+    },
+    domProps: {
+      "value": _vm.form.discount
+    },
+    on: {
+      "change": _vm.calculatePrice,
+      "keyup": _vm.calculatePrice,
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "discount", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "discount"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "sellingPrice"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Final Price")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.sellingPrice,
+      expression: "form.sellingPrice"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('sellingPrice')
+    },
+    attrs: {
+      "id": "sellingPrice",
+      "type": "number",
+      "readonly": "",
+      "name": "sellingPrice",
+      "placeholder": _vm.$t('Calculated automatically')
+    },
+    domProps: {
+      "value": _vm.form.sellingPrice
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "sellingPrice", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "sellingPrice"
+    }
+  })], 1)])])])]), _vm._v(" "), _vm.form.itemType === 'product' ? _c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-warehouse mr-2"
+  }), _vm._v("\n              " + _vm._s(_vm.$t("Stock Information")) + "\n            ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-form-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "openingStockCount"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Opening Stock")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.openingStockCount,
+      expression: "form.openingStockCount"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('openingStockCount')
+    },
+    attrs: {
+      "id": "openingStockCount",
+      "type": "number",
+      "step": "any",
+      "min": "0",
+      "name": "openingStockCount",
+      "placeholder": _vm.$t('Enter opening stock')
+    },
+    domProps: {
+      "value": _vm.form.openingStockCount
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "openingStockCount", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "openingStockCount"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "col-form-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "openingStockUnitPrice"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Purchase Price")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.openingStockUnitPrice,
+      expression: "form.openingStockUnitPrice"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('openingStockUnitPrice')
+    },
+    attrs: {
+      "id": "openingStockUnitPrice",
+      "type": "number",
+      "step": "any",
+      "min": "0",
+      "name": "openingStockUnitPrice",
+      "placeholder": _vm.$t('Enter purchase price')
+    },
+    domProps: {
+      "value": _vm.form.openingStockUnitPrice
+    },
+    on: {
+      "input": [function ($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "openingStockUnitPrice", $event.target.value);
+      }, _vm.checkPurchasePriceWarning],
+      "change": _vm.checkPurchasePriceWarning,
+      "blur": _vm.checkPurchasePriceWarning
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "openingStockUnitPrice"
+    }
+  }), _vm._v(" "), _vm.showPurchasePriceWarning ? _c('small', {
+    staticClass: "text-warning d-block mt-1"
+  }, [_c('i', {
+    staticClass: "fas fa-exclamation-triangle"
+  }), _vm._v("\n                    " + _vm._s(_vm.$t("Warning: Purchase price is greater than selling price")) + "\n                  ")]) : _vm._e()], 1)])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-form-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "alertQuantity"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Alert Quantity")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.alertQuantity,
+      expression: "form.alertQuantity"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('alertQuantity')
+    },
+    attrs: {
+      "id": "alertQuantity",
+      "type": "number",
+      "min": "0",
+      "max": "1000",
+      "name": "alertQuantity",
+      "placeholder": _vm.$t('Enter alert quantity')
+    },
+    domProps: {
+      "value": _vm.form.alertQuantity
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "alertQuantity", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "alertQuantity"
+    }
+  })], 1)])])])]) : _vm._e(), _vm._v(" "), _vm.form.itemType === 'service' ? _c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-cogs mr-2"
+  }), _vm._v("\n              " + _vm._s(_vm.$t("Service Information")) + "\n            ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-form-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "servicePurchasePrice"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Service Purchase Price")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.servicePurchasePrice,
+      expression: "form.servicePurchasePrice"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('servicePurchasePrice')
+    },
+    attrs: {
+      "id": "servicePurchasePrice",
+      "type": "number",
+      "step": "any",
+      "min": "0",
+      "name": "servicePurchasePrice",
+      "placeholder": _vm.$t('Enter service purchase price')
+    },
+    domProps: {
+      "value": _vm.form.servicePurchasePrice
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "servicePurchasePrice", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "servicePurchasePrice"
+    }
+  })], 1)])])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-form-6"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-chart-line mr-2"
+  }), _vm._v("\n                  " + _vm._s(_vm.$t("Chart of Accounts")) + "\n                ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_vm.isSalesAccountAutomatic || _vm.isPurchaseAccountAutomatic ? _c('div', {
+    staticClass: "row mb-3"
+  }, [_c('div', {
+    staticClass: "col-12"
+  }, [_c('div', {
+    staticClass: "alert alert-info d-flex align-items-center"
+  }, [_c('i', {
+    staticClass: "fas fa-info-circle mr-2"
+  }), _vm._v(" "), _c('span', [_vm._v("\n                        " + _vm._s(_vm.$t("Automatic account assignment is enabled")) + "\n                      ")])])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-12"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('div', {
+    staticClass: "account-label-row"
+  }, [_c('label', {
+    staticClass: "account-label",
+    attrs: {
+      "for": "salesAccountId"
+    }
+  }, [_vm._v("\n                          " + _vm._s(_vm.$t("Sales Account")) + "\n                          "), !_vm.isSalesAccountAutomatic || _vm.form.overrideSalesAccount ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _vm.isSalesAccountAutomatic ? _c('div', {
+    staticClass: "toggle-switch-container"
+  }, [_c('label', {
+    staticClass: "toggle-switch-label"
+  }, [_c('span', {
+    staticClass: "toggle-switch-wrapper"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.overrideSalesAccount,
+      expression: "form.overrideSalesAccount"
+    }],
+    staticClass: "toggle-switch-input",
+    attrs: {
+      "type": "checkbox"
+    },
+    domProps: {
+      "checked": Array.isArray(_vm.form.overrideSalesAccount) ? _vm._i(_vm.form.overrideSalesAccount, null) > -1 : _vm.form.overrideSalesAccount
+    },
+    on: {
+      "change": [function ($event) {
+        var $$a = _vm.form.overrideSalesAccount,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.form, "overrideSalesAccount", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.form, "overrideSalesAccount", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.form, "overrideSalesAccount", $$c);
+        }
+      }, _vm.onOverrideSalesAccountChange]
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "toggle-switch-slider"
+  })]), _vm._v(" "), _c('span', {
+    staticClass: "toggle-switch-text"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form.overrideSalesAccount ? _vm.$t("Manual") : _vm.$t("Automatic")) + "\n                            ")])])]) : _vm._e()]), _vm._v(" "), !_vm.isSalesAccountAutomatic || _vm.form.overrideSalesAccount ? _c('div', {
+    staticClass: "form-group"
+  }, [_c('div', {
+    staticClass: "d-flex align-items-center"
+  }, [_c('v-select', {
+    staticClass: "flex-grow-1 mr-2",
+    "class": {
+      'is-invalid': _vm.form.errors.has('salesAccountId')
+    },
+    attrs: {
+      "options": _vm.chartOfAccounts,
+      "label": "name",
+      "reduce": function reduce(option) {
+        return option.id;
+      },
+      "name": "salesAccountId",
+      "placeholder": _vm.$t('Select sales account'),
+      "required": ""
+    },
+    model: {
+      value: _vm.form.salesAccountId,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "salesAccountId", $$v);
+      },
+      expression: "form.salesAccountId"
+    }
+  })], 1), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "salesAccountId"
+    }
+  })], 1) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "col-12"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('div', {
+    staticClass: "account-label-row"
+  }, [_c('label', {
+    staticClass: "account-label",
+    attrs: {
+      "for": "purchaseAccountId"
+    }
+  }, [_vm._v("\n                          " + _vm._s(_vm.$t("Purchase Account")) + "\n                          "), !_vm.isPurchaseAccountAutomatic || _vm.form.overridePurchaseAccount ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _vm.isPurchaseAccountAutomatic ? _c('div', {
+    staticClass: "toggle-switch-container"
+  }, [_c('label', {
+    staticClass: "toggle-switch-label"
+  }, [_c('span', {
+    staticClass: "toggle-switch-wrapper"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.overridePurchaseAccount,
+      expression: "form.overridePurchaseAccount"
+    }],
+    staticClass: "toggle-switch-input",
+    attrs: {
+      "type": "checkbox"
+    },
+    domProps: {
+      "checked": Array.isArray(_vm.form.overridePurchaseAccount) ? _vm._i(_vm.form.overridePurchaseAccount, null) > -1 : _vm.form.overridePurchaseAccount
+    },
+    on: {
+      "change": [function ($event) {
+        var $$a = _vm.form.overridePurchaseAccount,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && _vm.$set(_vm.form, "overridePurchaseAccount", $$a.concat([$$v]));
+          } else {
+            $$i > -1 && _vm.$set(_vm.form, "overridePurchaseAccount", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.$set(_vm.form, "overridePurchaseAccount", $$c);
+        }
+      }, _vm.onOverridePurchaseAccountChange]
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "toggle-switch-slider"
+  })]), _vm._v(" "), _c('span', {
+    staticClass: "toggle-switch-text"
+  }, [_vm._v("\n                              " + _vm._s(_vm.form.overridePurchaseAccount ? _vm.$t("Manual") : _vm.$t("Automatic")) + "\n                            ")])])]) : _vm._e()]), _vm._v(" "), !_vm.isPurchaseAccountAutomatic || _vm.form.overridePurchaseAccount ? _c('div', {
+    staticClass: "form-group"
+  }, [_c('div', {
+    staticClass: "d-flex align-items-center"
+  }, [_c('v-select', {
+    staticClass: "flex-grow-1 mr-2",
+    "class": {
+      'is-invalid': _vm.form.errors.has('purchaseAccountId')
+    },
+    attrs: {
+      "options": _vm.chartOfAccounts,
+      "label": "name",
+      "reduce": function reduce(option) {
+        return option.id;
+      },
+      "name": "purchaseAccountId",
+      "placeholder": _vm.$t('Select purchase account'),
+      "required": ""
+    },
+    model: {
+      value: _vm.form.purchaseAccountId,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "purchaseAccountId", $$v);
+      },
+      expression: "form.purchaseAccountId"
+    }
+  })], 1), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "purchaseAccountId"
+    }
+  })], 1) : _vm._e()])])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-form-6"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-plus-circle mr-2"
+  }), _vm._v("\n                  " + _vm._s(_vm.$t("Additional Details")) + "\n                ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-12"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "status"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.status,
+      expression: "form.status"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('status')
+    },
+    attrs: {
+      "id": "status"
+    },
+    on: {
+      "change": function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Active")))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "status"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "col-12"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "image"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Image")))]), _vm._v(" "), _c('div', {
+    staticClass: "custom-file"
+  }, [_c('input', {
+    staticClass: "custom-file-input",
+    "class": {
+      'is-invalid': _vm.form.errors.has('image')
+    },
+    attrs: {
+      "id": "image",
+      "type": "file",
+      "name": "image"
+    },
+    on: {
+      "change": _vm.onFileChange
+    }
+  }), _vm._v(" "), _c('label', {
+    staticClass: "custom-file-label",
+    attrs: {
+      "for": "image"
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-upload"
+  }), _vm._v(" " + _vm._s(_vm.$t("Upload")) + "\n                        ")])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "image"
+    }
+  }), _vm._v(" "), _vm.url ? _c('div', {
+    staticClass: "image-preview mt-2"
+  }, [_c('img', {
+    staticClass: "img-fluid rounded",
+    staticStyle: {
+      "max-height": "80px"
+    },
+    attrs: {
+      "src": _vm.url,
+      "alt": _vm.$t('Product Image')
+    }
+  })]) : _vm._e()], 1)])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-12"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "note"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Notes")))]), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.note,
+      expression: "form.note"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('note')
+    },
+    attrs: {
+      "id": "note",
+      "rows": "3",
+      "name": "note",
+      "placeholder": _vm.$t('Add any additional notes...')
+    },
+    domProps: {
+      "value": _vm.form.note
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "note", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "note"
+    }
+  })], 1)])])])])])])])]), _vm._v(" "), _c('div', {
+    attrs: {
+      "slot": "modal-footer"
+    },
+    slot: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "loading": _vm.form.busy
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.submitItem($event);
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-save"
+  }), _vm._v(" " + _vm._s(_vm.$t("Save")) + "\n      ")])])]), _vm._v(" "), _c('a', {
+    staticClass: "create-button",
+    on: {
+      "click": _vm.toggleModal
+    }
+  }, [_vm._t("default")], 2)], 1);
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
+var vform_es = __webpack_require__(63216);
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+// EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
+var sweetalert2_all = __webpack_require__(78465);
+var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all);
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__(95353);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=template&id=f891390a&scoped=true
+var CategorySubcategoryCreateModalvue_type_template_id_f891390a_scoped_true_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', [_c('VModal', {
+    on: {
+      "close": _vm.closeModal
+    },
+    scopedSlots: _vm._u([{
+      key: "title",
+      fn: function fn() {
+        return [_vm._v(_vm._s(_vm.$t("Create Category / Subcategory")))];
+      },
+      proxy: true
+    }]),
+    model: {
+      value: _vm.showModal,
+      callback: function callback($$v) {
+        _vm.showModal = $$v;
+      },
+      expression: "showModal"
+    }
+  }, [_vm._v(" "), _c('div', {
+    staticClass: "w-100",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+      }
+    }
+  }, [_c('ul', {
+    staticClass: "nav nav-tabs mb-3",
+    attrs: {
+      "role": "tablist"
+    }
+  }, [_c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link",
+    "class": {
+      active: _vm.activeTab === 'subcategory'
+    },
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": [function ($event) {
+        _vm.activeTab = 'subcategory';
+      }, function ($event) {
+        $event.preventDefault();
+      }]
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-folder-open mr-2"
+  }), _vm._v("\n              " + _vm._s(_vm.$t("Subcategory")) + "\n            ")])]), _vm._v(" "), _c('li', {
+    staticClass: "nav-item"
+  }, [_c('a', {
+    staticClass: "nav-link",
+    "class": {
+      active: _vm.activeTab === 'category'
+    },
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": [function ($event) {
+        _vm.activeTab = 'category';
+      }, function ($event) {
+        $event.preventDefault();
+      }]
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-folder mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Main Category")) + "\n          ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "tab-content"
+  }, [_c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.activeTab === 'category',
+      expression: "activeTab === 'category'"
+    }],
+    staticClass: "tab-pane fade",
+    "class": {
+      'show active': _vm.activeTab === 'category'
+    }
+  }, [_c('form', {
+    attrs: {
+      "role": "form"
+    },
+    on: {
+      "keydown": function keydown($event) {
+        return _vm.categoryForm.onKeydown($event);
+      },
+      "submit": function submit($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+      }
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "categoryName"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Name')) + "\n                  "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.categoryForm.name,
+      expression: "categoryForm.name"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.categoryForm.errors.has('name')
+    },
+    attrs: {
+      "id": "categoryName",
+      "type": "text",
+      "name": "name",
+      "placeholder": _vm.$t('Enter a name')
+    },
+    domProps: {
+      "value": _vm.categoryForm.name
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.categoryForm, "name", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.categoryForm,
+      "field": "name"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "categoryStatus"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Status')))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.categoryForm.status,
+      expression: "categoryForm.status"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.categoryForm.errors.has('status')
+    },
+    attrs: {
+      "id": "categoryStatus"
+    },
+    on: {
+      "change": function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.categoryForm, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Active')))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Inactive')))])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.categoryForm,
+      "field": "status"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "categoryNote"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Note')))]), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.categoryForm.note,
+      expression: "categoryForm.note"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.categoryForm.errors.has('note')
+    },
+    attrs: {
+      "id": "categoryNote",
+      "placeholder": _vm.$t('Write your note here!'),
+      "rows": "3"
+    },
+    domProps: {
+      "value": _vm.categoryForm.note
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.categoryForm, "note", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.categoryForm,
+      "field": "note"
+    }
+  })], 1)])]), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.activeTab === 'subcategory',
+      expression: "activeTab === 'subcategory'"
+    }],
+    staticClass: "tab-pane fade",
+    "class": {
+      'show active': _vm.activeTab === 'subcategory'
+    }
+  }, [_c('form', {
+    attrs: {
+      "role": "form"
+    },
+    on: {
+      "keydown": function keydown($event) {
+        return _vm.subcategoryForm.onKeydown($event);
+      },
+      "submit": function submit($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+      }
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "subcategoryName"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Name')) + "\n                "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.subcategoryForm.name,
+      expression: "subcategoryForm.name"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.subcategoryForm.errors.has('name')
+    },
+    attrs: {
+      "id": "subcategoryName",
+      "type": "text",
+      "name": "name",
+      "placeholder": _vm.$t('Enter a name')
+    },
+    domProps: {
+      "value": _vm.subcategoryForm.name
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.subcategoryForm, "name", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.subcategoryForm,
+      "field": "name"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_vm.categories ? _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "subcategoryCategory"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Category Name')) + "\n                  "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
+    staticClass: "d-flex w-100"
+  }, [_c('v-select', {
+    staticClass: "flex-grow-1 category-select",
+    "class": {
+      'is-invalid': _vm.subcategoryForm.errors.has('category')
+    },
+    attrs: {
+      "options": _vm.categories,
+      "label": "name",
+      "name": "category",
+      "placeholder": _vm.$t('Select a category')
+    },
+    model: {
+      value: _vm.subcategoryForm.category,
+      callback: function callback($$v) {
+        _vm.$set(_vm.subcategoryForm, "category", $$v);
+      },
+      expression: "subcategoryForm.category"
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "input-group-text create-btn",
+    staticStyle: {
+      "cursor": "pointer"
+    },
+    on: {
+      "click": function click($event) {
+        _vm.activeTab = 'category';
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-solid fa-plus-circle"
+  })])], 1), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.subcategoryForm,
+      "field": "category"
+    }
+  })], 1) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "subcategoryStatus"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Status')))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.subcategoryForm.status,
+      expression: "subcategoryForm.status"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.subcategoryForm.errors.has('status')
+    },
+    attrs: {
+      "id": "subcategoryStatus"
+    },
+    on: {
+      "change": function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.subcategoryForm, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Active')))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Inactive')))])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.subcategoryForm,
+      "field": "status"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "subcategoryNote"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('Note')))]), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.subcategoryForm.note,
+      expression: "subcategoryForm.note"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.subcategoryForm.errors.has('note')
+    },
+    attrs: {
+      "id": "subcategoryNote",
+      "placeholder": _vm.$t('Write your note here!'),
+      "rows": "3"
+    },
+    domProps: {
+      "value": _vm.subcategoryForm.note
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.subcategoryForm, "note", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.subcategoryForm,
+      "field": "note"
+    }
+  })], 1)])])])]), _vm._v(" "), _c('div', {
+    attrs: {
+      "slot": "modal-footer"
+    },
+    slot: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "loading": _vm.categoryForm.busy || _vm.subcategoryForm.busy
+    },
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.saveCurrent.apply(null, arguments);
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-save"
+  }), _vm._v(" " + _vm._s(_vm.$t("Save")) + "\n      ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-secondary ml-2",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.closeModal.apply(null, arguments);
+      }
+    }
+  }, [_vm._v("\n        " + _vm._s(_vm.$t("Cancel")) + "\n      ")])])]), _vm._v(" "), _c('a', {
+    staticClass: "create-button",
+    on: {
+      "click": _vm.toggleModal
+    }
+  }, [_vm._t("default")], 2)], 1);
+};
+var CategorySubcategoryCreateModalvue_type_template_id_f891390a_scoped_true_staticRenderFns = [];
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=script&lang=js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+/* harmony default export */ const CategorySubcategoryCreateModalvue_type_script_lang_js = ({
+  middleware: ["auth", "check-permissions"],
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items"])), {}, {
+    categories: function categories() {
+      return this.items || [];
+    }
+  }),
+  data: function data() {
+    return {
+      showModal: false,
+      activeTab: 'subcategory',
+      categoryForm: new vform_es/* default */.Ay({
+        name: '',
+        note: '',
+        status: 1
+      }),
+      subcategoryForm: new vform_es/* default */.Ay({
+        name: '',
+        note: '',
+        status: 1,
+        category: null
+      })
+    };
+  },
+  created: function created() {
+    this.getCategories();
+  },
+  methods: {
+    toggleModal: function toggleModal() {
+      this.showModal = !this.showModal;
+      if (this.showModal) {
+        // Reset forms when opening modal
+        this.resetForms();
+        this.activeTab = 'subcategory';
+        // Refresh categories list
+        this.getCategories();
+      }
+    },
+    closeModal: function closeModal(event) {
+      // Stop event propagation to prevent closing parent modals
+      if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+      this.showModal = false;
+      this.resetForms();
+    },
+    resetForms: function resetForms() {
+      this.categoryForm.reset();
+      this.subcategoryForm.reset();
+      this.categoryForm.status = 1;
+      this.subcategoryForm.status = 1;
+      this.subcategoryForm.category = null;
+    },
+    // Get all product categories for subcategory form
+    getCategories: function getCategories() {
+      var _this = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.n) {
+            case 0:
+              _context.n = 1;
+              return _this.$store.dispatch('operations/allData', {
+                path: '/api/all-product-categories'
+              });
+            case 1:
+              return _context.a(2);
+          }
+        }, _callee);
+      }))();
+    },
+    // Save based on active tab
+    saveCurrent: function saveCurrent(event) {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.n) {
+            case 0:
+              // Stop event propagation to prevent closing parent modals
+              if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+              }
+              if (!(_this2.activeTab === 'category')) {
+                _context2.n = 2;
+                break;
+              }
+              _context2.n = 1;
+              return _this2.saveCategory();
+            case 1:
+              _context2.n = 3;
+              break;
+            case 2:
+              _context2.n = 3;
+              return _this2.saveSubCategory();
+            case 3:
+              return _context2.a(2);
+          }
+        }, _callee2);
+      }))();
+    },
+    // Save category
+    saveCategory: function saveCategory() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+        var categoryName;
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.n) {
+            case 0:
+              // Store the category name before saving
+              categoryName = _this3.categoryForm.name;
+              _context4.n = 1;
+              return _this3.categoryForm.post(window.location.origin + '/api/product-categories').then(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+                var createdCategory, newCategory;
+                return _regenerator().w(function (_context3) {
+                  while (1) switch (_context3.n) {
+                    case 0:
+                      toast.fire({
+                        type: 'success',
+                        title: _this3.$t('Category added successfully')
+                      });
+                      // Refresh categories list for subcategory form
+                      _context3.n = 1;
+                      return _this3.getCategories();
+                    case 1:
+                      // Create a simple object with the name for parent to find it
+                      createdCategory = {
+                        name: categoryName
+                      }; // Emit event with created category data to refresh in parent
+                      _this3.$emit('categoryCreated', createdCategory);
+                      // Reset category form
+                      _this3.categoryForm.reset();
+                      _this3.categoryForm.status = 1;
+                      // Navigate to subcategory tab instead of closing modal
+                      _this3.activeTab = 'subcategory';
+                      // Auto-select the newly created category in subcategory form
+                      _context3.n = 2;
+                      return _this3.$nextTick();
+                    case 2:
+                      newCategory = _this3.categories.find(function (cat) {
+                        return cat.name === categoryName;
+                      });
+                      if (newCategory) {
+                        _this3.subcategoryForm.category = newCategory;
+                      }
+                    case 3:
+                      return _context3.a(2);
+                  }
+                }, _callee3);
+              })))["catch"](function (error) {
+                // Check if this is a validation error (status 422)
+                var status = error && error.response && error.response.status;
+                var serverErrors = error && error.response && error.response.data && error.response.data.errors;
+                if (status === 422 && serverErrors) {
+                  // Show toast notification for validation errors
+                  toast.fire({
+                    type: 'error',
+                    title: _this3.$t('Validation Error'),
+                    text: _this3.$t('Please check the form for errors and try again.')
+                  });
+
+                  // Scroll to the first invalid input in the modal after DOM updates
+                  _this3.$nextTick(function () {
+                    // Wait a bit more to ensure vform has added the is-invalid class
+                    setTimeout(function () {
+                      var invalid = _this3.$el.querySelector('.is-invalid');
+                      if (invalid && typeof invalid.scrollIntoView === 'function') {
+                        invalid.scrollIntoView({
+                          behavior: 'smooth',
+                          block: 'center'
+                        });
+                      }
+                    }, 100);
+                  });
+                } else {
+                  // For other errors, show generic error message
+                  toast.fire({
+                    type: 'error',
+                    title: _this3.$t('Please check your input and try again.')
+                  });
+                }
+              });
+            case 1:
+              return _context4.a(2);
+          }
+        }, _callee4);
+      }))();
+    },
+    // Save subcategory
+    saveSubCategory: function saveSubCategory() {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+        var subcategoryName;
+        return _regenerator().w(function (_context6) {
+          while (1) switch (_context6.n) {
+            case 0:
+              // Store the subcategory name before saving
+              subcategoryName = _this4.subcategoryForm.name;
+              _context6.n = 1;
+              return _this4.subcategoryForm.post(window.location.origin + '/api/product-sub-categories').then(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+                var createdSubcategory;
+                return _regenerator().w(function (_context5) {
+                  while (1) switch (_context5.n) {
+                    case 0:
+                      toast.fire({
+                        type: 'success',
+                        title: _this4.$t('Sub category added successfully')
+                      });
+                      // Create a simple object with the name for parent to find it
+                      createdSubcategory = {
+                        name: subcategoryName
+                      }; // Emit event with created subcategory data to refresh and select in parent
+                      _this4.$emit('subcategoryCreated', createdSubcategory);
+                      // Reset form
+                      _this4.subcategoryForm.reset();
+                      _this4.subcategoryForm.status = 1;
+                      _this4.subcategoryForm.category = null;
+                      // Close only this modal, not parent modals
+                      _this4.showModal = false;
+                      _this4.resetForms();
+                    case 1:
+                      return _context5.a(2);
+                  }
+                }, _callee5);
+              })))["catch"](function (error) {
+                // Check if this is a validation error (status 422)
+                var status = error && error.response && error.response.status;
+                var serverErrors = error && error.response && error.response.data && error.response.data.errors;
+                if (status === 422 && serverErrors) {
+                  // Show toast notification for validation errors
+                  toast.fire({
+                    type: 'error',
+                    title: _this4.$t('Validation Error'),
+                    text: _this4.$t('Please check the form for errors and try again.')
+                  });
+
+                  // Scroll to the first invalid input in the modal after DOM updates
+                  _this4.$nextTick(function () {
+                    // Wait a bit more to ensure vform has added the is-invalid class
+                    setTimeout(function () {
+                      var invalid = _this4.$el.querySelector('.is-invalid');
+                      if (invalid && typeof invalid.scrollIntoView === 'function') {
+                        invalid.scrollIntoView({
+                          behavior: 'smooth',
+                          block: 'center'
+                        });
+                      }
+                    }, 100);
+                  });
+                } else {
+                  // For other errors, show generic error message
+                  toast.fire({
+                    type: 'error',
+                    title: _this4.$t('Please check your input and try again.')
+                  });
+                }
+              });
+            case 1:
+              return _context6.a(2);
+          }
+        }, _callee6);
+      }))();
+    }
+  }
+});
+;// ./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_CategorySubcategoryCreateModalvue_type_script_lang_js = (CategorySubcategoryCreateModalvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=style&index=0&id=f891390a&prod&scoped=true&lang=css
+var CategorySubcategoryCreateModalvue_type_style_index_0_id_f891390a_prod_scoped_true_lang_css = __webpack_require__(57688);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=style&index=0&id=f891390a&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(CategorySubcategoryCreateModalvue_type_style_index_0_id_f891390a_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_CategorySubcategoryCreateModalvue_type_style_index_0_id_f891390a_prod_scoped_true_lang_css = (CategorySubcategoryCreateModalvue_type_style_index_0_id_f891390a_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=style&index=0&id=f891390a&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/CategorySubcategoryCreateModal.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_CategorySubcategoryCreateModalvue_type_script_lang_js,
+  CategorySubcategoryCreateModalvue_type_template_id_f891390a_scoped_true_render,
+  CategorySubcategoryCreateModalvue_type_template_id_f891390a_scoped_true_staticRenderFns,
+  false,
+  null,
+  "f891390a",
+  null
+  
+)
+
+/* harmony default export */ const CategorySubcategoryCreateModal = (component.exports);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/UnitCreateModal.vue?vue&type=template&id=3d82b5ae&scoped=true
+var UnitCreateModalvue_type_template_id_3d82b5ae_scoped_true_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', [_c('VModal', {
+    on: {
+      "close": _vm.closeModal
+    },
+    scopedSlots: _vm._u([{
+      key: "title",
+      fn: function fn() {
+        return [_vm._v(_vm._s(_vm.$t("Create Unit")))];
+      },
+      proxy: true
+    }]),
+    model: {
+      value: _vm.showModal,
+      callback: function callback($$v) {
+        _vm.showModal = $$v;
+      },
+      expression: "showModal"
+    }
+  }, [_vm._v(" "), _c('div', {
+    staticClass: "w-100",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+      }
+    }
+  }, [_c('form', {
+    attrs: {
+      "role": "form"
+    },
+    on: {
+      "keydown": function keydown($event) {
+        return _vm.form.onKeydown($event);
+      },
+      "submit": function submit($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+      }
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "unitName"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Name")) + "\n            "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.name,
+      expression: "form.name"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('name')
+    },
+    attrs: {
+      "id": "unitName",
+      "type": "text",
+      "name": "name",
+      "placeholder": _vm.$t('Enter a name')
+    },
+    domProps: {
+      "value": _vm.form.name
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "name", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "name"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "unitCode"
+    }
+  }, [_vm._v("\n            " + _vm._s(_vm.$t("Code")) + "\n            "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]), _vm._v(" "), _c('i', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Unit Code Tooltip'),
+      expression: "$t('Unit Code Tooltip')"
+    }],
+    staticClass: "fas fa-info-circle ml-2 text-info unit-code-tooltip",
+    staticStyle: {
+      "cursor": "help",
+      "font-size": "0.9rem"
+    }
+  })]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.code,
+      expression: "form.code"
+    }, {
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Unit Code Tooltip'),
+      expression: "$t('Unit Code Tooltip')"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('code')
+    },
+    attrs: {
+      "id": "unitCode",
+      "type": "text",
+      "name": "code",
+      "placeholder": _vm.$t('Enter unit code (1-5 characters)'),
+      "maxlength": "5"
+    },
+    domProps: {
+      "value": _vm.form.code
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "code", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('small', {
+    staticClass: "form-text text-muted"
+  }, [_vm._v(_vm._s(_vm.$t("Unit Code Helper")))]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "code"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "unitStatus"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.status,
+      expression: "form.status"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('status')
+    },
+    attrs: {
+      "id": "unitStatus"
+    },
+    on: {
+      "change": function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Active")))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "status"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "unitNote"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Note")))]), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.note,
+      expression: "form.note"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('note')
+    },
+    attrs: {
+      "id": "unitNote",
+      "placeholder": _vm.$t('Write your note here!'),
+      "rows": "3"
+    },
+    domProps: {
+      "value": _vm.form.note
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "note", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "note"
+    }
+  })], 1)])]), _vm._v(" "), _c('div', {
+    attrs: {
+      "slot": "modal-footer"
+    },
+    slot: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "loading": _vm.form.busy
+    },
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.saveUnit.apply(null, arguments);
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-save"
+  }), _vm._v(" " + _vm._s(_vm.$t("Save")) + "\n      ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-secondary ml-2",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.closeModal.apply(null, arguments);
+      }
+    }
+  }, [_vm._v("\n        " + _vm._s(_vm.$t("Cancel")) + "\n      ")])])]), _vm._v(" "), _c('a', {
+    staticClass: "create-button",
+    on: {
+      "click": _vm.toggleModal
+    }
+  }, [_vm._t("default")], 2)], 1);
+};
+var UnitCreateModalvue_type_template_id_3d82b5ae_scoped_true_staticRenderFns = [];
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/UnitCreateModal.vue?vue&type=script&lang=js
+function UnitCreateModalvue_type_script_lang_js_regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u), UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u, o, "Generator"), UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u, n, function () { return this; }), UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (UnitCreateModalvue_type_script_lang_js_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } UnitCreateModalvue_type_script_lang_js_regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, UnitCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, n, t); }
+function UnitCreateModalvue_type_script_lang_js_asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function UnitCreateModalvue_type_script_lang_js_asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { UnitCreateModalvue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { UnitCreateModalvue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+
+/* harmony default export */ const UnitCreateModalvue_type_script_lang_js = ({
+  middleware: ["auth", "check-permissions"],
+  data: function data() {
+    return {
+      showModal: false,
+      form: new vform_es/* default */.Ay({
+        name: '',
+        code: '',
+        note: '',
+        status: 1
+      })
+    };
+  },
+  methods: {
+    toggleModal: function toggleModal() {
+      this.showModal = !this.showModal;
+      if (this.showModal) {
+        // Reset form when opening modal
+        this.resetForm();
+      }
+    },
+    closeModal: function closeModal(event) {
+      // Stop event propagation to prevent closing parent modals
+      if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+      this.showModal = false;
+      this.resetForm();
+    },
+    resetForm: function resetForm() {
+      this.form.reset();
+      this.form.status = 1;
+    },
+    // Save unit
+    saveUnit: function saveUnit(event) {
+      var _this = this;
+      return UnitCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/UnitCreateModalvue_type_script_lang_js_regenerator().m(function _callee2() {
+        var unitName, unitCode;
+        return UnitCreateModalvue_type_script_lang_js_regenerator().w(function (_context2) {
+          while (1) switch (_context2.n) {
+            case 0:
+              // Stop event propagation to prevent closing parent modals
+              if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+              }
+
+              // Store the unit name before saving
+              unitName = _this.form.name;
+              unitCode = _this.form.code;
+              _context2.n = 1;
+              return _this.form.post(window.location.origin + '/api/units').then(/*#__PURE__*/UnitCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/UnitCreateModalvue_type_script_lang_js_regenerator().m(function _callee() {
+                var createdUnit;
+                return UnitCreateModalvue_type_script_lang_js_regenerator().w(function (_context) {
+                  while (1) switch (_context.n) {
+                    case 0:
+                      toast.fire({
+                        type: 'success',
+                        title: _this.$t('Unit added successfully')
+                      });
+                      // Create a simple object with the name and code for parent to find it
+                      createdUnit = {
+                        name: unitName,
+                        code: unitCode
+                      }; // Emit event with created unit data to refresh and select in parent
+                      _this.$emit('unitCreated', createdUnit);
+                      // Reset form
+                      _this.form.reset();
+                      _this.form.status = 1;
+                      // Close only this modal, not parent modals
+                      _this.showModal = false;
+                      _this.resetForm();
+                    case 1:
+                      return _context.a(2);
+                  }
+                }, _callee);
+              })))["catch"](function () {
+                toast.fire({
+                  type: 'error',
+                  title: _this.$t('Please check your input and try again.')
+                });
+              });
+            case 1:
+              return _context2.a(2);
+          }
+        }, _callee2);
+      }))();
+    }
+  }
+});
+;// ./resources/js/components/UnitCreateModal.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_UnitCreateModalvue_type_script_lang_js = (UnitCreateModalvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/UnitCreateModal.vue?vue&type=style&index=0&id=3d82b5ae&prod&scoped=true&lang=css
+var UnitCreateModalvue_type_style_index_0_id_3d82b5ae_prod_scoped_true_lang_css = __webpack_require__(44659);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/UnitCreateModal.vue?vue&type=style&index=0&id=3d82b5ae&prod&scoped=true&lang=css
+
+            
+
+var UnitCreateModalvue_type_style_index_0_id_3d82b5ae_prod_scoped_true_lang_css_options = {};
+
+UnitCreateModalvue_type_style_index_0_id_3d82b5ae_prod_scoped_true_lang_css_options.insert = "head";
+UnitCreateModalvue_type_style_index_0_id_3d82b5ae_prod_scoped_true_lang_css_options.singleton = false;
+
+var UnitCreateModalvue_type_style_index_0_id_3d82b5ae_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(UnitCreateModalvue_type_style_index_0_id_3d82b5ae_prod_scoped_true_lang_css/* default */.A, UnitCreateModalvue_type_style_index_0_id_3d82b5ae_prod_scoped_true_lang_css_options);
+
+
+
+/* harmony default export */ const components_UnitCreateModalvue_type_style_index_0_id_3d82b5ae_prod_scoped_true_lang_css = (UnitCreateModalvue_type_style_index_0_id_3d82b5ae_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/UnitCreateModal.vue?vue&type=style&index=0&id=3d82b5ae&prod&scoped=true&lang=css
+
+;// ./resources/js/components/UnitCreateModal.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var UnitCreateModal_component = (0,componentNormalizer/* default */.A)(
+  components_UnitCreateModalvue_type_script_lang_js,
+  UnitCreateModalvue_type_template_id_3d82b5ae_scoped_true_render,
+  UnitCreateModalvue_type_template_id_3d82b5ae_scoped_true_staticRenderFns,
+  false,
+  null,
+  "3d82b5ae",
+  null
+  
+)
+
+/* harmony default export */ const UnitCreateModal = (UnitCreateModal_component.exports);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=script&lang=js
+function ProductCreateModalvue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return ProductCreateModalvue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, ProductCreateModalvue_type_script_lang_js_typeof(o); }
+function ProductCreateModalvue_type_script_lang_js_regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, o, "Generator"), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, n, function () { return this; }), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (ProductCreateModalvue_type_script_lang_js_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } ProductCreateModalvue_type_script_lang_js_regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, n, t); }
+function ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function ProductCreateModalvue_type_script_lang_js_asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function ProductCreateModalvue_type_script_lang_js_ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function ProductCreateModalvue_type_script_lang_js_objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ProductCreateModalvue_type_script_lang_js_ownKeys(Object(t), !0).forEach(function (r) { ProductCreateModalvue_type_script_lang_js_defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ProductCreateModalvue_type_script_lang_js_ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function ProductCreateModalvue_type_script_lang_js_defineProperty(e, r, t) { return (r = ProductCreateModalvue_type_script_lang_js_toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function ProductCreateModalvue_type_script_lang_js_toPropertyKey(t) { var i = ProductCreateModalvue_type_script_lang_js_toPrimitive(t, "string"); return "symbol" == ProductCreateModalvue_type_script_lang_js_typeof(i) ? i : i + ""; }
+function ProductCreateModalvue_type_script_lang_js_toPrimitive(t, r) { if ("object" != ProductCreateModalvue_type_script_lang_js_typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != ProductCreateModalvue_type_script_lang_js_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+
+
+
+
+var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true
+});
+/* harmony default export */ const ProductCreateModalvue_type_script_lang_js = ({
+  components: {
+    CategorySubcategoryCreateModal: CategorySubcategoryCreateModal,
+    UnitCreateModal: UnitCreateModal
+  },
+  middleware: ["auth", "check-permissions"],
+  metaInfo: function metaInfo() {
+    return {
+      title: this.$t("Create Product")
+    };
+  },
+  data: function data() {
+    return {
+      showProductCreateModal: false,
+      form: new vform_es/* default */.Ay({
+        itemType: "product",
+        itemName: "",
+        itemCode: "",
+        itemModel: "",
+        barcodeSymbology: "CODE128",
+        subCategory: "",
+        brand: "",
+        itemUnit: "",
+        productTax: "",
+        taxType: "Exclusive",
+        regularPrice: "",
+        servicePurchasePrice: "",
+        openingStockCount: "",
+        openingStockUnitPrice: "",
+        purchasePrice: "",
+        isOpeningStock: false,
+        discount: "",
+        sellingPrice: "",
+        taxAmount: "",
+        note: "",
+        alertQuantity: 1,
+        status: 1,
+        image: "",
+        salesAccountId: "",
+        purchaseAccountId: "",
+        overrideSalesAccount: false,
+        overridePurchaseAccount: false
+      }),
+      categories: [],
+      options: [],
+      units: [],
+      brands: [],
+      taxes: [],
+      chartOfAccounts: [],
+      prefix: "",
+      url: null,
+      isAutoAssigningSales: false,
+      isAutoAssigningPurchase: false,
+      accountRoutingSettings: null,
+      isSalesAccountAutomatic: false,
+      isPurchaseAccountAutomatic: false,
+      showPurchasePriceWarning: false
+    };
+  },
+  computed: ProductCreateModalvue_type_script_lang_js_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "appInfo"])),
+  watch: {
+    'form.openingStockUnitPrice': {
+      handler: function handler() {
+        var _this = this;
+        if (this.form.itemType === 'product') {
+          // Use setTimeout to ensure value is updated in form
+          setTimeout(function () {
+            _this.checkPurchasePriceWarning();
+          }, 200);
+        }
+      },
+      immediate: false
+    },
+    'form.regularPrice': {
+      handler: function handler() {
+        var _this2 = this;
+        if (this.form.itemType === 'product') {
+          // Use setTimeout to ensure value is updated in form
+          setTimeout(function () {
+            _this2.checkPurchasePriceWarning();
+          }, 200);
+        }
+      },
+      immediate: false
+    },
+    'form.itemType': {
+      handler: function handler(newType) {
+        var _this3 = this;
+        // Check when item type changes to product
+        if (newType === 'product') {
+          setTimeout(function () {
+            _this3.checkPurchasePriceWarning();
+          }, 200);
+        }
+      },
+      immediate: false
+    }
+  },
+  created: function created() {
+    this.getSubCategories();
+    this.getUnits();
+    // this.getBrands(); // Temporarily commented out
+    this.getTaxes();
+    this.getItemCode();
+    this.loadChartOfAccounts();
+    this.loadAccountRoutingSettings();
+  },
+  methods: {
+    toggleModal: function toggleModal() {
+      this.showProductCreateModal = !this.showProductCreateModal;
+
+      // When opening the modal, ensure account routing settings are loaded and generate item code
+      if (this.showProductCreateModal) {
+        this.loadAccountRoutingSettings();
+        this.getItemCode(); // Generate product code when modal opens
+      }
+    },
+    submitItem: function submitItem(evt) {
+      evt.preventDefault();
+      this.saveProduct();
+    },
+    // Load chart of accounts for sales and purchase account selection
+    loadChartOfAccounts: function loadChartOfAccounts() {
+      var _this4 = this;
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee() {
+        var _yield$axios$get, data, _t;
+        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context) {
+          while (1) switch (_context.p = _context.n) {
+            case 0:
+              _context.p = 0;
+              _context.n = 1;
+              return axios_default().get(window.location.origin + "/api/products/chart-of-accounts");
+            case 1:
+              _yield$axios$get = _context.v;
+              data = _yield$axios$get.data;
+              _this4.chartOfAccounts = data || [];
+              _context.n = 3;
+              break;
+            case 2:
+              _context.p = 2;
+              _t = _context.v;
+              console.error("Error loading chart of accounts:", _t);
+              _this4.chartOfAccounts = [];
+            case 3:
+              return _context.a(2);
+          }
+        }, _callee, null, [[0, 2]]);
+      }))();
+    },
+    // Load account routing settings
+    loadAccountRoutingSettings: function loadAccountRoutingSettings() {
+      var _this5 = this;
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee2() {
+        var _this5$$store, _this5$accountRouting, _this5$accountRouting2, _this5$accountRouting3, _this5$accountRouting4, user, branchId, response, _t2;
+        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context2) {
+          while (1) switch (_context2.p = _context2.n) {
+            case 0:
+              _context2.p = 0;
+              // Get current branch ID
+              user = ((_this5$$store = _this5.$store) === null || _this5$$store === void 0 || (_this5$$store = _this5$$store.getters) === null || _this5$$store === void 0 ? void 0 : _this5$$store['auth/user']) || {};
+              branchId = user.default_branch_id || null;
+              if (branchId) {
+                _context2.n = 1;
+                break;
+              }
+              console.error('Branch ID is required for account routing settings');
+              _this5.accountRoutingSettings = {};
+              return _context2.a(2);
+            case 1:
+              _context2.n = 2;
+              return axios_default().get(window.location.origin + "/api/account-routing-settings/product-account-routing", {
+                params: {
+                  branch_id: branchId
+                }
+              });
+            case 2:
+              response = _context2.v;
+              _this5.accountRoutingSettings = response.data.data || {};
+
+              // Set flags for automatic routing
+              _this5.isSalesAccountAutomatic = _this5.accountRoutingSettings.sales && _this5.accountRoutingSettings.sales.routing_type === 'automatic';
+              _this5.isPurchaseAccountAutomatic = _this5.accountRoutingSettings.purchase && _this5.accountRoutingSettings.purchase.routing_type === 'automatic';
+
+              // If automatic routing is enabled, set the account IDs from routing settings
+              if (_this5.isSalesAccountAutomatic && _this5.accountRoutingSettings.sales.main_account_id) {
+                _this5.form.salesAccountId = _this5.accountRoutingSettings.sales.main_account_id;
+              }
+              if (_this5.isPurchaseAccountAutomatic && _this5.accountRoutingSettings.purchase.main_account_id) {
+                _this5.form.purchaseAccountId = _this5.accountRoutingSettings.purchase.main_account_id;
+              }
+              console.log('=== ACCOUNT ROUTING DEBUG ===');
+              console.log('Full account routing settings:', _this5.accountRoutingSettings);
+              console.log('Sales settings:', _this5.accountRoutingSettings.sales);
+              console.log('Purchase settings:', _this5.accountRoutingSettings.purchase);
+              console.log('Sales routing type:', (_this5$accountRouting = _this5.accountRoutingSettings.sales) === null || _this5$accountRouting === void 0 ? void 0 : _this5$accountRouting.routing_type);
+              console.log('Sales main_account_id:', (_this5$accountRouting2 = _this5.accountRoutingSettings.sales) === null || _this5$accountRouting2 === void 0 ? void 0 : _this5$accountRouting2.main_account_id);
+              console.log('Purchase routing type:', (_this5$accountRouting3 = _this5.accountRoutingSettings.purchase) === null || _this5$accountRouting3 === void 0 ? void 0 : _this5$accountRouting3.routing_type);
+              console.log('Purchase main_account_id:', (_this5$accountRouting4 = _this5.accountRoutingSettings.purchase) === null || _this5$accountRouting4 === void 0 ? void 0 : _this5$accountRouting4.main_account_id);
+              console.log('isSalesAccountAutomatic:', _this5.isSalesAccountAutomatic);
+              console.log('isPurchaseAccountAutomatic:', _this5.isPurchaseAccountAutomatic);
+              console.log('Form salesAccountId after auto-assignment:', _this5.form.salesAccountId);
+              console.log('Form purchaseAccountId after auto-assignment:', _this5.form.purchaseAccountId);
+              console.log('==============================');
+              _context2.n = 4;
+              break;
+            case 3:
+              _context2.p = 3;
+              _t2 = _context2.v;
+              console.error("Error loading account routing settings:", _t2);
+              // Set defaults if API fails
+              _this5.isSalesAccountAutomatic = false;
+              _this5.isPurchaseAccountAutomatic = false;
+            case 4:
+              return _context2.a(2);
+          }
+        }, _callee2, null, [[0, 3]]);
+      }))();
+    },
+    // get all product categories
+    getSubCategories: function getSubCategories() {
+      var _this6 = this;
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee3() {
+        var _yield$_this6$form$ge, data;
+        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context3) {
+          while (1) switch (_context3.n) {
+            case 0:
+              _context3.n = 1;
+              return _this6.form.get(window.location.origin + "/api/all-product-sub-categories");
+            case 1:
+              _yield$_this6$form$ge = _context3.v;
+              data = _yield$_this6$form$ge.data;
+              _this6.categories = data.data;
+            case 2:
+              return _context3.a(2);
+          }
+        }, _callee3);
+      }))();
+    },
+    // Handle category created event
+    handleCategoryCreated: function handleCategoryCreated() {
+      var _this7 = this;
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee4() {
+        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context4) {
+          while (1) switch (_context4.n) {
+            case 0:
+              _context4.n = 1;
+              return _this7.getSubCategories();
+            case 1:
+              return _context4.a(2);
+          }
+        }, _callee4);
+      }))();
+    },
+    // Handle subcategory created event
+    handleSubcategoryCreated: function handleSubcategoryCreated(createdSubcategory) {
+      var _this8 = this;
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee5() {
+        var newSubcategory;
+        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context5) {
+          while (1) switch (_context5.n) {
+            case 0:
+              _context5.n = 1;
+              return _this8.getSubCategories();
+            case 1:
+              if (!(createdSubcategory && createdSubcategory.name)) {
+                _context5.n = 3;
+                break;
+              }
+              _context5.n = 2;
+              return _this8.$nextTick();
+            case 2:
+              // Find the newly created subcategory in the refreshed list by name
+              newSubcategory = _this8.categories.find(function (cat) {
+                return cat.name === createdSubcategory.name;
+              });
+              if (newSubcategory) {
+                _this8.form.subCategory = newSubcategory;
+              }
+            case 3:
+              return _context5.a(2);
+          }
+        }, _callee5);
+      }))();
+    },
+    // Handle unit created event
+    handleUnitCreated: function handleUnitCreated(createdUnit) {
+      var _this9 = this;
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee6() {
+        var newUnit;
+        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context6) {
+          while (1) switch (_context6.n) {
+            case 0:
+              _context6.n = 1;
+              return _this9.getUnits();
+            case 1:
+              if (!(createdUnit && createdUnit.name)) {
+                _context6.n = 3;
+                break;
+              }
+              _context6.n = 2;
+              return _this9.$nextTick();
+            case 2:
+              // Find the newly created unit in the refreshed list by name or code
+              newUnit = _this9.units.find(function (unit) {
+                return unit.name === createdUnit.name || unit.code === createdUnit.code;
+              });
+              if (newUnit) {
+                _this9.form.itemUnit = newUnit;
+              }
+            case 3:
+              return _context6.a(2);
+          }
+        }, _callee6);
+      }))();
+    },
+    // get all brands
+    getBrands: function getBrands() {
+      var _this0 = this;
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee7() {
+        var _yield$axios$get2, data;
+        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context7) {
+          while (1) switch (_context7.n) {
+            case 0:
+              _context7.n = 1;
+              return axios_default().get(window.location.origin + "/api/all-brands");
+            case 1:
+              _yield$axios$get2 = _context7.v;
+              data = _yield$axios$get2.data;
+              _this0.brands = data.data;
+            case 2:
+              return _context7.a(2);
+          }
+        }, _callee7);
+      }))();
+    },
+    // get all units
+    getUnits: function getUnits() {
+      var _this1 = this;
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee8() {
+        var _yield$axios$get3, data;
+        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context8) {
+          while (1) switch (_context8.n) {
+            case 0:
+              _context8.n = 1;
+              return axios_default().get(window.location.origin + "/api/all-units");
+            case 1:
+              _yield$axios$get3 = _context8.v;
+              data = _yield$axios$get3.data;
+              _this1.units = data.data;
+            case 2:
+              return _context8.a(2);
+          }
+        }, _callee8);
+      }))();
+    },
+    // get all taxes
+    getTaxes: function getTaxes() {
+      var _this10 = this;
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee9() {
+        var _yield$axios$get4, data, defaultVatRateSlug;
+        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context9) {
+          while (1) switch (_context9.n) {
+            case 0:
+              _context9.n = 1;
+              return axios_default().get(window.location.origin + "/api/all-vat-rates");
+            case 1:
+              _yield$axios$get4 = _context9.v;
+              data = _yield$axios$get4.data;
+              _this10.taxes = data.data;
+              // assign default vat rate
+              if (_this10.taxes && _this10.taxes.length > 0) {
+                defaultVatRateSlug = _this10.appInfo.defaultVatRateSlug;
+                _this10.form.productTax = _this10.taxes.find(function (tax) {
+                  return tax.slug === defaultVatRateSlug;
+                });
+              }
+              _this10.calculatePrice();
+            case 2:
+              return _context9.a(2);
+          }
+        }, _callee9);
+      }))();
+    },
+    // get item code
+    getItemCode: function getItemCode() {
+      var _this11 = this;
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee0() {
+        var _yield$axios$get5, data;
+        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context0) {
+          while (1) switch (_context0.n) {
+            case 0:
+              _context0.n = 1;
+              return axios_default().get(window.location.origin + "/api/generate-itemcode");
+            case 1:
+              _yield$axios$get5 = _context0.v;
+              data = _yield$axios$get5.data;
+              _this11.form.itemCode = data.code;
+              _this11.prefix = data.prefix;
+            case 2:
+              return _context0.a(2);
+          }
+        }, _callee0);
+      }))();
+    },
+    // calculate selling price
+    calculatePrice: function calculatePrice() {
+      // Reset values if required fields are missing
+      if (!this.form.regularPrice || !this.form.productTax || !this.form.productTax.rate) {
+        this.form.taxAmount = "";
+        this.form.sellingPrice = this.form.regularPrice || "";
+        return;
+      }
+      var regularPrice = parseFloat(this.form.regularPrice) || 0;
+      var taxRate = parseFloat(this.form.productTax.rate) || 0;
+
+      // Calculate taxAmount = regularPrice * (taxRate / 100)
+      var taxAmount = regularPrice * (taxRate / 100);
+      this.form.taxAmount = parseFloat(taxAmount.toFixed(2));
+
+      // Calculate sellingPrice = regularPrice + taxAmount
+      var sellingPrice = regularPrice + taxAmount;
+      this.form.sellingPrice = parseFloat(sellingPrice.toFixed(2));
+    },
+    // Check if purchase price is greater than regular price
+    checkPurchasePriceWarning: function checkPurchasePriceWarning() {
+      // Only check for products, not services
+      if (this.form.itemType !== 'product') {
+        this.showPurchasePriceWarning = false;
+        return;
+      }
+
+      // Get values directly from form
+      var purchasePriceStr = String(this.form.openingStockUnitPrice || '').trim();
+      var regularPriceStr = String(this.form.regularPrice || '').trim();
+
+      // Convert to numbers
+      var purchasePrice = purchasePriceStr ? parseFloat(purchasePriceStr) : 0;
+      var regularPrice = regularPriceStr ? parseFloat(regularPriceStr) : 0;
+
+      // Show warning if both prices are valid numbers and purchase price is greater than regular price
+      if (!isNaN(purchasePrice) && !isNaN(regularPrice) && purchasePrice > 0 && regularPrice > 0 && purchasePrice > regularPrice) {
+        this.showPurchasePriceWarning = true;
+      } else {
+        this.showPurchasePriceWarning = false;
+      }
+    },
+    // vue file upload
+    onFileChange: function onFileChange(e) {
+      var _this12 = this;
+      var file = e.target.files[0];
+      var reader = new FileReader();
+      if (file.size < 2111775 && (file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/gif")) {
+        reader.onloadend = function () {
+          _this12.form.image = reader.result;
+        };
+        reader.readAsDataURL(file);
+        this.url = URL.createObjectURL(file);
+      } else {
+        this.$toast.error(this.$t("Error!"), this.$t("Please select a valid thumbnail with size less than 2 MB"));
+      }
+    },
+    // save product
+    saveProduct: function saveProduct() {
+      var _this13 = this;
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee10() {
+        var _this13$accountRoutin, _this13$accountRoutin2;
+        var openingStockUnitPrice, openingStockCount, servicePurchasePrice, needsSalesAccount, needsPurchaseAccount;
+        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context10) {
+          while (1) switch (_context10.n) {
+            case 0:
+              if (_this13.form.itemCode) {
+                _context10.n = 1;
+                break;
+              }
+              _context10.n = 1;
+              return _this13.getItemCode();
+            case 1:
+              // Ensure price calculation is up-to-date before submission
+              _this13.calculatePrice();
+
+              // For products, ensure purchasePrice is set from openingStockUnitPrice
+              // This ensures purchase_price is saved correctly in the database
+              if (_this13.form.itemType === 'product') {
+                openingStockUnitPrice = parseFloat(_this13.form.openingStockUnitPrice) || 0;
+                openingStockCount = parseFloat(_this13.form.openingStockCount) || 0; // Set purchasePrice to openingStockUnitPrice for products
+                // The backend uses openingStockUnitPrice to set purchase_price, but we also send purchasePrice
+                // to ensure it's available in the payload for inventory adjustments
+                _this13.form.purchasePrice = openingStockUnitPrice;
+
+                // IMPORTANT: Set isOpeningStock flag to true if there's a purchase price OR opening stock
+                // This ensures the backend will use openingStockUnitPrice to set purchase_price
+                // The backend only sets purchase_price from openingStockUnitPrice when isOpeningStock is true
+                // (See ProductController.php line 147-150 and 218)
+                // Note: Backend validation requires openingStockCount >= 1 when isOpeningStock is true
+                if (openingStockUnitPrice > 0) {
+                  _this13.form.isOpeningStock = true;
+                  // Ensure openingStockCount is set to at least 1 when we have a purchase price
+                  // (Backend validation requires min:1 when isOpeningStock is true)
+                  if (_this13.form.openingStockCount === "" || _this13.form.openingStockCount === null || openingStockCount === 0) {
+                    _this13.form.openingStockCount = openingStockCount > 0 ? openingStockCount : 1;
+                  }
+                } else if (openingStockCount > 0) {
+                  _this13.form.isOpeningStock = true;
+                  // If there's opening stock but no purchase price, set a default purchase price
+                  if (!openingStockUnitPrice || openingStockUnitPrice === 0) {
+                    // You might want to set a default or use regularPrice as fallback
+                    // For now, we'll leave it as is and let the user enter it
+                  }
+                } else {
+                  _this13.form.isOpeningStock = false;
+                }
+              }
+
+              // For services, ensure isOpeningStock is false and clear product-specific fields
+              if (_this13.form.itemType === 'service') {
+                _this13.form.isOpeningStock = false;
+                _this13.form.openingStockCount = "";
+                _this13.form.openingStockUnitPrice = "";
+                _this13.form.purchasePrice = "";
+              }
+
+              // Validate required fields based on item type
+              if (!(_this13.form.itemType === 'service')) {
+                _context10.n = 2;
+                break;
+              }
+              servicePurchasePrice = parseFloat(_this13.form.servicePurchasePrice) || 0;
+              if (!(!_this13.form.servicePurchasePrice || servicePurchasePrice <= 0)) {
+                _context10.n = 2;
+                break;
+              }
+              ProductCreateModalvue_type_script_lang_js_toast.fire({
+                type: "error",
+                title: _this13.$t("Service Purchase Price is required for services")
+              });
+              return _context10.a(2);
+            case 2:
+              // Debug: Log validation state
+              console.log("Validation state:", {
+                isSalesAccountAutomatic: _this13.isSalesAccountAutomatic,
+                overrideSalesAccount: _this13.form.overrideSalesAccount,
+                salesAccountId: _this13.form.salesAccountId,
+                isPurchaseAccountAutomatic: _this13.isPurchaseAccountAutomatic,
+                overridePurchaseAccount: _this13.form.overridePurchaseAccount,
+                purchaseAccountId: _this13.form.purchaseAccountId
+              });
+
+              // Validate sales account - required if not automatic OR if override is checked
+              needsSalesAccount = !_this13.isSalesAccountAutomatic || _this13.form.overrideSalesAccount;
+              if (!(needsSalesAccount && !_this13.form.salesAccountId)) {
+                _context10.n = 3;
+                break;
+              }
+              ProductCreateModalvue_type_script_lang_js_toast.fire({
+                type: "error",
+                title: _this13.$t("Sales Account is required")
+              });
+              return _context10.a(2);
+            case 3:
+              // Validate purchase account - required if not automatic OR if override is checked
+              needsPurchaseAccount = !_this13.isPurchaseAccountAutomatic || _this13.form.overridePurchaseAccount;
+              if (!(needsPurchaseAccount && !_this13.form.purchaseAccountId)) {
+                _context10.n = 4;
+                break;
+              }
+              ProductCreateModalvue_type_script_lang_js_toast.fire({
+                type: "error",
+                title: _this13.$t("Purchase Account is required")
+              });
+              return _context10.a(2);
+            case 4:
+              // Debug: Log form data being sent
+              console.log("=== FORM SUBMISSION DEBUG ===");
+              console.log("Item Type:", _this13.form.itemType);
+              console.log("Form data being sent:", _this13.form.data());
+              console.log("Purchase Price (openingStockUnitPrice):", _this13.form.openingStockUnitPrice);
+              console.log("Purchase Price (purchasePrice):", _this13.form.purchasePrice);
+              console.log("Service Purchase Price:", _this13.form.servicePurchasePrice);
+              console.log("Is Opening Stock (isOpeningStock):", _this13.form.isOpeningStock);
+              console.log("Opening Stock Count:", _this13.form.openingStockCount);
+              console.log("Account routing settings:", _this13.accountRoutingSettings);
+              console.log("Sales settings:", _this13.accountRoutingSettings.sales);
+              console.log("Purchase settings:", _this13.accountRoutingSettings.purchase);
+              console.log("Sales routing type:", (_this13$accountRoutin = _this13.accountRoutingSettings.sales) === null || _this13$accountRoutin === void 0 ? void 0 : _this13$accountRoutin.routing_type);
+              console.log("Sales main_account_id:", (_this13$accountRoutin2 = _this13.accountRoutingSettings.sales) === null || _this13$accountRoutin2 === void 0 ? void 0 : _this13$accountRoutin2.main_account_id);
+              console.log("Form salesAccountId:", _this13.form.salesAccountId);
+              console.log("Form purchaseAccountId:", _this13.form.purchaseAccountId);
+              console.log("=============================");
+              _context10.n = 5;
+              return _this13.form.post(window.location.origin + "/api/products").then(/*#__PURE__*/function () {
+                var _ref = ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee1(response) {
+                  var openingStockCount, openingStockUnitPrice, purchasePrice, newProduct, formattedProduct, adjustmentPurchasePrice, _adjustmentError$resp, autoAssignedSalesAccountId, autoAssignedPurchaseAccountId, _t3;
+                  return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context1) {
+                    while (1) switch (_context1.p = _context1.n) {
+                      case 0:
+                        ProductCreateModalvue_type_script_lang_js_toast.fire({
+                          type: "success",
+                          title: _this13.$t("Product added successfully")
+                        });
+
+                        // Store opening stock values before reset
+                        openingStockCount = parseFloat(_this13.form.openingStockCount) || 0;
+                        openingStockUnitPrice = parseFloat(_this13.form.openingStockUnitPrice) || 0; // Get purchasePrice from form (set before submission) or fallback to openingStockUnitPrice
+                        purchasePrice = parseFloat(_this13.form.purchasePrice) || openingStockUnitPrice || 0; // Emit the newly created product data
+                        if (!(response.data && response.data.data)) {
+                          _context1.n = 4;
+                          break;
+                        }
+                        newProduct = response.data.data; // Format the product data to match the expected structure for v-select
+                        formattedProduct = {
+                          id: newProduct.id,
+                          slug: newProduct.slug,
+                          name: newProduct.name,
+                          code: newProduct.code,
+                          label: "".concat(newProduct.name, " [").concat(newProduct.code, "]"),
+                          itemType: newProduct.itemType,
+                          itemModel: newProduct.itemModel || '',
+                          avgPurchasePrice: newProduct.avgPurchasePrice || 0,
+                          regularPrice: newProduct.regularPrice || 0,
+                          priceWithDiscount: newProduct.sellingPrice,
+                          sellingPrice: newProduct.sellingPrice,
+                          taxAmount: newProduct.taxAmount || 0,
+                          taxType: newProduct.taxType,
+                          taxRate: newProduct.taxRate,
+                          productTax: newProduct.productTax,
+                          inventoryCount: newProduct.inventoryCount || 0,
+                          image: newProduct.image || '',
+                          sales_account_id: newProduct.sales_account_id,
+                          purchase_account_id: newProduct.purchase_account_id
+                        };
+                        _this13.$emit('productCreated', formattedProduct);
+
+                        // Create inventory adjustment if opening stock exists and item type is product
+                        if (!(newProduct.itemType === 'product' && openingStockCount > 0 && newProduct.slug)) {
+                          _context1.n = 4;
+                          break;
+                        }
+                        _context1.p = 1;
+                        // Use purchasePrice (from form) or openingStockUnitPrice, with fallback to product's avgPurchasePrice
+                        adjustmentPurchasePrice = purchasePrice > 0 ? purchasePrice : openingStockUnitPrice > 0 ? openingStockUnitPrice : newProduct.avgPurchasePrice || 0;
+                        _context1.n = 2;
+                        return _this13.createInventoryAdjustment({
+                          productSlug: newProduct.slug,
+                          quantity: openingStockCount,
+                          purchasePrice: adjustmentPurchasePrice
+                        });
+                      case 2:
+                        _context1.n = 4;
+                        break;
+                      case 3:
+                        _context1.p = 3;
+                        _t3 = _context1.v;
+                        // Log error but don't block the product creation success
+                        console.error("Error creating inventory adjustment:", _t3);
+                        ProductCreateModalvue_type_script_lang_js_toast.fire({
+                          type: "warning",
+                          title: _this13.$t("Product created, but inventory adjustment failed"),
+                          text: ((_adjustmentError$resp = _t3.response) === null || _adjustmentError$resp === void 0 || (_adjustmentError$resp = _adjustmentError$resp.data) === null || _adjustmentError$resp === void 0 ? void 0 : _adjustmentError$resp.message) || _this13.$t("Please create the adjustment manually.")
+                        });
+                      case 4:
+                        // Store auto-assigned account IDs before reset
+                        autoAssignedSalesAccountId = _this13.isSalesAccountAutomatic ? _this13.form.salesAccountId : null;
+                        autoAssignedPurchaseAccountId = _this13.isPurchaseAccountAutomatic ? _this13.form.purchaseAccountId : null;
+                        _this13.form.reset();
+                        _this13.form.itemType = "product"; // Reset to default
+                        _this13.form.overrideSalesAccount = false; // Reset override flags
+                        _this13.form.overridePurchaseAccount = false;
+
+                        // Restore auto-assigned account IDs after reset
+                        if (autoAssignedSalesAccountId) {
+                          _this13.form.salesAccountId = autoAssignedSalesAccountId;
+                        }
+                        if (autoAssignedPurchaseAccountId) {
+                          _this13.form.purchaseAccountId = autoAssignedPurchaseAccountId;
+                        }
+                        _this13.showProductCreateModal = false;
+                        _this13.$emit('reloadProducts');
+                      case 5:
+                        return _context1.a(2);
+                    }
+                  }, _callee1, null, [[1, 3]]);
+                }));
+                return function (_x) {
+                  return _ref.apply(this, arguments);
+                };
+              }())["catch"](function (error) {
+                console.error("Error creating product:", error);
+
+                // Check if this is a validation error (status 422)
+                var status = error && error.response && error.response.status;
+                var serverErrors = error && error.response && error.response.data && error.response.data.errors;
+                if (status === 422 && serverErrors) {
+                  // Show toast notification for validation errors
+                  ProductCreateModalvue_type_script_lang_js_toast.fire({
+                    type: 'error',
+                    title: _this13.$t('Validation Error'),
+                    text: _this13.$t('Please check the form for errors and try again.')
+                  });
+
+                  // Scroll to the first invalid input after DOM updates
+                  _this13.$nextTick(function () {
+                    // Wait a bit more to ensure vform has added the is-invalid class
+                    setTimeout(function () {
+                      var invalid = _this13.$el.querySelector('.is-invalid');
+                      if (invalid && typeof invalid.scrollIntoView === 'function') {
+                        invalid.scrollIntoView({
+                          behavior: 'smooth',
+                          block: 'center'
+                        });
+                      }
+                    }, 100);
+                  });
+                } else {
+                  var _error$response;
+                  // For other errors, show generic error message
+                  var errorMessage = ((_error$response = error.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this13.$t("Please check your input and try again.");
+                  ProductCreateModalvue_type_script_lang_js_toast.fire({
+                    type: "error",
+                    title: errorMessage
+                  });
+                }
+              });
+            case 5:
+              return _context10.a(2);
+          }
+        }, _callee10);
+      }))();
+    },
+    // Create inventory adjustment for opening stock
+    createInventoryAdjustment: function createInventoryAdjustment(_ref2) {
+      var _this14 = this;
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee11() {
+        var productSlug, quantity, purchasePrice, adjustmentForm, response, _t4;
+        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context11) {
+          while (1) switch (_context11.p = _context11.n) {
+            case 0:
+              productSlug = _ref2.productSlug, quantity = _ref2.quantity, purchasePrice = _ref2.purchasePrice;
+              adjustmentForm = new vform_es/* default */.Ay({
+                adjustmentReason: _this14.$t("Opening Stock"),
+                adjustmentDate: new Date().toISOString().slice(0, 10),
+                note: _this14.$t("Initial inventory count for new product"),
+                status: 1,
+                selectedProducts: [{
+                  slug: productSlug,
+                  adjustType: "Increment",
+                  adjustQty: quantity,
+                  purchasePrice: purchasePrice
+                }]
+              });
+              _context11.p = 1;
+              _context11.n = 2;
+              return adjustmentForm.post(window.location.origin + "/api/inventory-adjustments");
+            case 2:
+              response = _context11.v;
+              ProductCreateModalvue_type_script_lang_js_toast.fire({
+                type: "success",
+                title: _this14.$t("Inventory adjustment created successfully")
+              });
+              return _context11.a(2, response);
+            case 3:
+              _context11.p = 3;
+              _t4 = _context11.v;
+              console.error("Error creating inventory adjustment:", _t4);
+              throw _t4;
+            case 4:
+              return _context11.a(2);
+          }
+        }, _callee11, null, [[1, 3]]);
+      }))();
+    },
+    // Auto-assign sales account
+    autoAssignSalesAccount: function autoAssignSalesAccount() {
+      var _this15 = this;
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee12() {
+        var defaultAccount;
+        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context12) {
+          while (1) switch (_context12.n) {
+            case 0:
+              if (!_this15.isAutoAssigningSales) {
+                _context12.n = 1;
+                break;
+              }
+              return _context12.a(2);
+            case 1:
+              _this15.isAutoAssigningSales = true;
+              try {
+                // For new products, we need to simulate the auto-assignment logic
+                // since the product doesn't exist in the database yet
+                defaultAccount = null;
+                if (_this15.form.itemType === 'product') {
+                  // Look for "Sales of Goods" or similar
+                  defaultAccount = _this15.chartOfAccounts.find(function (account) {
+                    return account.name.toLowerCase().includes('sales') && (account.name.toLowerCase().includes('goods') || account.name.toLowerCase().includes('product'));
+                  });
+                } else if (_this15.form.itemType === 'service') {
+                  // Look for "Sales of Services" or similar
+                  defaultAccount = _this15.chartOfAccounts.find(function (account) {
+                    return account.name.toLowerCase().includes('sales') && account.name.toLowerCase().includes('service');
+                  });
+                }
+
+                // Fallback to any Sales account
+                if (!defaultAccount) {
+                  defaultAccount = _this15.chartOfAccounts.find(function (account) {
+                    return account.name.toLowerCase().includes('sales');
+                  });
+                }
+
+                // Final fallback to any active account
+                if (!defaultAccount && _this15.chartOfAccounts.length > 0) {
+                  defaultAccount = _this15.chartOfAccounts[0];
+                }
+                if (defaultAccount) {
+                  _this15.form.salesAccountId = defaultAccount.id;
+                  ProductCreateModalvue_type_script_lang_js_toast.fire({
+                    type: "success",
+                    title: _this15.$t("Sales Account auto-assigned successfully")
+                  });
+                } else {
+                  ProductCreateModalvue_type_script_lang_js_toast.fire({
+                    type: "error",
+                    title: _this15.$t("No suitable Sales Account found for automatic assignment")
+                  });
+                }
+              } catch (error) {
+                console.error("Error auto-assigning sales account:", error);
+                ProductCreateModalvue_type_script_lang_js_toast.fire({
+                  type: "error",
+                  title: _this15.$t("Failed to auto-assign Sales Account")
+                });
+              } finally {
+                _this15.isAutoAssigningSales = false;
+              }
+            case 2:
+              return _context12.a(2);
+          }
+        }, _callee12);
+      }))();
+    },
+    // Auto-assign purchase account
+    autoAssignPurchaseAccount: function autoAssignPurchaseAccount() {
+      var _this16 = this;
+      return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee13() {
+        var defaultAccount;
+        return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context13) {
+          while (1) switch (_context13.n) {
+            case 0:
+              if (!_this16.isAutoAssigningPurchase) {
+                _context13.n = 1;
+                break;
+              }
+              return _context13.a(2);
+            case 1:
+              _this16.isAutoAssigningPurchase = true;
+              try {
+                // For new products, we need to simulate the auto-assignment logic
+                // since the product doesn't exist in the database yet
+                defaultAccount = null;
+                if (_this16.form.itemType === 'product') {
+                  // Look for "Cost of Goods Sold" or similar
+                  defaultAccount = _this16.chartOfAccounts.find(function (account) {
+                    return account.name.toLowerCase().includes('cost') && (account.name.toLowerCase().includes('goods') || account.name.toLowerCase().includes('product'));
+                  });
+                } else if (_this16.form.itemType === 'service') {
+                  // Look for "Cost of Services" or similar
+                  defaultAccount = _this16.chartOfAccounts.find(function (account) {
+                    return account.name.toLowerCase().includes('cost') && account.name.toLowerCase().includes('service');
+                  });
+                }
+
+                // Fallback to any Cost account
+                if (!defaultAccount) {
+                  defaultAccount = _this16.chartOfAccounts.find(function (account) {
+                    return account.name.toLowerCase().includes('cost');
+                  });
+                }
+
+                // Final fallback to any active account
+                if (!defaultAccount && _this16.chartOfAccounts.length > 0) {
+                  defaultAccount = _this16.chartOfAccounts[0];
+                }
+                if (defaultAccount) {
+                  _this16.form.purchaseAccountId = defaultAccount.id;
+                  ProductCreateModalvue_type_script_lang_js_toast.fire({
+                    type: "success",
+                    title: _this16.$t("Purchase Account auto-assigned successfully")
+                  });
+                } else {
+                  ProductCreateModalvue_type_script_lang_js_toast.fire({
+                    type: "error",
+                    title: _this16.$t("No suitable Purchase Account found for automatic assignment")
+                  });
+                }
+              } catch (error) {
+                console.error("Error auto-assigning purchase account:", error);
+                ProductCreateModalvue_type_script_lang_js_toast.fire({
+                  type: "error",
+                  title: _this16.$t("Failed to auto-assign Purchase Account")
+                });
+              } finally {
+                _this16.isAutoAssigningPurchase = false;
+              }
+            case 2:
+              return _context13.a(2);
+          }
+        }, _callee13);
+      }))();
+    },
+    // Handle Select it manually checkbox change
+    onOverrideSalesAccountChange: function onOverrideSalesAccountChange() {
+      if (this.form.overrideSalesAccount) {
+        // When overriding, clear the current account selection to force manual selection
+        this.form.salesAccountId = "";
+      } else {
+        // When not overriding and automatic is enabled, restore the automatic account
+        if (this.isSalesAccountAutomatic && this.accountRoutingSettings.sales.main_account_id) {
+          this.form.salesAccountId = this.accountRoutingSettings.sales.main_account_id;
+        }
+      }
+    },
+    // Handle Select it manually checkbox change
+    onOverridePurchaseAccountChange: function onOverridePurchaseAccountChange() {
+      if (this.form.overridePurchaseAccount) {
+        // When overriding, clear the current account selection to force manual selection
+        this.form.purchaseAccountId = "";
+      } else {
+        // When not overriding and automatic is enabled, restore the automatic account
+        if (this.isPurchaseAccountAutomatic && this.accountRoutingSettings.purchase.main_account_id) {
+          this.form.purchaseAccountId = this.accountRoutingSettings.purchase.main_account_id;
+        }
+      }
+    }
+  }
+});
+;// ./resources/js/components/ProductCreateModal.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_ProductCreateModalvue_type_script_lang_js = (ProductCreateModalvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=737beebd&prod&scoped=true&lang=css
+var ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css = __webpack_require__(59055);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=737beebd&prod&scoped=true&lang=css
+
+            
+
+var ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css_options = {};
+
+ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css_options.insert = "head";
+ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css_options.singleton = false;
+
+var ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css/* default */.A, ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css_options);
+
+
+
+/* harmony default export */ const components_ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css = (ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=737beebd&prod&scoped=true&lang=css
+
+;// ./resources/js/components/ProductCreateModal.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var ProductCreateModal_component = (0,componentNormalizer/* default */.A)(
+  components_ProductCreateModalvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "737beebd",
+  null
+  
+)
+
+/* harmony default export */ const ProductCreateModal = (ProductCreateModal_component.exports);
 
 /***/ }),
 

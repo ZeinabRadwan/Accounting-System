@@ -1253,7 +1253,7 @@ var dist = __webpack_require__(12616);
 // EXTERNAL MODULE: ./resources/js/components/ClientCreateModal.vue + 5 modules
 var ClientCreateModal = __webpack_require__(65584);
 // EXTERNAL MODULE: ./resources/js/components/ProductCreateModal.vue + 17 modules
-var ProductCreateModal = __webpack_require__(54773);
+var ProductCreateModal = __webpack_require__(78362);
 // EXTERNAL MODULE: ./resources/js/components/StockAdjustmentModal.vue + 6 modules
 var StockAdjustmentModal = __webpack_require__(75528);
 // EXTERNAL MODULE: ./resources/js/components/ItemsTable.vue + 5 modules
@@ -3072,25 +3072,6 @@ class Locale {
     }
 }
 exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 11863:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-f983d382]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-bottom:1.25rem;margin-top:20px;transition:all .2s ease}.form-card[data-v-f983d382]:hover{box-shadow:0 .1rem .5rem 0 rgba(58,59,69,.15)}.form-card .card-header[data-v-f983d382]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:12px 16px}.form-card .card-header .section-title[data-v-f983d382]{border:none;color:#fff;font-size:14px;font-weight:600;margin:0;padding:0}.form-card .card-header .section-title[data-v-f983d382]:after{display:none}.form-card .card-header .section-title i[data-v-f983d382]{color:hsla(0,0%,100%,.8)}.form-card .card-body[data-v-f983d382]{padding:16px}.section-title[data-v-f983d382]{border-bottom:1px solid #e9ecef;color:#495057;font-weight:600;margin-bottom:15px;padding-bottom:8px}.form-group[data-v-f983d382]{margin-bottom:1rem}.form-group label[data-v-f983d382]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-f983d382]{color:#dc3545;font-weight:700}.row[data-v-f983d382]{margin-bottom:1rem}.row[data-v-f983d382]:last-child{margin-bottom:0}.auto-assign-btn[data-v-f983d382]{min-width:40px;padding:.375rem .5rem;white-space:nowrap}.auto-assign-btn[data-v-f983d382]:disabled{cursor:not-allowed;opacity:.6}.form-text[data-v-f983d382]{color:#6c757d;font-size:.8rem;margin-top:3px}.image-preview[data-v-f983d382]{text-align:center}.image-preview img[data-v-f983d382]{border:1px solid #dee2e6;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.1)}.custom-file-label[data-v-f983d382]{background-color:#f8f9fa;border:1px dashed #dee2e6;cursor:pointer;font-size:.85rem;transition:all .2s ease}.custom-file-label[data-v-f983d382]:hover{background-color:#e3f2fd;border-color:#007bff}.custom-file-label i[data-v-f983d382]{color:#6c757d}.create-button[data-v-f983d382]{cursor:pointer;text-decoration:none}.create-btn[data-v-f983d382]{border-left:none;border-radius:0 .25rem .25rem 0;cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-f983d382]:hover{background-color:#e9ecef}.category-select[data-v-f983d382]{margin-right:0!important}.category-select .vs__dropdown-toggle[data-v-f983d382]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .category-select .vs__dropdown-toggle[data-v-f983d382]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}[dir=rtl] .create-btn[data-v-f983d382]{border-left:none;border-radius:.25rem 0 0 .25rem;border-right:1px solid #ced4da}[dir=ltr] .create-btn[data-v-f983d382]{border-left:1px solid #ced4da;border-radius:0 .25rem .25rem 0;border-right:none}.unit-select[data-v-f983d382]{margin-right:0!important}.unit-select .vs__dropdown-toggle[data-v-f983d382]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .unit-select .vs__dropdown-toggle[data-v-f983d382]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}@media (max-width:768px){.section-title[data-v-f983d382]{font-size:.95rem;margin-bottom:12px}.form-card .card-body[data-v-f983d382]{padding:.75rem}.auto-assign-btn[data-v-f983d382]{font-size:.75rem;min-width:35px}}.input-group-prepend .input-group-text[data-v-f983d382]{background-color:#f8f9fa;border-color:#ced4da;color:#495057;font-size:.85rem}.v-select[data-v-f983d382]{margin-bottom:0}.is-invalid[data-v-f983d382]{border-color:#dc3545!important}.invalid-feedback[data-v-f983d382]{color:#dc3545;display:block;font-size:75%;margin-top:.2rem;width:100%}.item-type-selector[data-v-f983d382]{display:flex;gap:.5rem;margin-top:.5rem}.item-type-option[data-v-f983d382]{cursor:pointer;flex:1;position:relative;transition:all .2s ease}.item-type-option input[type=radio][data-v-f983d382]{opacity:0;pointer-events:none;position:absolute}.option-content[data-v-f983d382]{align-items:center;background:#fff;border:2px solid #e3e6f0;border-radius:6px;display:flex;flex-direction:column;justify-content:center;min-height:55px;padding:.6rem .5rem;text-align:center;transition:all .2s ease}.item-type-option:hover .option-content[data-v-f983d382]{border-color:#33a0d9;box-shadow:0 2px 6px rgba(51,160,217,.15);transform:translateY(-1px)}.item-type-option.active .option-content[data-v-f983d382]{background:#33a0d9;border-color:#33a0d9;box-shadow:0 3px 10px rgba(51,160,217,.25);color:#fff;transform:translateY(-1px)}.option-content i[data-v-f983d382]{color:#6c757d;font-size:1.1rem;margin-bottom:.3rem;transition:all .2s ease}.item-type-option.active .option-content i[data-v-f983d382]{color:hsla(0,0%,100%,.9)}.option-content span[data-v-f983d382]{color:#495057;font-size:.85rem;font-weight:600;transition:all .2s ease}.item-type-option.active .option-content span[data-v-f983d382]{color:#fff}@media (max-width:768px){.item-type-selector[data-v-f983d382]{flex-direction:column;gap:.4rem}.option-content[data-v-f983d382]{min-height:50px;padding:.5rem .4rem}.option-content i[data-v-f983d382]{font-size:1rem;margin-bottom:.25rem}.option-content span[data-v-f983d382]{font-size:.8rem}.override-checkbox-container .form-check-label[data-v-f983d382]{min-height:44px;padding:.6rem .8rem}.checkbox-text[data-v-f983d382]{font-size:.9rem}.form-check-input[data-v-f983d382]{height:16px;width:16px}}.account-label-row[data-v-f983d382]{align-items:flex-start;display:flex;flex-direction:column;gap:1rem;justify-content:space-between;margin-bottom:.5rem}.account-label[data-v-f983d382]{color:#495057;flex:1;font-size:.95rem;font-weight:500;margin-bottom:0}.toggle-switch-container[data-v-f983d382]{align-items:center;display:flex;flex-shrink:0}.toggle-switch-label[data-v-f983d382]{align-items:center;cursor:pointer;display:inline-flex;gap:.75rem;-webkit-user-select:none;-moz-user-select:none;user-select:none}.toggle-switch-wrapper[data-v-f983d382]{display:inline-block;flex-shrink:0;height:26px;position:relative;width:50px}.toggle-switch-input[data-v-f983d382]{appearance:none;-webkit-appearance:none;-moz-appearance:none;background-color:#ced4da;border-radius:26px;cursor:pointer;height:26px;left:0;margin:0;outline:none;padding:0;position:absolute;top:0;transition:background-color .3s ease;width:50px}.toggle-switch-input[data-v-f983d382]:checked{background-color:#33a0d9}.toggle-switch-input[data-v-f983d382]:focus{box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.toggle-switch-slider[data-v-f983d382]{background-color:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2);height:20px;left:3px;pointer-events:none;position:absolute;top:50%;transform:translateY(-50%);transition:transform .3s ease;width:20px}.toggle-switch-input:checked+.toggle-switch-slider[data-v-f983d382]{transform:translate(24px,-50%)}.toggle-switch-text[data-v-f983d382]{color:#495057;font-size:.9rem;font-weight:500;transition:color .2s ease;white-space:nowrap}.toggle-switch-label:has(.toggle-switch-input:checked) .toggle-switch-text[data-v-f983d382]{color:#33a0d9;font-weight:600}.alert-info[data-v-f983d382]{background-color:#d1ecf1;border-color:#bee5eb;border-radius:.375rem;font-size:.9rem;padding:.75rem 1rem}.alert-info[data-v-f983d382],.alert-info i[data-v-f983d382]{color:#0c5460}.col-form-6[data-v-f983d382]{flex:0 0 50%;max-width:50%}.col-form-6 .form-card[data-v-f983d382],.col-form-6 .form-card .card-body[data-v-f983d382]{width:100%}@media (max-width:1300px){.col-form-6[data-v-f983d382]{flex:0 0 100%;max-width:100%}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
@@ -5455,7 +5436,2728 @@ exports["default"] = Locale;
 
 /***/ }),
 
-/***/ 54773:
+/***/ 54890:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".create-button[data-v-4f62f01c]{cursor:pointer;text-decoration:none}.modal-content[data-v-4f62f01c]{margin:1.75rem auto;max-width:1000px}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 54923:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ToWords = exports.DefaultToWordsOptions = exports.DefaultConverterOptions = exports.LOCALES = void 0;
+const locales_1 = __importDefault(__webpack_require__(71545));
+exports.LOCALES = locales_1.default;
+exports.DefaultConverterOptions = {
+    currency: false,
+    ignoreDecimal: false,
+    ignoreZeroCurrency: false,
+    doNotAddOnly: false,
+};
+exports.DefaultToWordsOptions = {
+    localeCode: 'en-IN',
+    converterOptions: exports.DefaultConverterOptions,
+};
+class ToWords {
+    constructor(options = {}) {
+        this.options = {};
+        this.locale = undefined;
+        this.options = Object.assign({}, exports.DefaultToWordsOptions, options);
+    }
+    getLocaleClass() {
+        if (!(this.options.localeCode in locales_1.default)) {
+            throw new Error(`Unknown Locale "${this.options.localeCode}"`);
+        }
+        return locales_1.default[this.options.localeCode];
+    }
+    getLocale() {
+        if (this.locale === undefined) {
+            const LocaleClass = this.getLocaleClass();
+            this.locale = new LocaleClass();
+        }
+        return this.locale;
+    }
+    convert(number, options = {}) {
+        var _a;
+        options = Object.assign({}, this.options.converterOptions, options);
+        if (!this.isValidNumber(number)) {
+            throw new Error(`Invalid Number "${number}"`);
+        }
+        if (options.ignoreDecimal) {
+            number = Number.parseInt(number.toString());
+        }
+        let words = [];
+        if (options.currency) {
+            words = this.convertCurrency(number, options);
+        }
+        else {
+            words = this.convertNumber(number);
+        }
+        if ((_a = this.locale) === null || _a === void 0 ? void 0 : _a.config.trim) {
+            return words.join('');
+        }
+        return words.join(' ');
+    }
+    convertNumber(number) {
+        var _a, _b, _c;
+        const locale = this.getLocale();
+        const isNegativeNumber = number < 0;
+        if (isNegativeNumber) {
+            number = Math.abs(number);
+        }
+        const split = number.toString().split('.');
+        const ignoreZero = this.isNumberZero(number) && locale.config.ignoreZeroInDecimals;
+        let words = this.convertInternal(Number(split[0]), true);
+        const isFloat = this.isFloat(number);
+        if (isFloat && ignoreZero) {
+            words = [];
+        }
+        const wordsWithDecimal = [];
+        if (isFloat) {
+            if (!ignoreZero) {
+                wordsWithDecimal.push(locale.config.texts.point);
+            }
+            if (split[1].startsWith('0') && !((_a = locale.config) === null || _a === void 0 ? void 0 : _a.decimalLengthWordMapping)) {
+                const zeroWords = [];
+                for (const num of split[1]) {
+                    zeroWords.push(...this.convertInternal(Number(num), true));
+                }
+                wordsWithDecimal.push(...zeroWords);
+            }
+            else {
+                wordsWithDecimal.push(...this.convertInternal(Number(split[1]), true));
+                const decimalLengthWord = (_c = (_b = locale.config) === null || _b === void 0 ? void 0 : _b.decimalLengthWordMapping) === null || _c === void 0 ? void 0 : _c[split[1].length];
+                if (decimalLengthWord) {
+                    wordsWithDecimal.push(decimalLengthWord);
+                }
+            }
+        }
+        const isEmpty = words.length <= 0;
+        if (!isEmpty && isNegativeNumber) {
+            words.unshift(locale.config.texts.minus);
+        }
+        words.push(...wordsWithDecimal);
+        return words;
+    }
+    convertCurrency(number, options = {}) {
+        var _a, _b, _c, _d;
+        const locale = this.getLocale();
+        const currencyOptions = (_a = options.currencyOptions) !== null && _a !== void 0 ? _a : locale.config.currency;
+        const isNegativeNumber = number < 0;
+        if (isNegativeNumber) {
+            number = Math.abs(number);
+        }
+        number = this.toFixed(number);
+        // Extra check for isFloat to overcome 1.999 rounding off to 2
+        const split = number.toString().split('.');
+        let words = [...this.convertInternal(Number(split[0]))];
+        // Determine if the main currency should be in singular form
+        // e.g. 1 Dollar Only instead of 1 Dollars Only
+        if (Number(split[0]) === 1 && currencyOptions.singular) {
+            words.push(currencyOptions.singular);
+        }
+        else if (currencyOptions.plural) {
+            words.push(currencyOptions.plural);
+        }
+        const ignoreZero = this.isNumberZero(number) &&
+            (options.ignoreZeroCurrency || (((_b = locale.config) === null || _b === void 0 ? void 0 : _b.ignoreZeroInDecimals) && number !== 0));
+        if (ignoreZero) {
+            words = [];
+        }
+        const wordsWithDecimal = [];
+        const isFloat = this.isFloat(number);
+        if (isFloat) {
+            if (!ignoreZero) {
+                wordsWithDecimal.push(locale.config.texts.and);
+            }
+            const decimalPart = Number(split[1]) * (!locale.config.decimalLengthWordMapping ? Math.pow(10, 2 - split[1].length) : 1);
+            wordsWithDecimal.push(...this.convertInternal(decimalPart));
+            const decimalLengthWord = (_d = (_c = locale.config) === null || _c === void 0 ? void 0 : _c.decimalLengthWordMapping) === null || _d === void 0 ? void 0 : _d[split[1].length];
+            if (decimalLengthWord === null || decimalLengthWord === void 0 ? void 0 : decimalLengthWord.length) {
+                wordsWithDecimal.push(decimalLengthWord);
+            }
+            // Determine if the fractional unit should be in singular form
+            // e.g. 1 Dollar and 1 Cent Only instead of 1 Dollar and 1 Cents Only
+            if (decimalPart === 1 && currencyOptions.fractionalUnit.singular) {
+                wordsWithDecimal.push(currencyOptions.fractionalUnit.singular);
+            }
+            else {
+                wordsWithDecimal.push(currencyOptions.fractionalUnit.plural);
+            }
+        }
+        else if (locale.config.decimalLengthWordMapping && words.length) {
+            wordsWithDecimal.push(currencyOptions.fractionalUnit.plural);
+        }
+        const isEmpty = words.length <= 0 && wordsWithDecimal.length <= 0;
+        if (!isEmpty && isNegativeNumber) {
+            words.unshift(locale.config.texts.minus);
+        }
+        if (!isEmpty && locale.config.texts.only && !options.doNotAddOnly && !locale.config.onlyInFront) {
+            wordsWithDecimal.push(locale.config.texts.only);
+        }
+        if (wordsWithDecimal.length) {
+            words.push(...wordsWithDecimal);
+        }
+        if (!isEmpty && !options.doNotAddOnly && locale.config.onlyInFront) {
+            words.splice(0, 0, locale.config.texts.only);
+        }
+        return words;
+    }
+    convertInternal(number, trailing = false) {
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
+        const locale = this.getLocale();
+        if (locale.config.exactWordsMapping) {
+            const exactMatch = (_b = (_a = locale.config) === null || _a === void 0 ? void 0 : _a.exactWordsMapping) === null || _b === void 0 ? void 0 : _b.find((elem) => {
+                return number === elem.number;
+            });
+            if (exactMatch) {
+                return [Array.isArray(exactMatch.value) ? exactMatch.value[+trailing] : exactMatch.value];
+            }
+        }
+        const match = locale.config.numberWordsMapping.find((elem) => {
+            return number >= elem.number;
+        });
+        const words = [];
+        if (number <= 100 || (number < 1000 && locale.config.namedLessThan1000)) {
+            words.push(Array.isArray(match.value) ? match.value[0] : match.value);
+            number -= match.number;
+            if (number > 0) {
+                if ((_d = (_c = locale.config) === null || _c === void 0 ? void 0 : _c.splitWord) === null || _d === void 0 ? void 0 : _d.length) {
+                    words.push(locale.config.splitWord);
+                }
+                words.push(...this.convertInternal(number, trailing));
+            }
+            return words;
+        }
+        const quotient = Math.floor(number / match.number);
+        const remainder = number % match.number;
+        let matchValue = Array.isArray(match.value) ? match.value[0] : match.value;
+        if (quotient > 1 && ((_f = (_e = locale.config) === null || _e === void 0 ? void 0 : _e.pluralWords) === null || _f === void 0 ? void 0 : _f.find((word) => word === match.value)) && ((_g = locale.config) === null || _g === void 0 ? void 0 : _g.pluralMark)) {
+            matchValue += locale.config.pluralMark;
+        }
+        if (quotient % 10 === 1) {
+            matchValue = match.singularValue || (Array.isArray(matchValue) ? matchValue[0] : matchValue);
+        }
+        if (quotient === 1 && ((_j = (_h = locale.config) === null || _h === void 0 ? void 0 : _h.ignoreOneForWords) === null || _j === void 0 ? void 0 : _j.includes(matchValue))) {
+            words.push(matchValue);
+        }
+        else {
+            words.push(...this.convertInternal(quotient, false), matchValue);
+        }
+        if (remainder > 0) {
+            if ((_l = (_k = locale.config) === null || _k === void 0 ? void 0 : _k.splitWord) === null || _l === void 0 ? void 0 : _l.length) {
+                if (!((_o = (_m = locale.config) === null || _m === void 0 ? void 0 : _m.noSplitWordAfter) === null || _o === void 0 ? void 0 : _o.find((word) => word === match.value))) {
+                    words.push(locale.config.splitWord);
+                }
+            }
+            words.push(...this.convertInternal(remainder, trailing));
+        }
+        return words;
+    }
+    toFixed(number, precision = 2) {
+        return Number(Number(number).toFixed(precision));
+    }
+    isFloat(number) {
+        return Number(number) === number && number % 1 !== 0;
+    }
+    isValidNumber(number) {
+        return !isNaN(parseFloat(number)) && isFinite(number);
+    }
+    isNumberZero(number) {
+        return number >= 0 && number < 1;
+    }
+}
+exports.ToWords = ToWords;
+
+
+/***/ }),
+
+/***/ 55101:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Surinaamse dollar',
+                plural: 'Surinaamse dollars',
+                singular: 'Surinaamse dollar',
+                symbol: 'SRD',
+                fractionalUnit: {
+                    name: 'Cent',
+                    singular: 'Cent',
+                    plural: 'Centen',
+                    symbol: 'SRD',
+                },
+            },
+            texts: {
+                and: 'En',
+                minus: 'Negatief',
+                only: '',
+                point: 'Punt',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Biljard' },
+                { number: 1000000000000, value: 'Biljoen' },
+                { number: 1000000000, value: 'Miljard' },
+                { number: 1000000, value: 'Miljoen' },
+                { number: 1000, value: 'Duizend' },
+                { number: 100, value: 'Honderd' },
+                { number: 99, value: 'Negenennegentig' },
+                { number: 98, value: 'Achtennegentig' },
+                { number: 97, value: 'Zevenennegentig' },
+                { number: 96, value: 'Zesennegentig' },
+                { number: 95, value: 'Vijfennegentig' },
+                { number: 94, value: 'Vierennegentig' },
+                { number: 93, value: 'Drieënnegentig' },
+                { number: 92, value: 'Tweeënnegentig' },
+                { number: 91, value: 'Eenennegentig' },
+                { number: 90, value: 'Negentig' },
+                { number: 89, value: 'Negenentachtig' },
+                { number: 88, value: 'Achtentachtig' },
+                { number: 87, value: 'Zevenentachtig' },
+                { number: 86, value: 'Zesentachtig' },
+                { number: 85, value: 'Vijfentachtig' },
+                { number: 84, value: 'Vierentachtig' },
+                { number: 83, value: 'Drieëntachtig' },
+                { number: 82, value: 'Tweeëntachtig' },
+                { number: 81, value: 'Eenentachtig' },
+                { number: 80, value: 'Tachtig' },
+                { number: 79, value: 'Negenenzeventig' },
+                { number: 78, value: 'Achtenzeventig' },
+                { number: 77, value: 'Zevenenzeventig' },
+                { number: 76, value: 'Zesenzeventig' },
+                { number: 75, value: 'Vijfenzeventig' },
+                { number: 74, value: 'Vierenzeventig' },
+                { number: 73, value: 'Drieënzeventig' },
+                { number: 72, value: 'Tweeënzeventig' },
+                { number: 71, value: 'Eenenzeventig' },
+                { number: 70, value: 'Zeventig' },
+                { number: 69, value: 'Negenenzestig' },
+                { number: 68, value: 'Achtenzestig' },
+                { number: 67, value: 'Zevenenzestig' },
+                { number: 66, value: 'Zesenzestig' },
+                { number: 65, value: 'Vijfenzestig' },
+                { number: 64, value: 'Vierenzestig' },
+                { number: 63, value: 'Drieënzestig' },
+                { number: 62, value: 'Tweeënzestig' },
+                { number: 61, value: 'Eenenzestig' },
+                { number: 60, value: 'Zestig' },
+                { number: 59, value: 'Negenenvijftig' },
+                { number: 58, value: 'Achtenvijftig' },
+                { number: 57, value: 'Zevenenvijftig' },
+                { number: 56, value: 'Zesenvijftig' },
+                { number: 55, value: 'Vijfenvijftig' },
+                { number: 54, value: 'Vierenvijftig' },
+                { number: 53, value: 'Drieënvijftig' },
+                { number: 52, value: 'Tweeënvijftig' },
+                { number: 51, value: 'Eenenvijftig' },
+                { number: 50, value: 'Vijftig' },
+                { number: 49, value: 'Negenenveertig' },
+                { number: 48, value: 'Achtenveertig' },
+                { number: 47, value: 'Zevenenveertig' },
+                { number: 46, value: 'Zesenveertig' },
+                { number: 45, value: 'Vijfenveertig' },
+                { number: 44, value: 'Vierenveertig' },
+                { number: 43, value: 'Drieënveertig' },
+                { number: 42, value: 'Tweeënveertig' },
+                { number: 41, value: 'Eenenveertig' },
+                { number: 40, value: 'Veertig' },
+                { number: 39, value: 'Negenendertig' },
+                { number: 38, value: 'Achtendertig' },
+                { number: 37, value: 'Zevenendertig' },
+                { number: 36, value: 'Zesendertig' },
+                { number: 35, value: 'Vijfendertig' },
+                { number: 34, value: 'Vierendertig' },
+                { number: 33, value: 'Drieëndertig' },
+                { number: 32, value: 'Tweeëndertig' },
+                { number: 31, value: 'Eenendertig' },
+                { number: 30, value: 'Dertig' },
+                { number: 29, value: 'Negenentwintig' },
+                { number: 28, value: 'Achtentwintig' },
+                { number: 27, value: 'Zevenentwintig' },
+                { number: 26, value: 'Zesentwintig' },
+                { number: 25, value: 'Vijfentwintig' },
+                { number: 24, value: 'Vierentwintig' },
+                { number: 23, value: 'Drieëntwintig' },
+                { number: 22, value: 'Tweeëntwintig' },
+                { number: 21, value: 'Eenentwintig' },
+                { number: 20, value: 'Twintig' },
+                { number: 19, value: 'Negentien' },
+                { number: 18, value: 'Achttien' },
+                { number: 17, value: 'Zeventien' },
+                { number: 16, value: 'Zestien' },
+                { number: 15, value: 'Vijftien' },
+                { number: 14, value: 'Veertien' },
+                { number: 13, value: 'Dertien' },
+                { number: 12, value: 'Twaalf' },
+                { number: 11, value: 'Elf' },
+                { number: 10, value: 'Tien' },
+                { number: 9, value: 'Negen' },
+                { number: 8, value: 'Acht' },
+                { number: 7, value: 'Zeven' },
+                { number: 6, value: 'Zes' },
+                { number: 5, value: 'Vijf' },
+                { number: 4, value: 'Vier' },
+                { number: 3, value: 'Drie' },
+                { number: 2, value: 'Twee' },
+                { number: 1, value: 'Een' },
+                { number: 0, value: 'Nul' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'Honderd' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 56386:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'روپیہ',
+                plural: 'روپے',
+                singular: 'روپے',
+                symbol: '₨',
+                fractionalUnit: {
+                    name: 'پیسہ',
+                    plural: 'پیسے',
+                    singular: 'پیسہ',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'اور',
+                minus: 'منفی',
+                only: 'صرف',
+                point: 'اعشاریہ',
+            },
+            numberWordsMapping: [
+                { number: 10000000, value: 'کروڑ' },
+                { number: 100000, value: 'لاکھ' },
+                { number: 1000, value: 'ہزار' },
+                { number: 100, value: 'سو' },
+                { number: 99, value: 'نناوے' },
+                { number: 98, value: 'اٹھانوے' },
+                { number: 97, value: 'ستانوے' },
+                { number: 96, value: 'چھیانوے' },
+                { number: 95, value: 'پچانوے' },
+                { number: 94, value: 'چورانوے' },
+                { number: 93, value: 'ترانوے' },
+                { number: 92, value: 'بانوے' },
+                { number: 91, value: 'اکانوے' },
+                { number: 90, value: 'نوے' },
+                { number: 89, value: 'نواسی' },
+                { number: 88, value: 'اٹھاسی' },
+                { number: 87, value: 'ستاسی' },
+                { number: 86, value: 'چھیاسی' },
+                { number: 85, value: 'پچاسی' },
+                { number: 84, value: 'چوراسی' },
+                { number: 83, value: 'تراسی' },
+                { number: 82, value: 'بیاسی' },
+                { number: 81, value: 'اکیاسی' },
+                { number: 80, value: 'اسی' },
+                { number: 79, value: 'انہتر' },
+                { number: 78, value: 'اٹھہتر' },
+                { number: 77, value: 'ستتر' },
+                { number: 76, value: 'چھہتر' },
+                { number: 75, value: 'پچھتر' },
+                { number: 74, value: 'چوہتر' },
+                { number: 73, value: 'تہتر' },
+                { number: 72, value: 'بہتر' },
+                { number: 71, value: 'اکہتر' },
+                { number: 70, value: 'ستر' },
+                { number: 69, value: 'انہتر' },
+                { number: 68, value: 'اڑسٹھ' },
+                { number: 67, value: 'سڑسٹھ' },
+                { number: 66, value: 'چھیاسٹھ' },
+                { number: 65, value: 'پینسٹھ' },
+                { number: 64, value: 'چونسٹھ' },
+                { number: 63, value: 'تریسٹھ' },
+                { number: 62, value: 'باسٹھ' },
+                { number: 61, value: 'اکسٹھ' },
+                { number: 60, value: 'ساٹھ' },
+                { number: 59, value: 'انسٹھ' },
+                { number: 58, value: 'اٹھاون' },
+                { number: 57, value: 'ستاون' },
+                { number: 56, value: 'چھپن' },
+                { number: 55, value: 'پچپن' },
+                { number: 54, value: 'چون' },
+                { number: 53, value: 'ترپن' },
+                { number: 52, value: 'باون' },
+                { number: 51, value: 'اکیاون' },
+                { number: 50, value: 'پچاس' },
+                { number: 49, value: 'انچاس' },
+                { number: 48, value: 'اڑتالیس' },
+                { number: 47, value: 'سینتالیس' },
+                { number: 46, value: 'چھیالیس' },
+                { number: 45, value: 'پینتالیس' },
+                { number: 44, value: 'چوالیس' },
+                { number: 43, value: 'تینتالیس' },
+                { number: 42, value: 'بیالیس' },
+                { number: 41, value: 'اکتالیس' },
+                { number: 40, value: 'چالیس' },
+                { number: 39, value: 'انتالیس' },
+                { number: 38, value: 'اڑتیس' },
+                { number: 37, value: 'سینتیس' },
+                { number: 36, value: 'چھتیس' },
+                { number: 35, value: 'پینتیس' },
+                { number: 34, value: 'چونتیس' },
+                { number: 33, value: 'تینتیس' },
+                { number: 32, value: 'بتیس' },
+                { number: 31, value: 'اکتیس' },
+                { number: 30, value: 'تیس' },
+                { number: 29, value: 'انتیس' },
+                { number: 28, value: 'اٹھائیس' },
+                { number: 27, value: 'ستائیس' },
+                { number: 26, value: 'چھبیس' },
+                { number: 25, value: 'پچیس' },
+                { number: 24, value: 'چوبیس' },
+                { number: 23, value: 'تئیس' },
+                { number: 22, value: 'بائیس' },
+                { number: 21, value: 'اکیس' },
+                { number: 20, value: 'بیس' },
+                { number: 19, value: 'انیس' },
+                { number: 18, value: 'اٹھارہ' },
+                { number: 17, value: 'سترہ' },
+                { number: 16, value: 'سولہ' },
+                { number: 15, value: 'پندرہ' },
+                { number: 14, value: 'چودہ' },
+                { number: 13, value: 'تیرہ' },
+                { number: 12, value: 'بارہ' },
+                { number: 11, value: 'گیارہ' },
+                { number: 10, value: 'دس' },
+                { number: 9, value: 'نو' },
+                { number: 8, value: 'آٹھ' },
+                { number: 7, value: 'سات' },
+                { number: 6, value: 'چھ' },
+                { number: 5, value: 'پانچ' },
+                { number: 4, value: 'چار' },
+                { number: 3, value: 'تین' },
+                { number: 2, value: 'دو' },
+                { number: 1, value: 'ایک' },
+                { number: 0, value: 'صفر' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'ایک سو' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 57688:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".nav-tabs[data-v-f891390a]{border-bottom:2px solid #dee2e6;margin-bottom:1.5rem}.nav-tabs .nav-item[data-v-f891390a]{margin-bottom:-2px}.nav-tabs .nav-link[data-v-f891390a]{background-color:transparent;border:1px solid transparent;border-top-left-radius:.25rem;border-top-right-radius:.25rem;color:#495057;cursor:pointer;font-weight:500;padding:.75rem 1.5rem;transition:all .2s ease}.nav-tabs .nav-link[data-v-f891390a]:hover{border-color:#e9ecef #e9ecef #dee2e6;color:#33a0d9}.nav-tabs .nav-link.active[data-v-f891390a]{background-color:#fff;border-color:#dee2e6 #dee2e6 transparent;color:#33a0d9;font-weight:600}.nav-tabs .nav-link i[data-v-f891390a]{margin-right:.5rem}.tab-content[data-v-f891390a]{min-height:200px}.tab-pane[data-v-f891390a]{padding:0}.form-group[data-v-f891390a]{margin-bottom:1rem}.form-group label[data-v-f891390a]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-f891390a]{color:#dc3545;font-weight:700}.form-control[data-v-f891390a]{background:#fff!important;border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-f891390a]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.is-invalid[data-v-f891390a]{border-color:#dc3545!important}textarea.form-control[data-v-f891390a]{min-height:100px;resize:vertical}.v-select[data-v-f891390a]{background:#fff!important;border:1px solid #e5e7eb;border-radius:10px}.v-select .vs__dropdown-toggle[data-v-f891390a]{background:#fff!important;border:1px solid #e5e7eb;padding:10px 16px}.btn-success[data-v-f891390a]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-success[data-v-f891390a]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-secondary[data-v-f891390a]{background:#6c757d!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-secondary[data-v-f891390a]:hover{background:#5a6268!important;box-shadow:0 4px 8px hsla(208,7%,46%,.3);transform:translateY(-1px)}.create-button[data-v-f891390a]{cursor:pointer;text-decoration:none}.create-btn[data-v-f891390a]{border-left:none;border-radius:0 .25rem .25rem 0;cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-f891390a]:hover{background-color:#e9ecef}.category-select[data-v-f891390a]{margin-right:0!important}.category-select .vs__dropdown-toggle[data-v-f891390a]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .category-select .vs__dropdown-toggle[data-v-f891390a]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}[dir=rtl] .create-btn[data-v-f891390a]{border-left:none;border-radius:.25rem 0 0 .25rem;border-right:1px solid #ced4da}[dir=ltr] .create-btn[data-v-f891390a]{border-left:1px solid #ced4da;border-radius:0 .25rem .25rem 0;border-right:none}.row[data-v-f891390a]{margin-bottom:1rem}.row[data-v-f891390a]:last-child{margin-bottom:0}@media (max-width:768px){.nav-tabs .nav-link[data-v-f891390a]{font-size:.9rem;padding:.5rem 1rem}.tab-content[data-v-f891390a]{padding:.5rem}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 58041:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: '원',
+                plural: '원',
+                symbol: '',
+                fractionalUnit: {
+                    name: '',
+                    plural: '',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: '하고 ',
+                minus: '마이너스',
+                only: '',
+                point: '점',
+            },
+            trim: true,
+            numberWordsMapping: [
+                { number: 1000000000000, value: '조' },
+                { number: 100000000, value: '억' },
+                { number: 10000, value: '만' },
+                { number: 1000, value: '천' },
+                { number: 100, value: '백' },
+                { number: 90, value: '구십' },
+                { number: 80, value: '팔십' },
+                { number: 70, value: '칠십' },
+                { number: 60, value: '육십' },
+                { number: 50, value: '오십' },
+                { number: 40, value: '사십' },
+                { number: 30, value: '삼십' },
+                { number: 20, value: '이십' },
+                { number: 19, value: '십구' },
+                { number: 18, value: '십팔' },
+                { number: 17, value: '십칠' },
+                { number: 16, value: '십육' },
+                { number: 15, value: '십오' },
+                { number: 14, value: '십사' },
+                { number: 13, value: '십삼' },
+                { number: 12, value: '십이' },
+                { number: 11, value: '십일' },
+                { number: 10, value: '십' },
+                { number: 9, value: '구' },
+                { number: 8, value: '팔' },
+                { number: 7, value: '칠' },
+                { number: 6, value: '육' },
+                { number: 5, value: '오' },
+                { number: 4, value: '사' },
+                { number: 3, value: '삼' },
+                { number: 2, value: '이' },
+                { number: 1, value: '일' },
+                { number: 0, value: '영' },
+            ],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 59055:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-737beebd]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-bottom:1.25rem;margin-top:20px;transition:all .2s ease}.form-card[data-v-737beebd]:hover{box-shadow:0 .1rem .5rem 0 rgba(58,59,69,.15)}.form-card .card-header[data-v-737beebd]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:12px 16px}.form-card .card-header .section-title[data-v-737beebd]{border:none;color:#fff;font-size:14px;font-weight:600;margin:0;padding:0}.form-card .card-header .section-title[data-v-737beebd]:after{display:none}.form-card .card-header .section-title i[data-v-737beebd]{color:hsla(0,0%,100%,.8)}.form-card .card-body[data-v-737beebd]{padding:16px}.section-title[data-v-737beebd]{border-bottom:1px solid #e9ecef;color:#495057;font-weight:600;margin-bottom:15px;padding-bottom:8px}.form-group[data-v-737beebd]{margin-bottom:1rem}.form-group label[data-v-737beebd]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-737beebd]{color:#dc3545;font-weight:700}.row[data-v-737beebd]{margin-bottom:1rem}.row[data-v-737beebd]:last-child{margin-bottom:0}.auto-assign-btn[data-v-737beebd]{min-width:40px;padding:.375rem .5rem;white-space:nowrap}.auto-assign-btn[data-v-737beebd]:disabled{cursor:not-allowed;opacity:.6}.form-text[data-v-737beebd]{color:#6c757d;font-size:.8rem;margin-top:3px}.image-preview[data-v-737beebd]{text-align:center}.image-preview img[data-v-737beebd]{border:1px solid #dee2e6;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.1)}.custom-file-label[data-v-737beebd]{background-color:#f8f9fa;border:1px dashed #dee2e6;cursor:pointer;font-size:.85rem;transition:all .2s ease}.custom-file-label[data-v-737beebd]:hover{background-color:#e3f2fd;border-color:#007bff}.custom-file-label i[data-v-737beebd]{color:#6c757d}.create-button[data-v-737beebd]{cursor:pointer;text-decoration:none}.create-btn[data-v-737beebd]{border-left:none;border-radius:0 .25rem .25rem 0;cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-737beebd]:hover{background-color:#e9ecef}.category-select[data-v-737beebd]{margin-right:0!important}.category-select .vs__dropdown-toggle[data-v-737beebd]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .category-select .vs__dropdown-toggle[data-v-737beebd]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}[dir=rtl] .create-btn[data-v-737beebd]{border-left:none;border-radius:.25rem 0 0 .25rem;border-right:1px solid #ced4da}[dir=ltr] .create-btn[data-v-737beebd]{border-left:1px solid #ced4da;border-radius:0 .25rem .25rem 0;border-right:none}.unit-select[data-v-737beebd]{margin-right:0!important}.unit-select .vs__dropdown-toggle[data-v-737beebd]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .unit-select .vs__dropdown-toggle[data-v-737beebd]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}@media (max-width:768px){.section-title[data-v-737beebd]{font-size:.95rem;margin-bottom:12px}.form-card .card-body[data-v-737beebd]{padding:.75rem}.auto-assign-btn[data-v-737beebd]{font-size:.75rem;min-width:35px}}.input-group-prepend .input-group-text[data-v-737beebd]{background-color:#f8f9fa;border-color:#ced4da;color:#495057;font-size:.85rem}.v-select[data-v-737beebd]{margin-bottom:0}.is-invalid[data-v-737beebd]{border-color:#dc3545!important}.invalid-feedback[data-v-737beebd]{color:#dc3545;display:block;font-size:75%;margin-top:.2rem;width:100%}.item-type-selector[data-v-737beebd]{display:flex;gap:.5rem;margin-top:.5rem}.item-type-option[data-v-737beebd]{cursor:pointer;flex:1;position:relative;transition:all .2s ease}.item-type-option input[type=radio][data-v-737beebd]{opacity:0;pointer-events:none;position:absolute}.option-content[data-v-737beebd]{align-items:center;background:#fff;border:2px solid #e3e6f0;border-radius:6px;display:flex;flex-direction:column;justify-content:center;min-height:55px;padding:.6rem .5rem;text-align:center;transition:all .2s ease}.item-type-option:hover .option-content[data-v-737beebd]{border-color:#33a0d9;box-shadow:0 2px 6px rgba(51,160,217,.15);transform:translateY(-1px)}.item-type-option.active .option-content[data-v-737beebd]{background:#33a0d9;border-color:#33a0d9;box-shadow:0 3px 10px rgba(51,160,217,.25);color:#fff;transform:translateY(-1px)}.option-content i[data-v-737beebd]{color:#6c757d;font-size:1.1rem;margin-bottom:.3rem;transition:all .2s ease}.item-type-option.active .option-content i[data-v-737beebd]{color:hsla(0,0%,100%,.9)}.option-content span[data-v-737beebd]{color:#495057;font-size:.85rem;font-weight:600;transition:all .2s ease}.item-type-option.active .option-content span[data-v-737beebd]{color:#fff}@media (max-width:768px){.item-type-selector[data-v-737beebd]{flex-direction:column;gap:.4rem}.option-content[data-v-737beebd]{min-height:50px;padding:.5rem .4rem}.option-content i[data-v-737beebd]{font-size:1rem;margin-bottom:.25rem}.option-content span[data-v-737beebd]{font-size:.8rem}.override-checkbox-container .form-check-label[data-v-737beebd]{min-height:44px;padding:.6rem .8rem}.checkbox-text[data-v-737beebd]{font-size:.9rem}.form-check-input[data-v-737beebd]{height:16px;width:16px}}.account-label-row[data-v-737beebd]{align-items:flex-start;display:flex;flex-direction:column;gap:1rem;justify-content:space-between;margin-bottom:.5rem}.account-label[data-v-737beebd]{color:#495057;flex:1;font-size:.95rem;font-weight:500;margin-bottom:0}.toggle-switch-container[data-v-737beebd]{align-items:center;display:flex;flex-shrink:0}.toggle-switch-label[data-v-737beebd]{align-items:center;cursor:pointer;display:inline-flex;gap:.75rem;-webkit-user-select:none;-moz-user-select:none;user-select:none}.toggle-switch-wrapper[data-v-737beebd]{display:inline-block;flex-shrink:0;height:26px;position:relative;width:50px}.toggle-switch-input[data-v-737beebd]{appearance:none;-webkit-appearance:none;-moz-appearance:none;background-color:#ced4da;border-radius:26px;cursor:pointer;height:26px;left:0;margin:0;outline:none;padding:0;position:absolute;top:0;transition:background-color .3s ease;width:50px}.toggle-switch-input[data-v-737beebd]:checked{background-color:#33a0d9}.toggle-switch-input[data-v-737beebd]:focus{box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.toggle-switch-slider[data-v-737beebd]{background-color:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2);height:20px;left:3px;pointer-events:none;position:absolute;top:50%;transform:translateY(-50%);transition:transform .3s ease;width:20px}.toggle-switch-input:checked+.toggle-switch-slider[data-v-737beebd]{transform:translate(24px,-50%)}.toggle-switch-text[data-v-737beebd]{color:#495057;font-size:.9rem;font-weight:500;transition:color .2s ease;white-space:nowrap}.toggle-switch-label:has(.toggle-switch-input:checked) .toggle-switch-text[data-v-737beebd]{color:#33a0d9;font-weight:600}.alert-info[data-v-737beebd]{background-color:#d1ecf1;border-color:#bee5eb;border-radius:.375rem;font-size:.9rem;padding:.75rem 1rem}.alert-info[data-v-737beebd],.alert-info i[data-v-737beebd]{color:#0c5460}.col-form-6[data-v-737beebd]{flex:0 0 50%;max-width:50%}.col-form-6 .form-card[data-v-737beebd],.col-form-6 .form-card .card-body[data-v-737beebd]{width:100%}@media (max-width:1300px){.col-form-6[data-v-737beebd]{flex:0 0 100%;max-width:100%}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 59096:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Cedi',
+                plural: 'Cedis',
+                singular: 'Cedi',
+                symbol: 'GH¢',
+                fractionalUnit: {
+                    name: 'Pesewa',
+                    singular: 'Pesewa',
+                    plural: 'Pesewas',
+                    symbol: 'Gp',
+                },
+            },
+            texts: {
+                and: 'And',
+                minus: 'Minus',
+                only: 'Only',
+                point: 'Point',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Quadrillion' },
+                { number: 1000000000000, value: 'Trillion' },
+                { number: 1000000000, value: 'Billion' },
+                { number: 1000000, value: 'Million' },
+                { number: 1000, value: 'Thousand' },
+                { number: 100, value: 'Hundred' },
+                { number: 90, value: 'Ninety' },
+                { number: 80, value: 'Eighty' },
+                { number: 70, value: 'Seventy' },
+                { number: 60, value: 'Sixty' },
+                { number: 50, value: 'Fifty' },
+                { number: 40, value: 'Forty' },
+                { number: 30, value: 'Thirty' },
+                { number: 20, value: 'Twenty' },
+                { number: 19, value: 'Nineteen' },
+                { number: 18, value: 'Eighteen' },
+                { number: 17, value: 'Seventeen' },
+                { number: 16, value: 'Sixteen' },
+                { number: 15, value: 'Fifteen' },
+                { number: 14, value: 'Fourteen' },
+                { number: 13, value: 'Thirteen' },
+                { number: 12, value: 'Twelve' },
+                { number: 11, value: 'Eleven' },
+                { number: 10, value: 'Ten' },
+                { number: 9, value: 'Nine' },
+                { number: 8, value: 'Eight' },
+                { number: 7, value: 'Seven' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Five' },
+                { number: 4, value: 'Four' },
+                { number: 3, value: 'Three' },
+                { number: 2, value: 'Two' },
+                { number: 1, value: 'One' },
+                { number: 0, value: 'Zero' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 60130:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Euro',
+                plural: 'Euros',
+                singular: 'Euro',
+                symbol: '€',
+                fractionalUnit: {
+                    name: 'Centimo',
+                    plural: 'Centimos',
+                    singular: 'Centimo',
+                    symbol: '¢',
+                },
+            },
+            texts: {
+                and: 'Y',
+                minus: 'Menos',
+                only: '',
+                point: 'Punto',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Trillon' },
+                { number: 1000000000000, value: 'Billon' },
+                { number: 1000000, value: 'Millon' },
+                { number: 1000, value: 'Mil' },
+                { number: 900, value: 'Novecientos' },
+                { number: 800, value: 'Ochocientos' },
+                { number: 700, value: 'Setecientos' },
+                { number: 600, value: 'Seiscientos' },
+                { number: 500, value: 'Quinientos' },
+                { number: 400, value: 'Cuatrocientos' },
+                { number: 300, value: 'Trescientos' },
+                { number: 200, value: 'Doscientos' },
+                { number: 100, value: 'Ciento' },
+                { number: 90, value: 'Noventa Y' },
+                { number: 80, value: 'Ochenta Y' },
+                { number: 70, value: 'Setenta Y' },
+                { number: 60, value: 'Sesenta Y' },
+                { number: 50, value: 'Cincuenta Y' },
+                { number: 40, value: 'Cuarenta Y' },
+                { number: 30, value: 'Treinta Y' },
+                { number: 29, value: 'Veintinueve' },
+                { number: 28, value: 'Veintiocho' },
+                { number: 27, value: 'Veintisiete' },
+                { number: 26, value: 'Veintiseis' },
+                { number: 25, value: 'Veinticinco' },
+                { number: 24, value: 'Veinticuatro' },
+                { number: 23, value: 'Veintitrés' },
+                { number: 22, value: 'Veintidos' },
+                { number: 21, value: 'Veintiuno' },
+                { number: 20, value: 'Veinte' },
+                { number: 19, value: 'Diecinueve' },
+                { number: 18, value: 'Dieciocho' },
+                { number: 17, value: 'Dieciciete' },
+                { number: 16, value: 'Dieciseis' },
+                { number: 15, value: 'Quince' },
+                { number: 14, value: 'Catorce' },
+                { number: 13, value: 'Trece' },
+                { number: 12, value: 'Doce' },
+                { number: 11, value: 'Once' },
+                { number: 10, value: 'Diez' },
+                { number: 9, value: 'Nueve' },
+                { number: 8, value: 'Ocho' },
+                { number: 7, value: 'Siete' },
+                { number: 6, value: 'Seis' },
+                { number: 5, value: 'Cinco' },
+                { number: 4, value: 'Cuatro' },
+                { number: 3, value: 'Tres' },
+                { number: 2, value: 'Dos' },
+                { number: 1, value: 'Uno' },
+                { number: 0, value: 'Cero' },
+            ],
+            ignoreOneForWords: [
+                'Cien',
+                'Ciento',
+                'Doscientos',
+                'Trescientos',
+                'Cuatrocientos',
+                'Quinientos',
+                'Seiscientos',
+                'Setecientos',
+                'Ochocientos',
+                'Novecientos',
+                'Mil',
+            ],
+            pluralMark: 'es',
+            pluralWords: ['Millon', 'Billon', 'Trillon'],
+            exactWordsMapping: [
+                { number: 100, value: 'Cien' },
+                { number: 90, value: 'Noventa' },
+                { number: 80, value: 'Ochenta' },
+                { number: 70, value: 'Setenta' },
+                { number: 60, value: 'Sesenta' },
+                { number: 50, value: 'Cincuenta' },
+                { number: 40, value: 'Cuarenta' },
+                { number: 30, value: 'Treinta' },
+                { number: 1, value: ['Un', 'Uno'] },
+            ],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 64744:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _services_RTLService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73948);
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      isRTL: false,
+      currentLocale: 'en'
+    };
+  },
+  computed: {
+    /**
+     * Get RTL-aware CSS classes
+     */
+    rtlClasses: function rtlClasses() {
+      return {
+        'rtl': this.isRTL,
+        'ltr': !this.isRTL,
+        'text-right': this.isRTL,
+        'text-left': !this.isRTL,
+        'float-right': this.isRTL,
+        'float-left': !this.isRTL
+      };
+    },
+    /**
+     * Get RTL-aware text alignment
+     */
+    textAlign: function textAlign() {
+      return this.isRTL ? 'right' : 'left';
+    },
+    /**
+     * Get RTL-aware float direction
+     */
+    floatDirection: function floatDirection() {
+      return this.isRTL ? 'right' : 'left';
+    }
+  },
+  mounted: function mounted() {
+    // Initialize RTL status
+    this.updateRTLStatus();
+
+    // Listen for RTL changes
+    window.addEventListener('rtl-changed', this.handleRTLChange);
+  },
+  beforeDestroy: function beforeDestroy() {
+    // Clean up event listener
+    window.removeEventListener('rtl-changed', this.handleRTLChange);
+  },
+  methods: {
+    /**
+     * Update RTL status from service
+     */
+    updateRTLStatus: function updateRTLStatus() {
+      this.isRTL = _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getRTLStatus();
+      this.currentLocale = _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getCurrentLocale();
+    },
+    /**
+     * Handle RTL change events
+     */
+    handleRTLChange: function handleRTLChange(event) {
+      this.isRTL = event.detail.isRTL;
+      this.currentLocale = event.detail.locale || _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getCurrentLocale();
+      this.$forceUpdate(); // Force component re-render
+    },
+    /**
+     * Set RTL mode for a specific locale
+     */
+    setRTLMode: function setRTLMode(locale) {
+      _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.setRTLModeByLocale(locale);
+    },
+    /**
+     * Check if current locale is RTL
+     */
+    isCurrentLocaleRTL: function isCurrentLocaleRTL() {
+      return _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getLanguageRTLStatus(this.currentLocale);
+    },
+    /**
+     * Get RTL-aware margin/padding classes
+     */
+    getRTLSpacingClasses: function getRTLSpacingClasses(baseClass, size) {
+      if (this.isRTL) {
+        return _defineProperty(_defineProperty({}, "".concat(baseClass, "-right-").concat(size), true), "".concat(baseClass, "-left-").concat(size), false);
+      } else {
+        return _defineProperty(_defineProperty({}, "".concat(baseClass, "-left-").concat(size), true), "".concat(baseClass, "-right-").concat(size), false);
+      }
+    },
+    /**
+     * Get RTL-aware border classes
+     */
+    getRTLBorderClasses: function getRTLBorderClasses(baseClass, side) {
+      if (this.isRTL) {
+        var rtlSideMap = {
+          'left': 'right',
+          'right': 'left',
+          'start': 'end',
+          'end': 'start'
+        };
+        return _defineProperty({}, "".concat(baseClass, "-").concat(rtlSideMap[side] || side), true);
+      } else {
+        return _defineProperty({}, "".concat(baseClass, "-").concat(side), true);
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ 65584:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ ClientCreateModal)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientCreateModal.vue?vue&type=template&id=4f62f01c&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', [_c('VModal', {
+    on: {
+      "close": function close($event) {
+        _vm.showClientCreateModal = false;
+      }
+    },
+    scopedSlots: _vm._u([{
+      key: "title",
+      fn: function fn() {
+        return [_vm._v(_vm._s(_vm.$t("Create Client")))];
+      },
+      proxy: true
+    }]),
+    model: {
+      value: _vm.showClientCreateModal,
+      callback: function callback($$v) {
+        _vm.showClientCreateModal = $$v;
+      },
+      expression: "showClientCreateModal"
+    }
+  }, [_vm._v(" "), [_c('ClientForm', {
+    ref: "clientForm",
+    attrs: {
+      "showCardBody": false
+    },
+    on: {
+      "submit": _vm.saveClient
+    }
+  }), _vm._v(" "), _c('div', {
+    attrs: {
+      "slot": "modal-footer"
+    },
+    slot: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "disabled": _vm.isSubmitting
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.submitItem($event);
+      }
+    }
+  }, [_vm.isSubmitting ? _c('i', {
+    staticClass: "fas fa-spinner fa-spin"
+  }) : _c('i', {
+    staticClass: "fas fa-save"
+  }), _vm._v(" \n          " + _vm._s(_vm.isSubmitting ? _vm.$t("Saving...") : _vm.$t("Save")) + "\n        ")])])]], 2), _vm._v(" "), _c('a', {
+    staticClass: "create-button",
+    on: {
+      "click": _vm.toggleModal
+    }
+  }, [_vm._t("default")], 2)], 1);
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./resources/js/components/ClientForm.vue + 6 modules
+var ClientForm = __webpack_require__(79464);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientCreateModal.vue?vue&type=script&lang=js
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+
+/* harmony default export */ const ClientCreateModalvue_type_script_lang_js = ({
+  name: "ClientCreateModal",
+  middleware: ["auth", "check-permissions"],
+  components: {
+    ClientForm: ClientForm/* default */.A
+  },
+  data: function data() {
+    return {
+      showClientCreateModal: false,
+      form: null,
+      isSubmitting: false
+    };
+  },
+  methods: {
+    // save client
+    saveClient: function saveClient() {
+      var _this = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var _this$$refs$clientFor, formData, fd, appendIfDefined, taxStatusValue, taxStatusToSend, response, status, serverErrors, form, errorMessages, errorsObject, mapped, errorTitle, _error$response, errorMessage, _t;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.p = _context.n) {
+            case 0:
+              if (!_this.isSubmitting) {
+                _context.n = 1;
+                break;
+              }
+              return _context.a(2);
+            case 1:
+              _this.isSubmitting = true;
+              _context.p = 2;
+              if (_this.$refs.clientForm.validateForm()) {
+                _context.n = 3;
+                break;
+              }
+              _this.isSubmitting = false;
+              return _context.a(2);
+            case 3:
+              // Get the form data from the ClientForm component
+              formData = _this.$refs.clientForm.getFormData(); // Build multipart/form-data to properly send files and handle boolean conversion
+              fd = new FormData();
+              appendIfDefined = function appendIfDefined(key, value) {
+                if (value !== undefined && value !== null && value !== '') {
+                  fd.append(key, value);
+                }
+              }; // Debug: Log formData before building FormData - CRITICAL
+              console.log('ClientCreateModal - formData received:', {
+                taxStatus: formData.taxStatus,
+                tax_status: formData.tax_status,
+                allFormData: formData
+              });
+              console.log('ClientCreateModal - formData keys:', Object.keys(formData || {}));
+              console.log('ClientCreateModal - formData.taxStatus type:', _typeof(formData.taxStatus));
+              console.log('ClientCreateModal - formData.taxStatus value:', formData.taxStatus);
+              console.log('ClientCreateModal - formData.tax_status value:', formData.tax_status);
+              console.log('ClientCreateModal - $refs.clientForm exists:', !!_this.$refs.clientForm);
+              console.log('ClientCreateModal - $refs.clientForm.form exists:', !!(_this.$refs.clientForm && _this.$refs.clientForm.form));
+              if (_this.$refs.clientForm && _this.$refs.clientForm.form) {
+                console.log('ClientCreateModal - form.taxStatus:', _this.$refs.clientForm.form.taxStatus);
+                console.log('ClientCreateModal - form.data() taxStatus:', _this.$refs.clientForm.form.data ? _this.$refs.clientForm.form.data().taxStatus : 'N/A');
+              }
+
+              // Simple scalar fields
+              appendIfDefined('codeNumber', formData.codeNumber);
+              appendIfDefined('notes', formData.notes);
+              appendIfDefined('displayLanguage', formData.displayLanguage);
+              appendIfDefined('type', formData.type);
+
+              // CRITICAL: Always append taxStatus - don't use appendIfDefined to ensure it's always sent
+              // Get taxStatus from formData, or try to get it from form object if available
+              taxStatusValue = formData.taxStatus || formData.tax_status;
+              console.log('ClientCreateModal - Initial taxStatus check:', {
+                formDataTaxStatus: formData.taxStatus,
+                formDataTax_status: formData.tax_status,
+                currentTaxStatusValue: taxStatusValue
+              });
+
+              // If still not found, try to get it from the form component
+              if (!taxStatusValue && _this.$refs.clientForm && _this.$refs.clientForm.form) {
+                taxStatusValue = _this.$refs.clientForm.form.taxStatus;
+                console.log('ClientCreateModal - Got taxStatus from form object:', taxStatusValue);
+              }
+
+              // Default to non_taxable if still not found
+              taxStatusValue = taxStatusValue || 'non_taxable';
+              console.log('ClientCreateModal - Final taxStatusValue before appending:', taxStatusValue);
+
+              // Always append taxStatus - never skip it, even if it's the default value
+              // CRITICAL: Use explicit string conversion and ensure it's never null/undefined
+              taxStatusToSend = String(taxStatusValue || 'non_taxable');
+              fd.append('taxStatus', taxStatusToSend);
+              fd.append('tax_status', taxStatusToSend);
+              console.log('=== CLIENT CREATE MODAL - APPENDING TAX STATUS ===');
+              console.log('ClientCreateModal - taxStatusValue:', taxStatusValue);
+              console.log('ClientCreateModal - taxStatusToSend:', taxStatusToSend);
+              console.log('ClientCreateModal - Appended taxStatus to FormData:', taxStatusToSend);
+              console.log('ClientCreateModal - formData.taxStatus:', formData.taxStatus);
+              console.log('ClientCreateModal - formData.tax_status:', formData.tax_status);
+              console.log('ClientCreateModal - form.taxStatus:', (_this$$refs$clientFor = _this.$refs.clientForm) === null || _this$$refs$clientFor === void 0 || (_this$$refs$clientFor = _this$$refs$clientFor.form) === null || _this$$refs$clientFor === void 0 ? void 0 : _this$$refs$clientFor.taxStatus);
+
+              // Verify it was added
+              console.log('ClientCreateModal - FormData has taxStatus:', fd.has('taxStatus'));
+              console.log('ClientCreateModal - FormData has tax_status:', fd.has('tax_status'));
+              appendIfDefined('fullName', formData.fullName);
+              appendIfDefined('businessName', formData.businessName);
+              appendIfDefined('firstName', formData.firstName);
+              appendIfDefined('lastName', formData.lastName);
+              appendIfDefined('phone', formData.phone);
+              appendIfDefined('phoneNumber', formData.phoneNumber);
+              appendIfDefined('email', formData.email);
+              appendIfDefined('streetAddress1', formData.streetAddress1);
+              appendIfDefined('streetAddress2', formData.streetAddress2);
+              appendIfDefined('city', formData.city);
+              appendIfDefined('state', formData.state);
+              appendIfDefined('postalCode', formData.postalCode);
+              appendIfDefined('country', formData.country);
+              appendIfDefined('neighbourhood', formData.neighbourhood);
+              appendIfDefined('commercialRegister', formData.commercialRegister);
+              appendIfDefined('taxCard', formData.taxCard);
+              appendIfDefined('taxRegistrationNumber', formData.taxRegistrationNumber || formData.taxCard);
+              appendIfDefined('buildingNumber', formData.buildingNumber);
+              appendIfDefined('streetNumber', formData.streetNumber);
+              appendIfDefined('districtNumber', formData.districtNumber);
+              appendIfDefined('unitNumber', formData.unitNumber);
+              appendIfDefined('additionalNumber', formData.additionalNumber);
+              appendIfDefined('saudi_region', formData.saudi_region);
+              appendIfDefined('status', formData.status);
+
+              // Convert boolean values to integers for Laravel validation
+              appendIfDefined('isSendEmail', formData.isSendEmail ? 1 : 0);
+              appendIfDefined('isSendSMS', formData.isSendSMS ? 1 : 0);
+
+              // Chart of account id (number or object)
+              if (formData.chartOfAccountId && _typeof(formData.chartOfAccountId) === 'object' && formData.chartOfAccountId.id) {
+                appendIfDefined('chartOfAccountId', formData.chartOfAccountId.id);
+              } else {
+                appendIfDefined('chartOfAccountId', formData.chartOfAccountId);
+              }
+
+              // Image file
+              if (formData.image instanceof File) {
+                fd.append('image', formData.image);
+              }
+
+              // Attachments as files
+              if (Array.isArray(formData.attachments)) {
+                formData.attachments.forEach(function (file, idx) {
+                  if (file instanceof File) {
+                    fd.append("attachments[".concat(idx, "]"), file);
+                  }
+                });
+              }
+
+              // Representatives array (as nested fields)
+              if (Array.isArray(formData.representatives)) {
+                formData.representatives.forEach(function (rep, i) {
+                  if (!rep) return;
+                  if (rep.name !== undefined && rep.name !== null) fd.append("representatives[".concat(i, "][name]"), rep.name);
+                  if (rep.email) fd.append("representatives[".concat(i, "][email]"), rep.email);
+                  if (rep.phone) fd.append("representatives[".concat(i, "][phone]"), rep.phone);
+                  if (rep.position) fd.append("representatives[".concat(i, "][position]"), rep.position);
+                  if (rep.is_primary !== undefined && rep.is_primary !== null) fd.append("representatives[".concat(i, "][is_primary]"), rep.is_primary ? 1 : 0);
+                  if (rep.notes) fd.append("representatives[".concat(i, "][notes]"), rep.notes);
+                });
+              }
+              _context.n = 4;
+              return _this.$http.post("/api/clients", fd, {
+                headers: {
+                  'Content-Type': 'multipart/form-data'
+                }
+              });
+            case 4:
+              response = _context.v;
+              if (!response.data.success) {
+                _context.n = 5;
+                break;
+              }
+              toast.fire({
+                type: "success",
+                title: _this.$t("Client added successfully")
+              });
+              _this.$emit("reloadClients");
+              _this.$refs.clientForm.resetForm();
+              _this.showClientCreateModal = false;
+              _this.form = null; // Reset form reference
+              _context.n = 6;
+              break;
+            case 5:
+              throw new Error(response.data.message || 'Failed to create client');
+            case 6:
+              _context.n = 8;
+              break;
+            case 7:
+              _context.p = 7;
+              _t = _context.v;
+              console.error("Error creating client:", _t);
+              status = _t && _t.response && _t.response.status;
+              serverErrors = _t && _t.response && _t.response.data && _t.response.data.errors;
+              if (status === 422 && serverErrors && _this.$refs.clientForm) {
+                // Get form object directly from ClientForm component
+                form = _this.$refs.clientForm.form;
+                errorMessages = []; // Prepare errors object for vform
+                errorsObject = {};
+                Object.keys(serverErrors).forEach(function (key) {
+                  var messages = serverErrors[key];
+                  if (Array.isArray(messages) && messages.length > 0) {
+                    // Translate messages before adding to errorsObject
+                    var translatedMessages = messages.map(function (msg) {
+                      return _this.translateValidationMessage(msg, key);
+                    });
+                    errorsObject[key] = translatedMessages;
+
+                    // Collect error messages for toast notification
+                    var fieldLabel = _this.getFieldLabel(key);
+                    translatedMessages.forEach(function (msg) {
+                      errorMessages.push("".concat(fieldLabel, ": ").concat(msg));
+                    });
+
+                    // Also map attachments.* to attachments field for UI display
+                    if (key.startsWith('attachments.')) {
+                      if (!errorsObject.attachments) {
+                        errorsObject.attachments = translatedMessages;
+                      }
+                    }
+                  }
+                });
+
+                // Set errors on form using vform's set method
+                if (form && form.errors && typeof form.errors.set === 'function') {
+                  form.errors.set(errorsObject);
+                  console.log('ClientCreateModal - Set errors on form:', errorsObject);
+                } else if (form && form.errors && typeof form.errors.record === 'function') {
+                  // Fallback to record method if set is not available
+                  mapped = {};
+                  Object.keys(errorsObject).forEach(function (key) {
+                    mapped[key] = Array.isArray(errorsObject[key]) ? errorsObject[key][0] : errorsObject[key];
+                  });
+                  form.errors.record(mapped);
+                  console.log('ClientCreateModal - Recorded errors on form (fallback):', mapped);
+                } else {
+                  console.warn('ClientCreateModal - Form errors object not available or invalid');
+                }
+
+                // Show detailed error messages in toast
+                errorTitle = errorMessages.length > 0 ? errorMessages.slice(0, 3).join(' | ') + (errorMessages.length > 3 ? " (+".concat(errorMessages.length - 3, " more)") : '') : _this.$t("Please check the form for errors and try again.");
+                toast.fire({
+                  type: "error",
+                  title: _this.$t("Validation Error"),
+                  text: errorTitle,
+                  html: errorMessages.length > 0 ? "<div style=\"text-align: left; max-height: 200px; overflow-y: auto;\">".concat(errorMessages.map(function (msg) {
+                    return "<div>\u2022 ".concat(msg, "</div>");
+                  }).join(''), "</div>") : undefined
+                });
+              } else {
+                errorMessage = ((_error$response = _t.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this.$t("Please check your input and try again.");
+                toast.fire({
+                  type: "error",
+                  title: errorMessage
+                });
+              }
+            case 8:
+              _context.p = 8;
+              _this.isSubmitting = false;
+              return _context.f(8);
+            case 9:
+              return _context.a(2);
+          }
+        }, _callee, null, [[2, 7, 8, 9]]);
+      }))();
+    },
+    toggleModal: function toggleModal() {
+      this.showClientCreateModal = !this.showClientCreateModal;
+      // Reset form when opening modal
+      if (this.showClientCreateModal) {
+        this.form = null;
+        this.isSubmitting = false;
+      }
+    },
+    submitItem: function submitItem(evt) {
+      evt.preventDefault();
+      this.saveClient();
+    },
+    // Get field label for error messages
+    getFieldLabel: function getFieldLabel(field) {
+      var fieldLabelMap = {
+        codeNumber: this.$t('Code Number'),
+        notes: this.$t('Notes'),
+        displayLanguage: this.$t('Display Language'),
+        type: this.$t('Type'),
+        fullName: this.$t('Full Name'),
+        businessName: this.$t('Business Name'),
+        firstName: this.$t('First Name'),
+        lastName: this.$t('Last Name'),
+        phone: this.$t('Phone'),
+        phoneNumber: this.$t('Mobile Number'),
+        email: this.$t('Email'),
+        streetAddress1: this.$t('Street Address 1'),
+        streetAddress2: this.$t('Street Address 2'),
+        city: this.$t('City'),
+        state: this.$t('State'),
+        postalCode: this.$t('Postal Code'),
+        country: this.$t('Country'),
+        neighbourhood: this.$t('Neighbourhood'),
+        commercialRegister: this.$t('Commercial Register'),
+        taxCard: this.$t('Tax Card'),
+        buildingNumber: this.$t('Building Number'),
+        streetNumber: this.$t('Street Number'),
+        districtNumber: this.$t('District Number'),
+        unitNumber: this.$t('Unit Number'),
+        additionalNumber: this.$t('Additional Number'),
+        taxStatus: this.$t('Tax Status'),
+        taxRegistrationNumber: this.$t('Tax Registration Number'),
+        image: this.$t('Image'),
+        attachments: this.$t('Attachments'),
+        status: this.$t('Status'),
+        chartOfAccountId: this.$t('Chart of Account')
+      };
+      return fieldLabelMap[field] || field;
+    },
+    // translate validation messages from backend to localized messages
+    translateValidationMessage: function translateValidationMessage(message, field) {
+      // If there is a direct translation key, use it
+      var direct = this.$t(message);
+      if (direct && direct !== message) return direct;
+
+      // Get current locale
+      var currentLocale = this.$i18n.locale || 'en';
+      var isArabic = currentLocale === 'ar';
+
+      // Field label mapping for client form fields
+      var fieldLabelMap = {
+        codeNumber: this.$t('Code Number'),
+        notes: this.$t('Notes'),
+        displayLanguage: this.$t('Display Language'),
+        type: this.$t('Type'),
+        fullName: this.$t('Full Name'),
+        businessName: this.$t('Business Name'),
+        firstName: this.$t('First Name'),
+        lastName: this.$t('Last Name'),
+        phone: this.$t('Phone'),
+        phoneNumber: this.$t('Mobile Number'),
+        email: this.$t('Email'),
+        streetAddress1: this.$t('Street Address 1'),
+        streetAddress2: this.$t('Street Address 2'),
+        city: this.$t('City'),
+        state: this.$t('State'),
+        postalCode: this.$t('Postal Code'),
+        country: this.$t('Country'),
+        neighbourhood: this.$t('Neighbourhood'),
+        commercialRegister: this.$t('Commercial Register'),
+        taxCard: this.$t('Tax Card'),
+        buildingNumber: this.$t('Building Number'),
+        streetNumber: this.$t('Street Number'),
+        districtNumber: this.$t('District Number'),
+        unitNumber: this.$t('Unit Number'),
+        additionalNumber: this.$t('Additional Number'),
+        taxStatus: this.$t('Tax Status'),
+        taxRegistrationNumber: this.$t('Tax Registration Number'),
+        image: this.$t('Image'),
+        attachments: this.$t('Attachments'),
+        status: this.$t('Status'),
+        chartOfAccountId: this.$t('Chart of Account')
+      };
+
+      // Try to translate common validation messages
+      var commonMessages = {
+        'required': isArabic ? 'مطلوب' : 'required',
+        'must be exactly 15 digits': isArabic ? 'يجب أن يكون 15 رقم بالضبط' : 'must be exactly 15 digits',
+        'must contain only numbers and be 15 digits': isArabic ? 'يجب أن يحتوي على أرقام فقط ويكون 15 رقم' : 'must contain only numbers and be 15 digits'
+      };
+
+      // Check if message contains common patterns
+      for (var _i = 0, _Object$entries = Object.entries(commonMessages); _i < _Object$entries.length; _i++) {
+        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          pattern = _Object$entries$_i[0],
+          translation = _Object$entries$_i[1];
+        if (message.toLowerCase().includes(pattern.toLowerCase())) {
+          var fieldLabel = fieldLabelMap[field] || field;
+          return "".concat(fieldLabel, ": ").concat(translation);
+        }
+      }
+
+      // Return original message if no translation found
+      return message;
+    }
+  }
+});
+;// ./resources/js/components/ClientCreateModal.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_ClientCreateModalvue_type_script_lang_js = (ClientCreateModalvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientCreateModal.vue?vue&type=style&index=0&id=4f62f01c&prod&scoped=true&lang=css
+var ClientCreateModalvue_type_style_index_0_id_4f62f01c_prod_scoped_true_lang_css = __webpack_require__(54890);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientCreateModal.vue?vue&type=style&index=0&id=4f62f01c&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(ClientCreateModalvue_type_style_index_0_id_4f62f01c_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_ClientCreateModalvue_type_style_index_0_id_4f62f01c_prod_scoped_true_lang_css = (ClientCreateModalvue_type_style_index_0_id_4f62f01c_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/ClientCreateModal.vue?vue&type=style&index=0&id=4f62f01c&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/ClientCreateModal.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_ClientCreateModalvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "4f62f01c",
+  null
+  
+)
+
+/* harmony default export */ const ClientCreateModal = (component.exports);
+
+/***/ }),
+
+/***/ 65903:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Peso Mexicano',
+                plural: 'Pesos Mexicanos',
+                singular: 'Peso Mexicano',
+                symbol: '$',
+                fractionalUnit: {
+                    name: 'Centavo',
+                    plural: 'Centavos',
+                    singular: 'Centavo',
+                    symbol: '¢',
+                },
+            },
+            texts: {
+                and: 'Y',
+                minus: 'Menos',
+                only: '',
+                point: 'Punto',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Trillon' },
+                { number: 1000000000000, value: 'Billon' },
+                { number: 1000000, value: 'Millon' },
+                { number: 1000, value: 'Mil' },
+                { number: 900, value: 'Novecientos' },
+                { number: 800, value: 'Ochocientos' },
+                { number: 700, value: 'Setecientos' },
+                { number: 600, value: 'Seiscientos' },
+                { number: 500, value: 'Quinientos' },
+                { number: 400, value: 'Cuatrocientos' },
+                { number: 300, value: 'Trescientos' },
+                { number: 200, value: 'Doscientos' },
+                { number: 100, value: 'Ciento' },
+                { number: 90, value: 'Noventa Y' },
+                { number: 80, value: 'Ochenta Y' },
+                { number: 70, value: 'Setenta Y' },
+                { number: 60, value: 'Sesenta Y' },
+                { number: 50, value: 'Cincuenta Y' },
+                { number: 40, value: 'Cuarenta Y' },
+                { number: 30, value: 'Treinta Y' },
+                { number: 29, value: 'Veintinueve' },
+                { number: 28, value: 'Veintiocho' },
+                { number: 27, value: 'Veintisiete' },
+                { number: 26, value: 'Veintiseis' },
+                { number: 25, value: 'Veinticinco' },
+                { number: 24, value: 'Veinticuatro' },
+                { number: 23, value: 'Veintitrés' },
+                { number: 22, value: 'Veintidos' },
+                { number: 21, value: 'Veintiuno' },
+                { number: 20, value: 'Veinte' },
+                { number: 19, value: 'Diecinueve' },
+                { number: 18, value: 'Dieciocho' },
+                { number: 17, value: 'Dieciciete' },
+                { number: 16, value: 'Dieciseis' },
+                { number: 15, value: 'Quince' },
+                { number: 14, value: 'Catorce' },
+                { number: 13, value: 'Trece' },
+                { number: 12, value: 'Doce' },
+                { number: 11, value: 'Once' },
+                { number: 10, value: 'Diez' },
+                { number: 9, value: 'Nueve' },
+                { number: 8, value: 'Ocho' },
+                { number: 7, value: 'Siete' },
+                { number: 6, value: 'Seis' },
+                { number: 5, value: 'Cinco' },
+                { number: 4, value: 'Cuatro' },
+                { number: 3, value: 'Tres' },
+                { number: 2, value: 'Dos' },
+                { number: 1, value: 'Uno' },
+                { number: 0, value: 'Cero' },
+            ],
+            ignoreOneForWords: [
+                'Cien',
+                'Ciento',
+                'Doscientos',
+                'Trescientos',
+                'Cuatrocientos',
+                'Quinientos',
+                'Seiscientos',
+                'Setecientos',
+                'Ochocientos',
+                'Novecientos',
+                'Mil',
+            ],
+            pluralMark: 'es',
+            pluralWords: ['Millon', 'Billon', 'Trillon'],
+            exactWordsMapping: [
+                { number: 100, value: 'Cien' },
+                { number: 90, value: 'Noventa' },
+                { number: 80, value: 'Ochenta' },
+                { number: 70, value: 'Setenta' },
+                { number: 60, value: 'Sesenta' },
+                { number: 50, value: 'Cincuenta' },
+                { number: 40, value: 'Cuarenta' },
+                { number: 30, value: 'Treinta' },
+                { number: 1, value: ['Un', 'Uno'] },
+            ],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 67645:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".header-buttons[data-v-989bc620]{margin-bottom:15px}.footer-buttons[data-v-989bc620]{display:flex;gap:10px}.footer-buttons .btn[data-v-989bc620]{margin-right:10px}.footer-buttons .btn[data-v-989bc620]:last-child{margin-right:0}.create-btn[data-v-989bc620]{padding:11px}.chart-account-success[data-v-989bc620],.chart-account-warning[data-v-989bc620]{border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:16px}.chart-account-warning[data-v-989bc620]{background:linear-gradient(135deg,#fff3cd,#ffeaa7);border:1px solid #ffc107}.chart-account-success[data-v-989bc620]{background:linear-gradient(135deg,#d4edda,#c3e6cb);border:1px solid #28a745}.success-content[data-v-989bc620],.warning-content[data-v-989bc620]{align-items:center;display:flex;gap:16px}.success-icon[data-v-989bc620],.warning-icon[data-v-989bc620]{flex-shrink:0;font-size:24px}.warning-icon[data-v-989bc620]{color:#856404}.success-icon[data-v-989bc620]{color:#155724}.success-text[data-v-989bc620],.warning-text[data-v-989bc620]{flex-grow:1}.success-title[data-v-989bc620],.warning-title[data-v-989bc620]{font-size:14px;font-weight:600;margin:0 0 4px}.warning-title[data-v-989bc620]{color:#856404}.success-title[data-v-989bc620]{color:#155724}.success-description[data-v-989bc620],.warning-description[data-v-989bc620]{font-size:13px;margin:0;opacity:.8}.warning-description[data-v-989bc620]{color:#856404}.success-description[data-v-989bc620]{color:#155724}.warning-action[data-v-989bc620]{flex-shrink:0}.button-plus.icon-shape.icon-sm.btn-primary[data-v-989bc620]{padding:0}.btn-primary[data-v-989bc620]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-primary[data-v-989bc620]:disabled{box-shadow:none;cursor:not-allowed;opacity:.6;transform:none}@media (max-width:768px){.success-content[data-v-989bc620],.warning-content[data-v-989bc620]{flex-direction:column;gap:12px;text-align:center}.btn-primary[data-v-989bc620],.warning-action[data-v-989bc620]{width:100%}}.client-status[data-v-989bc620]{font-size:13px}.client-success[data-v-989bc620],.client-warning[data-v-989bc620]{align-items:center;border-radius:6px;display:flex;font-weight:500;padding:8px 12px}.client-warning[data-v-989bc620]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.client-success[data-v-989bc620]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.btn-outline-warning[data-v-989bc620]{border-color:#ffc107;color:#856404;font-size:12px;padding:4px 8px}.btn-outline-warning[data-v-989bc620]:hover{background-color:#ffc107;border-color:#ffc107;color:#212529}.btn-outline-warning[data-v-989bc620]:disabled{cursor:not-allowed;opacity:.6}.product-status[data-v-989bc620]{font-size:13px}.product-success[data-v-989bc620],.product-warning[data-v-989bc620]{align-items:center;border-radius:6px;display:flex;font-weight:500;padding:8px 12px}.product-warning[data-v-989bc620]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.product-success[data-v-989bc620]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.account-status[data-v-989bc620]{font-size:13px}.account-success[data-v-989bc620],.account-warning[data-v-989bc620]{align-items:center;border-radius:6px;display:flex;font-weight:500;padding:8px 12px}.account-warning[data-v-989bc620]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.account-success[data-v-989bc620]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.radio-group-horizontal[data-v-989bc620]{align-items:center;display:flex;flex-direction:row;gap:20px}.radio-group-horizontal .form-check[data-v-989bc620]{align-items:center;display:flex;margin-bottom:0}.radio-group-horizontal .form-check-input[data-v-989bc620]{margin-right:8px}.radio-group-horizontal .form-check-label[data-v-989bc620]{cursor:pointer;margin-bottom:0}.text-warning[data-v-989bc620]{color:#856404!important}.text-warning small[data-v-989bc620]{font-size:12px;font-weight:500}.text-warning i[data-v-989bc620]{margin-right:4px}.table-custom[data-v-989bc620]{border:none!important}.invoices-create-table[data-v-989bc620]{border-collapse:separate;border-spacing:0}.invoices-create-table thead th[data-v-989bc620]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.invoices-create-table thead tr[data-v-989bc620]{border:none!important}.invoices-create-table thead th[data-v-989bc620]:first-child{border-top-left-radius:10px}.invoices-create-table thead th[data-v-989bc620]:last-child{border-top-right-radius:10px}[dir=rtl] .invoices-create-table thead th[data-v-989bc620]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .invoices-create-table thead th[data-v-989bc620]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.btn-group.c-w-100[data-v-989bc620]{gap:10px}.card[data-v-989bc620]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-989bc620]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.invoices-create-table .badge.badge-danger[data-v-989bc620]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.form-control[data-v-989bc620]{background:#fff!important}.quantity-field[data-v-989bc620]{border-radius:0!important;margin:0!important;min-height:50px!important}.btn-primary[data-v-989bc620]{background:#2ab930!important}.btn-secondary[data-v-989bc620]{background:#33a0d9!important;border:none!important;color:#fff!important;padding:10px 20px!important}.stock-warning-alert[data-v-989bc620]{background:linear-gradient(135deg,#fff3cd,#ffeaa7);border:1px solid #ffc107;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:16px}.stock-warning-content[data-v-989bc620]{align-items:flex-start;display:flex;gap:16px}.stock-warning-icon[data-v-989bc620]{color:#856404;flex-shrink:0;font-size:24px;margin-top:2px}.stock-warning-text[data-v-989bc620]{flex-grow:1}.stock-warning-title[data-v-989bc620]{color:#856404;font-size:16px;font-weight:600;margin:0 0 8px}.stock-warning-description[data-v-989bc620]{color:#856404;font-size:14px;margin:0 0 12px;opacity:.9}.stock-warning-list[data-v-989bc620]{list-style:none;margin:0;padding-left:20px}.stock-warning-item[data-v-989bc620]{background-color:hsla(0,0%,100%,.5);border-left:3px solid #ffc107;border-radius:6px;color:#856404;font-size:14px;margin-bottom:8px;padding:8px 12px}.stock-warning-item[data-v-989bc620]:last-child{margin-bottom:0}.product-name[data-v-989bc620]{color:#856404;font-weight:600;margin-right:8px}.stock-details[data-v-989bc620]{color:#856404;opacity:.8}.stock-details strong[data-v-989bc620]{color:#856404;font-weight:600}[dir=rtl] .stock-warning-list[data-v-989bc620]{padding-left:0;padding-right:20px}[dir=rtl] .stock-warning-item[data-v-989bc620]{border-left:none;border-right:3px solid #ffc107}[dir=rtl] .product-name[data-v-989bc620]{margin-left:8px;margin-right:0}@media (max-width:768px){.stock-warning-content[data-v-989bc620]{flex-direction:column;gap:12px;text-align:center}.stock-warning-icon[data-v-989bc620]{align-self:center}.stock-warning-list[data-v-989bc620]{padding-left:0;text-align:left}[dir=rtl] .stock-warning-list[data-v-989bc620]{text-align:right}}.clickable-badge[data-v-989bc620]{cursor:pointer;transition:all .3s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.clickable-badge[data-v-989bc620]:hover{background-color:#c82333!important;box-shadow:0 2px 4px rgba(220,53,69,.3);transform:scale(1.05)}.clickable-badge[data-v-989bc620]:active{transform:scale(.95)}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 68224:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Bolivar',
+                plural: 'Bolivares',
+                singular: 'Bolivar',
+                symbol: '',
+                fractionalUnit: {
+                    name: 'Centimo',
+                    plural: 'Centimos',
+                    singular: 'Centimo',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'Con',
+                minus: 'Menos',
+                only: '',
+                point: 'Coma',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Trillon' },
+                { number: 1000000000000, value: 'Billon' },
+                { number: 1000000, value: 'Millon' },
+                { number: 1000, value: 'Mil' },
+                { number: 900, value: 'Novecientos' },
+                { number: 800, value: 'Ochocientos' },
+                { number: 700, value: 'Setecientos' },
+                { number: 600, value: 'Seiscientos' },
+                { number: 500, value: 'Quinientos' },
+                { number: 400, value: 'Cuatrocientos' },
+                { number: 300, value: 'Trescientos' },
+                { number: 200, value: 'Doscientos' },
+                { number: 100, value: 'Ciento' },
+                { number: 90, value: 'Noventa Y' },
+                { number: 80, value: 'Ochenta Y' },
+                { number: 70, value: 'Setenta Y' },
+                { number: 60, value: 'Sesenta Y' },
+                { number: 50, value: 'Cincuenta Y' },
+                { number: 40, value: 'Cuarenta Y' },
+                { number: 30, value: 'Treinta Y' },
+                { number: 29, value: 'Veintinueve' },
+                { number: 28, value: 'Veintiocho' },
+                { number: 27, value: 'Veintisiete' },
+                { number: 26, value: 'Veintiseis' },
+                { number: 25, value: 'Veinticinco' },
+                { number: 24, value: 'Veinticuatro' },
+                { number: 23, value: 'Veintitrés' },
+                { number: 22, value: 'Veintidos' },
+                { number: 21, value: 'Veintiuno' },
+                { number: 20, value: 'Veinte' },
+                { number: 19, value: 'Diecinueve' },
+                { number: 18, value: 'Dieciocho' },
+                { number: 17, value: 'Dieciciete' },
+                { number: 16, value: 'Dieciseis' },
+                { number: 15, value: 'Quince' },
+                { number: 14, value: 'Catorce' },
+                { number: 13, value: 'Trece' },
+                { number: 12, value: 'Doce' },
+                { number: 11, value: 'Once' },
+                { number: 10, value: 'Diez' },
+                { number: 9, value: 'Nueve' },
+                { number: 8, value: 'Ocho' },
+                { number: 7, value: 'Siete' },
+                { number: 6, value: 'Seis' },
+                { number: 5, value: 'Cinco' },
+                { number: 4, value: 'Cuatro' },
+                { number: 3, value: 'Tres' },
+                { number: 2, value: 'Dos' },
+                { number: 1, value: 'Uno' },
+                { number: 0, value: 'Cero' },
+            ],
+            ignoreOneForWords: [
+                'Cien',
+                'Ciento',
+                'Doscientos',
+                'Trescientos',
+                'Cuatrocientos',
+                'Quinientos',
+                'Seiscientos',
+                'Setecientos',
+                'Ochocientos',
+                'Novecientos',
+                'Mil',
+            ],
+            pluralMark: 'es',
+            pluralWords: ['Millon', 'Billon', 'Trillon'],
+            exactWordsMapping: [
+                { number: 100, value: 'Cien' },
+                { number: 90, value: 'Noventa' },
+                { number: 80, value: 'Ochenta' },
+                { number: 70, value: 'Setenta' },
+                { number: 60, value: 'Sesenta' },
+                { number: 50, value: 'Cincuenta' },
+                { number: 40, value: 'Cuarenta' },
+                { number: 30, value: 'Treinta' },
+                { number: 1, value: ['Un', 'Uno'] },
+            ],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 69543:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Euro',
+                plural: 'Euros',
+                singular: 'Euro',
+                symbol: '€',
+                fractionalUnit: {
+                    name: 'Centime',
+                    singular: 'Centime',
+                    plural: 'Centimes',
+                    symbol: 'Cts',
+                },
+            },
+            texts: {
+                and: 'Et',
+                minus: 'Moins',
+                only: '',
+                point: 'Virgule',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Billiard' },
+                { number: 1000000000000, value: 'Billion' },
+                { number: 1000000000, value: 'Milliard' },
+                { number: 1000000, value: 'Million' },
+                { number: 1000, value: 'Mille' },
+                { number: 100, value: 'Cent' },
+                { number: 99, value: 'Nonante-Neuf' },
+                { number: 98, value: 'Nonante-Huit' },
+                { number: 97, value: 'Nonante-Sept' },
+                { number: 96, value: 'Nonante-Six' },
+                { number: 95, value: 'Nonante-Cinq' },
+                { number: 94, value: 'Nonante-Quatre' },
+                { number: 93, value: 'Nonante-Trois' },
+                { number: 92, value: 'Nonante-Deux' },
+                { number: 91, value: 'Nonante-Et-Un' },
+                { number: 90, value: 'Nonante' },
+                { number: 89, value: 'Quatre-Vingt-Neuf' },
+                { number: 88, value: 'Quatre-Vingt-Huit' },
+                { number: 87, value: 'Quatre-Vingt-Sept' },
+                { number: 86, value: 'Quatre-Vingt-Six' },
+                { number: 85, value: 'Quatre-Vingt-Cinq' },
+                { number: 84, value: 'Quatre-Vingt-Quatre' },
+                { number: 83, value: 'Quatre-Vingt-Trois' },
+                { number: 82, value: 'Quatre-Vingt-Deux' },
+                { number: 81, value: 'Quatre-Vingt-Un' },
+                { number: 80, value: 'Quatre-Vingt' },
+                { number: 79, value: 'Septante-Neuf' },
+                { number: 78, value: 'Septante-Huit' },
+                { number: 77, value: 'Septante-Sept' },
+                { number: 76, value: 'Septante-Six' },
+                { number: 75, value: 'Septante-Cinq' },
+                { number: 74, value: 'Septante-Quatre' },
+                { number: 73, value: 'Septante-Trois' },
+                { number: 72, value: 'Septante-Deux' },
+                { number: 71, value: 'Septante-Et-Un' },
+                { number: 70, value: 'Septante' },
+                { number: 69, value: 'Soixante-Neuf' },
+                { number: 68, value: 'Soixante-Huit' },
+                { number: 67, value: 'Soixante-Sept' },
+                { number: 66, value: 'Soixante-Six' },
+                { number: 65, value: 'Soixante-Cinq' },
+                { number: 64, value: 'Soixante-Quatre' },
+                { number: 63, value: 'Soixante-Trois' },
+                { number: 62, value: 'Soixante-Deux' },
+                { number: 61, value: 'Soixante-Et-Un' },
+                { number: 60, value: 'Soixante' },
+                { number: 59, value: 'Cinquante-Neuf' },
+                { number: 58, value: 'Cinquante-Huit' },
+                { number: 57, value: 'Cinquante-Sept' },
+                { number: 56, value: 'Cinquante-Six' },
+                { number: 55, value: 'Cinquante-Cinq' },
+                { number: 54, value: 'Cinquante-Quatre' },
+                { number: 53, value: 'Cinquante-Trois' },
+                { number: 52, value: 'Cinquante-Deux' },
+                { number: 51, value: 'Cinquante-Et-Un' },
+                { number: 50, value: 'Cinquante' },
+                { number: 49, value: 'Quarante-Neuf' },
+                { number: 48, value: 'Quarante-Huit' },
+                { number: 47, value: 'Quarante-Sept' },
+                { number: 46, value: 'Quarante-Six' },
+                { number: 45, value: 'Quarante-Cinq' },
+                { number: 44, value: 'Quarante-Quatre' },
+                { number: 43, value: 'Quarante-Trois' },
+                { number: 42, value: 'Quarante-Deux' },
+                { number: 41, value: 'Quarante-Et-Un' },
+                { number: 40, value: 'Quarante' },
+                { number: 39, value: 'Trente-Neuf' },
+                { number: 38, value: 'Trente-Huit' },
+                { number: 37, value: 'Trente-Sept' },
+                { number: 36, value: 'Trente-Six' },
+                { number: 35, value: 'Trente-Cinq' },
+                { number: 34, value: 'Trente-Quatre' },
+                { number: 33, value: 'Trente-Trois' },
+                { number: 32, value: 'Trente-Deux' },
+                { number: 31, value: 'Trente-Et-Un' },
+                { number: 30, value: 'Trente' },
+                { number: 29, value: 'Vingt-Neuf' },
+                { number: 28, value: 'Vingt-Huit' },
+                { number: 27, value: 'Vingt-Sept' },
+                { number: 26, value: 'Vingt-Six' },
+                { number: 25, value: 'Vingt-Cinq' },
+                { number: 24, value: 'Vingt-Quatre' },
+                { number: 23, value: 'Vingt-Trois' },
+                { number: 22, value: 'Vingt-Deux' },
+                { number: 21, value: 'Vingt-Et-Un' },
+                { number: 20, value: 'Vingt' },
+                { number: 19, value: 'Dix-Neuf' },
+                { number: 18, value: 'Dix-Huit' },
+                { number: 17, value: 'Dix-Sept' },
+                { number: 16, value: 'Seize' },
+                { number: 15, value: 'Quinze' },
+                { number: 14, value: 'Quatorze' },
+                { number: 13, value: 'Treize' },
+                { number: 12, value: 'Douze' },
+                { number: 11, value: 'Onze' },
+                { number: 10, value: 'Dix' },
+                { number: 9, value: 'Neuf' },
+                { number: 8, value: 'Huit' },
+                { number: 7, value: 'Sept' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Cinq' },
+                { number: 4, value: 'Quatre' },
+                { number: 3, value: 'Trois' },
+                { number: 2, value: 'Deux' },
+                { number: 1, value: 'Un' },
+                { number: 0, value: 'Zéro' },
+            ],
+            ignoreOneForWords: ['Cent', 'Mille'],
+            pluralMark: 's',
+            pluralWords: ['Billiard', 'Billion', 'Milliard', 'Million'],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 71545:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const bn_IN_1 = __importDefault(__webpack_require__(82689));
+const ee_EE_1 = __importDefault(__webpack_require__(74938));
+const en_AE_1 = __importDefault(__webpack_require__(8550));
+const en_BD_1 = __importDefault(__webpack_require__(41061));
+const en_GB_1 = __importDefault(__webpack_require__(54330));
+const en_GH_1 = __importDefault(__webpack_require__(59096));
+const en_IE_1 = __importDefault(__webpack_require__(21470));
+const en_IN_1 = __importDefault(__webpack_require__(144));
+const en_MM_1 = __importDefault(__webpack_require__(38765));
+const en_MU_1 = __importDefault(__webpack_require__(74261));
+const en_NG_1 = __importDefault(__webpack_require__(92952));
+const en_NP_1 = __importDefault(__webpack_require__(26365));
+const en_OM_1 = __importDefault(__webpack_require__(28787));
+const en_PH_1 = __importDefault(__webpack_require__(82779));
+const en_US_1 = __importDefault(__webpack_require__(84463));
+const es_AR_1 = __importDefault(__webpack_require__(46709));
+const es_ES_1 = __importDefault(__webpack_require__(60130));
+const es_MX_1 = __importDefault(__webpack_require__(65903));
+const fa_IR_1 = __importDefault(__webpack_require__(10982));
+const fr_BE_1 = __importDefault(__webpack_require__(69543));
+const fr_FR_1 = __importDefault(__webpack_require__(28834));
+const gu_IN_1 = __importDefault(__webpack_require__(47229));
+const hi_IN_1 = __importDefault(__webpack_require__(37460));
+const kn_IN_1 = __importDefault(__webpack_require__(27002));
+const ko_KR_1 = __importDefault(__webpack_require__(58041));
+const lv_LV_1 = __importDefault(__webpack_require__(34922));
+const mr_IN_1 = __importDefault(__webpack_require__(33972));
+const nl_SR_1 = __importDefault(__webpack_require__(55101));
+const np_NP_1 = __importDefault(__webpack_require__(35262));
+const pt_BR_1 = __importDefault(__webpack_require__(21722));
+const tr_TR_1 = __importDefault(__webpack_require__(44130));
+const ur_PK_1 = __importDefault(__webpack_require__(56386));
+const es_VE_1 = __importDefault(__webpack_require__(68224));
+const LOCALES = {
+    'bn-IN': bn_IN_1.default,
+    'ee-EE': ee_EE_1.default,
+    'en-AE': en_AE_1.default,
+    'en-BD': en_BD_1.default,
+    'en-GB': en_GB_1.default,
+    'en-GH': en_GH_1.default,
+    'en-IE': en_IE_1.default,
+    'en-IN': en_IN_1.default,
+    'en-MM': en_MM_1.default,
+    'en-MU': en_MU_1.default,
+    'en-NG': en_NG_1.default,
+    'en-NP': en_NP_1.default,
+    'en-OM': en_OM_1.default,
+    'en-PH': en_PH_1.default,
+    'en-US': en_US_1.default,
+    'es-AR': es_AR_1.default,
+    'es-ES': es_ES_1.default,
+    'es-MX': es_MX_1.default,
+    'fa-IR': fa_IR_1.default,
+    'fr-BE': fr_BE_1.default,
+    'fr-FR': fr_FR_1.default,
+    'gu-IN': gu_IN_1.default,
+    'hi-IN': hi_IN_1.default,
+    'kn-IN': kn_IN_1.default,
+    'ko-KR': ko_KR_1.default,
+    'lv-LV': lv_LV_1.default,
+    'mr-IN': mr_IN_1.default,
+    'nl-SR': nl_SR_1.default,
+    'np-NP': np_NP_1.default,
+    'pt-BR': pt_BR_1.default,
+    'tr-TR': tr_TR_1.default,
+    'ur-PK': ur_PK_1.default,
+    'es-VE': es_VE_1.default,
+};
+exports["default"] = LOCALES;
+
+
+/***/ }),
+
+/***/ 74261:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Rupee',
+                plural: 'Rupees',
+                singular: 'Rupee',
+                symbol: 'Rs',
+                fractionalUnit: {
+                    name: 'Cent',
+                    singular: 'Cent',
+                    plural: 'Cents',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'And',
+                minus: 'Minus',
+                only: 'Only',
+                point: 'Point',
+            },
+            numberWordsMapping: [
+                { number: 10000000, value: 'Crore' },
+                { number: 100000, value: 'Lakh' },
+                { number: 1000, value: 'Thousand' },
+                { number: 100, value: 'Hundred' },
+                { number: 90, value: 'Ninety' },
+                { number: 80, value: 'Eighty' },
+                { number: 70, value: 'Seventy' },
+                { number: 60, value: 'Sixty' },
+                { number: 50, value: 'Fifty' },
+                { number: 40, value: 'Forty' },
+                { number: 30, value: 'Thirty' },
+                { number: 20, value: 'Twenty' },
+                { number: 19, value: 'Nineteen' },
+                { number: 18, value: 'Eighteen' },
+                { number: 17, value: 'Seventeen' },
+                { number: 16, value: 'Sixteen' },
+                { number: 15, value: 'Fifteen' },
+                { number: 14, value: 'Fourteen' },
+                { number: 13, value: 'Thirteen' },
+                { number: 12, value: 'Twelve' },
+                { number: 11, value: 'Eleven' },
+                { number: 10, value: 'Ten' },
+                { number: 9, value: 'Nine' },
+                { number: 8, value: 'Eight' },
+                { number: 7, value: 'Seven' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Five' },
+                { number: 4, value: 'Four' },
+                { number: 3, value: 'Three' },
+                { number: 2, value: 'Two' },
+                { number: 1, value: 'One' },
+                { number: 0, value: 'Zero' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 74938:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Euro',
+                plural: 'Eurot',
+                singular: 'Euro',
+                symbol: '€',
+                fractionalUnit: {
+                    name: 'Sent',
+                    singular: 'Sent',
+                    plural: 'Senti',
+                    symbol: '¢',
+                },
+            },
+            texts: {
+                and: 'Ja',
+                minus: 'Miinus',
+                only: 'Ainult',
+                point: 'Koma',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Kvadriljon' },
+                { number: 1000000000000, value: 'Triljon' },
+                { number: 1000000000, value: 'Miljard' },
+                { number: 1000000, value: 'Miljon' },
+                { number: 1000, value: 'Tuhat' },
+                { number: 900, value: 'Üheksasada' },
+                { number: 800, value: 'Kaheksasada' },
+                { number: 700, value: 'Seitsesada' },
+                { number: 600, value: 'Kuussada' },
+                { number: 500, value: 'Viissada' },
+                { number: 400, value: 'Nelisada' },
+                { number: 300, value: 'Kolmsada' },
+                { number: 200, value: 'Kakssada' },
+                { number: 100, value: 'Sada' },
+                { number: 90, value: 'Üheksakümmend' },
+                { number: 80, value: 'Kaheksakümmend' },
+                { number: 70, value: 'Seitsekümmend' },
+                { number: 60, value: 'Kuuskümmend' },
+                { number: 50, value: 'Viiskümmend' },
+                { number: 40, value: 'Nelikümmend' },
+                { number: 30, value: 'Kolmkümmend' },
+                { number: 20, value: 'Kakskümmend' },
+                { number: 19, value: 'Üheksateist' },
+                { number: 18, value: 'Kaheksateist' },
+                { number: 17, value: 'Seitseteist' },
+                { number: 16, value: 'Kuusteist' },
+                { number: 15, value: 'Viisteist' },
+                { number: 14, value: 'Neliteist' },
+                { number: 13, value: 'Kolmteist' },
+                { number: 12, value: 'Kaksteist' },
+                { number: 11, value: 'Üksteist' },
+                { number: 10, value: 'Kümme' },
+                { number: 9, value: 'Üheksa' },
+                { number: 8, value: 'Kaheksa' },
+                { number: 7, value: 'Seitse' },
+                { number: 6, value: 'Kuus' },
+                { number: 5, value: 'Viis' },
+                { number: 4, value: 'Neli' },
+                { number: 3, value: 'Kolm' },
+                { number: 2, value: 'Kaks' },
+                { number: 1, value: 'Üks' },
+                { number: 0, value: 'Null' },
+            ],
+            ignoreOneForWords: [
+                'Sada',
+                'Kakssada',
+                'Kolmsada',
+                'Nelisada',
+                'Viissada',
+                'Kuussada',
+                'Seitsesada',
+                'Kaheksasada',
+                'Üheksasada',
+            ],
+            exactWordsMapping: [
+                {
+                    number: 100,
+                    value: 'Ükssada',
+                },
+            ],
+            pluralWords: ['Miljon', 'Miljard', 'Trillion', 'Kvadriljon'],
+            pluralMark: 'it',
+            onlyInFront: true,
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 75528:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ StockAdjustmentModal)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=template&id=651d741c&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _vm.isOpen ? _c('div', {
+    staticClass: "modal-overlay",
+    on: {
+      "click": function click($event) {
+        if ($event.target !== $event.currentTarget) return null;
+        return _vm.closeModal.apply(null, arguments);
+      }
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+      }
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title"
+  }, [_c('i', {
+    staticClass: "fas fa-exclamation-triangle text-warning mr-2"
+  }), _vm._v("\n        " + _vm._s(_vm.$t("Insufficient Stock")) + "\n      ")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.closeModal
+    }
+  }, [_c('span', [_vm._v("×")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [_c('div', {
+    staticClass: "alert alert-warning",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-info-circle mr-2"
+  }), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Stock Alert")) + ":")]), _vm._v("\n        " + _vm._s(_vm.$t("The selected quantity exceeds available stock for this product.")) + "\n      ")]), _vm._v(" "), _c('div', {
+    staticClass: "product-info mb-4"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Product Details")))]), _vm._v(" "), _c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Name")) + ":")]), _vm._v(" " + _vm._s(_vm.product.name || 'N/A'))]), _vm._v(" "), _c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Code")) + ":")]), _vm._v(" " + _vm._s(_vm.productCodeWithPrefix))]), _vm._v(" "), _c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Current Stock")) + ":")]), _vm._v(" "), _c('span', {
+    staticClass: "badge badge-info"
+  }, [_vm._v(_vm._s(_vm.product.inventoryCount || 0))])]), _vm._v(" "), _c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Required Quantity")) + ":")]), _vm._v(" "), _c('span', {
+    staticClass: "badge badge-danger"
+  }, [_vm._v(_vm._s(_vm.product.qty || 0))])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Stock Shortage")))]), _vm._v(" "), _c('p', {
+    staticClass: "text-danger"
+  }, [_c('i', {
+    staticClass: "fas fa-exclamation-circle mr-1"
+  }), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.shortageQuantity))]), _vm._v(" " + _vm._s(_vm.$t("units short")) + "\n            ")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "stock-options"
+  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("How to increase stock?")))]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "option-card",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.openInventoryAdjustment.apply(null, arguments);
+      }
+    }
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "option-content"
+  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Quick Stock Adjustment")))]), _vm._v(" "), _c('p', {
+    staticClass: "text-muted"
+  }, [_vm._v(_vm._s(_vm.$t("Add stock directly to inventory")))])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "option-card",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.openPurchaseOrder.apply(null, arguments);
+      }
+    }
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "option-content"
+  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Create Purchase Order")))]), _vm._v(" "), _c('p', {
+    staticClass: "text-muted"
+  }, [_vm._v(_vm._s(_vm.$t("Order more stock from supplier")))])])])])])]), _vm._v(" "), _vm.showQuickAdjustment ? _c('div', {
+    staticClass: "quick-adjustment mt-4"
+  }, [_c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h6', {
+    staticClass: "mb-0"
+  }, [_c('i', {
+    staticClass: "fas fa-plus-circle text-success mr-2"
+  }), _vm._v("\n              " + _vm._s(_vm.$t("Quick Stock Adjustment")) + "\n            ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('form', {
+    on: {
+      "submit": function submit($event) {
+        $event.preventDefault();
+        return _vm.submitQuickAdjustment.apply(null, arguments);
+      }
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "adjustmentReason"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Reason")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.adjustmentForm.reason,
+      expression: "adjustmentForm.reason"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.adjustmentForm.errors.has('reason')
+    },
+    attrs: {
+      "id": "adjustmentReason",
+      "type": "text",
+      "placeholder": _vm.$t('Enter reason for stock adjustment'),
+      "required": ""
+    },
+    domProps: {
+      "value": _vm.adjustmentForm.reason
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.adjustmentForm, "reason", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.adjustmentForm,
+      "field": "reason"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "adjustmentQuantity"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Quantity to Add")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.adjustmentForm.quantity,
+      expression: "adjustmentForm.quantity"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.adjustmentForm.errors.has('quantity')
+    },
+    attrs: {
+      "id": "adjustmentQuantity",
+      "type": "number",
+      "min": "1",
+      "placeholder": _vm.$t('Enter quantity to add'),
+      "required": ""
+    },
+    domProps: {
+      "value": _vm.adjustmentForm.quantity
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.adjustmentForm, "quantity", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.adjustmentForm,
+      "field": "quantity"
+    }
+  })], 1)])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "adjustmentNote"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Note")))]), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.adjustmentForm.note,
+      expression: "adjustmentForm.note"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "adjustmentNote",
+      "rows": "3",
+      "placeholder": _vm.$t('Enter additional notes (optional)')
+    },
+    domProps: {
+      "value": _vm.adjustmentForm.note
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.adjustmentForm, "note", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-actions"
+  }, [_c('button', {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function click($event) {
+        _vm.showQuickAdjustment = false;
+      }
+    }
+  }, [_vm._v("\n                  " + _vm._s(_vm.$t("Cancel")) + "\n                ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "type": "submit",
+      "disabled": _vm.adjustmentForm.busy
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-save mr-1"
+  }), _vm._v("\n                  " + _vm._s(_vm.$t("Add Stock")) + "\n                ")])])])])])]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.closeModal
+    }
+  }, [_vm._v("\n        " + _vm._s(_vm.$t("Close")) + "\n      ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.adjustQuantity
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-edit mr-1"
+  }), _vm._v("\n        " + _vm._s(_vm.$t("Adjust Quantity")) + "\n      ")])])])]) : _vm._e();
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "option-icon"
+  }, [_c('i', {
+    staticClass: "fas fa-plus-circle text-success"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "option-icon"
+  }, [_c('i', {
+    staticClass: "fas fa-shopping-cart text-primary"
+  })]);
+}];
+
+;// ./resources/js/components/StockAdjustmentModal.vue?vue&type=template&id=651d741c&scoped=true
+
+// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
+var vform_es = __webpack_require__(63216);
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+// EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
+var sweetalert2_all = __webpack_require__(78465);
+var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all);
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__(95353);
+// EXTERNAL MODULE: ./resources/js/plugins/filter.js
+var filter = __webpack_require__(44121);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=script&lang=js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+
+
+
+var toast = sweetalert2_all_default().mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true
+});
+/* harmony default export */ const StockAdjustmentModalvue_type_script_lang_js = ({
+  name: "StockAdjustmentModal",
+  props: {
+    isOpen: {
+      type: Boolean,
+      "default": false
+    },
+    product: {
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
+    }
+  },
+  data: function data() {
+    return {
+      showQuickAdjustment: false,
+      adjustmentForm: new vform_es/* default */.Ay({
+        reason: "",
+        quantity: 1,
+        note: ""
+      })
+    };
+  },
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["appInfo"])), {}, {
+    prefix: function prefix() {
+      var _this$appInfo;
+      return ((_this$appInfo = this.appInfo) === null || _this$appInfo === void 0 ? void 0 : _this$appInfo.productPrefix) || "";
+    },
+    shortageQuantity: function shortageQuantity() {
+      if (!this.product || !this.product.inventoryCount || !this.product.qty) {
+        return 0;
+      }
+      return Math.max(0, this.product.qty - this.product.inventoryCount);
+    },
+    productCodeWithPrefix: function productCodeWithPrefix() {
+      if (!this.product || !this.product.code) {
+        return 'N/A';
+      }
+      return this.prefix + this.product.code;
+    }
+  }),
+  watch: {
+    isOpen: function isOpen(newVal) {
+      console.log("Modal isOpen changed to:", newVal);
+      console.log("Product object:", this.product);
+      if (newVal && this.product) {
+        // Set default quantity to shortage amount
+        this.adjustmentForm.quantity = this.shortageQuantity || 1;
+        this.adjustmentForm.reason = "Stock shortage adjustment";
+        console.log("Modal opened with product:", this.product.name);
+      }
+    }
+  },
+  mounted: function mounted() {
+    console.log("StockAdjustmentModal mounted");
+    console.log("Initial isOpen:", this.isOpen);
+    console.log("Initial product:", this.product);
+  },
+  beforeDestroy: function beforeDestroy() {
+    console.log("StockAdjustmentModal beforeDestroy");
+    console.log("Product at destroy:", this.product);
+  },
+  methods: {
+    closeModal: function closeModal() {
+      this.$emit("close");
+      this.showQuickAdjustment = false;
+      this.adjustmentForm.reset();
+    },
+    adjustQuantity: function adjustQuantity() {
+      this.$emit("adjust-quantity", this.product);
+      this.closeModal();
+    },
+    openInventoryAdjustment: function openInventoryAdjustment() {
+      var _this = this;
+      try {
+        console.log("Opening inventory adjustment...");
+        console.log("Product object:", this.product);
+
+        // Validate product object
+        if (!this.product || !this.product.id) {
+          console.error("Invalid product object:", this.product);
+          toast.fire({
+            type: "error",
+            title: this.$t("Error"),
+            text: this.$t("Product information is missing. Please try again.")
+          });
+          return;
+        }
+
+        // Capture product data before closing modal to avoid null reference
+        var productData = {
+          id: this.product.id,
+          name: this.product.name,
+          code: this.product.code,
+          slug: this.product.slug
+        };
+        console.log("Captured product data:", productData);
+
+        // Ask parent to persist current form state before leaving
+        this.$emit('persist');
+        // Close modal first
+        this.closeModal();
+
+        // Then navigate with a small delay
+        setTimeout(function () {
+          try {
+            console.log("Navigating to adjustments.create");
+            console.log("Product ID:", productData.id);
+
+            // Get current route safely
+            var returnUrl = _this.$route ? _this.$route.fullPath : window.location.pathname;
+            console.log("Return URL:", returnUrl);
+
+            // Check if user has permission to create adjustments
+            if (!_this.$can('adjustment-create')) {
+              toast.fire({
+                type: "error",
+                title: _this.$t("Permission Denied"),
+                text: _this.$t("You don't have permission to create adjustments.")
+              });
+              return;
+            }
+
+            // Try navigation with fallback
+            _this.$router.push({
+              name: "adjustments.create",
+              query: {
+                productId: productData.id,
+                returnUrl: returnUrl
+              }
+            }).then(function () {
+              console.log("Navigation successful");
+            })["catch"](function (err) {
+              console.error("Navigation error:", err);
+
+              // Fallback: show alert with manual navigation option
+              sweetalert2_all_default().fire({
+                title: _this.$t("Navigate to Adjustments"),
+                text: _this.$t("Click OK to go to the adjustments page manually."),
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonText: _this.$t("Go to Adjustments"),
+                cancelButtonText: _this.$t("Cancel")
+              }).then(function (result) {
+                if (result.isConfirmed) {
+                  window.location.href = '/inventory-adjustments/create?productId=' + productData.id + '&returnUrl=' + encodeURIComponent(returnUrl);
+                }
+              });
+            });
+          } catch (error) {
+            console.error("Error in navigation timeout:", error);
+            toast.fire({
+              type: "error",
+              title: _this.$t("Error"),
+              text: _this.$t("An error occurred while navigating. Please try again.")
+            });
+          }
+        }, 300);
+      } catch (error) {
+        console.error("Error in openInventoryAdjustment:", error);
+        toast.fire({
+          type: "error",
+          title: this.$t("Error"),
+          text: this.$t("An unexpected error occurred. Please try again.")
+        });
+      }
+    },
+    openPurchaseOrder: function openPurchaseOrder() {
+      var _this2 = this;
+      console.log("Opening purchase order...");
+      // Close modal first
+      this.closeModal();
+      // Then navigate with a small delay
+      setTimeout(function () {
+        console.log("Navigating to purchases.create");
+        _this2.$router.push({
+          name: "purchases.create"
+        })["catch"](function (err) {
+          console.error("Navigation error:", err);
+        });
+      }, 300);
+    },
+    submitQuickAdjustment: function submitQuickAdjustment() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var adjustmentData, _t;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.p = _context.n) {
+            case 0:
+              _context.p = 0;
+              // Create a quick inventory adjustment
+              adjustmentData = {
+                adjustmentReason: _this3.adjustmentForm.reason,
+                adjustmentDate: new Date().toISOString().slice(0, 10),
+                note: _this3.adjustmentForm.note,
+                status: 1,
+                selectedProducts: [{
+                  slug: _this3.product.slug,
+                  adjustType: "Increment",
+                  adjustQty: parseInt(_this3.adjustmentForm.quantity),
+                  purchasePrice: _this3.product.avgPurchasePrice || 0
+                }]
+              };
+              _context.n = 1;
+              return axios_default().post("/api/inventory-adjustments", adjustmentData);
+            case 1:
+              toast.fire({
+                type: "success",
+                title: _this3.$t("Stock added successfully"),
+                text: _this3.$t("The product stock has been increased.")
+              });
+
+              // Emit event to refresh product data
+              _this3.$emit("stock-updated", {
+                product: _this3.product,
+                newQuantity: parseInt(_this3.adjustmentForm.quantity)
+              });
+              _this3.closeModal();
+              _context.n = 3;
+              break;
+            case 2:
+              _context.p = 2;
+              _t = _context.v;
+              console.error("Error adding stock:", _t);
+              toast.fire({
+                type: "error",
+                title: _this3.$t("Error"),
+                text: _this3.$t("Failed to add stock. Please try again.")
+              });
+            case 3:
+              return _context.a(2);
+          }
+        }, _callee, null, [[0, 2]]);
+      }))();
+    }
+  }
+});
+;// ./resources/js/components/StockAdjustmentModal.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_StockAdjustmentModalvue_type_script_lang_js = (StockAdjustmentModalvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=style&index=0&id=651d741c&prod&scoped=true&lang=css
+var StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css = __webpack_require__(85989);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=style&index=0&id=651d741c&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css = (StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/StockAdjustmentModal.vue?vue&type=style&index=0&id=651d741c&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/StockAdjustmentModal.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_StockAdjustmentModalvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "651d741c",
+  null
+  
+)
+
+/* harmony default export */ const StockAdjustmentModal = (component.exports);
+
+/***/ }),
+
+/***/ 78362:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -5464,7 +8166,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ ProductCreateModal)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=template&id=f983d382&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=template&id=737beebd&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -7874,14 +10576,29 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     loadAccountRoutingSettings: function loadAccountRoutingSettings() {
       var _this5 = this;
       return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regenerator().m(function _callee2() {
-        var _this5$accountRouting, _this5$accountRouting2, _this5$accountRouting3, _this5$accountRouting4, response, _t2;
+        var _this5$$store, _this5$accountRouting, _this5$accountRouting2, _this5$accountRouting3, _this5$accountRouting4, user, branchId, response, _t2;
         return ProductCreateModalvue_type_script_lang_js_regenerator().w(function (_context2) {
           while (1) switch (_context2.p = _context2.n) {
             case 0:
               _context2.p = 0;
-              _context2.n = 1;
-              return axios_default().get(window.location.origin + "/api/account-routing-settings/product-account-routing");
+              // Get current branch ID
+              user = ((_this5$$store = _this5.$store) === null || _this5$$store === void 0 || (_this5$$store = _this5$$store.getters) === null || _this5$$store === void 0 ? void 0 : _this5$$store['auth/user']) || {};
+              branchId = user.default_branch_id || null;
+              if (branchId) {
+                _context2.n = 1;
+                break;
+              }
+              console.error('Branch ID is required for account routing settings');
+              _this5.accountRoutingSettings = {};
+              return _context2.a(2);
             case 1:
+              _context2.n = 2;
+              return axios_default().get(window.location.origin + "/api/account-routing-settings/product-account-routing", {
+                params: {
+                  branch_id: branchId
+                }
+              });
+            case 2:
               response = _context2.v;
               _this5.accountRoutingSettings = response.data.data || {};
 
@@ -7909,19 +10626,19 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
               console.log('Form salesAccountId after auto-assignment:', _this5.form.salesAccountId);
               console.log('Form purchaseAccountId after auto-assignment:', _this5.form.purchaseAccountId);
               console.log('==============================');
-              _context2.n = 3;
+              _context2.n = 4;
               break;
-            case 2:
-              _context2.p = 2;
+            case 3:
+              _context2.p = 3;
               _t2 = _context2.v;
               console.error("Error loading account routing settings:", _t2);
               // Set defaults if API fails
               _this5.isSalesAccountAutomatic = false;
               _this5.isPurchaseAccountAutomatic = false;
-            case 3:
+            case 4:
               return _context2.a(2);
           }
-        }, _callee2, null, [[0, 2]]);
+        }, _callee2, null, [[0, 3]]);
       }))();
     },
     // get all product categories
@@ -8642,23 +11359,23 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
 });
 ;// ./resources/js/components/ProductCreateModal.vue?vue&type=script&lang=js
  /* harmony default export */ const components_ProductCreateModalvue_type_script_lang_js = (ProductCreateModalvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=f983d382&prod&scoped=true&lang=css
-var ProductCreateModalvue_type_style_index_0_id_f983d382_prod_scoped_true_lang_css = __webpack_require__(11863);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=f983d382&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=737beebd&prod&scoped=true&lang=css
+var ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css = __webpack_require__(59055);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=737beebd&prod&scoped=true&lang=css
 
             
 
-var ProductCreateModalvue_type_style_index_0_id_f983d382_prod_scoped_true_lang_css_options = {};
+var ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css_options = {};
 
-ProductCreateModalvue_type_style_index_0_id_f983d382_prod_scoped_true_lang_css_options.insert = "head";
-ProductCreateModalvue_type_style_index_0_id_f983d382_prod_scoped_true_lang_css_options.singleton = false;
+ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css_options.insert = "head";
+ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css_options.singleton = false;
 
-var ProductCreateModalvue_type_style_index_0_id_f983d382_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(ProductCreateModalvue_type_style_index_0_id_f983d382_prod_scoped_true_lang_css/* default */.A, ProductCreateModalvue_type_style_index_0_id_f983d382_prod_scoped_true_lang_css_options);
+var ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css/* default */.A, ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css_options);
 
 
 
-/* harmony default export */ const components_ProductCreateModalvue_type_style_index_0_id_f983d382_prod_scoped_true_lang_css = (ProductCreateModalvue_type_style_index_0_id_f983d382_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=f983d382&prod&scoped=true&lang=css
+/* harmony default export */ const components_ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css = (ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=737beebd&prod&scoped=true&lang=css
 
 ;// ./resources/js/components/ProductCreateModal.vue
 
@@ -8675,2714 +11392,12 @@ var ProductCreateModal_component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "f983d382",
+  "737beebd",
   null
   
 )
 
 /* harmony default export */ const ProductCreateModal = (ProductCreateModal_component.exports);
-
-/***/ }),
-
-/***/ 54890:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".create-button[data-v-4f62f01c]{cursor:pointer;text-decoration:none}.modal-content[data-v-4f62f01c]{margin:1.75rem auto;max-width:1000px}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 54923:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ToWords = exports.DefaultToWordsOptions = exports.DefaultConverterOptions = exports.LOCALES = void 0;
-const locales_1 = __importDefault(__webpack_require__(71545));
-exports.LOCALES = locales_1.default;
-exports.DefaultConverterOptions = {
-    currency: false,
-    ignoreDecimal: false,
-    ignoreZeroCurrency: false,
-    doNotAddOnly: false,
-};
-exports.DefaultToWordsOptions = {
-    localeCode: 'en-IN',
-    converterOptions: exports.DefaultConverterOptions,
-};
-class ToWords {
-    constructor(options = {}) {
-        this.options = {};
-        this.locale = undefined;
-        this.options = Object.assign({}, exports.DefaultToWordsOptions, options);
-    }
-    getLocaleClass() {
-        if (!(this.options.localeCode in locales_1.default)) {
-            throw new Error(`Unknown Locale "${this.options.localeCode}"`);
-        }
-        return locales_1.default[this.options.localeCode];
-    }
-    getLocale() {
-        if (this.locale === undefined) {
-            const LocaleClass = this.getLocaleClass();
-            this.locale = new LocaleClass();
-        }
-        return this.locale;
-    }
-    convert(number, options = {}) {
-        var _a;
-        options = Object.assign({}, this.options.converterOptions, options);
-        if (!this.isValidNumber(number)) {
-            throw new Error(`Invalid Number "${number}"`);
-        }
-        if (options.ignoreDecimal) {
-            number = Number.parseInt(number.toString());
-        }
-        let words = [];
-        if (options.currency) {
-            words = this.convertCurrency(number, options);
-        }
-        else {
-            words = this.convertNumber(number);
-        }
-        if ((_a = this.locale) === null || _a === void 0 ? void 0 : _a.config.trim) {
-            return words.join('');
-        }
-        return words.join(' ');
-    }
-    convertNumber(number) {
-        var _a, _b, _c;
-        const locale = this.getLocale();
-        const isNegativeNumber = number < 0;
-        if (isNegativeNumber) {
-            number = Math.abs(number);
-        }
-        const split = number.toString().split('.');
-        const ignoreZero = this.isNumberZero(number) && locale.config.ignoreZeroInDecimals;
-        let words = this.convertInternal(Number(split[0]), true);
-        const isFloat = this.isFloat(number);
-        if (isFloat && ignoreZero) {
-            words = [];
-        }
-        const wordsWithDecimal = [];
-        if (isFloat) {
-            if (!ignoreZero) {
-                wordsWithDecimal.push(locale.config.texts.point);
-            }
-            if (split[1].startsWith('0') && !((_a = locale.config) === null || _a === void 0 ? void 0 : _a.decimalLengthWordMapping)) {
-                const zeroWords = [];
-                for (const num of split[1]) {
-                    zeroWords.push(...this.convertInternal(Number(num), true));
-                }
-                wordsWithDecimal.push(...zeroWords);
-            }
-            else {
-                wordsWithDecimal.push(...this.convertInternal(Number(split[1]), true));
-                const decimalLengthWord = (_c = (_b = locale.config) === null || _b === void 0 ? void 0 : _b.decimalLengthWordMapping) === null || _c === void 0 ? void 0 : _c[split[1].length];
-                if (decimalLengthWord) {
-                    wordsWithDecimal.push(decimalLengthWord);
-                }
-            }
-        }
-        const isEmpty = words.length <= 0;
-        if (!isEmpty && isNegativeNumber) {
-            words.unshift(locale.config.texts.minus);
-        }
-        words.push(...wordsWithDecimal);
-        return words;
-    }
-    convertCurrency(number, options = {}) {
-        var _a, _b, _c, _d;
-        const locale = this.getLocale();
-        const currencyOptions = (_a = options.currencyOptions) !== null && _a !== void 0 ? _a : locale.config.currency;
-        const isNegativeNumber = number < 0;
-        if (isNegativeNumber) {
-            number = Math.abs(number);
-        }
-        number = this.toFixed(number);
-        // Extra check for isFloat to overcome 1.999 rounding off to 2
-        const split = number.toString().split('.');
-        let words = [...this.convertInternal(Number(split[0]))];
-        // Determine if the main currency should be in singular form
-        // e.g. 1 Dollar Only instead of 1 Dollars Only
-        if (Number(split[0]) === 1 && currencyOptions.singular) {
-            words.push(currencyOptions.singular);
-        }
-        else if (currencyOptions.plural) {
-            words.push(currencyOptions.plural);
-        }
-        const ignoreZero = this.isNumberZero(number) &&
-            (options.ignoreZeroCurrency || (((_b = locale.config) === null || _b === void 0 ? void 0 : _b.ignoreZeroInDecimals) && number !== 0));
-        if (ignoreZero) {
-            words = [];
-        }
-        const wordsWithDecimal = [];
-        const isFloat = this.isFloat(number);
-        if (isFloat) {
-            if (!ignoreZero) {
-                wordsWithDecimal.push(locale.config.texts.and);
-            }
-            const decimalPart = Number(split[1]) * (!locale.config.decimalLengthWordMapping ? Math.pow(10, 2 - split[1].length) : 1);
-            wordsWithDecimal.push(...this.convertInternal(decimalPart));
-            const decimalLengthWord = (_d = (_c = locale.config) === null || _c === void 0 ? void 0 : _c.decimalLengthWordMapping) === null || _d === void 0 ? void 0 : _d[split[1].length];
-            if (decimalLengthWord === null || decimalLengthWord === void 0 ? void 0 : decimalLengthWord.length) {
-                wordsWithDecimal.push(decimalLengthWord);
-            }
-            // Determine if the fractional unit should be in singular form
-            // e.g. 1 Dollar and 1 Cent Only instead of 1 Dollar and 1 Cents Only
-            if (decimalPart === 1 && currencyOptions.fractionalUnit.singular) {
-                wordsWithDecimal.push(currencyOptions.fractionalUnit.singular);
-            }
-            else {
-                wordsWithDecimal.push(currencyOptions.fractionalUnit.plural);
-            }
-        }
-        else if (locale.config.decimalLengthWordMapping && words.length) {
-            wordsWithDecimal.push(currencyOptions.fractionalUnit.plural);
-        }
-        const isEmpty = words.length <= 0 && wordsWithDecimal.length <= 0;
-        if (!isEmpty && isNegativeNumber) {
-            words.unshift(locale.config.texts.minus);
-        }
-        if (!isEmpty && locale.config.texts.only && !options.doNotAddOnly && !locale.config.onlyInFront) {
-            wordsWithDecimal.push(locale.config.texts.only);
-        }
-        if (wordsWithDecimal.length) {
-            words.push(...wordsWithDecimal);
-        }
-        if (!isEmpty && !options.doNotAddOnly && locale.config.onlyInFront) {
-            words.splice(0, 0, locale.config.texts.only);
-        }
-        return words;
-    }
-    convertInternal(number, trailing = false) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
-        const locale = this.getLocale();
-        if (locale.config.exactWordsMapping) {
-            const exactMatch = (_b = (_a = locale.config) === null || _a === void 0 ? void 0 : _a.exactWordsMapping) === null || _b === void 0 ? void 0 : _b.find((elem) => {
-                return number === elem.number;
-            });
-            if (exactMatch) {
-                return [Array.isArray(exactMatch.value) ? exactMatch.value[+trailing] : exactMatch.value];
-            }
-        }
-        const match = locale.config.numberWordsMapping.find((elem) => {
-            return number >= elem.number;
-        });
-        const words = [];
-        if (number <= 100 || (number < 1000 && locale.config.namedLessThan1000)) {
-            words.push(Array.isArray(match.value) ? match.value[0] : match.value);
-            number -= match.number;
-            if (number > 0) {
-                if ((_d = (_c = locale.config) === null || _c === void 0 ? void 0 : _c.splitWord) === null || _d === void 0 ? void 0 : _d.length) {
-                    words.push(locale.config.splitWord);
-                }
-                words.push(...this.convertInternal(number, trailing));
-            }
-            return words;
-        }
-        const quotient = Math.floor(number / match.number);
-        const remainder = number % match.number;
-        let matchValue = Array.isArray(match.value) ? match.value[0] : match.value;
-        if (quotient > 1 && ((_f = (_e = locale.config) === null || _e === void 0 ? void 0 : _e.pluralWords) === null || _f === void 0 ? void 0 : _f.find((word) => word === match.value)) && ((_g = locale.config) === null || _g === void 0 ? void 0 : _g.pluralMark)) {
-            matchValue += locale.config.pluralMark;
-        }
-        if (quotient % 10 === 1) {
-            matchValue = match.singularValue || (Array.isArray(matchValue) ? matchValue[0] : matchValue);
-        }
-        if (quotient === 1 && ((_j = (_h = locale.config) === null || _h === void 0 ? void 0 : _h.ignoreOneForWords) === null || _j === void 0 ? void 0 : _j.includes(matchValue))) {
-            words.push(matchValue);
-        }
-        else {
-            words.push(...this.convertInternal(quotient, false), matchValue);
-        }
-        if (remainder > 0) {
-            if ((_l = (_k = locale.config) === null || _k === void 0 ? void 0 : _k.splitWord) === null || _l === void 0 ? void 0 : _l.length) {
-                if (!((_o = (_m = locale.config) === null || _m === void 0 ? void 0 : _m.noSplitWordAfter) === null || _o === void 0 ? void 0 : _o.find((word) => word === match.value))) {
-                    words.push(locale.config.splitWord);
-                }
-            }
-            words.push(...this.convertInternal(remainder, trailing));
-        }
-        return words;
-    }
-    toFixed(number, precision = 2) {
-        return Number(Number(number).toFixed(precision));
-    }
-    isFloat(number) {
-        return Number(number) === number && number % 1 !== 0;
-    }
-    isValidNumber(number) {
-        return !isNaN(parseFloat(number)) && isFinite(number);
-    }
-    isNumberZero(number) {
-        return number >= 0 && number < 1;
-    }
-}
-exports.ToWords = ToWords;
-
-
-/***/ }),
-
-/***/ 55101:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Surinaamse dollar',
-                plural: 'Surinaamse dollars',
-                singular: 'Surinaamse dollar',
-                symbol: 'SRD',
-                fractionalUnit: {
-                    name: 'Cent',
-                    singular: 'Cent',
-                    plural: 'Centen',
-                    symbol: 'SRD',
-                },
-            },
-            texts: {
-                and: 'En',
-                minus: 'Negatief',
-                only: '',
-                point: 'Punt',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Biljard' },
-                { number: 1000000000000, value: 'Biljoen' },
-                { number: 1000000000, value: 'Miljard' },
-                { number: 1000000, value: 'Miljoen' },
-                { number: 1000, value: 'Duizend' },
-                { number: 100, value: 'Honderd' },
-                { number: 99, value: 'Negenennegentig' },
-                { number: 98, value: 'Achtennegentig' },
-                { number: 97, value: 'Zevenennegentig' },
-                { number: 96, value: 'Zesennegentig' },
-                { number: 95, value: 'Vijfennegentig' },
-                { number: 94, value: 'Vierennegentig' },
-                { number: 93, value: 'Drieënnegentig' },
-                { number: 92, value: 'Tweeënnegentig' },
-                { number: 91, value: 'Eenennegentig' },
-                { number: 90, value: 'Negentig' },
-                { number: 89, value: 'Negenentachtig' },
-                { number: 88, value: 'Achtentachtig' },
-                { number: 87, value: 'Zevenentachtig' },
-                { number: 86, value: 'Zesentachtig' },
-                { number: 85, value: 'Vijfentachtig' },
-                { number: 84, value: 'Vierentachtig' },
-                { number: 83, value: 'Drieëntachtig' },
-                { number: 82, value: 'Tweeëntachtig' },
-                { number: 81, value: 'Eenentachtig' },
-                { number: 80, value: 'Tachtig' },
-                { number: 79, value: 'Negenenzeventig' },
-                { number: 78, value: 'Achtenzeventig' },
-                { number: 77, value: 'Zevenenzeventig' },
-                { number: 76, value: 'Zesenzeventig' },
-                { number: 75, value: 'Vijfenzeventig' },
-                { number: 74, value: 'Vierenzeventig' },
-                { number: 73, value: 'Drieënzeventig' },
-                { number: 72, value: 'Tweeënzeventig' },
-                { number: 71, value: 'Eenenzeventig' },
-                { number: 70, value: 'Zeventig' },
-                { number: 69, value: 'Negenenzestig' },
-                { number: 68, value: 'Achtenzestig' },
-                { number: 67, value: 'Zevenenzestig' },
-                { number: 66, value: 'Zesenzestig' },
-                { number: 65, value: 'Vijfenzestig' },
-                { number: 64, value: 'Vierenzestig' },
-                { number: 63, value: 'Drieënzestig' },
-                { number: 62, value: 'Tweeënzestig' },
-                { number: 61, value: 'Eenenzestig' },
-                { number: 60, value: 'Zestig' },
-                { number: 59, value: 'Negenenvijftig' },
-                { number: 58, value: 'Achtenvijftig' },
-                { number: 57, value: 'Zevenenvijftig' },
-                { number: 56, value: 'Zesenvijftig' },
-                { number: 55, value: 'Vijfenvijftig' },
-                { number: 54, value: 'Vierenvijftig' },
-                { number: 53, value: 'Drieënvijftig' },
-                { number: 52, value: 'Tweeënvijftig' },
-                { number: 51, value: 'Eenenvijftig' },
-                { number: 50, value: 'Vijftig' },
-                { number: 49, value: 'Negenenveertig' },
-                { number: 48, value: 'Achtenveertig' },
-                { number: 47, value: 'Zevenenveertig' },
-                { number: 46, value: 'Zesenveertig' },
-                { number: 45, value: 'Vijfenveertig' },
-                { number: 44, value: 'Vierenveertig' },
-                { number: 43, value: 'Drieënveertig' },
-                { number: 42, value: 'Tweeënveertig' },
-                { number: 41, value: 'Eenenveertig' },
-                { number: 40, value: 'Veertig' },
-                { number: 39, value: 'Negenendertig' },
-                { number: 38, value: 'Achtendertig' },
-                { number: 37, value: 'Zevenendertig' },
-                { number: 36, value: 'Zesendertig' },
-                { number: 35, value: 'Vijfendertig' },
-                { number: 34, value: 'Vierendertig' },
-                { number: 33, value: 'Drieëndertig' },
-                { number: 32, value: 'Tweeëndertig' },
-                { number: 31, value: 'Eenendertig' },
-                { number: 30, value: 'Dertig' },
-                { number: 29, value: 'Negenentwintig' },
-                { number: 28, value: 'Achtentwintig' },
-                { number: 27, value: 'Zevenentwintig' },
-                { number: 26, value: 'Zesentwintig' },
-                { number: 25, value: 'Vijfentwintig' },
-                { number: 24, value: 'Vierentwintig' },
-                { number: 23, value: 'Drieëntwintig' },
-                { number: 22, value: 'Tweeëntwintig' },
-                { number: 21, value: 'Eenentwintig' },
-                { number: 20, value: 'Twintig' },
-                { number: 19, value: 'Negentien' },
-                { number: 18, value: 'Achttien' },
-                { number: 17, value: 'Zeventien' },
-                { number: 16, value: 'Zestien' },
-                { number: 15, value: 'Vijftien' },
-                { number: 14, value: 'Veertien' },
-                { number: 13, value: 'Dertien' },
-                { number: 12, value: 'Twaalf' },
-                { number: 11, value: 'Elf' },
-                { number: 10, value: 'Tien' },
-                { number: 9, value: 'Negen' },
-                { number: 8, value: 'Acht' },
-                { number: 7, value: 'Zeven' },
-                { number: 6, value: 'Zes' },
-                { number: 5, value: 'Vijf' },
-                { number: 4, value: 'Vier' },
-                { number: 3, value: 'Drie' },
-                { number: 2, value: 'Twee' },
-                { number: 1, value: 'Een' },
-                { number: 0, value: 'Nul' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'Honderd' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 56386:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'روپیہ',
-                plural: 'روپے',
-                singular: 'روپے',
-                symbol: '₨',
-                fractionalUnit: {
-                    name: 'پیسہ',
-                    plural: 'پیسے',
-                    singular: 'پیسہ',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'اور',
-                minus: 'منفی',
-                only: 'صرف',
-                point: 'اعشاریہ',
-            },
-            numberWordsMapping: [
-                { number: 10000000, value: 'کروڑ' },
-                { number: 100000, value: 'لاکھ' },
-                { number: 1000, value: 'ہزار' },
-                { number: 100, value: 'سو' },
-                { number: 99, value: 'نناوے' },
-                { number: 98, value: 'اٹھانوے' },
-                { number: 97, value: 'ستانوے' },
-                { number: 96, value: 'چھیانوے' },
-                { number: 95, value: 'پچانوے' },
-                { number: 94, value: 'چورانوے' },
-                { number: 93, value: 'ترانوے' },
-                { number: 92, value: 'بانوے' },
-                { number: 91, value: 'اکانوے' },
-                { number: 90, value: 'نوے' },
-                { number: 89, value: 'نواسی' },
-                { number: 88, value: 'اٹھاسی' },
-                { number: 87, value: 'ستاسی' },
-                { number: 86, value: 'چھیاسی' },
-                { number: 85, value: 'پچاسی' },
-                { number: 84, value: 'چوراسی' },
-                { number: 83, value: 'تراسی' },
-                { number: 82, value: 'بیاسی' },
-                { number: 81, value: 'اکیاسی' },
-                { number: 80, value: 'اسی' },
-                { number: 79, value: 'انہتر' },
-                { number: 78, value: 'اٹھہتر' },
-                { number: 77, value: 'ستتر' },
-                { number: 76, value: 'چھہتر' },
-                { number: 75, value: 'پچھتر' },
-                { number: 74, value: 'چوہتر' },
-                { number: 73, value: 'تہتر' },
-                { number: 72, value: 'بہتر' },
-                { number: 71, value: 'اکہتر' },
-                { number: 70, value: 'ستر' },
-                { number: 69, value: 'انہتر' },
-                { number: 68, value: 'اڑسٹھ' },
-                { number: 67, value: 'سڑسٹھ' },
-                { number: 66, value: 'چھیاسٹھ' },
-                { number: 65, value: 'پینسٹھ' },
-                { number: 64, value: 'چونسٹھ' },
-                { number: 63, value: 'تریسٹھ' },
-                { number: 62, value: 'باسٹھ' },
-                { number: 61, value: 'اکسٹھ' },
-                { number: 60, value: 'ساٹھ' },
-                { number: 59, value: 'انسٹھ' },
-                { number: 58, value: 'اٹھاون' },
-                { number: 57, value: 'ستاون' },
-                { number: 56, value: 'چھپن' },
-                { number: 55, value: 'پچپن' },
-                { number: 54, value: 'چون' },
-                { number: 53, value: 'ترپن' },
-                { number: 52, value: 'باون' },
-                { number: 51, value: 'اکیاون' },
-                { number: 50, value: 'پچاس' },
-                { number: 49, value: 'انچاس' },
-                { number: 48, value: 'اڑتالیس' },
-                { number: 47, value: 'سینتالیس' },
-                { number: 46, value: 'چھیالیس' },
-                { number: 45, value: 'پینتالیس' },
-                { number: 44, value: 'چوالیس' },
-                { number: 43, value: 'تینتالیس' },
-                { number: 42, value: 'بیالیس' },
-                { number: 41, value: 'اکتالیس' },
-                { number: 40, value: 'چالیس' },
-                { number: 39, value: 'انتالیس' },
-                { number: 38, value: 'اڑتیس' },
-                { number: 37, value: 'سینتیس' },
-                { number: 36, value: 'چھتیس' },
-                { number: 35, value: 'پینتیس' },
-                { number: 34, value: 'چونتیس' },
-                { number: 33, value: 'تینتیس' },
-                { number: 32, value: 'بتیس' },
-                { number: 31, value: 'اکتیس' },
-                { number: 30, value: 'تیس' },
-                { number: 29, value: 'انتیس' },
-                { number: 28, value: 'اٹھائیس' },
-                { number: 27, value: 'ستائیس' },
-                { number: 26, value: 'چھبیس' },
-                { number: 25, value: 'پچیس' },
-                { number: 24, value: 'چوبیس' },
-                { number: 23, value: 'تئیس' },
-                { number: 22, value: 'بائیس' },
-                { number: 21, value: 'اکیس' },
-                { number: 20, value: 'بیس' },
-                { number: 19, value: 'انیس' },
-                { number: 18, value: 'اٹھارہ' },
-                { number: 17, value: 'سترہ' },
-                { number: 16, value: 'سولہ' },
-                { number: 15, value: 'پندرہ' },
-                { number: 14, value: 'چودہ' },
-                { number: 13, value: 'تیرہ' },
-                { number: 12, value: 'بارہ' },
-                { number: 11, value: 'گیارہ' },
-                { number: 10, value: 'دس' },
-                { number: 9, value: 'نو' },
-                { number: 8, value: 'آٹھ' },
-                { number: 7, value: 'سات' },
-                { number: 6, value: 'چھ' },
-                { number: 5, value: 'پانچ' },
-                { number: 4, value: 'چار' },
-                { number: 3, value: 'تین' },
-                { number: 2, value: 'دو' },
-                { number: 1, value: 'ایک' },
-                { number: 0, value: 'صفر' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'ایک سو' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 57688:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".nav-tabs[data-v-f891390a]{border-bottom:2px solid #dee2e6;margin-bottom:1.5rem}.nav-tabs .nav-item[data-v-f891390a]{margin-bottom:-2px}.nav-tabs .nav-link[data-v-f891390a]{background-color:transparent;border:1px solid transparent;border-top-left-radius:.25rem;border-top-right-radius:.25rem;color:#495057;cursor:pointer;font-weight:500;padding:.75rem 1.5rem;transition:all .2s ease}.nav-tabs .nav-link[data-v-f891390a]:hover{border-color:#e9ecef #e9ecef #dee2e6;color:#33a0d9}.nav-tabs .nav-link.active[data-v-f891390a]{background-color:#fff;border-color:#dee2e6 #dee2e6 transparent;color:#33a0d9;font-weight:600}.nav-tabs .nav-link i[data-v-f891390a]{margin-right:.5rem}.tab-content[data-v-f891390a]{min-height:200px}.tab-pane[data-v-f891390a]{padding:0}.form-group[data-v-f891390a]{margin-bottom:1rem}.form-group label[data-v-f891390a]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-f891390a]{color:#dc3545;font-weight:700}.form-control[data-v-f891390a]{background:#fff!important;border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-f891390a]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.is-invalid[data-v-f891390a]{border-color:#dc3545!important}textarea.form-control[data-v-f891390a]{min-height:100px;resize:vertical}.v-select[data-v-f891390a]{background:#fff!important;border:1px solid #e5e7eb;border-radius:10px}.v-select .vs__dropdown-toggle[data-v-f891390a]{background:#fff!important;border:1px solid #e5e7eb;padding:10px 16px}.btn-success[data-v-f891390a]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-success[data-v-f891390a]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-secondary[data-v-f891390a]{background:#6c757d!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-secondary[data-v-f891390a]:hover{background:#5a6268!important;box-shadow:0 4px 8px hsla(208,7%,46%,.3);transform:translateY(-1px)}.create-button[data-v-f891390a]{cursor:pointer;text-decoration:none}.create-btn[data-v-f891390a]{border-left:none;border-radius:0 .25rem .25rem 0;cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-f891390a]:hover{background-color:#e9ecef}.category-select[data-v-f891390a]{margin-right:0!important}.category-select .vs__dropdown-toggle[data-v-f891390a]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .category-select .vs__dropdown-toggle[data-v-f891390a]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}[dir=rtl] .create-btn[data-v-f891390a]{border-left:none;border-radius:.25rem 0 0 .25rem;border-right:1px solid #ced4da}[dir=ltr] .create-btn[data-v-f891390a]{border-left:1px solid #ced4da;border-radius:0 .25rem .25rem 0;border-right:none}.row[data-v-f891390a]{margin-bottom:1rem}.row[data-v-f891390a]:last-child{margin-bottom:0}@media (max-width:768px){.nav-tabs .nav-link[data-v-f891390a]{font-size:.9rem;padding:.5rem 1rem}.tab-content[data-v-f891390a]{padding:.5rem}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 58041:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: '원',
-                plural: '원',
-                symbol: '',
-                fractionalUnit: {
-                    name: '',
-                    plural: '',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: '하고 ',
-                minus: '마이너스',
-                only: '',
-                point: '점',
-            },
-            trim: true,
-            numberWordsMapping: [
-                { number: 1000000000000, value: '조' },
-                { number: 100000000, value: '억' },
-                { number: 10000, value: '만' },
-                { number: 1000, value: '천' },
-                { number: 100, value: '백' },
-                { number: 90, value: '구십' },
-                { number: 80, value: '팔십' },
-                { number: 70, value: '칠십' },
-                { number: 60, value: '육십' },
-                { number: 50, value: '오십' },
-                { number: 40, value: '사십' },
-                { number: 30, value: '삼십' },
-                { number: 20, value: '이십' },
-                { number: 19, value: '십구' },
-                { number: 18, value: '십팔' },
-                { number: 17, value: '십칠' },
-                { number: 16, value: '십육' },
-                { number: 15, value: '십오' },
-                { number: 14, value: '십사' },
-                { number: 13, value: '십삼' },
-                { number: 12, value: '십이' },
-                { number: 11, value: '십일' },
-                { number: 10, value: '십' },
-                { number: 9, value: '구' },
-                { number: 8, value: '팔' },
-                { number: 7, value: '칠' },
-                { number: 6, value: '육' },
-                { number: 5, value: '오' },
-                { number: 4, value: '사' },
-                { number: 3, value: '삼' },
-                { number: 2, value: '이' },
-                { number: 1, value: '일' },
-                { number: 0, value: '영' },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 59096:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Cedi',
-                plural: 'Cedis',
-                singular: 'Cedi',
-                symbol: 'GH¢',
-                fractionalUnit: {
-                    name: 'Pesewa',
-                    singular: 'Pesewa',
-                    plural: 'Pesewas',
-                    symbol: 'Gp',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Quadrillion' },
-                { number: 1000000000000, value: 'Trillion' },
-                { number: 1000000000, value: 'Billion' },
-                { number: 1000000, value: 'Million' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 60130:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Euro',
-                plural: 'Euros',
-                singular: 'Euro',
-                symbol: '€',
-                fractionalUnit: {
-                    name: 'Centimo',
-                    plural: 'Centimos',
-                    singular: 'Centimo',
-                    symbol: '¢',
-                },
-            },
-            texts: {
-                and: 'Y',
-                minus: 'Menos',
-                only: '',
-                point: 'Punto',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Trillon' },
-                { number: 1000000000000, value: 'Billon' },
-                { number: 1000000, value: 'Millon' },
-                { number: 1000, value: 'Mil' },
-                { number: 900, value: 'Novecientos' },
-                { number: 800, value: 'Ochocientos' },
-                { number: 700, value: 'Setecientos' },
-                { number: 600, value: 'Seiscientos' },
-                { number: 500, value: 'Quinientos' },
-                { number: 400, value: 'Cuatrocientos' },
-                { number: 300, value: 'Trescientos' },
-                { number: 200, value: 'Doscientos' },
-                { number: 100, value: 'Ciento' },
-                { number: 90, value: 'Noventa Y' },
-                { number: 80, value: 'Ochenta Y' },
-                { number: 70, value: 'Setenta Y' },
-                { number: 60, value: 'Sesenta Y' },
-                { number: 50, value: 'Cincuenta Y' },
-                { number: 40, value: 'Cuarenta Y' },
-                { number: 30, value: 'Treinta Y' },
-                { number: 29, value: 'Veintinueve' },
-                { number: 28, value: 'Veintiocho' },
-                { number: 27, value: 'Veintisiete' },
-                { number: 26, value: 'Veintiseis' },
-                { number: 25, value: 'Veinticinco' },
-                { number: 24, value: 'Veinticuatro' },
-                { number: 23, value: 'Veintitrés' },
-                { number: 22, value: 'Veintidos' },
-                { number: 21, value: 'Veintiuno' },
-                { number: 20, value: 'Veinte' },
-                { number: 19, value: 'Diecinueve' },
-                { number: 18, value: 'Dieciocho' },
-                { number: 17, value: 'Dieciciete' },
-                { number: 16, value: 'Dieciseis' },
-                { number: 15, value: 'Quince' },
-                { number: 14, value: 'Catorce' },
-                { number: 13, value: 'Trece' },
-                { number: 12, value: 'Doce' },
-                { number: 11, value: 'Once' },
-                { number: 10, value: 'Diez' },
-                { number: 9, value: 'Nueve' },
-                { number: 8, value: 'Ocho' },
-                { number: 7, value: 'Siete' },
-                { number: 6, value: 'Seis' },
-                { number: 5, value: 'Cinco' },
-                { number: 4, value: 'Cuatro' },
-                { number: 3, value: 'Tres' },
-                { number: 2, value: 'Dos' },
-                { number: 1, value: 'Uno' },
-                { number: 0, value: 'Cero' },
-            ],
-            ignoreOneForWords: [
-                'Cien',
-                'Ciento',
-                'Doscientos',
-                'Trescientos',
-                'Cuatrocientos',
-                'Quinientos',
-                'Seiscientos',
-                'Setecientos',
-                'Ochocientos',
-                'Novecientos',
-                'Mil',
-            ],
-            pluralMark: 'es',
-            pluralWords: ['Millon', 'Billon', 'Trillon'],
-            exactWordsMapping: [
-                { number: 100, value: 'Cien' },
-                { number: 90, value: 'Noventa' },
-                { number: 80, value: 'Ochenta' },
-                { number: 70, value: 'Setenta' },
-                { number: 60, value: 'Sesenta' },
-                { number: 50, value: 'Cincuenta' },
-                { number: 40, value: 'Cuarenta' },
-                { number: 30, value: 'Treinta' },
-                { number: 1, value: ['Un', 'Uno'] },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 64744:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _services_RTLService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73948);
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  data: function data() {
-    return {
-      isRTL: false,
-      currentLocale: 'en'
-    };
-  },
-  computed: {
-    /**
-     * Get RTL-aware CSS classes
-     */
-    rtlClasses: function rtlClasses() {
-      return {
-        'rtl': this.isRTL,
-        'ltr': !this.isRTL,
-        'text-right': this.isRTL,
-        'text-left': !this.isRTL,
-        'float-right': this.isRTL,
-        'float-left': !this.isRTL
-      };
-    },
-    /**
-     * Get RTL-aware text alignment
-     */
-    textAlign: function textAlign() {
-      return this.isRTL ? 'right' : 'left';
-    },
-    /**
-     * Get RTL-aware float direction
-     */
-    floatDirection: function floatDirection() {
-      return this.isRTL ? 'right' : 'left';
-    }
-  },
-  mounted: function mounted() {
-    // Initialize RTL status
-    this.updateRTLStatus();
-
-    // Listen for RTL changes
-    window.addEventListener('rtl-changed', this.handleRTLChange);
-  },
-  beforeDestroy: function beforeDestroy() {
-    // Clean up event listener
-    window.removeEventListener('rtl-changed', this.handleRTLChange);
-  },
-  methods: {
-    /**
-     * Update RTL status from service
-     */
-    updateRTLStatus: function updateRTLStatus() {
-      this.isRTL = _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getRTLStatus();
-      this.currentLocale = _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getCurrentLocale();
-    },
-    /**
-     * Handle RTL change events
-     */
-    handleRTLChange: function handleRTLChange(event) {
-      this.isRTL = event.detail.isRTL;
-      this.currentLocale = event.detail.locale || _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getCurrentLocale();
-      this.$forceUpdate(); // Force component re-render
-    },
-    /**
-     * Set RTL mode for a specific locale
-     */
-    setRTLMode: function setRTLMode(locale) {
-      _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.setRTLModeByLocale(locale);
-    },
-    /**
-     * Check if current locale is RTL
-     */
-    isCurrentLocaleRTL: function isCurrentLocaleRTL() {
-      return _services_RTLService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.getLanguageRTLStatus(this.currentLocale);
-    },
-    /**
-     * Get RTL-aware margin/padding classes
-     */
-    getRTLSpacingClasses: function getRTLSpacingClasses(baseClass, size) {
-      if (this.isRTL) {
-        return _defineProperty(_defineProperty({}, "".concat(baseClass, "-right-").concat(size), true), "".concat(baseClass, "-left-").concat(size), false);
-      } else {
-        return _defineProperty(_defineProperty({}, "".concat(baseClass, "-left-").concat(size), true), "".concat(baseClass, "-right-").concat(size), false);
-      }
-    },
-    /**
-     * Get RTL-aware border classes
-     */
-    getRTLBorderClasses: function getRTLBorderClasses(baseClass, side) {
-      if (this.isRTL) {
-        var rtlSideMap = {
-          'left': 'right',
-          'right': 'left',
-          'start': 'end',
-          'end': 'start'
-        };
-        return _defineProperty({}, "".concat(baseClass, "-").concat(rtlSideMap[side] || side), true);
-      } else {
-        return _defineProperty({}, "".concat(baseClass, "-").concat(side), true);
-      }
-    }
-  }
-});
-
-/***/ }),
-
-/***/ 65584:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ ClientCreateModal)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientCreateModal.vue?vue&type=template&id=4f62f01c&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c('VModal', {
-    on: {
-      "close": function close($event) {
-        _vm.showClientCreateModal = false;
-      }
-    },
-    scopedSlots: _vm._u([{
-      key: "title",
-      fn: function fn() {
-        return [_vm._v(_vm._s(_vm.$t("Create Client")))];
-      },
-      proxy: true
-    }]),
-    model: {
-      value: _vm.showClientCreateModal,
-      callback: function callback($$v) {
-        _vm.showClientCreateModal = $$v;
-      },
-      expression: "showClientCreateModal"
-    }
-  }, [_vm._v(" "), [_c('ClientForm', {
-    ref: "clientForm",
-    attrs: {
-      "showCardBody": false
-    },
-    on: {
-      "submit": _vm.saveClient
-    }
-  }), _vm._v(" "), _c('div', {
-    attrs: {
-      "slot": "modal-footer"
-    },
-    slot: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "disabled": _vm.isSubmitting
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.submitItem($event);
-      }
-    }
-  }, [_vm.isSubmitting ? _c('i', {
-    staticClass: "fas fa-spinner fa-spin"
-  }) : _c('i', {
-    staticClass: "fas fa-save"
-  }), _vm._v(" \n          " + _vm._s(_vm.isSubmitting ? _vm.$t("Saving...") : _vm.$t("Save")) + "\n        ")])])]], 2), _vm._v(" "), _c('a', {
-    staticClass: "create-button",
-    on: {
-      "click": _vm.toggleModal
-    }
-  }, [_vm._t("default")], 2)], 1);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./resources/js/components/ClientForm.vue + 6 modules
-var ClientForm = __webpack_require__(99128);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientCreateModal.vue?vue&type=script&lang=js
-function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-
-/* harmony default export */ const ClientCreateModalvue_type_script_lang_js = ({
-  name: "ClientCreateModal",
-  middleware: ["auth", "check-permissions"],
-  components: {
-    ClientForm: ClientForm/* default */.A
-  },
-  data: function data() {
-    return {
-      showClientCreateModal: false,
-      form: null,
-      isSubmitting: false
-    };
-  },
-  methods: {
-    // save client
-    saveClient: function saveClient() {
-      var _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var _this$$refs$clientFor, formData, fd, appendIfDefined, taxStatusValue, taxStatusToSend, response, status, serverErrors, form, errorMessages, errorsObject, mapped, errorTitle, _error$response, errorMessage, _t;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
-            case 0:
-              if (!_this.isSubmitting) {
-                _context.n = 1;
-                break;
-              }
-              return _context.a(2);
-            case 1:
-              _this.isSubmitting = true;
-              _context.p = 2;
-              if (_this.$refs.clientForm.validateForm()) {
-                _context.n = 3;
-                break;
-              }
-              _this.isSubmitting = false;
-              return _context.a(2);
-            case 3:
-              // Get the form data from the ClientForm component
-              formData = _this.$refs.clientForm.getFormData(); // Build multipart/form-data to properly send files and handle boolean conversion
-              fd = new FormData();
-              appendIfDefined = function appendIfDefined(key, value) {
-                if (value !== undefined && value !== null && value !== '') {
-                  fd.append(key, value);
-                }
-              }; // Debug: Log formData before building FormData - CRITICAL
-              console.log('ClientCreateModal - formData received:', {
-                taxStatus: formData.taxStatus,
-                tax_status: formData.tax_status,
-                allFormData: formData
-              });
-              console.log('ClientCreateModal - formData keys:', Object.keys(formData || {}));
-              console.log('ClientCreateModal - formData.taxStatus type:', _typeof(formData.taxStatus));
-              console.log('ClientCreateModal - formData.taxStatus value:', formData.taxStatus);
-              console.log('ClientCreateModal - formData.tax_status value:', formData.tax_status);
-              console.log('ClientCreateModal - $refs.clientForm exists:', !!_this.$refs.clientForm);
-              console.log('ClientCreateModal - $refs.clientForm.form exists:', !!(_this.$refs.clientForm && _this.$refs.clientForm.form));
-              if (_this.$refs.clientForm && _this.$refs.clientForm.form) {
-                console.log('ClientCreateModal - form.taxStatus:', _this.$refs.clientForm.form.taxStatus);
-                console.log('ClientCreateModal - form.data() taxStatus:', _this.$refs.clientForm.form.data ? _this.$refs.clientForm.form.data().taxStatus : 'N/A');
-              }
-
-              // Simple scalar fields
-              appendIfDefined('codeNumber', formData.codeNumber);
-              appendIfDefined('notes', formData.notes);
-              appendIfDefined('displayLanguage', formData.displayLanguage);
-              appendIfDefined('type', formData.type);
-
-              // CRITICAL: Always append taxStatus - don't use appendIfDefined to ensure it's always sent
-              // Get taxStatus from formData, or try to get it from form object if available
-              taxStatusValue = formData.taxStatus || formData.tax_status;
-              console.log('ClientCreateModal - Initial taxStatus check:', {
-                formDataTaxStatus: formData.taxStatus,
-                formDataTax_status: formData.tax_status,
-                currentTaxStatusValue: taxStatusValue
-              });
-
-              // If still not found, try to get it from the form component
-              if (!taxStatusValue && _this.$refs.clientForm && _this.$refs.clientForm.form) {
-                taxStatusValue = _this.$refs.clientForm.form.taxStatus;
-                console.log('ClientCreateModal - Got taxStatus from form object:', taxStatusValue);
-              }
-
-              // Default to non_taxable if still not found
-              taxStatusValue = taxStatusValue || 'non_taxable';
-              console.log('ClientCreateModal - Final taxStatusValue before appending:', taxStatusValue);
-
-              // Always append taxStatus - never skip it, even if it's the default value
-              // CRITICAL: Use explicit string conversion and ensure it's never null/undefined
-              taxStatusToSend = String(taxStatusValue || 'non_taxable');
-              fd.append('taxStatus', taxStatusToSend);
-              fd.append('tax_status', taxStatusToSend);
-              console.log('=== CLIENT CREATE MODAL - APPENDING TAX STATUS ===');
-              console.log('ClientCreateModal - taxStatusValue:', taxStatusValue);
-              console.log('ClientCreateModal - taxStatusToSend:', taxStatusToSend);
-              console.log('ClientCreateModal - Appended taxStatus to FormData:', taxStatusToSend);
-              console.log('ClientCreateModal - formData.taxStatus:', formData.taxStatus);
-              console.log('ClientCreateModal - formData.tax_status:', formData.tax_status);
-              console.log('ClientCreateModal - form.taxStatus:', (_this$$refs$clientFor = _this.$refs.clientForm) === null || _this$$refs$clientFor === void 0 || (_this$$refs$clientFor = _this$$refs$clientFor.form) === null || _this$$refs$clientFor === void 0 ? void 0 : _this$$refs$clientFor.taxStatus);
-
-              // Verify it was added
-              console.log('ClientCreateModal - FormData has taxStatus:', fd.has('taxStatus'));
-              console.log('ClientCreateModal - FormData has tax_status:', fd.has('tax_status'));
-              appendIfDefined('fullName', formData.fullName);
-              appendIfDefined('businessName', formData.businessName);
-              appendIfDefined('firstName', formData.firstName);
-              appendIfDefined('lastName', formData.lastName);
-              appendIfDefined('phone', formData.phone);
-              appendIfDefined('phoneNumber', formData.phoneNumber);
-              appendIfDefined('email', formData.email);
-              appendIfDefined('streetAddress1', formData.streetAddress1);
-              appendIfDefined('streetAddress2', formData.streetAddress2);
-              appendIfDefined('city', formData.city);
-              appendIfDefined('state', formData.state);
-              appendIfDefined('postalCode', formData.postalCode);
-              appendIfDefined('country', formData.country);
-              appendIfDefined('neighbourhood', formData.neighbourhood);
-              appendIfDefined('commercialRegister', formData.commercialRegister);
-              appendIfDefined('taxCard', formData.taxCard);
-              appendIfDefined('taxRegistrationNumber', formData.taxRegistrationNumber || formData.taxCard);
-              appendIfDefined('buildingNumber', formData.buildingNumber);
-              appendIfDefined('streetNumber', formData.streetNumber);
-              appendIfDefined('districtNumber', formData.districtNumber);
-              appendIfDefined('unitNumber', formData.unitNumber);
-              appendIfDefined('additionalNumber', formData.additionalNumber);
-              appendIfDefined('saudi_region', formData.saudi_region);
-              appendIfDefined('status', formData.status);
-
-              // Convert boolean values to integers for Laravel validation
-              appendIfDefined('isSendEmail', formData.isSendEmail ? 1 : 0);
-              appendIfDefined('isSendSMS', formData.isSendSMS ? 1 : 0);
-
-              // Chart of account id (number or object)
-              if (formData.chartOfAccountId && _typeof(formData.chartOfAccountId) === 'object' && formData.chartOfAccountId.id) {
-                appendIfDefined('chartOfAccountId', formData.chartOfAccountId.id);
-              } else {
-                appendIfDefined('chartOfAccountId', formData.chartOfAccountId);
-              }
-
-              // Image file
-              if (formData.image instanceof File) {
-                fd.append('image', formData.image);
-              }
-
-              // Attachments as files
-              if (Array.isArray(formData.attachments)) {
-                formData.attachments.forEach(function (file, idx) {
-                  if (file instanceof File) {
-                    fd.append("attachments[".concat(idx, "]"), file);
-                  }
-                });
-              }
-
-              // Representatives array (as nested fields)
-              if (Array.isArray(formData.representatives)) {
-                formData.representatives.forEach(function (rep, i) {
-                  if (!rep) return;
-                  if (rep.name !== undefined && rep.name !== null) fd.append("representatives[".concat(i, "][name]"), rep.name);
-                  if (rep.email) fd.append("representatives[".concat(i, "][email]"), rep.email);
-                  if (rep.phone) fd.append("representatives[".concat(i, "][phone]"), rep.phone);
-                  if (rep.position) fd.append("representatives[".concat(i, "][position]"), rep.position);
-                  if (rep.is_primary !== undefined && rep.is_primary !== null) fd.append("representatives[".concat(i, "][is_primary]"), rep.is_primary ? 1 : 0);
-                  if (rep.notes) fd.append("representatives[".concat(i, "][notes]"), rep.notes);
-                });
-              }
-              _context.n = 4;
-              return _this.$http.post("/api/clients", fd, {
-                headers: {
-                  'Content-Type': 'multipart/form-data'
-                }
-              });
-            case 4:
-              response = _context.v;
-              if (!response.data.success) {
-                _context.n = 5;
-                break;
-              }
-              toast.fire({
-                type: "success",
-                title: _this.$t("Client added successfully")
-              });
-              _this.$emit("reloadClients");
-              _this.$refs.clientForm.resetForm();
-              _this.showClientCreateModal = false;
-              _this.form = null; // Reset form reference
-              _context.n = 6;
-              break;
-            case 5:
-              throw new Error(response.data.message || 'Failed to create client');
-            case 6:
-              _context.n = 8;
-              break;
-            case 7:
-              _context.p = 7;
-              _t = _context.v;
-              console.error("Error creating client:", _t);
-              status = _t && _t.response && _t.response.status;
-              serverErrors = _t && _t.response && _t.response.data && _t.response.data.errors;
-              if (status === 422 && serverErrors && _this.$refs.clientForm) {
-                // Get form object directly from ClientForm component
-                form = _this.$refs.clientForm.form;
-                errorMessages = []; // Prepare errors object for vform
-                errorsObject = {};
-                Object.keys(serverErrors).forEach(function (key) {
-                  var messages = serverErrors[key];
-                  if (Array.isArray(messages) && messages.length > 0) {
-                    // Translate messages before adding to errorsObject
-                    var translatedMessages = messages.map(function (msg) {
-                      return _this.translateValidationMessage(msg, key);
-                    });
-                    errorsObject[key] = translatedMessages;
-
-                    // Collect error messages for toast notification
-                    var fieldLabel = _this.getFieldLabel(key);
-                    translatedMessages.forEach(function (msg) {
-                      errorMessages.push("".concat(fieldLabel, ": ").concat(msg));
-                    });
-
-                    // Also map attachments.* to attachments field for UI display
-                    if (key.startsWith('attachments.')) {
-                      if (!errorsObject.attachments) {
-                        errorsObject.attachments = translatedMessages;
-                      }
-                    }
-                  }
-                });
-
-                // Set errors on form using vform's set method
-                if (form && form.errors && typeof form.errors.set === 'function') {
-                  form.errors.set(errorsObject);
-                  console.log('ClientCreateModal - Set errors on form:', errorsObject);
-                } else if (form && form.errors && typeof form.errors.record === 'function') {
-                  // Fallback to record method if set is not available
-                  mapped = {};
-                  Object.keys(errorsObject).forEach(function (key) {
-                    mapped[key] = Array.isArray(errorsObject[key]) ? errorsObject[key][0] : errorsObject[key];
-                  });
-                  form.errors.record(mapped);
-                  console.log('ClientCreateModal - Recorded errors on form (fallback):', mapped);
-                } else {
-                  console.warn('ClientCreateModal - Form errors object not available or invalid');
-                }
-
-                // Show detailed error messages in toast
-                errorTitle = errorMessages.length > 0 ? errorMessages.slice(0, 3).join(' | ') + (errorMessages.length > 3 ? " (+".concat(errorMessages.length - 3, " more)") : '') : _this.$t("Please check the form for errors and try again.");
-                toast.fire({
-                  type: "error",
-                  title: _this.$t("Validation Error"),
-                  text: errorTitle,
-                  html: errorMessages.length > 0 ? "<div style=\"text-align: left; max-height: 200px; overflow-y: auto;\">".concat(errorMessages.map(function (msg) {
-                    return "<div>\u2022 ".concat(msg, "</div>");
-                  }).join(''), "</div>") : undefined
-                });
-              } else {
-                errorMessage = ((_error$response = _t.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this.$t("Please check your input and try again.");
-                toast.fire({
-                  type: "error",
-                  title: errorMessage
-                });
-              }
-            case 8:
-              _context.p = 8;
-              _this.isSubmitting = false;
-              return _context.f(8);
-            case 9:
-              return _context.a(2);
-          }
-        }, _callee, null, [[2, 7, 8, 9]]);
-      }))();
-    },
-    toggleModal: function toggleModal() {
-      this.showClientCreateModal = !this.showClientCreateModal;
-      // Reset form when opening modal
-      if (this.showClientCreateModal) {
-        this.form = null;
-        this.isSubmitting = false;
-      }
-    },
-    submitItem: function submitItem(evt) {
-      evt.preventDefault();
-      this.saveClient();
-    },
-    // Get field label for error messages
-    getFieldLabel: function getFieldLabel(field) {
-      var fieldLabelMap = {
-        codeNumber: this.$t('Code Number'),
-        notes: this.$t('Notes'),
-        displayLanguage: this.$t('Display Language'),
-        type: this.$t('Type'),
-        fullName: this.$t('Full Name'),
-        businessName: this.$t('Business Name'),
-        firstName: this.$t('First Name'),
-        lastName: this.$t('Last Name'),
-        phone: this.$t('Phone'),
-        phoneNumber: this.$t('Mobile Number'),
-        email: this.$t('Email'),
-        streetAddress1: this.$t('Street Address 1'),
-        streetAddress2: this.$t('Street Address 2'),
-        city: this.$t('City'),
-        state: this.$t('State'),
-        postalCode: this.$t('Postal Code'),
-        country: this.$t('Country'),
-        neighbourhood: this.$t('Neighbourhood'),
-        commercialRegister: this.$t('Commercial Register'),
-        taxCard: this.$t('Tax Card'),
-        buildingNumber: this.$t('Building Number'),
-        streetNumber: this.$t('Street Number'),
-        districtNumber: this.$t('District Number'),
-        unitNumber: this.$t('Unit Number'),
-        additionalNumber: this.$t('Additional Number'),
-        taxStatus: this.$t('Tax Status'),
-        taxRegistrationNumber: this.$t('Tax Registration Number'),
-        image: this.$t('Image'),
-        attachments: this.$t('Attachments'),
-        status: this.$t('Status'),
-        chartOfAccountId: this.$t('Chart of Account')
-      };
-      return fieldLabelMap[field] || field;
-    },
-    // translate validation messages from backend to localized messages
-    translateValidationMessage: function translateValidationMessage(message, field) {
-      // If there is a direct translation key, use it
-      var direct = this.$t(message);
-      if (direct && direct !== message) return direct;
-
-      // Get current locale
-      var currentLocale = this.$i18n.locale || 'en';
-      var isArabic = currentLocale === 'ar';
-
-      // Field label mapping for client form fields
-      var fieldLabelMap = {
-        codeNumber: this.$t('Code Number'),
-        notes: this.$t('Notes'),
-        displayLanguage: this.$t('Display Language'),
-        type: this.$t('Type'),
-        fullName: this.$t('Full Name'),
-        businessName: this.$t('Business Name'),
-        firstName: this.$t('First Name'),
-        lastName: this.$t('Last Name'),
-        phone: this.$t('Phone'),
-        phoneNumber: this.$t('Mobile Number'),
-        email: this.$t('Email'),
-        streetAddress1: this.$t('Street Address 1'),
-        streetAddress2: this.$t('Street Address 2'),
-        city: this.$t('City'),
-        state: this.$t('State'),
-        postalCode: this.$t('Postal Code'),
-        country: this.$t('Country'),
-        neighbourhood: this.$t('Neighbourhood'),
-        commercialRegister: this.$t('Commercial Register'),
-        taxCard: this.$t('Tax Card'),
-        buildingNumber: this.$t('Building Number'),
-        streetNumber: this.$t('Street Number'),
-        districtNumber: this.$t('District Number'),
-        unitNumber: this.$t('Unit Number'),
-        additionalNumber: this.$t('Additional Number'),
-        taxStatus: this.$t('Tax Status'),
-        taxRegistrationNumber: this.$t('Tax Registration Number'),
-        image: this.$t('Image'),
-        attachments: this.$t('Attachments'),
-        status: this.$t('Status'),
-        chartOfAccountId: this.$t('Chart of Account')
-      };
-
-      // Try to translate common validation messages
-      var commonMessages = {
-        'required': isArabic ? 'مطلوب' : 'required',
-        'must be exactly 15 digits': isArabic ? 'يجب أن يكون 15 رقم بالضبط' : 'must be exactly 15 digits',
-        'must contain only numbers and be 15 digits': isArabic ? 'يجب أن يحتوي على أرقام فقط ويكون 15 رقم' : 'must contain only numbers and be 15 digits'
-      };
-
-      // Check if message contains common patterns
-      for (var _i = 0, _Object$entries = Object.entries(commonMessages); _i < _Object$entries.length; _i++) {
-        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
-          pattern = _Object$entries$_i[0],
-          translation = _Object$entries$_i[1];
-        if (message.toLowerCase().includes(pattern.toLowerCase())) {
-          var fieldLabel = fieldLabelMap[field] || field;
-          return "".concat(fieldLabel, ": ").concat(translation);
-        }
-      }
-
-      // Return original message if no translation found
-      return message;
-    }
-  }
-});
-;// ./resources/js/components/ClientCreateModal.vue?vue&type=script&lang=js
- /* harmony default export */ const components_ClientCreateModalvue_type_script_lang_js = (ClientCreateModalvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientCreateModal.vue?vue&type=style&index=0&id=4f62f01c&prod&scoped=true&lang=css
-var ClientCreateModalvue_type_style_index_0_id_4f62f01c_prod_scoped_true_lang_css = __webpack_require__(54890);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientCreateModal.vue?vue&type=style&index=0&id=4f62f01c&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(ClientCreateModalvue_type_style_index_0_id_4f62f01c_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const components_ClientCreateModalvue_type_style_index_0_id_4f62f01c_prod_scoped_true_lang_css = (ClientCreateModalvue_type_style_index_0_id_4f62f01c_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/ClientCreateModal.vue?vue&type=style&index=0&id=4f62f01c&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/ClientCreateModal.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  components_ClientCreateModalvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "4f62f01c",
-  null
-  
-)
-
-/* harmony default export */ const ClientCreateModal = (component.exports);
-
-/***/ }),
-
-/***/ 65903:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Peso Mexicano',
-                plural: 'Pesos Mexicanos',
-                singular: 'Peso Mexicano',
-                symbol: '$',
-                fractionalUnit: {
-                    name: 'Centavo',
-                    plural: 'Centavos',
-                    singular: 'Centavo',
-                    symbol: '¢',
-                },
-            },
-            texts: {
-                and: 'Y',
-                minus: 'Menos',
-                only: '',
-                point: 'Punto',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Trillon' },
-                { number: 1000000000000, value: 'Billon' },
-                { number: 1000000, value: 'Millon' },
-                { number: 1000, value: 'Mil' },
-                { number: 900, value: 'Novecientos' },
-                { number: 800, value: 'Ochocientos' },
-                { number: 700, value: 'Setecientos' },
-                { number: 600, value: 'Seiscientos' },
-                { number: 500, value: 'Quinientos' },
-                { number: 400, value: 'Cuatrocientos' },
-                { number: 300, value: 'Trescientos' },
-                { number: 200, value: 'Doscientos' },
-                { number: 100, value: 'Ciento' },
-                { number: 90, value: 'Noventa Y' },
-                { number: 80, value: 'Ochenta Y' },
-                { number: 70, value: 'Setenta Y' },
-                { number: 60, value: 'Sesenta Y' },
-                { number: 50, value: 'Cincuenta Y' },
-                { number: 40, value: 'Cuarenta Y' },
-                { number: 30, value: 'Treinta Y' },
-                { number: 29, value: 'Veintinueve' },
-                { number: 28, value: 'Veintiocho' },
-                { number: 27, value: 'Veintisiete' },
-                { number: 26, value: 'Veintiseis' },
-                { number: 25, value: 'Veinticinco' },
-                { number: 24, value: 'Veinticuatro' },
-                { number: 23, value: 'Veintitrés' },
-                { number: 22, value: 'Veintidos' },
-                { number: 21, value: 'Veintiuno' },
-                { number: 20, value: 'Veinte' },
-                { number: 19, value: 'Diecinueve' },
-                { number: 18, value: 'Dieciocho' },
-                { number: 17, value: 'Dieciciete' },
-                { number: 16, value: 'Dieciseis' },
-                { number: 15, value: 'Quince' },
-                { number: 14, value: 'Catorce' },
-                { number: 13, value: 'Trece' },
-                { number: 12, value: 'Doce' },
-                { number: 11, value: 'Once' },
-                { number: 10, value: 'Diez' },
-                { number: 9, value: 'Nueve' },
-                { number: 8, value: 'Ocho' },
-                { number: 7, value: 'Siete' },
-                { number: 6, value: 'Seis' },
-                { number: 5, value: 'Cinco' },
-                { number: 4, value: 'Cuatro' },
-                { number: 3, value: 'Tres' },
-                { number: 2, value: 'Dos' },
-                { number: 1, value: 'Uno' },
-                { number: 0, value: 'Cero' },
-            ],
-            ignoreOneForWords: [
-                'Cien',
-                'Ciento',
-                'Doscientos',
-                'Trescientos',
-                'Cuatrocientos',
-                'Quinientos',
-                'Seiscientos',
-                'Setecientos',
-                'Ochocientos',
-                'Novecientos',
-                'Mil',
-            ],
-            pluralMark: 'es',
-            pluralWords: ['Millon', 'Billon', 'Trillon'],
-            exactWordsMapping: [
-                { number: 100, value: 'Cien' },
-                { number: 90, value: 'Noventa' },
-                { number: 80, value: 'Ochenta' },
-                { number: 70, value: 'Setenta' },
-                { number: 60, value: 'Sesenta' },
-                { number: 50, value: 'Cincuenta' },
-                { number: 40, value: 'Cuarenta' },
-                { number: 30, value: 'Treinta' },
-                { number: 1, value: ['Un', 'Uno'] },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 67645:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".header-buttons[data-v-989bc620]{margin-bottom:15px}.footer-buttons[data-v-989bc620]{display:flex;gap:10px}.footer-buttons .btn[data-v-989bc620]{margin-right:10px}.footer-buttons .btn[data-v-989bc620]:last-child{margin-right:0}.create-btn[data-v-989bc620]{padding:11px}.chart-account-success[data-v-989bc620],.chart-account-warning[data-v-989bc620]{border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:16px}.chart-account-warning[data-v-989bc620]{background:linear-gradient(135deg,#fff3cd,#ffeaa7);border:1px solid #ffc107}.chart-account-success[data-v-989bc620]{background:linear-gradient(135deg,#d4edda,#c3e6cb);border:1px solid #28a745}.success-content[data-v-989bc620],.warning-content[data-v-989bc620]{align-items:center;display:flex;gap:16px}.success-icon[data-v-989bc620],.warning-icon[data-v-989bc620]{flex-shrink:0;font-size:24px}.warning-icon[data-v-989bc620]{color:#856404}.success-icon[data-v-989bc620]{color:#155724}.success-text[data-v-989bc620],.warning-text[data-v-989bc620]{flex-grow:1}.success-title[data-v-989bc620],.warning-title[data-v-989bc620]{font-size:14px;font-weight:600;margin:0 0 4px}.warning-title[data-v-989bc620]{color:#856404}.success-title[data-v-989bc620]{color:#155724}.success-description[data-v-989bc620],.warning-description[data-v-989bc620]{font-size:13px;margin:0;opacity:.8}.warning-description[data-v-989bc620]{color:#856404}.success-description[data-v-989bc620]{color:#155724}.warning-action[data-v-989bc620]{flex-shrink:0}.button-plus.icon-shape.icon-sm.btn-primary[data-v-989bc620]{padding:0}.btn-primary[data-v-989bc620]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-primary[data-v-989bc620]:disabled{box-shadow:none;cursor:not-allowed;opacity:.6;transform:none}@media (max-width:768px){.success-content[data-v-989bc620],.warning-content[data-v-989bc620]{flex-direction:column;gap:12px;text-align:center}.btn-primary[data-v-989bc620],.warning-action[data-v-989bc620]{width:100%}}.client-status[data-v-989bc620]{font-size:13px}.client-success[data-v-989bc620],.client-warning[data-v-989bc620]{align-items:center;border-radius:6px;display:flex;font-weight:500;padding:8px 12px}.client-warning[data-v-989bc620]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.client-success[data-v-989bc620]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.btn-outline-warning[data-v-989bc620]{border-color:#ffc107;color:#856404;font-size:12px;padding:4px 8px}.btn-outline-warning[data-v-989bc620]:hover{background-color:#ffc107;border-color:#ffc107;color:#212529}.btn-outline-warning[data-v-989bc620]:disabled{cursor:not-allowed;opacity:.6}.product-status[data-v-989bc620]{font-size:13px}.product-success[data-v-989bc620],.product-warning[data-v-989bc620]{align-items:center;border-radius:6px;display:flex;font-weight:500;padding:8px 12px}.product-warning[data-v-989bc620]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.product-success[data-v-989bc620]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.account-status[data-v-989bc620]{font-size:13px}.account-success[data-v-989bc620],.account-warning[data-v-989bc620]{align-items:center;border-radius:6px;display:flex;font-weight:500;padding:8px 12px}.account-warning[data-v-989bc620]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.account-success[data-v-989bc620]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.radio-group-horizontal[data-v-989bc620]{align-items:center;display:flex;flex-direction:row;gap:20px}.radio-group-horizontal .form-check[data-v-989bc620]{align-items:center;display:flex;margin-bottom:0}.radio-group-horizontal .form-check-input[data-v-989bc620]{margin-right:8px}.radio-group-horizontal .form-check-label[data-v-989bc620]{cursor:pointer;margin-bottom:0}.text-warning[data-v-989bc620]{color:#856404!important}.text-warning small[data-v-989bc620]{font-size:12px;font-weight:500}.text-warning i[data-v-989bc620]{margin-right:4px}.table-custom[data-v-989bc620]{border:none!important}.invoices-create-table[data-v-989bc620]{border-collapse:separate;border-spacing:0}.invoices-create-table thead th[data-v-989bc620]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.invoices-create-table thead tr[data-v-989bc620]{border:none!important}.invoices-create-table thead th[data-v-989bc620]:first-child{border-top-left-radius:10px}.invoices-create-table thead th[data-v-989bc620]:last-child{border-top-right-radius:10px}[dir=rtl] .invoices-create-table thead th[data-v-989bc620]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .invoices-create-table thead th[data-v-989bc620]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.btn-group.c-w-100[data-v-989bc620]{gap:10px}.card[data-v-989bc620]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-989bc620]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.invoices-create-table .badge.badge-danger[data-v-989bc620]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.form-control[data-v-989bc620]{background:#fff!important}.quantity-field[data-v-989bc620]{border-radius:0!important;margin:0!important;min-height:50px!important}.btn-primary[data-v-989bc620]{background:#2ab930!important}.btn-secondary[data-v-989bc620]{background:#33a0d9!important;border:none!important;color:#fff!important;padding:10px 20px!important}.stock-warning-alert[data-v-989bc620]{background:linear-gradient(135deg,#fff3cd,#ffeaa7);border:1px solid #ffc107;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:20px;padding:16px}.stock-warning-content[data-v-989bc620]{align-items:flex-start;display:flex;gap:16px}.stock-warning-icon[data-v-989bc620]{color:#856404;flex-shrink:0;font-size:24px;margin-top:2px}.stock-warning-text[data-v-989bc620]{flex-grow:1}.stock-warning-title[data-v-989bc620]{color:#856404;font-size:16px;font-weight:600;margin:0 0 8px}.stock-warning-description[data-v-989bc620]{color:#856404;font-size:14px;margin:0 0 12px;opacity:.9}.stock-warning-list[data-v-989bc620]{list-style:none;margin:0;padding-left:20px}.stock-warning-item[data-v-989bc620]{background-color:hsla(0,0%,100%,.5);border-left:3px solid #ffc107;border-radius:6px;color:#856404;font-size:14px;margin-bottom:8px;padding:8px 12px}.stock-warning-item[data-v-989bc620]:last-child{margin-bottom:0}.product-name[data-v-989bc620]{color:#856404;font-weight:600;margin-right:8px}.stock-details[data-v-989bc620]{color:#856404;opacity:.8}.stock-details strong[data-v-989bc620]{color:#856404;font-weight:600}[dir=rtl] .stock-warning-list[data-v-989bc620]{padding-left:0;padding-right:20px}[dir=rtl] .stock-warning-item[data-v-989bc620]{border-left:none;border-right:3px solid #ffc107}[dir=rtl] .product-name[data-v-989bc620]{margin-left:8px;margin-right:0}@media (max-width:768px){.stock-warning-content[data-v-989bc620]{flex-direction:column;gap:12px;text-align:center}.stock-warning-icon[data-v-989bc620]{align-self:center}.stock-warning-list[data-v-989bc620]{padding-left:0;text-align:left}[dir=rtl] .stock-warning-list[data-v-989bc620]{text-align:right}}.clickable-badge[data-v-989bc620]{cursor:pointer;transition:all .3s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.clickable-badge[data-v-989bc620]:hover{background-color:#c82333!important;box-shadow:0 2px 4px rgba(220,53,69,.3);transform:scale(1.05)}.clickable-badge[data-v-989bc620]:active{transform:scale(.95)}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 68224:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Bolivar',
-                plural: 'Bolivares',
-                singular: 'Bolivar',
-                symbol: '',
-                fractionalUnit: {
-                    name: 'Centimo',
-                    plural: 'Centimos',
-                    singular: 'Centimo',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'Con',
-                minus: 'Menos',
-                only: '',
-                point: 'Coma',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Trillon' },
-                { number: 1000000000000, value: 'Billon' },
-                { number: 1000000, value: 'Millon' },
-                { number: 1000, value: 'Mil' },
-                { number: 900, value: 'Novecientos' },
-                { number: 800, value: 'Ochocientos' },
-                { number: 700, value: 'Setecientos' },
-                { number: 600, value: 'Seiscientos' },
-                { number: 500, value: 'Quinientos' },
-                { number: 400, value: 'Cuatrocientos' },
-                { number: 300, value: 'Trescientos' },
-                { number: 200, value: 'Doscientos' },
-                { number: 100, value: 'Ciento' },
-                { number: 90, value: 'Noventa Y' },
-                { number: 80, value: 'Ochenta Y' },
-                { number: 70, value: 'Setenta Y' },
-                { number: 60, value: 'Sesenta Y' },
-                { number: 50, value: 'Cincuenta Y' },
-                { number: 40, value: 'Cuarenta Y' },
-                { number: 30, value: 'Treinta Y' },
-                { number: 29, value: 'Veintinueve' },
-                { number: 28, value: 'Veintiocho' },
-                { number: 27, value: 'Veintisiete' },
-                { number: 26, value: 'Veintiseis' },
-                { number: 25, value: 'Veinticinco' },
-                { number: 24, value: 'Veinticuatro' },
-                { number: 23, value: 'Veintitrés' },
-                { number: 22, value: 'Veintidos' },
-                { number: 21, value: 'Veintiuno' },
-                { number: 20, value: 'Veinte' },
-                { number: 19, value: 'Diecinueve' },
-                { number: 18, value: 'Dieciocho' },
-                { number: 17, value: 'Dieciciete' },
-                { number: 16, value: 'Dieciseis' },
-                { number: 15, value: 'Quince' },
-                { number: 14, value: 'Catorce' },
-                { number: 13, value: 'Trece' },
-                { number: 12, value: 'Doce' },
-                { number: 11, value: 'Once' },
-                { number: 10, value: 'Diez' },
-                { number: 9, value: 'Nueve' },
-                { number: 8, value: 'Ocho' },
-                { number: 7, value: 'Siete' },
-                { number: 6, value: 'Seis' },
-                { number: 5, value: 'Cinco' },
-                { number: 4, value: 'Cuatro' },
-                { number: 3, value: 'Tres' },
-                { number: 2, value: 'Dos' },
-                { number: 1, value: 'Uno' },
-                { number: 0, value: 'Cero' },
-            ],
-            ignoreOneForWords: [
-                'Cien',
-                'Ciento',
-                'Doscientos',
-                'Trescientos',
-                'Cuatrocientos',
-                'Quinientos',
-                'Seiscientos',
-                'Setecientos',
-                'Ochocientos',
-                'Novecientos',
-                'Mil',
-            ],
-            pluralMark: 'es',
-            pluralWords: ['Millon', 'Billon', 'Trillon'],
-            exactWordsMapping: [
-                { number: 100, value: 'Cien' },
-                { number: 90, value: 'Noventa' },
-                { number: 80, value: 'Ochenta' },
-                { number: 70, value: 'Setenta' },
-                { number: 60, value: 'Sesenta' },
-                { number: 50, value: 'Cincuenta' },
-                { number: 40, value: 'Cuarenta' },
-                { number: 30, value: 'Treinta' },
-                { number: 1, value: ['Un', 'Uno'] },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 69543:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Euro',
-                plural: 'Euros',
-                singular: 'Euro',
-                symbol: '€',
-                fractionalUnit: {
-                    name: 'Centime',
-                    singular: 'Centime',
-                    plural: 'Centimes',
-                    symbol: 'Cts',
-                },
-            },
-            texts: {
-                and: 'Et',
-                minus: 'Moins',
-                only: '',
-                point: 'Virgule',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Billiard' },
-                { number: 1000000000000, value: 'Billion' },
-                { number: 1000000000, value: 'Milliard' },
-                { number: 1000000, value: 'Million' },
-                { number: 1000, value: 'Mille' },
-                { number: 100, value: 'Cent' },
-                { number: 99, value: 'Nonante-Neuf' },
-                { number: 98, value: 'Nonante-Huit' },
-                { number: 97, value: 'Nonante-Sept' },
-                { number: 96, value: 'Nonante-Six' },
-                { number: 95, value: 'Nonante-Cinq' },
-                { number: 94, value: 'Nonante-Quatre' },
-                { number: 93, value: 'Nonante-Trois' },
-                { number: 92, value: 'Nonante-Deux' },
-                { number: 91, value: 'Nonante-Et-Un' },
-                { number: 90, value: 'Nonante' },
-                { number: 89, value: 'Quatre-Vingt-Neuf' },
-                { number: 88, value: 'Quatre-Vingt-Huit' },
-                { number: 87, value: 'Quatre-Vingt-Sept' },
-                { number: 86, value: 'Quatre-Vingt-Six' },
-                { number: 85, value: 'Quatre-Vingt-Cinq' },
-                { number: 84, value: 'Quatre-Vingt-Quatre' },
-                { number: 83, value: 'Quatre-Vingt-Trois' },
-                { number: 82, value: 'Quatre-Vingt-Deux' },
-                { number: 81, value: 'Quatre-Vingt-Un' },
-                { number: 80, value: 'Quatre-Vingt' },
-                { number: 79, value: 'Septante-Neuf' },
-                { number: 78, value: 'Septante-Huit' },
-                { number: 77, value: 'Septante-Sept' },
-                { number: 76, value: 'Septante-Six' },
-                { number: 75, value: 'Septante-Cinq' },
-                { number: 74, value: 'Septante-Quatre' },
-                { number: 73, value: 'Septante-Trois' },
-                { number: 72, value: 'Septante-Deux' },
-                { number: 71, value: 'Septante-Et-Un' },
-                { number: 70, value: 'Septante' },
-                { number: 69, value: 'Soixante-Neuf' },
-                { number: 68, value: 'Soixante-Huit' },
-                { number: 67, value: 'Soixante-Sept' },
-                { number: 66, value: 'Soixante-Six' },
-                { number: 65, value: 'Soixante-Cinq' },
-                { number: 64, value: 'Soixante-Quatre' },
-                { number: 63, value: 'Soixante-Trois' },
-                { number: 62, value: 'Soixante-Deux' },
-                { number: 61, value: 'Soixante-Et-Un' },
-                { number: 60, value: 'Soixante' },
-                { number: 59, value: 'Cinquante-Neuf' },
-                { number: 58, value: 'Cinquante-Huit' },
-                { number: 57, value: 'Cinquante-Sept' },
-                { number: 56, value: 'Cinquante-Six' },
-                { number: 55, value: 'Cinquante-Cinq' },
-                { number: 54, value: 'Cinquante-Quatre' },
-                { number: 53, value: 'Cinquante-Trois' },
-                { number: 52, value: 'Cinquante-Deux' },
-                { number: 51, value: 'Cinquante-Et-Un' },
-                { number: 50, value: 'Cinquante' },
-                { number: 49, value: 'Quarante-Neuf' },
-                { number: 48, value: 'Quarante-Huit' },
-                { number: 47, value: 'Quarante-Sept' },
-                { number: 46, value: 'Quarante-Six' },
-                { number: 45, value: 'Quarante-Cinq' },
-                { number: 44, value: 'Quarante-Quatre' },
-                { number: 43, value: 'Quarante-Trois' },
-                { number: 42, value: 'Quarante-Deux' },
-                { number: 41, value: 'Quarante-Et-Un' },
-                { number: 40, value: 'Quarante' },
-                { number: 39, value: 'Trente-Neuf' },
-                { number: 38, value: 'Trente-Huit' },
-                { number: 37, value: 'Trente-Sept' },
-                { number: 36, value: 'Trente-Six' },
-                { number: 35, value: 'Trente-Cinq' },
-                { number: 34, value: 'Trente-Quatre' },
-                { number: 33, value: 'Trente-Trois' },
-                { number: 32, value: 'Trente-Deux' },
-                { number: 31, value: 'Trente-Et-Un' },
-                { number: 30, value: 'Trente' },
-                { number: 29, value: 'Vingt-Neuf' },
-                { number: 28, value: 'Vingt-Huit' },
-                { number: 27, value: 'Vingt-Sept' },
-                { number: 26, value: 'Vingt-Six' },
-                { number: 25, value: 'Vingt-Cinq' },
-                { number: 24, value: 'Vingt-Quatre' },
-                { number: 23, value: 'Vingt-Trois' },
-                { number: 22, value: 'Vingt-Deux' },
-                { number: 21, value: 'Vingt-Et-Un' },
-                { number: 20, value: 'Vingt' },
-                { number: 19, value: 'Dix-Neuf' },
-                { number: 18, value: 'Dix-Huit' },
-                { number: 17, value: 'Dix-Sept' },
-                { number: 16, value: 'Seize' },
-                { number: 15, value: 'Quinze' },
-                { number: 14, value: 'Quatorze' },
-                { number: 13, value: 'Treize' },
-                { number: 12, value: 'Douze' },
-                { number: 11, value: 'Onze' },
-                { number: 10, value: 'Dix' },
-                { number: 9, value: 'Neuf' },
-                { number: 8, value: 'Huit' },
-                { number: 7, value: 'Sept' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Cinq' },
-                { number: 4, value: 'Quatre' },
-                { number: 3, value: 'Trois' },
-                { number: 2, value: 'Deux' },
-                { number: 1, value: 'Un' },
-                { number: 0, value: 'Zéro' },
-            ],
-            ignoreOneForWords: ['Cent', 'Mille'],
-            pluralMark: 's',
-            pluralWords: ['Billiard', 'Billion', 'Milliard', 'Million'],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 71545:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const bn_IN_1 = __importDefault(__webpack_require__(82689));
-const ee_EE_1 = __importDefault(__webpack_require__(74938));
-const en_AE_1 = __importDefault(__webpack_require__(8550));
-const en_BD_1 = __importDefault(__webpack_require__(41061));
-const en_GB_1 = __importDefault(__webpack_require__(54330));
-const en_GH_1 = __importDefault(__webpack_require__(59096));
-const en_IE_1 = __importDefault(__webpack_require__(21470));
-const en_IN_1 = __importDefault(__webpack_require__(144));
-const en_MM_1 = __importDefault(__webpack_require__(38765));
-const en_MU_1 = __importDefault(__webpack_require__(74261));
-const en_NG_1 = __importDefault(__webpack_require__(92952));
-const en_NP_1 = __importDefault(__webpack_require__(26365));
-const en_OM_1 = __importDefault(__webpack_require__(28787));
-const en_PH_1 = __importDefault(__webpack_require__(82779));
-const en_US_1 = __importDefault(__webpack_require__(84463));
-const es_AR_1 = __importDefault(__webpack_require__(46709));
-const es_ES_1 = __importDefault(__webpack_require__(60130));
-const es_MX_1 = __importDefault(__webpack_require__(65903));
-const fa_IR_1 = __importDefault(__webpack_require__(10982));
-const fr_BE_1 = __importDefault(__webpack_require__(69543));
-const fr_FR_1 = __importDefault(__webpack_require__(28834));
-const gu_IN_1 = __importDefault(__webpack_require__(47229));
-const hi_IN_1 = __importDefault(__webpack_require__(37460));
-const kn_IN_1 = __importDefault(__webpack_require__(27002));
-const ko_KR_1 = __importDefault(__webpack_require__(58041));
-const lv_LV_1 = __importDefault(__webpack_require__(34922));
-const mr_IN_1 = __importDefault(__webpack_require__(33972));
-const nl_SR_1 = __importDefault(__webpack_require__(55101));
-const np_NP_1 = __importDefault(__webpack_require__(35262));
-const pt_BR_1 = __importDefault(__webpack_require__(21722));
-const tr_TR_1 = __importDefault(__webpack_require__(44130));
-const ur_PK_1 = __importDefault(__webpack_require__(56386));
-const es_VE_1 = __importDefault(__webpack_require__(68224));
-const LOCALES = {
-    'bn-IN': bn_IN_1.default,
-    'ee-EE': ee_EE_1.default,
-    'en-AE': en_AE_1.default,
-    'en-BD': en_BD_1.default,
-    'en-GB': en_GB_1.default,
-    'en-GH': en_GH_1.default,
-    'en-IE': en_IE_1.default,
-    'en-IN': en_IN_1.default,
-    'en-MM': en_MM_1.default,
-    'en-MU': en_MU_1.default,
-    'en-NG': en_NG_1.default,
-    'en-NP': en_NP_1.default,
-    'en-OM': en_OM_1.default,
-    'en-PH': en_PH_1.default,
-    'en-US': en_US_1.default,
-    'es-AR': es_AR_1.default,
-    'es-ES': es_ES_1.default,
-    'es-MX': es_MX_1.default,
-    'fa-IR': fa_IR_1.default,
-    'fr-BE': fr_BE_1.default,
-    'fr-FR': fr_FR_1.default,
-    'gu-IN': gu_IN_1.default,
-    'hi-IN': hi_IN_1.default,
-    'kn-IN': kn_IN_1.default,
-    'ko-KR': ko_KR_1.default,
-    'lv-LV': lv_LV_1.default,
-    'mr-IN': mr_IN_1.default,
-    'nl-SR': nl_SR_1.default,
-    'np-NP': np_NP_1.default,
-    'pt-BR': pt_BR_1.default,
-    'tr-TR': tr_TR_1.default,
-    'ur-PK': ur_PK_1.default,
-    'es-VE': es_VE_1.default,
-};
-exports["default"] = LOCALES;
-
-
-/***/ }),
-
-/***/ 74261:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Rupee',
-                plural: 'Rupees',
-                singular: 'Rupee',
-                symbol: 'Rs',
-                fractionalUnit: {
-                    name: 'Cent',
-                    singular: 'Cent',
-                    plural: 'Cents',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 10000000, value: 'Crore' },
-                { number: 100000, value: 'Lakh' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 74938:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Euro',
-                plural: 'Eurot',
-                singular: 'Euro',
-                symbol: '€',
-                fractionalUnit: {
-                    name: 'Sent',
-                    singular: 'Sent',
-                    plural: 'Senti',
-                    symbol: '¢',
-                },
-            },
-            texts: {
-                and: 'Ja',
-                minus: 'Miinus',
-                only: 'Ainult',
-                point: 'Koma',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Kvadriljon' },
-                { number: 1000000000000, value: 'Triljon' },
-                { number: 1000000000, value: 'Miljard' },
-                { number: 1000000, value: 'Miljon' },
-                { number: 1000, value: 'Tuhat' },
-                { number: 900, value: 'Üheksasada' },
-                { number: 800, value: 'Kaheksasada' },
-                { number: 700, value: 'Seitsesada' },
-                { number: 600, value: 'Kuussada' },
-                { number: 500, value: 'Viissada' },
-                { number: 400, value: 'Nelisada' },
-                { number: 300, value: 'Kolmsada' },
-                { number: 200, value: 'Kakssada' },
-                { number: 100, value: 'Sada' },
-                { number: 90, value: 'Üheksakümmend' },
-                { number: 80, value: 'Kaheksakümmend' },
-                { number: 70, value: 'Seitsekümmend' },
-                { number: 60, value: 'Kuuskümmend' },
-                { number: 50, value: 'Viiskümmend' },
-                { number: 40, value: 'Nelikümmend' },
-                { number: 30, value: 'Kolmkümmend' },
-                { number: 20, value: 'Kakskümmend' },
-                { number: 19, value: 'Üheksateist' },
-                { number: 18, value: 'Kaheksateist' },
-                { number: 17, value: 'Seitseteist' },
-                { number: 16, value: 'Kuusteist' },
-                { number: 15, value: 'Viisteist' },
-                { number: 14, value: 'Neliteist' },
-                { number: 13, value: 'Kolmteist' },
-                { number: 12, value: 'Kaksteist' },
-                { number: 11, value: 'Üksteist' },
-                { number: 10, value: 'Kümme' },
-                { number: 9, value: 'Üheksa' },
-                { number: 8, value: 'Kaheksa' },
-                { number: 7, value: 'Seitse' },
-                { number: 6, value: 'Kuus' },
-                { number: 5, value: 'Viis' },
-                { number: 4, value: 'Neli' },
-                { number: 3, value: 'Kolm' },
-                { number: 2, value: 'Kaks' },
-                { number: 1, value: 'Üks' },
-                { number: 0, value: 'Null' },
-            ],
-            ignoreOneForWords: [
-                'Sada',
-                'Kakssada',
-                'Kolmsada',
-                'Nelisada',
-                'Viissada',
-                'Kuussada',
-                'Seitsesada',
-                'Kaheksasada',
-                'Üheksasada',
-            ],
-            exactWordsMapping: [
-                {
-                    number: 100,
-                    value: 'Ükssada',
-                },
-            ],
-            pluralWords: ['Miljon', 'Miljard', 'Trillion', 'Kvadriljon'],
-            pluralMark: 'it',
-            onlyInFront: true,
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 75528:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ StockAdjustmentModal)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=template&id=651d741c&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _vm.isOpen ? _c('div', {
-    staticClass: "modal-overlay",
-    on: {
-      "click": function click($event) {
-        if ($event.target !== $event.currentTarget) return null;
-        return _vm.closeModal.apply(null, arguments);
-      }
-    }
-  }, [_c('div', {
-    staticClass: "modal-content",
-    on: {
-      "click": function click($event) {
-        $event.stopPropagation();
-      }
-    }
-  }, [_c('div', {
-    staticClass: "modal-header"
-  }, [_c('h5', {
-    staticClass: "modal-title"
-  }, [_c('i', {
-    staticClass: "fas fa-exclamation-triangle text-warning mr-2"
-  }), _vm._v("\n        " + _vm._s(_vm.$t("Insufficient Stock")) + "\n      ")]), _vm._v(" "), _c('button', {
-    staticClass: "close",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": _vm.closeModal
-    }
-  }, [_c('span', [_vm._v("×")])])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-body"
-  }, [_c('div', {
-    staticClass: "alert alert-warning",
-    attrs: {
-      "role": "alert"
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-info-circle mr-2"
-  }), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Stock Alert")) + ":")]), _vm._v("\n        " + _vm._s(_vm.$t("The selected quantity exceeds available stock for this product.")) + "\n      ")]), _vm._v(" "), _c('div', {
-    staticClass: "product-info mb-4"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-6"
-  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Product Details")))]), _vm._v(" "), _c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Name")) + ":")]), _vm._v(" " + _vm._s(_vm.product.name || 'N/A'))]), _vm._v(" "), _c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Code")) + ":")]), _vm._v(" " + _vm._s(_vm.productCodeWithPrefix))]), _vm._v(" "), _c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Current Stock")) + ":")]), _vm._v(" "), _c('span', {
-    staticClass: "badge badge-info"
-  }, [_vm._v(_vm._s(_vm.product.inventoryCount || 0))])]), _vm._v(" "), _c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Required Quantity")) + ":")]), _vm._v(" "), _c('span', {
-    staticClass: "badge badge-danger"
-  }, [_vm._v(_vm._s(_vm.product.qty || 0))])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
-  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Stock Shortage")))]), _vm._v(" "), _c('p', {
-    staticClass: "text-danger"
-  }, [_c('i', {
-    staticClass: "fas fa-exclamation-circle mr-1"
-  }), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.shortageQuantity))]), _vm._v(" " + _vm._s(_vm.$t("units short")) + "\n            ")])])])]), _vm._v(" "), _c('div', {
-    staticClass: "stock-options"
-  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("How to increase stock?")))]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "option-card",
-    on: {
-      "click": function click($event) {
-        $event.stopPropagation();
-        return _vm.openInventoryAdjustment.apply(null, arguments);
-      }
-    }
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "option-content"
-  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Quick Stock Adjustment")))]), _vm._v(" "), _c('p', {
-    staticClass: "text-muted"
-  }, [_vm._v(_vm._s(_vm.$t("Add stock directly to inventory")))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "option-card",
-    on: {
-      "click": function click($event) {
-        $event.stopPropagation();
-        return _vm.openPurchaseOrder.apply(null, arguments);
-      }
-    }
-  }, [_vm._m(1), _vm._v(" "), _c('div', {
-    staticClass: "option-content"
-  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Create Purchase Order")))]), _vm._v(" "), _c('p', {
-    staticClass: "text-muted"
-  }, [_vm._v(_vm._s(_vm.$t("Order more stock from supplier")))])])])])])]), _vm._v(" "), _vm.showQuickAdjustment ? _c('div', {
-    staticClass: "quick-adjustment mt-4"
-  }, [_c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h6', {
-    staticClass: "mb-0"
-  }, [_c('i', {
-    staticClass: "fas fa-plus-circle text-success mr-2"
-  }), _vm._v("\n              " + _vm._s(_vm.$t("Quick Stock Adjustment")) + "\n            ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('form', {
-    on: {
-      "submit": function submit($event) {
-        $event.preventDefault();
-        return _vm.submitQuickAdjustment.apply(null, arguments);
-      }
-    }
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "adjustmentReason"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Reason")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.adjustmentForm.reason,
-      expression: "adjustmentForm.reason"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.adjustmentForm.errors.has('reason')
-    },
-    attrs: {
-      "id": "adjustmentReason",
-      "type": "text",
-      "placeholder": _vm.$t('Enter reason for stock adjustment'),
-      "required": ""
-    },
-    domProps: {
-      "value": _vm.adjustmentForm.reason
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.adjustmentForm, "reason", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.adjustmentForm,
-      "field": "reason"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "adjustmentQuantity"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Quantity to Add")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.adjustmentForm.quantity,
-      expression: "adjustmentForm.quantity"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.adjustmentForm.errors.has('quantity')
-    },
-    attrs: {
-      "id": "adjustmentQuantity",
-      "type": "number",
-      "min": "1",
-      "placeholder": _vm.$t('Enter quantity to add'),
-      "required": ""
-    },
-    domProps: {
-      "value": _vm.adjustmentForm.quantity
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.adjustmentForm, "quantity", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.adjustmentForm,
-      "field": "quantity"
-    }
-  })], 1)])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "adjustmentNote"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Note")))]), _vm._v(" "), _c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.adjustmentForm.note,
-      expression: "adjustmentForm.note"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      "id": "adjustmentNote",
-      "rows": "3",
-      "placeholder": _vm.$t('Enter additional notes (optional)')
-    },
-    domProps: {
-      "value": _vm.adjustmentForm.note
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.adjustmentForm, "note", $event.target.value);
-      }
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "form-actions"
-  }, [_c('button', {
-    staticClass: "btn btn-secondary",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": function click($event) {
-        _vm.showQuickAdjustment = false;
-      }
-    }
-  }, [_vm._v("\n                  " + _vm._s(_vm.$t("Cancel")) + "\n                ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "type": "submit",
-      "disabled": _vm.adjustmentForm.busy
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-save mr-1"
-  }), _vm._v("\n                  " + _vm._s(_vm.$t("Add Stock")) + "\n                ")])])])])])]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-secondary",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": _vm.closeModal
-    }
-  }, [_vm._v("\n        " + _vm._s(_vm.$t("Close")) + "\n      ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-primary",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": _vm.adjustQuantity
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-edit mr-1"
-  }), _vm._v("\n        " + _vm._s(_vm.$t("Adjust Quantity")) + "\n      ")])])])]) : _vm._e();
-};
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "option-icon"
-  }, [_c('i', {
-    staticClass: "fas fa-plus-circle text-success"
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "option-icon"
-  }, [_c('i', {
-    staticClass: "fas fa-shopping-cart text-primary"
-  })]);
-}];
-
-;// ./resources/js/components/StockAdjustmentModal.vue?vue&type=template&id=651d741c&scoped=true
-
-// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
-var vform_es = __webpack_require__(63216);
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-// EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
-var sweetalert2_all = __webpack_require__(78465);
-var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all);
-// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__(95353);
-// EXTERNAL MODULE: ./resources/js/plugins/filter.js
-var filter = __webpack_require__(44121);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=script&lang=js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
-function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
-function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
-function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-
-
-
-
-var toast = sweetalert2_all_default().mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true
-});
-/* harmony default export */ const StockAdjustmentModalvue_type_script_lang_js = ({
-  name: "StockAdjustmentModal",
-  props: {
-    isOpen: {
-      type: Boolean,
-      "default": false
-    },
-    product: {
-      type: Object,
-      "default": function _default() {
-        return {};
-      }
-    }
-  },
-  data: function data() {
-    return {
-      showQuickAdjustment: false,
-      adjustmentForm: new vform_es/* default */.Ay({
-        reason: "",
-        quantity: 1,
-        note: ""
-      })
-    };
-  },
-  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["appInfo"])), {}, {
-    prefix: function prefix() {
-      var _this$appInfo;
-      return ((_this$appInfo = this.appInfo) === null || _this$appInfo === void 0 ? void 0 : _this$appInfo.productPrefix) || "";
-    },
-    shortageQuantity: function shortageQuantity() {
-      if (!this.product || !this.product.inventoryCount || !this.product.qty) {
-        return 0;
-      }
-      return Math.max(0, this.product.qty - this.product.inventoryCount);
-    },
-    productCodeWithPrefix: function productCodeWithPrefix() {
-      if (!this.product || !this.product.code) {
-        return 'N/A';
-      }
-      return this.prefix + this.product.code;
-    }
-  }),
-  watch: {
-    isOpen: function isOpen(newVal) {
-      console.log("Modal isOpen changed to:", newVal);
-      console.log("Product object:", this.product);
-      if (newVal && this.product) {
-        // Set default quantity to shortage amount
-        this.adjustmentForm.quantity = this.shortageQuantity || 1;
-        this.adjustmentForm.reason = "Stock shortage adjustment";
-        console.log("Modal opened with product:", this.product.name);
-      }
-    }
-  },
-  mounted: function mounted() {
-    console.log("StockAdjustmentModal mounted");
-    console.log("Initial isOpen:", this.isOpen);
-    console.log("Initial product:", this.product);
-  },
-  beforeDestroy: function beforeDestroy() {
-    console.log("StockAdjustmentModal beforeDestroy");
-    console.log("Product at destroy:", this.product);
-  },
-  methods: {
-    closeModal: function closeModal() {
-      this.$emit("close");
-      this.showQuickAdjustment = false;
-      this.adjustmentForm.reset();
-    },
-    adjustQuantity: function adjustQuantity() {
-      this.$emit("adjust-quantity", this.product);
-      this.closeModal();
-    },
-    openInventoryAdjustment: function openInventoryAdjustment() {
-      var _this = this;
-      try {
-        console.log("Opening inventory adjustment...");
-        console.log("Product object:", this.product);
-
-        // Validate product object
-        if (!this.product || !this.product.id) {
-          console.error("Invalid product object:", this.product);
-          toast.fire({
-            type: "error",
-            title: this.$t("Error"),
-            text: this.$t("Product information is missing. Please try again.")
-          });
-          return;
-        }
-
-        // Capture product data before closing modal to avoid null reference
-        var productData = {
-          id: this.product.id,
-          name: this.product.name,
-          code: this.product.code,
-          slug: this.product.slug
-        };
-        console.log("Captured product data:", productData);
-
-        // Ask parent to persist current form state before leaving
-        this.$emit('persist');
-        // Close modal first
-        this.closeModal();
-
-        // Then navigate with a small delay
-        setTimeout(function () {
-          try {
-            console.log("Navigating to adjustments.create");
-            console.log("Product ID:", productData.id);
-
-            // Get current route safely
-            var returnUrl = _this.$route ? _this.$route.fullPath : window.location.pathname;
-            console.log("Return URL:", returnUrl);
-
-            // Check if user has permission to create adjustments
-            if (!_this.$can('adjustment-create')) {
-              toast.fire({
-                type: "error",
-                title: _this.$t("Permission Denied"),
-                text: _this.$t("You don't have permission to create adjustments.")
-              });
-              return;
-            }
-
-            // Try navigation with fallback
-            _this.$router.push({
-              name: "adjustments.create",
-              query: {
-                productId: productData.id,
-                returnUrl: returnUrl
-              }
-            }).then(function () {
-              console.log("Navigation successful");
-            })["catch"](function (err) {
-              console.error("Navigation error:", err);
-
-              // Fallback: show alert with manual navigation option
-              sweetalert2_all_default().fire({
-                title: _this.$t("Navigate to Adjustments"),
-                text: _this.$t("Click OK to go to the adjustments page manually."),
-                icon: 'info',
-                showCancelButton: true,
-                confirmButtonText: _this.$t("Go to Adjustments"),
-                cancelButtonText: _this.$t("Cancel")
-              }).then(function (result) {
-                if (result.isConfirmed) {
-                  window.location.href = '/inventory-adjustments/create?productId=' + productData.id + '&returnUrl=' + encodeURIComponent(returnUrl);
-                }
-              });
-            });
-          } catch (error) {
-            console.error("Error in navigation timeout:", error);
-            toast.fire({
-              type: "error",
-              title: _this.$t("Error"),
-              text: _this.$t("An error occurred while navigating. Please try again.")
-            });
-          }
-        }, 300);
-      } catch (error) {
-        console.error("Error in openInventoryAdjustment:", error);
-        toast.fire({
-          type: "error",
-          title: this.$t("Error"),
-          text: this.$t("An unexpected error occurred. Please try again.")
-        });
-      }
-    },
-    openPurchaseOrder: function openPurchaseOrder() {
-      var _this2 = this;
-      console.log("Opening purchase order...");
-      // Close modal first
-      this.closeModal();
-      // Then navigate with a small delay
-      setTimeout(function () {
-        console.log("Navigating to purchases.create");
-        _this2.$router.push({
-          name: "purchases.create"
-        })["catch"](function (err) {
-          console.error("Navigation error:", err);
-        });
-      }, 300);
-    },
-    submitQuickAdjustment: function submitQuickAdjustment() {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var adjustmentData, _t;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.p = _context.n) {
-            case 0:
-              _context.p = 0;
-              // Create a quick inventory adjustment
-              adjustmentData = {
-                adjustmentReason: _this3.adjustmentForm.reason,
-                adjustmentDate: new Date().toISOString().slice(0, 10),
-                note: _this3.adjustmentForm.note,
-                status: 1,
-                selectedProducts: [{
-                  slug: _this3.product.slug,
-                  adjustType: "Increment",
-                  adjustQty: parseInt(_this3.adjustmentForm.quantity),
-                  purchasePrice: _this3.product.avgPurchasePrice || 0
-                }]
-              };
-              _context.n = 1;
-              return axios_default().post("/api/inventory-adjustments", adjustmentData);
-            case 1:
-              toast.fire({
-                type: "success",
-                title: _this3.$t("Stock added successfully"),
-                text: _this3.$t("The product stock has been increased.")
-              });
-
-              // Emit event to refresh product data
-              _this3.$emit("stock-updated", {
-                product: _this3.product,
-                newQuantity: parseInt(_this3.adjustmentForm.quantity)
-              });
-              _this3.closeModal();
-              _context.n = 3;
-              break;
-            case 2:
-              _context.p = 2;
-              _t = _context.v;
-              console.error("Error adding stock:", _t);
-              toast.fire({
-                type: "error",
-                title: _this3.$t("Error"),
-                text: _this3.$t("Failed to add stock. Please try again.")
-              });
-            case 3:
-              return _context.a(2);
-          }
-        }, _callee, null, [[0, 2]]);
-      }))();
-    }
-  }
-});
-;// ./resources/js/components/StockAdjustmentModal.vue?vue&type=script&lang=js
- /* harmony default export */ const components_StockAdjustmentModalvue_type_script_lang_js = (StockAdjustmentModalvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=style&index=0&id=651d741c&prod&scoped=true&lang=css
-var StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css = __webpack_require__(85989);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=style&index=0&id=651d741c&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const components_StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css = (StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/StockAdjustmentModal.vue?vue&type=style&index=0&id=651d741c&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/StockAdjustmentModal.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  components_StockAdjustmentModalvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "651d741c",
-  null
-  
-)
-
-/* harmony default export */ const StockAdjustmentModal = (component.exports);
 
 /***/ }),
 

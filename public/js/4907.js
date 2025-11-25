@@ -1,7 +1,7 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[4907],{
 
-/***/ 37952:
+/***/ 29424:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -10,7 +10,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ SupplierForm)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=template&id=74008f4c&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=template&id=47408498&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -1592,7 +1592,7 @@ var render = function render() {
     }, [_c('i', {
       staticClass: "fas fa-times"
     })])]);
-  }), 0) : _vm._e()], 1)])])])]), _vm._v(" "), _vm.routingSetting && _vm.routingSetting.routing_type !== 'automatic' ? _c('div', {
+  }), 0) : _vm._e()], 1)])])])]), _vm._v(" "), _c('div', {
     staticClass: "row mt-4",
     staticStyle: {
       "display": "none"
@@ -1609,11 +1609,7 @@ var render = function render() {
     staticClass: "fas fa-chart-line mr-2"
   }), _vm._v("\n            " + _vm._s(_vm.$t("Chart of Account")) + "\n          ")])]), _vm._v(" "), _c('div', {
     staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "alert alert-info"
-  }, [_c('i', {
-    staticClass: "fas fa-info-circle mr-2"
-  }), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Current Routing Type")) + ":")]), _vm._v(" " + _vm._s(_vm.routingSetting.routing_type_display) + "\n            ")])])])])]) : _vm._e(), _vm._v(" "), _vm.routingSetting && _vm.routingSetting.routing_type === 'automatic' ? _c('div', {
+  })])])]), _vm._v(" "), _c('div', {
     staticClass: "row mt-4",
     staticStyle: {
       "display": "none"
@@ -1634,7 +1630,7 @@ var render = function render() {
     staticClass: "alert alert-success"
   }, [_c('i', {
     staticClass: "fas fa-check-circle mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Chart of account will be automatically assigned based on your accounting configuration.")) + "\n          ")])])])])]) : _vm._e(), _vm._v(" "), _c('div', {
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Chart of account will be automatically assigned based on your accounting configuration.")) + "\n          ")])])])])]), _vm._v(" "), _c('div', {
     staticClass: "row mt-4"
   }, [_c('div', {
     staticClass: "col-md-12"
@@ -1719,7 +1715,7 @@ var staticRenderFns = [function () {
   })]);
 }];
 
-;// ./resources/js/components/SupplierForm.vue?vue&type=template&id=74008f4c&scoped=true
+;// ./resources/js/components/SupplierForm.vue?vue&type=template&id=47408498&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
 var vform_es = __webpack_require__(63216);
@@ -2932,15 +2928,11 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                 });
                 console.log('Found suppliers_account setting:', _this10.routingSetting);
                 if (_this10.routingSetting) {
-                  // Add routing type display name
-                  _this10.routingSetting.routing_type_display = _this10.getRoutingTypeDisplayName(_this10.routingSetting.routing_type);
-                  console.log('Routing setting with display name:', _this10.routingSetting);
+                  console.log('Routing setting loaded:', _this10.routingSetting);
                 } else {
                   console.log('No suppliers_account setting found in:', response.data.data);
                   // Set a default routing setting if none found
                   _this10.routingSetting = {
-                    routing_type: 'per_each',
-                    routing_type_display: 'Specify Per Each',
                     main_account_id: null
                   };
                   console.log('Using default routing setting:', _this10.routingSetting);
@@ -2949,8 +2941,6 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                 console.log('Routing settings response not successful:', response.data);
                 // Set a default routing setting if API fails
                 _this10.routingSetting = {
-                  routing_type: 'per_each',
-                  routing_type_display: 'Specify Per Each',
                   main_account_id: null
                 };
                 console.log('Using default routing setting due to API failure:', _this10.routingSetting);
@@ -2963,8 +2953,6 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
               console.error('Error loading routing settings:', _t6);
               // Set a default routing setting if error occurs
               _this10.routingSetting = {
-                routing_type: 'per_each',
-                routing_type_display: 'Specify Per Each',
                 main_account_id: null
               };
               console.log('Using default routing setting due to error:', _this10.routingSetting);
@@ -2977,22 +2965,11 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     // Set default routing setting
     setDefaultRoutingSetting: function setDefaultRoutingSetting() {
       this.routingSetting = {
-        routing_type: 'per_each',
-        routing_type_display: 'Specify Per Each',
         main_account_id: null
       };
       console.log('Using default routing setting:', this.routingSetting);
     },
     // Get routing type display name
-    getRoutingTypeDisplayName: function getRoutingTypeDisplayName(routingType) {
-      var displays = {
-        'automatic': 'Automatic',
-        'per_each': 'Specify Per Each',
-        'main_account_per_each': 'Specify Main Account Per Each',
-        'cancel': 'Cancel'
-      };
-      return displays[routingType] || routingType;
-    },
     // Load chart of accounts
     loadChartOfAccounts: function loadChartOfAccounts() {
       var _this11 = this;
@@ -3007,80 +2984,73 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
               _this11.loadingChartOfAccounts = true;
               _this11.chartOfAccountsError = null;
 
-              // If routing is automatic, we don't need to load all accounts
-              if (!(_this11.routingSetting && _this11.routingSetting.routing_type === 'automatic')) {
-                _context8.n = 1;
-                break;
-              }
-              console.log('Routing type is automatic, not loading chart of accounts');
-              _this11.chartOfAccounts = [];
-              _this11.loadingChartOfAccounts = false;
-              return _context8.a(2);
-            case 1:
+              // Load accounts based on routing setting if available
+
+              // For other routing types, load accounts based on routing setting
               if (!(_this11.routingSetting && _this11.routingSetting.main_account_id)) {
-                _context8.n = 9;
+                _context8.n = 8;
                 break;
               }
               console.log('Loading accounts from routing setup...');
-              _context8.p = 2;
-              _context8.n = 3;
+              _context8.p = 1;
+              _context8.n = 2;
               return _this11.$http.get("/api/account-routing-settings/".concat(_this11.routingSetting.setting_key, "/accounts"));
-            case 3:
+            case 2:
               response = _context8.v;
               console.log('Routing accounts response:', response);
               if (!(response.data && response.data.success)) {
-                _context8.n = 4;
+                _context8.n = 3;
                 break;
               }
               _this11.chartOfAccounts = response.data.accounts || [];
               console.log('Loaded accounts from routing setup:', _this11.chartOfAccounts.length);
-              _context8.n = 5;
+              _context8.n = 4;
               break;
-            case 4:
+            case 3:
               throw new Error('Routing accounts response not successful');
-            case 5:
-              _context8.n = 8;
+            case 4:
+              _context8.n = 7;
               break;
-            case 6:
-              _context8.p = 6;
+            case 5:
+              _context8.p = 5;
               _t7 = _context8.v;
               console.log('Routing accounts failed, falling back to all accounts:', _t7);
               // Fallback to all accounts
-              _context8.n = 7;
+              _context8.n = 6;
               return _this11.$http.get('/api/suppliers/chart-of-accounts');
-            case 7:
+            case 6:
               fallbackResponse = _context8.v;
               _this11.chartOfAccounts = fallbackResponse.data || [];
               console.log('Loaded fallback accounts:', _this11.chartOfAccounts.length);
-            case 8:
-              _context8.n = 11;
+            case 7:
+              _context8.n = 10;
               break;
-            case 9:
+            case 8:
               console.log('No main account ID, loading all accounts as fallback');
               // Load all active accounts as fallback
-              _context8.n = 10;
+              _context8.n = 9;
               return _this11.$http.get('/api/suppliers/chart-of-accounts');
-            case 10:
+            case 9:
               _response = _context8.v;
               _this11.chartOfAccounts = _response.data || [];
               console.log('Loaded all accounts as fallback:', _this11.chartOfAccounts.length);
-            case 11:
+            case 10:
               if (!(_this11.chartOfAccounts.length === 0)) {
-                _context8.n = 15;
+                _context8.n = 14;
                 break;
               }
               console.log('No accounts loaded, trying alternative endpoint...');
-              _context8.p = 12;
-              _context8.n = 13;
+              _context8.p = 11;
+              _context8.n = 12;
               return _this11.$http.get('/api/chart-of-accounts/dropdown');
-            case 13:
+            case 12:
               altResponse = _context8.v;
               _this11.chartOfAccounts = altResponse.data.data || altResponse.data || [];
               console.log('Loaded accounts from dropdown endpoint:', _this11.chartOfAccounts.length);
-              _context8.n = 15;
+              _context8.n = 14;
               break;
-            case 14:
-              _context8.p = 14;
+            case 13:
+              _context8.p = 13;
               _t8 = _context8.v;
               console.error('Alternative endpoint also failed:', _t8);
               // Set a minimal fallback to prevent empty dropdown
@@ -3091,23 +3061,23 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
                 type: 'Error'
               }];
               _this11.chartOfAccountsError = 'No chart of accounts available. Please check your configuration.';
-            case 15:
-              _context8.n = 17;
+            case 14:
+              _context8.n = 16;
               break;
-            case 16:
-              _context8.p = 16;
+            case 15:
+              _context8.p = 15;
               _t9 = _context8.v;
               console.error('Error loading chart of accounts:', _t9);
               _this11.chartOfAccountsError = _t9.message || 'Failed to load chart of accounts';
               _this11.chartOfAccounts = [];
-            case 17:
-              _context8.p = 17;
+            case 16:
+              _context8.p = 16;
               _this11.loadingChartOfAccounts = false;
-              return _context8.f(17);
-            case 18:
+              return _context8.f(16);
+            case 17:
               return _context8.a(2);
           }
-        }, _callee8, null, [[12, 14], [2, 6], [0, 16, 17, 18]]);
+        }, _callee8, null, [[11, 13], [1, 5], [0, 15, 16, 17]]);
       }))();
     },
     // Search chart of accounts (for v-select search)
@@ -3215,7 +3185,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
               // Determine parent_id based on routing settings
               parentId = null;
-              if (_this13.routingSetting && _this13.routingSetting.routing_type === 'main_account_per_each' && _this13.routingSetting.main_account_id) {
+              if (_this13.routingSetting && _this13.routingSetting.main_account_id) {
                 parentId = _this13.routingSetting.main_account_id;
               }
 
@@ -3365,9 +3335,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=74008f4c&prod&scoped=true&lang=css
-var SupplierFormvue_type_style_index_0_id_74008f4c_prod_scoped_true_lang_css = __webpack_require__(77552);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=74008f4c&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=47408498&prod&scoped=true&lang=css
+var SupplierFormvue_type_style_index_0_id_47408498_prod_scoped_true_lang_css = __webpack_require__(35640);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=47408498&prod&scoped=true&lang=css
 
             
 
@@ -3376,12 +3346,12 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(SupplierFormvue_type_style_index_0_id_74008f4c_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(SupplierFormvue_type_style_index_0_id_47408498_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const components_SupplierFormvue_type_style_index_0_id_74008f4c_prod_scoped_true_lang_css = (SupplierFormvue_type_style_index_0_id_74008f4c_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=74008f4c&prod&scoped=true&lang=css
+/* harmony default export */ const components_SupplierFormvue_type_style_index_0_id_47408498_prod_scoped_true_lang_css = (SupplierFormvue_type_style_index_0_id_47408498_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/SupplierForm.vue?vue&type=style&index=0&id=47408498&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
@@ -3400,12 +3370,31 @@ var component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "74008f4c",
+  "47408498",
   null
   
 )
 
 /* harmony default export */ const SupplierForm = (component.exports);
+
+/***/ }),
+
+/***/ 35640:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-47408498]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:20px}.form-card .card-header[data-v-47408498]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:22px 16px}.form-card .section-title[data-v-47408498]{color:#fff;font-size:14px;font-weight:600;margin:0}.form-card .card-body[data-v-47408498]{padding:16px}.form-control[data-v-47408498]{background:#fff!important}input[readonly][data-v-47408498]{background-color:#f8f9fa!important;border-color:#ced4da;color:#6c757d;cursor:not-allowed}.form-control[data-v-47408498]:focus,select.form-control[data-v-47408498]:focus,textarea.form-control[data-v-47408498]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.radio-group[data-v-47408498]{align-items:center;display:flex;gap:16px}.radio-group .radio-inline[data-v-47408498]{align-items:center;display:inline-flex;gap:6px;margin:0}.v-select .vs__dropdown-toggle[data-v-47408498]{border-color:#ced4da;border-radius:6px}.v-select .vs__dropdown-toggle.vs__open[data-v-47408498],.v-select .vs__dropdown-toggle[data-v-47408498]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.v-select .vs__dropdown-menu[data-v-47408498],.v-select .vs__search[data-v-47408498],.v-select .vs__selected[data-v-47408498]{font-size:.95rem}.custom-file-input:focus~.custom-file-label[data-v-47408498]{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.custom-file-label[data-v-47408498]{border-radius:6px}.file-upload-area[data-v-47408498]{background:#f8fdfe;border:2px dashed #33a0d9;border-radius:12px;padding:20px;position:relative;text-align:center}.file-upload-area .file-input[data-v-47408498]{cursor:pointer;height:100%;inset:0;opacity:0;position:absolute;width:100%}.file-upload-area .file-upload-content[data-v-47408498]{color:#33a0d9}.selected-files .selected-file-item[data-v-47408498]{align-items:center;background:#f5faff;border:1px solid #e3f3f7;border-radius:6px;display:inline-flex;margin-bottom:8px;margin-right:8px;padding:6px 10px}.d-flex.align-items-center span.ml-3[data-v-47408498]{font-weight:500}.required[data-v-47408498]{color:#dc3545}.tax-status-options[data-v-47408498]{margin-top:.5rem}.tax-status-card-compact[data-v-47408498]{background-color:#fff;border:2px solid #e0e0e0;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.06);cursor:pointer;display:block;padding:.75rem 1rem;position:relative;transition:all .2s ease}.tax-status-card-compact[data-v-47408498]:hover{border-color:#007bff;box-shadow:0 2px 8px rgba(0,123,255,.12);transform:translateY(-1px)}.tax-status-card-compact.active[data-v-47408498]{background:linear-gradient(135deg,#f8f9ff,#fff);border-color:#007bff;box-shadow:0 2px 10px rgba(0,123,255,.15)}.tax-status-card-compact.border-success.active[data-v-47408498]{background:linear-gradient(135deg,#f0fff4,#fff);border-color:#28a745;box-shadow:0 2px 10px rgba(40,167,69,.15)}.tax-status-card-compact.border-primary.active[data-v-47408498]{background:linear-gradient(135deg,#f8f9ff,#fff);border-color:#007bff;box-shadow:0 2px 10px rgba(0,123,255,.15)}.tax-status-header-compact[data-v-47408498]{align-items:center;display:flex;position:relative}.tax-status-radio[data-v-47408498]{opacity:0;pointer-events:none;position:absolute}.tax-status-icon-compact[data-v-47408498]{align-items:center;border-radius:8px;display:flex;flex-shrink:0;font-size:1rem;height:32px;justify-content:center;margin-right:.75rem;transition:all .2s ease;width:32px}.tax-status-icon-compact.taxable-icon[data-v-47408498]{background:linear-gradient(135deg,#007bff,#0056b3);box-shadow:0 2px 6px rgba(0,123,255,.25);color:#fff}.tax-status-icon-compact.non-taxable-icon[data-v-47408498]{background:linear-gradient(135deg,#28a745,#1e7e34);box-shadow:0 2px 6px rgba(40,167,69,.25);color:#fff}.tax-status-card-compact.active .tax-status-icon-compact.taxable-icon[data-v-47408498]{box-shadow:0 3px 10px rgba(0,123,255,.35);transform:scale(1.05)}.tax-status-card-compact.active .tax-status-icon-compact.non-taxable-icon[data-v-47408498]{box-shadow:0 3px 10px rgba(40,167,69,.35);transform:scale(1.05)}.tax-status-title-compact[data-v-47408498]{color:#2c3e50;flex:1;font-size:.95rem;font-weight:600}.tax-status-card-compact.active .tax-status-title-compact[data-v-47408498]{color:#007bff}.tax-status-card-compact.border-success.active .tax-status-title-compact[data-v-47408498]{color:#28a745}[dir=rtl] .tax-status-icon-compact[data-v-47408498]{margin-left:.75rem;margin-right:0}[dir=rtl] .form-card .card-header[data-v-47408498]{border-radius:20px 20px 0 0}.custom-file-label[data-v-47408498],[dir=rtl] .custom-file-label[data-v-47408498]{text-align:left!important}.btn-primary[data-v-47408498]{background:#33a0d9!important;border-color:#33a0d9!important}.btn-primary[data-v-47408498]:hover{filter:brightness(.95)}.equal-height>[class*=\" col-\"][data-v-47408498],.equal-height>[class^=col-][data-v-47408498]{display:flex}.equal-height .form-card[data-v-47408498]{display:flex;flex-direction:column;width:100%}.equal-height .form-card .card-body[data-v-47408498]{flex:1 1 auto}.country-select[data-v-47408498]{width:100%}.country-select .vs__dropdown-toggle[data-v-47408498]{border:1px solid #ced4da;border-radius:6px;max-width:100%;min-height:2.5rem;overflow:hidden;padding:.5rem 1rem}.country-select .vs__search[data-v-47408498]{font-size:.95rem;margin:0;padding:0}.country-select .vs__selected[data-v-47408498]{align-items:center;display:flex;gap:.5rem;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.country-option[data-v-47408498],.country-selected[data-v-47408498]{align-items:center;display:flex;gap:.5rem;min-width:0}.country-flag[data-v-47408498]{flex-shrink:0;font-size:1.25rem;line-height:1}.country-name[data-v-47408498]{flex:1;font-size:.95rem;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.country-select.is-invalid .vs__dropdown-toggle[data-v-47408498]{border-color:#dc3545}.country-select .vs__dropdown-menu[data-v-47408498]{border-radius:6px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);margin-top:.5rem}.country-select .vs__dropdown-option[data-v-47408498]{padding:.75rem 1rem}.country-select .vs__dropdown-option--highlight[data-v-47408498]{background-color:#33a0d9;color:#fff}.saudi-location-select[data-v-47408498]{width:100%}.saudi-location-select .vs__dropdown-toggle[data-v-47408498]{background-color:#fff;border:1px solid #ced4da;border-radius:6px;min-height:2.5rem;padding:.375rem .75rem}.saudi-location-select .vs__dropdown-toggle.vs__open[data-v-47408498],.saudi-location-select .vs__dropdown-toggle[data-v-47408498]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15);outline:none}.saudi-location-select.is-invalid .vs__dropdown-toggle[data-v-47408498]{border-color:#dc3545}.saudi-location-select .vs__search[data-v-47408498]{font-size:.95rem;margin:0;padding:0}.saudi-location-select .vs__dropdown-menu[data-v-47408498]{border-radius:6px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);margin-top:.5rem}.saudi-location-select .vs__dropdown-option[data-v-47408498]{padding:.75rem 1rem}.saudi-location-select .vs__dropdown-option--highlight[data-v-47408498]{background-color:#33a0d9;color:#fff}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
 
 /***/ }),
 
@@ -3528,7 +3517,7 @@ var render = function render() {
 var staticRenderFns = [];
 
 // EXTERNAL MODULE: ./resources/js/components/SupplierForm.vue + 6 modules
-var SupplierForm = __webpack_require__(37952);
+var SupplierForm = __webpack_require__(29424);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/suppliers/edit.vue?vue&type=script&lang=js
 function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t["return"] || t["return"](); } finally { if (u) throw o; } } }; }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -4103,25 +4092,6 @@ var component = (0,componentNormalizer/* default */.A)(
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, ".header-buttons[data-v-57af153d]{margin-bottom:15px}.footer-buttons[data-v-57af153d]{display:flex;gap:10px}.footer-buttons .btn[data-v-57af153d]{margin-right:10px}.footer-buttons .btn[data-v-57af153d]:last-child{margin-right:0}.btn-group.c-w-100[data-v-57af153d]{gap:10px}.form-control[data-v-57af153d]{background:#fff!important}.card[data-v-57af153d]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-header[data-v-57af153d]{background-color:#fff;border-bottom:1px solid #ced4da;border-radius:20px 20px 0 0;padding:1.25rem 1.25rem 0}.card-footer[data-v-57af153d]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.section-title[data-v-57af153d]{border-bottom:2px solid #e9ecef;color:#495057;font-weight:600;margin-bottom:1.5rem;padding-bottom:.5rem}.radio-group[data-v-57af153d]{display:flex;gap:1rem;margin-top:.5rem}.radio-inline[data-v-57af153d]{align-items:center;cursor:pointer;display:flex;margin-right:1rem}.radio-inline input[type=radio][data-v-57af153d]{margin-right:.5rem}.required[data-v-57af153d]{color:#dc3545}.form-group[data-v-57af153d]{margin-bottom:1.5rem}.form-group label[data-v-57af153d]{color:#495057;font-weight:500;margin-bottom:.5rem}.is-invalid[data-v-57af153d]{border-color:#dc3545}.text-muted[data-v-57af153d]{color:#6c757d!important}.btn[data-v-57af153d]{border-radius:.375rem;font-weight:500}.btn-primary[data-v-57af153d]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-primary[data-v-57af153d]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-secondary[data-v-57af153d]{background:#33a0d9!important;border:none!important;color:#fff!important;font-weight:500;margin-right:10px;padding:10px 20px!important}.btn-secondary[data-v-57af153d]:hover{background:#2a8bc4!important;box-shadow:0 4px 8px rgba(51,160,217,.3);transform:translateY(-1px)}@media (max-width:768px){.radio-group[data-v-57af153d]{flex-direction:column;gap:.5rem}.col-md-3[data-v-57af153d]{margin-bottom:1rem}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 77552:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-74008f4c]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:20px}.form-card .card-header[data-v-74008f4c]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:22px 16px}.form-card .section-title[data-v-74008f4c]{color:#fff;font-size:14px;font-weight:600;margin:0}.form-card .card-body[data-v-74008f4c]{padding:16px}.form-control[data-v-74008f4c]{background:#fff!important}input[readonly][data-v-74008f4c]{background-color:#f8f9fa!important;border-color:#ced4da;color:#6c757d;cursor:not-allowed}.form-control[data-v-74008f4c]:focus,select.form-control[data-v-74008f4c]:focus,textarea.form-control[data-v-74008f4c]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.radio-group[data-v-74008f4c]{align-items:center;display:flex;gap:16px}.radio-group .radio-inline[data-v-74008f4c]{align-items:center;display:inline-flex;gap:6px;margin:0}.v-select .vs__dropdown-toggle[data-v-74008f4c]{border-color:#ced4da;border-radius:6px}.v-select .vs__dropdown-toggle.vs__open[data-v-74008f4c],.v-select .vs__dropdown-toggle[data-v-74008f4c]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.v-select .vs__dropdown-menu[data-v-74008f4c],.v-select .vs__search[data-v-74008f4c],.v-select .vs__selected[data-v-74008f4c]{font-size:.95rem}.custom-file-input:focus~.custom-file-label[data-v-74008f4c]{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.custom-file-label[data-v-74008f4c]{border-radius:6px}.file-upload-area[data-v-74008f4c]{background:#f8fdfe;border:2px dashed #33a0d9;border-radius:12px;padding:20px;position:relative;text-align:center}.file-upload-area .file-input[data-v-74008f4c]{cursor:pointer;height:100%;inset:0;opacity:0;position:absolute;width:100%}.file-upload-area .file-upload-content[data-v-74008f4c]{color:#33a0d9}.selected-files .selected-file-item[data-v-74008f4c]{align-items:center;background:#f5faff;border:1px solid #e3f3f7;border-radius:6px;display:inline-flex;margin-bottom:8px;margin-right:8px;padding:6px 10px}.d-flex.align-items-center span.ml-3[data-v-74008f4c]{font-weight:500}.required[data-v-74008f4c]{color:#dc3545}.tax-status-options[data-v-74008f4c]{margin-top:.5rem}.tax-status-card-compact[data-v-74008f4c]{background-color:#fff;border:2px solid #e0e0e0;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.06);cursor:pointer;display:block;padding:.75rem 1rem;position:relative;transition:all .2s ease}.tax-status-card-compact[data-v-74008f4c]:hover{border-color:#007bff;box-shadow:0 2px 8px rgba(0,123,255,.12);transform:translateY(-1px)}.tax-status-card-compact.active[data-v-74008f4c]{background:linear-gradient(135deg,#f8f9ff,#fff);border-color:#007bff;box-shadow:0 2px 10px rgba(0,123,255,.15)}.tax-status-card-compact.border-success.active[data-v-74008f4c]{background:linear-gradient(135deg,#f0fff4,#fff);border-color:#28a745;box-shadow:0 2px 10px rgba(40,167,69,.15)}.tax-status-card-compact.border-primary.active[data-v-74008f4c]{background:linear-gradient(135deg,#f8f9ff,#fff);border-color:#007bff;box-shadow:0 2px 10px rgba(0,123,255,.15)}.tax-status-header-compact[data-v-74008f4c]{align-items:center;display:flex;position:relative}.tax-status-radio[data-v-74008f4c]{opacity:0;pointer-events:none;position:absolute}.tax-status-icon-compact[data-v-74008f4c]{align-items:center;border-radius:8px;display:flex;flex-shrink:0;font-size:1rem;height:32px;justify-content:center;margin-right:.75rem;transition:all .2s ease;width:32px}.tax-status-icon-compact.taxable-icon[data-v-74008f4c]{background:linear-gradient(135deg,#007bff,#0056b3);box-shadow:0 2px 6px rgba(0,123,255,.25);color:#fff}.tax-status-icon-compact.non-taxable-icon[data-v-74008f4c]{background:linear-gradient(135deg,#28a745,#1e7e34);box-shadow:0 2px 6px rgba(40,167,69,.25);color:#fff}.tax-status-card-compact.active .tax-status-icon-compact.taxable-icon[data-v-74008f4c]{box-shadow:0 3px 10px rgba(0,123,255,.35);transform:scale(1.05)}.tax-status-card-compact.active .tax-status-icon-compact.non-taxable-icon[data-v-74008f4c]{box-shadow:0 3px 10px rgba(40,167,69,.35);transform:scale(1.05)}.tax-status-title-compact[data-v-74008f4c]{color:#2c3e50;flex:1;font-size:.95rem;font-weight:600}.tax-status-card-compact.active .tax-status-title-compact[data-v-74008f4c]{color:#007bff}.tax-status-card-compact.border-success.active .tax-status-title-compact[data-v-74008f4c]{color:#28a745}[dir=rtl] .tax-status-icon-compact[data-v-74008f4c]{margin-left:.75rem;margin-right:0}[dir=rtl] .form-card .card-header[data-v-74008f4c]{border-radius:20px 20px 0 0}.custom-file-label[data-v-74008f4c],[dir=rtl] .custom-file-label[data-v-74008f4c]{text-align:left!important}.btn-primary[data-v-74008f4c]{background:#33a0d9!important;border-color:#33a0d9!important}.btn-primary[data-v-74008f4c]:hover{filter:brightness(.95)}.equal-height>[class*=\" col-\"][data-v-74008f4c],.equal-height>[class^=col-][data-v-74008f4c]{display:flex}.equal-height .form-card[data-v-74008f4c]{display:flex;flex-direction:column;width:100%}.equal-height .form-card .card-body[data-v-74008f4c]{flex:1 1 auto}.country-select[data-v-74008f4c]{width:100%}.country-select .vs__dropdown-toggle[data-v-74008f4c]{border:1px solid #ced4da;border-radius:6px;max-width:100%;min-height:2.5rem;overflow:hidden;padding:.5rem 1rem}.country-select .vs__search[data-v-74008f4c]{font-size:.95rem;margin:0;padding:0}.country-select .vs__selected[data-v-74008f4c]{align-items:center;display:flex;gap:.5rem;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.country-option[data-v-74008f4c],.country-selected[data-v-74008f4c]{align-items:center;display:flex;gap:.5rem;min-width:0}.country-flag[data-v-74008f4c]{flex-shrink:0;font-size:1.25rem;line-height:1}.country-name[data-v-74008f4c]{flex:1;font-size:.95rem;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.country-select.is-invalid .vs__dropdown-toggle[data-v-74008f4c]{border-color:#dc3545}.country-select .vs__dropdown-menu[data-v-74008f4c]{border-radius:6px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);margin-top:.5rem}.country-select .vs__dropdown-option[data-v-74008f4c]{padding:.75rem 1rem}.country-select .vs__dropdown-option--highlight[data-v-74008f4c]{background-color:#33a0d9;color:#fff}.saudi-location-select[data-v-74008f4c]{width:100%}.saudi-location-select .vs__dropdown-toggle[data-v-74008f4c]{background-color:#fff;border:1px solid #ced4da;border-radius:6px;min-height:2.5rem;padding:.375rem .75rem}.saudi-location-select .vs__dropdown-toggle.vs__open[data-v-74008f4c],.saudi-location-select .vs__dropdown-toggle[data-v-74008f4c]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15);outline:none}.saudi-location-select.is-invalid .vs__dropdown-toggle[data-v-74008f4c]{border-color:#dc3545}.saudi-location-select .vs__search[data-v-74008f4c]{font-size:.95rem;margin:0;padding:0}.saudi-location-select .vs__dropdown-menu[data-v-74008f4c]{border-radius:6px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);margin-top:.5rem}.saudi-location-select .vs__dropdown-option[data-v-74008f4c]{padding:.75rem 1rem}.saudi-location-select .vs__dropdown-option--highlight[data-v-74008f4c]{background-color:#33a0d9;color:#fff}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -1,7 +1,713 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[3418],{
 
-/***/ 9043:
+/***/ 1936:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-6459ddb0]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-bottom:1.25rem;margin-top:20px;transition:all .2s ease}.form-card[data-v-6459ddb0]:hover{box-shadow:0 .1rem .5rem 0 rgba(58,59,69,.15)}.form-card .card-header[data-v-6459ddb0]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:12px 16px}.form-card .card-header .section-title[data-v-6459ddb0]{border:none;color:#fff;font-size:14px;font-weight:600;margin:0;padding:0}.form-card .card-header .section-title[data-v-6459ddb0]:after{display:none}.form-card .card-header .section-title i[data-v-6459ddb0]{color:hsla(0,0%,100%,.8)}.form-card .card-body[data-v-6459ddb0]{padding:16px}.section-title[data-v-6459ddb0]{border-bottom:1px solid #e9ecef;color:#495057;font-weight:600;margin-bottom:15px;padding-bottom:8px}.form-group[data-v-6459ddb0]{margin-bottom:1rem}.form-group label[data-v-6459ddb0]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-6459ddb0]{color:#dc3545;font-weight:700}.row[data-v-6459ddb0]{margin-bottom:1rem}.row[data-v-6459ddb0]:last-child{margin-bottom:0}.form-text[data-v-6459ddb0]{color:#6c757d;font-size:.8rem;margin-top:3px}.image-preview[data-v-6459ddb0]{text-align:center}.image-preview img[data-v-6459ddb0]{border:1px solid #dee2e6;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.1)}.custom-file-label[data-v-6459ddb0]{background-color:#f8f9fa;border:1px dashed #dee2e6;cursor:pointer;font-size:.85rem;transition:all .2s ease}.custom-file-label[data-v-6459ddb0]:hover{background-color:#e3f2fd;border-color:#007bff}.custom-file-label i[data-v-6459ddb0]{color:#6c757d}@media (max-width:768px){.section-title[data-v-6459ddb0]{font-size:.95rem;margin-bottom:12px}.form-card .card-body[data-v-6459ddb0]{padding:.75rem}}.input-group-prepend .input-group-text[data-v-6459ddb0]{background-color:#f8f9fa;border-color:#ced4da;color:#495057;font-size:.85rem}.v-select[data-v-6459ddb0]{margin-bottom:0}.is-invalid[data-v-6459ddb0]{border-color:#dc3545!important}.invalid-feedback[data-v-6459ddb0]{color:#dc3545;display:block;font-size:75%;margin-top:.2rem;width:100%}.item-type-selector[data-v-6459ddb0]{display:flex;gap:.75rem;margin-top:.5rem}.item-type-option[data-v-6459ddb0]{cursor:pointer;flex:1;position:relative;transition:all .2s ease}.item-type-option input[type=radio][data-v-6459ddb0]{opacity:0;pointer-events:none;position:absolute}.option-content[data-v-6459ddb0]{align-items:center;background:#fff;border:2px solid #e3e6f0;border-radius:8px;display:flex;flex-direction:column;justify-content:center;min-height:70px;padding:1rem .75rem;text-align:center;transition:all .2s ease}.item-type-option:hover .option-content[data-v-6459ddb0]{border-color:#33a0d9;box-shadow:0 2px 6px rgba(51,160,217,.15);transform:translateY(-1px)}.item-type-option.active .option-content[data-v-6459ddb0]{background:#33a0d9;border-color:#33a0d9;box-shadow:0 3px 10px rgba(51,160,217,.25);color:#fff;transform:translateY(-1px)}.option-content i[data-v-6459ddb0]{color:#6c757d;font-size:1.4rem;margin-bottom:.5rem;transition:all .2s ease}.item-type-option.active .option-content i[data-v-6459ddb0]{color:hsla(0,0%,100%,.9)}.option-content span[data-v-6459ddb0]{color:#495057;font-size:.9rem;font-weight:600;transition:all .2s ease}.item-type-option.active .option-content span[data-v-6459ddb0]{color:#fff}@media (max-width:768px){.item-type-selector[data-v-6459ddb0]{flex-direction:column;gap:.5rem}.option-content[data-v-6459ddb0]{min-height:60px;padding:.75rem .5rem}.option-content i[data-v-6459ddb0]{font-size:1.25rem;margin-bottom:.4rem}.option-content span[data-v-6459ddb0]{font-size:.85rem}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 20899:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ ItemsTable)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=template&id=1cdc941e&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _vm.items && _vm.items.length > 0 ? _c('div', {
+    staticClass: "items-table-wrapper mt-3 mb-4"
+  }, [_c('div', {
+    staticClass: "table-responsive table-custom w-100 m-auto",
+    staticStyle: {
+      "max-width": "100%"
+    }
+  }, [_c('table', {
+    "class": ['table', 'table-hover', 'table-sm', 'text-center', _vm.tableClass]
+  }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Item Name")))]), _vm._v(" "), _vm.showInvoiceQtyColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Invoice Qty")))]) : _vm._e(), _vm._v(" "), _vm.showCurrentQtyColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Current Qty")))]) : _vm._e(), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Qty")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Price")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total")))]), _vm._v(" "), !_vm.hideDiscountColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Discount")))]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Total After Discount")))]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("VAT Type")))]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("VAT")))]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Total with VAT")))]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn ? _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v(_vm._s(_vm.$t("Return Price")))]) : _vm._e(), _vm._v(" "), !_vm.showReturnPriceColumn ? _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v(_vm._s(_vm.$t("Action")))]) : _vm._e()]), _vm._v(" "), _c('tbody', [_vm._l(_vm.items, function (item, i) {
+    return _c('tr', {
+      key: i
+    }, [_c('td', {
+      staticClass: "auto-width"
+    }, [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', {
+      staticClass: "auto-width"
+    }, [_vm._v(_vm._s(_vm._f("withPrefix")(item.code, _vm.prefix)))]), _vm._v(" "), _c('td', {
+      staticClass: "auto-width"
+    }, [_c('div', {
+      staticClass: "d-flex align-items-center"
+    }, [Number(item.inventoryCount) < Number(_vm.getItemField(item, _vm.qtyFieldName)) && item.itemType == 'product' ? _c('span', {
+      directives: [{
+        name: "tooltip",
+        rawName: "v-tooltip",
+        value: _vm.$t('Click to manage stock'),
+        expression: "$t('Click to manage stock')"
+      }],
+      staticClass: "badge badge-danger p-2 mr-2 clickable-badge",
+      on: {
+        "click": function click($event) {
+          return _vm.$emit('open-stock-modal', item);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-exclamation"
+    })]) : _vm._e(), _vm._v(" "), _c('div', {
+      staticClass: "flex-grow-1"
+    }, [_vm.$can('product-view') ? _c('router-link', {
+      attrs: {
+        "to": {
+          name: 'products.show',
+          params: {
+            slug: item.slug
+          }
+        }
+      }
+    }, [_vm._v("\n                                    " + _vm._s(item.name) + "\n                                ")]) : _c('span', [_vm._v(_vm._s(item.name))])], 1), _vm._v(" "), _vm.showEditButton ? _c('button', {
+      directives: [{
+        name: "tooltip",
+        rawName: "v-tooltip",
+        value: _vm.$t('Edit Product'),
+        expression: "$t('Edit Product')"
+      }],
+      staticClass: "btn btn-sm btn-outline-primary ml-2",
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.$emit('edit-product', item);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-edit"
+    })]) : _vm._e()])]), _vm._v(" "), _vm.showInvoiceQtyColumn ? _c('td', {
+      staticClass: "auto-width"
+    }, [_vm._v("\n                        " + _vm._s(item.invoiceQty || item.qty) + " " + _vm._s(item.unit || '') + "\n                    ")]) : _vm._e(), _vm._v(" "), _vm.showCurrentQtyColumn ? _c('td', {
+      staticClass: "auto-width"
+    }, [_vm._v("\n                        " + _vm._s(item.returnQty !== undefined ? item.returnQty : (item.invoiceQty || item.qty) - (item.oldQty || 0)) + " " + _vm._s(item.unit || '') + "\n                    ")]) : _vm._e(), _vm._v(" "), _c('td', {
+      staticClass: "fixed-qty-column"
+    }, [_c('div', {
+      staticClass: "input-group custom-qty-input"
+    }, [_c('input', {
+      staticClass: "button-minus icon-shape icon-sm btn-danger",
+      attrs: {
+        "type": "button",
+        "value": "-",
+        "data-field": "quantity",
+        "disabled": item.isFromQuotation
+      },
+      on: {
+        "click": function click($event) {
+          _vm.handleItemChange(_vm.getItemField(item, _vm.qtyFieldName), 'qty', i - 1, 'decrement');
+        }
+      }
+    }), _vm._v(" "), _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model.number",
+        value: item[_vm.qtyFieldName],
+        expression: "item[qtyFieldName]",
+        modifiers: {
+          "number": true
+        }
+      }],
+      staticClass: "quantity-field border-0 incrementor",
+      "class": {
+        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".").concat(_vm.qtyFieldName)),
+        'insufficient-stock-input': Number(item.inventoryCount) < Number(_vm.getItemField(item, _vm.qtyFieldName)) && item.itemType == 'product'
+      },
+      attrs: {
+        "type": "number",
+        "step": "any",
+        "id": "Qty-".concat(i),
+        "name": "quantity",
+        "required": "",
+        "min": "1",
+        "max": item.itemType == 'product' ? item.inventoryCount : item.maxQty || null,
+        "readonly": item.isFromQuotation,
+        "placeholder": _vm.$t('Quantity')
+      },
+      domProps: {
+        "value": item[_vm.qtyFieldName]
+      },
+      on: {
+        "change": function change($event) {
+          return _vm.handleItemChange($event.target.value, 'qty', i - 1, '');
+        },
+        "keyup": function keyup($event) {
+          return _vm.handleItemChange($event.target.value, 'qty', i - 1, '');
+        },
+        "input": [function ($event) {
+          if ($event.target.composing) return;
+          _vm.$set(item, _vm.qtyFieldName, _vm._n($event.target.value));
+        }, function ($event) {
+          return _vm.handleItemChange($event.target.value, 'qty', i - 1, '');
+        }],
+        "blur": function blur($event) {
+          return _vm.$forceUpdate();
+        }
+      }
+    }), _vm._v(" "), _c('input', {
+      staticClass: "button-plus icon-shape icon-sm btn-primary",
+      attrs: {
+        "type": "button",
+        "value": "+",
+        "data-field": "quantity",
+        "disabled": item.isFromQuotation
+      },
+      on: {
+        "click": function click($event) {
+          _vm.handleItemChange(_vm.getItemField(item, _vm.qtyFieldName), 'qty', i - 1, 'increment');
+        }
+      }
+    })])]), _vm._v(" "), _c('td', {
+      staticClass: "auto-width"
+    }, [!_vm.priceReadonly ? _c('div', {
+      staticClass: "input-group custom-qty-input"
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model.number",
+        value: item[_vm.unitPriceFieldName],
+        expression: "item[unitPriceFieldName]",
+        modifiers: {
+          "number": true
+        }
+      }],
+      staticClass: "quantity-field border-0",
+      attrs: {
+        "type": "number",
+        "step": "any",
+        "min": "0",
+        "id": "unitPrice-".concat(i),
+        "name": "unitPrice",
+        "required": "",
+        "readonly": item.isFromQuotation
+      },
+      domProps: {
+        "value": item[_vm.unitPriceFieldName]
+      },
+      on: {
+        "input": [function ($event) {
+          if ($event.target.composing) return;
+          _vm.$set(item, _vm.unitPriceFieldName, _vm._n($event.target.value));
+        }, function ($event) {
+          return _vm.handleItemChange(item[_vm.unitPriceFieldName], 'price', i - 1, '');
+        }],
+        "blur": function blur($event) {
+          return _vm.$forceUpdate();
+        }
+      }
+    })]) : _c('div', [_vm._v("\n                            " + _vm._s(_vm.formatToTwoDecimals(_vm.getItemField(item, _vm.unitPriceFieldName))) + "\n                        ")])]), _vm._v(" "), _c('td', {
+      staticClass: "no-currency auto-width"
+    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals((item.originalPrice || _vm.getItemField(item, _vm.unitPriceFieldName)) * (item.invoiceQty || _vm.getItemField(item, _vm.qtyFieldName) || 1))) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]), _vm._v(" "), !_vm.hideDiscountColumn ? _c('td', {
+      staticStyle: {
+        "min-width": "180px"
+      }
+    }, [_c('div', {
+      staticClass: "input-group"
+    }, [_c('select', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: item.discountType,
+        expression: "item.discountType"
+      }],
+      staticClass: "form-control form-control-sm",
+      "class": {
+        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".discountType"))
+      },
+      staticStyle: {
+        "width": "85px"
+      },
+      attrs: {
+        "disabled": item.isFromQuotation
+      },
+      on: {
+        "change": [function ($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
+          _vm.$set(item, "discountType", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }, function ($event) {
+          return _vm.handleDiscountChange(i - 1);
+        }]
+      }
+    }, [_c('option', {
+      attrs: {
+        "value": "fixed"
+      }
+    }, [_vm._v(_vm._s(_vm.$t("Fixed")))]), _vm._v(" "), _c('option', {
+      attrs: {
+        "value": "percentage"
+      }
+    }, [_vm._v(_vm._s(_vm.$t("%")))])]), _vm._v(" "), _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: item.discount,
+        expression: "item.discount"
+      }],
+      staticClass: "form-control form-control-sm",
+      "class": {
+        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".discount"))
+      },
+      staticStyle: {
+        "width": "80px"
+      },
+      attrs: {
+        "type": "number",
+        "step": "any",
+        "min": "0",
+        "max": item.discountType == 'percentage' ? 100 : _vm.getItemField(item, _vm.unitPriceFieldName) * _vm.getItemField(item, _vm.qtyFieldName),
+        "readonly": item.isFromQuotation,
+        "placeholder": "0"
+      },
+      domProps: {
+        "value": item.discount
+      },
+      on: {
+        "change": function change($event) {
+          return _vm.handleDiscountChange(i - 1);
+        },
+        "keyup": function keyup($event) {
+          return _vm.handleDiscountChange(i - 1);
+        },
+        "input": function input($event) {
+          if ($event.target.composing) return;
+          _vm.$set(item, "discount", $event.target.value);
+        }
+      }
+    })]), _vm._v(" "), _vm.getFieldError("selectedProducts.".concat(i - 1, ".discount")) || _vm.getFieldError("selectedProducts.".concat(i - 1, ".discountType")) ? _c('div', {
+      staticClass: "invalid-feedback d-block"
+    }, [_vm.getFieldError("selectedProducts.".concat(i - 1, ".discount")) ? _c('span', {
+      staticClass: "d-block"
+    }, [_vm._v(_vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".discount"))))]) : _vm._e(), _vm._v(" "), _vm.getFieldError("selectedProducts.".concat(i - 1, ".discountType")) ? _c('span', {
+      staticClass: "d-block"
+    }, [_vm._v(_vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".discountType"))))]) : _vm._e()]) : _vm._e()]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn ? _c('td', {
+      staticClass: "no-currency auto-width"
+    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.totalAfterDiscount !== undefined ? item.totalAfterDiscount : _vm.getItemField(item, _vm.unitPriceFieldName) * _vm.getItemField(item, _vm.qtyFieldName) - (item.discountAmount || 0))) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
+      staticClass: "fixed-vat-column"
+    }, [_vm.useVatRateId ? _c('select', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: item.vat_rate_id,
+        expression: "item.vat_rate_id"
+      }],
+      staticClass: "form-control form-control-sm",
+      "class": {
+        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".vat_rate_id"))
+      },
+      staticStyle: {
+        "min-width": "120px"
+      },
+      attrs: {
+        "disabled": item.isFromQuotation
+      },
+      on: {
+        "change": [function ($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
+          _vm.$set(item, "vat_rate_id", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }, function ($event) {
+          return _vm.handleVatChange(i - 1);
+        }]
+      }
+    }, [_c('option', {
+      attrs: {
+        "value": ""
+      }
+    }, [_vm._v(_vm._s(_vm.$t('Select VAT')))]), _vm._v(" "), _vm._l(_vm.taxes, function (tax) {
+      return _c('option', {
+        key: tax.id,
+        domProps: {
+          "value": tax.id
+        }
+      }, [_vm._v("\n                                " + _vm._s(tax.code) + " (" + _vm._s(tax.rate) + "%)\n                            ")]);
+    })], 2) : _c('select', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: item.selectedVatRate,
+        expression: "item.selectedVatRate"
+      }],
+      staticClass: "form-control form-control-sm",
+      "class": {
+        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".selectedVatRate"))
+      },
+      staticStyle: {
+        "min-width": "120px"
+      },
+      attrs: {
+        "disabled": item.isFromQuotation
+      },
+      on: {
+        "change": [function ($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
+          _vm.$set(item, "selectedVatRate", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }, function ($event) {
+          return _vm.handleVatChange(i - 1);
+        }]
+      }
+    }, [_c('option', {
+      attrs: {
+        "value": ""
+      }
+    }, [_vm._v(_vm._s(_vm.$t('Select VAT')))]), _vm._v(" "), _vm._l(_vm.taxes, function (tax) {
+      return _c('option', {
+        key: tax.id,
+        domProps: {
+          "value": tax
+        }
+      }, [_vm._v("\n                                " + _vm._s(tax.code) + " (" + _vm._s(tax.rate) + "%)\n                            ")]);
+    })], 2), _vm._v(" "), _vm.useVatRateId && _vm.getFieldError("selectedProducts.".concat(i - 1, ".vat_rate_id")) ? _c('div', {
+      staticClass: "invalid-feedback d-block"
+    }, [_vm._v("\n                            " + _vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".vat_rate_id"))) + "\n                        ")]) : _vm._e(), _vm._v(" "), !_vm.useVatRateId && _vm.getFieldError("selectedProducts.".concat(i - 1, ".selectedVatRate")) ? _c('div', {
+      staticClass: "invalid-feedback d-block"
+    }, [_vm._v("\n                            " + _vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".selectedVatRate"))) + "\n                        ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
+      staticClass: "no-currency fixed-vat-column"
+    }, [_c('div', [_vm._v("\n                            " + _vm._s(_vm.formatToTwoDecimals(item.totalTax || 0)) + "\n                            "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
+      staticClass: "no-currency auto-width"
+    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.totalPrice)) + "\n                        "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn ? _c('td', {
+      staticClass: "text-right auto-width"
+    }, [_vm._v("\n                        " + _vm._s(_vm.formatToTwoDecimals(item.returnTotal !== undefined ? item.returnTotal : item.totalReturn || 0)) + " "), _c('span', {
+      staticClass: "saudi-riyal"
+    }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.showReturnPriceColumn ? _c('td', {
+      staticClass: "text-right auto-width"
+    }, [_c('button', {
+      staticClass: "btn btn-danger",
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.$emit('remove-item', item);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-times"
+    })])]) : _vm._e()]);
+  }), _vm._v(" "), _c('tr', [_c('td', {
+    staticClass: "text-right",
+    attrs: {
+      "colspan": _vm.totalsColspan + (_vm.showInvoiceQtyColumn ? 1 : 0) + (_vm.showCurrentQtyColumn ? 1 : 0)
+    }
+  }, [!_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('strong', [_vm._v(" " + _vm._s(_vm.$t("Total")) + " : " + _vm._s(_vm.amountInWords) + " ")]) : _c('strong', [_vm._v(_vm._s(_vm.$t("Subtotal")))])]), _vm._v(" "), _vm.totalsColspan === 4 && !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalUnitPrice)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.customTotalValue !== null ? _vm.customTotalValue : _vm.totalUnitPrice)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalProductDiscount)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalAfterDiscount)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', [_c('strong')]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalProductTax)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.subtotal)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn && !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.customTotalValue !== null ? _vm.customTotalValue : 0)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.hideDiscountColumn && _vm.hideVatColumn ? _c('td', {
+    staticClass: "no-currency"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalUnitPrice)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn && _vm.hideDiscountColumn && _vm.hideVatColumn ? _c('td', {
+    staticClass: "text-right"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.customTotalValue !== null ? _vm.customTotalValue : _vm.subtotal)))]), _vm._v(" "), _c('span', {
+    staticClass: "saudi-riyal"
+  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.showReturnPriceColumn && !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td') : _vm._e()])], 2)])])]) : _vm._e();
+};
+var staticRenderFns = [];
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=script&lang=js
+/* harmony default export */ const ItemsTablevue_type_script_lang_js = ({
+  name: 'ItemsTable',
+  props: {
+    items: {
+      type: Array,
+      required: true,
+      "default": function _default() {
+        return [];
+      }
+    },
+    prefix: {
+      type: String,
+      "default": ''
+    },
+    taxes: {
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
+    },
+    formErrors: {
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
+    },
+    totalUnitPrice: {
+      type: Number,
+      "default": 0
+    },
+    totalProductDiscount: {
+      type: Number,
+      "default": 0
+    },
+    totalAfterDiscount: {
+      type: Number,
+      "default": 0
+    },
+    totalProductTax: {
+      type: Number,
+      "default": 0
+    },
+    subtotal: {
+      type: Number,
+      "default": 0
+    },
+    amountInWords: {
+      type: String,
+      "default": ''
+    },
+    showEditButton: {
+      type: Boolean,
+      "default": true
+    },
+    useVatRateId: {
+      type: Boolean,
+      "default": false
+    },
+    tableClass: {
+      type: String,
+      "default": 'quotations-create-table'
+    },
+    qtyFieldName: {
+      type: String,
+      "default": 'qty'
+    },
+    unitPriceFieldName: {
+      type: String,
+      "default": 'unitPrice'
+    },
+    priceReadonly: {
+      type: Boolean,
+      "default": false
+    },
+    customTotalValue: {
+      type: Number,
+      "default": null
+    },
+    totalsColspan: {
+      type: Number,
+      "default": 5
+    },
+    hideDiscountColumn: {
+      type: Boolean,
+      "default": false
+    },
+    hideVatColumn: {
+      type: Boolean,
+      "default": false
+    },
+    showInvoiceQtyColumn: {
+      type: Boolean,
+      "default": false
+    },
+    showCurrentQtyColumn: {
+      type: Boolean,
+      "default": false
+    },
+    showReturnPriceColumn: {
+      type: Boolean,
+      "default": false
+    }
+  },
+  methods: {
+    getItemField: function getItemField(item, fieldName) {
+      return item[fieldName] || 0;
+    },
+    formatToTwoDecimals: function formatToTwoDecimals(value) {
+      if (value === null || value === undefined || value === '') {
+        return '0.00';
+      }
+      var numValue = Number(value);
+      if (isNaN(numValue)) {
+        return '0.00';
+      }
+      return numValue.toFixed(2);
+    },
+    getFieldError: function getFieldError(field) {
+      if (!this.formErrors || typeof this.formErrors.has !== 'function') {
+        return false;
+      }
+      return this.formErrors.has(field);
+    },
+    getFieldErrorMessage: function getFieldErrorMessage(field) {
+      if (!this.formErrors || typeof this.formErrors.get !== 'function') {
+        return '';
+      }
+      return this.formErrors.get(field);
+    },
+    handleItemChange: function handleItemChange(value, type, index, action) {
+      this.$emit('item-change', {
+        value: value,
+        type: type,
+        index: index,
+        action: action
+      });
+    },
+    handleDiscountChange: function handleDiscountChange(index) {
+      this.$emit('discount-change', index);
+    },
+    handleVatChange: function handleVatChange(index) {
+      this.$emit('vat-change', index);
+    }
+  }
+});
+;// ./resources/js/components/ItemsTable.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_ItemsTablevue_type_script_lang_js = (ItemsTablevue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=1cdc941e&prod&scoped=true&lang=css
+var ItemsTablevue_type_style_index_0_id_1cdc941e_prod_scoped_true_lang_css = __webpack_require__(48128);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=1cdc941e&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(ItemsTablevue_type_style_index_0_id_1cdc941e_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_ItemsTablevue_type_style_index_0_id_1cdc941e_prod_scoped_true_lang_css = (ItemsTablevue_type_style_index_0_id_1cdc941e_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=1cdc941e&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/ItemsTable.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_ItemsTablevue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "1cdc941e",
+  null
+  
+)
+
+/* harmony default export */ const ItemsTable = (component.exports);
+
+/***/ }),
+
+/***/ 37545:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".header-buttons[data-v-b832e68a]{margin-bottom:15px}.footer-buttons[data-v-b832e68a]{display:flex;gap:10px}.footer-buttons .btn[data-v-b832e68a]{margin-right:10px}.footer-buttons .btn[data-v-b832e68a]:last-child{margin-right:0}.create-btn[data-v-b832e68a]{cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-b832e68a]:hover{background-color:#e9ecef}.edit-btn[data-v-b832e68a]{background-color:#17a2b8!important;border-color:#17a2b8!important;color:#fff!important}.edit-btn[data-v-b832e68a]:hover{background-color:#138496!important;border-color:#117a8b!important}.table-custom[data-v-b832e68a]{border:none!important}.quotations-create-table[data-v-b832e68a]{border-collapse:separate;border-spacing:0}.quotations-create-table thead th[data-v-b832e68a]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.quotations-create-table thead tr[data-v-b832e68a]{border:none!important}.quotations-create-table thead th[data-v-b832e68a]:first-child{border-top-left-radius:10px}.quotations-create-table thead th[data-v-b832e68a]:last-child{border-top-right-radius:10px}[dir=rtl] .quotations-create-table thead th[data-v-b832e68a]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .quotations-create-table thead th[data-v-b832e68a]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.btn-group.c-w-100[data-v-b832e68a]{gap:10px}.card[data-v-b832e68a]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-b832e68a]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.quotations-create-table .badge.badge-danger[data-v-b832e68a]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.form-control[data-v-b832e68a]{background:#fff!important}.btn-primary[data-v-b832e68a]{background:#2ab930!important}.btn-secondary[data-v-b832e68a]{background:#33a0d9!important;border:none!important;color:#fff!important;padding:10px 20px!important}.custom-qty-input[data-v-b832e68a]{align-items:center;display:flex;margin:0 auto;width:-moz-fit-content;width:fit-content}.button-minus[data-v-b832e68a],.button-plus[data-v-b832e68a]{align-items:center;border:none;border-radius:50%;cursor:pointer;display:flex;font-size:14px;font-weight:700;height:30px;justify-content:center;transition:all .2s ease;width:30px}.button-minus[data-v-b832e68a]{background-color:#dc3545;color:#fff}.button-plus[data-v-b832e68a]{background-color:#007bff;color:#fff}.button-minus[data-v-b832e68a]:hover{background-color:#c82333;transform:scale(1.05)}.button-plus[data-v-b832e68a]:hover{background-color:#0056b3;transform:scale(1.05)}.quantity-field[data-v-b832e68a]{border:1px solid #ced4da;border-radius:5px;margin:0 5px;padding:5px;text-align:center;width:60px}.quantity-field[data-v-b832e68a]:focus{border-color:#007bff;box-shadow:0 0 0 .2rem rgba(0,123,255,.25);outline:none}[dir=rtl] .d-flex[data-v-b832e68a]{direction:rtl}[dir=rtl] .create-btn[data-v-b832e68a]{border-radius:.25rem 0 0 .25rem}[dir=ltr] .create-btn[data-v-b832e68a]{border-radius:0 .25rem .25rem 0}[dir=rtl] .rtl-select .vs__dropdown-toggle[data-v-b832e68a]{border-radius:.25rem 0 0 .25rem}[dir=ltr] .rtl-select .vs__dropdown-toggle[data-v-b832e68a]{border-radius:.25rem}[dir=rtl] .flex-grow-1.rtl-select[data-v-b832e68a]{border-right:none}[dir=ltr] .flex-grow-1.rtl-select[data-v-b832e68a]{border-right:1px solid #ced4da}.clickable-badge[data-v-b832e68a]{cursor:pointer;transition:all .3s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.clickable-badge[data-v-b832e68a]:hover{background-color:#c82333!important;box-shadow:0 2px 4px rgba(220,53,69,.3);transform:scale(1.05)}.clickable-badge[data-v-b832e68a]:active{transform:scale(.95)}.insufficient-stock-input[data-v-b832e68a]{background-color:#fff5f5!important;border:2px solid #dc3545!important;color:#dc3545!important}.insufficient-stock-input[data-v-b832e68a]:focus{border-color:#dc3545!important;box-shadow:0 0 0 .2rem rgba(220,53,69,.25)!important}.debug-panel[data-v-b832e68a]{border:2px solid #ffc107;border-radius:10px;box-shadow:0 4px 8px rgba(255,193,7,.2);display:none!important}.debug-panel .card-header[data-v-b832e68a]{background:linear-gradient(45deg,#ffc107,#ffeb3b)!important;border-bottom:2px solid #ffc107;border-radius:8px 8px 0 0!important}.debug-item[data-v-b832e68a]{background-color:#f8f9fa;border-left:4px solid #007bff!important;transition:all .3s ease}.debug-item[data-v-b832e68a]:hover{background-color:#e9ecef;box-shadow:0 2px 4px rgba(0,0,0,.1);transform:translateY(-2px)}.debug-step[data-v-b832e68a]{background-color:#fff;border:1px solid #dee2e6;border-radius:4px;font-family:Courier New,monospace;font-size:.9em;margin-bottom:8px;padding:4px 8px}.debug-summary[data-v-b832e68a]{background-color:#f8f9fa;border:1px solid #dee2e6;border-radius:8px;padding:15px}.debug-summary ul li[data-v-b832e68a]{border-bottom:1px solid #e9ecef;padding:4px 0}.debug-summary ul li[data-v-b832e68a]:last-child{border-bottom:none}.debug-display[data-v-b832e68a]{background:linear-gradient(135deg,#e3f2fd,#f3e5f5)!important;border:1px solid #bbdefb;font-family:Courier New,monospace}.debug-steps .step[data-v-b832e68a]{background-color:#fff3cd;border:1px solid #ffeaa7;border-radius:6px;font-family:Courier New,monospace;font-size:.9em;margin-bottom:8px;padding:8px 12px}.debug-state[data-v-b832e68a]{background-color:#f8f9fa;border:1px solid #dee2e6;border-radius:8px;padding:15px}.debug-state div[data-v-b832e68a]{border-bottom:1px solid #e9ecef;padding:4px 0}.debug-state div[data-v-b832e68a]:last-child{border-bottom:none}.debug-panel .table th[data-v-b832e68a]{background-color:#f8f9fa;font-size:.85em;font-weight:600}.debug-panel .table td[data-v-b832e68a]{font-size:.85em;vertical-align:middle}.debug-panel .table tbody tr[data-v-b832e68a]:hover{background-color:#f8f9fa}@media (max-width:768px){.debug-panel .card-body[data-v-b832e68a]{padding:15px}.debug-item .row[data-v-b832e68a]{margin:0}.debug-item .col-md-6[data-v-b832e68a]{padding:0 5px}.debug-step[data-v-b832e68a]{font-size:.8em;padding:3px 6px}.debug-panel .table[data-v-b832e68a]{font-size:.75em}}.saudi-riyal[data-v-b832e68a]{color:#28a745;font-weight:700}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 48128:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".items-table-wrapper[data-v-1cdc941e]{display:block;margin-left:0;margin-right:0;width:100%}.table-custom[data-v-1cdc941e]{-webkit-overflow-scrolling:touch;border:none!important;overflow-x:auto;overflow-y:visible;width:100%}.table-custom table[data-v-1cdc941e]{border-collapse:separate;border-spacing:0;height:100%;min-width:100%;table-layout:auto;width:100%}.table-custom table thead th[data-v-1cdc941e]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.table-custom table thead tr[data-v-1cdc941e]{border:none!important}.table-custom table thead th[data-v-1cdc941e]:first-child{border-top-left-radius:10px}.table-custom table thead th[data-v-1cdc941e]:last-child{border-top-right-radius:10px}[dir=rtl] .table-custom table thead th[data-v-1cdc941e]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .table-custom table thead th[data-v-1cdc941e]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.custom-qty-input[data-v-1cdc941e]{align-items:center;display:flex;margin:0 auto;width:-moz-fit-content;width:fit-content}.button-minus[data-v-1cdc941e],.button-plus[data-v-1cdc941e]{align-items:center;border:none;border-radius:50%;cursor:pointer;display:flex;font-size:14px;font-weight:700;height:30px;justify-content:center;transition:all .2s ease;width:30px}.button-minus[data-v-1cdc941e]{background-color:#dc3545;color:#fff}.button-plus[data-v-1cdc941e]{background-color:#007bff;color:#fff}.button-minus[data-v-1cdc941e]:hover{background-color:#c82333;transform:scale(1.05)}.button-plus[data-v-1cdc941e]:hover{background-color:#0056b3;transform:scale(1.05)}.quantity-field[data-v-1cdc941e]{border:1px solid #ced4da;border-radius:5px;margin:0 5px;padding:5px;text-align:center;width:60px}.quantity-field[data-v-1cdc941e]:focus{border-color:#007bff;box-shadow:0 0 0 .2rem rgba(0,123,255,.25);outline:none}.clickable-badge[data-v-1cdc941e]{cursor:pointer;transition:all .3s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.clickable-badge[data-v-1cdc941e]:hover{background-color:#c82333!important;box-shadow:0 2px 4px rgba(220,53,69,.3);transform:scale(1.05)}.clickable-badge[data-v-1cdc941e]:active{transform:scale(.95)}.insufficient-stock-input[data-v-1cdc941e]{background-color:#fff5f5!important;border:2px solid #dc3545!important;color:#dc3545!important}.insufficient-stock-input[data-v-1cdc941e]:focus{border-color:#dc3545!important;box-shadow:0 0 0 .2rem rgba(220,53,69,.25)!important}.table-custom table .badge.badge-danger[data-v-1cdc941e]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.table-custom table td.auto-width[data-v-1cdc941e]{min-width:0;white-space:nowrap;width:auto}.table-custom table td.fixed-qty-column[data-v-1cdc941e]{min-width:200px;width:auto}.table-custom table td.fixed-discount-column[data-v-1cdc941e]{min-width:180px;width:auto}.table-custom table td.fixed-vat-column[data-v-1cdc941e]{min-width:150px;width:auto}@media (max-width:768px){.table-custom[data-v-1cdc941e]{-webkit-overflow-scrolling:touch;display:block;overflow-x:auto;width:100%}.table-custom table[data-v-1cdc941e]{display:block;min-width:-moz-fit-content;min-width:fit-content;width:100%}.table-custom table thead[data-v-1cdc941e]{display:table-header-group}.table-custom table tbody[data-v-1cdc941e]{display:table-row-group}.table-custom table tr[data-v-1cdc941e]{display:table-row}.table-custom table td[data-v-1cdc941e],.table-custom table th[data-v-1cdc941e]{display:table-cell;white-space:nowrap}.table-custom table td.fixed-qty-column[data-v-1cdc941e]{min-width:200px}.table-custom table td.fixed-discount-column[data-v-1cdc941e]{min-width:180px}.table-custom table td.fixed-vat-column[data-v-1cdc941e]{min-width:150px}}@media (max-width:576px){.table-custom table[data-v-1cdc941e]{min-width:-moz-fit-content;min-width:fit-content}.table-custom table tbody td[data-v-1cdc941e],.table-custom table thead th[data-v-1cdc941e]{font-size:12px;padding:6px 4px}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 69888:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -10,7 +716,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ ProductEditModal)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductEditModal.vue?vue&type=template&id=06334d97&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductEditModal.vue?vue&type=template&id=6459ddb0&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -1519,14 +2225,29 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     loadAccountRoutingSettings: function loadAccountRoutingSettings() {
       var _this9 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
-        var response, _t8;
+        var _this9$$store, user, branchId, response, _t8;
         return _regenerator().w(function (_context8) {
           while (1) switch (_context8.p = _context8.n) {
             case 0:
               _context8.p = 0;
-              _context8.n = 1;
-              return axios_default().get(window.location.origin + "/api/account-routing-settings/product-account-routing");
+              // Get current branch ID
+              user = ((_this9$$store = _this9.$store) === null || _this9$$store === void 0 || (_this9$$store = _this9$$store.getters) === null || _this9$$store === void 0 ? void 0 : _this9$$store['auth/user']) || {};
+              branchId = user.default_branch_id || null;
+              if (branchId) {
+                _context8.n = 1;
+                break;
+              }
+              console.error('Branch ID is required for account routing settings');
+              _this9.accountRoutingSettings = {};
+              return _context8.a(2);
             case 1:
+              _context8.n = 2;
+              return axios_default().get(window.location.origin + "/api/account-routing-settings/product-account-routing", {
+                params: {
+                  branch_id: branchId
+                }
+              });
+            case 2:
               response = _context8.v;
               _this9.accountRoutingSettings = response.data.data || {};
 
@@ -1544,19 +2265,19 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
               console.log('Account routing settings loaded:', _this9.accountRoutingSettings);
               console.log('Sales automatic:', _this9.isSalesAccountAutomatic);
               console.log('Purchase automatic:', _this9.isPurchaseAccountAutomatic);
-              _context8.n = 3;
+              _context8.n = 4;
               break;
-            case 2:
-              _context8.p = 2;
+            case 3:
+              _context8.p = 3;
               _t8 = _context8.v;
               console.error("Error loading account routing settings:", _t8);
               // Set defaults if API fails
               _this9.isSalesAccountAutomatic = false;
               _this9.isPurchaseAccountAutomatic = false;
-            case 3:
+            case 4:
               return _context8.a(2);
           }
-        }, _callee8, null, [[0, 2]]);
+        }, _callee8, null, [[0, 3]]);
       }))();
     },
     calculatePrice: function calculatePrice() {
@@ -1609,9 +2330,9 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductEditModal.vue?vue&type=style&index=0&id=06334d97&prod&scoped=true&lang=css
-var ProductEditModalvue_type_style_index_0_id_06334d97_prod_scoped_true_lang_css = __webpack_require__(93738);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductEditModal.vue?vue&type=style&index=0&id=06334d97&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductEditModal.vue?vue&type=style&index=0&id=6459ddb0&prod&scoped=true&lang=css
+var ProductEditModalvue_type_style_index_0_id_6459ddb0_prod_scoped_true_lang_css = __webpack_require__(1936);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductEditModal.vue?vue&type=style&index=0&id=6459ddb0&prod&scoped=true&lang=css
 
             
 
@@ -1620,12 +2341,12 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(ProductEditModalvue_type_style_index_0_id_06334d97_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(ProductEditModalvue_type_style_index_0_id_6459ddb0_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const components_ProductEditModalvue_type_style_index_0_id_06334d97_prod_scoped_true_lang_css = (ProductEditModalvue_type_style_index_0_id_06334d97_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/ProductEditModal.vue?vue&type=style&index=0&id=06334d97&prod&scoped=true&lang=css
+/* harmony default export */ const components_ProductEditModalvue_type_style_index_0_id_6459ddb0_prod_scoped_true_lang_css = (ProductEditModalvue_type_style_index_0_id_6459ddb0_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/ProductEditModal.vue?vue&type=style&index=0&id=6459ddb0&prod&scoped=true&lang=css
 
 ;// ./resources/js/components/ProductEditModal.vue
 
@@ -1642,699 +2363,12 @@ var ProductEditModal_component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "06334d97",
+  "6459ddb0",
   null
   
 )
 
 /* harmony default export */ const ProductEditModal = (ProductEditModal_component.exports);
-
-/***/ }),
-
-/***/ 20899:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ ItemsTable)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=template&id=1cdc941e&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _vm.items && _vm.items.length > 0 ? _c('div', {
-    staticClass: "items-table-wrapper mt-3 mb-4"
-  }, [_c('div', {
-    staticClass: "table-responsive table-custom w-100 m-auto",
-    staticStyle: {
-      "max-width": "100%"
-    }
-  }, [_c('table', {
-    "class": ['table', 'table-hover', 'table-sm', 'text-center', _vm.tableClass]
-  }, [_c('thead', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Code")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Item Name")))]), _vm._v(" "), _vm.showInvoiceQtyColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Invoice Qty")))]) : _vm._e(), _vm._v(" "), _vm.showCurrentQtyColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Current Qty")))]) : _vm._e(), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Qty")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Price")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total")))]), _vm._v(" "), !_vm.hideDiscountColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Discount")))]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Total After Discount")))]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("VAT Type")))]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("VAT")))]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('th', [_vm._v(_vm._s(_vm.$t("Total with VAT")))]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn ? _c('th', {
-    staticClass: "text-right"
-  }, [_vm._v(_vm._s(_vm.$t("Return Price")))]) : _vm._e(), _vm._v(" "), !_vm.showReturnPriceColumn ? _c('th', {
-    staticClass: "text-right"
-  }, [_vm._v(_vm._s(_vm.$t("Action")))]) : _vm._e()]), _vm._v(" "), _c('tbody', [_vm._l(_vm.items, function (item, i) {
-    return _c('tr', {
-      key: i
-    }, [_c('td', {
-      staticClass: "auto-width"
-    }, [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', {
-      staticClass: "auto-width"
-    }, [_vm._v(_vm._s(_vm._f("withPrefix")(item.code, _vm.prefix)))]), _vm._v(" "), _c('td', {
-      staticClass: "auto-width"
-    }, [_c('div', {
-      staticClass: "d-flex align-items-center"
-    }, [Number(item.inventoryCount) < Number(_vm.getItemField(item, _vm.qtyFieldName)) && item.itemType == 'product' ? _c('span', {
-      directives: [{
-        name: "tooltip",
-        rawName: "v-tooltip",
-        value: _vm.$t('Click to manage stock'),
-        expression: "$t('Click to manage stock')"
-      }],
-      staticClass: "badge badge-danger p-2 mr-2 clickable-badge",
-      on: {
-        "click": function click($event) {
-          return _vm.$emit('open-stock-modal', item);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-exclamation"
-    })]) : _vm._e(), _vm._v(" "), _c('div', {
-      staticClass: "flex-grow-1"
-    }, [_vm.$can('product-view') ? _c('router-link', {
-      attrs: {
-        "to": {
-          name: 'products.show',
-          params: {
-            slug: item.slug
-          }
-        }
-      }
-    }, [_vm._v("\n                                    " + _vm._s(item.name) + "\n                                ")]) : _c('span', [_vm._v(_vm._s(item.name))])], 1), _vm._v(" "), _vm.showEditButton ? _c('button', {
-      directives: [{
-        name: "tooltip",
-        rawName: "v-tooltip",
-        value: _vm.$t('Edit Product'),
-        expression: "$t('Edit Product')"
-      }],
-      staticClass: "btn btn-sm btn-outline-primary ml-2",
-      attrs: {
-        "type": "button"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.$emit('edit-product', item);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-edit"
-    })]) : _vm._e()])]), _vm._v(" "), _vm.showInvoiceQtyColumn ? _c('td', {
-      staticClass: "auto-width"
-    }, [_vm._v("\n                        " + _vm._s(item.invoiceQty || item.qty) + " " + _vm._s(item.unit || '') + "\n                    ")]) : _vm._e(), _vm._v(" "), _vm.showCurrentQtyColumn ? _c('td', {
-      staticClass: "auto-width"
-    }, [_vm._v("\n                        " + _vm._s(item.returnQty !== undefined ? item.returnQty : (item.invoiceQty || item.qty) - (item.oldQty || 0)) + " " + _vm._s(item.unit || '') + "\n                    ")]) : _vm._e(), _vm._v(" "), _c('td', {
-      staticClass: "fixed-qty-column"
-    }, [_c('div', {
-      staticClass: "input-group custom-qty-input"
-    }, [_c('input', {
-      staticClass: "button-minus icon-shape icon-sm btn-danger",
-      attrs: {
-        "type": "button",
-        "value": "-",
-        "data-field": "quantity",
-        "disabled": item.isFromQuotation
-      },
-      on: {
-        "click": function click($event) {
-          _vm.handleItemChange(_vm.getItemField(item, _vm.qtyFieldName), 'qty', i - 1, 'decrement');
-        }
-      }
-    }), _vm._v(" "), _c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model.number",
-        value: item[_vm.qtyFieldName],
-        expression: "item[qtyFieldName]",
-        modifiers: {
-          "number": true
-        }
-      }],
-      staticClass: "quantity-field border-0 incrementor",
-      "class": {
-        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".").concat(_vm.qtyFieldName)),
-        'insufficient-stock-input': Number(item.inventoryCount) < Number(_vm.getItemField(item, _vm.qtyFieldName)) && item.itemType == 'product'
-      },
-      attrs: {
-        "type": "number",
-        "step": "any",
-        "id": "Qty-".concat(i),
-        "name": "quantity",
-        "required": "",
-        "min": "1",
-        "max": item.itemType == 'product' ? item.inventoryCount : item.maxQty || null,
-        "readonly": item.isFromQuotation,
-        "placeholder": _vm.$t('Quantity')
-      },
-      domProps: {
-        "value": item[_vm.qtyFieldName]
-      },
-      on: {
-        "change": function change($event) {
-          return _vm.handleItemChange($event.target.value, 'qty', i - 1, '');
-        },
-        "keyup": function keyup($event) {
-          return _vm.handleItemChange($event.target.value, 'qty', i - 1, '');
-        },
-        "input": [function ($event) {
-          if ($event.target.composing) return;
-          _vm.$set(item, _vm.qtyFieldName, _vm._n($event.target.value));
-        }, function ($event) {
-          return _vm.handleItemChange($event.target.value, 'qty', i - 1, '');
-        }],
-        "blur": function blur($event) {
-          return _vm.$forceUpdate();
-        }
-      }
-    }), _vm._v(" "), _c('input', {
-      staticClass: "button-plus icon-shape icon-sm btn-primary",
-      attrs: {
-        "type": "button",
-        "value": "+",
-        "data-field": "quantity",
-        "disabled": item.isFromQuotation
-      },
-      on: {
-        "click": function click($event) {
-          _vm.handleItemChange(_vm.getItemField(item, _vm.qtyFieldName), 'qty', i - 1, 'increment');
-        }
-      }
-    })])]), _vm._v(" "), _c('td', {
-      staticClass: "auto-width"
-    }, [!_vm.priceReadonly ? _c('div', {
-      staticClass: "input-group custom-qty-input"
-    }, [_c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model.number",
-        value: item[_vm.unitPriceFieldName],
-        expression: "item[unitPriceFieldName]",
-        modifiers: {
-          "number": true
-        }
-      }],
-      staticClass: "quantity-field border-0",
-      attrs: {
-        "type": "number",
-        "step": "any",
-        "min": "0",
-        "id": "unitPrice-".concat(i),
-        "name": "unitPrice",
-        "required": "",
-        "readonly": item.isFromQuotation
-      },
-      domProps: {
-        "value": item[_vm.unitPriceFieldName]
-      },
-      on: {
-        "input": [function ($event) {
-          if ($event.target.composing) return;
-          _vm.$set(item, _vm.unitPriceFieldName, _vm._n($event.target.value));
-        }, function ($event) {
-          return _vm.handleItemChange(item[_vm.unitPriceFieldName], 'price', i - 1, '');
-        }],
-        "blur": function blur($event) {
-          return _vm.$forceUpdate();
-        }
-      }
-    })]) : _c('div', [_vm._v("\n                            " + _vm._s(_vm.formatToTwoDecimals(_vm.getItemField(item, _vm.unitPriceFieldName))) + "\n                        ")])]), _vm._v(" "), _c('td', {
-      staticClass: "no-currency auto-width"
-    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals((item.originalPrice || _vm.getItemField(item, _vm.unitPriceFieldName)) * (item.invoiceQty || _vm.getItemField(item, _vm.qtyFieldName) || 1))) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), !_vm.hideDiscountColumn ? _c('td', {
-      staticStyle: {
-        "min-width": "180px"
-      }
-    }, [_c('div', {
-      staticClass: "input-group"
-    }, [_c('select', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: item.discountType,
-        expression: "item.discountType"
-      }],
-      staticClass: "form-control form-control-sm",
-      "class": {
-        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".discountType"))
-      },
-      staticStyle: {
-        "width": "85px"
-      },
-      attrs: {
-        "disabled": item.isFromQuotation
-      },
-      on: {
-        "change": [function ($event) {
-          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-            return o.selected;
-          }).map(function (o) {
-            var val = "_value" in o ? o._value : o.value;
-            return val;
-          });
-          _vm.$set(item, "discountType", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-        }, function ($event) {
-          return _vm.handleDiscountChange(i - 1);
-        }]
-      }
-    }, [_c('option', {
-      attrs: {
-        "value": "fixed"
-      }
-    }, [_vm._v(_vm._s(_vm.$t("Fixed")))]), _vm._v(" "), _c('option', {
-      attrs: {
-        "value": "percentage"
-      }
-    }, [_vm._v(_vm._s(_vm.$t("%")))])]), _vm._v(" "), _c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: item.discount,
-        expression: "item.discount"
-      }],
-      staticClass: "form-control form-control-sm",
-      "class": {
-        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".discount"))
-      },
-      staticStyle: {
-        "width": "80px"
-      },
-      attrs: {
-        "type": "number",
-        "step": "any",
-        "min": "0",
-        "max": item.discountType == 'percentage' ? 100 : _vm.getItemField(item, _vm.unitPriceFieldName) * _vm.getItemField(item, _vm.qtyFieldName),
-        "readonly": item.isFromQuotation,
-        "placeholder": "0"
-      },
-      domProps: {
-        "value": item.discount
-      },
-      on: {
-        "change": function change($event) {
-          return _vm.handleDiscountChange(i - 1);
-        },
-        "keyup": function keyup($event) {
-          return _vm.handleDiscountChange(i - 1);
-        },
-        "input": function input($event) {
-          if ($event.target.composing) return;
-          _vm.$set(item, "discount", $event.target.value);
-        }
-      }
-    })]), _vm._v(" "), _vm.getFieldError("selectedProducts.".concat(i - 1, ".discount")) || _vm.getFieldError("selectedProducts.".concat(i - 1, ".discountType")) ? _c('div', {
-      staticClass: "invalid-feedback d-block"
-    }, [_vm.getFieldError("selectedProducts.".concat(i - 1, ".discount")) ? _c('span', {
-      staticClass: "d-block"
-    }, [_vm._v(_vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".discount"))))]) : _vm._e(), _vm._v(" "), _vm.getFieldError("selectedProducts.".concat(i - 1, ".discountType")) ? _c('span', {
-      staticClass: "d-block"
-    }, [_vm._v(_vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".discountType"))))]) : _vm._e()]) : _vm._e()]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn ? _c('td', {
-      staticClass: "no-currency auto-width"
-    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.totalAfterDiscount !== undefined ? item.totalAfterDiscount : _vm.getItemField(item, _vm.unitPriceFieldName) * _vm.getItemField(item, _vm.qtyFieldName) - (item.discountAmount || 0))) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
-      staticClass: "fixed-vat-column"
-    }, [_vm.useVatRateId ? _c('select', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: item.vat_rate_id,
-        expression: "item.vat_rate_id"
-      }],
-      staticClass: "form-control form-control-sm",
-      "class": {
-        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".vat_rate_id"))
-      },
-      staticStyle: {
-        "min-width": "120px"
-      },
-      attrs: {
-        "disabled": item.isFromQuotation
-      },
-      on: {
-        "change": [function ($event) {
-          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-            return o.selected;
-          }).map(function (o) {
-            var val = "_value" in o ? o._value : o.value;
-            return val;
-          });
-          _vm.$set(item, "vat_rate_id", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-        }, function ($event) {
-          return _vm.handleVatChange(i - 1);
-        }]
-      }
-    }, [_c('option', {
-      attrs: {
-        "value": ""
-      }
-    }, [_vm._v(_vm._s(_vm.$t('Select VAT')))]), _vm._v(" "), _vm._l(_vm.taxes, function (tax) {
-      return _c('option', {
-        key: tax.id,
-        domProps: {
-          "value": tax.id
-        }
-      }, [_vm._v("\n                                " + _vm._s(tax.code) + " (" + _vm._s(tax.rate) + "%)\n                            ")]);
-    })], 2) : _c('select', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: item.selectedVatRate,
-        expression: "item.selectedVatRate"
-      }],
-      staticClass: "form-control form-control-sm",
-      "class": {
-        'is-invalid': _vm.getFieldError("selectedProducts.".concat(i - 1, ".selectedVatRate"))
-      },
-      staticStyle: {
-        "min-width": "120px"
-      },
-      attrs: {
-        "disabled": item.isFromQuotation
-      },
-      on: {
-        "change": [function ($event) {
-          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-            return o.selected;
-          }).map(function (o) {
-            var val = "_value" in o ? o._value : o.value;
-            return val;
-          });
-          _vm.$set(item, "selectedVatRate", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-        }, function ($event) {
-          return _vm.handleVatChange(i - 1);
-        }]
-      }
-    }, [_c('option', {
-      attrs: {
-        "value": ""
-      }
-    }, [_vm._v(_vm._s(_vm.$t('Select VAT')))]), _vm._v(" "), _vm._l(_vm.taxes, function (tax) {
-      return _c('option', {
-        key: tax.id,
-        domProps: {
-          "value": tax
-        }
-      }, [_vm._v("\n                                " + _vm._s(tax.code) + " (" + _vm._s(tax.rate) + "%)\n                            ")]);
-    })], 2), _vm._v(" "), _vm.useVatRateId && _vm.getFieldError("selectedProducts.".concat(i - 1, ".vat_rate_id")) ? _c('div', {
-      staticClass: "invalid-feedback d-block"
-    }, [_vm._v("\n                            " + _vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".vat_rate_id"))) + "\n                        ")]) : _vm._e(), _vm._v(" "), !_vm.useVatRateId && _vm.getFieldError("selectedProducts.".concat(i - 1, ".selectedVatRate")) ? _c('div', {
-      staticClass: "invalid-feedback d-block"
-    }, [_vm._v("\n                            " + _vm._s(_vm.getFieldErrorMessage("selectedProducts.".concat(i - 1, ".selectedVatRate"))) + "\n                        ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
-      staticClass: "no-currency fixed-vat-column"
-    }, [_c('div', [_vm._v("\n                            " + _vm._s(_vm.formatToTwoDecimals(item.totalTax || 0)) + "\n                            "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
-      staticClass: "no-currency auto-width"
-    }, [_vm._v(_vm._s(_vm.formatToTwoDecimals(item.totalPrice)) + "\n                        "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn ? _c('td', {
-      staticClass: "text-right auto-width"
-    }, [_vm._v("\n                        " + _vm._s(_vm.formatToTwoDecimals(item.returnTotal !== undefined ? item.returnTotal : item.totalReturn || 0)) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.showReturnPriceColumn ? _c('td', {
-      staticClass: "text-right auto-width"
-    }, [_c('button', {
-      staticClass: "btn btn-danger",
-      attrs: {
-        "type": "button"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.$emit('remove-item', item);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-times"
-    })])]) : _vm._e()]);
-  }), _vm._v(" "), _c('tr', [_c('td', {
-    staticClass: "text-right",
-    attrs: {
-      "colspan": _vm.totalsColspan + (_vm.showInvoiceQtyColumn ? 1 : 0) + (_vm.showCurrentQtyColumn ? 1 : 0)
-    }
-  }, [!_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('strong', [_vm._v(" " + _vm._s(_vm.$t("Total")) + " : " + _vm._s(_vm.amountInWords) + " ")]) : _c('strong', [_vm._v(_vm._s(_vm.$t("Subtotal")))])]), _vm._v(" "), _vm.totalsColspan === 4 && !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalUnitPrice)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.customTotalValue !== null ? _vm.customTotalValue : _vm.totalUnitPrice)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalProductDiscount)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalAfterDiscount)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', [_c('strong')]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalProductTax)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.subtotal)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn && !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.customTotalValue !== null ? _vm.customTotalValue : 0)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.hideDiscountColumn && _vm.hideVatColumn ? _c('td', {
-    staticClass: "no-currency"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.totalUnitPrice)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), _vm.showReturnPriceColumn && _vm.hideDiscountColumn && _vm.hideVatColumn ? _c('td', {
-    staticClass: "text-right"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.formatToTwoDecimals(_vm.customTotalValue !== null ? _vm.customTotalValue : _vm.subtotal)))]), _vm._v(" "), _c('span', {
-    staticClass: "saudi-riyal"
-  }, [_vm._v("ê")])]) : _vm._e(), _vm._v(" "), !_vm.showReturnPriceColumn && !_vm.hideDiscountColumn && !_vm.hideVatColumn ? _c('td') : _vm._e()])], 2)])])]) : _vm._e();
-};
-var staticRenderFns = [];
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=script&lang=js
-/* harmony default export */ const ItemsTablevue_type_script_lang_js = ({
-  name: 'ItemsTable',
-  props: {
-    items: {
-      type: Array,
-      required: true,
-      "default": function _default() {
-        return [];
-      }
-    },
-    prefix: {
-      type: String,
-      "default": ''
-    },
-    taxes: {
-      type: Array,
-      "default": function _default() {
-        return [];
-      }
-    },
-    formErrors: {
-      type: Object,
-      "default": function _default() {
-        return {};
-      }
-    },
-    totalUnitPrice: {
-      type: Number,
-      "default": 0
-    },
-    totalProductDiscount: {
-      type: Number,
-      "default": 0
-    },
-    totalAfterDiscount: {
-      type: Number,
-      "default": 0
-    },
-    totalProductTax: {
-      type: Number,
-      "default": 0
-    },
-    subtotal: {
-      type: Number,
-      "default": 0
-    },
-    amountInWords: {
-      type: String,
-      "default": ''
-    },
-    showEditButton: {
-      type: Boolean,
-      "default": true
-    },
-    useVatRateId: {
-      type: Boolean,
-      "default": false
-    },
-    tableClass: {
-      type: String,
-      "default": 'quotations-create-table'
-    },
-    qtyFieldName: {
-      type: String,
-      "default": 'qty'
-    },
-    unitPriceFieldName: {
-      type: String,
-      "default": 'unitPrice'
-    },
-    priceReadonly: {
-      type: Boolean,
-      "default": false
-    },
-    customTotalValue: {
-      type: Number,
-      "default": null
-    },
-    totalsColspan: {
-      type: Number,
-      "default": 5
-    },
-    hideDiscountColumn: {
-      type: Boolean,
-      "default": false
-    },
-    hideVatColumn: {
-      type: Boolean,
-      "default": false
-    },
-    showInvoiceQtyColumn: {
-      type: Boolean,
-      "default": false
-    },
-    showCurrentQtyColumn: {
-      type: Boolean,
-      "default": false
-    },
-    showReturnPriceColumn: {
-      type: Boolean,
-      "default": false
-    }
-  },
-  methods: {
-    getItemField: function getItemField(item, fieldName) {
-      return item[fieldName] || 0;
-    },
-    formatToTwoDecimals: function formatToTwoDecimals(value) {
-      if (value === null || value === undefined || value === '') {
-        return '0.00';
-      }
-      var numValue = Number(value);
-      if (isNaN(numValue)) {
-        return '0.00';
-      }
-      return numValue.toFixed(2);
-    },
-    getFieldError: function getFieldError(field) {
-      if (!this.formErrors || typeof this.formErrors.has !== 'function') {
-        return false;
-      }
-      return this.formErrors.has(field);
-    },
-    getFieldErrorMessage: function getFieldErrorMessage(field) {
-      if (!this.formErrors || typeof this.formErrors.get !== 'function') {
-        return '';
-      }
-      return this.formErrors.get(field);
-    },
-    handleItemChange: function handleItemChange(value, type, index, action) {
-      this.$emit('item-change', {
-        value: value,
-        type: type,
-        index: index,
-        action: action
-      });
-    },
-    handleDiscountChange: function handleDiscountChange(index) {
-      this.$emit('discount-change', index);
-    },
-    handleVatChange: function handleVatChange(index) {
-      this.$emit('vat-change', index);
-    }
-  }
-});
-;// ./resources/js/components/ItemsTable.vue?vue&type=script&lang=js
- /* harmony default export */ const components_ItemsTablevue_type_script_lang_js = (ItemsTablevue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=1cdc941e&prod&scoped=true&lang=css
-var ItemsTablevue_type_style_index_0_id_1cdc941e_prod_scoped_true_lang_css = __webpack_require__(48128);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=1cdc941e&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(ItemsTablevue_type_style_index_0_id_1cdc941e_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const components_ItemsTablevue_type_style_index_0_id_1cdc941e_prod_scoped_true_lang_css = (ItemsTablevue_type_style_index_0_id_1cdc941e_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/ItemsTable.vue?vue&type=style&index=0&id=1cdc941e&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/ItemsTable.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  components_ItemsTablevue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "1cdc941e",
-  null
-  
-)
-
-/* harmony default export */ const ItemsTable = (component.exports);
-
-/***/ }),
-
-/***/ 37545:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".header-buttons[data-v-b832e68a]{margin-bottom:15px}.footer-buttons[data-v-b832e68a]{display:flex;gap:10px}.footer-buttons .btn[data-v-b832e68a]{margin-right:10px}.footer-buttons .btn[data-v-b832e68a]:last-child{margin-right:0}.create-btn[data-v-b832e68a]{cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-b832e68a]:hover{background-color:#e9ecef}.edit-btn[data-v-b832e68a]{background-color:#17a2b8!important;border-color:#17a2b8!important;color:#fff!important}.edit-btn[data-v-b832e68a]:hover{background-color:#138496!important;border-color:#117a8b!important}.table-custom[data-v-b832e68a]{border:none!important}.quotations-create-table[data-v-b832e68a]{border-collapse:separate;border-spacing:0}.quotations-create-table thead th[data-v-b832e68a]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.quotations-create-table thead tr[data-v-b832e68a]{border:none!important}.quotations-create-table thead th[data-v-b832e68a]:first-child{border-top-left-radius:10px}.quotations-create-table thead th[data-v-b832e68a]:last-child{border-top-right-radius:10px}[dir=rtl] .quotations-create-table thead th[data-v-b832e68a]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .quotations-create-table thead th[data-v-b832e68a]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.btn-group.c-w-100[data-v-b832e68a]{gap:10px}.card[data-v-b832e68a]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-b832e68a]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.quotations-create-table .badge.badge-danger[data-v-b832e68a]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.form-control[data-v-b832e68a]{background:#fff!important}.btn-primary[data-v-b832e68a]{background:#2ab930!important}.btn-secondary[data-v-b832e68a]{background:#33a0d9!important;border:none!important;color:#fff!important;padding:10px 20px!important}.custom-qty-input[data-v-b832e68a]{align-items:center;display:flex;margin:0 auto;width:-moz-fit-content;width:fit-content}.button-minus[data-v-b832e68a],.button-plus[data-v-b832e68a]{align-items:center;border:none;border-radius:50%;cursor:pointer;display:flex;font-size:14px;font-weight:700;height:30px;justify-content:center;transition:all .2s ease;width:30px}.button-minus[data-v-b832e68a]{background-color:#dc3545;color:#fff}.button-plus[data-v-b832e68a]{background-color:#007bff;color:#fff}.button-minus[data-v-b832e68a]:hover{background-color:#c82333;transform:scale(1.05)}.button-plus[data-v-b832e68a]:hover{background-color:#0056b3;transform:scale(1.05)}.quantity-field[data-v-b832e68a]{border:1px solid #ced4da;border-radius:5px;margin:0 5px;padding:5px;text-align:center;width:60px}.quantity-field[data-v-b832e68a]:focus{border-color:#007bff;box-shadow:0 0 0 .2rem rgba(0,123,255,.25);outline:none}[dir=rtl] .d-flex[data-v-b832e68a]{direction:rtl}[dir=rtl] .create-btn[data-v-b832e68a]{border-radius:.25rem 0 0 .25rem}[dir=ltr] .create-btn[data-v-b832e68a]{border-radius:0 .25rem .25rem 0}[dir=rtl] .rtl-select .vs__dropdown-toggle[data-v-b832e68a]{border-radius:.25rem 0 0 .25rem}[dir=ltr] .rtl-select .vs__dropdown-toggle[data-v-b832e68a]{border-radius:.25rem}[dir=rtl] .flex-grow-1.rtl-select[data-v-b832e68a]{border-right:none}[dir=ltr] .flex-grow-1.rtl-select[data-v-b832e68a]{border-right:1px solid #ced4da}.clickable-badge[data-v-b832e68a]{cursor:pointer;transition:all .3s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.clickable-badge[data-v-b832e68a]:hover{background-color:#c82333!important;box-shadow:0 2px 4px rgba(220,53,69,.3);transform:scale(1.05)}.clickable-badge[data-v-b832e68a]:active{transform:scale(.95)}.insufficient-stock-input[data-v-b832e68a]{background-color:#fff5f5!important;border:2px solid #dc3545!important;color:#dc3545!important}.insufficient-stock-input[data-v-b832e68a]:focus{border-color:#dc3545!important;box-shadow:0 0 0 .2rem rgba(220,53,69,.25)!important}.debug-panel[data-v-b832e68a]{border:2px solid #ffc107;border-radius:10px;box-shadow:0 4px 8px rgba(255,193,7,.2);display:none!important}.debug-panel .card-header[data-v-b832e68a]{background:linear-gradient(45deg,#ffc107,#ffeb3b)!important;border-bottom:2px solid #ffc107;border-radius:8px 8px 0 0!important}.debug-item[data-v-b832e68a]{background-color:#f8f9fa;border-left:4px solid #007bff!important;transition:all .3s ease}.debug-item[data-v-b832e68a]:hover{background-color:#e9ecef;box-shadow:0 2px 4px rgba(0,0,0,.1);transform:translateY(-2px)}.debug-step[data-v-b832e68a]{background-color:#fff;border:1px solid #dee2e6;border-radius:4px;font-family:Courier New,monospace;font-size:.9em;margin-bottom:8px;padding:4px 8px}.debug-summary[data-v-b832e68a]{background-color:#f8f9fa;border:1px solid #dee2e6;border-radius:8px;padding:15px}.debug-summary ul li[data-v-b832e68a]{border-bottom:1px solid #e9ecef;padding:4px 0}.debug-summary ul li[data-v-b832e68a]:last-child{border-bottom:none}.debug-display[data-v-b832e68a]{background:linear-gradient(135deg,#e3f2fd,#f3e5f5)!important;border:1px solid #bbdefb;font-family:Courier New,monospace}.debug-steps .step[data-v-b832e68a]{background-color:#fff3cd;border:1px solid #ffeaa7;border-radius:6px;font-family:Courier New,monospace;font-size:.9em;margin-bottom:8px;padding:8px 12px}.debug-state[data-v-b832e68a]{background-color:#f8f9fa;border:1px solid #dee2e6;border-radius:8px;padding:15px}.debug-state div[data-v-b832e68a]{border-bottom:1px solid #e9ecef;padding:4px 0}.debug-state div[data-v-b832e68a]:last-child{border-bottom:none}.debug-panel .table th[data-v-b832e68a]{background-color:#f8f9fa;font-size:.85em;font-weight:600}.debug-panel .table td[data-v-b832e68a]{font-size:.85em;vertical-align:middle}.debug-panel .table tbody tr[data-v-b832e68a]:hover{background-color:#f8f9fa}@media (max-width:768px){.debug-panel .card-body[data-v-b832e68a]{padding:15px}.debug-item .row[data-v-b832e68a]{margin:0}.debug-item .col-md-6[data-v-b832e68a]{padding:0 5px}.debug-step[data-v-b832e68a]{font-size:.8em;padding:3px 6px}.debug-panel .table[data-v-b832e68a]{font-size:.75em}}.saudi-riyal[data-v-b832e68a]{color:#28a745;font-weight:700}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 48128:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".items-table-wrapper[data-v-1cdc941e]{display:block;margin-left:0;margin-right:0;width:100%}.table-custom[data-v-1cdc941e]{-webkit-overflow-scrolling:touch;border:none!important;overflow-x:auto;overflow-y:visible;width:100%}.table-custom table[data-v-1cdc941e]{border-collapse:separate;border-spacing:0;height:100%;min-width:100%;table-layout:auto;width:100%}.table-custom table thead th[data-v-1cdc941e]{background-color:#33a0d9;border:none!important;border-color:inherit!important;color:#fff;font-weight:400;padding:8px}.table-custom table thead tr[data-v-1cdc941e]{border:none!important}.table-custom table thead th[data-v-1cdc941e]:first-child{border-top-left-radius:10px}.table-custom table thead th[data-v-1cdc941e]:last-child{border-top-right-radius:10px}[dir=rtl] .table-custom table thead th[data-v-1cdc941e]:first-child{border-top-left-radius:0;border-top-right-radius:10px}[dir=rtl] .table-custom table thead th[data-v-1cdc941e]:last-child{border-top-left-radius:10px;border-top-right-radius:0}.custom-qty-input[data-v-1cdc941e]{align-items:center;display:flex;margin:0 auto;width:-moz-fit-content;width:fit-content}.button-minus[data-v-1cdc941e],.button-plus[data-v-1cdc941e]{align-items:center;border:none;border-radius:50%;cursor:pointer;display:flex;font-size:14px;font-weight:700;height:30px;justify-content:center;transition:all .2s ease;width:30px}.button-minus[data-v-1cdc941e]{background-color:#dc3545;color:#fff}.button-plus[data-v-1cdc941e]{background-color:#007bff;color:#fff}.button-minus[data-v-1cdc941e]:hover{background-color:#c82333;transform:scale(1.05)}.button-plus[data-v-1cdc941e]:hover{background-color:#0056b3;transform:scale(1.05)}.quantity-field[data-v-1cdc941e]{border:1px solid #ced4da;border-radius:5px;margin:0 5px;padding:5px;text-align:center;width:60px}.quantity-field[data-v-1cdc941e]:focus{border-color:#007bff;box-shadow:0 0 0 .2rem rgba(0,123,255,.25);outline:none}.clickable-badge[data-v-1cdc941e]{cursor:pointer;transition:all .3s ease;-webkit-user-select:none;-moz-user-select:none;user-select:none}.clickable-badge[data-v-1cdc941e]:hover{background-color:#c82333!important;box-shadow:0 2px 4px rgba(220,53,69,.3);transform:scale(1.05)}.clickable-badge[data-v-1cdc941e]:active{transform:scale(.95)}.insufficient-stock-input[data-v-1cdc941e]{background-color:#fff5f5!important;border:2px solid #dc3545!important;color:#dc3545!important}.insufficient-stock-input[data-v-1cdc941e]:focus{border-color:#dc3545!important;box-shadow:0 0 0 .2rem rgba(220,53,69,.25)!important}.table-custom table .badge.badge-danger[data-v-1cdc941e]{background:#fef4f4!important;color:#dc3545!important;font-size:12px!important;font-weight:500!important;padding:10px 16px}.table-custom table td.auto-width[data-v-1cdc941e]{min-width:0;white-space:nowrap;width:auto}.table-custom table td.fixed-qty-column[data-v-1cdc941e]{min-width:200px;width:auto}.table-custom table td.fixed-discount-column[data-v-1cdc941e]{min-width:180px;width:auto}.table-custom table td.fixed-vat-column[data-v-1cdc941e]{min-width:150px;width:auto}@media (max-width:768px){.table-custom[data-v-1cdc941e]{-webkit-overflow-scrolling:touch;display:block;overflow-x:auto;width:100%}.table-custom table[data-v-1cdc941e]{display:block;min-width:-moz-fit-content;min-width:fit-content;width:100%}.table-custom table thead[data-v-1cdc941e]{display:table-header-group}.table-custom table tbody[data-v-1cdc941e]{display:table-row-group}.table-custom table tr[data-v-1cdc941e]{display:table-row}.table-custom table td[data-v-1cdc941e],.table-custom table th[data-v-1cdc941e]{display:table-cell;white-space:nowrap}.table-custom table td.fixed-qty-column[data-v-1cdc941e]{min-width:200px}.table-custom table td.fixed-discount-column[data-v-1cdc941e]{min-width:180px}.table-custom table td.fixed-vat-column[data-v-1cdc941e]{min-width:150px}}@media (max-width:576px){.table-custom table[data-v-1cdc941e]{min-width:-moz-fit-content;min-width:fit-content}.table-custom table tbody td[data-v-1cdc941e],.table-custom table thead th[data-v-1cdc941e]{font-size:12px;padding:6px 4px}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
 
 /***/ }),
 
@@ -4843,7 +4877,7 @@ var component = (0,componentNormalizer/* default */.A)(
 // EXTERNAL MODULE: ./resources/js/components/StockAdjustmentModal.vue + 6 modules
 var StockAdjustmentModal = __webpack_require__(75528);
 // EXTERNAL MODULE: ./resources/js/components/ProductEditModal.vue + 18 modules
-var ProductEditModal = __webpack_require__(9043);
+var ProductEditModal = __webpack_require__(69888);
 // EXTERNAL MODULE: ./resources/js/components/ItemsTable.vue + 5 modules
 var ItemsTable = __webpack_require__(20899);
 // EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
@@ -6624,25 +6658,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".modal-overlay[data-v-651d741c]{align-
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, ".validation-errors[data-v-0ebdcb7a]{max-height:300px;overflow-y:auto}.validation-error[data-v-0ebdcb7a]{background-color:rgba(255,193,7,.1);border-left:3px solid #ffc107;border-radius:4px;padding:8px}.validation-actions[data-v-0ebdcb7a]{display:flex;gap:8px}.alert-warning[data-v-0ebdcb7a]{background-color:#fff3cd;border-color:#ffc107;color:#856404}.alert-warning hr[data-v-0ebdcb7a]{border-color:#ffeaa7}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 93738:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-06334d97]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-bottom:1.25rem;margin-top:20px;transition:all .2s ease}.form-card[data-v-06334d97]:hover{box-shadow:0 .1rem .5rem 0 rgba(58,59,69,.15)}.form-card .card-header[data-v-06334d97]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:12px 16px}.form-card .card-header .section-title[data-v-06334d97]{border:none;color:#fff;font-size:14px;font-weight:600;margin:0;padding:0}.form-card .card-header .section-title[data-v-06334d97]:after{display:none}.form-card .card-header .section-title i[data-v-06334d97]{color:hsla(0,0%,100%,.8)}.form-card .card-body[data-v-06334d97]{padding:16px}.section-title[data-v-06334d97]{border-bottom:1px solid #e9ecef;color:#495057;font-weight:600;margin-bottom:15px;padding-bottom:8px}.form-group[data-v-06334d97]{margin-bottom:1rem}.form-group label[data-v-06334d97]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-06334d97]{color:#dc3545;font-weight:700}.row[data-v-06334d97]{margin-bottom:1rem}.row[data-v-06334d97]:last-child{margin-bottom:0}.form-text[data-v-06334d97]{color:#6c757d;font-size:.8rem;margin-top:3px}.image-preview[data-v-06334d97]{text-align:center}.image-preview img[data-v-06334d97]{border:1px solid #dee2e6;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.1)}.custom-file-label[data-v-06334d97]{background-color:#f8f9fa;border:1px dashed #dee2e6;cursor:pointer;font-size:.85rem;transition:all .2s ease}.custom-file-label[data-v-06334d97]:hover{background-color:#e3f2fd;border-color:#007bff}.custom-file-label i[data-v-06334d97]{color:#6c757d}@media (max-width:768px){.section-title[data-v-06334d97]{font-size:.95rem;margin-bottom:12px}.form-card .card-body[data-v-06334d97]{padding:.75rem}}.input-group-prepend .input-group-text[data-v-06334d97]{background-color:#f8f9fa;border-color:#ced4da;color:#495057;font-size:.85rem}.v-select[data-v-06334d97]{margin-bottom:0}.is-invalid[data-v-06334d97]{border-color:#dc3545!important}.invalid-feedback[data-v-06334d97]{color:#dc3545;display:block;font-size:75%;margin-top:.2rem;width:100%}.item-type-selector[data-v-06334d97]{display:flex;gap:.75rem;margin-top:.5rem}.item-type-option[data-v-06334d97]{cursor:pointer;flex:1;position:relative;transition:all .2s ease}.item-type-option input[type=radio][data-v-06334d97]{opacity:0;pointer-events:none;position:absolute}.option-content[data-v-06334d97]{align-items:center;background:#fff;border:2px solid #e3e6f0;border-radius:8px;display:flex;flex-direction:column;justify-content:center;min-height:70px;padding:1rem .75rem;text-align:center;transition:all .2s ease}.item-type-option:hover .option-content[data-v-06334d97]{border-color:#33a0d9;box-shadow:0 2px 6px rgba(51,160,217,.15);transform:translateY(-1px)}.item-type-option.active .option-content[data-v-06334d97]{background:#33a0d9;border-color:#33a0d9;box-shadow:0 3px 10px rgba(51,160,217,.25);color:#fff;transform:translateY(-1px)}.option-content i[data-v-06334d97]{color:#6c757d;font-size:1.4rem;margin-bottom:.5rem;transition:all .2s ease}.item-type-option.active .option-content i[data-v-06334d97]{color:hsla(0,0%,100%,.9)}.option-content span[data-v-06334d97]{color:#495057;font-size:.9rem;font-weight:600;transition:all .2s ease}.item-type-option.active .option-content span[data-v-06334d97]{color:#fff}@media (max-width:768px){.item-type-selector[data-v-06334d97]{flex-direction:column;gap:.5rem}.option-content[data-v-06334d97]{min-height:60px;padding:.75rem .5rem}.option-content i[data-v-06334d97]{font-size:1.25rem;margin-bottom:.4rem}.option-content span[data-v-06334d97]{font-size:.85rem}}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
