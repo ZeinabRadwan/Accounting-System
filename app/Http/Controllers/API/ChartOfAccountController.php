@@ -153,12 +153,8 @@ class ChartOfAccountController extends Controller
                 ->select('id', 'name', 'code', 'type_id', 'parent_id')
                 ->orderBy('name', 'asc')
                 ->get()
-                ->filter(function ($account) {
-                    $level = $account->getLevel();
-
-                    return $level <= 4;
-                })
                 ->map(function ($account) {
+                    $level = $account->getLevel();
                     $translatedName = method_exists($account, 'getTranslatedField')
                         ? $account->getTranslatedField('name')
                         : $account->name;
@@ -169,8 +165,14 @@ class ChartOfAccountController extends Controller
                         'code' => $account->code,
                         'type' => $account->type ? $account->type->name : null,
                         'parent_id' => $account->parent_id,
+                        'level' => $level,
                     ];
-                });
+                })
+                ->filter(function ($account) {
+                    // Only include accounts at level 3 or deeper
+                    return $account['level'] >= 3;
+                })
+                ->values();
 
             return response()->json([
                 'data' => $accounts,

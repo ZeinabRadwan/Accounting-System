@@ -531,7 +531,7 @@
     </div>
 
     <!-- Chart of Account Section -->
-    <div v-if="routingSetting && routingSetting.routing_type !== 'automatic'" class="row mt-4">
+    <div class="row mt-4">
       <div class="col-md-12">
         <div class="form-card">
           <div class="card-header">
@@ -544,20 +544,6 @@
 
 
 
-            <!-- Routing Type Info -->
-            <div v-if="routingSetting" class="alert alert-info">
-              <i class="fas fa-info-circle mr-2"></i>
-              <strong>{{ $t("Current Routing Type") }}:</strong> {{ routingSetting.routing_type_display }}
-              <!-- <span v-if="routingSetting.description" class="ml-2">- {{ routingSetting.description }}</span> -->
-            </div>
-
-
-
-            <!-- Automatic Account Routing - No dropdown needed -->
-            <!-- <div v-if="routingSetting && routingSetting.routing_type === 'automatic'" class="alert alert-success">
-          <i class="fas fa-check-circle mr-2"></i>
-          {{ $t("Chart of account will be automatically assigned based on your accounting configuration.") }}
-        </div> -->
 
             <!-- Specify Per Each - Show dropdown and create button -->
 
@@ -567,7 +553,7 @@
     </div>
 
     <!-- Automatic Routing Info Section -->
-    <div v-if="routingSetting && routingSetting.routing_type === 'automatic'" class="row mt-4" style="display: none;">
+    <div class="row mt-4" style="display: none;">
       <div class="col-md-12">
         <div class="form-card">
           <div class="card-header">
@@ -843,8 +829,8 @@ export default {
     // Watch for routing settings changes
     routingSetting: {
       handler(newValue, oldValue) {
-        if (newValue && newValue.routing_type !== oldValue?.routing_type) {
-          console.log('Routing type changed, reloading chart of accounts');
+        if (newValue && newValue.main_account_id !== oldValue?.main_account_id) {
+          console.log('Main account changed, reloading chart of accounts');
           this.loadChartOfAccounts();
         }
       },
@@ -1356,21 +1342,11 @@ export default {
         return false;
       }
 
-      // For new clients, automatically create chart of account if none selected
-      if (this.isNewClient && this.routingSetting && this.routingSetting.routing_type !== 'automatic') {
+      // For new clients, use the main account from routing setting if none selected
+      if (this.isNewClient && this.routingSetting && this.routingSetting.main_account_id) {
         if (!this.form.chartOfAccountId) {
-          // Auto-create chart of account for new client
-          const autoCreatedAccount = await this.autoCreateChartOfAccountForNewClient();
-          if (autoCreatedAccount) {
-            // Show info message about auto-creation
-            if (window.toast && typeof window.toast.fire === 'function') {
-              window.toast.fire({
-                type: 'info',
-                title: this.$t('Chart of account automatically created for new client'),
-                text: this.$t('Account will be properly created when you save the client.')
-              });
-            }
-          }
+          // Use the main account from routing setting
+          this.form.chartOfAccountId = this.routingSetting.main_account_id;
         }
       }
 
@@ -1446,9 +1422,21 @@ export default {
     async loadRoutingSettings() {
       try {
         console.log('Loading routing settings...');
+        // Get current branch ID
+        const user = this.$store.getters['auth/user'] || {}
+        const branchId = user.default_branch_id || null
+        
+        if (!branchId) {
+          console.error('Branch ID is required')
+          this.routingSetting = { main_account_id: null }
+          return
+        }
+        
         // Get the specific clients_account routing setting
-        const response = await this.$http.get('/api/account-routing-settings');
-        console.log('Routing settings response:', response);
+        const response = await this.$http.get('/api/account-routing-settings', {
+          params: { branch_id: branchId }
+        })
+        console.log('Routing settings response:', response)
 
         if (response.data && response.data.success) {
           console.log('Routing settings data:', response.data.data);
@@ -1457,15 +1445,11 @@ export default {
           console.log('Found clients_account setting:', this.routingSetting);
 
           if (this.routingSetting) {
-            // Add routing type display name
-            this.routingSetting.routing_type_display = this.getRoutingTypeDisplayName(this.routingSetting.routing_type);
-            console.log('Routing setting with display name:', this.routingSetting);
+            console.log('Routing setting loaded:', this.routingSetting);
           } else {
             console.log('No clients_account setting found in:', response.data.data);
             // Set a default routing setting if none found
             this.routingSetting = {
-              routing_type: 'per_each',
-              routing_type_display: 'Specify Per Each',
               main_account_id: null
             };
             console.log('Using default routing setting:', this.routingSetting);
@@ -1474,8 +1458,6 @@ export default {
           console.log('Routing settings response not successful:', response.data);
           // Set a default routing setting if API fails
           this.routingSetting = {
-            routing_type: 'per_each',
-            routing_type_display: 'Specify Per Each',
             main_account_id: null
           };
           console.log('Using default routing setting due to API failure:', this.routingSetting);
@@ -1484,29 +1466,12 @@ export default {
         console.error('Error loading routing settings:', error);
         // Set a default routing setting if error occurs
         this.routingSetting = {
-          routing_type: 'per_each',
-          routing_type_display: 'Specify Per Each',
           main_account_id: null
         };
         console.log('Using default routing setting due to error:', this.routingSetting);
       }
     },
 
-    // Get routing type display name
-    getRoutingTypeDisplayName(routingType) {
-      switch (routingType) {
-        case 'automatic':
-          return this.$t('Automatic Account Routing');
-        case 'per_each':
-          return this.$t('Specify Per Each');
-        case 'main_account_per_each':
-          return this.$t('Specify Main Account Per Each');
-        case 'cancel':
-          return this.$t('Cancel Account Routing');
-        default:
-          return this.$t('Unknown');
-      }
-    },
 
     // Load chart of accounts with search functionality
     async loadChartOfAccounts() {
@@ -1517,12 +1482,7 @@ export default {
         this.loadingChartOfAccounts = true;
         this.chartOfAccountsError = null;
 
-        // If routing is automatic, we don't need to load all accounts
-        if (this.routingSetting && this.routingSetting.routing_type === 'automatic') {
-          console.log('Routing type is automatic, not loading chart of accounts');
-          this.chartOfAccounts = [];
-          return;
-        }
+        // Load accounts based on routing setting if available
 
         // For other routing types, load accounts based on routing setting
         if (this.routingSetting && this.routingSetting.main_account_id) {

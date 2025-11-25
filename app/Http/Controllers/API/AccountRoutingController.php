@@ -9,23 +9,154 @@ use App\Traits\ApiResponse;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Session;
 
 class AccountRoutingController extends Controller
 {
     use ApiResponse;
 
     /**
+     * Get current branch ID
+     */
+    private function getCurrentBranchId()
+    {
+        $branchId = Session::get('current_branch_id');
+
+        if (! $branchId) {
+            $user = Auth::user();
+            $branchId = $user->default_branch_id ?? null;
+        }
+
+        return $branchId;
+    }
+
+    /**
      * Display a listing of account routing settings
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $settings = AccountRoutingSetting::with(['mainAccount.type'])
+            $branchId = $request->get('branch_id', $this->getCurrentBranchId());
+
+            if (! $branchId) {
+                return $this->responseWithError('Branch ID is required');
+            }
+
+            $settings = AccountRoutingSetting::where('branch_id', $branchId)
+                ->with(['mainAccount.type'])
                 ->orderBy('module')
                 ->orderBy('setting_key')
                 ->get();
 
             return $this->responseWithSuccess('Account routing settings retrieved successfully', $settings);
+        } catch (Exception $e) {
+            return $this->responseWithError($e->getMessage());
+        }
+    }
+
+    /**
+     * Store a new account routing setting
+     */
+    public function store(Request $request)
+    {
+        try {
+            $branchId = $request->get('branch_id', $this->getCurrentBranchId());
+
+            if (! $branchId) {
+                return $this->responseWithError('Branch ID is required');
+            }
+
+            $request->validate([
+                'branch_id' => 'required|exists:branches,id',
+                'module' => 'required|string',
+                'setting_key' => 'required|string',
+                'setting_name' => 'required|string',
+                'account_type' => 'required|string',
+                'main_account_id' => 'nullable|exists:chart_of_accounts,id',
+                'is_required' => 'boolean',
+                'is_active' => 'boolean',
+            ]);
+
+            // First, try to find existing setting by branch_id, module, and setting_key
+            $existing = AccountRoutingSetting::where('branch_id', $branchId)
+                ->where('module', $request->module)
+                ->where('setting_key', $request->setting_key)
+                ->first();
+
+            if ($existing) {
+                // Update existing setting
+                $existing->update([
+                    'setting_name' => $request->setting_name,
+                    'account_type' => $request->account_type,
+                    'main_account_id' => $request->main_account_id,
+                    'is_required' => $request->is_required ?? false,
+                    'is_active' => $request->is_active ?? true,
+                ]);
+
+                return $this->responseWithSuccess('Setting updated successfully', $existing);
+            }
+
+            // If no branch_id column exists yet (migration not run), check by module and setting_key only
+            // This handles the case where migration hasn't been run yet
+            if (! Schema::hasColumn('account_routing_settings', 'branch_id')) {
+                $existingWithoutBranch = AccountRoutingSetting::where('module', $request->module)
+                    ->where('setting_key', $request->setting_key)
+                    ->first();
+
+                if ($existingWithoutBranch) {
+                    // Update the existing setting and add branch_id
+                    $existingWithoutBranch->update([
+                        'branch_id' => $branchId,
+                        'setting_name' => $request->setting_name,
+                        'account_type' => $request->account_type,
+                        'main_account_id' => $request->main_account_id,
+                        'is_required' => $request->is_required ?? false,
+                        'is_active' => $request->is_active ?? true,
+                    ]);
+
+                    return $this->responseWithSuccess('Setting updated successfully', $existingWithoutBranch);
+                }
+            }
+
+            // Create new setting
+            try {
+                $setting = AccountRoutingSetting::create([
+                    'branch_id' => $branchId,
+                    'module' => $request->module,
+                    'setting_key' => $request->setting_key,
+                    'setting_name' => $request->setting_name,
+                    'account_type' => $request->account_type,
+                    'main_account_id' => $request->main_account_id,
+                    'is_required' => $request->is_required ?? false,
+                    'is_active' => $request->is_active ?? true,
+                ]);
+
+                return $this->responseWithSuccess('Setting created successfully', $setting);
+            } catch (\Illuminate\Database\QueryException $e) {
+                // If duplicate entry error, try to find and update
+                if ($e->getCode() == 23000 && str_contains($e->getMessage(), 'Duplicate entry')) {
+                    // Try to find existing by module and setting_key (in case branch_id constraint doesn't exist)
+                    $existingByKey = AccountRoutingSetting::where('module', $request->module)
+                        ->where('setting_key', $request->setting_key)
+                        ->first();
+
+                    if ($existingByKey) {
+                        $existingByKey->update([
+                            'branch_id' => $branchId,
+                            'main_account_id' => $request->main_account_id,
+                            'setting_name' => $request->setting_name,
+                            'account_type' => $request->account_type,
+                            'is_required' => $request->is_required ?? false,
+                            'is_active' => $request->is_active ?? true,
+                        ]);
+
+                        return $this->responseWithSuccess('Setting updated successfully', $existingByKey);
+                    }
+                }
+
+                throw $e;
+            }
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
         }
@@ -66,14 +197,14 @@ class AccountRoutingController extends Controller
     {
         try {
             $request->validate([
-                'routing_type' => 'required|in:automatic,per_each,main_account_per_each,cancel',
                 'main_account_id' => 'nullable|exists:chart_of_accounts,id',
             ]);
 
-            $setting = AccountRoutingSetting::findOrFail($id);
+            $branchId = $this->getCurrentBranchId();
+            $setting = AccountRoutingSetting::where('branch_id', $branchId)
+                ->findOrFail($id);
 
             $updateData = [
-                'routing_type' => $request->routing_type,
                 'main_account_id' => $request->main_account_id,
             ];
 
@@ -91,19 +222,24 @@ class AccountRoutingController extends Controller
     public function bulkUpdate(Request $request)
     {
         try {
+            $branchId = $this->getCurrentBranchId();
+
+            if (! $branchId) {
+                return $this->responseWithError('Branch ID is required');
+            }
+
             $request->validate([
                 'updates' => 'required|array',
                 'updates.*.id' => 'required|exists:account_routing_settings,id',
-                'updates.*.routing_type' => 'required|in:automatic,per_each,main_account_per_each,cancel',
                 'updates.*.main_account_id' => 'nullable|exists:chart_of_accounts,id',
             ]);
 
             foreach ($request->updates as $updateData) {
-                $setting = AccountRoutingSetting::find($updateData['id']);
+                $setting = AccountRoutingSetting::where('branch_id', $branchId)
+                    ->find($updateData['id']);
 
                 if ($setting) {
                     $setting->update([
-                        'routing_type' => $updateData['routing_type'],
                         'main_account_id' => $updateData['main_account_id'],
                     ]);
                 }
@@ -118,10 +254,17 @@ class AccountRoutingController extends Controller
     /**
      * Get accounts for a specific setting
      */
-    public function getAccountsForSetting($settingKey)
+    public function getAccountsForSetting($settingKey, Request $request)
     {
         try {
-            $setting = AccountRoutingSetting::where('setting_key', $settingKey)
+            $branchId = $request->get('branch_id', $this->getCurrentBranchId());
+
+            if (! $branchId) {
+                return $this->responseWithError('Branch ID is required');
+            }
+
+            $setting = AccountRoutingSetting::where('branch_id', $branchId)
+                ->where('setting_key', $settingKey)
                 ->with('mainAccount.type')
                 ->first();
 
@@ -176,10 +319,18 @@ class AccountRoutingController extends Controller
     /**
      * Check if all required settings are configured
      */
-    public function checkConfiguration()
+    public function checkConfiguration(Request $request)
     {
         try {
-            $requiredSettings = AccountRoutingSetting::where('is_required', true)->get();
+            $branchId = $request->get('branch_id', $this->getCurrentBranchId());
+
+            if (! $branchId) {
+                return $this->responseWithError('Branch ID is required');
+            }
+
+            $requiredSettings = AccountRoutingSetting::where('branch_id', $branchId)
+                ->where('is_required', true)
+                ->get();
             $unconfiguredSettings = $requiredSettings->filter(function ($setting) {
                 return ! $setting->isConfigured();
             });
@@ -208,29 +359,33 @@ class AccountRoutingController extends Controller
     /**
      * Get product account routing settings
      */
-    public function getProductAccountRouting()
+    public function getProductAccountRouting(Request $request)
     {
         try {
-            $salesSetting = AccountRoutingSetting::where('module', 'sales')
+            $branchId = $request->get('branch_id', $this->getCurrentBranchId());
+
+            if (! $branchId) {
+                return $this->responseWithError('Branch ID is required');
+            }
+
+            $salesSetting = AccountRoutingSetting::where('branch_id', $branchId)
+                ->where('module', 'sales')
                 ->where('setting_key', 'product_sales_account')
                 ->first();
 
-            $purchaseSetting = AccountRoutingSetting::where('module', 'purchase')
+            $purchaseSetting = AccountRoutingSetting::where('branch_id', $branchId)
+                ->where('module', 'purchase')
                 ->where('setting_key', 'product_purchase_account')
                 ->first();
 
             $settings = [
                 'sales' => $salesSetting ? [
+                    'main_account_id' => $salesSetting->main_account_id,
                     'routing_type' => $salesSetting->routing_type,
-                    'parent_account_id' => $salesSetting->main_account_id, // Use main_account_id for consistency
-                    'main_account_id' => $salesSetting->main_account_id, // Add both for backward compatibility
-                    'routing_type_options' => $salesSetting->routing_type_options,
                 ] : null,
                 'purchase' => $purchaseSetting ? [
+                    'main_account_id' => $purchaseSetting->main_account_id,
                     'routing_type' => $purchaseSetting->routing_type,
-                    'parent_account_id' => $purchaseSetting->main_account_id, // Use main_account_id for consistency
-                    'main_account_id' => $purchaseSetting->main_account_id, // Add both for backward compatibility
-                    'routing_type_options' => $purchaseSetting->routing_type_options,
                 ] : null,
             ];
 

@@ -2,84 +2,84 @@
 
 declare(strict_types=1);
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SpaController;
-use App\Http\Controllers\ServerController;
-use App\Http\Controllers\API\LoanController;
-use App\Http\Controllers\API\MenuController;
-use App\Http\Controllers\API\RoleController;
-use App\Http\Controllers\API\UnitController;
-use App\Http\Controllers\API\AssetController;
-use App\Http\Controllers\API\BrandController;
-use App\Http\Controllers\Auth\UserController;
-use App\Http\Controllers\API\ClientController;
-use App\Http\Controllers\API\DomainController;
-use App\Http\Controllers\API\ReportController;
-use App\Http\Controllers\API\TenantController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\OAuthController;
 use App\Http\Controllers\API\AccountController;
-use App\Http\Controllers\API\BalanceController;
-use App\Http\Controllers\API\ExpenseController;
-use App\Http\Controllers\API\GeneralController;
-use App\Http\Controllers\API\InvoiceController;
-use App\Http\Controllers\API\PaymentController;
-use App\Http\Controllers\API\PayrollController;
-use App\Http\Controllers\API\ProductController;
-use App\Http\Controllers\API\VatRateController;
-use App\Http\Controllers\TableExportController;
-use App\Http\Controllers\API\CurrencyController;
-use App\Http\Controllers\API\EmployeeController;
-use App\Http\Controllers\API\PurchaseController;
-use App\Http\Controllers\API\PurchaseOrderController;
-use App\Http\Controllers\API\SupplierController;
-use App\Http\Controllers\PDFGeneratorController;
-use App\Http\Controllers\SubscriptionController;
-use App\Http\Controllers\API\AssetTypeController;
-use App\Http\Controllers\API\DashboardController;
-use App\Http\Controllers\API\ExpSubCatController;
-use App\Http\Controllers\API\InventoryController;
-use App\Http\Controllers\API\ProSubCatController;
-use App\Http\Controllers\API\QuotationController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\API\DepartmentController;
-use App\Http\Controllers\API\ExpenseCatController;
-use App\Http\Controllers\API\PermissionController;
-use App\Http\Controllers\API\RichEditorController;
+use App\Http\Controllers\API\AccountRoutingController;
 use App\Http\Controllers\API\ActivityLogController;
-use App\Http\Controllers\API\LoanPaymentController;
-use App\Http\Controllers\API\TransactionController;
-use App\Http\Controllers\API\InvoiceReturnController;
-use App\Http\Controllers\API\LoanAuthorityController;
-use App\Http\Controllers\API\PaymentMethodController;
-use App\Http\Controllers\API\InvoicePaymentController;
-use App\Http\Controllers\API\PurchaseReturnController;
-use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\API\AssetController;
+use App\Http\Controllers\API\AssetTypeController;
+use App\Http\Controllers\API\BalanceController;
+use App\Http\Controllers\API\BrandController;
+use App\Http\Controllers\API\ChartOfAccountController;
+use App\Http\Controllers\API\ClientController;
+use App\Http\Controllers\API\ClientRepresentativeController;
+use App\Http\Controllers\API\CostAllocationController;
+use App\Http\Controllers\API\CostAllocationRuleController;
+use App\Http\Controllers\API\CostCenterController;
+use App\Http\Controllers\API\CurrencyController;
+use App\Http\Controllers\API\DashboardController;
+use App\Http\Controllers\API\DepartmentController;
+use App\Http\Controllers\API\DomainController;
+use App\Http\Controllers\API\EmployeeController;
 use App\Http\Controllers\API\EmpSalIncrementController;
-use App\Http\Controllers\API\ProductCategoryController;
-use App\Http\Controllers\API\PurchasePaymentController;
-use App\Http\Controllers\API\TransferBalanceController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\TenantImpersonationController;
+use App\Http\Controllers\API\ExpenseCatController;
+use App\Http\Controllers\API\ExpenseController;
+use App\Http\Controllers\API\ExpSubCatController;
+use App\Http\Controllers\API\GeneralController;
+use App\Http\Controllers\API\InventoryAdjustmentController;
+use App\Http\Controllers\API\InventoryController;
+use App\Http\Controllers\API\InvoiceController;
+use App\Http\Controllers\API\InvoicePaymentController;
+use App\Http\Controllers\API\InvoiceReturnController;
+use App\Http\Controllers\API\JournalEntryController;
+use App\Http\Controllers\API\LoanAuthorityController;
+use App\Http\Controllers\API\LoanController;
+use App\Http\Controllers\API\LoanPaymentController;
+use App\Http\Controllers\API\MenuController;
 use App\Http\Controllers\API\NonInvoicePaymentController;
 use App\Http\Controllers\API\NonPurchasePaymentController;
+use App\Http\Controllers\API\PaymentController;
+use App\Http\Controllers\API\PaymentMethodController;
 use App\Http\Controllers\API\PaymentVoucherController;
-use App\Http\Controllers\API\InventoryAdjustmentController;
+use App\Http\Controllers\API\PayrollController;
+use App\Http\Controllers\API\PermissionController;
+use App\Http\Controllers\API\ProductCategoryController;
+use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\ProSubCatController;
+use App\Http\Controllers\API\PurchaseController;
+use App\Http\Controllers\API\PurchaseOrderController;
+use App\Http\Controllers\API\PurchasePaymentController;
+use App\Http\Controllers\API\PurchaseReturnController;
+use App\Http\Controllers\API\QuotationController;
+use App\Http\Controllers\API\ReportController;
+use App\Http\Controllers\API\RichEditorController;
+use App\Http\Controllers\API\RoleController;
 use App\Http\Controllers\API\SubscriptionInvoiceController;
-use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 use App\Http\Controllers\API\SubscriptionPaymentMethodController;
-use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
-use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
-use App\Http\Controllers\API\ChartOfAccountController;
-use App\Http\Controllers\API\JournalEntryController;
-use App\Http\Controllers\API\AccountRoutingController;
-use App\Http\Controllers\API\VatReportController;
-use App\Http\Controllers\API\ClientRepresentativeController;
+use App\Http\Controllers\API\SupplierController;
 use App\Http\Controllers\API\SupplierRepresentativeController;
-use App\Http\Controllers\API\CostCenterController;
-use App\Http\Controllers\API\CostAllocationRuleController;
-use App\Http\Controllers\API\CostAllocationController;
+use App\Http\Controllers\API\TenantController;
+use App\Http\Controllers\API\TransactionController;
+use App\Http\Controllers\API\TransferBalanceController;
+use App\Http\Controllers\API\UnitController;
+use App\Http\Controllers\API\VatRateController;
+use App\Http\Controllers\API\VatReportController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\OAuthController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\PDFGeneratorController;
 use App\Http\Controllers\PrintController;
+use App\Http\Controllers\ServerController;
+use App\Http\Controllers\SpaController;
+use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\TableExportController;
+use App\Http\Controllers\TenantImpersonationController;
+use Illuminate\Support\Facades\Route;
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
+use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
+use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 /*
 |--------------------------------------------------------------------------
@@ -98,7 +98,6 @@ use App\Http\Controllers\PrintController;
  */
 
 Route::post('/upload-pdf', [PrintController::class, 'upload']);
-
 
 Route::middleware([
     InitializeTenancyByDomainOrSubdomain::class,
@@ -130,7 +129,7 @@ Route::middleware([
 
         // Allow fetching currencies during initialization (without auth)
         Route::get('all-currencies', [CurrencyController::class, 'allCurrencies']);
-        
+
         // Location routes (available without auth for easier access)
         Route::get('locations/saudi/regions', [App\Http\Controllers\API\LocationController::class, 'getRegions']);
         Route::get('locations/saudi/cities', [App\Http\Controllers\API\LocationController::class, 'getAllCities']);
@@ -182,7 +181,7 @@ Route::middleware([
         Route::post('branches', [App\Http\Controllers\API\BranchController::class, 'store']);
         Route::put('branches/{slug}', [App\Http\Controllers\API\BranchController::class, 'update']);
         Route::delete('branches/{slug}', [App\Http\Controllers\API\BranchController::class, 'destroy']);
-        
+
         // User-Branch assignment routes
         Route::get('branches/{branchId}/users', [App\Http\Controllers\API\UserBranchController::class, 'branchUsers']);
         Route::get('users/{userId}/branches', [App\Http\Controllers\API\UserBranchController::class, 'userBranches']);
@@ -261,6 +260,7 @@ Route::middleware([
 
         // Account Routing Settings routes - REORDER THESE
         Route::get('/account-routing-settings', [AccountRoutingController::class, 'index']);
+        Route::post('/account-routing-settings', [AccountRoutingController::class, 'store']);
         Route::put('/account-routing-settings/bulk', [AccountRoutingController::class, 'bulkUpdate']); // Move this BEFORE the {id} route
         Route::put('/account-routing-settings', [AccountRoutingController::class, 'update']);
         Route::put('/account-routing-settings/{id}', [AccountRoutingController::class, 'updateSetting']);
@@ -577,7 +577,6 @@ Route::middleware([
         Route::get('/all-pro-sub-categories-by-category/{slug}', [ProSubCatController::class, 'allSubCategoriesByCategory']);
         Route::apiResource('product-sub-categories', ProSubCatController::class);
 
-
         // Product routes
         Route::get('/products/search', [ProductController::class, 'search']);
         Route::get('/products/search-from-pos', [ProductController::class, 'searchFromPos']);
@@ -597,7 +596,6 @@ Route::middleware([
         Route::post('/products/{slug}/restore', [ProductController::class, 'restore']);
         Route::delete('/products/{slug}/force-delete', [ProductController::class, 'forceDelete']);
         Route::post('/product-import', [ProductController::class, 'import']);
-
 
         // Inventory route
         Route::get('/inventory', [InventoryController::class, 'allInventory']);
@@ -653,7 +651,6 @@ Route::middleware([
         Route::post('payments/download', [PaymentController::class, 'download']);
         Route::apiResource('payments', PaymentController::class)->only(['index']);
 
-
         Route::get('subscriptions/payment-methods', [SubscriptionPaymentMethodController::class, 'index']);
 
         Route::get('activity-log-specific', [ActivityLogController::class, 'specific']);
@@ -691,10 +688,9 @@ Route::middleware([
         Route::apiResource('subscription-requests', App\Http\Controllers\API\SubscriptionRequestController::class)->only(['index', 'store']);
 
         // payment methods
-        //Route::apiResource('payment-methods', \App\Http\Controllers\API\SubscriptionPaymentMethodController::class)->only('index', 'store');
+        // Route::apiResource('payment-methods', \App\Http\Controllers\API\SubscriptionPaymentMethodController::class)->only('index', 'store');
 
         Route::get('server', [ServerController::class, 'runCommand']);
-
 
         Route::post('/rich-editor-file-upload', [RichEditorController::class, 'handleUpload']);
 
@@ -705,7 +701,6 @@ Route::middleware([
         Route::get('/print-templates/default/get', [App\Http\Controllers\API\PrintTemplateController::class, 'getDefault']);
         Route::delete('/print-templates/{id}/remove-logo', [App\Http\Controllers\API\PrintTemplateController::class, 'removeCustomLogo']);
     });
-
 
     // email pdf generator routes (legacy - keeping for backward compatibility)
     Route::get('/invoice/pdf/{slug}', [PDFGeneratorController::class, 'generateInvoicePDF'])->name('email.invoice.pdf');
@@ -791,13 +786,11 @@ Route::middleware([
         Route::get('/print/reports/group-account-statement/pdf', [App\Http\Controllers\PrintController::class, 'downloadGroupAccountStatementPDF'])->name('print.reports.group-account-statement.pdf');
         Route::get('/print/reports/group-account-statement/preview', [App\Http\Controllers\PrintController::class, 'previewGroupAccountStatementPDF'])->name('print.reports.group-account-statement.preview');
     });
- 
 
     // PDF download routes for print templates
     Route::get('/print/invoice/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadInvoicePDF'])->name('print.invoice.pdf');
     Route::get('/print/purchase/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadPurchasePDF'])->name('print.purchase.pdf');
     Route::get('/print/quotation/{slug}/pdf', [App\Http\Controllers\PrintController::class, 'downloadQuotationPDF'])->name('print.quotation.pdf');
-
 
     // pdf download blade routes
     Route::get('/setup/brands/pdf', [TableExportController::class, 'brandsPDF'])->name('brands.pdf');
@@ -938,7 +931,7 @@ Route::middleware([
 
     // Serve profile images
     Route::get('/images/users/{filename}', function ($filename) {
-        $path = public_path('images/users/' . $filename);
+        $path = public_path('images/users/'.$filename);
         if (file_exists($path)) {
             return response()->file($path);
         }

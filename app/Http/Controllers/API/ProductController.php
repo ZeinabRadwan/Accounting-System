@@ -824,18 +824,18 @@ class ProductController extends Controller
             if (app()->has('current_branch_id')) {
                 $currentBranchId = app('current_branch_id');
             } else {
-                $currentBranchId = session('current_branch_id') 
-                    ?? $user->default_branch_id 
+                $currentBranchId = session('current_branch_id')
+                    ?? $user->default_branch_id
                     ?? null;
             }
-            
+
             // Use only the current branch ID, not all user branches
             $branchIds = $currentBranchId ? [(int) $currentBranchId] : [0];
 
             // Get all categories - filter by current branch only
             $categories = ProductCategory::whereIn('branch_id', $branchIds)
                 ->when($search, function ($query) use ($search) {
-                    $query->where('name', 'LIKE', '%' . $search . '%');
+                    $query->where('name', 'LIKE', '%'.$search.'%');
                 })
                 ->orderBy('name', 'asc')
                 ->get();
@@ -843,7 +843,7 @@ class ProductController extends Controller
             // Get all subcategories - filter by current branch only
             $subCategories = ProductSubCategory::whereIn('branch_id', $branchIds)
                 ->when($search, function ($query) use ($search) {
-                    $query->where('name', 'LIKE', '%' . $search . '%');
+                    $query->where('name', 'LIKE', '%'.$search.'%');
                 })
                 ->orderBy('name', 'asc')
                 ->get();
@@ -852,9 +852,9 @@ class ProductController extends Controller
             $products = Product::whereIn('branch_id', $branchIds)
                 ->when($search, function ($query) use ($search) {
                     $query->where(function ($q) use ($search) {
-                        $q->where('name', 'LIKE', '%' . $search . '%')
-                            ->orWhere('code', 'LIKE', '%' . $search . '%')
-                            ->orWhere('model', 'LIKE', '%' . $search . '%');
+                        $q->where('name', 'LIKE', '%'.$search.'%')
+                            ->orWhere('code', 'LIKE', '%'.$search.'%')
+                            ->orWhere('model', 'LIKE', '%'.$search.'%');
                     });
                 })
                 ->orderBy('name', 'asc')
@@ -866,7 +866,7 @@ class ProductController extends Controller
             foreach ($categories as $category) {
                 $subCatsCount = $subCategories->where('cat_id', $category->id)->count();
                 $treeItems->push([
-                    'id' => 'cat_' . $category->id,
+                    'id' => 'cat_'.$category->id,
                     'name' => $category->name,
                     'type' => 'category',
                     'parent_id' => null,
@@ -881,10 +881,10 @@ class ProductController extends Controller
             foreach ($subCategories as $subCategory) {
                 $productsCount = $products->where('sub_cat_id', $subCategory->id)->count();
                 $treeItems->push([
-                    'id' => 'subcat_' . $subCategory->id,
+                    'id' => 'subcat_'.$subCategory->id,
                     'name' => $subCategory->name,
                     'type' => 'subcategory',
-                    'parent_id' => 'cat_' . $subCategory->cat_id,
+                    'parent_id' => 'cat_'.$subCategory->cat_id,
                     'children_count' => $productsCount,
                     'original_id' => $subCategory->id,
                     'slug' => $subCategory->slug,
@@ -898,14 +898,14 @@ class ProductController extends Controller
                 $parentId = null;
                 if ($product->sub_cat_id) {
                     // Product belongs to a subcategory
-                    $parentId = 'subcat_' . $product->sub_cat_id;
+                    $parentId = 'subcat_'.$product->sub_cat_id;
                 } else {
                     // Product doesn't have a subcategory, show at root level
                     $parentId = null;
                 }
-                
+
                 $treeItems->push([
-                    'id' => 'prod_' . $product->id,
+                    'id' => 'prod_'.$product->id,
                     'name' => $product->name,
                     'type' => 'product',
                     'parent_id' => $parentId,
@@ -918,7 +918,7 @@ class ProductController extends Controller
             }
 
             $treeData = $treeItems->values()->all();
-            
+
             // Log for debugging
             Log::info('Products tree data', [
                 'categories_count' => $categories->count(),
@@ -927,16 +927,16 @@ class ProductController extends Controller
                 'tree_items_count' => count($treeData),
                 'branch_ids' => $branchIds,
             ]);
-            
+
             return $this->responseWithSuccess('Products tree retrieved successfully', $treeData);
         } catch (Exception $e) {
-            Log::error('Error loading products tree: ' . $e->getMessage(), [
+            Log::error('Error loading products tree: '.$e->getMessage(), [
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
                 'trace' => $e->getTraceAsString(),
             ]);
-            
-            return $this->responseWithError('Error loading products tree: ' . $e->getMessage());
+
+            return $this->responseWithError('Error loading products tree: '.$e->getMessage());
         }
     }
 
@@ -1156,52 +1156,20 @@ class ProductController extends Controller
                     ], 400);
                 }
 
-                if ($routing->routing_type === 'automatic') {
-                    if (! $routing->main_account_id) {
-                        return response()->json([
-                            'error' => true,
-                            'message' => 'Sales main account missing in routing settings.',
-                        ], 400);
-                    }
-                    $product->update(['sales_account_id' => $routing->main_account_id]);
-
+                if (! $routing->main_account_id) {
                     return response()->json([
-                        'success' => true,
-                        'message' => 'Main Sales Account assigned to product successfully',
-                        'sales_account_id' => $routing->main_account_id,
-                    ]);
+                        'error' => true,
+                        'message' => 'Sales account missing in routing settings.',
+                    ], 400);
                 }
 
-                if ($routing->routing_type === 'main_account_per_each') {
-                    if (! $routing->main_account_id) {
-                        return response()->json([
-                            'error' => true,
-                            'message' => 'Sales main account missing in routing settings.',
-                        ], 400);
-                    }
-                    // Create child account under main account with product name
-                    $newAccount = ChartOfAccount::create([
-                        'name' => $product->name,
-                        'code' => $this->generateChildAccountCode($routing->main_account_id),
-                        'type_id' => $this->getRevenueAccountTypeId(),
-                        'parent_id' => $routing->main_account_id,
-                        'is_active' => true,
-                        'created_by' => Auth::id(),
-                        'branch_id' => Auth::user()->default_branch_id,
-                    ]);
-                    $product->update(['sales_account_id' => $newAccount->id]);
-
-                    return response()->json([
-                        'success' => true,
-                        'message' => 'Sales Account created under main account and assigned to product',
-                        'sales_account_id' => $newAccount->id,
-                    ]);
-                }
+                $product->update(['sales_account_id' => $routing->main_account_id]);
 
                 return response()->json([
-                    'error' => true,
-                    'message' => 'Routing type not supported for auto-assign. Please assign manually.',
-                ], 400);
+                    'success' => true,
+                    'message' => 'Sales Account assigned to product successfully',
+                    'sales_account_id' => $routing->main_account_id,
+                ]);
             } else {
                 // purchase flow
                 $routing = AccountRoutingSetting::where('module', 'purchase')->where('setting_key', 'product_purchase_account')->first();
@@ -1213,51 +1181,20 @@ class ProductController extends Controller
                     ], 400);
                 }
 
-                if ($routing->routing_type === 'automatic') {
-                    if (! $routing->main_account_id) {
-                        return response()->json([
-                            'error' => true,
-                            'message' => 'Purchase main account missing in routing settings.',
-                        ], 400);
-                    }
-                    $product->update(['purchase_account_id' => $routing->main_account_id]);
-
+                if (! $routing->main_account_id) {
                     return response()->json([
-                        'success' => true,
-                        'message' => 'Main Purchase Account assigned to product successfully',
-                        'purchase_account_id' => $routing->main_account_id,
-                    ]);
+                        'error' => true,
+                        'message' => 'Purchase account missing in routing settings.',
+                    ], 400);
                 }
 
-                if ($routing->routing_type === 'main_account_per_each') {
-                    if (! $routing->main_account_id) {
-                        return response()->json([
-                            'error' => true,
-                            'message' => 'Purchase main account missing in routing settings.',
-                        ], 400);
-                    }
-                    $newAccount = ChartOfAccount::create([
-                        'name' => $product->name,
-                        'code' => $this->generateChildAccountCode($routing->main_account_id),
-                        'type_id' => $this->getExpenseAccountTypeId(),
-                        'parent_id' => $routing->main_account_id,
-                        'is_active' => true,
-                        'created_by' => Auth::id(),
-                        'branch_id' => Auth::user()->default_branch_id,
-                    ]);
-                    $product->update(['purchase_account_id' => $newAccount->id]);
-
-                    return response()->json([
-                        'success' => true,
-                        'message' => 'Purchase Account created under main account and assigned to product',
-                        'purchase_account_id' => $newAccount->id,
-                    ]);
-                }
+                $product->update(['purchase_account_id' => $routing->main_account_id]);
 
                 return response()->json([
-                    'error' => true,
-                    'message' => 'Routing type not supported for auto-assign. Please assign manually.',
-                ], 400);
+                    'success' => true,
+                    'message' => 'Purchase Account assigned to product successfully',
+                    'purchase_account_id' => $routing->main_account_id,
+                ]);
             }
         } catch (Exception $e) {
             Log::error('Product auto-assign failed: '.$e->getMessage(), [

@@ -55,8 +55,7 @@
           <div class="card-body">
             <product-form-template :form="form" :form-id="formId" :product="product" :categories="categories"
               :units="units" :taxes="taxes" :chart-of-accounts="chartOfAccounts" :prefix="prefix" :url="url"
-              :is-sales-account-automatic="isSalesAccountAutomatic"
-              :is-purchase-account-automatic="isPurchaseAccountAutomatic" :is-edit-mode="isEditMode"
+              :is-edit-mode="isEditMode"
               @calculate-price="calculatePrice" @on-file-change="onFileChange"
               @on-override-sales-account-change="onOverrideSalesAccountChange"
               @on-override-purchase-account-change="onOverridePurchaseAccountChange" @submit-form="submitForm"
@@ -85,8 +84,7 @@
         <div class="w-100">
           <product-form-template :form="form" :form-id="formId" :product="product" :categories="categories"
             :units="units" :taxes="taxes" :chart-of-accounts="chartOfAccounts" :prefix="prefix" :url="url"
-            :is-sales-account-automatic="isSalesAccountAutomatic"
-            :is-purchase-account-automatic="isPurchaseAccountAutomatic" :is-edit-mode="isEditMode"
+            :is-edit-mode="isEditMode"
             @calculate-price="calculatePrice" @on-file-change="onFileChange"
             @on-override-sales-account-change="onOverrideSalesAccountChange"
             @on-override-purchase-account-change="onOverridePurchaseAccountChange" @submit-form="submitForm"
@@ -187,8 +185,6 @@ export default {
       chartOfAccounts: [],
       prefix: "",
       accountRoutingSettings: null,
-      isSalesAccountAutomatic: false,
-      isPurchaseAccountAutomatic: false,
       breadcrumbsCurrent: '',
       breadcrumbs: []
     }
@@ -382,28 +378,31 @@ export default {
     // Load account routing settings
     async loadAccountRoutingSettings() {
       try {
-        const response = await axios.get(window.location.origin + "/api/account-routing-settings/product-account-routing")
+        // Get current branch ID
+        const user = this.$store?.getters?.['auth/user'] || {}
+        const branchId = user.default_branch_id || null
+        
+        if (!branchId) {
+          console.error('Branch ID is required for account routing settings')
+          this.accountRoutingSettings = {}
+          return
+        }
+        
+        const response = await axios.get(window.location.origin + "/api/account-routing-settings/product-account-routing", {
+          params: { branch_id: branchId }
+        })
         this.accountRoutingSettings = response.data.data || {}
 
-        // Set flags for automatic routing
-        this.isSalesAccountAutomatic = this.accountRoutingSettings.sales &&
-          this.accountRoutingSettings.sales.routing_type === 'automatic'
-
-        this.isPurchaseAccountAutomatic = this.accountRoutingSettings.purchase &&
-          this.accountRoutingSettings.purchase.routing_type === 'automatic'
-
-        // If automatic routing is enabled, set the account IDs from routing settings
-        if (this.isSalesAccountAutomatic && this.accountRoutingSettings.sales.main_account_id) {
+        // Set account IDs from routing settings if available
+        if (this.accountRoutingSettings.sales && this.accountRoutingSettings.sales.main_account_id) {
           this.form.salesAccountId = this.accountRoutingSettings.sales.main_account_id
         }
 
-        if (this.isPurchaseAccountAutomatic && this.accountRoutingSettings.purchase.main_account_id) {
+        if (this.accountRoutingSettings.purchase && this.accountRoutingSettings.purchase.main_account_id) {
           this.form.purchaseAccountId = this.accountRoutingSettings.purchase.main_account_id
         }
       } catch (error) {
         console.error("Error loading account routing settings:", error)
-        this.isSalesAccountAutomatic = false
-        this.isPurchaseAccountAutomatic = false
       }
     },
 
@@ -484,21 +483,11 @@ export default {
         return
       }
 
-      // Validate sales account - required if not automatic OR if override is checked
-      const needsSalesAccount = !this.isSalesAccountAutomatic || this.form.overrideSalesAccount
-      console.log('ProductForm: Sales account validation', {
-        isSalesAccountAutomatic: this.isSalesAccountAutomatic,
-        overrideSalesAccount: this.form.overrideSalesAccount,
-        needsSalesAccount: needsSalesAccount,
-        salesAccountId: this.form.salesAccountId
-      })
-
-      // If automatic routing is enabled and user hasn't overridden, use the auto-assigned account
-      if (this.isSalesAccountAutomatic && !this.form.overrideSalesAccount) {
-        if (this.accountRoutingSettings && this.accountRoutingSettings.sales && this.accountRoutingSettings.sales.main_account_id) {
-          this.form.salesAccountId = this.accountRoutingSettings.sales.main_account_id
-          console.log('ProductForm: Using auto-assigned sales account:', this.form.salesAccountId)
-        }
+      // Validate sales account - always required
+      const needsSalesAccount = true
+      // Use account from routing settings if available and not overridden
+      if (!this.form.overrideSalesAccount && this.accountRoutingSettings && this.accountRoutingSettings.sales && this.accountRoutingSettings.sales.main_account_id) {
+        this.form.salesAccountId = this.accountRoutingSettings.sales.main_account_id
       }
 
       if (needsSalesAccount && !this.form.salesAccountId) {
@@ -513,21 +502,11 @@ export default {
         return
       }
 
-      // Validate purchase account - required if not automatic OR if override is checked
-      const needsPurchaseAccount = !this.isPurchaseAccountAutomatic || this.form.overridePurchaseAccount
-      console.log('ProductForm: Purchase account validation', {
-        isPurchaseAccountAutomatic: this.isPurchaseAccountAutomatic,
-        overridePurchaseAccount: this.form.overridePurchaseAccount,
-        needsPurchaseAccount: needsPurchaseAccount,
-        purchaseAccountId: this.form.purchaseAccountId
-      })
-
-      // If automatic routing is enabled and user hasn't overridden, use the auto-assigned account
-      if (this.isPurchaseAccountAutomatic && !this.form.overridePurchaseAccount) {
-        if (this.accountRoutingSettings && this.accountRoutingSettings.purchase && this.accountRoutingSettings.purchase.main_account_id) {
-          this.form.purchaseAccountId = this.accountRoutingSettings.purchase.main_account_id
-          console.log('ProductForm: Using auto-assigned purchase account:', this.form.purchaseAccountId)
-        }
+      // Validate purchase account - always required
+      const needsPurchaseAccount = true
+      // Use account from routing settings if available and not overridden
+      if (!this.form.overridePurchaseAccount && this.accountRoutingSettings && this.accountRoutingSettings.purchase && this.accountRoutingSettings.purchase.main_account_id) {
+        this.form.purchaseAccountId = this.accountRoutingSettings.purchase.main_account_id
       }
 
       if (needsPurchaseAccount && !this.form.purchaseAccountId) {
@@ -616,9 +595,9 @@ export default {
           this.$emit('productCreated', formattedProduct)
         }
 
-        // Store auto-assigned account IDs before reset
-        const autoAssignedSalesAccountId = this.isSalesAccountAutomatic ? this.form.salesAccountId : null
-        const autoAssignedPurchaseAccountId = this.isPurchaseAccountAutomatic ? this.form.purchaseAccountId : null
+        // Store account IDs from routing settings before reset
+        const autoAssignedSalesAccountId = (this.accountRoutingSettings && this.accountRoutingSettings.sales && this.accountRoutingSettings.sales.main_account_id) ? this.accountRoutingSettings.sales.main_account_id : null
+        const autoAssignedPurchaseAccountId = (this.accountRoutingSettings && this.accountRoutingSettings.purchase && this.accountRoutingSettings.purchase.main_account_id) ? this.accountRoutingSettings.purchase.main_account_id : null
 
         this.form.reset()
         this.form.itemType = "product" // Reset to default
@@ -909,7 +888,7 @@ export default {
       if (this.form.overrideSalesAccount) {
         this.form.salesAccountId = ""
       } else {
-        if (this.isSalesAccountAutomatic && this.accountRoutingSettings.sales.main_account_id) {
+        if (this.accountRoutingSettings && this.accountRoutingSettings.sales && this.accountRoutingSettings.sales.main_account_id) {
           this.form.salesAccountId = this.accountRoutingSettings.sales.main_account_id
         }
       }
@@ -920,7 +899,7 @@ export default {
       if (this.form.overridePurchaseAccount) {
         this.form.purchaseAccountId = ""
       } else {
-        if (this.isPurchaseAccountAutomatic && this.accountRoutingSettings.purchase.main_account_id) {
+        if (this.accountRoutingSettings && this.accountRoutingSettings.purchase && this.accountRoutingSettings.purchase.main_account_id) {
           this.form.purchaseAccountId = this.accountRoutingSettings.purchase.main_account_id
         }
       }

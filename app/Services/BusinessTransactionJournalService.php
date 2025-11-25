@@ -132,7 +132,7 @@ class BusinessTransactionJournalService
             }
 
             if ($totalDiscountAmount > 0) {
-                $discountAccount = $this->getDiscountAllowedAccount();
+                $discountAccount = $this->getDiscountAllowedAccount($invoice->branch_id);
                 if (! $discountAccount) {
                     throw new Exception('Discount Allowed account must be configured in account routing settings to process discounts.');
                 }
@@ -476,9 +476,9 @@ class BusinessTransactionJournalService
             }
 
             // Check which accounts are available to determine what lines will be created
-            $discountAccount = $totalDiscountAmount > 0 ? $this->getDiscountReceivedAccount() : null;
+            $discountAccount = $totalDiscountAmount > 0 ? $this->getDiscountReceivedAccount($purchase->branch_id) : null;
             $vatAccount = $totalVatAmount > 0 ? $this->getVatAccountForPurchase($purchase) : null;
-            $transportAccount = ($purchase->transport && $purchase->transport > 0) ? $this->getTransportExpenseAccount() : null;
+            $transportAccount = ($purchase->transport && $purchase->transport > 0) ? $this->getTransportExpenseAccount($purchase->branch_id) : null;
 
             // If VAT account is missing but there's VAT, add VAT to the first purchase expense account
             // This must be done BEFORE calculating totals so the purchase expenses include VAT
@@ -1451,9 +1451,14 @@ class BusinessTransactionJournalService
     /**
      * Get discount allowed account from routing settings
      */
-    private function getDiscountAllowedAccount(): ?ChartOfAccount
+    private function getDiscountAllowedAccount($branchId = null): ?ChartOfAccount
     {
-        $setting = AccountRoutingSetting::where('module', 'sales')
+        if (! $branchId) {
+            $branchId = Auth::user()->default_branch_id ?? null;
+        }
+
+        $setting = AccountRoutingSetting::where('branch_id', $branchId)
+            ->where('module', 'sales')
             ->where('setting_key', 'discount_allowed_account')
             ->first();
 
@@ -1469,9 +1474,14 @@ class BusinessTransactionJournalService
     /**
      * Get transport expense account from routing settings
      */
-    private function getTransportExpenseAccount(): ?ChartOfAccount
+    private function getTransportExpenseAccount($branchId = null): ?ChartOfAccount
     {
-        $setting = AccountRoutingSetting::where('setting_key', 'transport_expense_account')
+        if (! $branchId) {
+            $branchId = Auth::user()->default_branch_id ?? null;
+        }
+
+        $setting = AccountRoutingSetting::where('branch_id', $branchId)
+            ->where('setting_key', 'transport_expense_account')
             ->where('is_active', true)
             ->first();
 
@@ -1615,7 +1625,7 @@ class BusinessTransactionJournalService
 
             // Create discount reversal line if applicable
             if ($totalReturnDiscount > 0) {
-                $discountAccount = $this->getDiscountAllowedAccount();
+                $discountAccount = $this->getDiscountAllowedAccount($invoiceReturn->invoice->branch_id ?? null);
                 if ($discountAccount) {
                     $this->createJournalEntryLine($journalEntry, $discountAccount->id, 0, $totalReturnDiscount, $lineNumber, __('journal.discount_allowed_reversal_for_return', ['number' => $invoiceReturn->return_no]));
                     $lineNumber++;
@@ -1639,7 +1649,7 @@ class BusinessTransactionJournalService
      */
     private function getVatAccountForPurchase(Purchase $purchase): ?ChartOfAccount
     {
-        $branchId = Auth::user()->default_branch_id ?? null;
+        $branchId = $purchase->branch_id ?? Auth::user()->default_branch_id ?? null;
 
         // First try to get VAT account from the purchase's tax rate
         if ($purchase->tax_id) {
@@ -1650,7 +1660,8 @@ class BusinessTransactionJournalService
         }
 
         // Fallback to default VAT input account from routing settings
-        $setting = AccountRoutingSetting::where('module', 'vat')
+        $setting = AccountRoutingSetting::where('branch_id', $branchId)
+            ->where('module', 'vat')
             ->where('setting_key', 'purchase_vat_account')
             ->first();
 
@@ -1664,9 +1675,14 @@ class BusinessTransactionJournalService
     /**
      * Get discount received account from routing settings
      */
-    private function getDiscountReceivedAccount(): ?ChartOfAccount
+    private function getDiscountReceivedAccount($branchId = null): ?ChartOfAccount
     {
-        $setting = AccountRoutingSetting::where('module', 'purchase')
+        if (! $branchId) {
+            $branchId = Auth::user()->default_branch_id ?? null;
+        }
+
+        $setting = AccountRoutingSetting::where('branch_id', $branchId)
+            ->where('module', 'purchase')
             ->where('setting_key', 'discount_received_account')
             ->first();
 
@@ -1674,7 +1690,9 @@ class BusinessTransactionJournalService
             return null;
         }
 
-        return ChartOfAccount::find($setting->main_account_id);
+        $branchId = Auth::user()->default_branch_id ?? null;
+
+        return ChartOfAccount::forBranch($branchId)->find($setting->main_account_id);
     }
 
     /**

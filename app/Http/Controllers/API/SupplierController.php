@@ -1334,6 +1334,8 @@ ORDER BY `date`');
 
     /**
      * Auto-assign chart of account based on routing configuration
+     * For routing_type 'main_account_per_each', creates a new child account under the parent
+     * For routing_type 'automatic', uses the main account directly
      */
     private function autoAssignChartOfAccountForSupplier($supplierData, $existingSupplier = null)
     {
@@ -1357,82 +1359,49 @@ ORDER BY `date`');
                 return $supplierData;
             }
 
-            // Get the suppliers account routing setting
+            // Get the branch ID for the routing setting
+            $branchId = $supplierData['branch_id'] ?? Auth::user()->default_branch_id ?? null;
+
+            // Get the suppliers account routing setting for this branch
             $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'suppliers_account')
+                ->where('branch_id', $branchId)
                 ->where('is_active', true)
                 ->first();
 
+            // Fallback to any active routing setting if branch-specific not found
             if (! $routingSetting) {
+                $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'suppliers_account')
+                    ->where('is_active', true)
+                    ->first();
+            }
+
+            if (! $routingSetting || ! $routingSetting->main_account_id) {
                 // If no routing setting, use default behavior from Supplier model
+                \Illuminate\Support\Facades\Log::info('No routing setting found for suppliers_account, using default behavior');
+
                 return Supplier::assignDefaultChartOfAccount($supplierData);
             }
 
-            \Illuminate\Support\Facades\Log::info('Processing supplier chart of account with routing type: '.$routingSetting->routing_type, [
-                'routing_setting' => $routingSetting->toArray(),
-                'supplier_data' => $supplierData,
-            ]);
+            // Check the routing type to determine how to assign the account
+            $routingType = $routingSetting->routing_type ?? 'automatic';
 
-            switch ($routingSetting->routing_type) {
-                case 'automatic':
-                    // For automatic routing, always create/assign account if none provided
-                    if (empty($supplierData['chart_of_account_id']) && $routingSetting->main_account_id) {
-                        $newAccount = $this->createChartOfAccountForSupplier($supplierData, $routingSetting);
-                        $supplierData['chart_of_account_id'] = $newAccount->id;
-
-                        \Illuminate\Support\Facades\Log::info("Auto-created chart of account {$newAccount->id} for supplier with automatic routing", [
-                            'supplier_data' => $supplierData,
-                            'routing_setting' => $routingSetting->toArray(),
-                        ]);
-                    }
-                    break;
-
-                case 'per_each':
-                    // For per each routing, validate that account is provided
-                    if (empty($supplierData['chart_of_account_id'])) {
-                        // If no account provided, create one under the main account if available
-                        if ($routingSetting->main_account_id) {
-                            $newAccount = $this->createChartOfAccountForSupplier($supplierData, $routingSetting);
-                            $supplierData['chart_of_account_id'] = $newAccount->id;
-
-                            \Illuminate\Support\Facades\Log::info("Created chart of account {$newAccount->id} for supplier with per_each routing", [
-                                'supplier_data' => $supplierData,
-                                'routing_setting' => $routingSetting->toArray(),
-                            ]);
-                        }
-                    }
-                    break;
-
-                case 'main_account_per_each':
-                    // For main account per each, validate that account is provided
-                    if (empty($supplierData['chart_of_account_id'])) {
-                        // If no account provided, create one under the main account if available
-                        if ($routingSetting->main_account_id) {
-                            $newAccount = $this->createChartOfAccountForSupplier($supplierData, $routingSetting);
-                            $supplierData['chart_of_account_id'] = $newAccount->id;
-
-                            \Illuminate\Support\Facades\Log::info("Created chart of account {$newAccount->id} for supplier with main_account_per_each routing", [
-                                'supplier_data' => $supplierData,
-                                'routing_setting' => $routingSetting->toArray(),
-                            ]);
-                        }
-                    }
-                    break;
-
-                case 'cancel':
-                    // For cancel routing, no chart of account needed
-                    $supplierData['chart_of_account_id'] = null;
-                    \Illuminate\Support\Facades\Log::info('No chart of account assigned for supplier with cancel routing', [
-                        'supplier_data' => $supplierData,
-                        'routing_setting' => $routingSetting->toArray(),
+            if ($routingType === 'main_account_per_each') {
+                // Create a new child account under the parent account for this supplier
+                $newAccount = $this->createChartOfAccountForSupplier($supplierData, $routingSetting);
+                if ($newAccount) {
+                    $supplierData['chart_of_account_id'] = $newAccount->id;
+                    \Illuminate\Support\Facades\Log::info('Created new child account for supplier', [
+                        'account_id' => $newAccount->id,
+                        'account_code' => $newAccount->code,
+                        'parent_account_id' => $routingSetting->main_account_id,
                     ]);
-                    break;
-
-                default:
-                    // Unknown routing type, use default behavior
-                    \Illuminate\Support\Facades\Log::warning('Unknown routing type: '.$routingSetting->routing_type, [
-                        'routing_setting' => $routingSetting->toArray(),
-                    ]);
-                    break;
+                }
+            } else {
+                // For 'automatic' routing type, use the main account directly
+                $supplierData['chart_of_account_id'] = $routingSetting->main_account_id;
+                \Illuminate\Support\Facades\Log::info('Using main account for supplier (automatic routing)', [
+                    'main_account_id' => $routingSetting->main_account_id,
+                ]);
             }
 
             return $supplierData;

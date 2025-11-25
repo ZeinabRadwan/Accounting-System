@@ -4,18 +4,22 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Branch;
+use App\Services\AccountRoutingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class BranchController extends Controller
 {
+    protected AccountRoutingService $accountRoutingService;
+
     /**
      * Define middleware
      */
-    public function __construct()
+    public function __construct(AccountRoutingService $accountRoutingService)
     {
+        $this->accountRoutingService = $accountRoutingService;
         $this->middleware('can:branches-list', ['only' => ['index', 'show']]);
         $this->middleware('can:branches-create', ['only' => ['store']]);
         $this->middleware('can:branches-edit', ['only' => ['update']]);
@@ -30,14 +34,14 @@ class BranchController extends Controller
         try {
             $perPage = $request->get('perPage', 10);
             $page = $request->get('page', 1);
-            
+
             $branches = Branch::query()->paginate($perPage, ['*'], 'page', $page);
-            
+
             return response()->json($branches);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Failed to load branches',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -49,14 +53,14 @@ class BranchController extends Controller
     {
         try {
             $branch = Branch::where('slug', $slug)->firstOrFail();
-            
+
             return response()->json([
-                'branch' => $branch
+                'branch' => $branch,
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Branch not found',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 404);
         }
     }
@@ -80,12 +84,12 @@ class BranchController extends Controller
         try {
             // Generate slug from name
             $slug = \Illuminate\Support\Str::slug($request->name);
-            
+
             // Ensure uniqueness
             $originalSlug = $slug;
             $counter = 1;
             while (Branch::where('slug', $slug)->exists()) {
-                $slug = $originalSlug . '-' . $counter;
+                $slug = $originalSlug.'-'.$counter;
                 $counter++;
             }
 
@@ -101,14 +105,26 @@ class BranchController extends Controller
                 'is_main' => $request->is_main ?? false,
             ]);
 
+            // Initialize account routing settings and create inventory account for new branch
+            // Only do this for non-main branches (main branch gets settings from seeder)
+            if (! $branch->is_main) {
+                try {
+                    $this->accountRoutingService->initializeNewBranch($branch);
+                    Log::info("Initialized account routing settings for new branch: {$branch->name}");
+                } catch (\Exception $e) {
+                    Log::error("Failed to initialize account routing for branch {$branch->name}: {$e->getMessage()}");
+                    // Don't fail the branch creation, just log the error
+                }
+            }
+
             return response()->json([
                 'message' => 'Branch created successfully',
-                'branch' => $branch
+                'branch' => $branch,
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Failed to create branch',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -131,7 +147,7 @@ class BranchController extends Controller
 
         try {
             $branch = Branch::where('slug', $slug)->firstOrFail();
-            
+
             // Generate new slug if name changed
             $newSlug = \Illuminate\Support\Str::slug($request->name);
             if ($newSlug !== $branch->slug) {
@@ -139,7 +155,7 @@ class BranchController extends Controller
                 $originalSlug = $newSlug;
                 $counter = 1;
                 while (Branch::where('slug', $newSlug)->where('id', '!=', $branch->id)->exists()) {
-                    $newSlug = $originalSlug . '-' . $counter;
+                    $newSlug = $originalSlug.'-'.$counter;
                     $counter++;
                 }
             } else {
@@ -160,12 +176,12 @@ class BranchController extends Controller
 
             return response()->json([
                 'message' => 'Branch updated successfully',
-                'branch' => $branch
+                'branch' => $branch,
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Failed to update branch',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -177,30 +193,29 @@ class BranchController extends Controller
     {
         try {
             $branch = Branch::where('slug', $slug)->firstOrFail();
-            
+
             // Prevent deletion of main branch
             if ($branch->is_main) {
                 return response()->json([
-                    'message' => 'Cannot delete the main branch'
+                    'message' => 'Cannot delete the main branch',
                 ], 422);
             }
 
-
-            if($branch->users->count() > 0) {
+            if ($branch->users->count() > 0) {
                 return response()->json([
-                    'message' => 'Cannot delete branch because it has users assigned to it'
+                    'message' => 'Cannot delete branch because it has users assigned to it',
                 ], 422);
             }
 
             $branch->delete();
 
             return response()->json([
-                'message' => 'Branch deleted successfully'
+                'message' => 'Branch deleted successfully',
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Failed to delete branch',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -217,13 +232,13 @@ class BranchController extends Controller
         $user = Auth::user();
         $branch = Branch::findOrFail($request->branch_id);
         $user->update([
-            'default_branch_id' => $branch->id
+            'default_branch_id' => $branch->id,
         ]);
 
         // Check if user has access to this branch
-        if (method_exists($user, 'branches') && !$user->branches->contains($branch)) {
+        if (method_exists($user, 'branches') && ! $user->branches->contains($branch)) {
             return response()->json([
-                'message' => 'You do not have access to this branch.'
+                'message' => 'You do not have access to this branch.',
             ], 403);
         }
 
@@ -232,7 +247,7 @@ class BranchController extends Controller
 
         return response()->json([
             'message' => 'Branch switched successfully',
-            'branch' => $branch
+            'branch' => $branch,
         ]);
     }
 
@@ -242,13 +257,13 @@ class BranchController extends Controller
     public function current()
     {
         $branchId = Session::get('current_branch_id');
-        
+
         // 1) Try session-stored branch first (when sessions are enabled)
         if ($branchId) {
             $branch = Branch::find($branchId);
             if ($branch) {
                 return response()->json([
-                    'branch' => $branch
+                    'branch' => $branch,
                 ]);
             }
         }
@@ -259,7 +274,7 @@ class BranchController extends Controller
             $branch = Branch::find($user->default_branch_id);
             if ($branch) {
                 return response()->json([
-                    'branch' => $branch
+                    'branch' => $branch,
                 ]);
             }
         }
@@ -270,7 +285,7 @@ class BranchController extends Controller
                 $fallback = $user->branches()->where('is_active', true)->first();
                 if ($fallback) {
                     return response()->json([
-                        'branch' => $fallback
+                        'branch' => $fallback,
                     ]);
                 }
             } catch (\Exception $e) {
@@ -280,9 +295,9 @@ class BranchController extends Controller
 
         // 4) Final fallback: main branch
         $defaultBranch = Branch::where('is_main', true)->first();
-        
+
         return response()->json([
-            'branch' => $defaultBranch
+            'branch' => $defaultBranch,
         ]);
     }
 
@@ -295,28 +310,26 @@ class BranchController extends Controller
             $term = $request->get('term', '');
             $perPage = $request->get('perPage', 10);
             $page = $request->get('page', 1);
-            
+
             $query = Branch::query();
-            
+
             if ($term) {
-                $query->where(function($q) use ($term) {
+                $query->where(function ($q) use ($term) {
                     $q->where('name', 'LIKE', "%{$term}%")
-                      ->orWhere('code', 'LIKE', "%{$term}%")
-                      ->orWhere('phone', 'LIKE', "%{$term}%")
-                      ->orWhere('email', 'LIKE', "%{$term}%");
+                        ->orWhere('code', 'LIKE', "%{$term}%")
+                        ->orWhere('phone', 'LIKE', "%{$term}%")
+                        ->orWhere('email', 'LIKE', "%{$term}%");
                 });
             }
-            
+
             $branches = $query->paginate($perPage, ['*'], 'page', $page);
-            
+
             return response()->json($branches);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Failed to search branches',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
 }
-
-
