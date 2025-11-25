@@ -141,11 +141,13 @@ class ChartOfAccountController extends Controller
     /**
      * Lightweight list for dropdowns (faster than full resource)
      * Filters to only show accounts at level 4 and below
+     * Accepts optional branch_id parameter to filter by specific branch
      */
-    public function getDropdown()
+    public function getDropdown(Request $request)
     {
         try {
-            $branchId = Auth::user()->default_branch_id ?? null;
+            // Allow branch_id from request, fallback to user's default
+            $branchId = $request->get('branch_id') ?? Auth::user()->default_branch_id ?? null;
 
             $accounts = ChartOfAccount::where('is_active', true)
                 ->forBranch($branchId)

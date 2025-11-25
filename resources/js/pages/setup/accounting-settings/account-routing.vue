@@ -812,7 +812,10 @@ export default {
     },
     
     onBranchChange() {
+      // Reload both settings and chart of accounts when branch changes
+      // This ensures we see accounts specific to the selected branch
       this.loadSettings()
+      this.loadChartOfAccounts()
     },
     
     // Resolve module robustly in case backend sends inconsistent module values
@@ -1052,7 +1055,12 @@ export default {
     async loadChartOfAccounts() {
       this.chartAccountsLoading = true
       try {
-        const response = await this.$http.get('/api/chart-of-accounts/dropdown')
+        // Pass branch_id to get accounts visible to the selected branch
+        const response = await this.$http.get('/api/chart-of-accounts/dropdown', {
+          params: {
+            branch_id: this.currentBranchId
+          }
+        })
         this.chartOfAccounts = response.data.data || []
         if (this.chartOfAccounts.length === 0) {
           this.showMessage(this.$t('Warning: No chart of accounts found. Please create some accounts first.'), 'alert-warning')

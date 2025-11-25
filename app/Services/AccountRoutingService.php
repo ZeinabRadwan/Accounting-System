@@ -189,7 +189,7 @@ class AccountRoutingService
 
     /**
      * Create inventory account for a branch warehouse
-     * This creates a sibling account to the main branch's inventory account
+     * This creates a child account under the inventory category
      */
     public function createBranchInventoryAccount(Branch $branch): ?ChartOfAccount
     {
@@ -211,7 +211,7 @@ class AccountRoutingService
             return null;
         }
 
-        // Get the main inventory account
+        // Get the main inventory account (this is typically the inventory category like "121 - Inventories")
         $mainInventoryAccount = ChartOfAccount::find($inventorySetting->main_account_id);
 
         if (! $mainInventoryAccount) {
@@ -220,12 +220,19 @@ class AccountRoutingService
             return null;
         }
 
-        // The new branch inventory account should be a sibling (same parent as main inventory)
-        $parentAccount = $mainInventoryAccount->parent;
+        // Determine the parent for the new branch inventory account
+        // If mainInventoryAccount is a category (has children), create the new account as a child of it
+        // If mainInventoryAccount is a leaf account, create the new account as a sibling (same parent)
+        $hasChildren = ChartOfAccount::where('parent_id', $mainInventoryAccount->id)->exists();
 
-        if (! $parentAccount) {
-            // If no parent, use the main inventory account as parent
+        if ($hasChildren || ! $mainInventoryAccount->parent_id) {
+            // It's a category - create new account as a child of this category
             $parentAccount = $mainInventoryAccount;
+            Log::info("Using inventory category '{$mainInventoryAccount->name}' (code: {$mainInventoryAccount->code}) as parent for branch inventory");
+        } else {
+            // It's a leaf account - create new account as a sibling (same parent)
+            $parentAccount = $mainInventoryAccount->parent ?? $mainInventoryAccount;
+            Log::info("Creating branch inventory as sibling to '{$mainInventoryAccount->name}' under parent '{$parentAccount->name}'");
         }
 
         try {
@@ -244,7 +251,9 @@ class AccountRoutingService
                     'parent_id' => $parentAccount->id,
                     'is_active' => true,
                     'created_by' => Auth::id(),
-                    'branch_id' => $branch->id,
+                    // Set branch_id to NULL so the account is visible in the tree for all branches
+                    // The association with the branch is maintained through account routing settings
+                    'branch_id' => null,
                 ]);
 
                 // Create translations
@@ -268,7 +277,7 @@ class AccountRoutingService
                 // Update the inventory setting for the new branch to point to this account
                 $this->updateBranchInventorySetting($branch->id, $account->id);
 
-                Log::info("Created inventory account '{$accountNameEn}' for branch '{$branch->name}'");
+                Log::info("Created inventory account '{$accountNameEn}' (code: {$newCode}) for branch '{$branch->name}' under parent (ID: {$parentAccount->id})");
 
                 return $account;
             });
