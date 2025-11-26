@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Central;
 
-use App\Models\Client;
-use App\Models\Tenant;
-use App\Models\Invoice;
-use App\Models\Employee;
-use App\Models\Purchase;
-use App\Models\Supplier;
-use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use App\Services\TenantService;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Tenant\TenantResource;
 use App\Http\Requests\Tenant\StoreTenantRequest;
 use App\Http\Requests\Tenant\UpdateTenantRequest;
+use App\Http\Resources\Tenant\TenantResource;
+use App\Models\Client;
+use App\Models\Employee;
+use App\Models\Invoice;
+use App\Models\Purchase;
+use App\Models\Supplier;
+use App\Models\Tenant;
+use App\Services\TenantService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class TenantController extends Controller
 {
@@ -27,13 +27,13 @@ class TenantController extends Controller
     public function index(Request $request)
     {
         $tenants = Tenant::with('plan')->active()->latest()->paginate($request->perPage);
+
         return TenantResource::collection($tenants);
     }
 
     /**
      * Display archived tenants.
      *
-     * @param Request $request
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
@@ -43,23 +43,23 @@ class TenantController extends Controller
             ->archived()
             ->latest('archived_at')
             ->paginate($request->perPage);
-        
+
         // Add archived_by_name to each tenant
         $tenants->getCollection()->transform(function ($tenant) {
             if ($tenant->archived_by) {
                 $user = \App\Models\User::find($tenant->archived_by);
                 $tenant->archived_by_name = $user ? $user->name : 'Unknown';
             }
+
             return $tenant;
         });
-        
+
         return TenantResource::collection($tenants);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param Tenant $tenant
      *
      * @return TenantResource
      */
@@ -137,6 +137,7 @@ class TenantController extends Controller
         });
 
         $tenant->tenant_invoices = $tenant->payments()->with('plan')->get();
+
         return new TenantResource($tenant);
     }
 
@@ -150,21 +151,19 @@ class TenantController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateTenantRequest $request
-     * @param Tenant $tenant
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateTenantRequest $request, Tenant $tenant)
     {
         $tenant->update($request->validated());
+
         return $this->responseWithSuccess('Tenant updated successfully');
     }
 
     /**
      * Archive the specified tenant.
      *
-     * @param Tenant $tenant
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -175,7 +174,7 @@ class TenantController extends Controller
             Log::info("Attempting to archive tenant: {$tenant->id}", [
                 'tenant_id' => $tenant->id,
                 'tenant_data' => $tenant->data,
-                'user_id' => auth()->id()
+                'user_id' => auth()->id(),
             ]);
 
             // Archive the tenant instead of deleting
@@ -183,23 +182,22 @@ class TenantController extends Controller
             Log::info("Successfully archived tenant: {$tenant->id}");
 
             return $this->responseWithSuccess('Tenant archived successfully');
-            
+
         } catch (\Exception $e) {
             Log::error("Failed to archive tenant: {$tenant->id}", [
                 'tenant_id' => $tenant->id,
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
-                'user_id' => auth()->id()
+                'user_id' => auth()->id(),
             ]);
 
-            return $this->responseWithError('Failed to archive tenant: ' . $e->getMessage());
+            return $this->responseWithError('Failed to archive tenant: '.$e->getMessage());
         }
     }
 
     /**
      * Restore the specified archived tenant.
      *
-     * @param Tenant $tenant
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -207,14 +205,14 @@ class TenantController extends Controller
     {
         try {
             // Check if tenant is actually archived
-            if (!$tenant->isArchived()) {
+            if (! $tenant->isArchived()) {
                 return $this->responseWithError('Tenant is not archived');
             }
 
             // Log the restoration attempt
             Log::info("Attempting to restore tenant: {$tenant->id}", [
                 'tenant_id' => $tenant->id,
-                'user_id' => auth()->id()
+                'user_id' => auth()->id(),
             ]);
 
             // Restore the tenant
@@ -222,23 +220,22 @@ class TenantController extends Controller
             Log::info("Successfully restored tenant: {$tenant->id}");
 
             return $this->responseWithSuccess('Tenant restored successfully');
-            
+
         } catch (\Exception $e) {
             Log::error("Failed to restore tenant: {$tenant->id}", [
                 'tenant_id' => $tenant->id,
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
-                'user_id' => auth()->id()
+                'user_id' => auth()->id(),
             ]);
 
-            return $this->responseWithError('Failed to restore tenant: ' . $e->getMessage());
+            return $this->responseWithError('Failed to restore tenant: '.$e->getMessage());
         }
     }
 
     /**
      * search resource from storage.
      *
-     * @param Request $request
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
@@ -254,10 +251,10 @@ class TenantController extends Controller
         }
 
         $query->where(function ($query) use ($term) {
-            $query->where('data->name', 'Like', '%' . $term . '%')
-                ->orWhere('data->domain', 'Like', '%' . $term . '%')
-                ->orWhere('data->email', 'Like', '%' . $term . '%')
-                ->orWhere('data->company', 'Like', '%' . $term . '%');
+            $query->where('data->name', 'Like', '%'.$term.'%')
+                ->orWhere('data->domain', 'Like', '%'.$term.'%')
+                ->orWhere('data->email', 'Like', '%'.$term.'%')
+                ->orWhere('data->company', 'Like', '%'.$term.'%');
         });
 
         return TenantResource::collection($query->latest()->paginate($request->perPage));
@@ -292,7 +289,6 @@ class TenantController extends Controller
     /**
      * Permanently delete the specified tenant and its database.
      *
-     * @param Tenant $tenant
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -300,7 +296,7 @@ class TenantController extends Controller
     {
         try {
             // Check if tenant is archived
-            if (!$tenant->isArchived()) {
+            if (! $tenant->isArchived()) {
                 return $this->responseWithError('Only archived tenants can be permanently deleted');
             }
 
@@ -308,21 +304,21 @@ class TenantController extends Controller
             Log::info("Attempting to permanently delete tenant: {$tenant->id}", [
                 'tenant_id' => $tenant->id,
                 'tenant_data' => $tenant->data,
-                'user_id' => auth()->id()
+                'user_id' => auth()->id(),
             ]);
 
             // Get the database manager for the tenant's database
             $connection = config('tenancy.database.central_connection');
             $driver = config("database.connections.{$connection}.driver");
             $managerClass = config("tenancy.database.managers.{$driver}");
-            
-            if (!$managerClass) {
+
+            if (! $managerClass) {
                 throw new \Exception("No database manager configured for driver: {$driver}");
             }
-            
+
             $databaseManager = app($managerClass);
             $databaseManager->setConnection($connection);
-            
+
             // Delete the tenant's database
             $databaseManager->deleteDatabase($tenant);
 
@@ -332,16 +328,101 @@ class TenantController extends Controller
             Log::info("Successfully permanently deleted tenant: {$tenant->id}");
 
             return $this->responseWithSuccess('Tenant permanently deleted successfully');
-            
+
         } catch (\Exception $e) {
             Log::error("Failed to permanently delete tenant: {$tenant->id}", [
                 'tenant_id' => $tenant->id,
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
-                'user_id' => auth()->id()
+                'user_id' => auth()->id(),
             ]);
 
-            return $this->responseWithError('Failed to permanently delete tenant: ' . $e->getMessage());
+            return $this->responseWithError('Failed to permanently delete tenant: '.$e->getMessage());
+        }
+    }
+
+    /**
+     * Permanently delete all archived tenants and their databases.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function permanentDeleteAllArchived()
+    {
+        try {
+            // Get all archived tenants
+            $archivedTenants = Tenant::archived()->get();
+
+            if ($archivedTenants->isEmpty()) {
+                return $this->responseWithError('No archived tenants found to delete');
+            }
+
+            $deletedCount = 0;
+            $failedCount = 0;
+            $errors = [];
+
+            // Log the bulk deletion attempt
+            Log::info('Attempting to permanently delete all archived tenants', [
+                'total_count' => $archivedTenants->count(),
+                'user_id' => auth()->id(),
+            ]);
+
+            // Get database manager configuration
+            $connection = config('tenancy.database.central_connection');
+            $driver = config("database.connections.{$connection}.driver");
+            $managerClass = config("tenancy.database.managers.{$driver}");
+
+            if (! $managerClass) {
+                throw new \Exception("No database manager configured for driver: {$driver}");
+            }
+
+            $databaseManager = app($managerClass);
+            $databaseManager->setConnection($connection);
+
+            foreach ($archivedTenants as $tenant) {
+                try {
+                    // Delete the tenant's database
+                    $databaseManager->deleteDatabase($tenant);
+
+                    // Permanently delete the tenant record
+                    $tenant->forceDelete();
+
+                    $deletedCount++;
+
+                    Log::info("Successfully permanently deleted tenant: {$tenant->id}");
+                } catch (\Exception $e) {
+                    $failedCount++;
+                    $errors[] = "Tenant {$tenant->id}: {$e->getMessage()}";
+
+                    Log::error("Failed to permanently delete tenant: {$tenant->id}", [
+                        'tenant_id' => $tenant->id,
+                        'error' => $e->getMessage(),
+                        'user_id' => auth()->id(),
+                    ]);
+                }
+            }
+
+            Log::info('Bulk deletion completed', [
+                'deleted_count' => $deletedCount,
+                'failed_count' => $failedCount,
+                'user_id' => auth()->id(),
+            ]);
+
+            if ($failedCount > 0) {
+                return $this->responseWithSuccess(
+                    "Deleted {$deletedCount} tenants. Failed to delete {$failedCount} tenants."
+                );
+            }
+
+            return $this->responseWithSuccess("Successfully deleted all {$deletedCount} archived tenants");
+
+        } catch (\Exception $e) {
+            Log::error('Failed to permanently delete all archived tenants', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'user_id' => auth()->id(),
+            ]);
+
+            return $this->responseWithError('Failed to delete archived tenants: '.$e->getMessage());
         }
     }
 }

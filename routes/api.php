@@ -1,39 +1,39 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ServerController;
-use App\Http\Controllers\VersionController;
-use App\Http\Controllers\API\RoleController;
-use App\Http\Controllers\Auth\UserController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Central\PageController;
-use App\Http\Controllers\Central\PlanController;
-use App\Http\Controllers\API\PermissionController;
-use App\Http\Controllers\Central\DomainController;
-use App\Http\Controllers\Central\TenantController;
-use App\Http\Controllers\TenantRegisterController;
 use App\Http\Controllers\API\ActivityLogController;
 use App\Http\Controllers\API\ErrorLogController;
-use App\Http\Controllers\Central\FeatureController;
-use App\Http\Controllers\Central\PaymentController;
-use App\Http\Controllers\Central\CurrencyController;
-use App\Http\Controllers\TenantDomainFindController;
-use App\Http\Controllers\Auth\VerificationController;
-use App\Http\Controllers\Central\DashboardController;
-use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\Central\NewsletterController;
+use App\Http\Controllers\API\PermissionController;
+use App\Http\Controllers\API\RoleController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Central\SubscriptionController;
-use App\Http\Controllers\Central\DomainRequestController;
-use App\Http\Controllers\Central\PaymentMethodController;
-use App\Http\Controllers\Central\CentralGeneralController;
-use App\Http\Controllers\NewsletterSubscriptionController;
-use App\Http\Controllers\Central\SendNotificationController;
-use App\Http\Controllers\Central\CentralSettingImageController;
-use App\Http\Controllers\Central\SubscriptionRequestController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Central\ApplicationManagementController;
+use App\Http\Controllers\Central\CentralGeneralController;
+use App\Http\Controllers\Central\CentralSettingImageController;
 use App\Http\Controllers\Central\CentralSubscriptionInvoiceController;
+use App\Http\Controllers\Central\CurrencyController;
+use App\Http\Controllers\Central\DashboardController;
+use App\Http\Controllers\Central\DomainController;
+use App\Http\Controllers\Central\DomainRequestController;
+use App\Http\Controllers\Central\FeatureController;
+use App\Http\Controllers\Central\NewsletterController;
+use App\Http\Controllers\Central\PageController;
+use App\Http\Controllers\Central\PaymentController;
+use App\Http\Controllers\Central\PaymentMethodController;
+use App\Http\Controllers\Central\PlanController;
+use App\Http\Controllers\Central\SendNotificationController;
+use App\Http\Controllers\Central\SubscriptionController;
+use App\Http\Controllers\Central\SubscriptionRequestController;
+use App\Http\Controllers\Central\TenantController;
+use App\Http\Controllers\NewsletterSubscriptionController;
+use App\Http\Controllers\ServerController;
+use App\Http\Controllers\TenantDomainFindController;
+use App\Http\Controllers\TenantRegisterController;
+use App\Http\Controllers\VersionController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 
 /*
@@ -62,7 +62,6 @@ Route::post('/check-domain', [TenantRegisterController::class, 'checkDomain'])->
 Route::post('/find-domain', [TenantDomainFindController::class, 'findDomain'])->name('central.find-domain');
 Route::post('/tenant-login', [TenantDomainFindController::class, 'tenantLogin'])->name('central.tenant-login');
 Route::post('/login', [LoginController::class, 'login'])->name('central.login');
-
 
 // return dynamic pages content
 Route::get('pages-by-slug/{slug}', [PageController::class, 'showBySlug']);
@@ -117,6 +116,7 @@ Route::group(['middleware' => 'auth:sanctum', 'as' => 'central.'], function () {
     // Tenant management routes
     Route::get('tenants/search', [TenantController::class, 'search']);
     Route::get('tenants/archived', [TenantController::class, 'archived']);
+    Route::delete('tenants/archived/delete-all', [TenantController::class, 'permanentDeleteAllArchived']);
     Route::post('tenants/{tenant}/ban', [TenantController::class, 'ban']);
     Route::post('tenants/{tenant}/restore', [TenantController::class, 'restore']);
     Route::delete('tenants/{tenant}/permanent-delete', [TenantController::class, 'permanentDelete']);
@@ -286,7 +286,7 @@ Route::group(['middleware' => 'auth:sanctum', 'as' => 'central.'], function () {
             // Custom validation rules
             $validator->after(function ($validator) use ($request) {
                 // Email is required when email notification is enabled
-                if ($request->isSendEmail && !$request->email) {
+                if ($request->isSendEmail && ! $request->email) {
                     $validator->errors()->add('email', 'Email is required when email notification is enabled.');
                 }
             });
@@ -294,12 +294,12 @@ Route::group(['middleware' => 'auth:sanctum', 'as' => 'central.'], function () {
             if ($validator->fails()) {
                 return response()->json([
                     'message' => 'Validation failed',
-                    'errors' => $validator->errors()
+                    'errors' => $validator->errors(),
                 ], 422);
             }
 
             // Create client
-            $client = new \App\Models\Client();
+            $client = new \App\Models\Client;
             $client->name = $request->name;
             $client->client_id = \App\Models\Client::max('client_id') + 1;
             $client->slug = \Illuminate\Support\Str::slug($request->name);
@@ -310,7 +310,7 @@ Route::group(['middleware' => 'auth:sanctum', 'as' => 'central.'], function () {
             $client->address = $request->address;
             $client->type = $request->type;
             $client->status = $request->status;
-            
+
             // Auto-assign chart of account if not provided
             if ($request->chartOfAccountId) {
                 $client->chart_of_account_id = $request->chartOfAccountId;
@@ -323,7 +323,7 @@ Route::group(['middleware' => 'auth:sanctum', 'as' => 'central.'], function () {
                     $client->chart_of_account_id = $accountsReceivable->id;
                 }
             }
-            
+
             $client->save();
 
             return response()->json([
@@ -343,13 +343,13 @@ Route::group(['middleware' => 'auth:sanctum', 'as' => 'central.'], function () {
                     'image' => $client->image_path,
                     'chart_of_account_id' => $client->chart_of_account_id,
                     'chartOfAccount' => $client->chart_of_account_id ? \App\Models\ChartOfAccount::find($client->chart_of_account_id) : null,
-                ]
+                ],
             ], 201);
 
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error creating client',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     });

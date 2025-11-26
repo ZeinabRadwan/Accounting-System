@@ -192,6 +192,16 @@
                     <search v-model="archivedQuery" @reset-pagination="resetPagination()" @reload="reloadArchived" />
                   </div>
                   <div class="col-6 col-xl-8 mb-2 text-right">
+                    <button 
+                      v-if="archivedItems.length > 0 && !isDemoMode" 
+                      @click="deleteAllArchivedTenants" 
+                      class="btn btn-danger"
+                      :disabled="deletingAllArchived"
+                    >
+                      <i class="fas fa-trash-alt mr-1"></i>
+                      <span v-if="deletingAllArchived">{{ $t("Deleting...") }}</span>
+                      <span v-else>{{ $t("Delete All Archived") }}</span>
+                    </button>
                     <date-range-picker ref="archivedPicker" opens="left" :locale-data="locale" :minDate="minDate"
                       :maxDate="maxDate" :singleDatePicker="false" :showWeekNumbers="false" :showDropdowns="true"
                       :autoApply="true" v-model="archivedDateRange" @update="updateArchivedValues"
@@ -355,6 +365,7 @@ export default {
     archivedItems: [],
     archivedLoading: false,
     archivedPagination: null,
+    deletingAllArchived: false,
   }),
   filters: {
     startDate(val) {
@@ -704,6 +715,41 @@ export default {
             this.$t("Error!"),
             error.response?.data?.message || this.$t("Failed to permanently delete tenant")
           );
+        }
+      }
+    },
+
+    // Delete all archived tenants
+    async deleteAllArchivedTenants() {
+      const count = this.archivedItems.length;
+      const confirmed = confirm(
+        this.$t("Are you sure you want to permanently delete all {count} archived tenants? This action cannot be undone and will delete all data including their databases.").replace('{count}', count)
+      );
+
+      if (confirmed) {
+        this.deletingAllArchived = true;
+        try {
+          const response = await axios.delete('/api/tenants/archived/delete-all');
+          if (response.data.success) {
+            this.$toast.success(
+              this.$t("Success"),
+              response.data.message || this.$t("All archived tenants deleted successfully")
+            );
+            this.getArchivedData();
+          } else {
+            this.$toast.error(
+              this.$t("Failed"),
+              this.$t("Failed to delete all archived tenants")
+            );
+          }
+        } catch (error) {
+          console.error('Error deleting all archived tenants:', error);
+          this.$toast.error(
+            this.$t("Error!"),
+            error.response?.data?.message || this.$t("Failed to delete all archived tenants")
+          );
+        } finally {
+          this.deletingAllArchived = false;
         }
       }
     },
