@@ -1,193 +1,98 @@
 <template>
-  <div class="container-fluid">
-    <div class="row no-gutter">
-      <!-- The image half -->
-      <div class="col-md-6 d-none d-md-flex bg-image"></div>
-      <!-- The content half -->
-      <div class="col-md-6 bg-light">
-        <div class="auth-wrapper d-flex align-items-center py-5">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-10 col-xl-7 mx-auto">
-                <div class="text-center">
-                  <router-link to="/">
-                    <img v-if="appInfo" :src="appInfo.blackLogo" :alt="appInfo.companyName"
-                      class="lg-logo img-fluid logo-width" />
-                  </router-link>
-                  <p class="text-22 mb-4 mt-2">{{ $t("login_txt") }}</p>
-                </div>
+  <div>
+    <div class="container-fluid">
+      <div class="row no-gutter">
+        <!-- The content half -->
+        <div class="col-12" style="background: #ffffff;">
+          <div class="auth-wrapper d-flex align-items-center py-5" style="width: 100%;">
+            <!-- Demo content-->
+            <div class="container">
+              <!-- Two Column Layout -->
+              <div class="row register-page-layout">
+                <div class="col-md-6 register-form-column">
+                  <form @submit.prevent="login" @keydown="form.onKeydown($event)" class="register-form">
+                    <!-- Form Title -->
+                    <h2 class="register-form-title">{{ $t('login') }}</h2>
 
-                <form @submit.prevent="login" @keydown="form.onKeydown($event)">
-                  <div class="form-group mb-3">
-                    <input id="email" v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }"
-                      class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" type="email" name="email"
-                      :placeholder="$t('email_placeholder')" />
-                    <has-error :form="form" field="email" />
-                  </div>
-                  <div class="form-group mb-3">
-                    <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }"
-                      class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" type="password"
-                      name="password" :placeholder="$t('password_placeholder')" />
-                    <has-error :form="form" field="password" />
-                  </div>
-                  <div class="row mb-5">
-                    <div class="col-md-6">
-                      <checkbox v-model="remember" name="remember">
-                        {{ $t("remember_me") }}
-                      </checkbox>
+                    <!-- Email -->
+                    <div class="form-group mb-3">
+                      <input id="email" v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }"
+                        class="form-control input-radius-10 border-0 px-4 text-primary" type="email" name="email"
+                        :placeholder="$t('email_placeholder')" />
+                      <has-error :form="form" field="email" class="ml-4" />
                     </div>
-                    <div class="col-md-6 text-right">
-                      <router-link :to="{ name: 'password.request' }" class="ml-auto my-auto">
-                        {{ $t("forgot_password") }}
-                      </router-link>
+
+                    <!-- Password -->
+                    <div class="form-group mb-3">
+                      <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }"
+                        class="form-control input-radius-10 border-0 px-4 text-primary" type="password" name="password"
+                        :placeholder="$t('password_placeholder')" />
+                      <has-error :form="form" field="password" class="ml-4" />
                     </div>
-                  </div>
-                  <!-- Submit Button -->
-                  <v-button :loading="form.busy"
-                    class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">
-                    <strong>{{ $t("login") }}</strong>
-                    <!-- <i class="fas fa-sign-in-alt" style="transform: scaleX(-1);" /> -->
-                  </v-button>
-                </form>
-              </div>
-              <!-- Login  Credentials For Demo -->
-              <!-- <div class="col-12 mt-4" v-if="isDemoMode">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <h3 class="text-center font-bold font-up danger-text">
-                          {{ $t('Login Credentials') }}
-                        </h3>
+
+                    <!-- Remember Me and Forgot Password -->
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <checkbox v-model="remember" name="remember">
+                          {{ $t("remember_me") }}
+                        </checkbox>
+                      </div>
+                      <div class="col-md-6 text-right">
+                        <router-link :to="{ name: 'password.request' }" class="forgot-password-link">
+                          {{ $t("forgot_password") }}
+                        </router-link>
                       </div>
                     </div>
-                    <div class="table-responsive">
-                      <table class="table table-bordered red-border text-center">
-                        <thead>
-                          <tr>
-                            <th>{{ $t('Type') }}</th>
-                            <th>{{ $t('Role') }}</th>
-                            <th>{{ $t('Email') }}</th>
-                            <th>{{ $t('Password') }}</th>
-                            <th>{{ $t('Action') }}</th>
-                          </tr>
-                        </thead>
-                        <tbody v-if="!isSubdomain">
-                          <tr>
-                            <th>{{ $t('Owner') }}</th>
-                            <th>{{ $t('Central Admin') }}</th>
-                            <td>superadmin@arqam.sa</td>
-                            <td>arqam2024</td>
-                            <td scope="row">
-                              <button v-tooltip="$t('Central Admin')" class="btn" @click="
-                                loginCredential(
-                                  'superadmin@arqam.sa',
-                                  'arqam2024'
-                                )
-                                ">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                  stroke="currentColor" stroke-width="2">
-                                  <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                                </svg>
-                              </button>
-                            </td>
-                          </tr>
-                        </tbody>
-                        <tbody v-else>
-                          <tr v-if="checkSubdomain('john')">
-                            <th scope="row">{{ $t('Tenant(Subscriber)') }}</th>
-                            <th scope="row">{{ $t('Admin') }}</th>
-                            <td>john@arqam.sa</td>
-                            <td>arqam2024</td>
-                            <td scope="row">
-                              <button v-tooltip="$t('Central Admin')" class="btn" @click="
-                                loginCredential(
-                                  'john@arqam.sa',
-                                  'arqam2024'
-                                )
-                                ">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                  stroke="currentColor" stroke-width="2">
-                                  <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                                </svg>
-                              </button>
-                            </td>
-                          </tr>
-                          <tr v-if="checkSubdomain('jane')">
-                            <th scope="row">{{ $t('Tenant(Subscriber)') }}</th>
-                            <th scope="row">{{ $t('Admin') }}</th>
-                            <td>jane@arqam.sa</td>
-                            <td>arqam2024</td>
-                            <td scope="row">
-                              <button v-tooltip="$t('Central Admin')" class="btn" @click="
-                                loginCredential(
-                                  'jane@arqam.sa',
-                                  'arqam2024'
-                                )
-                                ">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                  stroke="currentColor" stroke-width="2">
-                                  <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                                </svg>
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">{{ $t('Tenant Employee') }}</th>
-                            <th scope="row">{{ $t('Manager') }}</th>
-                            <td>manager@arqam.sa</td>
-                            <td>arqam2024</td>
-                            <td scope="row">
-                              <button v-tooltip="$t('Login as super manager')" class="btn" @click="
-                                loginCredential(
-                                  'manager@arqam.sa',
-                                  'arqam2024'
-                                )
-                                ">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                  stroke="currentColor" stroke-width="2">
-                                  <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                                </svg>
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">{{ $t('Tenant Employee') }}</th>
-                            <th scope="row">{{ $t('Salesman') }}</th>
-                            <td>sales@arqam.sa</td>
-                            <td>arqam2024</td>
-                            <td scope="row">
-                              <button v-tooltip="$t('Login as super salesman')" class="btn" @click="
-                                loginCredential(
-                                  'sales@arqam.sa',
-                                  'arqam2024'
-                                )
-                                ">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                  stroke="currentColor" stroke-width="2">
-                                  <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                                </svg>
-                              </button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+
+                    <!-- Submit Button -->
+                    <div class="register-submit-btn-wrapper">
+                      <v-button :loading="form.busy" class="btn btn-block mb-2 register-submit-btn">
+                        <strong>{{ $t("login") }}</strong>
+                        <i class="fas fa-sign-in-alt" style="transform: scaleX(-1);" />
+                      </v-button>
+                    </div>
+
+                    <!-- Don't have account / Register link -->
+                    <div class="row justify-content-center mt-3">
+                      <div class="mx-2 already-registered-text">
+                        <span class="already-registered-question">{{ $t('dont_have_account') }}</span>
+                        <router-link :to="{ name: 'register' }" class="login-link-text">
+                          {{ $t('register') }}
+                        </router-link>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <!-- Platform Features Column -->
+                <div class="col-md-6 platform-features-column">
+                  <div class="platform-features-content">
+                    <router-link to="/" class="platform-logo-link">
+                      <img v-if="appInfo" :src="appInfo.blackLogo" :alt="appInfo.companyName"
+                        class="lg-logo img-fluid logo-width" />
+                    </router-link>
+                    <h2 class="platform-title">{{ $t('platform_title') }}</h2>
+                    <p class="platform-description">{{ $t('platform_description') }}</p>
+                    <h3 class="platform-includes-title">{{ $t('platform_includes') }}</h3>
+                    <div class="platform-features-grid">
+                      <div class="feature-card">{{ $t('electronic_invoicing') }}</div>
+                      <div class="feature-card">{{ $t('sales_pos_management') }}</div>
+                      <div class="feature-card">{{ $t('inventory_management') }}</div>
+                      <div class="feature-card">{{ $t('accounting_general_ledger') }}</div>
+                      <div class="feature-card">{{ $t('branch_management') }}</div>
+                      <div class="feature-card">{{ $t('customer_relationship') }}</div>
+                      <div class="feature-card">{{ $t('hr_employee_affairs') }}</div>
+                      <div class="feature-card">{{ $t('integrated_workflow') }}</div>
                     </div>
                   </div>
                 </div>
-              </div> -->
+              </div>
             </div>
+            <!-- End -->
           </div>
         </div>
         <!-- End -->
       </div>
     </div>
-    <!-- End -->
   </div>
 </template>
 <script>
@@ -301,3 +206,224 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+* {
+  font-family: 'Almarai', sans-serif;
+}
+
+/* Exclude Font Awesome icons from Almarai font */
+.fa,
+.fas,
+.far,
+.fab,
+.fa-solid,
+.fa-regular,
+.fa-brands,
+[class^="fa-"],
+[class*=" fa-"] {
+  font-family: "Font Awesome 7 Free", "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome", sans-serif !important;
+}
+
+.input-radius-10 {
+  border-radius: 10px !important;
+}
+
+.input-radius-10:focus {
+  border: 1px solid #0775AF !important;
+  outline: none;
+}
+
+.register-submit-btn-wrapper {
+  padding: 1px;
+  margin: 1rem 0 0.5rem 0;
+}
+
+.register-submit-btn {
+  background: #0775AF !important;
+  border: 1px solid #0775AF !important;
+  padding: 12px;
+  border-radius: 9px;
+  color: #ffffff;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin: 0;
+}
+
+.register-submit-btn:hover {
+  background: #06608a !important;
+  color: #ffffff;
+}
+
+.register-submit-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(7, 117, 175, 0.25);
+}
+
+/* Register form styling */
+.register-form {
+  border: 1px solid #CBD0DD;
+  border-radius: 10px;
+  padding: 1.5rem;
+}
+
+.register-form-title {
+  color: #000000;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: right;
+}
+
+/* RTL support for form title */
+[dir="rtl"] .register-form-title {
+  text-align: right;
+}
+
+[dir="ltr"] .register-form-title {
+  text-align: left;
+}
+
+/* Already registered text styling */
+.already-registered-text {
+  color: #000000;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.already-registered-question {
+  color: #000000;
+}
+
+.login-link-text {
+  color: #0775AF !important;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.login-link-text:hover {
+  color: #06608a !important;
+  text-decoration: underline;
+}
+
+.forgot-password-link {
+  color: #0775AF !important;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.forgot-password-link:hover {
+  color: #06608a !important;
+  text-decoration: underline;
+}
+
+/* Register page layout */
+.register-page-layout {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.register-form-column {
+  width: 50%;
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.platform-features-column {
+  width: 50%;
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.platform-features-content {
+  border: 1px solid #CBD0DD;
+  border-radius: 10px;
+  padding: 2rem;
+  height: 100%;
+}
+
+.platform-logo-link {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.platform-logo-link img {
+  display: block;
+}
+
+.logo-width {
+  max-width: 300px;
+}
+
+.platform-title {
+  font-size: 22px;
+  color: #000000;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.platform-description {
+  color: #586687;
+  font-size: 16px;
+  line-height: 35px;
+  margin-bottom: 1.5rem;
+}
+
+.platform-includes-title {
+  font-size: 20px;
+  color: #000000;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.platform-features-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.feature-card {
+  background: #0775AF1A;
+  border-radius: 10px;
+  padding: 16px;
+  color: #000000;
+  font-size: 16px;
+  /* line-height: 1.5; */
+  font-weight: 500;
+  width: fit-content;
+  display: inline-block;
+  margin: 0.25rem 0;
+}
+
+/* RTL support for platform features */
+[dir="rtl"] .platform-title,
+[dir="rtl"] .platform-description,
+[dir="rtl"] .platform-includes-title {
+  text-align: right;
+}
+
+[dir="ltr"] .platform-title,
+[dir="ltr"] .platform-description,
+[dir="ltr"] .platform-includes-title {
+  text-align: left;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+
+  .register-form-column,
+  .platform-features-column {
+    width: 100%;
+    flex: 0 0 100%;
+    margin-bottom: 2rem;
+  }
+
+  .platform-features-grid {
+    flex-direction: column;
+  }
+}
+</style>

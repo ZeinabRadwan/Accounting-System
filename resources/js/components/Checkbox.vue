@@ -1,15 +1,15 @@
 <template>
-  <div class="custom-control custom-checkbox d-flex checkbox-container">
-    <input
-      :id="id || name"
-      :name="name"
-      :checked="internalValue"
-      type="checkbox"
-      class="custom-control-input"
-      @click="handleClick"
-      :required="required"
-    />
-    <label :for="id || name" class="custom-control-label my-auto">
+  <div class="d-flex checkbox-container">
+    <div class="checkbox-wrapper-31">
+      <input :id="id || name" :name="name" :checked="internalValue" type="checkbox" @click="handleClick"
+        :required="required" />
+      <svg viewBox="0 0 35.6 35.6" width="20" height="20">
+        <circle class="background" cx="17.8" cy="17.8" r="17.8"></circle>
+        <circle class="stroke" cx="17.8" cy="17.8" r="14.37"></circle>
+        <polyline class="check" points="11.78 18.12 15.55 22.23 25.17 12.87"></polyline>
+      </svg>
+    </div>
+    <label :for="id || name" class="checkbox-label my-auto">
       <slot />
     </label>
   </div>
@@ -71,35 +71,112 @@ export default {
 /* Checkbox container layout */
 .checkbox-container {
   align-items: flex-start;
-  gap: 0.5rem;
+  gap: 0;
+  flex-direction: row-reverse;
 }
 
-.checkbox-container .custom-control-input {
-  position: static;
+.checkbox-wrapper-31:hover .check {
+  stroke-dashoffset: 0;
+}
+
+.checkbox-wrapper-31 {
+  position: relative;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
   margin-top: 0.25rem;
-  margin-right: 0;
-  margin-bottom: 0;
-  margin-left: 0;
 }
 
-.checkbox-container .custom-control-label {
+.checkbox-wrapper-31 .background {
+  fill: #ccc;
+  transition: ease all 0.6s;
+  -webkit-transition: ease all 0.6s;
+}
+
+.checkbox-wrapper-31 .stroke {
+  fill: none;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  stroke-width: 2px;
+  stroke-dashoffset: 100;
+  stroke-dasharray: 100;
+  transition: ease all 0.6s;
+  -webkit-transition: ease all 0.6s;
+}
+
+.checkbox-wrapper-31 .check {
+  fill: none;
+  stroke: #fff;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2px;
+  stroke-dashoffset: 22;
+  stroke-dasharray: 22;
+  transition: ease all 0.6s;
+  -webkit-transition: ease all 0.6s;
+}
+
+.checkbox-wrapper-31 input[type=checkbox] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  margin: 0;
+  opacity: 0;
+  -appearance: none;
+  -webkit-appearance: none;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.checkbox-wrapper-31 input[type=checkbox]:checked+svg .background {
+  fill: #0775AF;
+}
+
+.checkbox-wrapper-31 input[type=checkbox]:checked+svg .stroke {
+  stroke-dashoffset: 0;
+}
+
+.checkbox-wrapper-31 input[type=checkbox]:checked+svg .check {
+  stroke-dashoffset: 0;
+}
+
+.checkbox-label {
   padding-left: 0;
   padding-right: 0;
   margin-bottom: 0;
-  line-height: 1.5;
+  line-height: 1;
+  cursor: pointer;
 }
 
-/* RTL support for checkbox positioning */
+/* LTR support - checkbox on left, text on right */
+[dir="ltr"] .checkbox-container {
+  flex-direction: row;
+}
+
+[dir="ltr"] .checkbox-wrapper-31 {
+  order: 1;
+}
+
+[dir="ltr"] .checkbox-label {
+  order: 2;
+  text-align: left;
+}
+
+/* RTL support - text on right, checkbox on left */
 [dir="rtl"] .checkbox-container {
   flex-direction: row-reverse;
 }
 
-[dir="rtl"] .checkbox-container .custom-control-input {
-  margin-left: 0;
-  margin-right: 0;
+[dir="rtl"] .checkbox-label {
+  padding-right: 0;
+  text-align: right;
+  order: 1;
 }
 
-[dir="rtl"] .checkbox-container .custom-control-label {
-  padding-right: 21px;
+[dir="rtl"] .checkbox-wrapper-31 {
+  order: 2;
 }
 </style>
