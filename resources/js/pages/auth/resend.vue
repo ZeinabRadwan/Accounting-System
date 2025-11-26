@@ -275,7 +275,7 @@ export default {
 .register-page-layout {
     align-items: flex-start;
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
 }
 
 .register-form-column {
