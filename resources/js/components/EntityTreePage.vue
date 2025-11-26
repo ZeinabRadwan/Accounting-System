@@ -300,7 +300,6 @@ export default {
         console.log('EntityTreePage: no search API config, calling getData');
         return this.getData();
       }
-      this.$store.state.operations.loading = true;
       try {
         const params = this.buildSearchParams();
         console.log('EntityTreePage: search params', params);
@@ -313,8 +312,6 @@ export default {
       } catch (error) {
         console.error("Error searching data:", error);
         this.$toast.error(this.$t("Error"), this.config?.messages?.searchError || this.$t("Failed to search data"));
-      } finally {
-        this.$store.state.operations.loading = false;
       }
     },
     buildHierarchy() {
