@@ -109,7 +109,8 @@ class BusinessTransactionJournalService
 
                     // Validate VAT account from product's tax rate (with fallback to default account)
                     if ($invoiceProduct->product && $invoiceProduct->product->productTax) {
-                        $vatAccount = $invoiceProduct->product->productTax->getSalesVatAccount();
+                        // Pass branch_id to get the correct VAT account from account routing settings
+                        $vatAccount = $invoiceProduct->product->productTax->getSalesVatAccount($invoice->branch_id);
                         if (! $vatAccount) {
                             throw new Exception('Product "'.$invoiceProduct->product->name.'" must have a Sales VAT Account assigned for journal entries. Please configure the VAT rate "'.$invoiceProduct->product->productTax->name.'" with a Sales VAT Account or ensure the default "Sales VAT Payable" account exists.');
                         }
@@ -1572,7 +1573,8 @@ class BusinessTransactionJournalService
 
                 // Group by VAT account
                 if ($invoiceProduct->vatRate && $returnVat > 0) {
-                    $vatAccount = $invoiceProduct->vatRate->getSalesVatAccount();
+                    // Pass branch_id to get the correct VAT account from account routing settings
+                    $vatAccount = $invoiceProduct->vatRate->getSalesVatAccount($invoiceReturn->invoice->branch_id ?? null);
                     if ($vatAccount) {
                         if (! isset($vatByAccount[$vatAccount->id])) {
                             $vatByAccount[$vatAccount->id] = 0;
@@ -1651,18 +1653,19 @@ class BusinessTransactionJournalService
     {
         $branchId = $purchase->branch_id ?? Auth::user()->default_branch_id ?? null;
 
-        // First try to get VAT account from the purchase's tax rate
+        // Use the VatRate's getPurchaseVatAccount method which prioritizes routing settings
         if ($purchase->tax_id) {
             $vatRate = $purchase->purchaseTax;
-            if ($vatRate && $vatRate->chart_of_account_id) {
-                return ChartOfAccount::forBranch($branchId)->find($vatRate->chart_of_account_id);
+            if ($vatRate) {
+                return $vatRate->getPurchaseVatAccount($branchId);
             }
         }
 
-        // Fallback to default VAT input account from routing settings
+        // Fallback: Get directly from routing settings if no tax rate on purchase
         $setting = AccountRoutingSetting::where('branch_id', $branchId)
             ->where('module', 'vat')
             ->where('setting_key', 'purchase_vat_account')
+            ->where('is_active', true)
             ->first();
 
         if (! $setting || ! $setting->main_account_id) {

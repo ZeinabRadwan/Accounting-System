@@ -174,6 +174,7 @@ class VatJournalService
         $setting = AccountRoutingSetting::where('branch_id', $branchId)
             ->where('module', 'vat')
             ->where('setting_key', 'sales_vat_account')
+            ->where('is_active', true)
             ->first();
 
         if (! $setting || ! $setting->main_account_id) {
@@ -195,6 +196,7 @@ class VatJournalService
         $setting = AccountRoutingSetting::where('branch_id', $branchId)
             ->where('module', 'vat')
             ->where('setting_key', 'purchase_vat_account')
+            ->where('is_active', true)
             ->first();
 
         if (! $setting || ! $setting->main_account_id) {

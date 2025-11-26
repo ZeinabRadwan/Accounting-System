@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class VatRate extends Model
 {
-    use Sluggable, HasFactory;
+    use HasFactory, Sluggable;
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +17,7 @@ class VatRate extends Model
      */
     protected $fillable = [
         'name', 'slug', 'code', 'rate', 'note', 'status', 'is_group_tax', 'group_tax_ids',
-        'sales_vat_account_id', 'purchase_vat_account_id'
+        'sales_vat_account_id', 'purchase_vat_account_id',
     ];
 
     protected $casts = [
@@ -28,8 +28,6 @@ class VatRate extends Model
 
     /**
      * Return the sluggable configuration array for this model.
-     *
-     * @return array
      */
     public function sluggable(): array
     {
@@ -57,50 +55,84 @@ class VatRate extends Model
     }
 
     /**
-     * Get the default sales VAT account if none is set
+     * Get the sales VAT account - prioritizes account routing settings over VatRate's own account
+     *
+     * @param  int|null  $branchId  Branch ID to filter routing settings
      */
-    public function getSalesVatAccount()
+    public function getSalesVatAccount(?int $branchId = null)
     {
+        // Get branch ID from auth if not provided
+        if ($branchId === null) {
+            $branchId = auth()->user()?->default_branch_id;
+        }
+
+        // First priority: Get account from routing settings (centralized configuration)
+        $settingQuery = \App\Models\AccountRoutingSetting::where('module', 'vat')
+            ->where('setting_key', 'sales_vat_account')
+            ->where('is_active', true);
+
+        // Filter by branch if provided
+        if ($branchId) {
+            $settingQuery->where('branch_id', $branchId);
+        }
+
+        $setting = $settingQuery->first();
+
+        if ($setting && $setting->main_account_id) {
+            $account = ChartOfAccount::find($setting->main_account_id);
+            if ($account) {
+                return $account;
+            }
+        }
+
+        // Second priority: Fall back to VatRate's own account if routing settings not configured
         if ($this->sales_vat_account_id) {
             return $this->salesVatAccount;
         }
-        
-        // Get default account from routing settings
-        $setting = \App\Models\AccountRoutingSetting::where('module', 'vat')
-            ->where('setting_key', 'sales_vat_account')
-            ->where('is_active', true)
-            ->first();
-        
-        if ($setting && $setting->main_account_id) {
-            return ChartOfAccount::find($setting->main_account_id);
-        }
-        
-        // Fallback to account named "Sales VAT Payable" if routing not configured
+
+        // Last fallback: Account named "Sales VAT Payable" if nothing else configured
         return ChartOfAccount::where('name', 'Sales VAT Payable')
             ->where('is_active', true)
             ->first();
     }
 
     /**
-     * Get the default purchase VAT account if none is set
+     * Get the purchase VAT account - prioritizes account routing settings over VatRate's own account
+     *
+     * @param  int|null  $branchId  Branch ID to filter routing settings
      */
-    public function getPurchaseVatAccount()
+    public function getPurchaseVatAccount(?int $branchId = null)
     {
+        // Get branch ID from auth if not provided
+        if ($branchId === null) {
+            $branchId = auth()->user()?->default_branch_id;
+        }
+
+        // First priority: Get account from routing settings (centralized configuration)
+        $settingQuery = \App\Models\AccountRoutingSetting::where('module', 'vat')
+            ->where('setting_key', 'purchase_vat_account')
+            ->where('is_active', true);
+
+        // Filter by branch if provided
+        if ($branchId) {
+            $settingQuery->where('branch_id', $branchId);
+        }
+
+        $setting = $settingQuery->first();
+
+        if ($setting && $setting->main_account_id) {
+            $account = ChartOfAccount::find($setting->main_account_id);
+            if ($account) {
+                return $account;
+            }
+        }
+
+        // Second priority: Fall back to VatRate's own account if routing settings not configured
         if ($this->purchase_vat_account_id) {
             return $this->purchaseVatAccount;
         }
-        
-        // Get default account from routing settings
-        $setting = \App\Models\AccountRoutingSetting::where('module', 'vat')
-            ->where('setting_key', 'purchase_vat_account')
-            ->where('is_active', true)
-            ->first();
-        
-        if ($setting && $setting->main_account_id) {
-            return ChartOfAccount::find($setting->main_account_id);
-        }
-        
-        // Fallback to account named "Purchase VAT Receivable" if routing not configured
+
+        // Last fallback: Account named "Purchase VAT Receivable" if nothing else configured
         return ChartOfAccount::where('name', 'Purchase VAT Receivable')
             ->where('is_active', true)
             ->first();
@@ -113,7 +145,7 @@ class VatRate extends Model
     {
         $salesAccount = $this->getSalesVatAccount();
         $purchaseAccount = $this->getPurchaseVatAccount();
-        
+
         return $salesAccount && $purchaseAccount;
     }
 
@@ -122,16 +154,17 @@ class VatRate extends Model
      */
     public function getChartOfAccountValidationMessage(): string
     {
-        if (!$this->hasChartOfAccountConnections()) {
+        if (! $this->hasChartOfAccountConnections()) {
             return "VAT Rate '{$this->name}' is not properly connected to required Chart of Accounts. Please ensure Sales VAT Payable and Purchase VAT Receivable accounts exist.";
         }
+
         return '';
     }
 
     // Accessor to get group tax details
     public function getGroupTaxDetailsAttribute()
     {
-        if ($this->is_group_tax && !empty($this->group_tax_ids)) {
+        if ($this->is_group_tax && ! empty($this->group_tax_ids)) {
             return VatRate::whereIn('id', $this->group_tax_ids)->get();
         }
 
