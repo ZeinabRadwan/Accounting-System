@@ -254,23 +254,39 @@ class AccountController extends Controller
         try {
             $branchId = Auth::user()->default_branch_id ?? null;
 
-            // Filter to only show accounts at level 4 and below
+            // Get all active chart of accounts for this branch with translations
             $chartOfAccounts = ChartOfAccount::where('is_active', true)
                 ->forBranch($branchId)
-                ->with(['type', 'parent.parent.parent.parent'])
+                ->with(['type', 'parent.parent.parent.parent', 'translations'])
+                ->orderBy('code')
                 ->orderBy('name')
                 ->get()
-                ->filter(function ($account) {
-                    return $account->getLevel() <= 4;
-                })
                 ->map(function ($account) {
+                    $level = $account->getLevel();
+                    // Get translated name based on current locale
+                    $translatedName = method_exists($account, 'getTranslatedField')
+                        ? $account->getTranslatedField('name')
+                        : $account->name;
+
                     return [
                         'id' => $account->id,
-                        'name' => $account->name,
+                        'name' => $translatedName,
                         'code' => $account->code,
                         'type' => $account->type ? $account->type->name : 'Unknown',
+                        'level' => $level,
                     ];
-                });
+                })
+                ->filter(function ($account) {
+                    // Only include accounts at level 3
+                    return $account['level'] === 3;
+                })
+                ->map(function ($account) {
+                    // Remove level from final output
+                    unset($account['level']);
+
+                    return $account;
+                })
+                ->values(); // Reset keys to ensure proper JSON array serialization
 
             return $this->responseWithSuccess('Chart of accounts retrieved successfully', $chartOfAccounts);
         } catch (Exception $e) {

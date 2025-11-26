@@ -22541,20 +22541,20 @@ var map = {
 		2800
 	],
 	"./cashbook/accounts/create": [
-		53030,
-		3030
+		85674,
+		5674
 	],
 	"./cashbook/accounts/create.vue": [
-		53030,
-		3030
+		85674,
+		5674
 	],
 	"./cashbook/accounts/edit": [
-		52967,
-		2967
+		82612,
+		2612
 	],
 	"./cashbook/accounts/edit.vue": [
-		52967,
-		2967
+		82612,
+		2612
 	],
 	"./cashbook/accounts/index": [
 		32800,
