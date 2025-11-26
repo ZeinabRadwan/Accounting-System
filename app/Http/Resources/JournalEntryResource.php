@@ -28,26 +28,26 @@ class JournalEntryResource extends JsonResource
             'source_id' => $this->source_id,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
             'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
-            
+
             // Relationships
-            'creator' => $this->whenLoaded('creator', function() {
+            'creator' => $this->whenLoaded('creator', function () {
                 return [
                     'id' => $this->creator->id,
                     'name' => $this->creator->name,
                     'email' => $this->creator->email,
                 ];
             }),
-            
-            'poster' => $this->whenLoaded('poster', function() {
+
+            'poster' => $this->whenLoaded('poster', function () {
                 return [
                     'id' => $this->poster->id,
                     'name' => $this->poster->name,
                     'email' => $this->poster->email,
                 ];
             }),
-            
-            'lines' => $this->whenLoaded('lines', function() {
-                return $this->lines->map(function($line) {
+
+            'lines' => $this->whenLoaded('lines', function () {
+                return $this->lines->map(function ($line) {
                     return [
                         'id' => $line->id,
                         'chart_of_account_id' => $line->chart_of_account_id,
@@ -70,18 +70,18 @@ class JournalEntryResource extends JsonResource
                         'chart_of_account' => $line->chartOfAccount ? [
                             'id' => $line->chartOfAccount->id,
                             'code' => $line->chartOfAccount->code,
-                            'name' => $line->chartOfAccount->name,
+                            'name' => $line->chartOfAccount->translated_name,
                             'type' => $line->chartOfAccount->type ? [
                                 'id' => $line->chartOfAccount->type->id,
-                                'name' => $line->chartOfAccount->type->name,
+                                'name' => $line->chartOfAccount->type->name_translated,
                             ] : null,
                         ] : null,
                     ];
                 });
             }),
-            
-            'account_transactions' => $this->whenLoaded('accountTransactions', function() {
-                return $this->accountTransactions->map(function($transaction) {
+
+            'account_transactions' => $this->whenLoaded('accountTransactions', function () {
+                return $this->accountTransactions->map(function ($transaction) {
                     return [
                         'id' => $transaction->id,
                         'account_id' => $transaction->account_id,

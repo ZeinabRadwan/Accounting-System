@@ -4,13 +4,13 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\JournalEntryResource;
-use App\Models\JournalEntry;
 use App\Models\ChartOfAccount;
+use App\Models\JournalEntry;
 use App\Services\BusinessTransactionJournalService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Exception;
 
 class JournalEntryController extends Controller
 {
@@ -19,7 +19,7 @@ class JournalEntryController extends Controller
     public function __construct(BusinessTransactionJournalService $journalService)
     {
         $this->journalService = $journalService;
-        
+
         // Define middleware for permissions
         $this->middleware('can:journal-entry-list', ['only' => ['index', 'search', 'getAll']]);
         $this->middleware('can:journal-entry-create', ['only' => ['create', 'store']]);
@@ -35,9 +35,9 @@ class JournalEntryController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->perPage ?? 10;
-        
-        $query = JournalEntry::with(['lines.chartOfAccount.type', 'creator', 'poster']);
-        
+
+        $query = JournalEntry::with(['lines.chartOfAccount.type.translations', 'lines.chartOfAccount.translations', 'creator', 'poster']);
+
         // Apply branch filter
         $user = Auth::user();
         $defaultBranchId = (int) ($user->default_branch_id ?? 0);
@@ -46,7 +46,7 @@ class JournalEntryController extends Controller
         }
 
         $journalEntries = $query->latest()->paginate($perPage);
-            
+
         return JournalEntryResource::collection($journalEntries);
     }
 
@@ -68,14 +68,14 @@ class JournalEntryController extends Controller
             }
 
             $journalEntries = $query->get();
-                
+
             return response()->json([
-                'data' => $journalEntries
+                'data' => $journalEntries,
             ]);
         } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error loading journal entries',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -88,7 +88,7 @@ class JournalEntryController extends Controller
         try {
             // Check if cost centers are required
             $costCentersRequired = config('accounting.cost_centers.required_for_journal', false);
-            
+
             $request->validate([
                 'entry_date' => 'required|date',
                 'reference' => 'nullable|string|max:255',
@@ -105,26 +105,26 @@ class JournalEntryController extends Controller
 
             $data = $request->all();
             $data['status'] = $data['status'] ?? 'draft';
-            
+
             // Set branch
             $data['branch_id'] = (int) (Auth::user()->default_branch_id ?? 0);
-            
+
             // Handle empty reference string - convert to null if empty
             if (isset($data['reference']) && $data['reference'] === '') {
                 $data['reference'] = null;
             }
-            
+
             $journalEntry = $this->journalService->createCustomJournalEntry($data, Auth::id());
 
             return response()->json([
                 'message' => 'Journal entry created successfully',
-                'data' => new JournalEntryResource($journalEntry)
+                'data' => new JournalEntryResource($journalEntry),
             ], 201);
 
         } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error creating journal entry',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -136,10 +136,11 @@ class JournalEntryController extends Controller
     {
         try {
             $query = JournalEntry::with([
-                'lines.chartOfAccount.type', 
-                'creator', 
+                'lines.chartOfAccount.type.translations',
+                'lines.chartOfAccount.translations',
+                'creator',
                 'poster',
-                'accountTransactions'
+                'accountTransactions',
             ]);
 
             // Apply branch filter
@@ -156,7 +157,7 @@ class JournalEntryController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'message' => 'Journal entry not found',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 404);
         }
     }
@@ -172,7 +173,7 @@ class JournalEntryController extends Controller
             // Only allow editing draft entries
             if ($journalEntry->status !== 'draft') {
                 return response()->json([
-                    'message' => 'Only draft journal entries can be edited'
+                    'message' => 'Only draft journal entries can be edited',
                 ], 422);
             }
 
@@ -228,13 +229,13 @@ class JournalEntryController extends Controller
 
             return response()->json([
                 'message' => 'Journal entry updated successfully',
-                'data' => new JournalEntryResource($journalEntry)
+                'data' => new JournalEntryResource($journalEntry),
             ]);
 
         } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error updating journal entry',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -247,18 +248,18 @@ class JournalEntryController extends Controller
         try {
             $journalEntry = JournalEntry::findOrFail($id);
             $journalEntry->post();
-            
+
             $journalEntry->load(['lines.chartOfAccount.type', 'creator', 'poster']);
 
             return response()->json([
                 'message' => 'Journal entry posted successfully',
-                'data' => new JournalEntryResource($journalEntry)
+                'data' => new JournalEntryResource($journalEntry),
             ]);
 
         } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error posting journal entry',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 422);
         }
     }
@@ -271,18 +272,18 @@ class JournalEntryController extends Controller
         try {
             $journalEntry = JournalEntry::findOrFail($id);
             $journalEntry->void();
-            
+
             $journalEntry->load(['lines.chartOfAccount.type', 'creator', 'poster']);
 
             return response()->json([
                 'message' => 'Journal entry voided successfully',
-                'data' => new JournalEntryResource($journalEntry)
+                'data' => new JournalEntryResource($journalEntry),
             ]);
 
         } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error voiding journal entry',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 422);
         }
     }
@@ -298,20 +299,20 @@ class JournalEntryController extends Controller
             // Only allow deleting draft entries
             if ($journalEntry->status !== 'draft') {
                 return response()->json([
-                    'message' => 'Only draft journal entries can be deleted'
+                    'message' => 'Only draft journal entries can be deleted',
                 ], 422);
             }
 
             $journalEntry->delete();
 
             return response()->json([
-                'message' => 'Journal entry deleted successfully'
+                'message' => 'Journal entry deleted successfully',
             ]);
 
         } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error deleting journal entry',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -323,7 +324,7 @@ class JournalEntryController extends Controller
     {
         try {
             $term = $request->term;
-            $query = JournalEntry::with(['lines.chartOfAccount.type', 'creator', 'poster']);
+            $query = JournalEntry::with(['lines.chartOfAccount.type.translations', 'lines.chartOfAccount.translations', 'creator', 'poster']);
 
             // Apply branch filter
             $user = Auth::user();
@@ -347,8 +348,8 @@ class JournalEntryController extends Controller
             if ($term) {
                 $query->where(function ($q) use ($term) {
                     $q->where('entry_number', 'LIKE', "%{$term}%")
-                      ->orWhere('reference', 'LIKE', "%{$term}%")
-                      ->orWhere('description', 'LIKE', "%{$term}%");
+                        ->orWhere('reference', 'LIKE', "%{$term}%")
+                        ->orWhere('description', 'LIKE', "%{$term}%");
                 });
             }
 
@@ -360,7 +361,7 @@ class JournalEntryController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error searching journal entries',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -372,7 +373,7 @@ class JournalEntryController extends Controller
     {
         try {
             $branchId = Auth::user()->default_branch_id ?? null;
-            
+
             $accounts = ChartOfAccount::with('type')
                 ->where('is_active', true)
                 ->forBranch($branchId)
@@ -383,17 +384,17 @@ class JournalEntryController extends Controller
                         'id' => $account->id,
                         'code' => $account->code,
                         'name' => $account->name,
-                        'type' => $account->type ? $account->type->name : 'Unknown'
+                        'type' => $account->type ? $account->type->name : 'Unknown',
                     ];
                 });
 
             return response()->json([
-                'data' => $accounts
+                'data' => $accounts,
             ]);
         } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error loading chart of accounts',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -438,13 +439,13 @@ class JournalEntryController extends Controller
             return response()->json([
                 'data' => $trialBalance,
                 'start_date' => $startDate,
-                'end_date' => $endDate
+                'end_date' => $endDate,
             ]);
 
         } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error generating trial balance',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
