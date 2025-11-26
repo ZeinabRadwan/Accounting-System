@@ -141,13 +141,11 @@ class ChartOfAccountController extends Controller
     /**
      * Lightweight list for dropdowns (faster than full resource)
      * Filters to only show accounts at level 4 and below
-     * Accepts optional branch_id parameter to filter by specific branch
      */
-    public function getDropdown(Request $request)
+    public function getDropdown()
     {
         try {
-            // Allow branch_id from request, fallback to user's default
-            $branchId = $request->get('branch_id') ?? Auth::user()->default_branch_id ?? null;
+            $branchId = Auth::user()->default_branch_id ?? null;
 
             $accounts = ChartOfAccount::where('is_active', true)
                 ->forBranch($branchId)
@@ -155,8 +153,12 @@ class ChartOfAccountController extends Controller
                 ->select('id', 'name', 'code', 'type_id', 'parent_id')
                 ->orderBy('name', 'asc')
                 ->get()
-                ->map(function ($account) {
+                ->filter(function ($account) {
                     $level = $account->getLevel();
+
+                    return $level <= 4;
+                })
+                ->map(function ($account) {
                     $translatedName = method_exists($account, 'getTranslatedField')
                         ? $account->getTranslatedField('name')
                         : $account->name;
@@ -167,14 +169,8 @@ class ChartOfAccountController extends Controller
                         'code' => $account->code,
                         'type' => $account->type ? $account->type->name : null,
                         'parent_id' => $account->parent_id,
-                        'level' => $level,
                     ];
-                })
-                ->filter(function ($account) {
-                    // Only include accounts at level 3 or deeper
-                    return $account['level'] >= 3;
-                })
-                ->values();
+                });
 
             return response()->json([
                 'data' => $accounts,
@@ -610,27 +606,30 @@ class ChartOfAccountController extends Controller
 
     /**
      * Get chart of accounts with translations
-     * Note: Balance calculations are NOT included here for performance.
-     * Use the show() method to get balance details for a specific account.
+     * Optimized to only load chart of accounts and translations for maximum performance.
      */
     public function indexWithTranslations(Request $request)
     {
-        $perPage = $request->perPage ?? 1000; // Tree view needs all accounts, not paginated
         $locale = $request->get('locale', app()->getLocale());
         $branchId = Auth::user()->default_branch_id ?? null;
 
-        // Eager load all relationships including nested translations to avoid N+1 queries
-        $accounts = ChartOfAccount::with([
-            'type.translations', // Eager load type translations
-            'parent.translations', // Eager load parent translations
-            'translations', // Eager load account translations
-        ])
+        // Build eager load array - only load what's needed
+        $with = ['translations']; // Always load translations
+
+        // Only load type if explicitly requested
+        if ($request->has('include') && str_contains($request->get('include'), 'type')) {
+            if ($request->get('include_type_translations', false)) {
+                $with[] = 'type.translations';
+            } else {
+                $with[] = 'type';
+            }
+        }
+
+        // Load accounts with minimal relationships
+        $accounts = ChartOfAccount::with($with)
             ->forBranch($branchId)
             ->ordered()
-            ->get(); // Use get() instead of paginate() for tree view
-
-        // Do NOT calculate balances here - tree view should be fast
-        // Balances are loaded only when viewing a specific account (show method)
+            ->get();
 
         return ChartOfAccountTranslationResource::collection($accounts);
     }
