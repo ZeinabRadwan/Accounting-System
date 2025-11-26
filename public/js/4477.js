@@ -252,6 +252,25 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".header-buttons[data-v-666bd2ff]{margi
 
 /***/ }),
 
+/***/ 12761:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".nav-tabs[data-v-cd890c6e]{border-bottom:2px solid #dee2e6;margin-bottom:1.5rem}.nav-tabs .nav-item[data-v-cd890c6e]{margin-bottom:-2px}.nav-tabs .nav-link[data-v-cd890c6e]{background-color:transparent;border:1px solid transparent;border-top-left-radius:.25rem;border-top-right-radius:.25rem;color:#495057;cursor:pointer;font-weight:500;padding:.75rem 1.5rem;transition:all .2s ease}.nav-tabs .nav-link[data-v-cd890c6e]:hover{border-color:#e9ecef #e9ecef #dee2e6;color:#33a0d9}.nav-tabs .nav-link.active[data-v-cd890c6e]{background-color:#fff;border-color:#dee2e6 #dee2e6 transparent;color:#33a0d9;font-weight:600}.nav-tabs .nav-link i[data-v-cd890c6e]{margin-right:.5rem}.tab-content[data-v-cd890c6e]{min-height:200px}.tab-pane[data-v-cd890c6e]{padding:0}.form-group[data-v-cd890c6e]{margin-bottom:1rem}.form-group label[data-v-cd890c6e]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-cd890c6e]{color:#dc3545;font-weight:700}.form-control[data-v-cd890c6e]{background:#fff!important;border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-cd890c6e]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.is-invalid[data-v-cd890c6e]{border-color:#dc3545!important}textarea.form-control[data-v-cd890c6e]{min-height:100px;resize:vertical}.v-select[data-v-cd890c6e]{background:#fff!important;border:1px solid #e5e7eb;border-radius:10px}.v-select .vs__dropdown-toggle[data-v-cd890c6e]{background:#fff!important;border:1px solid #e5e7eb;padding:10px 16px}.btn-success[data-v-cd890c6e]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-success[data-v-cd890c6e]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-secondary[data-v-cd890c6e]{background:#6c757d!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-secondary[data-v-cd890c6e]:hover{background:#5a6268!important;box-shadow:0 4px 8px hsla(208,7%,46%,.3);transform:translateY(-1px)}.create-button[data-v-cd890c6e]{cursor:pointer;text-decoration:none}.create-btn[data-v-cd890c6e]{border-left:none;border-radius:0 .25rem .25rem 0;cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-cd890c6e]:hover{background-color:#e9ecef}.category-select[data-v-cd890c6e]{margin-right:0!important}.category-select .vs__dropdown-toggle[data-v-cd890c6e]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .category-select .vs__dropdown-toggle[data-v-cd890c6e]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}[dir=rtl] .create-btn[data-v-cd890c6e]{border-left:none;border-radius:.25rem 0 0 .25rem;border-right:1px solid #ced4da}[dir=ltr] .create-btn[data-v-cd890c6e]{border-left:1px solid #ced4da;border-radius:0 .25rem .25rem 0;border-right:none}.row[data-v-cd890c6e]{margin-bottom:1rem}.row[data-v-cd890c6e]:last-child{margin-bottom:0}@media (max-width:768px){.nav-tabs .nav-link[data-v-cd890c6e]{font-size:.9rem;padding:.5rem 1rem}.tab-content[data-v-cd890c6e]{padding:.5rem}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 20899:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -7073,7 +7092,7 @@ var vuex_esm = __webpack_require__(95353);
 // EXTERNAL MODULE: ./node_modules/vue-js-toggle-button/dist/index.js
 var dist = __webpack_require__(12616);
 // EXTERNAL MODULE: ./resources/js/components/ProductCreateModal.vue + 17 modules
-var ProductCreateModal = __webpack_require__(78362);
+var ProductCreateModal = __webpack_require__(99414);
 // EXTERNAL MODULE: ./resources/js/components/SupplierCreateModal.vue + 5 modules
 var SupplierCreateModal = __webpack_require__(78159);
 // EXTERNAL MODULE: ./resources/js/components/ItemsTable.vue + 5 modules
@@ -9505,25 +9524,6 @@ exports["default"] = Locale;
 
 /***/ }),
 
-/***/ 57688:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".nav-tabs[data-v-f891390a]{border-bottom:2px solid #dee2e6;margin-bottom:1.5rem}.nav-tabs .nav-item[data-v-f891390a]{margin-bottom:-2px}.nav-tabs .nav-link[data-v-f891390a]{background-color:transparent;border:1px solid transparent;border-top-left-radius:.25rem;border-top-right-radius:.25rem;color:#495057;cursor:pointer;font-weight:500;padding:.75rem 1.5rem;transition:all .2s ease}.nav-tabs .nav-link[data-v-f891390a]:hover{border-color:#e9ecef #e9ecef #dee2e6;color:#33a0d9}.nav-tabs .nav-link.active[data-v-f891390a]{background-color:#fff;border-color:#dee2e6 #dee2e6 transparent;color:#33a0d9;font-weight:600}.nav-tabs .nav-link i[data-v-f891390a]{margin-right:.5rem}.tab-content[data-v-f891390a]{min-height:200px}.tab-pane[data-v-f891390a]{padding:0}.form-group[data-v-f891390a]{margin-bottom:1rem}.form-group label[data-v-f891390a]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-f891390a]{color:#dc3545;font-weight:700}.form-control[data-v-f891390a]{background:#fff!important;border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-f891390a]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.is-invalid[data-v-f891390a]{border-color:#dc3545!important}textarea.form-control[data-v-f891390a]{min-height:100px;resize:vertical}.v-select[data-v-f891390a]{background:#fff!important;border:1px solid #e5e7eb;border-radius:10px}.v-select .vs__dropdown-toggle[data-v-f891390a]{background:#fff!important;border:1px solid #e5e7eb;padding:10px 16px}.btn-success[data-v-f891390a]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-success[data-v-f891390a]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-secondary[data-v-f891390a]{background:#6c757d!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-secondary[data-v-f891390a]:hover{background:#5a6268!important;box-shadow:0 4px 8px hsla(208,7%,46%,.3);transform:translateY(-1px)}.create-button[data-v-f891390a]{cursor:pointer;text-decoration:none}.create-btn[data-v-f891390a]{border-left:none;border-radius:0 .25rem .25rem 0;cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-f891390a]:hover{background-color:#e9ecef}.category-select[data-v-f891390a]{margin-right:0!important}.category-select .vs__dropdown-toggle[data-v-f891390a]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .category-select .vs__dropdown-toggle[data-v-f891390a]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}[dir=rtl] .create-btn[data-v-f891390a]{border-left:none;border-radius:.25rem 0 0 .25rem;border-right:1px solid #ced4da}[dir=ltr] .create-btn[data-v-f891390a]{border-left:1px solid #ced4da;border-radius:0 .25rem .25rem 0;border-right:none}.row[data-v-f891390a]{margin-bottom:1rem}.row[data-v-f891390a]:last-child{margin-bottom:0}@media (max-width:768px){.nav-tabs .nav-link[data-v-f891390a]{font-size:.9rem;padding:.5rem 1rem}.tab-content[data-v-f891390a]{padding:.5rem}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
 /***/ 58041:
 /***/ ((__unused_webpack_module, exports) => {
 
@@ -11062,7 +11062,379 @@ var component = (0,componentNormalizer/* default */.A)(
 
 /***/ }),
 
-/***/ 78362:
+/***/ 82689:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'টাকা',
+                plural: 'টাকা',
+                singular: 'টাকা',
+                symbol: '৳',
+                fractionalUnit: {
+                    name: 'পয়সা',
+                    singular: 'পয়সা',
+                    plural: 'পয়সা',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'এবং',
+                minus: 'ঋণ',
+                only: '',
+                point: 'দশমিক',
+            },
+            numberWordsMapping: [
+                { number: 10000000, value: 'কোটি' },
+                { number: 100000, value: 'লাখ' },
+                { number: 1000, value: 'হাজার' },
+                { number: 100, value: 'শত' },
+                { number: 99, value: 'নিরানব্বই' },
+                { number: 98, value: 'আটানব্বই' },
+                { number: 97, value: 'সাতানব্বই' },
+                { number: 96, value: 'ছিয়ানব্বই' },
+                { number: 95, value: 'পঁচানব্বই' },
+                { number: 94, value: 'চুরানব্বই' },
+                { number: 93, value: 'তিরানব্বই' },
+                { number: 92, value: 'বিরানব্বই' },
+                { number: 91, value: 'একানব্বই' },
+                { number: 90, value: 'নব্বই' },
+                { number: 89, value: 'ঊননব্বই' },
+                { number: 88, value: 'অষ্টআশি' },
+                { number: 87, value: 'সাতআশি' },
+                { number: 86, value: 'ছিয়াশী' },
+                { number: 85, value: 'পঁচাশী' },
+                { number: 84, value: 'চুরাশী' },
+                { number: 83, value: 'তিরাশী' },
+                { number: 82, value: 'বিরাশী' },
+                { number: 81, value: 'একাশী' },
+                { number: 80, value: 'আশি' },
+                { number: 79, value: 'ঊনআশি' },
+                { number: 78, value: 'অষ্টাত্তর' },
+                { number: 77, value: 'সাতাত্তর' },
+                { number: 76, value: 'ছিয়াত্তর' },
+                { number: 75, value: 'পঁচাত্তর' },
+                { number: 74, value: 'চুয়াত্তর' },
+                { number: 73, value: 'তিয়াত্তর' },
+                { number: 72, value: 'বাহাত্তর' },
+                { number: 71, value: 'একাত্তর' },
+                { number: 70, value: 'সত্তর' },
+                { number: 69, value: 'ঊনসত্তর' },
+                { number: 68, value: 'অষ্টষষ্টি' },
+                { number: 67, value: 'সাতষষ্টি' },
+                { number: 66, value: 'ছেষষ্টি' },
+                { number: 65, value: 'পঁয়ষট্টি' },
+                { number: 64, value: 'চৌষট্টি' },
+                { number: 63, value: 'তেষট্টি' },
+                { number: 62, value: 'বাষট্টি' },
+                { number: 61, value: 'একষট্টি' },
+                { number: 60, value: 'ষাট' },
+                { number: 59, value: 'ঊনষাট' },
+                { number: 58, value: 'আটান্ন' },
+                { number: 57, value: 'সাতান্ন' },
+                { number: 56, value: 'ছাপ্পান্ন' },
+                { number: 55, value: 'পঞ্চান্ন' },
+                { number: 54, value: 'চুয়ান্ন' },
+                { number: 53, value: 'তিপ্পান্ন' },
+                { number: 52, value: 'বায়ান্ন' },
+                { number: 51, value: 'একান্ন' },
+                { number: 50, value: 'পঞ্চাশ' },
+                { number: 49, value: 'ঊনপঞ্চাশ' },
+                { number: 48, value: 'আটচল্লিশ' },
+                { number: 47, value: 'সাতচল্লিশ' },
+                { number: 46, value: 'ছেচল্লিশ' },
+                { number: 45, value: 'পঁইঁতাল্লিশ' },
+                { number: 44, value: 'চুয়াল্লিশ' },
+                { number: 43, value: 'তেতাল্লিশ' },
+                { number: 42, value: 'বিয়াল্লিশ' },
+                { number: 41, value: 'একচল্লিশ' },
+                { number: 40, value: 'চল্লিশ' },
+                { number: 39, value: 'ঊনচল্লিশ' },
+                { number: 38, value: 'আটত্রিশ' },
+                { number: 37, value: 'সাঁইত্রিশ' },
+                { number: 36, value: 'ছত্রিশ' },
+                { number: 35, value: 'পঁইত্রিশ' },
+                { number: 34, value: 'চৌত্রিশ' },
+                { number: 33, value: 'তেত্রিশ' },
+                { number: 32, value: 'বত্রিশ' },
+                { number: 31, value: 'একত্রিশ' },
+                { number: 30, value: 'ত্রিশ' },
+                { number: 29, value: 'ঊনত্রিশ' },
+                { number: 28, value: 'আঠাশ' },
+                { number: 27, value: 'সাতাশ' },
+                { number: 26, value: 'ছাব্বিশ' },
+                { number: 25, value: 'পঁচিশ' },
+                { number: 24, value: 'চব্বিশ' },
+                { number: 23, value: 'তেইশ' },
+                { number: 22, value: 'বাইশ' },
+                { number: 21, value: 'একুশ' },
+                { number: 20, value: 'বিশ' },
+                { number: 19, value: 'ঊনিশ' },
+                { number: 18, value: 'আঠারো' },
+                { number: 17, value: 'সতেরো' },
+                { number: 16, value: 'ষোলো' },
+                { number: 15, value: 'পনেরো' },
+                { number: 14, value: 'চৌদ্দ' },
+                { number: 13, value: 'তেরো' },
+                { number: 12, value: 'বারো' },
+                { number: 11, value: 'এগারো' },
+                { number: 10, value: 'দশ' },
+                { number: 9, value: 'নয়' },
+                { number: 8, value: 'আট' },
+                { number: 7, value: 'সাত' },
+                { number: 6, value: 'ছয়' },
+                { number: 5, value: 'পাঁচ' },
+                { number: 4, value: 'চার' },
+                { number: 3, value: 'তিন' },
+                { number: 2, value: 'দুই' },
+                { number: 1, value: 'এক' },
+                { number: 0, value: 'শূন্য' },
+            ],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 82779:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Peso',
+                plural: 'Pesos',
+                singular: 'Peso',
+                symbol: '₱',
+                fractionalUnit: {
+                    name: 'Cent',
+                    singular: 'Cent',
+                    plural: 'Cents',
+                    symbol: '¢',
+                },
+            },
+            texts: {
+                and: 'And',
+                minus: 'Minus',
+                only: 'Only',
+                point: 'Point',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Quadrillion' },
+                { number: 1000000000000, value: 'Trillion' },
+                { number: 1000000000, value: 'Billion' },
+                { number: 1000000, value: 'Million' },
+                { number: 1000, value: 'Thousand' },
+                { number: 100, value: 'Hundred' },
+                { number: 90, value: 'Ninety' },
+                { number: 80, value: 'Eighty' },
+                { number: 70, value: 'Seventy' },
+                { number: 60, value: 'Sixty' },
+                { number: 50, value: 'Fifty' },
+                { number: 40, value: 'Forty' },
+                { number: 30, value: 'Thirty' },
+                { number: 20, value: 'Twenty' },
+                { number: 19, value: 'Nineteen' },
+                { number: 18, value: 'Eighteen' },
+                { number: 17, value: 'Seventeen' },
+                { number: 16, value: 'Sixteen' },
+                { number: 15, value: 'Fifteen' },
+                { number: 14, value: 'Fourteen' },
+                { number: 13, value: 'Thirteen' },
+                { number: 12, value: 'Twelve' },
+                { number: 11, value: 'Eleven' },
+                { number: 10, value: 'Ten' },
+                { number: 9, value: 'Nine' },
+                { number: 8, value: 'Eight' },
+                { number: 7, value: 'Seven' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Five' },
+                { number: 4, value: 'Four' },
+                { number: 3, value: 'Three' },
+                { number: 2, value: 'Two' },
+                { number: 1, value: 'One' },
+                { number: 0, value: 'Zero' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 84463:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Dollar',
+                plural: 'Dollars',
+                singular: 'Dollar',
+                symbol: '$',
+                fractionalUnit: {
+                    name: 'Cent',
+                    plural: 'Cents',
+                    singular: 'Cent',
+                    symbol: '¢',
+                },
+            },
+            texts: {
+                and: 'And',
+                minus: 'Minus',
+                only: 'Only',
+                point: 'Point',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Quadrillion' },
+                { number: 1000000000000, value: 'Trillion' },
+                { number: 1000000000, value: 'Billion' },
+                { number: 1000000, value: 'Million' },
+                { number: 1000, value: 'Thousand' },
+                { number: 100, value: 'Hundred' },
+                { number: 90, value: 'Ninety' },
+                { number: 80, value: 'Eighty' },
+                { number: 70, value: 'Seventy' },
+                { number: 60, value: 'Sixty' },
+                { number: 50, value: 'Fifty' },
+                { number: 40, value: 'Forty' },
+                { number: 30, value: 'Thirty' },
+                { number: 20, value: 'Twenty' },
+                { number: 19, value: 'Nineteen' },
+                { number: 18, value: 'Eighteen' },
+                { number: 17, value: 'Seventeen' },
+                { number: 16, value: 'Sixteen' },
+                { number: 15, value: 'Fifteen' },
+                { number: 14, value: 'Fourteen' },
+                { number: 13, value: 'Thirteen' },
+                { number: 12, value: 'Twelve' },
+                { number: 11, value: 'Eleven' },
+                { number: 10, value: 'Ten' },
+                { number: 9, value: 'Nine' },
+                { number: 8, value: 'Eight' },
+                { number: 7, value: 'Seven' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Five' },
+                { number: 4, value: 'Four' },
+                { number: 3, value: 'Three' },
+                { number: 2, value: 'Two' },
+                { number: 1, value: 'One' },
+                { number: 0, value: 'Zero' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 90372:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".create-button[data-v-3a12f826]{cursor:pointer;text-decoration:none}.modal-content[data-v-3a12f826]{margin:1.75rem auto;max-width:1000px}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 92952:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Naira',
+                plural: 'Naira',
+                singular: 'Naira',
+                symbol: '₦',
+                fractionalUnit: {
+                    name: 'Kobo',
+                    singular: 'Kobo',
+                    plural: 'Kobo',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'And',
+                minus: 'Minus',
+                only: 'Only',
+                point: 'Point',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Quadrillion' },
+                { number: 1000000000000, value: 'Trillion' },
+                { number: 1000000000, value: 'Billion' },
+                { number: 1000000, value: 'Million' },
+                { number: 1000, value: 'Thousand' },
+                { number: 100, value: 'Hundred' },
+                { number: 90, value: 'Ninety' },
+                { number: 80, value: 'Eighty' },
+                { number: 70, value: 'Seventy' },
+                { number: 60, value: 'Sixty' },
+                { number: 50, value: 'Fifty' },
+                { number: 40, value: 'Forty' },
+                { number: 30, value: 'Thirty' },
+                { number: 20, value: 'Twenty' },
+                { number: 19, value: 'Nineteen' },
+                { number: 18, value: 'Eighteen' },
+                { number: 17, value: 'Seventeen' },
+                { number: 16, value: 'Sixteen' },
+                { number: 15, value: 'Fifteen' },
+                { number: 14, value: 'Fourteen' },
+                { number: 13, value: 'Thirteen' },
+                { number: 12, value: 'Twelve' },
+                { number: 11, value: 'Eleven' },
+                { number: 10, value: 'Ten' },
+                { number: 9, value: 'Nine' },
+                { number: 8, value: 'Eight' },
+                { number: 7, value: 'Seven' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Five' },
+                { number: 4, value: 'Four' },
+                { number: 3, value: 'Three' },
+                { number: 2, value: 'Two' },
+                { number: 1, value: 'One' },
+                { number: 0, value: 'Zero' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 99414:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -12143,8 +12515,8 @@ var sweetalert2_all = __webpack_require__(78465);
 var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all);
 // EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
 var vuex_esm = __webpack_require__(95353);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=template&id=f891390a&scoped=true
-var CategorySubcategoryCreateModalvue_type_template_id_f891390a_scoped_true_render = function render() {
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=template&id=cd890c6e&scoped=true
+var CategorySubcategoryCreateModalvue_type_template_id_cd890c6e_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c('VModal', {
@@ -12585,32 +12957,27 @@ var CategorySubcategoryCreateModalvue_type_template_id_f891390a_scoped_true_rend
     }
   }, [_vm._t("default")], 2)], 1);
 };
-var CategorySubcategoryCreateModalvue_type_template_id_f891390a_scoped_true_staticRenderFns = [];
+var CategorySubcategoryCreateModalvue_type_template_id_cd890c6e_scoped_true_staticRenderFns = [];
 
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=script&lang=js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
 /* harmony default export */ const CategorySubcategoryCreateModalvue_type_script_lang_js = ({
   middleware: ["auth", "check-permissions"],
-  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items"])), {}, {
-    categories: function categories() {
-      return this.items || [];
-    }
-  }),
+  computed: {
+    // Use local categories state instead of shared Vuex items
+    // This prevents overwriting clients/other data in the store
+  },
   data: function data() {
     return {
       showModal: false,
       activeTab: 'subcategory',
+      categories: [],
+      // Local state for categories instead of Vuex
       categoryForm: new vform_es/* default */.Ay({
         name: '',
         note: '',
@@ -12655,20 +13022,32 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       this.subcategoryForm.category = null;
     },
     // Get all product categories for subcategory form
+    // Uses local state instead of Vuex to avoid overwriting other data (like clients)
     getCategories: function getCategories() {
       var _this = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var _yield$axios$get, data, _t;
         return _regenerator().w(function (_context) {
-          while (1) switch (_context.n) {
+          while (1) switch (_context.p = _context.n) {
             case 0:
+              _context.p = 0;
               _context.n = 1;
-              return _this.$store.dispatch('operations/allData', {
-                path: '/api/all-product-categories'
-              });
+              return axios_default().get(window.location.origin + '/api/all-product-categories');
             case 1:
+              _yield$axios$get = _context.v;
+              data = _yield$axios$get.data;
+              _this.categories = data.data || [];
+              _context.n = 3;
+              break;
+            case 2:
+              _context.p = 2;
+              _t = _context.v;
+              console.error('Error loading categories:', _t);
+              _this.categories = [];
+            case 3:
               return _context.a(2);
           }
-        }, _callee);
+        }, _callee, null, [[0, 2]]);
       }))();
     },
     // Save based on active tab
@@ -12870,9 +13249,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=style&index=0&id=f891390a&prod&scoped=true&lang=css
-var CategorySubcategoryCreateModalvue_type_style_index_0_id_f891390a_prod_scoped_true_lang_css = __webpack_require__(57688);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=style&index=0&id=f891390a&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=style&index=0&id=cd890c6e&prod&scoped=true&lang=css
+var CategorySubcategoryCreateModalvue_type_style_index_0_id_cd890c6e_prod_scoped_true_lang_css = __webpack_require__(12761);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=style&index=0&id=cd890c6e&prod&scoped=true&lang=css
 
             
 
@@ -12881,12 +13260,12 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(CategorySubcategoryCreateModalvue_type_style_index_0_id_f891390a_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(CategorySubcategoryCreateModalvue_type_style_index_0_id_cd890c6e_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const components_CategorySubcategoryCreateModalvue_type_style_index_0_id_f891390a_prod_scoped_true_lang_css = (CategorySubcategoryCreateModalvue_type_style_index_0_id_f891390a_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=style&index=0&id=f891390a&prod&scoped=true&lang=css
+/* harmony default export */ const components_CategorySubcategoryCreateModalvue_type_style_index_0_id_cd890c6e_prod_scoped_true_lang_css = (CategorySubcategoryCreateModalvue_type_style_index_0_id_cd890c6e_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/CategorySubcategoryCreateModal.vue?vue&type=style&index=0&id=cd890c6e&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
@@ -12901,11 +13280,11 @@ var componentNormalizer = __webpack_require__(14486);
 
 var component = (0,componentNormalizer/* default */.A)(
   components_CategorySubcategoryCreateModalvue_type_script_lang_js,
-  CategorySubcategoryCreateModalvue_type_template_id_f891390a_scoped_true_render,
-  CategorySubcategoryCreateModalvue_type_template_id_f891390a_scoped_true_staticRenderFns,
+  CategorySubcategoryCreateModalvue_type_template_id_cd890c6e_scoped_true_render,
+  CategorySubcategoryCreateModalvue_type_template_id_cd890c6e_scoped_true_staticRenderFns,
   false,
   null,
-  "f891390a",
+  "cd890c6e",
   null
   
 )
@@ -13305,16 +13684,16 @@ var UnitCreateModal_component = (0,componentNormalizer/* default */.A)(
 
 /* harmony default export */ const UnitCreateModal = (UnitCreateModal_component.exports);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=script&lang=js
-function ProductCreateModalvue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return ProductCreateModalvue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, ProductCreateModalvue_type_script_lang_js_typeof(o); }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ProductCreateModalvue_type_script_lang_js_regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, o, "Generator"), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, n, function () { return this; }), ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (ProductCreateModalvue_type_script_lang_js_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } ProductCreateModalvue_type_script_lang_js_regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, ProductCreateModalvue_type_script_lang_js_regeneratorDefine2(e, r, n, t); }
 function ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function ProductCreateModalvue_type_script_lang_js_asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { ProductCreateModalvue_type_script_lang_js_asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function ProductCreateModalvue_type_script_lang_js_ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function ProductCreateModalvue_type_script_lang_js_objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ProductCreateModalvue_type_script_lang_js_ownKeys(Object(t), !0).forEach(function (r) { ProductCreateModalvue_type_script_lang_js_defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ProductCreateModalvue_type_script_lang_js_ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function ProductCreateModalvue_type_script_lang_js_defineProperty(e, r, t) { return (r = ProductCreateModalvue_type_script_lang_js_toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function ProductCreateModalvue_type_script_lang_js_toPropertyKey(t) { var i = ProductCreateModalvue_type_script_lang_js_toPrimitive(t, "string"); return "symbol" == ProductCreateModalvue_type_script_lang_js_typeof(i) ? i : i + ""; }
-function ProductCreateModalvue_type_script_lang_js_toPrimitive(t, r) { if ("object" != ProductCreateModalvue_type_script_lang_js_typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != ProductCreateModalvue_type_script_lang_js_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
 
@@ -13387,7 +13766,7 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
       showPurchasePriceWarning: false
     };
   },
-  computed: ProductCreateModalvue_type_script_lang_js_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "appInfo"])),
+  computed: _objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "appInfo"])),
   watch: {
     'form.openingStockUnitPrice': {
       handler: function handler() {
@@ -14303,378 +14682,6 @@ var ProductCreateModal_component = (0,componentNormalizer/* default */.A)(
 )
 
 /* harmony default export */ const ProductCreateModal = (ProductCreateModal_component.exports);
-
-/***/ }),
-
-/***/ 82689:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'টাকা',
-                plural: 'টাকা',
-                singular: 'টাকা',
-                symbol: '৳',
-                fractionalUnit: {
-                    name: 'পয়সা',
-                    singular: 'পয়সা',
-                    plural: 'পয়সা',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'এবং',
-                minus: 'ঋণ',
-                only: '',
-                point: 'দশমিক',
-            },
-            numberWordsMapping: [
-                { number: 10000000, value: 'কোটি' },
-                { number: 100000, value: 'লাখ' },
-                { number: 1000, value: 'হাজার' },
-                { number: 100, value: 'শত' },
-                { number: 99, value: 'নিরানব্বই' },
-                { number: 98, value: 'আটানব্বই' },
-                { number: 97, value: 'সাতানব্বই' },
-                { number: 96, value: 'ছিয়ানব্বই' },
-                { number: 95, value: 'পঁচানব্বই' },
-                { number: 94, value: 'চুরানব্বই' },
-                { number: 93, value: 'তিরানব্বই' },
-                { number: 92, value: 'বিরানব্বই' },
-                { number: 91, value: 'একানব্বই' },
-                { number: 90, value: 'নব্বই' },
-                { number: 89, value: 'ঊননব্বই' },
-                { number: 88, value: 'অষ্টআশি' },
-                { number: 87, value: 'সাতআশি' },
-                { number: 86, value: 'ছিয়াশী' },
-                { number: 85, value: 'পঁচাশী' },
-                { number: 84, value: 'চুরাশী' },
-                { number: 83, value: 'তিরাশী' },
-                { number: 82, value: 'বিরাশী' },
-                { number: 81, value: 'একাশী' },
-                { number: 80, value: 'আশি' },
-                { number: 79, value: 'ঊনআশি' },
-                { number: 78, value: 'অষ্টাত্তর' },
-                { number: 77, value: 'সাতাত্তর' },
-                { number: 76, value: 'ছিয়াত্তর' },
-                { number: 75, value: 'পঁচাত্তর' },
-                { number: 74, value: 'চুয়াত্তর' },
-                { number: 73, value: 'তিয়াত্তর' },
-                { number: 72, value: 'বাহাত্তর' },
-                { number: 71, value: 'একাত্তর' },
-                { number: 70, value: 'সত্তর' },
-                { number: 69, value: 'ঊনসত্তর' },
-                { number: 68, value: 'অষ্টষষ্টি' },
-                { number: 67, value: 'সাতষষ্টি' },
-                { number: 66, value: 'ছেষষ্টি' },
-                { number: 65, value: 'পঁয়ষট্টি' },
-                { number: 64, value: 'চৌষট্টি' },
-                { number: 63, value: 'তেষট্টি' },
-                { number: 62, value: 'বাষট্টি' },
-                { number: 61, value: 'একষট্টি' },
-                { number: 60, value: 'ষাট' },
-                { number: 59, value: 'ঊনষাট' },
-                { number: 58, value: 'আটান্ন' },
-                { number: 57, value: 'সাতান্ন' },
-                { number: 56, value: 'ছাপ্পান্ন' },
-                { number: 55, value: 'পঞ্চান্ন' },
-                { number: 54, value: 'চুয়ান্ন' },
-                { number: 53, value: 'তিপ্পান্ন' },
-                { number: 52, value: 'বায়ান্ন' },
-                { number: 51, value: 'একান্ন' },
-                { number: 50, value: 'পঞ্চাশ' },
-                { number: 49, value: 'ঊনপঞ্চাশ' },
-                { number: 48, value: 'আটচল্লিশ' },
-                { number: 47, value: 'সাতচল্লিশ' },
-                { number: 46, value: 'ছেচল্লিশ' },
-                { number: 45, value: 'পঁইঁতাল্লিশ' },
-                { number: 44, value: 'চুয়াল্লিশ' },
-                { number: 43, value: 'তেতাল্লিশ' },
-                { number: 42, value: 'বিয়াল্লিশ' },
-                { number: 41, value: 'একচল্লিশ' },
-                { number: 40, value: 'চল্লিশ' },
-                { number: 39, value: 'ঊনচল্লিশ' },
-                { number: 38, value: 'আটত্রিশ' },
-                { number: 37, value: 'সাঁইত্রিশ' },
-                { number: 36, value: 'ছত্রিশ' },
-                { number: 35, value: 'পঁইত্রিশ' },
-                { number: 34, value: 'চৌত্রিশ' },
-                { number: 33, value: 'তেত্রিশ' },
-                { number: 32, value: 'বত্রিশ' },
-                { number: 31, value: 'একত্রিশ' },
-                { number: 30, value: 'ত্রিশ' },
-                { number: 29, value: 'ঊনত্রিশ' },
-                { number: 28, value: 'আঠাশ' },
-                { number: 27, value: 'সাতাশ' },
-                { number: 26, value: 'ছাব্বিশ' },
-                { number: 25, value: 'পঁচিশ' },
-                { number: 24, value: 'চব্বিশ' },
-                { number: 23, value: 'তেইশ' },
-                { number: 22, value: 'বাইশ' },
-                { number: 21, value: 'একুশ' },
-                { number: 20, value: 'বিশ' },
-                { number: 19, value: 'ঊনিশ' },
-                { number: 18, value: 'আঠারো' },
-                { number: 17, value: 'সতেরো' },
-                { number: 16, value: 'ষোলো' },
-                { number: 15, value: 'পনেরো' },
-                { number: 14, value: 'চৌদ্দ' },
-                { number: 13, value: 'তেরো' },
-                { number: 12, value: 'বারো' },
-                { number: 11, value: 'এগারো' },
-                { number: 10, value: 'দশ' },
-                { number: 9, value: 'নয়' },
-                { number: 8, value: 'আট' },
-                { number: 7, value: 'সাত' },
-                { number: 6, value: 'ছয়' },
-                { number: 5, value: 'পাঁচ' },
-                { number: 4, value: 'চার' },
-                { number: 3, value: 'তিন' },
-                { number: 2, value: 'দুই' },
-                { number: 1, value: 'এক' },
-                { number: 0, value: 'শূন্য' },
-            ],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 82779:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Peso',
-                plural: 'Pesos',
-                singular: 'Peso',
-                symbol: '₱',
-                fractionalUnit: {
-                    name: 'Cent',
-                    singular: 'Cent',
-                    plural: 'Cents',
-                    symbol: '¢',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Quadrillion' },
-                { number: 1000000000000, value: 'Trillion' },
-                { number: 1000000000, value: 'Billion' },
-                { number: 1000000, value: 'Million' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 84463:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Dollar',
-                plural: 'Dollars',
-                singular: 'Dollar',
-                symbol: '$',
-                fractionalUnit: {
-                    name: 'Cent',
-                    plural: 'Cents',
-                    singular: 'Cent',
-                    symbol: '¢',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Quadrillion' },
-                { number: 1000000000000, value: 'Trillion' },
-                { number: 1000000000, value: 'Billion' },
-                { number: 1000000, value: 'Million' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 90372:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".create-button[data-v-3a12f826]{cursor:pointer;text-decoration:none}.modal-content[data-v-3a12f826]{margin:1.75rem auto;max-width:1000px}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 92952:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Naira',
-                plural: 'Naira',
-                singular: 'Naira',
-                symbol: '₦',
-                fractionalUnit: {
-                    name: 'Kobo',
-                    singular: 'Kobo',
-                    plural: 'Kobo',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Quadrillion' },
-                { number: 1000000000000, value: 'Trillion' },
-                { number: 1000000000, value: 'Billion' },
-                { number: 1000000, value: 'Million' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
 
 /***/ })
 
