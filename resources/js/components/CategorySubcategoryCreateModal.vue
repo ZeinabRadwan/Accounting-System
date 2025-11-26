@@ -122,18 +122,19 @@
 
 <script>
 import Form from 'vform'
-import axios from 'axios'
+import { mapGetters } from 'vuex'
 
 export default {
   middleware: ["auth", "check-permissions"],
   computed: {
-    // Use local categories state instead of shared Vuex items
-    // This prevents overwriting clients/other data in the store
+    ...mapGetters("operations", ["items"]),
+    categories() {
+      return this.items || []
+    }
   },
   data: () => ({
     showModal: false,
     activeTab: 'subcategory',
-    categories: [], // Local state for categories instead of Vuex
     categoryForm: new Form({
       name: '',
       note: '',
@@ -180,15 +181,10 @@ export default {
     },
 
     // Get all product categories for subcategory form
-    // Uses local state instead of Vuex to avoid overwriting other data (like clients)
     async getCategories() {
-      try {
-        const { data } = await axios.get(window.location.origin + '/api/all-product-categories')
-        this.categories = data.data || []
-      } catch (error) {
-        console.error('Error loading categories:', error)
-        this.categories = []
-      }
+      await this.$store.dispatch('operations/allData', {
+        path: '/api/all-product-categories',
+      })
     },
 
     // Save based on active tab
