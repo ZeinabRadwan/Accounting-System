@@ -80,15 +80,13 @@
                   <label for="chartOfAccountId">{{ $t('Chart of Account') }}
                     <span class="required">*</span></label>
                   <v-select
-                    v-model="formattedChartOfAccountId"
+                    v-model="form.chartOfAccountId"
                     :options="chartOfAccounts"
                     label="name"
                     :reduce="option => option.id"
-                    track-by="id"
                     :class="{ 'is-invalid': form.errors.has('chartOfAccountId') }"
                     name="chartOfAccountId"
                     :placeholder="$t('Select a Chart of Account')"
-                    :key="chartOfAccounts.length"
                   >
                     <template #option="{ name, code, type }">
                       <div>
@@ -98,13 +96,6 @@
                       </div>
                     </template>
                   </v-select>
-                  <!-- Debug information -->
-                  <!-- <div v-if="selectedChartOfAccount" class="mt-2 text-muted small">
-                    Selected: {{ selectedChartOfAccount.name }} (ID: {{ selectedChartOfAccount.id }})
-                  </div>
-                  <div v-else class="mt-2 text-muted small">
-                    No chart of account selected. Current value: {{ formattedChartOfAccountId }}
-                  </div> -->
                   <has-error :form="form" field="chartOfAccountId" />
                 </div>
                 <div class="form-group col-md-6">
@@ -168,7 +159,6 @@
 
 <script>
 import Form from 'vform'
-import Swal from "sweetalert2"
 export default {
   middleware: ['auth', 'check-permissions'],
   metaInfo() {
@@ -202,7 +192,7 @@ export default {
       image: '',
       note: '',
       status: 1,
-      chartOfAccountId: '',
+      chartOfAccountId: null,
     }),
     url: null,
     loading: true,
@@ -214,51 +204,26 @@ export default {
     this.loadTemporaryData()
   },
 
-  watch: {
-    'formattedChartOfAccountId': {
-      handler(newVal, oldVal) {
-        console.log('formattedChartOfAccountId changed from', oldVal, 'to', newVal)
-      },
-      deep: true
-    }
-  },
-
-  computed: {
-    selectedChartOfAccount() {
-      if (!this.form.chartOfAccountId || !this.chartOfAccounts.length) return null
-      return this.chartOfAccounts.find(coa => coa.id === this.form.chartOfAccountId)
-    },
-    
-    // Ensure the chartOfAccountId is properly formatted
-    formattedChartOfAccountId: {
-      get() {
-        return this.form.chartOfAccountId
-      },
-      set(value) {
-        this.form.chartOfAccountId = value
-      }
-    }
-  },
-
-  
-
   methods: {
     // load chart of accounts
     async loadChartOfAccounts() {
       try {
         const response = await this.$axios.get('/api/accounts/chart-of-accounts')
-        console.log('Full API response:', response)
-        console.log('Response data:', response.data)
-        this.chartOfAccounts = response.data.data || []
-        console.log('Loaded chart of accounts:', this.chartOfAccounts)
-        console.log('First chart of account structure:', this.chartOfAccounts[0])
+        if (response.data && response.data.success) {
+          this.chartOfAccounts = response.data.data || []
+        } else {
+          this.chartOfAccounts = []
+        }
       } catch (error) {
         console.error('Error loading chart of accounts:', error)
+        toast.fire({
+          type: 'error',
+          title: this.$t('Failed to load chart of accounts')
+        })
       }
     },
     // save account
     async saveAccount() {
-      console.log('Submitting form with chartOfAccountId:', this.form.chartOfAccountId)
       await this.form
         .post(window.location.origin + '/api/accounts')
         .then(() => {
