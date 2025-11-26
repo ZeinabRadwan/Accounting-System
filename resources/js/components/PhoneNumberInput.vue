@@ -10,7 +10,13 @@
       <div class="phone-input-wrapper" :class="{ 'is-invalid': hasError, 'has-value': phoneNumber }">
         <!-- Country Selector -->
         <div class="country-selector" @click="toggleCountryDropdown">
-          <span class="country-flag">{{ selectedCountry.flag }}</span>
+          <img
+            class="country-flag"
+            :src="selectedCountry.flagImage"
+            :alt="selectedCountry.code"
+            width="18"
+            height="12"
+          />
           <span class="country-code">+{{ selectedCountry.dialCode }}</span>
           <i class="fas fa-chevron-down dropdown-icon"></i>
         </div>
@@ -51,7 +57,13 @@
             :class="{ active: selectedCountry.code === country.code }"
             @click="selectCountry(country)"
           >
-            <span class="country-flag">{{ country.flag }}</span>
+            <img
+              class="country-flag"
+              :src="country.flagImage"
+              :alt="country.code"
+              width="18"
+              height="12"
+            />
             <span class="country-name">{{ country.name }}</span>
             <span class="country-dial-code">+{{ country.dialCode }}</span>
           </div>
@@ -194,10 +206,15 @@ export default {
   computed: {
     // Countries with translated names
     countries() {
-      return this.countriesData.map(country => ({
-        ...country,
-        name: this.$t(country.nameKey) || country.nameKey
-      }))
+      return this.countriesData.map(country => {
+        const codeLower = (country.code || '').toLowerCase()
+
+        return {
+          ...country,
+          name: this.$t(country.nameKey) || country.nameKey,
+          flagImage: country.flagImage || (codeLower ? `https://flagcdn.com/w40/${codeLower}.png` : '')
+        }
+      })
     },
     
     selectedCountry() {
@@ -527,12 +544,16 @@ export default {
   background: white;
   border: 0;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-  border-radius: 50px;
+  border-radius: 10px;
   overflow: hidden;
   transition: all 0.3s ease;
   min-height: 3rem;
   position: relative;
   z-index: 1;
+}
+
+[dir="rtl"] .phone-input-wrapper {
+  flex-direction: row-reverse;
 }
 
 .phone-input-wrapper:focus-within {
@@ -549,7 +570,6 @@ export default {
   align-items: center;
   gap: 8px;
   padding: 0.5rem 1rem;
-  background: #f8f9fa;
   border-right: 1px solid #dee2e6;
   cursor: pointer;
   user-select: none;
@@ -557,8 +577,10 @@ export default {
   min-width: 100px;
 }
 
-.country-selector:hover {
-  background: #e9ecef;
+[dir="rtl"] .country-selector {
+  flex-direction: row-reverse;
+  border-right: 1px solid #dee2e6;
+  border-left: none;
 }
 
 .country-flag {
@@ -678,11 +700,6 @@ export default {
 .invalid-feedback {
   color: #dc3545;
   font-size: 0.875rem;
-}
-
-[dir="rtl"] .country-selector {
-  border-right: none;
-  border-left: 1px solid #dee2e6;
 }
 
 [dir="rtl"] .country-dropdown {

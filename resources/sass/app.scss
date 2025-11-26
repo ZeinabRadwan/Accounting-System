@@ -2294,7 +2294,6 @@ pre code {
   font-weight: 400;
   height: calc(2.25rem + 2px);
   line-height: 1.5;
-  padding: .375rem .75rem;
   transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
   width: 100%
 }
@@ -4119,11 +4118,6 @@ input[type=submit].btn-block {
 .input-group-text input[type=checkbox],
 .input-group-text input[type=radio] {
   margin-top: 0
-}
-
-.input-group-lg>.custom-select,
-.input-group-lg>.form-control:not(textarea) {
-  height: calc(2.875rem + 2px)
 }
 
 .input-group-lg>.custom-select,
