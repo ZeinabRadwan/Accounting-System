@@ -1,7 +1,7 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[3022],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[6464],{
 
-/***/ 6393:
+/***/ 9344:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -13,14 +13,14 @@
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".card-description[data-v-fafbe816]{color:#6c757d;font-size:.9rem;margin:.5rem 0 0}.settings-card[data-v-fafbe816]{margin-bottom:1.5rem}.settings-card .nav-link[data-v-fafbe816]{align-items:center;background:transparent;border:none;border-radius:6px;color:#495057;cursor:pointer;display:flex;gap:.75rem;justify-content:flex-start;padding:.75rem 1rem;text-align:right;transition:all .2s ease;width:100%}.settings-card .nav-link[data-v-fafbe816]:hover{background:#f8f9fa;color:#007bff}.settings-card .nav-link.active[data-v-fafbe816]{background:#007bff;color:#fff}.settings-card .nav-link i[data-v-fafbe816]{font-size:1rem;text-align:center;width:20px}.settings-card .nav-link .badge[data-v-fafbe816]{font-size:.75rem;margin-right:auto;padding:.25rem .5rem}.settings-card .nav-link.active .badge[data-v-fafbe816]{background:hsla(0,0%,100%,.3);color:#fff}.tab-content[data-v-fafbe816]{padding:1rem}.tab-panel[data-v-fafbe816]{animation:fadeIn-fafbe816 .3s ease}@keyframes fadeIn-fafbe816{0%{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.simple-panel[data-v-fafbe816]{animation:fadeIn-fafbe816 .2s ease;padding:0 .5rem}.settings-list[data-v-fafbe816]{gap:1rem}.setting-row[data-v-fafbe816],.settings-list[data-v-fafbe816]{display:flex;flex-direction:column}.setting-row[data-v-fafbe816]{border-bottom:1px solid #eef1f4;gap:.4rem;padding-bottom:.75rem}.setting-row[data-v-fafbe816]:last-child{border-bottom:none;padding-bottom:0}.setting-label[data-v-fafbe816]{color:#0f172a;font-size:1rem;font-weight:600;margin:0}.required[data-v-fafbe816]{color:#e74c3c;margin-left:.25rem}.simple-select[data-v-fafbe816]{width:100%}.vselect-loading[data-v-fafbe816],.vselect-status[data-v-fafbe816]{align-items:center;color:#6c757d;display:flex;gap:.5rem;padding:.5rem .75rem}.v-select .vs__dropdown-menu[data-v-fafbe816]{z-index:2000}.actions-container[data-v-fafbe816]{background:#f8fafc;border-radius:12px;margin-top:2rem;padding:1.5rem;text-align:center}.alert[data-v-fafbe816]{border-radius:8px;margin:1rem 0;padding:1rem;text-align:center}.alert-success[data-v-fafbe816]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.alert-danger[data-v-fafbe816]{background-color:#f8d7da;border:1px solid #f5c6cb;color:#721c24}.alert-info[data-v-fafbe816]{background-color:#d1ecf1;border:1px solid #bee5eb;color:#0c5460}.alert-warning[data-v-fafbe816]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.loading-container[data-v-fafbe816]{background:#fff;border-radius:12px;box-shadow:0 2px 4px rgba(0,0,0,.1);padding:3rem;text-align:center}.loading-text[data-v-fafbe816]{color:#7f8c8d;font-size:1.1rem;margin-top:1rem}.spinner-border[data-v-fafbe816]{height:3rem;width:3rem}.no-settings-message[data-v-fafbe816]{background-color:#f8f9fa;border-radius:12px;margin-top:2rem;padding:3rem;text-align:center}.no-settings-message .text-muted[data-v-fafbe816]{color:#6c757d!important}.no-settings-message .fas[data-v-fafbe816]{opacity:.6}.account-option[data-v-fafbe816],.routing-option[data-v-fafbe816]{display:flex;flex-direction:column;gap:.25rem;padding:.5rem 0}.account-name[data-v-fafbe816],.routing-label[data-v-fafbe816]{color:#2c3e50;font-weight:600}.account-code[data-v-fafbe816],.routing-description[data-v-fafbe816]{color:#7f8c8d;font-family:monospace;font-size:.8rem}.account-option .account-type[data-v-fafbe816],.routing-option .account-type[data-v-fafbe816]{color:#3498db;font-size:.8rem;font-weight:500;text-transform:uppercase}.selected-account-name[data-v-fafbe816],.selected-routing-label[data-v-fafbe816]{color:#2c3e50;font-weight:600}@media (max-width:768px){.account-routing-settings[data-v-fafbe816]{padding:1rem}.settings-card[data-v-fafbe816]{margin-bottom:1rem}.settings-card .nav-link[data-v-fafbe816]{font-size:.9rem;padding:.5rem .75rem}.page-title[data-v-fafbe816]{font-size:2rem}.setting-row[data-v-fafbe816]{padding-bottom:.5rem}}@media (max-width:480px){.tab-content[data-v-fafbe816]{padding:.5rem 0}.simple-panel[data-v-fafbe816]{padding:0}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".card-description[data-v-3d1a0726]{color:#6c757d;font-size:.9rem;margin:.5rem 0 0}.settings-card[data-v-3d1a0726]{margin-bottom:1.5rem}.settings-card .nav-link[data-v-3d1a0726]{align-items:center;background:transparent;border:none;border-radius:6px;color:#495057;cursor:pointer;display:flex;gap:.75rem;justify-content:flex-start;padding:.75rem 1rem;text-align:right;transition:all .2s ease;width:100%}.settings-card .nav-link[data-v-3d1a0726]:hover{background:#f8f9fa;color:#007bff}.settings-card .nav-link.active[data-v-3d1a0726]{background:#007bff;color:#fff}.settings-card .nav-link i[data-v-3d1a0726]{font-size:1rem;text-align:center;width:20px}.settings-card .nav-link .badge[data-v-3d1a0726]{font-size:.75rem;margin-right:auto;padding:.25rem .5rem}.settings-card .nav-link.active .badge[data-v-3d1a0726]{background:hsla(0,0%,100%,.3);color:#fff}.tab-content[data-v-3d1a0726]{padding:1rem}.tab-panel[data-v-3d1a0726]{animation:fadeIn-3d1a0726 .3s ease}@keyframes fadeIn-3d1a0726{0%{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.simple-panel[data-v-3d1a0726]{animation:fadeIn-3d1a0726 .2s ease;padding:0 .5rem}.settings-list[data-v-3d1a0726]{gap:1rem}.setting-row[data-v-3d1a0726],.settings-list[data-v-3d1a0726]{display:flex;flex-direction:column}.setting-row[data-v-3d1a0726]{border-bottom:1px solid #eef1f4;gap:.4rem;padding-bottom:.75rem}.setting-row[data-v-3d1a0726]:last-child{border-bottom:none;padding-bottom:0}.setting-label[data-v-3d1a0726]{color:#0f172a;font-size:1rem;font-weight:600;margin:0}.required[data-v-3d1a0726]{color:#e74c3c;margin-left:.25rem}.simple-select[data-v-3d1a0726]{width:100%}.vselect-loading[data-v-3d1a0726],.vselect-status[data-v-3d1a0726]{align-items:center;color:#6c757d;display:flex;gap:.5rem;padding:.5rem .75rem}.v-select .vs__dropdown-menu[data-v-3d1a0726]{z-index:2000}.actions-container[data-v-3d1a0726]{background:#f8fafc;border-radius:12px;margin-top:2rem;padding:1.5rem;text-align:center}.alert[data-v-3d1a0726]{border-radius:8px;margin:1rem 0;padding:1rem;text-align:center}.alert-success[data-v-3d1a0726]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.alert-danger[data-v-3d1a0726]{background-color:#f8d7da;border:1px solid #f5c6cb;color:#721c24}.alert-info[data-v-3d1a0726]{background-color:#d1ecf1;border:1px solid #bee5eb;color:#0c5460}.alert-warning[data-v-3d1a0726]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.loading-container[data-v-3d1a0726]{background:#fff;border-radius:12px;box-shadow:0 2px 4px rgba(0,0,0,.1);padding:3rem;text-align:center}.loading-text[data-v-3d1a0726]{color:#7f8c8d;font-size:1.1rem;margin-top:1rem}.spinner-border[data-v-3d1a0726]{height:3rem;width:3rem}.no-settings-message[data-v-3d1a0726]{background-color:#f8f9fa;border-radius:12px;margin-top:2rem;padding:3rem;text-align:center}.no-settings-message .text-muted[data-v-3d1a0726]{color:#6c757d!important}.no-settings-message .fas[data-v-3d1a0726]{opacity:.6}.account-option[data-v-3d1a0726],.routing-option[data-v-3d1a0726]{display:flex;flex-direction:column;gap:.25rem;padding:.5rem 0}.account-name[data-v-3d1a0726],.routing-label[data-v-3d1a0726]{color:#2c3e50;font-weight:600}.account-code[data-v-3d1a0726],.routing-description[data-v-3d1a0726]{color:#7f8c8d;font-family:monospace;font-size:.8rem}.account-option .account-type[data-v-3d1a0726],.routing-option .account-type[data-v-3d1a0726]{color:#3498db;font-size:.8rem;font-weight:500;text-transform:uppercase}.selected-account-name[data-v-3d1a0726],.selected-routing-label[data-v-3d1a0726]{color:#2c3e50;font-weight:600}@media (max-width:768px){.account-routing-settings[data-v-3d1a0726]{padding:1rem}.settings-card[data-v-3d1a0726]{margin-bottom:1rem}.settings-card .nav-link[data-v-3d1a0726]{font-size:.9rem;padding:.5rem .75rem}.page-title[data-v-3d1a0726]{font-size:2rem}.setting-row[data-v-3d1a0726]{padding-bottom:.5rem}}@media (max-width:480px){.tab-content[data-v-3d1a0726]{padding:.5rem 0}.simple-panel[data-v-3d1a0726]{padding:0}}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
 
-/***/ 63022:
+/***/ 66464:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -31,7 +31,7 @@ __webpack_require__.d(__webpack_exports__, {
   "default": () => (/* binding */ account_routing)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/setup/accounting-settings/account-routing.vue?vue&type=template&id=fafbe816&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/setup/accounting-settings/account-routing.vue?vue&type=template&id=3d1a0726&scoped=true
 function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -1078,7 +1078,8 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       });
     },
     formattedAccounts: function formattedAccounts() {
-      if (!this.chartOfAccounts || this.chartOfAccounts.length === 0) {
+      // Ensure we always work with an array to avoid runtime errors
+      if (!Array.isArray(this.chartOfAccounts) || this.chartOfAccounts.length === 0) {
         return [];
       }
       return this.chartOfAccounts.filter(function (account) {
@@ -1318,7 +1319,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     },
     isPurchaseSetting: function isPurchaseSetting(s) {
       var key = (s.setting_key || '').toString().toLowerCase();
-      return this.keyMatchesAny(key, ['suppliers_account', 'purchase_account', 'product_purchase_account', 'discount_received_account', 'transport_expense_account', 'purchase_returns_account']);
+      return this.keyMatchesAny(key, ['suppliers_account', 'discount_received_account', 'transport_expense_account', 'purchase_returns_account']);
     },
     isVatSetting: function isVatSetting(s) {
       var key = (s.setting_key || '').toString().toLowerCase();
@@ -1331,7 +1332,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     isInventorySetting: function isInventorySetting(s) {
       var key = (s.setting_key || '').toString().toLowerCase();
       var module = (s.module || '').toString().toLowerCase();
-      return module === 'inventory' || this.keyMatchesAny(key, ['inventory_account']);
+      return module === 'inventory' || this.keyMatchesAny(key, ['inventory_account', 'cost_of_sales_account']);
     },
     isBankingSetting: function isBankingSetting(s) {
       var key = (s.setting_key || '').toString().toLowerCase();
@@ -1412,22 +1413,6 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       }, {
         id: null,
         module: 'purchase',
-        setting_key: 'purchase_account',
-        setting_name: 'Purchase Account',
-        account_type: 'Expense',
-        main_account_id: null,
-        is_required: true
-      }, {
-        id: null,
-        module: 'purchase',
-        setting_key: 'product_purchase_account',
-        setting_name: 'Product Purchase Account',
-        account_type: 'Expense',
-        main_account_id: null,
-        is_required: true
-      }, {
-        id: null,
-        module: 'purchase',
         setting_key: 'discount_received_account',
         setting_name: 'Discount Received Account',
         account_type: 'Expense',
@@ -1485,6 +1470,14 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
         setting_key: 'inventory_account',
         setting_name: 'Inventory Account',
         account_type: 'Asset',
+        main_account_id: null,
+        is_required: true
+      }, {
+        id: null,
+        module: 'inventory',
+        setting_key: 'cost_of_sales_account',
+        setting_name: 'Cost of Sales Account',
+        account_type: 'Expense',
         main_account_id: null,
         is_required: true
       },
@@ -1644,7 +1637,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     loadChartOfAccounts: function loadChartOfAccounts() {
       var _this14 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-        var response, _error$response2, _t5;
+        var response, accountsData, _error$response2, _t5;
         return _regenerator().w(function (_context4) {
           while (1) switch (_context4.p = _context4.n) {
             case 0:
@@ -1658,7 +1651,8 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
               });
             case 2:
               response = _context4.v;
-              _this14.chartOfAccounts = response.data.data || [];
+              accountsData = response.data && response.data.data;
+              _this14.chartOfAccounts = Array.isArray(accountsData) ? accountsData : [];
               if (_this14.chartOfAccounts.length === 0) {
                 _this14.showMessage(_this14.$t('Warning: No chart of accounts found. Please create some accounts first.'), 'alert-warning');
               }
@@ -1885,9 +1879,9 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/setup/accounting-settings/account-routing.vue?vue&type=style&index=0&id=fafbe816&prod&scoped=true&lang=css
-var account_routingvue_type_style_index_0_id_fafbe816_prod_scoped_true_lang_css = __webpack_require__(6393);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/setup/accounting-settings/account-routing.vue?vue&type=style&index=0&id=fafbe816&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/setup/accounting-settings/account-routing.vue?vue&type=style&index=0&id=3d1a0726&prod&scoped=true&lang=css
+var account_routingvue_type_style_index_0_id_3d1a0726_prod_scoped_true_lang_css = __webpack_require__(9344);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/setup/accounting-settings/account-routing.vue?vue&type=style&index=0&id=3d1a0726&prod&scoped=true&lang=css
 
             
 
@@ -1896,12 +1890,12 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(account_routingvue_type_style_index_0_id_fafbe816_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(account_routingvue_type_style_index_0_id_3d1a0726_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const accounting_settings_account_routingvue_type_style_index_0_id_fafbe816_prod_scoped_true_lang_css = (account_routingvue_type_style_index_0_id_fafbe816_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/setup/accounting-settings/account-routing.vue?vue&type=style&index=0&id=fafbe816&prod&scoped=true&lang=css
+/* harmony default export */ const accounting_settings_account_routingvue_type_style_index_0_id_3d1a0726_prod_scoped_true_lang_css = (account_routingvue_type_style_index_0_id_3d1a0726_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/setup/accounting-settings/account-routing.vue?vue&type=style&index=0&id=3d1a0726&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
@@ -1920,7 +1914,7 @@ var component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "fafbe816",
+  "3d1a0726",
   null
   
 )

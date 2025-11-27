@@ -24845,12 +24845,12 @@ var map = {
 		148
 	],
 	"./setup/accounting-settings/account-routing": [
-		63022,
-		3022
+		66464,
+		6464
 	],
 	"./setup/accounting-settings/account-routing.vue": [
-		63022,
-		3022
+		66464,
+		6464
 	],
 	"./setup/brands": [
 		28014,
