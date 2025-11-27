@@ -142,35 +142,65 @@ class ChartOfAccountController extends Controller
      * Lightweight list for dropdowns (faster than full resource)
      * Filters to only show accounts at level 4 and below
      */
-    public function getDropdown()
+    public function getDropdown(Request $request)
     {
         try {
-            $branchId = Auth::user()->default_branch_id ?? null;
+            // Get branch_id from request or fallback to user's default branch
+            $branchId = $request->get('branch_id') ?? Auth::user()->default_branch_id ?? null;
 
-            $accounts = ChartOfAccount::where('is_active', true)
-                ->forBranch($branchId)
+            // Check if we should include stopped/inactive accounts
+            $includeStopped = $request->get('include_stopped', false);
+
+            $query = ChartOfAccount::forBranch($branchId);
+
+            // Only filter by is_active if we're not including stopped accounts
+            if (! $includeStopped) {
+                $query->where('is_active', true);
+            }
+
+            $allAccounts = $query
                 ->with(['type:id,name', 'parent.parent.parent.parent'])
-                ->select('id', 'name', 'code', 'type_id', 'parent_id')
+                ->select('id', 'name', 'code', 'type_id', 'parent_id', 'is_active')
                 ->orderBy('name', 'asc')
-                ->get()
-                ->filter(function ($account) {
-                    $level = $account->getLevel();
+                ->get();
 
-                    return $level <= 4;
-                })
-                ->map(function ($account) {
-                    $translatedName = method_exists($account, 'getTranslatedField')
-                        ? $account->getTranslatedField('name')
-                        : $account->name;
+            // Calculate levels for all accounts
+            $accountsWithLevels = $allAccounts->map(function ($account) {
+                $level = $account->getLevel();
+                $translatedName = method_exists($account, 'getTranslatedField')
+                    ? $account->getTranslatedField('name')
+                    : $account->name;
 
-                    return [
-                        'id' => $account->id,
-                        'name' => $translatedName,
-                        'code' => $account->code,
-                        'type' => $account->type ? $account->type->name : null,
-                        'parent_id' => $account->parent_id,
-                    ];
+                return [
+                    'id' => $account->id,
+                    'name' => $translatedName,
+                    'code' => $account->code,
+                    'type' => $account->type ? $account->type->name : null,
+                    'type_id' => $account->type_id,
+                    'parent_id' => $account->parent_id,
+                    'is_active' => $account->is_active,
+                    'level' => $level,
+                ];
+            });
+
+            // Filter accounts from level 3 and higher
+            $filteredAccounts = $accountsWithLevels->filter(function ($account) {
+                return $account['level'] >= 3;
+            });
+
+            // If no accounts at level 3+, fallback to level 2+
+            if ($filteredAccounts->isEmpty()) {
+                $filteredAccounts = $accountsWithLevels->filter(function ($account) {
+                    return $account['level'] >= 2;
                 });
+            }
+
+            // If still no accounts, return all accounts
+            if ($filteredAccounts->isEmpty()) {
+                $filteredAccounts = $accountsWithLevels;
+            }
+
+            $accounts = $filteredAccounts->values();
 
             return response()->json([
                 'data' => $accounts,

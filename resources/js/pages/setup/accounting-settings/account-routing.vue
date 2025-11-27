@@ -88,6 +88,7 @@
               <VSelect
                 v-model="setting.main_account_id"
                 :options="getAccountsForType(setting.account_type)"
+                label="label"
                 :reduce="option => option.id"
                 :placeholder="$t('Select account')"
                 :searchable="true"
@@ -134,6 +135,7 @@
               <VSelect
                 v-model="setting.main_account_id"
                 :options="getAccountsForType(setting.account_type)"
+                label="label"
                 :reduce="option => option.id"
                 :placeholder="$t('Select account')"
                 :searchable="true"
@@ -180,6 +182,7 @@
               <VSelect
                 v-model="setting.main_account_id"
                 :options="getAccountsForType(setting.account_type)"
+                label="label"
                 :reduce="option => option.id"
                 :placeholder="$t('Select account')"
                 :searchable="true"
@@ -226,6 +229,7 @@
               <VSelect
                 v-model="setting.main_account_id"
                 :options="getAccountsForType(setting.account_type)"
+                label="label"
                 :reduce="option => option.id"
                 :placeholder="$t('Select account')"
                 :searchable="true"
@@ -272,6 +276,7 @@
               <VSelect
                 v-model="setting.main_account_id"
                 :options="getAccountsForType(setting.account_type)"
+                label="label"
                 :reduce="option => option.id"
                 :placeholder="$t('Select account')"
                 :searchable="true"
@@ -318,6 +323,7 @@
               <VSelect
                 v-model="setting.main_account_id"
                 :options="getAccountsForType(setting.account_type)"
+                label="label"
                 :reduce="option => option.id"
                 :placeholder="$t('Select account')"
                 :searchable="true"
@@ -364,6 +370,7 @@
               <VSelect
                 v-model="setting.main_account_id"
                 :options="getAccountsForType(setting.account_type)"
+                label="label"
                 :reduce="option => option.id"
                 :placeholder="$t('Select account')"
                 :searchable="true"
@@ -410,6 +417,7 @@
               <VSelect
                 v-model="setting.main_account_id"
                 :options="getAccountsForType(setting.account_type)"
+                label="label"
                 :reduce="option => option.id"
                 :placeholder="$t('Select account')"
                 :searchable="true"
@@ -456,6 +464,7 @@
               <VSelect
                 v-model="setting.main_account_id"
                 :options="getAccountsForType(setting.account_type)"
+                label="label"
                 :reduce="option => option.id"
                 :placeholder="$t('Select account')"
                 :searchable="true"
@@ -670,6 +679,7 @@ export default {
         return []
       }
 
+      // Filter accounts from level 3 and higher, then format them
       return this.chartOfAccounts
         .filter(account => {
           const level = account.level ?? 0
@@ -677,22 +687,34 @@ export default {
         })
         .map(account => {
           const level = account.level ?? 0
-          const indent = level > 0 ? '— '.repeat(Math.max(0, level - 1)) : ''
+          // Create indent based on level (level 3 = 2 dashes, level 4 = 3 dashes, etc.)
+          const indent = level > 1 ? '— '.repeat(Math.max(0, level - 1)) : ''
           return {
             id: account.id,
             label: `${indent}${account.name} (${account.code})`,
             name: account.name,
             code: account.code,
             type: account.type,
+            type_id: account.type_id,
             level: account.level,
+            is_active: account.is_active,
           }
         })
     }
   },
   
   async mounted() {
+    // Ensure user is loaded before proceeding
+    if (!this.$store.getters['auth/user'] && this.$store.getters['auth/token']) {
+      try {
+        await this.$store.dispatch('auth/fetchUser')
+      } catch (error) {
+        console.warn('Failed to fetch user:', error)
+      }
+    }
+    
     // Initialize selectedBranchId with user's default branch before loading
-    const user = this.$store.getters['auth/user']
+    const user = this.user
     if (user && user.default_branch_id) {
       this.selectedBranchId = user.default_branch_id
     }
@@ -701,17 +723,24 @@ export default {
     // After loading branches, ensure selectedBranchId is set correctly
     // (loadBranches will validate and set it if needed)
     await this.loadSettings()
-    await this.loadChartOfAccounts()
+    
+    // Only load chart of accounts if we have a branch selected
+    if (this.currentBranchId) {
+      await this.loadChartOfAccounts()
+    } else {
+      console.warn('No branch selected, cannot load chart of accounts')
+    }
   },
   
   methods: {
     async loadBranches() {
       try {
-        const user = this.$store.getters['auth/user']
+        // Use computed property which returns empty object if user is not available
+        const user = this.user
         console.log('Loading branches for user:', user)
         
         if (!user || !user.id) {
-          console.error('No user found, trying to load all branches...')
+          console.warn('No user found, trying to load all branches...')
           // Fallback: try to load all branches
           try {
             const response = await this.$http.get('/api/branches', {
@@ -724,6 +753,11 @@ export default {
                 name: b.name,
                 code: b.code || ''
               })) : []
+              
+              // Set first branch as selected if available
+              if (this.branches.length > 0 && !this.selectedBranchId) {
+                this.selectedBranchId = this.branches[0].id
+              }
             }
           } catch (fallbackError) {
             console.error('Fallback branch loading failed:', fallbackError)
@@ -1054,26 +1088,37 @@ export default {
     async loadChartOfAccounts() {
       this.chartAccountsLoading = true
       try {
-        // Pass branch_id to get accounts visible to the selected branch
+        // Pass branch_id and include_stopped to get all accounts including stopped ones
         const response = await this.$http.get('/api/chart-of-accounts/dropdown', {
           params: {
-            branch_id: this.currentBranchId
+            branch_id: this.currentBranchId,
+            include_stopped: true
           }
         })
+        
+        console.log('API Response:', response.data)
         const accountsData = response.data && response.data.data
         this.chartOfAccounts = Array.isArray(accountsData) ? accountsData : []
+        
+        console.log('Loaded accounts:', this.chartOfAccounts.length)
+        console.log('Sample account:', this.chartOfAccounts[0])
+        
         if (this.chartOfAccounts.length === 0) {
+          console.warn('No accounts found. Branch ID:', this.currentBranchId)
           this.showMessage(this.$t('Warning: No chart of accounts found. Please create some accounts first.'), 'alert-warning')
         }
       } catch (error) {
         console.error('Error loading chart of accounts:', error)
+        console.error('Error response:', error.response)
         this.showMessage(this.$t('Error loading chart of accounts') + ': ' + (error.response?.data?.message || error.message), 'alert-danger')
       } finally {
         this.chartAccountsLoading = false
       }
     },
     
-    getAccountsForType() {
+    getAccountsForType(accountType) {
+      // Return all accounts from level 3 and higher, regardless of type
+      // All account selects should show all accounts from the tree
       return this.formattedAccounts
     },
     

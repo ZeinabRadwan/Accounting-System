@@ -24888,12 +24888,12 @@ var map = {
 		148
 	],
 	"./setup/accounting-settings/account-routing": [
-		66464,
-		6464
+		44038,
+		4038
 	],
 	"./setup/accounting-settings/account-routing.vue": [
-		66464,
-		6464
+		44038,
+		4038
 	],
 	"./setup/brands": [
 		28014,
