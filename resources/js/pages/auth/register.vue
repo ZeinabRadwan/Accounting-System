@@ -1,230 +1,175 @@
 <template>
-    <div>
-        <div class="container-fluid">
-            <div class="row no-gutter">
-                <!-- The content half -->
-                <div class="col-12" style="background: #ffffff;">
-                    <div class="auth-wrapper d-flex align-items-center py-5" style="width: 100%;">
-                        <!-- Demo content-->
-                        <div class="container">
-                            <!-- Signup Message - Full Width -->
-                            <div class="signup-message-wrapper">
-                                <div class="text-center">
-                                    <div v-if="
-                                        !verificationForm.email && appInfo
-                                    ">
-                                        <p class="signup-message mb-4 mt-2">
-                                            <span class="signup-icon">
-                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M1.33337 14C1.33332 12.9736 1.62946 11.9689 2.18627 11.1066C2.74308 10.2443 3.53689 9.56098 4.47244 9.13868C5.40799 8.71637 6.44553 8.573 7.46055 8.72578C8.47556 8.87857 9.42493 9.321 10.1947 10M12.6667 10.6667V14.6667M14.6667 12.6667H10.6667M10 5.33333C10 7.17428 8.50766 8.66667 6.66671 8.66667C4.82576 8.66667 3.33337 7.17428 3.33337 5.33333C3.33337 3.49238 4.82576 2 6.66671 2C8.50766 2 10 3.49238 10 5.33333Z"
-                                                        stroke="#0775AF" stroke-width="1.33333" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                </svg>
-                                            </span>
-                                            {{
-                                                $t(
-                                                    'Sign Up Instantly Free for'
-                                                ) +
-                                                ' ' +
-                                                appInfo.trial_day_count +
-                                                ' ' +
-                                                $t(
-                                                    'days, no credit card required'
-                                                ) +
-                                                '.'
-                                            }}
-                                        </p>
-                                    </div>
+  <div>
+    <auth-wrapper :title="$t('create_new_account')">
+      <!-- Top Message Slot -->
+      <template #topMessage>
+        <div class="text-center">
+          <div v-if="!verificationForm.email && appInfo">
+            <p class="signup-message mb-4 mt-2">
+              <span class="signup-icon">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M1.33337 14C1.33332 12.9736 1.62946 11.9689 2.18627 11.1066C2.74308 10.2443 3.53689 9.56098 4.47244 9.13868C5.40799 8.71637 6.44553 8.573 7.46055 8.72578C8.47556 8.87857 9.42493 9.321 10.1947 10M12.6667 10.6667V14.6667M14.6667 12.6667H10.6667M10 5.33333C10 7.17428 8.50766 8.66667 6.66671 8.66667C4.82576 8.66667 3.33337 7.17428 3.33337 5.33333C3.33337 3.49238 4.82576 2 6.66671 2C8.50766 2 10 3.49238 10 5.33333Z"
+                    stroke="#0775AF" stroke-width="1.33333" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </span>
+              {{
+                $t('Sign Up Instantly Free for') +
+                ' ' +
+                appInfo.trial_day_count +
+                ' ' +
+                $t('days, no credit card required') +
+                '.'
+              }}
+            </p>
+          </div>
 
-                                    <div v-if="isDemoMode" class="alert alert-danger">
-                                        To prevent the creation of multiple
-                                        sub-domains, we have disabled the
-                                        registration feature for the demo. You
-                                        can access the Tenant panel
-                                        <a href="https://john.arqam.sa/login">here</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Two Column Layout -->
-                            <div class="row register-page-layout">
-                                <div class="col-md-6 register-form-column">
-                                    <form v-if="!verificationForm.email" @submit.prevent="tenantRegister"
-                                        @keydown="form.onKeydown($event)" class="register-form">
-                                        <!-- Form Title -->
-                                        <h2 class="register-form-title">{{ $t('create_new_account') }}</h2>
-                                        <!-- Error Message Display -->
-                                        <div v-if="message && type === 'danger'" class="alert alert-danger mb-4">
-                                            {{ message }}
-                                        </div>
-                                        <!-- Full Name-->
-                                        <div class="form-group mb-3">
-                                            <input id="name" v-model="form.name" :class="{
-                                                'is-invalid':
-                                                    form.errors.has('name'),
-                                            }" class="form-control input-radius-10 border-0 px-4 text-primary"
-                                                type="text" name="name" :placeholder="$t('Name')" />
-                                            <has-error :form="form" field="name" class="ml-4" />
-                                        </div>
-                                        <!-- Email -->
-                                        <div class="form-group mb-3">
-                                            <input v-model="form.email" id="email" name="email" :class="{
-                                                'is-invalid':
-                                                    form.errors.has('email'),
-                                            }" class="form-control input-radius-10 border-0 px-4 text-primary"
-                                                type="email" :placeholder="$t('Email')" />
-                                            <has-error :form="form" field="email" class="ml-4" />
-                                        </div>
-                                        <!-- domain -->
-                                        <div class="form-group mb-3">
-                                            <div class="d-flex url">
-                                                <input v-model="form.domain" @input="checkDomainAvailability"
-                                                    id="domain" name="domain" :class="{
-                                                        'is-invalid': form.errors.has('domain') || domainValidation.error,
-                                                        'is-valid': domainValidation.valid && domainValidation.available && !domainValidation.checking
-                                                    }" class="form-control input-radius-10 border-0 px-4 text-primary"
-                                                    type="text" :placeholder="$t('domain')" />
-                                                <span class="domain-host-span">{{ host }}</span>
-                                            </div>
-                                            <p class="domain-explanation-text" v-html="$t('domain_explanation_text')">
-                                            </p>
-                                            <!-- Domain validation feedback -->
-                                            <div v-if="domainValidation.checking" class="ml-4 text-muted small">
-                                                <i class="fas fa-spinner fa-spin me-1"></i>
-                                                {{ $t('domain_checking') }}
-                                            </div>
-                                            <div v-else-if="domainValidation.valid && domainValidation.available"
-                                                class="ml-4 text-success small">
-                                                <i class="fas fa-check-circle me-1"></i>
-                                                {{ $t('domain_available') }}
-                                            </div>
-                                            <div v-else-if="domainValidation.error" class="ml-4 text-danger small">
-                                                <i class="fas fa-exclamation-circle me-1"></i>
-                                                {{ domainValidation.message }}
-                                            </div>
-                                            <has-error :form="form" field="domain" class="ml-4" />
-                                        </div>
-                                        <!-- Company -->
-                                        <div class="form-group mb-3">
-                                            <input v-model="form.company" id="company" name="company" :class="{
-                                                'is-invalid':
-                                                    form.errors.has('company'),
-                                            }" class="form-control input-radius-10 border-0 px-4 text-primary"
-                                                type="text" :placeholder="$t('Company Name')
-                                                    " />
-                                            <has-error :form="form" field="company" class="ml-4" />
-                                        </div>
-                                        <!-- Password -->
-                                        <div class="form-group mb-3">
-                                            <div class="password-input-wrapper">
-                                                <input v-model="form.password" id="password" name="password" :class="{
-                                                    'is-invalid':
-                                                        form.errors.has('password'),
-                                                }" class="form-control input-radius-10 border-0 px-4 text-primary"
-                                                    :type="showPassword ? 'text' : 'password'"
-                                                    :placeholder="$t('password')" />
-                                                <button type="button" class="password-toggle-btn"
-                                                    @click="togglePasswordVisibility('password')">
-                                                    <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
-                                                </button>
-                                            </div>
-                                            <has-error :form="form" field="password" class="ml-4" />
-                                        </div>
-                                        <!-- Password Confirmation -->
-                                        <div class="form-group mb-3">
-                                            <div class="password-input-wrapper">
-                                                <input v-model="form.password_confirmation" id="password_confirmation"
-                                                    name="password_confirmation" :class="{
-                                                        'is-invalid': form.errors.has(
-                                                            'password_confirmation'
-                                                        ),
-                                                    }" class="form-control input-radius-10 border-0 px-4 text-primary"
-                                                    :type="showPasswordConfirmation ? 'text' : 'password'" :placeholder="$t('confirm_password')
-                                                        " />
-                                                <button type="button" class="password-toggle-btn"
-                                                    @click="togglePasswordVisibility('confirmation')">
-                                                    <i
-                                                        :class="showPasswordConfirmation ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
-                                                </button>
-                                            </div>
-                                            <has-error :form="form" field="password_confirmation" class="ml-4" />
-                                        </div>
-
-                                        <!-- terms and conditions -->
-                                        <div class="row ml-2">
-                                            <checkbox v-model="form.terms_and_conditions" id="terms_and_conditions"
-                                                name="terms_and_conditions" :class="{
-                                                    'is-invalid': form.errors.has(
-                                                        'terms_and_conditions'
-                                                    ),
-                                                }" required>
-                                                <span class="terms-and-conditions-text"
-                                                    v-html="$t('terms_and_conditions_text')"></span>
-                                            </checkbox>
-                                            <has-error :form="form" field="terms_and_conditions" />
-                                        </div>
-                                        <!-- Submit Button -->
-                                        <div class="register-submit-btn-wrapper">
-                                            <v-button :loading="form.busy"
-                                                class="btn btn-block mb-2 register-submit-btn">
-                                                <strong>{{ $t('start_using_free') }}</strong>
-                                                <i class="fas fa-sign-in-alt" style="transform: scaleX(-1);" />
-                                            </v-button>
-                                        </div>
-                                        <div class="row justify-content-between">
-                                            <div class="mx-2 already-registered-text">
-                                                <span class="already-registered-question">{{ $t('already_have_account')
-                                                }}</span>
-                                                <router-link :to="{ name: 'find-domain' }" class="login-link-text">
-                                                    {{ $t('login') }}
-                                                </router-link>
-                                            </div>
-                                            <router-link :to="{ name: 'resend' }" class="mx-2 resend-link-text">
-                                                {{ $t('resend_verification_link') }}
-                                            </router-link>
-                                        </div>
-                                    </form>
-                                </div>
-                                <!-- Platform Features Column -->
-                                <div class="col-md-6 platform-features-column">
-                                    <div class="platform-features-content">
-                                        <router-link to="/" class="platform-logo-link">
-                                            <img v-if="appInfo" :src="appInfo.blackLogo" :alt="appInfo.companyName"
-                                                class="lg-logo img-fluid logo-width" />
-                                        </router-link>
-                                        <h2 class="platform-title">{{ $t('platform_title') }}</h2>
-                                        <p class="platform-description">{{ $t('platform_description') }}</p>
-                                        <h3 class="platform-includes-title">{{ $t('platform_includes') }}</h3>
-                                        <div class="platform-features-grid">
-                                            <div class="feature-card">{{ $t('electronic_invoicing') }}</div>
-                                            <div class="feature-card">{{ $t('sales_pos_management') }}</div>
-                                            <div class="feature-card">{{ $t('inventory_management') }}</div>
-                                            <div class="feature-card">{{ $t('accounting_general_ledger') }}</div>
-                                            <div class="feature-card">{{ $t('branch_management') }}</div>
-                                            <div class="feature-card">{{ $t('customer_relationship') }}</div>
-                                            <div class="feature-card">{{ $t('hr_employee_affairs') }}</div>
-                                            <div class="feature-card">{{ $t('integrated_workflow') }}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End -->
-                    </div>
-                </div>
-                <!-- End -->
-            </div>
+          <div v-if="isDemoMode" class="alert alert-danger">
+            To prevent the creation of multiple
+            sub-domains, we have disabled the
+            registration feature for the demo. You
+            can access the Tenant panel
+            <a href="https://john.arqam.sa/login">here</a>
+          </div>
         </div>
-        <!-- Registration Loader Modal -->
-        <registration-loader ref="registrationLoader" @cancel="handleLoaderCancel" />
+      </template>
 
-    </div>
+      <!-- Form Slot -->
+      <template #form>
+        <form v-if="!verificationForm.email" @submit.prevent="tenantRegister"
+          @keydown="form.onKeydown($event)">
+          <!-- Error Message Display -->
+          <div v-if="message && type === 'danger'" class="alert alert-danger mb-4">
+            {{ message }}
+          </div>
+          <!-- Full Name-->
+          <div class="form-group mb-3">
+            <input id="name" v-model="form.name" :class="{
+              'is-invalid': form.errors.has('name'),
+            }" class="form-control input-radius-10 border-0 px-4 text-primary"
+              type="text" name="name" :placeholder="$t('Name')" />
+            <has-error :form="form" field="name" class="ml-4" />
+          </div>
+          <!-- Email -->
+          <div class="form-group mb-3">
+            <input v-model="form.email" id="email" name="email" :class="{
+              'is-invalid': form.errors.has('email'),
+            }" class="form-control input-radius-10 border-0 px-4 text-primary"
+              type="email" :placeholder="$t('Email')" />
+            <has-error :form="form" field="email" class="ml-4" />
+          </div>
+          <!-- domain -->
+          <div class="form-group mb-3">
+            <div class="d-flex url">
+              <input v-model="form.domain" @input="checkDomainAvailability"
+                id="domain" name="domain" :class="{
+                  'is-invalid': form.errors.has('domain') || domainValidation.error,
+                  'is-valid': domainValidation.valid && domainValidation.available && !domainValidation.checking
+                }" class="form-control input-radius-10 border-0 px-4 text-primary"
+                type="text" :placeholder="$t('domain')" />
+              <span class="domain-host-span">{{ host }}</span>
+            </div>
+            <p class="domain-explanation-text" v-html="$t('domain_explanation_text')">
+            </p>
+            <!-- Domain validation feedback -->
+            <div v-if="domainValidation.checking" class="ml-4 text-muted small">
+              <i class="fas fa-spinner fa-spin me-1"></i>
+              {{ $t('domain_checking') }}
+            </div>
+            <div v-else-if="domainValidation.valid && domainValidation.available"
+              class="ml-4 text-success small">
+              <i class="fas fa-check-circle me-1"></i>
+              {{ $t('domain_available') }}
+            </div>
+            <div v-else-if="domainValidation.error" class="ml-4 text-danger small">
+              <i class="fas fa-exclamation-circle me-1"></i>
+              {{ domainValidation.message }}
+            </div>
+            <has-error :form="form" field="domain" class="ml-4" />
+          </div>
+          <!-- Company -->
+          <div class="form-group mb-3">
+            <input v-model="form.company" id="company" name="company" :class="{
+              'is-invalid': form.errors.has('company'),
+            }" class="form-control input-radius-10 border-0 px-4 text-primary"
+              type="text" :placeholder="$t('Company Name')" />
+            <has-error :form="form" field="company" class="ml-4" />
+          </div>
+          <!-- Password -->
+          <div class="form-group mb-3">
+            <div class="password-input-wrapper">
+              <input v-model="form.password" id="password" name="password" :class="{
+                'is-invalid': form.errors.has('password'),
+              }" class="form-control input-radius-10 border-0 px-4 text-primary"
+                :type="showPassword ? 'text' : 'password'"
+                :placeholder="$t('password')" />
+              <button type="button" class="password-toggle-btn"
+                @click="togglePasswordVisibility('password')">
+                <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+              </button>
+            </div>
+            <has-error :form="form" field="password" class="ml-4" />
+          </div>
+          <!-- Password Confirmation -->
+          <div class="form-group mb-3">
+            <div class="password-input-wrapper">
+              <input v-model="form.password_confirmation" id="password_confirmation"
+                name="password_confirmation" :class="{
+                  'is-invalid': form.errors.has('password_confirmation'),
+                }" class="form-control input-radius-10 border-0 px-4 text-primary"
+                :type="showPasswordConfirmation ? 'text' : 'password'" :placeholder="$t('confirm_password')" />
+              <button type="button" class="password-toggle-btn"
+                @click="togglePasswordVisibility('confirmation')">
+                <i :class="showPasswordConfirmation ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+              </button>
+            </div>
+            <has-error :form="form" field="password_confirmation" class="ml-4" />
+          </div>
+
+          <!-- terms and conditions -->
+          <div class="row ml-2">
+            <checkbox v-model="form.terms_and_conditions" id="terms_and_conditions"
+              name="terms_and_conditions" :class="{
+                'is-invalid': form.errors.has('terms_and_conditions'),
+              }" required>
+              <span class="terms-and-conditions-text"
+                v-html="$t('terms_and_conditions_text')"></span>
+            </checkbox>
+            <has-error :form="form" field="terms_and_conditions" />
+          </div>
+          <!-- Submit Button -->
+          <div class="register-submit-btn-wrapper">
+            <v-button :loading="form.busy"
+              class="btn btn-block mb-2 register-submit-btn">
+              <strong>{{ $t('start_using_free') }}</strong>
+              <i class="fas fa-sign-in-alt" style="transform: scaleX(-1);" />
+            </v-button>
+          </div>
+          <div class="row justify-content-between">
+            <div class="mx-2 already-registered-text">
+              <span class="already-registered-question">{{ $t('already_have_account') }}</span>
+              <router-link :to="{ name: 'find-domain' }" class="login-link-text">
+                {{ $t('login') }}
+              </router-link>
+            </div>
+            <router-link :to="{ name: 'resend' }" class="mx-2 resend-link-text">
+              {{ $t('resend_verification_link') }}
+            </router-link>
+          </div>
+        </form>
+      </template>
+    </auth-wrapper>
+    <!-- Registration Loader Modal -->
+    <registration-loader ref="registrationLoader" @cancel="handleLoaderCancel" />
+  </div>
 </template>
 <script>
 import Form from 'vform';
 import { mapGetters } from 'vuex';
 import RegistrationLoader from '@/components/RegistrationLoader.vue';
+import AuthWrapper from '@/components/auth/AuthWrapper.vue';
 import Swal from 'sweetalert2';
 
 export default {
@@ -232,6 +177,7 @@ export default {
     middleware: 'guest',
     components: {
         RegistrationLoader,
+        AuthWrapper,
     },
     metaInfo() {
         return { title: this.$t('register') };
@@ -1042,21 +988,37 @@ export default {
 </script>
 
 <style scoped>
-* {
-    font-family: 'Almarai', sans-serif;
+/* Unique styles for register page */
+.signup-message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    background: #0775AF1A;
+    border: 1px solid #0775AF;
+    border-radius: 10px;
+    color: #000000;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 15px 18px;
 }
 
-/* Exclude Font Awesome icons from Almarai font */
-.fa,
-.fas,
-.far,
-.fab,
-.fa-solid,
-.fa-regular,
-.fa-brands,
-[class^="fa-"],
-[class*=" fa-"] {
-    font-family: "Font Awesome 7 Free", "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome", sans-serif !important;
+.signup-icon {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.domain-explanation-text {
+    font-size: 12px;
+    color: #000000;
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+.terms-and-conditions-text {
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .registration-success-content {
@@ -1072,7 +1034,6 @@ export default {
 }
 
 @keyframes pulse {
-
     0%,
     100% {
         opacity: 1;
@@ -1104,283 +1065,50 @@ export default {
     padding: 1rem 1.25rem;
 }
 
-.signup-message {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-    background: #0775AF1A;
-    border: 1px solid #0775AF;
-    border-radius: 10px;
-    color: #000000;
-    font-size: 16px;
-    font-weight: 700;
-    padding: 15px 18px;
-}
-
-.signup-icon {
-    display: inline-flex;
-    align-items: center;
-    flex-shrink: 0;
-}
-
-.input-radius-10 {
-    border-radius: 10px !important;
-}
-
-.input-radius-10:focus {
-    border: 1px solid #0775AF !important;
-    outline: none;
-}
-
-.domain-host-span {
-    height: 80%;
-    margin-left: 8px !important;
-    margin-right: 8px !important;
-    margin-top: 3px !important;
-    background: #F7F7FC;
-    border-radius: 10px;
-    display: inline-flex;
-    align-items: center;
-    padding: 0 12px;
-    line-height: 2;
-}
-
-.domain-explanation-text {
-    font-size: 12px;
-    color: #000000;
-    margin-top: 8px;
-    margin-bottom: 0;
-}
-
-.password-input-wrapper {
-    position: relative;
-}
-
-.password-toggle-btn {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: #6c757d;
-    cursor: pointer;
-    padding: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: color 0.2s ease;
-}
-
-.password-toggle-btn:hover {
-    color: #0775AF;
-}
-
-.password-toggle-btn:focus {
-    outline: none;
-}
-
-.password-toggle-btn i {
-    font-size: 16px;
-}
-
-/* RTL support for password toggle button */
-[dir="rtl"] .password-toggle-btn {
-    right: auto;
-    left: 15px;
-}
-
-.register-submit-btn-wrapper {
-    padding: 1px;
-    margin: 1rem 0 0.5rem 0;
-}
-
-.register-submit-btn {
-    background: #0775AF !important;
-    border: 1px solid #0775AF !important;
-    padding: 12px;
-    border-radius: 9px;
-    color: #ffffff;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    width: 100%;
-    margin: 0;
-}
-
-.register-submit-btn:hover {
-    background: #06608a !important;
-    color: #ffffff;
-}
-
-.register-submit-btn:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(7, 117, 175, 0.25);
-}
-
-/* Register form styling */
-.register-form {
-    border: 1px solid #CBD0DD;
-    border-radius: 10px;
-    padding: 1.5rem;
-}
-
-.register-form-title {
-    color: #000000;
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    text-align: right;
-}
-
-/* RTL support for form title */
-[dir="rtl"] .register-form-title {
-    text-align: right;
-}
-
-[dir="ltr"] .register-form-title {
-    text-align: left;
-}
-
-.terms-and-conditions-text {
-    font-size: 14px;
-    font-weight: 400;
-}
-
-/* Already registered text styling */
-.already-registered-text {
-    color: #000000;
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-}
-
-.already-registered-question {
-    color: #000000;
-}
-
-.login-link-text {
-    color: #0775AF !important;
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-
-.login-link-text:hover {
-    color: #06608a !important;
-    text-decoration: underline;
-}
-
-.resend-link-text {
-    color: #0775AF !important;
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-
-.resend-link-text:hover {
-    color: #06608a !important;
-    text-decoration: underline;
-}
-
-/* Signup message wrapper - Full width */
-.signup-message-wrapper {
-    width: 100%;
-}
-
-/* Register page layout */
-.register-page-layout {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: row;
-}
-
-.register-form-column {
-    width: 50%;
-    flex: 0 0 50%;
-    max-width: 50%;
-}
-
-.platform-features-column {
-    width: 50%;
-    flex: 0 0 50%;
-    max-width: 50%;
-}
-
-.platform-features-content {
-    border: 1px solid #CBD0DD;
-    border-radius: 10px;
-    padding: 2rem;
-    height: 100%;
-}
-
-.platform-logo-link {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-}
-
-.platform-logo-link img {
-    display: block;
-}
-
-.logo-width {
-    max-width: 300px;
-}
-
-.platform-title {
-    font-size: 22px;
-    color: #000000;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-}
-
-.platform-description {
-    color: #586687;
-    font-size: 16px;
-    line-height: 35px;
-    margin-bottom: 1.5rem;
-}
-
-.platform-includes-title {
-    font-size: 20px;
-    color: #000000;
-    font-weight: 700;
-    margin-bottom: 1rem;
-}
-
-.platform-features-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.feature-card {
-    background: #0775AF1A;
-    border-radius: 10px;
-    padding: 16px;
-    color: #000000;
-    font-size: 16px;
-    /* line-height: 1.5; */
-    font-weight: 500;
-    width: fit-content;
-    display: inline-block;
-    margin: 0.25rem 0;
-}
-
-/* RTL support for platform features */
-[dir="rtl"] .platform-title,
-[dir="rtl"] .platform-description,
-[dir="rtl"] .platform-includes-title {
-    text-align: right;
-}
-
-[dir="ltr"] .platform-title,
-[dir="ltr"] .platform-description,
-[dir="ltr"] .platform-includes-title {
-    text-align: left;
-}
-
 /* Responsive adjustments */
+
+/* Tablet and below (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .signup-message {
+        font-size: 15px;
+        padding: 12px 16px;
+    }
+
+    .domain-explanation-text {
+        font-size: 11px;
+    }
+}
+
+/* Mobile (max-width: 768px) */
 @media (max-width: 768px) {
+    .signup-message {
+        font-size: 14px;
+        padding: 12px 14px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        line-height: 1.5;
+    }
+
+    .signup-icon {
+        margin-bottom: 4px;
+    }
+
+    .signup-icon svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    .domain-explanation-text {
+        font-size: 11px;
+        margin-top: 6px;
+    }
+
+    .terms-and-conditions-text {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
     .email-icon-wrapper i {
         font-size: 3rem !important;
     }
@@ -1388,16 +1116,26 @@ export default {
     .registration-success-content {
         padding: 1rem 0;
     }
+}
 
-    .register-form-column,
-    .platform-features-column {
-        width: 100%;
-        flex: 0 0 100%;
-        margin-bottom: 2rem;
+/* Small mobile (max-width: 480px) */
+@media (max-width: 480px) {
+    .signup-message {
+        font-size: 13px;
+        padding: 10px 12px;
     }
 
-    .platform-features-grid {
-        flex-direction: column;
+    .signup-icon svg {
+        width: 12px;
+        height: 12px;
+    }
+
+    .domain-explanation-text {
+        font-size: 10px;
+    }
+
+    .terms-and-conditions-text {
+        font-size: 12px;
     }
 }
 </style>
