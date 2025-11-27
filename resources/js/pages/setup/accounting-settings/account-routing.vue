@@ -665,7 +665,8 @@ export default {
     },
 
     formattedAccounts() {
-      if (!this.chartOfAccounts || this.chartOfAccounts.length === 0) {
+      // Ensure we always work with an array to avoid runtime errors
+      if (!Array.isArray(this.chartOfAccounts) || this.chartOfAccounts.length === 0) {
         return []
       }
 
@@ -859,8 +860,6 @@ export default {
       const key = (s.setting_key || '').toString().toLowerCase()
       return this.keyMatchesAny(key, [
         'suppliers_account',
-        'purchase_account',
-        'product_purchase_account',
         'discount_received_account',
         'transport_expense_account',
         'purchase_returns_account'
@@ -886,7 +885,8 @@ export default {
       const key = (s.setting_key || '').toString().toLowerCase()
       const module = (s.module || '').toString().toLowerCase()
       return module === 'inventory' || this.keyMatchesAny(key, [
-        'inventory_account'
+        'inventory_account',
+        'cost_of_sales_account'
       ])
     },
     
@@ -949,8 +949,6 @@ export default {
         
         // Purchase Module
         { id: null, module: 'purchase', setting_key: 'suppliers_account', setting_name: 'Suppliers Account', account_type: 'Liability', main_account_id: null, is_required: true },
-        { id: null, module: 'purchase', setting_key: 'purchase_account', setting_name: 'Purchase Account', account_type: 'Expense', main_account_id: null, is_required: true },
-        { id: null, module: 'purchase', setting_key: 'product_purchase_account', setting_name: 'Product Purchase Account', account_type: 'Expense', main_account_id: null, is_required: true },
         { id: null, module: 'purchase', setting_key: 'discount_received_account', setting_name: 'Discount Received Account', account_type: 'Expense', main_account_id: null, is_required: true },
         { id: null, module: 'purchase', setting_key: 'transport_expense_account', setting_name: 'Transport Expense Account', account_type: 'Expense', main_account_id: null, is_required: false },
         { id: null, module: 'purchase', setting_key: 'purchase_returns_account', setting_name: 'Purchase Returns Account', account_type: 'Expense', main_account_id: null, is_required: false },
@@ -964,6 +962,7 @@ export default {
         
         // Inventory Module
         { id: null, module: 'inventory', setting_key: 'inventory_account', setting_name: 'Inventory Account', account_type: 'Asset', main_account_id: null, is_required: true },
+        { id: null, module: 'inventory', setting_key: 'cost_of_sales_account', setting_name: 'Cost of Sales Account', account_type: 'Expense', main_account_id: null, is_required: true },
         
         // Banking Module
         { id: null, module: 'banking', setting_key: 'main_cash_account', setting_name: 'Main Cash Account', account_type: 'Asset', main_account_id: null, is_required: true },
@@ -1061,7 +1060,8 @@ export default {
             branch_id: this.currentBranchId
           }
         })
-        this.chartOfAccounts = response.data.data || []
+        const accountsData = response.data && response.data.data
+        this.chartOfAccounts = Array.isArray(accountsData) ? accountsData : []
         if (this.chartOfAccounts.length === 0) {
           this.showMessage(this.$t('Warning: No chart of accounts found. Please create some accounts first.'), 'alert-warning')
         }

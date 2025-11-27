@@ -52,6 +52,9 @@ class DefaultRouteAccountingSettingsSeeder extends Seeder
                 // Other
                 'transport_expense_account' => '5210', // Fallback to Expenses Account
                 'expenses_account' => '5210',
+                // Inventory / COGS
+                'inventory_account' => '1130',
+                'cost_of_sales_account' => '5110',
             ];
 
             $updatedCount = 0;

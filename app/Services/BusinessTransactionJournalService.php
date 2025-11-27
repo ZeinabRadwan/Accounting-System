@@ -158,8 +158,9 @@ class BusinessTransactionJournalService
 
             // Get default fiscal year and accounting period
             $defaults = $this->getDefaultFiscalYearAndPeriod();
+            $branchId = $invoice->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0);
 
-            // Create journal entry
+            // Create journal entry for the invoice itself (AR, Sales, VAT)
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $invoice->invoice_date,
@@ -175,7 +176,7 @@ class BusinessTransactionJournalService
                 'source_id' => $invoice->id,
                 'fiscal_year_id' => $defaults['fiscal_year_id'],
                 'accounting_period_id' => $defaults['accounting_period_id'],
-                'branch_id' => $invoice->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0),
+                'branch_id' => $branchId,
             ]);
 
             // Line 1: Debit to Client's Accounts Receivable
@@ -242,13 +243,81 @@ class BusinessTransactionJournalService
             Log::info('VAT accounts: '.json_encode($vatByAccount));
 
             // Create discount journal entry if there are any discounts
-
-            // Create bridge table record
+            // Create bridge table record for the invoice journal
             \App\Models\InvoiceJournal::create([
                 'invoice_id' => $invoice->id,
                 'journal_entry_id' => $journalEntry->id,
                 'type' => 'sale',
             ]);
+
+            /**
+             * Create separate COGS / Inventory journal entry
+             *
+             * Required entry:
+             *   Dr Cost of Sales
+             *   Cr Inventory
+             */
+            $totalCogsAmount = 0;
+            foreach ($invoiceProducts as $invoiceProduct) {
+                // unit_cost is already calculated when saving invoice products
+                $lineCost = ($invoiceProduct->unit_cost ?? 0) * $invoiceProduct->quantity;
+                $totalCogsAmount += $lineCost;
+            }
+
+            if ($totalCogsAmount > 0) {
+                // Get Inventory and Cost of Sales accounts from routing settings
+                $inventoryAccount = $this->getInventoryAccount($branchId);
+                $costOfSalesAccount = $this->getCostOfSalesAccount($branchId);
+
+                if (! $inventoryAccount || ! $costOfSalesAccount) {
+                    throw new Exception('Inventory and Cost of Sales accounts must be configured in account routing settings to create COGS journal entry.');
+                }
+
+                $cogsJournalEntry = JournalEntry::create([
+                    'entry_number' => JournalEntry::generateEntryNumber(),
+                    'entry_date' => $invoice->invoice_date,
+                    'reference' => $invoice->invoice_no.'-COGS',
+                    'description' => __('journal.cogs_for_sale_invoice', ['number' => $invoice->invoice_no]),
+                    'total_debit' => $totalCogsAmount,
+                    'total_credit' => $totalCogsAmount,
+                    'status' => 'posted',
+                    'created_by' => $userId,
+                    'posted_by' => $userId,
+                    'posted_at' => now(),
+                    'source_type' => Invoice::class,
+                    'source_id' => $invoice->id,
+                    'fiscal_year_id' => $defaults['fiscal_year_id'],
+                    'accounting_period_id' => $defaults['accounting_period_id'],
+                    'branch_id' => $branchId,
+                ]);
+
+                // Dr Cost of Sales
+                $this->createJournalEntryLine(
+                    $cogsJournalEntry,
+                    $costOfSalesAccount->id,
+                    $totalCogsAmount,
+                    0,
+                    1,
+                    __('journal.cost_of_sales_for_invoice', ['number' => $invoice->invoice_no])
+                );
+
+                // Cr Inventory
+                $this->createJournalEntryLine(
+                    $cogsJournalEntry,
+                    $inventoryAccount->id,
+                    0,
+                    $totalCogsAmount,
+                    2,
+                    __('journal.inventory_reduction_for_invoice', ['number' => $invoice->invoice_no])
+                );
+
+                // Optionally link COGS journal to invoice as well
+                \App\Models\InvoiceJournal::create([
+                    'invoice_id' => $invoice->id,
+                    'journal_entry_id' => $cogsJournalEntry->id,
+                    'type' => 'sale_cogs',
+                ]);
+            }
 
             DB::commit();
 
@@ -1239,6 +1308,46 @@ class BusinessTransactionJournalService
             ->where('name', 'like', "%{$accountName}%")
             ->where('is_active', true)
             ->first();
+    }
+
+    /**
+     * Get inventory account from routing settings
+     */
+    private function getInventoryAccount(?int $branchId = null): ?ChartOfAccount
+    {
+        $branchId = $branchId ?? Auth::user()->default_branch_id ?? null;
+
+        $setting = AccountRoutingSetting::where('branch_id', $branchId)
+            ->where('module', 'inventory')
+            ->where('setting_key', 'inventory_account')
+            ->where('is_active', true)
+            ->first();
+
+        if (! $setting || ! $setting->main_account_id) {
+            return null;
+        }
+
+        return ChartOfAccount::forBranch($branchId)->find($setting->main_account_id);
+    }
+
+    /**
+     * Get cost of sales account from routing settings
+     */
+    private function getCostOfSalesAccount(?int $branchId = null): ?ChartOfAccount
+    {
+        $branchId = $branchId ?? Auth::user()->default_branch_id ?? null;
+
+        $setting = AccountRoutingSetting::where('branch_id', $branchId)
+            ->where('module', 'inventory')
+            ->where('setting_key', 'cost_of_sales_account')
+            ->where('is_active', true)
+            ->first();
+
+        if (! $setting || ! $setting->main_account_id) {
+            return null;
+        }
+
+        return ChartOfAccount::forBranch($branchId)->find($setting->main_account_id);
     }
 
     /**

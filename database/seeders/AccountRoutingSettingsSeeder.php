@@ -13,46 +13,48 @@ class AccountRoutingSettingsSeeder extends Seeder
      */
     private array $defaultAccountCodes = [
         // Sales Module
-        'clients_account' => '12301',           // العملاء - Customers (under المدينون/Debtors)
-        'sales_account' => '411',               // ايرادات المبيعات - Sales Revenue
-        'product_sales_account' => '41101',     // إيرادات المبيعات السلعيه والخدميه - Product/Service Sales Revenue
-        'discount_allowed_account' => '31107',  // الخصم المسموح به - Allowed Discount
+        'clients_account' => '12301',            // العملاء - Customers (under المدينون/Debtors)
+        'sales_account' => '411',                // ايرادات المبيعات - Sales Revenue
+        'product_sales_account' => '41101',      // إيرادات المبيعات السلعيه والخدميه - Product/Service Sales Revenue
+        'discount_allowed_account' => '31107',   // الخصم المسموح به - Allowed Discount
 
         // Purchase Module
-        'suppliers_account' => '23301',         // الموردون - Suppliers (under الدائنون/Accounts Payables)
-        'purchase_account' => '311',            // تكلفة المبيعات - Cost of Sales
-        'product_purchase_account' => '31101',  // تكلفة مبيعات - Cost of Sale
-        'discount_received_account' => '41202', // إيرادات الخصم المكتسب - Earned Discount Income
-        'transport_expense_account' => '32106', // بدل السفر والانتقال والمواصلات - Travel and Transportation
+        'suppliers_account' => '23301',          // الموردون - Suppliers (under الدائنون/Accounts Payables)
+        'purchase_account' => '311',             // تكلفة المبيعات - Cost of Sales
+        'product_purchase_account' => '31101',   // تكلفة مبيعات - Cost of Sale
+        'discount_received_account' => '41202',  // إيرادات الخصم المكتسب - Earned Discount Income
+        'transport_expense_account' => '32106',  // بدل السفر والانتقال والمواصلات - Travel and Transportation
 
         // VAT Module
-        'sales_vat_account' => '23701',         // ضريبة القيمة المضافة الدائنة - VAT Payable
-        'purchase_vat_account' => '12403',      // ذمم مدينة أخرى - Other Accounts Receivable (VAT)
+        'sales_vat_account' => '23701',          // ضريبة القيمة المضافة الدائنة - VAT Payable
+        'purchase_vat_account' => '12403',       // ذمم مدينة أخرى - Other Accounts Receivable (VAT)
 
         // Expenses Module
-        'expenses_account' => '321',            // المصاريف الادارية والعمومية - General & Admin Expenses
+        'expenses_account' => '321',             // المصاريف الادارية والعمومية - General & Admin Expenses
 
         // Inventory Module
-        'inventory_account' => '121',           // المخزون - Inventories
+        'inventory_account' => '121',            // المخزون - Inventories
+        // Default for Cost of Sales – can be adjusted per tenant
+        'cost_of_sales_account' => '311',        // تكلفة المبيعات - Cost of Goods Sold
 
         // Banking Module
-        'main_cash_account' => '12601',         // النقدية في الصناديق - Cash in Hand
-        'main_bank_account' => '12602',         // النقدية في البنوك - Cash in Bank
+        'main_cash_account' => '12601',          // النقدية في الصناديق - Cash in Hand
+        'main_bank_account' => '12602',          // النقدية في البنوك - Cash in Bank
 
         // Advances Module
-        'advances_account' => '12401',          // سلف الموظفين - Personal Loans To Employees
+        'advances_account' => '12401',           // سلف الموظفين - Personal Loans To Employees
 
         // Assets Module
         'asset_depreciation_account' => '11104', // مجمعات الاهلاك - Accumulated Depreciation
 
         // Equity Module
-        'equity_account' => '21101',            // راس المال - Owner's Equity
+        'equity_account' => '21101',             // راس المال - Owner's Equity
 
         // Liabilities Module
-        'current_liabilities_account' => '234', // الذمم الدائنة - Other Accounts Payables
+        'current_liabilities_account' => '234',  // الذمم الدائنة - Other Accounts Payables
 
         // Loans Module
-        'loans_account' => '22101',             // القروض طويلة الأجل - Long-Term Loans
+        'loans_account' => '22101',              // القروض طويلة الأجل - Long-Term Loans
     ];
 
     /**
@@ -136,7 +138,6 @@ class AccountRoutingSettingsSeeder extends Seeder
         } else {
             DB::table('account_routing_settings')->where('branch_id', $branchId)->delete();
         }
-
         $settings = [
             // Sales Module
             [
@@ -367,6 +368,15 @@ class AccountRoutingSettingsSeeder extends Seeder
                 'setting_name' => 'Inventory Account',
                 'account_type' => 'Asset',
                 'description' => 'Main account for inventory/stock',
+                'is_required' => true,
+                'routing_type' => 'automatic',
+            ],
+            [
+                'module' => 'inventory',
+                'setting_key' => 'cost_of_sales_account',
+                'setting_name' => 'Cost of Sales Account',
+                'account_type' => 'Expense',
+                'description' => 'Main account for recording cost of goods sold (COGS)',
                 'is_required' => true,
                 'routing_type' => 'automatic',
             ],
