@@ -69434,3 +69434,39 @@ img.circle-img.circle-img--small {
   padding-left: 0;
   padding-right: .5rem
 }
+
+/* ========================================
+   RTL Sidebar Toggle Prevention
+   ======================================== */
+
+/* Prevent nav-link clicks from toggling sidebar */
+[dir="rtl"] .nav-link:not([data-widget="pushmenu"]) {
+  user-select: none;
+}
+
+[dir="rtl"] .custom-nav-btn:not([data-widget="pushmenu"]) {
+  pointer-events: auto;
+}
+
+/* ========================================
+   RTL Smooth Transitions
+   ======================================== */
+
+/* Smooth transitions for RTL layout changes */
+[dir="rtl"] .main-sidebar,
+[dir="rtl"] .main-header,
+[dir="rtl"] .content-wrapper,
+[dir="rtl"] .main-footer {
+  transition: margin-right 0.3s ease-in-out, margin-left 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* RTL Sidebar collapse animation */
+[dir="rtl"] .sidebar-collapse .main-sidebar {
+  transform: translate3d(100%, 0, 0);
+  transition: transform 0.3s ease-in-out;
+}
+
+[dir="rtl"] body:not(.sidebar-collapse) .main-sidebar {
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.3s ease-in-out;
+}

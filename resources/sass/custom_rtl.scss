@@ -948,3 +948,160 @@
   padding-right: 0 !important;
   padding-left: 3rem !important;
 }
+
+/* ========================================
+   Sidebar RTL Transitions and Animations
+   ======================================== */
+
+/* Smooth sidebar transitions for RTL */
+[dir="rtl"] .main-sidebar {
+  transition: transform 0.3s ease-in-out, margin-right 0.3s ease-in-out, margin-left 0.3s ease-in-out;
+}
+
+[dir="rtl"] .sidebar-collapse .main-sidebar {
+  transform: translate3d(100%, 0, 0);
+  transition: transform 0.3s ease-in-out;
+}
+
+[dir="rtl"] body:not(.sidebar-collapse) .main-sidebar {
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* RTL Sidebar toggle button positioning */
+[dir="rtl"] .main-header .navbar-nav .nav-link[data-widget="pushmenu"] {
+  order: -1;
+}
+
+/* RTL Navbar search positioning */
+[dir="rtl"] .navbar-search {
+  margin-right: 10px;
+  margin-left: 0;
+}
+
+/* ========================================
+   POS Layout RTL Support
+   ======================================== */
+
+/* RTL POS container */
+[dir="rtl"] #pos {
+  direction: rtl;
+}
+
+/* RTL POS grid items */
+[dir="rtl"] .pos-item-grid {
+  direction: rtl;
+}
+
+/* RTL POS quantity badge */
+[dir="rtl"] .pos-item-grid > div .box-qty {
+  left: auto;
+  right: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 10px;
+}
+
+/* RTL POS stock warning icon */
+[dir="rtl"] .stock-warning-icon-pos {
+  right: auto;
+  left: 5px;
+}
+
+/* RTL POS table alignment */
+[dir="rtl"] #pos .table th,
+[dir="rtl"] #pos .table td {
+  text-align: right;
+}
+
+[dir="rtl"] #pos .table .text-center {
+  text-align: center;
+}
+
+/* RTL POS input groups */
+[dir="rtl"] #pos .input-group-text {
+  border-left: 1px solid #ced4da;
+  border-right: none;
+}
+
+[dir="rtl"] #pos .input-group > .form-control:not(:last-child) {
+  border-right: 1px solid #ced4da;
+  border-left: none;
+}
+
+/* RTL POS create buttons */
+[dir="rtl"] #pos .create-btn,
+[dir="rtl"] #pos .create-btn-2 {
+  border-left: 1px solid #ced4da;
+  border-right: none;
+}
+
+/* RTL POS header buttons */
+[dir="rtl"] #pos .header-buttons {
+  float: left !important;
+}
+
+/* RTL POS invoice receipt */
+[dir="rtl"] #invoice-POS {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] #invoice-POS .table_data td[style*="text-align: right"] {
+  text-align: left !important;
+}
+
+[dir="rtl"] #invoice-POS .table_data td[style*="text-align: left"] {
+  text-align: right !important;
+}
+
+/* ========================================
+   Navbar RTL Support
+   ======================================== */
+
+/* RTL Navbar transitions */
+[dir="rtl"] .main-header {
+  transition: margin-right 0.3s ease-in-out, margin-left 0.3s ease-in-out;
+}
+
+/* RTL Navbar search order */
+[dir="rtl"] .navbar-search {
+  order: -1;
+}
+
+/* RTL Navbar nav items */
+[dir="rtl"] .navbar-nav.ml-auto {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+/* ========================================
+   Content Wrapper RTL Transitions
+   ======================================== */
+
+/* Smooth content wrapper transitions for RTL */
+[dir="rtl"] .content-wrapper {
+  transition: margin-right 0.3s ease-in-out, margin-left 0.3s ease-in-out;
+}
+
+[dir="rtl"] .main-footer {
+  transition: margin-right 0.3s ease-in-out, margin-left 0.3s ease-in-out;
+}
+
+/* ========================================
+   Sidebar Toggle Button RTL
+   ======================================== */
+
+/* Ensure pushmenu button doesn't interfere with other nav buttons */
+[dir="rtl"] .nav-link[data-widget="pushmenu"] {
+  order: -1;
+}
+
+/* Prevent nav-link clicks from toggling sidebar */
+.nav-link:not([data-widget="pushmenu"]) {
+  user-select: none;
+}
+
+/* Ensure custom-nav-btn doesn't toggle sidebar unless it's pushmenu */
+.custom-nav-btn:not([data-widget="pushmenu"]) {
+  pointer-events: auto;
+}
