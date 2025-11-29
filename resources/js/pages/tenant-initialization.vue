@@ -8,7 +8,7 @@
     <div class="auth-wrapper" v-if="!initialized">
       <div class="container">
         <div class="row justify-content-center">
-          <div style="flex: 0 0 71.333333%; max-width: 71.333333%;">
+          <div class="wizard-container">
             <!-- Progress Steps -->
             <div class="wizard-progress mb-4">
               <div class="progress-container" :class="{ rtl: isRTL }">
@@ -104,7 +104,7 @@
                           </div>
                           <small class="d-block text-muted mt-2 text-center">{{
                             $t("Adjust the selection to crop")
-                          }}</small>
+                            }}</small>
                         </div>
 
                         <!-- Preview (shown after crop) -->
@@ -137,7 +137,7 @@
                               }}</span>
                               <span class="upload-subtitle">{{
                                 $t("Click to upload or drag and drop")
-                              }}</span>
+                                }}</span>
                             </div>
                           </label>
                           <div class="upload-info">
@@ -1983,18 +1983,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-@keyframes scaleIn {
-  from {
-    transform: scale(0);
-    opacity: 0;
-  }
-
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+  font-family: "Font Awesome 7 Free", "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome", sans-serif !important;
+  font-weight: 900;
 }
 
 .step-title {
@@ -2041,6 +2031,9 @@ export default {
 
 .system-badge i {
   font-size: 10px;
+  font-family: "Font Awesome 7 Free", "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome", sans-serif !important;
+  font-weight: 900;
+  display: inline-block;
 }
 
 .system-type-card:hover {
@@ -2060,6 +2053,15 @@ export default {
   font-size: 48px;
   color: #0775af;
   margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-icon i {
+  font-family: "Font Awesome 7 Free", "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome", sans-serif !important;
+  font-weight: 900;
+  display: inline-block;
 }
 
 .system-type-card h6 {
@@ -2076,18 +2078,6 @@ export default {
 
 .wizard-step {
   animation: fadeIn 0.3s;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .lg-logo {
@@ -2112,57 +2102,18 @@ export default {
   border-color: #2b8bc4;
 }
 
-@media (max-width: 768px) {
-  .language-switcher-container {
-    top: 10px;
-    right: 10px;
-  }
-
-  .auth-wrapper {
-    padding: 40px 15px;
-  }
-
-  .step-indicator {
-    width: 25px;
-    height: 25px;
-  }
-
-  .step-number {
-    font-size: 12px;
-  }
-
-  .step-check {
-    font-size: 12px;
-  }
-
-  .step-title {
-    font-size: 10px;
-  }
-
-  .progress-container {
-    gap: 5px;
-    max-width: 100%;
-  }
-
-  .card-icon {
-    font-size: 36px;
-  }
-
-  .system-type-card {
-    padding: 20px 12px;
-  }
+/* Wizard Container - Responsive */
+.wizard-container {
+  flex: 0 0 71.333333%;
+  max-width: 71.333333%;
+  width: 100%;
 }
+
+/* Regular styles continue below - media queries moved to end */
 
 .tenant-initialization .language-switcher-container {
   right: 20px;
   left: auto;
-}
-
-@media (max-width: 768px) {
-  .tenant-initialization .language-switcher-container {
-    right: 10px;
-    left: auto;
-  }
 }
 
 .logo-upload-container {
@@ -2240,6 +2191,12 @@ export default {
   transition: all 0.3s ease;
 }
 
+.upload-icon-wrapper i {
+  font-family: "Font Awesome 7 Free", "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome", sans-serif !important;
+  font-weight: 900;
+  display: inline-block;
+}
+
 .file-upload-label:hover .upload-icon-wrapper {
   transform: scale(1.1);
   box-shadow: 0 6px 20px rgba(51, 160, 217, 0.4);
@@ -2272,25 +2229,7 @@ export default {
   color: #28a745;
 }
 
-@media (max-width: 768px) {
-  .file-upload-area {
-    padding: 30px 15px;
-  }
-
-  .upload-icon-wrapper {
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
-  }
-
-  .upload-title {
-    font-size: 14px;
-  }
-
-  .upload-subtitle {
-    font-size: 12px;
-  }
-}
+/* File upload responsive styles are now in the main media query above */
 
 .logo-preview-wrapper {
   position: relative;
@@ -2361,6 +2300,50 @@ export default {
   min-width: 120px;
 }
 
+.crop-actions .btn i {
+  font-family: "Font Awesome 7 Free", "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome", sans-serif !important;
+  font-weight: 900;
+  display: inline-block;
+}
+
+.logo-preview-overlay .btn i {
+  font-family: "Font Awesome 7 Free", "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome", sans-serif !important;
+  font-weight: 900;
+  display: inline-block;
+}
+
+/* Ensure all Font Awesome icons render properly */
+.tenant-initialization i.fas,
+.tenant-initialization i.far,
+.tenant-initialization i.fab,
+.tenant-initialization [class^="fa-"],
+.tenant-initialization [class*=" fa-"] {
+  font-family: "Font Awesome 7 Free", "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome", sans-serif !important;
+  display: inline-block !important;
+  font-style: normal !important;
+  font-variant: normal !important;
+  text-rendering: auto !important;
+  line-height: 1 !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Solid icons need font-weight 900 */
+.tenant-initialization i.fas,
+.tenant-initialization [class*=" fa-"]:not([class*=" far"]):not([class*=" fab"]) {
+  font-weight: 900 !important;
+}
+
+/* Regular icons need font-weight 400 */
+.tenant-initialization i.far {
+  font-weight: 400 !important;
+}
+
+/* Brand icons need font-weight 400 */
+.tenant-initialization i.fab {
+  font-weight: 400 !important;
+}
+
 /* Cropper.js overrides */
 .crop-container-inline .cropper-container {
   max-height: 400px;
@@ -2371,28 +2354,7 @@ export default {
   outline-offset: -2px;
 }
 
-@media (max-width: 768px) {
-  .logo-crop-wrapper {
-    padding: 15px;
-  }
-
-  .crop-container-inline {
-    max-height: 300px;
-  }
-
-  .crop-actions {
-    flex-direction: column;
-  }
-
-  .crop-actions .btn {
-    width: 100%;
-  }
-
-  .logo-preview-image {
-    width: 200px;
-    height: 200px;
-  }
-}
+/* Logo crop responsive styles are now in the main media query above */
 
 .country-select {
   width: 100%;
@@ -2522,6 +2484,13 @@ export default {
   height: auto;
 }
 
+.tenant-prev-btn i {
+  font-family: "Font Awesome 7 Free", "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome", sans-serif !important;
+  font-weight: 900;
+  display: inline-block;
+  font-size: inherit;
+}
+
 .tenant-prev-btn:hover {
   background: #f8f9fa !important;
   color: #191E29;
@@ -2535,5 +2504,609 @@ export default {
 .tenant-prev-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+/* ============================================
+   MEDIA QUERIES - From Large to Small Screens
+   ============================================ */
+
+/* Extra large screens (min-width: 1400px) */
+@media (min-width: 1400px) {
+  .wizard-container {
+    flex: 0 0 60%;
+    max-width: 60%;
+  }
+}
+
+/* Large screens (min-width: 1200px) */
+@media (min-width: 1200px) {
+  .wizard-container {
+    flex: 0 0 65%;
+    max-width: 65%;
+  }
+
+  .card-body {
+    padding: 2rem !important;
+  }
+
+  .wizard-step h4 {
+    font-size: 26px !important;
+  }
+}
+
+/* Tablet and below (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .wizard-container {
+    flex: 0 0 85%;
+    max-width: 85%;
+  }
+
+  .auth-wrapper {
+    padding: 50px 20px;
+  }
+
+  .card-body {
+    padding: 1.5rem !important;
+  }
+
+  .system-type-card {
+    padding: 20px 15px;
+  }
+
+  .card-icon {
+    font-size: 42px;
+  }
+}
+
+/* Mobile (max-width: 768px) */
+@media (max-width: 768px) {
+  .tenant-initialization {
+    padding: 15px;
+  }
+
+  .language-switcher-container {
+    top: 10px;
+    right: 10px;
+  }
+
+  .auth-wrapper {
+    padding: 30px 15px;
+    min-height: auto;
+  }
+
+  .wizard-container {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  /* Header adjustments */
+  .text-center h3 {
+    font-size: 20px !important;
+    margin-bottom: 0.5rem;
+  }
+
+  .text-center p {
+    font-size: 14px;
+  }
+
+  /* Card adjustments */
+  .card {
+    border-radius: 8px !important;
+  }
+
+  .card-body {
+    padding: 1.25rem !important;
+  }
+
+  /* Step titles in wizard steps */
+  .wizard-step h4 {
+    font-size: 18px !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .wizard-step h5 {
+    font-size: 16px;
+    margin-bottom: 0.75rem;
+  }
+
+  .wizard-step h6 {
+    font-size: 14px;
+  }
+
+  /* Progress steps */
+  .wizard-progress {
+    margin-bottom: 20px;
+  }
+
+  .step-indicator {
+    width: 22px;
+    height: 22px;
+    font-size: 14px;
+  }
+
+  .step-number {
+    font-size: 12px;
+  }
+
+  .step-check {
+    font-size: 12px;
+    min-width: 12px;
+    min-height: 12px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+  }
+
+  .step-title {
+    font-size: 9px;
+    line-height: 1.2;
+  }
+
+  .progress-container {
+    gap: 2px;
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .country-selector {
+    gap: 2px;
+  }
+
+  .progress-container::before {
+    top: 11px;
+    height: 1.5px;
+  }
+
+  /* Progress line adjustments for mobile */
+  .progress-container:not(.rtl)::before {
+    left: calc(11px + 10%);
+    right: calc(11px + 10%);
+  }
+
+  .progress-container.rtl::before {
+    left: calc(11px + 10%);
+    right: calc(11px + 10%);
+  }
+
+  /* Form inputs */
+  .tenant-initialization input.form-control,
+  .tenant-initialization textarea.form-control,
+  .tenant-initialization select.form-control {
+    padding: 10px 14px !important;
+    font-size: 16px !important;
+  }
+
+  .tenant-initialization textarea.form-control {
+    padding: 12px 14px !important;
+    min-height: 100px;
+  }
+
+  /* Select2 responsive */
+  .country-select+.select2-container .select2-selection--single {
+    min-height: 48px !important;
+    padding: 0.5rem 1rem !important;
+  }
+
+  .country-select+.select2-container .select2-selection--single .select2-selection__rendered {
+    line-height: 2.5rem;
+    font-size: 16px;
+  }
+
+  .tenant-initialization .form-label {
+    font-size: 16px;
+    margin-bottom: 0.5rem;
+  }
+
+  .tenant-initialization .document-prefix-label {
+    font-size: 11px;
+  }
+
+  /* Form groups */
+  .form-group {
+    margin-bottom: 1rem !important;
+  }
+
+  .form-group.mb-4 {
+    margin-bottom: 1.25rem !important;
+  }
+
+  /* Document prefixes - stack on mobile */
+  .row .col-md-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  /* System type cards - stack on mobile */
+  .row.g-3 .col-md-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .system-type-card {
+    padding: 18px 12px;
+  }
+
+  .card-icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+  }
+
+  .card-icon i {
+    font-size: 36px !important;
+  }
+
+  .system-type-card h6 {
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+
+  .system-type-card p {
+    font-size: 12px;
+  }
+
+  .system-badge {
+    font-size: 11px;
+    padding: 3px 6px;
+    top: 8px;
+    right: 8px;
+  }
+
+  .system-badge i {
+    font-size: 10px;
+    min-width: 10px;
+    min-height: 10px;
+  }
+
+  /* Buttons */
+  .tenant-submit-btn {
+    width: 100% !important;
+    padding: 14px 16px;
+    font-size: 15px;
+    min-height: 48px;
+    margin-top: 0.75rem;
+  }
+
+  .tenant-prev-btn {
+    padding: 0.75rem;
+    margin: 0px;
+    flex-shrink: 0;
+  }
+
+  .mt-4.d-flex {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Phone number input responsive */
+  .form-group .phone-number-input {
+    font-size: 16px;
+  }
+
+  .phone-input {
+    /* flex: 1; */
+    border: 0;
+    outline: none;
+    padding: 0.5rem 0rem;
+    font-size: 1rem;
+    color: #33a0d9;
+    background: transparent;
+    text-align: left;
+    direction: ltr;
+  }
+
+  /* Info text and small text */
+  .form-text,
+  small.text-muted {
+    font-size: 12px;
+  }
+
+  /* Upload info */
+  .upload-info {
+    margin-top: 0.75rem;
+  }
+
+  .upload-info small {
+    font-size: 11px;
+  }
+
+  /* Logo upload */
+  .logo-preview-image {
+    width: 200px;
+    height: 200px;
+  }
+
+  .crop-container-inline {
+    max-height: 300px;
+  }
+
+  .logo-crop-wrapper {
+    padding: 15px;
+  }
+
+  .crop-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .crop-actions .btn {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .crop-actions .btn i {
+    font-size: 14px !important;
+    margin-right: 0.25rem;
+  }
+
+  /* Ensure icons are visible on mobile */
+  .tenant-initialization i.fas,
+  .tenant-initialization i.far,
+  .tenant-initialization i.fab {
+    font-size: inherit !important;
+    min-width: 1em;
+    min-height: 1em;
+    line-height: 1 !important;
+  }
+
+  /* Button icons */
+  .btn i {
+    font-size: inherit !important;
+    min-width: 1em;
+    min-height: 1em;
+  }
+
+  .crop-actions .btn i {
+    font-size: 14px !important;
+  }
+
+  /* Ensure icons are visible on mobile */
+  .tenant-initialization i.fas,
+  .tenant-initialization i.far,
+  .tenant-initialization i.fab {
+    font-size: inherit !important;
+    min-width: 1em;
+    min-height: 1em;
+  }
+}
+
+/* Small mobile (max-width: 480px) */
+@media (max-width: 480px) {
+  .tenant-initialization {
+    padding: 10px;
+  }
+
+  .auth-wrapper {
+    padding: 20px 10px;
+  }
+
+  .wizard-container {
+    padding: 0;
+  }
+
+  /* Header */
+  .text-center h3 {
+    font-size: 18px !important;
+  }
+
+  .text-center p {
+    font-size: 13px;
+  }
+
+  /* Card */
+  .card-body {
+    padding: 1rem !important;
+  }
+
+  /* Step titles */
+  .wizard-step h4 {
+    font-size: 16px !important;
+  }
+
+  .wizard-step h5 {
+    font-size: 15px;
+  }
+
+  /* Progress steps */
+  .step-indicator {
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+  }
+
+  .step-check {
+    font-size: 11px;
+    min-width: 11px;
+    min-height: 11px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+  }
+
+  .step-title {
+    font-size: 8px;
+  }
+
+  .progress-container {
+    padding: 0 5px;
+  }
+
+  .country-selector {
+    gap: 2px;
+  }
+
+  .progress-container::before {
+    top: 10px;
+    height: 1px;
+  }
+
+  .progress-container:not(.rtl)::before {
+    left: calc(10px + 12%);
+    right: calc(10px + 12%);
+  }
+
+  .progress-container.rtl::before {
+    left: calc(10px + 12%);
+    right: calc(10px + 12%);
+  }
+
+  /* Form inputs */
+  .tenant-initialization input.form-control,
+  .tenant-initialization textarea.form-control,
+  .tenant-initialization select.form-control {
+    padding: 10px 12px !important;
+    font-size: 16px !important;
+  }
+
+  .tenant-initialization textarea.form-control {
+    padding: 10px 12px !important;
+    min-height: 90px;
+  }
+
+  /* Select2 responsive */
+  .country-select+.select2-container .select2-selection--single {
+    min-height: 44px !important;
+    padding: 0.5rem 0.875rem !important;
+  }
+
+  .country-select+.select2-container .select2-selection--single .select2-selection__rendered {
+    line-height: 2.25rem;
+    font-size: 15px;
+  }
+
+  .tenant-initialization .form-label {
+    font-size: 15px;
+  }
+
+  .tenant-initialization .document-prefix-label {
+    font-size: 10px;
+  }
+
+  /* System type cards */
+  .system-type-card {
+    padding: 15px 10px;
+  }
+
+  .card-icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+
+  .card-icon i {
+    font-size: 32px !important;
+  }
+
+  .system-type-card h6 {
+    font-size: 14px;
+  }
+
+  .system-type-card p {
+    font-size: 11px;
+  }
+
+  /* Buttons */
+  .tenant-submit-btn {
+    padding: 12px;
+    font-size: 14px;
+    min-height: 44px;
+  }
+
+  .tenant-prev-btn {
+    padding: 0.75rem;
+  }
+
+  /* Phone number input */
+  .form-group .phone-number-input {
+    font-size: 15px;
+  }
+
+  .phone-input {
+    /* flex: 1; */
+    border: 0;
+    outline: none;
+    padding: 0.5rem 0rem;
+    font-size: 1rem;
+    color: #33a0d9;
+    background: transparent;
+    text-align: left;
+    direction: ltr;
+  }
+
+  /* Info text */
+  .form-text,
+  small.text-muted {
+    font-size: 11px;
+  }
+
+  .upload-info small {
+    font-size: 10px;
+  }
+
+  /* Logo */
+  .logo-preview-image {
+    width: 150px;
+    height: 150px;
+  }
+
+  .file-upload-area {
+    padding: 25px 12px;
+  }
+
+  .upload-icon-wrapper {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+  }
+
+  .upload-icon-wrapper i {
+    font-size: 20px !important;
+  }
+
+  .upload-title {
+    font-size: 13px;
+  }
+
+  .upload-subtitle {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tenant-initialization .language-switcher-container {
+    right: 10px;
+    left: auto;
+  }
+}
+
+/* ============================================
+   KEYFRAMES
+   ============================================ */
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
