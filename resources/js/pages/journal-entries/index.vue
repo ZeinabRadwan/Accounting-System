@@ -11,48 +11,6 @@
           <!-- /.card-header -->
           <div class="card-body position-relative">
             <div class="row">
-              <div class="col-6 mb-2" style="flex: 0 0 100%; max-width: 100%;">
-                <div class="row">
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label>{{ $t('From Date') }}</label>
-                      <input v-model="filters.from_date" type="date" class="form-control" />
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label>{{ $t('To Date') }}</label>
-                      <input v-model="filters.to_date" type="date" class="form-control" />
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label>{{ $t('Status') }}</label>
-                      <select v-model="filters.status" class="form-control">
-                        <option value="">{{ $t('All Status') }}</option>
-                        <option value="draft">{{ $t('Draft') }}</option>
-                        <option value="posted">{{ $t('Posted') }}</option>
-                        <option value="void">{{ $t('Void') }}</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label>&nbsp;</label>
-                      <div>
-                        <button @click="searchData" class="btn btn-primary">
-                          <i class="fa fa-search"></i> {{ $t('Search') }}
-                        </button>
-                        <button @click="clearFilters" class="btn btn-secondary ml-2">
-                          <i class="fa fa-times"></i> {{ $t('Clear') }}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
               <div class="col-6 col-xl-4 mb-2">
                 <search v-model="query" @reset-pagination="resetPagination()" @reload="reload" />
               </div>
@@ -87,128 +45,496 @@
             <div class="table-responsive table-custom mt-3" id="printMe">
               <table class="table journal-entries-table">
                 <thead>
-                  <th>{{ $t('Entry #') }}</th>
-                  <th>{{ $t('Date') }}</th>
-                  <th>{{ $t('Description') }}</th>
-                  <th>{{ $t('Reference') }}</th>
-                  <th class="text-center">{{ $t('Total Debit') }}</th>
-                  <th class="text-center">{{ $t('Total Credit') }}</th>
-                  <th>{{ $t('Status') }}</th>
-                  <th>{{ $t('Created By') }}</th>
-                  <th>{{ $t('Actions') }}</th>
+                  <tr>
+                    <th>{{ $t('Entry #') }}</th>
+                    <th>{{ $t('Date') }}</th>
+                    <th>{{ $t('Branch') }}</th>
+                    <th>{{ $t('Type') }}</th>
+                    <th>{{ $t('Reference') }}</th>
+                    <th>{{ $t('Account') }}</th>
+                    <th class="text-center">{{ $t('Debit') }}</th>
+                    <th class="text-center">{{ $t('Credit') }}</th>
+                    <th>{{ $t('Cost Center') }}</th>
+                    <th>{{ $t('Description') }}</th>
+                    <th>{{ $t('Notes') }}</th>
+                    <th>{{ $t('Attachment') }}</th>
+                    <th>{{ $t('Created By') }}</th>
+                    <th>{{ $t('Status') }}</th>
+                    <th>{{ $t('Actions') }}</th>
+                  </tr>
+                  <tr class="filter-row">
+                    <th>
+                      <input 
+                        v-model="columnFilters.entry_number" 
+                        type="text" 
+                        class="form-control form-control-sm column-filter" 
+                        :placeholder="$t('Filter')"
+                        @input="applyFilters"
+                      />
+                    </th>
+                    <th>
+                      <div class="date-range-filter">
+                        <input 
+                          v-model="columnFilters.date_from" 
+                          type="date" 
+                          class="form-control form-control-sm column-filter date-input" 
+                          :placeholder="$t('From')"
+                          @change="applyFilters"
+                        />
+                        <span class="date-separator">-</span>
+                        <input 
+                          v-model="columnFilters.date_to" 
+                          type="date" 
+                          class="form-control form-control-sm column-filter date-input" 
+                          :placeholder="$t('To')"
+                          @change="applyFilters"
+                        />
+                      </div>
+                    </th>
+                    <th>
+                      <select 
+                        v-model="columnFilters.branch" 
+                        class="form-control form-control-sm column-filter"
+                        @change="applyFilters"
+                      >
+                        <option value="">{{ $t('All') }}</option>
+                        <option v-for="branch in branches" :key="branch.id" :value="branch.id">
+                          {{ branch.name }}
+                        </option>
+                      </select>
+                    </th>
+                    <th>
+                      <select 
+                        v-model="columnFilters.type" 
+                        class="form-control form-control-sm column-filter"
+                        @change="applyFilters"
+                      >
+                        <option value="">{{ $t('All') }}</option>
+                        <option value="manual">{{ $t('Manual') }}</option>
+                        <option value="opening_entry">{{ $t('Opening Entry') }}</option>
+                        <option value="payment_voucher">{{ $t('Payment Voucher') }}</option>
+                        <option value="receipt_voucher">{{ $t('Receipt Voucher') }}</option>
+                        <option value="transfer_voucher">{{ $t('Transfer Voucher') }}</option>
+                        <option value="pos_sales">{{ $t('POS Sales') }}</option>
+                        <option value="sales">{{ $t('Sales') }}</option>
+                        <option value="sales_returns">{{ $t('Sales Returns') }}</option>
+                        <option value="purchases">{{ $t('Purchases') }}</option>
+                        <option value="purchase_returns">{{ $t('Purchase Returns') }}</option>
+                        <option value="credit_note">{{ $t('Credit Note') }}</option>
+                        <option value="debit_note">{{ $t('Debit Note') }}</option>
+                        <option value="inventory_transfer">{{ $t('Inventory Transfer') }}</option>
+                        <option value="inventory_adjustment">{{ $t('Inventory Adjustment') }}</option>
+                      </select>
+                    </th>
+                    <th>
+                      <input 
+                        v-model="columnFilters.reference" 
+                        type="text" 
+                        class="form-control form-control-sm column-filter" 
+                        :placeholder="$t('Filter')"
+                        @input="applyFilters"
+                      />
+                    </th>
+                    <th>
+                      <v-select
+                        v-model="columnFilters.account"
+                        :options="chartOfAccounts"
+                        :reduce="account => account.id"
+                        label="display_name"
+                        :placeholder="$t('All')"
+                        :searchable="true"
+                        :clearable="true"
+                        :loading="loadingAccounts"
+                        @search="searchAccounts"
+                        @input="applyFilters"
+                        class="vue-select-sm"
+                      />
+                    </th>
+                    <th class="text-center">
+                      <input 
+                        v-model="columnFilters.debit" 
+                        type="number" 
+                        step="0.01"
+                        class="form-control form-control-sm column-filter" 
+                        :placeholder="$t('Filter')"
+                        @input="applyFilters"
+                      />
+                    </th>
+                    <th class="text-center">
+                      <input 
+                        v-model="columnFilters.credit" 
+                        type="number" 
+                        step="0.01"
+                        class="form-control form-control-sm column-filter" 
+                        :placeholder="$t('Filter')"
+                        @input="applyFilters"
+                      />
+                    </th>
+                    <th>
+                      <input 
+                        v-model="columnFilters.cost_center" 
+                        type="text" 
+                        class="form-control form-control-sm column-filter" 
+                        :placeholder="$t('Filter')"
+                        @input="applyFilters"
+                      />
+                    </th>
+                    <th>
+                      <input 
+                        v-model="columnFilters.description" 
+                        type="text" 
+                        class="form-control form-control-sm column-filter" 
+                        :placeholder="$t('Filter')"
+                        @input="applyFilters"
+                      />
+                    </th>
+                    <th>
+                      <input 
+                        v-model="columnFilters.notes" 
+                        type="text" 
+                        class="form-control form-control-sm column-filter" 
+                        :placeholder="$t('Filter')"
+                        @input="applyFilters"
+                      />
+                    </th>
+                    <th>
+                      <input 
+                        v-model="columnFilters.attachment" 
+                        type="text" 
+                        class="form-control form-control-sm column-filter" 
+                        :placeholder="$t('Filter')"
+                        @input="applyFilters"
+                      />
+                    </th>
+                    <th>
+                      <input 
+                        v-model="columnFilters.created_by" 
+                        type="text" 
+                        class="form-control form-control-sm column-filter" 
+                        :placeholder="$t('Filter')"
+                        @input="applyFilters"
+                      />
+                    </th>
+                    <th>
+                      <select 
+                        v-model="columnFilters.status" 
+                        class="form-control form-control-sm column-filter"
+                        @change="applyFilters"
+                      >
+                        <option value="">{{ $t('All') }}</option>
+                        <option value="draft">{{ $t('Draft') }}</option>
+                        <option value="posted">{{ $t('Posted') }}</option>
+                        <option value="void">{{ $t('Void') }}</option>
+                      </select>
+                    </th>
+                    <th>
+                      <button 
+                        @click="clearColumnFilters" 
+                        class="btn btn-sm btn-link clear-filters-btn p-0"
+                        :title="$t('Clear Filters')"
+                      >
+                        <i class="fa fa-times"></i>
+                      </button>
+                    </th>
+                  </tr>
                 </thead>
                 <tbody>
-                  <tr v-show="items.length" v-for="(entry, i) in items" :key="entry.id">
-                    <td>
-                      <strong>{{ entry.formatted_entry_number }}</strong>
-                    </td>
-                    <td>{{ formatDate(entry.entry_date) }}</td>
-                    <td>{{ entry.description }}</td>
-                    <td>{{ entry.reference || '-' }}</td>
-                    <td class="text-center">
-                      <span class="text-success">
-                        <CurrencyDisplay :amount="entry.total_debit" />
-                      </span>
-                    </td>
-                    <td class="text-center">
-                      <span class="text-danger">
-                        <CurrencyDisplay :amount="entry.total_credit" />
-                      </span>
-                    </td>
-                    <td>
-                      <span :class="getStatusBadgeClass(entry.status)">
-                        {{ entry.formatted_status }}
-                      </span>
-                    </td>
-                    <td>{{ entry.creator ? entry.creator.name : '-' }}</td>
-                    <td>
-                      <div class="action-dropdown" :class="{ open: openActionIndex === i }">
-                        <button type="button" class="action-icon-btn" :data-action-index="i"
-                          @click.stop="toggleAction(i)">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25"
-                            fill="none">
-                            <path
-                              d="M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z"
-                              fill="#023033" />
-                          </svg>
-                        </button>
-                        <div class="action-menu" v-if="openActionIndex === i">
-                          <div class="action-menu-header">
-                            <h6 class="action-menu-title">{{ $t('Actions') }}</h6>
-                            <button type="button" class="action-menu-close" @click.stop="toggleAction(i)">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                  <template v-for="(entry, entryIndex) in displayItems">
+                    <template v-if="entry.lines && entry.lines.length > 0">
+                      <tr v-for="(line, lineIndex) in entry.lines" :key="`${entry.id}-${line.id}`"
+                        :class="{ 'entry-first-line': lineIndex === 0 }">
+                        <td v-if="lineIndex === 0" :rowspan="entry.lines.length">
+                          <strong>{{ entry.formatted_entry_number }}</strong>
+                        </td>
+                        <td v-if="lineIndex === 0" :rowspan="entry.lines.length">
+                          {{ formatDate(entry.entry_date) }}
+                        </td>
+                        <td v-if="lineIndex === 0" :rowspan="entry.lines.length">
+                          {{ entry.branch ? entry.branch.name : '-' }}
+                        </td>
+                        <td v-if="lineIndex === 0" :rowspan="entry.lines.length">
+                          {{ getEntryTypeLabel(entry.entry_type) || '-' }}
+                        </td>
+                        <td v-if="lineIndex === 0" :rowspan="entry.lines.length">
+                          {{ entry.reference || '-' }}
+                        </td>
+                        <td class="account-cell">
+                          <span v-if="line.chart_of_account" class="account-info">
+                            <strong class="account-code">{{ line.chart_of_account.code }}</strong>
+                            <span class="account-name">{{ line.chart_of_account.name }}</span>
+                          </span>
+                          <span v-else>-</span>
+                        </td>
+                        <td class="text-center">
+                          <span v-if="line.debit_amount > 0" class="text-success">
+                            <CurrencyDisplay :amount="line.debit_amount" />
+                          </span>
+                          <span v-else>-</span>
+                        </td>
+                        <td class="text-center">
+                          <span v-if="line.credit_amount > 0" class="text-danger">
+                            <CurrencyDisplay :amount="line.credit_amount" />
+                          </span>
+                          <span v-else>-</span>
+                        </td>
+                        <td>
+                          <span v-if="line.cost_center">
+                            {{ line.cost_center.code }} - {{ line.cost_center.name }}
+                          </span>
+                          <span v-else>-</span>
+                        </td>
+                        <td class="description-cell">
+                          <span 
+                            v-if="line.description || entry.description"
+                            @click="toggleDescription(`${entry.id}-${line.id}`)"
+                            :class="['description-text', { 'expanded': expandedDescriptions[`${entry.id}-${line.id}`] }]"
+                            :title="expandedDescriptions[`${entry.id}-${line.id}`] ? '' : (line.description || entry.description)"
+                          >
+                            {{ line.description || entry.description }}
+                          </span>
+                          <span v-else>-</span>
+                        </td>
+                        <td v-if="lineIndex === 0" :rowspan="entry.lines.length">
+                          {{ entry.notes || '-' }}
+                        </td>
+                        <td v-if="lineIndex === 0" :rowspan="entry.lines.length">
+                          <a v-if="entry.attachment" :href="entry.attachment" target="_blank" class="btn btn-sm btn-link">
+                            <i class="fa fa-paperclip"></i> {{ $t('View') }}
+                          </a>
+                          <span v-else>-</span>
+                        </td>
+                        <td v-if="lineIndex === 0" :rowspan="entry.lines.length">
+                          {{ entry.creator ? entry.creator.name : '-' }}
+                        </td>
+                        <td v-if="lineIndex === 0" :rowspan="entry.lines.length">
+                          <span :class="getStatusBadgeClass(entry.status)">
+                            {{ entry.formatted_status }}
+                          </span>
+                        </td>
+                        <td v-if="lineIndex === 0" :rowspan="entry.lines.length">
+                          <div class="action-dropdown" :class="{ open: openActionIndex === entryIndex }">
+                            <button type="button" class="action-icon-btn" :data-action-index="entryIndex"
+                              @click.stop="toggleAction(entryIndex)">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25"
                                 fill="none">
-                                <path d="M12 4L4 12M4 4L12 12" stroke="#6B7280" stroke-width="2" stroke-linecap="round"
-                                  stroke-linejoin="round" />
+                                <path
+                                  d="M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z"
+                                  fill="#023033" />
                               </svg>
                             </button>
+                            <div class="action-menu" v-if="openActionIndex === entryIndex">
+                              <div class="action-menu-header">
+                                <h6 class="action-menu-title">{{ $t('Actions') }}</h6>
+                                <button type="button" class="action-menu-close" @click.stop="toggleAction(entryIndex)">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                    fill="none">
+                                    <path d="M12 4L4 12M4 4L12 12" stroke="#6B7280" stroke-width="2" stroke-linecap="round"
+                                      stroke-linejoin="round" />
+                                  </svg>
+                                </button>
+                              </div>
+                              <ul>
+                                <li>
+                                  <router-link :to="{ name: 'journal-entries.show', params: { id: entry.id } }">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                      fill="none">
+                                      <path
+                                        d="M8 1C4.5 1 1.73 3.77 1.73 7C1.73 10.23 4.5 13 8 13C11.5 13 14.27 10.23 14.27 7C14.27 3.77 11.5 1 8 1ZM8 9.5C6.62 9.5 5.5 8.38 5.5 7C5.5 5.62 6.62 4.5 8 4.5C9.38 4.5 10.5 5.62 10.5 7C10.5 8.38 9.38 9.5 8 9.5Z"
+                                        fill="#6B7280" />
+                                    </svg>
+                                    {{ $t('View') }}
+                                  </router-link>
+                                </li>
+                                <li v-if="entry.status === 'draft'">
+                                  <router-link :to="{ name: 'journal-entries.edit', params: { id: entry.id } }">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                      fill="none">
+                                      <path d="M11.5 1.5L14.5 4.5L5.5 13.5H2.5V10.5L11.5 1.5Z" stroke="#6B7280"
+                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    {{ $t('Edit') }}
+                                  </router-link>
+                                </li>
+                                <li v-if="entry.status === 'draft'">
+                                  <a href="#" @click.prevent="postEntry(entry.id)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                      fill="none">
+                                      <path d="M13.5 4.5L7.5 10.5L4.5 7.5" stroke="#10B981" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    {{ $t('Post') }}
+                                  </a>
+                                </li>
+                                <li v-if="entry.status === 'posted'">
+                                  <a href="#" @click.prevent="voidEntry(entry.id)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                      fill="none">
+                                      <path d="M12 4L4 12M4 4L12 12" stroke="#F59E0B" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    {{ $t('Void') }}
+                                  </a>
+                                </li>
+                                <li v-if="entry.status === 'draft'">
+                                  <a href="#" @click.prevent="deleteEntry(entry.id)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                      fill="none">
+                                      <path
+                                        d="M2 4H14M5.5 4V2.5C5.5 2.2 5.7 2 6 2H10C10.3 2 10.5 2.2 10.5 2.5V4M12.5 4V13.5C12.5 13.8 12.3 14 12 14H4C3.7 14 3.5 13.8 3.5 13.5V4H12.5Z"
+                                        stroke="#EF4444" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    </svg>
+                                    {{ $t('Delete') }}
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
                           </div>
-                          <ul>
-                            <li>
-                              <router-link :to="{ name: 'journal-entries.show', params: { id: entry.id } }">
+                        </td>
+                      </tr>
+                    </template>
+                    <tr v-else :key="`entry-${entry.id}`">
+                      <td>
+                        <strong>{{ entry.formatted_entry_number }}</strong>
+                      </td>
+                      <td>{{ formatDate(entry.entry_date) }}</td>
+                      <td>{{ entry.branch ? entry.branch.name : '-' }}</td>
+                      <td>{{ getEntryTypeLabel(entry.entry_type) || '-' }}</td>
+                      <td>{{ entry.reference || '-' }}</td>
+                        <td>-</td>
+                        <td class="text-center">-</td>
+                        <td class="text-center">-</td>
+                        <td>-</td>
+                        <td class="description-cell">
+                          <span 
+                            v-if="entry.description"
+                            @click="toggleDescription(`entry-${entry.id}`)"
+                            :class="['description-text', { 'expanded': expandedDescriptions[`entry-${entry.id}`] }]"
+                            :title="expandedDescriptions[`entry-${entry.id}`] ? '' : entry.description"
+                          >
+                            {{ entry.description }}
+                          </span>
+                          <span v-else>-</span>
+                        </td>
+                      <td>{{ entry.notes || '-' }}</td>
+                      <td>
+                        <a v-if="entry.attachment" :href="entry.attachment" target="_blank" class="btn btn-sm btn-link">
+                          <i class="fa fa-paperclip"></i> {{ $t('View') }}
+                        </a>
+                        <span v-else>-</span>
+                      </td>
+                      <td>{{ entry.creator ? entry.creator.name : '-' }}</td>
+                      <td>
+                        <span :class="getStatusBadgeClass(entry.status)">
+                          {{ entry.formatted_status }}
+                        </span>
+                      </td>
+                      <td>
+                        <div class="action-dropdown" :class="{ open: openActionIndex === entryIndex }">
+                          <button type="button" class="action-icon-btn" :data-action-index="entryIndex"
+                            @click.stop="toggleAction(entryIndex)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25"
+                              fill="none">
+                              <path
+                                d="M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z"
+                                fill="#023033" />
+                            </svg>
+                          </button>
+                          <div class="action-menu" v-if="openActionIndex === entryIndex">
+                            <div class="action-menu-header">
+                              <h6 class="action-menu-title">{{ $t('Actions') }}</h6>
+                              <button type="button" class="action-menu-close" @click.stop="toggleAction(entryIndex)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                                   fill="none">
-                                  <path
-                                    d="M8 1C4.5 1 1.73 3.77 1.73 7C1.73 10.23 4.5 13 8 13C11.5 13 14.27 10.23 14.27 7C14.27 3.77 11.5 1 8 1ZM8 9.5C6.62 9.5 5.5 8.38 5.5 7C5.5 5.62 6.62 4.5 8 4.5C9.38 4.5 10.5 5.62 10.5 7C10.5 8.38 9.38 9.5 8 9.5Z"
-                                    fill="#6B7280" />
-                                </svg>
-                                {{ $t('View') }}
-                              </router-link>
-                            </li>
-                            <li v-if="entry.status === 'draft'">
-                              <router-link :to="{ name: 'journal-entries.edit', params: { id: entry.id } }">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
-                                  fill="none">
-                                  <path d="M11.5 1.5L14.5 4.5L5.5 13.5H2.5V10.5L11.5 1.5Z" stroke="#6B7280"
-                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                                {{ $t('Edit') }}
-                              </router-link>
-                            </li>
-                            <li v-if="entry.status === 'draft'">
-                              <a href="#" @click.prevent="postEntry(entry.id)">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
-                                  fill="none">
-                                  <path d="M13.5 4.5L7.5 10.5L4.5 7.5" stroke="#10B981" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                                {{ $t('Post') }}
-                              </a>
-                            </li>
-                            <li v-if="entry.status === 'posted'">
-                              <a href="#" @click.prevent="voidEntry(entry.id)">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
-                                  fill="none">
-                                  <path d="M12 4L4 12M4 4L12 12" stroke="#F59E0B" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                                {{ $t('Void') }}
-                              </a>
-                            </li>
-                            <li v-if="entry.status === 'draft'">
-                              <a href="#" @click.prevent="deleteEntry(entry.id)">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
-                                  fill="none">
-                                  <path
-                                    d="M2 4H14M5.5 4V2.5C5.5 2.2 5.7 2 6 2H10C10.3 2 10.5 2.2 10.5 2.5V4M12.5 4V13.5C12.5 13.8 12.3 14 12 14H4C3.7 14 3.5 13.8 3.5 13.5V4H12.5Z"
-                                    stroke="#EF4444" stroke-width="1.5" stroke-linecap="round"
+                                  <path d="M12 4L4 12M4 4L12 12" stroke="#6B7280" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" />
                                 </svg>
-                                {{ $t('Delete') }}
-                              </a>
-                            </li>
-                          </ul>
+                              </button>
+                            </div>
+                            <ul>
+                              <li>
+                                <router-link :to="{ name: 'journal-entries.show', params: { id: entry.id } }">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                    fill="none">
+                                    <path
+                                      d="M8 1C4.5 1 1.73 3.77 1.73 7C1.73 10.23 4.5 13 8 13C11.5 13 14.27 10.23 14.27 7C14.27 3.77 11.5 1 8 1ZM8 9.5C6.62 9.5 5.5 8.38 5.5 7C5.5 5.62 6.62 4.5 8 4.5C9.38 4.5 10.5 5.62 10.5 7C10.5 8.38 9.38 9.5 8 9.5Z"
+                                      fill="#6B7280" />
+                                  </svg>
+                                  {{ $t('View') }}
+                                </router-link>
+                              </li>
+                              <li v-if="entry.status === 'draft'">
+                                <router-link :to="{ name: 'journal-entries.edit', params: { id: entry.id } }">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                    fill="none">
+                                    <path d="M11.5 1.5L14.5 4.5L5.5 13.5H2.5V10.5L11.5 1.5Z" stroke="#6B7280"
+                                      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                  </svg>
+                                  {{ $t('Edit') }}
+                                </router-link>
+                              </li>
+                              <li v-if="entry.status === 'draft'">
+                                <a href="#" @click.prevent="postEntry(entry.id)">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                    fill="none">
+                                    <path d="M13.5 4.5L7.5 10.5L4.5 7.5" stroke="#10B981" stroke-width="1.5"
+                                      stroke-linecap="round" stroke-linejoin="round" />
+                                  </svg>
+                                  {{ $t('Post') }}
+                                </a>
+                              </li>
+                              <li v-if="entry.status === 'posted'">
+                                <a href="#" @click.prevent="voidEntry(entry.id)">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                    fill="none">
+                                    <path d="M12 4L4 12M4 4L12 12" stroke="#F59E0B" stroke-width="1.5"
+                                      stroke-linecap="round" stroke-linejoin="round" />
+                                  </svg>
+                                  {{ $t('Void') }}
+                                </a>
+                              </li>
+                              <li v-if="entry.status === 'draft'">
+                                <a href="#" @click.prevent="deleteEntry(entry.id)">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                    fill="none">
+                                    <path
+                                      d="M2 4H14M5.5 4V2.5C5.5 2.2 5.7 2 6 2H10C10.3 2 10.5 2.2 10.5 2.5V4M12.5 4V13.5C12.5 13.8 12.3 14 12 14H4C3.7 14 3.5 13.8 3.5 13.5V4H12.5Z"
+                                      stroke="#EF4444" stroke-width="1.5" stroke-linecap="round"
+                                      stroke-linejoin="round" />
+                                  </svg>
+                                  {{ $t('Delete') }}
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
                         </div>
-
-                      </div>
-                    </td>
-                  </tr>
-                  <tr v-show="!loading && !items.length">
-                    <td colspan="9">
+                      </td>
+                    </tr>
+                  </template>
+                  <tr v-show="!loading && !displayItems.length">
+                    <td colspan="15" class="text-center">
                       <EmptyTable />
                     </td>
                   </tr>
                 </tbody>
+                <tfoot v-if="displayItems.length > 0">
+                  <tr class="table-footer">
+                    <td colspan="6" class="text-right font-weight-bold">
+                      {{ $t('Total') }}:
+                    </td>
+                    <td class="text-center font-weight-bold">
+                      <span class="text-success">
+                        <CurrencyDisplay :amount="totalDebit" />
+                      </span>
+                    </td>
+                    <td class="text-center font-weight-bold">
+                      <span class="text-danger">
+                        <CurrencyDisplay :amount="totalCredit" />
+                      </span>
+                    </td>
+                    <td colspan="7"></td>
+                  </tr>
+                </tfoot>
               </table>
             </div>
           </div>
@@ -241,6 +567,7 @@
 import { mapGetters } from 'vuex'
 import Swal from 'sweetalert2'
 import html2pdf from 'html2pdf.js'
+import vSelect from 'vue-select'
 
 export default {
   name: 'JournalEntriesIndex',
@@ -252,6 +579,7 @@ export default {
     Pagination: () => import('~/components/Pagination'),
     TableLoading: () => import('~/components/TableLoading'),
     CurrencyDisplay: () => import('~/components/CurrencyDisplay'),
+    vSelect
   },
   data() {
     return {
@@ -272,13 +600,68 @@ export default {
         from_date: '',
         to_date: ''
       },
+      columnFilters: {
+        entry_number: '',
+        date_from: '',
+        date_to: '',
+        branch: '',
+        type: '',
+        reference: '',
+        account: '',
+        debit: '',
+        credit: '',
+        cost_center: '',
+        description: '',
+        notes: '',
+        attachment: '',
+        created_by: '',
+        status: ''
+      },
+      branches: [],
+      chartOfAccounts: [],
+      loadingAccounts: false,
+      accountSearchTerm: '',
+      searchAccountsTimeout: null,
       perPage: 10,
-      openActionIndex: null
+      openActionIndex: null,
+      expandedDescriptions: {}
     }
   },
   // Map Getters
   computed: {
     ...mapGetters('operations', ['items', 'loading', 'pagination']),
+    displayItems() {
+      // Return items directly - filtering is now done server-side
+      return this.items || [];
+    },
+    totalDebit() {
+      if (!this.displayItems || this.displayItems.length === 0) {
+        return 0;
+      }
+      return this.displayItems.reduce((total, entry) => {
+        if (entry.lines && entry.lines.length > 0) {
+          const entryDebit = entry.lines.reduce((lineTotal, line) => {
+            return lineTotal + (parseFloat(line.debit_amount) || 0);
+          }, 0);
+          return total + entryDebit;
+        }
+        return total;
+      }, 0);
+    },
+    totalCredit() {
+      if (!this.displayItems || this.displayItems.length === 0) {
+        return 0;
+      }
+      return this.displayItems.reduce((total, entry) => {
+        if (entry.lines && entry.lines.length > 0) {
+          const entryCredit = entry.lines.reduce((lineTotal, line) => {
+            return lineTotal + (parseFloat(line.credit_amount) || 0);
+          }, 0);
+          return total + entryCredit;
+        }
+        return total;
+      }, 0);
+    },
     exportExcelUrl() {
       const params = new URLSearchParams();
       if (this.filters.status) params.append('status', this.filters.status);
@@ -326,6 +709,8 @@ export default {
   },
   created() {
     this.getData();
+    this.loadBranches();
+    this.loadChartOfAccounts('');
   },
   mounted() {
     document.addEventListener("click", this.onClickOutside);
@@ -391,7 +776,14 @@ export default {
     // update per page count
     updatePerPager() {
       this.pagination.current_page = 1;
-      if (this.query || this.filters.status || this.filters.from_date || this.filters.to_date) {
+      // Check if any filters are active
+      const hasFilters = this.query || 
+        this.filters.status || 
+        this.filters.from_date || 
+        this.filters.to_date ||
+        Object.values(this.columnFilters).some(val => val !== '');
+      
+      if (hasFilters) {
         this.searchData();
       } else {
         this.getData();
@@ -401,15 +793,35 @@ export default {
     async getData() {
       this.$store.state.operations.loading = true;
       let currentPage = this.pagination ? this.pagination.current_page : 1;
+      
+      // Build query parameters with column filters
+      const params = new URLSearchParams();
+      params.append('page', currentPage);
+      params.append('perPage', this.perPage);
+      
+      // Add all column filters
+      Object.keys(this.columnFilters).forEach(key => {
+        if (this.columnFilters[key]) {
+          params.append(key, this.columnFilters[key]);
+        }
+      });
+      
       await this.$store.dispatch("operations/fetchData", {
-        path: "/api/journal-entries?page=",
-        currentPage: currentPage + "&perPage=" + this.perPage,
+        path: "/api/journal-entries?" + params.toString(),
+        currentPage: "",
       });
     },
 
     // Pagination
     async paginate() {
-      if (this.query || this.filters.status || this.filters.from_date || this.filters.to_date) {
+      // Check if any filters are active
+      const hasFilters = this.query || 
+        this.filters.status || 
+        this.filters.from_date || 
+        this.filters.to_date ||
+        Object.values(this.columnFilters).some(val => val !== '');
+      
+      if (hasFilters) {
         this.searchData();
       } else {
         this.getData();
@@ -432,10 +844,12 @@ export default {
           perPage: this.perPage
         };
 
+        // Add query term if exists
         if (this.query) {
           params.term = this.query;
         }
 
+        // Add legacy filters
         if (this.filters.from_date) {
           params.startDate = this.filters.from_date;
         }
@@ -447,6 +861,13 @@ export default {
         if (this.filters.status) {
           params.status = this.filters.status;
         }
+
+        // Add all column filters
+        Object.keys(this.columnFilters).forEach(key => {
+          if (this.columnFilters[key]) {
+            params[key] = this.columnFilters[key];
+          }
+        });
 
         const response = await this.$axios.get('/api/journal-entries/search', { params });
 
@@ -487,6 +908,7 @@ export default {
         to_date: ''
       }
       this.query = ''
+      this.clearColumnFilters()
       this.getData()
     },
 
@@ -592,6 +1014,215 @@ export default {
       return classes[status] || 'badge badge-secondary'
     },
 
+    toggleDescription(key) {
+      this.$set(this.expandedDescriptions, key, !this.expandedDescriptions[key])
+    },
+
+    async loadBranches() {
+      try {
+        const response = await this.$axios.get('/api/branches');
+        if (response.data && response.data.data) {
+          this.branches = response.data.data;
+        }
+      } catch (error) {
+        console.error('Error loading branches:', error);
+      }
+    },
+
+    async loadChartOfAccounts(searchTerm = '') {
+      try {
+        this.loadingAccounts = true;
+        let response;
+        
+        if (searchTerm && searchTerm.length >= 2) {
+          // Use search endpoint for server-side search
+          response = await this.$axios.get('/api/chart-of-accounts/search', {
+            params: { term: searchTerm, perPage: 100 }
+          });
+        } else {
+          // Load initial accounts from dropdown (limit to 50 for performance)
+          response = await this.$axios.get('/api/chart-of-accounts/dropdown', {
+            params: { perPage: 50 }
+          });
+        }
+        
+        if (response.data) {
+          // Handle both paginated and non-paginated responses
+          let accounts = [];
+          if (response.data.data) {
+            // Check if it's paginated response
+            if (Array.isArray(response.data.data)) {
+              accounts = response.data.data;
+            } else if (response.data.data.data) {
+              // Paginated response
+              accounts = response.data.data.data;
+            }
+          }
+          
+          if (accounts.length > 0) {
+            // Build hierarchical structure and format for vue-select
+            const tree = this.buildAccountTree(accounts);
+            this.chartOfAccounts = tree.map(account => ({
+              ...account,
+              display_name: this.getAccountDisplayName(account)
+            }));
+          } else if (!searchTerm) {
+            // If no accounts loaded initially, load empty array
+            this.chartOfAccounts = [];
+          }
+        }
+      } catch (error) {
+        console.error('Error loading chart of accounts:', error);
+        this.chartOfAccounts = [];
+      } finally {
+        this.loadingAccounts = false;
+      }
+    },
+
+    searchAccounts(search, loading) {
+      // Debounce search to avoid too many API calls
+      if (this.searchAccountsTimeout) {
+        clearTimeout(this.searchAccountsTimeout);
+      }
+
+      this.searchAccountsTimeout = setTimeout(() => {
+        if (search && search.length >= 2) {
+          loading(true);
+          this.accountSearchTerm = search;
+          this.loadChartOfAccounts(search).then(() => {
+            loading(false);
+          }).catch(() => {
+            loading(false);
+          });
+        } else if (!search) {
+          // Load all accounts when search is cleared
+          loading(true);
+          this.loadChartOfAccounts('').then(() => {
+            loading(false);
+          }).catch(() => {
+            loading(false);
+          });
+        } else {
+          loading(false);
+        }
+      }, 300);
+    },
+
+    buildAccountTree(accounts) {
+      if (!accounts || accounts.length === 0) {
+        return [];
+      }
+
+      // Create a map for quick lookup
+      const accountMap = new Map();
+      const rootAccounts = [];
+
+      // First pass: create all account objects
+      accounts.forEach(account => {
+        const accountId = account.id;
+        const parentId = account.parent_id;
+        accountMap.set(accountId, {
+          id: accountId,
+          name: account.name,
+          code: account.code,
+          parent_id: parentId,
+          level: account.level || 0,
+          children: []
+        });
+      });
+
+      // Second pass: build tree structure
+      accounts.forEach(account => {
+        const accountId = account.id;
+        const parentId = account.parent_id;
+        const accountNode = accountMap.get(accountId);
+        if (parentId && accountMap.has(parentId)) {
+          const parent = accountMap.get(parentId);
+          parent.children.push(accountNode);
+        } else {
+          rootAccounts.push(accountNode);
+        }
+      });
+
+      // Flatten tree for select options with indentation
+      const flattened = [];
+      const flatten = (nodes, level = 0) => {
+        nodes.forEach(node => {
+          flattened.push({
+            ...node,
+            level: level
+          });
+          if (node.children && node.children.length > 0) {
+            flatten(node.children, level + 1);
+          }
+        });
+      };
+      flatten(rootAccounts);
+      
+      return flattened;
+    },
+
+    getAccountDisplayName(account) {
+      if (!account) return '';
+      const indent = '  '.repeat(account.level || 0);
+      const code = account.code || '';
+      const name = account.name || '';
+      return `${indent}${code} - ${name}`;
+    },
+
+    getEntryTypeLabel(entryType) {
+      if (!entryType) return '';
+      
+      const typeMap = {
+        'manual': this.$t('Manual'),
+        'opening_entry': this.$t('Opening Entry'),
+        'payment_voucher': this.$t('Payment Voucher'),
+        'receipt_voucher': this.$t('Receipt Voucher'),
+        'transfer_voucher': this.$t('Transfer Voucher'),
+        'pos_sales': this.$t('POS Sales'),
+        'sales': this.$t('Sales'),
+        'sales_returns': this.$t('Sales Returns'),
+        'purchases': this.$t('Purchases'),
+        'purchase_returns': this.$t('Purchase Returns'),
+        'credit_note': this.$t('Credit Note'),
+        'debit_note': this.$t('Debit Note'),
+        'inventory_transfer': this.$t('Inventory Transfer'),
+        'inventory_adjustment': this.$t('Inventory Adjustment'),
+      };
+      
+      return typeMap[entryType] || entryType;
+    },
+
+    applyFilters() {
+      // Reset to first page when filters change
+      this.pagination.current_page = 1;
+      // Reload data with new filters
+      this.getData();
+    },
+
+    clearColumnFilters() {
+      this.columnFilters = {
+        entry_number: '',
+        date_from: '',
+        date_to: '',
+        branch: '',
+        type: '',
+        reference: '',
+        account: '',
+        debit: '',
+        credit: '',
+        cost_center: '',
+        description: '',
+        notes: '',
+        attachment: '',
+        created_by: '',
+        status: ''
+      };
+      // Reload data after clearing filters
+      this.pagination.current_page = 1;
+      this.getData();
+    },
+
     // print table
     async print() {
       await this.$htmlToPaper("printMe");
@@ -649,6 +1280,11 @@ export default {
   border: none !important;
   border-color: inherit !important;
   font-weight: 400;
+}
+
+.journal-entries-table thead .filter-row th {
+  background-color: transparent !important;
+  color: inherit;
 }
 
 .journal-entries-table thead tr {
@@ -883,6 +1519,322 @@ export default {
   font-size: 12px !important;
   font-weight: 500 !important;
   padding: 10px 16px;
+}
+
+
+.journal-entries-table tr.entry-first-line {
+  border-top: 2px solid #e5e7eb;
+}
+
+.journal-entries-table td {
+  vertical-align: middle;
+}
+
+.account-cell {
+  max-width: 200px;
+  min-width: 150px;
+}
+
+.account-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.account-code {
+  font-size: 13px;
+  color: #374151;
+}
+
+.account-name {
+  font-size: 12px;
+  color: #6B7280;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 180px;
+}
+
+.description-cell {
+  max-width: 200px;
+  min-width: 150px;
+}
+
+.description-text {
+  display: block;
+  font-size: 13px;
+  color: #374151;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 180px;
+  transition: all 0.2s ease;
+}
+
+.description-text:hover {
+  color: #2563EB;
+  text-decoration: underline;
+}
+
+.description-text.expanded {
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 300px;
+  text-overflow: initial;
+}
+
+.table-footer {
+  background-color: #f8f9fa;
+  border-top: 2px solid #dee2e6;
+}
+
+.table-footer td {
+  padding: 12px 8px;
+  font-size: 14px;
+}
+
+.filter-row {
+  border-top: 2px solid #e5e7eb;
+}
+
+.filter-row th {
+  padding: 10px 6px !important;
+  vertical-align: middle;
+  border-bottom: 1px solid #e5e7eb;
+  height: 50px;
+  position: relative;
+}
+
+.column-filter {
+  width: 100%;
+  min-width: 120px;
+  max-width: 200px;
+  height: 32px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 12px;
+  background-color: #ffffff;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.column-filter:hover {
+  border-color: #9ca3af;
+}
+
+.column-filter:focus {
+  outline: none;
+  border-color: #33a0d9;
+  box-shadow: 0 0 0 3px rgba(51, 160, 217, 0.1);
+  background-color: #ffffff;
+}
+
+.column-filter::placeholder {
+  color: #9ca3af;
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.column-filter option {
+  padding: 8px;
+  font-size: 13px;
+}
+
+.journal-entries-table thead tr:first-child th {
+  border-bottom: 2px solid #e5e7eb;
+  padding: 12px 8px;
+  font-weight: 600;
+}
+
+.journal-entries-table thead .filter-row th {
+  background-color: transparent !important;
+  color: #374151;
+}
+
+/* Ensure consistent column widths */
+.journal-entries-table th,
+.journal-entries-table td {
+  white-space: nowrap;
+}
+
+.journal-entries-table th:nth-child(1),
+.journal-entries-table td:nth-child(1) {
+  min-width: 120px;
+  width: 120px;
+}
+
+.journal-entries-table th:nth-child(2),
+.journal-entries-table td:nth-child(2) {
+  min-width: 110px;
+  width: 110px;
+}
+
+.journal-entries-table th:nth-child(3),
+.journal-entries-table td:nth-child(3) {
+  min-width: 130px;
+  width: 130px;
+}
+
+.journal-entries-table th:nth-child(4),
+.journal-entries-table td:nth-child(4) {
+  min-width: 150px;
+  width: 150px;
+}
+
+.journal-entries-table th:nth-child(5),
+.journal-entries-table td:nth-child(5) {
+  min-width: 120px;
+  width: 120px;
+}
+
+.journal-entries-table th:nth-child(6),
+.journal-entries-table td:nth-child(6) {
+  min-width: 180px;
+  width: 180px;
+}
+
+.journal-entries-table th:nth-child(7),
+.journal-entries-table td:nth-child(7),
+.journal-entries-table th:nth-child(8),
+.journal-entries-table td:nth-child(8) {
+  min-width: 100px;
+  width: 100px;
+}
+
+.journal-entries-table th:nth-child(9),
+.journal-entries-table td:nth-child(9) {
+  min-width: 150px;
+  width: 150px;
+}
+
+.journal-entries-table th:nth-child(10),
+.journal-entries-table td:nth-child(10) {
+  min-width: 180px;
+  width: 180px;
+}
+
+.journal-entries-table th:nth-child(11),
+.journal-entries-table td:nth-child(11) {
+  min-width: 150px;
+  width: 150px;
+}
+
+.journal-entries-table th:nth-child(12),
+.journal-entries-table td:nth-child(12) {
+  min-width: 100px;
+  width: 100px;
+}
+
+.journal-entries-table th:nth-child(13),
+.journal-entries-table td:nth-child(13) {
+  min-width: 130px;
+  width: 130px;
+}
+
+.journal-entries-table th:nth-child(14),
+.journal-entries-table td:nth-child(14) {
+  min-width: 120px;
+  width: 120px;
+}
+
+.journal-entries-table th:nth-child(15),
+.journal-entries-table td:nth-child(15) {
+  min-width: 100px;
+  width: 100px;
+}
+
+.clear-filters-btn {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  color: #6b7280;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.clear-filters-btn:hover {
+  background-color: #f3f4f6;
+  border-color: #9ca3af;
+  color: #374151;
+}
+
+.clear-filters-btn i {
+  font-size: 14px;
+}
+
+/* Better styling for select filters */
+.column-filter[type="date"] {
+  cursor: pointer;
+}
+
+.column-filter select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 30px;
+}
+
+.vue-select-sm {
+  font-size: 12px;
+}
+
+.vue-select-sm .vs__dropdown-toggle {
+  min-height: 32px;
+  padding: 0;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+}
+
+.vue-select-sm .vs__search {
+  font-size: 12px;
+  padding: 6px 10px;
+}
+
+.vue-select-sm .vs__selected {
+  font-size: 12px;
+  padding: 4px 8px;
+}
+
+.vue-select-sm .vs__actions {
+  padding: 4px 6px;
+}
+
+.vue-select-sm .vs__clear {
+  width: 16px;
+  height: 16px;
+}
+
+.vue-select-sm .vs__open-indicator {
+  width: 12px;
+  height: 12px;
+}
+
+.date-range-filter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: nowrap;
+}
+
+.date-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.date-separator {
+  color: #6b7280;
+  font-size: 12px;
+  font-weight: 500;
+  flex-shrink: 0;
+  padding: 0 2px;
 }
 
 /* Search Input Background Override */

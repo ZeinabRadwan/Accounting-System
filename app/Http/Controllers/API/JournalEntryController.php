@@ -36,18 +36,113 @@ class JournalEntryController extends Controller
     {
         $perPage = $request->perPage ?? 10;
 
-        $query = JournalEntry::with(['lines.chartOfAccount.type.translations', 'lines.chartOfAccount.translations', 'creator', 'poster']);
+        $query = JournalEntry::with(['lines.chartOfAccount.type.translations', 'lines.chartOfAccount.translations', 'lines.costCenter', 'creator', 'poster', 'branch']);
 
-        // Apply branch filter
-        $user = Auth::user();
-        $defaultBranchId = (int) ($user->default_branch_id ?? 0);
-        if ($defaultBranchId > 0) {
-            $query->where('branch_id', $defaultBranchId);
-        }
+        // Apply all column filters
+        $this->applyFilters($query, $request);
 
         $journalEntries = $query->latest()->paginate($perPage);
 
         return JournalEntryResource::collection($journalEntries);
+    }
+
+    /**
+     * Apply filters to query
+     */
+    protected function applyFilters($query, Request $request)
+    {
+        // Entry number filter
+        if ($request->has('entry_number') && $request->entry_number) {
+            $query->where('entry_number', 'LIKE', "%{$request->entry_number}%");
+        }
+
+        // Date range filter
+        if ($request->has('date_from') && $request->date_from) {
+            $query->where('entry_date', '>=', $request->date_from);
+        }
+        if ($request->has('date_to') && $request->date_to) {
+            $query->where('entry_date', '<=', $request->date_to);
+        }
+
+        // Branch filter
+        if ($request->has('branch') && $request->branch) {
+            $query->where('branch_id', $request->branch);
+        }
+
+        // Entry type filter
+        if ($request->has('type') && $request->type) {
+            $query->where('entry_type', $request->type);
+        }
+
+        // Reference filter
+        if ($request->has('reference') && $request->reference) {
+            $query->where('reference', 'LIKE', "%{$request->reference}%");
+        }
+
+        // Status filter
+        if ($request->has('status') && $request->status) {
+            $query->where('status', $request->status);
+        }
+
+        // Created by filter
+        if ($request->has('created_by') && $request->created_by) {
+            $query->whereHas('creator', function ($q) use ($request) {
+                $q->where('name', 'LIKE', "%{$request->created_by}%");
+            });
+        }
+
+        // Notes filter
+        if ($request->has('notes') && $request->notes) {
+            $query->where('notes', 'LIKE', "%{$request->notes}%");
+        }
+
+        // Attachment filter (search in filename)
+        if ($request->has('attachment') && $request->attachment) {
+            $query->where('attachment', 'LIKE', "%{$request->attachment}%");
+        }
+
+        // Account filter (filter by chart of account in lines)
+        if ($request->has('account') && $request->account) {
+            $query->whereHas('lines', function ($q) use ($request) {
+                $q->where('chart_of_account_id', $request->account);
+            });
+        }
+
+        // Debit amount filter
+        if ($request->has('debit') && $request->debit) {
+            $query->whereHas('lines', function ($q) use ($request) {
+                $q->where('debit_amount', '>=', $request->debit);
+            });
+        }
+
+        // Credit amount filter
+        if ($request->has('credit') && $request->credit) {
+            $query->whereHas('lines', function ($q) use ($request) {
+                $q->where('credit_amount', '>=', $request->credit);
+            });
+        }
+
+        // Cost center filter
+        if ($request->has('cost_center') && $request->cost_center) {
+            $query->whereHas('lines', function ($q) use ($request) {
+                $q->whereHas('costCenter', function ($costCenterQuery) use ($request) {
+                    $costCenterQuery->where(function ($cc) use ($request) {
+                        $cc->where('name', 'LIKE', "%{$request->cost_center}%")
+                            ->orWhere('code', 'LIKE', "%{$request->cost_center}%");
+                    });
+                });
+            });
+        }
+
+        // Description filter (search in entry description or line descriptions)
+        if ($request->has('description') && $request->description) {
+            $query->where(function ($q) use ($request) {
+                $q->where('description', 'LIKE', "%{$request->description}%")
+                    ->orWhereHas('lines', function ($lineQuery) use ($request) {
+                        $lineQuery->where('description', 'LIKE', "%{$request->description}%");
+                    });
+            });
+        }
     }
 
     /**
@@ -56,15 +151,14 @@ class JournalEntryController extends Controller
     public function getAll()
     {
         try {
-            $query = JournalEntry::with(['lines.chartOfAccount.type', 'creator', 'poster'])
+            $query = JournalEntry::with(['lines.chartOfAccount.type', 'lines.costCenter', 'creator', 'poster', 'branch'])
                 ->orderBy('entry_date', 'desc')
                 ->orderBy('created_at', 'desc');
 
-            // Apply branch filter
-            $user = Auth::user();
-            $defaultBranchId = (int) ($user->default_branch_id ?? 0);
-            if ($defaultBranchId > 0) {
-                $query->where('branch_id', $defaultBranchId);
+            // Optional branch filter from request
+            $request = request();
+            if ($request->has('branch_id') && $request->branch_id) {
+                $query->where('branch_id', $request->branch_id);
             }
 
             $journalEntries = $query->get();
@@ -91,27 +185,56 @@ class JournalEntryController extends Controller
 
             $request->validate([
                 'entry_date' => 'required|date',
+                'entry_type' => 'nullable|string|in:manual,opening_entry,payment_voucher,receipt_voucher,transfer_voucher,pos_sales,sales,sales_returns,purchases,purchase_returns,credit_note,debit_note,inventory_transfer,inventory_adjustment',
                 'reference' => 'nullable|string|max:255',
                 'description' => 'required|string|max:500',
-                'lines' => 'required|array|min:2',
-                'lines.*.chart_of_account_id' => 'required|exists:chart_of_accounts,id',
-                'lines.*.cost_center_id' => $costCentersRequired ? 'required|exists:cost_centers,id' : 'nullable|exists:cost_centers,id',
-                'lines.*.debit_amount' => 'required_without:lines.*.credit_amount|numeric|min:0',
-                'lines.*.credit_amount' => 'required_without:lines.*.debit_amount|numeric|min:0',
-                'lines.*.description' => 'nullable|string|max:255',
-                'lines.*.reference' => 'nullable|string|max:255',
+                'notes' => 'nullable|string',
+                'attachment' => 'nullable|file|max:10240', // 10MB max, allow common file types
+                'lines' => 'required|string', // JSON string from FormData
+                'branch_id' => 'required|integer|exists:branches,id',
                 'status' => 'nullable|in:draft,posted',
             ]);
 
             $data = $request->all();
             $data['status'] = $data['status'] ?? 'draft';
 
-            // Set branch
-            $data['branch_id'] = (int) (Auth::user()->default_branch_id ?? 0);
+            // Parse lines from JSON string if it's a string
+            if (isset($data['lines']) && is_string($data['lines'])) {
+                $decodedLines = json_decode($data['lines'], true);
+                if (json_last_error() === JSON_ERROR_NONE) {
+                    $data['lines'] = $decodedLines;
+                } else {
+                    return response()->json([
+                        'message' => 'Invalid lines data format',
+                        'error' => 'Lines must be valid JSON',
+                    ], 422);
+                }
+            }
+
+            // Validate lines structure
+            if (! isset($data['lines']) || ! is_array($data['lines']) || count($data['lines']) < 2) {
+                return response()->json([
+                    'message' => 'Journal entry must have at least 2 lines',
+                    'error' => 'Invalid lines data',
+                ], 422);
+            }
+
+            // Set branch from request (already validated as required)
+            $data['branch_id'] = (int) $data['branch_id'];
 
             // Handle empty reference string - convert to null if empty
             if (isset($data['reference']) && $data['reference'] === '') {
                 $data['reference'] = null;
+            }
+
+            // Handle file upload
+            if ($request->hasFile('attachment')) {
+                $file = $request->file('attachment');
+                $extension = $file->getClientOriginalExtension();
+                $attachmentPath = store_in_tenant('journal-entries/attachments', $file, $extension);
+                $data['attachment'] = $attachmentPath;
+            } else {
+                $data['attachment'] = null;
             }
 
             $journalEntry = $this->journalService->createCustomJournalEntry($data, Auth::id());
@@ -138,17 +261,12 @@ class JournalEntryController extends Controller
             $query = JournalEntry::with([
                 'lines.chartOfAccount.type.translations',
                 'lines.chartOfAccount.translations',
+                'lines.costCenter',
                 'creator',
                 'poster',
+                'branch',
                 'accountTransactions',
             ]);
-
-            // Apply branch filter
-            $user = Auth::user();
-            $defaultBranchId = (int) ($user->default_branch_id ?? 0);
-            if ($defaultBranchId > 0) {
-                $query->where('branch_id', $defaultBranchId);
-            }
 
             $journalEntry = $query->findOrFail($id);
 
@@ -179,8 +297,11 @@ class JournalEntryController extends Controller
 
             $request->validate([
                 'entry_date' => 'required|date',
+                'entry_type' => 'nullable|string',
                 'reference' => 'nullable|string|max:255',
                 'description' => 'required|string|max:500',
+                'notes' => 'nullable|string',
+                'attachment' => 'nullable|string|max:255',
                 'lines' => 'required|array|min:2',
                 'lines.*.chart_of_account_id' => 'required|exists:chart_of_accounts,id',
                 'lines.*.debit_amount' => 'required_without:lines.*.credit_amount|numeric|min:0',
@@ -199,8 +320,11 @@ class JournalEntryController extends Controller
                 // Update journal entry
                 $journalEntry->update([
                     'entry_date' => $request->entry_date,
+                    'entry_type' => $request->entry_type,
                     'reference' => $reference,
                     'description' => $request->description,
+                    'notes' => $request->notes,
+                    'attachment' => $request->attachment,
                 ]);
 
                 // Recalculate totals
@@ -323,34 +447,29 @@ class JournalEntryController extends Controller
     public function search(Request $request)
     {
         try {
-            $term = $request->term;
-            $query = JournalEntry::with(['lines.chartOfAccount.type.translations', 'lines.chartOfAccount.translations', 'creator', 'poster']);
+            $query = JournalEntry::with(['lines.chartOfAccount.type.translations', 'lines.chartOfAccount.translations', 'lines.costCenter', 'creator', 'poster', 'branch']);
 
-            // Apply branch filter
-            $user = Auth::user();
-            $defaultBranchId = (int) ($user->default_branch_id ?? 0);
-            if ($defaultBranchId > 0) {
-                $query->where('branch_id', $defaultBranchId);
-            }
+            // Apply all filters (same as index)
+            $this->applyFilters($query, $request);
 
-            if ($request->startDate && $request->endDate) {
-                $query->whereBetween('entry_date', [$request->startDate, $request->endDate]);
-            }
-
-            if ($request->status) {
-                $query->where('status', $request->status);
-            }
-
-            if ($request->source_type) {
-                $query->where('source_type', $request->source_type);
-            }
-
-            if ($term) {
+            // Legacy search term support
+            if ($request->term) {
+                $term = $request->term;
                 $query->where(function ($q) use ($term) {
                     $q->where('entry_number', 'LIKE', "%{$term}%")
                         ->orWhere('reference', 'LIKE', "%{$term}%")
                         ->orWhere('description', 'LIKE', "%{$term}%");
                 });
+            }
+
+            // Legacy date range support
+            if ($request->startDate && $request->endDate) {
+                $query->whereBetween('entry_date', [$request->startDate, $request->endDate]);
+            }
+
+            // Legacy status support
+            if ($request->status && ! $request->has('status')) {
+                $query->where('status', $request->status);
             }
 
             $perPage = $request->perPage ?? 10;
@@ -361,6 +480,26 @@ class JournalEntryController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error searching journal entries',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Get next entry number
+     */
+    public function getNextEntryNumber()
+    {
+        try {
+            $nextNumber = JournalEntry::generateEntryNumber();
+
+            return response()->json([
+                'next_entry_number' => $nextNumber,
+                'formatted_entry_number' => 'JE-'.$nextNumber,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Error generating entry number',
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -427,11 +566,9 @@ class JournalEntryController extends Controller
                 ->orderBy('chart_of_account_types.order')
                 ->orderBy('chart_of_accounts.code');
 
-            // Apply branch filter
-            $user = Auth::user();
-            $defaultBranchId = (int) ($user->default_branch_id ?? 0);
-            if ($defaultBranchId > 0) {
-                $query->where('journal_entries.branch_id', $defaultBranchId);
+            // Optional branch filter from request
+            if ($request->has('branch_id') && $request->branch_id) {
+                $query->where('journal_entries.branch_id', $request->branch_id);
             }
 
             $trialBalance = $query->get();

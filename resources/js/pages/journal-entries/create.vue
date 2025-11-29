@@ -48,7 +48,7 @@
             <form @submit.prevent="saveJournalEntry">
               <!-- Basic Information -->
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <div class="form-group">
                     <label>{{ $t('Entry Date') }} <span class="text-danger">*</span></label>
                     <input v-model="form.entry_date" type="date" class="form-control"
@@ -58,35 +58,33 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <div class="form-group">
                     <label>{{ $t('Reference') }}</label>
                     <input v-model="form.reference" type="text" class="form-control"
                       :placeholder="$t('Optional reference number')" />
-                    <small class="form-text text-muted">{{ $t('Leave blank if no reference is needed') }}</small>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <div class="form-group">
-                    <label>{{ $t('Status') }}</label>
-                    <select v-model="form.status" class="form-control">
-                      <option value="draft">{{ $t('Draft') }}</option>
-                      <option value="posted">{{ $t('Posted') }}</option>
+                    <label>{{ $t('Branch') }}</label>
+                    <select v-model="form.branch_id" class="form-control" required>
+                      <option value="">{{ $t('Select Branch') }}</option>
+                      <option v-for="branch in branches" :key="branch.id" :value="branch.id">
+                        {{ branch.name }}
+                      </option>
                     </select>
+                    <div v-if="errors.branch_id" class="invalid-feedback">
+                      {{ errors.branch_id[0] }}
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-3">
                   <div class="form-group">
-                    <label>{{ $t('Description') }} <span class="text-danger">*</span></label>
-                    <textarea v-model="form.description" class="form-control" rows="3"
-                      :placeholder="$t('Enter description for this journal entry')"
-                      :class="{ 'is-invalid': errors.description }" required></textarea>
-                    <div v-if="errors.description" class="invalid-feedback">
-                      {{ errors.description[0] }}
-                    </div>
+                    <label>{{ $t('Entry Number') }}</label>
+                    <input :value="nextEntryNumber" type="text" class="form-control" readonly
+                      :placeholder="$t('Auto-generated')" />
+                    <small class="form-text text-muted">{{ $t('Auto-generated entry number') }}</small>
                   </div>
                 </div>
               </div>
@@ -106,11 +104,11 @@
                     <table class="table je-lines-table mb-0">
                       <thead>
                         <tr>
-                          <th style="width: 25%">{{ $t('Chart of Account') }}</th>
+                          <th style="width: 30%">{{ $t('Account Code & Name') }}</th>
                           <th style="width: 15%" class="text-right">{{ $t('Debit') }}</th>
                           <th style="width: 15%" class="text-right">{{ $t('Credit') }}</th>
                           <th style="width: 20%">{{ $t('Cost Center') }}</th>
-                          <th style="width: 20%">{{ $t('Description') }}</th>
+                          <th style="width: 15%">{{ $t('Statement') }}</th>
                           <th style="width: 5%" class="text-center">{{ $t('Actions') }}</th>
                         </tr>
                       </thead>
@@ -124,9 +122,14 @@
                               @input="(value) => onChartOfAccountChange(index, value)">
                               <template #option="{ name, code, type }">
                                 <div>
-                                  <strong>{{ name }}</strong>
+                                  <strong>{{ code }} - {{ name }}</strong>
                                   <br>
-                                  <small class="text-muted">{{ code }} - {{ type }}</small>
+                                  <small class="text-muted">{{ type }}</small>
+                                </div>
+                              </template>
+                              <template #selected-option="{ name, code }">
+                                <div>
+                                  <strong>{{ code }} - {{ name }}</strong>
                                 </div>
                               </template>
                             </v-select>
@@ -134,15 +137,15 @@
                               {{ errors[`lines.${index}.chart_of_account_id`][0] }}
                             </div>
                           </td>
-                          <td class="align-middle">
+                          <td class="align-middle text-right">
                             <input v-model="line.debit_amount" type="number" step="0.01" min="0"
                               class="form-control text-right" :placeholder="$t('0.00')"
-                              @input="calculateLineAmount(index)" />
+                              @input="calculateLineAmount(index)" style="text-align: right;" />
                           </td>
-                          <td class="align-middle">
+                          <td class="align-middle text-right">
                             <input v-model="line.credit_amount" type="number" step="0.01" min="0"
                               class="form-control text-right" :placeholder="$t('0.00')"
-                              @input="calculateLineAmount(index)" />
+                              @input="calculateLineAmount(index)" style="text-align: right;" />
                           </td>
                           <td class="align-middle">
                             <CostCenterSelect
@@ -156,8 +159,7 @@
                             </div>
                           </td>
                           <td class="align-middle">
-                            <input v-model="line.description" type="text" class="form-control"
-                              :placeholder="$t('Line description')" />
+                            <input v-model="line.description" type="text" class="form-control" />
                           </td>
                           <td class="text-center align-middle">
                             <button v-if="form.lines.length > 2" type="button" @click="removeLine(index)"
@@ -169,14 +171,14 @@
                       </tbody>
                       <tfoot>
                         <tr class="je-summary-row">
-                          <td class="text-right"><strong>{{ $t('Totals') }}:</strong></td>
+                          <td class="text-right"><strong>: {{ $t('Totals') }}</strong></td>
                           <td class="text-right">
                             <CurrencyDisplay :amount="totalDebit" />
                           </td>
                           <td class="text-right">
                             <CurrencyDisplay :amount="totalCredit" />
                           </td>
-                          <td colspan="2">
+                          <td colspan="3">
                             <div :class="['badge', isBalanced ? 'badge-success' : 'badge-warning']">
                               {{ isBalanced ? $t('Balanced') : $t('Unbalanced') }}
                               <span v-if="!isBalanced"> - {{ $t('Diff') }}:
@@ -199,17 +201,46 @@
                 </div>
               </div>
 
+              <!-- Attachment and Notes -->
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>{{ $t('Attachment') }}</label>
+                    <input 
+                      type="file" 
+                      class="form-control" 
+                      @change="onAttachmentChange"
+                      accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.gif"
+                      ref="attachmentInput"
+                    />
+                    <small class="form-text text-muted" v-if="attachmentFile">
+                      {{ attachmentFile.name }} ({{ formatFileSize(attachmentFile.size) }})
+                    </small>
+                    <small class="form-text text-muted" v-else>
+                      {{ $t('Optional attachment file') }}
+                    </small>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>{{ $t('Notes') }}</label>
+                    <textarea v-model="form.notes" class="form-control" rows="3"
+                      :placeholder="$t('Additional notes')"></textarea>
+                  </div>
+                </div>
+              </div>
+
               <!-- Form Actions -->
               <div class="card-footer">
                 <div class="dtable-footer">
                   <div class="form-group row display-per-page footer-buttons d-flex justify-content-between w-100">
                     <button type="submit" class="btn btn-success" :disabled="!isBalanced || loading">
                       <i v-if="loading" class="fa fa-spinner fa-spin"></i>
-                      <i v-else class="fa fa-save"></i>
-                      {{ loading ? $t('Saving...') : $t('Save') }}
+                      <i v-else class="fa fa-plus"></i>
+                      {{ loading ? $t('Saving...') : $t('Add') }}
                     </button>
                     <button type="button" class="btn btn-secondary" @click="resetForm">
-                      <i class="fas fa-power-off"></i> {{ $t('Reset') }}
+                      <i class="fas fa-times"></i> {{ $t('Cancel') }}
                     </button>
                   </div>
                 </div>
@@ -254,10 +285,14 @@ export default {
         entry_date: new Date().toISOString().split('T')[0],
         reference: '',
         description: '',
+        branch_id: null,
+        notes: '',
+        attachment: '',
         status: 'draft',
         lines: [
           {
             chart_of_account_id: '',
+            cost_center_id: null,
             description: '',
             reference: '',
             debit_amount: '',
@@ -266,6 +301,7 @@ export default {
           },
           {
             chart_of_account_id: '',
+            cost_center_id: null,
             description: '',
             reference: '',
             debit_amount: '',
@@ -275,6 +311,10 @@ export default {
         ]
       },
       chartOfAccounts: [],
+      branches: [],
+      currentBranch: null,
+      nextEntryNumber: '',
+      attachmentFile: null,
       errors: {},
       loading: false
     }
@@ -302,6 +342,9 @@ export default {
   },
   async created() {
     await this.loadChartOfAccounts()
+    await this.loadBranches()
+    await this.loadCurrentBranch()
+    await this.loadNextEntryNumber()
   },
   mounted() {
     this.loadTemporaryData()
@@ -316,6 +359,68 @@ export default {
       } catch (error) {
         console.error('Error loading chart of accounts:', error)
         window.toast.error('Error loading chart of accounts')
+      }
+    },
+
+    async loadBranches() {
+      try {
+        const user = this.$store.getters['auth/user']
+        const isSuperAdmin = user && Number(user.account_role) === 1
+
+        if (isSuperAdmin) {
+          // Load all branches for superadmin
+          const response = await this.$axios.get('/api/branches', {
+            params: { perPage: 1000 }
+          })
+          this.branches = Array.isArray(response.data?.data) ? response.data.data : []
+        } else if (user && user.id) {
+          // Load user's assigned branches
+          const response = await this.$axios.get(`/api/users/${user.id}/branches`)
+          this.branches = Array.isArray(response.data) ? response.data : (response.data?.data || [])
+        } else {
+          this.branches = []
+        }
+      } catch (error) {
+        console.error('Error loading branches:', error)
+        this.branches = []
+      }
+    },
+
+    async loadCurrentBranch() {
+      try {
+        const response = await this.$axios.get('/api/branches/current')
+        if (response.data && response.data.branch) {
+          this.currentBranch = response.data.branch
+          this.form.branch_id = response.data.branch.id
+        }
+      } catch (error) {
+        console.error('Error loading current branch:', error)
+        // Try to get from user
+        const user = this.$store.getters['auth/user']
+        if (user && user.default_branch_id) {
+          // Find branch in loaded branches
+          const defaultBranch = this.branches.find(b => b.id === user.default_branch_id)
+          if (defaultBranch) {
+            this.currentBranch = defaultBranch
+            this.form.branch_id = defaultBranch.id
+          }
+        } else if (this.branches.length > 0) {
+          // Use first branch if no default
+          this.currentBranch = this.branches[0]
+          this.form.branch_id = this.branches[0].id
+        }
+      }
+    },
+
+    async loadNextEntryNumber() {
+      try {
+        const response = await this.$axios.get('/api/journal-entries/next-entry-number')
+        if (response.data && response.data.formatted_entry_number) {
+          this.nextEntryNumber = response.data.formatted_entry_number
+        }
+      } catch (error) {
+        console.error('Error loading next entry number:', error)
+        this.nextEntryNumber = 'JE-1'
       }
     },
 
@@ -334,6 +439,13 @@ export default {
         debit_amount: '',
         credit_amount: '',
         line_number: lineNumber
+      })
+      // Scroll to the new line
+      this.$nextTick(() => {
+        const table = document.querySelector('.je-lines-table')
+        if (table) {
+          table.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+        }
       })
     },
 
@@ -379,6 +491,23 @@ export default {
         // Validate balance
         if (!this.isBalanced) {
           window.toast.warning(this.$t('Journal entry must be balanced'))
+          this.loading = false
+          return
+        }
+
+        // Validate description
+        if (!this.form.description || this.form.description.trim() === '') {
+          window.toast.error(this.$t('Description is required'))
+          this.errors.description = [this.$t('Description is required')]
+          this.loading = false
+          return
+        }
+
+        // Validate branch
+        if (!this.form.branch_id) {
+          window.toast.error(this.$t('Branch is required'))
+          this.errors.branch_id = [this.$t('Branch is required')]
+          this.loading = false
           return
         }
 
@@ -386,28 +515,60 @@ export default {
         const invalidLines = this.form.lines.filter(line => !line.chart_of_account_id)
         if (invalidLines.length > 0) {
           window.toast.error(this.$t('Please select chart of accounts for all lines'))
+          this.loading = false
           return
         }
 
-        // Prepare data
-        const data = {
-          ...this.form,
-          lines: this.form.lines.map(line => ({
-            ...line,
-            debit_amount: parseFloat(line.debit_amount) || 0,
-            credit_amount: parseFloat(line.credit_amount) || 0
-          }))
+        // Validate that each line has either debit or credit
+        const invalidAmountLines = this.form.lines.filter(line => {
+          const debit = parseFloat(line.debit_amount) || 0
+          const credit = parseFloat(line.credit_amount) || 0
+          return debit === 0 && credit === 0
+        })
+        if (invalidAmountLines.length > 0) {
+          window.toast.error(this.$t('Each line must have either a debit or credit amount.'))
+          this.loading = false
+          return
         }
 
-        // Debug: Log the data being sent
-        console.log('Form data being sent:', data)
-        console.log('Reference value:', data.reference)
-        console.log('Reference type:', typeof data.reference)
-        console.log('Chart of account IDs:', data.lines.map(line => line.chart_of_account_id))
-        console.log('Original form lines:', this.form.lines)
-        console.log('Chart of accounts array:', this.chartOfAccounts)
+        // Prepare data using FormData to support file upload
+        const formData = new FormData()
+        
+        // Add form fields
+        formData.append('entry_date', this.form.entry_date)
+        formData.append('reference', this.form.reference || '')
+        formData.append('description', this.form.description || '')
+        formData.append('branch_id', this.form.branch_id)
+        formData.append('notes', this.form.notes || '')
+        formData.append('status', this.form.status || 'draft')
+        
+        // Add attachment file if exists
+        if (this.attachmentFile) {
+          formData.append('attachment', this.attachmentFile)
+        }
+        
+        // Add lines as JSON string
+        formData.append('lines', JSON.stringify(this.form.lines.map(line => ({
+          chart_of_account_id: line.chart_of_account_id,
+          cost_center_id: line.cost_center_id || null,
+          description: line.description || '',
+          reference: line.reference || '',
+          debit_amount: parseFloat(line.debit_amount) || 0,
+          credit_amount: parseFloat(line.credit_amount) || 0,
+          line_number: line.line_number || 1
+        }))))
 
-        const response = await this.$axios.post('/api/journal-entries', data)
+        // Debug: Log the form data being sent
+        console.log('Form data being sent:')
+        for (let [key, value] of formData.entries()) {
+          console.log(key, ':', value)
+        }
+
+        const response = await this.$axios.post('/api/journal-entries', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
 
         // Clear temporary data after successful save
         this.clearTemporaryData()
@@ -477,15 +638,46 @@ export default {
       }).format(amount)
     },
 
+    onAttachmentChange(event) {
+      const file = event.target.files[0]
+      if (!file) {
+        this.attachmentFile = null
+        return
+      }
+      
+      // Validate file size (10MB = 10485760 bytes)
+      const maxSize = 10 * 1024 * 1024 // 10MB
+      if (file.size > maxSize) {
+        window.toast.error(this.$t('File size must be less than 10 MB'))
+        event.target.value = '' // Clear the input
+        this.attachmentFile = null
+        return
+      }
+      
+      this.attachmentFile = file
+    },
+
+    formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes'
+      const k = 1024
+      const sizes = ['Bytes', 'KB', 'MB', 'GB']
+      const i = Math.floor(Math.log(bytes) / Math.log(k))
+      return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i]
+    },
+
     resetForm() {
       this.form = {
         entry_date: new Date().toISOString().split('T')[0],
         reference: '',
         description: '',
+        branch_id: this.currentBranch?.id || null,
+        notes: '',
+        attachment: '',
         status: 'draft',
         lines: [
           {
             chart_of_account_id: '',
+            cost_center_id: null,
             description: '',
             reference: '',
             debit_amount: '',
@@ -494,6 +686,7 @@ export default {
           },
           {
             chart_of_account_id: '',
+            cost_center_id: null,
             description: '',
             reference: '',
             debit_amount: '',
@@ -502,7 +695,12 @@ export default {
           }
         ]
       }
+      this.attachmentFile = null
+      if (this.$refs.attachmentInput) {
+        this.$refs.attachmentInput.value = ''
+      }
       this.errors = {}
+      this.loadNextEntryNumber()
     }
   }
 }
@@ -566,6 +764,23 @@ export default {
   border: 1px solid #E5E7EB;
   padding: 10px 16px;
   font-size: 14px;
+  line-height: 1.5;
+}
+
+input.form-control,
+select.form-control {
+  height: 42px !important;
+  padding: 10px 16px !important;
+  box-sizing: border-box;
+}
+
+input[type="date"].form-control,
+input[type="text"].form-control,
+input[type="number"].form-control,
+select.form-control {
+  height: 42px !important;
+  padding: 10px 16px !important;
+  line-height: 1.5 !important;
 }
 
 .form-control:focus {
@@ -732,14 +947,83 @@ textarea.form-control {
 }
 
 /* Journal Entry Lines - Table Layout */
+.je-lines-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
 .je-lines-table thead th {
   background-color: #f8f9fa;
   font-weight: 600;
   border-bottom: 2px solid #E5E7EB;
+  padding: 12px 16px;
+}
+
+/* Default text alignment - will be overridden by RTL */
+.je-lines-table thead th {
+  text-align: left;
+}
+
+[dir="rtl"] .je-lines-table thead th {
+  text-align: right;
+}
+
+.je-lines-table thead th.text-right {
+  text-align: right !important;
+}
+
+[dir="rtl"] .je-lines-table thead th.text-right {
+  text-align: right !important;
+}
+
+.je-lines-table thead th.text-center {
+  text-align: center !important;
 }
 
 .je-lines-table td {
   vertical-align: middle;
+  padding: 12px 16px;
+}
+
+/* Default text alignment for cells */
+.je-lines-table td {
+  text-align: left;
+}
+
+[dir="rtl"] .je-lines-table td {
+  text-align: right;
+}
+
+.je-lines-table td.text-right {
+  text-align: right !important;
+  direction: ltr; /* Force LTR for numbers */
+}
+
+[dir="rtl"] .je-lines-table td.text-right {
+  text-align: right !important;
+  direction: ltr; /* Force LTR for numbers in RTL */
+}
+
+.je-lines-table td.text-center {
+  text-align: center !important;
+}
+
+.je-lines-table .form-control {
+  text-align: left;
+}
+
+[dir="rtl"] .je-lines-table .form-control {
+  text-align: right;
+}
+
+.je-lines-table .form-control.text-right {
+  text-align: right !important;
+  direction: ltr !important; /* Force LTR for number inputs */
+}
+
+[dir="rtl"] .je-lines-table .form-control.text-right {
+  text-align: right !important;
+  direction: ltr !important; /* Force LTR for number inputs in RTL */
 }
 
 .je-summary-row td {

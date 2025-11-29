@@ -367,6 +367,7 @@ Route::middleware([
         // Journal Entry routes
         Route::get('/journal-entries/search', [JournalEntryController::class, 'search']);
         Route::get('/journal-entries/all', [JournalEntryController::class, 'getAll']);
+        Route::get('/journal-entries/next-entry-number', [JournalEntryController::class, 'getNextEntryNumber']);
         Route::get('/journal-entries/chart-of-accounts', [JournalEntryController::class, 'getChartOfAccounts']);
         Route::get('/journal-entries/trial-balance', [JournalEntryController::class, 'getTrialBalance']);
         Route::post('/journal-entries/{id}/post', [JournalEntryController::class, 'post']);

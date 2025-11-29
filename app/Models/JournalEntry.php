@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Enums\JournalEntryType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class JournalEntry extends Model
 {
@@ -17,8 +18,11 @@ class JournalEntry extends Model
     protected $fillable = [
         'entry_number',
         'entry_date',
+        'entry_type',
         'reference',
         'description',
+        'notes',
+        'attachment',
         'total_debit',
         'total_credit',
         'status',
@@ -37,6 +41,7 @@ class JournalEntry extends Model
         'posted_at' => 'datetime',
         'total_debit' => 'decimal:2',
         'total_credit' => 'decimal:2',
+        'entry_type' => JournalEntryType::class,
     ];
 
     protected $appends = [
@@ -44,6 +49,7 @@ class JournalEntry extends Model
         'balance_difference',
         'formatted_entry_number',
         'formatted_status',
+        'formatted_entry_type',
     ];
 
     /**
@@ -161,7 +167,7 @@ class JournalEntry extends Model
      */
     public function getFormattedEntryNumberAttribute(): string
     {
-        return 'JE-' . str_pad($this->entry_number, 6, '0', STR_PAD_LEFT);
+        return 'JE-'.str_pad($this->entry_number, 6, '0', STR_PAD_LEFT);
     }
 
     /**
@@ -173,13 +179,22 @@ class JournalEntry extends Model
     }
 
     /**
+     * Get formatted entry type
+     */
+    public function getFormattedEntryTypeAttribute(): ?string
+    {
+        return $this->entry_type?->label();
+    }
+
+    /**
      * Generate the next entry number
      */
     public static function generateEntryNumber(): string
     {
         $lastEntry = self::orderBy('entry_number', 'desc')->first();
-        $nextNumber = $lastEntry ? (int)$lastEntry->entry_number + 1 : 1;
-        return (string)$nextNumber;
+        $nextNumber = $lastEntry ? (int) $lastEntry->entry_number + 1 : 1;
+
+        return (string) $nextNumber;
     }
 
     /**
@@ -191,7 +206,7 @@ class JournalEntry extends Model
             throw new \Exception('Only draft entries can be posted');
         }
 
-        if (!$this->is_balanced) {
+        if (! $this->is_balanced) {
             throw new \Exception('Journal entry must be balanced before posting');
         }
 
@@ -297,6 +312,7 @@ class JournalEntry extends Model
         if ($sourceId) {
             $query->where('source_id', $sourceId);
         }
+
         return $query;
     }
 

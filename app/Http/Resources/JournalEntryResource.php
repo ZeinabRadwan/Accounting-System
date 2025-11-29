@@ -13,8 +13,12 @@ class JournalEntryResource extends JsonResource
             'entry_number' => $this->entry_number,
             'formatted_entry_number' => $this->formatted_entry_number,
             'entry_date' => $this->entry_date->format('Y-m-d'),
+            'entry_type' => $this->entry_type?->value,
+            'formatted_entry_type' => $this->formatted_entry_type,
             'reference' => $this->reference,
             'description' => $this->description,
+            'notes' => $this->notes,
+            'attachment' => $this->attachment,
             'total_debit' => (float) $this->total_debit,
             'total_credit' => (float) $this->total_credit,
             'status' => $this->status,
@@ -26,6 +30,7 @@ class JournalEntryResource extends JsonResource
             'posted_at' => $this->posted_at ? $this->posted_at->format('Y-m-d H:i:s') : null,
             'source_type' => $this->source_type,
             'source_id' => $this->source_id,
+            'branch_id' => $this->branch_id,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
             'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
 
@@ -43,6 +48,14 @@ class JournalEntryResource extends JsonResource
                     'id' => $this->poster->id,
                     'name' => $this->poster->name,
                     'email' => $this->poster->email,
+                ];
+            }),
+
+            'branch' => $this->whenLoaded('branch', function () {
+                return [
+                    'id' => $this->branch->id,
+                    'name' => $this->branch->name,
+                    'code' => $this->branch->code,
                 ];
             }),
 
