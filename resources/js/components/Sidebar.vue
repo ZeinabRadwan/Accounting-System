@@ -3,35 +3,16 @@
   <aside class="main-sidebar">
     <!-- Brand Logo -->
     <router-link :to="{ name: 'home' }" class="brand-link">
-      <img
-        v-if="appInfo"
-        :src="appInfo.blackLogo"
-        :alt="appInfo.companyName"
-        class="lg-logo light-logo"
-      />
-      <img
-        v-if="appInfo"
-        :src="appInfo.logo"
-        :alt="appInfo.companyName"
-        class="lg-logo dark-logo"
-      />
-      <img
-        v-if="appInfo"
-        :src="appInfo.smallLogo"
-        alt="appInfo.companyName"
-        class="sm-logo"
-      />
+      <img v-if="appInfo" :src="appInfo.blackLogo" :alt="appInfo.companyName" class="lg-logo light-logo" />
+      <img v-if="appInfo" :src="appInfo.logo" :alt="appInfo.companyName" class="lg-logo dark-logo" />
+      <img v-if="appInfo" :src="appInfo.smallLogo" alt="appInfo.companyName" class="sm-logo" />
     </router-link>
 
     <!-- Sidebar -->
     <div class="sidebar custom-sidebar">
       <!-- Sidebar Menu -->
       <nav class="custom-nav-padding">
-        <ul
-          class="nav nav-pills nav-sidebar flex-column"
-          data-widget="treeview"
-          role="menu"
-        >
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
           <!-- لوحة التحكم -->
           <li class="nav-header text-bold">
             {{ $t("Dashboard") }}
@@ -45,48 +26,37 @@
 
           <!-- المبيعات -->
           <li class="nav-header text-bold">{{ $t("Sales") }}</li>
-          <li
-            v-if="$isPOS() && ($can('invoice-list') || $can('invoice-create'))"
-            class="nav-item"
-          >
-            <router-link
-              :to="{ name: 'pos.create' }"
-              class="nav-link pos-link"
-            >
+          <li v-if="$isPOS() && ($can('invoice-list') || $can('invoice-create'))" class="nav-item">
+            <router-link :to="{ name: 'pos.create' }" class="nav-link pos-link">
               <i class="fas fa-cash-register nav-icon"></i>
               <p>{{ $t("POS") }}</p>
             </router-link>
           </li>
-          <li
-            v-if="!$isPOS() && (
-              $can('quotation-list') ||
-              $can('quotation-create') ||
-              $can('quotation-view') ||
-              $can('quotation-edit') ||
-              $can('quotation-delete') ||
-              $can('quotation-to-invoice') ||
-              $can('invoice-list') ||
-              $can('invoice-create') ||
-              $can('invoice-view') ||
-              $can('invoice-edit') ||
-              $can('invoice-delete') ||
-              $can('invoice-return-list') ||
-              $can('invoice-return-create') ||
-              $can('invoice-return-view') ||
-              $can('invoice-return-edit') ||
-              $can('invoice-return-delete')
-            )"
-            class="nav-item has-treeview"
-            :class="
-              menuOpen('quotations') ||
-              menuOpen('invoices') ||
-              menuOpen('invoiceReturns') ||
-              menuOpen('pos') ||
-              menuOpen('clients')
-                ? 'menu-is-opening menu-open'
-                : ''
-            "
-          >
+          <li v-if="!$isPOS() && (
+            $can('quotation-list') ||
+            $can('quotation-create') ||
+            $can('quotation-view') ||
+            $can('quotation-edit') ||
+            $can('quotation-delete') ||
+            $can('quotation-to-invoice') ||
+            $can('invoice-list') ||
+            $can('invoice-create') ||
+            $can('invoice-view') ||
+            $can('invoice-edit') ||
+            $can('invoice-delete') ||
+            $can('invoice-return-list') ||
+            $can('invoice-return-create') ||
+            $can('invoice-return-view') ||
+            $can('invoice-return-edit') ||
+            $can('invoice-return-delete')
+          )" class="nav-item has-treeview" :class="menuOpen('quotations') ||
+            menuOpen('invoices') ||
+            menuOpen('invoiceReturns') ||
+            menuOpen('pos') ||
+            menuOpen('clients')
+            ? 'menu-is-opening menu-open'
+            : ''
+            ">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-shopping-bag" />
               <p>
@@ -94,85 +64,60 @@
                 <span class="toggle-icon"></span>
               </p>
             </a>
-            <ul
-              class="nav nav-treeview"
-              :style="
-                menuOpen('quotations') ||
-                menuOpen('invoices') ||
-                menuOpen('invoiceReturns') ||
-                menuOpen('pos') ||
-                menuOpen('clients')
-                  ? 'display: block'
-                  : 'display: none'
-              "
-            >
-              <li
-                v-if="
-                  $can('quotation-list') ||
-                  $can('quotation-create') ||
-                  $can('quotation-view') ||
-                  $can('quotation-edit') ||
-                  $can('quotation-delete') ||
-                  $can('quotation-to-invoice')
-                "
-                class="nav-item"
-              >
-                <router-link
-                  :to="{ name: 'quotations.index' }"
-                  class="nav-link"
-                >
+            <ul class="nav nav-treeview" :style="menuOpen('quotations') ||
+              menuOpen('invoices') ||
+              menuOpen('invoiceReturns') ||
+              menuOpen('pos') ||
+              menuOpen('clients')
+              ? 'display: block'
+              : 'display: none'
+              ">
+              <li v-if="
+                $can('quotation-list') ||
+                $can('quotation-create') ||
+                $can('quotation-view') ||
+                $can('quotation-edit') ||
+                $can('quotation-delete') ||
+                $can('quotation-to-invoice')
+              " class="nav-item">
+                <router-link :to="{ name: 'quotations.index' }" class="nav-link">
                   <i class="fas fa-th-list nav-icon" />
                   <p>{{ $t("Quotations List") }}</p>
                 </router-link>
               </li>
-              <li
-                v-if="
-                  $can('invoice-list') ||
-                  $can('invoice-create') ||
-                  $can('invoice-view') ||
-                  $can('invoice-edit') ||
-                  $can('invoice-delete')
-                "
-                class="nav-item"
-              >
+              <li v-if="
+                $can('invoice-list') ||
+                $can('invoice-create') ||
+                $can('invoice-view') ||
+                $can('invoice-edit') ||
+                $can('invoice-delete')
+              " class="nav-item">
                 <router-link :to="{ name: 'invoices.index' }" class="nav-link">
                   <i class="fas fa-file-invoice nav-icon" />
                   <p>{{ $t("Invoices List") }}</p>
                 </router-link>
               </li>
-              <li
-                v-if="
-                  ($can('invoice-list') ||
+              <li v-if="
+                ($can('invoice-list') ||
                   $can('invoice-create') ||
                   $can('invoice-view') ||
                   $can('invoice-edit') ||
                   $can('invoice-delete')) &&
-                  ($canAccessModule('pos') || $canAccessModule('both'))
-                "
-                class="nav-item"
-              >
-                <router-link
-                  :to="{ name: 'pos.create' }"
-                  class="nav-link pos-link"
-                >
+                ($canAccessModule('pos') || $canAccessModule('both'))
+              " class="nav-item">
+                <router-link :to="{ name: 'pos.create' }" class="nav-link pos-link">
                   <i class="fas fa-cash-register nav-icon"></i>
                   <p>{{ $t("POS") }}</p>
                 </router-link>
               </li>
-              <li
-                v-if="
-                  $can('invoice-return-list') ||
-                  $can('invoice-return-create') ||
-                  $can('invoice-return-view') ||
-                  $can('invoice-return-edit') ||
-                  $can('invoice-return-delete')
-                "
-                class="nav-item"
-              >
-                <router-link
-                  :to="{ name: 'invoiceReturns.index' }"
-                  class="nav-link"
-                >
+              <li v-if="
+                $can('invoice-return-list') ||
+                $can('invoice-return-create') ||
+                $can('invoice-return-view') ||
+                $can('invoice-return-edit') ||
+                $can('invoice-return-delete')
+              " class="nav-item">
+                <router-link :to="{ name: 'invoiceReturns.index' }" class="nav-link">
                   <i class="fas fa-undo-alt nav-icon" />
                   <p>
                     {{
@@ -181,16 +126,13 @@
                   </p>
                 </router-link>
               </li>
-              <li
-                v-if="
-                  $can('client-list') ||
-                  $can('client-create') ||
-                  $can('client-view') ||
-                  $can('client-edit') ||
-                  $can('client-delete')
-                "
-                class="nav-item"
-              >
+              <li v-if="
+                $can('client-list') ||
+                $can('client-create') ||
+                $can('client-view') ||
+                $can('client-edit') ||
+                $can('client-delete')
+              " class="nav-item">
                 <router-link :to="{ name: 'clients.index' }" class="nav-link">
                   <i class="fas fa-users nav-icon" />
                   <p>{{ $t("Clients") }}</p>
@@ -201,29 +143,24 @@
 
           <!-- المشتريات -->
           <li class="nav-header text-bold" v-if="!$isPOS()">{{ $t("Purchases") }}</li>
-          <li
-            v-if="
-              $can('purchase-list') ||
-              $can('purchase-create') ||
-              $can('purchase-edit') ||
-              $can('purchase-view') ||
-              $can('purchase-delete') ||
-              $can('purchase-return-list') ||
-              $can('purchase-return-create') ||
-              $can('purchase-return-edit') ||
-              $can('purchase-return-view') ||
-              $can('purchase-return-delete')
-            "
-            class="nav-item has-treeview"
-            :class="
-              menuOpen('purchases') ||
-              menuOpen('purchaseReturns') ||
-              menuOpen('purchase-order') ||
-              menuOpen('suppliers')
-                ? 'menu-is-opening menu-open'
-                : ''
-            "
-          >
+          <li v-if="
+            $can('purchase-list') ||
+            $can('purchase-create') ||
+            $can('purchase-edit') ||
+            $can('purchase-view') ||
+            $can('purchase-delete') ||
+            $can('purchase-return-list') ||
+            $can('purchase-return-create') ||
+            $can('purchase-return-edit') ||
+            $can('purchase-return-view') ||
+            $can('purchase-return-delete')
+          " class="nav-item has-treeview" :class="menuOpen('purchases') ||
+            menuOpen('purchaseReturns') ||
+            menuOpen('purchase-order') ||
+            menuOpen('suppliers')
+            ? 'menu-is-opening menu-open'
+            : ''
+            ">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-shopping-basket" />
               <p>
@@ -231,80 +168,58 @@
                 <span class="toggle-icon"></span>
               </p>
             </a>
-            <ul
-              class="nav nav-treeview"
-              :style="
-                menuOpen('purchases') ||
-                menuOpen('purchaseReturns') ||
-                menuOpen('purchase-order') ||
-                menuOpen('suppliers')
-                  ? 'display: block'
-                  : 'display: none'
-              "
-            >
-              <li
-                v-if="
-                  $can('purchase-order-list') ||
-                  $can('purchase-order-create') ||
-                  $can('purchase-order-edit') ||
-                  $can('purchase-order-view') ||
-                  $can('purchase-order-delete')
-                "
-                class="nav-item"
-              >
-                <router-link
-                  :to="{ name: 'purchase-order.index' }"
-                  class="nav-link"
-                >
+            <ul class="nav nav-treeview" :style="menuOpen('purchases') ||
+              menuOpen('purchaseReturns') ||
+              menuOpen('purchase-order') ||
+              menuOpen('suppliers')
+              ? 'display: block'
+              : 'display: none'
+              ">
+              <li v-if="
+                $can('purchase-order-list') ||
+                $can('purchase-order-create') ||
+                $can('purchase-order-edit') ||
+                $can('purchase-order-view') ||
+                $can('purchase-order-delete')
+              " class="nav-item">
+                <router-link :to="{ name: 'purchase-order.index' }" class="nav-link">
                   <i class="fas fa-file-invoice nav-icon" />
                   <p>{{ $t("Purchase Orders") }}</p>
                 </router-link>
               </li>
-              <li
-                v-if="
-                  $can('purchase-list') ||
-                  $can('purchase-create') ||
-                  $can('purchase-edit') ||
-                  $can('purchase-view') ||
-                  $can('purchase-delete')
-                "
-                class="nav-item"
-              >
+              <li v-if="
+                $can('purchase-list') ||
+                $can('purchase-create') ||
+                $can('purchase-edit') ||
+                $can('purchase-view') ||
+                $can('purchase-delete')
+              " class="nav-item">
                 <router-link :to="{ name: 'purchases.index' }" class="nav-link">
                   <i class="fas fa-truck-loading nav-icon" />
                   <p>{{ $t("Purchases List") }}</p>
                 </router-link>
               </li>
-              <li
-                v-if="
-                  $can('purchase-return-list') ||
-                  $can('purchase-return-create') ||
-                  $can('purchase-return-edit') ||
-                  $can('purchase-return-view') ||
-                  $can('purchase-return-delete')
-                "
-                class="nav-item"
-              >
-                <router-link
-                  :to="{ name: 'purchaseReturns.index' }"
-                  class="nav-link"
-                >
+              <li v-if="
+                $can('purchase-return-list') ||
+                $can('purchase-return-create') ||
+                $can('purchase-return-edit') ||
+                $can('purchase-return-view') ||
+                $can('purchase-return-delete')
+              " class="nav-item">
+                <router-link :to="{ name: 'purchaseReturns.index' }" class="nav-link">
                   <i class="fas fa-undo-alt nav-icon" />
                   <p>
                     {{ isSaudiArabia ? $t("Debit notes") : $t("Returns List") }}
                   </p>
                 </router-link>
               </li>
-              <li
-                v-if="
-                  $can('supplier-list') ||
-                  $can('supplier-create') ||
-                  $can('supplier-view') ||
-                  $can('supplier-edit') ||
-                  $can('supplier-delete')
-                "
-                class="nav-item"
-              >
+              <li v-if="
+                $can('supplier-list') ||
+                $can('supplier-create') ||
+                $can('supplier-view') ||
+                $can('supplier-edit') ||
+                $can('supplier-delete')
+              " class="nav-item">
                 <router-link :to="{ name: 'suppliers.index' }" class="nav-link">
                   <i class="fas fa-people-carry nav-icon" />
                   <p>{{ $t("Suppliers") }}</p>
@@ -315,32 +230,27 @@
 
           <!-- الموظفين -->
           <li class="nav-header text-bold" v-if="!$isPOS()">{{ $t("Employees") }}</li>
-          <li
-            v-if="
-              $can('department-list') ||
-              $can('department-create') ||
-              $can('department-edit') ||
-              $can('department-delete') ||
-              $can('employee-list') ||
-              $can('employee-create') ||
-              $can('employee-edit') ||
-              $can('employee-delete') ||
-              $can('employee-view') ||
-              $can('increment-list') ||
-              $can('increment-create') ||
-              $can('increment-edit') ||
-              $can('increment-view') ||
-              $can('increment-delete')
-            "
-            class="nav-item has-treeview"
-            :class="
-              menuOpen('departments') ||
-              menuOpen('employees') ||
-              menuOpen('increments')
-                ? 'menu-is-opening menu-open'
-                : ''
-            "
-          >
+          <li v-if="
+            $can('department-list') ||
+            $can('department-create') ||
+            $can('department-edit') ||
+            $can('department-delete') ||
+            $can('employee-list') ||
+            $can('employee-create') ||
+            $can('employee-edit') ||
+            $can('employee-delete') ||
+            $can('employee-view') ||
+            $can('increment-list') ||
+            $can('increment-create') ||
+            $can('increment-edit') ||
+            $can('increment-view') ||
+            $can('increment-delete')
+          " class="nav-item has-treeview" :class="menuOpen('departments') ||
+            menuOpen('employees') ||
+            menuOpen('increments')
+            ? 'menu-is-opening menu-open'
+            : ''
+            ">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users-cog" />
               <p>
@@ -348,62 +258,43 @@
                 <span class="toggle-icon"></span>
               </p>
             </a>
-            <ul
-              class="nav nav-treeview"
-              :style="
-                menuOpen('departments') ||
-                menuOpen('employees') ||
-                menuOpen('increments')
-                  ? 'display: block'
-                  : 'display: none'
-              "
-            >
-              <li
-                v-if="
-                  $can('department-list') ||
-                  $can('department-create') ||
-                  $can('department-edit') ||
-                  $can('department-delete')
-                "
-                class="nav-item"
-              >
-                <router-link
-                  :to="{ name: 'departments.index' }"
-                  class="nav-link"
-                >
+            <ul class="nav nav-treeview" :style="menuOpen('departments') ||
+              menuOpen('employees') ||
+              menuOpen('increments')
+              ? 'display: block'
+              : 'display: none'
+              ">
+              <li v-if="
+                $can('department-list') ||
+                $can('department-create') ||
+                $can('department-edit') ||
+                $can('department-delete')
+              " class="nav-item">
+                <router-link :to="{ name: 'departments.index' }" class="nav-link">
                   <i class="fas fa-server nav-icon" />
                   <p>{{ $t("Departments") }}</p>
                 </router-link>
               </li>
-              <li
-                v-if="
-                  $can('employee-list') ||
-                  $can('employee-create') ||
-                  $can('employee-edit') ||
-                  $can('employee-delete') ||
-                  $can('employee-view')
-                "
-                class="nav-item"
-              >
+              <li v-if="
+                $can('employee-list') ||
+                $can('employee-create') ||
+                $can('employee-edit') ||
+                $can('employee-delete') ||
+                $can('employee-view')
+              " class="nav-item">
                 <router-link :to="{ name: 'employees.index' }" class="nav-link">
                   <i class="fas fa-list-ul nav-icon" />
                   <p>{{ $t("Employees List") }}</p>
                 </router-link>
               </li>
-              <li
-                v-if="
-                  $can('increment-list') ||
-                  $can('increment-create') ||
-                  $can('increment-edit') ||
-                  $can('increment-view') ||
-                  $can('increment-delete')
-                "
-                class="nav-item"
-              >
-                <router-link
-                  :to="{ name: 'increments.index' }"
-                  class="nav-link"
-                >
+              <li v-if="
+                $can('increment-list') ||
+                $can('increment-create') ||
+                $can('increment-edit') ||
+                $can('increment-view') ||
+                $can('increment-delete')
+              " class="nav-item">
+                <router-link :to="{ name: 'increments.index' }" class="nav-link">
                   <i class="fas fa-list-ul nav-icon" />
                   <p>{{ $t("Increments") }}</p>
                 </router-link>
@@ -412,10 +303,10 @@
           </li>
 
           <!-- المحاسبة -->
-          <li class="nav-header text-bold" v-if="$canAccessModule('accounting') || $canAccessModule('both')">{{ $t("ACCOUNTING") }}</li>
-          <li
-            v-if="
-              ($can('account-list') ||
+          <li class="nav-header text-bold" v-if="$canAccessModule('accounting') || $canAccessModule('both')">{{
+            $t("ACCOUNTING") }}</li>
+          <li v-if="
+            ($can('account-list') ||
               $can('account-create') ||
               $can('account-view') ||
               $can('account-edit') ||
@@ -435,19 +326,15 @@
               $can('account-transfer-balance-view') ||
               $can('account-transfer-balance-delete') ||
               $can('transaction-history')) &&
-              ($canAccessModule('accounting') || $canAccessModule('both'))
-            "
-            class="nav-item has-treeview"
-            :class="
-              menuOpen('accounts') ||
-              menuOpen('balances') ||
-              menuOpen('transferBalances') ||
-              menuOpen('transactions') ||
-              menuOpen('chart-of-accounts')
-                ? 'menu-is-opening menu-open'
-                : ''
-            "
-          >
+            ($canAccessModule('accounting') || $canAccessModule('both'))
+          " class="nav-item has-treeview" :class="menuOpen('accounts') ||
+            menuOpen('balances') ||
+            menuOpen('transferBalances') ||
+            menuOpen('transactions') ||
+            menuOpen('chart-of-accounts')
+            ? 'menu-is-opening menu-open'
+            : ''
+            ">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-book" />
               <p>
@@ -455,88 +342,63 @@
                 <span class="toggle-icon"></span>
               </p>
             </a>
-            <ul
-              class="nav nav-treeview"
-              :style="
-                menuOpen('accounts') ||
-                menuOpen('balances') ||
-                menuOpen('transferBalances') ||
-                menuOpen('transactions') ||
-                menuOpen('chart-of-accounts')
-                  ? 'display: block'
-                  : 'display: none'
-              "
-            >
-              <li
-                v-if="
-                  $can('chart-of-account-list') ||
-                  $can('chart-of-account-create') ||
-                  $can('chart-of-account-edit') ||
-                  $can('chart-of-account-view') ||
-                  $can('chart-of-account-delete')
-                "
-                class="nav-item"
-              >
-                <router-link
-                  :to="{ name: 'chart-of-accounts.index' }"
-                  class="nav-link"
-                >
+            <ul class="nav nav-treeview" :style="menuOpen('accounts') ||
+              menuOpen('balances') ||
+              menuOpen('transferBalances') ||
+              menuOpen('transactions') ||
+              menuOpen('chart-of-accounts')
+              ? 'display: block'
+              : 'display: none'
+              ">
+              <li v-if="
+                $can('chart-of-account-list') ||
+                $can('chart-of-account-create') ||
+                $can('chart-of-account-edit') ||
+                $can('chart-of-account-view') ||
+                $can('chart-of-account-delete')
+              " class="nav-item">
+                <router-link :to="{ name: 'chart-of-accounts.index' }" class="nav-link">
                   <i class="fas fa-chart-line nav-icon" />
                   <p>{{ $t("Chart of Accounts") }}</p>
                 </router-link>
               </li>
-              <li
-                v-if="
-                  $can('account-list') ||
-                  $can('account-create') ||
-                  $can('account-view') ||
-                  $can('account-edit') ||
-                  $can('account-delete')
-                "
-                class="nav-item"
-              >
+              <li v-if="
+                $can('account-list') ||
+                $can('account-create') ||
+                $can('account-view') ||
+                $can('account-edit') ||
+                $can('account-delete')
+              " class="nav-item">
                 <router-link :to="{ name: 'accounts.index' }" class="nav-link">
                   <i class="fas fa-university nav-icon" />
                   <p>{{ $t("Bank Accounts") }}</p>
                 </router-link>
               </li>
-              <li
-                v-if="
-                  $can('account-balance-list') ||
-                  $can('account-balance-create') ||
-                  $can('account-balance-edit') ||
-                  $can('account-balance-delete')
-                "
-                class="nav-item"
-              >
+              <li v-if="
+                $can('account-balance-list') ||
+                $can('account-balance-create') ||
+                $can('account-balance-edit') ||
+                $can('account-balance-delete')
+              " class="nav-item">
                 <router-link :to="{ name: 'balances.index' }" class="nav-link">
                   <i class="fas fa-sliders-h nav-icon" />
                   <p>{{ $t("Balance Adjustments") }}</p>
                 </router-link>
               </li>
-              <li
-                v-if="
-                  $can('account-transfer-balance-list') ||
-                  $can('account-transfer-balance-create') ||
-                  $can('account-transfer-balance-edit') ||
-                  $can('account-transfer-balance-view') ||
-                  $can('account-transfer-balance-delete')
-                "
-                class="nav-item"
-              >
-                <router-link
-                  :to="{ name: 'transferBalances.index' }"
-                  class="nav-link"
-                >
+              <li v-if="
+                $can('account-transfer-balance-list') ||
+                $can('account-transfer-balance-create') ||
+                $can('account-transfer-balance-edit') ||
+                $can('account-transfer-balance-view') ||
+                $can('account-transfer-balance-delete')
+              " class="nav-item">
+                <router-link :to="{ name: 'transferBalances.index' }" class="nav-link">
                   <i class="fas fa-exchange-alt nav-icon" />
                   <p>{{ $t("Balance Transfers") }}</p>
                 </router-link>
               </li>
               <li v-if="$can('transaction-history')" class="nav-item">
-                <router-link
-                  :to="{ name: 'transactions.index' }"
-                  class="nav-link"
-                >
+                <router-link :to="{ name: 'transactions.index' }" class="nav-link">
                   <i class="fas fa-history nav-icon" />
                   <p>{{ $t("Transaction History") }}</p>
                 </router-link>
@@ -545,19 +407,14 @@
           </li>
 
           <!-- Cost Centers -->
-          <li
-            v-if="
-              ($can('view_cost_centers') ||
+          <li v-if="
+            ($can('view_cost_centers') ||
               $can('create_cost_center') ||
               $can('update_cost_center') ||
               $can('delete_cost_center')) &&
-              ($canAccessModule('accounting') || $canAccessModule('both'))
-            "
-            class="nav-item has-treeview"
-            :class="
-              menuOpen('cost-centers') ? 'menu-is-opening menu-open' : ''
-            "
-          >
+            ($canAccessModule('accounting') || $canAccessModule('both'))
+          " class="nav-item has-treeview" :class="menuOpen('cost-centers') ? 'menu-is-opening menu-open' : ''
+            ">
             <a href="#" class="nav-link">
               <i class="fas fa-sitemap nav-icon" />
               <p>
@@ -565,35 +422,22 @@
                 <span class="toggle-icon"></span>
               </p>
             </a>
-            <ul
-              class="nav nav-treeview"
-              :style="
-                menuOpen('cost-centers') ? 'display: block' : 'display: none'
-              "
-            >
+            <ul class="nav nav-treeview" :style="menuOpen('cost-centers') ? 'display: block' : 'display: none'
+              ">
               <li v-if="$can('view_cost_centers')" class="nav-item">
-                <router-link
-                  :to="{ name: 'cost-centers.index' }"
-                  class="nav-link"
-                >
+                <router-link :to="{ name: 'cost-centers.index' }" class="nav-link">
                   <i class="fas fa-list nav-icon" />
                   <p>{{ $t("All Cost Centers") }}</p>
                 </router-link>
               </li>
               <li v-if="$can('view_cost_centers')" class="nav-item">
-                <router-link
-                  :to="{ name: 'cost-centers.tree' }"
-                  class="nav-link"
-                >
+                <router-link :to="{ name: 'cost-centers.tree' }" class="nav-link">
                   <i class="fas fa-sitemap nav-icon" />
                   <p>{{ $t("Tree View") }}</p>
                 </router-link>
               </li>
               <li v-if="$can('create_cost_center')" class="nav-item">
-                <router-link
-                  :to="{ name: 'cost-centers.create' }"
-                  class="nav-link"
-                >
+                <router-link :to="{ name: 'cost-centers.create' }" class="nav-link">
                   <i class="fas fa-plus nav-icon" />
                   <p>{{ $t("Create Cost Center") }}</p>
                 </router-link>
@@ -651,19 +495,14 @@
           -->
 
           <!-- القيود المحاسبية -->
-          <li
-            v-if="
-              ($can('journal-entry-list') ||
+          <li v-if="
+            ($can('journal-entry-list') ||
               $can('journal-entry-create') ||
               $can('journal-entry-view') ||
               $can('journal-entry-edit')) &&
-              ($canAccessModule('accounting') || $canAccessModule('both'))
-            "
-            class="nav-item has-treeview"
-            :class="
-              menuOpen('journal-entries') ? 'menu-is-opening menu-open' : ''
-            "
-          >
+            ($canAccessModule('accounting') || $canAccessModule('both'))
+          " class="nav-item has-treeview" :class="menuOpen('journal-entries') ? 'menu-is-opening menu-open' : ''
+            ">
             <a href="#" class="nav-link">
               <i class="fas fa-book nav-icon" />
               <p>
@@ -671,26 +510,16 @@
                 <span class="toggle-icon"></span>
               </p>
             </a>
-            <ul
-              class="nav nav-treeview"
-              :style="
-                menuOpen('journal-entries') ? 'display: block' : 'display: none'
-              "
-            >
+            <ul class="nav nav-treeview" :style="menuOpen('journal-entries') ? 'display: block' : 'display: none'
+              ">
               <li v-if="$can('journal-entry-list')" class="nav-item">
-                <router-link
-                  :to="{ name: 'journal-entries.index' }"
-                  class="nav-link"
-                >
+                <router-link :to="{ name: 'journal-entries.index' }" class="nav-link">
                   <i class="fas fa-list nav-icon" />
                   <p>{{ $t("All Entries") }}</p>
                 </router-link>
               </li>
               <li v-if="$can('journal-entry-create')" class="nav-item">
-                <router-link
-                  :to="{ name: 'journal-entries.create' }"
-                  class="nav-link"
-                >
+                <router-link :to="{ name: 'journal-entries.create' }" class="nav-link">
                   <i class="fas fa-plus nav-icon" />
                   <p>{{ $t("New Entry") }}</p>
                 </router-link>
@@ -699,31 +528,26 @@
           </li>
 
           <!-- المصروفات -->
-          <li
-            v-if="!$isPOS() && (
-              $can('expense-category-list') ||
-              $can('expense-category-create') ||
-              $can('expense-category-edit') ||
-              $can('expense-category-delete') ||
-              $can('expense-sub-category-list') ||
-              $can('expense-sub-category-create') ||
-              $can('expense-sub-category-edit') ||
-              $can('expense-sub-category-delete') ||
-              $can('expense-list') ||
-              $can('expense-create') ||
-              $can('expense-edit') ||
-              $can('expense-view') ||
-              $can('expense-delete')
-            )"
-            class="nav-item has-treeview"
-            :class="
-              menuOpen('expenseCats') ||
-              menuOpen('expenseSubCats') ||
-              menuOpen('expenses')
-                ? 'menu-is-opening menu-open'
-                : ''
-            "
-          >
+          <li v-if="!$isPOS() && (
+            $can('expense-category-list') ||
+            $can('expense-category-create') ||
+            $can('expense-category-edit') ||
+            $can('expense-category-delete') ||
+            $can('expense-sub-category-list') ||
+            $can('expense-sub-category-create') ||
+            $can('expense-sub-category-edit') ||
+            $can('expense-sub-category-delete') ||
+            $can('expense-list') ||
+            $can('expense-create') ||
+            $can('expense-edit') ||
+            $can('expense-view') ||
+            $can('expense-delete')
+          )" class="nav-item has-treeview" :class="menuOpen('expenseCats') ||
+            menuOpen('expenseSubCats') ||
+            menuOpen('expenses')
+            ? 'menu-is-opening menu-open'
+            : ''
+            ">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-calculator" />
               <p>
@@ -731,46 +555,30 @@
                 <span class="toggle-icon"></span>
               </p>
             </a>
-            <ul
-              class="nav nav-treeview"
-              :style="
-                menuOpen('expenseCats') ||
-                menuOpen('expenseSubCats') ||
-                menuOpen('expenses')
-                  ? 'display: block'
-                  : 'display: none'
-              "
-            >
-              <li
-                v-if="
-                  $can('expense-category-list') ||
-                  $can('expense-category-create') ||
-                  $can('expense-category-edit') ||
-                  $can('expense-category-delete')
-                "
-                class="nav-item"
-              >
-                <router-link
-                  :to="{ name: 'expenseCats.index' }"
-                  class="nav-link"
-                >
+            <ul class="nav nav-treeview" :style="menuOpen('expenseCats') ||
+              menuOpen('expenseSubCats') ||
+              menuOpen('expenses')
+              ? 'display: block'
+              : 'display: none'
+              ">
+              <li v-if="
+                $can('expense-category-list') ||
+                $can('expense-category-create') ||
+                $can('expense-category-edit') ||
+                $can('expense-category-delete')
+              " class="nav-item">
+                <router-link :to="{ name: 'expenseCats.index' }" class="nav-link">
                   <i class="fas fa-tags nav-icon" />
                   <p>{{ $t("Categories") }}</p>
                 </router-link>
               </li>
-              <li
-                v-if="
-                  $can('expense-sub-category-list') ||
-                  $can('expense-sub-category-create') ||
-                  $can('expense-sub-category-edit') ||
-                  $can('expense-sub-category-delete')
-                "
-                class="nav-item"
-              >
-                <router-link
-                  :to="{ name: 'expenseSubCats.index' }"
-                  class="nav-link"
-                >
+              <li v-if="
+                $can('expense-sub-category-list') ||
+                $can('expense-sub-category-create') ||
+                $can('expense-sub-category-edit') ||
+                $can('expense-sub-category-delete')
+              " class="nav-item">
+                <router-link :to="{ name: 'expenseSubCats.index' }" class="nav-link">
                   <i class="fas fa-code-branch nav-icon" />
                   <p>{{ $t("Sub Categories") }}</p>
                 </router-link>
@@ -785,22 +593,17 @@
           </li>
 
           <!-- السندات (Vouchers) -->
-          <li
-            v-if="!$isPOS() && (
-              $can('payment-voucher-list') ||
-              $can('payment-voucher-create') ||
-              $can('payment-voucher-edit') ||
-              $can('payment-voucher-view') ||
-              $can('payment-voucher-delete')
-            )"
-            class="nav-item has-treeview"
-            :class="
-              menuOpen('receiveVouchers') ||
-              menuOpen('sendVouchers')
-                ? 'menu-is-opening menu-open'
-                : ''
-            "
-          >
+          <li v-if="!$isPOS() && (
+            $can('payment-voucher-list') ||
+            $can('payment-voucher-create') ||
+            $can('payment-voucher-edit') ||
+            $can('payment-voucher-view') ||
+            $can('payment-voucher-delete')
+          )" class="nav-item has-treeview" :class="menuOpen('receiveVouchers') ||
+            menuOpen('sendVouchers')
+            ? 'menu-is-opening menu-open'
+            : ''
+            ">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-file-invoice-dollar" />
               <p>
@@ -808,47 +611,31 @@
                 <span class="toggle-icon"></span>
               </p>
             </a>
-            <ul
-              class="nav nav-treeview"
-              :style="
-                menuOpen('receiveVouchers') ||
-                menuOpen('sendVouchers')
-                  ? 'display: block'
-                  : 'display: none'
-              "
-            >
-              <li
-                v-if="
-                  $can('payment-voucher-list') ||
-                  $can('payment-voucher-create') ||
-                  $can('payment-voucher-edit') ||
-                  $can('payment-voucher-view') ||
-                  $can('payment-voucher-delete')
-                "
-                class="nav-item"
-              >
-                <router-link
-                  :to="{ name: 'receiveVouchers.index' }"
-                  class="nav-link"
-                >
+            <ul class="nav nav-treeview" :style="menuOpen('receiveVouchers') ||
+              menuOpen('sendVouchers')
+              ? 'display: block'
+              : 'display: none'
+              ">
+              <li v-if="
+                $can('payment-voucher-list') ||
+                $can('payment-voucher-create') ||
+                $can('payment-voucher-edit') ||
+                $can('payment-voucher-view') ||
+                $can('payment-voucher-delete')
+              " class="nav-item">
+                <router-link :to="{ name: 'receiveVouchers.index' }" class="nav-link">
                   <i class="fas fa-arrow-down nav-icon" />
                   <p>{{ $t("Receive Vouchers") }}</p>
                 </router-link>
               </li>
-              <li
-                v-if="
-                  $can('payment-voucher-list') ||
-                  $can('payment-voucher-create') ||
-                  $can('payment-voucher-edit') ||
-                  $can('payment-voucher-view') ||
-                  $can('payment-voucher-delete')
-                "
-                class="nav-item"
-              >
-                <router-link
-                  :to="{ name: 'sendVouchers.index' }"
-                  class="nav-link"
-                >
+              <li v-if="
+                $can('payment-voucher-list') ||
+                $can('payment-voucher-create') ||
+                $can('payment-voucher-edit') ||
+                $can('payment-voucher-view') ||
+                $can('payment-voucher-delete')
+              " class="nav-item">
+                <router-link :to="{ name: 'sendVouchers.index' }" class="nav-link">
                   <i class="fas fa-arrow-up nav-icon" />
                   <p>{{ $t("Send Vouchers") }}</p>
                 </router-link>
@@ -1062,33 +849,28 @@
             </ul>
           </li>
           -->
-          <li
-            v-if="!$isPOS() && (
-              $can('loan-authority-list') ||
-              $can('loan-authority-create') ||
-              $can('loan-authority-view') ||
-              $can('loan-authority-edit') ||
-              $can('loan-authority-delete') ||
-              $can('loan-list') ||
-              $can('loan-create') ||
-              $can('loan-view') ||
-              $can('loan-edit') ||
-              $can('loan-delete') ||
-              $can('loan-payment-list') ||
-              $can('loan-payment-create') ||
-              $can('loan-payment-view') ||
-              $can('loan-payment-edit') ||
-              $can('loan-payment-delete')
-            )"
-            class="nav-item has-treeview"
-            :class="
-              menuOpen('authorities') ||
-              menuOpen('loans') ||
-              menuOpen('loanPayments')
-                ? 'menu-is-opening menu-open'
-                : ''
-            "
-          >
+          <li v-if="!$isPOS() && (
+            $can('loan-authority-list') ||
+            $can('loan-authority-create') ||
+            $can('loan-authority-view') ||
+            $can('loan-authority-edit') ||
+            $can('loan-authority-delete') ||
+            $can('loan-list') ||
+            $can('loan-create') ||
+            $can('loan-view') ||
+            $can('loan-edit') ||
+            $can('loan-delete') ||
+            $can('loan-payment-list') ||
+            $can('loan-payment-create') ||
+            $can('loan-payment-view') ||
+            $can('loan-payment-edit') ||
+            $can('loan-payment-delete')
+          )" class="nav-item has-treeview" :class="menuOpen('authorities') ||
+            menuOpen('loans') ||
+            menuOpen('loanPayments')
+            ? 'menu-is-opening menu-open'
+            : ''
+            ">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-piggy-bank" />
               <p>
@@ -1096,88 +878,64 @@
                 <span class="toggle-icon"></span>
               </p>
             </a>
-            <ul
-              class="nav nav-treeview"
-              :style="
-                menuOpen('authorities') ||
-                menuOpen('loans') ||
-                menuOpen('loanPayments')
-                  ? 'display: block'
-                  : 'display: none'
-              "
-            >
-              <li
-                v-if="
-                  $can('loan-authority-list') ||
-                  $can('loan-authority-create') ||
-                  $can('loan-authority-view') ||
-                  $can('loan-authority-edit') ||
-                  $can('loan-authority-delete')
-                "
-                class="nav-item"
-              >
-                <router-link
-                  :to="{ name: 'authorities.index' }"
-                  class="nav-link"
-                >
+            <ul class="nav nav-treeview" :style="menuOpen('authorities') ||
+              menuOpen('loans') ||
+              menuOpen('loanPayments')
+              ? 'display: block'
+              : 'display: none'
+              ">
+              <li v-if="
+                $can('loan-authority-list') ||
+                $can('loan-authority-create') ||
+                $can('loan-authority-view') ||
+                $can('loan-authority-edit') ||
+                $can('loan-authority-delete')
+              " class="nav-item">
+                <router-link :to="{ name: 'authorities.index' }" class="nav-link">
                   <i class="fas fa-building nav-icon" />
                   <p>{{ $t("Authorities") }}</p>
                 </router-link>
               </li>
-              <li
-                v-if="
-                  $can('loan-list') ||
-                  $can('loan-create') ||
-                  $can('loan-view') ||
-                  $can('loan-edit') ||
-                  $can('loan-delete')
-                "
-                class="nav-item"
-              >
+              <li v-if="
+                $can('loan-list') ||
+                $can('loan-create') ||
+                $can('loan-view') ||
+                $can('loan-edit') ||
+                $can('loan-delete')
+              " class="nav-item">
                 <router-link :to="{ name: 'loans.index' }" class="nav-link">
                   <i class="fas fa-list-ul nav-icon" />
                   <p>{{ $t("Loans") }}</p>
                 </router-link>
               </li>
-              <li
-                v-if="
-                  $can('loan-payment-list') ||
-                  $can('loan-payment-create') ||
-                  $can('loan-payment-view') ||
-                  $can('loan-payment-edit') ||
-                  $can('loan-payment-delete')
-                "
-                class="nav-item"
-              >
-                <router-link
-                  :to="{ name: 'loanPayments.index' }"
-                  class="nav-link"
-                >
+              <li v-if="
+                $can('loan-payment-list') ||
+                $can('loan-payment-create') ||
+                $can('loan-payment-view') ||
+                $can('loan-payment-edit') ||
+                $can('loan-payment-delete')
+              " class="nav-item">
+                <router-link :to="{ name: 'loanPayments.index' }" class="nav-link">
                   <i class="fas fa-receipt nav-icon" />
                   <p>{{ $t("Payments") }}</p>
                 </router-link>
               </li>
             </ul>
           </li>
-          <li
-            v-if="!$isPOS() && (
-              $can('asset-type-list') ||
-              $can('asset-type-create') ||
-              $can('asset-type-edit') ||
-              $can('asset-type-delete') ||
-              $can('asset-list') ||
-              $can('asset-create') ||
-              $can('asset-view') ||
-              $can('asset-edit') ||
-              $can('asset-delete')
-            )"
-            class="nav-item has-treeview"
-            :class="
-              menuOpen('assetTypes') || menuOpen('assets')
-                ? 'menu-is-opening menu-open'
-                : ''
-            "
-          >
+          <li v-if="!$isPOS() && (
+            $can('asset-type-list') ||
+            $can('asset-type-create') ||
+            $can('asset-type-edit') ||
+            $can('asset-type-delete') ||
+            $can('asset-list') ||
+            $can('asset-create') ||
+            $can('asset-view') ||
+            $can('asset-edit') ||
+            $can('asset-delete')
+          )" class="nav-item has-treeview" :class="menuOpen('assetTypes') || menuOpen('assets')
+            ? 'menu-is-opening menu-open'
+            : ''
+            ">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-couch" />
               <p>
@@ -1185,41 +943,28 @@
                 <span class="toggle-icon"></span>
               </p>
             </a>
-            <ul
-              class="nav nav-treeview"
-              :style="
-                menuOpen('assetTypes') || menuOpen('assets')
-                  ? 'display: block'
-                  : 'display: none'
-              "
-            >
-              <li
-                v-if="
-                  $can('asset-type-list') ||
-                  $can('asset-type-create') ||
-                  $can('asset-type-edit') ||
-                  $can('asset-type-delete')
-                "
-                class="nav-item"
-              >
-                <router-link
-                  :to="{ name: 'assetTypes.index' }"
-                  class="nav-link"
-                >
+            <ul class="nav nav-treeview" :style="menuOpen('assetTypes') || menuOpen('assets')
+              ? 'display: block'
+              : 'display: none'
+              ">
+              <li v-if="
+                $can('asset-type-list') ||
+                $can('asset-type-create') ||
+                $can('asset-type-edit') ||
+                $can('asset-type-delete')
+              " class="nav-item">
+                <router-link :to="{ name: 'assetTypes.index' }" class="nav-link">
                   <i class="fas fa-tags nav-icon" />
                   <p>{{ $t("Types") }}</p>
                 </router-link>
               </li>
-              <li
-                v-if="
-                  $can('asset-list') ||
-                  $can('asset-create') ||
-                  $can('asset-view') ||
-                  $can('asset-edit') ||
-                  $can('asset-delete')
-                "
-                class="nav-item"
-              >
+              <li v-if="
+                $can('asset-list') ||
+                $can('asset-create') ||
+                $can('asset-view') ||
+                $can('asset-edit') ||
+                $can('asset-delete')
+              " class="nav-item">
                 <router-link :to="{ name: 'assets.index' }" class="nav-link">
                   <i class="fas fa-list-ul nav-icon" />
                   <p>{{ $t("Assets") }}</p>
@@ -1227,16 +972,13 @@
               </li>
             </ul>
           </li>
-          <li
-            v-if="!$isPOS() && (
-              $can('payroll-list') ||
-              $can('payroll-create') ||
-              $can('payroll-view') ||
-              $can('payroll-edit') ||
-              $can('payroll-delete')
-            )"
-            class="nav-item"
-          >
+          <li v-if="!$isPOS() && (
+            $can('payroll-list') ||
+            $can('payroll-create') ||
+            $can('payroll-view') ||
+            $can('payroll-edit') ||
+            $can('payroll-delete')
+          )" class="nav-item">
             <router-link :to="{ name: 'payroll.index' }" class="nav-link">
               <i class="nav-icon fas fa-clipboard-list" />
               <p>{{ $t("Payroll") }}</p>
@@ -1246,34 +988,29 @@
           <li class="nav-header text-bold">
             {{ $t("Inventory Management") }}
           </li>
-          <li
-            v-if="
-              $can('units-management') ||
-              $can('product-category-create') ||
-              $can('product-category-edit') ||
-              $can('product-category-delete') ||
-              $can('product-sub-category-create') ||
-              $can('product-sub-category-edit') ||
-              $can('product-sub-category-delete') ||
-              $can('product-create') ||
-              $can('product-view') ||
-              $can('product-edit') ||
-              $can('product-delete') ||
-              $can('inventory-view')
-            "
-            class="nav-item has-treeview"
-            :class="
-              menuOpen('inventorySettings') ||
-              menuOpen('units') ||
-              menuOpen('warehouses') ||
-              menuOpen('productCats') ||
-              menuOpen('productSubCats') ||
-              menuOpen('products') ||
-              menuOpen('itemsDirectory')
-                ? 'menu-is-opening menu-open'
-                : ''
-            "
-          >
+          <li v-if="
+            $can('units-management') ||
+            $can('product-category-create') ||
+            $can('product-category-edit') ||
+            $can('product-category-delete') ||
+            $can('product-sub-category-create') ||
+            $can('product-sub-category-edit') ||
+            $can('product-sub-category-delete') ||
+            $can('product-create') ||
+            $can('product-view') ||
+            $can('product-edit') ||
+            $can('product-delete') ||
+            $can('inventory-view')
+          " class="nav-item has-treeview" :class="menuOpen('inventorySettings') ||
+            menuOpen('units') ||
+            menuOpen('warehouses') ||
+            menuOpen('productCats') ||
+            menuOpen('productSubCats') ||
+            menuOpen('products') ||
+            menuOpen('itemsDirectory')
+            ? 'menu-is-opening menu-open'
+            : ''
+            ">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cog" />
               <p>
@@ -1281,60 +1018,39 @@
                 <span class="toggle-icon"></span>
               </p>
             </a>
-            <ul
-              class="nav nav-treeview"
-              :style="
-                menuOpen('inventorySettings') ||
-                menuOpen('units') ||
-                menuOpen('warehouses') ||
-                menuOpen('productCats') ||
-                menuOpen('productSubCats') ||
-                menuOpen('products') ||
-                menuOpen('itemsDirectory')
-                  ? 'display: block'
-                  : 'display: none'
-              "
-            >
-              <li
-                v-if="$can('units-management')"
-                class="nav-item"
-              >
-                <router-link
-                  :to="{ name: 'units.index' }"
-                  class="nav-link"
-                >
+            <ul class="nav nav-treeview" :style="menuOpen('inventorySettings') ||
+              menuOpen('units') ||
+              menuOpen('warehouses') ||
+              menuOpen('productCats') ||
+              menuOpen('productSubCats') ||
+              menuOpen('products') ||
+              menuOpen('itemsDirectory')
+              ? 'display: block'
+              : 'display: none'
+              ">
+              <li v-if="$can('units-management')" class="nav-item">
+                <router-link :to="{ name: 'units.index' }" class="nav-link">
                   <i class="fas fa-balance-scale nav-icon" />
                   <p>{{ $t("Units of Measurement") }}</p>
                 </router-link>
               </li>
-              <li
-                v-if="$can('inventory-view')"
-                class="nav-item"
-              >
-                <router-link
-                  :to="{ name: 'inventory.warehouses.index' }"
-                  class="nav-link"
-                >
+              <li v-if="$can('inventory-view')" class="nav-item">
+                <router-link :to="{ name: 'inventory.warehouses.index' }" class="nav-link">
                   <i class="fas fa-warehouse nav-icon" />
                   <p>{{ $t("Warehouses") }}</p>
                 </router-link>
               </li>
-              <li
-                v-if="
-                  $can('product-category-create') ||
-                  $can('product-category-edit') ||
-                  $can('product-category-delete') ||
-                  $can('product-sub-category-create') ||
-                  $can('product-sub-category-edit') ||
-                  $can('product-sub-category-delete')
-                "
-                class="nav-item has-treeview"
-                :class="
-                  menuOpen('productCats') || menuOpen('productSubCats')
-                    ? 'menu-is-opening menu-open'
-                    : ''
-                "
-              >
+              <li v-if="
+                $can('product-category-create') ||
+                $can('product-category-edit') ||
+                $can('product-category-delete') ||
+                $can('product-sub-category-create') ||
+                $can('product-sub-category-edit') ||
+                $can('product-sub-category-delete')
+              " class="nav-item has-treeview" :class="menuOpen('productCats') || menuOpen('productSubCats')
+                ? 'menu-is-opening menu-open'
+                : ''
+                ">
                 <a href="#" class="nav-link">
                   <i class="fas fa-tags nav-icon" />
                   <p>
@@ -1342,70 +1058,45 @@
                     <span class="toggle-icon"></span>
                   </p>
                 </a>
-                <ul
-                  class="nav nav-treeview"
-                  :style="
-                    menuOpen('productCats') || menuOpen('productSubCats')
-                      ? 'display: block'
-                      : 'display: none'
-                  "
-                >
-                  <li
-                    v-if="
-                      $can('product-category-create') ||
-                      $can('product-category-edit') ||
-                      $can('product-category-delete')
-                    "
-                    class="nav-item"
-                  >
-                    <router-link
-                      :to="{ name: 'productCats.index' }"
-                      class="nav-link"
-                    >
+                <ul class="nav nav-treeview" :style="menuOpen('productCats') || menuOpen('productSubCats')
+                  ? 'display: block'
+                  : 'display: none'
+                  ">
+                  <li v-if="
+                    $can('product-category-create') ||
+                    $can('product-category-edit') ||
+                    $can('product-category-delete')
+                  " class="nav-item">
+                    <router-link :to="{ name: 'productCats.index' }" class="nav-link">
                       <i class="fas fa-tags nav-icon" />
                       <p>{{ $t("Categories") }}</p>
                     </router-link>
                   </li>
-                  <li
-                    v-if="
-                      $can('product-sub-category-create') ||
-                      $can('product-sub-category-edit') ||
-                      $can('product-sub-category-delete')
-                    "
-                    class="nav-item"
-                  >
-                    <router-link
-                      :to="{ name: 'productSubCats.index' }"
-                      class="nav-link"
-                    >
+                  <li v-if="
+                    $can('product-sub-category-create') ||
+                    $can('product-sub-category-edit') ||
+                    $can('product-sub-category-delete')
+                  " class="nav-item">
+                    <router-link :to="{ name: 'productSubCats.index' }" class="nav-link">
                       <i class="fas fa-code-branch nav-icon" />
                       <p>{{ $t("Sub Categories") }}</p>
                     </router-link>
                   </li>
                 </ul>
               </li>
-              <li
-                v-if="
-                  $can('product-create') ||
-                  $can('product-view') ||
-                  $can('product-edit') ||
-                  $can('product-delete')
-                "
-                class="nav-item"
-              >
+              <li v-if="
+                $can('product-create') ||
+                $can('product-view') ||
+                $can('product-edit') ||
+                $can('product-delete')
+              " class="nav-item">
                 <router-link :to="{ name: 'products.index' }" class="nav-link">
                   <i class="fas fa-list-ul nav-icon" />
                   <p>{{ $t("Items") }}</p>
                 </router-link>
               </li>
-              <li
-                v-if="$can('inventory-view')"
-                class="nav-item"
-              >
-                <router-link
-                  :to="{ name: 'inventory.itemsDirectory.index' }"
-                  class="nav-link"
-                >
+              <li v-if="$can('inventory-view')" class="nav-item">
+                <router-link :to="{ name: 'inventory.itemsDirectory.index' }" class="nav-link">
                   <i class="fas fa-book nav-icon" />
                   <p>{{ $t("Items Directory") }}</p>
                 </router-link>
@@ -1413,27 +1104,17 @@
             </ul>
           </li>
 
-          <li
-            v-if="$can('inventory-view')"
-            class="nav-item"
-          >
-            <router-link
-              :to="{ name: 'inventory.operations.index' }"
-              class="nav-link"
-            >
+          <li v-if="$can('inventory-view')" class="nav-item">
+            <router-link :to="{ name: 'inventory.operations.index' }" class="nav-link">
               <i class="nav-icon fas fa-tasks" />
               <p>{{ $t("Operations") }}</p>
             </router-link>
           </li>
 
-          <li
-            v-if="
-              $can('item-report') ||
-              $can('inventory-report')
-            "
-            class="nav-item has-treeview"
-            :class="menuOpen('inventoryReports') ? 'menu-is-opening menu-open' : ''"
-          >
+          <li v-if="
+            $can('item-report') ||
+            $can('inventory-report')
+          " class="nav-item has-treeview" :class="menuOpen('inventoryReports') ? 'menu-is-opening menu-open' : ''">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-bar" />
               <p>
@@ -1441,30 +1122,21 @@
                 <span class="toggle-icon"></span>
               </p>
             </a>
-            <ul
-              class="nav nav-treeview"
-              :style="menuOpen('inventoryReports') ? 'display: block' : 'display: none'"
-            >
+            <ul class="nav nav-treeview" :style="menuOpen('inventoryReports') ? 'display: block' : 'display: none'">
               <li v-if="$can('item-report')" class="nav-item">
                 <router-link :to="{ name: 'reports.items' }" class="nav-link">
                   <p>{{ $t("Item Report") }}</p>
                 </router-link>
               </li>
               <li v-if="$can('inventory-report')" class="nav-item">
-                <router-link
-                  :to="{ name: 'reports.inventory' }"
-                  class="nav-link"
-                >
+                <router-link :to="{ name: 'reports.inventory' }" class="nav-link">
                   <p>{{ $t("Inventory Report") }}</p>
                 </router-link>
               </li>
             </ul>
           </li>
 
-          <li
-            v-if="$can('inventory-view')"
-            class="nav-item"
-          >
+          <li v-if="$can('inventory-view')" class="nav-item">
             <router-link :to="{ name: 'inventory.count' }" class="nav-link">
               <i class="nav-icon fas fa-clipboard-check" />
               <p>{{ $t("Inventory Count") }}</p>
@@ -1472,21 +1144,17 @@
           </li>
 
           <li class="nav-header text-bold" v-if="!$isPOS()">{{ $t("REPORTS") }}</li>
-          <li
-            v-if="!$isPOS() && (
-              $can('account-statement') ||
-              $can('balance-sheet') ||
-              $can('vat-report') ||
-              $can('today-profit') ||
-              $can('summary-report') ||
-              $can('profit-loss') ||
-              $can('expense-report') ||
-              $can('sales-by-user-report') ||
-              $can('collection-by-user-report')
-            )"
-            class="nav-item has-treeview"
-            :class="menuOpen('reports') ? 'menu-is-opening menu-open' : ''"
-          >
+          <li v-if="!$isPOS() && (
+            $can('account-statement') ||
+            $can('balance-sheet') ||
+            $can('vat-report') ||
+            $can('today-profit') ||
+            $can('summary-report') ||
+            $can('profit-loss') ||
+            $can('expense-report') ||
+            $can('sales-by-user-report') ||
+            $can('collection-by-user-report')
+          )" class="nav-item has-treeview" :class="menuOpen('reports') ? 'menu-is-opening menu-open' : ''">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-bar" />
               <p>
@@ -1494,124 +1162,84 @@
                 <span class="toggle-icon"></span>
               </p>
             </a>
-            <ul
-              class="nav nav-treeview"
-              :style="menuOpen('reports') ? 'display: block' : 'display: none'"
-            >
+            <ul class="nav nav-treeview" :style="menuOpen('reports') ? 'display: block' : 'display: none'">
               <li v-if="$can('account-statement')" class="nav-item">
-                <router-link
-                  :to="{ name: 'reports.accountStatement' }"
-                  class="nav-link"
-                >
+                <router-link :to="{ name: 'reports.accountStatement' }" class="nav-link">
                   <p>{{ $t("Account Statement") }}</p>
                 </router-link>
               </li>
               <li v-if="$can('account-statement')" class="nav-item">
-                <router-link
-                  :to="{ name: 'reports.groupAccountStatement' }"
-                  class="nav-link"
-                >
+                <router-link :to="{ name: 'reports.groupAccountStatement' }" class="nav-link">
                   <p>{{ $t("Group Account Statement") }}</p>
                 </router-link>
               </li>
               <li v-if="$can('account-statement')" class="nav-item">
-                <router-link
-                  :to="{ name: 'reports.invoiceSummary' }"
-                  class="nav-link"
-                >
+                <router-link :to="{ name: 'reports.invoiceSummary' }" class="nav-link">
                   <p>{{ $t("Invoice Summary") }}</p>
                 </router-link>
               </li>
               <li v-if="$can('account-statement')" class="nav-item">
-                <router-link
-                  :to="{ name: 'reports.purchaseSummary' }"
-                  class="nav-link"
-                >
+                <router-link :to="{ name: 'reports.purchaseSummary' }" class="nav-link">
                   <p>{{ $t("Purchase Summary") }}</p>
                 </router-link>
               </li>
-              <li v-if="$can('balance-sheet') && ($canAccessModule('accounting') || $canAccessModule('both'))" class="nav-item">
-                <router-link
-                  :to="{ name: 'reports.balanceSheet' }"
-                  class="nav-link"
-                >
+              <li v-if="$can('balance-sheet') && ($canAccessModule('accounting') || $canAccessModule('both'))"
+                class="nav-item">
+                <router-link :to="{ name: 'reports.balanceSheet' }" class="nav-link">
                   <p>{{ $t("Balance Sheet") }}</p>
                 </router-link>
               </li>
-              <li v-if="$can('balance-sheet') && ($canAccessModule('accounting') || $canAccessModule('both'))" class="nav-item">
-                <router-link
-                  :to="{ name: 'reports.trialBalance' }"
-                  class="nav-link"
-                >
+              <li v-if="$can('balance-sheet') && ($canAccessModule('accounting') || $canAccessModule('both'))"
+                class="nav-item">
+                <router-link :to="{ name: 'reports.trialBalance' }" class="nav-link">
                   <p>{{ $t("Trial Balance") }}</p>
                 </router-link>
               </li>
-              <li v-if="$can('vat-report') && ($canAccessModule('accounting') || $canAccessModule('both'))" class="nav-item">
-                <router-link
-                  :to="{ name: 'reports.vatReport' }"
-                  class="nav-link"
-                >
+              <li v-if="$can('vat-report') && ($canAccessModule('accounting') || $canAccessModule('both'))"
+                class="nav-item">
+                <router-link :to="{ name: 'reports.vatReport' }" class="nav-link">
                   <p>{{ $t("VAT Report") }}</p>
                 </router-link>
               </li>
               <li v-if="$can('today-profit')" class="nav-item">
-                <router-link
-                  :to="{ name: 'reports.todayReport' }"
-                  class="nav-link"
-                >
+                <router-link :to="{ name: 'reports.todayReport' }" class="nav-link">
                   <p>{{ $t("Today Report") }}</p>
                 </router-link>
               </li>
-              <li v-if="$can('summary-report') && ($canAccessModule('accounting') || $canAccessModule('both'))" class="nav-item">
+              <li v-if="$can('summary-report') && ($canAccessModule('accounting') || $canAccessModule('both'))"
+                class="nav-item">
                 <router-link :to="{ name: 'reports.summary' }" class="nav-link">
                   <p>{{ $t("Summary Report") }}</p>
                 </router-link>
               </li>
-              <li v-if="$can('profit-loss') && ($canAccessModule('accounting') || $canAccessModule('both'))" class="nav-item">
-                <router-link
-                  :to="{ name: 'reports.profitLoss' }"
-                  class="nav-link"
-                >
+              <li v-if="$can('profit-loss') && ($canAccessModule('accounting') || $canAccessModule('both'))"
+                class="nav-item">
+                <router-link :to="{ name: 'reports.profitLoss' }" class="nav-link">
                   <p>{{ $t("Profit/Loss Report") }}</p>
                 </router-link>
               </li>
               <li v-if="$can('expense-report')" class="nav-item">
-                <router-link
-                  :to="{ name: 'reports.expenses' }"
-                  class="nav-link"
-                >
+                <router-link :to="{ name: 'reports.expenses' }" class="nav-link">
                   <p>{{ $t("Expense Report") }}</p>
                 </router-link>
               </li>
               <li v-if="$can('balance-sheet')" class="nav-item">
-                <router-link
-                  :to="{ name: 'reports.supplierPayableReport' }"
-                  class="nav-link"
-                >
+                <router-link :to="{ name: 'reports.supplierPayableReport' }" class="nav-link">
                   <p>{{ $t("Supplier Payable Report") }}</p>
                 </router-link>
               </li>
               <li v-if="$can('balance-sheet')" class="nav-item">
-                <router-link
-                  :to="{ name: 'reports.clientReceivableReport' }"
-                  class="nav-link"
-                >
+                <router-link :to="{ name: 'reports.clientReceivableReport' }" class="nav-link">
                   <p>{{ $t("Client Receivable Report") }}</p>
                 </router-link>
               </li>
               <li v-if="$can('sales-by-user-report')" class="nav-item">
-                <router-link
-                  :to="{ name: 'reports.salesByUserReport' }"
-                  class="nav-link"
-                >
+                <router-link :to="{ name: 'reports.salesByUserReport' }" class="nav-link">
                   <p>{{ $t("Sales By User Report") }}</p>
                 </router-link>
               </li>
               <li v-if="$can('collection-by-user-report')" class="nav-item">
-                <router-link
-                  :to="{ name: 'reports.collectionByUserReport' }"
-                  class="nav-link"
-                >
+                <router-link :to="{ name: 'reports.collectionByUserReport' }" class="nav-link">
                   <p>{{ $t("Collection By User Report") }}</p>
                 </router-link>
               </li>
@@ -1619,33 +1247,27 @@
           </li>
 
           <li class="nav-header text-bold" v-if="!$isPOS()">{{ $t("Others") }}</li>
-        <li
-  v-if="
-    !$isPOS() &&
-    (
-      $can('branches-list') ||
-      $can('branches-create') ||
-      $can('branches-edit') ||
-      $can('branches-delete')
-    )
-  "
-  class="nav-item"
->
-  <router-link :to="{ name: 'branches.index' }" class="nav-link">
-    <i class="nav-icon fas fa-sitemap"></i>
-    <p>{{ $t('Branches') }}</p>
-  </router-link>
-</li>
+          <li v-if="
+            !$isPOS() &&
+            (
+              $can('branches-list') ||
+              $can('branches-create') ||
+              $can('branches-edit') ||
+              $can('branches-delete')
+            )
+          " class="nav-item">
+            <router-link :to="{ name: 'branches.index' }" class="nav-link">
+              <i class="nav-icon fas fa-sitemap"></i>
+              <p>{{ $t('Branches') }}</p>
+            </router-link>
+          </li>
 
-          <li
-            v-if="
-              $can('role-permissions') ||
-              $can('units') ||
-              $can('currencies') ||
-              $can('general-settings')
-            "
-            class="nav-item"
-          >
+          <li v-if="
+            $can('role-permissions') ||
+            $can('units') ||
+            $can('currencies') ||
+            $can('general-settings')
+          " class="nav-item">
             <router-link :to="{ name: 'setup.index' }" class="nav-link">
               <i class="nav-icon fas fa-cogs" />
               <p>{{ $t("Setup") }}</p>
@@ -1673,46 +1295,31 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <router-link
-                  :to="{ name: 'settings.billing' }"
-                  class="nav-link"
-                >
+                <router-link :to="{ name: 'settings.billing' }" class="nav-link">
                   <i class="nav-icon fas fa-money-check-alt"></i>
                   {{ $t("Billing") }}
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link
-                  :to="{ name: 'settings.profile' }"
-                  class="nav-link"
-                >
+                <router-link :to="{ name: 'settings.profile' }" class="nav-link">
                   <i class="nav-icon fas fa-user-circle"></i>
                   {{ $t("Profile") }}
                 </router-link>
               </li>
               <li class="nav-item">
-                <a
-                  class="nav-link admin-logout"
-                  href="#"
-                  @click.prevent="logout"
-                >
+                <a class="nav-link admin-logout" href="#" @click.prevent="logout">
                   <i class="nav-icon fas fa-power-off" />
                   {{ $t("Logout") }}
                 </a>
               </li>
             </ul>
           </li>
-          <li
-            v-if="!$isPOS() && $can('domain-management')"
-            class="nav-item has-treeview"
-            :class="
-              menuOpen('domain') ||
-              menuOpen('domains') ||
-              menuOpen('domain-requests')
-                ? 'menu-is-opening menu-open'
-                : ''
-            "
-          >
+          <li v-if="!$isPOS() && $can('domain-management')" class="nav-item has-treeview" :class="menuOpen('domain') ||
+            menuOpen('domains') ||
+            menuOpen('domain-requests')
+            ? 'menu-is-opening menu-open'
+            : ''
+            ">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-database" />
               <p>
@@ -1720,16 +1327,12 @@
                 <span class="toggle-icon"></span>
               </p>
             </a>
-            <ul
-              class="nav nav-treeview"
-              :style="
-                menuOpen('domain') ||
-                menuOpen('domains') ||
-                menuOpen('domain-requests')
-                  ? 'display: block'
-                  : 'display: none'
-              "
-            >
+            <ul class="nav nav-treeview" :style="menuOpen('domain') ||
+              menuOpen('domains') ||
+              menuOpen('domain-requests')
+              ? 'display: block'
+              : 'display: none'
+              ">
               <li class="nav-item">
                 <router-link :to="{ name: 'domains.index' }" class="nav-link">
                   <i class="nav-icon fas fa-server" />
@@ -1737,21 +1340,15 @@
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link
-                  :to="{ name: 'domain-requests.index' }"
-                  class="nav-link"
-                >
+                <router-link :to="{ name: 'domain-requests.index' }" class="nav-link">
                   <i class="nav-icon fas fa-file-import" />
                   <p>{{ $t("Domain Request") }}</p>
                 </router-link>
               </li>
             </ul>
           </li>
-          <li
-            v-if="!$isPOS()"
-            class="nav-item has-treeview"
-            :class="menuOpen('backup') ? 'menu-is-opening menu-open' : ''"
-          >
+          <li v-if="!$isPOS()" class="nav-item has-treeview"
+            :class="menuOpen('backup') ? 'menu-is-opening menu-open' : ''">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user" />
               <p>
@@ -1759,10 +1356,7 @@
                 <span class="toggle-icon"></span>
               </p>
             </a>
-            <ul
-              class="nav nav-treeview"
-              :style="menuOpen('backup') ? 'display: block' : 'display: none'"
-            >
+            <ul class="nav nav-treeview" :style="menuOpen('backup') ? 'display: block' : 'display: none'">
               <li v-if="$can('database-backup')" class="nav-item">
                 <router-link :to="{ name: 'backup' }" class="nav-link">
                   <i class="nav-icon fas fa-download" />
@@ -1878,6 +1472,7 @@ export default {
 .main-sidebar .nav-sidebar .nav-header {
   text-transform: lowercase;
 }
+
 .main-sidebar .nav-sidebar .nav-header::first-letter {
   text-transform: uppercase;
 }
@@ -1934,10 +1529,7 @@ export default {
   font-size: 12px;
 }
 
-.main-sidebar
-  .nav-sidebar
-  .nav-treeview
-  .nav-link.router-link-exact-active::before,
+.main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active::before,
 .main-sidebar .nav-sidebar .nav-treeview .nav-link.active::before {
   background-color: #fff;
 }
@@ -1998,8 +1590,9 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .fa-angle-left {
   transform: scaleX(-1);
   transition: transform 0.2s ease;
 }
-html[dir="ltr"] .main-sidebar .nav-sidebar .menu-open > a .fa-angle-left,
-html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
+
+html[dir="ltr"] .main-sidebar .nav-sidebar .menu-open>a .fa-angle-left,
+html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening>a .fa-angle-left {
   transform: scaleX(-1) rotate(-90deg);
 }
 
@@ -2029,18 +1622,18 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
   left: 10px;
 }
 
-.main-sidebar .nav-sidebar .nav-item.has-treeview > a .toggle-icon::before {
+.main-sidebar .nav-sidebar .nav-item.has-treeview>a .toggle-icon::before {
   content: "+";
 }
 
-.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open > a .toggle-icon::before,
-.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening > a .toggle-icon::before {
+.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open>a .toggle-icon::before,
+.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening>a .toggle-icon::before {
   content: "-";
 }
 
 /* Make toggle icon white on active/open headers */
-.main-sidebar .nav-sidebar .menu-open > a .toggle-icon,
-.main-sidebar .nav-sidebar .menu-is-opening > a .toggle-icon {
+.main-sidebar .nav-sidebar .menu-open>a .toggle-icon,
+.main-sidebar .nav-sidebar .menu-is-opening>a .toggle-icon {
   color: #fff !important;
 }
 
@@ -2065,6 +1658,11 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
   transform: translateX(2px);
 }
 
+/* RTL: Mirror hover transform */
+[dir="rtl"] .main-sidebar .nav-sidebar .nav-link:hover {
+  transform: translateX(-2px);
+}
+
 .main-sidebar .nav-sidebar .nav-link:hover i {
   color: #33a0d9 !important;
   transform: scale(1.1);
@@ -2082,6 +1680,11 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
   color: #33a0d9 !important;
   transform: translateX(4px);
   transition: all 0.3s ease;
+}
+
+/* RTL: Mirror submenu hover transform */
+[dir="rtl"] .main-sidebar .nav-sidebar .nav-treeview .nav-link:hover {
+  transform: translateX(-4px);
 }
 
 .main-sidebar .nav-sidebar .nav-treeview .nav-link:hover i {
@@ -2122,8 +1725,8 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
   border-right: none !important;
 }
 
-.main-sidebar .nav-sidebar .menu-open > a,
-.main-sidebar .nav-sidebar .menu-is-opening > a {
+.main-sidebar .nav-sidebar .menu-open>a,
+.main-sidebar .nav-sidebar .menu-is-opening>a {
   background-color: #33a0d9 !important;
   color: #fff !important;
   border-radius: 25px;
@@ -2133,22 +1736,23 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
 }
 
 /* Active menu header styling */
-.main-sidebar .nav-sidebar .menu-open > a i,
-.main-sidebar .nav-sidebar .menu-is-opening > a i {
+.main-sidebar .nav-sidebar .menu-open>a i,
+.main-sidebar .nav-sidebar .menu-is-opening>a i {
   color: #fff !important;
 }
 
-.main-sidebar .nav-sidebar .menu-open > a p,
-.main-sidebar .nav-sidebar .menu-is-opening > a p {
+.main-sidebar .nav-sidebar .menu-open>a p,
+.main-sidebar .nav-sidebar .menu-is-opening>a p {
   color: #fff !important;
 }
 
 /* Keep parent <a> content (icon + title + +/-) aligned on one line */
-.main-sidebar .nav-sidebar .nav-item.has-treeview > a.nav-link {
+.main-sidebar .nav-sidebar .nav-item.has-treeview>a.nav-link {
   display: flex;
   align-items: baseline;
 }
-.main-sidebar .nav-sidebar .nav-item.has-treeview > a.nav-link > p {
+
+.main-sidebar .nav-sidebar .nav-item.has-treeview>a.nav-link>p {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2159,8 +1763,8 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
 }
 
 /* Ensure alignment persists when parent is active/open */
-.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open > a.nav-link,
-.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening > a.nav-link {
+.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open>a.nav-link,
+.main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening>a.nav-link {
   display: flex;
   align-items: center;
 }
@@ -2174,6 +1778,7 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
   background-color: #d7dbdd59 !important;
   color: #33a0d9 !important;
 }
+
 .main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open ul.nav-treeview a.nav-link.active i,
 .main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open ul.nav-treeview a.nav-link.active svg,
 .main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open ul.nav-treeview a.nav-link.active p,
@@ -2195,5 +1800,18 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening > a .fa-angle-left {
 
 [dir="ltr"] .main-sidebar .nav-sidebar .nav-link .fa-angle-left {
   right: 0px;
+}
+
+/* RTL Sidebar positioning and transitions */
+[dir="rtl"] .main-sidebar {
+  transition: transform 0.3s ease-in-out, margin-right 0.3s ease-in-out;
+}
+
+[dir="rtl"] .main-sidebar .nav-sidebar .nav-link {
+  transition: all 0.3s ease;
+}
+
+[dir="rtl"] .main-sidebar .nav-sidebar .nav-treeview .nav-link {
+  transition: all 0.3s ease;
 }
 </style>
