@@ -508,22 +508,41 @@ class JournalEntryController extends Controller
     /**
      * Get chart of accounts for dropdown
      */
-    public function getChartOfAccounts()
+    public function getChartOfAccounts(Request $request)
     {
         try {
+            $locale = $request->get('locale', app()->getLocale());
             $branchId = Auth::user()->default_branch_id ?? null;
 
-            $accounts = ChartOfAccount::with('type')
+            $accounts = ChartOfAccount::with(['type', 'translations'])
                 ->where('is_active', true)
                 ->forBranch($branchId)
                 ->orderBy('code')
                 ->get()
-                ->map(function ($account) {
+                ->map(function ($account) use ($locale) {
+                    // Get translated name
+                    $translatedName = $account->getTranslatedField('name', $locale);
+                    if (empty($translatedName)) {
+                        $translatedName = $account->name;
+                    }
+
+                    // Get translated type name
+                    $typeName = 'Unknown';
+                    if ($account->type) {
+                        $typeName = method_exists($account->type, 'getTranslatedField')
+                            ? $account->type->getTranslatedField('name', $locale)
+                            : $account->type->name;
+                        if (empty($typeName)) {
+                            $typeName = $account->type->name;
+                        }
+                    }
+
                     return [
                         'id' => $account->id,
                         'code' => $account->code,
-                        'name' => $account->name,
-                        'type' => $account->type ? $account->type->name : 'Unknown',
+                        'name' => $translatedName,
+                        'original_name' => $account->name,
+                        'type' => $typeName,
                     ];
                 });
 

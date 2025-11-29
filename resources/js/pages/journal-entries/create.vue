@@ -352,7 +352,11 @@ export default {
   methods: {
     async loadChartOfAccounts() {
       try {
-        const response = await this.$axios.get('/api/journal-entries/chart-of-accounts')
+        // Get current locale from i18n
+        const locale = this.$i18n?.locale || this.$store?.getters?.['lang/locale'] || 'en'
+        const response = await this.$axios.get('/api/journal-entries/chart-of-accounts', {
+          params: { locale }
+        })
         this.chartOfAccounts = response.data.data || []
         console.log('Loaded chart of accounts:', this.chartOfAccounts)
         console.log('First account structure:', this.chartOfAccounts[0])
