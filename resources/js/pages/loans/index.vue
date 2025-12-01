@@ -116,10 +116,10 @@
                     <td>{{ data.payable }} <span class="saudi-riyal">ê</span></td>
                     <td>{{ data.due }} <span class="saudi-riyal">ê</span></td>
                     <td>
-                      <span>
-                        <CurrencyDisplay :amount="data.perMonth" />
-                        {{ $t('Per Month') }} X {{ data.duration }}
-                      </span>
+                      <p>
+                        {{ data.perMonth }} <span class="saudi-riyal">ê</span> {{ $t('Per Month') }} X {{ data.duration
+                        }}
+                      </p>
                     </td>
                     <td>
                       <span v-if="data.status === 1" class="badge bg-success">{{
