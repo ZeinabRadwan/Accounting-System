@@ -1373,7 +1373,8 @@ class BusinessTransactionJournalService
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $data['entry_date'],
-                'entry_type' => $data['entry_type'] ?? null,
+                // Default to 'manual' for custom entries when entry_type is not explicitly provided
+                'entry_type' => $data['entry_type'] ?? 'manual',
                 'reference' => $data['reference'] ?? null,
                 'description' => $data['description'],
                 'notes' => $data['notes'] ?? null,
