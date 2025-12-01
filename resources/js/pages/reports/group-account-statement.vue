@@ -200,7 +200,7 @@
                 <span class="info-box-text">{{ $t('Opening Balance') }}</span>
                 <span class="info-box-number">
                   {{ reportData.summary.opening_balance}} <span class="saudi-riyal">ê</span>
-                  <small class="text-muted">({{ reportData.summary.opening_balance_type }})</small>
+                  <small class="text-muted">({{ $t(reportData.summary.opening_balance_type) }})</small>
                 </span>
               </div>
             </div>
@@ -236,7 +236,7 @@
                 <span class="info-box-text">{{ $t('Closing Balance') }}</span>
                 <span class="info-box-number">
                   {{ reportData.summary.closing_balance}} <span class="saudi-riyal">ê</span>
-                  <small class="text-muted">({{ reportData.summary.closing_balance_type }})</small>
+                  <small class="text-muted">({{ $t(reportData.summary.closing_balance_type) }})</small>
                 </span>
               </div>
             </div>
@@ -327,7 +327,7 @@
                       class="badge"
                       :class="entry.balance_type === 'Debit' ? 'badge-success' : 'badge-danger'"
                     >
-                      {{ entry.balance_type }}
+                      {{ $t(entry.balance_type) }}
                     </span>
                   </td>
                 </tr>
