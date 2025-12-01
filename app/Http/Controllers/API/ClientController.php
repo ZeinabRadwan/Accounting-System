@@ -25,6 +25,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
@@ -138,7 +139,12 @@ class ClientController extends Controller
                 }
 
                 $imageName = time().'.'.$fileExtension;
-                Image::make($request->image)->save(public_path('images/clients/').$imageName);
+                $imagePath = public_path('images/clients/');
+                // Ensure directory exists
+                if (!File::exists($imagePath)) {
+                    File::makeDirectory($imagePath, 0755, true);
+                }
+                Image::make($request->image)->save($imagePath.$imageName);
             }
 
             // Prepare client data
@@ -314,8 +320,12 @@ class ClientController extends Controller
 
                 $fileExtension = $uploadedFile->getClientOriginalExtension() ?: 'png';
                 $imageName = time().'.'.$fileExtension;
-
-                Image::make($uploadedFile->getRealPath())->save(public_path('images/clients/').$imageName);
+                $imagePath = public_path('images/clients/');
+                // Ensure directory exists
+                if (!File::exists($imagePath)) {
+                    File::makeDirectory($imagePath, 0755, true);
+                }
+                Image::make($uploadedFile->getRealPath())->save($imagePath.$imageName);
                 $hasNewImage = true;
             } elseif (is_string($request->image) && $request->image !== '') {
                 // Base64 or other string-based image data
@@ -353,7 +363,12 @@ class ClientController extends Controller
                 }
 
                 $imageName = time().'.'.$fileExtension;
-                Image::make($request->image)->save(public_path('images/clients/').$imageName);
+                $imagePath = public_path('images/clients/');
+                // Ensure directory exists
+                if (!File::exists($imagePath)) {
+                    File::makeDirectory($imagePath, 0755, true);
+                }
+                Image::make($request->image)->save($imagePath.$imageName);
                 $hasNewImage = true;
             }
 

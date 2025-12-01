@@ -946,6 +946,70 @@ Route::middleware([
         return response()->json(['error' => 'Image not found'], 404);
     })->name('profile.image');
 
+    // Serve client images
+    Route::get('/images/clients/{filename}', function ($filename) {
+        $path = public_path('images/clients/'.$filename);
+        if (file_exists($path)) {
+            return response()->file($path);
+        }
+
+        // Fallback to default avatar if image doesn't exist
+        $defaultPath = public_path('images/default-avatar.jpeg');
+        if (file_exists($defaultPath)) {
+            return response()->file($defaultPath);
+        }
+
+        return response()->json(['error' => 'Image not found'], 404);
+    })->name('client.image');
+
+    // Serve supplier images
+    Route::get('/images/suppliers/{filename}', function ($filename) {
+        $path = public_path('images/suppliers/'.$filename);
+        if (file_exists($path)) {
+            return response()->file($path);
+        }
+
+        // Fallback to default avatar if image doesn't exist
+        $defaultPath = public_path('images/default-avatar.jpeg');
+        if (file_exists($defaultPath)) {
+            return response()->file($defaultPath);
+        }
+
+        return response()->json(['error' => 'Image not found'], 404);
+    })->name('supplier.image');
+
+    // Serve employee images
+    Route::get('/images/employees/{filename}', function ($filename) {
+        $path = public_path('images/employees/'.$filename);
+        if (file_exists($path)) {
+            return response()->file($path);
+        }
+
+        // Fallback to default avatar if image doesn't exist
+        $defaultPath = public_path('images/default-avatar.jpeg');
+        if (file_exists($defaultPath)) {
+            return response()->file($defaultPath);
+        }
+
+        return response()->json(['error' => 'Image not found'], 404);
+    })->name('employee.image');
+
+    // Serve product images
+    Route::get('/images/products/{filename}', function ($filename) {
+        $path = public_path('images/products/'.$filename);
+        if (file_exists($path)) {
+            return response()->file($path);
+        }
+
+        // Fallback to default image if product image doesn't exist
+        $defaultPath = public_path('images/empty.png');
+        if (file_exists($defaultPath)) {
+            return response()->file($defaultPath);
+        }
+
+        return response()->json(['error' => 'Image not found'], 404);
+    })->name('product.image');
+
     // Tenant SPA routes (exclude api, storage, and build directories)
     Route::get('{path}', SpaController::class)->where('path', '^(?!.*(?:api|storage|build)).*$')->middleware('tenant.not_archived');
 });
