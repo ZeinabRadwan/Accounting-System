@@ -433,10 +433,12 @@ export default {
             });
           }
           
+          // Use POST with method override to ensure multipart body is properly handled on update
+          fd.append('_method', 'PUT');
           requestData = fd;
           config = {
             headers: {
-              'Content-Type': 'multipart/form-data'
+              // Let the browser set the correct boundary for multipart/form-data
             }
           };
         } else {
@@ -446,7 +448,11 @@ export default {
         
         console.log('Sending update request with data:', requestData);
         
-        const response = await this.$http.put(`/api/clients/${this.clientData.slug}`, requestData, config);
+        // When files are present, we send POST with _method=PUT (handled above in FormData)
+        const url = `/api/clients/${this.clientData.slug}`;
+        const response = hasFiles
+          ? await this.$http.post(url, requestData, config)
+          : await this.$http.put(url, requestData, config);
         
         console.log('API response received:', response);
         

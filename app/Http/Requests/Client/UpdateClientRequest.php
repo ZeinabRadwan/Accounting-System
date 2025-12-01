@@ -70,8 +70,8 @@ class UpdateClientRequest extends BaseRequest
             'neighbourhood' => 'nullable|string|max:100',
             'taxCard' => 'nullable|string|max:100',
 
-            // Additional Fields
-            'image' => 'nullable|string',
+            // Additional Fields (accept both file uploads and base64/string)
+            'image' => 'nullable',
             'attachments' => 'nullable|array',
             'attachments.*' => 'nullable|file|mimes:jpeg,png,gif|max:2048',
             'status' => 'nullable|boolean',

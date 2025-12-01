@@ -287,17 +287,38 @@ class ClientController extends Controller
     public function update(UpdateClientRequest $request, $slug)
     {
         try {
-            // Debug: Log request data before validation
-            \Log::info('ClientController update - Request all:', $request->all());
-            \Log::info('ClientController update - phoneNumber from request:', ['phoneNumber' => $request->input('phoneNumber')]);
-            \Log::info('ClientController update - phoneNumber from get:', ['phoneNumber' => $request->get('phoneNumber')]);
+            // Debug: Log request data before processing
+            \Log::info('ClientController update - Raw request data', [
+                'all' => $request->all(),
+                'has_file_image' => $request->hasFile('image'),
+                'image_input_type' => gettype($request->input('image')),
+                'image_is_instance_of_uploaded_file' => $request->file('image') instanceof \Illuminate\Http\UploadedFile,
+                'files' => $request->files->all(),
+            ]);
 
             // get client
             $client = Client::where('slug', $slug)->first();
 
             // upload thumbnail and set the name
             $imageName = $client->image_path;
-            if ($request->image) {
+            $hasNewImage = false;
+
+            // Prefer treating image as an uploaded file (binary) if present
+            $uploadedFile = $request->file('image');
+
+            if ($uploadedFile instanceof \Illuminate\Http\UploadedFile) {
+                // Binary file upload (e.g. multipart/form-data)
+                if ($imageName) {
+                    @unlink(public_path('images/clients/'.$imageName));
+                }
+
+                $fileExtension = $uploadedFile->getClientOriginalExtension() ?: 'png';
+                $imageName = time().'.'.$fileExtension;
+
+                Image::make($uploadedFile->getRealPath())->save(public_path('images/clients/').$imageName);
+                $hasNewImage = true;
+            } elseif (is_string($request->image) && $request->image !== '') {
+                // Base64 or other string-based image data
                 if ($imageName) {
                     @unlink(public_path('images/clients/'.$imageName));
                 }
@@ -327,19 +348,20 @@ class ClientController extends Controller
                         $fileExtension = 'png'; // fallback
                     }
                 } else {
-                    // Direct file upload or other format
-                    $fileExtension = 'png'; // fallback
+                    // Direct string without explicit mime, fallback to png
+                    $fileExtension = 'png';
                 }
 
                 $imageName = time().'.'.$fileExtension;
-
+                Image::make($request->image)->save(public_path('images/clients/').$imageName);
+                $hasNewImage = true;
             }
 
             // update client - only include fields that are present in the request
             $updateData = [];
 
-            // Always update image_path if image was processed
-            if ($request->has('image') || $imageName !== $client->image_path) {
+            // Always update image_path if a new image was processed
+            if ($hasNewImage) {
                 $updateData['image_path'] = $imageName;
             }
 
@@ -468,6 +490,8 @@ class ClientController extends Controller
             $updateData = $this->autoAssignChartOfAccountForClient($updateData, $client);
 
             $client->update($updateData);
+            $client->refresh();
+            $client->ensureChartOfAccountLoaded();
 
             // Handle representatives if provided
             if ($request->has('representatives') && is_array($request->representatives)) {
@@ -513,7 +537,7 @@ class ClientController extends Controller
                 // Don't fail the update if activity logging fails
             }
 
-            return $this->responseWithSuccess('Client updated successfully');
+            return $this->responseWithSuccess('Client updated successfully', new ClientResource($client));
 
         } catch (Exception $e) {
             return $this->responseWithError($e->getMessage());
