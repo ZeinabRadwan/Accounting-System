@@ -10,7 +10,8 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'assetTypes.index' }" class="btn btn-info">
-                  <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                  <template
+                    v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
                     {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
 
@@ -18,7 +19,8 @@
 
                   <template v-else>
 
-                    <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                    <template
+                      v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
 
                       {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
@@ -37,9 +39,6 @@
 
                   </template>
                 </router-link>
-                <button type="button" class="btn btn-success" @click="saveTemporary" :title="$t('Save Temporarily')">
-                  <i class="fas fa-save" />
-                </button>
               </div>
             </div>
           </div>
@@ -52,8 +51,7 @@
                   <label for="name">{{ $t('Name') }}
                     <span class="required">*</span></label>
                   <input id="name" v-model="form.name" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('name') }" name="name"
-                    :placeholder="$t('Enter a name')" />
+                    :class="{ 'is-invalid': form.errors.has('name') }" name="name" :placeholder="$t('Enter a name')" />
                   <has-error :form="form" field="name" />
                 </div>
                 <div class="form-group col-md-6">
@@ -236,7 +234,7 @@ export default {
 }
 
 /* Search Input Background Override */
-.form-control{
+.form-control {
   background: #fff !important;
 }
 
@@ -257,10 +255,10 @@ export default {
 }
 </style>
 
-          })
-        })
-    },
-  },
+})
+})
+},
+},
 }
 </script>
 
@@ -306,7 +304,7 @@ export default {
 }
 
 /* Search Input Background Override */
-.form-control{
+.form-control {
   background: #fff !important;
 }
 

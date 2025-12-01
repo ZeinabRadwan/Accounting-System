@@ -359,9 +359,19 @@ export default {
       const numValue = Number(total)
       return isNaN(numValue) ? 0 : Number(numValue.toFixed(2))
     },
+    // Total VAT (sum of line VAT amounts, same logic as purchase create)
     totalProductTax() {
-      if (!this.form.selectedProducts || !Array.isArray(this.form.selectedProducts) || this.form.selectedProducts.length === 0) return 0
-      const total = this.form.selectedProducts.reduce((total, product) => total + (Number(product.productTax) || 0), 0)
+      if (
+        !this.form.selectedProducts ||
+        !Array.isArray(this.form.selectedProducts) ||
+        this.form.selectedProducts.length === 0
+      ) {
+        return 0
+      }
+      const total = this.form.selectedProducts.reduce(
+        (sum, product) => sum + (Number(product.totalTax) || 0),
+        0
+      )
       const numValue = Number(total)
       return isNaN(numValue) ? 0 : Number(numValue.toFixed(2))
     },
@@ -545,127 +555,97 @@ export default {
       return
     },
 
-    // Handle item change from ItemsTable component
+    // Handle item change from ItemsTable component (clone of purchase create logic, adapted for returnQty)
     handleItemChange({ value, type, index, action }) {
+      const item = this.form.selectedProducts[index]
+      if (!item) return
+
       if (type === 'qty') {
+        let qty = Number(item.returnQty || 0)
+
         if (action === 'increment') {
-          this.updateItem(Math.min(this.form.selectedProducts[index].maxQty, Number(value) + 1), index)
+          qty = qty + 1
         } else if (action === 'decrement') {
-          this.updateItem(Math.max(0, Number(value) - 1), index)
+          qty = qty - 1
         } else {
-          // Direct value change
-          const item = this.form.selectedProducts[index]
-          if (item) {
-            item.returnQty = Number(value)
-            this.updateItemReactively(item)
-          }
+          qty = Number(value)
         }
+
+        // Clamp between 0 and maxQty
+        if (qty < 0) qty = 0
+        if (item.maxQty != null && qty > item.maxQty) qty = item.maxQty
+
+        item.returnQty = qty
+        this.$set(this.form.selectedProducts, index, item)
+
+        // Recalculate line totals and overall sums
+        this.recalculateReturnItem(index)
+        this.calculateSum()
       } else if (type === 'price') {
-        // Price changes are not allowed in returns (readonly)
-        const item = this.form.selectedProducts[index]
-        if (item) {
-          item.unitCost = Number(value)
-          this.calculateSum()
-        }
+        // Price is readonly for returns, but keep it in sync if needed
+        item.unitCost = Number(value)
+        this.$set(this.form.selectedProducts, index, item)
+        this.recalculateReturnItem(index)
+        this.calculateSum()
       }
     },
 
-    // update items
-    updateItem(value, index) {
-      let selectedProduct = this.form.selectedProducts[index]
-      if (selectedProduct && value >= 0 && value <= selectedProduct.maxQty) {
-        selectedProduct.returnQty = Number(value)
-        // Calculate proportional return amounts based on original purchase data
-        if (selectedProduct.returnQty > 0) {
-          const originalLineTotal = parseFloat(selectedProduct.totalPrice) || 0
-          const totalQty = parseFloat(selectedProduct.qty) || 1
-          const returnQty = parseFloat(selectedProduct.returnQty) || 0
-          const unitPrice = originalLineTotal / totalQty
-          const returnTotal = Number((unitPrice * returnQty).toFixed(2))
-          selectedProduct.returnTotal = returnTotal
-          
-          // Calculate proportional discount and tax
-          const originalDiscount = parseFloat(selectedProduct.discountAmount) || 0
-          const originalTax = parseFloat(selectedProduct.totalTax) || 0
-          const proportionalDiscount = Number(((originalDiscount / totalQty) * returnQty).toFixed(2))
-          const proportionalTax = Number(((originalTax / totalQty) * returnQty).toFixed(2))
-          
-          selectedProduct.totalBeforeDiscount = Number((returnTotal - proportionalDiscount).toFixed(2))
-          selectedProduct.totalAfterDiscount = selectedProduct.totalBeforeDiscount
-          selectedProduct.productTax = proportionalTax
-          selectedProduct.totalTax = proportionalTax
-          selectedProduct.totalPrice = Number((selectedProduct.totalAfterDiscount + proportionalTax).toFixed(2))
-        } else {
-          selectedProduct.returnTotal = 0
-          selectedProduct.totalBeforeDiscount = 0
-          selectedProduct.totalAfterDiscount = 0
-          selectedProduct.productTax = 0
-          selectedProduct.totalTax = 0
-          selectedProduct.totalPrice = 0
-        }
-        this.$set(this.form.selectedProducts, index, selectedProduct)
-      }
-      this.calculateSum()
-    },
+    // Recalculate a single return line using the same logic as purchase create
+    recalculateReturnItem(index) {
+      const item = this.form.selectedProducts[index]
+      if (!item) return
 
-    updateItemReactively(item) {
-      if (item.returnQty < 0) item.returnQty = 0
-      else if (item.returnQty > item.maxQty) item.returnQty = item.maxQty
-      
-      // Calculate proportional return amounts based on original purchase data
-      if (item.returnQty > 0) {
-        const originalLineTotal = parseFloat(item.totalPrice) || 0
-        const totalQty = parseFloat(item.qty) || 1
-        const returnQty = parseFloat(item.returnQty) || 0
-        const unitPrice = originalLineTotal / totalQty
-        const returnTotal = Number((unitPrice * returnQty).toFixed(2))
-        item.returnTotal = returnTotal
-        
-        // Calculate proportional discount and tax
-        const originalDiscount = parseFloat(item.discountAmount) || 0
-        const originalTax = parseFloat(item.totalTax) || 0
-        const proportionalDiscount = Number(((originalDiscount / totalQty) * returnQty).toFixed(2))
-        const proportionalTax = Number(((originalTax / totalQty) * returnQty).toFixed(2))
-        
-        item.totalBeforeDiscount = Number((returnTotal - proportionalDiscount).toFixed(2))
-        item.totalAfterDiscount = item.totalBeforeDiscount
-        item.productTax = proportionalTax
-        item.totalTax = proportionalTax
-        item.totalPrice = Number((item.totalAfterDiscount + proportionalTax).toFixed(2))
-      } else {
-        item.returnTotal = 0
-        item.totalBeforeDiscount = 0
-        item.totalAfterDiscount = 0
-        item.productTax = 0
-        item.totalTax = 0
-        item.totalPrice = 0
-      }
-      this.calculateSum()
-    },
+      const qty = Number(item.returnQty || 0)
+      const unitPrice = Number(item.purchasePrice || item.unitCost || 0)
 
-    // discount and vat per product
-    calculateProductDiscount(index) {
-      const product = this.form.selectedProducts[index]
-      if (!product) return
+      // 1. Total before discount
+      const total = Number((unitPrice * qty).toFixed(2))
+      this.$set(item, 'totalBeforeDiscount', total)
+
+      // 2. Discount amount and total after discount
       let discountAmount = 0
-      if (product.discountType === 'percentage') {
-        discountAmount = (product.returnQty * product.purchasePrice) * (product.discount / 100)
+      if (item.discountType === 'percentage') {
+        discountAmount = Number((total * (item.discount || 0) / 100).toFixed(2))
       } else {
-        discountAmount = product.discount
+        discountAmount = Number(item.discountAmount || item.discount || 0)
       }
-      product.discountAmount = Number(discountAmount.toFixed(2))
-      product.totalBeforeDiscount = Number((product.returnQty * product.purchasePrice).toFixed(2))
-      product.totalAfterDiscount = Number((product.totalBeforeDiscount - discountAmount).toFixed(2))
+      this.$set(item, 'discountAmount', discountAmount)
+
+      const totalAfterDiscount = Number((total - discountAmount).toFixed(2))
+      this.$set(item, 'totalAfterDiscount', totalAfterDiscount)
+
+      // 3. VAT rate
+      let vatRate = 0
+      if (item.selectedVatRate && item.selectedVatRate.rate !== undefined && item.selectedVatRate.rate !== null) {
+        vatRate = Number(item.selectedVatRate.rate)
+      } else if (item.vatRate !== undefined && item.vatRate !== null) {
+        vatRate = Number(item.vatRate)
+      }
+      if (isNaN(vatRate) || vatRate < 0) vatRate = 0
+
+      // 4. VAT amount (for entire returned quantity) and per-unit VAT
+      const totalTax = Number((totalAfterDiscount * vatRate / 100).toFixed(2))
+      const productTax = qty > 0 ? Number((totalTax / qty).toFixed(2)) : 0
+      this.$set(item, 'totalTax', totalTax)
+      this.$set(item, 'productTax', productTax)
+
+      // 5. Total with VAT and unit cost
+      const totalPrice = Number((totalAfterDiscount + totalTax).toFixed(2))
+      this.$set(item, 'totalPrice', totalPrice)
+      const unitCost = Number((unitPrice + productTax).toFixed(2))
+      this.$set(item, 'unitCost', unitCost)
+
+      this.$set(this.form.selectedProducts, index, item)
+    },
+
+    // Discount and VAT per product (delegating to recalculateReturnItem, same as purchase create)
+    calculateProductDiscount(index) {
+      this.recalculateReturnItem(index)
       this.calculateSum()
     },
 
     calculateProductVat(index) {
-      const product = this.form.selectedProducts[index]
-      if (!product || !product.selectedVatRate) return
-      const vatAmount = Number((product.totalAfterDiscount * (product.selectedVatRate.rate / 100)).toFixed(2))
-      product.productTax = vatAmount
-      product.totalTax = vatAmount
-      product.totalPrice = Number((product.totalAfterDiscount + vatAmount).toFixed(2))
+      this.recalculateReturnItem(index)
       this.calculateSum()
     },
 

@@ -91,47 +91,52 @@
 
             <!-- Table row -->
             <div class="row mt-5">
-              <div class="table-responsive table-custom text-center">
-                <table class="table table-hover">
+              <div class="table-responsive table-custom mt-3">
+                <table class="table transfer-balances-table">
                   <thead>
                     <tr>
+                      <th>{{ $t("#") }}</th>
                       <th>{{ $t("Reason") }}</th>
                       <th>{{ $t("From Account") }}</th>
                       <th>{{ $t("To Account") }}</th>
                       <th>{{ $t("Amount") }}</th>
-                      <th v-if="allData.date">{{ $t("Date") }}</th>
-                      <th v-if="allData.note">{{ $t("Note") }}</th>
+                      <th>{{ $t("Date") }}</th>
                       <th>{{ $t("Status") }}</th>
-                      <th class="text-right">{{ $t("Created By") }}</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
+                      <td>1</td>
                       <td>{{ allData.reason }}</td>
                       <td>
-                        <span v-if="allData.fromAccount">{{
-                          allData.fromAccount.label
-                        }}</span>
+                        <span v-if="allData.fromAccount">
+                          {{ allData.fromAccount.label }}
+                        </span>
                       </td>
                       <td>
-                        <span v-if="allData.toAccount">{{
-                          allData.toAccount.label
-                        }}</span>
+                        <span v-if="allData.toAccount">
+                          {{ allData.toAccount.label }}
+                        </span>
                       </td>
-                      <td>{{ allData.amount }} <span class="saudi-riyal">ê</span></td>
                       <td>
-                        <span v-if="allData.date">{{
-                          allData.date | moment("Do MMM, YYYY")
-                        }}</span>
+                        {{ allData.amount }} <span class="saudi-riyal">ê</span>
                       </td>
-                      <td v-if="allData.note">{{ allData.note }}</td>
                       <td>
-                        <span v-if="allData.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
-                        <span v-else class="badge bg-danger">{{
-                          $t("Inactive")
-                        }}</span>
+                        <span v-if="allData.date">
+                          {{ allData.date | moment("Do MMM, YYYY") }}
+                        </span>
                       </td>
-                      <td class="text-right">{{ allData.createdBy }}</td>
+                      <td>
+                        <span
+                          v-if="allData.status === 1"
+                          class="badge bg-success"
+                        >
+                          {{ $t("Active") }}
+                        </span>
+                        <span v-else class="badge bg-danger">
+                          {{ $t("Inactive") }}
+                        </span>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -182,7 +187,7 @@
                             <p class="text-bold mb-0">{{ data.causer_name }}</p>
                           </div>
                           <div class="col-12">
-                            <p class="mb-0">{{ data.description }}</p>
+                            <p class="mb-0">{{ $t(data.description) }}</p>
                           </div>
                           <div class="col-12">
                             <p class="mb-0">{{ data.performedAt }}</p>

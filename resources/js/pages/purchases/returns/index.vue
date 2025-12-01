@@ -82,7 +82,6 @@
                 </div>
               </div>
             </div>
-            <table-loading v-show="loading" />
             <div id="printMe" class="table-responsive table-custom mt-3">
               <table class="table purchase-returns-table">
                 <thead>

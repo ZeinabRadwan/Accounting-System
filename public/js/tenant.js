@@ -33232,12 +33232,12 @@ var map = {
 		7047
 	],
 	"./assets/show": [
-		6748,
-		6748
+		40318,
+		318
 	],
 	"./assets/show.vue": [
-		6748,
-		6748
+		40318,
+		318
 	],
 	"./assets/types": [
 		44577,
@@ -33256,12 +33256,12 @@ var map = {
 		4278
 	],
 	"./assets/types/edit": [
-		67632,
-		7632
+		29561,
+		9561
 	],
 	"./assets/types/edit.vue": [
-		67632,
-		7632
+		29561,
+		9561
 	],
 	"./assets/types/index": [
 		44577,
@@ -33576,12 +33576,12 @@ var map = {
 		3487
 	],
 	"./cashbook/transfer-balances/show": [
-		44363,
-		4363
+		26477,
+		6477
 	],
 	"./cashbook/transfer-balances/show.vue": [
-		44363,
-		4363
+		26477,
+		6477
 	],
 	"./central/activity-log": [
 		31234,
@@ -34089,11 +34089,11 @@ var map = {
 	],
 	"./central/setup/sms-configuration": [
 		14204,
-		1823
+		4204
 	],
 	"./central/setup/sms-configuration.vue": [
 		14204,
-		1823
+		4204
 	],
 	"./central/setup/user/Create": [
 		72523,
@@ -34784,12 +34784,12 @@ var map = {
 		9868
 	],
 	"./loans": [
-		38050,
-		8050
+		20155,
+		155
 	],
 	"./loans/": [
-		38050,
-		8050
+		20155,
+		155
 	],
 	"./loans/authorities": [
 		48638,
@@ -34824,12 +34824,12 @@ var map = {
 		8638
 	],
 	"./loans/authorities/show": [
-		44204,
-		4204
+		58338,
+		8338
 	],
 	"./loans/authorities/show.vue": [
-		44204,
-		4204
+		58338,
+		8338
 	],
 	"./loans/create": [
 		75412,
@@ -34848,12 +34848,12 @@ var map = {
 		4583
 	],
 	"./loans/index": [
-		38050,
-		8050
+		20155,
+		155
 	],
 	"./loans/index.vue": [
-		38050,
-		8050
+		20155,
+		155
 	],
 	"./loans/payments": [
 		86550,
@@ -35320,20 +35320,20 @@ var map = {
 		1945
 	],
 	"./purchases/returns": [
-		99389,
-		9389
+		72268,
+		2268
 	],
 	"./purchases/returns/": [
-		99389,
-		9389
+		72268,
+		2268
 	],
 	"./purchases/returns/create": [
-		81265,
-		1265
+		33782,
+		3782
 	],
 	"./purchases/returns/create.vue": [
-		81265,
-		1265
+		33782,
+		3782
 	],
 	"./purchases/returns/edit": [
 		8068,
@@ -35344,12 +35344,12 @@ var map = {
 		8068
 	],
 	"./purchases/returns/index": [
-		99389,
-		9389
+		72268,
+		2268
 	],
 	"./purchases/returns/index.vue": [
-		99389,
-		9389
+		72268,
+		2268
 	],
 	"./purchases/returns/show": [
 		9616,
