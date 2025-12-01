@@ -35437,12 +35437,12 @@ var map = {
 		2772
 	],
 	"./reports/today-report": [
-		28222,
-		5841
+		78391,
+		8391
 	],
 	"./reports/today-report.vue": [
-		28222,
-		5841
+		78391,
+		8391
 	],
 	"./reports/trial-balance": [
 		69154,
