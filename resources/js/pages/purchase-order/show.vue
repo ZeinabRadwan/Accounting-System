@@ -10,26 +10,14 @@
           <div class="btn-group">
             <ul class="nav nav-pills">
               <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  href="#details"
-                  data-toggle="tab"
-                  @click="getPurchaseOrder"
-                >
+                <a class="nav-link active" href="#details" data-toggle="tab" @click="getPurchaseOrder">
                   <i class="fa fa-info"></i>
-                  {{ $t("Details") }}</a
-                >
+                  {{ $t("Details") }}</a>
               </li>
               <li class="nav-item">
-                <a
-                  @click="getActivity"
-                  class="nav-link"
-                  href="#activity-log"
-                  data-toggle="tab"
-                >
+                <a @click="getActivity" class="nav-link" href="#activity-log" data-toggle="tab">
                   <i class="nav-icon fa fa-bell" aria-hidden="true"></i>
-                  {{ $t("Activity log") }}</a
-                >
+                  {{ $t("Activity log") }}</a>
               </li>
             </ul>
           </div>
@@ -42,31 +30,21 @@
             <a @click="downloadPDF" href="#" class="btn btn-info">
               <i class="fas fa-download"></i> {{ $t("download") }}
             </a>
-            <router-link
-              v-if="$can('purchase-order-edit')"
-              :to="{
-                name: 'purchase-order.edit',
-                params: { slug: allData.slug },
-              }"
-              class="btn btn-info"
-            >
+            <router-link v-if="$can('purchase-order-edit')" :to="{
+              name: 'purchase-order.edit',
+              params: { slug: allData.slug },
+            }" class="btn btn-info">
               <i class="fas fa-edit" /> {{ $t("Edit") }}
             </router-link>
-            <router-link
-              v-if="$can('purchase-create')"
-              :to="{
-                name: 'purchases.create',
-                query: { fromPurchaseOrder: allData.slug },
-              }"
-              class="btn btn-success"
-            >
+            <router-link v-if="$can('purchase-create')" :to="{
+              name: 'purchases.create',
+              query: { fromPurchaseOrder: allData.slug },
+            }" class="btn btn-success">
               <i class="fas fa-file-invoice" /> {{ $t("Create Purchase Invoice") }}
             </router-link>
-            <router-link
-              :to="{ name: 'purchase-order.index' }"
-              class="btn btn-info float-right"
-            >
-              <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+            <router-link :to="{ name: 'purchase-order.index' }" class="btn btn-info float-right">
+              <template
+                v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
                 {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
 
@@ -74,7 +52,8 @@
 
               <template v-else>
 
-                <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                <template
+                  v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
 
                   {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
@@ -110,9 +89,7 @@
                 <CompanyInfo />
               </div>
               <!-- /.col -->
-              <div
-                class="col-sm-8 invoice-col float-right text-md-right"
-              >
+              <div class="col-sm-8 invoice-col float-right text-md-right">
                 <h5>{{ $t("Supplier Details") }}</h5>
                 <div v-if="allData.supplier">
                   <strong>{{ $t("Supplier ID") }}:</strong>
@@ -120,22 +97,14 @@
                   }}<br />
                   <strong>{{ $t("Supplier Name") }}:</strong>
                   {{ allData.supplier.name }}<br />
-                  <span v-if="allData.supplier.company_name"
-                    ><strong>{{ $t("Company Name") }}:</strong>
-                    {{ allData.supplier.company_name }}<br
-                  /></span>
-                  <span v-if="allData.supplier.email"
-                    ><strong>{{ $t("Email") }}:</strong>
-                    {{ allData.supplier.email }}<br
-                  /></span>
-                  <span v-if="allData.supplier.phone_number"
-                    ><strong>{{ $t("Contact Number") }}:</strong>
-                    {{ allData.supplier.phone_number }}<br
-                  /></span>
-                  <span v-if="allData.supplier.address"
-                    ><strong>{{ $t("Address") }}:</strong>
-                    {{ allData.supplier.address }}<br
-                  /></span>
+                  <span v-if="allData.supplier.company_name"><strong>{{ $t("Company Name") }}:</strong>
+                    {{ allData.supplier.company_name }}<br /></span>
+                  <span v-if="allData.supplier.email"><strong>{{ $t("Email") }}:</strong>
+                    {{ allData.supplier.email }}<br /></span>
+                  <span v-if="allData.supplier.phone_number"><strong>{{ $t("Contact Number") }}:</strong>
+                    {{ allData.supplier.phone_number }}<br /></span>
+                  <span v-if="allData.supplier.address"><strong>{{ $t("Address") }}:</strong>
+                    {{ allData.supplier.address }}<br /></span>
                 </div>
               </div>
               <!-- /.col -->
@@ -189,11 +158,7 @@
                         </td>
                         <td v-if="allData.note">{{ allData.note }}</td>
                         <td>
-                          <span
-                            v-if="allData.status === 1"
-                            class="badge bg-success"
-                            >{{ $t("Active") }}</span
-                          >
+                          <span v-if="allData.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
                           <span v-else class="badge bg-danger">{{
                             $t("Inactive")
                           }}</span>
@@ -211,22 +176,20 @@
             <!-- Table row -->
             <div class="row position-relative mt-4 mb-4">
               <div class="col-12">
-                <strong class="mb-2 d-block"
-                  >{{ $t("Purchase Order Products") }}:</strong
-                >
+                <strong class="mb-2 d-block">{{ $t("Purchase Order Products") }}:</strong>
                 <div class="table-custom table-responsive">
                   <table class="table table-sm text-center">
                     <thead>
-                        <th>{{ $t("#") }}</th>
-                        <th>{{ $t("Code") }}</th>
-                        <th>{{ $t("Product Name") }}</th>
-                        <th>{{ $t("Ordered Qty") }}</th>
-                        <th>{{ $t("Unit Price") }}</th>
-                        <th>{{ $t("Total") }}</th>
-                        <th>{{ $t("Discount") }}</th>
-                        <th>{{ $t("Total After Discount") }}</th>
-                        <th>{{ $t("VAT") }}</th>
-                        <th>{{ $t("Total with VAT") }}</th>
+                      <th>{{ $t("#") }}</th>
+                      <th>{{ $t("Code") }}</th>
+                      <th>{{ $t("Product Name") }}</th>
+                      <th>{{ $t("Ordered Qty") }}</th>
+                      <th>{{ $t("Unit Price") }}</th>
+                      <th>{{ $t("Total") }}</th>
+                      <th>{{ $t("Discount") }}</th>
+                      <th>{{ $t("Total After Discount") }}</th>
+                      <th>{{ $t("VAT") }}</th>
+                      <th>{{ $t("Total with VAT") }}</th>
                     </thead>
                     <tbody v-if="purchaseOrderProducts && purchaseOrderProducts.length > 0">
                       <tr v-for="(data, i) in purchaseOrderProducts" :key="i">
@@ -237,11 +200,16 @@
                         <td>{{ data.product.name }}</td>
                         <td>{{ data.quantity }}</td>
                         <td>{{ formatNumber(data.purchase_price) }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ formatNumber(data.quantity * data.purchase_price) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatNumber(data.quantity * data.purchase_price) }} <span class="saudi-riyal">ê</span>
+                        </td>
                         <td>{{ formatNumber(data.discount_amount) }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ formatNumber((data.quantity * data.purchase_price) - parseFloat(data.discount_amount || 0)) }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ formatNumber(data.tax_amount) }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ formatNumber((data.quantity * data.purchase_price) - parseFloat(data.discount_amount || 0) + parseFloat(data.tax_amount || 0)) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatNumber((data.quantity * data.purchase_price) - parseFloat(data.discount_amount ||
+                          0))
+                        }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatNumber(data.tax_amount * data.quantity) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatNumber((data.quantity * data.purchase_price) - parseFloat(data.discount_amount ||
+                          0) +
+                          parseFloat(data.tax_amount * data.quantity || 0)) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr>
                         <td class="text-right" colspan="9">
@@ -285,12 +253,14 @@
                       </tr>
                       <tr class="bg-green-light text-bold">
                         <th>{{ $t("Total After Discount") }}:</th>
-                        <td>{{ formatNumber(getTotalPrice() - getTotalProductDiscount()) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatNumber(getTotalPrice() - getTotalProductDiscount()) }} <span
+                            class="saudi-riyal">ê</span></td>
                       </tr>
                       <tr>
                         <th>{{ $t("Product VAT") }}:</th>
                         <td>
-                          {{ formatNumber(getTotalProductVat()) }} <span class="saudi-riyal">ê</span>
+                          {{ formatNumber(allData.total_tax || allData.totalTax || 0) }} <span
+                            class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
@@ -303,7 +273,13 @@
                         <th>{{ $t("Total with VAT") }}:</th>
                         <td>
                           <span class="equal-sign">=</span>
-                          {{ formatNumber(getTotalPrice() - getTotalProductDiscount() + getTotalProductVat() + (allData.transport || 0)) }} <span class="saudi-riyal">ê</span>
+                          {{ formatNumber(
+                            allData.net_total ||
+                            allData.netTotal ||
+                            (getTotalPrice() - getTotalProductDiscount() + (allData.total_tax || 0) + (allData.transport
+                              ||
+                              0))
+                          ) }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                     </tbody>
@@ -329,12 +305,7 @@
             </div>
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100">
-                <a
-                  @click="refreshTable()"
-                  href="#"
-                  v-tooltip="$t('Refresh')"
-                  class="btn btn-success"
-                >
+                <a @click="refreshTable()" href="#" v-tooltip="$t('Refresh')" class="btn btn-success">
                   <i class="fas fa-sync"></i>
                 </a>
               </div>
@@ -344,40 +315,18 @@
           <div class="card-body position-relative">
             <div class="row">
               <div class="col-6 col-xl-4 mb-2">
-                <search
-                  v-model="query"
-                  @reset-pagination="resetPagination()"
-                  @reload="reload"
-                />
+                <search v-model="query" @reset-pagination="resetPagination()" @reload="reload" />
               </div>
             </div>
             <div id="printMe" class="table-responsive table-custom mt-3">
-              <div
-                v-show="items.length > 0"
-                v-for="(data, i) in items"
-                :key="i"
-              >
+              <div v-show="items.length > 0" v-for="(data, i) in items" :key="i">
                 <div class="card mb-0 border border-gray">
                   <div class="card-body py-1">
                     <div class="row">
-                      <div
-                        class="col-1 d-flex justify-content-center align-items-center"
-                      >
-                        <i
-                          v-if="data.event == 'Update'"
-                          class="fa fa-magic"
-                          aria-hidden="true"
-                        ></i>
-                        <i
-                          v-if="data.event == 'Create'"
-                          class="fa fa-plus-circle"
-                          aria-hidden="true"
-                        ></i>
-                        <i
-                          v-if="data.event == 'Delete'"
-                          class="fa fa-trash"
-                          aria-hidden="true"
-                        ></i>
+                      <div class="col-1 d-flex justify-content-center align-items-center">
+                        <i v-if="data.event == 'Update'" class="fa fa-magic" aria-hidden="true"></i>
+                        <i v-if="data.event == 'Create'" class="fa fa-plus-circle" aria-hidden="true"></i>
+                        <i v-if="data.event == 'Delete'" class="fa fa-trash" aria-hidden="true"></i>
                       </div>
                       <div class="col-11">
                         <div class="row">
@@ -406,11 +355,7 @@
               <div class="form-group row display-per-page">
                 <label>{{ $t("per_page") }} </label>
                 <div>
-                  <select
-                    @change="updatePerPager"
-                    v-model="perPage"
-                    class="form-control form-control-sm ml-1"
-                  >
+                  <select @change="updatePerPager" v-model="perPage" class="form-control form-control-sm ml-1">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
@@ -419,13 +364,8 @@
                 </div>
               </div>
               <!-- pagination-start -->
-              <pagination
-                v-if="pagination && pagination.last_page > 1"
-                :pagination="pagination"
-                :offset="5"
-                class="justify-flex-end"
-                @paginate="paginate"
-              />
+              <pagination v-if="pagination && pagination.last_page > 1" :pagination="pagination" :offset="5"
+                class="justify-flex-end" @paginate="paginate" />
               <!-- pagination-end -->
             </div>
           </div>
@@ -439,7 +379,7 @@
 import Form from "vform";
 import axios from "axios";
 import { mapGetters } from "vuex";
-import html2pdf from "html2pdf.js";
+// import html2pdf from "html2pdf.js";
 
 export default {
   middleware: ["auth", "check-permissions"],

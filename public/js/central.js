@@ -35205,12 +35205,12 @@ var map = {
 		8800
 	],
 	"./purchase-order": [
-		88347,
-		8347
+		8868,
+		8868
 	],
 	"./purchase-order/": [
-		88347,
-		8347
+		8868,
+		8868
 	],
 	"./purchase-order/create": [
 		66312,
@@ -35229,20 +35229,20 @@ var map = {
 		4594
 	],
 	"./purchase-order/index": [
-		88347,
-		8347
+		8868,
+		8868
 	],
 	"./purchase-order/index.vue": [
-		88347,
-		8347
+		8868,
+		8868
 	],
 	"./purchase-order/show": [
-		76284,
-		6284
+		79895,
+		9895
 	],
 	"./purchase-order/show.vue": [
-		76284,
-		6284
+		79895,
+		9895
 	],
 	"./purchases": [
 		51945,
