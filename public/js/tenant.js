@@ -35408,12 +35408,12 @@ var map = {
 		9904
 	],
 	"./reports/group-account-statement": [
-		23226,
-		3226
+		58526,
+		8526
 	],
 	"./reports/group-account-statement.vue": [
-		23226,
-		3226
+		58526,
+		8526
 	],
 	"./reports/inventory": [
 		54050,
