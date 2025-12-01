@@ -11,7 +11,8 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'journal-entries.index' }" class="btn btn-info">
-                  <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                  <template
+                    v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
                     {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
 
@@ -19,7 +20,8 @@
 
                   <template v-else>
 
-                    <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                    <template
+                      v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
 
                       {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
@@ -89,6 +91,20 @@
                 </div>
               </div>
 
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>{{ $t('Description') }} <span class="text-danger">*</span></label>
+                    <textarea v-model="form.description" class="form-control" rows="3"
+                      :placeholder="$t('Enter description for this journal entry')"
+                      :class="{ 'is-invalid': errors.description }" required></textarea>
+                    <div v-if="errors.description" class="invalid-feedback">
+                      {{ errors.description[0] }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <!-- Journal Entry Lines -->
               <div class="row">
                 <div class="col-md-12">
@@ -148,12 +164,9 @@
                               @input="calculateLineAmount(index)" style="text-align: right;" />
                           </td>
                           <td class="align-middle">
-                            <CostCenterSelect
-                              v-model="line.cost_center_id"
-                              :clearable="true"
+                            <CostCenterSelect v-model="line.cost_center_id" :clearable="true"
                               :placeholder="$t('Select Cost Center')"
-                              :class="{ 'is-invalid': errors[`lines.${index}.cost_center_id`] }"
-                            />
+                              :class="{ 'is-invalid': errors[`lines.${index}.cost_center_id`] }" />
                             <div v-if="errors[`lines.${index}.cost_center_id`]" class="invalid-feedback">
                               {{ errors[`lines.${index}.cost_center_id`][0] }}
                             </div>
@@ -206,13 +219,8 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>{{ $t('Attachment') }}</label>
-                    <input 
-                      type="file" 
-                      class="form-control" 
-                      @change="onAttachmentChange"
-                      accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.gif"
-                      ref="attachmentInput"
-                    />
+                    <input type="file" class="form-control" @change="onAttachmentChange"
+                      accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.gif" ref="attachmentInput" />
                     <small class="form-text text-muted" v-if="attachmentFile">
                       {{ attachmentFile.name }} ({{ formatFileSize(attachmentFile.size) }})
                     </small>
@@ -537,7 +545,7 @@ export default {
 
         // Prepare data using FormData to support file upload
         const formData = new FormData()
-        
+
         // Add form fields
         formData.append('entry_date', this.form.entry_date)
         formData.append('reference', this.form.reference || '')
@@ -545,12 +553,12 @@ export default {
         formData.append('branch_id', this.form.branch_id)
         formData.append('notes', this.form.notes || '')
         formData.append('status', this.form.status || 'draft')
-        
+
         // Add attachment file if exists
         if (this.attachmentFile) {
           formData.append('attachment', this.attachmentFile)
         }
-        
+
         // Add lines as JSON string
         formData.append('lines', JSON.stringify(this.form.lines.map(line => ({
           chart_of_account_id: line.chart_of_account_id,
@@ -648,7 +656,7 @@ export default {
         this.attachmentFile = null
         return
       }
-      
+
       // Validate file size (10MB = 10485760 bytes)
       const maxSize = 10 * 1024 * 1024 // 10MB
       if (file.size > maxSize) {
@@ -657,7 +665,7 @@ export default {
         this.attachmentFile = null
         return
       }
-      
+
       this.attachmentFile = file
     },
 
@@ -1000,12 +1008,14 @@ textarea.form-control {
 
 .je-lines-table td.text-right {
   text-align: right !important;
-  direction: ltr; /* Force LTR for numbers */
+  direction: ltr;
+  /* Force LTR for numbers */
 }
 
 [dir="rtl"] .je-lines-table td.text-right {
   text-align: right !important;
-  direction: ltr; /* Force LTR for numbers in RTL */
+  direction: ltr;
+  /* Force LTR for numbers in RTL */
 }
 
 .je-lines-table td.text-center {
@@ -1022,12 +1032,14 @@ textarea.form-control {
 
 .je-lines-table .form-control.text-right {
   text-align: right !important;
-  direction: ltr !important; /* Force LTR for number inputs */
+  direction: ltr !important;
+  /* Force LTR for number inputs */
 }
 
 [dir="rtl"] .je-lines-table .form-control.text-right {
   text-align: right !important;
-  direction: ltr !important; /* Force LTR for number inputs in RTL */
+  direction: ltr !important;
+  /* Force LTR for number inputs in RTL */
 }
 
 .je-summary-row td {

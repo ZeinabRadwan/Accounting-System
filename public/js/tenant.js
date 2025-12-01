@@ -34752,12 +34752,12 @@ var map = {
 		3372
 	],
 	"./journal-entries/create": [
-		30965,
-		965
+		62145,
+		2145
 	],
 	"./journal-entries/create.vue": [
-		30965,
-		965
+		62145,
+		2145
 	],
 	"./journal-entries/edit": [
 		13756,
