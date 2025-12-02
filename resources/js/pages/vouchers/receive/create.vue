@@ -8,7 +8,8 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'receiveVouchers.index' }" class="btn btn-info">
-                  <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                  <template
+                    v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
                     {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
 
@@ -16,7 +17,8 @@
 
                   <template v-else>
 
-                    <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                    <template
+                      v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
 
                       {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
@@ -43,7 +45,8 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form id="receiveVoucherCreateForm" role="form" @submit.prevent="saveVoucher" @keydown="form.onKeydown($event)">
+          <form id="receiveVoucherCreateForm" role="form" @submit.prevent="saveVoucher"
+            @keydown="form.onKeydown($event)">
             <div class="card-body">
               <!-- Entity Type Selection -->
               <div class="row">
@@ -73,12 +76,8 @@
                     <div v-if="!form.client.chart_of_account_id" class="client-warning">
                       <i class="fas fa-exclamation-triangle text-warning"></i>
                       <span class="ml-2">{{ $t('Client needs Chart of Account') }}</span>
-                      <button 
-                        type="button" 
-                        class="btn btn-sm btn-outline-warning ml-2"
-                        @click="autoAssignClientChartOfAccount"
-                        :disabled="isAutoAssigningClient"
-                      >
+                      <button type="button" class="btn btn-sm btn-outline-warning ml-2"
+                        @click="autoAssignClientChartOfAccount" :disabled="isAutoAssigningClient">
                         <i :class="isAutoAssigningClient ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
                         {{ isAutoAssigningClient ? $t('Assigning...') : $t('Auto-Assign') }}
                       </button>
@@ -104,12 +103,8 @@
                     <div v-if="!form.supplier.chart_of_account_id" class="supplier-warning">
                       <i class="fas fa-exclamation-triangle text-warning"></i>
                       <span class="ml-2">{{ $t('Supplier needs Chart of Account') }}</span>
-                      <button 
-                        type="button" 
-                        class="btn btn-sm btn-outline-warning ml-2"
-                        @click="autoAssignSupplierChartOfAccount"
-                        :disabled="isAutoAssigningSupplier"
-                      >
+                      <button type="button" class="btn btn-sm btn-outline-warning ml-2"
+                        @click="autoAssignSupplierChartOfAccount" :disabled="isAutoAssigningSupplier">
                         <i :class="isAutoAssigningSupplier ? 'fas fa-spinner fa-spin' : 'fas fa-magic'"></i>
                         {{ isAutoAssigningSupplier ? $t('Assigning...') : $t('Auto-Assign') }}
                       </button>
@@ -136,31 +131,36 @@
                   <select id="paymentMethod" v-model="form.paymentMethod" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('paymentMethod') }" @change="onPaymentMethodChange">
                     <option value="direct">{{ $t('Direct Payment') }}</option>
-                    <option v-if="form && form.entityType === 'client'" value="invoice">{{ $t('Invoice Payment') }}</option>
-                    <option v-if="form && form.entityType === 'supplier'" value="purchase">{{ $t('Purchase Payment') }}</option>
+                    <option v-if="form && form.entityType === 'client'" value="invoice">{{ $t('Invoice Payment') }}
+                    </option>
+                    <option v-if="form && form.entityType === 'supplier'" value="purchase">{{ $t('Purchase Payment') }}
+                    </option>
                   </select>
                   <has-error :form="form" field="paymentMethod" />
                 </div>
               </div>
 
               <!-- Invoice Selection (for client invoice payments) -->
-              <div class="row" v-if="form && form.entityType === 'client' && form.paymentMethod === 'invoice' && invoices">
+              <div class="row"
+                v-if="form && form.entityType === 'client' && form.paymentMethod === 'invoice' && invoices">
                 <div class="form-group col-md-12">
                   <label for="invoice">{{ $t('Select Invoice') }}<span class="required">*</span></label>
                   <v-select v-model="form.invoice" :options="invoices" label="label"
                     :class="{ 'is-invalid': form.errors.has('invoice') }" name="invoice"
                     :placeholder="$t('Select an invoice')" />
                   <has-error :form="form" field="invoice" />
-                  
+
                   <!-- Invoice Details -->
-                  <div v-if="form.invoice && form.invoice.invoiceTotal !== undefined" class="invoice-details mt-3 p-3 bg-light rounded">
+                  <div v-if="form.invoice && form.invoice.invoiceTotal !== undefined"
+                    class="invoice-details mt-3 p-3 bg-light rounded">
                     <h6 class="mb-3">{{ $t('Invoice Details') }}</h6>
                     <div class="row">
                       <div class="col-md-6">
                         <table class="table table-sm table-bordered mb-0">
                           <tr>
                             <th class="w-50">{{ $t('Sub Total') }}:</th>
-                            <td>{{ formatNumber(form.invoice.baseSubTotal || form.invoice.subTotal) }} <span class="saudi-riyal">ê</span></td>
+                            <td>{{ formatNumber(form.invoice.baseSubTotal || form.invoice.subTotal) }} <span
+                                class="saudi-riyal">ê</span></td>
                           </tr>
                           <tr v-if="form.invoice.discount > 0">
                             <th>{{ $t('Discount') }}:</th>
@@ -171,12 +171,16 @@
                             <td>+ {{ formatNumber(form.invoice.transport) }} <span class="saudi-riyal">ê</span></td>
                           </tr>
                           <tr v-if="form.invoice.tax > 0">
-                            <th>{{ $t('Tax') }} <span v-if="form.invoice.taxRate">({{ typeof form.invoice.taxRate === 'object' ? form.invoice.taxRate.rate : form.invoice.taxRate }}%)</span>:</th>
+                            <th>{{ $t('Tax') }} <span v-if="form.invoice.taxRate">({{ typeof form.invoice.taxRate ===
+                              'object' ?
+                              form.invoice.taxRate.rate : form.invoice.taxRate }}%)</span>:</th>
                             <td>+ {{ formatNumber(form.invoice.tax) }} <span class="saudi-riyal">ê</span></td>
                           </tr>
                           <tr class="bg-indigo-light">
                             <th><strong>{{ $t('Total') }}:</strong></th>
-                            <td><strong>{{ formatNumber(form.invoice.invoiceTotal) }} <span class="saudi-riyal">ê</span></strong></td>
+                            <td><strong>{{ formatNumber(form.invoice.invoiceTotal) }} <span
+                                  class="saudi-riyal">ê</span></strong>
+                            </td>
                           </tr>
                         </table>
                       </div>
@@ -188,7 +192,8 @@
                           </tr>
                           <tr class="bg-red-light">
                             <th><strong>{{ $t('Due') }}:</strong></th>
-                            <td><strong>{{ formatNumber(form.invoice.due) }} <span class="saudi-riyal">ê</span></strong></td>
+                            <td><strong>{{ formatNumber(form.invoice.due) }} <span class="saudi-riyal">ê</span></strong>
+                            </td>
                           </tr>
                         </table>
                       </div>
@@ -202,12 +207,11 @@
                 <div class="form-group col-md-6">
                   <label for="account">{{ $t('Account') }}<span class="required">*</span></label>
                   <div class="d-flex w-100">
-                    <v-select v-model="form.account" :options="accounts" label="label"
-                      :class="{ 
-                        'is-invalid': form.errors.has('account'),
-                        'account-select': true
-                      }" name="account"
-                      :placeholder="$t('Select an account')" @input="updateBalance" class="flex-grow-1">
+                    <v-select v-model="form.account" :options="accounts" label="label" :class="{
+                      'is-invalid': form.errors.has('account'),
+                      'account-select': true
+                    }" name="account" :placeholder="$t('Select an account')" @input="updateBalance"
+                      class="flex-grow-1">
                       <template slot="option" slot-scope="option">
                         <img :src="option.image" style="width: 30px; height: 30px;" />
                         {{ option.label }}
@@ -223,8 +227,9 @@
                   <!-- Account Balance Display -->
                   <div v-if="form.account && form.account.availableBalance !== undefined" class="account-balance mt-2">
                     <small class="text-muted">
-                      <strong>{{ $t('Available Balance') }}:</strong> 
-                      <span class="text-primary">{{ formatNumber(form.account.availableBalance) }} <span class="saudi-riyal">ê</span></span>
+                      <strong>{{ $t('Available Balance') }}:</strong>
+                      <span class="text-primary">{{ formatNumber(form.account.availableBalance) }} <span
+                          class="saudi-riyal">ê</span></span>
                     </small>
                   </div>
                 </div>
@@ -248,8 +253,8 @@
               <div class="row">
                 <div class="form-group col-md-4">
                   <label for="amount">{{ $t('Amount') }}<span class="required">*</span></label>
-                  <input id="amount" v-model="form.amount" type="number" step="any" min="1"
-                    class="form-control" :class="{ 'is-invalid': form.errors.has('amount') }" name="amount"
+                  <input id="amount" v-model="form.amount" type="number" step="any" min="1" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('amount') }" name="amount"
                     :placeholder="$t('Enter an amount')" />
                   <has-error :form="form" field="amount" />
                 </div>
@@ -373,25 +378,25 @@ export default {
     // Handle query parameters from invoice/purchase pages
     async handleQueryParams() {
       const query = this.$route.query
-      
+
       // If invoice and client are provided, auto-fill the form
       if (query.invoice && query.client) {
         // Set entity type to client
         this.form.entityType = 'client'
-        
+
         // Get clients first
         await this.getClients()
-        
+
         // Find and set the client
         const client = this.clients.find(c => c.slug === query.client)
         if (client) {
           this.form.client = client
           // Set payment method to invoice
           this.form.paymentMethod = 'invoice'
-          
+
           // Get invoices for this client
           await this.getInvoices()
-          
+
           // Find and set the invoice
           if (this.invoices && this.invoices.length > 0) {
             const invoice = this.invoices.find(inv => inv.slug === query.invoice)
@@ -513,16 +518,16 @@ export default {
     async handleAccountCreated(newAccount) {
       // Refresh accounts list
       await this.getAccounts()
-      
+
       // Find and select the newly created account
       // Try to find by ID first, then by account number as fallback
       let account = this.accounts.find(acc => acc.id === newAccount.id)
-      
+
       // If not found by ID, try to find by account number
       if (!account && newAccount.accountNumber) {
         account = this.accounts.find(acc => acc.accountNumber === newAccount.accountNumber)
       }
-      
+
       // If still not found, use the newAccount data directly (format it properly)
       if (!account && newAccount) {
         account = {
@@ -536,7 +541,7 @@ export default {
         // Add it to the accounts list if not already there
         this.accounts.push(account)
       }
-      
+
       if (account) {
         // Use $nextTick to ensure Vue updates the form
         this.$nextTick(() => {
@@ -596,13 +601,13 @@ export default {
       if (!this.form.client || !this.form.client.slug || this.isAutoAssigningClient) {
         return
       }
-      
+
       this.isAutoAssigningClient = true
-      
+
       try {
         const currentClientSlug = this.form.client.slug
         const response = await axios.post(`/api/clients/${this.form.client.slug}/auto-assign-chart-of-account`)
-        
+
         if (response.data.success) {
           const newAccountId = response.data.chart_of_account_id || (response.data.data && response.data.data.chart_of_account_id) || null
           if (newAccountId) {
@@ -612,11 +617,11 @@ export default {
               this.$set(this.clients[idx], 'chart_of_account_id', newAccountId)
             }
           }
-          
+
           this.$nextTick(() => {
             this.$forceUpdate()
           })
-          
+
           toast.fire({
             type: 'success',
             title: this.$t('Chart of Account assigned successfully'),
@@ -659,13 +664,13 @@ export default {
       if (!this.form.supplier || !this.form.supplier.slug || this.isAutoAssigningSupplier) {
         return
       }
-      
+
       this.isAutoAssigningSupplier = true
-      
+
       try {
         const currentSupplierSlug = this.form.supplier.slug
         const response = await axios.post(`/api/suppliers/${this.form.supplier.slug}/auto-assign-chart-of-account`)
-        
+
         if (response.data.success) {
           const newAccountId = response.data.chart_of_account_id || (response.data.data && response.data.data.chart_of_account_id) || null
           if (newAccountId) {
@@ -675,11 +680,11 @@ export default {
               this.$set(this.suppliers[idx], 'chart_of_account_id', newAccountId)
             }
           }
-          
+
           this.$nextTick(() => {
             this.$forceUpdate()
           })
-          
+
           toast.fire({
             type: 'success',
             title: this.$t('Chart of Account assigned successfully'),
@@ -720,9 +725,9 @@ export default {
     // Format number for display
     formatNumber(number) {
       if (number !== null && number !== undefined) {
-        return Number(number).toLocaleString('en-US', { 
-          minimumFractionDigits: 2, 
-          maximumFractionDigits: 2 
+        return Number(number).toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
         })
       }
       return '0.00'
@@ -733,6 +738,16 @@ export default {
       // If there is a direct translation key, use it
       const direct = this.$t(message)
       if (direct && direct !== message) return direct
+
+      // Special case: mixed Arabic/English message for client/entity type
+      // e.g. "حقل العميل مطلوب عندما entity type هو client."
+      if (message && message.includes('entity type') && message.includes('client') && message.includes('حقل العميل')) {
+        // Use the fully localized string defined in lang files
+        const localized = this.$t('The client field is required when the entity type is client.')
+        if (localized && localized !== 'The client field is required when the entity type is client.') {
+          return localized
+        }
+      }
 
       // Get current locale
       const currentLocale = this.$i18n.locale || 'en'
@@ -771,68 +786,68 @@ export default {
       // Pattern: "حقل [field] مطلوب" -> "Field is required"
       const mixedLanguagePatterns = [
         // Arabic "حقل" + English field + Arabic "مطلوب"
-        { 
-          re: /حقل\s+([^م]+?)\s+مطلوب/i, 
+        {
+          re: /حقل\s+([^م]+?)\s+مطلوب/i,
           en: (_, fieldName) => {
             const cleanFieldName = fieldName.trim()
-            const fieldTranslation = fieldLabelMap[cleanFieldName] || 
-                                    fieldLabelMap[cleanFieldName.toLowerCase()] || 
-                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
-                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
-                                    cleanFieldName
+            const fieldTranslation = fieldLabelMap[cleanFieldName] ||
+              fieldLabelMap[cleanFieldName.toLowerCase()] ||
+              fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
+              fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
+              cleanFieldName
             return `${fieldTranslation} is required`
           },
           ar: (_, fieldName) => {
             const cleanFieldName = fieldName.trim()
-            const fieldTranslation = fieldLabelMap[cleanFieldName] || 
-                                    fieldLabelMap[cleanFieldName.toLowerCase()] || 
-                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
-                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
-                                    cleanFieldName
+            const fieldTranslation = fieldLabelMap[cleanFieldName] ||
+              fieldLabelMap[cleanFieldName.toLowerCase()] ||
+              fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
+              fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
+              cleanFieldName
             return `${fieldTranslation} مطلوب`
           }
         },
         // Arabic "يرجى اختيار" + English field
-        { 
-          re: /يرجى\s+اختيار\s+([^.]+)/i, 
+        {
+          re: /يرجى\s+اختيار\s+([^.]+)/i,
           en: (_, fieldName) => {
             const cleanFieldName = fieldName.trim()
-            const fieldTranslation = fieldLabelMap[cleanFieldName] || 
-                                    fieldLabelMap[cleanFieldName.toLowerCase()] || 
-                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
-                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
-                                    cleanFieldName
+            const fieldTranslation = fieldLabelMap[cleanFieldName] ||
+              fieldLabelMap[cleanFieldName.toLowerCase()] ||
+              fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
+              fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
+              cleanFieldName
             return `Please select ${fieldTranslation}`
           },
           ar: (_, fieldName) => {
             const cleanFieldName = fieldName.trim()
-            const fieldTranslation = fieldLabelMap[cleanFieldName] || 
-                                    fieldLabelMap[cleanFieldName.toLowerCase()] || 
-                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
-                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
-                                    cleanFieldName
+            const fieldTranslation = fieldLabelMap[cleanFieldName] ||
+              fieldLabelMap[cleanFieldName.toLowerCase()] ||
+              fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
+              fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
+              cleanFieldName
             return `يرجى اختيار ${fieldTranslation}`
           }
         },
         // Arabic "يرجى إدخال" + English field
-        { 
-          re: /يرجى\s+إدخال\s+([^.]+)/i, 
+        {
+          re: /يرجى\s+إدخال\s+([^.]+)/i,
           en: (_, fieldName) => {
             const cleanFieldName = fieldName.trim()
-            const fieldTranslation = fieldLabelMap[cleanFieldName] || 
-                                    fieldLabelMap[cleanFieldName.toLowerCase()] || 
-                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
-                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
-                                    cleanFieldName
+            const fieldTranslation = fieldLabelMap[cleanFieldName] ||
+              fieldLabelMap[cleanFieldName.toLowerCase()] ||
+              fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
+              fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
+              cleanFieldName
             return `Please enter ${fieldTranslation}`
           },
           ar: (_, fieldName) => {
             const cleanFieldName = fieldName.trim()
-            const fieldTranslation = fieldLabelMap[cleanFieldName] || 
-                                    fieldLabelMap[cleanFieldName.toLowerCase()] || 
-                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
-                                    fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
-                                    cleanFieldName
+            const fieldTranslation = fieldLabelMap[cleanFieldName] ||
+              fieldLabelMap[cleanFieldName.toLowerCase()] ||
+              fieldLabelMap[cleanFieldName.replace(/\s+/g, '')] ||
+              fieldLabelMap[cleanFieldName.replace(/\s+/g, '_')] ||
+              cleanFieldName
             return `يرجى إدخال ${fieldTranslation}`
           }
         }
@@ -852,11 +867,11 @@ export default {
         const fieldMatch = message.match(/حقل\s+([^م]+?)\s+مطلوب/i)
         if (fieldMatch) {
           const fieldName = fieldMatch[1].trim()
-          let fieldTranslation = fieldLabelMap[fieldName] || 
-                                fieldLabelMap[fieldName.toLowerCase()] || 
-                                fieldLabelMap[fieldName.replace(/\s+/g, '')] ||
-                                fieldLabelMap[fieldName.replace(/\s+/g, '_')] ||
-                                fieldName
+          let fieldTranslation = fieldLabelMap[fieldName] ||
+            fieldLabelMap[fieldName.toLowerCase()] ||
+            fieldLabelMap[fieldName.replace(/\s+/g, '')] ||
+            fieldLabelMap[fieldName.replace(/\s+/g, '_')] ||
+            fieldName
           return isArabic ? `${fieldTranslation} مطلوب` : `${fieldTranslation} is required`
         }
       }
@@ -866,11 +881,11 @@ export default {
         const fieldMatch = message.match(/يرجى\s+اختيار\s+([^.]+)/i)
         if (fieldMatch) {
           const fieldName = fieldMatch[1].trim()
-          let fieldTranslation = fieldLabelMap[fieldName] || 
-                                fieldLabelMap[fieldName.toLowerCase()] || 
-                                fieldLabelMap[fieldName.replace(/\s+/g, '')] ||
-                                fieldLabelMap[fieldName.replace(/\s+/g, '_')] ||
-                                fieldName
+          let fieldTranslation = fieldLabelMap[fieldName] ||
+            fieldLabelMap[fieldName.toLowerCase()] ||
+            fieldLabelMap[fieldName.replace(/\s+/g, '')] ||
+            fieldLabelMap[fieldName.replace(/\s+/g, '_')] ||
+            fieldName
           return isArabic ? `يرجى اختيار ${fieldTranslation}` : `Please select ${fieldTranslation}`
         }
       }
@@ -878,23 +893,23 @@ export default {
       // Common Laravel validation patterns with localized messages
       const patterns = [
         // Required field patterns
-        { 
-          re: /The\s+.+?\s+field\s+is\s+required\.?/i, 
+        {
+          re: /The\s+.+?\s+field\s+is\s+required\.?/i,
           en: `${fieldLabel} is required`,
           ar: `${fieldLabel} مطلوب`
         },
-        { 
-          re: /Please\s+select\s+an?\s+.+?\.?/i, 
+        {
+          re: /Please\s+select\s+an?\s+.+?\.?/i,
           en: `Please select ${fieldLabel}`,
           ar: `يرجى اختيار ${fieldLabel}`
         },
-        { 
-          re: /Please\s+enter\s+a\s+.+?\.?/i, 
+        {
+          re: /Please\s+enter\s+a\s+.+?\.?/i,
           en: `Please enter ${fieldLabel}`,
           ar: `يرجى إدخال ${fieldLabel}`
         },
-        { 
-          re: /Please\s+provide\s+a\s+.+?\.?/i, 
+        {
+          re: /Please\s+provide\s+a\s+.+?\.?/i,
           en: `Please provide ${fieldLabel}`,
           ar: `يرجى تقديم ${fieldLabel}`
         },
@@ -933,26 +948,26 @@ export default {
                 return this.translateValidationMessage(message, field)
               })
             })
-            
+
             // Set the translated errors back to the form
             this.form.errors.set(translatedErrors)
-            
+
             // Show a general validation error message
-            toast.fire({ 
-              type: 'error', 
-              title: this.$t('Please check your input and try again.') 
+            toast.fire({
+              type: 'error',
+              title: this.$t('Please check your input and try again.')
             })
           } else {
             // Handle other errors
-            const backendMessage = error?.response?.data?.message || 
-                                  error?.response?.data?.error || 
-                                  error?.message
-            
+            const backendMessage = error?.response?.data?.message ||
+              error?.response?.data?.error ||
+              error?.message
+
             // Try to translate the error message
             const translatedMessage = backendMessage ? this.translateValidationMessage(backendMessage, '') : null
-            
-            toast.fire({ 
-              type: 'error', 
+
+            toast.fire({
+              type: 'error',
               title: translatedMessage || this.$t('Please check your input and try again.'),
               text: backendMessage && translatedMessage !== backendMessage ? backendMessage : undefined
             })
@@ -964,7 +979,8 @@ export default {
 </script>
 
 <style scoped>
-.client-status, .supplier-status {
+.client-status,
+.supplier-status {
   font-size: 13px;
 }
 

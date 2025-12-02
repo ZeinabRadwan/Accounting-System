@@ -36029,12 +36029,12 @@ var map = {
 		2886
 	],
 	"./vouchers/receive/create": [
-		96688,
-		6688
+		43988,
+		3988
 	],
 	"./vouchers/receive/create.vue": [
-		96688,
-		6688
+		43988,
+		3988
 	],
 	"./vouchers/receive/edit": [
 		27556,
