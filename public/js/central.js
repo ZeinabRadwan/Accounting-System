@@ -26454,6 +26454,3338 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/id.svg?f624e2c8444a7794b35
 
 /***/ }),
 
+/***/ 40773:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ ClientForm)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientForm.vue?vue&type=template&id=2dfbf408&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    "class": {
+      'card-body': _vm.showCardBody
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-form-6"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-user-circle mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Client Details")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "codeNumber"
+    }
+  }, [_vm._v("\n              " + _vm._s(_vm.$t("Client Number")) + "\n            ")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.codeNumber,
+      expression: "form.codeNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('codeNumber')
+    },
+    attrs: {
+      "id": "codeNumber",
+      "type": "text",
+      "name": "codeNumber",
+      "placeholder": _vm.$t('Auto-generated...'),
+      "readonly": "",
+      "aria-readonly": "true"
+    },
+    domProps: {
+      "value": _vm.form.codeNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "codeNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('small', {
+    staticClass: "form-text text-muted"
+  }, [_vm._v("\n              " + _vm._s(_vm.$t("This client number is automatically generated and cannot be changed")) + "\n            ")]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "codeNumber"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t("Client Type")))]), _vm._v(" "), _c('div', {
+    staticClass: "radio-group"
+  }, [_c('label', {
+    staticClass: "radio-inline"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.type,
+      expression: "form.type"
+    }],
+    attrs: {
+      "type": "radio",
+      "value": "Individual"
+    },
+    domProps: {
+      "checked": _vm._q(_vm.form.type, "Individual")
+    },
+    on: {
+      "change": function change($event) {
+        return _vm.$set(_vm.form, "type", "Individual");
+      }
+    }
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Individual")) + "\n              ")]), _vm._v(" "), _c('label', {
+    staticClass: "radio-inline"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.type,
+      expression: "form.type"
+    }],
+    attrs: {
+      "type": "radio",
+      "value": "Company"
+    },
+    domProps: {
+      "checked": _vm._q(_vm.form.type, "Company")
+    },
+    on: {
+      "change": function change($event) {
+        return _vm.$set(_vm.form, "type", "Company");
+      }
+    }
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Business")) + "\n              ")])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "type"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "form-label font-weight-bold text-primary mb-2 d-block"
+  }, [_c('i', {
+    staticClass: "fas fa-receipt mr-2"
+  }), _vm._v("\n              " + _vm._s(_vm.$t("Tax Status")) + "\n              "), _c('span', {
+    staticClass: "required text-danger"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
+    staticClass: "tax-status-options"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-form-6"
+  }, [_c('label', {
+    staticClass: "tax-status-card-compact",
+    "class": {
+      'active': _vm.form.taxStatus === 'taxable',
+      'border-primary': _vm.form.taxStatus === 'taxable'
+    },
+    on: {
+      "click": function click($event) {
+        _vm.form.taxStatus = 'taxable';
+      }
+    }
+  }, [_c('div', {
+    staticClass: "tax-status-header-compact"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.taxStatus,
+      expression: "form.taxStatus"
+    }],
+    staticClass: "tax-status-radio",
+    attrs: {
+      "type": "radio",
+      "value": "taxable"
+    },
+    domProps: {
+      "checked": _vm._q(_vm.form.taxStatus, "taxable")
+    },
+    on: {
+      "change": function change($event) {
+        return _vm.$set(_vm.form, "taxStatus", "taxable");
+      }
+    }
+  }), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('span', {
+    staticClass: "tax-status-title-compact"
+  }, [_vm._v(_vm._s(_vm.$t("Taxable")))])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-form-6"
+  }, [_c('label', {
+    staticClass: "tax-status-card-compact",
+    "class": {
+      'active': _vm.form.taxStatus === 'non_taxable',
+      'border-success': _vm.form.taxStatus === 'non_taxable'
+    },
+    on: {
+      "click": function click($event) {
+        _vm.form.taxStatus = 'non_taxable';
+      }
+    }
+  }, [_c('div', {
+    staticClass: "tax-status-header-compact"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.taxStatus,
+      expression: "form.taxStatus"
+    }],
+    staticClass: "tax-status-radio",
+    attrs: {
+      "type": "radio",
+      "value": "non_taxable"
+    },
+    domProps: {
+      "checked": _vm._q(_vm.form.taxStatus, "non_taxable")
+    },
+    on: {
+      "change": function change($event) {
+        return _vm.$set(_vm.form, "taxStatus", "non_taxable");
+      }
+    }
+  }), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('span', {
+    staticClass: "tax-status-title-compact"
+  }, [_vm._v(_vm._s(_vm.$t("Non-Taxable")))])])])])])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "taxStatus"
+    }
+  })], 1), _vm._v(" "), _vm.form.type === 'Individual' ? _c('div', [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "fullName"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Full Name")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.fullName,
+      expression: "form.fullName"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('fullName')
+    },
+    attrs: {
+      "id": "fullName",
+      "type": "text",
+      "name": "fullName",
+      "placeholder": _vm.$t('Enter full name')
+    },
+    domProps: {
+      "value": _vm.form.fullName
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "fullName", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "fullName"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-form-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "firstName"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("First Name")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.firstName,
+      expression: "form.firstName"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('firstName')
+    },
+    attrs: {
+      "id": "firstName",
+      "type": "text",
+      "name": "firstName",
+      "placeholder": _vm.$t('Enter first name')
+    },
+    domProps: {
+      "value": _vm.form.firstName
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "firstName", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "firstName"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-form-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "lastName"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Last Name")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.lastName,
+      expression: "form.lastName"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('lastName')
+    },
+    attrs: {
+      "id": "lastName",
+      "type": "text",
+      "name": "lastName",
+      "placeholder": _vm.$t('Enter last name')
+    },
+    domProps: {
+      "value": _vm.form.lastName
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "lastName", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "lastName"
+    }
+  })], 1)])]) : _vm._e(), _vm._v(" "), _vm.form.type === 'Company' ? _c('div', [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "businessName"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Business Name")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.businessName,
+      expression: "form.businessName"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('businessName')
+    },
+    attrs: {
+      "id": "businessName",
+      "type": "text",
+      "name": "businessName",
+      "placeholder": _vm.$t('Enter business name')
+    },
+    domProps: {
+      "value": _vm.form.businessName
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "businessName", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "businessName"
+    }
+  })], 1)]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-12"
+  }, [_c('label', {
+    attrs: {
+      "for": "phone"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Telephone")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.phone,
+      expression: "form.phone"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('phone')
+    },
+    attrs: {
+      "id": "phone",
+      "type": "text",
+      "name": "phone",
+      "placeholder": _vm.$t('Enter telephone number')
+    },
+    domProps: {
+      "value": _vm.form.phone
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "phone", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "phone"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-12"
+  }, [_c('PhoneNumberInput', {
+    attrs: {
+      "label": _vm.$t('Mobile'),
+      "required": true,
+      "country": _vm.form.country,
+      "default-country": _vm.form.country || 'SA'
+    },
+    on: {
+      "validated": _vm.onPhoneValidated
+    },
+    model: {
+      value: _vm.form.phoneNumber,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "phoneNumber", $$v);
+      },
+      expression: "form.phoneNumber"
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "phoneNumber"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "email"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Email")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.email,
+      expression: "form.email"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('email')
+    },
+    attrs: {
+      "id": "email",
+      "type": "email",
+      "name": "email",
+      "placeholder": _vm.$t('Enter your email address')
+    },
+    domProps: {
+      "value": _vm.form.email
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "email", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "email"
+    }
+  })], 1)])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-form-6"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-map-marked-alt mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("National Address")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-12"
+  }, [_c('label', {
+    attrs: {
+      "for": "country"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Country")) + "\n                "), _vm.form.taxStatus === 'taxable' ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c('v-select', {
+    staticClass: "country-select",
+    "class": {
+      'is-invalid': _vm.form.errors.has('country')
+    },
+    attrs: {
+      "options": _vm.countries,
+      "label": "name",
+      "reduce": function reduce(option) {
+        return option.code;
+      },
+      "placeholder": _vm.$t('Select Country'),
+      "searchable": true,
+      "clearable": false
+    },
+    on: {
+      "input": _vm.onCountryChange
+    },
+    scopedSlots: _vm._u([{
+      key: "option",
+      fn: function fn(_ref) {
+        var flag = _ref.flag,
+          name = _ref.name;
+        return [_c('div', {
+          staticClass: "country-option"
+        }, [_c('span', {
+          staticClass: "country-flag"
+        }, [_vm._v(_vm._s(flag))]), _vm._v(" "), _c('span', {
+          staticClass: "country-name"
+        }, [_vm._v(_vm._s(name))])])];
+      }
+    }, {
+      key: "selected-option",
+      fn: function fn(_ref2) {
+        var flag = _ref2.flag,
+          name = _ref2.name;
+        return [_c('div', {
+          staticClass: "country-selected"
+        }, [_c('span', {
+          staticClass: "country-flag"
+        }, [_vm._v(_vm._s(flag))]), _vm._v(" "), _c('span', {
+          staticClass: "country-name"
+        }, [_vm._v(_vm._s(name))])])];
+      }
+    }, {
+      key: "no-options",
+      fn: function fn() {
+        return [_c('div', {
+          staticClass: "text-center text-muted p-2"
+        }, [_vm._v("\n                    " + _vm._s(_vm.$t('No countries found')) + "\n                  ")])];
+      },
+      proxy: true
+    }]),
+    model: {
+      value: _vm.form.country,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "country", $$v);
+      },
+      expression: "form.country"
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "country"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_vm.form.country !== 'SA' ? _c('div', {
+    staticClass: "form-group col-12"
+  }, [_c('label', {
+    attrs: {
+      "for": "state"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("State")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.state,
+      expression: "form.state"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('state')
+    },
+    attrs: {
+      "id": "state",
+      "type": "text",
+      "name": "state",
+      "placeholder": _vm.$t('Enter state')
+    },
+    domProps: {
+      "value": _vm.form.state
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "state", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "state"
+    }
+  })], 1) : _vm._e(), _vm._v(" "), _vm.form.country === 'SA' ? [_c('div', {
+    staticClass: "form-group col-12"
+  }, [_c('label', {
+    attrs: {
+      "for": "saudi_region"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Region")))]), _vm._v(" "), _c('v-select', {
+    staticClass: "saudi-location-select",
+    "class": {
+      'is-invalid': _vm.form.errors.has('saudi_region')
+    },
+    attrs: {
+      "options": _vm.saudiRegions,
+      "label": "name",
+      "reduce": function reduce(option) {
+        return option.id;
+      },
+      "placeholder": _vm.$t('Select Region'),
+      "searchable": true,
+      "clearable": false
+    },
+    on: {
+      "input": _vm.onSaudiRegionChange
+    },
+    scopedSlots: _vm._u([{
+      key: "option",
+      fn: function fn(_ref3) {
+        var name_ar = _ref3.name_ar,
+          name_en = _ref3.name_en;
+        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
+      }
+    }, {
+      key: "selected-option",
+      fn: function fn(_ref4) {
+        var name_ar = _ref4.name_ar,
+          name_en = _ref4.name_en;
+        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
+      }
+    }], null, false, 2274166349),
+    model: {
+      value: _vm.form.saudi_region,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "saudi_region", $$v);
+      },
+      expression: "form.saudi_region"
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "saudi_region"
+    }
+  })], 1)] : _vm._e()], 2), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('transition', {
+    attrs: {
+      "name": "fade"
+    }
+  }, [_c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.shouldShowCity,
+      expression: "shouldShowCity"
+    }],
+    staticClass: "form-group col-form-6 city-field"
+  }, [_c('label', {
+    attrs: {
+      "for": "city"
+    }
+  }, [_vm._v("\n                  " + _vm._s(_vm.$t("City")) + "\n                  "), _vm.form.taxStatus === 'taxable' ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _vm.form.country === 'SA' ? [_vm.saudiCities.length > 0 ? _c('v-select', {
+    staticClass: "saudi-location-select",
+    "class": {
+      'is-invalid': _vm.form.errors.has('city')
+    },
+    attrs: {
+      "options": _vm.saudiCities,
+      "label": "name",
+      "reduce": function reduce(option) {
+        return option.name;
+      },
+      "placeholder": _vm.$t('Select City'),
+      "searchable": true,
+      "clearable": false,
+      "disabled": !_vm.form.country || !_vm.form.saudi_region
+    },
+    scopedSlots: _vm._u([{
+      key: "option",
+      fn: function fn(_ref5) {
+        var name_ar = _ref5.name_ar,
+          name_en = _ref5.name_en;
+        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
+      }
+    }, {
+      key: "selected-option",
+      fn: function fn(_ref6) {
+        var name_ar = _ref6.name_ar,
+          name_en = _ref6.name_en;
+        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
+      }
+    }], null, false, 2274166349),
+    model: {
+      value: _vm.form.city,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "city", $$v);
+      },
+      expression: "form.city"
+    }
+  }) : _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.city,
+      expression: "form.city"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('city')
+    },
+    attrs: {
+      "id": "city",
+      "type": "text",
+      "name": "city",
+      "placeholder": _vm.$t('Enter city name'),
+      "disabled": !_vm.form.country || !_vm.form.saudi_region
+    },
+    domProps: {
+      "value": _vm.form.city
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "city", $event.target.value);
+      }
+    }
+  })] : _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.city,
+      expression: "form.city"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('city')
+    },
+    attrs: {
+      "id": "city",
+      "type": "text",
+      "name": "city",
+      "placeholder": _vm.$t('Enter city'),
+      "disabled": !_vm.form.country
+    },
+    domProps: {
+      "value": _vm.form.city
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "city", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "city"
+    }
+  })], 2)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-form-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "neighbourhood"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Neighbourhood")) + "\n                "), _vm.form.taxStatus === 'taxable' ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.neighbourhood,
+      expression: "form.neighbourhood"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('neighbourhood')
+    },
+    attrs: {
+      "id": "neighbourhood",
+      "type": "text",
+      "name": "neighbourhood",
+      "placeholder": _vm.$t('Enter neighbourhood')
+    },
+    domProps: {
+      "value": _vm.form.neighbourhood
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "neighbourhood", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "neighbourhood"
+    }
+  })], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-form-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "streetAddress1"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Street Name")) + "\n                "), _vm.form.taxStatus === 'taxable' ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.streetAddress1,
+      expression: "form.streetAddress1"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('streetAddress1')
+    },
+    attrs: {
+      "id": "streetAddress1",
+      "type": "text",
+      "name": "streetAddress1",
+      "placeholder": _vm.$t('Enter street name')
+    },
+    domProps: {
+      "value": _vm.form.streetAddress1
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "streetAddress1", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "streetAddress1"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-form-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "postalCode"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Postal Code")) + "\n                "), _vm.form.taxStatus === 'taxable' ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.postalCode,
+      expression: "form.postalCode"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('postalCode')
+    },
+    attrs: {
+      "id": "postalCode",
+      "type": "text",
+      "name": "postalCode",
+      "placeholder": _vm.$t('Enter postal code')
+    },
+    domProps: {
+      "value": _vm.form.postalCode
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "postalCode", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "postalCode"
+    }
+  })], 1)]), _vm._v(" "), _vm.form.country === 'SA' ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-form-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "buildingNumber"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Building Number")) + " "), _vm.form.taxStatus === 'taxable' ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.buildingNumber,
+      expression: "form.buildingNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('buildingNumber')
+    },
+    attrs: {
+      "id": "buildingNumber",
+      "type": "text",
+      "name": "buildingNumber",
+      "placeholder": _vm.$t('Enter building number'),
+      "maxlength": "5"
+    },
+    domProps: {
+      "value": _vm.form.buildingNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "buildingNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "buildingNumber"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-form-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "streetNumber"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Street Number")) + " "), _vm.form.taxStatus === 'taxable' ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.streetNumber,
+      expression: "form.streetNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('streetNumber')
+    },
+    attrs: {
+      "id": "streetNumber",
+      "type": "text",
+      "name": "streetNumber",
+      "placeholder": _vm.$t('Enter street number'),
+      "maxlength": "5"
+    },
+    domProps: {
+      "value": _vm.form.streetNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "streetNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "streetNumber"
+    }
+  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.country === 'SA' ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-form-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "districtNumber"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("District Number")) + " "), _vm.form.taxStatus === 'taxable' ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.districtNumber,
+      expression: "form.districtNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('districtNumber')
+    },
+    attrs: {
+      "id": "districtNumber",
+      "type": "text",
+      "name": "districtNumber",
+      "placeholder": _vm.$t('Enter district number'),
+      "maxlength": "5"
+    },
+    domProps: {
+      "value": _vm.form.districtNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "districtNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "districtNumber"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-form-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "unitNumber"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Unit Number")) + " "), _vm.form.taxStatus === 'taxable' ? _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]) : _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.unitNumber,
+      expression: "form.unitNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('unitNumber')
+    },
+    attrs: {
+      "id": "unitNumber",
+      "type": "text",
+      "name": "unitNumber",
+      "placeholder": _vm.$t('Enter unit number'),
+      "maxlength": "5"
+    },
+    domProps: {
+      "value": _vm.form.unitNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "unitNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "unitNumber"
+    }
+  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.country === 'SA' ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-form-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "additionalNumber"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Additional Number")) + " "), _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.additionalNumber,
+      expression: "form.additionalNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('additionalNumber')
+    },
+    attrs: {
+      "id": "additionalNumber",
+      "type": "text",
+      "name": "additionalNumber",
+      "placeholder": _vm.$t('Enter additional number'),
+      "maxlength": "5"
+    },
+    domProps: {
+      "value": _vm.form.additionalNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "additionalNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "additionalNumber"
+    }
+  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.taxStatus === 'taxable' ? _c('div', {
+    staticClass: "row mt-3"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('hr', {
+    staticStyle: {
+      "margin": "15px 0",
+      "border-color": "#e0e0e0"
+    }
+  }), _vm._v(" "), _c('h6', {
+    staticClass: "text-muted mb-3"
+  }, [_c('i', {
+    staticClass: "fas fa-file-invoice-dollar mr-2"
+  }), _vm._v("\n                " + _vm._s(_vm.$t("Tax Information (Required for Taxable Clients)")) + "\n              ")])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-form-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "commercialRegister"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Commercial Register")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.commercialRegister,
+      expression: "form.commercialRegister"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('commercialRegister')
+    },
+    attrs: {
+      "id": "commercialRegister",
+      "type": "text",
+      "name": "commercialRegister",
+      "placeholder": _vm.$t('Enter commercial register number')
+    },
+    domProps: {
+      "value": _vm.form.commercialRegister
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "commercialRegister", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "commercialRegister"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-form-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "taxRegistrationNumber"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Tax Registration Number")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.taxRegistrationNumber,
+      expression: "form.taxRegistrationNumber"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('taxRegistrationNumber')
+    },
+    attrs: {
+      "id": "taxRegistrationNumber",
+      "type": "text",
+      "name": "taxRegistrationNumber",
+      "placeholder": _vm.$t('Enter 15-digit tax registration number'),
+      "maxlength": "15"
+    },
+    domProps: {
+      "value": _vm.form.taxRegistrationNumber
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "taxRegistrationNumber", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('small', {
+    staticClass: "form-text text-muted"
+  }, [_vm._v(_vm._s(_vm.$t("Must be exactly 15 digits")))]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "taxRegistrationNumber"
+    }
+  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.type === 'Company' && _vm.form.taxStatus !== 'taxable' ? _c('div', {
+    staticClass: "row mt-3"
+  }, [_vm._m(2), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-form-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "commercialRegister"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("CR")) + " "), _c('span', {
+    staticClass: "text-muted"
+  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.commercialRegister,
+      expression: "form.commercialRegister"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('commercialRegister')
+    },
+    attrs: {
+      "id": "commercialRegister",
+      "type": "text",
+      "name": "commercialRegister",
+      "placeholder": _vm.$t('Enter commercial register number')
+    },
+    domProps: {
+      "value": _vm.form.commercialRegister
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "commercialRegister", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "commercialRegister"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-form-6"
+  }, [_c('label', {
+    attrs: {
+      "for": "taxCard"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Tax ID (Optional)")))]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.taxCard,
+      expression: "form.taxCard"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('taxCard')
+    },
+    attrs: {
+      "id": "taxCard",
+      "type": "text",
+      "name": "taxCard",
+      "placeholder": _vm.$t('Enter tax ID number')
+    },
+    domProps: {
+      "value": _vm.form.taxCard
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "taxCard", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "taxCard"
+    }
+  })], 1)]) : _vm._e()])])])]), _vm._v(" "), _c('div', {
+    staticClass: "row mt-4"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-cog mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Account Details")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "displayLanguage"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Display Language")))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.displayLanguage,
+      expression: "form.displayLanguage"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('displayLanguage')
+    },
+    attrs: {
+      "id": "displayLanguage"
+    },
+    on: {
+      "change": function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "displayLanguage", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": ""
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Select Language")))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "en"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("English")))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "ar"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Arabic")))])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "displayLanguage"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "status"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.status,
+      expression: "form.status"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('status')
+    },
+    attrs: {
+      "id": "status"
+    },
+    on: {
+      "change": function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Active")))]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "status"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-md-4"
+  }, [_c('label', {
+    attrs: {
+      "for": "image"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Profile Image")))]), _vm._v(" "), _c('div', {
+    staticClass: "custom-file"
+  }, [_c('input', {
+    staticClass: "custom-file-input",
+    "class": {
+      'is-invalid': _vm.form.errors.has('image')
+    },
+    attrs: {
+      "id": "image",
+      "type": "file",
+      "name": "image",
+      "accept": "image/*"
+    },
+    on: {
+      "change": _vm.onFileChange
+    }
+  }), _vm._v(" "), _c('label', {
+    staticClass: "custom-file-label",
+    attrs: {
+      "for": "image"
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-image mr-2"
+  }), _vm._v("\n                  " + _vm._s(_vm.$t("Choose file")) + "\n                ")])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "image"
+    }
+  }), _vm._v(" "), _vm.url ? _c('div', {
+    staticClass: "image-preview mt-2"
+  }, [_c('img', {
+    staticClass: "img-fluid rounded",
+    staticStyle: {
+      "max-height": "100px"
+    },
+    attrs: {
+      "src": _vm.url,
+      "alt": _vm.$t('Profile Image')
+    }
+  })]) : _vm._e()], 1)])])])])]), _vm._v(" "), _vm.form.type === 'Company' ? _c('div', {
+    staticClass: "row mt-4"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-users mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Client Representative Info")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('RepresentativesList', {
+    attrs: {
+      "representatives": _vm.form.representatives || []
+    },
+    on: {
+      "representatives-changed": _vm.handleRepresentativesChanged
+    }
+  })], 1)])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "row mt-4"
+  }, [_c('div', {
+    staticClass: "col-form-6"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-info-circle mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Additional Information")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "notes"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Notes")))]), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.notes,
+      expression: "form.notes"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.form.errors.has('notes')
+    },
+    attrs: {
+      "id": "notes",
+      "rows": "3",
+      "placeholder": _vm.$t('Enter additional notes')
+    },
+    domProps: {
+      "value": _vm.form.notes
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "notes", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "notes"
+    }
+  })], 1)])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-form-6"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-file-alt mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Documents & Settings")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "attachments"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Attachments")))]), _vm._v(" "), _c('div', {
+    staticClass: "file-upload-area"
+  }, [_c('input', {
+    staticClass: "file-input",
+    "class": {
+      'is-invalid': _vm.form.errors.has('attachments')
+    },
+    attrs: {
+      "id": "attachments",
+      "type": "file",
+      "name": "attachments",
+      "multiple": "",
+      "accept": "image/jpeg,image/png,image/gif"
+    },
+    on: {
+      "change": _vm.onFileChange
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "file-upload-content"
+  }, [_c('i', {
+    staticClass: "fas fa-cloud-upload-alt"
+  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Drop files here or click to browse")))]), _vm._v(" "), _c('small', {
+    staticClass: "text-muted"
+  }, [_vm._v(_vm._s(_vm.$t("Supported formats: JPEG, PNG, GIF")))])])]), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.form,
+      "field": "attachments"
+    }
+  }), _vm._v(" "), _vm.form.attachments && _vm.form.attachments.length > 0 ? _c('div', {
+    staticClass: "selected-files mt-2"
+  }, _vm._l(_vm.form.attachments, function (file, index) {
+    return _c('div', {
+      key: index,
+      staticClass: "selected-file-item"
+    }, [_c('i', {
+      staticClass: "fas fa-file mr-2"
+    }), _vm._v(" "), _c('span', [_vm._v(_vm._s(file.name))]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-sm btn-outline-danger ml-2",
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.removeFile(index);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-times"
+    })])]);
+  }), 0) : _vm._e()], 1)])])])]), _vm._v(" "), _c('div', {
+    staticClass: "row mt-4"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-chart-line mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Chart of Account")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  })])])]), _vm._v(" "), _c('div', {
+    staticClass: "row mt-4",
+    staticStyle: {
+      "display": "none"
+    }
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-chart-line mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Chart of Account")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "alert alert-success"
+  }, [_c('i', {
+    staticClass: "fas fa-check-circle mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Chart of account will be automatically assigned based on your accounting configuration.")) + "\n          ")])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "row mt-4"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "form-card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h5', {
+    staticClass: "section-title"
+  }, [_c('i', {
+    staticClass: "fas fa-bell mr-2"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("Communication Preferences")) + "\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "form-group col-form-6"
+  }, [_c('div', {
+    staticClass: "d-flex align-items-center"
+  }, [_c('toggle-button', {
+    attrs: {
+      "disabled": _vm.isDemoMode || _vm.communicationConfig.loading || !_vm.communicationConfig.email_configured
+    },
+    model: {
+      value: _vm.form.isSendEmail,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "isSendEmail", $$v);
+      },
+      expression: "form.isSendEmail"
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "ml-3"
+  }, [_vm._v(_vm._s(_vm.$t("Send Welcome Email")))]), _vm._v(" "), !_vm.communicationConfig.loading && !_vm.communicationConfig.email_configured ? _c('span', {
+    staticClass: "ml-2 text-muted small"
+  }, [_vm._v("\n                  (" + _vm._s(_vm.$t("Email not configured")) + ")\n                ")]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "form-group col-form-6"
+  }, [_c('div', {
+    staticClass: "d-flex align-items-center"
+  }, [_c('toggle-button', {
+    attrs: {
+      "disabled": _vm.isDemoMode || _vm.communicationConfig.loading || !_vm.communicationConfig.sms_configured
+    },
+    model: {
+      value: _vm.form.isSendSMS,
+      callback: function callback($$v) {
+        _vm.$set(_vm.form, "isSendSMS", $$v);
+      },
+      expression: "form.isSendSMS"
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "ml-3"
+  }, [_vm._v(_vm._s(_vm.$t("Send Welcome SMS")))]), _vm._v(" "), !_vm.communicationConfig.loading && !_vm.communicationConfig.sms_configured ? _c('span', {
+    staticClass: "ml-2 text-muted small"
+  }, [_vm._v("\n                  (" + _vm._s(_vm.$t("SMS not configured")) + ")\n                ")]) : _vm._e()], 1)])])])])])])]);
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "tax-status-icon-compact taxable-icon"
+  }, [_c('i', {
+    staticClass: "fas fa-file-invoice-dollar"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "tax-status-icon-compact non-taxable-icon"
+  }, [_c('i', {
+    staticClass: "fas fa-file-invoice"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "col-md-12"
+  }, [_c('hr', {
+    staticStyle: {
+      "margin": "15px 0",
+      "border-color": "#e0e0e0"
+    }
+  })]);
+}];
+
+;// ./resources/js/components/ClientForm.vue?vue&type=template&id=2dfbf408&scoped=true
+
+// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
+var vform_es = __webpack_require__(63216);
+// EXTERNAL MODULE: ./node_modules/vue-js-toggle-button/dist/index.js
+var dist = __webpack_require__(12616);
+// EXTERNAL MODULE: ./resources/js/components/RepresentativesList.vue + 11 modules
+var RepresentativesList = __webpack_require__(89812);
+// EXTERNAL MODULE: ./resources/js/components/PhoneNumberInput.vue + 5 modules
+var PhoneNumberInput = __webpack_require__(24698);
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientForm.vue?vue&type=script&lang=js
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+
+
+
+
+
+/* harmony default export */ const ClientFormvue_type_script_lang_js = ({
+  name: "ClientForm",
+  components: {
+    ToggleButton: dist.ToggleButton,
+    RepresentativesList: RepresentativesList/* default */.A,
+    PhoneNumberInput: PhoneNumberInput/* default */.A
+  },
+  props: {
+    // Whether to show the card-body wrapper (for create page) or not (for modal)
+    showCardBody: {
+      type: Boolean,
+      "default": true
+    },
+    // Initial form data (optional)
+    initialData: {
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
+    }
+  },
+  data: function data() {
+    return {
+      isDemoMode: window.config.isDemoMode,
+      loading: true,
+      url: null,
+      form: null,
+      // Will be initialized in created()
+
+      // Add missing properties
+      routingSetting: null,
+      loadingChartOfAccounts: false,
+      chartOfAccountsError: null,
+      chartOfAccounts: [],
+      isCreatingAccount: false,
+      // Communication configuration status
+      communicationConfig: {
+        email_configured: false,
+        sms_configured: false,
+        loading: true
+      },
+      // Phone number validation
+      phoneNumberValid: false,
+      // Saudi Arabia location data
+      saudiRegions: [],
+      saudiCities: [],
+      loadingRegions: false,
+      loadingCities: false,
+      // Countries data with flags (same as tenant-initialization)
+      countriesData: [{
+        code: 'SA',
+        nameKey: 'Saudi Arabia',
+        flag: '🇸🇦'
+      }, {
+        code: 'AE',
+        nameKey: 'United Arab Emirates',
+        flag: '🇦🇪'
+      }, {
+        code: 'EG',
+        nameKey: 'Egypt',
+        flag: '🇪🇬'
+      }, {
+        code: 'JO',
+        nameKey: 'Jordan',
+        flag: '🇯🇴'
+      }, {
+        code: 'LB',
+        nameKey: 'Lebanon',
+        flag: '🇱🇧'
+      }, {
+        code: 'MA',
+        nameKey: 'Morocco',
+        flag: '🇲🇦'
+      }, {
+        code: 'TN',
+        nameKey: 'Tunisia',
+        flag: '🇹🇳'
+      }, {
+        code: 'DZ',
+        nameKey: 'Algeria',
+        flag: '🇩🇿'
+      }, {
+        code: 'KW',
+        nameKey: 'Kuwait',
+        flag: '🇰🇼'
+      }, {
+        code: 'QA',
+        nameKey: 'Qatar',
+        flag: '🇶🇦'
+      }, {
+        code: 'BH',
+        nameKey: 'Bahrain',
+        flag: '🇧🇭'
+      }, {
+        code: 'OM',
+        nameKey: 'Oman',
+        flag: '🇴🇲'
+      }, {
+        code: 'YE',
+        nameKey: 'Yemen',
+        flag: '🇾🇪'
+      }, {
+        code: 'IQ',
+        nameKey: 'Iraq',
+        flag: '🇮🇶'
+      }, {
+        code: 'US',
+        nameKey: 'United States',
+        flag: '🇺🇸'
+      }, {
+        code: 'GB',
+        nameKey: 'United Kingdom',
+        flag: '🇬🇧'
+      }, {
+        code: 'CA',
+        nameKey: 'Canada',
+        flag: '🇨🇦'
+      }, {
+        code: 'AU',
+        nameKey: 'Australia',
+        flag: '🇦🇺'
+      }, {
+        code: 'DE',
+        nameKey: 'Germany',
+        flag: '🇩🇪'
+      }, {
+        code: 'FR',
+        nameKey: 'France',
+        flag: '🇫🇷'
+      }, {
+        code: 'ES',
+        nameKey: 'Spain',
+        flag: '🇪🇸'
+      }, {
+        code: 'IT',
+        nameKey: 'Italy',
+        flag: '🇮🇹'
+      }, {
+        code: 'NL',
+        nameKey: 'Netherlands',
+        flag: '🇳🇱'
+      }, {
+        code: 'BE',
+        nameKey: 'Belgium',
+        flag: '🇧🇪'
+      }, {
+        code: 'CH',
+        nameKey: 'Switzerland',
+        flag: '🇨🇭'
+      }, {
+        code: 'AT',
+        nameKey: 'Austria',
+        flag: '🇦🇹'
+      }, {
+        code: 'SE',
+        nameKey: 'Sweden',
+        flag: '🇸🇪'
+      }, {
+        code: 'NO',
+        nameKey: 'Norway',
+        flag: '🇳🇴'
+      }, {
+        code: 'DK',
+        nameKey: 'Denmark',
+        flag: '🇩🇰'
+      }, {
+        code: 'FI',
+        nameKey: 'Finland',
+        flag: '🇫🇮'
+      }, {
+        code: 'PL',
+        nameKey: 'Poland',
+        flag: '🇵🇱'
+      }, {
+        code: 'IE',
+        nameKey: 'Ireland',
+        flag: '🇮🇪'
+      }, {
+        code: 'PT',
+        nameKey: 'Portugal',
+        flag: '🇵🇹'
+      }, {
+        code: 'GR',
+        nameKey: 'Greece',
+        flag: '🇬🇷'
+      }, {
+        code: 'LU',
+        nameKey: 'Luxembourg',
+        flag: '🇱🇺'
+      }, {
+        code: 'TR',
+        nameKey: 'Turkey',
+        flag: '🇹🇷'
+      }, {
+        code: 'IN',
+        nameKey: 'India',
+        flag: '🇮🇳'
+      }, {
+        code: 'CN',
+        nameKey: 'China',
+        flag: '🇨🇳'
+      }, {
+        code: 'JP',
+        nameKey: 'Japan',
+        flag: '🇯🇵'
+      }, {
+        code: 'KR',
+        nameKey: 'South Korea',
+        flag: '🇰🇷'
+      }, {
+        code: 'BR',
+        nameKey: 'Brazil',
+        flag: '🇧🇷'
+      }, {
+        code: 'MX',
+        nameKey: 'Mexico',
+        flag: '🇲🇽'
+      }, {
+        code: 'AR',
+        nameKey: 'Argentina',
+        flag: '🇦🇷'
+      }, {
+        code: 'ZA',
+        nameKey: 'South Africa',
+        flag: '🇿🇦'
+      }, {
+        code: 'NG',
+        nameKey: 'Nigeria',
+        flag: '🇳🇬'
+      }, {
+        code: 'KE',
+        nameKey: 'Kenya',
+        flag: '🇰🇪'
+      }, {
+        code: 'PK',
+        nameKey: 'Pakistan',
+        flag: '🇵🇰'
+      }, {
+        code: 'BD',
+        nameKey: 'Bangladesh',
+        flag: '🇧🇩'
+      }, {
+        code: 'ID',
+        nameKey: 'Indonesia',
+        flag: '🇮🇩'
+      }, {
+        code: 'PH',
+        nameKey: 'Philippines',
+        flag: '🇵🇭'
+      }, {
+        code: 'VN',
+        nameKey: 'Vietnam',
+        flag: '🇻🇳'
+      }, {
+        code: 'TH',
+        nameKey: 'Thailand',
+        flag: '🇹🇭'
+      }, {
+        code: 'MY',
+        nameKey: 'Malaysia',
+        flag: '🇲🇾'
+      }, {
+        code: 'SG',
+        nameKey: 'Singapore',
+        flag: '🇸🇬'
+      }, {
+        code: 'NZ',
+        nameKey: 'New Zealand',
+        flag: '🇳🇿'
+      }, {
+        code: 'RU',
+        nameKey: 'Russia',
+        flag: '🇷🇺'
+      }, {
+        code: 'UA',
+        nameKey: 'Ukraine',
+        flag: '🇺🇦'
+      }, {
+        code: 'CZ',
+        nameKey: 'Czech Republic',
+        flag: '🇨🇿'
+      }, {
+        code: 'HU',
+        nameKey: 'Hungary',
+        flag: '🇭🇺'
+      }, {
+        code: 'RO',
+        nameKey: 'Romania',
+        flag: '🇷🇴'
+      }, {
+        code: 'BG',
+        nameKey: 'Bulgaria',
+        flag: '🇧🇬'
+      }, {
+        code: 'HR',
+        nameKey: 'Croatia',
+        flag: '🇭🇷'
+      }, {
+        code: 'SI',
+        nameKey: 'Slovenia',
+        flag: '🇸🇮'
+      }, {
+        code: 'SK',
+        nameKey: 'Slovakia',
+        flag: '🇸🇰'
+      }, {
+        code: 'EE',
+        nameKey: 'Estonia',
+        flag: '🇪🇪'
+      }, {
+        code: 'LV',
+        nameKey: 'Latvia',
+        flag: '🇱🇻'
+      }, {
+        code: 'LT',
+        nameKey: 'Lithuania',
+        flag: '🇱🇹'
+      }, {
+        code: 'IS',
+        nameKey: 'Iceland',
+        flag: '🇮🇸'
+      }]
+    };
+  },
+  watch: {
+    // Watch for changes in initialData prop
+    initialData: {
+      handler: function handler(newData) {
+        var _this = this;
+        console.log('=== INITIAL DATA WATCHER TRIGGERED ===');
+        console.log('New data:', newData);
+        console.log('Form exists:', !!this.form);
+        if (newData && Object.keys(newData).length > 0) {
+          // Set form values from initial data
+          Object.keys(newData).forEach(function (key) {
+            if (Object.prototype.hasOwnProperty.call(_this.form, key)) {
+              console.log("Setting form.".concat(key, " = ").concat(newData[key]));
+              _this.form[key] = newData[key];
+            } else {
+              console.log("Form does not have property: ".concat(key));
+            }
+          });
+
+          // Handle special cases
+          if (newData.image_path) {
+            this.url = newData.image_path;
+          }
+          if (newData.attachments) {
+            this.form.attachments = Array.isArray(newData.attachments) ? newData.attachments : [];
+          }
+          console.log('Form initialized with data:', newData);
+          console.log('Form after initialization:', this.form);
+
+          // Load representatives if this is an existing client
+          if (newData.slug && newData.slug !== 'new') {
+            console.log('=== WILL LOAD REPRESENTATIVES ===');
+            console.log('Will load representatives for slug:', newData.slug);
+            console.log('Slug type:', _typeof(newData.slug));
+            console.log('Slug value:', newData.slug);
+            console.log('Full newData:', newData);
+            // Add a small delay to ensure form is fully initialized
+            setTimeout(function () {
+              console.log('Calling loadRepresentatives after timeout');
+              _this.loadRepresentatives();
+            }, 100);
+          } else {
+            console.log('=== NOT LOADING REPRESENTATIVES ===');
+            console.log('NOT loading representatives because:');
+            console.log('- newData.slug exists:', !!newData.slug);
+            console.log('- newData.slug value:', newData.slug);
+            console.log('- newData.slug !== new:', newData.slug !== 'new');
+            console.log('Full newData:', newData);
+
+            // Only load next code number for truly new clients (not when editing)
+            if (!newData.slug || newData.slug === 'new') {
+              console.log('Loading next code number for new client');
+              this.loadNextCodeNumber();
+            } else {
+              console.log('Skipping next code number load - this appears to be an edit operation');
+            }
+          }
+        }
+      },
+      immediate: true,
+      deep: true
+    },
+    // Watch for changes in phoneNumber field
+    'form.phoneNumber': {
+      handler: function handler(newValue, oldValue) {
+        console.log('Phone number changed:', {
+          old: oldValue,
+          "new": newValue
+        });
+      },
+      immediate: true
+    },
+    // Watch for changes in representatives field
+    'form.representatives': {
+      handler: function handler(newValue, oldValue) {
+        console.log('Representatives changed:', {
+          old: oldValue,
+          "new": newValue
+        });
+        console.log('New representatives length:', newValue ? newValue.length : 'undefined');
+      },
+      immediate: true
+    },
+    // Watch for routing settings changes
+    routingSetting: {
+      handler: function handler(newValue, oldValue) {
+        if (newValue && newValue.main_account_id !== (oldValue === null || oldValue === void 0 ? void 0 : oldValue.main_account_id)) {
+          console.log('Main account changed, reloading chart of accounts');
+          this.loadChartOfAccounts();
+        }
+      },
+      deep: true
+    },
+    // Watch for country changes - clear state when Saudi Arabia is selected
+    'form.country': {
+      handler: function handler(newValue) {
+        if (newValue === 'SA') {
+          // Clear state field when Saudi Arabia is selected
+          this.form.state = '';
+          // Load Saudi regions
+          this.loadSaudiRegions();
+        } else {
+          // Clear Saudi-specific fields when switching away from SA
+          this.form.saudi_region = null;
+          this.saudiCities = [];
+        }
+      },
+      immediate: true
+    },
+    // Watch for Saudi region changes - load cities
+    'form.saudi_region': {
+      handler: function handler(newValue) {
+        if (newValue && this.form.country === 'SA') {
+          this.loadSaudiCities(newValue);
+        } else {
+          this.saudiCities = [];
+          this.form.city = '';
+        }
+      }
+    }
+  },
+  computed: {
+    // Check if this is a new client
+    isNewClient: function isNewClient() {
+      return !this.initialData || Object.keys(this.initialData).length === 0 || this.initialData.slug && this.initialData.slug === 'new';
+    },
+    // Countries with translated names
+    countries: function countries() {
+      var _this2 = this;
+      return this.countriesData.map(function (country) {
+        return _objectSpread(_objectSpread({}, country), {}, {
+          name: _this2.$t(country.nameKey) || country.nameKey
+        });
+      });
+    },
+    // Determine if City field should be shown
+    shouldShowCity: function shouldShowCity() {
+      if (this.form.country === 'SA') {
+        // For Saudi Arabia, show City only when Region is selected
+        return !!this.form.saudi_region;
+      } else {
+        // For non-Saudi countries, show City when Country is selected
+        return !!this.form.country;
+      }
+    }
+  },
+  created: function created() {
+    console.log('ClientForm component created');
+    this.initializeForm();
+  },
+  mounted: function mounted() {
+    var _this3 = this;
+    console.log('ClientForm component mounted, form:', this.form);
+    console.log('Initial data in mounted:', this.initialData);
+    // Don't call loadRepresentatives here - let the watcher handle it
+
+    // Load next code number for new clients
+    this.loadNextCodeNumber();
+
+    // Load communication configuration status
+    this.loadCommunicationConfigStatus();
+
+    // Load routing settings first, then chart of accounts
+    this.loadRoutingSettings().then(function () {
+      console.log('Routing settings loaded, now loading chart of accounts...');
+      _this3.loadChartOfAccounts().then(function () {
+        console.log('Chart of accounts loading completed. Total accounts:', _this3.chartOfAccounts.length);
+        console.log('Chart of accounts data:', _this3.chartOfAccounts);
+      });
+    })["catch"](function (error) {
+      console.error('Error in mounted lifecycle:', error);
+    });
+  },
+  methods: {
+    // Initialize the form
+    initializeForm: function initializeForm() {
+      console.log('=== INITIALIZING FORM ===');
+      console.log('Initial data:', this.initialData);
+      this.form = new vform_es/* default */.Ay(_objectSpread({
+        // Account Details
+        codeNumber: "",
+        // Will be loaded from API
+        notes: "",
+        displayLanguage: "",
+        // Client Details
+        type: "Company",
+        taxStatus: "non_taxable",
+        fullName: "",
+        businessName: "",
+        firstName: "",
+        lastName: "",
+        phone: "",
+        phoneNumber: "",
+        email: "",
+        streetAddress1: "",
+        city: "",
+        state: "",
+        postalCode: "",
+        country: "SA",
+        saudi_region: null,
+        neighbourhood: "",
+        commercialRegister: "",
+        taxCard: "",
+        // Saudi National Address Fields
+        buildingNumber: "",
+        streetNumber: "",
+        districtNumber: "",
+        unitNumber: "",
+        additionalNumber: "",
+        // Additional Fields
+        image: "",
+        attachments: [],
+        status: 1,
+        isSendEmail: false,
+        isSendSMS: false,
+        // Legacy fields for backward compatibility
+        name: "",
+        companyName: "",
+        taxRegistrationNumber: "",
+        address: "",
+        // Representatives
+        representatives: [],
+        // Chart of Account
+        chartOfAccountId: null
+      }, this.initialData || {}));
+      console.log('Form initialized:', this.form);
+      console.log('Form type:', _typeof(this.form));
+      console.log('Form methods:', Object.getOwnPropertyNames(this.form));
+    },
+    // Load the next available code number for new clients
+    loadNextCodeNumber: function loadNextCodeNumber() {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var response, _error$response;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              if (!(_this4.initialData && _this4.initialData.slug && _this4.initialData.slug !== 'new')) {
+                _context.next = 3;
+                break;
+              }
+              console.log('Skipping next code number load - editing existing client');
+              return _context.abrupt("return");
+            case 3:
+              _context.prev = 3;
+              console.log('=== LOADING NEXT CODE NUMBER ===');
+              console.log('Current form codeNumber before API call:', _this4.form.codeNumber);
+              _context.next = 8;
+              return axios_default().get('/clients/next-code');
+            case 8:
+              response = _context.sent;
+              console.log('Next code API response:', response.data);
+
+              // Check if we have formatted_code in the response (successful response)
+              if (response.data && response.data.formatted_code) {
+                _this4.form.codeNumber = response.data.formatted_code;
+                console.log('Code number successfully loaded:', _this4.form.codeNumber);
+                console.log('Debug info from API:', response.data.debug);
+              } else if (response.data && response.data.success === false) {
+                console.error('API returned error:', response.data.message);
+                // Fallback to a default code for first client
+                _this4.form.codeNumber = 'AC001';
+                console.log('Using fallback code number:', _this4.form.codeNumber);
+              } else {
+                // Response structure might be different, try to extract formatted_code
+                if (response.data && response.data.formatted_code) {
+                  _this4.form.codeNumber = response.data.formatted_code;
+                } else {
+                  // Last resort fallback
+                  _this4.form.codeNumber = 'AC001';
+                  console.log('Using default fallback code number:', _this4.form.codeNumber);
+                }
+              }
+              _context.next = 19;
+              break;
+            case 13:
+              _context.prev = 13;
+              _context.t0 = _context["catch"](3);
+              console.error('Error loading next code number:', _context.t0);
+              console.error('Error details:', ((_error$response = _context.t0.response) === null || _error$response === void 0 ? void 0 : _error$response.data) || _context.t0.message);
+              // Fallback to a default code instead of 'Loading...'
+              // This ensures the form doesn't get stuck in loading state
+              _this4.form.codeNumber = 'AC001';
+              console.log('Using fallback code number due to error:', _this4.form.codeNumber);
+            case 19:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, null, [[3, 13]]);
+      }))();
+    },
+    // Load communication configuration status
+    loadCommunicationConfigStatus: function loadCommunicationConfigStatus() {
+      var _this5 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              console.log('=== LOADING COMMUNICATION CONFIG STATUS ===');
+              _this5.communicationConfig.loading = true;
+              _context2.next = 5;
+              return axios_default().get('/api/communication-config-status');
+            case 5:
+              response = _context2.sent;
+              console.log('Communication config response:', response.data);
+              _this5.communicationConfig.email_configured = response.data.email_configured;
+              _this5.communicationConfig.sms_configured = response.data.sms_configured;
+              _this5.communicationConfig.loading = false;
+              console.log('Communication config loaded:', _this5.communicationConfig);
+              _context2.next = 19;
+              break;
+            case 13:
+              _context2.prev = 13;
+              _context2.t0 = _context2["catch"](0);
+              console.error('Error loading communication config status:', _context2.t0);
+              // Default to false if there's an error
+              _this5.communicationConfig.email_configured = false;
+              _this5.communicationConfig.sms_configured = false;
+              _this5.communicationConfig.loading = false;
+            case 19:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, null, [[0, 13]]);
+      }))();
+    },
+    // vue file upload
+    onFileChange: function onFileChange(e) {
+      var _this6 = this;
+      var files = Array.from(e.target.files);
+      var validFiles = [];
+      files.forEach(function (file) {
+        // Check file size (2MB limit)
+        if (file.size < 2111775) {
+          // For image, only allow image files
+          if (e.target.id === 'image') {
+            if (file.type.startsWith('image/')) {
+              validFiles.push(file);
+            } else {
+              _this6.$toast.error(_this6.$t("Error!"), _this6.$t("Please select a valid image file"));
+            }
+          } else {
+            // For attachments, only allow images to match backend validation
+            var allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            if (allowedTypes.includes(file.type)) {
+              validFiles.push(file);
+            } else {
+              _this6.$toast.error(_this6.$t("Error!"), _this6.$t("Only JPEG, PNG, and GIF files are allowed."));
+            }
+          }
+        } else {
+          _this6.$toast.error(_this6.$t("Error!"), _this6.$t("Please select a file with size less than 2 MB"));
+        }
+      });
+      if (validFiles.length > 0) {
+        // Check if this is for image or attachments
+        if (e.target.id === 'image') {
+          // Single image file
+          this.form.image = validFiles[0];
+          this.url = URL.createObjectURL(validFiles[0]);
+        } else {
+          // Multiple attachment files
+          this.form.attachments = [].concat(_toConsumableArray(this.form.attachments), validFiles);
+        }
+      }
+    },
+    // Remove a file from attachments
+    removeFile: function removeFile(index) {
+      this.form.attachments.splice(index, 1);
+    },
+    // Reset form to default values
+    resetForm: function resetForm() {
+      this.form.reset();
+
+      // Reset to default values for specific fields
+      this.form.type = "Company";
+      this.form.status = 1;
+      this.form.country = "SA";
+      this.form.isSendEmail = false;
+      this.form.isSendSMS = false;
+
+      // Load the next available code number
+      this.loadNextCodeNumber();
+
+      // Clear all other fields
+      this.form.notes = "";
+      this.form.displayLanguage = "";
+      this.form.fullName = "";
+      this.form.businessName = "";
+      this.form.firstName = "";
+      this.form.lastName = "";
+      this.form.phone = "";
+      this.form.phoneNumber = "";
+      this.form.email = "";
+      this.form.streetAddress1 = "";
+      this.form.city = "";
+      this.form.state = "";
+      this.form.postalCode = "";
+      this.form.neighbourhood = "";
+      this.form.commercialRegister = "";
+      this.form.taxCard = "";
+      // Clear Saudi National Address Fields
+      this.form.buildingNumber = "";
+      this.form.unitNumber = "";
+      this.form.additionalNumber = "";
+      this.form.attachments = []; // Clear attachments
+      this.form.image = null; // Clear image
+      this.form.chartOfAccountId = null; // Clear chart of account
+
+      // Clear image preview
+      this.url = null;
+
+      // Clear validation errors
+      this.form.errors.clear();
+
+      // Reset phone number validation
+      this.phoneNumberValid = false;
+    },
+    // Handle country change
+    onCountryChange: function onCountryChange() {
+      // Clear state field when Saudi Arabia is selected (handled by watcher)
+      // This method can be used for additional country-specific logic
+    },
+    // Load Saudi Arabia regions
+    loadSaudiRegions: function loadSaudiRegions() {
+      var _this7 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              if (!_this7.loadingRegions) {
+                _context3.next = 2;
+                break;
+              }
+              return _context3.abrupt("return");
+            case 2:
+              _this7.loadingRegions = true;
+              _context3.prev = 3;
+              _context3.next = 6;
+              return axios_default().get('/api/locations/saudi/regions');
+            case 6:
+              response = _context3.sent;
+              if (response.data.success) {
+                _this7.saudiRegions = response.data.data.map(function (region) {
+                  return {
+                    id: region.id,
+                    name: _this7.$i18n.locale === 'ar' ? region.name_ar : region.name_en,
+                    name_ar: region.name_ar,
+                    name_en: region.name_en,
+                    code: region.code
+                  };
+                });
+              }
+              _context3.next = 14;
+              break;
+            case 10:
+              _context3.prev = 10;
+              _context3.t0 = _context3["catch"](3);
+              console.error('Error loading Saudi regions:', _context3.t0);
+              _this7.$toast.error(_this7.$t('Error loading regions'));
+            case 14:
+              _context3.prev = 14;
+              _this7.loadingRegions = false;
+              return _context3.finish(14);
+            case 17:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, null, [[3, 10, 14, 17]]);
+      }))();
+    },
+    // Load Saudi Arabia cities by region
+    loadSaudiCities: function loadSaudiCities(regionId) {
+      var _this8 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var response, cities, selectedRegion, _selectedRegion, _selectedRegion2;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              if (regionId) {
+                _context4.next = 3;
+                break;
+              }
+              _this8.saudiCities = [];
+              return _context4.abrupt("return");
+            case 3:
+              if (!_this8.loadingCities) {
+                _context4.next = 5;
+                break;
+              }
+              return _context4.abrupt("return");
+            case 5:
+              _this8.loadingCities = true;
+              _context4.prev = 6;
+              _context4.next = 9;
+              return axios_default().get('/api/locations/saudi/cities-by-region', {
+                params: {
+                  region_id: regionId
+                }
+              });
+            case 9:
+              response = _context4.sent;
+              if (response.data.success) {
+                cities = response.data.data || [];
+                _this8.saudiCities = cities.map(function (city) {
+                  return {
+                    id: city.id,
+                    name: _this8.$i18n.locale === 'ar' ? city.name_ar : city.name_en,
+                    name_ar: city.name_ar,
+                    name_en: city.name_en,
+                    region_id: city.region_id
+                  };
+                });
+
+                // If no cities found, add the region name as a city option
+                if (_this8.saudiCities.length === 0) {
+                  selectedRegion = _this8.saudiRegions.find(function (region) {
+                    return region.id === regionId;
+                  });
+                  if (selectedRegion) {
+                    _this8.saudiCities = [{
+                      id: "region_".concat(regionId),
+                      name: selectedRegion.name,
+                      name_ar: selectedRegion.name_ar,
+                      name_en: selectedRegion.name_en,
+                      region_id: regionId,
+                      is_region: true
+                    }];
+                  }
+                }
+              } else {
+                // If API call failed, add region name as fallback
+                _selectedRegion = _this8.saudiRegions.find(function (region) {
+                  return region.id === regionId;
+                });
+                if (_selectedRegion) {
+                  _this8.saudiCities = [{
+                    id: "region_".concat(regionId),
+                    name: _selectedRegion.name,
+                    name_ar: _selectedRegion.name_ar,
+                    name_en: _selectedRegion.name_en,
+                    region_id: regionId,
+                    is_region: true
+                  }];
+                } else {
+                  _this8.saudiCities = [];
+                }
+              }
+              _context4.next = 19;
+              break;
+            case 13:
+              _context4.prev = 13;
+              _context4.t0 = _context4["catch"](6);
+              console.error('Error loading Saudi cities:', _context4.t0);
+              // If error occurred, add region name as fallback
+              _selectedRegion2 = _this8.saudiRegions.find(function (region) {
+                return region.id === regionId;
+              });
+              if (_selectedRegion2) {
+                _this8.saudiCities = [{
+                  id: "region_".concat(regionId),
+                  name: _selectedRegion2.name,
+                  name_ar: _selectedRegion2.name_ar,
+                  name_en: _selectedRegion2.name_en,
+                  region_id: regionId,
+                  is_region: true
+                }];
+              } else {
+                _this8.saudiCities = [];
+              }
+              // Don't show error toast for empty cities - it's normal for some regions
+              if (_context4.t0.response && _context4.t0.response.status !== 404) {
+                _this8.$toast.error(_this8.$t('Error loading cities'));
+              }
+            case 19:
+              _context4.prev = 19;
+              _this8.loadingCities = false;
+              return _context4.finish(19);
+            case 22:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4, null, [[6, 13, 19, 22]]);
+      }))();
+    },
+    // Handle Saudi region change
+    onSaudiRegionChange: function onSaudiRegionChange() {
+      // Clear city when region changes
+      this.form.city = '';
+      this.saudiCities = [];
+      // Cities will be loaded by watcher
+    },
+    // Get form data for parent component
+    getFormData: function getFormData() {
+      return this.form;
+    },
+    // Validate form
+    validateForm: function validateForm() {
+      var _this9 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              console.log('=== VALIDATING FORM ===');
+              console.log('Form object:', _this9.form);
+              console.log('Form type:', _this9.form ? _this9.form.type : 'No form');
+              console.log('Form phoneNumber:', _this9.form ? _this9.form.phoneNumber : 'No form');
+              console.log('Form businessName:', _this9.form ? _this9.form.businessName : 'No form');
+              console.log('Form fullName:', _this9.form ? _this9.form.fullName : 'No form');
+
+              // Basic validation - check if form exists
+              if (_this9.form) {
+                _context5.next = 9;
+                break;
+              }
+              console.error('Form is not initialized');
+              return _context5.abrupt("return", false);
+            case 9:
+              if (!(!_this9.form.phoneNumber || _this9.form.phoneNumber.trim() === '')) {
+                _context5.next = 13;
+                break;
+              }
+              console.log('Phone number validation failed - phoneNumber:', _this9.form.phoneNumber);
+              if (window.toast && typeof window.toast.fire === 'function') {
+                window.toast.fire({
+                  type: "error",
+                  title: _this9.$t("Mobile number is required")
+                });
+              } else {
+                alert(_this9.$t("Mobile number is required"));
+              }
+              return _context5.abrupt("return", false);
+            case 13:
+              if (_this9.phoneNumberValid) {
+                _context5.next = 17;
+                break;
+              }
+              console.log('Phone number validation failed - phoneNumberValid:', _this9.phoneNumberValid);
+              if (window.toast && typeof window.toast.fire === 'function') {
+                window.toast.fire({
+                  type: "error",
+                  title: _this9.$t("Invalid phone number format")
+                });
+              } else {
+                alert(_this9.$t("Invalid phone number format"));
+              }
+              return _context5.abrupt("return", false);
+            case 17:
+              if (!(_this9.form.type === 'Company' && (!_this9.form.businessName || _this9.form.businessName.trim() === ''))) {
+                _context5.next = 21;
+                break;
+              }
+              console.log('Business name validation failed - businessName:', _this9.form.businessName);
+              if (window.toast && typeof window.toast.fire === 'function') {
+                window.toast.fire({
+                  type: "error",
+                  title: _this9.$t("Business name is required for company clients")
+                });
+              } else {
+                alert(_this9.$t("Business name is required for company clients"));
+              }
+              return _context5.abrupt("return", false);
+            case 21:
+              if (!(_this9.form.type === 'Individual' && (!_this9.form.fullName || _this9.form.fullName.trim() === ''))) {
+                _context5.next = 25;
+                break;
+              }
+              console.log('Full name validation failed - fullName:', _this9.form.fullName);
+              if (window.toast && typeof window.toast.fire === 'function') {
+                window.toast.fire({
+                  type: "error",
+                  title: _this9.$t("Full name is required for individual clients")
+                });
+              } else {
+                alert(_this9.$t("Full name is required for individual clients"));
+              }
+              return _context5.abrupt("return", false);
+            case 25:
+              // For new clients, use the main account from routing setting if none selected
+              if (_this9.isNewClient && _this9.routingSetting && _this9.routingSetting.main_account_id) {
+                if (!_this9.form.chartOfAccountId) {
+                  // Use the main account from routing setting
+                  _this9.form.chartOfAccountId = _this9.routingSetting.main_account_id;
+                }
+              }
+              return _context5.abrupt("return", true);
+            case 27:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5);
+      }))();
+    },
+    // Load representatives for existing client
+    loadRepresentatives: function loadRepresentatives() {
+      var _this0 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        var slug, apiUrl, response;
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
+            case 0:
+              // Try to get slug from route params first, then from initialData
+              slug = _this0.$route.params.slug || _this0.initialData && _this0.initialData.slug;
+              console.log('=== LOADING REPRESENTATIVES ===');
+              console.log('Loading representatives for client:', slug);
+              console.log('Route params:', _this0.$route.params);
+              console.log('Initial data:', _this0.initialData);
+              console.log('Form type:', _this0.form.type);
+              console.log('Form representatives before load:', _this0.form.representatives);
+              if (!(slug && slug !== 'new')) {
+                _context6.next = 31;
+                break;
+              }
+              _context6.prev = 8;
+              apiUrl = "/api/client/".concat(slug, "/representatives");
+              console.log('Making API call to:', apiUrl);
+              _context6.next = 13;
+              return _this0.$http.get(apiUrl);
+            case 13:
+              response = _context6.sent;
+              console.log('Representatives API response received');
+              console.log('Response status:', response.status);
+              console.log('Response data:', response.data);
+              console.log('Response success:', response.data.success);
+              console.log('Response data.data:', response.data.data);
+              if (response.data.success) {
+                _this0.form.representatives = response.data.data;
+                console.log('Representatives loaded into form:', _this0.form.representatives);
+                console.log('Form representatives after load:', _this0.form.representatives);
+                console.log('Representatives count after load:', _this0.form.representatives.length);
+              } else {
+                console.log('API response indicates failure:', response.data);
+              }
+              _context6.next = 29;
+              break;
+            case 22:
+              _context6.prev = 22;
+              _context6.t0 = _context6["catch"](8);
+              console.error('=== ERROR LOADING REPRESENTATIVES ===');
+              console.error('Error:', _context6.t0);
+              console.error('Error message:', _context6.t0.message);
+              console.error('Error response:', _context6.t0.response);
+              if (_context6.t0.response) {
+                console.error('Error status:', _context6.t0.response.status);
+                console.error('Error data:', _context6.t0.response.data);
+              }
+            case 29:
+              _context6.next = 34;
+              break;
+            case 31:
+              console.log('No slug or new client, skipping representatives load');
+              console.log('Slug value:', slug);
+              console.log('Is new client:', slug === 'new');
+            case 34:
+              console.log('=== END LOADING REPRESENTATIVES ===');
+            case 35:
+            case "end":
+              return _context6.stop();
+          }
+        }, _callee6, null, [[8, 22]]);
+      }))();
+    },
+    // Handle when representatives are changed (added, edited, deleted)
+    handleRepresentativesChanged: function handleRepresentativesChanged(representatives) {
+      this.form.representatives = representatives;
+    },
+    // Handle phone number validation
+    onPhoneValidated: function onPhoneValidated(isValid) {
+      this.phoneNumberValid = isValid;
+      if (!isValid && this.form.phoneNumber) {
+        // Clear the error if validation passes
+        if (this.form.errors.has('phoneNumber') && this.form.errors.get('phoneNumber') === this.$t('phone_invalid')) {
+          this.form.errors.clear('phoneNumber');
+        }
+      }
+    },
+    // Load routing settings
+    loadRoutingSettings: function loadRoutingSettings() {
+      var _this1 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+        var user, branchId, response;
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
+            case 0:
+              _context7.prev = 0;
+              console.log('Loading routing settings...');
+              // Get current branch ID
+              user = _this1.$store.getters['auth/user'] || {};
+              branchId = user.default_branch_id || null;
+              if (branchId) {
+                _context7.next = 8;
+                break;
+              }
+              console.error('Branch ID is required');
+              _this1.routingSetting = {
+                main_account_id: null
+              };
+              return _context7.abrupt("return");
+            case 8:
+              _context7.next = 10;
+              return _this1.$http.get('/api/account-routing-settings', {
+                params: {
+                  branch_id: branchId
+                }
+              });
+            case 10:
+              response = _context7.sent;
+              console.log('Routing settings response:', response);
+              if (response.data && response.data.success) {
+                console.log('Routing settings data:', response.data.data);
+                // Find the clients_account setting
+                _this1.routingSetting = response.data.data.find(function (setting) {
+                  return setting.setting_key === 'clients_account';
+                });
+                console.log('Found clients_account setting:', _this1.routingSetting);
+                if (_this1.routingSetting) {
+                  console.log('Routing setting loaded:', _this1.routingSetting);
+                } else {
+                  console.log('No clients_account setting found in:', response.data.data);
+                  // Set a default routing setting if none found
+                  _this1.routingSetting = {
+                    main_account_id: null
+                  };
+                  console.log('Using default routing setting:', _this1.routingSetting);
+                }
+              } else {
+                console.log('Routing settings response not successful:', response.data);
+                // Set a default routing setting if API fails
+                _this1.routingSetting = {
+                  main_account_id: null
+                };
+                console.log('Using default routing setting due to API failure:', _this1.routingSetting);
+              }
+              _context7.next = 20;
+              break;
+            case 15:
+              _context7.prev = 15;
+              _context7.t0 = _context7["catch"](0);
+              console.error('Error loading routing settings:', _context7.t0);
+              // Set a default routing setting if error occurs
+              _this1.routingSetting = {
+                main_account_id: null
+              };
+              console.log('Using default routing setting due to error:', _this1.routingSetting);
+            case 20:
+            case "end":
+              return _context7.stop();
+          }
+        }, _callee7, null, [[0, 15]]);
+      }))();
+    },
+    // Load chart of accounts with search functionality
+    loadChartOfAccounts: function loadChartOfAccounts() {
+      var _this10 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+        var response, fallbackResponse, _response, altResponse;
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
+            case 0:
+              _context8.prev = 0;
+              console.log('Loading chart of accounts...');
+              console.log('Current routing setting:', _this10.routingSetting);
+              _this10.loadingChartOfAccounts = true;
+              _this10.chartOfAccountsError = null;
+
+              // Load accounts based on routing setting if available
+
+              // For other routing types, load accounts based on routing setting
+              if (!(_this10.routingSetting && _this10.routingSetting.main_account_id)) {
+                _context8.next = 30;
+                break;
+              }
+              console.log('Loading accounts from routing setup...');
+              _context8.prev = 7;
+              _context8.next = 10;
+              return _this10.$http.get("/api/account-routing-settings/".concat(_this10.routingSetting.setting_key, "/accounts"));
+            case 10:
+              response = _context8.sent;
+              console.log('Routing accounts response:', response);
+              if (!(response.data && response.data.success)) {
+                _context8.next = 17;
+                break;
+              }
+              _this10.chartOfAccounts = response.data.accounts || [];
+              console.log('Loaded accounts from routing setup:', _this10.chartOfAccounts.length);
+              _context8.next = 18;
+              break;
+            case 17:
+              throw new Error('Routing accounts response not successful');
+            case 18:
+              _context8.next = 28;
+              break;
+            case 20:
+              _context8.prev = 20;
+              _context8.t0 = _context8["catch"](7);
+              console.log('Routing accounts failed, falling back to all accounts:', _context8.t0);
+              // Fallback to all accounts
+              _context8.next = 25;
+              return _this10.$http.get('/api/chart-of-accounts/all');
+            case 25:
+              fallbackResponse = _context8.sent;
+              _this10.chartOfAccounts = fallbackResponse.data.data || fallbackResponse.data || [];
+              console.log('Loaded fallback accounts:', _this10.chartOfAccounts.length);
+            case 28:
+              _context8.next = 36;
+              break;
+            case 30:
+              console.log('No main account ID, loading all accounts as fallback');
+              // Load all active accounts as fallback
+              _context8.next = 33;
+              return _this10.$http.get('/api/chart-of-accounts/all');
+            case 33:
+              _response = _context8.sent;
+              // The getAll endpoint returns a resource collection, so data is directly in response.data
+              _this10.chartOfAccounts = _response.data.data || _response.data || [];
+              console.log('Loaded all accounts as fallback:', _this10.chartOfAccounts.length);
+            case 36:
+              if (!(_this10.chartOfAccounts.length === 0)) {
+                _context8.next = 51;
+                break;
+              }
+              console.log('No accounts loaded, trying alternative endpoint...');
+              _context8.prev = 38;
+              _context8.next = 41;
+              return _this10.$http.get('/api/chart-of-accounts/dropdown');
+            case 41:
+              altResponse = _context8.sent;
+              _this10.chartOfAccounts = altResponse.data.data || altResponse.data || [];
+              console.log('Loaded accounts from dropdown endpoint:', _this10.chartOfAccounts.length);
+              _context8.next = 51;
+              break;
+            case 46:
+              _context8.prev = 46;
+              _context8.t1 = _context8["catch"](38);
+              console.error('Alternative endpoint also failed:', _context8.t1);
+              // Set a minimal fallback to prevent empty dropdown
+              _this10.chartOfAccounts = [{
+                id: 'placeholder',
+                name: 'No accounts available - Please configure chart of accounts',
+                code: 'N/A',
+                type: 'Error'
+              }];
+              _this10.chartOfAccountsError = 'No chart of accounts available. Please check your configuration.';
+            case 51:
+              _context8.next = 57;
+              break;
+            case 53:
+              _context8.prev = 53;
+              _context8.t2 = _context8["catch"](0);
+              console.error('Error loading chart of accounts:', _context8.t2);
+              _this10.chartOfAccountsError = _context8.t2.message || 'Failed to load chart of accounts';
+            case 57:
+              _context8.prev = 57;
+              _this10.loadingChartOfAccounts = false;
+              return _context8.finish(57);
+            case 60:
+            case "end":
+              return _context8.stop();
+          }
+        }, _callee8, null, [[0, 53, 57, 60], [7, 20], [38, 46]]);
+      }))();
+    },
+    // Search chart of accounts (for v-select search)
+    searchChartOfAccounts: function searchChartOfAccounts(search) {
+      var _this11 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+        var filtered, response, apiData, fallbackFiltered;
+        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+          while (1) switch (_context9.prev = _context9.next) {
+            case 0:
+              console.log('Searching for:', search);
+              if (!(!search || search.length < 2)) {
+                _context9.next = 4;
+                break;
+              }
+              console.log('Search too short, returning first 50 accounts');
+              return _context9.abrupt("return", _this11.chartOfAccounts.slice(0, 50));
+            case 4:
+              _context9.prev = 4;
+              // Filter locally first for better performance
+              filtered = _this11.chartOfAccounts.filter(function (account) {
+                return account.name.toLowerCase().includes(search.toLowerCase()) || account.code.toLowerCase().includes(search.toLowerCase());
+              });
+              console.log('Local filtered results:', filtered.length);
+
+              // If we have enough results locally, return them
+              if (!(filtered.length >= 10)) {
+                _context9.next = 10;
+                break;
+              }
+              console.log('Enough local results, returning filtered');
+              return _context9.abrupt("return", filtered.slice(0, 50));
+            case 10:
+              // Otherwise, search from API
+              console.log('Searching from API...');
+              _context9.next = 13;
+              return _this11.$http.get('/api/chart-of-accounts/search', {
+                params: {
+                  term: search
+                }
+              });
+            case 13:
+              response = _context9.sent;
+              console.log('API search response:', response);
+              if (!(response.data && (response.data.data || response.data))) {
+                _context9.next = 21;
+                break;
+              }
+              console.log('API returned data, returning results');
+              apiData = response.data.data || response.data;
+              return _context9.abrupt("return", apiData.slice(0, 50));
+            case 21:
+              console.log('No API data, returning local filtered');
+              return _context9.abrupt("return", filtered);
+            case 23:
+              _context9.next = 31;
+              break;
+            case 25:
+              _context9.prev = 25;
+              _context9.t0 = _context9["catch"](4);
+              console.error('Error searching chart of accounts:', _context9.t0);
+              // Fallback to local filtering
+              fallbackFiltered = _this11.chartOfAccounts.filter(function (account) {
+                return account.name.toLowerCase().includes(search.toLowerCase()) || account.code.toLowerCase().includes(search.toLowerCase());
+              });
+              console.log('Fallback filtered results:', fallbackFiltered.length);
+              return _context9.abrupt("return", fallbackFiltered.slice(0, 50));
+            case 31:
+            case "end":
+              return _context9.stop();
+          }
+        }, _callee9, null, [[4, 25]]);
+      }))();
+    },
+    // Auto-create chart of account for new client
+    autoCreateChartOfAccountForNewClient: function autoCreateChartOfAccountForNewClient() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee0() {
+        return _regeneratorRuntime().wrap(function _callee0$(_context0) {
+          while (1) switch (_context0.prev = _context0.next) {
+            case 0:
+              _context0.prev = 0;
+              // This method would implement the logic to automatically create a chart of account
+              // For now, we'll return null to indicate no auto-creation
+              console.log('Auto-create chart of account method called');
+              return _context0.abrupt("return", null);
+            case 5:
+              _context0.prev = 5;
+              _context0.t0 = _context0["catch"](0);
+              console.error('Error auto-creating chart of account:', _context0.t0);
+              return _context0.abrupt("return", null);
+            case 9:
+            case "end":
+              return _context0.stop();
+          }
+        }, _callee0, null, [[0, 5]]);
+      }))();
+    },
+    // Submit form
+    submitForm: function submitForm() {
+      var _this12 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee1() {
+        var isValid, submitData;
+        return _regeneratorRuntime().wrap(function _callee1$(_context1) {
+          while (1) switch (_context1.prev = _context1.next) {
+            case 0:
+              console.log('=== CLIENTFORM SUBMITFORM CALLED ===');
+              console.log('Form object:', _this12.form);
+              console.log('Form type:', _typeof(_this12.form));
+              console.log('Form data method:', _this12.form ? _typeof(_this12.form.data) : 'No form');
+              console.log('isNewClient:', _this12.isNewClient);
+              console.log('initialData:', _this12.initialData);
+              if (_this12.form) {
+                _context1.next = 10;
+                break;
+              }
+              console.error('Form is not initialized!');
+              if (window.toast && typeof window.toast.fire === 'function') {
+                window.toast.fire({
+                  type: "error",
+                  title: _this12.$t("Form is not ready"),
+                  text: _this12.$t("Please wait a moment and try again.")
+                });
+              } else {
+                alert(_this12.$t("Form is not ready. Please wait a moment and try again."));
+              }
+              return _context1.abrupt("return");
+            case 10:
+              if (!(!_this12.form.data || typeof _this12.form.data !== 'function')) {
+                _context1.next = 14;
+                break;
+              }
+              console.error('Form data method is not available!');
+              if (window.toast && typeof window.toast.fire === 'function') {
+                window.toast.fire({
+                  type: "error",
+                  title: _this12.$t("Form is not properly initialized"),
+                  text: _this12.$t("Please refresh the page and try again.")
+                });
+              } else {
+                alert(_this12.$t("Form is not properly initialized. Please refresh the page and try again."));
+              }
+              return _context1.abrupt("return");
+            case 14:
+              _context1.prev = 14;
+              console.log('Validating form...');
+              _context1.next = 18;
+              return _this12.validateForm();
+            case 18:
+              isValid = _context1.sent;
+              console.log('Validation result:', isValid);
+              if (isValid) {
+                _context1.next = 24;
+                break;
+              }
+              console.log('Form validation failed');
+              if (window.toast && typeof window.toast.fire === 'function') {
+                window.toast.fire({
+                  type: "error",
+                  title: _this12.$t("Please fill in all required fields correctly.")
+                });
+              }
+              return _context1.abrupt("return");
+            case 24:
+              console.log('Form validation passed, preparing submit data...');
+
+              // Map form data to API format
+              submitData = {
+                // Explicitly include all form fields to ensure they are sent
+                codeNumber: _this12.form.codeNumber,
+                notes: _this12.form.notes,
+                displayLanguage: _this12.form.displayLanguage,
+                status: _this12.form.status,
+                // Client Details
+                type: _this12.form.type,
+                taxStatus: _this12.form.taxStatus || 'non_taxable',
+                tax_status: _this12.form.taxStatus || 'non_taxable',
+                // Also send as snake_case
+                fullName: _this12.form.fullName,
+                businessName: _this12.form.businessName,
+                firstName: _this12.form.firstName,
+                lastName: _this12.form.lastName,
+                phone: _this12.form.phone,
+                phoneNumber: _this12.form.phoneNumber || '',
+                // Explicitly include phone number, default to empty string
+                email: _this12.form.email,
+                streetAddress1: _this12.form.streetAddress1,
+                streetAddress2: _this12.form.streetAddress2,
+                city: _this12.form.city,
+                state: _this12.form.state,
+                postalCode: _this12.form.postalCode,
+                country: _this12.form.country,
+                neighbourhood: _this12.form.neighbourhood,
+                saudi_region: _this12.form.saudi_region,
+                commercialRegister: _this12.form.commercialRegister,
+                taxCard: _this12.form.taxCard,
+                // Saudi National Address Fields
+                buildingNumber: _this12.form.buildingNumber,
+                streetNumber: _this12.form.streetNumber,
+                districtNumber: _this12.form.districtNumber,
+                unitNumber: _this12.form.unitNumber,
+                additionalNumber: _this12.form.additionalNumber,
+                // Additional Fields
+                image: _this12.form.image,
+                attachments: _this12.form.attachments,
+                isSendEmail: _this12.form.isSendEmail,
+                isSendSMS: _this12.form.isSendSMS,
+                // Map legacy fields for backward compatibility
+                name: _this12.form.type === 'Individual' ? _this12.form.fullName : _this12.form.businessName,
+                companyName: _this12.form.businessName,
+                taxRegistrationNumber: _this12.form.taxRegistrationNumber || _this12.form.taxCard,
+                address: _this12.form.streetAddress1,
+                // Include representatives data
+                representatives: _this12.form.representatives || [],
+                // Chart of Account
+                chartOfAccountId: _this12.form.chartOfAccountId
+              };
+              console.log('Emitting submit event with data...');
+
+              // Emit submit event with form data
+              _this12.$emit('submit', submitData);
+              console.log('Submit event emitted successfully');
+              _context1.next = 35;
+              break;
+            case 31:
+              _context1.prev = 31;
+              _context1.t0 = _context1["catch"](14);
+              console.error('Error in submitForm:', _context1.t0);
+              if (window.toast && typeof window.toast.fire === 'function') {
+                window.toast.fire({
+                  type: "error",
+                  title: _this12.$t("Error submitting form"),
+                  text: _context1.t0.message || 'Unknown error occurred'
+                });
+              } else {
+                alert("Error submitting form: ".concat(_context1.t0.message || 'Unknown error occurred'));
+              }
+            case 35:
+            case "end":
+              return _context1.stop();
+          }
+        }, _callee1, null, [[14, 31]]);
+      }))();
+    },
+    // Create new chart of account
+    createNewAccount: function createNewAccount() {
+      var _this13 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
+        return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+          while (1) switch (_context10.prev = _context10.next) {
+            case 0:
+              try {
+                _this13.isCreatingAccount = true;
+
+                // This method would implement the logic to create a new chart of account
+                // For now, we'll just show a message
+                if (window.toast && typeof window.toast.fire === 'function') {
+                  window.toast.fire({
+                    type: 'info',
+                    title: _this13.$t('Create New Account'),
+                    text: _this13.$t('This feature is not yet implemented.')
+                  });
+                }
+              } catch (error) {
+                console.error('Error creating new account:', error);
+                if (window.toast && typeof window.toast.fire === 'function') {
+                  window.toast.fire({
+                    type: 'error',
+                    title: _this13.$t('Error'),
+                    text: _this13.$t('Failed to create new account')
+                  });
+                }
+              } finally {
+                _this13.isCreatingAccount = false;
+              }
+            case 1:
+            case "end":
+              return _context10.stop();
+          }
+        }, _callee10);
+      }))();
+    }
+  }
+});
+;// ./resources/js/components/ClientForm.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_ClientFormvue_type_script_lang_js = (ClientFormvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientForm.vue?vue&type=style&index=0&id=2dfbf408&prod&scoped=true&lang=css
+var ClientFormvue_type_style_index_0_id_2dfbf408_prod_scoped_true_lang_css = __webpack_require__(59255);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientForm.vue?vue&type=style&index=0&id=2dfbf408&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(ClientFormvue_type_style_index_0_id_2dfbf408_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_ClientFormvue_type_style_index_0_id_2dfbf408_prod_scoped_true_lang_css = (ClientFormvue_type_style_index_0_id_2dfbf408_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/ClientForm.vue?vue&type=style&index=0&id=2dfbf408&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/ClientForm.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_ClientFormvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "2dfbf408",
+  null
+  
+)
+
+/* harmony default export */ const ClientForm = (component.exports);
+
+/***/ }),
+
 /***/ 41032:
 /***/ ((module) => {
 
@@ -49647,6 +52979,26 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/bb.svg?0506d6bd800e84fd292
 
 /***/ }),
 
+/***/ 59255:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-2dfbf408]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:20px}.form-card .card-header[data-v-2dfbf408]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:22px 16px}.form-card .section-title[data-v-2dfbf408]{color:#fff;font-size:14px;font-weight:600;margin:0}.form-card .card-body[data-v-2dfbf408]{padding:16px}.form-control[data-v-2dfbf408]{background:#fff!important}input[readonly][data-v-2dfbf408]{background-color:#f8f9fa!important;border-color:#ced4da;color:#6c757d;cursor:not-allowed}.form-control[data-v-2dfbf408]:focus,select.form-control[data-v-2dfbf408]:focus,textarea.form-control[data-v-2dfbf408]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.radio-group[data-v-2dfbf408]{align-items:center;display:flex;gap:16px}.radio-group .radio-inline[data-v-2dfbf408]{align-items:center;display:inline-flex;gap:6px;margin:0}.v-select .vs__dropdown-toggle[data-v-2dfbf408]{border-color:#ced4da;border-radius:6px}.v-select .vs__dropdown-toggle.vs__open[data-v-2dfbf408],.v-select .vs__dropdown-toggle[data-v-2dfbf408]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.v-select .vs__dropdown-menu[data-v-2dfbf408],.v-select .vs__search[data-v-2dfbf408],.v-select .vs__selected[data-v-2dfbf408]{font-size:.95rem}.custom-file-input:focus~.custom-file-label[data-v-2dfbf408]{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.custom-file-label[data-v-2dfbf408]{border-radius:6px}.file-upload-area[data-v-2dfbf408]{background:#f8fdfe;border:2px dashed #33a0d9;border-radius:12px;padding:20px;position:relative;text-align:center}.file-upload-area .file-input[data-v-2dfbf408]{cursor:pointer;height:100%;inset:0;opacity:0;position:absolute;width:100%}.file-upload-area .file-upload-content[data-v-2dfbf408]{color:#33a0d9}.selected-files .selected-file-item[data-v-2dfbf408]{align-items:center;background:#f5faff;border:1px solid #e3f3f7;border-radius:6px;display:inline-flex;margin-bottom:8px;margin-right:8px;padding:6px 10px}.d-flex.align-items-center span.ml-3[data-v-2dfbf408]{font-weight:500}.required[data-v-2dfbf408]{color:#dc3545}[dir=rtl] .form-card .card-header[data-v-2dfbf408]{border-radius:20px 20px 0 0}.custom-file-label[data-v-2dfbf408],[dir=rtl] .custom-file-label[data-v-2dfbf408]{text-align:left!important}.btn-primary[data-v-2dfbf408]{background:#33a0d9!important;border-color:#33a0d9!important}.btn-primary[data-v-2dfbf408]:hover{filter:brightness(.95)}.country-select[data-v-2dfbf408]{width:100%}.country-select .vs__dropdown-toggle[data-v-2dfbf408]{border:1px solid #ced4da;border-radius:6px;max-width:100%;min-height:2.5rem;overflow:hidden;padding:.5rem 1rem}.country-select .vs__search[data-v-2dfbf408]{font-size:.95rem;margin:0;padding:0}.country-select .vs__selected[data-v-2dfbf408]{align-items:center;display:flex;gap:.5rem;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.country-option[data-v-2dfbf408],.country-selected[data-v-2dfbf408]{align-items:center;display:flex;gap:.5rem;min-width:0}.country-flag[data-v-2dfbf408]{flex-shrink:0;font-size:1.25rem;line-height:1}.country-name[data-v-2dfbf408]{flex:1;font-size:.95rem;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.country-select.is-invalid .vs__dropdown-toggle[data-v-2dfbf408]{border-color:#dc3545}.country-select .vs__dropdown-menu[data-v-2dfbf408]{border-radius:6px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);margin-top:.5rem}.country-select .vs__dropdown-option[data-v-2dfbf408]{padding:.75rem 1rem}.country-select .vs__dropdown-option--highlight[data-v-2dfbf408]{background-color:#33a0d9;color:#fff}.tax-status-options[data-v-2dfbf408]{margin-top:.5rem}.tax-status-card-compact[data-v-2dfbf408]{background-color:#fff;border:2px solid #e0e0e0;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.06);cursor:pointer;display:block;padding:.75rem 1rem;position:relative;transition:all .2s ease}.tax-status-card-compact[data-v-2dfbf408]:hover{border-color:#007bff;box-shadow:0 2px 8px rgba(0,123,255,.12);transform:translateY(-1px)}.tax-status-card-compact.active[data-v-2dfbf408]{background:linear-gradient(135deg,#f8f9ff,#fff);border-color:#007bff;box-shadow:0 2px 10px rgba(0,123,255,.15)}.tax-status-card-compact.border-success.active[data-v-2dfbf408]{background:linear-gradient(135deg,#f0fff4,#fff);border-color:#28a745;box-shadow:0 2px 10px rgba(40,167,69,.15)}.tax-status-card-compact.border-primary.active[data-v-2dfbf408]{background:linear-gradient(135deg,#f8f9ff,#fff);border-color:#007bff;box-shadow:0 2px 10px rgba(0,123,255,.15)}.tax-status-header-compact[data-v-2dfbf408]{align-items:center;display:flex;position:relative}.tax-status-radio[data-v-2dfbf408]{opacity:0;pointer-events:none;position:absolute}.tax-status-icon-compact[data-v-2dfbf408]{align-items:center;border-radius:8px;display:flex;flex-shrink:0;font-size:1rem;height:32px;justify-content:center;margin-right:.75rem;transition:all .2s ease;width:32px}.tax-status-icon-compact.taxable-icon[data-v-2dfbf408]{background:linear-gradient(135deg,#007bff,#0056b3);box-shadow:0 2px 6px rgba(0,123,255,.25);color:#fff}.tax-status-icon-compact.non-taxable-icon[data-v-2dfbf408]{background:linear-gradient(135deg,#28a745,#1e7e34);box-shadow:0 2px 6px rgba(40,167,69,.25);color:#fff}.tax-status-card-compact.active .tax-status-icon-compact.taxable-icon[data-v-2dfbf408]{box-shadow:0 3px 10px rgba(0,123,255,.35);transform:scale(1.05)}.tax-status-card-compact.active .tax-status-icon-compact.non-taxable-icon[data-v-2dfbf408]{box-shadow:0 3px 10px rgba(40,167,69,.35);transform:scale(1.05)}.tax-status-title-compact[data-v-2dfbf408]{color:#2c3e50;flex:1;font-size:.95rem;font-weight:600}.tax-status-card-compact.active .tax-status-title-compact[data-v-2dfbf408]{color:#007bff}.tax-status-card-compact.border-success.active .tax-status-title-compact[data-v-2dfbf408]{color:#28a745}[dir=rtl] .tax-status-icon-compact[data-v-2dfbf408]{margin-left:.75rem;margin-right:0}.saudi-location-select[data-v-2dfbf408]{width:100%}.saudi-location-select .vs__dropdown-toggle[data-v-2dfbf408]{background-color:#fff;border:1px solid #ced4da;border-radius:6px;min-height:2.5rem;padding:.375rem .75rem}.saudi-location-select .vs__dropdown-toggle.vs__open[data-v-2dfbf408],.saudi-location-select .vs__dropdown-toggle[data-v-2dfbf408]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15);outline:none}.saudi-location-select.is-invalid .vs__dropdown-toggle[data-v-2dfbf408]{border-color:#dc3545}.saudi-location-select .vs__search[data-v-2dfbf408]{font-size:.95rem;margin:0;padding:0}.saudi-location-select .vs__dropdown-menu[data-v-2dfbf408]{border-radius:6px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);margin-top:.5rem}.saudi-location-select .vs__dropdown-option[data-v-2dfbf408]{padding:.75rem 1rem}.saudi-location-select .vs__dropdown-option--highlight[data-v-2dfbf408]{background-color:#33a0d9;color:#fff}.col-form-6[data-v-2dfbf408]{flex:0 0 50%;max-width:50%}@media (max-width:1300px){.col-form-6[data-v-2dfbf408]{flex:0 0 100%;max-width:100%}}.fade-enter-active[data-v-2dfbf408],.fade-leave-active[data-v-2dfbf408]{transition:opacity .3s ease,transform .3s ease}.fade-enter[data-v-2dfbf408],.fade-leave-to[data-v-2dfbf408]{opacity:0;transform:translateY(-10px)}.fade-enter-to[data-v-2dfbf408],.fade-leave[data-v-2dfbf408]{opacity:1;transform:translateY(0)}.city-field[data-v-2dfbf408]{transition:all .3s ease}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 59320:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -65341,26 +68693,6 @@ module.exports = "/images/vendor/flag-icons/flags/4x3/af.svg?b5db9810983fc757b01
 
 /***/ }),
 
-/***/ 73371:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-3d20362f]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:20px}.form-card .card-header[data-v-3d20362f]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:22px 16px}.form-card .section-title[data-v-3d20362f]{color:#fff;font-size:14px;font-weight:600;margin:0}.form-card .card-body[data-v-3d20362f]{padding:16px}.form-control[data-v-3d20362f]{background:#fff!important}input[readonly][data-v-3d20362f]{background-color:#f8f9fa!important;border-color:#ced4da;color:#6c757d;cursor:not-allowed}.form-control[data-v-3d20362f]:focus,select.form-control[data-v-3d20362f]:focus,textarea.form-control[data-v-3d20362f]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.radio-group[data-v-3d20362f]{align-items:center;display:flex;gap:16px}.radio-group .radio-inline[data-v-3d20362f]{align-items:center;display:inline-flex;gap:6px;margin:0}.v-select .vs__dropdown-toggle[data-v-3d20362f]{border-color:#ced4da;border-radius:6px}.v-select .vs__dropdown-toggle.vs__open[data-v-3d20362f],.v-select .vs__dropdown-toggle[data-v-3d20362f]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.v-select .vs__dropdown-menu[data-v-3d20362f],.v-select .vs__search[data-v-3d20362f],.v-select .vs__selected[data-v-3d20362f]{font-size:.95rem}.custom-file-input:focus~.custom-file-label[data-v-3d20362f]{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15)}.custom-file-label[data-v-3d20362f]{border-radius:6px}.file-upload-area[data-v-3d20362f]{background:#f8fdfe;border:2px dashed #33a0d9;border-radius:12px;padding:20px;position:relative;text-align:center}.file-upload-area .file-input[data-v-3d20362f]{cursor:pointer;height:100%;inset:0;opacity:0;position:absolute;width:100%}.file-upload-area .file-upload-content[data-v-3d20362f]{color:#33a0d9}.selected-files .selected-file-item[data-v-3d20362f]{align-items:center;background:#f5faff;border:1px solid #e3f3f7;border-radius:6px;display:inline-flex;margin-bottom:8px;margin-right:8px;padding:6px 10px}.d-flex.align-items-center span.ml-3[data-v-3d20362f]{font-weight:500}.required[data-v-3d20362f]{color:#dc3545}[dir=rtl] .form-card .card-header[data-v-3d20362f]{border-radius:20px 20px 0 0}.custom-file-label[data-v-3d20362f],[dir=rtl] .custom-file-label[data-v-3d20362f]{text-align:left!important}.btn-primary[data-v-3d20362f]{background:#33a0d9!important;border-color:#33a0d9!important}.btn-primary[data-v-3d20362f]:hover{filter:brightness(.95)}.country-select[data-v-3d20362f]{width:100%}.country-select .vs__dropdown-toggle[data-v-3d20362f]{border:1px solid #ced4da;border-radius:6px;max-width:100%;min-height:2.5rem;overflow:hidden;padding:.5rem 1rem}.country-select .vs__search[data-v-3d20362f]{font-size:.95rem;margin:0;padding:0}.country-select .vs__selected[data-v-3d20362f]{align-items:center;display:flex;gap:.5rem;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.country-option[data-v-3d20362f],.country-selected[data-v-3d20362f]{align-items:center;display:flex;gap:.5rem;min-width:0}.country-flag[data-v-3d20362f]{flex-shrink:0;font-size:1.25rem;line-height:1}.country-name[data-v-3d20362f]{flex:1;font-size:.95rem;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.country-select.is-invalid .vs__dropdown-toggle[data-v-3d20362f]{border-color:#dc3545}.country-select .vs__dropdown-menu[data-v-3d20362f]{border-radius:6px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);margin-top:.5rem}.country-select .vs__dropdown-option[data-v-3d20362f]{padding:.75rem 1rem}.country-select .vs__dropdown-option--highlight[data-v-3d20362f]{background-color:#33a0d9;color:#fff}.tax-status-options[data-v-3d20362f]{margin-top:.5rem}.tax-status-card-compact[data-v-3d20362f]{background-color:#fff;border:2px solid #e0e0e0;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.06);cursor:pointer;display:block;padding:.75rem 1rem;position:relative;transition:all .2s ease}.tax-status-card-compact[data-v-3d20362f]:hover{border-color:#007bff;box-shadow:0 2px 8px rgba(0,123,255,.12);transform:translateY(-1px)}.tax-status-card-compact.active[data-v-3d20362f]{background:linear-gradient(135deg,#f8f9ff,#fff);border-color:#007bff;box-shadow:0 2px 10px rgba(0,123,255,.15)}.tax-status-card-compact.border-success.active[data-v-3d20362f]{background:linear-gradient(135deg,#f0fff4,#fff);border-color:#28a745;box-shadow:0 2px 10px rgba(40,167,69,.15)}.tax-status-card-compact.border-primary.active[data-v-3d20362f]{background:linear-gradient(135deg,#f8f9ff,#fff);border-color:#007bff;box-shadow:0 2px 10px rgba(0,123,255,.15)}.tax-status-header-compact[data-v-3d20362f]{align-items:center;display:flex;position:relative}.tax-status-radio[data-v-3d20362f]{opacity:0;pointer-events:none;position:absolute}.tax-status-icon-compact[data-v-3d20362f]{align-items:center;border-radius:8px;display:flex;flex-shrink:0;font-size:1rem;height:32px;justify-content:center;margin-right:.75rem;transition:all .2s ease;width:32px}.tax-status-icon-compact.taxable-icon[data-v-3d20362f]{background:linear-gradient(135deg,#007bff,#0056b3);box-shadow:0 2px 6px rgba(0,123,255,.25);color:#fff}.tax-status-icon-compact.non-taxable-icon[data-v-3d20362f]{background:linear-gradient(135deg,#28a745,#1e7e34);box-shadow:0 2px 6px rgba(40,167,69,.25);color:#fff}.tax-status-card-compact.active .tax-status-icon-compact.taxable-icon[data-v-3d20362f]{box-shadow:0 3px 10px rgba(0,123,255,.35);transform:scale(1.05)}.tax-status-card-compact.active .tax-status-icon-compact.non-taxable-icon[data-v-3d20362f]{box-shadow:0 3px 10px rgba(40,167,69,.35);transform:scale(1.05)}.tax-status-title-compact[data-v-3d20362f]{color:#2c3e50;flex:1;font-size:.95rem;font-weight:600}.tax-status-card-compact.active .tax-status-title-compact[data-v-3d20362f]{color:#007bff}.tax-status-card-compact.border-success.active .tax-status-title-compact[data-v-3d20362f]{color:#28a745}[dir=rtl] .tax-status-icon-compact[data-v-3d20362f]{margin-left:.75rem;margin-right:0}.saudi-location-select[data-v-3d20362f]{width:100%}.saudi-location-select .vs__dropdown-toggle[data-v-3d20362f]{background-color:#fff;border:1px solid #ced4da;border-radius:6px;min-height:2.5rem;padding:.375rem .75rem}.saudi-location-select .vs__dropdown-toggle.vs__open[data-v-3d20362f],.saudi-location-select .vs__dropdown-toggle[data-v-3d20362f]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(23,162,184,.15);outline:none}.saudi-location-select.is-invalid .vs__dropdown-toggle[data-v-3d20362f]{border-color:#dc3545}.saudi-location-select .vs__search[data-v-3d20362f]{font-size:.95rem;margin:0;padding:0}.saudi-location-select .vs__dropdown-menu[data-v-3d20362f]{border-radius:6px;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);margin-top:.5rem}.saudi-location-select .vs__dropdown-option[data-v-3d20362f]{padding:.75rem 1rem}.saudi-location-select .vs__dropdown-option--highlight[data-v-3d20362f]{background-color:#33a0d9;color:#fff}.col-form-6[data-v-3d20362f]{flex:0 0 50%;max-width:50%}@media (max-width:1300px){.col-form-6[data-v-3d20362f]{flex:0 0 100%;max-width:100%}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
 /***/ 73378:
 /***/ ((module) => {
 
@@ -80321,3318 +83653,6 @@ module.exports = function buildURL(url, params, paramsSerializer) {
   return url;
 };
 
-
-/***/ }),
-
-/***/ 79464:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ ClientForm)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientForm.vue?vue&type=template&id=3d20362f&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    "class": {
-      'card-body': _vm.showCardBody
-    }
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-form-6"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-user-circle mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Client Details")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "codeNumber"
-    }
-  }, [_vm._v("\n              " + _vm._s(_vm.$t("Client Number")) + "\n            ")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.codeNumber,
-      expression: "form.codeNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('codeNumber')
-    },
-    attrs: {
-      "id": "codeNumber",
-      "type": "text",
-      "name": "codeNumber",
-      "placeholder": _vm.$t('Auto-generated...'),
-      "readonly": "",
-      "aria-readonly": "true"
-    },
-    domProps: {
-      "value": _vm.form.codeNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "codeNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('small', {
-    staticClass: "form-text text-muted"
-  }, [_vm._v("\n              " + _vm._s(_vm.$t("This client number is automatically generated and cannot be changed")) + "\n            ")]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "codeNumber"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', [_vm._v(_vm._s(_vm.$t("Client Type")))]), _vm._v(" "), _c('div', {
-    staticClass: "radio-group"
-  }, [_c('label', {
-    staticClass: "radio-inline"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.type,
-      expression: "form.type"
-    }],
-    attrs: {
-      "type": "radio",
-      "value": "Individual"
-    },
-    domProps: {
-      "checked": _vm._q(_vm.form.type, "Individual")
-    },
-    on: {
-      "change": function change($event) {
-        return _vm.$set(_vm.form, "type", "Individual");
-      }
-    }
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Individual")) + "\n              ")]), _vm._v(" "), _c('label', {
-    staticClass: "radio-inline"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.type,
-      expression: "form.type"
-    }],
-    attrs: {
-      "type": "radio",
-      "value": "Company"
-    },
-    domProps: {
-      "checked": _vm._q(_vm.form.type, "Company")
-    },
-    on: {
-      "change": function change($event) {
-        return _vm.$set(_vm.form, "type", "Company");
-      }
-    }
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Business")) + "\n              ")])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "type"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    staticClass: "form-label font-weight-bold text-primary mb-2 d-block"
-  }, [_c('i', {
-    staticClass: "fas fa-receipt mr-2"
-  }), _vm._v("\n              " + _vm._s(_vm.$t("Tax Status")) + "\n              "), _c('span', {
-    staticClass: "required text-danger"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('div', {
-    staticClass: "tax-status-options"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-form-6"
-  }, [_c('label', {
-    staticClass: "tax-status-card-compact",
-    "class": {
-      'active': _vm.form.taxStatus === 'taxable',
-      'border-primary': _vm.form.taxStatus === 'taxable'
-    },
-    on: {
-      "click": function click($event) {
-        _vm.form.taxStatus = 'taxable';
-      }
-    }
-  }, [_c('div', {
-    staticClass: "tax-status-header-compact"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.taxStatus,
-      expression: "form.taxStatus"
-    }],
-    staticClass: "tax-status-radio",
-    attrs: {
-      "type": "radio",
-      "value": "taxable"
-    },
-    domProps: {
-      "checked": _vm._q(_vm.form.taxStatus, "taxable")
-    },
-    on: {
-      "change": function change($event) {
-        return _vm.$set(_vm.form, "taxStatus", "taxable");
-      }
-    }
-  }), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('span', {
-    staticClass: "tax-status-title-compact"
-  }, [_vm._v(_vm._s(_vm.$t("Taxable")))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-form-6"
-  }, [_c('label', {
-    staticClass: "tax-status-card-compact",
-    "class": {
-      'active': _vm.form.taxStatus === 'non_taxable',
-      'border-success': _vm.form.taxStatus === 'non_taxable'
-    },
-    on: {
-      "click": function click($event) {
-        _vm.form.taxStatus = 'non_taxable';
-      }
-    }
-  }, [_c('div', {
-    staticClass: "tax-status-header-compact"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.taxStatus,
-      expression: "form.taxStatus"
-    }],
-    staticClass: "tax-status-radio",
-    attrs: {
-      "type": "radio",
-      "value": "non_taxable"
-    },
-    domProps: {
-      "checked": _vm._q(_vm.form.taxStatus, "non_taxable")
-    },
-    on: {
-      "change": function change($event) {
-        return _vm.$set(_vm.form, "taxStatus", "non_taxable");
-      }
-    }
-  }), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('span', {
-    staticClass: "tax-status-title-compact"
-  }, [_vm._v(_vm._s(_vm.$t("Non-Taxable")))])])])])])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "taxStatus"
-    }
-  })], 1), _vm._v(" "), _vm.form.type === 'Individual' ? _c('div', [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "fullName"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Full Name")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.fullName,
-      expression: "form.fullName"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('fullName')
-    },
-    attrs: {
-      "id": "fullName",
-      "type": "text",
-      "name": "fullName",
-      "placeholder": _vm.$t('Enter full name')
-    },
-    domProps: {
-      "value": _vm.form.fullName
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "fullName", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "fullName"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-form-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "firstName"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("First Name")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.firstName,
-      expression: "form.firstName"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('firstName')
-    },
-    attrs: {
-      "id": "firstName",
-      "type": "text",
-      "name": "firstName",
-      "placeholder": _vm.$t('Enter first name')
-    },
-    domProps: {
-      "value": _vm.form.firstName
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "firstName", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "firstName"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-form-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "lastName"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Last Name")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.lastName,
-      expression: "form.lastName"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('lastName')
-    },
-    attrs: {
-      "id": "lastName",
-      "type": "text",
-      "name": "lastName",
-      "placeholder": _vm.$t('Enter last name')
-    },
-    domProps: {
-      "value": _vm.form.lastName
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "lastName", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "lastName"
-    }
-  })], 1)])]) : _vm._e(), _vm._v(" "), _vm.form.type === 'Company' ? _c('div', [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "businessName"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Business Name")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.businessName,
-      expression: "form.businessName"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('businessName')
-    },
-    attrs: {
-      "id": "businessName",
-      "type": "text",
-      "name": "businessName",
-      "placeholder": _vm.$t('Enter business name')
-    },
-    domProps: {
-      "value": _vm.form.businessName
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "businessName", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "businessName"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-12"
-  }, [_c('label', {
-    attrs: {
-      "for": "phone"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Telephone")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.phone,
-      expression: "form.phone"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('phone')
-    },
-    attrs: {
-      "id": "phone",
-      "type": "text",
-      "name": "phone",
-      "placeholder": _vm.$t('Enter telephone number')
-    },
-    domProps: {
-      "value": _vm.form.phone
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "phone", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "phone"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-12"
-  }, [_c('PhoneNumberInput', {
-    attrs: {
-      "label": _vm.$t('Mobile'),
-      "required": true,
-      "country": _vm.form.country,
-      "default-country": _vm.form.country || 'SA'
-    },
-    on: {
-      "validated": _vm.onPhoneValidated
-    },
-    model: {
-      value: _vm.form.phoneNumber,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "phoneNumber", $$v);
-      },
-      expression: "form.phoneNumber"
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "phoneNumber"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "email"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Email")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.email,
-      expression: "form.email"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('email')
-    },
-    attrs: {
-      "id": "email",
-      "type": "email",
-      "name": "email",
-      "placeholder": _vm.$t('Enter your email address')
-    },
-    domProps: {
-      "value": _vm.form.email
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "email", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "email"
-    }
-  })], 1)])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-form-6"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-map-marked-alt mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("National Address")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-12"
-  }, [_c('label', {
-    attrs: {
-      "for": "country"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Country")) + "\n                "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c('v-select', {
-    staticClass: "country-select",
-    "class": {
-      'is-invalid': _vm.form.errors.has('country')
-    },
-    attrs: {
-      "options": _vm.countries,
-      "label": "name",
-      "reduce": function reduce(option) {
-        return option.code;
-      },
-      "placeholder": _vm.$t('Select Country'),
-      "searchable": true,
-      "clearable": false
-    },
-    on: {
-      "input": _vm.onCountryChange
-    },
-    scopedSlots: _vm._u([{
-      key: "option",
-      fn: function fn(_ref) {
-        var flag = _ref.flag,
-          name = _ref.name;
-        return [_c('div', {
-          staticClass: "country-option"
-        }, [_c('span', {
-          staticClass: "country-flag"
-        }, [_vm._v(_vm._s(flag))]), _vm._v(" "), _c('span', {
-          staticClass: "country-name"
-        }, [_vm._v(_vm._s(name))])])];
-      }
-    }, {
-      key: "selected-option",
-      fn: function fn(_ref2) {
-        var flag = _ref2.flag,
-          name = _ref2.name;
-        return [_c('div', {
-          staticClass: "country-selected"
-        }, [_c('span', {
-          staticClass: "country-flag"
-        }, [_vm._v(_vm._s(flag))]), _vm._v(" "), _c('span', {
-          staticClass: "country-name"
-        }, [_vm._v(_vm._s(name))])])];
-      }
-    }, {
-      key: "no-options",
-      fn: function fn() {
-        return [_c('div', {
-          staticClass: "text-center text-muted p-2"
-        }, [_vm._v("\n                    " + _vm._s(_vm.$t('No countries found')) + "\n                  ")])];
-      },
-      proxy: true
-    }]),
-    model: {
-      value: _vm.form.country,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "country", $$v);
-      },
-      expression: "form.country"
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "country"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_vm.form.country !== 'SA' ? _c('div', {
-    staticClass: "form-group col-12"
-  }, [_c('label', {
-    attrs: {
-      "for": "state"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("State")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.state,
-      expression: "form.state"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('state')
-    },
-    attrs: {
-      "id": "state",
-      "type": "text",
-      "name": "state",
-      "placeholder": _vm.$t('Enter state')
-    },
-    domProps: {
-      "value": _vm.form.state
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "state", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "state"
-    }
-  })], 1) : _vm._e(), _vm._v(" "), _vm.form.country === 'SA' ? [_c('div', {
-    staticClass: "form-group col-12"
-  }, [_c('label', {
-    attrs: {
-      "for": "saudi_region"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Region")))]), _vm._v(" "), _c('v-select', {
-    staticClass: "saudi-location-select",
-    "class": {
-      'is-invalid': _vm.form.errors.has('saudi_region')
-    },
-    attrs: {
-      "options": _vm.saudiRegions,
-      "label": "name",
-      "reduce": function reduce(option) {
-        return option.id;
-      },
-      "placeholder": _vm.$t('Select Region'),
-      "searchable": true,
-      "clearable": false
-    },
-    on: {
-      "input": _vm.onSaudiRegionChange
-    },
-    scopedSlots: _vm._u([{
-      key: "option",
-      fn: function fn(_ref3) {
-        var name_ar = _ref3.name_ar,
-          name_en = _ref3.name_en;
-        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
-      }
-    }, {
-      key: "selected-option",
-      fn: function fn(_ref4) {
-        var name_ar = _ref4.name_ar,
-          name_en = _ref4.name_en;
-        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
-      }
-    }], null, false, 2274166349),
-    model: {
-      value: _vm.form.saudi_region,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "saudi_region", $$v);
-      },
-      expression: "form.saudi_region"
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "saudi_region"
-    }
-  })], 1)] : _vm._e()], 2), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-form-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "city"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("City")) + "\n                "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _vm.form.country === 'SA' ? [_vm.saudiCities.length > 0 ? _c('v-select', {
-    staticClass: "saudi-location-select",
-    "class": {
-      'is-invalid': _vm.form.errors.has('city')
-    },
-    attrs: {
-      "options": _vm.saudiCities,
-      "label": "name",
-      "reduce": function reduce(option) {
-        return option.name;
-      },
-      "placeholder": _vm.$t('Select City'),
-      "searchable": true,
-      "clearable": false,
-      "disabled": !_vm.form.country || !_vm.form.saudi_region
-    },
-    scopedSlots: _vm._u([{
-      key: "option",
-      fn: function fn(_ref5) {
-        var name_ar = _ref5.name_ar,
-          name_en = _ref5.name_en;
-        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
-      }
-    }, {
-      key: "selected-option",
-      fn: function fn(_ref6) {
-        var name_ar = _ref6.name_ar,
-          name_en = _ref6.name_en;
-        return [_c('div', [_vm._v(_vm._s(_vm.$i18n.locale === 'ar' ? name_ar : name_en))])];
-      }
-    }], null, false, 2274166349),
-    model: {
-      value: _vm.form.city,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "city", $$v);
-      },
-      expression: "form.city"
-    }
-  }) : _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.city,
-      expression: "form.city"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('city')
-    },
-    attrs: {
-      "id": "city",
-      "type": "text",
-      "name": "city",
-      "placeholder": _vm.$t('Enter city name'),
-      "disabled": !_vm.form.country || !_vm.form.saudi_region
-    },
-    domProps: {
-      "value": _vm.form.city
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "city", $event.target.value);
-      }
-    }
-  })] : _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.city,
-      expression: "form.city"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('city')
-    },
-    attrs: {
-      "id": "city",
-      "type": "text",
-      "name": "city",
-      "placeholder": _vm.$t('Enter city'),
-      "disabled": !_vm.form.country
-    },
-    domProps: {
-      "value": _vm.form.city
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "city", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "city"
-    }
-  })], 2), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-form-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "neighbourhood"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Neighbourhood")) + "\n                "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.neighbourhood,
-      expression: "form.neighbourhood"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('neighbourhood')
-    },
-    attrs: {
-      "id": "neighbourhood",
-      "type": "text",
-      "name": "neighbourhood",
-      "placeholder": _vm.$t('Enter neighbourhood')
-    },
-    domProps: {
-      "value": _vm.form.neighbourhood
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "neighbourhood", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "neighbourhood"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-form-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "streetAddress1"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Street Name")) + "\n                "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.streetAddress1,
-      expression: "form.streetAddress1"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('streetAddress1')
-    },
-    attrs: {
-      "id": "streetAddress1",
-      "type": "text",
-      "name": "streetAddress1",
-      "placeholder": _vm.$t('Enter street name')
-    },
-    domProps: {
-      "value": _vm.form.streetAddress1
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "streetAddress1", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "streetAddress1"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-form-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "postalCode"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Postal Code")) + "\n                "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.postalCode,
-      expression: "form.postalCode"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('postalCode')
-    },
-    attrs: {
-      "id": "postalCode",
-      "type": "text",
-      "name": "postalCode",
-      "placeholder": _vm.$t('Enter postal code')
-    },
-    domProps: {
-      "value": _vm.form.postalCode
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "postalCode", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "postalCode"
-    }
-  })], 1)]), _vm._v(" "), _vm.form.country === 'SA' ? _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-form-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "buildingNumber"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Building Number")) + " "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _c('span', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.buildingNumber,
-      expression: "form.buildingNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('buildingNumber')
-    },
-    attrs: {
-      "id": "buildingNumber",
-      "type": "text",
-      "name": "buildingNumber",
-      "placeholder": _vm.$t('Enter building number'),
-      "maxlength": "5"
-    },
-    domProps: {
-      "value": _vm.form.buildingNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "buildingNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "buildingNumber"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-form-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "streetNumber"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Street Number")) + " "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _c('span', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.streetNumber,
-      expression: "form.streetNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('streetNumber')
-    },
-    attrs: {
-      "id": "streetNumber",
-      "type": "text",
-      "name": "streetNumber",
-      "placeholder": _vm.$t('Enter street number'),
-      "maxlength": "5"
-    },
-    domProps: {
-      "value": _vm.form.streetNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "streetNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "streetNumber"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.country === 'SA' ? _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-form-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "districtNumber"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("District Number")) + " "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _c('span', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.districtNumber,
-      expression: "form.districtNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('districtNumber')
-    },
-    attrs: {
-      "id": "districtNumber",
-      "type": "text",
-      "name": "districtNumber",
-      "placeholder": _vm.$t('Enter district number'),
-      "maxlength": "5"
-    },
-    domProps: {
-      "value": _vm.form.districtNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "districtNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "districtNumber"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-form-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "unitNumber"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Unit Number")) + " "), _vm.form.taxStatus === 'taxable' ? _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")]) : _c('span', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.unitNumber,
-      expression: "form.unitNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('unitNumber')
-    },
-    attrs: {
-      "id": "unitNumber",
-      "type": "text",
-      "name": "unitNumber",
-      "placeholder": _vm.$t('Enter unit number'),
-      "maxlength": "5"
-    },
-    domProps: {
-      "value": _vm.form.unitNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "unitNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "unitNumber"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.country === 'SA' ? _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-form-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "additionalNumber"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Additional Number")) + " "), _c('span', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.additionalNumber,
-      expression: "form.additionalNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('additionalNumber')
-    },
-    attrs: {
-      "id": "additionalNumber",
-      "type": "text",
-      "name": "additionalNumber",
-      "placeholder": _vm.$t('Enter additional number'),
-      "maxlength": "5"
-    },
-    domProps: {
-      "value": _vm.form.additionalNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "additionalNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "additionalNumber"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.taxStatus === 'taxable' ? _c('div', {
-    staticClass: "row mt-3"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('hr', {
-    staticStyle: {
-      "margin": "15px 0",
-      "border-color": "#e0e0e0"
-    }
-  }), _vm._v(" "), _c('h6', {
-    staticClass: "text-muted mb-3"
-  }, [_c('i', {
-    staticClass: "fas fa-file-invoice-dollar mr-2"
-  }), _vm._v("\n                " + _vm._s(_vm.$t("Tax Information (Required for Taxable Clients)")) + "\n              ")])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-form-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "commercialRegister"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Commercial Register")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.commercialRegister,
-      expression: "form.commercialRegister"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('commercialRegister')
-    },
-    attrs: {
-      "id": "commercialRegister",
-      "type": "text",
-      "name": "commercialRegister",
-      "placeholder": _vm.$t('Enter commercial register number')
-    },
-    domProps: {
-      "value": _vm.form.commercialRegister
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "commercialRegister", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "commercialRegister"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-form-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "taxRegistrationNumber"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Tax Registration Number")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.taxRegistrationNumber,
-      expression: "form.taxRegistrationNumber"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('taxRegistrationNumber')
-    },
-    attrs: {
-      "id": "taxRegistrationNumber",
-      "type": "text",
-      "name": "taxRegistrationNumber",
-      "placeholder": _vm.$t('Enter 15-digit tax registration number'),
-      "maxlength": "15"
-    },
-    domProps: {
-      "value": _vm.form.taxRegistrationNumber
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "taxRegistrationNumber", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('small', {
-    staticClass: "form-text text-muted"
-  }, [_vm._v(_vm._s(_vm.$t("Must be exactly 15 digits")))]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "taxRegistrationNumber"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _vm.form.type === 'Company' && _vm.form.taxStatus !== 'taxable' ? _c('div', {
-    staticClass: "row mt-3"
-  }, [_vm._m(2), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-form-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "commercialRegister"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("CR")) + " "), _c('span', {
-    staticClass: "text-muted"
-  }, [_vm._v("(" + _vm._s(_vm.$t("Optional")) + ")")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.commercialRegister,
-      expression: "form.commercialRegister"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('commercialRegister')
-    },
-    attrs: {
-      "id": "commercialRegister",
-      "type": "text",
-      "name": "commercialRegister",
-      "placeholder": _vm.$t('Enter commercial register number')
-    },
-    domProps: {
-      "value": _vm.form.commercialRegister
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "commercialRegister", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "commercialRegister"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-form-6"
-  }, [_c('label', {
-    attrs: {
-      "for": "taxCard"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Tax ID (Optional)")))]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.taxCard,
-      expression: "form.taxCard"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('taxCard')
-    },
-    attrs: {
-      "id": "taxCard",
-      "type": "text",
-      "name": "taxCard",
-      "placeholder": _vm.$t('Enter tax ID number')
-    },
-    domProps: {
-      "value": _vm.form.taxCard
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "taxCard", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "taxCard"
-    }
-  })], 1)]) : _vm._e()])])])]), _vm._v(" "), _c('div', {
-    staticClass: "row mt-4"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-cog mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Account Details")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "displayLanguage"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Display Language")))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.displayLanguage,
-      expression: "form.displayLanguage"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('displayLanguage')
-    },
-    attrs: {
-      "id": "displayLanguage"
-    },
-    on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "displayLanguage", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Select Language")))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "en"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("English")))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "ar"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Arabic")))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "displayLanguage"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "status"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Status")))]), _vm._v(" "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.status,
-      expression: "form.status"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('status')
-    },
-    attrs: {
-      "id": "status"
-    },
-    on: {
-      "change": function change($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "1"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Active")))]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "0"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Inactive")))])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "status"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-md-4"
-  }, [_c('label', {
-    attrs: {
-      "for": "image"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Profile Image")))]), _vm._v(" "), _c('div', {
-    staticClass: "custom-file"
-  }, [_c('input', {
-    staticClass: "custom-file-input",
-    "class": {
-      'is-invalid': _vm.form.errors.has('image')
-    },
-    attrs: {
-      "id": "image",
-      "type": "file",
-      "name": "image",
-      "accept": "image/*"
-    },
-    on: {
-      "change": _vm.onFileChange
-    }
-  }), _vm._v(" "), _c('label', {
-    staticClass: "custom-file-label",
-    attrs: {
-      "for": "image"
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-image mr-2"
-  }), _vm._v("\n                  " + _vm._s(_vm.$t("Choose file")) + "\n                ")])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "image"
-    }
-  }), _vm._v(" "), _vm.url ? _c('div', {
-    staticClass: "image-preview mt-2"
-  }, [_c('img', {
-    staticClass: "img-fluid rounded",
-    staticStyle: {
-      "max-height": "100px"
-    },
-    attrs: {
-      "src": _vm.url,
-      "alt": _vm.$t('Profile Image')
-    }
-  })]) : _vm._e()], 1)])])])])]), _vm._v(" "), _vm.form.type === 'Company' ? _c('div', {
-    staticClass: "row mt-4"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-users mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Client Representative Info")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('RepresentativesList', {
-    attrs: {
-      "representatives": _vm.form.representatives || []
-    },
-    on: {
-      "representatives-changed": _vm.handleRepresentativesChanged
-    }
-  })], 1)])])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "row mt-4"
-  }, [_c('div', {
-    staticClass: "col-form-6"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-info-circle mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Additional Information")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "notes"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Notes")))]), _vm._v(" "), _c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.notes,
-      expression: "form.notes"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.form.errors.has('notes')
-    },
-    attrs: {
-      "id": "notes",
-      "rows": "3",
-      "placeholder": _vm.$t('Enter additional notes')
-    },
-    domProps: {
-      "value": _vm.form.notes
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "notes", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "notes"
-    }
-  })], 1)])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-form-6"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-file-alt mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Documents & Settings")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "attachments"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Attachments")))]), _vm._v(" "), _c('div', {
-    staticClass: "file-upload-area"
-  }, [_c('input', {
-    staticClass: "file-input",
-    "class": {
-      'is-invalid': _vm.form.errors.has('attachments')
-    },
-    attrs: {
-      "id": "attachments",
-      "type": "file",
-      "name": "attachments",
-      "multiple": "",
-      "accept": "image/jpeg,image/png,image/gif"
-    },
-    on: {
-      "change": _vm.onFileChange
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "file-upload-content"
-  }, [_c('i', {
-    staticClass: "fas fa-cloud-upload-alt"
-  }), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t("Drop files here or click to browse")))]), _vm._v(" "), _c('small', {
-    staticClass: "text-muted"
-  }, [_vm._v(_vm._s(_vm.$t("Supported formats: JPEG, PNG, GIF")))])])]), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.form,
-      "field": "attachments"
-    }
-  }), _vm._v(" "), _vm.form.attachments && _vm.form.attachments.length > 0 ? _c('div', {
-    staticClass: "selected-files mt-2"
-  }, _vm._l(_vm.form.attachments, function (file, index) {
-    return _c('div', {
-      key: index,
-      staticClass: "selected-file-item"
-    }, [_c('i', {
-      staticClass: "fas fa-file mr-2"
-    }), _vm._v(" "), _c('span', [_vm._v(_vm._s(file.name))]), _vm._v(" "), _c('button', {
-      staticClass: "btn btn-sm btn-outline-danger ml-2",
-      attrs: {
-        "type": "button"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.removeFile(index);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-times"
-    })])]);
-  }), 0) : _vm._e()], 1)])])])]), _vm._v(" "), _c('div', {
-    staticClass: "row mt-4"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-chart-line mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Chart of Account")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  })])])]), _vm._v(" "), _c('div', {
-    staticClass: "row mt-4",
-    staticStyle: {
-      "display": "none"
-    }
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-chart-line mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Chart of Account")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "alert alert-success"
-  }, [_c('i', {
-    staticClass: "fas fa-check-circle mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Chart of account will be automatically assigned based on your accounting configuration.")) + "\n          ")])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "row mt-4"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "form-card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h5', {
-    staticClass: "section-title"
-  }, [_c('i', {
-    staticClass: "fas fa-bell mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("Communication Preferences")) + "\n          ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "form-group col-form-6"
-  }, [_c('div', {
-    staticClass: "d-flex align-items-center"
-  }, [_c('toggle-button', {
-    attrs: {
-      "disabled": _vm.isDemoMode || _vm.communicationConfig.loading || !_vm.communicationConfig.email_configured
-    },
-    model: {
-      value: _vm.form.isSendEmail,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "isSendEmail", $$v);
-      },
-      expression: "form.isSendEmail"
-    }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "ml-3"
-  }, [_vm._v(_vm._s(_vm.$t("Send Welcome Email")))]), _vm._v(" "), !_vm.communicationConfig.loading && !_vm.communicationConfig.email_configured ? _c('span', {
-    staticClass: "ml-2 text-muted small"
-  }, [_vm._v("\n                  (" + _vm._s(_vm.$t("Email not configured")) + ")\n                ")]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "form-group col-form-6"
-  }, [_c('div', {
-    staticClass: "d-flex align-items-center"
-  }, [_c('toggle-button', {
-    attrs: {
-      "disabled": _vm.isDemoMode || _vm.communicationConfig.loading || !_vm.communicationConfig.sms_configured
-    },
-    model: {
-      value: _vm.form.isSendSMS,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "isSendSMS", $$v);
-      },
-      expression: "form.isSendSMS"
-    }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "ml-3"
-  }, [_vm._v(_vm._s(_vm.$t("Send Welcome SMS")))]), _vm._v(" "), !_vm.communicationConfig.loading && !_vm.communicationConfig.sms_configured ? _c('span', {
-    staticClass: "ml-2 text-muted small"
-  }, [_vm._v("\n                  (" + _vm._s(_vm.$t("SMS not configured")) + ")\n                ")]) : _vm._e()], 1)])])])])])])]);
-};
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "tax-status-icon-compact taxable-icon"
-  }, [_c('i', {
-    staticClass: "fas fa-file-invoice-dollar"
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "tax-status-icon-compact non-taxable-icon"
-  }, [_c('i', {
-    staticClass: "fas fa-file-invoice"
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "col-md-12"
-  }, [_c('hr', {
-    staticStyle: {
-      "margin": "15px 0",
-      "border-color": "#e0e0e0"
-    }
-  })]);
-}];
-
-;// ./resources/js/components/ClientForm.vue?vue&type=template&id=3d20362f&scoped=true
-
-// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
-var vform_es = __webpack_require__(63216);
-// EXTERNAL MODULE: ./node_modules/vue-js-toggle-button/dist/index.js
-var dist = __webpack_require__(12616);
-// EXTERNAL MODULE: ./resources/js/components/RepresentativesList.vue + 11 modules
-var RepresentativesList = __webpack_require__(89812);
-// EXTERNAL MODULE: ./resources/js/components/PhoneNumberInput.vue + 5 modules
-var PhoneNumberInput = __webpack_require__(24698);
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientForm.vue?vue&type=script&lang=js
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-
-
-
-
-
-/* harmony default export */ const ClientFormvue_type_script_lang_js = ({
-  name: "ClientForm",
-  components: {
-    ToggleButton: dist.ToggleButton,
-    RepresentativesList: RepresentativesList/* default */.A,
-    PhoneNumberInput: PhoneNumberInput/* default */.A
-  },
-  props: {
-    // Whether to show the card-body wrapper (for create page) or not (for modal)
-    showCardBody: {
-      type: Boolean,
-      "default": true
-    },
-    // Initial form data (optional)
-    initialData: {
-      type: Object,
-      "default": function _default() {
-        return {};
-      }
-    }
-  },
-  data: function data() {
-    return {
-      isDemoMode: window.config.isDemoMode,
-      loading: true,
-      url: null,
-      form: null,
-      // Will be initialized in created()
-
-      // Add missing properties
-      routingSetting: null,
-      loadingChartOfAccounts: false,
-      chartOfAccountsError: null,
-      chartOfAccounts: [],
-      isCreatingAccount: false,
-      // Communication configuration status
-      communicationConfig: {
-        email_configured: false,
-        sms_configured: false,
-        loading: true
-      },
-      // Phone number validation
-      phoneNumberValid: false,
-      // Saudi Arabia location data
-      saudiRegions: [],
-      saudiCities: [],
-      loadingRegions: false,
-      loadingCities: false,
-      // Countries data with flags (same as tenant-initialization)
-      countriesData: [{
-        code: 'SA',
-        nameKey: 'Saudi Arabia',
-        flag: '🇸🇦'
-      }, {
-        code: 'AE',
-        nameKey: 'United Arab Emirates',
-        flag: '🇦🇪'
-      }, {
-        code: 'EG',
-        nameKey: 'Egypt',
-        flag: '🇪🇬'
-      }, {
-        code: 'JO',
-        nameKey: 'Jordan',
-        flag: '🇯🇴'
-      }, {
-        code: 'LB',
-        nameKey: 'Lebanon',
-        flag: '🇱🇧'
-      }, {
-        code: 'MA',
-        nameKey: 'Morocco',
-        flag: '🇲🇦'
-      }, {
-        code: 'TN',
-        nameKey: 'Tunisia',
-        flag: '🇹🇳'
-      }, {
-        code: 'DZ',
-        nameKey: 'Algeria',
-        flag: '🇩🇿'
-      }, {
-        code: 'KW',
-        nameKey: 'Kuwait',
-        flag: '🇰🇼'
-      }, {
-        code: 'QA',
-        nameKey: 'Qatar',
-        flag: '🇶🇦'
-      }, {
-        code: 'BH',
-        nameKey: 'Bahrain',
-        flag: '🇧🇭'
-      }, {
-        code: 'OM',
-        nameKey: 'Oman',
-        flag: '🇴🇲'
-      }, {
-        code: 'YE',
-        nameKey: 'Yemen',
-        flag: '🇾🇪'
-      }, {
-        code: 'IQ',
-        nameKey: 'Iraq',
-        flag: '🇮🇶'
-      }, {
-        code: 'US',
-        nameKey: 'United States',
-        flag: '🇺🇸'
-      }, {
-        code: 'GB',
-        nameKey: 'United Kingdom',
-        flag: '🇬🇧'
-      }, {
-        code: 'CA',
-        nameKey: 'Canada',
-        flag: '🇨🇦'
-      }, {
-        code: 'AU',
-        nameKey: 'Australia',
-        flag: '🇦🇺'
-      }, {
-        code: 'DE',
-        nameKey: 'Germany',
-        flag: '🇩🇪'
-      }, {
-        code: 'FR',
-        nameKey: 'France',
-        flag: '🇫🇷'
-      }, {
-        code: 'ES',
-        nameKey: 'Spain',
-        flag: '🇪🇸'
-      }, {
-        code: 'IT',
-        nameKey: 'Italy',
-        flag: '🇮🇹'
-      }, {
-        code: 'NL',
-        nameKey: 'Netherlands',
-        flag: '🇳🇱'
-      }, {
-        code: 'BE',
-        nameKey: 'Belgium',
-        flag: '🇧🇪'
-      }, {
-        code: 'CH',
-        nameKey: 'Switzerland',
-        flag: '🇨🇭'
-      }, {
-        code: 'AT',
-        nameKey: 'Austria',
-        flag: '🇦🇹'
-      }, {
-        code: 'SE',
-        nameKey: 'Sweden',
-        flag: '🇸🇪'
-      }, {
-        code: 'NO',
-        nameKey: 'Norway',
-        flag: '🇳🇴'
-      }, {
-        code: 'DK',
-        nameKey: 'Denmark',
-        flag: '🇩🇰'
-      }, {
-        code: 'FI',
-        nameKey: 'Finland',
-        flag: '🇫🇮'
-      }, {
-        code: 'PL',
-        nameKey: 'Poland',
-        flag: '🇵🇱'
-      }, {
-        code: 'IE',
-        nameKey: 'Ireland',
-        flag: '🇮🇪'
-      }, {
-        code: 'PT',
-        nameKey: 'Portugal',
-        flag: '🇵🇹'
-      }, {
-        code: 'GR',
-        nameKey: 'Greece',
-        flag: '🇬🇷'
-      }, {
-        code: 'LU',
-        nameKey: 'Luxembourg',
-        flag: '🇱🇺'
-      }, {
-        code: 'TR',
-        nameKey: 'Turkey',
-        flag: '🇹🇷'
-      }, {
-        code: 'IN',
-        nameKey: 'India',
-        flag: '🇮🇳'
-      }, {
-        code: 'CN',
-        nameKey: 'China',
-        flag: '🇨🇳'
-      }, {
-        code: 'JP',
-        nameKey: 'Japan',
-        flag: '🇯🇵'
-      }, {
-        code: 'KR',
-        nameKey: 'South Korea',
-        flag: '🇰🇷'
-      }, {
-        code: 'BR',
-        nameKey: 'Brazil',
-        flag: '🇧🇷'
-      }, {
-        code: 'MX',
-        nameKey: 'Mexico',
-        flag: '🇲🇽'
-      }, {
-        code: 'AR',
-        nameKey: 'Argentina',
-        flag: '🇦🇷'
-      }, {
-        code: 'ZA',
-        nameKey: 'South Africa',
-        flag: '🇿🇦'
-      }, {
-        code: 'NG',
-        nameKey: 'Nigeria',
-        flag: '🇳🇬'
-      }, {
-        code: 'KE',
-        nameKey: 'Kenya',
-        flag: '🇰🇪'
-      }, {
-        code: 'PK',
-        nameKey: 'Pakistan',
-        flag: '🇵🇰'
-      }, {
-        code: 'BD',
-        nameKey: 'Bangladesh',
-        flag: '🇧🇩'
-      }, {
-        code: 'ID',
-        nameKey: 'Indonesia',
-        flag: '🇮🇩'
-      }, {
-        code: 'PH',
-        nameKey: 'Philippines',
-        flag: '🇵🇭'
-      }, {
-        code: 'VN',
-        nameKey: 'Vietnam',
-        flag: '🇻🇳'
-      }, {
-        code: 'TH',
-        nameKey: 'Thailand',
-        flag: '🇹🇭'
-      }, {
-        code: 'MY',
-        nameKey: 'Malaysia',
-        flag: '🇲🇾'
-      }, {
-        code: 'SG',
-        nameKey: 'Singapore',
-        flag: '🇸🇬'
-      }, {
-        code: 'NZ',
-        nameKey: 'New Zealand',
-        flag: '🇳🇿'
-      }, {
-        code: 'RU',
-        nameKey: 'Russia',
-        flag: '🇷🇺'
-      }, {
-        code: 'UA',
-        nameKey: 'Ukraine',
-        flag: '🇺🇦'
-      }, {
-        code: 'CZ',
-        nameKey: 'Czech Republic',
-        flag: '🇨🇿'
-      }, {
-        code: 'HU',
-        nameKey: 'Hungary',
-        flag: '🇭🇺'
-      }, {
-        code: 'RO',
-        nameKey: 'Romania',
-        flag: '🇷🇴'
-      }, {
-        code: 'BG',
-        nameKey: 'Bulgaria',
-        flag: '🇧🇬'
-      }, {
-        code: 'HR',
-        nameKey: 'Croatia',
-        flag: '🇭🇷'
-      }, {
-        code: 'SI',
-        nameKey: 'Slovenia',
-        flag: '🇸🇮'
-      }, {
-        code: 'SK',
-        nameKey: 'Slovakia',
-        flag: '🇸🇰'
-      }, {
-        code: 'EE',
-        nameKey: 'Estonia',
-        flag: '🇪🇪'
-      }, {
-        code: 'LV',
-        nameKey: 'Latvia',
-        flag: '🇱🇻'
-      }, {
-        code: 'LT',
-        nameKey: 'Lithuania',
-        flag: '🇱🇹'
-      }, {
-        code: 'IS',
-        nameKey: 'Iceland',
-        flag: '🇮🇸'
-      }]
-    };
-  },
-  watch: {
-    // Watch for changes in initialData prop
-    initialData: {
-      handler: function handler(newData) {
-        var _this = this;
-        console.log('=== INITIAL DATA WATCHER TRIGGERED ===');
-        console.log('New data:', newData);
-        console.log('Form exists:', !!this.form);
-        if (newData && Object.keys(newData).length > 0) {
-          // Set form values from initial data
-          Object.keys(newData).forEach(function (key) {
-            if (Object.prototype.hasOwnProperty.call(_this.form, key)) {
-              console.log("Setting form.".concat(key, " = ").concat(newData[key]));
-              _this.form[key] = newData[key];
-            } else {
-              console.log("Form does not have property: ".concat(key));
-            }
-          });
-
-          // Handle special cases
-          if (newData.image_path) {
-            this.url = newData.image_path;
-          }
-          if (newData.attachments) {
-            this.form.attachments = Array.isArray(newData.attachments) ? newData.attachments : [];
-          }
-          console.log('Form initialized with data:', newData);
-          console.log('Form after initialization:', this.form);
-
-          // Load representatives if this is an existing client
-          if (newData.slug && newData.slug !== 'new') {
-            console.log('=== WILL LOAD REPRESENTATIVES ===');
-            console.log('Will load representatives for slug:', newData.slug);
-            console.log('Slug type:', _typeof(newData.slug));
-            console.log('Slug value:', newData.slug);
-            console.log('Full newData:', newData);
-            // Add a small delay to ensure form is fully initialized
-            setTimeout(function () {
-              console.log('Calling loadRepresentatives after timeout');
-              _this.loadRepresentatives();
-            }, 100);
-          } else {
-            console.log('=== NOT LOADING REPRESENTATIVES ===');
-            console.log('NOT loading representatives because:');
-            console.log('- newData.slug exists:', !!newData.slug);
-            console.log('- newData.slug value:', newData.slug);
-            console.log('- newData.slug !== new:', newData.slug !== 'new');
-            console.log('Full newData:', newData);
-
-            // Only load next code number for truly new clients (not when editing)
-            if (!newData.slug || newData.slug === 'new') {
-              console.log('Loading next code number for new client');
-              this.loadNextCodeNumber();
-            } else {
-              console.log('Skipping next code number load - this appears to be an edit operation');
-            }
-          }
-        }
-      },
-      immediate: true,
-      deep: true
-    },
-    // Watch for changes in phoneNumber field
-    'form.phoneNumber': {
-      handler: function handler(newValue, oldValue) {
-        console.log('Phone number changed:', {
-          old: oldValue,
-          "new": newValue
-        });
-      },
-      immediate: true
-    },
-    // Watch for changes in representatives field
-    'form.representatives': {
-      handler: function handler(newValue, oldValue) {
-        console.log('Representatives changed:', {
-          old: oldValue,
-          "new": newValue
-        });
-        console.log('New representatives length:', newValue ? newValue.length : 'undefined');
-      },
-      immediate: true
-    },
-    // Watch for routing settings changes
-    routingSetting: {
-      handler: function handler(newValue, oldValue) {
-        if (newValue && newValue.main_account_id !== (oldValue === null || oldValue === void 0 ? void 0 : oldValue.main_account_id)) {
-          console.log('Main account changed, reloading chart of accounts');
-          this.loadChartOfAccounts();
-        }
-      },
-      deep: true
-    },
-    // Watch for country changes - clear state when Saudi Arabia is selected
-    'form.country': {
-      handler: function handler(newValue, oldValue) {
-        if (newValue === 'SA') {
-          // Clear state field when Saudi Arabia is selected
-          this.form.state = '';
-          // Load Saudi regions
-          this.loadSaudiRegions();
-        } else {
-          // Clear Saudi-specific fields when switching away from SA
-          this.form.saudi_region = null;
-          this.saudiCities = [];
-        }
-      },
-      immediate: true
-    },
-    // Watch for Saudi region changes - load cities
-    'form.saudi_region': {
-      handler: function handler(newValue) {
-        if (newValue && this.form.country === 'SA') {
-          this.loadSaudiCities(newValue);
-        } else {
-          this.saudiCities = [];
-          this.form.city = '';
-        }
-      }
-    }
-  },
-  computed: {
-    // Check if this is a new client
-    isNewClient: function isNewClient() {
-      return !this.initialData || Object.keys(this.initialData).length === 0 || this.initialData.slug && this.initialData.slug === 'new';
-    },
-    // Countries with translated names
-    countries: function countries() {
-      var _this2 = this;
-      return this.countriesData.map(function (country) {
-        return _objectSpread(_objectSpread({}, country), {}, {
-          name: _this2.$t(country.nameKey) || country.nameKey
-        });
-      });
-    }
-  },
-  created: function created() {
-    console.log('ClientForm component created');
-    this.initializeForm();
-  },
-  mounted: function mounted() {
-    var _this3 = this;
-    console.log('ClientForm component mounted, form:', this.form);
-    console.log('Initial data in mounted:', this.initialData);
-    // Don't call loadRepresentatives here - let the watcher handle it
-
-    // Load next code number for new clients
-    this.loadNextCodeNumber();
-
-    // Load communication configuration status
-    this.loadCommunicationConfigStatus();
-
-    // Load routing settings first, then chart of accounts
-    this.loadRoutingSettings().then(function () {
-      console.log('Routing settings loaded, now loading chart of accounts...');
-      _this3.loadChartOfAccounts().then(function () {
-        console.log('Chart of accounts loading completed. Total accounts:', _this3.chartOfAccounts.length);
-        console.log('Chart of accounts data:', _this3.chartOfAccounts);
-      });
-    })["catch"](function (error) {
-      console.error('Error in mounted lifecycle:', error);
-    });
-  },
-  methods: {
-    // Initialize the form
-    initializeForm: function initializeForm() {
-      console.log('=== INITIALIZING FORM ===');
-      console.log('Initial data:', this.initialData);
-      this.form = new vform_es/* default */.Ay(_objectSpread({
-        // Account Details
-        codeNumber: "",
-        // Will be loaded from API
-        notes: "",
-        displayLanguage: "",
-        // Client Details
-        type: "Company",
-        taxStatus: "non_taxable",
-        fullName: "",
-        businessName: "",
-        firstName: "",
-        lastName: "",
-        phone: "",
-        phoneNumber: "",
-        email: "",
-        streetAddress1: "",
-        city: "",
-        state: "",
-        postalCode: "",
-        country: "SA",
-        saudi_region: null,
-        neighbourhood: "",
-        commercialRegister: "",
-        taxCard: "",
-        // Saudi National Address Fields
-        buildingNumber: "",
-        streetNumber: "",
-        districtNumber: "",
-        unitNumber: "",
-        additionalNumber: "",
-        // Additional Fields
-        image: "",
-        attachments: [],
-        status: 1,
-        isSendEmail: false,
-        isSendSMS: false,
-        // Legacy fields for backward compatibility
-        name: "",
-        companyName: "",
-        taxRegistrationNumber: "",
-        address: "",
-        // Representatives
-        representatives: [],
-        // Chart of Account
-        chartOfAccountId: null
-      }, this.initialData || {}));
-      console.log('Form initialized:', this.form);
-      console.log('Form type:', _typeof(this.form));
-      console.log('Form methods:', Object.getOwnPropertyNames(this.form));
-    },
-    // Load the next available code number for new clients
-    loadNextCodeNumber: function loadNextCodeNumber() {
-      var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var response, _error$response;
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
-            case 0:
-              if (!(_this4.initialData && _this4.initialData.slug && _this4.initialData.slug !== 'new')) {
-                _context.next = 3;
-                break;
-              }
-              console.log('Skipping next code number load - editing existing client');
-              return _context.abrupt("return");
-            case 3:
-              _context.prev = 3;
-              console.log('=== LOADING NEXT CODE NUMBER ===');
-              console.log('Current form codeNumber before API call:', _this4.form.codeNumber);
-              _context.next = 8;
-              return axios_default().get('/clients/next-code');
-            case 8:
-              response = _context.sent;
-              console.log('Next code API response:', response.data);
-
-              // Check if we have formatted_code in the response (successful response)
-              if (response.data && response.data.formatted_code) {
-                _this4.form.codeNumber = response.data.formatted_code;
-                console.log('Code number successfully loaded:', _this4.form.codeNumber);
-                console.log('Debug info from API:', response.data.debug);
-              } else if (response.data && response.data.success === false) {
-                console.error('API returned error:', response.data.message);
-                // Fallback to a default code for first client
-                _this4.form.codeNumber = 'AC001';
-                console.log('Using fallback code number:', _this4.form.codeNumber);
-              } else {
-                // Response structure might be different, try to extract formatted_code
-                if (response.data && response.data.formatted_code) {
-                  _this4.form.codeNumber = response.data.formatted_code;
-                } else {
-                  // Last resort fallback
-                  _this4.form.codeNumber = 'AC001';
-                  console.log('Using default fallback code number:', _this4.form.codeNumber);
-                }
-              }
-              _context.next = 19;
-              break;
-            case 13:
-              _context.prev = 13;
-              _context.t0 = _context["catch"](3);
-              console.error('Error loading next code number:', _context.t0);
-              console.error('Error details:', ((_error$response = _context.t0.response) === null || _error$response === void 0 ? void 0 : _error$response.data) || _context.t0.message);
-              // Fallback to a default code instead of 'Loading...'
-              // This ensures the form doesn't get stuck in loading state
-              _this4.form.codeNumber = 'AC001';
-              console.log('Using fallback code number due to error:', _this4.form.codeNumber);
-            case 19:
-            case "end":
-              return _context.stop();
-          }
-        }, _callee, null, [[3, 13]]);
-      }))();
-    },
-    // Load communication configuration status
-    loadCommunicationConfigStatus: function loadCommunicationConfigStatus() {
-      var _this5 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var response;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
-            case 0:
-              _context2.prev = 0;
-              console.log('=== LOADING COMMUNICATION CONFIG STATUS ===');
-              _this5.communicationConfig.loading = true;
-              _context2.next = 5;
-              return axios_default().get('/api/communication-config-status');
-            case 5:
-              response = _context2.sent;
-              console.log('Communication config response:', response.data);
-              _this5.communicationConfig.email_configured = response.data.email_configured;
-              _this5.communicationConfig.sms_configured = response.data.sms_configured;
-              _this5.communicationConfig.loading = false;
-              console.log('Communication config loaded:', _this5.communicationConfig);
-              _context2.next = 19;
-              break;
-            case 13:
-              _context2.prev = 13;
-              _context2.t0 = _context2["catch"](0);
-              console.error('Error loading communication config status:', _context2.t0);
-              // Default to false if there's an error
-              _this5.communicationConfig.email_configured = false;
-              _this5.communicationConfig.sms_configured = false;
-              _this5.communicationConfig.loading = false;
-            case 19:
-            case "end":
-              return _context2.stop();
-          }
-        }, _callee2, null, [[0, 13]]);
-      }))();
-    },
-    // vue file upload
-    onFileChange: function onFileChange(e) {
-      var _this6 = this;
-      var files = Array.from(e.target.files);
-      var validFiles = [];
-      files.forEach(function (file) {
-        // Check file size (2MB limit)
-        if (file.size < 2111775) {
-          // For image, only allow image files
-          if (e.target.id === 'image') {
-            if (file.type.startsWith('image/')) {
-              validFiles.push(file);
-            } else {
-              _this6.$toast.error(_this6.$t("Error!"), _this6.$t("Please select a valid image file"));
-            }
-          } else {
-            // For attachments, only allow images to match backend validation
-            var allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-            if (allowedTypes.includes(file.type)) {
-              validFiles.push(file);
-            } else {
-              _this6.$toast.error(_this6.$t("Error!"), _this6.$t("Only JPEG, PNG, and GIF files are allowed."));
-            }
-          }
-        } else {
-          _this6.$toast.error(_this6.$t("Error!"), _this6.$t("Please select a file with size less than 2 MB"));
-        }
-      });
-      if (validFiles.length > 0) {
-        // Check if this is for image or attachments
-        if (e.target.id === 'image') {
-          // Single image file
-          this.form.image = validFiles[0];
-          this.url = URL.createObjectURL(validFiles[0]);
-        } else {
-          // Multiple attachment files
-          this.form.attachments = [].concat(_toConsumableArray(this.form.attachments), validFiles);
-        }
-      }
-    },
-    // Remove a file from attachments
-    removeFile: function removeFile(index) {
-      this.form.attachments.splice(index, 1);
-    },
-    // Reset form to default values
-    resetForm: function resetForm() {
-      this.form.reset();
-
-      // Reset to default values for specific fields
-      this.form.type = "Company";
-      this.form.status = 1;
-      this.form.country = "SA";
-      this.form.isSendEmail = false;
-      this.form.isSendSMS = false;
-
-      // Load the next available code number
-      this.loadNextCodeNumber();
-
-      // Clear all other fields
-      this.form.notes = "";
-      this.form.displayLanguage = "";
-      this.form.fullName = "";
-      this.form.businessName = "";
-      this.form.firstName = "";
-      this.form.lastName = "";
-      this.form.phone = "";
-      this.form.phoneNumber = "";
-      this.form.email = "";
-      this.form.streetAddress1 = "";
-      this.form.city = "";
-      this.form.state = "";
-      this.form.postalCode = "";
-      this.form.neighbourhood = "";
-      this.form.commercialRegister = "";
-      this.form.taxCard = "";
-      // Clear Saudi National Address Fields
-      this.form.buildingNumber = "";
-      this.form.unitNumber = "";
-      this.form.additionalNumber = "";
-      this.form.attachments = []; // Clear attachments
-      this.form.image = null; // Clear image
-      this.form.chartOfAccountId = null; // Clear chart of account
-
-      // Clear image preview
-      this.url = null;
-
-      // Clear validation errors
-      this.form.errors.clear();
-
-      // Reset phone number validation
-      this.phoneNumberValid = false;
-    },
-    // Handle country change
-    onCountryChange: function onCountryChange() {
-      // Clear state field when Saudi Arabia is selected (handled by watcher)
-      // This method can be used for additional country-specific logic
-    },
-    // Load Saudi Arabia regions
-    loadSaudiRegions: function loadSaudiRegions() {
-      var _this7 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        var response;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
-            case 0:
-              if (!_this7.loadingRegions) {
-                _context3.next = 2;
-                break;
-              }
-              return _context3.abrupt("return");
-            case 2:
-              _this7.loadingRegions = true;
-              _context3.prev = 3;
-              _context3.next = 6;
-              return axios_default().get('/api/locations/saudi/regions');
-            case 6:
-              response = _context3.sent;
-              if (response.data.success) {
-                _this7.saudiRegions = response.data.data.map(function (region) {
-                  return {
-                    id: region.id,
-                    name: _this7.$i18n.locale === 'ar' ? region.name_ar : region.name_en,
-                    name_ar: region.name_ar,
-                    name_en: region.name_en,
-                    code: region.code
-                  };
-                });
-              }
-              _context3.next = 14;
-              break;
-            case 10:
-              _context3.prev = 10;
-              _context3.t0 = _context3["catch"](3);
-              console.error('Error loading Saudi regions:', _context3.t0);
-              _this7.$toast.error(_this7.$t('Error loading regions'));
-            case 14:
-              _context3.prev = 14;
-              _this7.loadingRegions = false;
-              return _context3.finish(14);
-            case 17:
-            case "end":
-              return _context3.stop();
-          }
-        }, _callee3, null, [[3, 10, 14, 17]]);
-      }))();
-    },
-    // Load Saudi Arabia cities by region
-    loadSaudiCities: function loadSaudiCities(regionId) {
-      var _this8 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        var response, cities, selectedRegion, _selectedRegion, _selectedRegion2;
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
-            case 0:
-              if (regionId) {
-                _context4.next = 3;
-                break;
-              }
-              _this8.saudiCities = [];
-              return _context4.abrupt("return");
-            case 3:
-              if (!_this8.loadingCities) {
-                _context4.next = 5;
-                break;
-              }
-              return _context4.abrupt("return");
-            case 5:
-              _this8.loadingCities = true;
-              _context4.prev = 6;
-              _context4.next = 9;
-              return axios_default().get('/api/locations/saudi/cities-by-region', {
-                params: {
-                  region_id: regionId
-                }
-              });
-            case 9:
-              response = _context4.sent;
-              if (response.data.success) {
-                cities = response.data.data || [];
-                _this8.saudiCities = cities.map(function (city) {
-                  return {
-                    id: city.id,
-                    name: _this8.$i18n.locale === 'ar' ? city.name_ar : city.name_en,
-                    name_ar: city.name_ar,
-                    name_en: city.name_en,
-                    region_id: city.region_id
-                  };
-                });
-
-                // If no cities found, add the region name as a city option
-                if (_this8.saudiCities.length === 0) {
-                  selectedRegion = _this8.saudiRegions.find(function (region) {
-                    return region.id === regionId;
-                  });
-                  if (selectedRegion) {
-                    _this8.saudiCities = [{
-                      id: "region_".concat(regionId),
-                      name: selectedRegion.name,
-                      name_ar: selectedRegion.name_ar,
-                      name_en: selectedRegion.name_en,
-                      region_id: regionId,
-                      is_region: true
-                    }];
-                  }
-                }
-              } else {
-                // If API call failed, add region name as fallback
-                _selectedRegion = _this8.saudiRegions.find(function (region) {
-                  return region.id === regionId;
-                });
-                if (_selectedRegion) {
-                  _this8.saudiCities = [{
-                    id: "region_".concat(regionId),
-                    name: _selectedRegion.name,
-                    name_ar: _selectedRegion.name_ar,
-                    name_en: _selectedRegion.name_en,
-                    region_id: regionId,
-                    is_region: true
-                  }];
-                } else {
-                  _this8.saudiCities = [];
-                }
-              }
-              _context4.next = 19;
-              break;
-            case 13:
-              _context4.prev = 13;
-              _context4.t0 = _context4["catch"](6);
-              console.error('Error loading Saudi cities:', _context4.t0);
-              // If error occurred, add region name as fallback
-              _selectedRegion2 = _this8.saudiRegions.find(function (region) {
-                return region.id === regionId;
-              });
-              if (_selectedRegion2) {
-                _this8.saudiCities = [{
-                  id: "region_".concat(regionId),
-                  name: _selectedRegion2.name,
-                  name_ar: _selectedRegion2.name_ar,
-                  name_en: _selectedRegion2.name_en,
-                  region_id: regionId,
-                  is_region: true
-                }];
-              } else {
-                _this8.saudiCities = [];
-              }
-              // Don't show error toast for empty cities - it's normal for some regions
-              if (_context4.t0.response && _context4.t0.response.status !== 404) {
-                _this8.$toast.error(_this8.$t('Error loading cities'));
-              }
-            case 19:
-              _context4.prev = 19;
-              _this8.loadingCities = false;
-              return _context4.finish(19);
-            case 22:
-            case "end":
-              return _context4.stop();
-          }
-        }, _callee4, null, [[6, 13, 19, 22]]);
-      }))();
-    },
-    // Handle Saudi region change
-    onSaudiRegionChange: function onSaudiRegionChange() {
-      // Clear city when region changes
-      this.form.city = '';
-      this.saudiCities = [];
-      // Cities will be loaded by watcher
-    },
-    // Get form data for parent component
-    getFormData: function getFormData() {
-      return this.form;
-    },
-    // Validate form
-    validateForm: function validateForm() {
-      var _this9 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
-            case 0:
-              console.log('=== VALIDATING FORM ===');
-              console.log('Form object:', _this9.form);
-              console.log('Form type:', _this9.form ? _this9.form.type : 'No form');
-              console.log('Form phoneNumber:', _this9.form ? _this9.form.phoneNumber : 'No form');
-              console.log('Form businessName:', _this9.form ? _this9.form.businessName : 'No form');
-              console.log('Form fullName:', _this9.form ? _this9.form.fullName : 'No form');
-
-              // Basic validation - check if form exists
-              if (_this9.form) {
-                _context5.next = 9;
-                break;
-              }
-              console.error('Form is not initialized');
-              return _context5.abrupt("return", false);
-            case 9:
-              if (!(!_this9.form.phoneNumber || _this9.form.phoneNumber.trim() === '')) {
-                _context5.next = 13;
-                break;
-              }
-              console.log('Phone number validation failed - phoneNumber:', _this9.form.phoneNumber);
-              if (window.toast && typeof window.toast.fire === 'function') {
-                window.toast.fire({
-                  type: "error",
-                  title: _this9.$t("Mobile number is required")
-                });
-              } else {
-                alert(_this9.$t("Mobile number is required"));
-              }
-              return _context5.abrupt("return", false);
-            case 13:
-              if (_this9.phoneNumberValid) {
-                _context5.next = 17;
-                break;
-              }
-              console.log('Phone number validation failed - phoneNumberValid:', _this9.phoneNumberValid);
-              if (window.toast && typeof window.toast.fire === 'function') {
-                window.toast.fire({
-                  type: "error",
-                  title: _this9.$t("Invalid phone number format")
-                });
-              } else {
-                alert(_this9.$t("Invalid phone number format"));
-              }
-              return _context5.abrupt("return", false);
-            case 17:
-              if (!(_this9.form.type === 'Company' && (!_this9.form.businessName || _this9.form.businessName.trim() === ''))) {
-                _context5.next = 21;
-                break;
-              }
-              console.log('Business name validation failed - businessName:', _this9.form.businessName);
-              if (window.toast && typeof window.toast.fire === 'function') {
-                window.toast.fire({
-                  type: "error",
-                  title: _this9.$t("Business name is required for company clients")
-                });
-              } else {
-                alert(_this9.$t("Business name is required for company clients"));
-              }
-              return _context5.abrupt("return", false);
-            case 21:
-              if (!(_this9.form.type === 'Individual' && (!_this9.form.fullName || _this9.form.fullName.trim() === ''))) {
-                _context5.next = 25;
-                break;
-              }
-              console.log('Full name validation failed - fullName:', _this9.form.fullName);
-              if (window.toast && typeof window.toast.fire === 'function') {
-                window.toast.fire({
-                  type: "error",
-                  title: _this9.$t("Full name is required for individual clients")
-                });
-              } else {
-                alert(_this9.$t("Full name is required for individual clients"));
-              }
-              return _context5.abrupt("return", false);
-            case 25:
-              // For new clients, use the main account from routing setting if none selected
-              if (_this9.isNewClient && _this9.routingSetting && _this9.routingSetting.main_account_id) {
-                if (!_this9.form.chartOfAccountId) {
-                  // Use the main account from routing setting
-                  _this9.form.chartOfAccountId = _this9.routingSetting.main_account_id;
-                }
-              }
-              return _context5.abrupt("return", true);
-            case 27:
-            case "end":
-              return _context5.stop();
-          }
-        }, _callee5);
-      }))();
-    },
-    // Load representatives for existing client
-    loadRepresentatives: function loadRepresentatives() {
-      var _this0 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
-        var slug, apiUrl, response;
-        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-          while (1) switch (_context6.prev = _context6.next) {
-            case 0:
-              // Try to get slug from route params first, then from initialData
-              slug = _this0.$route.params.slug || _this0.initialData && _this0.initialData.slug;
-              console.log('=== LOADING REPRESENTATIVES ===');
-              console.log('Loading representatives for client:', slug);
-              console.log('Route params:', _this0.$route.params);
-              console.log('Initial data:', _this0.initialData);
-              console.log('Form type:', _this0.form.type);
-              console.log('Form representatives before load:', _this0.form.representatives);
-              if (!(slug && slug !== 'new')) {
-                _context6.next = 31;
-                break;
-              }
-              _context6.prev = 8;
-              apiUrl = "/api/client/".concat(slug, "/representatives");
-              console.log('Making API call to:', apiUrl);
-              _context6.next = 13;
-              return _this0.$http.get(apiUrl);
-            case 13:
-              response = _context6.sent;
-              console.log('Representatives API response received');
-              console.log('Response status:', response.status);
-              console.log('Response data:', response.data);
-              console.log('Response success:', response.data.success);
-              console.log('Response data.data:', response.data.data);
-              if (response.data.success) {
-                _this0.form.representatives = response.data.data;
-                console.log('Representatives loaded into form:', _this0.form.representatives);
-                console.log('Form representatives after load:', _this0.form.representatives);
-                console.log('Representatives count after load:', _this0.form.representatives.length);
-              } else {
-                console.log('API response indicates failure:', response.data);
-              }
-              _context6.next = 29;
-              break;
-            case 22:
-              _context6.prev = 22;
-              _context6.t0 = _context6["catch"](8);
-              console.error('=== ERROR LOADING REPRESENTATIVES ===');
-              console.error('Error:', _context6.t0);
-              console.error('Error message:', _context6.t0.message);
-              console.error('Error response:', _context6.t0.response);
-              if (_context6.t0.response) {
-                console.error('Error status:', _context6.t0.response.status);
-                console.error('Error data:', _context6.t0.response.data);
-              }
-            case 29:
-              _context6.next = 34;
-              break;
-            case 31:
-              console.log('No slug or new client, skipping representatives load');
-              console.log('Slug value:', slug);
-              console.log('Is new client:', slug === 'new');
-            case 34:
-              console.log('=== END LOADING REPRESENTATIVES ===');
-            case 35:
-            case "end":
-              return _context6.stop();
-          }
-        }, _callee6, null, [[8, 22]]);
-      }))();
-    },
-    // Handle when representatives are changed (added, edited, deleted)
-    handleRepresentativesChanged: function handleRepresentativesChanged(representatives) {
-      this.form.representatives = representatives;
-    },
-    // Handle phone number validation
-    onPhoneValidated: function onPhoneValidated(isValid) {
-      this.phoneNumberValid = isValid;
-      if (!isValid && this.form.phoneNumber) {
-        // Clear the error if validation passes
-        if (this.form.errors.has('phoneNumber') && this.form.errors.get('phoneNumber') === this.$t('phone_invalid')) {
-          this.form.errors.clear('phoneNumber');
-        }
-      }
-    },
-    // Load routing settings
-    loadRoutingSettings: function loadRoutingSettings() {
-      var _this1 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-        var user, branchId, response;
-        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-          while (1) switch (_context7.prev = _context7.next) {
-            case 0:
-              _context7.prev = 0;
-              console.log('Loading routing settings...');
-              // Get current branch ID
-              user = _this1.$store.getters['auth/user'] || {};
-              branchId = user.default_branch_id || null;
-              if (branchId) {
-                _context7.next = 8;
-                break;
-              }
-              console.error('Branch ID is required');
-              _this1.routingSetting = {
-                main_account_id: null
-              };
-              return _context7.abrupt("return");
-            case 8:
-              _context7.next = 10;
-              return _this1.$http.get('/api/account-routing-settings', {
-                params: {
-                  branch_id: branchId
-                }
-              });
-            case 10:
-              response = _context7.sent;
-              console.log('Routing settings response:', response);
-              if (response.data && response.data.success) {
-                console.log('Routing settings data:', response.data.data);
-                // Find the clients_account setting
-                _this1.routingSetting = response.data.data.find(function (setting) {
-                  return setting.setting_key === 'clients_account';
-                });
-                console.log('Found clients_account setting:', _this1.routingSetting);
-                if (_this1.routingSetting) {
-                  console.log('Routing setting loaded:', _this1.routingSetting);
-                } else {
-                  console.log('No clients_account setting found in:', response.data.data);
-                  // Set a default routing setting if none found
-                  _this1.routingSetting = {
-                    main_account_id: null
-                  };
-                  console.log('Using default routing setting:', _this1.routingSetting);
-                }
-              } else {
-                console.log('Routing settings response not successful:', response.data);
-                // Set a default routing setting if API fails
-                _this1.routingSetting = {
-                  main_account_id: null
-                };
-                console.log('Using default routing setting due to API failure:', _this1.routingSetting);
-              }
-              _context7.next = 20;
-              break;
-            case 15:
-              _context7.prev = 15;
-              _context7.t0 = _context7["catch"](0);
-              console.error('Error loading routing settings:', _context7.t0);
-              // Set a default routing setting if error occurs
-              _this1.routingSetting = {
-                main_account_id: null
-              };
-              console.log('Using default routing setting due to error:', _this1.routingSetting);
-            case 20:
-            case "end":
-              return _context7.stop();
-          }
-        }, _callee7, null, [[0, 15]]);
-      }))();
-    },
-    // Load chart of accounts with search functionality
-    loadChartOfAccounts: function loadChartOfAccounts() {
-      var _this10 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
-        var response, fallbackResponse, _response, altResponse;
-        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-          while (1) switch (_context8.prev = _context8.next) {
-            case 0:
-              _context8.prev = 0;
-              console.log('Loading chart of accounts...');
-              console.log('Current routing setting:', _this10.routingSetting);
-              _this10.loadingChartOfAccounts = true;
-              _this10.chartOfAccountsError = null;
-
-              // Load accounts based on routing setting if available
-
-              // For other routing types, load accounts based on routing setting
-              if (!(_this10.routingSetting && _this10.routingSetting.main_account_id)) {
-                _context8.next = 30;
-                break;
-              }
-              console.log('Loading accounts from routing setup...');
-              _context8.prev = 7;
-              _context8.next = 10;
-              return _this10.$http.get("/api/account-routing-settings/".concat(_this10.routingSetting.setting_key, "/accounts"));
-            case 10:
-              response = _context8.sent;
-              console.log('Routing accounts response:', response);
-              if (!(response.data && response.data.success)) {
-                _context8.next = 17;
-                break;
-              }
-              _this10.chartOfAccounts = response.data.accounts || [];
-              console.log('Loaded accounts from routing setup:', _this10.chartOfAccounts.length);
-              _context8.next = 18;
-              break;
-            case 17:
-              throw new Error('Routing accounts response not successful');
-            case 18:
-              _context8.next = 28;
-              break;
-            case 20:
-              _context8.prev = 20;
-              _context8.t0 = _context8["catch"](7);
-              console.log('Routing accounts failed, falling back to all accounts:', _context8.t0);
-              // Fallback to all accounts
-              _context8.next = 25;
-              return _this10.$http.get('/api/chart-of-accounts/all');
-            case 25:
-              fallbackResponse = _context8.sent;
-              _this10.chartOfAccounts = fallbackResponse.data.data || fallbackResponse.data || [];
-              console.log('Loaded fallback accounts:', _this10.chartOfAccounts.length);
-            case 28:
-              _context8.next = 36;
-              break;
-            case 30:
-              console.log('No main account ID, loading all accounts as fallback');
-              // Load all active accounts as fallback
-              _context8.next = 33;
-              return _this10.$http.get('/api/chart-of-accounts/all');
-            case 33:
-              _response = _context8.sent;
-              // The getAll endpoint returns a resource collection, so data is directly in response.data
-              _this10.chartOfAccounts = _response.data.data || _response.data || [];
-              console.log('Loaded all accounts as fallback:', _this10.chartOfAccounts.length);
-            case 36:
-              if (!(_this10.chartOfAccounts.length === 0)) {
-                _context8.next = 51;
-                break;
-              }
-              console.log('No accounts loaded, trying alternative endpoint...');
-              _context8.prev = 38;
-              _context8.next = 41;
-              return _this10.$http.get('/api/chart-of-accounts/dropdown');
-            case 41:
-              altResponse = _context8.sent;
-              _this10.chartOfAccounts = altResponse.data.data || altResponse.data || [];
-              console.log('Loaded accounts from dropdown endpoint:', _this10.chartOfAccounts.length);
-              _context8.next = 51;
-              break;
-            case 46:
-              _context8.prev = 46;
-              _context8.t1 = _context8["catch"](38);
-              console.error('Alternative endpoint also failed:', _context8.t1);
-              // Set a minimal fallback to prevent empty dropdown
-              _this10.chartOfAccounts = [{
-                id: 'placeholder',
-                name: 'No accounts available - Please configure chart of accounts',
-                code: 'N/A',
-                type: 'Error'
-              }];
-              _this10.chartOfAccountsError = 'No chart of accounts available. Please check your configuration.';
-            case 51:
-              _context8.next = 57;
-              break;
-            case 53:
-              _context8.prev = 53;
-              _context8.t2 = _context8["catch"](0);
-              console.error('Error loading chart of accounts:', _context8.t2);
-              _this10.chartOfAccountsError = _context8.t2.message || 'Failed to load chart of accounts';
-            case 57:
-              _context8.prev = 57;
-              _this10.loadingChartOfAccounts = false;
-              return _context8.finish(57);
-            case 60:
-            case "end":
-              return _context8.stop();
-          }
-        }, _callee8, null, [[0, 53, 57, 60], [7, 20], [38, 46]]);
-      }))();
-    },
-    // Search chart of accounts (for v-select search)
-    searchChartOfAccounts: function searchChartOfAccounts(search) {
-      var _this11 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
-        var filtered, response, apiData, fallbackFiltered;
-        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
-          while (1) switch (_context9.prev = _context9.next) {
-            case 0:
-              console.log('Searching for:', search);
-              if (!(!search || search.length < 2)) {
-                _context9.next = 4;
-                break;
-              }
-              console.log('Search too short, returning first 50 accounts');
-              return _context9.abrupt("return", _this11.chartOfAccounts.slice(0, 50));
-            case 4:
-              _context9.prev = 4;
-              // Filter locally first for better performance
-              filtered = _this11.chartOfAccounts.filter(function (account) {
-                return account.name.toLowerCase().includes(search.toLowerCase()) || account.code.toLowerCase().includes(search.toLowerCase());
-              });
-              console.log('Local filtered results:', filtered.length);
-
-              // If we have enough results locally, return them
-              if (!(filtered.length >= 10)) {
-                _context9.next = 10;
-                break;
-              }
-              console.log('Enough local results, returning filtered');
-              return _context9.abrupt("return", filtered.slice(0, 50));
-            case 10:
-              // Otherwise, search from API
-              console.log('Searching from API...');
-              _context9.next = 13;
-              return _this11.$http.get('/api/chart-of-accounts/search', {
-                params: {
-                  term: search
-                }
-              });
-            case 13:
-              response = _context9.sent;
-              console.log('API search response:', response);
-              if (!(response.data && (response.data.data || response.data))) {
-                _context9.next = 21;
-                break;
-              }
-              console.log('API returned data, returning results');
-              apiData = response.data.data || response.data;
-              return _context9.abrupt("return", apiData.slice(0, 50));
-            case 21:
-              console.log('No API data, returning local filtered');
-              return _context9.abrupt("return", filtered);
-            case 23:
-              _context9.next = 31;
-              break;
-            case 25:
-              _context9.prev = 25;
-              _context9.t0 = _context9["catch"](4);
-              console.error('Error searching chart of accounts:', _context9.t0);
-              // Fallback to local filtering
-              fallbackFiltered = _this11.chartOfAccounts.filter(function (account) {
-                return account.name.toLowerCase().includes(search.toLowerCase()) || account.code.toLowerCase().includes(search.toLowerCase());
-              });
-              console.log('Fallback filtered results:', fallbackFiltered.length);
-              return _context9.abrupt("return", fallbackFiltered.slice(0, 50));
-            case 31:
-            case "end":
-              return _context9.stop();
-          }
-        }, _callee9, null, [[4, 25]]);
-      }))();
-    },
-    // Auto-create chart of account for new client
-    autoCreateChartOfAccountForNewClient: function autoCreateChartOfAccountForNewClient() {
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee0() {
-        return _regeneratorRuntime().wrap(function _callee0$(_context0) {
-          while (1) switch (_context0.prev = _context0.next) {
-            case 0:
-              _context0.prev = 0;
-              // This method would implement the logic to automatically create a chart of account
-              // For now, we'll return null to indicate no auto-creation
-              console.log('Auto-create chart of account method called');
-              return _context0.abrupt("return", null);
-            case 5:
-              _context0.prev = 5;
-              _context0.t0 = _context0["catch"](0);
-              console.error('Error auto-creating chart of account:', _context0.t0);
-              return _context0.abrupt("return", null);
-            case 9:
-            case "end":
-              return _context0.stop();
-          }
-        }, _callee0, null, [[0, 5]]);
-      }))();
-    },
-    // Submit form
-    submitForm: function submitForm() {
-      var _this12 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee1() {
-        var isValid, submitData;
-        return _regeneratorRuntime().wrap(function _callee1$(_context1) {
-          while (1) switch (_context1.prev = _context1.next) {
-            case 0:
-              console.log('=== CLIENTFORM SUBMITFORM CALLED ===');
-              console.log('Form object:', _this12.form);
-              console.log('Form type:', _typeof(_this12.form));
-              console.log('Form data method:', _this12.form ? _typeof(_this12.form.data) : 'No form');
-              console.log('isNewClient:', _this12.isNewClient);
-              console.log('initialData:', _this12.initialData);
-              if (_this12.form) {
-                _context1.next = 10;
-                break;
-              }
-              console.error('Form is not initialized!');
-              if (window.toast && typeof window.toast.fire === 'function') {
-                window.toast.fire({
-                  type: "error",
-                  title: _this12.$t("Form is not ready"),
-                  text: _this12.$t("Please wait a moment and try again.")
-                });
-              } else {
-                alert(_this12.$t("Form is not ready. Please wait a moment and try again."));
-              }
-              return _context1.abrupt("return");
-            case 10:
-              if (!(!_this12.form.data || typeof _this12.form.data !== 'function')) {
-                _context1.next = 14;
-                break;
-              }
-              console.error('Form data method is not available!');
-              if (window.toast && typeof window.toast.fire === 'function') {
-                window.toast.fire({
-                  type: "error",
-                  title: _this12.$t("Form is not properly initialized"),
-                  text: _this12.$t("Please refresh the page and try again.")
-                });
-              } else {
-                alert(_this12.$t("Form is not properly initialized. Please refresh the page and try again."));
-              }
-              return _context1.abrupt("return");
-            case 14:
-              _context1.prev = 14;
-              console.log('Validating form...');
-              _context1.next = 18;
-              return _this12.validateForm();
-            case 18:
-              isValid = _context1.sent;
-              console.log('Validation result:', isValid);
-              if (isValid) {
-                _context1.next = 24;
-                break;
-              }
-              console.log('Form validation failed');
-              if (window.toast && typeof window.toast.fire === 'function') {
-                window.toast.fire({
-                  type: "error",
-                  title: _this12.$t("Please fill in all required fields correctly.")
-                });
-              }
-              return _context1.abrupt("return");
-            case 24:
-              console.log('Form validation passed, preparing submit data...');
-
-              // Map form data to API format
-              submitData = {
-                // Explicitly include all form fields to ensure they are sent
-                codeNumber: _this12.form.codeNumber,
-                notes: _this12.form.notes,
-                displayLanguage: _this12.form.displayLanguage,
-                status: _this12.form.status,
-                // Client Details
-                type: _this12.form.type,
-                taxStatus: _this12.form.taxStatus || 'non_taxable',
-                tax_status: _this12.form.taxStatus || 'non_taxable',
-                // Also send as snake_case
-                fullName: _this12.form.fullName,
-                businessName: _this12.form.businessName,
-                firstName: _this12.form.firstName,
-                lastName: _this12.form.lastName,
-                phone: _this12.form.phone,
-                phoneNumber: _this12.form.phoneNumber || '',
-                // Explicitly include phone number, default to empty string
-                email: _this12.form.email,
-                streetAddress1: _this12.form.streetAddress1,
-                streetAddress2: _this12.form.streetAddress2,
-                city: _this12.form.city,
-                state: _this12.form.state,
-                postalCode: _this12.form.postalCode,
-                country: _this12.form.country,
-                neighbourhood: _this12.form.neighbourhood,
-                saudi_region: _this12.form.saudi_region,
-                commercialRegister: _this12.form.commercialRegister,
-                taxCard: _this12.form.taxCard,
-                // Saudi National Address Fields
-                buildingNumber: _this12.form.buildingNumber,
-                streetNumber: _this12.form.streetNumber,
-                districtNumber: _this12.form.districtNumber,
-                unitNumber: _this12.form.unitNumber,
-                additionalNumber: _this12.form.additionalNumber,
-                // Additional Fields
-                image: _this12.form.image,
-                attachments: _this12.form.attachments,
-                isSendEmail: _this12.form.isSendEmail,
-                isSendSMS: _this12.form.isSendSMS,
-                // Map legacy fields for backward compatibility
-                name: _this12.form.type === 'Individual' ? _this12.form.fullName : _this12.form.businessName,
-                companyName: _this12.form.businessName,
-                taxRegistrationNumber: _this12.form.taxRegistrationNumber || _this12.form.taxCard,
-                address: _this12.form.streetAddress1,
-                // Include representatives data
-                representatives: _this12.form.representatives || [],
-                // Chart of Account
-                chartOfAccountId: _this12.form.chartOfAccountId
-              };
-              console.log('Emitting submit event with data...');
-
-              // Emit submit event with form data
-              _this12.$emit('submit', submitData);
-              console.log('Submit event emitted successfully');
-              _context1.next = 35;
-              break;
-            case 31:
-              _context1.prev = 31;
-              _context1.t0 = _context1["catch"](14);
-              console.error('Error in submitForm:', _context1.t0);
-              if (window.toast && typeof window.toast.fire === 'function') {
-                window.toast.fire({
-                  type: "error",
-                  title: _this12.$t("Error submitting form"),
-                  text: _context1.t0.message || 'Unknown error occurred'
-                });
-              } else {
-                alert("Error submitting form: ".concat(_context1.t0.message || 'Unknown error occurred'));
-              }
-            case 35:
-            case "end":
-              return _context1.stop();
-          }
-        }, _callee1, null, [[14, 31]]);
-      }))();
-    },
-    // Create new chart of account
-    createNewAccount: function createNewAccount() {
-      var _this13 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
-        return _regeneratorRuntime().wrap(function _callee10$(_context10) {
-          while (1) switch (_context10.prev = _context10.next) {
-            case 0:
-              try {
-                _this13.isCreatingAccount = true;
-
-                // This method would implement the logic to create a new chart of account
-                // For now, we'll just show a message
-                if (window.toast && typeof window.toast.fire === 'function') {
-                  window.toast.fire({
-                    type: 'info',
-                    title: _this13.$t('Create New Account'),
-                    text: _this13.$t('This feature is not yet implemented.')
-                  });
-                }
-              } catch (error) {
-                console.error('Error creating new account:', error);
-                if (window.toast && typeof window.toast.fire === 'function') {
-                  window.toast.fire({
-                    type: 'error',
-                    title: _this13.$t('Error'),
-                    text: _this13.$t('Failed to create new account')
-                  });
-                }
-              } finally {
-                _this13.isCreatingAccount = false;
-              }
-            case 1:
-            case "end":
-              return _context10.stop();
-          }
-        }, _callee10);
-      }))();
-    }
-  }
-});
-;// ./resources/js/components/ClientForm.vue?vue&type=script&lang=js
- /* harmony default export */ const components_ClientFormvue_type_script_lang_js = (ClientFormvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientForm.vue?vue&type=style&index=0&id=3d20362f&prod&scoped=true&lang=css
-var ClientFormvue_type_style_index_0_id_3d20362f_prod_scoped_true_lang_css = __webpack_require__(73371);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientForm.vue?vue&type=style&index=0&id=3d20362f&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(ClientFormvue_type_style_index_0_id_3d20362f_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const components_ClientFormvue_type_style_index_0_id_3d20362f_prod_scoped_true_lang_css = (ClientFormvue_type_style_index_0_id_3d20362f_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/ClientForm.vue?vue&type=style&index=0&id=3d20362f&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/ClientForm.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  components_ClientFormvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "3d20362f",
-  null
-  
-)
-
-/* harmony default export */ const ClientForm = (component.exports);
 
 /***/ }),
 
@@ -113672,7 +113692,7 @@ var SettingsSidebar = __webpack_require__(21524);
 // EXTERNAL MODULE: ./resources/js/components/VModal.vue + 5 modules
 var VModal = __webpack_require__(63764);
 // EXTERNAL MODULE: ./resources/js/components/ClientForm.vue + 6 modules
-var ClientForm = __webpack_require__(79464);
+var ClientForm = __webpack_require__(40773);
 ;// ./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vform/src/components/bootstrap4/AlertError.vue?vue&type=template&id=96b49df0
 var AlertErrorvue_type_template_id_96b49df0_render = function render(){var _vm=this,_c=_vm._self._c;return (_vm.form.errors.any())?_c('div',{staticClass:"alert alert-danger alert-dismissible",attrs:{"role":"alert"}},[(_vm.dismissible)?_c('button',{staticClass:"close",attrs:{"type":"button","aria-label":"Dismiss"},on:{"click":_vm.dismiss}},[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("×")])]):_vm._e(),_vm._v(" "),_vm._t("default",function(){return [(_vm.form.errors.has('error'))?_c('div',{domProps:{"innerHTML":_vm._s(_vm.form.errors.get('error'))}}):(_vm.form.errors.has('message'))?_c('div',{domProps:{"innerHTML":_vm._s(_vm.form.errors.get('message'))}}):_c('div',{domProps:{"innerHTML":_vm._s(_vm.message)}})]})],2):_vm._e()
 }

@@ -220,35 +220,38 @@
 
             <!-- City and Neighbourhood -->
             <div class="row">
-              <!-- City - Always shown, disabled until country is selected -->
-              <div class="form-group col-form-6">
-                <label for="city">
-                  {{ $t("City") }}
-                  <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
-                </label>
-                <!-- Saudi Arabia City -->
-                <template v-if="form.country === 'SA'">
-                  <v-select v-if="saudiCities.length > 0" v-model="form.city" :options="saudiCities" label="name"
-                    :reduce="option => option.name" :placeholder="$t('Select City')" :searchable="true"
-                    :clearable="false" class="saudi-location-select" :class="{ 'is-invalid': form.errors.has('city') }"
-                    :disabled="!form.country || !form.saudi_region">
-                    <template #option="{ name_ar, name_en }">
-                      <div>{{ $i18n.locale === 'ar' ? name_ar : name_en }}</div>
-                    </template>
-                    <template #selected-option="{ name_ar, name_en }">
-                      <div>{{ $i18n.locale === 'ar' ? name_ar : name_en }}</div>
-                    </template>
-                  </v-select>
+              <!-- City - Shown only when Region is selected (for SA) or Country is selected (for non-SA) -->
+              <transition name="fade">
+                <div v-show="shouldShowCity" class="form-group col-form-6 city-field">
+                  <label for="city">
+                    {{ $t("City") }}
+                    <span v-if="form.taxStatus === 'taxable'" class="required">*</span>
+                  </label>
+                  <!-- Saudi Arabia City -->
+                  <template v-if="form.country === 'SA'">
+                    <v-select v-if="saudiCities.length > 0" v-model="form.city" :options="saudiCities" label="name"
+                      :reduce="option => option.name" :placeholder="$t('Select City')" :searchable="true"
+                      :clearable="false" class="saudi-location-select"
+                      :class="{ 'is-invalid': form.errors.has('city') }"
+                      :disabled="!form.country || !form.saudi_region">
+                      <template #option="{ name_ar, name_en }">
+                        <div>{{ $i18n.locale === 'ar' ? name_ar : name_en }}</div>
+                      </template>
+                      <template #selected-option="{ name_ar, name_en }">
+                        <div>{{ $i18n.locale === 'ar' ? name_ar : name_en }}</div>
+                      </template>
+                    </v-select>
+                    <input v-else id="city" v-model="form.city" type="text" class="form-control"
+                      :class="{ 'is-invalid': form.errors.has('city') }" name="city"
+                      :placeholder="$t('Enter city name')" :disabled="!form.country || !form.saudi_region" />
+                  </template>
+                  <!-- Non-Saudi City -->
                   <input v-else id="city" v-model="form.city" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('city') }" name="city" :placeholder="$t('Enter city name')"
-                    :disabled="!form.country || !form.saudi_region" />
-                </template>
-                <!-- Non-Saudi City -->
-                <input v-else id="city" v-model="form.city" type="text" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('city') }" name="city" :placeholder="$t('Enter city')"
-                  :disabled="!form.country" />
-                <has-error :form="form" field="city" />
-              </div>
+                    :class="{ 'is-invalid': form.errors.has('city') }" name="city" :placeholder="$t('Enter city')"
+                    :disabled="!form.country" />
+                  <has-error :form="form" field="city" />
+                </div>
+              </transition>
               <div class="form-group col-form-6">
                 <label for="neighbourhood">
                   {{ $t("Neighbourhood") }}
@@ -378,7 +381,7 @@
               </div>
               <div class="form-group col-form-6">
                 <label for="commercialRegister">{{ $t("CR") }} <span class="text-muted">({{ $t("Optional")
-                }})</span></label>
+                    }})</span></label>
                 <input id="commercialRegister" v-model="form.commercialRegister" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('commercialRegister') }" name="commercialRegister"
                   :placeholder="$t('Enter commercial register number')" />
@@ -839,7 +842,7 @@ export default {
 
     // Watch for country changes - clear state when Saudi Arabia is selected
     'form.country': {
-      handler(newValue, oldValue) {
+      handler(newValue) {
         if (newValue === 'SA') {
           // Clear state field when Saudi Arabia is selected
           this.form.state = '';
@@ -878,6 +881,16 @@ export default {
         ...country,
         name: this.$t(country.nameKey) || country.nameKey
       }));
+    },
+    // Determine if City field should be shown
+    shouldShowCity() {
+      if (this.form.country === 'SA') {
+        // For Saudi Arabia, show City only when Region is selected
+        return !!this.form.saudi_region;
+      } else {
+        // For non-Saudi countries, show City when Country is selected
+        return !!this.form.country;
+      }
     }
   },
   created() {
@@ -1425,13 +1438,13 @@ export default {
         // Get current branch ID
         const user = this.$store.getters['auth/user'] || {}
         const branchId = user.default_branch_id || null
-        
+
         if (!branchId) {
           console.error('Branch ID is required')
           this.routingSetting = { main_account_id: null }
           return
         }
-        
+
         // Get the specific clients_account routing setting
         const response = await this.$http.get('/api/account-routing-settings', {
           params: { branch_id: branchId }
@@ -2168,5 +2181,28 @@ textarea.form-control:focus {
     flex: 0 0 100%;
     max-width: 100%;
   }
+}
+
+/* City field fade transition */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.fade-enter-to,
+.fade-leave {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Prevent layout jump when city field appears/disappears */
+.city-field {
+  transition: all 0.3s ease;
 }
 </style>
