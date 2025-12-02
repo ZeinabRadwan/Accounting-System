@@ -11,6 +11,7 @@ use App\Models\GeneralSetting;
 use App\Models\PaymentVoucher;
 use App\Models\Product;
 use App\Models\Purchase;
+use App\Models\PurchasePayment;
 use App\Models\PurchaseProduct;
 use App\Notifications\PurchaseNotification;
 use App\Notifications\PurchasePaymentNotification;
@@ -829,103 +830,127 @@ class PurchaseController extends Controller
     // store purchase payment
     public function storePurchasePayment(Request $request)
     {
-        // Get country setting
-        $country = GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
-        $isSaudiArabia = $country === 'SA';
+        try {
+            DB::beginTransaction();
 
-        $maxAmount = $request->selectedPurchase['due'] <= $request->account['availableBalance'] ? $request->selectedPurchase['due'] : $request->account['availableBalance'];
-        // validate request
-        $this->validate($request, [
-            'selectedPurchase' => 'required|array|min:1',
-            'paidAmount' => 'required|numeric|min:1|max:'.$maxAmount,
-            'account' => 'required',
-            'chequeNo' => 'nullable|string|max:255',
-            'receiptNo' => 'nullable|string|max:255',
-            'paymentDate' => 'nullable|date_format:Y-m-d',
-            'note' => 'nullable|string|max:255',
-        ]);
+            // Get country setting
+            $country = GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
+            $isSaudiArabia = $country === 'SA';
 
-        $purchase = Purchase::where('slug', $request->selectedPurchase['slug'])->first();
+            $maxAmount = $request->selectedPurchase['due'] <= $request->account['availableBalance'] ? $request->selectedPurchase['due'] : $request->account['availableBalance'];
+            // validate request
+            $this->validate($request, [
+                'selectedPurchase' => 'required|array|min:1',
+                'paidAmount' => 'required|numeric|min:1|max:'.$maxAmount,
+                'account' => 'required',
+                'chequeNo' => 'nullable|string|max:255',
+                'receiptNo' => 'nullable|string|max:255',
+                'paymentDate' => 'nullable|date_format:Y-m-d',
+                'note' => 'nullable|string|max:255',
+            ]);
 
-        // Prevent adding payment to inactive purchases
-        if (! $purchase || (int) $purchase->status !== 1) {
-            return $this->responseWithError('Cannot add payment to an inactive purchase. You have to send the purchase first.');
-        }
+            $purchase = Purchase::where('slug', $request->selectedPurchase['slug'])->first();
 
-        $user = auth()->user();
-        $userId = $user->id;
-        $branchId = (int) ($user->default_branch_id ?? 0);
-
-        // Get account
-        $account = Account::findOrFail($request->account['id']);
-
-        // Prepare voucher data for purchase payment
-        $voucherData = [
-            'slug' => uniqid(),
-            'voucher_type' => 0, // Send (صرف)
-            'entity_type' => 'supplier',
-            'supplier_id' => $purchase->supplier_id,
-            'payment_method' => 'purchase',
-            'purchase_id' => $purchase->id,
-            'amount' => $request->paidAmount,
-            'account_id' => $account->id,
-            'date' => $request->paymentDate,
-            'cheque_no' => $request->chequeNo ?? null,
-            'receipt_no' => $request->receiptNo ?? null,
-            'note' => clean($request->note),
-            'status' => $request->status,
-            'created_by' => $userId,
-            'branch_id' => $branchId,
-        ];
-
-        // Generate transaction reason
-        $reason = '['.config('config.purchasePrefix').'-'.$purchase->purchase_no.'] Purchase Payment sent from ['.$account->account_number.']';
-
-        // create transaction
-        $transaction = AccountTransaction::create([
-            'account_id' => $account->id,
-            'amount' => $request->paidAmount,
-            'reason' => $reason,
-            'type' => 0,
-            'cheque_no' => $request->chequeNo,
-            'receipt_no' => $request->receiptNo,
-            'transaction_date' => $request->paymentDate,
-            'created_by' => $userId,
-            'status' => $request->status,
-            'branch_id' => $branchId,
-        ]);
-
-        $voucherData['transaction_id'] = $transaction->id;
-
-        // Create payment voucher instead of purchase payment
-        $voucher = PaymentVoucher::create($voucherData);
-
-        // Create journal entry for payment voucher (skip for Saudi Arabia)
-        if (! $isSaudiArabia && $request->status == 1) {
-            try {
-                $journalService = new BusinessTransactionJournalService;
-                $voucher->load(['supplier.chartOfAccount', 'transaction.account.chartOfAccount']);
-                $paymentJournalEntry = $journalService->createPaymentVoucherJournal($voucher, $userId);
-            } catch (\Exception $e) {
-                // Log the error but don't fail the payment creation
-                Log::error('Failed to create payment journal entry for voucher: '.$e->getMessage());
+            // Prevent adding payment to inactive purchases
+            if (! $purchase || (int) $purchase->status !== 1) {
+                return $this->responseWithError('Cannot add payment to an inactive purchase. You have to send the purchase first.');
             }
+
+            $user = auth()->user();
+            $userId = $user->id;
+            $branchId = (int) ($user->default_branch_id ?? 0);
+
+            // Get account
+            $account = Account::findOrFail($request->account['id']);
+
+            // Generate transaction reason
+            $reason = '['.config('config.purchasePrefix').'-'.$purchase->purchase_no.'] Purchase Payment sent from ['.$account->account_number.']';
+
+            // Create transaction
+            $transaction = AccountTransaction::create([
+                'account_id' => $account->id,
+                'amount' => $request->paidAmount,
+                'reason' => $reason,
+                'type' => 0,
+                'cheque_no' => $request->chequeNo,
+                'receipt_no' => $request->receiptNo,
+                'transaction_date' => $request->paymentDate ?? now()->toDateString(),
+                'created_by' => $userId,
+                'status' => $request->status ?? 1,
+                'branch_id' => $branchId,
+            ]);
+
+            // Create Purchase Payment record
+            $purchasePayment = PurchasePayment::create([
+                'slug' => uniqid(),
+                'purchase_id' => $purchase->id,
+                'transaction_id' => $transaction->id,
+                'amount' => $request->paidAmount,
+                'discount' => 0,
+                'date' => $request->paymentDate ?? now()->toDateString(),
+                'note' => clean($request->note ?? ''),
+                'status' => $request->status ?? 1,
+                'created_by' => $userId,
+                'branch_id' => $branchId,
+            ]);
+
+            // Prepare voucher data for purchase payment (Voucher Receive)
+            $voucherData = [
+                'slug' => uniqid(),
+                'voucher_type' => 0, // Send (صرف)
+                'entity_type' => 'supplier',
+                'supplier_id' => $purchase->supplier_id,
+                'payment_method' => 'purchase',
+                'purchase_id' => $purchase->id,
+                'amount' => $request->paidAmount,
+                'account_id' => $account->id,
+                'transaction_id' => $transaction->id,
+                'date' => $request->paymentDate ?? now()->toDateString(),
+                'cheque_no' => $request->chequeNo ?? null,
+                'receipt_no' => $request->receiptNo ?? null,
+                'note' => clean($request->note ?? ''),
+                'status' => $request->status ?? 1,
+                'created_by' => $userId,
+                'branch_id' => $branchId,
+            ];
+
+            // Create payment voucher (Voucher Receive for supplier)
+            $voucher = PaymentVoucher::create($voucherData);
+
+            // Create journal entry for purchase payment (skip for Saudi Arabia)
+            if (! $isSaudiArabia && ($request->status ?? 1) == 1) {
+                try {
+                    $journalService = new BusinessTransactionJournalService;
+                    $paymentJournalEntry = $journalService->createPurchasePaymentJournal($purchase, $request->paidAmount, $userId);
+                } catch (\Exception $e) {
+                    // Log the error but don't fail the payment creation
+                    Log::error('Failed to create purchase payment journal entry: '.$e->getMessage());
+                }
+            }
+
+            // Update purchase
+            $purchase->update([
+                'is_paid' => $purchase->totalDue() <= 0 ? 1 : 0,
+            ]);
+
+            // Send notifications
+            if ($request->isSendEmail || $request->isSendSMS) {
+                $purchase['amount_paid'] = $request->paidAmount;
+                $purchase->supplier->notify(new PurchasePaymentNotification($purchase, [
+                    'isSendEmail' => filter_var($request->isSendEmail ?? false, FILTER_VALIDATE_BOOLEAN),
+                    'isSendSMS' => filter_var($request->isSendSMS ?? false, FILTER_VALIDATE_BOOLEAN),
+                ]));
+            }
+
+            DB::commit();
+
+            return $this->responseWithSuccess('Supplier payment added successfully!');
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::error('Failed to create purchase payment: '.$e->getMessage());
+
+            return $this->responseWithError('Failed to create purchase payment: '.$e->getMessage());
         }
-
-        // update purchase
-        $purchase->update([
-            'is_paid' => $purchase->totalDue() <= 0 ? 1 : 0,
-        ]);
-
-        if ($request->isSendEmail || $request->isSendEmail) {
-            $purchase['amount_paid'] = $request->paidAmount;
-            $purchase->supplier->notify(new PurchasePaymentNotification($purchase, [
-                'isSendEmail' => filter_var($request->isSendEmail, FILTER_VALIDATE_BOOLEAN),
-                'isSendSMS' => filter_var($request->isSendSMS, FILTER_VALIDATE_BOOLEAN),
-            ]));
-        }
-
-        return $this->responseWithSuccess('Supplier payment added successfully!');
     }
 
     /**

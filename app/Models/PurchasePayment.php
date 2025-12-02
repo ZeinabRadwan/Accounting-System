@@ -16,7 +16,7 @@ class PurchasePayment extends Model
      * @var array
      */
     protected $fillable = [
-        'purchase_id', 'slug', 'transaction_id', 'amount', 'date', 'note', 'status', 'created_by', 'branch_id',
+        'purchase_id', 'slug', 'transaction_id', 'amount', 'discount', 'date', 'note', 'status', 'created_by', 'branch_id',
     ];
 
     /**

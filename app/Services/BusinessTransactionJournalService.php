@@ -718,11 +718,18 @@ class BusinessTransactionJournalService
             // Generate unique reference for payment
             $paymentReference = $purchase->purchase_no.'-PAY-'.time();
 
+            // Get the purchase payment to check for existing journal entry
+            $purchasePayment = $purchase->purchasePayments()->latest()->first();
+
             // Check if journal entry already exists for this payment (very unlikely but safe)
-            $existingJournalEntry = JournalEntry::where('reference', $paymentReference)
-                ->where('source_type', Purchase::class)
-                ->where('source_id', $purchase->id)
-                ->first();
+            $purchasePaymentId = $purchasePayment ? $purchasePayment->id : null;
+            $existingJournalEntry = null;
+            if ($purchasePaymentId) {
+                $existingJournalEntry = JournalEntry::where('reference', $paymentReference)
+                    ->where('source_type', PurchasePayment::class)
+                    ->where('source_id', $purchasePaymentId)
+                    ->first();
+            }
 
             if ($existingJournalEntry) {
                 Log::info("Journal entry already exists for purchase payment {$paymentReference} with ID: {$existingJournalEntry->id}");
@@ -742,7 +749,6 @@ class BusinessTransactionJournalService
             // Get the bank account from the purchase payment transaction
             $bankAccount = null;
             $cashbookAccount = null;
-            $purchasePayment = $purchase->purchasePayments()->latest()->first();
             if ($purchasePayment && $purchasePayment->transaction_id) {
                 $transaction = \App\Models\AccountTransaction::find($purchasePayment->transaction_id);
                 if ($transaction && $transaction->account) {
@@ -768,6 +774,9 @@ class BusinessTransactionJournalService
             // Get default fiscal year and accounting period
             $defaults = $this->getDefaultFiscalYearAndPeriod();
 
+            // Get the purchase payment ID
+            $purchasePaymentId = $purchasePayment ? $purchasePayment->id : $purchase->id;
+
             // Create journal entry
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
@@ -781,7 +790,7 @@ class BusinessTransactionJournalService
                 'posted_by' => $userId,
                 'posted_at' => now(),
                 'source_type' => PurchasePayment::class,
-                'source_id' => $purchase->id,
+                'source_id' => $purchasePaymentId,
                 'fiscal_year_id' => $defaults['fiscal_year_id'],
                 'accounting_period_id' => $defaults['accounting_period_id'],
                 'branch_id' => $purchase->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0),
