@@ -564,20 +564,8 @@ export default {
     // Load account routing settings
     async loadAccountRoutingSettings() {
       try {
-        // Get current branch ID
-        const user = this.$store?.getters?.['auth/user'] || {}
-        const branchId = user.default_branch_id || null
-        
-        if (!branchId) {
-          console.error('Branch ID is required for account routing settings')
-          this.accountRoutingSettings = {}
-          return
-        }
-        
-        const response = await axios.get(window.location.origin + "/api/account-routing-settings/product-account-routing", {
-          params: { branch_id: branchId }
-        })
-        this.accountRoutingSettings = response.data.data || {}
+        const response = await axios.get(window.location.origin + "/api/account-routing-settings/product-account-routing");
+        this.accountRoutingSettings = response.data.data || {};
 
         // Set flags for automatic routing
         this.isSalesAccountAutomatic = this.accountRoutingSettings.sales &&

@@ -1253,7 +1253,7 @@ var dist = __webpack_require__(12616);
 // EXTERNAL MODULE: ./resources/js/components/ClientCreateModal.vue + 5 modules
 var ClientCreateModal = __webpack_require__(65584);
 // EXTERNAL MODULE: ./resources/js/components/ProductCreateModal.vue + 17 modules
-var ProductCreateModal = __webpack_require__(99414);
+var ProductCreateModal = __webpack_require__(70269);
 // EXTERNAL MODULE: ./resources/js/components/StockAdjustmentModal.vue + 6 modules
 var StockAdjustmentModal = __webpack_require__(75528);
 // EXTERNAL MODULE: ./resources/js/components/ItemsTable.vue + 5 modules
@@ -5437,25 +5437,6 @@ exports["default"] = Locale;
 
 /***/ }),
 
-/***/ 59055:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-737beebd]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-bottom:1.25rem;margin-top:20px;transition:all .2s ease}.form-card[data-v-737beebd]:hover{box-shadow:0 .1rem .5rem 0 rgba(58,59,69,.15)}.form-card .card-header[data-v-737beebd]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:12px 16px}.form-card .card-header .section-title[data-v-737beebd]{border:none;color:#fff;font-size:14px;font-weight:600;margin:0;padding:0}.form-card .card-header .section-title[data-v-737beebd]:after{display:none}.form-card .card-header .section-title i[data-v-737beebd]{color:hsla(0,0%,100%,.8)}.form-card .card-body[data-v-737beebd]{padding:16px}.section-title[data-v-737beebd]{border-bottom:1px solid #e9ecef;color:#495057;font-weight:600;margin-bottom:15px;padding-bottom:8px}.form-group[data-v-737beebd]{margin-bottom:1rem}.form-group label[data-v-737beebd]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-737beebd]{color:#dc3545;font-weight:700}.row[data-v-737beebd]{margin-bottom:1rem}.row[data-v-737beebd]:last-child{margin-bottom:0}.auto-assign-btn[data-v-737beebd]{min-width:40px;padding:.375rem .5rem;white-space:nowrap}.auto-assign-btn[data-v-737beebd]:disabled{cursor:not-allowed;opacity:.6}.form-text[data-v-737beebd]{color:#6c757d;font-size:.8rem;margin-top:3px}.image-preview[data-v-737beebd]{text-align:center}.image-preview img[data-v-737beebd]{border:1px solid #dee2e6;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.1)}.custom-file-label[data-v-737beebd]{background-color:#f8f9fa;border:1px dashed #dee2e6;cursor:pointer;font-size:.85rem;transition:all .2s ease}.custom-file-label[data-v-737beebd]:hover{background-color:#e3f2fd;border-color:#007bff}.custom-file-label i[data-v-737beebd]{color:#6c757d}.create-button[data-v-737beebd]{cursor:pointer;text-decoration:none}.create-btn[data-v-737beebd]{border-left:none;border-radius:0 .25rem .25rem 0;cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-737beebd]:hover{background-color:#e9ecef}.category-select[data-v-737beebd]{margin-right:0!important}.category-select .vs__dropdown-toggle[data-v-737beebd]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .category-select .vs__dropdown-toggle[data-v-737beebd]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}[dir=rtl] .create-btn[data-v-737beebd]{border-left:none;border-radius:.25rem 0 0 .25rem;border-right:1px solid #ced4da}[dir=ltr] .create-btn[data-v-737beebd]{border-left:1px solid #ced4da;border-radius:0 .25rem .25rem 0;border-right:none}.unit-select[data-v-737beebd]{margin-right:0!important}.unit-select .vs__dropdown-toggle[data-v-737beebd]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .unit-select .vs__dropdown-toggle[data-v-737beebd]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}@media (max-width:768px){.section-title[data-v-737beebd]{font-size:.95rem;margin-bottom:12px}.form-card .card-body[data-v-737beebd]{padding:.75rem}.auto-assign-btn[data-v-737beebd]{font-size:.75rem;min-width:35px}}.input-group-prepend .input-group-text[data-v-737beebd]{background-color:#f8f9fa;border-color:#ced4da;color:#495057;font-size:.85rem}.v-select[data-v-737beebd]{margin-bottom:0}.is-invalid[data-v-737beebd]{border-color:#dc3545!important}.invalid-feedback[data-v-737beebd]{color:#dc3545;display:block;font-size:75%;margin-top:.2rem;width:100%}.item-type-selector[data-v-737beebd]{display:flex;gap:.5rem;margin-top:.5rem}.item-type-option[data-v-737beebd]{cursor:pointer;flex:1;position:relative;transition:all .2s ease}.item-type-option input[type=radio][data-v-737beebd]{opacity:0;pointer-events:none;position:absolute}.option-content[data-v-737beebd]{align-items:center;background:#fff;border:2px solid #e3e6f0;border-radius:6px;display:flex;flex-direction:column;justify-content:center;min-height:55px;padding:.6rem .5rem;text-align:center;transition:all .2s ease}.item-type-option:hover .option-content[data-v-737beebd]{border-color:#33a0d9;box-shadow:0 2px 6px rgba(51,160,217,.15);transform:translateY(-1px)}.item-type-option.active .option-content[data-v-737beebd]{background:#33a0d9;border-color:#33a0d9;box-shadow:0 3px 10px rgba(51,160,217,.25);color:#fff;transform:translateY(-1px)}.option-content i[data-v-737beebd]{color:#6c757d;font-size:1.1rem;margin-bottom:.3rem;transition:all .2s ease}.item-type-option.active .option-content i[data-v-737beebd]{color:hsla(0,0%,100%,.9)}.option-content span[data-v-737beebd]{color:#495057;font-size:.85rem;font-weight:600;transition:all .2s ease}.item-type-option.active .option-content span[data-v-737beebd]{color:#fff}@media (max-width:768px){.item-type-selector[data-v-737beebd]{flex-direction:column;gap:.4rem}.option-content[data-v-737beebd]{min-height:50px;padding:.5rem .4rem}.option-content i[data-v-737beebd]{font-size:1rem;margin-bottom:.25rem}.option-content span[data-v-737beebd]{font-size:.8rem}.override-checkbox-container .form-check-label[data-v-737beebd]{min-height:44px;padding:.6rem .8rem}.checkbox-text[data-v-737beebd]{font-size:.9rem}.form-check-input[data-v-737beebd]{height:16px;width:16px}}.account-label-row[data-v-737beebd]{align-items:flex-start;display:flex;flex-direction:column;gap:1rem;justify-content:space-between;margin-bottom:.5rem}.account-label[data-v-737beebd]{color:#495057;flex:1;font-size:.95rem;font-weight:500;margin-bottom:0}.toggle-switch-container[data-v-737beebd]{align-items:center;display:flex;flex-shrink:0}.toggle-switch-label[data-v-737beebd]{align-items:center;cursor:pointer;display:inline-flex;gap:.75rem;-webkit-user-select:none;-moz-user-select:none;user-select:none}.toggle-switch-wrapper[data-v-737beebd]{display:inline-block;flex-shrink:0;height:26px;position:relative;width:50px}.toggle-switch-input[data-v-737beebd]{appearance:none;-webkit-appearance:none;-moz-appearance:none;background-color:#ced4da;border-radius:26px;cursor:pointer;height:26px;left:0;margin:0;outline:none;padding:0;position:absolute;top:0;transition:background-color .3s ease;width:50px}.toggle-switch-input[data-v-737beebd]:checked{background-color:#33a0d9}.toggle-switch-input[data-v-737beebd]:focus{box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.toggle-switch-slider[data-v-737beebd]{background-color:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2);height:20px;left:3px;pointer-events:none;position:absolute;top:50%;transform:translateY(-50%);transition:transform .3s ease;width:20px}.toggle-switch-input:checked+.toggle-switch-slider[data-v-737beebd]{transform:translate(24px,-50%)}.toggle-switch-text[data-v-737beebd]{color:#495057;font-size:.9rem;font-weight:500;transition:color .2s ease;white-space:nowrap}.toggle-switch-label:has(.toggle-switch-input:checked) .toggle-switch-text[data-v-737beebd]{color:#33a0d9;font-weight:600}.alert-info[data-v-737beebd]{background-color:#d1ecf1;border-color:#bee5eb;border-radius:.375rem;font-size:.9rem;padding:.75rem 1rem}.alert-info[data-v-737beebd],.alert-info i[data-v-737beebd]{color:#0c5460}.col-form-6[data-v-737beebd]{flex:0 0 50%;max-width:50%}.col-form-6 .form-card[data-v-737beebd],.col-form-6 .form-card .card-body[data-v-737beebd]{width:100%}@media (max-width:1300px){.col-form-6[data-v-737beebd]{flex:0 0 100%;max-width:100%}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
 /***/ 59096:
 /***/ ((__unused_webpack_module, exports) => {
 
@@ -5713,7 +5694,7 @@ var render = function render() {
 var staticRenderFns = [];
 
 // EXTERNAL MODULE: ./resources/js/components/ClientForm.vue + 6 modules
-var ClientForm = __webpack_require__(40773);
+var ClientForm = __webpack_require__(99532);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ClientCreateModal.vue?vue&type=script&lang=js
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -6326,1029 +6307,7 @@ exports["default"] = Locale;
 
 /***/ }),
 
-/***/ 74261:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Rupee',
-                plural: 'Rupees',
-                singular: 'Rupee',
-                symbol: 'Rs',
-                fractionalUnit: {
-                    name: 'Cent',
-                    singular: 'Cent',
-                    plural: 'Cents',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 10000000, value: 'Crore' },
-                { number: 100000, value: 'Lakh' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 74938:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Euro',
-                plural: 'Eurot',
-                singular: 'Euro',
-                symbol: '€',
-                fractionalUnit: {
-                    name: 'Sent',
-                    singular: 'Sent',
-                    plural: 'Senti',
-                    symbol: '¢',
-                },
-            },
-            texts: {
-                and: 'Ja',
-                minus: 'Miinus',
-                only: 'Ainult',
-                point: 'Koma',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Kvadriljon' },
-                { number: 1000000000000, value: 'Triljon' },
-                { number: 1000000000, value: 'Miljard' },
-                { number: 1000000, value: 'Miljon' },
-                { number: 1000, value: 'Tuhat' },
-                { number: 900, value: 'Üheksasada' },
-                { number: 800, value: 'Kaheksasada' },
-                { number: 700, value: 'Seitsesada' },
-                { number: 600, value: 'Kuussada' },
-                { number: 500, value: 'Viissada' },
-                { number: 400, value: 'Nelisada' },
-                { number: 300, value: 'Kolmsada' },
-                { number: 200, value: 'Kakssada' },
-                { number: 100, value: 'Sada' },
-                { number: 90, value: 'Üheksakümmend' },
-                { number: 80, value: 'Kaheksakümmend' },
-                { number: 70, value: 'Seitsekümmend' },
-                { number: 60, value: 'Kuuskümmend' },
-                { number: 50, value: 'Viiskümmend' },
-                { number: 40, value: 'Nelikümmend' },
-                { number: 30, value: 'Kolmkümmend' },
-                { number: 20, value: 'Kakskümmend' },
-                { number: 19, value: 'Üheksateist' },
-                { number: 18, value: 'Kaheksateist' },
-                { number: 17, value: 'Seitseteist' },
-                { number: 16, value: 'Kuusteist' },
-                { number: 15, value: 'Viisteist' },
-                { number: 14, value: 'Neliteist' },
-                { number: 13, value: 'Kolmteist' },
-                { number: 12, value: 'Kaksteist' },
-                { number: 11, value: 'Üksteist' },
-                { number: 10, value: 'Kümme' },
-                { number: 9, value: 'Üheksa' },
-                { number: 8, value: 'Kaheksa' },
-                { number: 7, value: 'Seitse' },
-                { number: 6, value: 'Kuus' },
-                { number: 5, value: 'Viis' },
-                { number: 4, value: 'Neli' },
-                { number: 3, value: 'Kolm' },
-                { number: 2, value: 'Kaks' },
-                { number: 1, value: 'Üks' },
-                { number: 0, value: 'Null' },
-            ],
-            ignoreOneForWords: [
-                'Sada',
-                'Kakssada',
-                'Kolmsada',
-                'Nelisada',
-                'Viissada',
-                'Kuussada',
-                'Seitsesada',
-                'Kaheksasada',
-                'Üheksasada',
-            ],
-            exactWordsMapping: [
-                {
-                    number: 100,
-                    value: 'Ükssada',
-                },
-            ],
-            pluralWords: ['Miljon', 'Miljard', 'Trillion', 'Kvadriljon'],
-            pluralMark: 'it',
-            onlyInFront: true,
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 75528:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: () => (/* binding */ StockAdjustmentModal)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=template&id=651d741c&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _vm.isOpen ? _c('div', {
-    staticClass: "modal-overlay",
-    on: {
-      "click": function click($event) {
-        if ($event.target !== $event.currentTarget) return null;
-        return _vm.closeModal.apply(null, arguments);
-      }
-    }
-  }, [_c('div', {
-    staticClass: "modal-content",
-    on: {
-      "click": function click($event) {
-        $event.stopPropagation();
-      }
-    }
-  }, [_c('div', {
-    staticClass: "modal-header"
-  }, [_c('h5', {
-    staticClass: "modal-title"
-  }, [_c('i', {
-    staticClass: "fas fa-exclamation-triangle text-warning mr-2"
-  }), _vm._v("\n        " + _vm._s(_vm.$t("Insufficient Stock")) + "\n      ")]), _vm._v(" "), _c('button', {
-    staticClass: "close",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": _vm.closeModal
-    }
-  }, [_c('span', [_vm._v("×")])])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-body"
-  }, [_c('div', {
-    staticClass: "alert alert-warning",
-    attrs: {
-      "role": "alert"
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-info-circle mr-2"
-  }), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Stock Alert")) + ":")]), _vm._v("\n        " + _vm._s(_vm.$t("The selected quantity exceeds available stock for this product.")) + "\n      ")]), _vm._v(" "), _c('div', {
-    staticClass: "product-info mb-4"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-6"
-  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Product Details")))]), _vm._v(" "), _c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Name")) + ":")]), _vm._v(" " + _vm._s(_vm.product.name || 'N/A'))]), _vm._v(" "), _c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Code")) + ":")]), _vm._v(" " + _vm._s(_vm.productCodeWithPrefix))]), _vm._v(" "), _c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Current Stock")) + ":")]), _vm._v(" "), _c('span', {
-    staticClass: "badge badge-info"
-  }, [_vm._v(_vm._s(_vm.product.inventoryCount || 0))])]), _vm._v(" "), _c('p', {
-    staticClass: "mb-1"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Required Quantity")) + ":")]), _vm._v(" "), _c('span', {
-    staticClass: "badge badge-danger"
-  }, [_vm._v(_vm._s(_vm.product.qty || 0))])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
-  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Stock Shortage")))]), _vm._v(" "), _c('p', {
-    staticClass: "text-danger"
-  }, [_c('i', {
-    staticClass: "fas fa-exclamation-circle mr-1"
-  }), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.shortageQuantity))]), _vm._v(" " + _vm._s(_vm.$t("units short")) + "\n            ")])])])]), _vm._v(" "), _c('div', {
-    staticClass: "stock-options"
-  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("How to increase stock?")))]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "option-card",
-    on: {
-      "click": function click($event) {
-        $event.stopPropagation();
-        return _vm.openInventoryAdjustment.apply(null, arguments);
-      }
-    }
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "option-content"
-  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Quick Stock Adjustment")))]), _vm._v(" "), _c('p', {
-    staticClass: "text-muted"
-  }, [_vm._v(_vm._s(_vm.$t("Add stock directly to inventory")))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "option-card",
-    on: {
-      "click": function click($event) {
-        $event.stopPropagation();
-        return _vm.openPurchaseOrder.apply(null, arguments);
-      }
-    }
-  }, [_vm._m(1), _vm._v(" "), _c('div', {
-    staticClass: "option-content"
-  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Create Purchase Order")))]), _vm._v(" "), _c('p', {
-    staticClass: "text-muted"
-  }, [_vm._v(_vm._s(_vm.$t("Order more stock from supplier")))])])])])])]), _vm._v(" "), _vm.showQuickAdjustment ? _c('div', {
-    staticClass: "quick-adjustment mt-4"
-  }, [_c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('h6', {
-    staticClass: "mb-0"
-  }, [_c('i', {
-    staticClass: "fas fa-plus-circle text-success mr-2"
-  }), _vm._v("\n              " + _vm._s(_vm.$t("Quick Stock Adjustment")) + "\n            ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('form', {
-    on: {
-      "submit": function submit($event) {
-        $event.preventDefault();
-        return _vm.submitQuickAdjustment.apply(null, arguments);
-      }
-    }
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "adjustmentReason"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Reason")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.adjustmentForm.reason,
-      expression: "adjustmentForm.reason"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.adjustmentForm.errors.has('reason')
-    },
-    attrs: {
-      "id": "adjustmentReason",
-      "type": "text",
-      "placeholder": _vm.$t('Enter reason for stock adjustment'),
-      "required": ""
-    },
-    domProps: {
-      "value": _vm.adjustmentForm.reason
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.adjustmentForm, "reason", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.adjustmentForm,
-      "field": "reason"
-    }
-  })], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "adjustmentQuantity"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Quantity to Add")) + " "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.adjustmentForm.quantity,
-      expression: "adjustmentForm.quantity"
-    }],
-    staticClass: "form-control",
-    "class": {
-      'is-invalid': _vm.adjustmentForm.errors.has('quantity')
-    },
-    attrs: {
-      "id": "adjustmentQuantity",
-      "type": "number",
-      "min": "1",
-      "placeholder": _vm.$t('Enter quantity to add'),
-      "required": ""
-    },
-    domProps: {
-      "value": _vm.adjustmentForm.quantity
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.adjustmentForm, "quantity", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c('has-error', {
-    attrs: {
-      "form": _vm.adjustmentForm,
-      "field": "quantity"
-    }
-  })], 1)])]), _vm._v(" "), _c('div', {
-    staticClass: "form-group"
-  }, [_c('label', {
-    attrs: {
-      "for": "adjustmentNote"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("Note")))]), _vm._v(" "), _c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.adjustmentForm.note,
-      expression: "adjustmentForm.note"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      "id": "adjustmentNote",
-      "rows": "3",
-      "placeholder": _vm.$t('Enter additional notes (optional)')
-    },
-    domProps: {
-      "value": _vm.adjustmentForm.note
-    },
-    on: {
-      "input": function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.adjustmentForm, "note", $event.target.value);
-      }
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "form-actions"
-  }, [_c('button', {
-    staticClass: "btn btn-secondary",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": function click($event) {
-        _vm.showQuickAdjustment = false;
-      }
-    }
-  }, [_vm._v("\n                  " + _vm._s(_vm.$t("Cancel")) + "\n                ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "type": "submit",
-      "disabled": _vm.adjustmentForm.busy
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-save mr-1"
-  }), _vm._v("\n                  " + _vm._s(_vm.$t("Add Stock")) + "\n                ")])])])])])]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-secondary",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": _vm.closeModal
-    }
-  }, [_vm._v("\n        " + _vm._s(_vm.$t("Close")) + "\n      ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-primary",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": _vm.adjustQuantity
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-edit mr-1"
-  }), _vm._v("\n        " + _vm._s(_vm.$t("Adjust Quantity")) + "\n      ")])])])]) : _vm._e();
-};
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "option-icon"
-  }, [_c('i', {
-    staticClass: "fas fa-plus-circle text-success"
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "option-icon"
-  }, [_c('i', {
-    staticClass: "fas fa-shopping-cart text-primary"
-  })]);
-}];
-
-;// ./resources/js/components/StockAdjustmentModal.vue?vue&type=template&id=651d741c&scoped=true
-
-// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
-var vform_es = __webpack_require__(63216);
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-// EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
-var sweetalert2_all = __webpack_require__(78465);
-var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all);
-// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__(95353);
-// EXTERNAL MODULE: ./resources/js/plugins/filter.js
-var filter = __webpack_require__(44121);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=script&lang=js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-
-
-
-
-var toast = sweetalert2_all_default().mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true
-});
-/* harmony default export */ const StockAdjustmentModalvue_type_script_lang_js = ({
-  name: "StockAdjustmentModal",
-  props: {
-    isOpen: {
-      type: Boolean,
-      "default": false
-    },
-    product: {
-      type: Object,
-      "default": function _default() {
-        return {};
-      }
-    }
-  },
-  data: function data() {
-    return {
-      showQuickAdjustment: false,
-      adjustmentForm: new vform_es/* default */.Ay({
-        reason: "",
-        quantity: 1,
-        note: ""
-      })
-    };
-  },
-  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["appInfo"])), {}, {
-    prefix: function prefix() {
-      var _this$appInfo;
-      return ((_this$appInfo = this.appInfo) === null || _this$appInfo === void 0 ? void 0 : _this$appInfo.productPrefix) || "";
-    },
-    shortageQuantity: function shortageQuantity() {
-      if (!this.product || !this.product.inventoryCount || !this.product.qty) {
-        return 0;
-      }
-      return Math.max(0, this.product.qty - this.product.inventoryCount);
-    },
-    productCodeWithPrefix: function productCodeWithPrefix() {
-      if (!this.product || !this.product.code) {
-        return 'N/A';
-      }
-      return this.prefix + this.product.code;
-    }
-  }),
-  watch: {
-    isOpen: function isOpen(newVal) {
-      console.log("Modal isOpen changed to:", newVal);
-      console.log("Product object:", this.product);
-      if (newVal && this.product) {
-        // Set default quantity to shortage amount
-        this.adjustmentForm.quantity = this.shortageQuantity || 1;
-        this.adjustmentForm.reason = "Stock shortage adjustment";
-        console.log("Modal opened with product:", this.product.name);
-      }
-    }
-  },
-  mounted: function mounted() {
-    console.log("StockAdjustmentModal mounted");
-    console.log("Initial isOpen:", this.isOpen);
-    console.log("Initial product:", this.product);
-  },
-  beforeDestroy: function beforeDestroy() {
-    console.log("StockAdjustmentModal beforeDestroy");
-    console.log("Product at destroy:", this.product);
-  },
-  methods: {
-    closeModal: function closeModal() {
-      this.$emit("close");
-      this.showQuickAdjustment = false;
-      this.adjustmentForm.reset();
-    },
-    adjustQuantity: function adjustQuantity() {
-      this.$emit("adjust-quantity", this.product);
-      this.closeModal();
-    },
-    openInventoryAdjustment: function openInventoryAdjustment() {
-      var _this = this;
-      try {
-        console.log("Opening inventory adjustment...");
-        console.log("Product object:", this.product);
-
-        // Validate product object
-        if (!this.product || !this.product.id) {
-          console.error("Invalid product object:", this.product);
-          toast.fire({
-            type: "error",
-            title: this.$t("Error"),
-            text: this.$t("Product information is missing. Please try again.")
-          });
-          return;
-        }
-
-        // Capture product data before closing modal to avoid null reference
-        var productData = {
-          id: this.product.id,
-          name: this.product.name,
-          code: this.product.code,
-          slug: this.product.slug
-        };
-        console.log("Captured product data:", productData);
-
-        // Ask parent to persist current form state before leaving
-        this.$emit('persist');
-        // Close modal first
-        this.closeModal();
-
-        // Then navigate with a small delay
-        setTimeout(function () {
-          try {
-            console.log("Navigating to adjustments.create");
-            console.log("Product ID:", productData.id);
-
-            // Get current route safely
-            var returnUrl = _this.$route ? _this.$route.fullPath : window.location.pathname;
-            console.log("Return URL:", returnUrl);
-
-            // Check if user has permission to create adjustments
-            if (!_this.$can('adjustment-create')) {
-              toast.fire({
-                type: "error",
-                title: _this.$t("Permission Denied"),
-                text: _this.$t("You don't have permission to create adjustments.")
-              });
-              return;
-            }
-
-            // Try navigation with fallback
-            _this.$router.push({
-              name: "adjustments.create",
-              query: {
-                productId: productData.id,
-                returnUrl: returnUrl
-              }
-            }).then(function () {
-              console.log("Navigation successful");
-            })["catch"](function (err) {
-              console.error("Navigation error:", err);
-
-              // Fallback: show alert with manual navigation option
-              sweetalert2_all_default().fire({
-                title: _this.$t("Navigate to Adjustments"),
-                text: _this.$t("Click OK to go to the adjustments page manually."),
-                icon: 'info',
-                showCancelButton: true,
-                confirmButtonText: _this.$t("Go to Adjustments"),
-                cancelButtonText: _this.$t("Cancel")
-              }).then(function (result) {
-                if (result.isConfirmed) {
-                  window.location.href = '/inventory-adjustments/create?productId=' + productData.id + '&returnUrl=' + encodeURIComponent(returnUrl);
-                }
-              });
-            });
-          } catch (error) {
-            console.error("Error in navigation timeout:", error);
-            toast.fire({
-              type: "error",
-              title: _this.$t("Error"),
-              text: _this.$t("An error occurred while navigating. Please try again.")
-            });
-          }
-        }, 300);
-      } catch (error) {
-        console.error("Error in openInventoryAdjustment:", error);
-        toast.fire({
-          type: "error",
-          title: this.$t("Error"),
-          text: this.$t("An unexpected error occurred. Please try again.")
-        });
-      }
-    },
-    openPurchaseOrder: function openPurchaseOrder() {
-      var _this2 = this;
-      console.log("Opening purchase order...");
-      // Close modal first
-      this.closeModal();
-      // Then navigate with a small delay
-      setTimeout(function () {
-        console.log("Navigating to purchases.create");
-        _this2.$router.push({
-          name: "purchases.create"
-        })["catch"](function (err) {
-          console.error("Navigation error:", err);
-        });
-      }, 300);
-    },
-    submitQuickAdjustment: function submitQuickAdjustment() {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var adjustmentData;
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
-            case 0:
-              _context.prev = 0;
-              // Create a quick inventory adjustment
-              adjustmentData = {
-                adjustmentReason: _this3.adjustmentForm.reason,
-                adjustmentDate: new Date().toISOString().slice(0, 10),
-                note: _this3.adjustmentForm.note,
-                status: 1,
-                selectedProducts: [{
-                  slug: _this3.product.slug,
-                  adjustType: "Increment",
-                  adjustQty: parseInt(_this3.adjustmentForm.quantity),
-                  purchasePrice: _this3.product.avgPurchasePrice || 0
-                }]
-              };
-              _context.next = 4;
-              return axios_default().post("/api/inventory-adjustments", adjustmentData);
-            case 4:
-              toast.fire({
-                type: "success",
-                title: _this3.$t("Stock added successfully"),
-                text: _this3.$t("The product stock has been increased.")
-              });
-
-              // Emit event to refresh product data
-              _this3.$emit("stock-updated", {
-                product: _this3.product,
-                newQuantity: parseInt(_this3.adjustmentForm.quantity)
-              });
-              _this3.closeModal();
-              _context.next = 13;
-              break;
-            case 9:
-              _context.prev = 9;
-              _context.t0 = _context["catch"](0);
-              console.error("Error adding stock:", _context.t0);
-              toast.fire({
-                type: "error",
-                title: _this3.$t("Error"),
-                text: _this3.$t("Failed to add stock. Please try again.")
-              });
-            case 13:
-            case "end":
-              return _context.stop();
-          }
-        }, _callee, null, [[0, 9]]);
-      }))();
-    }
-  }
-});
-;// ./resources/js/components/StockAdjustmentModal.vue?vue&type=script&lang=js
- /* harmony default export */ const components_StockAdjustmentModalvue_type_script_lang_js = (StockAdjustmentModalvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=style&index=0&id=651d741c&prod&scoped=true&lang=css
-var StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css = __webpack_require__(85989);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=style&index=0&id=651d741c&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const components_StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css = (StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/StockAdjustmentModal.vue?vue&type=style&index=0&id=651d741c&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/components/StockAdjustmentModal.vue
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  components_StockAdjustmentModalvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "651d741c",
-  null
-  
-)
-
-/* harmony default export */ const StockAdjustmentModal = (component.exports);
-
-/***/ }),
-
-/***/ 82779:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Peso',
-                plural: 'Pesos',
-                singular: 'Peso',
-                symbol: '₱',
-                fractionalUnit: {
-                    name: 'Cent',
-                    singular: 'Cent',
-                    plural: 'Cents',
-                    symbol: '¢',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Quadrillion' },
-                { number: 1000000000000, value: 'Trillion' },
-                { number: 1000000000, value: 'Billion' },
-                { number: 1000000, value: 'Million' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 84463:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Dollar',
-                plural: 'Dollars',
-                singular: 'Dollar',
-                symbol: '$',
-                fractionalUnit: {
-                    name: 'Cent',
-                    plural: 'Cents',
-                    singular: 'Cent',
-                    symbol: '¢',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Quadrillion' },
-                { number: 1000000000000, value: 'Trillion' },
-                { number: 1000000000, value: 'Billion' },
-                { number: 1000000, value: 'Million' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 85989:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".modal-overlay[data-v-651d741c]{align-items:center;background-color:rgba(0,0,0,.5);display:flex;height:100%;justify-content:center;left:0;position:fixed;top:0;width:100%;z-index:1050}.modal-content[data-v-651d741c]{background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.3);max-height:90vh;max-width:800px;overflow-y:auto;width:90%}.modal-header[data-v-651d741c]{align-items:center;background-color:#f8f9fa;border-bottom:1px solid #dee2e6;border-radius:10px 10px 0 0;display:flex;justify-content:space-between;padding:20px}.modal-title[data-v-651d741c]{font-size:1.25rem;font-weight:600;margin:0}.close[data-v-651d741c]{background:none;border:none;color:#6c757d;cursor:pointer;font-size:1.5rem}.close[data-v-651d741c]:hover{color:#000}.modal-body[data-v-651d741c]{padding:20px}.modal-footer[data-v-651d741c]{background-color:#f8f9fa;border-radius:0 0 10px 10px;border-top:1px solid #dee2e6;display:flex;gap:10px;justify-content:flex-end;padding:20px}.option-card[data-v-651d741c]{align-items:center;border:2px solid #e9ecef;border-radius:8px;cursor:pointer;display:flex;margin-bottom:15px;padding:15px;transition:all .3s ease}.option-card[data-v-651d741c]:hover{background-color:#f8f9fa;border-color:#007bff;box-shadow:0 4px 8px rgba(0,0,0,.1);transform:translateY(-2px)}.option-icon[data-v-651d741c]{font-size:2rem;margin-right:15px;min-width:50px;text-align:center}.option-content h6[data-v-651d741c]{font-weight:600;margin:0 0 5px}.option-content p[data-v-651d741c]{font-size:.9rem;margin:0}.product-info[data-v-651d741c]{background-color:#f8f9fa;border-left:4px solid #007bff;border-radius:8px;padding:15px}.quick-adjustment .card[data-v-651d741c]{border:1px solid #dee2e6;border-radius:8px}.quick-adjustment .card-header[data-v-651d741c]{background-color:#e9ecef;border-bottom:1px solid #dee2e6;padding:15px}.form-actions[data-v-651d741c]{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}.required[data-v-651d741c]{color:#dc3545}.badge[data-v-651d741c]{font-size:.875em;padding:.375rem .75rem}.alert[data-v-651d741c]{border:none;border-radius:8px}.alert-warning[data-v-651d741c]{background-color:#fff3cd;border-left:4px solid #ffc107;color:#856404}[dir=rtl] .option-card[data-v-651d741c]{flex-direction:row-reverse}[dir=rtl] .option-icon[data-v-651d741c]{margin-left:15px;margin-right:0}[dir=rtl] .product-info[data-v-651d741c]{border-left:none;border-right:4px solid #007bff}[dir=rtl] .alert-warning[data-v-651d741c]{border-left:none;border-right:4px solid #ffc107}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 92952:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-class Locale {
-    constructor() {
-        this.config = {
-            currency: {
-                name: 'Naira',
-                plural: 'Naira',
-                singular: 'Naira',
-                symbol: '₦',
-                fractionalUnit: {
-                    name: 'Kobo',
-                    singular: 'Kobo',
-                    plural: 'Kobo',
-                    symbol: '',
-                },
-            },
-            texts: {
-                and: 'And',
-                minus: 'Minus',
-                only: 'Only',
-                point: 'Point',
-            },
-            numberWordsMapping: [
-                { number: 1000000000000000, value: 'Quadrillion' },
-                { number: 1000000000000, value: 'Trillion' },
-                { number: 1000000000, value: 'Billion' },
-                { number: 1000000, value: 'Million' },
-                { number: 1000, value: 'Thousand' },
-                { number: 100, value: 'Hundred' },
-                { number: 90, value: 'Ninety' },
-                { number: 80, value: 'Eighty' },
-                { number: 70, value: 'Seventy' },
-                { number: 60, value: 'Sixty' },
-                { number: 50, value: 'Fifty' },
-                { number: 40, value: 'Forty' },
-                { number: 30, value: 'Thirty' },
-                { number: 20, value: 'Twenty' },
-                { number: 19, value: 'Nineteen' },
-                { number: 18, value: 'Eighteen' },
-                { number: 17, value: 'Seventeen' },
-                { number: 16, value: 'Sixteen' },
-                { number: 15, value: 'Fifteen' },
-                { number: 14, value: 'Fourteen' },
-                { number: 13, value: 'Thirteen' },
-                { number: 12, value: 'Twelve' },
-                { number: 11, value: 'Eleven' },
-                { number: 10, value: 'Ten' },
-                { number: 9, value: 'Nine' },
-                { number: 8, value: 'Eight' },
-                { number: 7, value: 'Seven' },
-                { number: 6, value: 'Six' },
-                { number: 5, value: 'Five' },
-                { number: 4, value: 'Four' },
-                { number: 3, value: 'Three' },
-                { number: 2, value: 'Two' },
-                { number: 1, value: 'One' },
-                { number: 0, value: 'Zero' },
-            ],
-            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
-        };
-    }
-}
-exports["default"] = Locale;
-
-
-/***/ }),
-
-/***/ 99414:
+/***/ 70269:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -7357,7 +6316,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ ProductCreateModal)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=template&id=737beebd&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=template&id=043bcf2b&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -9782,29 +8741,14 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
     loadAccountRoutingSettings: function loadAccountRoutingSettings() {
       var _this5 = this;
       return ProductCreateModalvue_type_script_lang_js_asyncToGenerator(/*#__PURE__*/ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().mark(function _callee2() {
-        var _this5$$store, _this5$accountRouting, _this5$accountRouting2, _this5$accountRouting3, _this5$accountRouting4, user, branchId, response;
+        var _this5$accountRouting, _this5$accountRouting2, _this5$accountRouting3, _this5$accountRouting4, response;
         return ProductCreateModalvue_type_script_lang_js_regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               _context2.prev = 0;
-              // Get current branch ID
-              user = ((_this5$$store = _this5.$store) === null || _this5$$store === void 0 || (_this5$$store = _this5$$store.getters) === null || _this5$$store === void 0 ? void 0 : _this5$$store['auth/user']) || {};
-              branchId = user.default_branch_id || null;
-              if (branchId) {
-                _context2.next = 7;
-                break;
-              }
-              console.error('Branch ID is required for account routing settings');
-              _this5.accountRoutingSettings = {};
-              return _context2.abrupt("return");
-            case 7:
-              _context2.next = 9;
-              return axios_default().get(window.location.origin + "/api/account-routing-settings/product-account-routing", {
-                params: {
-                  branch_id: branchId
-                }
-              });
-            case 9:
+              _context2.next = 3;
+              return axios_default().get(window.location.origin + "/api/account-routing-settings/product-account-routing");
+            case 3:
               response = _context2.sent;
               _this5.accountRoutingSettings = response.data.data || {};
 
@@ -9832,20 +8776,20 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
               console.log('Form salesAccountId after auto-assignment:', _this5.form.salesAccountId);
               console.log('Form purchaseAccountId after auto-assignment:', _this5.form.purchaseAccountId);
               console.log('==============================');
-              _context2.next = 35;
+              _context2.next = 29;
               break;
-            case 30:
-              _context2.prev = 30;
+            case 24:
+              _context2.prev = 24;
               _context2.t0 = _context2["catch"](0);
               console.error("Error loading account routing settings:", _context2.t0);
               // Set defaults if API fails
               _this5.isSalesAccountAutomatic = false;
               _this5.isPurchaseAccountAutomatic = false;
-            case 35:
+            case 29:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[0, 30]]);
+        }, _callee2, null, [[0, 24]]);
       }))();
     },
     // get all product categories
@@ -10579,23 +9523,23 @@ var ProductCreateModalvue_type_script_lang_js_toast = sweetalert2_all_default().
 });
 ;// ./resources/js/components/ProductCreateModal.vue?vue&type=script&lang=js
  /* harmony default export */ const components_ProductCreateModalvue_type_script_lang_js = (ProductCreateModalvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=737beebd&prod&scoped=true&lang=css
-var ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css = __webpack_require__(59055);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=737beebd&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=043bcf2b&prod&scoped=true&lang=css
+var ProductCreateModalvue_type_style_index_0_id_043bcf2b_prod_scoped_true_lang_css = __webpack_require__(79338);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=043bcf2b&prod&scoped=true&lang=css
 
             
 
-var ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css_options = {};
+var ProductCreateModalvue_type_style_index_0_id_043bcf2b_prod_scoped_true_lang_css_options = {};
 
-ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css_options.insert = "head";
-ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css_options.singleton = false;
+ProductCreateModalvue_type_style_index_0_id_043bcf2b_prod_scoped_true_lang_css_options.insert = "head";
+ProductCreateModalvue_type_style_index_0_id_043bcf2b_prod_scoped_true_lang_css_options.singleton = false;
 
-var ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css/* default */.A, ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css_options);
+var ProductCreateModalvue_type_style_index_0_id_043bcf2b_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(ProductCreateModalvue_type_style_index_0_id_043bcf2b_prod_scoped_true_lang_css/* default */.A, ProductCreateModalvue_type_style_index_0_id_043bcf2b_prod_scoped_true_lang_css_options);
 
 
 
-/* harmony default export */ const components_ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css = (ProductCreateModalvue_type_style_index_0_id_737beebd_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=737beebd&prod&scoped=true&lang=css
+/* harmony default export */ const components_ProductCreateModalvue_type_style_index_0_id_043bcf2b_prod_scoped_true_lang_css = (ProductCreateModalvue_type_style_index_0_id_043bcf2b_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/ProductCreateModal.vue?vue&type=style&index=0&id=043bcf2b&prod&scoped=true&lang=css
 
 ;// ./resources/js/components/ProductCreateModal.vue
 
@@ -10612,12 +9556,1053 @@ var ProductCreateModal_component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "737beebd",
+  "043bcf2b",
   null
   
 )
 
 /* harmony default export */ const ProductCreateModal = (ProductCreateModal_component.exports);
+
+/***/ }),
+
+/***/ 74261:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Rupee',
+                plural: 'Rupees',
+                singular: 'Rupee',
+                symbol: 'Rs',
+                fractionalUnit: {
+                    name: 'Cent',
+                    singular: 'Cent',
+                    plural: 'Cents',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'And',
+                minus: 'Minus',
+                only: 'Only',
+                point: 'Point',
+            },
+            numberWordsMapping: [
+                { number: 10000000, value: 'Crore' },
+                { number: 100000, value: 'Lakh' },
+                { number: 1000, value: 'Thousand' },
+                { number: 100, value: 'Hundred' },
+                { number: 90, value: 'Ninety' },
+                { number: 80, value: 'Eighty' },
+                { number: 70, value: 'Seventy' },
+                { number: 60, value: 'Sixty' },
+                { number: 50, value: 'Fifty' },
+                { number: 40, value: 'Forty' },
+                { number: 30, value: 'Thirty' },
+                { number: 20, value: 'Twenty' },
+                { number: 19, value: 'Nineteen' },
+                { number: 18, value: 'Eighteen' },
+                { number: 17, value: 'Seventeen' },
+                { number: 16, value: 'Sixteen' },
+                { number: 15, value: 'Fifteen' },
+                { number: 14, value: 'Fourteen' },
+                { number: 13, value: 'Thirteen' },
+                { number: 12, value: 'Twelve' },
+                { number: 11, value: 'Eleven' },
+                { number: 10, value: 'Ten' },
+                { number: 9, value: 'Nine' },
+                { number: 8, value: 'Eight' },
+                { number: 7, value: 'Seven' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Five' },
+                { number: 4, value: 'Four' },
+                { number: 3, value: 'Three' },
+                { number: 2, value: 'Two' },
+                { number: 1, value: 'One' },
+                { number: 0, value: 'Zero' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 74938:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Euro',
+                plural: 'Eurot',
+                singular: 'Euro',
+                symbol: '€',
+                fractionalUnit: {
+                    name: 'Sent',
+                    singular: 'Sent',
+                    plural: 'Senti',
+                    symbol: '¢',
+                },
+            },
+            texts: {
+                and: 'Ja',
+                minus: 'Miinus',
+                only: 'Ainult',
+                point: 'Koma',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Kvadriljon' },
+                { number: 1000000000000, value: 'Triljon' },
+                { number: 1000000000, value: 'Miljard' },
+                { number: 1000000, value: 'Miljon' },
+                { number: 1000, value: 'Tuhat' },
+                { number: 900, value: 'Üheksasada' },
+                { number: 800, value: 'Kaheksasada' },
+                { number: 700, value: 'Seitsesada' },
+                { number: 600, value: 'Kuussada' },
+                { number: 500, value: 'Viissada' },
+                { number: 400, value: 'Nelisada' },
+                { number: 300, value: 'Kolmsada' },
+                { number: 200, value: 'Kakssada' },
+                { number: 100, value: 'Sada' },
+                { number: 90, value: 'Üheksakümmend' },
+                { number: 80, value: 'Kaheksakümmend' },
+                { number: 70, value: 'Seitsekümmend' },
+                { number: 60, value: 'Kuuskümmend' },
+                { number: 50, value: 'Viiskümmend' },
+                { number: 40, value: 'Nelikümmend' },
+                { number: 30, value: 'Kolmkümmend' },
+                { number: 20, value: 'Kakskümmend' },
+                { number: 19, value: 'Üheksateist' },
+                { number: 18, value: 'Kaheksateist' },
+                { number: 17, value: 'Seitseteist' },
+                { number: 16, value: 'Kuusteist' },
+                { number: 15, value: 'Viisteist' },
+                { number: 14, value: 'Neliteist' },
+                { number: 13, value: 'Kolmteist' },
+                { number: 12, value: 'Kaksteist' },
+                { number: 11, value: 'Üksteist' },
+                { number: 10, value: 'Kümme' },
+                { number: 9, value: 'Üheksa' },
+                { number: 8, value: 'Kaheksa' },
+                { number: 7, value: 'Seitse' },
+                { number: 6, value: 'Kuus' },
+                { number: 5, value: 'Viis' },
+                { number: 4, value: 'Neli' },
+                { number: 3, value: 'Kolm' },
+                { number: 2, value: 'Kaks' },
+                { number: 1, value: 'Üks' },
+                { number: 0, value: 'Null' },
+            ],
+            ignoreOneForWords: [
+                'Sada',
+                'Kakssada',
+                'Kolmsada',
+                'Nelisada',
+                'Viissada',
+                'Kuussada',
+                'Seitsesada',
+                'Kaheksasada',
+                'Üheksasada',
+            ],
+            exactWordsMapping: [
+                {
+                    number: 100,
+                    value: 'Ükssada',
+                },
+            ],
+            pluralWords: ['Miljon', 'Miljard', 'Trillion', 'Kvadriljon'],
+            pluralMark: 'it',
+            onlyInFront: true,
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 75528:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ StockAdjustmentModal)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=template&id=651d741c&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _vm.isOpen ? _c('div', {
+    staticClass: "modal-overlay",
+    on: {
+      "click": function click($event) {
+        if ($event.target !== $event.currentTarget) return null;
+        return _vm.closeModal.apply(null, arguments);
+      }
+    }
+  }, [_c('div', {
+    staticClass: "modal-content",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+      }
+    }
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_c('h5', {
+    staticClass: "modal-title"
+  }, [_c('i', {
+    staticClass: "fas fa-exclamation-triangle text-warning mr-2"
+  }), _vm._v("\n        " + _vm._s(_vm.$t("Insufficient Stock")) + "\n      ")]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.closeModal
+    }
+  }, [_c('span', [_vm._v("×")])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [_c('div', {
+    staticClass: "alert alert-warning",
+    attrs: {
+      "role": "alert"
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-info-circle mr-2"
+  }), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.$t("Stock Alert")) + ":")]), _vm._v("\n        " + _vm._s(_vm.$t("The selected quantity exceeds available stock for this product.")) + "\n      ")]), _vm._v(" "), _c('div', {
+    staticClass: "product-info mb-4"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Product Details")))]), _vm._v(" "), _c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Name")) + ":")]), _vm._v(" " + _vm._s(_vm.product.name || 'N/A'))]), _vm._v(" "), _c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Code")) + ":")]), _vm._v(" " + _vm._s(_vm.productCodeWithPrefix))]), _vm._v(" "), _c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Current Stock")) + ":")]), _vm._v(" "), _c('span', {
+    staticClass: "badge badge-info"
+  }, [_vm._v(_vm._s(_vm.product.inventoryCount || 0))])]), _vm._v(" "), _c('p', {
+    staticClass: "mb-1"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.$t("Required Quantity")) + ":")]), _vm._v(" "), _c('span', {
+    staticClass: "badge badge-danger"
+  }, [_vm._v(_vm._s(_vm.product.qty || 0))])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Stock Shortage")))]), _vm._v(" "), _c('p', {
+    staticClass: "text-danger"
+  }, [_c('i', {
+    staticClass: "fas fa-exclamation-circle mr-1"
+  }), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.shortageQuantity))]), _vm._v(" " + _vm._s(_vm.$t("units short")) + "\n            ")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "stock-options"
+  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("How to increase stock?")))]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "option-card",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.openInventoryAdjustment.apply(null, arguments);
+      }
+    }
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "option-content"
+  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Quick Stock Adjustment")))]), _vm._v(" "), _c('p', {
+    staticClass: "text-muted"
+  }, [_vm._v(_vm._s(_vm.$t("Add stock directly to inventory")))])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "option-card",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.openPurchaseOrder.apply(null, arguments);
+      }
+    }
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "option-content"
+  }, [_c('h6', [_vm._v(_vm._s(_vm.$t("Create Purchase Order")))]), _vm._v(" "), _c('p', {
+    staticClass: "text-muted"
+  }, [_vm._v(_vm._s(_vm.$t("Order more stock from supplier")))])])])])])]), _vm._v(" "), _vm.showQuickAdjustment ? _c('div', {
+    staticClass: "quick-adjustment mt-4"
+  }, [_c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('h6', {
+    staticClass: "mb-0"
+  }, [_c('i', {
+    staticClass: "fas fa-plus-circle text-success mr-2"
+  }), _vm._v("\n              " + _vm._s(_vm.$t("Quick Stock Adjustment")) + "\n            ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('form', {
+    on: {
+      "submit": function submit($event) {
+        $event.preventDefault();
+        return _vm.submitQuickAdjustment.apply(null, arguments);
+      }
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "adjustmentReason"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Reason")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.adjustmentForm.reason,
+      expression: "adjustmentForm.reason"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.adjustmentForm.errors.has('reason')
+    },
+    attrs: {
+      "id": "adjustmentReason",
+      "type": "text",
+      "placeholder": _vm.$t('Enter reason for stock adjustment'),
+      "required": ""
+    },
+    domProps: {
+      "value": _vm.adjustmentForm.reason
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.adjustmentForm, "reason", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.adjustmentForm,
+      "field": "reason"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "adjustmentQuantity"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Quantity to Add")) + " "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")])]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.adjustmentForm.quantity,
+      expression: "adjustmentForm.quantity"
+    }],
+    staticClass: "form-control",
+    "class": {
+      'is-invalid': _vm.adjustmentForm.errors.has('quantity')
+    },
+    attrs: {
+      "id": "adjustmentQuantity",
+      "type": "number",
+      "min": "1",
+      "placeholder": _vm.$t('Enter quantity to add'),
+      "required": ""
+    },
+    domProps: {
+      "value": _vm.adjustmentForm.quantity
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.adjustmentForm, "quantity", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c('has-error', {
+    attrs: {
+      "form": _vm.adjustmentForm,
+      "field": "quantity"
+    }
+  })], 1)])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "adjustmentNote"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("Note")))]), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.adjustmentForm.note,
+      expression: "adjustmentForm.note"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "adjustmentNote",
+      "rows": "3",
+      "placeholder": _vm.$t('Enter additional notes (optional)')
+    },
+    domProps: {
+      "value": _vm.adjustmentForm.note
+    },
+    on: {
+      "input": function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.adjustmentForm, "note", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-actions"
+  }, [_c('button', {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function click($event) {
+        _vm.showQuickAdjustment = false;
+      }
+    }
+  }, [_vm._v("\n                  " + _vm._s(_vm.$t("Cancel")) + "\n                ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "type": "submit",
+      "disabled": _vm.adjustmentForm.busy
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-save mr-1"
+  }), _vm._v("\n                  " + _vm._s(_vm.$t("Add Stock")) + "\n                ")])])])])])]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.closeModal
+    }
+  }, [_vm._v("\n        " + _vm._s(_vm.$t("Close")) + "\n      ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.adjustQuantity
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-edit mr-1"
+  }), _vm._v("\n        " + _vm._s(_vm.$t("Adjust Quantity")) + "\n      ")])])])]) : _vm._e();
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "option-icon"
+  }, [_c('i', {
+    staticClass: "fas fa-plus-circle text-success"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "option-icon"
+  }, [_c('i', {
+    staticClass: "fas fa-shopping-cart text-primary"
+  })]);
+}];
+
+;// ./resources/js/components/StockAdjustmentModal.vue?vue&type=template&id=651d741c&scoped=true
+
+// EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
+var vform_es = __webpack_require__(63216);
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+// EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
+var sweetalert2_all = __webpack_require__(78465);
+var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all);
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__(95353);
+// EXTERNAL MODULE: ./resources/js/plugins/filter.js
+var filter = __webpack_require__(44121);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=script&lang=js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+
+
+
+var toast = sweetalert2_all_default().mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true
+});
+/* harmony default export */ const StockAdjustmentModalvue_type_script_lang_js = ({
+  name: "StockAdjustmentModal",
+  props: {
+    isOpen: {
+      type: Boolean,
+      "default": false
+    },
+    product: {
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
+    }
+  },
+  data: function data() {
+    return {
+      showQuickAdjustment: false,
+      adjustmentForm: new vform_es/* default */.Ay({
+        reason: "",
+        quantity: 1,
+        note: ""
+      })
+    };
+  },
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["appInfo"])), {}, {
+    prefix: function prefix() {
+      var _this$appInfo;
+      return ((_this$appInfo = this.appInfo) === null || _this$appInfo === void 0 ? void 0 : _this$appInfo.productPrefix) || "";
+    },
+    shortageQuantity: function shortageQuantity() {
+      if (!this.product || !this.product.inventoryCount || !this.product.qty) {
+        return 0;
+      }
+      return Math.max(0, this.product.qty - this.product.inventoryCount);
+    },
+    productCodeWithPrefix: function productCodeWithPrefix() {
+      if (!this.product || !this.product.code) {
+        return 'N/A';
+      }
+      return this.prefix + this.product.code;
+    }
+  }),
+  watch: {
+    isOpen: function isOpen(newVal) {
+      console.log("Modal isOpen changed to:", newVal);
+      console.log("Product object:", this.product);
+      if (newVal && this.product) {
+        // Set default quantity to shortage amount
+        this.adjustmentForm.quantity = this.shortageQuantity || 1;
+        this.adjustmentForm.reason = "Stock shortage adjustment";
+        console.log("Modal opened with product:", this.product.name);
+      }
+    }
+  },
+  mounted: function mounted() {
+    console.log("StockAdjustmentModal mounted");
+    console.log("Initial isOpen:", this.isOpen);
+    console.log("Initial product:", this.product);
+  },
+  beforeDestroy: function beforeDestroy() {
+    console.log("StockAdjustmentModal beforeDestroy");
+    console.log("Product at destroy:", this.product);
+  },
+  methods: {
+    closeModal: function closeModal() {
+      this.$emit("close");
+      this.showQuickAdjustment = false;
+      this.adjustmentForm.reset();
+    },
+    adjustQuantity: function adjustQuantity() {
+      this.$emit("adjust-quantity", this.product);
+      this.closeModal();
+    },
+    openInventoryAdjustment: function openInventoryAdjustment() {
+      var _this = this;
+      try {
+        console.log("Opening inventory adjustment...");
+        console.log("Product object:", this.product);
+
+        // Validate product object
+        if (!this.product || !this.product.id) {
+          console.error("Invalid product object:", this.product);
+          toast.fire({
+            type: "error",
+            title: this.$t("Error"),
+            text: this.$t("Product information is missing. Please try again.")
+          });
+          return;
+        }
+
+        // Capture product data before closing modal to avoid null reference
+        var productData = {
+          id: this.product.id,
+          name: this.product.name,
+          code: this.product.code,
+          slug: this.product.slug
+        };
+        console.log("Captured product data:", productData);
+
+        // Ask parent to persist current form state before leaving
+        this.$emit('persist');
+        // Close modal first
+        this.closeModal();
+
+        // Then navigate with a small delay
+        setTimeout(function () {
+          try {
+            console.log("Navigating to adjustments.create");
+            console.log("Product ID:", productData.id);
+
+            // Get current route safely
+            var returnUrl = _this.$route ? _this.$route.fullPath : window.location.pathname;
+            console.log("Return URL:", returnUrl);
+
+            // Check if user has permission to create adjustments
+            if (!_this.$can('adjustment-create')) {
+              toast.fire({
+                type: "error",
+                title: _this.$t("Permission Denied"),
+                text: _this.$t("You don't have permission to create adjustments.")
+              });
+              return;
+            }
+
+            // Try navigation with fallback
+            _this.$router.push({
+              name: "adjustments.create",
+              query: {
+                productId: productData.id,
+                returnUrl: returnUrl
+              }
+            }).then(function () {
+              console.log("Navigation successful");
+            })["catch"](function (err) {
+              console.error("Navigation error:", err);
+
+              // Fallback: show alert with manual navigation option
+              sweetalert2_all_default().fire({
+                title: _this.$t("Navigate to Adjustments"),
+                text: _this.$t("Click OK to go to the adjustments page manually."),
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonText: _this.$t("Go to Adjustments"),
+                cancelButtonText: _this.$t("Cancel")
+              }).then(function (result) {
+                if (result.isConfirmed) {
+                  window.location.href = '/inventory-adjustments/create?productId=' + productData.id + '&returnUrl=' + encodeURIComponent(returnUrl);
+                }
+              });
+            });
+          } catch (error) {
+            console.error("Error in navigation timeout:", error);
+            toast.fire({
+              type: "error",
+              title: _this.$t("Error"),
+              text: _this.$t("An error occurred while navigating. Please try again.")
+            });
+          }
+        }, 300);
+      } catch (error) {
+        console.error("Error in openInventoryAdjustment:", error);
+        toast.fire({
+          type: "error",
+          title: this.$t("Error"),
+          text: this.$t("An unexpected error occurred. Please try again.")
+        });
+      }
+    },
+    openPurchaseOrder: function openPurchaseOrder() {
+      var _this2 = this;
+      console.log("Opening purchase order...");
+      // Close modal first
+      this.closeModal();
+      // Then navigate with a small delay
+      setTimeout(function () {
+        console.log("Navigating to purchases.create");
+        _this2.$router.push({
+          name: "purchases.create"
+        })["catch"](function (err) {
+          console.error("Navigation error:", err);
+        });
+      }, 300);
+    },
+    submitQuickAdjustment: function submitQuickAdjustment() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var adjustmentData;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              // Create a quick inventory adjustment
+              adjustmentData = {
+                adjustmentReason: _this3.adjustmentForm.reason,
+                adjustmentDate: new Date().toISOString().slice(0, 10),
+                note: _this3.adjustmentForm.note,
+                status: 1,
+                selectedProducts: [{
+                  slug: _this3.product.slug,
+                  adjustType: "Increment",
+                  adjustQty: parseInt(_this3.adjustmentForm.quantity),
+                  purchasePrice: _this3.product.avgPurchasePrice || 0
+                }]
+              };
+              _context.next = 4;
+              return axios_default().post("/api/inventory-adjustments", adjustmentData);
+            case 4:
+              toast.fire({
+                type: "success",
+                title: _this3.$t("Stock added successfully"),
+                text: _this3.$t("The product stock has been increased.")
+              });
+
+              // Emit event to refresh product data
+              _this3.$emit("stock-updated", {
+                product: _this3.product,
+                newQuantity: parseInt(_this3.adjustmentForm.quantity)
+              });
+              _this3.closeModal();
+              _context.next = 13;
+              break;
+            case 9:
+              _context.prev = 9;
+              _context.t0 = _context["catch"](0);
+              console.error("Error adding stock:", _context.t0);
+              toast.fire({
+                type: "error",
+                title: _this3.$t("Error"),
+                text: _this3.$t("Failed to add stock. Please try again.")
+              });
+            case 13:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, null, [[0, 9]]);
+      }))();
+    }
+  }
+});
+;// ./resources/js/components/StockAdjustmentModal.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_StockAdjustmentModalvue_type_script_lang_js = (StockAdjustmentModalvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=style&index=0&id=651d741c&prod&scoped=true&lang=css
+var StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css = __webpack_require__(85989);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/StockAdjustmentModal.vue?vue&type=style&index=0&id=651d741c&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css = (StockAdjustmentModalvue_type_style_index_0_id_651d741c_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/StockAdjustmentModal.vue?vue&type=style&index=0&id=651d741c&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/StockAdjustmentModal.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_StockAdjustmentModalvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "651d741c",
+  null
+  
+)
+
+/* harmony default export */ const StockAdjustmentModal = (component.exports);
+
+/***/ }),
+
+/***/ 79338:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".form-card[data-v-043bcf2b]{background:#fff;border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-bottom:1.25rem;margin-top:20px;transition:all .2s ease}.form-card[data-v-043bcf2b]:hover{box-shadow:0 .1rem .5rem 0 rgba(58,59,69,.15)}.form-card .card-header[data-v-043bcf2b]{background-color:#33a0d9;border-bottom:none;border-radius:20px 20px 0 0;color:#fff;padding:12px 16px}.form-card .card-header .section-title[data-v-043bcf2b]{border:none;color:#fff;font-size:14px;font-weight:600;margin:0;padding:0}.form-card .card-header .section-title[data-v-043bcf2b]:after{display:none}.form-card .card-header .section-title i[data-v-043bcf2b]{color:hsla(0,0%,100%,.8)}.form-card .card-body[data-v-043bcf2b]{padding:16px}.section-title[data-v-043bcf2b]{border-bottom:1px solid #e9ecef;color:#495057;font-weight:600;margin-bottom:15px;padding-bottom:8px}.form-group[data-v-043bcf2b]{margin-bottom:1rem}.form-group label[data-v-043bcf2b]{color:#495057;font-size:.95rem;font-weight:500;margin-bottom:.5rem}.required[data-v-043bcf2b]{color:#dc3545;font-weight:700}.row[data-v-043bcf2b]{margin-bottom:1rem}.row[data-v-043bcf2b]:last-child{margin-bottom:0}.auto-assign-btn[data-v-043bcf2b]{min-width:40px;padding:.375rem .5rem;white-space:nowrap}.auto-assign-btn[data-v-043bcf2b]:disabled{cursor:not-allowed;opacity:.6}.form-text[data-v-043bcf2b]{color:#6c757d;font-size:.8rem;margin-top:3px}.image-preview[data-v-043bcf2b]{text-align:center}.image-preview img[data-v-043bcf2b]{border:1px solid #dee2e6;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.1)}.custom-file-label[data-v-043bcf2b]{background-color:#f8f9fa;border:1px dashed #dee2e6;cursor:pointer;font-size:.85rem;transition:all .2s ease}.custom-file-label[data-v-043bcf2b]:hover{background-color:#e3f2fd;border-color:#007bff}.custom-file-label i[data-v-043bcf2b]{color:#6c757d}.create-button[data-v-043bcf2b]{cursor:pointer;text-decoration:none}.create-btn[data-v-043bcf2b]{border-left:none;border-radius:0 .25rem .25rem 0;cursor:pointer;padding:11px;transition:background-color .2s ease}.create-btn[data-v-043bcf2b]:hover{background-color:#e9ecef}.category-select[data-v-043bcf2b]{margin-right:0!important}.category-select .vs__dropdown-toggle[data-v-043bcf2b]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .category-select .vs__dropdown-toggle[data-v-043bcf2b]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}[dir=rtl] .create-btn[data-v-043bcf2b]{border-left:none;border-radius:.25rem 0 0 .25rem;border-right:1px solid #ced4da}[dir=ltr] .create-btn[data-v-043bcf2b]{border-left:1px solid #ced4da;border-radius:0 .25rem .25rem 0;border-right:none}.unit-select[data-v-043bcf2b]{margin-right:0!important}.unit-select .vs__dropdown-toggle[data-v-043bcf2b]{border-radius:.25rem 0 0 .25rem!important;border-right:none!important}[dir=rtl] .unit-select .vs__dropdown-toggle[data-v-043bcf2b]{border-left:none!important;border-radius:0 .25rem .25rem 0!important;border-right:1px solid #ced4da!important}@media (max-width:768px){.section-title[data-v-043bcf2b]{font-size:.95rem;margin-bottom:12px}.form-card .card-body[data-v-043bcf2b]{padding:.75rem}.auto-assign-btn[data-v-043bcf2b]{font-size:.75rem;min-width:35px}}.input-group-prepend .input-group-text[data-v-043bcf2b]{background-color:#f8f9fa;border-color:#ced4da;color:#495057;font-size:.85rem}.v-select[data-v-043bcf2b]{margin-bottom:0}.is-invalid[data-v-043bcf2b]{border-color:#dc3545!important}.invalid-feedback[data-v-043bcf2b]{color:#dc3545;display:block;font-size:75%;margin-top:.2rem;width:100%}.item-type-selector[data-v-043bcf2b]{display:flex;gap:.5rem;margin-top:.5rem}.item-type-option[data-v-043bcf2b]{cursor:pointer;flex:1;position:relative;transition:all .2s ease}.item-type-option input[type=radio][data-v-043bcf2b]{opacity:0;pointer-events:none;position:absolute}.option-content[data-v-043bcf2b]{align-items:center;background:#fff;border:2px solid #e3e6f0;border-radius:6px;display:flex;flex-direction:column;justify-content:center;min-height:55px;padding:.6rem .5rem;text-align:center;transition:all .2s ease}.item-type-option:hover .option-content[data-v-043bcf2b]{border-color:#33a0d9;box-shadow:0 2px 6px rgba(51,160,217,.15);transform:translateY(-1px)}.item-type-option.active .option-content[data-v-043bcf2b]{background:#33a0d9;border-color:#33a0d9;box-shadow:0 3px 10px rgba(51,160,217,.25);color:#fff;transform:translateY(-1px)}.option-content i[data-v-043bcf2b]{color:#6c757d;font-size:1.1rem;margin-bottom:.3rem;transition:all .2s ease}.item-type-option.active .option-content i[data-v-043bcf2b]{color:hsla(0,0%,100%,.9)}.option-content span[data-v-043bcf2b]{color:#495057;font-size:.85rem;font-weight:600;transition:all .2s ease}.item-type-option.active .option-content span[data-v-043bcf2b]{color:#fff}@media (max-width:768px){.item-type-selector[data-v-043bcf2b]{flex-direction:column;gap:.4rem}.option-content[data-v-043bcf2b]{min-height:50px;padding:.5rem .4rem}.option-content i[data-v-043bcf2b]{font-size:1rem;margin-bottom:.25rem}.option-content span[data-v-043bcf2b]{font-size:.8rem}.override-checkbox-container .form-check-label[data-v-043bcf2b]{min-height:44px;padding:.6rem .8rem}.checkbox-text[data-v-043bcf2b]{font-size:.9rem}.form-check-input[data-v-043bcf2b]{height:16px;width:16px}}.account-label-row[data-v-043bcf2b]{align-items:flex-start;display:flex;flex-direction:column;gap:1rem;justify-content:space-between;margin-bottom:.5rem}.account-label[data-v-043bcf2b]{color:#495057;flex:1;font-size:.95rem;font-weight:500;margin-bottom:0}.toggle-switch-container[data-v-043bcf2b]{align-items:center;display:flex;flex-shrink:0}.toggle-switch-label[data-v-043bcf2b]{align-items:center;cursor:pointer;display:inline-flex;gap:.75rem;-webkit-user-select:none;-moz-user-select:none;user-select:none}.toggle-switch-wrapper[data-v-043bcf2b]{display:inline-block;flex-shrink:0;height:26px;position:relative;width:50px}.toggle-switch-input[data-v-043bcf2b]{appearance:none;-webkit-appearance:none;-moz-appearance:none;background-color:#ced4da;border-radius:26px;cursor:pointer;height:26px;left:0;margin:0;outline:none;padding:0;position:absolute;top:0;transition:background-color .3s ease;width:50px}.toggle-switch-input[data-v-043bcf2b]:checked{background-color:#33a0d9}.toggle-switch-input[data-v-043bcf2b]:focus{box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.toggle-switch-slider[data-v-043bcf2b]{background-color:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2);height:20px;left:3px;pointer-events:none;position:absolute;top:50%;transform:translateY(-50%);transition:transform .3s ease;width:20px}.toggle-switch-input:checked+.toggle-switch-slider[data-v-043bcf2b]{transform:translate(24px,-50%)}.toggle-switch-text[data-v-043bcf2b]{color:#495057;font-size:.9rem;font-weight:500;transition:color .2s ease;white-space:nowrap}.toggle-switch-label:has(.toggle-switch-input:checked) .toggle-switch-text[data-v-043bcf2b]{color:#33a0d9;font-weight:600}.alert-info[data-v-043bcf2b]{background-color:#d1ecf1;border-color:#bee5eb;border-radius:.375rem;font-size:.9rem;padding:.75rem 1rem}.alert-info[data-v-043bcf2b],.alert-info i[data-v-043bcf2b]{color:#0c5460}.col-form-6[data-v-043bcf2b]{flex:0 0 50%;max-width:50%}.col-form-6 .form-card[data-v-043bcf2b],.col-form-6 .form-card .card-body[data-v-043bcf2b]{width:100%}@media (max-width:1300px){.col-form-6[data-v-043bcf2b]{flex:0 0 100%;max-width:100%}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 82779:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Peso',
+                plural: 'Pesos',
+                singular: 'Peso',
+                symbol: '₱',
+                fractionalUnit: {
+                    name: 'Cent',
+                    singular: 'Cent',
+                    plural: 'Cents',
+                    symbol: '¢',
+                },
+            },
+            texts: {
+                and: 'And',
+                minus: 'Minus',
+                only: 'Only',
+                point: 'Point',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Quadrillion' },
+                { number: 1000000000000, value: 'Trillion' },
+                { number: 1000000000, value: 'Billion' },
+                { number: 1000000, value: 'Million' },
+                { number: 1000, value: 'Thousand' },
+                { number: 100, value: 'Hundred' },
+                { number: 90, value: 'Ninety' },
+                { number: 80, value: 'Eighty' },
+                { number: 70, value: 'Seventy' },
+                { number: 60, value: 'Sixty' },
+                { number: 50, value: 'Fifty' },
+                { number: 40, value: 'Forty' },
+                { number: 30, value: 'Thirty' },
+                { number: 20, value: 'Twenty' },
+                { number: 19, value: 'Nineteen' },
+                { number: 18, value: 'Eighteen' },
+                { number: 17, value: 'Seventeen' },
+                { number: 16, value: 'Sixteen' },
+                { number: 15, value: 'Fifteen' },
+                { number: 14, value: 'Fourteen' },
+                { number: 13, value: 'Thirteen' },
+                { number: 12, value: 'Twelve' },
+                { number: 11, value: 'Eleven' },
+                { number: 10, value: 'Ten' },
+                { number: 9, value: 'Nine' },
+                { number: 8, value: 'Eight' },
+                { number: 7, value: 'Seven' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Five' },
+                { number: 4, value: 'Four' },
+                { number: 3, value: 'Three' },
+                { number: 2, value: 'Two' },
+                { number: 1, value: 'One' },
+                { number: 0, value: 'Zero' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 84463:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Dollar',
+                plural: 'Dollars',
+                singular: 'Dollar',
+                symbol: '$',
+                fractionalUnit: {
+                    name: 'Cent',
+                    plural: 'Cents',
+                    singular: 'Cent',
+                    symbol: '¢',
+                },
+            },
+            texts: {
+                and: 'And',
+                minus: 'Minus',
+                only: 'Only',
+                point: 'Point',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Quadrillion' },
+                { number: 1000000000000, value: 'Trillion' },
+                { number: 1000000000, value: 'Billion' },
+                { number: 1000000, value: 'Million' },
+                { number: 1000, value: 'Thousand' },
+                { number: 100, value: 'Hundred' },
+                { number: 90, value: 'Ninety' },
+                { number: 80, value: 'Eighty' },
+                { number: 70, value: 'Seventy' },
+                { number: 60, value: 'Sixty' },
+                { number: 50, value: 'Fifty' },
+                { number: 40, value: 'Forty' },
+                { number: 30, value: 'Thirty' },
+                { number: 20, value: 'Twenty' },
+                { number: 19, value: 'Nineteen' },
+                { number: 18, value: 'Eighteen' },
+                { number: 17, value: 'Seventeen' },
+                { number: 16, value: 'Sixteen' },
+                { number: 15, value: 'Fifteen' },
+                { number: 14, value: 'Fourteen' },
+                { number: 13, value: 'Thirteen' },
+                { number: 12, value: 'Twelve' },
+                { number: 11, value: 'Eleven' },
+                { number: 10, value: 'Ten' },
+                { number: 9, value: 'Nine' },
+                { number: 8, value: 'Eight' },
+                { number: 7, value: 'Seven' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Five' },
+                { number: 4, value: 'Four' },
+                { number: 3, value: 'Three' },
+                { number: 2, value: 'Two' },
+                { number: 1, value: 'One' },
+                { number: 0, value: 'Zero' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
+
+/***/ }),
+
+/***/ 85989:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".modal-overlay[data-v-651d741c]{align-items:center;background-color:rgba(0,0,0,.5);display:flex;height:100%;justify-content:center;left:0;position:fixed;top:0;width:100%;z-index:1050}.modal-content[data-v-651d741c]{background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.3);max-height:90vh;max-width:800px;overflow-y:auto;width:90%}.modal-header[data-v-651d741c]{align-items:center;background-color:#f8f9fa;border-bottom:1px solid #dee2e6;border-radius:10px 10px 0 0;display:flex;justify-content:space-between;padding:20px}.modal-title[data-v-651d741c]{font-size:1.25rem;font-weight:600;margin:0}.close[data-v-651d741c]{background:none;border:none;color:#6c757d;cursor:pointer;font-size:1.5rem}.close[data-v-651d741c]:hover{color:#000}.modal-body[data-v-651d741c]{padding:20px}.modal-footer[data-v-651d741c]{background-color:#f8f9fa;border-radius:0 0 10px 10px;border-top:1px solid #dee2e6;display:flex;gap:10px;justify-content:flex-end;padding:20px}.option-card[data-v-651d741c]{align-items:center;border:2px solid #e9ecef;border-radius:8px;cursor:pointer;display:flex;margin-bottom:15px;padding:15px;transition:all .3s ease}.option-card[data-v-651d741c]:hover{background-color:#f8f9fa;border-color:#007bff;box-shadow:0 4px 8px rgba(0,0,0,.1);transform:translateY(-2px)}.option-icon[data-v-651d741c]{font-size:2rem;margin-right:15px;min-width:50px;text-align:center}.option-content h6[data-v-651d741c]{font-weight:600;margin:0 0 5px}.option-content p[data-v-651d741c]{font-size:.9rem;margin:0}.product-info[data-v-651d741c]{background-color:#f8f9fa;border-left:4px solid #007bff;border-radius:8px;padding:15px}.quick-adjustment .card[data-v-651d741c]{border:1px solid #dee2e6;border-radius:8px}.quick-adjustment .card-header[data-v-651d741c]{background-color:#e9ecef;border-bottom:1px solid #dee2e6;padding:15px}.form-actions[data-v-651d741c]{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}.required[data-v-651d741c]{color:#dc3545}.badge[data-v-651d741c]{font-size:.875em;padding:.375rem .75rem}.alert[data-v-651d741c]{border:none;border-radius:8px}.alert-warning[data-v-651d741c]{background-color:#fff3cd;border-left:4px solid #ffc107;color:#856404}[dir=rtl] .option-card[data-v-651d741c]{flex-direction:row-reverse}[dir=rtl] .option-icon[data-v-651d741c]{margin-left:15px;margin-right:0}[dir=rtl] .product-info[data-v-651d741c]{border-left:none;border-right:4px solid #007bff}[dir=rtl] .alert-warning[data-v-651d741c]{border-left:none;border-right:4px solid #ffc107}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 92952:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+class Locale {
+    constructor() {
+        this.config = {
+            currency: {
+                name: 'Naira',
+                plural: 'Naira',
+                singular: 'Naira',
+                symbol: '₦',
+                fractionalUnit: {
+                    name: 'Kobo',
+                    singular: 'Kobo',
+                    plural: 'Kobo',
+                    symbol: '',
+                },
+            },
+            texts: {
+                and: 'And',
+                minus: 'Minus',
+                only: 'Only',
+                point: 'Point',
+            },
+            numberWordsMapping: [
+                { number: 1000000000000000, value: 'Quadrillion' },
+                { number: 1000000000000, value: 'Trillion' },
+                { number: 1000000000, value: 'Billion' },
+                { number: 1000000, value: 'Million' },
+                { number: 1000, value: 'Thousand' },
+                { number: 100, value: 'Hundred' },
+                { number: 90, value: 'Ninety' },
+                { number: 80, value: 'Eighty' },
+                { number: 70, value: 'Seventy' },
+                { number: 60, value: 'Sixty' },
+                { number: 50, value: 'Fifty' },
+                { number: 40, value: 'Forty' },
+                { number: 30, value: 'Thirty' },
+                { number: 20, value: 'Twenty' },
+                { number: 19, value: 'Nineteen' },
+                { number: 18, value: 'Eighteen' },
+                { number: 17, value: 'Seventeen' },
+                { number: 16, value: 'Sixteen' },
+                { number: 15, value: 'Fifteen' },
+                { number: 14, value: 'Fourteen' },
+                { number: 13, value: 'Thirteen' },
+                { number: 12, value: 'Twelve' },
+                { number: 11, value: 'Eleven' },
+                { number: 10, value: 'Ten' },
+                { number: 9, value: 'Nine' },
+                { number: 8, value: 'Eight' },
+                { number: 7, value: 'Seven' },
+                { number: 6, value: 'Six' },
+                { number: 5, value: 'Five' },
+                { number: 4, value: 'Four' },
+                { number: 3, value: 'Three' },
+                { number: 2, value: 'Two' },
+                { number: 1, value: 'One' },
+                { number: 0, value: 'Zero' },
+            ],
+            exactWordsMapping: [{ number: 100, value: 'One Hundred' }],
+        };
+    }
+}
+exports["default"] = Locale;
+
 
 /***/ })
 

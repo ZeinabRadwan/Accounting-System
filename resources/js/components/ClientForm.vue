@@ -381,7 +381,7 @@
               </div>
               <div class="form-group col-form-6">
                 <label for="commercialRegister">{{ $t("CR") }} <span class="text-muted">({{ $t("Optional")
-                    }})</span></label>
+                }})</span></label>
                 <input id="commercialRegister" v-model="form.commercialRegister" type="text" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('commercialRegister') }" name="commercialRegister"
                   :placeholder="$t('Enter commercial register number')" />

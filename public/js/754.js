@@ -124,7 +124,7 @@ var staticRenderFns = [function () {
 ;// ./resources/js/pages/clients/create.vue?vue&type=template&id=fdf3c294&scoped=true
 
 // EXTERNAL MODULE: ./resources/js/components/ClientForm.vue + 6 modules
-var ClientForm = __webpack_require__(40773);
+var ClientForm = __webpack_require__(99532);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/clients/create.vue?vue&type=script&lang=js
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }

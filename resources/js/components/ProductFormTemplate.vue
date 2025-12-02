@@ -277,7 +277,7 @@
             <div class="col-12">
               <div class="alert alert-info d-flex align-items-center">
                 <i class="fas fa-info-circle mr-2"></i>
-                <span>{{ $t("Accounts are pre-assigned based on your settings, but you can change them below if needed.") }}</span>
+                <span>{{ $t("Accounts are set automatically, but you can adjust them below.") }}</span>
               </div>
             </div>
           </div>
