@@ -24,7 +24,8 @@ const POS_ALLOWED_ROUTES = [
   'adjustments.show',
   'adjustments.edit',
   'barcode.print',
-  'stockAlertProducts'
+  'stockAlertProducts',
+  'setup.general'
 ]
 
 export default async (to, from, next) => {

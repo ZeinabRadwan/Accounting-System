@@ -35765,12 +35765,12 @@ var map = {
 		9000
 	],
 	"./setup/general": [
-		31329,
-		1329
+		87580,
+		7580
 	],
 	"./setup/general.vue": [
-		31329,
-		1329
+		87580,
+		7580
 	],
 	"./setup/index": [
 		83309,
@@ -114215,7 +114215,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 // Routes that POS-only users can access
-var POS_ALLOWED_ROUTES = ['home', 'dashboard', 'pos.create', 'inventory.index', 'inventory.history', 'inventory.history-general', 'inventory.count', 'products.index', 'products.create', 'products.show', 'products.edit', 'productCats.index', 'productCats.create', 'productCats.edit', 'productSubCats.index', 'productSubCats.create', 'productSubCats.edit', 'adjustments.index', 'adjustments.create', 'adjustments.show', 'adjustments.edit', 'barcode.print', 'stockAlertProducts'];
+var POS_ALLOWED_ROUTES = ['home', 'dashboard', 'pos.create', 'inventory.index', 'inventory.history', 'inventory.history-general', 'inventory.count', 'products.index', 'products.create', 'products.show', 'products.edit', 'productCats.index', 'productCats.create', 'productCats.edit', 'productSubCats.index', 'productSubCats.create', 'productSubCats.edit', 'adjustments.index', 'adjustments.create', 'adjustments.show', 'adjustments.edit', 'barcode.print', 'stockAlertProducts', 'setup.general'];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/function () {
   var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(to, from, next) {
     var publicRoutes, user, systemType, _systemTypeAllowed, systemTypeAllowed;
