@@ -25,6 +25,7 @@ const POS_ALLOWED_ROUTES = [
   'adjustments.edit',
   'barcode.print',
   'stockAlertProducts',
+  'setup.index',
   'setup.general'
 ]
 
