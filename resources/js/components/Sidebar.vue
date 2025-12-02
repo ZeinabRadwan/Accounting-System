@@ -94,15 +94,12 @@
               " class="nav-item">
                 <router-link :to="{ name: 'invoices.index' }" class="nav-link">
                   <i class="fas fa-file-invoice nav-icon" />
-                  <p>{{ $t("Invoices List") }}</p>
-                </router-link>
-              </li>
-              <li v-if="
-                $can('invoice-create')
-              " class="nav-item">
-                <router-link :to="{ name: 'invoices.create' }" class="nav-link">
-                  <i class="fas fa-plus nav-icon" />
-                  <p>{{ $t("Add Sales Invoice") }}</p>
+                  <p>
+                    {{ $t("Invoices List") }}
+                    <router-link v-if="$can('invoice-create')" :to="{ name: 'invoices.create' }" class="add-btn-inline" @click.stop>
+                      <i class="fas fa-plus"></i>
+                    </router-link>
+                  </p>
                 </router-link>
               </li>
               <li v-if="
@@ -1821,5 +1818,43 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening>a .fa-angle-left {
 
 [dir="rtl"] .main-sidebar .nav-sidebar .nav-treeview .nav-link {
   transition: all 0.3s ease;
+}
+
+/* Inline add button styling */
+.add-btn-inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-left: 8px;
+  border-radius: 50%;
+  background-color: #33a0d9;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 12px;
+}
+
+[dir="rtl"] .add-btn-inline {
+  margin-left: 0;
+  margin-right: 8px;
+}
+
+.add-btn-inline:hover {
+  background-color: #2a8bc7;
+  transform: scale(1.1);
+  color: #fff;
+}
+
+.add-btn-inline i {
+  font-size: 10px;
+  line-height: 1;
+}
+
+.nav-link p {
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 </style>
