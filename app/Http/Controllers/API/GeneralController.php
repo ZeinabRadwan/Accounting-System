@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Currency;
-use Illuminate\Mail\Message;
-use App\Models\GeneralSetting;
-use App\Models\FiscalYear;
-use App\Models\AccountingPeriod;
-use App\Services\ImageService;
-use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Resources\CurrencyResource;
 use App\Http\Controllers\PaymentController;
-use App\Http\Requests\SMSConfigurationRequest;
-use App\Http\Requests\MailConfigurationRequest;
 use App\Http\Requests\GeneralSetting\StoreGeneralSettingRequest;
-
+use App\Http\Requests\MailConfigurationRequest;
+use App\Http\Requests\SMSConfigurationRequest;
+use App\Http\Resources\CurrencyResource;
+use App\Models\AccountingPeriod;
+use App\Models\Currency;
+use App\Models\FiscalYear;
+use App\Models\GeneralSetting;
+use App\Services\ImageService;
+use Illuminate\Mail\Message;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class GeneralController extends Controller
 {
     protected $imageService;
+
     // define middleware
     public function __construct(ImageService $imageService)
     {
@@ -36,10 +36,9 @@ class GeneralController extends Controller
      */
     public function getGeneralSettings()
     {
-        $paymentController = new PaymentController();
+        $paymentController = new PaymentController;
         $centralActiveCurrency = $paymentController->centralActiveCurrency();
 
-        
         $query = GeneralSetting::get();
 
         $settings = [
@@ -78,12 +77,13 @@ class GeneralController extends Controller
             'defaultClientSlug' => $query->where('key', 'default_client_slug')->first()?->value ?? '',
             'defaultAccountSlug' => $query->where('key', 'default_account_slug')->first()?->value ?? '',
             'defaultVatRateSlug' => $query->where('key', 'default_vat_rate_slug')->first()?->value ?? '',
-            
+
             // Fiscal Year and Accounting Period data
             'currentFiscalYear' => $this->getCurrentFiscalYear(),
             'currentAccountingPeriod' => $this->getCurrentAccountingPeriod(),
             'fiscalYears' => $this->getAllFiscalYears(),
             'accountingPeriods' => $this->getAllAccountingPeriods(),
+            'systemType' => $query->where('key', 'system_type')->first()?->value ?? '',
         ];
 
         return $settings;
@@ -96,7 +96,6 @@ class GeneralController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
     public function updateGeneralSettings(StoreGeneralSettingRequest $request)
     {
         // get settings data
@@ -211,13 +210,13 @@ class GeneralController extends Controller
             ['key' => 'default_language'],
             ['display_name' => 'Default Language', 'value' => clean($request->language)]
         );
-        
+
         // Update or create country setting
         GeneralSetting::updateOrCreate(
             ['key' => 'country'],
             ['display_name' => 'Country', 'value' => clean($request->country)]
         );
-        
+
         GeneralSetting::updateOrCreate(
             ['key' => 'logo'],
             ['display_name' => 'Logo', 'value' => $logoName]
@@ -251,8 +250,8 @@ class GeneralController extends Controller
             ['display_name' => 'Default VAT Rate Slug', 'value' => clean($request->defaultVatRate['slug'])]
         );
 
-        GeneralSetting::updateOrCreate(['key' =>  'invoice_thank_you_message'],[ 'display_name' => 'Invoice message', 'value' => clean($request->invoiceThankYouMessage)]);
-        GeneralSetting::updateOrCreate(['key' =>  'tax_registration_number'],[ 'display_name' => 'Tax Registration Number', 'value' => clean($request->taxRegistrationNumber)]);
+        GeneralSetting::updateOrCreate(['key' => 'invoice_thank_you_message'], ['display_name' => 'Invoice message', 'value' => clean($request->invoiceThankYouMessage)]);
+        GeneralSetting::updateOrCreate(['key' => 'tax_registration_number'], ['display_name' => 'Tax Registration Number', 'value' => clean($request->taxRegistrationNumber)]);
 
         // Update fiscal year and accounting period if provided
         if ($request->currentFiscalYear && isset($request->currentFiscalYear['id'])) {
@@ -269,39 +268,50 @@ class GeneralController extends Controller
             );
         }
 
+        // Update system type if provided
+        if ($request->has('systemType') && in_array($request->systemType, ['accounting', 'pos', 'both'])) {
+            GeneralSetting::updateOrCreate(
+                ['key' => 'system_type'],
+                ['display_name' => 'System Type', 'value' => $request->systemType]
+            );
+        }
+
         return redirect()->back()->withSuccess('Settings updated successfully!');
     }
 
-    public function getSMTPforTenant(){
+    public function getSMTPforTenant()
+    {
         $smtp_credentials = tenant()->smtp;
-        return  response()->json($smtp_credentials);
+
+        return response()->json($smtp_credentials);
     }
 
-    public function updateSMTPforTenant(MailConfigurationRequest $request){
+    public function updateSMTPforTenant(MailConfigurationRequest $request)
+    {
         tenant()->update([
             'smtp' => [
-                "mail_mailer" => $request->mail_mailer,
-                "mail_host" => $request->mail_host,
-                "mail_port" => $request->mail_port,
-                "mail_username" => $request->mail_username,
-                "mail_password" => $request->mail_password,
-                "mail_encryption" => $request->mail_encryption,
-                "mail_from_address" => $request->mail_from_address,
-                "mail_from_name" => $request->mail_from_name
-            ]
+                'mail_mailer' => $request->mail_mailer,
+                'mail_host' => $request->mail_host,
+                'mail_port' => $request->mail_port,
+                'mail_username' => $request->mail_username,
+                'mail_password' => $request->mail_password,
+                'mail_encryption' => $request->mail_encryption,
+                'mail_from_address' => $request->mail_from_address,
+                'mail_from_name' => $request->mail_from_name,
+            ],
         ]);
 
         // add activity log
         activity()
-        ->causedBy(Auth::user())
-        ->withProperties([
-            'name' => "",
-            'code' => "",
-            'event' => 'Update'
-        ])
-        ->useLog('Mail Configuration Updated')
-        ->log('Mail Configuration Updated');
-        
+            ->causedBy(Auth::user())
+            ->withProperties([
+                'name' => '',
+                'code' => '',
+                'event' => 'Update',
+            ])
+            ->useLog('Mail Configuration Updated')
+            ->log('Mail Configuration Updated');
+
         return 'Env SMTP updated successfully!';
     }
 
@@ -311,7 +321,7 @@ class GeneralController extends Controller
         if (empty($recipientEmail)) {
             return response()->json(['error' => 'Email address not configured in general settings'], 400);
         }
-        
+
         try {
             Mail::send([], [], function (Message $message) use ($recipientEmail) {
                 $message->to($recipientEmail)
@@ -321,36 +331,39 @@ class GeneralController extends Controller
 
             return response()->json(['message' => 'Test email sent successfully!'], 200);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Error sending test email: ' . $e->getMessage()], 500);
+            return response()->json(['error' => 'Error sending test email: '.$e->getMessage()], 500);
         }
     }
 
-    public function getSMSforTenant(){
+    public function getSMSforTenant()
+    {
         $sms_credentials = tenant()->sms;
-        return  response()->json($sms_credentials);
+
+        return response()->json($sms_credentials);
     }
 
-    public function updateSMSforTenant(SMSConfigurationRequest $request){
+    public function updateSMSforTenant(SMSConfigurationRequest $request)
+    {
         tenant()->update([
             'sms' => [
-                "twilio_account_sid" => $request->twilio_account_sid,
-                "twilio_auth_token" => $request->twilio_auth_token,
-                "twilio_from" => $request->twilio_from,
-                "twilio_sms_service_sid" => $request->twilio_sms_service_sid
-            ]
+                'twilio_account_sid' => $request->twilio_account_sid,
+                'twilio_auth_token' => $request->twilio_auth_token,
+                'twilio_from' => $request->twilio_from,
+                'twilio_sms_service_sid' => $request->twilio_sms_service_sid,
+            ],
         ]);
 
-            // add activity log
-            activity()
+        // add activity log
+        activity()
             ->causedBy(Auth::user())
             ->withProperties([
-                'name' => "",
-                'code' => "",
-                'event' => 'Update'
+                'name' => '',
+                'code' => '',
+                'event' => 'Update',
             ])
             ->useLog('SMS Configuration Updated')
             ->log('SMS Configuration Updated');
-            
+
         return 'Env SMS updated successfully!';
     }
 
@@ -362,7 +375,7 @@ class GeneralController extends Controller
     {
         $emailConfigured = $this->isEmailConfigured();
         $smsConfigured = $this->isSMSConfigured();
-        
+
         return response()->json([
             'email_configured' => $emailConfigured,
             'sms_configured' => $smsConfigured,
@@ -375,26 +388,26 @@ class GeneralController extends Controller
     private function isEmailConfigured()
     {
         $smtp = tenant()->smtp ?? [];
-        
+
         // Check if all required SMTP settings are present and not empty
         $requiredFields = ['mail_host', 'mail_port', 'mail_username', 'mail_password', 'mail_from_address'];
-        
+
         foreach ($requiredFields as $field) {
             if (empty($smtp[$field])) {
                 return false;
             }
         }
-        
+
         // Check for common default/placeholder values
         $defaultHosts = ['smtp.mailgun.org', 'smtp.mailtrap.io', 'localhost', '127.0.0.1'];
         $defaultUsernames = ['null', 'your-username', 'your_email@gmail.com', 'test@example.com'];
         $defaultPasswords = ['null', 'your-password', 'your_password', 'password'];
-        
-        if (in_array($smtp['mail_host'], $defaultHosts) && 
+
+        if (in_array($smtp['mail_host'], $defaultHosts) &&
             (in_array($smtp['mail_username'], $defaultUsernames) || in_array($smtp['mail_password'], $defaultPasswords))) {
             return false;
         }
-        
+
         return true;
     }
 
@@ -404,16 +417,16 @@ class GeneralController extends Controller
     private function isSMSConfigured()
     {
         $sms = tenant()->sms ?? [];
-        
+
         // Check if all required Twilio settings are present and not empty
         $requiredFields = ['twilio_account_sid', 'twilio_auth_token', 'twilio_from'];
-        
+
         foreach ($requiredFields as $field) {
             if (empty($sms[$field])) {
                 return false;
             }
         }
-        
+
         return true;
     }
 
@@ -437,6 +450,7 @@ class GeneralController extends Controller
                 ];
             }
         }
+
         return null;
     }
 
@@ -466,6 +480,7 @@ class GeneralController extends Controller
                 ];
             }
         }
+
         return null;
     }
 
@@ -589,14 +604,14 @@ class GeneralController extends Controller
                     ['key' => $key],
                     [
                         'display_name' => ucwords(str_replace('_', ' ', $key)),
-                        'value' => $value
+                        'value' => $value,
                     ]
                 );
             }
 
             return $this->responseWithSuccess('ZATCA settings updated successfully');
         } catch (\Exception $e) {
-            return $this->responseWithError('Error updating ZATCA settings: ' . $e->getMessage());
+            return $this->responseWithError('Error updating ZATCA settings: '.$e->getMessage());
         }
     }
 
@@ -637,8 +652,8 @@ class GeneralController extends Controller
             $this->updateZatcaSettings($request);
 
             // Simulate certificate generation
-            $certificatePath = 'certificates/zatca_' . time() . '.crt';
-            $privateKeyPath = 'certificates/zatca_' . time() . '.key';
+            $certificatePath = 'certificates/zatca_'.time().'.crt';
+            $privateKeyPath = 'certificates/zatca_'.time().'.key';
 
             // Update certificate status
             GeneralSetting::updateOrCreate(
@@ -656,7 +671,7 @@ class GeneralController extends Controller
 
             return $this->responseWithSuccess('ZATCA certificate generated successfully');
         } catch (\Exception $e) {
-            return $this->responseWithError('Error generating certificate: ' . $e->getMessage());
+            return $this->responseWithError('Error generating certificate: '.$e->getMessage());
         }
     }
 
@@ -684,7 +699,7 @@ class GeneralController extends Controller
 
             return $this->responseWithSuccess('ZATCA integration completed successfully');
         } catch (\Exception $e) {
-            return $this->responseWithError('Error finishing integration: ' . $e->getMessage());
+            return $this->responseWithError('Error finishing integration: '.$e->getMessage());
         }
     }
 
@@ -702,7 +717,7 @@ class GeneralController extends Controller
         try {
             // Here you would implement the actual ZATCA API connection test
             // For now, we'll just validate the required fields
-            
+
             $requiredFields = [
                 'zatca_organization_identifier',
                 'zatca_serial_number',
@@ -722,10 +737,10 @@ class GeneralController extends Controller
             if ($testResult['success']) {
                 return $this->responseWithSuccess('ZATCA connection test successful');
             } else {
-                return $this->responseWithError('ZATCA connection test failed: ' . $testResult['message']);
+                return $this->responseWithError('ZATCA connection test failed: '.$testResult['message']);
             }
         } catch (\Exception $e) {
-            return $this->responseWithError('Error testing ZATCA connection: ' . $e->getMessage());
+            return $this->responseWithError('Error testing ZATCA connection: '.$e->getMessage());
         }
     }
 
@@ -736,37 +751,36 @@ class GeneralController extends Controller
     {
         // This is a placeholder implementation
         // Replace with actual ZATCA API integration
-        
+
         // Simulate API call delay
         sleep(1);
-        
+
         // Basic validation
-        if (empty($request->zatca_api_url) || !filter_var($request->zatca_api_url, FILTER_VALIDATE_URL)) {
+        if (empty($request->zatca_api_url) || ! filter_var($request->zatca_api_url, FILTER_VALIDATE_URL)) {
             return [
                 'success' => false,
-                'message' => 'Invalid API URL'
+                'message' => 'Invalid API URL',
             ];
         }
 
         if (empty($request->zatca_security_token) || strlen($request->zatca_security_token) < 10) {
             return [
                 'success' => false,
-                'message' => 'Invalid security token'
+                'message' => 'Invalid security token',
             ];
         }
 
         if (empty($request->zatca_secret_key) || strlen($request->zatca_secret_key) < 10) {
             return [
                 'success' => false,
-                'message' => 'Invalid secret key'
+                'message' => 'Invalid secret key',
             ];
         }
 
         // Simulate successful connection
         return [
             'success' => true,
-            'message' => 'Connection test passed'
+            'message' => 'Connection test passed',
         ];
     }
-
 }

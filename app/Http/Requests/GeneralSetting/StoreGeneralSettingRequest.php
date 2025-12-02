@@ -52,7 +52,8 @@ class StoreGeneralSettingRequest extends BaseRequest
             'defaultAccount' => 'required',
             'defaultVatRate' => 'required',
             'currentFiscalYear' => 'nullable|array',
-            'currentAccountingPeriod' => 'nullable|array'
+            'currentAccountingPeriod' => 'nullable|array',
+            'systemType' => 'nullable|in:accounting,pos,both',
         ];
 
         // Add ZATCA validation rules if the request contains ZATCA fields
