@@ -134,9 +134,20 @@ export default {
     async getCostCenter() {
       await this.$http
         .get(`/api/cost-centers/${this.$route.params.slug}`)
-        .then(({ data }) => {
-          this.form.fill(data)
-          this.form.parent_id = data.parent_id
+        .then(response => {
+          const costCenter = response.data && response.data.data ? response.data.data : null
+
+          if (!costCenter) {
+            return
+          }
+
+          this.form.fill({
+            code: costCenter.code,
+            name: costCenter.name,
+            name_en: costCenter.name_en,
+            parent_id: costCenter.parent_id,
+            is_active: !!costCenter.is_active
+          })
         })
     },
     async updateCostCenter() {

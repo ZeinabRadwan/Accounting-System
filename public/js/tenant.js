@@ -34296,12 +34296,12 @@ var map = {
 		7926
 	],
 	"./cost-centers/edit": [
-		94229,
-		4229
+		38710,
+		8710
 	],
 	"./cost-centers/edit.vue": [
-		94229,
-		4229
+		38710,
+		8710
 	],
 	"./cost-centers/index": [
 		4469,
