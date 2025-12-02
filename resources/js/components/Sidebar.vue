@@ -98,6 +98,14 @@
                 </router-link>
               </li>
               <li v-if="
+                $can('invoice-create')
+              " class="nav-item">
+                <router-link :to="{ name: 'invoices.create' }" class="nav-link">
+                  <i class="fas fa-plus nav-icon" />
+                  <p>{{ $t("Add Sales Invoice") }}</p>
+                </router-link>
+              </li>
+              <li v-if="
                 ($can('invoice-list') ||
                   $can('invoice-create') ||
                   $can('invoice-view') ||
