@@ -35493,12 +35493,12 @@ var map = {
 		9520
 	],
 	"./sales/invoices/show": [
-		34277,
-		6658
+		72183,
+		2183
 	],
 	"./sales/invoices/show.vue": [
-		34277,
-		6658
+		72183,
+		2183
 	],
 	"./sales/pos/create": [
 		28046,
