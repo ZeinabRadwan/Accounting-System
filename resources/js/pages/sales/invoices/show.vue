@@ -138,7 +138,7 @@
             <div class="row mt-3">
               <div class="col-12">
                 <div class="table-responsive table-custom">
-                  <table class="table">
+                  <table class="table invoices-table">
                     <thead>
                       <tr>
                         <th v-if="allData.invoiceNo">
@@ -208,7 +208,7 @@
               <div class="col-12">
                 <strong class="mb-2 d-block">{{ $t("Invoice Products") }}:</strong>
                 <div class="table-responsive table-custom">
-                  <table class="table table-sm text-center">
+                  <table class="table table-sm text-center invoices-table">
                     <thead>
                       <tr>
                         <th>{{ $t("#") }}</th>
@@ -380,7 +380,7 @@
                 ">
                   <strong class="mb-2 d-block">{{ $t("Payment History") }}:</strong>
                   <div class="table-responsive table-custom">
-                    <table class="table table-sm">
+                    <table class="table table-sm invoices-table">
                       <thead>
                         <tr>
                           <th>{{ $t("#") }}</th>
@@ -437,7 +437,7 @@
               </div>
               <div class="col-lg-12 col-xl-4 text-lg-right mt-4">
                 <div class="table-responsive table-custom table-border-y-0">
-                  <table class="table">
+                  <table class="table invoices-table">
                     <tbody>
 
 
@@ -1375,5 +1375,47 @@ export default {
 [dir="rtl"] .d-flex.w-100 .v-select .vs__dropdown-toggle {
   border-left: none;
   border-right: 1px solid #E5E7EB;
+}
+
+/* Table styling from index.vue */
+.table-custom {
+  border: none !important;
+}
+
+.invoices-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.invoices-table thead th {
+  background-color: #33a0d9;
+  color: #ffffff;
+  padding: 8px;
+  border: none !important;
+  border-color: inherit !important;
+  font-weight: 400;
+}
+
+.invoices-table thead tr {
+  border: none !important;
+}
+
+.invoices-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.invoices-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+/* RTL styles for Arabic language */
+[dir="rtl"] .invoices-table thead th:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 10px;
+}
+
+[dir="rtl"] .invoices-table thead th:last-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 10px;
 }
 </style>
