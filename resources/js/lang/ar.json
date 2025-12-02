@@ -67,6 +67,8 @@
     "invoice_return_prefix": "رمز الاشعارات الدائنة",
     "purchase_return_prefix": "رمز الاشعارات المدينة",
     "system_type": "نوع النظام",
+    "select_system_type": "اختر نوع النظام",
+    "current_fiscal_year": "السنة المالية الحالية",
     "email_required": "البريد الإلكتروني مطلوب",
     "phone_required": "رقم الهاتف مطلوب",
     "phone_invalid": "تنسيق رقم الهاتف غير صحيح",

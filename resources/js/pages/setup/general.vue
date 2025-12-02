@@ -34,7 +34,7 @@
                                         <div class="form-group col-md-6">
                                             <label for="companyName">{{
                                                 $t('Company Name')
-                                            }}
+                                                }}
                                                 <span class="required">*</span></label>
                                             <input id="companyName" v-model="form.companyName" type="text"
                                                 class="form-control" :class="{
@@ -111,12 +111,12 @@
                                     <div class="form-group">
                                         <label for="address">{{
                                             $t('Address')
-                                            }}</label>
+                                        }}</label>
                                         <textarea id="address" v-model="form.address" class="form-control" :class="{
                                             'is-invalid':
                                                 form.errors.has('address'),
                                         }" :placeholder="$t('Enter an address')
-                                                " />
+                                            " />
                                         <has-error :form="form" field="address" />
                                     </div>
                                 </div>
@@ -448,9 +448,9 @@
                                                 'is-invalid': form.errors.has('currency'),
                                                 'text-uppercase': true
                                             }" name="currency" :placeholder="$t(
-                                                    'Select a currency'
-                                                )
-                                                    " />
+                                                'Select a currency'
+                                            )
+                                                " />
                                             <has-error :form="form" field="currency" />
                                         </div>
                                         <div class="form-group col-md-4">
@@ -475,7 +475,7 @@
                                         <div class="form-group col-md-4">
                                             <label for="taxRegistrationNumber">{{
                                                 $t("Tax Registration Number")
-                                                }}</label>
+                                            }}</label>
                                             <input id="taxRegistrationNumber" v-model="form.taxRegistrationNumber"
                                                 type="taxRegistrationNumber" class="form-control"
                                                 :class="{ 'is-invalid': form.errors.has('taxRegistrationNumber') }"
@@ -487,15 +487,15 @@
                                     <div class="row">
                                         <div class="form-group col-md-12">
                                             <label for="systemType">{{
-                                                $t("System Type")
-                                                }}
+                                                $t("system_type")
+                                            }}
                                                 <span class="required">*</span>
                                             </label>
                                             <select v-model="form.systemType" id="systemType" name="systemType"
                                                 class="form-control" :class="{
                                                     'is-invalid': form.errors.has('systemType'),
                                                 }">
-                                                <option value="">{{ $t('Select a system type') }}</option>
+                                                <option value="">{{ $t('select_system_type') }}</option>
                                                 <option value="accounting">{{ $t('accounting_system') }}</option>
                                                 <option value="pos">{{ $t('point_of_sale') }}</option>
                                                 <option value="both">{{ $t('both_systems') }}</option>
@@ -510,8 +510,8 @@
                                         <!-- Fiscal Year Selection -->
                                         <div class="form-group col-md-6">
                                             <label for="currentFiscalYear">{{
-                                                $t('Current Fiscal Year')
-                                                }}
+                                                $t('current_fiscal_year')
+                                            }}
                                                 <span class="required">*</span>
                                             </label>
                                             <v-select v-model="form.currentFiscalYear" :options="fiscalYears"
@@ -531,7 +531,7 @@
                                         <div class="form-group col-md-6">
                                             <label for="currentAccountingPeriod">{{
                                                 $t('Current Accounting Period')
-                                                }}
+                                            }}
                                                 <span class="required">*</span>
                                             </label>
                                             <v-select v-model="form.currentAccountingPeriod"
@@ -627,7 +627,7 @@
                                                     }" @change="onLogoChange" />
                                                 <label class="custom-file-label" for="logo">{{
                                                     $t('Choose file')
-                                                }}</label>
+                                                    }}</label>
                                             </div>
                                             <has-error :form="form" field="logo" />
                                             <div class="bg-light mt-4 w-25">
@@ -650,7 +650,7 @@
                                                     }" @change="onBlackLogoChange" />
                                                 <label class="custom-file-label" for="blackLogo">{{
                                                     $t('Choose file')
-                                                }}</label>
+                                                    }}</label>
                                             </div>
                                             <has-error :form="form" field="blackLogo" />
                                             <div class="bg-light mt-4 w-25">
@@ -676,7 +676,7 @@
                                                     }" @change="onSmallLogoChange" />
                                                 <label class="custom-file-label" for="smallLogo">{{
                                                     $t('Choose file')
-                                                }}</label>
+                                                    }}</label>
                                             </div>
                                             <has-error :form="form" field="smallLogo" />
                                             <div class="bg-light mt-4 w-25">
@@ -700,7 +700,7 @@
                                                     }" @change="onFaviconChange" />
                                                 <label class="custom-file-label" for="favicon">{{
                                                     $t('Choose file')
-                                                }}</label>
+                                                    }}</label>
                                             </div>
                                             <has-error :form="form" field="favicon" />
                                             <div class="bg-light mt-4 w-25">
@@ -714,7 +714,7 @@
                                                 $t(
                                                     "Invoice Thank You Message"
                                                 )
-                                                }}
+                                            }}
                                                 <span class="required">*</span></label>
                                             <input id="invoiceThankYouMessage" v-model="form.invoiceThankYouMessage"
                                                 type="text" class="form-control"
