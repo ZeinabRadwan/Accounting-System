@@ -10,7 +10,8 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'balances.index' }" class="btn btn-info">
-                  <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                  <template
+                    v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
                     {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
 
@@ -18,7 +19,8 @@
 
                   <template v-else>
 
-                    <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                    <template
+                      v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
 
                       {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
@@ -54,9 +56,9 @@
                   <v-select v-model="form.account" :options="items" label="label"
                     :class="{ 'is-invalid': form.errors.has('account') || bankAccountError }" name="account"
                     :placeholder="$t('Select a bank account')">
-                     <template slot="option" slot-scope="option">
-                        <img :src="option.image" style="width: 30px; height: 30px;" />
-                        {{ option.label }}
+                    <template slot="option" slot-scope="option">
+                      <img :src="option.image" style="width: 30px; height: 30px;" />
+                      {{ option.label }}
                     </template>
                   </v-select>
                   <has-error :form="form" field="account" />
@@ -86,10 +88,10 @@
                   <label for="type">{{ $t("Type") }}</label>
                   <select id="type" v-model="form.type" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('type') }">
-                    <option value="1">
+                    <option value="0">
                       {{ $t("Add Balance") }}
                     </option>
-                    <option value="0">
+                    <option value="1">
                       {{ $t("Remove Balance") }}
                     </option>
                   </select>
@@ -109,8 +111,7 @@
                     <span class="required">*</span></label>
                   <input id="amount" v-model="form.amount" type="number" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('amount') }" name="amount"
-                    :placeholder="$t('Enter an amount')"
-                    :max="form.type == 0 ? form.account.availableBalance : ''" />
+                    :placeholder="$t('Enter an amount')" :max="form.type == 1 ? form.account.availableBalance : ''" />
                   <has-error :form="form" field="amount" />
                 </div>
               </div>
@@ -241,7 +242,7 @@ export default {
     async getChartOfAccounts() {
       try {
         const response = await this.$http.get('/api/accounts/chart-of-accounts');
-        
+
         if (response.data && response.data.success) {
           this.chartOfAccounts = response.data.data || [];
         } else {
@@ -504,12 +505,12 @@ textarea.form-control {
     flex-direction: column;
     gap: 10px;
   }
-  
+
   .card-footer .btn {
     width: 100%;
     margin-right: 0 !important;
   }
-  
+
   .card-footer div {
     width: 100%;
     display: flex;

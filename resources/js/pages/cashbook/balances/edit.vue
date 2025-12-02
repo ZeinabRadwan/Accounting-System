@@ -57,10 +57,10 @@
                   <label for="type">{{ $t('Type') }}</label>
                   <select id="type" v-model="form.type" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('type') }">
-                    <option value="1">
+                    <option value="0">
                       {{ $t('Add Balance') }}
                     </option>
-                    <option value="0">
+                    <option value="1">
                       {{ $t('Remove Balance') }}
                     </option>
                   </select>
@@ -80,7 +80,7 @@
                     <span class="required">*</span></label>
                   <input id="amount" v-model="form.amount" type="number" step="any" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('amount') }" name="amount"
-                    :placeholder="$t('Enter an amount')" :min="form.currentAmount" :max="form.type == 0
+                    :placeholder="$t('Enter an amount')" :min="form.currentAmount" :max="form.type == 1
                       ? form.account.availableBalance + form.currentAmount
                       : ''
                       " />

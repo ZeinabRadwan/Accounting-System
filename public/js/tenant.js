@@ -33448,36 +33448,36 @@ var map = {
 		1425
 	],
 	"./cashbook/balances": [
-		49695,
-		9695
+		35562,
+		5562
 	],
 	"./cashbook/balances/": [
-		49695,
-		9695
+		35562,
+		5562
 	],
 	"./cashbook/balances/create": [
-		58646,
-		8646
+		82832,
+		2832
 	],
 	"./cashbook/balances/create.vue": [
-		58646,
-		8646
+		82832,
+		2832
 	],
 	"./cashbook/balances/edit": [
-		30664,
-		664
+		45030,
+		5030
 	],
 	"./cashbook/balances/edit.vue": [
-		30664,
-		664
+		45030,
+		5030
 	],
 	"./cashbook/balances/index": [
-		49695,
-		9695
+		35562,
+		5562
 	],
 	"./cashbook/balances/index.vue": [
-		49695,
-		9695
+		35562,
+		5562
 	],
 	"./cashbook/chart-of-accounts": [
 		52664,

@@ -85,7 +85,7 @@
                     </td>
                     <td>{{ data.amount }} <span class="saudi-riyal">ê</span></td>
                     <td>
-                      <span v-if="data.type == 1" class="badge bg-success">{{
+                      <span v-if="data.type == 0" class="badge bg-success">{{
                         $t("Add Balance")
                         }}</span>
                       <span v-else class="badge bg-danger">{{
