@@ -440,7 +440,7 @@ var IS_NODE = __webpack_require__(19088);
 var global = __webpack_require__(24475);
 var call = __webpack_require__(69565);
 var defineBuiltIn = __webpack_require__(36840);
-var setPrototypeOf = __webpack_require__(52967);
+var setPrototypeOf = __webpack_require__(75348);
 var setToStringTag = __webpack_require__(10687);
 var setSpecies = __webpack_require__(87633);
 var aCallable = __webpack_require__(79306);
@@ -2699,7 +2699,7 @@ var FunctionName = __webpack_require__(10350);
 var isCallable = __webpack_require__(17282);
 var createIteratorConstructor = __webpack_require__(33994);
 var getPrototypeOf = __webpack_require__(42787);
-var setPrototypeOf = __webpack_require__(52967);
+var setPrototypeOf = __webpack_require__(75348);
 var setToStringTag = __webpack_require__(10687);
 var createNonEnumerableProperty = __webpack_require__(66699);
 var defineBuiltIn = __webpack_require__(36840);
@@ -2816,43 +2816,6 @@ $({ target: 'Promise', stat: true, forced: FORCED_PROMISE_CONSTRUCTOR }, {
     return capability.promise;
   }
 });
-
-
-/***/ }),
-
-/***/ 52967:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-/* eslint-disable no-proto -- safe */
-var uncurryThisAccessor = __webpack_require__(46706);
-var isObject = __webpack_require__(20034);
-var requireObjectCoercible = __webpack_require__(67750);
-var aPossiblePrototype = __webpack_require__(73506);
-
-// `Object.setPrototypeOf` method
-// https://tc39.es/ecma262/#sec-object.setprototypeof
-// Works with __proto__ only. Old v8 can't work with null proto objects.
-// eslint-disable-next-line es/no-object-setprototypeof -- safe
-module.exports = Object.setPrototypeOf || ('__proto__' in {} ? function () {
-  var CORRECT_SETTER = false;
-  var test = {};
-  var setter;
-  try {
-    setter = uncurryThisAccessor(Object.prototype, '__proto__', 'set');
-    setter(test, []);
-    CORRECT_SETTER = test instanceof Array;
-  } catch (error) { /* empty */ }
-  return function setPrototypeOf(O, proto) {
-    requireObjectCoercible(O);
-    aPossiblePrototype(proto);
-    if (!isObject(O)) return O;
-    if (CORRECT_SETTER) setter(O, proto);
-    else O.__proto__ = proto;
-    return O;
-  };
-}() : undefined);
 
 
 /***/ }),
@@ -3956,6 +3919,43 @@ module.exports = function (argument) {
   if (isPossiblePrototype(argument)) return argument;
   throw new $TypeError("Can't set " + $String(argument) + ' as a prototype');
 };
+
+
+/***/ }),
+
+/***/ 75348:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+/* eslint-disable no-proto -- safe */
+var uncurryThisAccessor = __webpack_require__(46706);
+var isObject = __webpack_require__(20034);
+var requireObjectCoercible = __webpack_require__(67750);
+var aPossiblePrototype = __webpack_require__(73506);
+
+// `Object.setPrototypeOf` method
+// https://tc39.es/ecma262/#sec-object.setprototypeof
+// Works with __proto__ only. Old v8 can't work with null proto objects.
+// eslint-disable-next-line es/no-object-setprototypeof -- safe
+module.exports = Object.setPrototypeOf || ('__proto__' in {} ? function () {
+  var CORRECT_SETTER = false;
+  var test = {};
+  var setter;
+  try {
+    setter = uncurryThisAccessor(Object.prototype, '__proto__', 'set');
+    setter(test, []);
+    CORRECT_SETTER = test instanceof Array;
+  } catch (error) { /* empty */ }
+  return function setPrototypeOf(O, proto) {
+    requireObjectCoercible(O);
+    aPossiblePrototype(proto);
+    if (!isObject(O)) return O;
+    if (CORRECT_SETTER) setter(O, proto);
+    else O.__proto__ = proto;
+    return O;
+  };
+}() : undefined);
 
 
 /***/ }),

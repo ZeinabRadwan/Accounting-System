@@ -13,7 +13,7 @@ import LocaleDropdown from '../components/LocaleDropdown.vue'
 
 export default {
   name: 'BasicLayout',
-  components: { 
+  components: {
     LocaleDropdown
   },
   computed: {
@@ -64,11 +64,11 @@ export default {
   top: 20px;
   right: 20px;
   z-index: 9999;
-  
+
   .nav-item {
     list-style: none;
   }
-  
+
   .dropdown-menu {
     min-width: 150px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -77,14 +77,14 @@ export default {
     right: 0;
     left: auto;
   }
-  
+
   .dropdown-item {
     padding: 8px 16px;
     font-size: 14px;
     display: flex;
     align-items: center;
     gap: 8px;
-    
+
     &:hover {
       background-color: #f8f9fa;
     }
@@ -95,7 +95,7 @@ export default {
 [dir="rtl"] .language-switcher-container {
   right: auto;
   left: 20px;
-  
+
   .dropdown-menu {
     right: auto;
     left: 0;
@@ -105,7 +105,7 @@ export default {
 // RTL support for domain input
 [dir="rtl"] .url {
   flex-direction: row-reverse !important;
-  
+
   span {
     order: -1 !important;
   }
@@ -114,7 +114,7 @@ export default {
 // More specific RTL support for domain input in auth pages
 [dir="rtl"] .form-group .url {
   flex-direction: row-reverse !important;
-  
+
   span {
     order: -1 !important;
   }
@@ -124,13 +124,7 @@ export default {
 [dir="rtl"] .d-flex.url {
   flex-direction: row-reverse !important;
   display: flex !important;
-  
-  span {
-    order: -1 !important;
-    margin-left: 0 !important;
-    margin-right: 8px !important;
-  }
-  
+
   input {
     order: 1 !important;
   }
@@ -139,11 +133,11 @@ export default {
 // Even more specific targeting
 [dir="rtl"] .form-group .d-flex.url {
   flex-direction: row-reverse !important;
-  
+
   span {
     order: -1 !important;
   }
-  
+
   input {
     order: 1 !important;
   }

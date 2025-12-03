@@ -1,203 +1,72 @@
 <template>
-  <div class="container-fluid">
-    <div class="row no-gutter">
-      <!-- The image half -->
-      <div class="col-md-6 d-none d-md-flex bg-image"></div>
-      <!-- The content half -->
-      <div class="col-md-6 bg-light">
-        <div class="auth-wrapper d-flex align-items-center py-5">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-10 col-xl-7 mx-auto">
-                <div class="text-center">
-                  <router-link to="/">
-                    <img v-if="appInfo" :src="appInfo.blackLogo" :alt="appInfo.companyName"
-                      class="lg-logo img-fluid logo-width" />
-                  </router-link>
-                  <p class="text-22 mb-4 mt-2">{{ $t("login_txt") }}</p>
-                </div>
+  <div>
+    <auth-wrapper :title="$t('login')">
+      <template #form>
+        <form @submit.prevent="login" @keydown="form.onKeydown($event)">
+          <!-- Email -->
+          <div class="form-group mb-3">
+            <input id="email" v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }"
+              class="form-control input-radius-10 border-0 px-4 text-primary" type="email" name="email"
+              :placeholder="$t('email_placeholder')" />
+            <has-error :form="form" field="email" class="ml-4" />
+          </div>
 
-                <form @submit.prevent="login" @keydown="form.onKeydown($event)">
-                  <div class="form-group mb-3">
-                    <input id="email" v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }"
-                      class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" type="email" name="email"
-                      :placeholder="$t('email_placeholder')" />
-                    <has-error :form="form" field="email" />
-                  </div>
-                  <div class="form-group mb-3">
-                    <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }"
-                      class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" type="password"
-                      name="password" :placeholder="$t('password_placeholder')" />
-                    <has-error :form="form" field="password" />
-                  </div>
-                  <div class="row mb-5">
-                    <div class="col-md-6">
-                      <checkbox v-model="remember" name="remember">
-                        {{ $t("remember_me") }}
-                      </checkbox>
-                    </div>
-                    <div class="col-md-6 text-right">
-                      <router-link :to="{ name: 'password.request' }" class="ml-auto my-auto">
-                        {{ $t("forgot_password") }}
-                      </router-link>
-                    </div>
-                  </div>
-                  <!-- Submit Button -->
-                  <v-button :loading="form.busy"
-                    class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">
-                    <strong>{{ $t("login") }}</strong>
-                    <!-- <i class="fas fa-sign-in-alt" style="transform: scaleX(-1);" /> -->
-                  </v-button>
-                </form>
-              </div>
-              <!-- Login  Credentials For Demo -->
-              <!-- <div class="col-12 mt-4" v-if="isDemoMode">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <h3 class="text-center font-bold font-up danger-text">
-                          {{ $t('Login Credentials') }}
-                        </h3>
-                      </div>
-                    </div>
-                    <div class="table-responsive">
-                      <table class="table table-bordered red-border text-center">
-                        <thead>
-                          <tr>
-                            <th>{{ $t('Type') }}</th>
-                            <th>{{ $t('Role') }}</th>
-                            <th>{{ $t('Email') }}</th>
-                            <th>{{ $t('Password') }}</th>
-                            <th>{{ $t('Action') }}</th>
-                          </tr>
-                        </thead>
-                        <tbody v-if="!isSubdomain">
-                          <tr>
-                            <th>{{ $t('Owner') }}</th>
-                            <th>{{ $t('Central Admin') }}</th>
-                            <td>superadmin@arqam.sa</td>
-                            <td>arqam2024</td>
-                            <td scope="row">
-                              <button v-tooltip="$t('Central Admin')" class="btn" @click="
-                                loginCredential(
-                                  'superadmin@arqam.sa',
-                                  'arqam2024'
-                                )
-                                ">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                  stroke="currentColor" stroke-width="2">
-                                  <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                                </svg>
-                              </button>
-                            </td>
-                          </tr>
-                        </tbody>
-                        <tbody v-else>
-                          <tr v-if="checkSubdomain('john')">
-                            <th scope="row">{{ $t('Tenant(Subscriber)') }}</th>
-                            <th scope="row">{{ $t('Admin') }}</th>
-                            <td>john@arqam.sa</td>
-                            <td>arqam2024</td>
-                            <td scope="row">
-                              <button v-tooltip="$t('Central Admin')" class="btn" @click="
-                                loginCredential(
-                                  'john@arqam.sa',
-                                  'arqam2024'
-                                )
-                                ">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                  stroke="currentColor" stroke-width="2">
-                                  <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                                </svg>
-                              </button>
-                            </td>
-                          </tr>
-                          <tr v-if="checkSubdomain('jane')">
-                            <th scope="row">{{ $t('Tenant(Subscriber)') }}</th>
-                            <th scope="row">{{ $t('Admin') }}</th>
-                            <td>jane@arqam.sa</td>
-                            <td>arqam2024</td>
-                            <td scope="row">
-                              <button v-tooltip="$t('Central Admin')" class="btn" @click="
-                                loginCredential(
-                                  'jane@arqam.sa',
-                                  'arqam2024'
-                                )
-                                ">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                  stroke="currentColor" stroke-width="2">
-                                  <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                                </svg>
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">{{ $t('Tenant Employee') }}</th>
-                            <th scope="row">{{ $t('Manager') }}</th>
-                            <td>manager@arqam.sa</td>
-                            <td>arqam2024</td>
-                            <td scope="row">
-                              <button v-tooltip="$t('Login as super manager')" class="btn" @click="
-                                loginCredential(
-                                  'manager@arqam.sa',
-                                  'arqam2024'
-                                )
-                                ">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                  stroke="currentColor" stroke-width="2">
-                                  <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                                </svg>
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">{{ $t('Tenant Employee') }}</th>
-                            <th scope="row">{{ $t('Salesman') }}</th>
-                            <td>sales@arqam.sa</td>
-                            <td>arqam2024</td>
-                            <td scope="row">
-                              <button v-tooltip="$t('Login as super salesman')" class="btn" @click="
-                                loginCredential(
-                                  'sales@arqam.sa',
-                                  'arqam2024'
-                                )
-                                ">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                  stroke="currentColor" stroke-width="2">
-                                  <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                                </svg>
-                              </button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
+          <!-- Password -->
+          <div class="form-group mb-3">
+            <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }"
+              class="form-control input-radius-10 border-0 px-4 text-primary" type="password" name="password"
+              :placeholder="$t('password_placeholder')" />
+            <has-error :form="form" field="password" class="ml-4" />
+          </div>
+
+          <!-- Remember Me and Forgot Password -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <checkbox v-model="remember" name="remember">
+                {{ $t("remember_me") }}
+              </checkbox>
+            </div>
+            <div class="col-md-6 text-right">
+              <router-link :to="{ name: 'password.request' }" class="forgot-password-link">
+                {{ $t("forgot_password") }}
+              </router-link>
             </div>
           </div>
-        </div>
-        <!-- End -->
-      </div>
-    </div>
-    <!-- End -->
+
+          <!-- Submit Button -->
+          <div class="register-submit-btn-wrapper">
+            <v-button :loading="form.busy" class="btn btn-block mb-2 register-submit-btn">
+              <strong>{{ $t("login") }}</strong>
+              <i class="fas fa-sign-in-alt" style="transform: scaleX(-1);" />
+            </v-button>
+          </div>
+
+          <!-- Don't have account / Register link -->
+          <div class="row justify-content-center mt-3">
+            <div class="mx-2 already-registered-text">
+              <span class="already-registered-question">{{ $t('dont_have_account') }}</span>
+              <router-link :to="{ name: 'register' }" class="login-link-text">
+                {{ $t('register') }}
+              </router-link>
+            </div>
+          </div>
+        </form>
+      </template>
+    </auth-wrapper>
   </div>
 </template>
 <script>
 import Form from "vform";
 import Cookies from "js-cookie";
 import { mapGetters } from "vuex";
+import AuthWrapper from '@/components/auth/AuthWrapper.vue';
 
 export default {
   layout: "basic",
   middleware: "guest",
+  components: {
+    AuthWrapper,
+  },
   metaInfo() {
     return { title: this.$t("login") };
   },
@@ -286,7 +155,7 @@ export default {
 
     checkDomain(url) {
       url = url || "http://www.test-domain.com"; // just for the example
-      var regex = new RegExp(/^([a-z]+\:\/{2})?([\w-]+\.[\w-]+\.\w+)$/);
+      var regex = new RegExp(/^([a-z]+:\/{2})?([\w-]+\.[\w-]+\.\w+)$/);
       return !!url.match(regex); // make sure it returns boolean
     },
 
@@ -301,3 +170,32 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+/* Unique styles for login page */
+.forgot-password-link {
+  color: #0775AF !important;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.forgot-password-link:hover {
+  color: #06608a !important;
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .forgot-password-link {
+    font-size: 14px;
+    display: inline-block;
+    padding: 4px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .forgot-password-link {
+    font-size: 13px;
+  }
+}
+</style>

@@ -1,27 +1,41 @@
 <template>
   <div>
-    <!-- Loading state (minimal, no modal) -->
-    <div v-if="loading && !error" class="loading-container">
-      <div class="spinner-border text-primary" role="status">
-        <span class="sr-only">{{ $t('Loading') }}...</span>
-      </div>
-    </div>
-    
-    <!-- Error state -->
-    <div v-else-if="error" class="error-container">
-      <div class="alert alert-danger">
-        {{ error }}
-      </div>
-    </div>
+    <auth-wrapper :title="$t('Logging in')">
+      <template #form>
+        <!-- Loading state -->
+        <div v-if="loading && !error" class="loading-content">
+          <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">{{ $t('Loading') }}...</span>
+          </div>
+          <p class="mt-3">{{ $t('Processing your login') }}...</p>
+        </div>
+        
+        <!-- Error state -->
+        <div v-else-if="error" class="error-content">
+          <div class="alert alert-danger">
+            {{ error }}
+          </div>
+          <div class="mt-3 text-center">
+            <router-link :to="{ name: 'find-domain' }" class="login-link-text">
+              {{ $t('Try again') }}
+            </router-link>
+          </div>
+        </div>
+      </template>
+    </auth-wrapper>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import AuthWrapper from '@/components/auth/AuthWrapper.vue'
 
 export default {
-  layout: 'blank',
+  layout: 'basic',
   middleware: 'guest',
+  components: {
+    AuthWrapper,
+  },
   metaInfo() {
     return { title: this.$t('Logging in') }
   },
@@ -195,29 +209,59 @@ export default {
 </script>
 
 <style scoped>
-.loading-container,
-.error-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 2rem;
-}
-
-.error-container .alert {
-  max-width: 400px;
-  margin: 0 auto;
+/* Unique styles for cross-domain-login page */
+.loading-content,
+.error-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    text-align: center;
+    padding: 1rem;
 }
 
 .spinner-border {
-  width: 3rem;
-  height: 3rem;
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .loading-content,
+    .error-content {
+        min-height: 150px;
+        padding: 0.75rem;
+    }
+
+    .loading-content p,
+    .error-content p {
+        font-size: 14px;
+        margin-top: 1rem;
+    }
+
+    .spinner-border {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .loading-content,
+    .error-content {
+        min-height: 120px;
+        padding: 0.5rem;
+    }
+
+    .loading-content p,
+    .error-content p {
+        font-size: 13px;
+        margin-top: 0.75rem;
+    }
+
+    .spinner-border {
+        width: 2rem;
+        height: 2rem;
+    }
 }
 </style>

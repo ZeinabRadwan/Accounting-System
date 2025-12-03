@@ -1,283 +1,175 @@
 <template>
-    <div>
-        <div class="container-fluid">
-            <div class="row no-gutter">
-                <!-- The image half -->
-                <div class="col-md-6 d-none d-md-flex bg-image"></div>
-                <!-- The content half -->
-                <div class="col-md-6 bg-light">
-                    <div class="auth-wrapper d-flex align-items-center py-5">
-                        <!-- Demo content-->
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12 col-lg-10 col-xl-8 mx-auto">
-                                    <div class="text-center">
-                                        <router-link to="/">
-                                            <img
-                                                v-if="appInfo"
-                                                :src="appInfo.blackLogo"
-                                                :alt="appInfo.companyName"
-                                                class="lg-logo img-fluid logo-width"
-                                            />
-                                        </router-link>
-                                        <div
-                                            v-if="
-                                                !verificationForm.email && appInfo
-                                            "
-                                        >
-                                            <p class="text-22 mb-4 mt-2">
-                                                {{
-                                                    $t(
-                                                        'Sign Up Instantly Free for'
-                                                    ) +
-                                                    ' ' +
-                                                    appInfo.trial_day_count +
-                                                    ' ' +
-                                                    $t(
-                                                        'days, no credit card required'
-                                                    ) +
-                                                    '.'
-                                                }}
-                                            </p>
-                                        </div>
+  <div>
+    <auth-wrapper :title="$t('create_new_account')">
+      <!-- Top Message Slot -->
+      <template #topMessage>
+        <div class="text-center">
+          <div v-if="!verificationForm.email && appInfo">
+            <p class="signup-message mb-4 mt-2">
+              <span class="signup-icon">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M1.33337 14C1.33332 12.9736 1.62946 11.9689 2.18627 11.1066C2.74308 10.2443 3.53689 9.56098 4.47244 9.13868C5.40799 8.71637 6.44553 8.573 7.46055 8.72578C8.47556 8.87857 9.42493 9.321 10.1947 10M12.6667 10.6667V14.6667M14.6667 12.6667H10.6667M10 5.33333C10 7.17428 8.50766 8.66667 6.66671 8.66667C4.82576 8.66667 3.33337 7.17428 3.33337 5.33333C3.33337 3.49238 4.82576 2 6.66671 2C8.50766 2 10 3.49238 10 5.33333Z"
+                    stroke="#0775AF" stroke-width="1.33333" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </span>
+              {{
+                $t('Sign Up Instantly Free for') +
+                ' ' +
+                appInfo.trial_day_count +
+                ' ' +
+                $t('days, no credit card required') +
+                '.'
+              }}
+            </p>
+          </div>
 
-                                        <div
-                                            v-if="isDemoMode"
-                                            class="alert alert-danger"
-                                        >
-                                            To prevent the creation of multiple
-                                            sub-domains, we have disabled the
-                                            registration feature for the demo. You
-                                            can access the Tenant panel
-                                            <a
-                                                href="https://john.arqam.sa/login"
-                                                >here</a
-                                            >
-                                        </div>
-                                    </div>
-                                    <form
-                                        v-if="!verificationForm.email"
-                                        @submit.prevent="tenantRegister"
-                                        @keydown="form.onKeydown($event)"
-                                    >
-                                        <!-- Error Message Display -->
-                                        <div
-                                            v-if="message && type === 'danger'"
-                                            class="alert alert-danger mb-4"
-                                        >
-                                            {{ message }}
-                                        </div>
-                                        <!-- Full Name-->
-                                        <div class="form-group mb-3">
-                                            <input
-                                                id="name"
-                                                v-model="form.name"
-                                                :class="{
-                                                    'is-invalid':
-                                                        form.errors.has('name'),
-                                                }"
-                                                class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
-                                                type="text"
-                                                name="name"
-                                                :placeholder="$t('Name')"
-                                            />
-                                            <has-error
-                                                :form="form"
-                                                field="name"
-                                                class="ml-4"
-                                            />
-                                        </div>
-                                        <!-- Email -->
-                                        <div class="form-group mb-3">
-                                            <input
-                                                v-model="form.email"
-                                                id="email"
-                                                name="email"
-                                                :class="{
-                                                    'is-invalid':
-                                                        form.errors.has('email'),
-                                                }"
-                                                class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
-                                                type="email"
-                                                :placeholder="$t('Email')"
-                                            />
-                                            <has-error
-                                                :form="form"
-                                                field="email"
-                                                class="ml-4"
-                                            />
-                                        </div>
-                                        <!-- domain -->
-                                        <div class="form-group mb-3">
-                                            <div class="d-flex align-items-center mb-2">
-                                                <label for="domain" class="form-label mb-0">{{ $t('domain') }}</label>
-                                                <i class="fas fa-info-circle  ms-2" 
-                                                   v-tooltip="$t('domain_explanation')" 
-                                                   style="cursor: help; font-size: 14px;"></i>
-                                            </div>
-                                            <div class="d-flex url">
-                                                <input
-                                                    v-model="form.domain"
-                                                    @input="checkDomainAvailability"
-                                                    id="domain"
-                                                    name="domain"
-                                                    :class="{
-                                                        'is-invalid': form.errors.has('domain') || domainValidation.error,
-                                                        'is-valid': domainValidation.valid && domainValidation.available && !domainValidation.checking
-                                                    }"
-                                                    class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
-                                                    type="text"
-                                                    :placeholder="$t('domain')"
-                                                />
-                                                <span style="height: 100%; line-height: 2">{{ host }}</span>
-                                            </div>
-                                            <!-- Domain validation feedback -->
-                                            <div v-if="domainValidation.checking" class="ml-4 text-muted small">
-                                                <i class="fas fa-spinner fa-spin me-1"></i>
-                                                {{ $t('domain_checking') }}
-                                            </div>
-                                            <div v-else-if="domainValidation.valid && domainValidation.available" class="ml-4 text-success small">
-                                                <i class="fas fa-check-circle me-1"></i>
-                                                {{ $t('domain_available') }}
-                                            </div>
-                                            <div v-else-if="domainValidation.error" class="ml-4 text-danger small">
-                                                <i class="fas fa-exclamation-circle me-1"></i>
-                                                {{ domainValidation.message }}
-                                            </div>
-                                            <has-error
-                                                :form="form"
-                                                field="domain"
-                                                class="ml-4"
-                                            />
-                                        </div>
-                                        <!-- Company -->
-                                        <div class="form-group mb-3">
-                                            <input
-                                                v-model="form.company"
-                                                id="company"
-                                                name="company"
-                                                :class="{
-                                                    'is-invalid':
-                                                        form.errors.has('company'),
-                                                }"
-                                                class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
-                                                type="text"
-                                                :placeholder="
-                                                    $t('Company Name')
-                                                "
-                                            />
-                                            <has-error
-                                                :form="form"
-                                                field="company"
-                                                class="ml-4"
-                                            />
-                                        </div>
-                                        <!-- Password -->
-                                        <div class="form-group mb-3">
-                                            <input
-                                                v-model="form.password"
-                                                id="password"
-                                                name="password"
-                                                :class="{
-                                                    'is-invalid':
-                                                        form.errors.has('password'),
-                                                }"
-                                                class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
-                                                type="password"
-                                                :placeholder="$t('password')"
-                                            />
-                                            <has-error
-                                                :form="form"
-                                                field="password"
-                                                class="ml-4"
-                                            />
-                                        </div>
-                                        <!-- Password -->
-                                        <div class="form-group mb-3">
-                                            <input
-                                                v-model="form.password_confirmation"
-                                                id="password_confirmation"
-                                                name="password_confirmation"
-                                                :class="{
-                                                    'is-invalid': form.errors.has(
-                                                        'password_confirmation'
-                                                    ),
-                                                }"
-                                                class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
-                                                type="password"
-                                                :placeholder="
-                                                    $t('confirm_password')
-                                                "
-                                            />
-                                            <has-error
-                                                :form="form"
-                                                field="password_confirmation"
-                                                class="ml-4"
-                                            />
-                                        </div>
-
-                                        <!-- terms and conditions -->
-                                        <div class="row mb-5 ml-2">
-                                            <checkbox
-                                                v-model="form.terms_and_conditions"
-                                                id="terms_and_conditions"
-                                                name="terms_and_conditions"
-                                                :class="{
-                                                    'is-invalid': form.errors.has(
-                                                        'terms_and_conditions'
-                                                    ),
-                                                }"
-                                                required
-                                            >
-                                                {{ $t('register_policy') }}
-                                            </checkbox>
-                                            <has-error
-                                                :form="form"
-                                                field="terms_and_conditions"
-                                            />
-                                        </div>
-                                        <!-- Submit Button -->
-                                        <v-button
-                                            :loading="form.busy"
-                                            class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm"
-                                        >
-                                        <strong>{{ $t('register') }}</strong>
-                                        <i class="fas fa-sign-in-alt" style="transform: scaleX(-1);" />
-                                        </v-button>
-                                        <div class="row justify-content-between">
-                                            <router-link
-                                                :to="{ name: 'find-domain' }"
-                                                class="mx-2"
-                                            >
-                                                {{ $t('already_registered') }}
-                                            </router-link>
-                                            <router-link
-                                                :to="{ name: 'resend' }"
-                                                class="mx-2"
-                                            >
-                                                {{ $t('resend_verification_link') }}
-                                            </router-link>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End -->
-                    </div>
-                </div>
-                <!-- End -->
-            </div>
+          <div v-if="isDemoMode" class="alert alert-danger">
+            To prevent the creation of multiple
+            sub-domains, we have disabled the
+            registration feature for the demo. You
+            can access the Tenant panel
+            <a href="https://john.arqam.sa/login">here</a>
+          </div>
         </div>
-        <!-- Registration Loader Modal -->
-        <registration-loader ref="registrationLoader" @cancel="handleLoaderCancel" />
-        
-    </div>
+      </template>
+
+      <!-- Form Slot -->
+      <template #form>
+        <form v-if="!verificationForm.email" @submit.prevent="tenantRegister"
+          @keydown="form.onKeydown($event)">
+          <!-- Error Message Display -->
+          <div v-if="message && type === 'danger'" class="alert alert-danger mb-4">
+            {{ message }}
+          </div>
+          <!-- Full Name-->
+          <div class="form-group mb-3">
+            <input id="name" v-model="form.name" :class="{
+              'is-invalid': form.errors.has('name'),
+            }" class="form-control input-radius-10 border-0 px-4 text-primary"
+              type="text" name="name" :placeholder="$t('Name')" />
+            <has-error :form="form" field="name" class="ml-4" />
+          </div>
+          <!-- Email -->
+          <div class="form-group mb-3">
+            <input v-model="form.email" id="email" name="email" :class="{
+              'is-invalid': form.errors.has('email'),
+            }" class="form-control input-radius-10 border-0 px-4 text-primary"
+              type="email" :placeholder="$t('Email')" />
+            <has-error :form="form" field="email" class="ml-4" />
+          </div>
+          <!-- domain -->
+          <div class="form-group mb-3">
+            <div class="d-flex url">
+              <input v-model="form.domain" @input="checkDomainAvailability"
+                id="domain" name="domain" :class="{
+                  'is-invalid': form.errors.has('domain') || domainValidation.error,
+                  'is-valid': domainValidation.valid && domainValidation.available && !domainValidation.checking
+                }" class="form-control input-radius-10 border-0 px-4 text-primary"
+                type="text" :placeholder="$t('domain')" />
+              <span class="domain-host-span">{{ host }}</span>
+            </div>
+            <p class="domain-explanation-text" v-html="$t('domain_explanation_text')">
+            </p>
+            <!-- Domain validation feedback -->
+            <div v-if="domainValidation.checking" class="ml-4 text-muted small">
+              <i class="fas fa-spinner fa-spin me-1"></i>
+              {{ $t('domain_checking') }}
+            </div>
+            <div v-else-if="domainValidation.valid && domainValidation.available"
+              class="ml-4 text-success small">
+              <i class="fas fa-check-circle me-1"></i>
+              {{ $t('domain_available') }}
+            </div>
+            <div v-else-if="domainValidation.error" class="ml-4 text-danger small">
+              <i class="fas fa-exclamation-circle me-1"></i>
+              {{ domainValidation.message }}
+            </div>
+            <has-error :form="form" field="domain" class="ml-4" />
+          </div>
+          <!-- Company -->
+          <div class="form-group mb-3">
+            <input v-model="form.company" id="company" name="company" :class="{
+              'is-invalid': form.errors.has('company'),
+            }" class="form-control input-radius-10 border-0 px-4 text-primary"
+              type="text" :placeholder="$t('Company Name')" />
+            <has-error :form="form" field="company" class="ml-4" />
+          </div>
+          <!-- Password -->
+          <div class="form-group mb-3">
+            <div class="password-input-wrapper">
+              <input v-model="form.password" id="password" name="password" :class="{
+                'is-invalid': form.errors.has('password'),
+              }" class="form-control input-radius-10 border-0 px-4 text-primary"
+                :type="showPassword ? 'text' : 'password'"
+                :placeholder="$t('password')" />
+              <button type="button" class="password-toggle-btn"
+                @click="togglePasswordVisibility('password')">
+                <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+              </button>
+            </div>
+            <has-error :form="form" field="password" class="ml-4" />
+          </div>
+          <!-- Password Confirmation -->
+          <div class="form-group mb-3">
+            <div class="password-input-wrapper">
+              <input v-model="form.password_confirmation" id="password_confirmation"
+                name="password_confirmation" :class="{
+                  'is-invalid': form.errors.has('password_confirmation'),
+                }" class="form-control input-radius-10 border-0 px-4 text-primary"
+                :type="showPasswordConfirmation ? 'text' : 'password'" :placeholder="$t('confirm_password')" />
+              <button type="button" class="password-toggle-btn"
+                @click="togglePasswordVisibility('confirmation')">
+                <i :class="showPasswordConfirmation ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+              </button>
+            </div>
+            <has-error :form="form" field="password_confirmation" class="ml-4" />
+          </div>
+
+          <!-- terms and conditions -->
+          <div class="row ml-2">
+            <checkbox v-model="form.terms_and_conditions" id="terms_and_conditions"
+              name="terms_and_conditions" :class="{
+                'is-invalid': form.errors.has('terms_and_conditions'),
+              }" required>
+              <span class="terms-and-conditions-text"
+                v-html="$t('terms_and_conditions_text')"></span>
+            </checkbox>
+            <has-error :form="form" field="terms_and_conditions" />
+          </div>
+          <!-- Submit Button -->
+          <div class="register-submit-btn-wrapper">
+            <v-button :loading="form.busy"
+              class="btn btn-block mb-2 register-submit-btn">
+              <strong>{{ $t('start_using_free') }}</strong>
+              <i class="fas fa-sign-in-alt" style="transform: scaleX(-1);" />
+            </v-button>
+          </div>
+          <div class="row justify-content-between">
+            <div class="mx-2 already-registered-text">
+              <span class="already-registered-question">{{ $t('already_have_account') }}</span>
+              <router-link :to="{ name: 'find-domain' }" class="login-link-text">
+                {{ $t('login') }}
+              </router-link>
+            </div>
+            <router-link :to="{ name: 'resend' }" class="mx-2 resend-link-text">
+              {{ $t('resend_verification_link') }}
+            </router-link>
+          </div>
+        </form>
+      </template>
+    </auth-wrapper>
+    <!-- Registration Loader Modal -->
+    <registration-loader ref="registrationLoader" @cancel="handleLoaderCancel" />
+  </div>
 </template>
 <script>
 import Form from 'vform';
 import { mapGetters } from 'vuex';
 import RegistrationLoader from '@/components/RegistrationLoader.vue';
-import loader from '@/utils/registrationLoader';
+import AuthWrapper from '@/components/auth/AuthWrapper.vue';
 import Swal from 'sweetalert2';
 
 export default {
@@ -285,6 +177,7 @@ export default {
     middleware: 'guest',
     components: {
         RegistrationLoader,
+        AuthWrapper,
     },
     metaInfo() {
         return { title: this.$t('register') };
@@ -314,6 +207,8 @@ export default {
             message: ''
         },
         domainCheckTimeout: null,
+        showPassword: false,
+        showPasswordConfirmation: false,
     }),
     // Map Getters
     computed: {
@@ -516,7 +411,7 @@ export default {
                     translatedErrors[field] = fieldErrors.map((message) => this.translateValidationMessage(message, field))
                 })
                 this.form.errors.set(translatedErrors)
-                
+
                 // Show first validation error as message
                 const firstError = Object.values(translatedErrors)[0]
                 if (firstError && firstError.length > 0) {
@@ -572,342 +467,342 @@ export default {
             // Common Laravel validation patterns with localized messages
             const patterns = [
                 // Required field patterns
-                { 
-                    re: /The\s+.+?\s+field\s+is\s+required\.?/i, 
+                {
+                    re: /The\s+.+?\s+field\s+is\s+required\.?/i,
                     en: `This field is required`,
-                    ar: `هذا الحقل مطلوب` 
+                    ar: `هذا الحقل مطلوب`
                 },
-                { 
-                    re: /Please\s+select\s+an?\s+.+?\.?/i, 
+                {
+                    re: /Please\s+select\s+an?\s+.+?\.?/i,
                     en: `Please select`,
-                    ar: `يرجى اختيار` 
+                    ar: `يرجى اختيار`
                 },
-                { 
-                    re: /Please\s+enter\s+a\s+.+?\.?/i, 
+                {
+                    re: /Please\s+enter\s+a\s+.+?\.?/i,
                     en: `Please enter`,
-                    ar: `يرجى إدخال` 
+                    ar: `يرجى إدخال`
                 },
-                { 
-                    re: /Please\s+provide\s+a\s+.+?\.?/i, 
+                {
+                    re: /Please\s+provide\s+a\s+.+?\.?/i,
                     en: `Please provide`,
-                    ar: `يرجى تقديم` 
+                    ar: `يرجى تقديم`
                 },
-                
+
                 // Selection and choice patterns
-                { 
-                    re: /The\s+selected\s+.+?\s+is\s+invalid\.?/i, 
+                {
+                    re: /The\s+selected\s+.+?\s+is\s+invalid\.?/i,
                     en: `The selected value is invalid`,
-                    ar: `القيمة المحددة غير صالحة` 
+                    ar: `القيمة المحددة غير صالحة`
                 },
-                { 
-                    re: /The\s+selected\s+.+?\s+does\s+not\s+exist\.?/i, 
+                {
+                    re: /The\s+selected\s+.+?\s+does\s+not\s+exist\.?/i,
                     en: `The selected value does not exist`,
-                    ar: `القيمة المحددة غير موجودة` 
+                    ar: `القيمة المحددة غير موجودة`
                 },
-                { 
-                    re: /Please\s+choose\s+a\s+.+?\.?/i, 
+                {
+                    re: /Please\s+choose\s+a\s+.+?\.?/i,
                     en: `Please choose`,
-                    ar: `يرجى اختيار` 
+                    ar: `يرجى اختيار`
                 },
-                { 
-                    re: /You\s+must\s+select\s+a\s+.+?\.?/i, 
+                {
+                    re: /You\s+must\s+select\s+a\s+.+?\.?/i,
                     en: `You must select`,
-                    ar: `يجب اختيار` 
+                    ar: `يجب اختيار`
                 },
-                
+
                 // Data type patterns
-                { 
-                    re: /The\s+.+?\s+must\s+be\s+a\s+number\.?/i, 
+                {
+                    re: /The\s+.+?\s+must\s+be\s+a\s+number\.?/i,
                     en: `Must be a number`,
-                    ar: `يجب أن يكون رقماً` 
+                    ar: `يجب أن يكون رقماً`
                 },
-                { 
-                    re: /The\s+.+?\s+must\s+be\s+an\s+integer\.?/i, 
+                {
+                    re: /The\s+.+?\s+must\s+be\s+an\s+integer\.?/i,
                     en: `Must be an integer`,
-                    ar: `يجب أن يكون عدداً صحيحاً` 
+                    ar: `يجب أن يكون عدداً صحيحاً`
                 },
-                { 
-                    re: /The\s+.+?\s+must\s+be\s+a\s+string\.?/i, 
+                {
+                    re: /The\s+.+?\s+must\s+be\s+a\s+string\.?/i,
                     en: `Must be a string`,
-                    ar: `يجب أن يكون نصاً` 
+                    ar: `يجب أن يكون نصاً`
                 },
-                { 
-                    re: /The\s+.+?\s+must\s+be\s+an\s+array\.?/i, 
+                {
+                    re: /The\s+.+?\s+must\s+be\s+an\s+array\.?/i,
                     en: `Must be an array`,
-                    ar: `يجب أن يكون مصفوفة` 
+                    ar: `يجب أن يكون مصفوفة`
                 },
-                { 
-                    re: /The\s+.+?\s+must\s+be\s+a\s+boolean\.?/i, 
+                {
+                    re: /The\s+.+?\s+must\s+be\s+a\s+boolean\.?/i,
                     en: `Must be true or false`,
-                    ar: `يجب أن يكون صحيح أو خطأ` 
+                    ar: `يجب أن يكون صحيح أو خطأ`
                 },
-                { 
-                    re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+email\.?/i, 
+                {
+                    re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+email\.?/i,
                     en: `Must be a valid email`,
-                    ar: `يجب أن يكون بريد إلكتروني صحيح` 
+                    ar: `يجب أن يكون بريد إلكتروني صحيح`
                 },
-                { 
-                    re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+url\.?/i, 
+                {
+                    re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+url\.?/i,
                     en: `Must be a valid URL`,
-                    ar: `يجب أن يكون رابط صحيح` 
+                    ar: `يجب أن يكون رابط صحيح`
                 },
-                
+
                 // Numeric validation patterns
-                { 
-                    re: /The\s+.+?\s+must\s+be\s+at\s+least\s+(\d+)\.?/i, 
+                {
+                    re: /The\s+.+?\s+must\s+be\s+at\s+least\s+(\d+)\.?/i,
                     en: (_, n) => `Must be at least ${n}`,
-                    ar: (_, n) => `يجب ألا يقل عن ${n}` 
+                    ar: (_, n) => `يجب ألا يقل عن ${n}`
                 },
-                { 
-                    re: /The\s+.+?\s+must\s+be\s+greater\s+than\s+(\d+)\.?/i, 
+                {
+                    re: /The\s+.+?\s+must\s+be\s+greater\s+than\s+(\d+)\.?/i,
                     en: (_, n) => `Must be greater than ${n}`,
-                    ar: (_, n) => `يجب أن يكون أكبر من ${n}` 
+                    ar: (_, n) => `يجب أن يكون أكبر من ${n}`
                 },
-                { 
-                    re: /The\s+.+?\s+may\s+not\s+be\s+greater\s+than\s+(\d+)\.?/i, 
+                {
+                    re: /The\s+.+?\s+may\s+not\s+be\s+greater\s+than\s+(\d+)\.?/i,
                     en: (_, n) => `May not be greater than ${n}`,
-                    ar: (_, n) => `يجب ألا يزيد عن ${n}` 
+                    ar: (_, n) => `يجب ألا يزيد عن ${n}`
                 },
-                { 
-                    re: /The\s+.+?\s+must\s+be\s+between\s+(\d+)\s+and\s+(\d+)\.?/i, 
+                {
+                    re: /The\s+.+?\s+must\s+be\s+between\s+(\d+)\s+and\s+(\d+)\.?/i,
                     en: (_, min, max) => `Must be between ${min} and ${max}`,
-                    ar: (_, min, max) => `يجب أن يكون بين ${min} و ${max}` 
+                    ar: (_, min, max) => `يجب أن يكون بين ${min} و ${max}`
                 },
-                { 
-                    re: /The\s+.+?\s+must\s+be\s+exactly\s+(\d+)\.?/i, 
+                {
+                    re: /The\s+.+?\s+must\s+be\s+exactly\s+(\d+)\.?/i,
                     en: (_, n) => `Must be exactly ${n}`,
-                    ar: (_, n) => `يجب أن يكون بالضبط ${n}` 
+                    ar: (_, n) => `يجب أن يكون بالضبط ${n}`
                 },
-                
+
                 // String length patterns
-                { 
-                    re: /The\s+.+?\s+may\s+not\s+be\s+greater\s+than\s+(\d+)\s+characters\.?/i, 
+                {
+                    re: /The\s+.+?\s+may\s+not\s+be\s+greater\s+than\s+(\d+)\s+characters\.?/i,
                     en: (_, n) => `May not be greater than ${n} characters`,
-                    ar: (_, n) => `يجب ألا يتجاوز ${n} حرفاً` 
+                    ar: (_, n) => `يجب ألا يتجاوز ${n} حرفاً`
                 },
-                { 
-                    re: /The\s+.+?\s+must\s+be\s+at\s+least\s+(\d+)\s+characters\.?/i, 
+                {
+                    re: /The\s+.+?\s+must\s+be\s+at\s+least\s+(\d+)\s+characters\.?/i,
                     en: (_, n) => `Must be at least ${n} characters`,
-                    ar: (_, n) => `يجب أن يكون على الأقل ${n} حرفاً` 
+                    ar: (_, n) => `يجب أن يكون على الأقل ${n} حرفاً`
                 },
-                { 
-                    re: /The\s+.+?\s+must\s+be\s+between\s+(\d+)\s+and\s+(\d+)\s+characters\.?/i, 
+                {
+                    re: /The\s+.+?\s+must\s+be\s+between\s+(\d+)\s+and\s+(\d+)\s+characters\.?/i,
                     en: (_, min, max) => `Must be between ${min} and ${max} characters`,
-                    ar: (_, min, max) => `يجب أن يكون بين ${min} و ${max} حرفاً` 
+                    ar: (_, min, max) => `يجب أن يكون بين ${min} و ${max} حرفاً`
                 },
-                
+
                 // Date validation patterns
-                { 
-                    re: /The\s+.+?\s+is\s+not\s+a\s+valid\s+date\.?/i, 
+                {
+                    re: /The\s+.+?\s+is\s+not\s+a\s+valid\s+date\.?/i,
                     en: `Is not a valid date`,
-                    ar: `ليس تاريخاً صحيحاً` 
+                    ar: `ليس تاريخاً صحيحاً`
                 },
-                { 
-                    re: /The\s+.+?\s+does\s+not\s+match\s+the\s+format\s+.+?\.?/i, 
+                {
+                    re: /The\s+.+?\s+does\s+not\s+match\s+the\s+format\s+.+?\.?/i,
                     en: `Does not match the required format`,
-                    ar: `لا يطابق التنسيق المطلوب` 
+                    ar: `لا يطابق التنسيق المطلوب`
                 },
-                { 
-                    re: /The\s+.+?\s+must\s+be\s+after\s+or\s+equal\s+to\s+.+?\.?/i, 
+                {
+                    re: /The\s+.+?\s+must\s+be\s+after\s+or\s+equal\s+to\s+.+?\.?/i,
                     en: `Must be after or equal to the specified date`,
-                    ar: `يجب أن يكون بعد أو يساوي التاريخ المحدد` 
+                    ar: `يجب أن يكون بعد أو يساوي التاريخ المحدد`
                 },
-                { 
-                    re: /The\s+.+?\s+must\s+be\s+before\s+or\s+equal\s+to\s+.+?\.?/i, 
+                {
+                    re: /The\s+.+?\s+must\s+be\s+before\s+or\s+equal\s+to\s+.+?\.?/i,
                     en: `Must be before or equal to the specified date`,
-                    ar: `يجب أن يكون قبل أو يساوي التاريخ المحدد` 
+                    ar: `يجب أن يكون قبل أو يساوي التاريخ المحدد`
                 },
-                { 
-                    re: /The\s+.+?\s+must\s+be\s+after\s+.+?\.?/i, 
+                {
+                    re: /The\s+.+?\s+must\s+be\s+after\s+.+?\.?/i,
                     en: `Must be after the specified date`,
-                    ar: `يجب أن يكون بعد التاريخ المحدد` 
+                    ar: `يجب أن يكون بعد التاريخ المحدد`
                 },
-                { 
-                    re: /The\s+.+?\s+must\s+be\s+before\s+.+?\.?/i, 
+                {
+                    re: /The\s+.+?\s+must\s+be\s+before\s+.+?\.?/i,
                     en: `Must be before the specified date`,
-                    ar: `يجب أن يكون قبل التاريخ المحدد` 
+                    ar: `يجب أن يكون قبل التاريخ المحدد`
                 },
-                { 
-                    re: /The\s+.+?\s+must\s+be\s+a\s+date\s+after\s+or\s+equal\s+to\s+today\.?/i, 
+                {
+                    re: /The\s+.+?\s+must\s+be\s+a\s+date\s+after\s+or\s+equal\s+to\s+today\.?/i,
                     en: `Must be a date after or equal to today`,
-                    ar: `يجب أن يكون تاريخ بعد أو يساوي اليوم` 
+                    ar: `يجب أن يكون تاريخ بعد أو يساوي اليوم`
                 },
-                
+
                 // Format validation patterns
-                { 
-                    re: /The\s+.+?\s+format\s+is\s+invalid\.?/i, 
+                {
+                    re: /The\s+.+?\s+format\s+is\s+invalid\.?/i,
                     en: `Invalid format`,
-                    ar: `تنسيق غير صالح` 
+                    ar: `تنسيق غير صالح`
                 },
-                { 
-                    re: /The\s+.+?\s+does\s+not\s+match\s+the\s+required\s+format\.?/i, 
+                {
+                    re: /The\s+.+?\s+does\s+not\s+match\s+the\s+required\s+format\.?/i,
                     en: `Does not match the required format`,
-                    ar: `لا يطابق التنسيق المطلوب` 
+                    ar: `لا يطابق التنسيق المطلوب`
                 },
-                { 
-                    re: /The\s+.+?\s+must\s+match\s+the\s+pattern\.?/i, 
+                {
+                    re: /The\s+.+?\s+must\s+match\s+the\s+pattern\.?/i,
                     en: `Must match the required pattern`,
-                    ar: `يجب أن يطابق النمط المطلوب` 
+                    ar: `يجب أن يطابق النمط المطلوب`
                 },
-                
+
                 // Uniqueness patterns
-                { 
-                    re: /The\s+.+?\s+has\s+already\s+been\s+taken\.?/i, 
+                {
+                    re: /The\s+.+?\s+has\s+already\s+been\s+taken\.?/i,
                     en: `This value has already been taken`,
-                    ar: `هذه القيمة مستخدمة بالفعل` 
+                    ar: `هذه القيمة مستخدمة بالفعل`
                 },
-                { 
-                    re: /The\s+.+?\s+already\s+exists\.?/i, 
+                {
+                    re: /The\s+.+?\s+already\s+exists\.?/i,
                     en: `Already exists`,
-                    ar: `موجود بالفعل` 
+                    ar: `موجود بالفعل`
                 },
-                { 
-                    re: /This\s+.+?\s+is\s+already\s+in\s+use\.?/i, 
+                {
+                    re: /This\s+.+?\s+is\s+already\s+in\s+use\.?/i,
                     en: `This is already in use`,
-                    ar: `هذا مستخدم بالفعل` 
+                    ar: `هذا مستخدم بالفعل`
                 },
-                
+
                 // File upload patterns
-                { 
-                    re: /The\s+.+?\s+must\s+be\s+a\s+file\.?/i, 
+                {
+                    re: /The\s+.+?\s+must\s+be\s+a\s+file\.?/i,
                     en: `Must be a file`,
-                    ar: `يجب أن يكون ملفاً` 
+                    ar: `يجب أن يكون ملفاً`
                 },
-                { 
-                    re: /The\s+.+?\s+must\s+be\s+an\s+image\.?/i, 
+                {
+                    re: /The\s+.+?\s+must\s+be\s+an\s+image\.?/i,
                     en: `Must be an image`,
-                    ar: `يجب أن يكون صورة` 
+                    ar: `يجب أن يكون صورة`
                 },
-                { 
-                    re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+image\.?/i, 
+                {
+                    re: /The\s+.+?\s+must\s+be\s+a\s+valid\s+image\.?/i,
                     en: `Must be a valid image`,
-                    ar: `يجب أن يكون صورة صحيحة` 
+                    ar: `يجب أن يكون صورة صحيحة`
                 },
-                { 
-                    re: /The\s+.+?\s+file\s+is\s+too\s+large\.?/i, 
+                {
+                    re: /The\s+.+?\s+file\s+is\s+too\s+large\.?/i,
                     en: `File is too large`,
-                    ar: `الملف كبير جداً` 
+                    ar: `الملف كبير جداً`
                 },
-                { 
-                    re: /The\s+.+?\s+file\s+size\s+must\s+not\s+exceed\s+(\d+)\s+KB\.?/i, 
+                {
+                    re: /The\s+.+?\s+file\s+size\s+must\s+not\s+exceed\s+(\d+)\s+KB\.?/i,
                     en: (_, n) => `File size must not exceed ${n} KB`,
-                    ar: (_, n) => `حجم الملف يجب ألا يتجاوز ${n} كيلوبايت` 
+                    ar: (_, n) => `حجم الملف يجب ألا يتجاوز ${n} كيلوبايت`
                 },
-                
+
                 // Confirmation patterns
-                { 
-                    re: /The\s+.+?\s+confirmation\s+does\s+not\s+match\.?/i, 
+                {
+                    re: /The\s+.+?\s+confirmation\s+does\s+not\s+match\.?/i,
                     en: `Confirmation does not match`,
-                    ar: `التأكيد غير متطابق` 
+                    ar: `التأكيد غير متطابق`
                 },
-                { 
-                    re: /The\s+.+?\s+and\s+.+?\s+must\s+match\.?/i, 
+                {
+                    re: /The\s+.+?\s+and\s+.+?\s+must\s+match\.?/i,
                     en: `Must match`,
-                    ar: `يجب أن يتطابقا` 
+                    ar: `يجب أن يتطابقا`
                 },
-                
+
                 // Custom validation patterns for registration form
-                { 
-                    re: /This\s+domain\s+has\s+already\s+been\s+taken\.?/i, 
+                {
+                    re: /This\s+domain\s+has\s+already\s+been\s+taken\.?/i,
                     en: `This domain has already been taken`,
-                    ar: `هذا النطاق مستخدم بالفعل` 
+                    ar: `هذا النطاق مستخدم بالفعل`
                 },
-                { 
-                    re: /The\s+email\s+has\s+already\s+been\s+taken\.?/i, 
+                {
+                    re: /The\s+email\s+has\s+already\s+been\s+taken\.?/i,
                     en: `The email has already been taken`,
-                    ar: `البريد الإلكتروني مستخدم بالفعل` 
+                    ar: `البريد الإلكتروني مستخدم بالفعل`
                 },
-                { 
-                    re: /The\s+password\s+confirmation\s+does\s+not\s+match\.?/i, 
+                {
+                    re: /The\s+password\s+confirmation\s+does\s+not\s+match\.?/i,
                     en: `The password confirmation does not match`,
-                    ar: `تأكيد كلمة المرور غير متطابق` 
+                    ar: `تأكيد كلمة المرور غير متطابق`
                 },
-                { 
-                    re: /Password\s+confirmation\s+does\s+not\s+match\.?/i, 
+                {
+                    re: /Password\s+confirmation\s+does\s+not\s+match\.?/i,
                     en: `Password confirmation does not match`,
-                    ar: `تأكيد كلمة المرور غير متطابق` 
+                    ar: `تأكيد كلمة المرور غير متطابق`
                 },
-                { 
-                    re: /The\s+password\s+and\s+password\s+confirmation\s+must\s+match\.?/i, 
+                {
+                    re: /The\s+password\s+and\s+password\s+confirmation\s+must\s+match\.?/i,
                     en: `The password and password confirmation must match`,
-                    ar: `كلمة المرور وتأكيدها يجب أن يتطابقا` 
+                    ar: `كلمة المرور وتأكيدها يجب أن يتطابقا`
                 },
-                { 
-                    re: /Domain\s+is\s+required\.?/i, 
+                {
+                    re: /Domain\s+is\s+required\.?/i,
                     en: `Domain is required`,
-                    ar: `النطاق مطلوب` 
+                    ar: `النطاق مطلوب`
                 },
-                { 
-                    re: /Email\s+is\s+required\.?/i, 
+                {
+                    re: /Email\s+is\s+required\.?/i,
                     en: `Email is required`,
-                    ar: `البريد الإلكتروني مطلوب` 
+                    ar: `البريد الإلكتروني مطلوب`
                 },
-                { 
-                    re: /Password\s+is\s+required\.?/i, 
+                {
+                    re: /Password\s+is\s+required\.?/i,
                     en: `Password is required`,
-                    ar: `كلمة المرور مطلوبة` 
+                    ar: `كلمة المرور مطلوبة`
                 },
-                { 
-                    re: /Name\s+is\s+required\.?/i, 
+                {
+                    re: /Name\s+is\s+required\.?/i,
                     en: `Name is required`,
-                    ar: `الاسم مطلوب` 
+                    ar: `الاسم مطلوب`
                 },
-                { 
-                    re: /Company\s+name\s+is\s+required\.?/i, 
+                {
+                    re: /Company\s+name\s+is\s+required\.?/i,
                     en: `Company name is required`,
-                    ar: `اسم الشركة مطلوب` 
+                    ar: `اسم الشركة مطلوب`
                 },
-                { 
-                    re: /Please\s+enter\s+a\s+domain\.?/i, 
+                {
+                    re: /Please\s+enter\s+a\s+domain\.?/i,
                     en: `Please enter a domain`,
-                    ar: `يرجى إدخال نطاق` 
+                    ar: `يرجى إدخال نطاق`
                 },
-                { 
-                    re: /Please\s+enter\s+an\s+email\.?/i, 
+                {
+                    re: /Please\s+enter\s+an\s+email\.?/i,
                     en: `Please enter an email`,
-                    ar: `يرجى إدخال بريد إلكتروني` 
+                    ar: `يرجى إدخال بريد إلكتروني`
                 },
-                { 
-                    re: /Please\s+enter\s+a\s+password\.?/i, 
+                {
+                    re: /Please\s+enter\s+a\s+password\.?/i,
                     en: `Please enter a password`,
-                    ar: `يرجى إدخال كلمة مرور` 
+                    ar: `يرجى إدخال كلمة مرور`
                 },
-                { 
-                    re: /Please\s+enter\s+a\s+name\.?/i, 
+                {
+                    re: /Please\s+enter\s+a\s+name\.?/i,
                     en: `Please enter a name`,
-                    ar: `يرجى إدخال اسم` 
+                    ar: `يرجى إدخال اسم`
                 },
-                { 
-                    re: /Please\s+enter\s+a\s+company\s+name\.?/i, 
+                {
+                    re: /Please\s+enter\s+a\s+company\s+name\.?/i,
                     en: `Please enter a company name`,
-                    ar: `يرجى إدخال اسم شركة` 
+                    ar: `يرجى إدخال اسم شركة`
                 },
-                
+
                 // Generic fallback patterns
-                { 
-                    re: /This\s+field\s+is\s+required\.?/i, 
+                {
+                    re: /This\s+field\s+is\s+required\.?/i,
                     en: `This field is required`,
-                    ar: `هذا الحقل مطلوب` 
+                    ar: `هذا الحقل مطلوب`
                 },
-                { 
-                    re: /This\s+field\s+must\s+be\s+filled\.?/i, 
+                {
+                    re: /This\s+field\s+must\s+be\s+filled\.?/i,
                     en: `This field must be filled`,
-                    ar: `يجب ملء هذا الحقل` 
+                    ar: `يجب ملء هذا الحقل`
                 },
-                { 
-                    re: /This\s+value\s+is\s+invalid\.?/i, 
+                {
+                    re: /This\s+value\s+is\s+invalid\.?/i,
                     en: `This value is invalid`,
-                    ar: `هذه القيمة غير صالحة` 
+                    ar: `هذه القيمة غير صالحة`
                 },
-                { 
-                    re: /Invalid\s+input\.?/i, 
+                {
+                    re: /Invalid\s+input\.?/i,
                     en: `Invalid input`,
-                    ar: `إدخال غير صالح` 
+                    ar: `إدخال غير صالح`
                 },
-                { 
-                    re: /Please\s+check\s+your\s+input\.?/i, 
+                {
+                    re: /Please\s+check\s+your\s+input\.?/i,
                     en: `Please check your input`,
-                    ar: `يرجى التحقق من المدخلات` 
+                    ar: `يرجى التحقق من المدخلات`
                 },
             ]
 
@@ -946,10 +841,10 @@ export default {
                     });
                 });
         },
-        
+
         showSuccessModal() {
             const email = this.verificationForm.email;
-            
+
             Swal.fire({
                 title: `<div style="text-align: right; direction: rtl;">
                     <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
@@ -1004,7 +899,7 @@ export default {
                 }
             });
         },
-        
+
         goToLogin() {
             // Navigate to login page immediately
             this.$router.push({
@@ -1080,11 +975,52 @@ export default {
                 };
             }
         },
+
+        togglePasswordVisibility(field) {
+            if (field === 'password') {
+                this.showPassword = !this.showPassword;
+            } else if (field === 'confirmation') {
+                this.showPasswordConfirmation = !this.showPasswordConfirmation;
+            }
+        },
     },
 };
 </script>
 
 <style scoped>
+/* Unique styles for register page */
+.signup-message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    background: #0775AF1A;
+    border: 1px solid #0775AF;
+    border-radius: 10px;
+    color: #000000;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 15px 18px;
+}
+
+.signup-icon {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.domain-explanation-text {
+    font-size: 12px;
+    color: #000000;
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+.terms-and-conditions-text {
+    font-size: 14px;
+    font-weight: 400;
+}
+
 .registration-success-content {
     padding: 1.5rem 0;
 }
@@ -1098,10 +1034,12 @@ export default {
 }
 
 @keyframes pulse {
-    0%, 100% {
+    0%,
+    100% {
         opacity: 1;
         transform: scale(1);
     }
+
     50% {
         opacity: 0.8;
         transform: scale(1.05);
@@ -1128,13 +1066,76 @@ export default {
 }
 
 /* Responsive adjustments */
+
+/* Tablet and below (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .signup-message {
+        font-size: 15px;
+        padding: 12px 16px;
+    }
+
+    .domain-explanation-text {
+        font-size: 11px;
+    }
+}
+
+/* Mobile (max-width: 768px) */
 @media (max-width: 768px) {
+    .signup-message {
+        font-size: 14px;
+        padding: 12px 14px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        line-height: 1.5;
+    }
+
+    .signup-icon {
+        margin-bottom: 4px;
+    }
+
+    .signup-icon svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    .domain-explanation-text {
+        font-size: 11px;
+        margin-top: 6px;
+    }
+
+    .terms-and-conditions-text {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
     .email-icon-wrapper i {
         font-size: 3rem !important;
     }
-    
+
     .registration-success-content {
         padding: 1rem 0;
+    }
+}
+
+/* Small mobile (max-width: 480px) */
+@media (max-width: 480px) {
+    .signup-message {
+        font-size: 13px;
+        padding: 10px 12px;
+    }
+
+    .signup-icon svg {
+        width: 12px;
+        height: 12px;
+    }
+
+    .domain-explanation-text {
+        font-size: 10px;
+    }
+
+    .terms-and-conditions-text {
+        font-size: 12px;
     }
 }
 </style>

@@ -5,22 +5,27 @@
       <sidebar v-if="showSidebar" />
       <!-- Main content -->
       <section class="content-wrapper">
-        <div v-if="demo_message" class="demo-message alert alert-danger rounded-0">
-          {{ demo_message }}
+        <div v-if="demo_message" class="trial-alert">
+          <i class="fas fa-exclamation-circle"></i>
+          <span>{{ demo_message }}</span>
         </div>
 
-        <div v-if="tenant && !tenant.is_subscribed" class="trial-alert rounded-0">
-          {{ $t('You are not subscribed yet please subscribe.') }}
+        <div v-if="tenant && !tenant.is_subscribed" class="trial-alert">
+          <i class="fas fa-exclamation-circle"></i>
+          <span>{{ $t('You are not subscribed yet please subscribe.') }}</span>
           <router-link :to="{ name: 'settings.billing' }">
             {{ $t('Billing Page') }}
           </router-link>
         </div>
-        <div v-if="tenant && tenant.on_trial" class="trial-alert rounded-0">
+        <div v-if="tenant && tenant.on_trial" class="trial-alert">
           <div>
-            {{ $t('You are on trial version! Your trial ends') }}
-            {{ $t('in') }}
-            {{ getTrialDaysLeft(tenant.trial_ends_at) }}
-            {{ $t('days') }}!
+            <i class="fas fa-exclamation-circle"></i>
+            <span>
+              {{ $t('You are on trial version! Your trial ends') }}
+              {{ $t('in') }}
+              {{ getTrialDaysLeft(tenant.trial_ends_at) }}
+              {{ $t('days') }}!
+            </span>
           </div>
           <div class="mt-3 mt-md-0 mb-2 mb-md-0 my-md-2">
             <router-link :to="{ name: 'settings.billing' }">
@@ -28,8 +33,9 @@
             </router-link>
           </div>
         </div>
-        <div v-if="subscription_limit_message" class="alert alert-danger rounded-0">
-          {{ subscription_limit_message }}
+        <div v-if="subscription_limit_message" class="trial-alert">
+          <i class="fas fa-exclamation-circle"></i>
+          <span>{{ subscription_limit_message }}</span>
         </div>
         <div class="container-fluid page-padding">
           <child />
@@ -91,7 +97,7 @@ export default {
   },
 
   watch: {
-    '$route'(to, from) {
+    '$route'(to) {
       // Update body class when route changes
       if (to.name === 'branches.select') {
         document.body.classList.add('no-sidebar-page')
@@ -139,13 +145,25 @@ export default {
 
 <style scoped>
 .trial-alert {
-  background: #dc354547;
+  background: #FFF5F5;
+  border: 1px solid #D64545;
+  border-radius: 10px;
+  margin: 20px 20px 0 20px;
   padding: 15px 20px;
-  color: #dc3545;
-  font-weight: 900;
+  color: #000000;
+  font-family: DINNextLTArabic;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.trial-alert i {
+  margin-right: 10px;
+  color: #D64545;
+  font-size: 16px;
 }
 
 .trial-alert a {
@@ -160,6 +178,9 @@ export default {
     display: block !important;
   }
 
+  .trial-alert i {
+    margin-right: 8px;
+  }
 }
 </style>
 

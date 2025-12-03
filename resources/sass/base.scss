@@ -26,6 +26,39 @@
   font-display: swap;
 }
 
+/* Almarai font family */
+@font-face {
+  font-family: 'Almarai';
+  src: url('/storage/fonts/Almarai-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Almarai';
+  src: url('/storage/fonts/Almarai-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Almarai';
+  src: url('/storage/fonts/Almarai-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Almarai';
+  src: url('/storage/fonts/Almarai-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
   font-family: 'DINNextLTArabic', sans-serif;
   background-color: #ffffff;
@@ -1385,10 +1418,6 @@ img.circle-img.circle-img--small {
 [dir="rtl"] .url>span:last-child {
   right: auto;
   left: 2px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
 }
 
 .invalid-feedback {

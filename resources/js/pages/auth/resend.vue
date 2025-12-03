@@ -1,91 +1,81 @@
 <template>
-  <div class="container-fluid">
-    <div class="row no-gutter">
-      <!-- The image half -->
-      <div class="col-md-6 d-none d-md-flex bg-image"></div>
-      <!-- The content half -->
-      <div class="col-md-6 bg-light">
-        <div class="auth-wrapper d-flex align-items-center py-5">
-          <!-- Demo content-->
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12 col-lg-10 col-xl-8 mx-auto">
-                <div class="text-center mb-4">
-                  <router-link to="/">
-                    <img v-if="appInfo" :src="appInfo.blackLogo" :alt="appInfo.companyName"
-                      class="lg-logo img-fluid logo-width" />
-                  </router-link>
-                </div>
-
-                <form @submit.prevent="resendVerification" @keydown="verificationForm.onKeydown($event)">
-                  <!-- domain -->
-                  <div class="form-group mb-3">
-                    <input v-model="verificationForm.email" id="email" name="email" :class="{
-                      'is-invalid': verificationForm.errors.has('email'),
-                    }" class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" type="text"
-                      :placeholder="$t('Email')" />
-                    <has-error :form="verificationForm" :style="[
-                      verificationForm.errors.has('email') ? 'block' : 'none',
-                    ]" field="email" />
-                  </div>
-                  <!-- Submit Button -->
-                  <v-button :loading="verificationForm.busy"
-                    class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">
-                    <i class="fas fa-sign-in-alt" />
-                    <strong>{{ $t("Send") }}</strong>
-                  </v-button>
-                </form>
-
-                <div class="mt-5" v-if="showSentMessage">
-                  <div v-if="message" class="alert" :class="type == 'success' ? 'alert-success' : 'alert-danger'
-                    ">
-                    {{ message }}
-                  </div>
-
-                  <h3>One more step 👍</h3>
-                  <p class="text-22 mb-4 mt-2">
-                    {{ $t("We've sent an email to") }}
-                    <span class="text-indigo">{{ verificationForm.email }}</span>.
-                    {{
-                      $t(
-                        "Please click the confirmation link in it to finalize your account"
-                      )
-                    }}
-                  </p>
-                  <p>
-                    {{
-                      $t(
-                        "Didn't get the email? Please check your spam folder or"
-                      )
-                    }}
-                    <button @click="resendVerification" class="btn p-0 text-indigo">
-                      {{ $t("Resend Verification") }}
-                    </button>
-                  </p>
-                </div>
-
-                <div class="row text-center">
-                  <router-link :to="{ name: 'register' }" class="ml-auto my-auto">
-                    {{ $t("Don't have any account? Click here!") }}
-                  </router-link>
-                </div>
-              </div>
+  <div>
+    <auth-wrapper :title="$t('resend_verification_link')">
+      <template #form>
+        <form @submit.prevent="resendVerification" @keydown="verificationForm.onKeydown($event)">
+          <!-- Error Message Display -->
+          <div v-if="message && type === 'danger'" class="alert alert-danger mb-4">
+            {{ message }}
+          </div>
+          
+          <!-- Success Message Display -->
+          <div v-if="showSentMessage && message && type === 'success'" class="alert alert-success mb-4">
+            {{ message }}
+          </div>
+          
+          <!-- Email -->
+          <div class="form-group mb-3">
+            <input v-model="verificationForm.email" id="email" name="email" :class="{
+              'is-invalid': verificationForm.errors.has('email'),
+            }" class="form-control input-radius-10 border-0 px-4 text-primary" type="text"
+              :placeholder="$t('Email')" />
+            <has-error :form="verificationForm" field="email" class="ml-4" />
+          </div>
+          
+          <!-- Submit Button -->
+          <div class="register-submit-btn-wrapper">
+            <v-button :loading="verificationForm.busy"
+              class="btn btn-block mb-2 register-submit-btn">
+              <strong>{{ $t("Send") }}</strong>
+              <i class="fas fa-sign-in-alt" style="transform: scaleX(-1);" />
+            </v-button>
+          </div>
+          
+          <!-- Success Message Content -->
+          <div v-if="showSentMessage && type === 'success'" class="mt-4">
+            <h3 class="mb-3">{{ $t('one_more_step') }}</h3>
+            <p class="mb-3">
+              {{ $t("We've sent an email to") }}
+              <span class="text-indigo font-weight-bold">{{ verificationForm.email }}</span>.
+              {{
+                $t("Please click the confirmation link in it to finalize your account")
+              }}
+            </p>
+            <p>
+              {{
+                $t("Didn't get the email? Please check your spam folder or")
+              }}
+              <button @click="resendVerification" class="btn p-0 resend-link-text">
+                {{ $t("Resend Verification") }}
+              </button>
+            </p>
+          </div>
+          
+          <!-- Don't have account / Register link -->
+          <div class="row justify-content-center mt-3">
+            <div class="mx-2 already-registered-text">
+              <span class="already-registered-question">{{ $t('dont_have_account') }}</span>
+              <router-link :to="{ name: 'register' }" class="login-link-text">
+                {{ $t('register') }}
+              </router-link>
             </div>
           </div>
-          <!-- End -->
-        </div>
-      </div>
-      <!-- End -->
-    </div>
+        </form>
+      </template>
+    </auth-wrapper>
   </div>
 </template>
 <script>
 import Form from "vform";
 import { mapGetters } from "vuex";
+import AuthWrapper from '@/components/auth/AuthWrapper.vue';
 
 export default {
   layout: "basic",
   middleware: "guest",
+  components: {
+    AuthWrapper,
+  },
   metaInfo() {
     return { title: this.$t("find_domain") };
   },
@@ -128,3 +118,7 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+/* No unique styles needed - all styles are in AuthWrapper */
+</style>
