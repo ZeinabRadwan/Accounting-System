@@ -155,7 +155,8 @@ class InvoiceController extends Controller
             // get logged in user id
             $user = auth()->user();
             $userId = $user->id;
-            $branchId = (int) ($user->default_branch_id ?? 0);
+            // Use branch_id from request if provided, otherwise use user's default branch
+            $branchId = $request->branch_id ? (int) $request->branch_id : (int) ($user->default_branch_id ?? 0);
 
             // Get default fiscal year and accounting period from general settings
             $currentFiscalYearId = GeneralSetting::where('key', 'current_fiscal_year_id')->first()?->value;
@@ -223,6 +224,10 @@ class InvoiceController extends Controller
                 'fiscal_year_id' => $currentFiscalYearId,
                 'accounting_period_id' => $currentAccountingPeriodId,
                 'branch_id' => $branchId,
+                'cost_center_id' => $request->cost_center_id,
+                'sale_status' => $request->sale_status,
+                'representative_id' => $request->representative_id,
+                'cashier_id' => $request->cashier_id,
             ]);
 
             // store invoice products

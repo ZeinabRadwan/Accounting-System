@@ -203,6 +203,161 @@
               </div>
             </div>
 
+            <!-- New Invoice Fields Section -->
+            <div class="row mt-3">
+              <div class="col-12">
+                <div class="table-responsive table-custom">
+                  <table class="table invoices-table">
+                    <thead>
+                      <tr>
+                        <th v-if="allData.costCenter || allData.cost_center_id">
+                          {{ $t("Cost Center") }}
+                        </th>
+                        <th v-if="allData.branch || allData.branch_id">
+                          {{ $t("Branch") }}
+                        </th>
+                        <th v-if="allData.representative || allData.representative_id">
+                          {{ $t("Sales Representative") }}
+                        </th>
+                        <th v-if="allData.cashier || allData.cashier_id">
+                          {{ $t("Cashier") }}
+                        </th>
+                        <th v-if="allData.sale_status">
+                          {{ $t("Sale Status") }}
+                        </th>
+                        <th v-if="allData.current_date">
+                          {{ $t("Date") }}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td v-if="allData.costCenter || allData.cost_center_id">
+                          {{ allData.costCenter ? allData.costCenter.name : '-' }}
+                        </td>
+                        <td v-if="allData.branch || allData.branch_id">
+                          {{ allData.branch ? allData.branch.name : '-' }}
+                        </td>
+                        <td v-if="allData.representative || allData.representative_id">
+                          {{ allData.representative ? allData.representative.name : '-' }}
+                        </td>
+                        <td v-if="allData.cashier || allData.cashier_id">
+                          {{ allData.cashier ? allData.cashier.name : '-' }}
+                        </td>
+                        <td v-if="allData.sale_status">
+                          <span v-if="allData.sale_status === 'مكتملة'" class="badge bg-success">
+                            {{ $t("Completed") }}
+                          </span>
+                          <span v-else-if="allData.sale_status === 'معلقة'" class="badge bg-warning">
+                            {{ $t("Pending") }}
+                          </span>
+                          <span v-else>{{ allData.sale_status }}</span>
+                        </td>
+                        <td v-if="allData.current_date">
+                          {{ allData.current_date | moment("Do MMM, YYYY") }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Invoice-Level Discount Section -->
+            <div class="row mt-3" v-if="allData.discount_type && allData.discount_value">
+              <div class="col-12">
+                <div class="table-responsive table-custom">
+                  <table class="table invoices-table">
+                    <thead>
+                      <tr>
+                        <th>{{ $t("Invoice Discount") }}</th>
+                        <th>{{ $t("Discount Type") }}</th>
+                        <th>{{ $t("Discount Value") }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{ $t("Invoice Discount") }}</td>
+                        <td>
+                          <span v-if="allData.discount_type === 'percentage'">{{ $t("%") }}</span>
+                          <span v-else-if="allData.discount_type === 'fixed'">{{ $t("Fixed") }}</span>
+                          <span v-else>{{ allData.discount_type }}</span>
+                        </td>
+                        <td>
+                          {{ formatNumber(allData.discount_value) }}
+                          <span v-if="allData.discount_type === 'percentage'">%</span>
+                          <span v-else class="saudi-riyal">ê</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Payment Information Section -->
+            <div class="row mt-3" v-if="allData.is_paid !== undefined">
+              <div class="col-12">
+                <div class="table-responsive table-custom">
+                  <table class="table invoices-table">
+                    <thead>
+                      <tr>
+                        <th>{{ $t("Payment Type") }}</th>
+                        <th v-if="allData.is_paid && (allData.paymentMethod || allData.payment_method_id)">
+                          {{ $t("Payment Method") }}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span v-if="allData.is_paid" class="badge bg-success">
+                            {{ $t("Paid") }}
+                          </span>
+                          <span v-else class="badge bg-warning">
+                            {{ $t("On Credit") }}
+                          </span>
+                        </td>
+                        <td v-if="allData.is_paid && (allData.paymentMethod || allData.payment_method_id)">
+                          {{ allData.paymentMethod ? allData.paymentMethod.name : '-' }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Attachments Section -->
+            <div class="row mt-3" v-if="allData.attachments && allData.attachments.length > 0">
+              <div class="col-12">
+                <div class="table-responsive table-custom">
+                  <table class="table invoices-table">
+                    <thead>
+                      <tr>
+                        <th>{{ $t("Attachments") }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <ul class="list-unstyled mb-0">
+                            <li v-for="(attachment, index) in allData.attachments" :key="index" class="mb-2">
+                              <a :href="attachment.url || attachment.path" target="_blank"
+                                class="d-flex align-items-center">
+                                <i class="fas fa-file mr-2"></i>
+                                <span>{{ attachment.name || attachment.file_name || `Attachment ${index + 1}` }}</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
             <!-- Table row -->
             <div class="row mt-4">
               <div class="col-12">

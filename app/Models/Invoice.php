@@ -16,7 +16,7 @@ class Invoice extends Model
      * @var array
      */
     protected $fillable = [
-        'invoice_no', 'slug', 'reference', 'client_id', 'discount_type', 'discount', 'transport', 'sub_total', 'po_reference', 'payment_terms', 'delivery_place', 'tax_id', 'invoice_date', 'created_by', 'note', 'status', 'is_paid', 'fiscal_year_id', 'accounting_period_id', 'branch_id',
+        'invoice_no', 'slug', 'reference', 'client_id', 'discount_type', 'discount', 'transport', 'sub_total', 'po_reference', 'payment_terms', 'delivery_place', 'tax_id', 'invoice_date', 'created_by', 'note', 'status', 'is_paid', 'fiscal_year_id', 'accounting_period_id', 'branch_id', 'cost_center_id', 'sale_status', 'representative_id', 'cashier_id',
     ];
 
     protected $appends = ['calculated_due', 'calculated_tax', 'calculated_total'];
@@ -57,7 +57,7 @@ class Invoice extends Model
         $taxRate = $this->invoiceTax;
         $totalTax = 0;
         $subTotal = $this->sub_total;
-        
+
         // Calculate global discount
         $globalDiscount = 0;
         if ($this->discount > 0) {
@@ -67,11 +67,11 @@ class Invoice extends Model
                 $globalDiscount = $this->discount;
             }
         }
-        
+
         // Check if country is Saudi Arabia
         $country = \App\Models\GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
         $isSaudiArabia = $country === 'SA';
-        
+
         if (isset($taxRate) && $taxRate->rate > 0) {
             if (isset($this->invoiceReturn)) {
                 $subTotal = $this->sub_total - $this->invoiceReturn->total_return;
@@ -83,15 +83,16 @@ class Invoice extends Model
 
         // For non-Saudi Arabia: Add product-level VAT
         // For Saudi Arabia: sub_total already includes product VAT, so only return invoice-level tax
-        if (!$isSaudiArabia) {
+        if (! $isSaudiArabia) {
             $totalProductVat = 0;
             $invoiceProducts = $this->invoiceProducts;
             foreach ($invoiceProducts as $invoiceProduct) {
                 $totalProductVat += $invoiceProduct->tax_amount;
             }
+
             return $totalTax + $totalProductVat;
         }
-        
+
         // For Saudi Arabia: only return invoice-level tax (product VAT is already in sub_total)
         return $totalTax;
     }
@@ -129,6 +130,7 @@ class Invoice extends Model
                 return $this->discount;
             }
         }
+
         return 0;
     }
 
@@ -142,6 +144,7 @@ class Invoice extends Model
                 return $this->discount;
             }
         }
+
         return 0;
     }
 
@@ -167,7 +170,6 @@ class Invoice extends Model
         foreach ($invoiceProducts as $invoiceProduct) {
             $totalProductSubTotal += $invoiceProduct->sale_price * $invoiceProduct->quantity;
         }
-
 
         // Calculate global discount
         $globalDiscount = 0;
@@ -195,12 +197,13 @@ class Invoice extends Model
             // So sub_total is the final amount with VAT included
             // We just need to apply global discount and transport adjustments
             // return $this->sub_total - $globalDiscount + $this->transport - $costOfProductReturn;
-            return $this->sub_total - $globalDiscount + $this->transport ;
+            return $this->sub_total - $globalDiscount + $this->transport;
         } else {
             // For other countries: sub_total doesn't include VAT, so add it
             $totalTax = $taxAmount + $totalProductVat;
+
             // return $this->sub_total - $globalDiscount + $totalTax + $this->transport - $costOfProductReturn;
-            return $this->sub_total - $globalDiscount + $totalTax + $this->transport ;
+            return $this->sub_total - $globalDiscount + $totalTax + $this->transport;
         }
     }
 
@@ -230,15 +233,16 @@ class Invoice extends Model
         $due = $this->invoiceTotal() - $this->invoiceTotalPaid();
         $costOfReturn = isset($this->invoiceReturn) ? $this->invoiceReturn->total_return : 0;
         $due = $due - $costOfReturn;
-        
+
         return $due >= 0 ? $due : 0;
     }
 
-    // Get original invoice total (without returns) for index listing  
+    // Get original invoice total (without returns) for index listing
     public function originalInvoiceTotal()
     {
         // Simply return invoiceTotal() + the return amount (undo the return deduction)
         $returnAmount = isset($this->invoiceReturn) ? $this->invoiceReturn->total_return : 0;
+
         return $this->invoiceTotal() + $returnAmount;
     }
 
@@ -247,11 +251,11 @@ class Invoice extends Model
     {
         // Tax is affected by returns in the taxAmount() calculation
         // We need to recalculate without considering returns
-        
+
         $taxRate = $this->invoiceTax;
         $totalTax = 0;
         $subTotal = $this->sub_total;
-        
+
         // Calculate global discount
         $globalDiscount = 0;
         if ($this->discount > 0) {
@@ -261,7 +265,7 @@ class Invoice extends Model
                 $globalDiscount = $this->discount;
             }
         }
-        
+
         // Calculate invoice-level tax WITHOUT considering returns
         if (isset($taxRate) && $taxRate->rate > 0) {
             $taxableAmount = $subTotal - $globalDiscount;
@@ -271,18 +275,19 @@ class Invoice extends Model
         // Check if country is Saudi Arabia
         $country = \App\Models\GeneralSetting::where('key', 'country')->first()?->value ?? 'SA';
         $isSaudiArabia = $country === 'SA';
-        
+
         // For non-Saudi Arabia: Add product-level VAT
         // For Saudi Arabia: VAT is already in sub_total, so only return invoice-level tax
-        if (!$isSaudiArabia) {
+        if (! $isSaudiArabia) {
             $totalProductVat = 0;
             $invoiceProducts = $this->invoiceProducts;
             foreach ($invoiceProducts as $invoiceProduct) {
                 $totalProductVat += $invoiceProduct->tax_amount;
             }
+
             return $totalTax + $totalProductVat;
         }
-        
+
         // For Saudi Arabia: only return invoice-level tax (product VAT is already in sub_total)
         return $totalTax;
     }
@@ -291,6 +296,7 @@ class Invoice extends Model
     public function originalTotalDue()
     {
         $due = $this->originalInvoiceTotal() - $this->invoiceTotalPaid();
+
         return $due >= 0 ? $due : 0;
     }
 

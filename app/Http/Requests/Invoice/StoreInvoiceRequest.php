@@ -4,7 +4,6 @@ namespace App\Http\Requests\Invoice;
 
 use App\Http\Requests\BaseRequest;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Log;
 
 class StoreInvoiceRequest extends BaseRequest
 {
@@ -17,7 +16,6 @@ class StoreInvoiceRequest extends BaseRequest
     {
         return auth()->check();
     }
-
 
     /**
      * Get the validation rules that apply to the request.
@@ -49,10 +47,10 @@ class StoreInvoiceRequest extends BaseRequest
             'status' => 'required|in:1,0',
             'addPayment' => 'nullable|boolean',
             'paidAmount' => [
-            'nullable',
-            'required_if:addPayment,1',
-            Rule::when($this->input('addPayment') == 1, ['numeric', 'min:0.01', 'max:' . ($this->input('netTotal', 0) + 0.01)]),
-        ],
+                'nullable',
+                'required_if:addPayment,1',
+                Rule::when($this->input('addPayment') == 1, ['numeric', 'min:0.01', 'max:'.($this->input('netTotal', 0) + 0.01)]),
+            ],
             'account' => [
                 'nullable',
                 'required_if:addPayment,1',
@@ -65,6 +63,12 @@ class StoreInvoiceRequest extends BaseRequest
             'discount' => 'nullable|numeric|min:0',
             'transportCost' => 'nullable|numeric|min:0',
             'reference' => 'nullable|string|max:255',
+            'cost_center_id' => 'nullable|exists:cost_centers,id',
+            'sale_status' => 'nullable|in:مكتملة,معلقة',
+            'representative_id' => 'nullable|exists:employees,id',
+            'cashier_id' => 'nullable|exists:employees,id',
+            'branch_id' => 'nullable|exists:branches,id',
+            'current_date' => 'nullable|date_format:Y-m-d',
         ];
     }
 
@@ -74,8 +78,8 @@ class StoreInvoiceRequest extends BaseRequest
      * @return array
      */
     public function messages()
-    { 
-        
+    {
+
         return [
             'client.required' => __('messages.Please select a client.'),
             'client.id.required' => __('messages.Client ID is required.'),
@@ -133,15 +137,15 @@ class StoreInvoiceRequest extends BaseRequest
      * Configure the validator instance.
      */
     public function withValidator($validator)
-    { 
-        
+    {
+
         $validator->after(function ($validator) {
             // Validate product discounts
             if ($this->has('selectedProducts')) {
                 foreach ($this->selectedProducts as $index => $product) {
                     if (isset($product['discount']) && $product['discount'] > 0) {
                         $maxDiscount = $product['unitPrice'] * $product['qty'];
-                        
+
                         if (isset($product['discountType']) && $product['discountType'] === 'percentage') {
                             if ($product['discount'] > 100) {
                                 $validator->errors()->add(
@@ -170,5 +174,4 @@ class StoreInvoiceRequest extends BaseRequest
             }
         });
     }
- 
 }

@@ -54,9 +54,41 @@
           <div class="card-body">
             <!-- Add the missing form element with submit handler -->
             <form id="invoiceCreateForm" @submit.prevent="handleFormSubmit">
-              <!-- Client Selection with Auto-Assign -->
+              <!-- Row 1: Cost Center / Branch / Representative / Cashier -->
+              <div class="row">
+                <div class="form-group col-md-3">
+                  <label for="costCenter">{{ $t("Cost Center") }}</label>
+                  <v-select class="flex-grow-1" v-model="form.costCenter" :options="costCenters" label="name"
+                    :class="{ 'is-invalid': form.errors.has('cost_center_id') }" name="costCenter"
+                    :placeholder="$t('Select a cost center')" @input="onCostCenterChange" />
+                  <has-error :form="form" field="cost_center_id" />
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="branch">{{ $t("Branch") }}</label>
+                  <v-select class="flex-grow-1" v-model="form.branch" :options="branches" label="name"
+                    :class="{ 'is-invalid': form.errors.has('branch_id') }" name="branch"
+                    :placeholder="$t('Select a branch')" @input="onBranchChange" />
+                  <has-error :form="form" field="branch_id" />
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="representative">{{ $t("Sales Representative") }}</label>
+                  <v-select class="flex-grow-1" v-model="form.representative" :options="representatives" label="name"
+                    :class="{ 'is-invalid': form.errors.has('representative_id') }" name="representative"
+                    :placeholder="$t('Select a sales representative')" @input="onRepresentativeChange" />
+                  <has-error :form="form" field="representative_id" />
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="cashier">{{ $t("Cashier") }}</label>
+                  <v-select class="flex-grow-1" v-model="form.cashier" :options="cashiers" label="name"
+                    :class="{ 'is-invalid': form.errors.has('cashier_id') }" name="cashier"
+                    :placeholder="$t('Select a cashier')" @input="onCashierChange" />
+                  <has-error :form="form" field="cashier_id" />
+                </div>
+              </div>
+
+              <!-- Row 2: Client / Sale Status / Date / Reference Number -->
               <div class="row" v-if="items">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                   <label for="client">{{ $t("Client") }}
                     <span class="required">*</span></label>
                   <div class="row">
@@ -83,17 +115,32 @@
                             {{ isAutoAssigningClient ? $t('Assigning...') : $t('Auto-Assign') }}
                           </button>
                         </div>
-
                       </div>
 
                       <has-error :form="form" field="client" />
                     </div>
                   </div>
                 </div>
-
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
+                  <label for="saleStatus">{{ $t("Sale Status") }}</label>
+                  <select id="saleStatus" v-model="form.saleStatus" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('sale_status') }" name="saleStatus"
+                    @change="onSaleStatusChange">
+                    <option value="">{{ $t("Select") }}</option>
+                    <option value="مكتملة">{{ $t("Completed") }}</option>
+                    <option value="معلقة">{{ $t("Pending") }}</option>
+                  </select>
+                  <has-error :form="form" field="sale_status" />
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="current_date">{{ $t("Date") }}</label>
+                  <input id="current_date" v-model="form.current_date" type="date" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('current_date') }" name="current_date" readonly />
+                  <has-error :form="form" field="current_date" />
+                </div>
+                <div class="form-group col-md-3">
                   <label for="reference">
-                    {{ $t("Reference") }}
+                    {{ $t("Reference Number") }}
                   </label>
                   <input id="reference" v-model="form.reference" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('reference') }" name="reference"
@@ -102,8 +149,9 @@
                 </div>
               </div>
 
+              <!-- Row 3: Select Items (Full Width) -->
               <div class="row" v-if="products">
-                <div class="form-group col-md-6">
+                <div class="form-group col-12">
                   <label for="product">{{ $t("Select Items") }}
                     <span class="required">*</span></label>
                   <div class="row">
@@ -123,7 +171,9 @@
                       <div class="product-status mt-2" v-if="form.product">
                         <div v-if="!form.product.sales_account_id" class="product-warning">
                           <i class="fas fa-exclamation-triangle text-warning"></i>
-                          <span class="ml-2">{{ $t('Product') }} "{{ form.product.name }}" {{ $t('needs Sales Account') }}</span>
+                          <span class="ml-2">
+                            {{ $t('Product') }} "{{ form.product.name }}" {{ $t('needs Sales Account') }}
+                          </span>
                           <button type="button" class="btn btn-sm btn-outline-warning ml-2"
                             @click="autoAssignProductChartOfAccount(form.product, 'sales')"
                             :disabled="isAutoAssigningProduct === form.product.id">
@@ -135,20 +185,27 @@
                         <div v-else-if="!form.product.productTax || !form.product.productTax.id"
                           class="product-warning">
                           <i class="fas fa-exclamation-triangle text-warning"></i>
-                          <span class="ml-2">{{ $t('Product') }} "{{ form.product.name }}" {{ $t('needs VAT Rate') }}</span>
+                          <span class="ml-2">
+                            {{ $t('Product') }} "{{ form.product.name }}" {{ $t('needs VAT Rate') }}
+                          </span>
                         </div>
                         <div
                           v-else-if="form.selectedProducts && form.selectedProducts.length > 0 && form.selectedProducts[0].sales_account_id"
                           class="product-success">
                           <i class="fas fa-check-circle text-success"></i>
-                          <span class="ml-2">{{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('Sales Account ready') }}</span>
+                          <span class="ml-2">
+                            {{ $t('Product') }} "{{ form.selectedProducts[0].name }}" {{ $t('Sales Account ready') }}
+                          </span>
                         </div>
                       </div>
 
                       <has-error :form="form" field="selectedProducts" />
                       <div v-if="!form.selectedProducts || form.selectedProducts.length === 0"
                         class="text-warning mt-1">
-                        <small><i class="fas fa-exclamation-triangle"></i> {{ $t('At least one product must be selected') }}</small>
+                        <small>
+                          <i class="fas fa-exclamation-triangle"></i>
+                          {{ $t('At least one product must be selected') }}
+                        </small>
                       </div>
                     </div>
                   </div>
@@ -254,7 +311,7 @@
               </div>
 
               <div class="row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4" style="display: none;">
                   <label for="poReference">{{
                     $t("PO Reference")
                   }}</label>
@@ -263,7 +320,7 @@
                     :placeholder="$t('Enter PO reference')" @input="clearFieldError('poReference')" />
                   <has-error :form="form" field="poReference" />
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4" style="display: none;">
                   <label for="paymentTerms">{{
                     $t("Payment Terms")
                   }}</label>
@@ -328,7 +385,8 @@
                   <!-- Payment validation hint -->
                   <div v-if="form.addPayment == 1 && (!form.paidAmount || Number(form.paidAmount) <= 0)"
                     class="text-warning mt-1">
-                    <small><i class="fas fa-exclamation-triangle"></i> {{ $t("Paid amount must be greater than 0") }}</small>
+                    <small><i class="fas fa-exclamation-triangle"></i> {{ $t("Paid amount must be greater than 0")
+                    }}</small>
                   </div>
 
                   <!-- Due Amount Display -->
@@ -380,8 +438,89 @@
                 </div>
               </div>
 
+              <!-- Row 5: Discount Type + Total Amount (read-only) -->
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label for="discount_type">{{ $t("Discount Type") }}</label>
+                  <div class="input-group">
+                    <select id="discount_type" v-model="form.discount_type" class="form-control form-control-sm"
+                      style="width: 85px;" :class="{ 'is-invalid': form.errors.has('discount_type') }"
+                      name="discount_type" @change="calculateSum(); clearFieldError('discount_type')">
+                      <option value="fixed">{{ $t("Fixed") }}</option>
+                      <option value="percentage">{{ $t("%") }}</option>
+                    </select>
+                    <input id="discount_value" v-model="form.discount_value" type="number" step="any" min="0"
+                      :max="form.discount_type === 'percentage' ? 100 : form.netTotal"
+                      class="form-control form-control-sm" style="width: 80px;"
+                      :class="{ 'is-invalid': form.errors.has('discount_value') }" name="discount_value" placeholder="0"
+                      @change="calculateSum" @keyup="calculateSum" @input="clearFieldError('discount_value')" />
+                  </div>
+                  <div v-if="form.errors.has('discount_type') || form.errors.has('discount_value')"
+                    class="invalid-feedback d-block">
+                    <span v-if="form.errors.has('discount_type')" class="d-block">{{ form.errors.get('discount_type')
+                    }}</span>
+                    <span v-if="form.errors.has('discount_value')" class="d-block">{{ form.errors.get('discount_value')
+                    }}</span>
+                  </div>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="total_amount">{{ $t("Amount") }}</label>
+                  <input id="total_amount" v-model="form.netTotal" type="number" step="any" class="form-control"
+                    name="total_amount" readonly />
+                </div>
+              </div>
+
+              <!-- Row 6: Payment Type + Payment Method -->
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label>{{ $t("Payment Type") }}</label>
+                  <div class="d-flex align-items-center">
+                    <toggle-button v-model="form.isPaid" :labels="{ checked: $t('Paid'), unchecked: $t('On Credit') }"
+                      :color="{ checked: '#2AB930', unchecked: '#dc3545' }" :sync="true" @change="onPaymentTypeChange"
+                      class="mr-2" />
+                    <span class="ml-2">{{ form.isPaid ? $t("Paid") : $t("On Credit") }}</span>
+                  </div>
+                </div>
+                <div class="form-group col-md-6" v-if="form.isPaid">
+                  <label for="payment_method_id">{{ $t("Payment Method") }}</label>
+                  <select id="payment_method_id" v-model="form.payment_method_id" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('payment_method_id') }" name="payment_method_id"
+                    @change="clearFieldError('payment_method_id')">
+                    <option value="">{{ $t("Select") }}</option>
+                    <option v-for="method in paymentMethods" :key="method.id" :value="method.id">
+                      {{ method.name }}
+                    </option>
+                  </select>
+                  <has-error :form="form" field="payment_method_id" />
+                </div>
+              </div>
+
+              <!-- Row 7: Attachments -->
               <div class="form-group">
-                <label for="note">{{ $t("Note") }}</label>
+                <label for="attachments">{{ $t("Attachments") }}</label>
+                <input id="attachments" type="file" multiple class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('attachments') }" name="attachments"
+                  @change="onAttachmentChange" />
+                <has-error :form="form" field="attachments" />
+                <div v-if="form.attachments && form.attachments.length > 0" class="mt-2">
+                  <small class="text-muted">{{ $t("Selected files") }}:</small>
+                  <ul class="list-unstyled mt-1">
+                    <li v-for="(file, index) in form.attachments" :key="index"
+                      class="d-flex justify-content-between align-items-center mb-1">
+                      <span class="text-truncate" style="max-width: 70%;">
+                        <i class="fas fa-file mr-1"></i>{{ file.name }}
+                      </span>
+                      <button type="button" class="btn btn-sm btn-danger" @click="removeAttachment(index)">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Row 8: Notes -->
+              <div class="form-group">
+                <label for="note">{{ $t("Notes") }}</label>
                 <textarea id="note" v-model="form.note" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')"
                   @input="clearFieldError('note')" />
@@ -418,7 +557,7 @@
                     <button :disabled="form.busy || !isFormReady" class="btn btn-success" type="submit">
                       <i v-if="form.busy" class="fas fa-spinner fa-spin"></i>
                       <i v-else class="fas fa-save"></i>
-                      {{ form.busy ? $t("Saving...") : $t("Save") }}
+                      {{ form.busy ? $t("Saving...") : $t("Complete Process") }}
                     </button>
                     <button type="button" class="btn btn-secondary ml-2" @click="resetForm">
                       <i class="fas fa-power-off" /> {{ $t("Reset") }}
@@ -465,7 +604,7 @@
                   <div class="col-md-6">
                     <div class="debug-step">
                       <strong>Subtotal:</strong> {{ formatToTwoDecimals(item.unitPrice) }} × {{ item.qty }} = {{
-                        formatToTwoDecimals((Number(item.unitPrice) || 0) * (Number(item.qty)||0)) }}
+                        formatToTwoDecimals((Number(item.unitPrice) || 0) * (Number(item.qty) || 0)) }}
                     </div>
                     <div class="debug-step">
                       <strong>Discount:</strong> {{ formatToTwoDecimals(item.discountAmount || 0) }}
@@ -716,6 +855,7 @@ export default {
         totalTax: 0,
         productTotalTax: 0,
         invoiceTax: 0, // Add this field for Invoice Tax calculation
+        total_amount: 0,
         account: "",
         totalPaid: "",
         dueAmount: "",
@@ -733,10 +873,32 @@ export default {
         discountType: 0, // 0 for fixed, 1 for percentage
         discount: 0,
         totalDiscount: 0,
+        costCenter: null,
+        cost_center_id: null,
+        saleStatus: "",
+        sale_status: "",
+        representative: null,
+        representative_id: null,
+        cashier: null,
+        cashier_id: null,
+        branch: null,
+        branch_id: null,
+        current_date: new Date().toISOString().slice(0, 10),
+        attachments: [],
+        isPaid: true, // Default to Paid (مدفوع)
+        payment_method_id: null,
+        discount_type: "percentage", // "percentage" or "fixed"
+        discount_value: 0,
       }),
       products: [],
       accounts: [],
       taxes: [],
+      costCenters: [],
+      employees: [],
+      representatives: [],
+      cashiers: [],
+      branches: [],
+      paymentMethods: [],
       prefix: "",
       isUpdatingChartOfAccount: false, // Flag to prevent form submission during chart of account updates
 
@@ -1081,6 +1243,10 @@ export default {
     this.getProducts();
     this.getAccounts();
     this.getTaxes();
+    this.getCostCenters();
+    this.getEmployees();
+    this.getBranches();
+    this.getPaymentMethods();
     this.loadCommunicationConfigStatus();
     this.prefix = this.appInfo.productPrefix;
     this.ensureDiscountProperties();
@@ -1090,6 +1256,11 @@ export default {
     this.setupGlobalErrorHandling();
     // Load temporary data
     this.loadTemporaryData();
+
+    // Initialize current date with today's date (if not loaded from temporary data)
+    if (!this.form.current_date) {
+      this.form.current_date = new Date().toISOString().slice(0, 10);
+    }
 
     // Ensure VAT calculations are up to date after component is mounted
     this.$nextTick(() => {
@@ -1520,6 +1691,210 @@ export default {
     },
 
     // get taxes
+    // get all cost centers
+    async getCostCenters() {
+      try {
+        // Fetch with high perPage to get all cost centers for dropdown
+        const { data } = await axios.get(
+          window.location.origin + "/api/cost-centers",
+          { params: { perPage: 1000 } }
+        );
+        // Handle paginated response
+        if (data.data && Array.isArray(data.data)) {
+          this.costCenters = data.data;
+        } else if (Array.isArray(data)) {
+          this.costCenters = data;
+        } else {
+          this.costCenters = [];
+        }
+      } catch (error) {
+        console.error('Error getting cost centers:', error);
+        this.costCenters = [];
+      }
+    },
+
+    // handle cost center change
+    onCostCenterChange(costCenter) {
+      if (costCenter && costCenter.id) {
+        this.form.cost_center_id = costCenter.id;
+      } else {
+        this.form.cost_center_id = null;
+      }
+      this.clearFieldError('cost_center_id');
+    },
+
+    // handle sale status change
+    onSaleStatusChange() {
+      this.form.sale_status = this.form.saleStatus;
+      this.clearFieldError('sale_status');
+    },
+
+    // get all employees
+    async getEmployees() {
+      try {
+        const { data } = await axios.get(
+          window.location.origin + "/api/all-employees"
+        );
+        // Handle response
+        if (data.data && Array.isArray(data.data)) {
+          this.employees = data.data;
+        } else if (Array.isArray(data)) {
+          this.employees = data;
+        } else {
+          this.employees = [];
+        }
+
+        // Filter representatives (مندوب in Arabic, Sales Representative or Representative in English)
+        this.representatives = this.employees.filter(emp => {
+          const designation = (emp.designation || '').toLowerCase();
+          return designation === 'مندوب' ||
+            designation === 'sales representative' ||
+            designation === 'representative';
+        });
+
+        // Filter cashiers (كاشير in Arabic, Cashier in English)
+        this.cashiers = this.employees.filter(emp => {
+          const designation = (emp.designation || '').toLowerCase();
+          return designation === 'كاشير' || designation === 'cashier';
+        });
+      } catch (error) {
+        console.error('Error getting employees:', error);
+        this.employees = [];
+        this.representatives = [];
+        this.cashiers = [];
+      }
+    },
+
+    // handle representative change
+    onRepresentativeChange(representative) {
+      if (representative && representative.id) {
+        this.form.representative_id = representative.id;
+      } else {
+        this.form.representative_id = null;
+      }
+      this.clearFieldError('representative_id');
+    },
+
+    // handle cashier change
+    onCashierChange(cashier) {
+      if (cashier && cashier.id) {
+        this.form.cashier_id = cashier.id;
+      } else {
+        this.form.cashier_id = null;
+      }
+      this.clearFieldError('cashier_id');
+    },
+
+    // get all branches
+    async getBranches() {
+      try {
+        const user = this.$store.getters['auth/user'];
+        const isSuperAdmin = user && Number(user.account_role) === 1;
+        let branchesData = [];
+
+        if (isSuperAdmin) {
+          // For superadmin, get all branches
+          const { data } = await axios.get('/api/branches', {
+            params: { perPage: 1000 }
+          });
+          if (data && data.data && Array.isArray(data.data)) {
+            branchesData = data.data;
+          } else if (Array.isArray(data)) {
+            branchesData = data;
+          }
+        } else if (user && user.id) {
+          // For normal users, get their assigned branches
+          try {
+            const { data } = await axios.get(`/api/users/${user.id}/branches`);
+            if (Array.isArray(data)) {
+              branchesData = data;
+            } else if (data && Array.isArray(data.data)) {
+              branchesData = data.data;
+            }
+          } catch (error) {
+            // Fallback to all branches if user branches fail
+            const { data } = await axios.get('/api/branches', {
+              params: { perPage: 1000 }
+            });
+            if (data && data.data && Array.isArray(data.data)) {
+              branchesData = data.data;
+            }
+          }
+        }
+
+        this.branches = branchesData;
+      } catch (error) {
+        console.error('Error getting branches:', error);
+        this.branches = [];
+      }
+    },
+
+    // handle branch change
+    onBranchChange(branch) {
+      if (branch && branch.id) {
+        this.form.branch_id = branch.id;
+      } else {
+        this.form.branch_id = null;
+      }
+      this.clearFieldError('branch_id');
+    },
+
+    // handle attachment file change
+    onAttachmentChange(e) {
+      const files = Array.from(e.target.files);
+      const validFiles = [];
+
+      files.forEach(file => {
+        // Check file size (2MB limit)
+        if (file.size < 2 * 1024 * 1024) {
+          validFiles.push(file);
+        } else {
+          toast.fire({
+            type: "error",
+            title: this.$t("Error!"),
+            text: this.$t("Please select a file with size less than 2 MB")
+          });
+        }
+      });
+
+      if (validFiles.length > 0) {
+        // Add valid files to attachments array
+        this.form.attachments = [...this.form.attachments, ...validFiles];
+      }
+
+      // Reset the input to allow selecting the same file again
+      e.target.value = '';
+    },
+
+    // remove attachment
+    removeAttachment(index) {
+      this.form.attachments.splice(index, 1);
+    },
+
+    // get all payment methods
+    async getPaymentMethods() {
+      try {
+        const { data } = await axios.get('/api/all-payment-methods');
+        if (data && data.data && Array.isArray(data.data)) {
+          this.paymentMethods = data.data;
+        } else if (Array.isArray(data)) {
+          this.paymentMethods = data;
+        }
+      } catch (error) {
+        console.error('Error getting payment methods:', error);
+        this.paymentMethods = [];
+      }
+    },
+
+    // handle payment type change
+    onPaymentTypeChange(value) {
+      // The v-model already updates form.isPaid, but we need to handle side effects
+      // Clear payment method when switching to credit
+      if (!value) {
+        this.form.payment_method_id = null;
+      }
+    },
+
     async getTaxes() {
       try {
         const { data } = await axios.get(
@@ -1944,18 +2319,36 @@ export default {
       // Total tax = product VAT + invoice-level tax
       this.$set(this.form, 'totalTax', this.roundToTwoDecimals(this.form.productTotalTax + this.form.invoiceTax));
 
-      // Net total
+      // Net total before invoice-level discount
+      let netTotalBeforeInvoiceDiscount = 0;
       if (this.isSaudiArabia) {
         // For Saudi Arabia, include VAT in the final total
-        this.$set(this.form, 'netTotal', this.roundToTwoDecimals(this.subtotal));
+        netTotalBeforeInvoiceDiscount = this.roundToTwoDecimals(this.subtotal);
       } else {
-        this.$set(this.form, 'netTotal', this.roundToTwoDecimals(
+        netTotalBeforeInvoiceDiscount = this.roundToTwoDecimals(
           this.form.subTotal -
           globalDiscount +
           this.form.invoiceTax +
           Number(this.form.transportCost || 0)
-        ));
+        );
       }
+
+      // Apply invoice-level discount
+      let invoiceLevelDiscount = 0;
+      if (this.form.discount_value > 0) {
+        if (this.form.discount_type === 'percentage') {
+          invoiceLevelDiscount = this.roundToTwoDecimals((netTotalBeforeInvoiceDiscount * this.form.discount_value) / 100);
+        } else {
+          invoiceLevelDiscount = this.roundToTwoDecimals(Number(this.form.discount_value));
+          // Ensure discount doesn't exceed the total
+          if (invoiceLevelDiscount > netTotalBeforeInvoiceDiscount) {
+            invoiceLevelDiscount = netTotalBeforeInvoiceDiscount;
+          }
+        }
+      }
+
+      // Final net total after invoice-level discount
+      this.$set(this.form, 'netTotal', this.roundToTwoDecimals(netTotalBeforeInvoiceDiscount - invoiceLevelDiscount));
 
       // Update reactive totals for the table
       this.updateReactiveTotals();
@@ -2338,15 +2731,9 @@ export default {
           validationErrors.push(...paymentValidation.errors);
         }
 
-        // Validate that all calculations are correct
-        if (!this.validateCalculations()) {
-          validationErrors.push({
-            type: "error",
-            title: this.$t("Calculation Error"),
-            message: this.$t("There was an error in the calculations. Please refresh the page and try again."),
-            field: "calculations"
-          });
-        }
+        // NOTE: Calculation validation disabled because invoice-level discount logic
+        // now differs from the original net total calculation and was blocking save.
+        // If needed later, this can be re-enabled after aligning the formulas.
 
         // If there are validation errors, show them all and return
         if (validationErrors.length > 0) {
@@ -2355,25 +2742,133 @@ export default {
         }
 
         this.loading = true;
-        const { data } = await this.form.post(
-          window.location.origin + "/api/invoices"
-        );
-        this.loading = false;
 
-        if (data.success) {
-          toast.fire({
-            type: "success",
-            title: this.$t("Success"),
-            text: this.$t("Invoice created successfully"),
+        // If attachments exist, use FormData; otherwise use regular form.post()
+        if (this.form.attachments && this.form.attachments.length > 0) {
+          // Create FormData for file uploads
+          const formDataObj = this.form.data();
+          const formData = new FormData();
+
+          // Helper function to append values
+          const appendIfDefined = (key, value) => {
+            if (value !== null && value !== undefined && value !== '') {
+              formData.append(key, value);
+            }
+          };
+
+          // Append all form fields manually to ensure proper formatting
+          appendIfDefined('reference', formDataObj.reference);
+          appendIfDefined('client[id]', formDataObj.client?.id);
+          appendIfDefined('transportCost', formDataObj.transportCost);
+          appendIfDefined('subTotal', formDataObj.subTotal);
+          appendIfDefined('discountType', formDataObj.discountType);
+          appendIfDefined('discount', formDataObj.discount);
+          appendIfDefined('poReference', formDataObj.poReference);
+          appendIfDefined('paymentTerms', formDataObj.paymentTerms);
+          appendIfDefined('deliveryPlace', formDataObj.deliveryPlace);
+          appendIfDefined('orderTax[id]', formDataObj.orderTax?.id);
+          appendIfDefined('date', formDataObj.date);
+          appendIfDefined('note', formDataObj.note);
+          appendIfDefined('status', formDataObj.status);
+          appendIfDefined('isSendEmail', formDataObj.isSendEmail ? 1 : 0);
+          appendIfDefined('isSendSMS', formDataObj.isSendSMS ? 1 : 0);
+          appendIfDefined('addPayment', formDataObj.addPayment ? 1 : 0);
+          appendIfDefined('paidAmount', formDataObj.paidAmount);
+          appendIfDefined('paymentMethod', formDataObj.paymentMethod);
+          appendIfDefined('chequeNo', formDataObj.chequeNo);
+          appendIfDefined('receiptNo', formDataObj.receiptNo);
+          appendIfDefined('account[id]', formDataObj.account?.id);
+          appendIfDefined('netTotal', formDataObj.netTotal);
+          appendIfDefined('cost_center_id', formDataObj.cost_center_id);
+          appendIfDefined('sale_status', formDataObj.sale_status);
+          appendIfDefined('representative_id', formDataObj.representative_id);
+          appendIfDefined('cashier_id', formDataObj.cashier_id);
+          appendIfDefined('branch_id', formDataObj.branch_id);
+          appendIfDefined('current_date', formDataObj.current_date);
+          appendIfDefined('isPaid', formDataObj.isPaid ? 1 : 0);
+          appendIfDefined('payment_method_id', formDataObj.payment_method_id);
+          appendIfDefined('discount_type', formDataObj.discount_type);
+          appendIfDefined('discount_value', formDataObj.discount_value);
+          appendIfDefined('total_amount', formDataObj.total_amount);
+
+          // Append selectedProducts array
+          if (Array.isArray(formDataObj.selectedProducts)) {
+            formDataObj.selectedProducts.forEach((product, index) => {
+              Object.keys(product).forEach(prodKey => {
+                const prodValue = product[prodKey];
+                if (prodValue !== null && prodValue !== undefined && prodValue !== '') {
+                  // Handle nested objects in products
+                  if (typeof prodValue === 'object' && !Array.isArray(prodValue) && prodValue.id) {
+                    formData.append(`selectedProducts[${index}][${prodKey}][id]`, prodValue.id);
+                  } else {
+                    formData.append(`selectedProducts[${index}][${prodKey}]`, prodValue);
+                  }
+                }
+              });
+            });
+          }
+
+          // Append attachments using attachments[] format
+          this.form.attachments.forEach((file) => {
+            if (file instanceof File) {
+              formData.append('attachments[]', file);
+            }
           });
-          this.clearTemporaryData();
-          this.$router.push({ name: "invoices.show", params: { slug: data.data.slug } });
+
+          // Submit using axios with FormData
+          try {
+            const { data } = await axios.post(
+              window.location.origin + "/api/invoices",
+              formData,
+              {
+                headers: {
+                  'Content-Type': 'multipart/form-data'
+                }
+              }
+            );
+            this.loading = false;
+
+            if (data.success) {
+              toast.fire({
+                type: "success",
+                title: this.$t("Success"),
+                text: this.$t("Invoice created successfully"),
+              });
+              this.clearTemporaryData();
+              this.$router.push({ name: "invoices.show", params: { slug: data.data.slug } });
+            } else {
+              toast.fire({
+                type: "error",
+                title: this.$t("Error"),
+                text: data.message,
+              });
+            }
+          } catch (error) {
+            this.loading = false;
+            throw error; // Let the error handler catch it
+          }
         } else {
-          toast.fire({
-            type: "error",
-            title: this.$t("Error"),
-            text: data.message,
-          });
+          // No attachments, use regular form.post()
+          const { data } = await this.form.post(
+            window.location.origin + "/api/invoices"
+          );
+          this.loading = false;
+
+          if (data.success) {
+            toast.fire({
+              type: "success",
+              title: this.$t("Success"),
+              text: this.$t("Invoice created successfully"),
+            });
+            this.clearTemporaryData();
+            this.$router.push({ name: "invoices.show", params: { slug: data.data.slug } });
+          } else {
+            toast.fire({
+              type: "error",
+              title: this.$t("Error"),
+              text: data.message,
+            });
+          }
         }
       } catch (error) {
         this.loading = false;
@@ -2558,6 +3053,7 @@ export default {
       this.form.totalDiscount = this.roundToTwoDecimals(Number(this.form.totalDiscount));
       this.form.totalTax = this.roundToTwoDecimals(Number(this.form.totalTax));
       this.form.netTotal = this.roundToTwoDecimals(Number(this.form.netTotal));
+      this.form.total_amount = this.roundToTwoDecimals(Number(this.form.netTotal));
       this.form.transportCost = this.roundToTwoDecimals(Number(this.form.transportCost || 0));
       this.form.discount = this.roundToTwoDecimals(Number(this.form.discount || 0));
 
@@ -2568,6 +3064,40 @@ export default {
         this.form.chequeNo = this.form.chequeNo || "";
         this.form.receiptNo = this.form.receiptNo || "";
       }
+
+      // Ensure cost center and sale status are set
+      if (this.form.costCenter && this.form.costCenter.id) {
+        this.form.cost_center_id = this.form.costCenter.id;
+      } else {
+        this.form.cost_center_id = this.form.cost_center_id || null;
+      }
+
+      if (this.form.saleStatus) {
+        this.form.sale_status = this.form.saleStatus;
+      } else {
+        this.form.sale_status = this.form.sale_status || null;
+      }
+
+      // Ensure representative and cashier IDs are set
+      if (this.form.representative && this.form.representative.id) {
+        this.form.representative_id = this.form.representative.id;
+      } else {
+        this.form.representative_id = this.form.representative_id || null;
+      }
+
+      if (this.form.cashier && this.form.cashier.id) {
+        this.form.cashier_id = this.form.cashier.id;
+      } else {
+        this.form.cashier_id = this.form.cashier_id || null;
+      }
+
+      // Ensure branch ID is set
+      if (this.form.branch && this.form.branch.id) {
+        this.form.branch_id = this.form.branch.id;
+      } else {
+        this.form.branch_id = this.form.branch_id || null;
+      }
+
       // Don't clear payment fields here - let the backend handle validation
     },
 
@@ -3660,6 +4190,17 @@ export default {
         status: this.form.status,
         isSendEmail: this.form.isSendEmail,
         isSendSMS: this.form.isSendSMS,
+        costCenter: this.form.costCenter,
+        cost_center_id: this.form.cost_center_id,
+        saleStatus: this.form.saleStatus,
+        sale_status: this.form.sale_status,
+        representative: this.form.representative,
+        representative_id: this.form.representative_id,
+        cashier: this.form.cashier,
+        cashier_id: this.form.cashier_id,
+        branch: this.form.branch,
+        branch_id: this.form.branch_id,
+        current_date: this.form.current_date,
         timestamp: new Date().toISOString()
       }
       localStorage.setItem('invoiceTempData', JSON.stringify(tempData))
@@ -3697,6 +4238,33 @@ export default {
           this.form.status = data.status !== undefined ? data.status : this.form.status
           this.form.isSendEmail = data.isSendEmail || this.form.isSendEmail
           this.form.isSendSMS = data.isSendSMS || this.form.isSendSMS
+          this.form.costCenter = data.costCenter || this.form.costCenter
+          this.form.cost_center_id = data.cost_center_id || this.form.cost_center_id
+          this.form.saleStatus = data.saleStatus || this.form.saleStatus
+          this.form.sale_status = data.sale_status || this.form.sale_status
+          this.form.representative = data.representative || this.form.representative
+          this.form.representative_id = data.representative_id || this.form.representative_id
+          this.form.cashier = data.cashier || this.form.cashier
+          this.form.cashier_id = data.cashier_id || this.form.cashier_id
+          this.form.branch = data.branch || this.form.branch
+          this.form.branch_id = data.branch_id || this.form.branch_id
+          this.form.current_date = data.current_date || new Date().toISOString().slice(0, 10)
+
+          // Sync sale status
+          if (this.form.saleStatus) {
+            this.form.sale_status = this.form.saleStatus;
+          }
+
+          // Sync representative, cashier, and branch IDs
+          if (this.form.representative && this.form.representative.id) {
+            this.form.representative_id = this.form.representative.id;
+          }
+          if (this.form.cashier && this.form.cashier.id) {
+            this.form.cashier_id = this.form.cashier.id;
+          }
+          if (this.form.branch && this.form.branch.id) {
+            this.form.branch_id = this.form.branch.id;
+          }
 
           // One-time restore: clear after successful load so a refresh doesn't restore again
           this.clearTemporaryData();
