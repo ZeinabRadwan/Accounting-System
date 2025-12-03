@@ -148,7 +148,7 @@ export default {
   background: #FFF5F5;
   border: 1px solid #D64545;
   border-radius: 10px;
-  margin: 20px 20px 0 20px;
+  margin: 20px;
   padding: 15px 20px;
   color: #000000;
   font-family: DINNextLTArabic;
