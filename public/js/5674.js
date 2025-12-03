@@ -1,7 +1,7 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[3030],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[5674],{
 
-/***/ 28789:
+/***/ 30737:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -13,14 +13,14 @@
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".btn-group.c-w-100[data-v-d77b39e6]{gap:10px}.header-buttons[data-v-d77b39e6]{margin-bottom:15px}.footer-buttons[data-v-d77b39e6]{display:flex;gap:10px}.footer-buttons .btn[data-v-d77b39e6]{margin-right:10px}.footer-buttons .btn[data-v-d77b39e6]:last-child{margin-right:0}.card[data-v-d77b39e6]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-header[data-v-d77b39e6]{background-color:#fff;border-bottom:1px solid #ced4da;border-radius:20px 20px 0 0;padding:1.25rem 1.25rem 0}.card-body[data-v-d77b39e6]{padding:1.25rem}.card-footer[data-v-d77b39e6]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.form-control[data-v-d77b39e6]{background:#fff!important;border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-d77b39e6]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.form-group label[data-v-d77b39e6]{color:#374151;display:block;font-weight:500;margin-bottom:8px}.required[data-v-d77b39e6]{color:#dc3545;font-weight:700}.btn-primary[data-v-d77b39e6]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-primary[data-v-d77b39e6]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-secondary[data-v-d77b39e6]{background:#33a0d9!important;border:none!important;color:#fff!important;font-weight:500;margin-right:10px;padding:10px 20px!important}.btn-secondary[data-v-d77b39e6]:hover{background:#2a8bc4!important;box-shadow:0 4px 8px rgba(51,160,217,.3);transform:translateY(-1px)}.is-invalid[data-v-d77b39e6]{border-color:#dc3545!important}textarea.form-control[data-v-d77b39e6]{min-height:100px;resize:vertical}.custom-file-input[data-v-d77b39e6],.custom-file-label[data-v-d77b39e6]{background:#fff!important;border:1px solid #e5e7eb;border-radius:10px;padding:10px 16px}.custom-file-label[data-v-d77b39e6]{color:#374151;font-weight:500}.custom-file-label[data-v-d77b39e6]:after{background:#33a0d9;border-radius:0 10px 10px 0;color:#fff;font-weight:500}.bg-light[data-v-d77b39e6]{background-color:#f8f9fa!important;border:1px solid #e5e7eb;border-radius:10px;padding:10px}.v-select[data-v-d77b39e6]{background:#fff!important}.v-select .vs__dropdown-toggle[data-v-d77b39e6]{background:#fff!important;border:1px solid #e5e7eb!important;padding:10px 16px!important}.v-select .vs__dropdown-toggle[data-v-d77b39e6]:focus{border-color:#33a0d9!important;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)!important}.v-select.is-invalid .vs__dropdown-toggle[data-v-d77b39e6]{border-color:#dc3545!important}.text-muted[data-v-d77b39e6]{color:#6c757d!important}.small[data-v-d77b39e6],.text-muted[data-v-d77b39e6]{font-size:12px}.row[data-v-d77b39e6]{margin-bottom:1rem}@media (max-width:768px){.card-footer[data-v-d77b39e6]{flex-direction:column;gap:10px}.card-footer .btn[data-v-d77b39e6]{margin-right:0!important;width:100%}.card-footer div[data-v-d77b39e6]{display:flex;flex-direction:column;gap:10px;width:100%}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".btn-group.c-w-100[data-v-567a17ac]{gap:10px}.header-buttons[data-v-567a17ac]{margin-bottom:15px}.footer-buttons[data-v-567a17ac]{display:flex;gap:10px}.footer-buttons .btn[data-v-567a17ac]{margin-right:10px}.footer-buttons .btn[data-v-567a17ac]:last-child{margin-right:0}.card[data-v-567a17ac]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-header[data-v-567a17ac]{background-color:#fff;border-bottom:1px solid #ced4da;border-radius:20px 20px 0 0;padding:1.25rem 1.25rem 0}.card-body[data-v-567a17ac]{padding:1.25rem}.card-footer[data-v-567a17ac]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.form-control[data-v-567a17ac]{background:#fff!important;border:1px solid #e5e7eb;font-size:14px;padding:10px 16px}.form-control[data-v-567a17ac]:focus{border-color:#33a0d9;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)}.form-group label[data-v-567a17ac]{color:#374151;display:block;font-weight:500;margin-bottom:8px}.required[data-v-567a17ac]{color:#dc3545;font-weight:700}.btn-primary[data-v-567a17ac]{background:#2ab930!important;border:none!important;color:#fff!important;font-weight:500;padding:10px 20px!important}.btn-primary[data-v-567a17ac]:hover{background:#229a26!important;box-shadow:0 4px 8px rgba(42,185,48,.3);transform:translateY(-1px)}.btn-secondary[data-v-567a17ac]{background:#33a0d9!important;border:none!important;color:#fff!important;font-weight:500;margin-right:10px;padding:10px 20px!important}.btn-secondary[data-v-567a17ac]:hover{background:#2a8bc4!important;box-shadow:0 4px 8px rgba(51,160,217,.3);transform:translateY(-1px)}.is-invalid[data-v-567a17ac]{border-color:#dc3545!important}textarea.form-control[data-v-567a17ac]{min-height:100px;resize:vertical}.custom-file-input[data-v-567a17ac],.custom-file-label[data-v-567a17ac]{background:#fff!important;border:1px solid #e5e7eb;border-radius:10px;padding:10px 16px}.custom-file-label[data-v-567a17ac]{color:#374151;font-weight:500}.custom-file-label[data-v-567a17ac]:after{background:#33a0d9;border-radius:0 10px 10px 0;color:#fff;font-weight:500}.bg-light[data-v-567a17ac]{background-color:#f8f9fa!important;border:1px solid #e5e7eb;border-radius:10px;padding:10px}.v-select[data-v-567a17ac]{background:#fff!important}.v-select .vs__dropdown-toggle[data-v-567a17ac]{background:#fff!important;border:1px solid #e5e7eb!important;padding:10px 16px!important}.v-select .vs__dropdown-toggle[data-v-567a17ac]:focus{border-color:#33a0d9!important;box-shadow:0 0 0 .2rem rgba(51,160,217,.25)!important}.v-select.is-invalid .vs__dropdown-toggle[data-v-567a17ac]{border-color:#dc3545!important}.text-muted[data-v-567a17ac]{color:#6c757d!important}.small[data-v-567a17ac],.text-muted[data-v-567a17ac]{font-size:12px}.row[data-v-567a17ac]{margin-bottom:1rem}@media (max-width:768px){.card-footer[data-v-567a17ac]{flex-direction:column;gap:10px}.card-footer .btn[data-v-567a17ac]{margin-right:0!important;width:100%}.card-footer div[data-v-567a17ac]{display:flex;flex-direction:column;gap:10px;width:100%}}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
 
-/***/ 53030:
+/***/ 85674:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -31,7 +31,7 @@ __webpack_require__.d(__webpack_exports__, {
   "default": () => (/* binding */ create)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/accounts/create.vue?vue&type=template&id=d77b39e6&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/accounts/create.vue?vue&type=template&id=567a17ac&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -222,7 +222,6 @@ var render = function render() {
   }, [_vm._v(_vm._s(_vm.$t('Chart of Account')) + "\n                  "), _c('span', {
     staticClass: "required"
   }, [_vm._v("*")])]), _vm._v(" "), _c('v-select', {
-    key: _vm.chartOfAccounts.length,
     "class": {
       'is-invalid': _vm.form.errors.has('chartOfAccountId')
     },
@@ -232,7 +231,6 @@ var render = function render() {
       "reduce": function reduce(option) {
         return option.id;
       },
-      "track-by": "id",
       "name": "chartOfAccountId",
       "placeholder": _vm.$t('Select a Chart of Account')
     },
@@ -248,11 +246,11 @@ var render = function render() {
       }
     }]),
     model: {
-      value: _vm.formattedChartOfAccountId,
+      value: _vm.form.chartOfAccountId,
       callback: function callback($$v) {
-        _vm.formattedChartOfAccountId = $$v;
+        _vm.$set(_vm.form, "chartOfAccountId", $$v);
       },
-      expression: "formattedChartOfAccountId"
+      expression: "form.chartOfAccountId"
     }
   }), _vm._v(" "), _c('has-error', {
     attrs: {
@@ -446,14 +444,11 @@ var staticRenderFns = [];
 
 // EXTERNAL MODULE: ./node_modules/vform/dist/vform.es.js
 var vform_es = __webpack_require__(63216);
-// EXTERNAL MODULE: ./node_modules/sweetalert2/dist/sweetalert2.all.js
-var sweetalert2_all = __webpack_require__(78465);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/accounts/create.vue?vue&type=script&lang=js
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 
 /* harmony default export */ const createvue_type_script_lang_js = ({
   middleware: ['auth', 'check-permissions'],
@@ -486,7 +481,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         image: '',
         note: '',
         status: 1,
-        chartOfAccountId: ''
+        chartOfAccountId: null
       }),
       url: null,
       loading: true,
@@ -497,36 +492,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.loadChartOfAccounts();
     this.loadTemporaryData();
   },
-  watch: {
-    'formattedChartOfAccountId': {
-      handler: function handler(newVal, oldVal) {
-        console.log('formattedChartOfAccountId changed from', oldVal, 'to', newVal);
-      },
-      deep: true
-    }
-  },
-  computed: {
-    selectedChartOfAccount: function selectedChartOfAccount() {
-      var _this = this;
-      if (!this.form.chartOfAccountId || !this.chartOfAccounts.length) return null;
-      return this.chartOfAccounts.find(function (coa) {
-        return coa.id === _this.form.chartOfAccountId;
-      });
-    },
-    // Ensure the chartOfAccountId is properly formatted
-    formattedChartOfAccountId: {
-      get: function get() {
-        return this.form.chartOfAccountId;
-      },
-      set: function set(value) {
-        this.form.chartOfAccountId = value;
-      }
-    }
-  },
   methods: {
     // load chart of accounts
     loadChartOfAccounts: function loadChartOfAccounts() {
-      var _this2 = this;
+      var _this = this;
       return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var response;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
@@ -534,55 +503,58 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context.prev = 0;
               _context.next = 3;
-              return _this2.$axios.get('/api/accounts/chart-of-accounts');
+              return _this.$axios.get('/api/accounts/chart-of-accounts');
             case 3:
               response = _context.sent;
-              console.log('Full API response:', response);
-              console.log('Response data:', response.data);
-              _this2.chartOfAccounts = response.data.data || [];
-              console.log('Loaded chart of accounts:', _this2.chartOfAccounts);
-              console.log('First chart of account structure:', _this2.chartOfAccounts[0]);
-              _context.next = 14;
+              if (response.data && response.data.success) {
+                _this.chartOfAccounts = response.data.data || [];
+              } else {
+                _this.chartOfAccounts = [];
+              }
+              _context.next = 11;
               break;
-            case 11:
-              _context.prev = 11;
+            case 7:
+              _context.prev = 7;
               _context.t0 = _context["catch"](0);
               console.error('Error loading chart of accounts:', _context.t0);
-            case 14:
+              toast.fire({
+                type: 'error',
+                title: _this.$t('Failed to load chart of accounts')
+              });
+            case 11:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[0, 11]]);
+        }, _callee, null, [[0, 7]]);
       }))();
     },
     // save account
     saveAccount: function saveAccount() {
-      var _this3 = this;
+      var _this2 = this;
       return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              console.log('Submitting form with chartOfAccountId:', _this3.form.chartOfAccountId);
-              _context2.next = 3;
-              return _this3.form.post(window.location.origin + '/api/accounts').then(function () {
+              _context2.next = 2;
+              return _this2.form.post(window.location.origin + '/api/accounts').then(function () {
                 // Clear temporary data after successful save
-                _this3.clearTemporaryData();
+                _this2.clearTemporaryData();
                 toast.fire({
                   type: 'success',
-                  title: _this3.$t('Account added successfully')
+                  title: _this2.$t('Account added successfully')
                 });
-                _this3.$router.push({
+                _this2.$router.push({
                   name: 'accounts.index'
                 });
               })["catch"](function (error) {
                 var _error$response$data, _error$response$data2;
                 if (error.response && error.response.status === 422 && error.response.data && error.response.data.errors) {
                   var errors = error.response.data.errors;
-                  if (_this3.form && _this3.form.errors && typeof _this3.form.errors.set === 'function') {
-                    _this3.form.errors.set(errors);
+                  if (_this2.form && _this2.form.errors && typeof _this2.form.errors.set === 'function') {
+                    _this2.form.errors.set(errors);
                   }
                   var messages = Object.values(errors).flat();
-                  var firstMessage = messages && messages.length ? messages[0] : _this3.$t('Validation Error');
+                  var firstMessage = messages && messages.length ? messages[0] : _this2.$t('Validation Error');
                   var backendMessage = error.response.data.message && error.response.data.message !== 'Validation Error' ? error.response.data.message : firstMessage;
                   toast.fire({
                     type: 'error',
@@ -597,11 +569,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 } else {
                   toast.fire({
                     type: 'error',
-                    title: _this3.$t('Please check your input and try again.')
+                    title: _this2.$t('Please check your input and try again.')
                   });
                 }
               });
-            case 3:
+            case 2:
             case "end":
               return _context2.stop();
           }
@@ -652,12 +624,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     // vue file upload
     onFileChange: function onFileChange(e) {
-      var _this4 = this;
+      var _this3 = this;
       var file = e.target.files[0];
       var reader = new FileReader();
       if (file.size < 2111775 && (file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/gif")) {
         reader.onloadend = function (file) {
-          _this4.form.image = reader.result;
+          _this3.form.image = reader.result;
         };
         reader.readAsDataURL(file);
         this.url = URL.createObjectURL(file);
@@ -672,9 +644,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/accounts/create.vue?vue&type=style&index=0&id=d77b39e6&prod&scoped=true&lang=css
-var createvue_type_style_index_0_id_d77b39e6_prod_scoped_true_lang_css = __webpack_require__(28789);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/accounts/create.vue?vue&type=style&index=0&id=d77b39e6&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/accounts/create.vue?vue&type=style&index=0&id=567a17ac&prod&scoped=true&lang=css
+var createvue_type_style_index_0_id_567a17ac_prod_scoped_true_lang_css = __webpack_require__(30737);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/cashbook/accounts/create.vue?vue&type=style&index=0&id=567a17ac&prod&scoped=true&lang=css
 
             
 
@@ -683,12 +655,12 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(createvue_type_style_index_0_id_d77b39e6_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(createvue_type_style_index_0_id_567a17ac_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const accounts_createvue_type_style_index_0_id_d77b39e6_prod_scoped_true_lang_css = (createvue_type_style_index_0_id_d77b39e6_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/cashbook/accounts/create.vue?vue&type=style&index=0&id=d77b39e6&prod&scoped=true&lang=css
+/* harmony default export */ const accounts_createvue_type_style_index_0_id_567a17ac_prod_scoped_true_lang_css = (createvue_type_style_index_0_id_567a17ac_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/cashbook/accounts/create.vue?vue&type=style&index=0&id=567a17ac&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
@@ -707,7 +679,7 @@ var component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "d77b39e6",
+  "567a17ac",
   null
   
 )

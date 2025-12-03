@@ -1,4 +1,4 @@
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[8887],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[4336],{
 
 /***/ 119:
 /***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
@@ -339,26 +339,6 @@
     return zhHk;
 
 })));
-
-
-/***/ }),
-
-/***/ 2166:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".dtable-footer{align-items:center;display:flex;flex-direction:column;justify-content:space-between;margin-top:30px;padding:0 0 0 10px}.card-footer .form-group.row.display-per-page{align-items:center;display:flex;gap:10px;justify-content:flex-end;width:100%}.nav-tabs{border-bottom:1px solid #dee2e6;margin-bottom:0}.nav-tabs .nav-link{background-color:transparent;border:1px solid transparent;border-top-left-radius:.25rem;border-top-right-radius:.25rem;color:#495057;margin-bottom:-1px;padding:.5rem 1rem}.nav-tabs .nav-link:hover{border-color:#e9ecef #e9ecef #dee2e6;isolation:isolate}.nav-tabs .nav-link.active{background-color:#fff;color:#495057}.nav-tabs .nav-link.active,.nav-tabs .nav-link.active:hover{border-color:#dee2e6 #dee2e6 #fff}.tab-content{background-color:#fff;border:1px solid #dee2e6;border-top:none;padding:1rem}.tab-pane{display:none}.tab-pane.active{display:block}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
@@ -19485,1272 +19465,6 @@ webpackContext.id = 35358;
 
 /***/ }),
 
-/***/ 38887:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ tenants)
-});
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/tenants/index.vue?vue&type=template&id=0102d19c&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "mb-50"
-  }, [_c('breadcrumbs', {
-    attrs: {
-      "items": _vm.breadcrumbs,
-      "current": _vm.breadcrumbsCurrent
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-lg-12"
-  }, [_c('div', {
-    staticClass: "card custom-card w-100"
-  }, [_c('div', {
-    staticClass: "card-header setings-header"
-  }, [_c('div', {
-    staticClass: "col-xl-4 col-4"
-  }, [_c('h3', {
-    staticClass: "card-title"
-  }, [_vm._v("\n              " + _vm._s(_vm.$t("Tenants")) + "\n            ")])]), _vm._v(" "), _c('div', {
-    staticClass: "col-xl-8 col-8 float-right text-right"
-  }, [_c('div', {
-    staticClass: "btn-group c-w-100"
-  }, [_c('a', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.$t('Refresh'),
-      expression: "$t('Refresh')"
-    }],
-    staticClass: "btn btn-success",
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.refreshTable();
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-sync"
-  })]), _vm._v(" "), _c('a', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.$t('Export to Excel'),
-      expression: "$t('Export to Excel')"
-    }],
-    staticClass: "btn btn-info",
-    attrs: {
-      "href": _vm.exportUrl
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-arrow-circle-down"
-  })]), _vm._v(" "), _c('a', {
-    directives: [{
-      name: "tooltip",
-      rawName: "v-tooltip",
-      value: _vm.$t('Export to PDF'),
-      expression: "$t('Export to PDF')"
-    }],
-    staticClass: "btn btn-secondary",
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": _vm.exportToPDF
-    }
-  }, [_c('i', {
-    staticClass: "fas fa-file-export"
-  })])])])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body position-relative"
-  }, [_c('ul', {
-    staticClass: "nav nav-tabs",
-    attrs: {
-      "id": "tenantTabs",
-      "role": "tablist"
-    }
-  }, [_c('li', {
-    staticClass: "nav-item",
-    attrs: {
-      "role": "presentation"
-    }
-  }, [_c('button', {
-    staticClass: "nav-link",
-    "class": {
-      active: _vm.activeTab === 'active'
-    },
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.switchTab('active');
-      }
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Active Tenants")) + "\n              ")])]), _vm._v(" "), _c('li', {
-    staticClass: "nav-item",
-    attrs: {
-      "role": "presentation"
-    }
-  }, [_c('button', {
-    staticClass: "nav-link",
-    "class": {
-      active: _vm.activeTab === 'archived'
-    },
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": function click($event) {
-        return _vm.switchTab('archived');
-      }
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("Archived Tenants")) + "\n              ")])])]), _vm._v(" "), _c('div', {
-    staticClass: "tab-content",
-    attrs: {
-      "id": "tenantTabsContent"
-    }
-  }, [_c('div', {
-    staticClass: "tab-pane fade",
-    "class": {
-      'show active': _vm.activeTab === 'active'
-    },
-    attrs: {
-      "role": "tabpanel"
-    }
-  }, [_c('div', {
-    staticClass: "row mt-3"
-  }, [_c('div', {
-    staticClass: "col-6 col-xl-4 mb-2"
-  }, [_c('search', {
-    on: {
-      "reset-pagination": function resetPagination($event) {
-        return _vm.resetPagination();
-      },
-      "reload": _vm.reload
-    },
-    model: {
-      value: _vm.query,
-      callback: function callback($$v) {
-        _vm.query = $$v;
-      },
-      expression: "query"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-6 col-xl-8 mb-2 text-right"
-  }, [_c('date-range-picker', {
-    ref: "picker",
-    staticClass: "c-w-100",
-    staticStyle: {
-      "display": "none"
-    },
-    attrs: {
-      "opens": "left",
-      "locale-data": _vm.locale,
-      "minDate": _vm.minDate,
-      "maxDate": _vm.maxDate,
-      "singleDatePicker": false,
-      "showWeekNumbers": false,
-      "showDropdowns": true,
-      "autoApply": true,
-      "linkedCalendars": true
-    },
-    on: {
-      "update": _vm.updateValues
-    },
-    scopedSlots: _vm._u([{
-      key: "input",
-      fn: function fn(picker) {
-        return [_vm._v("\n                      " + _vm._s(_vm._f("startDate")(picker.startDate)) + " -\n                      " + _vm._s(_vm._f("endDate")(picker.endDate)) + "\n                    ")];
-      }
-    }]),
-    model: {
-      value: _vm.dateRange,
-      callback: function callback($$v) {
-        _vm.dateRange = $$v;
-      },
-      expression: "dateRange"
-    }
-  })], 1)]), _vm._v(" "), _c('table-loading', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.loading,
-      expression: "loading"
-    }]
-  }), _vm._v(" "), _c('div', {
-    staticClass: "table-responsive table-custom mt-3",
-    attrs: {
-      "id": "printMe"
-    }
-  }, [_c('table', {
-    staticClass: "table"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("S.No")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Domain")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Name & Email")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Plan")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("On Trial")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Is Verified")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Is Subscribed")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Banned")))]), _vm._v(" "), !_vm.isDemoMode ? _c('th', {
-    staticClass: "text-right no-print"
-  }, [_vm._v("\n                        " + _vm._s(_vm.$t("Action")) + "\n                      ")]) : _vm._e()])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.items, function (data, i) {
-    return _c('tr', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.items.length,
-        expression: "items.length"
-      }],
-      key: i
-    }, [_c('td', [_vm.pagination && _vm.pagination.current_page > 1 ? _c('span', [_vm._v("\n                          " + _vm._s(_vm.pagination.per_page * (_vm.pagination.current_page - 1) + (i + 1)) + "\n                        ")]) : _c('span', [_vm._v(_vm._s(i + 1))])]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(data.domain) + "\n                      ")]), _vm._v(" "), _c('td', {
-      staticClass: "profile-area"
-    }, [_c('div', {
-      staticClass: "mr-2 img"
-    }, [_c('img', {
-      staticClass: "rounded-circle",
-      attrs: {
-        "src": data.photo_url,
-        "alt": data.name
-      }
-    })]), _vm._v(" "), _c('div', [_c('span', {
-      staticClass: "text-capitalize"
-    }, [_vm._v(_vm._s(data.name))]), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": "mailto:".concat(data.email)
-      }
-    }, [_vm._v(_vm._s(data.email))])])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.plan && data.plan.name))]), _vm._v(" "), _c('td', [data.on_trial ? _c('span', {
-      staticClass: "badge bg-success"
-    }, [_vm._v("\n                          " + _vm._s(_vm.$t("True")) + "\n                        ")]) : _c('span', {
-      staticClass: "badge bg-danger"
-    }, [_vm._v("\n                          " + _vm._s(_vm.$t("False")) + "\n                        ")])]), _vm._v(" "), _c('td', [data.email_verified_at ? _c('span', {
-      staticClass: "badge bg-success"
-    }, [_vm._v("\n                          " + _vm._s(_vm.$t("True")) + "\n                        ")]) : _c('span', {
-      staticClass: "badge bg-danger"
-    }, [_vm._v("\n                          " + _vm._s(_vm.$t("False")) + "\n                        ")])]), _vm._v(" "), _c('td', [data.is_subscribed ? _c('span', {
-      staticClass: "badge bg-success"
-    }, [_vm._v("\n                          " + _vm._s(_vm.$t("True")) + "\n                        ")]) : _c('span', {
-      staticClass: "badge bg-danger"
-    }, [_vm._v("\n                          " + _vm._s(_vm.$t("False")) + "\n                        ")])]), _vm._v(" "), _c('td', [data.is_banned == false ? _c('span', {
-      staticClass: "badge bg-success"
-    }, [_vm._v(_vm._s(_vm.$t("False")))]) : _c('span', {
-      staticClass: "badge bg-danger"
-    }, [_vm._v(_vm._s(_vm.$t("True")))])]), _vm._v(" "), !_vm.isDemoMode ? _c('td', {
-      staticClass: "text-right no-print"
-    }, [_c('div', {
-      staticClass: "btn-group"
-    }, [data.email_verified_at ? _c('router-link', {
-      directives: [{
-        name: "tooltip",
-        rawName: "v-tooltip",
-        value: _vm.$t('View'),
-        expression: "$t('View')"
-      }],
-      staticClass: "btn btn-primary btn-sm",
-      attrs: {
-        "to": {
-          name: 'tenants.show',
-          params: {
-            id: data.id
-          }
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-eye"
-    })]) : _vm._e(), _vm._v(" "), data.email_verified_at ? _c('button', {
-      directives: [{
-        name: "tooltip",
-        rawName: "v-tooltip",
-        value: _vm.$t('Impersonate'),
-        expression: "$t('Impersonate')"
-      }],
-      staticClass: "btn btn-info btn-sm",
-      on: {
-        "click": function click($event) {
-          return _vm.impersonate(data.id);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-user-secret"
-    })]) : _vm._e(), _vm._v(" "), data.email_verified_at ? _c('router-link', {
-      directives: [{
-        name: "tooltip",
-        rawName: "v-tooltip",
-        value: _vm.$t('Send Email'),
-        expression: "$t('Send Email')"
-      }],
-      staticClass: "btn btn-secondary btn-sm",
-      attrs: {
-        "to": {
-          name: 'send-notification',
-          params: {
-            id: data.id
-          }
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-envelope"
-    })]) : _vm._e(), _vm._v(" "), data.email_verified_at ? _c('router-link', {
-      directives: [{
-        name: "tooltip",
-        rawName: "v-tooltip",
-        value: _vm.$t('Edit'),
-        expression: "$t('Edit')"
-      }],
-      staticClass: "btn btn-info btn-sm",
-      attrs: {
-        "to": {
-          name: 'tenants.edit',
-          params: {
-            id: data.id
-          }
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-edit"
-    })]) : _vm._e(), _vm._v(" "), data.email_verified_at ? _c('a', {
-      directives: [{
-        name: "tooltip",
-        rawName: "v-tooltip",
-        value: data.is_banned ? _vm.$t('Unban') : _vm.$t('Ban'),
-        expression: "data.is_banned\n                            ? $t('Unban')\n                            : $t('Ban')\n                            "
-      }],
-      staticClass: "btn btn-sm",
-      "class": data.is_banned ? 'btn-success' : 'btn-warning',
-      attrs: {
-        "href": "#"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.ban(data.id);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-ban"
-    })]) : _vm._e(), _vm._v(" "), _c('a', {
-      directives: [{
-        name: "tooltip",
-        rawName: "v-tooltip",
-        value: _vm.$t('Archive'),
-        expression: "$t('Archive')"
-      }],
-      staticClass: "btn btn-danger btn-sm",
-      attrs: {
-        "href": "#"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.deleteData(data.id);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-archive"
-    })])], 1)]) : _vm._e()]);
-  }), _vm._v(" "), _c('tr', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: !_vm.loading && !_vm.items.length,
-      expression: "!loading && !items.length"
-    }]
-  }, [_c('td', {
-    attrs: {
-      "colspan": "9"
-    }
-  }, [_c('EmptyTable')], 1)])], 2)])])], 1), _vm._v(" "), _c('div', {
-    staticClass: "tab-pane fade",
-    "class": {
-      'show active': _vm.activeTab === 'archived'
-    },
-    attrs: {
-      "role": "tabpanel"
-    }
-  }, [_c('div', {
-    staticClass: "row mt-3"
-  }, [_c('div', {
-    staticClass: "col-6 col-xl-4 mb-2"
-  }, [_c('search', {
-    on: {
-      "reset-pagination": function resetPagination($event) {
-        return _vm.resetPagination();
-      },
-      "reload": _vm.reloadArchived
-    },
-    model: {
-      value: _vm.archivedQuery,
-      callback: function callback($$v) {
-        _vm.archivedQuery = $$v;
-      },
-      expression: "archivedQuery"
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-6 col-xl-8 mb-2 text-right"
-  }, [_c('date-range-picker', {
-    ref: "archivedPicker",
-    staticClass: "c-w-100",
-    staticStyle: {
-      "display": "none"
-    },
-    attrs: {
-      "opens": "left",
-      "locale-data": _vm.locale,
-      "minDate": _vm.minDate,
-      "maxDate": _vm.maxDate,
-      "singleDatePicker": false,
-      "showWeekNumbers": false,
-      "showDropdowns": true,
-      "autoApply": true,
-      "linkedCalendars": true
-    },
-    on: {
-      "update": _vm.updateArchivedValues
-    },
-    scopedSlots: _vm._u([{
-      key: "input",
-      fn: function fn(picker) {
-        return [_vm._v("\n                      " + _vm._s(_vm._f("startDate")(picker.startDate)) + " -\n                      " + _vm._s(_vm._f("endDate")(picker.endDate)) + "\n                    ")];
-      }
-    }]),
-    model: {
-      value: _vm.archivedDateRange,
-      callback: function callback($$v) {
-        _vm.archivedDateRange = $$v;
-      },
-      expression: "archivedDateRange"
-    }
-  })], 1)]), _vm._v(" "), _c('table-loading', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.archivedLoading,
-      expression: "archivedLoading"
-    }]
-  }), _vm._v(" "), _c('div', {
-    staticClass: "table-responsive table-custom mt-3",
-    attrs: {
-      "id": "printArchived"
-    }
-  }, [_c('table', {
-    staticClass: "table"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("S.No")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Domain")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Name & Email")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Plan")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Archived At")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Archived By")))]), _vm._v(" "), !_vm.isDemoMode ? _c('th', {
-    staticClass: "text-right no-print"
-  }, [_vm._v("\n                        " + _vm._s(_vm.$t("Action")) + "\n                      ")]) : _vm._e()])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.archivedItems, function (data, i) {
-    return _c('tr', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.archivedItems.length,
-        expression: "archivedItems.length"
-      }],
-      key: i
-    }, [_c('td', [_vm.archivedPagination && _vm.archivedPagination.current_page > 1 ? _c('span', [_vm._v("\n                          " + _vm._s(_vm.archivedPagination.per_page * (_vm.archivedPagination.current_page - 1) + (i + 1)) + "\n                        ")]) : _c('span', [_vm._v(_vm._s(i + 1))])]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(data.domain) + "\n                      ")]), _vm._v(" "), _c('td', {
-      staticClass: "profile-area"
-    }, [_c('div', {
-      staticClass: "mr-2 img"
-    }, [_c('img', {
-      staticClass: "rounded-circle",
-      attrs: {
-        "src": data.photo_url,
-        "alt": data.name
-      }
-    })]), _vm._v(" "), _c('div', [_c('span', {
-      staticClass: "text-capitalize"
-    }, [_vm._v(_vm._s(data.name))]), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": "mailto:".concat(data.email)
-      }
-    }, [_vm._v(_vm._s(data.email))])])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.plan && data.plan.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.archived_at ? _vm.$moment(data.archived_at).format('YYYY-MM-DD HH:mm') : '-'))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.archived_by_name || '-'))]), _vm._v(" "), !_vm.isDemoMode ? _c('td', {
-      staticClass: "text-right no-print"
-    }, [_c('div', {
-      staticClass: "btn-group"
-    }, [_c('button', {
-      directives: [{
-        name: "tooltip",
-        rawName: "v-tooltip",
-        value: _vm.$t('Restore'),
-        expression: "$t('Restore')"
-      }],
-      staticClass: "btn btn-success btn-sm",
-      on: {
-        "click": function click($event) {
-          return _vm.restoreTenant(data.id);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-undo"
-    })]), _vm._v(" "), _c('button', {
-      directives: [{
-        name: "tooltip",
-        rawName: "v-tooltip",
-        value: _vm.$t('Permanent Delete'),
-        expression: "$t('Permanent Delete')"
-      }],
-      staticClass: "btn btn-danger btn-sm",
-      on: {
-        "click": function click($event) {
-          return _vm.permanentDeleteTenant(data.id);
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fas fa-trash"
-    })])])]) : _vm._e()]);
-  }), _vm._v(" "), _c('tr', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: !_vm.archivedLoading && !_vm.archivedItems.length,
-      expression: "!archivedLoading && !archivedItems.length"
-    }]
-  }, [_c('td', {
-    attrs: {
-      "colspan": "7"
-    }
-  }, [_c('EmptyTable')], 1)])], 2)])])], 1)])]), _vm._v(" "), _c('div', {
-    staticClass: "card-footer"
-  }, [_c('div', {
-    staticClass: "dtable-footer"
-  }, [_c('div', {
-    staticClass: "form-group row display-per-page"
-  }, [_c('label', [_vm._v(_vm._s(_vm.$t('per_page')) + " ")]), _vm._v(" "), _c('div', [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.perPage,
-      expression: "perPage"
-    }],
-    staticClass: "form-control form-control-sm ml-1",
-    on: {
-      "change": [function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.perPage = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
-      }, _vm.updatePerPager]
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "10"
-    }
-  }, [_vm._v("10")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "25"
-    }
-  }, [_vm._v("25")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "50"
-    }
-  }, [_vm._v("50")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "100"
-    }
-  }, [_vm._v("100")])])])]), _vm._v(" "), _vm.pagination && _vm.pagination.last_page > 1 ? _c('pagination', {
-    staticClass: "justify-flex-end",
-    attrs: {
-      "pagination": _vm.pagination,
-      "offset": 5
-    },
-    on: {
-      "paginate": _vm.paginate
-    }
-  }) : _vm._e()], 1)])])])])], 1);
-};
-var staticRenderFns = [];
-
-// EXTERNAL MODULE: ./resources/js/plugins/i18n.js + 1 modules
-var i18n = __webpack_require__(37225);
-// EXTERNAL MODULE: ./node_modules/vue2-daterange-picker/dist/vue2-daterange-picker.umd.min.js
-var vue2_daterange_picker_umd_min = __webpack_require__(32464);
-var vue2_daterange_picker_umd_min_default = /*#__PURE__*/__webpack_require__.n(vue2_daterange_picker_umd_min);
-// EXTERNAL MODULE: ./node_modules/moment/moment.js
-var moment = __webpack_require__(95093);
-var moment_default = /*#__PURE__*/__webpack_require__.n(moment);
-// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__(95353);
-// EXTERNAL MODULE: ./node_modules/axios/index.js
-var axios = __webpack_require__(72505);
-var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
-// EXTERNAL MODULE: ./node_modules/html2pdf.js/dist/html2pdf.js
-var html2pdf = __webpack_require__(33833);
-var html2pdf_default = /*#__PURE__*/__webpack_require__.n(html2pdf);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/tenants/index.vue?vue&type=script&lang=js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-
-
-
-
-
-
-/* harmony default export */ const tenantsvue_type_script_lang_js = ({
-  layout: "central",
-  middleware: ["auth", "check-permissions"],
-  metaInfo: function metaInfo() {
-    return {
-      title: this.$t("Tenants")
-    };
-  },
-  components: {
-    DateRangePicker: (vue2_daterange_picker_umd_min_default())
-  },
-  data: function data() {
-    return {
-      breadcrumbsCurrent: "Tenants",
-      breadcrumbs: [{
-        name: "Dashboard",
-        url: "home"
-      }, {
-        name: "Tenants",
-        url: ""
-      }],
-      activeTab: "active",
-      query: "",
-      archivedQuery: "",
-      perPage: 10,
-      clientPrefix: "",
-      minDate: moment_default()(new Date("01-01-2021")).format("YYYY-MM-DD"),
-      maxDate: moment_default()().add(1, "days").format("YYYY-MM-DD"),
-      dateRange: {
-        startDate: "",
-        endDate: ""
-      },
-      archivedDateRange: {
-        startDate: "",
-        endDate: ""
-      },
-      locale: {
-        direction: "ltr",
-        format: "YYYY-MM-DD",
-        separator: " - ",
-        applyLabel: "Apply",
-        cancelLabel: "Cancel",
-        weekLabel: "W",
-        customRangeLabel: "Custom Range",
-        daysOfWeek: moment_default().weekdaysMin(),
-        monthNames: moment_default().monthsShort(),
-        firstDay: 1
-      },
-      isDemoMode: window.config.isDemoMode,
-      archivedItems: [],
-      archivedLoading: false,
-      archivedPagination: null
-    };
-  },
-  filters: {
-    startDate: function startDate(val) {
-      return val ? moment_default()(val).format("YYYY-MM-DD") : i18n["default"].t("From");
-    },
-    endDate: function endDate(val) {
-      return val ? moment_default()(val).format("YYYY-MM-DD") : i18n["default"].t("To");
-    }
-  },
-  // Map Getters
-  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "loading", "pagination", "appInfo"])), {}, {
-    exportUrl: function exportUrl() {
-      // Create a dynamic export URL with query parameters
-      return "/tenants/export/excel?start_date=".concat(this.dateRange.startDate, "&end_date=").concat(this.dateRange.endDate, "&term=").concat(this.query);
-    }
-  }),
-  watch: {
-    // watch search data
-    query: function query(newQ) {
-      if (newQ === "") {
-        if (this.dateRange.startDate && this.dateRange.endDate) {
-          this.searchData();
-        } else {
-          this.getData();
-        }
-      } else {
-        this.searchData();
-      }
-    },
-    // watch archived search data
-    archivedQuery: function archivedQuery(newQ) {
-      if (newQ === "") {
-        if (this.archivedDateRange.startDate && this.archivedDateRange.endDate) {
-          this.searchArchivedData();
-        } else {
-          this.getArchivedData();
-        }
-      } else {
-        this.searchArchivedData();
-      }
-    }
-  },
-  created: function created() {
-    this.getData();
-    this.getArchivedData();
-    this.clientPrefix = this.appInfo.clientPrefix;
-  },
-  methods: {
-    // filter data for selected date range
-    updateValues: function updateValues() {
-      var _this = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
-            case 0:
-              _this.dateRange.startDate = moment_default()(_this.dateRange.startDate).format("YYYY-MM-DD");
-              _this.dateRange.endDate = moment_default()(_this.dateRange.endDate).format("YYYY-MM-DD");
-              _this.searchData();
-            case 3:
-            case "end":
-              return _context.stop();
-          }
-        }, _callee);
-      }))();
-    },
-    // refresh table
-    refreshTable: function refreshTable() {
-      this.query = "";
-      this.dateRange.startDate = null;
-      this.dateRange.endDate = null;
-      this.query === "" ? this.getData() : this.searchData();
-      setTimeout(function () {
-        this.dateRange.startDate = "";
-        this.dateRange.endDate = "";
-      }.bind(this), 500);
-    },
-    // update per page count
-    updatePerPager: function updatePerPager() {
-      this.pagination.current_page = 1;
-      this.query === "" ? this.getData() : this.searchData();
-    },
-    // get data
-    getData: function getData() {
-      var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var currentPage;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
-            case 0:
-              _this2.$store.state.operations.loading = true;
-              currentPage = _this2.pagination ? _this2.pagination.current_page : 1;
-              _context2.next = 4;
-              return _this2.$store.dispatch("operations/fetchData", {
-                path: "/api/tenants?page=",
-                currentPage: currentPage + "&perPage=" + _this2.perPage
-              });
-            case 4:
-            case "end":
-              return _context2.stop();
-          }
-        }, _callee2);
-      }))();
-    },
-    impersonate: function impersonate(id) {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
-            case 0:
-              axios_default().get("/api/impersonate/".concat(id)).then(function (_ref) {
-                var data = _ref.data;
-                window.location.replace(data.data.redirect_url);
-              })["catch"](function (error) {
-                _this3.$toast.error(_this3.$t("Error!"), error.response.data.message);
-              });
-            case 1:
-            case "end":
-              return _context3.stop();
-          }
-        }, _callee3);
-      }))();
-    },
-    // Pagination
-    paginate: function paginate() {
-      var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
-            case 0:
-              _this4.query === "" ? _this4.getData() : _this4.searchData();
-            case 1:
-            case "end":
-              return _context4.stop();
-          }
-        }, _callee4);
-      }))();
-    },
-    // Reset pagination
-    resetPagination: function resetPagination() {
-      var _this5 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
-            case 0:
-              _this5.pagination.current_page = 1;
-            case 1:
-            case "end":
-              return _context5.stop();
-          }
-        }, _callee5);
-      }))();
-    },
-    // search data
-    searchData: function searchData() {
-      var _this6 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
-        var currentPage;
-        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-          while (1) switch (_context6.prev = _context6.next) {
-            case 0:
-              _this6.$store.state.operations.loading = true;
-              currentPage = _this6.pagination ? _this6.pagination.current_page : 1;
-              _context6.next = 4;
-              return _this6.$store.dispatch("operations/searchData", {
-                path: "/api/tenants/search",
-                term: _this6.query,
-                currentPage: currentPage + "&perPage=" + _this6.perPage,
-                startDate: _this6.dateRange.startDate,
-                endDate: _this6.dateRange.endDate
-              });
-            case 4:
-            case "end":
-              return _context6.stop();
-          }
-        }, _callee6);
-      }))();
-    },
-    // Reload after search
-    reload: function reload() {
-      var _this7 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-          while (1) switch (_context7.prev = _context7.next) {
-            case 0:
-              _this7.query = "";
-              _context7.next = 3;
-              return _this7.searchData();
-            case 3:
-            case "end":
-              return _context7.stop();
-          }
-        }, _callee7);
-      }))();
-    },
-    // print table
-    print: function print() {
-      var _this8 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
-        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-          while (1) switch (_context8.prev = _context8.next) {
-            case 0:
-              _context8.next = 2;
-              return _this8.$htmlToPaper("printMe");
-            case 2:
-            case "end":
-              return _context8.stop();
-          }
-        }, _callee8);
-      }))();
-    },
-    exportToPDF: function exportToPDF() {
-      var _this9 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
-        var element, style, opt, pdfStyle;
-        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
-          while (1) switch (_context9.prev = _context9.next) {
-            case 0:
-              _context9.prev = 0;
-              element = document.getElementById("printMe");
-              if (element) {
-                _context9.next = 5;
-                break;
-              }
-              _this9.$toast.error(_this9.$t("Error!"), _this9.$t("Table not found"));
-              return _context9.abrupt("return");
-            case 5:
-              style = document.createElement('style');
-              style.setAttribute('data-pdf-export', 'true');
-              style.textContent = ".no-print, .no-print * { display: none !important; }";
-              document.head.appendChild(style);
-              opt = {
-                margin: [10, 10, 10, 10],
-                filename: "tenants-".concat(new Date().toISOString().slice(0, 10), ".pdf"),
-                image: {
-                  type: "jpeg",
-                  quality: 0.98
-                },
-                html2canvas: {
-                  scale: 2,
-                  useCORS: true,
-                  logging: false
-                },
-                jsPDF: {
-                  unit: "mm",
-                  format: "a4",
-                  orientation: "landscape"
-                },
-                pagebreak: {
-                  mode: ["avoid-all", "css", "legacy"]
-                }
-              };
-              _context9.next = 12;
-              return html2pdf_default()().set(opt).from(element).save();
-            case 12:
-              document.head.removeChild(style);
-              _this9.$toast.success(_this9.$t("Success!"), _this9.$t("PDF exported successfully"));
-              _context9.next = 21;
-              break;
-            case 16:
-              _context9.prev = 16;
-              _context9.t0 = _context9["catch"](0);
-              pdfStyle = document.querySelector('style[data-pdf-export]');
-              if (pdfStyle) document.head.removeChild(pdfStyle);
-              _this9.$toast.error(_this9.$t("Error!"), _this9.$t("Failed to export PDF"));
-            case 21:
-            case "end":
-              return _context9.stop();
-          }
-        }, _callee9, null, [[0, 16]]);
-      }))();
-    },
-    // delete data
-    deleteData: function deleteData(slug) {
-      var _this0 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee0() {
-        var confirmed, response;
-        return _regeneratorRuntime().wrap(function _callee0$(_context0) {
-          while (1) switch (_context0.prev = _context0.next) {
-            case 0:
-              console.log('Delete function called with slug:', slug);
-              confirmed = confirm(_this0.$t("Are you sure you want to archive this tenant? The tenant will be moved to archived section and can be restored later."));
-              if (!confirmed) {
-                _context0.next = 16;
-                break;
-              }
-              console.log('Sending delete request for tenant:', slug);
-              _context0.prev = 4;
-              _context0.next = 7;
-              return _this0.$store.dispatch("operations/deleteData", {
-                path: "/api/tenants/",
-                slug: slug
-              });
-            case 7:
-              response = _context0.sent;
-              console.log('Delete response:', response);
-              if (response === true) {
-                _this0.$toast.success(_this0.$t("Archived"), _this0.$t("Tenant archived successfully"));
-                _this0.getData();
-              } else {
-                console.error('Archive failed with response:', response);
-                _this0.$toast.warning(_this0.$t("Failed"), _this0.$t("Archive failed"));
-              }
-              _context0.next = 16;
-              break;
-            case 12:
-              _context0.prev = 12;
-              _context0.t0 = _context0["catch"](4);
-              console.error('Delete request error:', _context0.t0);
-              _this0.$toast.warning(_this0.$t("Failed"), _this0.$t("Archive failed"));
-            case 16:
-            case "end":
-              return _context0.stop();
-          }
-        }, _callee0, null, [[4, 12]]);
-      }))();
-    },
-    // delete data
-    ban: function ban(id) {
-      var _this1 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee1() {
-        return _regeneratorRuntime().wrap(function _callee1$(_context1) {
-          while (1) switch (_context1.prev = _context1.next) {
-            case 0:
-              axios_default().post(window.location.origin + "/api/tenants/" + id + "/ban").then(function (response) {
-                if (response.data.success === true) {
-                  _this1.$toast.success(_this1.$t(response.data.message), _this1.$t(response.data.message + "_success"));
-                  _this1.getData();
-                } else {
-                  _this1.$toast.warning(_this1.$t("Failed"), _this1.$t("Ban failed"));
-                }
-              });
-            case 1:
-            case "end":
-              return _context1.stop();
-          }
-        }, _callee1);
-      }))();
-    },
-    // Tab switching
-    switchTab: function switchTab(tab) {
-      this.activeTab = tab;
-      if (tab === 'archived') {
-        this.getArchivedData();
-      } else {
-        this.getData();
-      }
-    },
-    // Get archived data
-    getArchivedData: function getArchivedData() {
-      var _this10 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
-        var response;
-        return _regeneratorRuntime().wrap(function _callee10$(_context10) {
-          while (1) switch (_context10.prev = _context10.next) {
-            case 0:
-              _this10.archivedLoading = true;
-              _context10.prev = 1;
-              _context10.next = 4;
-              return axios_default().get("/api/tenants/archived?perPage=".concat(_this10.perPage));
-            case 4:
-              response = _context10.sent;
-              _this10.archivedItems = response.data.data;
-              _this10.archivedPagination = response.data.meta;
-              _context10.next = 13;
-              break;
-            case 9:
-              _context10.prev = 9;
-              _context10.t0 = _context10["catch"](1);
-              console.error('Error fetching archived tenants:', _context10.t0);
-              _this10.$toast.error(_this10.$t("Error!"), _this10.$t("Failed to load archived tenants"));
-            case 13:
-              _context10.prev = 13;
-              _this10.archivedLoading = false;
-              return _context10.finish(13);
-            case 16:
-            case "end":
-              return _context10.stop();
-          }
-        }, _callee10, null, [[1, 9, 13, 16]]);
-      }))();
-    },
-    // Search archived data
-    searchArchivedData: function searchArchivedData() {
-      var _this11 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
-        var params, response;
-        return _regeneratorRuntime().wrap(function _callee11$(_context11) {
-          while (1) switch (_context11.prev = _context11.next) {
-            case 0:
-              _this11.archivedLoading = true;
-              _context11.prev = 1;
-              params = new URLSearchParams({
-                term: _this11.archivedQuery,
-                perPage: _this11.perPage
-              });
-              if (_this11.archivedDateRange.startDate && _this11.archivedDateRange.endDate) {
-                params.append('startDate', _this11.archivedDateRange.startDate);
-                params.append('endDate', _this11.archivedDateRange.endDate);
-              }
-              _context11.next = 6;
-              return axios_default().get("/api/tenants/archived?".concat(params));
-            case 6:
-              response = _context11.sent;
-              _this11.archivedItems = response.data.data;
-              _this11.archivedPagination = response.data.meta;
-              _context11.next = 15;
-              break;
-            case 11:
-              _context11.prev = 11;
-              _context11.t0 = _context11["catch"](1);
-              console.error('Error searching archived tenants:', _context11.t0);
-              _this11.$toast.error(_this11.$t("Error!"), _this11.$t("Failed to search archived tenants"));
-            case 15:
-              _context11.prev = 15;
-              _this11.archivedLoading = false;
-              return _context11.finish(15);
-            case 18:
-            case "end":
-              return _context11.stop();
-          }
-        }, _callee11, null, [[1, 11, 15, 18]]);
-      }))();
-    },
-    // Update archived values
-    updateArchivedValues: function updateArchivedValues() {
-      var _this12 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
-        return _regeneratorRuntime().wrap(function _callee12$(_context12) {
-          while (1) switch (_context12.prev = _context12.next) {
-            case 0:
-              _this12.archivedDateRange.startDate = moment_default()(_this12.archivedDateRange.startDate).format("YYYY-MM-DD");
-              _this12.archivedDateRange.endDate = moment_default()(_this12.archivedDateRange.endDate).format("YYYY-MM-DD");
-              _this12.searchArchivedData();
-            case 3:
-            case "end":
-              return _context12.stop();
-          }
-        }, _callee12);
-      }))();
-    },
-    // Reload archived data
-    reloadArchived: function reloadArchived() {
-      var _this13 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
-        return _regeneratorRuntime().wrap(function _callee13$(_context13) {
-          while (1) switch (_context13.prev = _context13.next) {
-            case 0:
-              _this13.archivedQuery = "";
-              _context13.next = 3;
-              return _this13.searchArchivedData();
-            case 3:
-            case "end":
-              return _context13.stop();
-          }
-        }, _callee13);
-      }))();
-    },
-    // Restore tenant
-    restoreTenant: function restoreTenant(id) {
-      var _this14 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee14() {
-        var confirmed, response, _error$response;
-        return _regeneratorRuntime().wrap(function _callee14$(_context14) {
-          while (1) switch (_context14.prev = _context14.next) {
-            case 0:
-              confirmed = confirm(_this14.$t("Are you sure you want to restore this tenant?"));
-              if (!confirmed) {
-                _context14.next = 13;
-                break;
-              }
-              _context14.prev = 2;
-              _context14.next = 5;
-              return axios_default().post("/api/tenants/".concat(id, "/restore"));
-            case 5:
-              response = _context14.sent;
-              if (response.data.success) {
-                _this14.$toast.success(_this14.$t("Success"), _this14.$t("Tenant restored successfully"));
-                _this14.getArchivedData();
-                _this14.getData(); // Refresh active tenants too
-              } else {
-                _this14.$toast.error(_this14.$t("Failed"), _this14.$t("Failed to restore tenant"));
-              }
-              _context14.next = 13;
-              break;
-            case 9:
-              _context14.prev = 9;
-              _context14.t0 = _context14["catch"](2);
-              console.error('Error restoring tenant:', _context14.t0);
-              _this14.$toast.error(_this14.$t("Error!"), ((_error$response = _context14.t0.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this14.$t("Failed to restore tenant"));
-            case 13:
-            case "end":
-              return _context14.stop();
-          }
-        }, _callee14, null, [[2, 9]]);
-      }))();
-    },
-    // Permanent delete tenant
-    permanentDeleteTenant: function permanentDeleteTenant(id) {
-      var _this15 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee15() {
-        var confirmed, response, _error$response2;
-        return _regeneratorRuntime().wrap(function _callee15$(_context15) {
-          while (1) switch (_context15.prev = _context15.next) {
-            case 0:
-              confirmed = confirm(_this15.$t("Are you sure you want to permanently delete this tenant? This action cannot be undone and will delete all data including the database."));
-              if (!confirmed) {
-                _context15.next = 13;
-                break;
-              }
-              _context15.prev = 2;
-              _context15.next = 5;
-              return axios_default()["delete"]("/api/tenants/".concat(id, "/permanent-delete"));
-            case 5:
-              response = _context15.sent;
-              if (response.data.success) {
-                _this15.$toast.success(_this15.$t("Success"), _this15.$t("Tenant permanently deleted successfully"));
-                _this15.getArchivedData();
-              } else {
-                _this15.$toast.error(_this15.$t("Failed"), _this15.$t("Failed to permanently delete tenant"));
-              }
-              _context15.next = 13;
-              break;
-            case 9:
-              _context15.prev = 9;
-              _context15.t0 = _context15["catch"](2);
-              console.error('Error permanently deleting tenant:', _context15.t0);
-              _this15.$toast.error(_this15.$t("Error!"), ((_error$response2 = _context15.t0.response) === null || _error$response2 === void 0 || (_error$response2 = _error$response2.data) === null || _error$response2 === void 0 ? void 0 : _error$response2.message) || _this15.$t("Failed to permanently delete tenant"));
-            case 13:
-            case "end":
-              return _context15.stop();
-          }
-        }, _callee15, null, [[2, 9]]);
-      }))();
-    }
-  }
-});
-;// ./resources/js/pages/central/tenants/index.vue?vue&type=script&lang=js
- /* harmony default export */ const central_tenantsvue_type_script_lang_js = (tenantsvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(85072);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/tenants/index.vue?vue&type=style&index=0&id=0102d19c&prod&scoped=true&lang=css
-var tenantsvue_type_style_index_0_id_0102d19c_prod_scoped_true_lang_css = __webpack_require__(87594);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/tenants/index.vue?vue&type=style&index=0&id=0102d19c&prod&scoped=true&lang=css
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = injectStylesIntoStyleTag_default()(tenantsvue_type_style_index_0_id_0102d19c_prod_scoped_true_lang_css/* default */.A, options);
-
-
-
-/* harmony default export */ const central_tenantsvue_type_style_index_0_id_0102d19c_prod_scoped_true_lang_css = (tenantsvue_type_style_index_0_id_0102d19c_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/central/tenants/index.vue?vue&type=style&index=0&id=0102d19c&prod&scoped=true&lang=css
-
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/tenants/index.vue?vue&type=style&index=1&id=0102d19c&prod&lang=css
-var tenantsvue_type_style_index_1_id_0102d19c_prod_lang_css = __webpack_require__(2166);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/tenants/index.vue?vue&type=style&index=1&id=0102d19c&prod&lang=css
-
-            
-
-var tenantsvue_type_style_index_1_id_0102d19c_prod_lang_css_options = {};
-
-tenantsvue_type_style_index_1_id_0102d19c_prod_lang_css_options.insert = "head";
-tenantsvue_type_style_index_1_id_0102d19c_prod_lang_css_options.singleton = false;
-
-var tenantsvue_type_style_index_1_id_0102d19c_prod_lang_css_update = injectStylesIntoStyleTag_default()(tenantsvue_type_style_index_1_id_0102d19c_prod_lang_css/* default */.A, tenantsvue_type_style_index_1_id_0102d19c_prod_lang_css_options);
-
-
-
-/* harmony default export */ const central_tenantsvue_type_style_index_1_id_0102d19c_prod_lang_css = (tenantsvue_type_style_index_1_id_0102d19c_prod_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/central/tenants/index.vue?vue&type=style&index=1&id=0102d19c&prod&lang=css
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(14486);
-;// ./resources/js/pages/central/tenants/index.vue
-
-
-
-;
-
-
-
-/* normalize component */
-
-var component = (0,componentNormalizer/* default */.A)(
-  central_tenantsvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  "0102d19c",
-  null
-  
-)
-
-/* harmony default export */ const tenants = (component.exports);
-
-/***/ }),
-
 /***/ 40748:
 /***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
 
@@ -21943,6 +20657,1327 @@ var component = (0,componentNormalizer/* default */.A)(
 
 })));
 
+
+/***/ }),
+
+/***/ 44336:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ tenants)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/tenants/index.vue?vue&type=template&id=b7835e4e&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "mb-50"
+  }, [_c('breadcrumbs', {
+    attrs: {
+      "items": _vm.breadcrumbs,
+      "current": _vm.breadcrumbsCurrent
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-12"
+  }, [_c('div', {
+    staticClass: "card custom-card w-100"
+  }, [_c('div', {
+    staticClass: "card-header setings-header"
+  }, [_c('div', {
+    staticClass: "col-xl-4 col-4"
+  }, [_c('h3', {
+    staticClass: "card-title"
+  }, [_vm._v("\n              " + _vm._s(_vm.$t("Tenants")) + "\n            ")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-xl-8 col-8 float-right text-right"
+  }, [_c('div', {
+    staticClass: "btn-group c-w-100"
+  }, [_c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Refresh'),
+      expression: "$t('Refresh')"
+    }],
+    staticClass: "btn btn-success",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.refreshTable();
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-sync"
+  })]), _vm._v(" "), _c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Export to Excel'),
+      expression: "$t('Export to Excel')"
+    }],
+    staticClass: "btn btn-info",
+    attrs: {
+      "href": _vm.exportUrl
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-arrow-circle-down"
+  })]), _vm._v(" "), _c('a', {
+    directives: [{
+      name: "tooltip",
+      rawName: "v-tooltip",
+      value: _vm.$t('Export to PDF'),
+      expression: "$t('Export to PDF')"
+    }],
+    staticClass: "btn btn-secondary",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": _vm.exportToPDF
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-file-export"
+  })])])])]), _vm._v(" "), _c('div', {
+    staticClass: "card-body position-relative"
+  }, [_c('ul', {
+    staticClass: "nav nav-tabs",
+    attrs: {
+      "id": "tenantTabs",
+      "role": "tablist"
+    }
+  }, [_c('li', {
+    staticClass: "nav-item",
+    attrs: {
+      "role": "presentation"
+    }
+  }, [_c('button', {
+    staticClass: "nav-link",
+    "class": {
+      active: _vm.activeTab === 'active'
+    },
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.switchTab('active');
+      }
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Active Tenants")) + "\n              ")])]), _vm._v(" "), _c('li', {
+    staticClass: "nav-item",
+    attrs: {
+      "role": "presentation"
+    }
+  }, [_c('button', {
+    staticClass: "nav-link",
+    "class": {
+      active: _vm.activeTab === 'archived'
+    },
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.switchTab('archived');
+      }
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("Archived Tenants")) + "\n              ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "tab-content",
+    attrs: {
+      "id": "tenantTabsContent"
+    }
+  }, [_c('div', {
+    staticClass: "tab-pane fade",
+    "class": {
+      'show active': _vm.activeTab === 'active'
+    },
+    attrs: {
+      "role": "tabpanel"
+    }
+  }, [_c('div', {
+    staticClass: "row mt-3"
+  }, [_c('div', {
+    staticClass: "col-6 col-xl-4 mb-2"
+  }, [_c('search', {
+    on: {
+      "reset-pagination": function resetPagination($event) {
+        return _vm.resetPagination();
+      },
+      "reload": _vm.reload
+    },
+    model: {
+      value: _vm.query,
+      callback: function callback($$v) {
+        _vm.query = $$v;
+      },
+      expression: "query"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-6 col-xl-8 mb-2 text-right"
+  }, [_c('date-range-picker', {
+    ref: "picker",
+    staticClass: "c-w-100",
+    staticStyle: {
+      "display": "none"
+    },
+    attrs: {
+      "opens": "left",
+      "locale-data": _vm.locale,
+      "minDate": _vm.minDate,
+      "maxDate": _vm.maxDate,
+      "singleDatePicker": false,
+      "showWeekNumbers": false,
+      "showDropdowns": true,
+      "autoApply": true,
+      "linkedCalendars": true
+    },
+    on: {
+      "update": _vm.updateValues
+    },
+    scopedSlots: _vm._u([{
+      key: "input",
+      fn: function fn(picker) {
+        return [_vm._v("\n                      " + _vm._s(_vm._f("startDate")(picker.startDate)) + " -\n                      " + _vm._s(_vm._f("endDate")(picker.endDate)) + "\n                    ")];
+      }
+    }]),
+    model: {
+      value: _vm.dateRange,
+      callback: function callback($$v) {
+        _vm.dateRange = $$v;
+      },
+      expression: "dateRange"
+    }
+  })], 1)]), _vm._v(" "), _c('table-loading', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.loading,
+      expression: "loading"
+    }]
+  }), _vm._v(" "), _c('div', {
+    staticClass: "table-responsive table-custom mt-3",
+    attrs: {
+      "id": "printMe"
+    }
+  }, [_c('table', {
+    staticClass: "table"
+  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("S.No")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Domain")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Name & Email")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Plan")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("On Trial")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Is Verified")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Is Subscribed")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Banned")))]), _vm._v(" "), !_vm.isDemoMode ? _c('th', {
+    staticClass: "text-right no-print"
+  }, [_vm._v("\n                        " + _vm._s(_vm.$t("Action")) + "\n                      ")]) : _vm._e()])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.items, function (data, i) {
+    return _c('tr', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.items.length,
+        expression: "items.length"
+      }],
+      key: i
+    }, [_c('td', [_vm.pagination && _vm.pagination.current_page > 1 ? _c('span', [_vm._v("\n                          " + _vm._s(_vm.pagination.per_page * (_vm.pagination.current_page - 1) + (i + 1)) + "\n                        ")]) : _c('span', [_vm._v(_vm._s(i + 1))])]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(data.domain) + "\n                      ")]), _vm._v(" "), _c('td', {
+      staticClass: "profile-area"
+    }, [_c('div', {
+      staticClass: "mr-2 img"
+    }, [_c('img', {
+      staticClass: "rounded-circle",
+      attrs: {
+        "src": data.photo_url,
+        "alt": data.name
+      }
+    })]), _vm._v(" "), _c('div', [_c('span', {
+      staticClass: "text-capitalize"
+    }, [_vm._v(_vm._s(data.name))]), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": "mailto:".concat(data.email)
+      }
+    }, [_vm._v(_vm._s(data.email))])])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.plan && data.plan.name))]), _vm._v(" "), _c('td', [data.on_trial ? _c('span', {
+      staticClass: "badge bg-success"
+    }, [_vm._v("\n                          " + _vm._s(_vm.$t("True")) + "\n                        ")]) : _c('span', {
+      staticClass: "badge bg-danger"
+    }, [_vm._v("\n                          " + _vm._s(_vm.$t("False")) + "\n                        ")])]), _vm._v(" "), _c('td', [data.email_verified_at ? _c('span', {
+      staticClass: "badge bg-success"
+    }, [_vm._v("\n                          " + _vm._s(_vm.$t("True")) + "\n                        ")]) : _c('span', {
+      staticClass: "badge bg-danger"
+    }, [_vm._v("\n                          " + _vm._s(_vm.$t("False")) + "\n                        ")])]), _vm._v(" "), _c('td', [data.is_subscribed ? _c('span', {
+      staticClass: "badge bg-success"
+    }, [_vm._v("\n                          " + _vm._s(_vm.$t("True")) + "\n                        ")]) : _c('span', {
+      staticClass: "badge bg-danger"
+    }, [_vm._v("\n                          " + _vm._s(_vm.$t("False")) + "\n                        ")])]), _vm._v(" "), _c('td', [data.is_banned == false ? _c('span', {
+      staticClass: "badge bg-success"
+    }, [_vm._v(_vm._s(_vm.$t("False")))]) : _c('span', {
+      staticClass: "badge bg-danger"
+    }, [_vm._v(_vm._s(_vm.$t("True")))])]), _vm._v(" "), !_vm.isDemoMode ? _c('td', {
+      staticClass: "text-right no-print"
+    }, [_c('div', {
+      staticClass: "btn-group"
+    }, [data.email_verified_at ? _c('router-link', {
+      directives: [{
+        name: "tooltip",
+        rawName: "v-tooltip",
+        value: _vm.$t('View'),
+        expression: "$t('View')"
+      }],
+      staticClass: "btn btn-primary btn-sm",
+      attrs: {
+        "to": {
+          name: 'tenants.show',
+          params: {
+            id: data.id
+          }
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-eye"
+    })]) : _vm._e(), _vm._v(" "), data.email_verified_at ? _c('button', {
+      directives: [{
+        name: "tooltip",
+        rawName: "v-tooltip",
+        value: _vm.$t('Impersonate'),
+        expression: "$t('Impersonate')"
+      }],
+      staticClass: "btn btn-info btn-sm",
+      on: {
+        "click": function click($event) {
+          return _vm.impersonate(data.id);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-user-secret"
+    })]) : _vm._e(), _vm._v(" "), data.email_verified_at ? _c('router-link', {
+      directives: [{
+        name: "tooltip",
+        rawName: "v-tooltip",
+        value: _vm.$t('Send Email'),
+        expression: "$t('Send Email')"
+      }],
+      staticClass: "btn btn-secondary btn-sm",
+      attrs: {
+        "to": {
+          name: 'send-notification',
+          params: {
+            id: data.id
+          }
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-envelope"
+    })]) : _vm._e(), _vm._v(" "), data.email_verified_at ? _c('router-link', {
+      directives: [{
+        name: "tooltip",
+        rawName: "v-tooltip",
+        value: _vm.$t('Edit'),
+        expression: "$t('Edit')"
+      }],
+      staticClass: "btn btn-info btn-sm",
+      attrs: {
+        "to": {
+          name: 'tenants.edit',
+          params: {
+            id: data.id
+          }
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-edit"
+    })]) : _vm._e(), _vm._v(" "), data.email_verified_at ? _c('a', {
+      directives: [{
+        name: "tooltip",
+        rawName: "v-tooltip",
+        value: data.is_banned ? _vm.$t('Unban') : _vm.$t('Ban'),
+        expression: "data.is_banned\n                            ? $t('Unban')\n                            : $t('Ban')\n                            "
+      }],
+      staticClass: "btn btn-sm",
+      "class": data.is_banned ? 'btn-success' : 'btn-warning',
+      attrs: {
+        "href": "#"
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.ban(data.id);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-ban"
+    })]) : _vm._e(), _vm._v(" "), _c('a', {
+      directives: [{
+        name: "tooltip",
+        rawName: "v-tooltip",
+        value: _vm.$t('Archive'),
+        expression: "$t('Archive')"
+      }],
+      staticClass: "btn btn-danger btn-sm",
+      attrs: {
+        "href": "#"
+      },
+      on: {
+        "click": function click($event) {
+          return _vm.deleteData(data.id);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-archive"
+    })])], 1)]) : _vm._e()]);
+  }), _vm._v(" "), _c('tr', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: !_vm.loading && !_vm.items.length,
+      expression: "!loading && !items.length"
+    }]
+  }, [_c('td', {
+    attrs: {
+      "colspan": "9"
+    }
+  }, [_c('EmptyTable')], 1)])], 2)])])], 1), _vm._v(" "), _c('div', {
+    staticClass: "tab-pane fade",
+    "class": {
+      'show active': _vm.activeTab === 'archived'
+    },
+    attrs: {
+      "role": "tabpanel"
+    }
+  }, [_c('div', {
+    staticClass: "row mt-3"
+  }, [_c('div', {
+    staticClass: "col-6 col-xl-4 mb-2"
+  }, [_c('search', {
+    on: {
+      "reset-pagination": function resetPagination($event) {
+        return _vm.resetPagination();
+      },
+      "reload": _vm.reloadArchived
+    },
+    model: {
+      value: _vm.archivedQuery,
+      callback: function callback($$v) {
+        _vm.archivedQuery = $$v;
+      },
+      expression: "archivedQuery"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-6 col-xl-8 mb-2 text-right"
+  }, [_vm.archivedItems.length > 0 && !_vm.isDemoMode ? _c('button', {
+    staticClass: "btn btn-danger",
+    attrs: {
+      "disabled": _vm.deletingAllArchived
+    },
+    on: {
+      "click": _vm.deleteAllArchivedTenants
+    }
+  }, [_c('i', {
+    staticClass: "fas fa-trash-alt mr-1"
+  }), _vm._v(" "), _vm.deletingAllArchived ? _c('span', [_vm._v(_vm._s(_vm.$t("Deleting...")))]) : _c('span', [_vm._v(_vm._s(_vm.$t("Delete All Archived")))])]) : _vm._e(), _vm._v(" "), _c('date-range-picker', {
+    ref: "archivedPicker",
+    staticClass: "c-w-100",
+    staticStyle: {
+      "display": "none"
+    },
+    attrs: {
+      "opens": "left",
+      "locale-data": _vm.locale,
+      "minDate": _vm.minDate,
+      "maxDate": _vm.maxDate,
+      "singleDatePicker": false,
+      "showWeekNumbers": false,
+      "showDropdowns": true,
+      "autoApply": true,
+      "linkedCalendars": true
+    },
+    on: {
+      "update": _vm.updateArchivedValues
+    },
+    scopedSlots: _vm._u([{
+      key: "input",
+      fn: function fn(picker) {
+        return [_vm._v("\n                      " + _vm._s(_vm._f("startDate")(picker.startDate)) + " -\n                      " + _vm._s(_vm._f("endDate")(picker.endDate)) + "\n                    ")];
+      }
+    }]),
+    model: {
+      value: _vm.archivedDateRange,
+      callback: function callback($$v) {
+        _vm.archivedDateRange = $$v;
+      },
+      expression: "archivedDateRange"
+    }
+  })], 1)]), _vm._v(" "), _c('table-loading', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.archivedLoading,
+      expression: "archivedLoading"
+    }]
+  }), _vm._v(" "), _c('div', {
+    staticClass: "table-responsive table-custom mt-3",
+    attrs: {
+      "id": "printArchived"
+    }
+  }, [_c('table', {
+    staticClass: "table"
+  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("S.No")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Domain")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Name & Email")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Plan")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Archived At")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Archived By")))]), _vm._v(" "), !_vm.isDemoMode ? _c('th', {
+    staticClass: "text-right no-print"
+  }, [_vm._v("\n                        " + _vm._s(_vm.$t("Action")) + "\n                      ")]) : _vm._e()])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.archivedItems, function (data, i) {
+    return _c('tr', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.archivedItems.length,
+        expression: "archivedItems.length"
+      }],
+      key: i
+    }, [_c('td', [_vm.archivedPagination && _vm.archivedPagination.current_page > 1 ? _c('span', [_vm._v("\n                          " + _vm._s(_vm.archivedPagination.per_page * (_vm.archivedPagination.current_page - 1) + (i + 1)) + "\n                        ")]) : _c('span', [_vm._v(_vm._s(i + 1))])]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(data.domain) + "\n                      ")]), _vm._v(" "), _c('td', {
+      staticClass: "profile-area"
+    }, [_c('div', {
+      staticClass: "mr-2 img"
+    }, [_c('img', {
+      staticClass: "rounded-circle",
+      attrs: {
+        "src": data.photo_url,
+        "alt": data.name
+      }
+    })]), _vm._v(" "), _c('div', [_c('span', {
+      staticClass: "text-capitalize"
+    }, [_vm._v(_vm._s(data.name))]), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": "mailto:".concat(data.email)
+      }
+    }, [_vm._v(_vm._s(data.email))])])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.plan && data.plan.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.archived_at ? _vm.$moment(data.archived_at).format('YYYY-MM-DD HH:mm') : '-'))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.archived_by_name || '-'))]), _vm._v(" "), !_vm.isDemoMode ? _c('td', {
+      staticClass: "text-right no-print"
+    }, [_c('div', {
+      staticClass: "btn-group"
+    }, [_c('button', {
+      directives: [{
+        name: "tooltip",
+        rawName: "v-tooltip",
+        value: _vm.$t('Restore'),
+        expression: "$t('Restore')"
+      }],
+      staticClass: "btn btn-success btn-sm",
+      on: {
+        "click": function click($event) {
+          return _vm.restoreTenant(data.id);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-undo"
+    })]), _vm._v(" "), _c('button', {
+      directives: [{
+        name: "tooltip",
+        rawName: "v-tooltip",
+        value: _vm.$t('Permanent Delete'),
+        expression: "$t('Permanent Delete')"
+      }],
+      staticClass: "btn btn-danger btn-sm",
+      on: {
+        "click": function click($event) {
+          return _vm.permanentDeleteTenant(data.id);
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fas fa-trash"
+    })])])]) : _vm._e()]);
+  }), _vm._v(" "), _c('tr', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: !_vm.archivedLoading && !_vm.archivedItems.length,
+      expression: "!archivedLoading && !archivedItems.length"
+    }]
+  }, [_c('td', {
+    attrs: {
+      "colspan": "7"
+    }
+  }, [_c('EmptyTable')], 1)])], 2)])])], 1)])]), _vm._v(" "), _c('div', {
+    staticClass: "card-footer"
+  }, [_c('div', {
+    staticClass: "dtable-footer"
+  }, [_c('div', {
+    staticClass: "form-group row display-per-page"
+  }, [_c('label', [_vm._v(_vm._s(_vm.$t('per_page')) + " ")]), _vm._v(" "), _c('div', [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.perPage,
+      expression: "perPage"
+    }],
+    staticClass: "form-control form-control-sm ml-1",
+    on: {
+      "change": [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.perPage = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }, _vm.updatePerPager]
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "10"
+    }
+  }, [_vm._v("10")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "25"
+    }
+  }, [_vm._v("25")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "50"
+    }
+  }, [_vm._v("50")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "100"
+    }
+  }, [_vm._v("100")])])])]), _vm._v(" "), _vm.pagination && _vm.pagination.last_page > 1 ? _c('pagination', {
+    staticClass: "justify-flex-end",
+    attrs: {
+      "pagination": _vm.pagination,
+      "offset": 5
+    },
+    on: {
+      "paginate": _vm.paginate
+    }
+  }) : _vm._e()], 1)])])])])], 1);
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./resources/js/plugins/i18n.js + 1 modules
+var i18n = __webpack_require__(37225);
+// EXTERNAL MODULE: ./node_modules/vue2-daterange-picker/dist/vue2-daterange-picker.umd.min.js
+var vue2_daterange_picker_umd_min = __webpack_require__(32464);
+var vue2_daterange_picker_umd_min_default = /*#__PURE__*/__webpack_require__.n(vue2_daterange_picker_umd_min);
+// EXTERNAL MODULE: ./node_modules/moment/moment.js
+var moment = __webpack_require__(95093);
+var moment_default = /*#__PURE__*/__webpack_require__.n(moment);
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__(95353);
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __webpack_require__(72505);
+var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
+// EXTERNAL MODULE: ./node_modules/html2pdf.js/dist/html2pdf.js
+var html2pdf = __webpack_require__(33833);
+var html2pdf_default = /*#__PURE__*/__webpack_require__.n(html2pdf);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/tenants/index.vue?vue&type=script&lang=js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+
+
+
+
+/* harmony default export */ const tenantsvue_type_script_lang_js = ({
+  layout: "central",
+  middleware: ["auth", "check-permissions"],
+  metaInfo: function metaInfo() {
+    return {
+      title: this.$t("Tenants")
+    };
+  },
+  components: {
+    DateRangePicker: (vue2_daterange_picker_umd_min_default())
+  },
+  data: function data() {
+    return {
+      breadcrumbsCurrent: "Tenants",
+      breadcrumbs: [{
+        name: "Dashboard",
+        url: "home"
+      }, {
+        name: "Tenants",
+        url: ""
+      }],
+      activeTab: "active",
+      query: "",
+      archivedQuery: "",
+      perPage: 10,
+      clientPrefix: "",
+      minDate: moment_default()(new Date("01-01-2021")).format("YYYY-MM-DD"),
+      maxDate: moment_default()().add(1, "days").format("YYYY-MM-DD"),
+      dateRange: {
+        startDate: "",
+        endDate: ""
+      },
+      archivedDateRange: {
+        startDate: "",
+        endDate: ""
+      },
+      locale: {
+        direction: "ltr",
+        format: "YYYY-MM-DD",
+        separator: " - ",
+        applyLabel: "Apply",
+        cancelLabel: "Cancel",
+        weekLabel: "W",
+        customRangeLabel: "Custom Range",
+        daysOfWeek: moment_default().weekdaysMin(),
+        monthNames: moment_default().monthsShort(),
+        firstDay: 1
+      },
+      isDemoMode: window.config.isDemoMode,
+      archivedItems: [],
+      archivedLoading: false,
+      archivedPagination: null,
+      deletingAllArchived: false
+    };
+  },
+  filters: {
+    startDate: function startDate(val) {
+      return val ? moment_default()(val).format("YYYY-MM-DD") : i18n["default"].t("From");
+    },
+    endDate: function endDate(val) {
+      return val ? moment_default()(val).format("YYYY-MM-DD") : i18n["default"].t("To");
+    }
+  },
+  // Map Getters
+  computed: _objectSpread(_objectSpread({}, (0,vuex_esm/* mapGetters */.L8)("operations", ["items", "loading", "pagination", "appInfo"])), {}, {
+    exportUrl: function exportUrl() {
+      // Create a dynamic export URL with query parameters
+      return "/tenants/export/excel?start_date=".concat(this.dateRange.startDate, "&end_date=").concat(this.dateRange.endDate, "&term=").concat(this.query);
+    }
+  }),
+  watch: {
+    // watch search data
+    query: function query(newQ) {
+      if (newQ === "") {
+        if (this.dateRange.startDate && this.dateRange.endDate) {
+          this.searchData();
+        } else {
+          this.getData();
+        }
+      } else {
+        this.searchData();
+      }
+    },
+    // watch archived search data
+    archivedQuery: function archivedQuery(newQ) {
+      if (newQ === "") {
+        if (this.archivedDateRange.startDate && this.archivedDateRange.endDate) {
+          this.searchArchivedData();
+        } else {
+          this.getArchivedData();
+        }
+      } else {
+        this.searchArchivedData();
+      }
+    }
+  },
+  created: function created() {
+    this.getData();
+    this.getArchivedData();
+    this.clientPrefix = this.appInfo.clientPrefix;
+  },
+  methods: {
+    // filter data for selected date range
+    updateValues: function updateValues() {
+      var _this = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _this.dateRange.startDate = moment_default()(_this.dateRange.startDate).format("YYYY-MM-DD");
+              _this.dateRange.endDate = moment_default()(_this.dateRange.endDate).format("YYYY-MM-DD");
+              _this.searchData();
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee);
+      }))();
+    },
+    // refresh table
+    refreshTable: function refreshTable() {
+      this.query = "";
+      this.dateRange.startDate = null;
+      this.dateRange.endDate = null;
+      this.query === "" ? this.getData() : this.searchData();
+      setTimeout(function () {
+        this.dateRange.startDate = "";
+        this.dateRange.endDate = "";
+      }.bind(this), 500);
+    },
+    // update per page count
+    updatePerPager: function updatePerPager() {
+      this.pagination.current_page = 1;
+      this.query === "" ? this.getData() : this.searchData();
+    },
+    // get data
+    getData: function getData() {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var currentPage;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _this2.$store.state.operations.loading = true;
+              currentPage = _this2.pagination ? _this2.pagination.current_page : 1;
+              _context2.next = 4;
+              return _this2.$store.dispatch("operations/fetchData", {
+                path: "/api/tenants?page=",
+                currentPage: currentPage + "&perPage=" + _this2.perPage
+              });
+            case 4:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2);
+      }))();
+    },
+    impersonate: function impersonate(id) {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              axios_default().get("/api/impersonate/".concat(id)).then(function (_ref) {
+                var data = _ref.data;
+                window.location.replace(data.data.redirect_url);
+              })["catch"](function (error) {
+                _this3.$toast.error(_this3.$t("Error!"), error.response.data.message);
+              });
+            case 1:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3);
+      }))();
+    },
+    // Pagination
+    paginate: function paginate() {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              _this4.query === "" ? _this4.getData() : _this4.searchData();
+            case 1:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4);
+      }))();
+    },
+    // Reset pagination
+    resetPagination: function resetPagination() {
+      var _this5 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              _this5.pagination.current_page = 1;
+            case 1:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5);
+      }))();
+    },
+    // search data
+    searchData: function searchData() {
+      var _this6 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        var currentPage;
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
+            case 0:
+              _this6.$store.state.operations.loading = true;
+              currentPage = _this6.pagination ? _this6.pagination.current_page : 1;
+              _context6.next = 4;
+              return _this6.$store.dispatch("operations/searchData", {
+                path: "/api/tenants/search",
+                term: _this6.query,
+                currentPage: currentPage + "&perPage=" + _this6.perPage,
+                startDate: _this6.dateRange.startDate,
+                endDate: _this6.dateRange.endDate
+              });
+            case 4:
+            case "end":
+              return _context6.stop();
+          }
+        }, _callee6);
+      }))();
+    },
+    // Reload after search
+    reload: function reload() {
+      var _this7 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
+            case 0:
+              _this7.query = "";
+              _context7.next = 3;
+              return _this7.searchData();
+            case 3:
+            case "end":
+              return _context7.stop();
+          }
+        }, _callee7);
+      }))();
+    },
+    // print table
+    print: function print() {
+      var _this8 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
+            case 0:
+              _context8.next = 2;
+              return _this8.$htmlToPaper("printMe");
+            case 2:
+            case "end":
+              return _context8.stop();
+          }
+        }, _callee8);
+      }))();
+    },
+    exportToPDF: function exportToPDF() {
+      var _this9 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+        var element, style, opt, pdfStyle;
+        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+          while (1) switch (_context9.prev = _context9.next) {
+            case 0:
+              _context9.prev = 0;
+              element = document.getElementById("printMe");
+              if (element) {
+                _context9.next = 5;
+                break;
+              }
+              _this9.$toast.error(_this9.$t("Error!"), _this9.$t("Table not found"));
+              return _context9.abrupt("return");
+            case 5:
+              style = document.createElement('style');
+              style.setAttribute('data-pdf-export', 'true');
+              style.textContent = ".no-print, .no-print * { display: none !important; }";
+              document.head.appendChild(style);
+              opt = {
+                margin: [10, 10, 10, 10],
+                filename: "tenants-".concat(new Date().toISOString().slice(0, 10), ".pdf"),
+                image: {
+                  type: "jpeg",
+                  quality: 0.98
+                },
+                html2canvas: {
+                  scale: 2,
+                  useCORS: true,
+                  logging: false
+                },
+                jsPDF: {
+                  unit: "mm",
+                  format: "a4",
+                  orientation: "landscape"
+                },
+                pagebreak: {
+                  mode: ["avoid-all", "css", "legacy"]
+                }
+              };
+              _context9.next = 12;
+              return html2pdf_default()().set(opt).from(element).save();
+            case 12:
+              document.head.removeChild(style);
+              _this9.$toast.success(_this9.$t("Success!"), _this9.$t("PDF exported successfully"));
+              _context9.next = 21;
+              break;
+            case 16:
+              _context9.prev = 16;
+              _context9.t0 = _context9["catch"](0);
+              pdfStyle = document.querySelector('style[data-pdf-export]');
+              if (pdfStyle) document.head.removeChild(pdfStyle);
+              _this9.$toast.error(_this9.$t("Error!"), _this9.$t("Failed to export PDF"));
+            case 21:
+            case "end":
+              return _context9.stop();
+          }
+        }, _callee9, null, [[0, 16]]);
+      }))();
+    },
+    // delete data
+    deleteData: function deleteData(slug) {
+      var _this0 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee0() {
+        var confirmed, response;
+        return _regeneratorRuntime().wrap(function _callee0$(_context0) {
+          while (1) switch (_context0.prev = _context0.next) {
+            case 0:
+              console.log('Delete function called with slug:', slug);
+              confirmed = confirm(_this0.$t("Are you sure you want to archive this tenant? The tenant will be moved to archived section and can be restored later."));
+              if (!confirmed) {
+                _context0.next = 16;
+                break;
+              }
+              console.log('Sending delete request for tenant:', slug);
+              _context0.prev = 4;
+              _context0.next = 7;
+              return _this0.$store.dispatch("operations/deleteData", {
+                path: "/api/tenants/",
+                slug: slug
+              });
+            case 7:
+              response = _context0.sent;
+              console.log('Delete response:', response);
+              if (response === true) {
+                _this0.$toast.success(_this0.$t("Archived"), _this0.$t("Tenant archived successfully"));
+                _this0.getData();
+              } else {
+                console.error('Archive failed with response:', response);
+                _this0.$toast.warning(_this0.$t("Failed"), _this0.$t("Archive failed"));
+              }
+              _context0.next = 16;
+              break;
+            case 12:
+              _context0.prev = 12;
+              _context0.t0 = _context0["catch"](4);
+              console.error('Delete request error:', _context0.t0);
+              _this0.$toast.warning(_this0.$t("Failed"), _this0.$t("Archive failed"));
+            case 16:
+            case "end":
+              return _context0.stop();
+          }
+        }, _callee0, null, [[4, 12]]);
+      }))();
+    },
+    // delete data
+    ban: function ban(id) {
+      var _this1 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee1() {
+        return _regeneratorRuntime().wrap(function _callee1$(_context1) {
+          while (1) switch (_context1.prev = _context1.next) {
+            case 0:
+              axios_default().post(window.location.origin + "/api/tenants/" + id + "/ban").then(function (response) {
+                if (response.data.success === true) {
+                  _this1.$toast.success(_this1.$t(response.data.message), _this1.$t(response.data.message + "_success"));
+                  _this1.getData();
+                } else {
+                  _this1.$toast.warning(_this1.$t("Failed"), _this1.$t("Ban failed"));
+                }
+              });
+            case 1:
+            case "end":
+              return _context1.stop();
+          }
+        }, _callee1);
+      }))();
+    },
+    // Tab switching
+    switchTab: function switchTab(tab) {
+      this.activeTab = tab;
+      if (tab === 'archived') {
+        this.getArchivedData();
+      } else {
+        this.getData();
+      }
+    },
+    // Get archived data
+    getArchivedData: function getArchivedData() {
+      var _this10 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+          while (1) switch (_context10.prev = _context10.next) {
+            case 0:
+              _this10.archivedLoading = true;
+              _context10.prev = 1;
+              _context10.next = 4;
+              return axios_default().get("/api/tenants/archived?perPage=".concat(_this10.perPage));
+            case 4:
+              response = _context10.sent;
+              _this10.archivedItems = response.data.data;
+              _this10.archivedPagination = response.data.meta;
+              _context10.next = 13;
+              break;
+            case 9:
+              _context10.prev = 9;
+              _context10.t0 = _context10["catch"](1);
+              console.error('Error fetching archived tenants:', _context10.t0);
+              _this10.$toast.error(_this10.$t("Error!"), _this10.$t("Failed to load archived tenants"));
+            case 13:
+              _context10.prev = 13;
+              _this10.archivedLoading = false;
+              return _context10.finish(13);
+            case 16:
+            case "end":
+              return _context10.stop();
+          }
+        }, _callee10, null, [[1, 9, 13, 16]]);
+      }))();
+    },
+    // Search archived data
+    searchArchivedData: function searchArchivedData() {
+      var _this11 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
+        var params, response;
+        return _regeneratorRuntime().wrap(function _callee11$(_context11) {
+          while (1) switch (_context11.prev = _context11.next) {
+            case 0:
+              _this11.archivedLoading = true;
+              _context11.prev = 1;
+              params = new URLSearchParams({
+                term: _this11.archivedQuery,
+                perPage: _this11.perPage
+              });
+              if (_this11.archivedDateRange.startDate && _this11.archivedDateRange.endDate) {
+                params.append('startDate', _this11.archivedDateRange.startDate);
+                params.append('endDate', _this11.archivedDateRange.endDate);
+              }
+              _context11.next = 6;
+              return axios_default().get("/api/tenants/archived?".concat(params));
+            case 6:
+              response = _context11.sent;
+              _this11.archivedItems = response.data.data;
+              _this11.archivedPagination = response.data.meta;
+              _context11.next = 15;
+              break;
+            case 11:
+              _context11.prev = 11;
+              _context11.t0 = _context11["catch"](1);
+              console.error('Error searching archived tenants:', _context11.t0);
+              _this11.$toast.error(_this11.$t("Error!"), _this11.$t("Failed to search archived tenants"));
+            case 15:
+              _context11.prev = 15;
+              _this11.archivedLoading = false;
+              return _context11.finish(15);
+            case 18:
+            case "end":
+              return _context11.stop();
+          }
+        }, _callee11, null, [[1, 11, 15, 18]]);
+      }))();
+    },
+    // Update archived values
+    updateArchivedValues: function updateArchivedValues() {
+      var _this12 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
+        return _regeneratorRuntime().wrap(function _callee12$(_context12) {
+          while (1) switch (_context12.prev = _context12.next) {
+            case 0:
+              _this12.archivedDateRange.startDate = moment_default()(_this12.archivedDateRange.startDate).format("YYYY-MM-DD");
+              _this12.archivedDateRange.endDate = moment_default()(_this12.archivedDateRange.endDate).format("YYYY-MM-DD");
+              _this12.searchArchivedData();
+            case 3:
+            case "end":
+              return _context12.stop();
+          }
+        }, _callee12);
+      }))();
+    },
+    // Reload archived data
+    reloadArchived: function reloadArchived() {
+      var _this13 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
+        return _regeneratorRuntime().wrap(function _callee13$(_context13) {
+          while (1) switch (_context13.prev = _context13.next) {
+            case 0:
+              _this13.archivedQuery = "";
+              _context13.next = 3;
+              return _this13.searchArchivedData();
+            case 3:
+            case "end":
+              return _context13.stop();
+          }
+        }, _callee13);
+      }))();
+    },
+    // Restore tenant
+    restoreTenant: function restoreTenant(id) {
+      var _this14 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee14() {
+        var confirmed, response, _error$response;
+        return _regeneratorRuntime().wrap(function _callee14$(_context14) {
+          while (1) switch (_context14.prev = _context14.next) {
+            case 0:
+              confirmed = confirm(_this14.$t("Are you sure you want to restore this tenant?"));
+              if (!confirmed) {
+                _context14.next = 13;
+                break;
+              }
+              _context14.prev = 2;
+              _context14.next = 5;
+              return axios_default().post("/api/tenants/".concat(id, "/restore"));
+            case 5:
+              response = _context14.sent;
+              if (response.data.success) {
+                _this14.$toast.success(_this14.$t("Success"), _this14.$t("Tenant restored successfully"));
+                _this14.getArchivedData();
+                _this14.getData(); // Refresh active tenants too
+              } else {
+                _this14.$toast.error(_this14.$t("Failed"), _this14.$t("Failed to restore tenant"));
+              }
+              _context14.next = 13;
+              break;
+            case 9:
+              _context14.prev = 9;
+              _context14.t0 = _context14["catch"](2);
+              console.error('Error restoring tenant:', _context14.t0);
+              _this14.$toast.error(_this14.$t("Error!"), ((_error$response = _context14.t0.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || _this14.$t("Failed to restore tenant"));
+            case 13:
+            case "end":
+              return _context14.stop();
+          }
+        }, _callee14, null, [[2, 9]]);
+      }))();
+    },
+    // Permanent delete tenant
+    permanentDeleteTenant: function permanentDeleteTenant(id) {
+      var _this15 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee15() {
+        var confirmed, response, _error$response2;
+        return _regeneratorRuntime().wrap(function _callee15$(_context15) {
+          while (1) switch (_context15.prev = _context15.next) {
+            case 0:
+              confirmed = confirm(_this15.$t("Are you sure you want to permanently delete this tenant? This action cannot be undone and will delete all data including the database."));
+              if (!confirmed) {
+                _context15.next = 13;
+                break;
+              }
+              _context15.prev = 2;
+              _context15.next = 5;
+              return axios_default()["delete"]("/api/tenants/".concat(id, "/permanent-delete"));
+            case 5:
+              response = _context15.sent;
+              if (response.data.success) {
+                _this15.$toast.success(_this15.$t("Success"), _this15.$t("Tenant permanently deleted successfully"));
+                _this15.getArchivedData();
+              } else {
+                _this15.$toast.error(_this15.$t("Failed"), _this15.$t("Failed to permanently delete tenant"));
+              }
+              _context15.next = 13;
+              break;
+            case 9:
+              _context15.prev = 9;
+              _context15.t0 = _context15["catch"](2);
+              console.error('Error permanently deleting tenant:', _context15.t0);
+              _this15.$toast.error(_this15.$t("Error!"), ((_error$response2 = _context15.t0.response) === null || _error$response2 === void 0 || (_error$response2 = _error$response2.data) === null || _error$response2 === void 0 ? void 0 : _error$response2.message) || _this15.$t("Failed to permanently delete tenant"));
+            case 13:
+            case "end":
+              return _context15.stop();
+          }
+        }, _callee15, null, [[2, 9]]);
+      }))();
+    },
+    // Delete all archived tenants
+    deleteAllArchivedTenants: function deleteAllArchivedTenants() {
+      var _this16 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee16() {
+        var count, confirmed, response, _error$response3;
+        return _regeneratorRuntime().wrap(function _callee16$(_context16) {
+          while (1) switch (_context16.prev = _context16.next) {
+            case 0:
+              count = _this16.archivedItems.length;
+              confirmed = confirm(_this16.$t("Are you sure you want to permanently delete all {count} archived tenants? This action cannot be undone and will delete all data including their databases.").replace('{count}', count));
+              if (!confirmed) {
+                _context16.next = 18;
+                break;
+              }
+              _this16.deletingAllArchived = true;
+              _context16.prev = 4;
+              _context16.next = 7;
+              return axios_default()["delete"]('/api/tenants/archived/delete-all');
+            case 7:
+              response = _context16.sent;
+              if (response.data.success) {
+                _this16.$toast.success(_this16.$t("Success"), response.data.message || _this16.$t("All archived tenants deleted successfully"));
+                _this16.getArchivedData();
+              } else {
+                _this16.$toast.error(_this16.$t("Failed"), _this16.$t("Failed to delete all archived tenants"));
+              }
+              _context16.next = 15;
+              break;
+            case 11:
+              _context16.prev = 11;
+              _context16.t0 = _context16["catch"](4);
+              console.error('Error deleting all archived tenants:', _context16.t0);
+              _this16.$toast.error(_this16.$t("Error!"), ((_error$response3 = _context16.t0.response) === null || _error$response3 === void 0 || (_error$response3 = _error$response3.data) === null || _error$response3 === void 0 ? void 0 : _error$response3.message) || _this16.$t("Failed to delete all archived tenants"));
+            case 15:
+              _context16.prev = 15;
+              _this16.deletingAllArchived = false;
+              return _context16.finish(15);
+            case 18:
+            case "end":
+              return _context16.stop();
+          }
+        }, _callee16, null, [[4, 11, 15, 18]]);
+      }))();
+    }
+  }
+});
+;// ./resources/js/pages/central/tenants/index.vue?vue&type=script&lang=js
+ /* harmony default export */ const central_tenantsvue_type_script_lang_js = (tenantsvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/tenants/index.vue?vue&type=style&index=0&id=b7835e4e&prod&scoped=true&lang=css
+var tenantsvue_type_style_index_0_id_b7835e4e_prod_scoped_true_lang_css = __webpack_require__(60577);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/tenants/index.vue?vue&type=style&index=0&id=b7835e4e&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(tenantsvue_type_style_index_0_id_b7835e4e_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const central_tenantsvue_type_style_index_0_id_b7835e4e_prod_scoped_true_lang_css = (tenantsvue_type_style_index_0_id_b7835e4e_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/central/tenants/index.vue?vue&type=style&index=0&id=b7835e4e&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/tenants/index.vue?vue&type=style&index=1&id=b7835e4e&prod&lang=css
+var tenantsvue_type_style_index_1_id_b7835e4e_prod_lang_css = __webpack_require__(94621);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/central/tenants/index.vue?vue&type=style&index=1&id=b7835e4e&prod&lang=css
+
+            
+
+var tenantsvue_type_style_index_1_id_b7835e4e_prod_lang_css_options = {};
+
+tenantsvue_type_style_index_1_id_b7835e4e_prod_lang_css_options.insert = "head";
+tenantsvue_type_style_index_1_id_b7835e4e_prod_lang_css_options.singleton = false;
+
+var tenantsvue_type_style_index_1_id_b7835e4e_prod_lang_css_update = injectStylesIntoStyleTag_default()(tenantsvue_type_style_index_1_id_b7835e4e_prod_lang_css/* default */.A, tenantsvue_type_style_index_1_id_b7835e4e_prod_lang_css_options);
+
+
+
+/* harmony default export */ const central_tenantsvue_type_style_index_1_id_b7835e4e_prod_lang_css = (tenantsvue_type_style_index_1_id_b7835e4e_prod_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/central/tenants/index.vue?vue&type=style&index=1&id=b7835e4e&prod&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/pages/central/tenants/index.vue
+
+
+
+;
+
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  central_tenantsvue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "b7835e4e",
+  null
+  
+)
+
+/* harmony default export */ const tenants = (component.exports);
 
 /***/ }),
 
@@ -27762,6 +27797,26 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 
 /***/ }),
 
+/***/ 60577:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".table-custom .table td[data-v-b7835e4e]{vertical-align:middle}.profile-area[data-v-b7835e4e]{align-items:center;display:flex}.profile-area img[data-v-b7835e4e]{border-radius:100%;height:50px;width:50px}.profile-area a[data-v-b7835e4e]{display:block}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 60708:
 /***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
 
@@ -31651,26 +31706,6 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 
 /***/ }),
 
-/***/ 87594:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".table-custom .table td[data-v-0102d19c]{vertical-align:middle}.profile-area[data-v-0102d19c]{align-items:center;display:flex}.profile-area img[data-v-0102d19c]{border-radius:100%;height:50px;width:50px}.profile-area a[data-v-0102d19c]{display:block}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
 /***/ 87924:
 /***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
 
@@ -32919,6 +32954,26 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".table-custom .table td[data-v-0102d19
     return pl;
 
 })));
+
+
+/***/ }),
+
+/***/ 94621:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".dtable-footer{align-items:center;display:flex;flex-direction:column;justify-content:space-between;margin-top:30px;padding:0 0 0 10px}.card-footer .form-group.row.display-per-page{align-items:center;display:flex;gap:10px;justify-content:flex-end;width:100%}.nav-tabs{border-bottom:1px solid #dee2e6;margin-bottom:0}.nav-tabs .nav-link{background-color:transparent;border:1px solid transparent;border-top-left-radius:.25rem;border-top-right-radius:.25rem;color:#495057;margin-bottom:-1px;padding:.5rem 1rem}.nav-tabs .nav-link:hover{border-color:#e9ecef #e9ecef #dee2e6;isolation:isolate}.nav-tabs .nav-link.active{background-color:#fff;color:#495057}.nav-tabs .nav-link.active,.nav-tabs .nav-link.active:hover{border-color:#dee2e6 #dee2e6 #fff}.tab-content{background-color:#fff;border:1px solid #dee2e6;border-top:none;padding:1rem}.tab-pane{display:none}.tab-pane.active{display:block}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),

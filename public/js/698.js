@@ -1,7 +1,7 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[698],{
 
-/***/ 18535:
+/***/ 25619:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -10,7 +10,7 @@ __webpack_require__.d(__webpack_exports__, {
   A: () => (/* binding */ ProductForm)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=template&id=2714e1bd&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=template&id=0c057359&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -73,6 +73,8 @@ var render = function render() {
       "chart-of-accounts": _vm.chartOfAccounts,
       "prefix": _vm.prefix,
       "url": _vm.url,
+      "is-sales-account-automatic": _vm.isSalesAccountAutomatic,
+      "is-purchase-account-automatic": _vm.isPurchaseAccountAutomatic,
       "is-edit-mode": _vm.isEditMode
     },
     on: {
@@ -153,6 +155,8 @@ var render = function render() {
       "chart-of-accounts": _vm.chartOfAccounts,
       "prefix": _vm.prefix,
       "url": _vm.url,
+      "is-sales-account-automatic": _vm.isSalesAccountAutomatic,
+      "is-purchase-account-automatic": _vm.isPurchaseAccountAutomatic,
       "is-edit-mode": _vm.isEditMode
     },
     on: {
@@ -242,7 +246,7 @@ var toast = sweetalert2_all_default().mixin({
       return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 62171));
     },
     ProductFormTemplate: function ProductFormTemplate() {
-      return __webpack_require__.e(/* import() */ 5305).then(__webpack_require__.bind(__webpack_require__, 55305));
+      return __webpack_require__.e(/* import() */ 4470).then(__webpack_require__.bind(__webpack_require__, 44470));
     }
   },
   props: {
@@ -303,6 +307,8 @@ var toast = sweetalert2_all_default().mixin({
       chartOfAccounts: [],
       prefix: "",
       accountRoutingSettings: null,
+      isSalesAccountAutomatic: false,
+      isPurchaseAccountAutomatic: false,
       breadcrumbsCurrent: '',
       breadcrumbs: []
     };
@@ -626,50 +632,41 @@ var toast = sweetalert2_all_default().mixin({
     loadAccountRoutingSettings: function loadAccountRoutingSettings() {
       var _this9 = this;
       return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
-        var _this9$$store, user, branchId, response;
+        var response;
         return _regeneratorRuntime().wrap(function _callee9$(_context9) {
           while (1) switch (_context9.prev = _context9.next) {
             case 0:
               _context9.prev = 0;
-              // Get current branch ID
-              user = ((_this9$$store = _this9.$store) === null || _this9$$store === void 0 || (_this9$$store = _this9$$store.getters) === null || _this9$$store === void 0 ? void 0 : _this9$$store['auth/user']) || {};
-              branchId = user.default_branch_id || null;
-              if (branchId) {
-                _context9.next = 7;
-                break;
-              }
-              console.error('Branch ID is required for account routing settings');
-              _this9.accountRoutingSettings = {};
-              return _context9.abrupt("return");
-            case 7:
-              _context9.next = 9;
-              return axios_default().get(window.location.origin + "/api/account-routing-settings/product-account-routing", {
-                params: {
-                  branch_id: branchId
-                }
-              });
-            case 9:
+              _context9.next = 3;
+              return axios_default().get(window.location.origin + "/api/account-routing-settings/product-account-routing");
+            case 3:
               response = _context9.sent;
               _this9.accountRoutingSettings = response.data.data || {};
 
-              // Set account IDs from routing settings if available
-              if (_this9.accountRoutingSettings.sales && _this9.accountRoutingSettings.sales.main_account_id) {
+              // Set flags for automatic routing
+              _this9.isSalesAccountAutomatic = _this9.accountRoutingSettings.sales && _this9.accountRoutingSettings.sales.routing_type === 'automatic';
+              _this9.isPurchaseAccountAutomatic = _this9.accountRoutingSettings.purchase && _this9.accountRoutingSettings.purchase.routing_type === 'automatic';
+
+              // If automatic routing is enabled, set the account IDs from routing settings
+              if (_this9.isSalesAccountAutomatic && _this9.accountRoutingSettings.sales.main_account_id) {
                 _this9.form.salesAccountId = _this9.accountRoutingSettings.sales.main_account_id;
               }
-              if (_this9.accountRoutingSettings.purchase && _this9.accountRoutingSettings.purchase.main_account_id) {
+              if (_this9.isPurchaseAccountAutomatic && _this9.accountRoutingSettings.purchase.main_account_id) {
                 _this9.form.purchaseAccountId = _this9.accountRoutingSettings.purchase.main_account_id;
               }
-              _context9.next = 18;
+              _context9.next = 16;
               break;
-            case 15:
-              _context9.prev = 15;
+            case 11:
+              _context9.prev = 11;
               _context9.t0 = _context9["catch"](0);
               console.error("Error loading account routing settings:", _context9.t0);
-            case 18:
+              _this9.isSalesAccountAutomatic = false;
+              _this9.isPurchaseAccountAutomatic = false;
+            case 16:
             case "end":
               return _context9.stop();
           }
-        }, _callee9, null, [[0, 15]]);
+        }, _callee9, null, [[0, 11]]);
       }))();
     },
     // calculate selling price
@@ -748,13 +745,24 @@ var toast = sweetalert2_all_default().mixin({
               });
               return _context0.abrupt("return");
             case 4:
-              // Validate sales account - always required
-              needsSalesAccount = true; // Use account from routing settings if available and not overridden
-              if (!_this1.form.overrideSalesAccount && _this1.accountRoutingSettings && _this1.accountRoutingSettings.sales && _this1.accountRoutingSettings.sales.main_account_id) {
-                _this1.form.salesAccountId = _this1.accountRoutingSettings.sales.main_account_id;
+              // Validate sales account - required if not automatic OR if override is checked
+              needsSalesAccount = !_this1.isSalesAccountAutomatic || _this1.form.overrideSalesAccount;
+              console.log('ProductForm: Sales account validation', {
+                isSalesAccountAutomatic: _this1.isSalesAccountAutomatic,
+                overrideSalesAccount: _this1.form.overrideSalesAccount,
+                needsSalesAccount: needsSalesAccount,
+                salesAccountId: _this1.form.salesAccountId
+              });
+
+              // If automatic routing is enabled and user hasn't overridden, use the auto-assigned account
+              if (_this1.isSalesAccountAutomatic && !_this1.form.overrideSalesAccount) {
+                if (_this1.accountRoutingSettings && _this1.accountRoutingSettings.sales && _this1.accountRoutingSettings.sales.main_account_id) {
+                  _this1.form.salesAccountId = _this1.accountRoutingSettings.sales.main_account_id;
+                  console.log('ProductForm: Using auto-assigned sales account:', _this1.form.salesAccountId);
+                }
               }
               if (!(needsSalesAccount && !_this1.form.salesAccountId)) {
-                _context0.next = 11;
+                _context0.next = 12;
                 break;
               }
               console.log('ProductForm: Sales account validation failed');
@@ -764,14 +772,25 @@ var toast = sweetalert2_all_default().mixin({
                 title: message
               });
               return _context0.abrupt("return");
-            case 11:
-              // Validate purchase account - always required
-              needsPurchaseAccount = true; // Use account from routing settings if available and not overridden
-              if (!_this1.form.overridePurchaseAccount && _this1.accountRoutingSettings && _this1.accountRoutingSettings.purchase && _this1.accountRoutingSettings.purchase.main_account_id) {
-                _this1.form.purchaseAccountId = _this1.accountRoutingSettings.purchase.main_account_id;
+            case 12:
+              // Validate purchase account - required if not automatic OR if override is checked
+              needsPurchaseAccount = !_this1.isPurchaseAccountAutomatic || _this1.form.overridePurchaseAccount;
+              console.log('ProductForm: Purchase account validation', {
+                isPurchaseAccountAutomatic: _this1.isPurchaseAccountAutomatic,
+                overridePurchaseAccount: _this1.form.overridePurchaseAccount,
+                needsPurchaseAccount: needsPurchaseAccount,
+                purchaseAccountId: _this1.form.purchaseAccountId
+              });
+
+              // If automatic routing is enabled and user hasn't overridden, use the auto-assigned account
+              if (_this1.isPurchaseAccountAutomatic && !_this1.form.overridePurchaseAccount) {
+                if (_this1.accountRoutingSettings && _this1.accountRoutingSettings.purchase && _this1.accountRoutingSettings.purchase.main_account_id) {
+                  _this1.form.purchaseAccountId = _this1.accountRoutingSettings.purchase.main_account_id;
+                  console.log('ProductForm: Using auto-assigned purchase account:', _this1.form.purchaseAccountId);
+                }
               }
               if (!(needsPurchaseAccount && !_this1.form.purchaseAccountId)) {
-                _context0.next = 18;
+                _context0.next = 20;
                 break;
               }
               console.log('ProductForm: Purchase account validation failed');
@@ -781,9 +800,9 @@ var toast = sweetalert2_all_default().mixin({
                 title: _message
               });
               return _context0.abrupt("return");
-            case 18:
+            case 20:
               if (!_this1.form.errors.any()) {
-                _context0.next = 22;
+                _context0.next = 24;
                 break;
               }
               console.log('ProductForm: Form has validation errors', _this1.form.errors.all());
@@ -792,7 +811,7 @@ var toast = sweetalert2_all_default().mixin({
                 title: "Please fix the form errors before submitting"
               });
               return _context0.abrupt("return");
-            case 22:
+            case 24:
               console.log('ProductForm: Form validation passed, proceeding with submission');
               console.log('ProductForm: Making POST request to /api/products');
               formDataToSend = _this1.form.data();
@@ -816,13 +835,13 @@ var toast = sweetalert2_all_default().mixin({
               // Set form as busy before making the request
               _this1.form.busy = true;
               console.log('ProductForm: Form busy after setting:', _this1.form.busy);
-              _context0.prev = 32;
+              _context0.prev = 34;
               // Create a new form instance with processed data
               processedForm = new vform_es/* default */.Ay(formDataToSend);
               processedForm.busy = true;
-              _context0.next = 37;
+              _context0.next = 39;
               return processedForm.post(window.location.origin + "/api/products");
-            case 37:
+            case 39:
               response = _context0.sent;
               console.log('ProductForm: POST request successful', response);
               toast.fire({
@@ -857,9 +876,9 @@ var toast = sweetalert2_all_default().mixin({
                 _this1.$emit('productCreated', formattedProduct);
               }
 
-              // Store account IDs from routing settings before reset
-              autoAssignedSalesAccountId = _this1.accountRoutingSettings && _this1.accountRoutingSettings.sales && _this1.accountRoutingSettings.sales.main_account_id ? _this1.accountRoutingSettings.sales.main_account_id : null;
-              autoAssignedPurchaseAccountId = _this1.accountRoutingSettings && _this1.accountRoutingSettings.purchase && _this1.accountRoutingSettings.purchase.main_account_id ? _this1.accountRoutingSettings.purchase.main_account_id : null;
+              // Store auto-assigned account IDs before reset
+              autoAssignedSalesAccountId = _this1.isSalesAccountAutomatic ? _this1.form.salesAccountId : null;
+              autoAssignedPurchaseAccountId = _this1.isPurchaseAccountAutomatic ? _this1.form.purchaseAccountId : null;
               _this1.form.reset();
               _this1.form.itemType = "product"; // Reset to default
               _this1.form.overrideSalesAccount = false; // Reset override flags
@@ -884,11 +903,11 @@ var toast = sweetalert2_all_default().mixin({
               // Reset form busy state
               _this1.form.busy = false;
               console.log('ProductForm: Form busy after success:', _this1.form.busy);
-              _context0.next = 65;
+              _context0.next = 67;
               break;
-            case 55:
-              _context0.prev = 55;
-              _context0.t0 = _context0["catch"](32);
+            case 57:
+              _context0.prev = 57;
+              _context0.t0 = _context0["catch"](34);
               console.error("Error creating product:", _context0.t0);
               console.log('ProductForm: POST request failed', {
                 error: _context0.t0,
@@ -937,11 +956,11 @@ var toast = sweetalert2_all_default().mixin({
               // Reset form busy state
               _this1.form.busy = false;
               console.log('ProductForm: Form busy after error:', _this1.form.busy);
-            case 65:
+            case 67:
             case "end":
               return _context0.stop();
           }
-        }, _callee0, null, [[32, 55]]);
+        }, _callee0, null, [[34, 57]]);
       }))();
     },
     // update product
@@ -1202,7 +1221,7 @@ var toast = sweetalert2_all_default().mixin({
       if (this.form.overrideSalesAccount) {
         this.form.salesAccountId = "";
       } else {
-        if (this.accountRoutingSettings && this.accountRoutingSettings.sales && this.accountRoutingSettings.sales.main_account_id) {
+        if (this.isSalesAccountAutomatic && this.accountRoutingSettings.sales.main_account_id) {
           this.form.salesAccountId = this.accountRoutingSettings.sales.main_account_id;
         }
       }
@@ -1212,7 +1231,7 @@ var toast = sweetalert2_all_default().mixin({
       if (this.form.overridePurchaseAccount) {
         this.form.purchaseAccountId = "";
       } else {
-        if (this.accountRoutingSettings && this.accountRoutingSettings.purchase && this.accountRoutingSettings.purchase.main_account_id) {
+        if (this.isPurchaseAccountAutomatic && this.accountRoutingSettings.purchase.main_account_id) {
           this.form.purchaseAccountId = this.accountRoutingSettings.purchase.main_account_id;
         }
       }
@@ -1224,9 +1243,9 @@ var toast = sweetalert2_all_default().mixin({
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=2714e1bd&prod&scoped=true&lang=css
-var ProductFormvue_type_style_index_0_id_2714e1bd_prod_scoped_true_lang_css = __webpack_require__(23569);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=2714e1bd&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=0c057359&prod&scoped=true&lang=css
+var ProductFormvue_type_style_index_0_id_0c057359_prod_scoped_true_lang_css = __webpack_require__(89741);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=0c057359&prod&scoped=true&lang=css
 
             
 
@@ -1235,12 +1254,12 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(ProductFormvue_type_style_index_0_id_2714e1bd_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(ProductFormvue_type_style_index_0_id_0c057359_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const components_ProductFormvue_type_style_index_0_id_2714e1bd_prod_scoped_true_lang_css = (ProductFormvue_type_style_index_0_id_2714e1bd_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=2714e1bd&prod&scoped=true&lang=css
+/* harmony default export */ const components_ProductFormvue_type_style_index_0_id_0c057359_prod_scoped_true_lang_css = (ProductFormvue_type_style_index_0_id_0c057359_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/ProductForm.vue?vue&type=style&index=0&id=0c057359&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
@@ -1259,31 +1278,12 @@ var component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "2714e1bd",
+  "0c057359",
   null
   
 )
 
 /* harmony default export */ const ProductForm = (component.exports);
-
-/***/ }),
-
-/***/ 23569:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, "", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
 
 /***/ }),
 
@@ -1315,7 +1315,7 @@ var render = function render() {
 var staticRenderFns = [];
 
 // EXTERNAL MODULE: ./resources/js/components/ProductForm.vue + 5 modules
-var ProductForm = __webpack_require__(18535);
+var ProductForm = __webpack_require__(25619);
 // EXTERNAL MODULE: ./node_modules/axios/index.js
 var axios = __webpack_require__(72505);
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
@@ -1451,6 +1451,25 @@ var component = (0,componentNormalizer/* default */.A)(
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, ".btn-group.c-w-100[data-v-417ab877]{gap:10px}.header-buttons[data-v-417ab877]{margin-bottom:15px}.footer-buttons[data-v-417ab877]{display:flex;gap:10px}.footer-buttons .btn[data-v-417ab877]{margin-right:10px}.footer-buttons .btn[data-v-417ab877]:last-child{margin-right:0}.card[data-v-417ab877]{border:1px solid #ced4da;border-radius:20px;box-shadow:0 8px 20px 0 #00000014;margin-top:30px}.card-footer[data-v-417ab877]{background-color:#fff;border-radius:0 0 20px 20px;border-top:1px solid #ced4da;padding:0 1.25rem .625rem}.form-control[data-v-417ab877]{background:#fff!important}.btn-primary[data-v-417ab877]{background:#2ab930!important}.btn-primary[data-v-417ab877],.btn-secondary[data-v-417ab877]{border:none!important;color:#fff!important;padding:10px 20px!important}.btn-secondary[data-v-417ab877]{background:#33a0d9!important}.btn-secondary[data-v-417ab877]:hover{background:#2a8bc4!important;box-shadow:0 4px 8px rgba(51,160,217,.3);transform:translateY(-1px)}.btn-outline-custom[data-v-417ab877]{border-color:#33a0d9;border-radius:10px;color:#33a0d9;font-weight:500;padding:8px 16px;transition:background-color .3s,color .3s,border-color .3s}.btn-custom-active[data-v-417ab877],.btn-outline-custom[data-v-417ab877]:hover{background-color:#33a0d9;border-color:#33a0d9;color:#fff}h1[data-v-417ab877],h2[data-v-417ab877]{font-weight:400}ul[data-v-417ab877]{list-style-type:none;padding:0}li[data-v-417ab877]{display:inline-block;margin:0 10px}a[data-v-417ab877]{color:#42b983}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 89741:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

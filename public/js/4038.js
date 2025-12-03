@@ -1,26 +1,7 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[3022],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[4038],{
 
-/***/ 6393:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".card-description[data-v-fafbe816]{color:#6c757d;font-size:.9rem;margin:.5rem 0 0}.settings-card[data-v-fafbe816]{margin-bottom:1.5rem}.settings-card .nav-link[data-v-fafbe816]{align-items:center;background:transparent;border:none;border-radius:6px;color:#495057;cursor:pointer;display:flex;gap:.75rem;justify-content:flex-start;padding:.75rem 1rem;text-align:right;transition:all .2s ease;width:100%}.settings-card .nav-link[data-v-fafbe816]:hover{background:#f8f9fa;color:#007bff}.settings-card .nav-link.active[data-v-fafbe816]{background:#007bff;color:#fff}.settings-card .nav-link i[data-v-fafbe816]{font-size:1rem;text-align:center;width:20px}.settings-card .nav-link .badge[data-v-fafbe816]{font-size:.75rem;margin-right:auto;padding:.25rem .5rem}.settings-card .nav-link.active .badge[data-v-fafbe816]{background:hsla(0,0%,100%,.3);color:#fff}.tab-content[data-v-fafbe816]{padding:1rem}.tab-panel[data-v-fafbe816]{animation:fadeIn-fafbe816 .3s ease}@keyframes fadeIn-fafbe816{0%{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.simple-panel[data-v-fafbe816]{animation:fadeIn-fafbe816 .2s ease;padding:0 .5rem}.settings-list[data-v-fafbe816]{gap:1rem}.setting-row[data-v-fafbe816],.settings-list[data-v-fafbe816]{display:flex;flex-direction:column}.setting-row[data-v-fafbe816]{border-bottom:1px solid #eef1f4;gap:.4rem;padding-bottom:.75rem}.setting-row[data-v-fafbe816]:last-child{border-bottom:none;padding-bottom:0}.setting-label[data-v-fafbe816]{color:#0f172a;font-size:1rem;font-weight:600;margin:0}.required[data-v-fafbe816]{color:#e74c3c;margin-left:.25rem}.simple-select[data-v-fafbe816]{width:100%}.vselect-loading[data-v-fafbe816],.vselect-status[data-v-fafbe816]{align-items:center;color:#6c757d;display:flex;gap:.5rem;padding:.5rem .75rem}.v-select .vs__dropdown-menu[data-v-fafbe816]{z-index:2000}.actions-container[data-v-fafbe816]{background:#f8fafc;border-radius:12px;margin-top:2rem;padding:1.5rem;text-align:center}.alert[data-v-fafbe816]{border-radius:8px;margin:1rem 0;padding:1rem;text-align:center}.alert-success[data-v-fafbe816]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.alert-danger[data-v-fafbe816]{background-color:#f8d7da;border:1px solid #f5c6cb;color:#721c24}.alert-info[data-v-fafbe816]{background-color:#d1ecf1;border:1px solid #bee5eb;color:#0c5460}.alert-warning[data-v-fafbe816]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.loading-container[data-v-fafbe816]{background:#fff;border-radius:12px;box-shadow:0 2px 4px rgba(0,0,0,.1);padding:3rem;text-align:center}.loading-text[data-v-fafbe816]{color:#7f8c8d;font-size:1.1rem;margin-top:1rem}.spinner-border[data-v-fafbe816]{height:3rem;width:3rem}.no-settings-message[data-v-fafbe816]{background-color:#f8f9fa;border-radius:12px;margin-top:2rem;padding:3rem;text-align:center}.no-settings-message .text-muted[data-v-fafbe816]{color:#6c757d!important}.no-settings-message .fas[data-v-fafbe816]{opacity:.6}.account-option[data-v-fafbe816],.routing-option[data-v-fafbe816]{display:flex;flex-direction:column;gap:.25rem;padding:.5rem 0}.account-name[data-v-fafbe816],.routing-label[data-v-fafbe816]{color:#2c3e50;font-weight:600}.account-code[data-v-fafbe816],.routing-description[data-v-fafbe816]{color:#7f8c8d;font-family:monospace;font-size:.8rem}.account-option .account-type[data-v-fafbe816],.routing-option .account-type[data-v-fafbe816]{color:#3498db;font-size:.8rem;font-weight:500;text-transform:uppercase}.selected-account-name[data-v-fafbe816],.selected-routing-label[data-v-fafbe816]{color:#2c3e50;font-weight:600}@media (max-width:768px){.account-routing-settings[data-v-fafbe816]{padding:1rem}.settings-card[data-v-fafbe816]{margin-bottom:1rem}.settings-card .nav-link[data-v-fafbe816]{font-size:.9rem;padding:.5rem .75rem}.page-title[data-v-fafbe816]{font-size:2rem}.setting-row[data-v-fafbe816]{padding-bottom:.5rem}}@media (max-width:480px){.tab-content[data-v-fafbe816]{padding:.5rem 0}.simple-panel[data-v-fafbe816]{padding:0}}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 63022:
+/***/ 44038:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -31,7 +12,7 @@ __webpack_require__.d(__webpack_exports__, {
   "default": () => (/* binding */ account_routing)
 });
 
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/setup/accounting-settings/account-routing.vue?vue&type=template&id=fafbe816&scoped=true
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/setup/accounting-settings/account-routing.vue?vue&type=template&id=7ed58549&scoped=true
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -161,6 +142,7 @@ var render = function render() {
       staticClass: "simple-select",
       attrs: {
         "options": _vm.getAccountsForType(setting.account_type),
+        "label": "label",
         "reduce": function reduce(option) {
           return option.id;
         },
@@ -244,6 +226,7 @@ var render = function render() {
       staticClass: "simple-select",
       attrs: {
         "options": _vm.getAccountsForType(setting.account_type),
+        "label": "label",
         "reduce": function reduce(option) {
           return option.id;
         },
@@ -327,6 +310,7 @@ var render = function render() {
       staticClass: "simple-select",
       attrs: {
         "options": _vm.getAccountsForType(setting.account_type),
+        "label": "label",
         "reduce": function reduce(option) {
           return option.id;
         },
@@ -410,6 +394,7 @@ var render = function render() {
       staticClass: "simple-select",
       attrs: {
         "options": _vm.getAccountsForType(setting.account_type),
+        "label": "label",
         "reduce": function reduce(option) {
           return option.id;
         },
@@ -493,6 +478,7 @@ var render = function render() {
       staticClass: "simple-select",
       attrs: {
         "options": _vm.getAccountsForType(setting.account_type),
+        "label": "label",
         "reduce": function reduce(option) {
           return option.id;
         },
@@ -576,6 +562,7 @@ var render = function render() {
       staticClass: "simple-select",
       attrs: {
         "options": _vm.getAccountsForType(setting.account_type),
+        "label": "label",
         "reduce": function reduce(option) {
           return option.id;
         },
@@ -659,6 +646,7 @@ var render = function render() {
       staticClass: "simple-select",
       attrs: {
         "options": _vm.getAccountsForType(setting.account_type),
+        "label": "label",
         "reduce": function reduce(option) {
           return option.id;
         },
@@ -742,6 +730,7 @@ var render = function render() {
       staticClass: "simple-select",
       attrs: {
         "options": _vm.getAccountsForType(setting.account_type),
+        "label": "label",
         "reduce": function reduce(option) {
           return option.id;
         },
@@ -825,6 +814,7 @@ var render = function render() {
       staticClass: "simple-select",
       attrs: {
         "options": _vm.getAccountsForType(setting.account_type),
+        "label": "label",
         "reduce": function reduce(option) {
           return option.id;
         },
@@ -1077,9 +1067,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     formattedAccounts: function formattedAccounts() {
-      if (!this.chartOfAccounts || this.chartOfAccounts.length === 0) {
+      // Ensure we always work with an array to avoid runtime errors
+      if (!Array.isArray(this.chartOfAccounts) || this.chartOfAccounts.length === 0) {
         return [];
       }
+
+      // Filter accounts from level 3 and higher, then format them
       return this.chartOfAccounts.filter(function (account) {
         var _account$level;
         var level = (_account$level = account.level) !== null && _account$level !== void 0 ? _account$level : 0;
@@ -1087,14 +1080,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }).map(function (account) {
         var _account$level2;
         var level = (_account$level2 = account.level) !== null && _account$level2 !== void 0 ? _account$level2 : 0;
-        var indent = level > 0 ? '— '.repeat(Math.max(0, level - 1)) : '';
+        // Create indent based on level (level 3 = 2 dashes, level 4 = 3 dashes, etc.)
+        var indent = level > 1 ? '— '.repeat(Math.max(0, level - 1)) : '';
         return {
           id: account.id,
           label: "".concat(indent).concat(account.name, " (").concat(account.code, ")"),
           name: account.name,
           code: account.code,
           type: account.type,
-          level: account.level
+          type_id: account.type_id,
+          level: account.level,
+          is_active: account.is_active
         };
       });
     }
@@ -1106,24 +1102,48 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
+            if (!(!_this10.$store.getters['auth/user'] && _this10.$store.getters['auth/token'])) {
+              _context.next = 9;
+              break;
+            }
+            _context.prev = 1;
+            _context.next = 4;
+            return _this10.$store.dispatch('auth/fetchUser');
+          case 4:
+            _context.next = 9;
+            break;
+          case 6:
+            _context.prev = 6;
+            _context.t0 = _context["catch"](1);
+            console.warn('Failed to fetch user:', _context.t0);
+          case 9:
             // Initialize selectedBranchId with user's default branch before loading
-            user = _this10.$store.getters['auth/user'];
+            user = _this10.user;
             if (user && user.default_branch_id) {
               _this10.selectedBranchId = user.default_branch_id;
             }
-            _context.next = 4;
+            _context.next = 13;
             return _this10.loadBranches();
-          case 4:
-            _context.next = 6;
+          case 13:
+            _context.next = 15;
             return _this10.loadSettings();
-          case 6:
-            _context.next = 8;
+          case 15:
+            if (!_this10.currentBranchId) {
+              _context.next = 20;
+              break;
+            }
+            _context.next = 18;
             return _this10.loadChartOfAccounts();
-          case 8:
+          case 18:
+            _context.next = 21;
+            break;
+          case 20:
+            console.warn('No branch selected, cannot load chart of accounts');
+          case 21:
           case "end":
             return _context.stop();
         }
-      }, _callee);
+      }, _callee, null, [[1, 6]]);
     }))();
   },
   methods: {
@@ -1135,13 +1155,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               _context2.prev = 0;
-              user = _this11.$store.getters['auth/user'];
+              // Use computed property which returns empty object if user is not available
+              user = _this11.user;
               console.log('Loading branches for user:', user);
               if (!(!user || !user.id)) {
                 _context2.next = 16;
                 break;
               }
-              console.error('No user found, trying to load all branches...');
+              console.warn('No user found, trying to load all branches...');
               // Fallback: try to load all branches
               _context2.prev = 5;
               _context2.next = 8;
@@ -1161,6 +1182,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     code: b.code || ''
                   };
                 }) : [];
+
+                // Set first branch as selected if available
+                if (_this11.branches.length > 0 && !_this11.selectedBranchId) {
+                  _this11.selectedBranchId = _this11.branches[0].id;
+                }
               }
               _context2.next = 15;
               break;
@@ -1319,7 +1345,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     isPurchaseSetting: function isPurchaseSetting(s) {
       var key = (s.setting_key || '').toString().toLowerCase();
-      return this.keyMatchesAny(key, ['suppliers_account', 'purchase_account', 'product_purchase_account', 'discount_received_account', 'transport_expense_account', 'purchase_returns_account']);
+      return this.keyMatchesAny(key, ['suppliers_account', 'discount_received_account', 'transport_expense_account', 'purchase_returns_account']);
     },
     isVatSetting: function isVatSetting(s) {
       var key = (s.setting_key || '').toString().toLowerCase();
@@ -1332,7 +1358,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     isInventorySetting: function isInventorySetting(s) {
       var key = (s.setting_key || '').toString().toLowerCase();
       var module = (s.module || '').toString().toLowerCase();
-      return module === 'inventory' || this.keyMatchesAny(key, ['inventory_account']);
+      return module === 'inventory' || this.keyMatchesAny(key, ['inventory_account', 'cost_of_sales_account']);
     },
     isBankingSetting: function isBankingSetting(s) {
       var key = (s.setting_key || '').toString().toLowerCase();
@@ -1413,22 +1439,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, {
         id: null,
         module: 'purchase',
-        setting_key: 'purchase_account',
-        setting_name: 'Purchase Account',
-        account_type: 'Expense',
-        main_account_id: null,
-        is_required: true
-      }, {
-        id: null,
-        module: 'purchase',
-        setting_key: 'product_purchase_account',
-        setting_name: 'Product Purchase Account',
-        account_type: 'Expense',
-        main_account_id: null,
-        is_required: true
-      }, {
-        id: null,
-        module: 'purchase',
         setting_key: 'discount_received_account',
         setting_name: 'Discount Received Account',
         account_type: 'Expense',
@@ -1486,6 +1496,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         setting_key: 'inventory_account',
         setting_name: 'Inventory Account',
         account_type: 'Asset',
+        main_account_id: null,
+        is_required: true
+      }, {
+        id: null,
+        module: 'inventory',
+        setting_key: 'cost_of_sales_account',
+        setting_name: 'Cost of Sales Account',
+        account_type: 'Expense',
         main_account_id: null,
         is_required: true
       },
@@ -1646,7 +1664,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     loadChartOfAccounts: function loadChartOfAccounts() {
       var _this14 = this;
       return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        var response, _error$response2;
+        var response, accountsData, _error$response2;
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
@@ -1655,34 +1673,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context4.next = 4;
               return _this14.$http.get('/api/chart-of-accounts/dropdown', {
                 params: {
-                  branch_id: _this14.currentBranchId
+                  branch_id: _this14.currentBranchId,
+                  include_stopped: true
                 }
               });
             case 4:
               response = _context4.sent;
-              _this14.chartOfAccounts = response.data.data || [];
+              console.log('API Response:', response.data);
+              accountsData = response.data && response.data.data;
+              _this14.chartOfAccounts = Array.isArray(accountsData) ? accountsData : [];
+              console.log('Loaded accounts:', _this14.chartOfAccounts.length);
+              console.log('Sample account:', _this14.chartOfAccounts[0]);
               if (_this14.chartOfAccounts.length === 0) {
+                console.warn('No accounts found. Branch ID:', _this14.currentBranchId);
                 _this14.showMessage(_this14.$t('Warning: No chart of accounts found. Please create some accounts first.'), 'alert-warning');
               }
-              _context4.next = 13;
+              _context4.next = 18;
               break;
-            case 9:
-              _context4.prev = 9;
-              _context4.t0 = _context4["catch"](1);
-              console.error('Error loading chart of accounts:', _context4.t0);
-              _this14.showMessage(_this14.$t('Error loading chart of accounts') + ': ' + (((_error$response2 = _context4.t0.response) === null || _error$response2 === void 0 || (_error$response2 = _error$response2.data) === null || _error$response2 === void 0 ? void 0 : _error$response2.message) || _context4.t0.message), 'alert-danger');
             case 13:
               _context4.prev = 13;
+              _context4.t0 = _context4["catch"](1);
+              console.error('Error loading chart of accounts:', _context4.t0);
+              console.error('Error response:', _context4.t0.response);
+              _this14.showMessage(_this14.$t('Error loading chart of accounts') + ': ' + (((_error$response2 = _context4.t0.response) === null || _error$response2 === void 0 || (_error$response2 = _error$response2.data) === null || _error$response2 === void 0 ? void 0 : _error$response2.message) || _context4.t0.message), 'alert-danger');
+            case 18:
+              _context4.prev = 18;
               _this14.chartAccountsLoading = false;
-              return _context4.finish(13);
-            case 16:
+              return _context4.finish(18);
+            case 21:
             case "end":
               return _context4.stop();
           }
-        }, _callee4, null, [[1, 9, 13, 16]]);
+        }, _callee4, null, [[1, 13, 18, 21]]);
       }))();
     },
-    getAccountsForType: function getAccountsForType() {
+    getAccountsForType: function getAccountsForType(accountType) {
+      // Return all accounts from level 3 and higher, regardless of type
+      // All account selects should show all accounts from the tree
       return this.formattedAccounts;
     },
     updateSetting: function updateSetting(setting) {
@@ -1893,9 +1920,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(85072);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/setup/accounting-settings/account-routing.vue?vue&type=style&index=0&id=fafbe816&prod&scoped=true&lang=css
-var account_routingvue_type_style_index_0_id_fafbe816_prod_scoped_true_lang_css = __webpack_require__(6393);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/setup/accounting-settings/account-routing.vue?vue&type=style&index=0&id=fafbe816&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/setup/accounting-settings/account-routing.vue?vue&type=style&index=0&id=7ed58549&prod&scoped=true&lang=css
+var account_routingvue_type_style_index_0_id_7ed58549_prod_scoped_true_lang_css = __webpack_require__(90705);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/setup/accounting-settings/account-routing.vue?vue&type=style&index=0&id=7ed58549&prod&scoped=true&lang=css
 
             
 
@@ -1904,12 +1931,12 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = injectStylesIntoStyleTag_default()(account_routingvue_type_style_index_0_id_fafbe816_prod_scoped_true_lang_css/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(account_routingvue_type_style_index_0_id_7ed58549_prod_scoped_true_lang_css/* default */.A, options);
 
 
 
-/* harmony default export */ const accounting_settings_account_routingvue_type_style_index_0_id_fafbe816_prod_scoped_true_lang_css = (account_routingvue_type_style_index_0_id_fafbe816_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/pages/setup/accounting-settings/account-routing.vue?vue&type=style&index=0&id=fafbe816&prod&scoped=true&lang=css
+/* harmony default export */ const accounting_settings_account_routingvue_type_style_index_0_id_7ed58549_prod_scoped_true_lang_css = (account_routingvue_type_style_index_0_id_7ed58549_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/pages/setup/accounting-settings/account-routing.vue?vue&type=style&index=0&id=7ed58549&prod&scoped=true&lang=css
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(14486);
@@ -1928,12 +1955,31 @@ var component = (0,componentNormalizer/* default */.A)(
   staticRenderFns,
   false,
   null,
-  "fafbe816",
+  "7ed58549",
   null
   
 )
 
 /* harmony default export */ const account_routing = (component.exports);
+
+/***/ }),
+
+/***/ 90705:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".card-description[data-v-7ed58549]{color:#6c757d;font-size:.9rem;margin:.5rem 0 0}.settings-card[data-v-7ed58549]{margin-bottom:1.5rem}.settings-card .nav-link[data-v-7ed58549]{align-items:center;background:transparent;border:none;border-radius:6px;color:#495057;cursor:pointer;display:flex;gap:.75rem;justify-content:flex-start;padding:.75rem 1rem;text-align:right;transition:all .2s ease;width:100%}.settings-card .nav-link[data-v-7ed58549]:hover{background:#f8f9fa;color:#007bff}.settings-card .nav-link.active[data-v-7ed58549]{background:#007bff;color:#fff}.settings-card .nav-link i[data-v-7ed58549]{font-size:1rem;text-align:center;width:20px}.settings-card .nav-link .badge[data-v-7ed58549]{font-size:.75rem;margin-right:auto;padding:.25rem .5rem}.settings-card .nav-link.active .badge[data-v-7ed58549]{background:hsla(0,0%,100%,.3);color:#fff}.tab-content[data-v-7ed58549]{padding:1rem}.tab-panel[data-v-7ed58549]{animation:fadeIn-7ed58549 .3s ease}@keyframes fadeIn-7ed58549{0%{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.simple-panel[data-v-7ed58549]{animation:fadeIn-7ed58549 .2s ease;padding:0 .5rem}.settings-list[data-v-7ed58549]{gap:1rem}.setting-row[data-v-7ed58549],.settings-list[data-v-7ed58549]{display:flex;flex-direction:column}.setting-row[data-v-7ed58549]{border-bottom:1px solid #eef1f4;gap:.4rem;padding-bottom:.75rem}.setting-row[data-v-7ed58549]:last-child{border-bottom:none;padding-bottom:0}.setting-label[data-v-7ed58549]{color:#0f172a;font-size:1rem;font-weight:600;margin:0}.required[data-v-7ed58549]{color:#e74c3c;margin-left:.25rem}.simple-select[data-v-7ed58549]{width:100%}.vselect-loading[data-v-7ed58549],.vselect-status[data-v-7ed58549]{align-items:center;color:#6c757d;display:flex;gap:.5rem;padding:.5rem .75rem}.v-select .vs__dropdown-menu[data-v-7ed58549]{z-index:2000}.actions-container[data-v-7ed58549]{background:#f8fafc;border-radius:12px;margin-top:2rem;padding:1.5rem;text-align:center}.alert[data-v-7ed58549]{border-radius:8px;margin:1rem 0;padding:1rem;text-align:center}.alert-success[data-v-7ed58549]{background-color:#d4edda;border:1px solid #c3e6cb;color:#155724}.alert-danger[data-v-7ed58549]{background-color:#f8d7da;border:1px solid #f5c6cb;color:#721c24}.alert-info[data-v-7ed58549]{background-color:#d1ecf1;border:1px solid #bee5eb;color:#0c5460}.alert-warning[data-v-7ed58549]{background-color:#fff3cd;border:1px solid #ffeaa7;color:#856404}.loading-container[data-v-7ed58549]{background:#fff;border-radius:12px;box-shadow:0 2px 4px rgba(0,0,0,.1);padding:3rem;text-align:center}.loading-text[data-v-7ed58549]{color:#7f8c8d;font-size:1.1rem;margin-top:1rem}.spinner-border[data-v-7ed58549]{height:3rem;width:3rem}.no-settings-message[data-v-7ed58549]{background-color:#f8f9fa;border-radius:12px;margin-top:2rem;padding:3rem;text-align:center}.no-settings-message .text-muted[data-v-7ed58549]{color:#6c757d!important}.no-settings-message .fas[data-v-7ed58549]{opacity:.6}.account-option[data-v-7ed58549],.routing-option[data-v-7ed58549]{display:flex;flex-direction:column;gap:.25rem;padding:.5rem 0}.account-name[data-v-7ed58549],.routing-label[data-v-7ed58549]{color:#2c3e50;font-weight:600}.account-code[data-v-7ed58549],.routing-description[data-v-7ed58549]{color:#7f8c8d;font-family:monospace;font-size:.8rem}.account-option .account-type[data-v-7ed58549],.routing-option .account-type[data-v-7ed58549]{color:#3498db;font-size:.8rem;font-weight:500;text-transform:uppercase}.selected-account-name[data-v-7ed58549],.selected-routing-label[data-v-7ed58549]{color:#2c3e50;font-weight:600}@media (max-width:768px){.account-routing-settings[data-v-7ed58549]{padding:1rem}.settings-card[data-v-7ed58549]{margin-bottom:1rem}.settings-card .nav-link[data-v-7ed58549]{font-size:.9rem;padding:.5rem .75rem}.page-title[data-v-7ed58549]{font-size:2rem}.setting-row[data-v-7ed58549]{padding-bottom:.5rem}}@media (max-width:480px){.tab-content[data-v-7ed58549]{padding:.5rem 0}.simple-panel[data-v-7ed58549]{padding:0}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
 
 /***/ })
 
