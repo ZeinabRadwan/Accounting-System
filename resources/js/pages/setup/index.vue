@@ -1,13 +1,13 @@
 <template>
   <div class="setup-page">
-    <h1 class="setup-page-title">
-      <i class="fas fa-cog" />
-      {{ $t('Setup') }}
-    </h1>
-    <div class="setup-grid">
-      <div v-if="$can('general-settings')" class="setup-card-wrapper">
+    <!-- breadcrumbs Start -->
+    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
+    <!-- breadcrumbs end -->
+
+    <div class="row setup-grid">
+      <div v-if="$can('general-settings')" class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
         <router-link :to="{ name: 'setup.general' }" class="setup-card">
-          <div class="setup-card-icon" style="background: #0775AF;">
+          <div class="setup-card-icon bg-primary">
             <i class="fas fa-cog" />
           </div>
           <div class="setup-card-content">
@@ -19,9 +19,9 @@
           </div>
         </router-link>
       </div>
-      <div v-if="$can('general-settings')" class="setup-card-wrapper">
+      <div v-if="$can('general-settings')" class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
         <router-link :to="{ name: 'setup.mailConfiguration' }" class="setup-card">
-          <div class="setup-card-icon" style="background: #00C0E8;">
+          <div class="setup-card-icon bg-info">
             <i class="fas fa-envelope" />
           </div>
           <div class="setup-card-content">
@@ -33,9 +33,9 @@
           </div>
         </router-link>
       </div>
-      <div v-if="$can('general-settings')" class="setup-card-wrapper">
+      <div v-if="$can('general-settings')" class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
         <router-link :to="{ name: 'setup.smsConfiguration' }" class="setup-card">
-          <div class="setup-card-icon" style="background: #34C759;">
+          <div class="setup-card-icon bg-success">
             <i class="fas fa-sms" />
           </div>
           <div class="setup-card-content">
@@ -48,9 +48,9 @@
         </router-link>
       </div>
 
-      <div v-if="developer" class="setup-card-wrapper">
+      <div v-if="developer" class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
         <router-link :to="{ name: 'permissions.index' }" class="setup-card">
-          <div class="setup-card-icon" style="background: #000000;">
+          <div class="setup-card-icon bg-success">
             <i class="fas fa-braille" />
           </div>
           <div class="setup-card-content">
@@ -62,9 +62,9 @@
           </div>
         </router-link>
       </div>
-      <div v-if="$can('user-role')" class="setup-card-wrapper">
+      <div v-if="$can('user-role')" class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
         <router-link :to="{ name: 'roles.index' }" class="setup-card">
-          <div class="setup-card-icon" style="background: #0088FF;">
+          <div class="setup-card-icon bg-dark">
             <i class="fas fa-user-lock" />
           </div>
           <div class="setup-card-content">
@@ -76,9 +76,9 @@
           </div>
         </router-link>
       </div>
-      <div v-if="$can('currencies-management')" class="setup-card-wrapper">
+      <div v-if="$can('currencies-management')" class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
         <router-link :to="{ name: 'currencies.index' }" class="setup-card">
-          <div class="setup-card-icon" style="background: #000000;">
+          <div class="setup-card-icon bg-info">
             <i class="fas fa-money-check-alt" />
           </div>
           <div class="setup-card-content">
@@ -90,9 +90,9 @@
           </div>
         </router-link>
       </div>
-      <div v-if="$can('units-management')" class="setup-card-wrapper">
+      <div v-if="$can('units-management')" class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
         <router-link :to="{ name: 'units.index' }" class="setup-card">
-          <div class="setup-card-icon" style="background: #00C0E8;">
+          <div class="setup-card-icon bg-secondary">
             <i class="fas fa-balance-scale" />
           </div>
           <div class="setup-card-content">
@@ -104,9 +104,9 @@
           </div>
         </router-link>
       </div>
-      <div v-if="$can('vat-rate-management')" class="setup-card-wrapper">
+      <div v-if="$can('vat-rate-management')" class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
         <router-link :to="{ name: 'vatRates.index' }" class="setup-card">
-          <div class="setup-card-icon" style="background: #8E8E93;">
+          <div class="setup-card-icon bg-primary">
             <i class="fas fa-percentage" />
           </div>
           <div class="setup-card-content">
@@ -118,9 +118,9 @@
           </div>
         </router-link>
       </div>
-      <div v-if="$can('brands-management')" class="setup-card-wrapper">
+      <div v-if="$can('brands-management')" class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
         <router-link :to="{ name: 'brands.index' }" class="setup-card">
-          <div class="setup-card-icon" style="background: #00C0E8;">
+          <div class="setup-card-icon bg-success">
             <i class="fas fa-bold" />
           </div>
           <div class="setup-card-content">
@@ -132,9 +132,9 @@
           </div>
         </router-link>
       </div>
-      <div v-if="$can('payment-method-management')" class="setup-card-wrapper">
+      <div v-if="$can('payment-method-management')" class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
         <router-link :to="{ name: 'paymentMethods.index' }" class="setup-card">
-          <div class="setup-card-icon" style="background: #0775AF;">
+          <div class="setup-card-icon bg-warning">
             <i class="fas fa-wallet" />
           </div>
           <div class="setup-card-content">
@@ -146,9 +146,9 @@
           </div>
         </router-link>
       </div>
-      <div v-if="$can('general-settings')" class="setup-card-wrapper">
+      <div v-if="$can('general-settings')" class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
         <router-link :to="{ name: 'setup.fiscal-years' }" class="setup-card">
-          <div class="setup-card-icon" style="background: #8E8E93;">
+          <div class="setup-card-icon bg-info">
             <i class="fas fa-calendar-alt" />
           </div>
           <div class="setup-card-content">
@@ -160,9 +160,9 @@
           </div>
         </router-link>
       </div>
-      <div v-if="$can('general-settings')" class="setup-card-wrapper">
+      <div v-if="$can('general-settings')" class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
         <router-link :to="{ name: 'setup.accounting-periods' }" class="setup-card">
-          <div class="setup-card-icon" style="background: #0775AF;">
+          <div class="setup-card-icon bg-secondary">
             <i class="fas fa-calendar-week" />
           </div>
           <div class="setup-card-content">
@@ -174,9 +174,9 @@
           </div>
         </router-link>
       </div>
-      <div v-if="$can('general-settings')" class="setup-card-wrapper">
+      <div v-if="$can('general-settings')" class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
         <router-link :to="{ path: 'setup/accounting-settings/account-routing' }" class="setup-card">
-          <div class="setup-card-icon" style="background: #34C759;">
+          <div class="setup-card-icon bg-primary">
             <i class="fas fa-calculator" />
           </div>
           <div class="setup-card-content">
@@ -190,7 +190,7 @@
       </div>
 
       <!-- ZATCA Settings - Only show for Saudi Arabia -->
-      <div v-if="$can('general-settings') && isSaudiArabia" class="setup-card-wrapper">
+      <div v-if="$can('general-settings') && isSaudiArabia" class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
         <router-link :to="{ name: 'setup.zatca' }" class="setup-card">
           <div class="setup-card-icon bg-dark">
             <i class="fas fa-file-invoice" />
@@ -218,6 +218,17 @@ export default {
   },
 
   data: () => ({
+    breadcrumbsCurrent: this.$t('Setup'),
+    breadcrumbs: [
+      {
+        name: this.$t('Dashboard'),
+        url: 'home',
+      },
+      {
+        name: this.$t('Setup'),
+        url: '',
+      },
+    ],
     developer: '',
   }),
   // Map Getters
@@ -238,51 +249,33 @@ export default {
 
 <style scoped>
 .setup-page {
-  border: 1px solid #CBD0DD;
-  border-radius: 10px;
-  margin: 20px 0;
-  padding: 15px 20px;
-}
-
-.setup-page-title {
-  font-size: 2rem;
-  font-weight: 400;
-  color: #212529;
-  margin: 0 0 1.5rem 0;
-  padding: 0;
-}
-
-.setup-page-title i {
-  color: #212529;
-  font-size: 1.5rem;
+  padding: 1rem 0;
 }
 
 .setup-grid {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
   gap: 1rem;
   margin-top: 1rem;
-}
-
-.setup-card-wrapper {
-  flex: 0 0 32.56723976%;
-  max-width: 32.56723976%;
 }
 
 .setup-card {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 16px 11px;
-  background: #F7F7FC;
-  border-radius: 10px;
+  padding: 1.25rem;
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
   text-decoration: none;
   color: inherit;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   height: 100%;
 }
 
 .setup-card:hover {
+  border-color: #007bff;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+  transform: translateY(-2px);
   text-decoration: none;
   color: inherit;
 }
@@ -299,10 +292,29 @@ export default {
   font-size: 1.5rem;
 }
 
-.setup-card-icon i {
-  color: white;
+.setup-card-icon.bg-primary {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
 }
 
+.setup-card-icon.bg-info {
+  background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+}
+
+.setup-card-icon.bg-success {
+  background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+}
+
+.setup-card-icon.bg-warning {
+  background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+}
+
+.setup-card-icon.bg-dark {
+  background: linear-gradient(135deg, #343a40 0%, #23272b 100%);
+}
+
+.setup-card-icon.bg-secondary {
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+}
 
 .setup-card-content {
   flex: 1;
