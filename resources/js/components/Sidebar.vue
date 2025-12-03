@@ -96,7 +96,8 @@
                   <i class="fas fa-file-invoice nav-icon" />
                   <p>
                     {{ $t("Invoices List") }}
-                    <router-link v-if="$can('invoice-create')" :to="{ name: 'invoices.create' }" class="add-btn-inline" @click.stop>
+                    <router-link v-if="$can('invoice-create')" :to="{ name: 'invoices.create' }" class="add-btn-inline"
+                      @click.stop>
                       <i class="fas fa-plus"></i>
                     </router-link>
                   </p>
@@ -1453,6 +1454,10 @@ export default {
   height: 18px;
   vertical-align: middle;
   margin-right: 8px;
+  color: #0775af;
+  background-color: #0775af1a;
+  border-radius: 5px;
+  padding: 10px 6px;
 }
 
 [dir="rtl"] .main-sidebar .nav-sidebar .nav-link i.nav-icon,
@@ -1486,19 +1491,25 @@ export default {
 .main-sidebar .nav-sidebar .nav-treeview {
   background-color: transparent;
   margin: 0;
-  padding: 0 0 0 12px;
   margin-left: 20px;
+  padding: 10px 12px 10px 8px;
   border-left: 1px solid #e6eaed;
+  border-right: 1px solid #e6eaed;
+  border-bottom: 1px solid #e6eaed;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
 }
 
 /* RTL: place the separator on the right side */
 [dir="rtl"] .main-sidebar .nav-sidebar .nav-treeview {
   margin-left: 0;
-  margin-right: 20px;
-  padding-left: 0;
-  padding-right: 12px;
-  border-left: 0;
+  margin-right: 0;
+  padding: 10px 8px 10px 12px;
+  border-left: 1px solid #e6eaed;
   border-right: 1px solid #e6eaed;
+  border-bottom: 1px solid #e6eaed;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
 }
 
 .main-sidebar .nav-sidebar .nav-treeview .nav-item {
@@ -1509,7 +1520,7 @@ export default {
 .main-sidebar .nav-sidebar .nav-treeview .nav-link {
   padding: 0.5rem 0.75rem;
   margin: 10px 0;
-  color: #6b7280;
+  color: #586687;
   font-size: 13px;
   font-weight: 400;
   transition: all 0.2s ease;
@@ -1523,7 +1534,7 @@ export default {
 
 .main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active,
 .main-sidebar .nav-sidebar .nav-treeview .nav-link.active {
-  background-color: #33a0d9 !important;
+  background-color: #0775af !important;
   color: #fff !important;
 }
 
@@ -1554,27 +1565,26 @@ export default {
 /* Active menu styles */
 .main-sidebar .nav-sidebar .nav-link.router-link-exact-active,
 .main-sidebar .nav-sidebar .nav-link.active {
-  background-color: #33a0d9 !important;
+  background-color: #0775af !important;
   color: #fff !important;
-  border-radius: 25px;
-  padding-bottom: 1px;
+  border-radius: 10px;
 }
 
 .main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active,
 .main-sidebar .nav-sidebar .nav-treeview .nav-link.active {
-  background-color: #33a0d9 !important;
+  background-color: #0775af !important;
   color: #fff !important;
-  border-radius: 25px;
+  border-radius: 10px;
   padding: 6px 16px;
 }
 
 /* Ensure all links (parents and children) have the same height */
 .main-sidebar .nav-sidebar .nav-link,
 .main-sidebar .nav-sidebar .nav-treeview .nav-link {
-  min-height: 40px;
   display: flex;
   align-items: center;
-  border-radius: 25px;
+  border-radius: 10px;
+  color: #586687;
 }
 
 /* Ensure icon/text remain visible on active */
@@ -1586,7 +1596,16 @@ export default {
 .main-sidebar .nav-sidebar .nav-link.active p,
 .main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active p,
 .main-sidebar .nav-sidebar .nav-treeview .nav-link.active p {
-  color: #fff !important;
+  color: #ffffff !important;
+}
+
+/* Active icon background override */
+.main-sidebar .nav-sidebar .nav-link.router-link-exact-active i.nav-icon,
+.main-sidebar .nav-sidebar .nav-link.active i.nav-icon,
+.main-sidebar .nav-sidebar .nav-treeview .nav-link.router-link-exact-active i.nav-icon,
+.main-sidebar .nav-sidebar .nav-treeview .nav-link.active i.nav-icon {
+  background-color: #ffffff !important;
+  color: #0775af !important;
 }
 
 /* LTR chevron: point right when collapsed, rotate -90deg when open */
@@ -1606,7 +1625,7 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening>a .fa-angle-left {
   left: 0px;
 }
 
-/* Plus/Minus toggle icon */
+/* Chevron toggle icon */
 .main-sidebar .nav-sidebar .toggle-icon {
   position: absolute;
   right: 10px;
@@ -1616,9 +1635,10 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening>a .fa-angle-left {
   height: 20px;
   line-height: 20px;
   text-align: center;
-  font-size: 16px;
-  font-weight: 700;
-  color: #6b7280;
+  font-size: 11px;
+  font-weight: 400;
+  color: #0775af;
+  font-family: "Font Awesome 7 Free", "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome", sans-serif;
 }
 
 /* RTL override */
@@ -1628,12 +1648,18 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening>a .fa-angle-left {
 }
 
 .main-sidebar .nav-sidebar .nav-item.has-treeview>a .toggle-icon::before {
-  content: "+";
+  /* chevron-up when collapsed */
+  content: "\f077";
+  font-family: "Font Awesome 7 Free", "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome", sans-serif;
+  font-weight: 900;
 }
 
 .main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open>a .toggle-icon::before,
 .main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening>a .toggle-icon::before {
-  content: "-";
+  /* chevron-down when expanded */
+  content: "\f078";
+  font-family: "Font Awesome 7 Free", "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome", sans-serif;
+  font-weight: 900;
 }
 
 /* Make toggle icon white on active/open headers */
@@ -1658,7 +1684,7 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening>a .fa-angle-left {
 .main-sidebar .nav-sidebar .nav-link:hover {
   background-color: #f8fafc !important;
   color: #374151 !important;
-  border-radius: 25px;
+  border-radius: 10px;
   transition: all 0.3s ease;
   transform: translateX(2px);
 }
@@ -1669,7 +1695,7 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening>a .fa-angle-left {
 }
 
 .main-sidebar .nav-sidebar .nav-link:hover i {
-  color: #33a0d9 !important;
+  color: #0775af !important;
   transform: scale(1.1);
   transition: all 0.3s ease;
 }
@@ -1682,7 +1708,7 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening>a .fa-angle-left {
 /* Professional hover for submenu items */
 .main-sidebar .nav-sidebar .nav-treeview .nav-link:hover {
   background-color: #fff !important;
-  color: #33a0d9 !important;
+  color: #0775af !important;
   transform: translateX(4px);
   transition: all 0.3s ease;
 }
@@ -1693,13 +1719,13 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening>a .fa-angle-left {
 }
 
 .main-sidebar .nav-sidebar .nav-treeview .nav-link:hover i {
-  color: #33a0d9 !important;
+  color: #0775af !important;
   transform: scale(1.05);
   transition: all 0.3s ease;
 }
 
 .main-sidebar .nav-sidebar .nav-treeview .nav-link:hover::before {
-  background-color: #33a0d9 !important;
+  background-color: #0775af !important;
   transform: scale(1.2);
   transition: all 0.3s ease;
 }
@@ -1709,7 +1735,7 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening>a .fa-angle-left {
   background-color: #f8fafc;
   border-radius: 8px;
   transition: all 0.3s ease;
-  color: #33a0d9;
+  color: #0775af;
   font-weight: 600;
 }
 
@@ -1732,9 +1758,9 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening>a .fa-angle-left {
 
 .main-sidebar .nav-sidebar .menu-open>a,
 .main-sidebar .nav-sidebar .menu-is-opening>a {
-  background-color: #33a0d9 !important;
+  background-color: #0775af !important;
   color: #fff !important;
-  border-radius: 25px;
+  border-radius: 10px;
   border: none !important;
   border-left: none !important;
   border-right: none !important;
@@ -1781,7 +1807,7 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening>a .fa-angle-left {
 .main-sidebar .nav-sidebar .nav-item.has-treeview.menu-is-opening ul.nav-treeview a.nav-link.active,
 .main-sidebar .nav-sidebar .nav-item.has-treeview ul.nav-treeview a.nav-link.router-link-exact-active {
   background-color: #d7dbdd59 !important;
-  color: #33a0d9 !important;
+  color: #0775af !important;
 }
 
 .main-sidebar .nav-sidebar .nav-item.has-treeview.menu-open ul.nav-treeview a.nav-link.active i,
@@ -1796,7 +1822,7 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening>a .fa-angle-left {
 .main-sidebar .nav-sidebar .nav-item.has-treeview ul.nav-treeview a.nav-link.router-link-exact-active svg,
 .main-sidebar .nav-sidebar .nav-item.has-treeview ul.nav-treeview a.nav-link.router-link-exact-active p,
 .main-sidebar .nav-sidebar .nav-item.has-treeview ul.nav-treeview a.nav-link.router-link-exact-active .toggle-icon {
-  color: #33a0d9 !important;
+  color: #0775af !important;
 }
 
 .nav-sidebar .nav-header {
@@ -1829,7 +1855,7 @@ html[dir="ltr"] .main-sidebar .nav-sidebar .menu-is-opening>a .fa-angle-left {
   height: 20px;
   margin-left: 8px;
   border-radius: 50%;
-  background-color: #33a0d9;
+  background-color: #0775AF;
   color: #fff;
   text-decoration: none;
   transition: all 0.3s ease;
