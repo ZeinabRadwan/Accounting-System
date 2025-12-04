@@ -1166,10 +1166,32 @@ export default {
 .card {
   border-radius: 10px;
   border: 1px solid #ced4da;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .card-body {
   padding: 0.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Equal height for inline cards */
+[style*="display: flex"] {
+  align-items: stretch;
+}
+
+[style*="display: flex"]>[class*="col-"] {
+  display: flex;
+  flex-direction: column;
+}
+
+[style*="display: flex"]>[class*="col-"]>.card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Search Input Background Override */
