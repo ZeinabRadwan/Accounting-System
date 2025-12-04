@@ -1387,8 +1387,12 @@ export default {
   height: 56px;
   border-radius: 12px;
   flex-shrink: 0;
-  color: white;
+  color: #ffffff;
   font-size: 1.5rem;
+}
+
+.summary-card-icon i {
+  color: #ffffff !important;
 }
 
 .summary-card-icon.bg-primary {
@@ -1456,11 +1460,6 @@ export default {
 .summary-card:hover .summary-card-arrow {
   color: #007bff;
   transform: translateX(-4px);
-}
-
-/* Chart card styling */
-.card .card-header {
-  background: white;
 }
 
 .card .card-body {
