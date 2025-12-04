@@ -35,95 +35,56 @@ export default {
 
 <style scoped>
 .nav-tabs {
-  border-bottom: 2px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  border: none;
   margin-bottom: 1.5rem;
   background: transparent;
+  Background: #0775AF1A;
+  padding: 10px;
+  border-radius: 10px;
 }
 
-.nav-tabs .nav-link {
+.nav-item {
+  flex: 1 1 0;
+}
+
+.nav-link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
   border: none;
-  color: #64748b;
-  font-weight: 600;
+  color: #000000;
+  font-family: DINNextLTArabic;
+  font-weight: 400;
   font-size: 0.95rem;
-  padding: 12px 20px;
-  margin-right: 8px;
-  border-radius: 8px 8px 0 0;
-  transition: all 0.3s ease;
-  position: relative;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.nav-tabs .nav-link:hover {
-  color: #33A0D9;
-  background: rgba(51, 160, 217, 0.08);
-  border: none;
+.nav-link.active {
+  background: #0775AF;
+  color: #FFFFFF !important;
 }
 
-.nav-tabs .nav-link.active {
-  color: #33A0D9;
-  background: #ffffff;
-  border: none;
-  font-weight: 700;
-  box-shadow: 0 -2px 8px rgba(51, 160, 217, 0.15);
-}
-
-.nav-tabs .nav-link.active::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #33A0D9, #2AB930);
-  border-radius: 2px;
-}
-
-@media (max-width: 992px) {
-  .nav-tabs .nav-link {
-    padding: 10px 14px;
-    font-size: 0.9rem;
-    margin-right: 4px;
-  }
-}
-
-@media (max-width: 768px) {
-  .nav-tabs {
-    flex-wrap: wrap;
-    gap: 4px;
-  }
-
-  .nav-tabs .nav-link {
-    padding: 8px 12px;
-    font-size: 0.85rem;
-    margin-right: 2px;
-    flex: 1;
-    min-width: 0;
-    text-align: center;
-  }
+.nav-link:hover {
+  filter: brightness(0.96);
 }
 
 @media (max-width: 576px) {
   .nav-tabs {
-    margin-bottom: 1rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2px;
+    gap: 6px;
   }
 
-  .nav-tabs .nav-link {
-    padding: 6px 8px;
-    font-size: 0.8rem;
-    margin-right: 0;
-    flex: 1;
-    min-width: 0;
-    text-align: center;
-    border-radius: 6px;
-  }
-}
-
-@media (max-width: 480px) {
-  .nav-tabs .nav-link {
-    padding: 5px 6px;
-    font-size: 0.75rem;
+  .nav-link {
+    padding: 8px 10px;
+    font-size: 0.85rem;
   }
 }
 </style>
