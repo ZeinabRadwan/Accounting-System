@@ -1,396 +1,328 @@
 <template>
-  <div class="mb-50">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="card custom-card w-100">
-          <!-- /.card-header -->
-          <div class="card-body position-relative">
-            <div class="container-fluid">
-              <!-- Main row -->
-              <div v-if="isDemoMode" class="alert alert-danger">
-                <strong class="text-capitalize"><i class="icon fas fa-ban"></i> Delete buttons are hidden in
-                  demo version.</strong><br />
-                <strong class="text-capitalize"><i class="icon fas fa-ban"></i> Demo database will be cleared
-                  every two hours.</strong><br />
-                <strong class="text-capitalize"><i class="icon fas fa-ban"></i> Email & SMS notifications are
-                  disabled in demo version.</strong>
+  <!-- /.card-header -->
+  <div class="position-relative">
+    <!-- Main row -->
+    <div v-if="isDemoMode" class="alert alert-danger">
+      <strong class="text-capitalize"><i class="icon fas fa-ban"></i> Delete buttons are hidden in
+        demo version.</strong><br />
+      <strong class="text-capitalize"><i class="icon fas fa-ban"></i> Demo database will be cleared
+        every two hours.</strong><br />
+      <strong class="text-capitalize"><i class="icon fas fa-ban"></i> Email & SMS notifications are
+        disabled in demo version.</strong>
+    </div>
+
+    <div v-if="$can('account-summery') && dashboardSummery">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-header-content">
+              <h3 class="card-title">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+                {{ $t("Summary") }}
+                {{ $t(form.summeryType) }}
+              </h3>
+              <div class="card-tools">
+                <select v-model="form.summeryType" @change="getSummery()" class="form-control" id="summeryType"
+                  name="summeryType">
+                  <option value="today" selected>
+                    {{ $t("Today") }}
+                  </option>
+                  <option value="last_7_days">
+                    {{ $t("Last 7 Days") }}
+                  </option>
+                  <option value="this_month">
+                    {{ $t("This Month") }}
+                  </option>
+                  <option value="this_year">
+                    {{ $t("This Year") }}
+                  </option>
+                </select>
               </div>
-
-              <div v-if="$can('account-summery') && dashboardSummery" class="row">
-                <div class="col-md-12">
-                  <div class="card">
-                    <div class="card-header">
-                      <div class="card-header-content">
-                        <h3 class="card-title">
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                            stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                          </svg>
-                          {{ $t("Summary") }}
-                          {{ $t(form.summeryType) }}
-                        </h3>
-                        <div class="card-tools">
-                          <select v-model="form.summeryType" @change="getSummery()" class="form-control"
-                            id="summeryType" name="summeryType">
-                            <option value="today" selected>
-                              {{ $t("Today") }}
-                            </option>
-                            <option value="last_7_days">
-                              {{ $t("Last 7 Days") }}
-                            </option>
-                            <option value="this_month">
-                              {{ $t("This Month") }}
-                            </option>
-                            <option value="this_year">
-                              {{ $t("This Year") }}
-                            </option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-body summary-cards">
-                      <div class="row">
-                        <div v-if="!$isPOS()" class="col-lg-2-4 col-md-6 col-6">
-                          <div class="small-box bg-brand-primary">
-                            <div class="inner">
-                              <h3>
-                                <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
-                                {{ formatNumber(dashboardSummery.purchaseAmount || 0) }}
-                                <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol
-                                }}</span>
-                              </h3>
-                              <p>{{ $t("Purchase") }}</p>
-                            </div>
-                            <div class="icon">
-                              <i class="fas fa-shopping-cart"></i>
-                            </div>
-                            <router-link :to="{ name: 'purchases.index' }" class="small-box-footer">
-                              {{ $t("More info") }}
-                              <i class="fas fa-arrow-circle-left"></i>
-                            </router-link>
-                          </div>
-                        </div>
-                        <div v-if="!$isPOS()" class="col-lg-2-4 col-md-6 col-6">
-                          <div class="small-box bg-brand-light-green">
-                            <div class="inner">
-                              <h3>
-                                <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
-                                {{ formatNumber(dashboardSummery.purchaseReturnAmount || 0) }}
-                                <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol
-                                }}</span>
-                              </h3>
-                              <p>{{ $t("Debit Notes") }}</p>
-                            </div>
-                            <div class="icon">
-                              <i class="fas fa-undo-alt"></i>
-                            </div>
-                            <router-link :to="{ name: 'purchaseReturns.index' }" class="small-box-footer">
-                              {{ $t("More info") }}
-                              <i class="fas fa-arrow-circle-left"></i>
-                            </router-link>
-                          </div>
-                        </div>
-                        <div class="col-lg-2-4 col-md-6 col-6">
-                          <div class="small-box bg-brand-light-blue">
-                            <div class="inner">
-                              <h3>
-                                <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
-                                {{ formatNumber(dashboardSummery.salesAmount || 0) }}
-                                <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol
-                                }}</span>
-                              </h3>
-                              <p>{{ $t("Sales") }}</p>
-                            </div>
-                            <div class="icon">
-                              <i class="fas fa-chart-line"></i>
-                            </div>
-                            <router-link v-if="!$isPOS()" :to="{ name: 'invoices.index' }" class="small-box-footer">
-                              {{ $t("More info") }}
-                              <i class="fas fa-arrow-circle-left"></i>
-                            </router-link>
-                            <router-link v-else :to="{ name: 'pos.create' }" class="small-box-footer">
-                              {{ $t("More info") }}
-                              <i class="fas fa-arrow-circle-left"></i>
-                            </router-link>
-                          </div>
-                        </div>
-                        <div v-if="!$isPOS()" class="col-lg-2-4 col-md-6 col-6">
-                          <div class="small-box bg-brand-green">
-                            <div class="inner">
-                              <h3>
-                                <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
-                                {{ formatNumber(dashboardSummery.salesReturnAmount || 0) }}
-                                <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol
-                                }}</span>
-                              </h3>
-                              <p>{{ $t("Credit Notes") }}</p>
-                            </div>
-                            <div class="icon">
-                              <i class="fas fa-receipt"></i>
-                            </div>
-                            <router-link :to="{ name: 'invoiceReturns.index' }" class="small-box-footer">
-                              {{ $t("More info") }}
-                              <i class="fas fa-arrow-circle-left"></i>
-                            </router-link>
-                          </div>
-                        </div>
-                        <div v-if="!$isPOS()" class="col-lg-2-4 col-md-6 col-6">
-                          <div class="small-box bg-brand-dark-blue">
-                            <div class="inner">
-                              <h3>
-                                <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
-                                {{ formatNumber(dashboardSummery.paymentReceived || 0) }}
-                                <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol
-                                }}</span>
-                              </h3>
-                              <p>
-                                {{ $t("Client Payment") }}
-                              </p>
-                            </div>
-                            <div class="icon">
-                              <i class="fas fa-money-bill-wave"></i>
-                            </div>
-                            <router-link :to="{ name: 'invoicePayments.index' }" class="small-box-footer">
-                              {{ $t("More info") }}
-                              <i class="fas fa-arrow-circle-left"></i>
-                            </router-link>
-                          </div>
-                        </div>
-                        <div v-if="!$isPOS()" class="col-lg-2-4 col-md-6 col-6">
-                          <div class="small-box bg-brand-teal">
-                            <div class="inner">
-                              <h3>
-                                <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
-                                {{ formatNumber(dashboardSummery.paymentSent || 0) }}
-                                <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol
-                                }}</span>
-                              </h3>
-                              <p>{{ $t("Supplier Payment") }}</p>
-                            </div>
-                            <div class="icon">
-                              <i class="fas fa-credit-card"></i>
-                            </div>
-                            <router-link :to="{ name: 'purchasePayments.index' }" class="small-box-footer">
-                              {{ $t("More info") }}
-                              <i class="fas fa-arrow-circle-left"></i>
-                            </router-link>
-                          </div>
-                        </div>
-                        <div v-if="!$isPOS()" class="col-lg-2-4 col-md-6 col-6">
-                          <div class="small-box bg-brand-dark-teal">
-                            <div class="inner">
-                              <h3>
-                                <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
-                                {{ formatNumber(dashboardSummery.expenseAmount || 0) }}
-                                <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol
-                                }}</span>
-                              </h3>
-                              <p>{{ $t("Expense") }}</p>
-                            </div>
-                            <div class="icon">
-                              <i class="fas fa-receipt"></i>
-                            </div>
-                            <router-link :to="{ name: 'expenses.index' }" class="small-box-footer">
-                              {{ $t("More info") }}
-                              <i class="fas fa-arrow-circle-left"></i>
-                            </router-link>
-                          </div>
-                        </div>
-                        <div v-if="!$isPOS()" class="col-lg-2-4 col-md-6 col-6">
-                          <div class="small-box bg-brand-primary">
-                            <div class="inner">
-                              <h3>
-                                <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
-                                {{ formatNumber(dashboardSummery.balanceTransfer || 0) }}
-                                <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol
-                                }}</span>
-                              </h3>
-                              <p>
-                                {{ $t("Balance Transfers") }}
-                              </p>
-                            </div>
-                            <div class="icon">
-                              <i class="fas fa-exchange-alt"></i>
-                            </div>
-                            <router-link :to="{ name: 'transferBalances.index' }" class="small-box-footer">
-                              {{ $t("More info") }}
-                              <i class="fas fa-arrow-circle-left"></i>
-                            </router-link>
-                          </div>
-                        </div>
-                        <div class="col-lg-2-4 col-md-6 col-6">
-                          <div class="small-box bg-brand-green">
-                            <div class="inner">
-                              <h3>
-                                {{ dashboardSummery.totalStockQuantity || 0 }}
-                              </h3>
-                              <p>
-                                {{ $t("Total Stock Quantity") }}
-                                <span v-tooltip="$t('Till Now')">
-                                  <i class="fas fa-info"></i>
-                                </span>
-                              </p>
-                            </div>
-                            <div class="icon">
-                              <i class="fas fa-boxes"></i>
-                            </div>
-                            <router-link :to="{ name: 'inventory.index' }" class="small-box-footer">
-                              {{ $t("More info") }}
-                              <i class="fas fa-arrow-circle-left"></i>
-                            </router-link>
-                          </div>
-                        </div>
-                        <div class="col-lg-2-4 col-md-6 col-6">
-                          <div class="small-box bg-brand-light-green">
-                            <div class="inner">
-                              <h3>
-                                {{ dashboardSummery.totalStockValue || 0 }}
-                              </h3>
-                              <p>
-                                {{ $t("Total Stock Value") }}
-                                <span v-tooltip="$t('Till Now')">
-                                  <i class="fas fa-info"></i>
-                                </span>
-                              </p>
-                            </div>
-                            <div class="icon">
-                              <i class="fas fa-dollar-sign"></i>
-                            </div>
-                            <router-link :to="{ name: 'inventory.index' }" class="small-box-footer">
-                              {{ $t("More info") }}
-                              <i class="fas fa-arrow-circle-left"></i>
-                            </router-link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                v-if="(!$isPOS() && $can('recent-activities')) || ($can('top-selling-products') && translatedPieChartOptions.legend.data && translatedPieChartOptions.legend.data.length > 0)"
-                class="row">
-                <div v-if="
-                  $can('top-selling-products') &&
-                  translatedPieChartOptions.legend.data &&
-                  translatedPieChartOptions.legend.data.length > 0
-                " class="col-md-12 col-lg-4">
-                  <div class="card">
-                    <div class="card-header">
-                      <h3 class="card-title">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                          stroke-width="2">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                        </svg>
-                        {{ $t("Top Selling Products") }} ({{ year }})
-                      </h3>
-                    </div>
-                    <div class="card-body">
-                      <template>
-                        <v-chart class="chart" :key="$i18n.locale + '-pie'" :option="translatedPieChartOptions" />
-                      </template>
-                    </div>
-                  </div>
-                </div>
-                <div v-if="$can('recent-activities')" class="col-md-12" :class="$can('top-selling-products') &&
-                  translatedPieChartOptions.legend.data &&
-                  translatedPieChartOptions.legend.data.length > 0
-                  ? 'col-lg-8'
-                  : 'col-lg-12'
-                  ">
-                  <RecentActivities />
-                </div>
-              </div>
-
-              <div v-if="
-                (!$isPOS() && $can('payment-sent-vs-payment-received')) ||
-                $can('top-clients')
-              " class="row">
-                <div v-if="
-                  !$isPOS() &&
-                  $can('payment-sent-vs-payment-received') &&
-                  lineChartOptions.series[0].data &&
-                  lineChartOptions.series[0].data.length > 0
-                " class="col-md-12 col-lg-8">
-                  <div class="card">
-                    <div class="card-header">
-                      <h3 class="card-title">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                          stroke-width="2">
-                          <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                        </svg>
-                        {{ $t("Payment Sent vs Payment Received") }} ({{
-                          year
-                        }})
-                        <a href="#" class="badge badge-info ml-2" v-tooltip="$t(
-                          'Payment Sent = Supplier Payment + Loan Payment <br/> Payment Received = Client Payment + Loan Recevied'
-                        )
-                          ">
-                          <i class="fas fa-info"></i>
-                        </a>
-                      </h3>
-                    </div>
-                    <div class="card-body">
-                      <template>
-                        <v-chart class="chart" :key="$i18n.locale + '-line'" :option="translatedLineChartOptions" />
-                      </template>
-                    </div>
-                  </div>
-                </div>
-                <div v-if="$can('top-clients')" class="col-md-12" :class="$can('payment-sent-vs-payment-received')
-                  ? 'col-lg-4'
-                  : 'col-lg-12'
-                  ">
-                  <TopClients />
-                </div>
-
-                <div v-if="
-                  !$isPOS() &&
-                  $can('sales-vs-purchases') &&
-                  translatedBarChartOptions.series[0].data &&
-                  translatedBarChartOptions.series[0].data.length > 0
-                " class="col-md-12 col-lg-8">
-                  <div class="card">
-                    <div class="card-header">
-                      <h3 class="card-title">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                          stroke-width="2">
-                          <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        {{ $t("Sales vs Purchases") }} ({{ year }})
-                        <a href="#" class="badge badge-info ml-2" v-tooltip="$t(
-                          'Monthly sales & purchases after deduction of the cost of return products.'
-                        )
-                          ">
-                          <i class="fas fa-info"></i>
-                        </a>
-                      </h3>
-                    </div>
-                    <div class="card-body">
-                      <template>
-                        <v-chart class="chart" :key="$i18n.locale + '-bar'" :option="translatedBarChartOptions" />
-                      </template>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- <div
-                v-if="$can('stock-alert') || $can('sales-vs-purchases')"
-                class="row"
-              >
-                <div v-if="$can('stock-alert')" class="col-md-12 col-lg-6">
-                  <StockAlert />
-                </div>
-          
-              </div> -->
             </div>
           </div>
-          <!-- /.card-body -->
+          <div class="card-body summary-cards">
+            <div class="summary-grid">
+              <router-link v-if="!$isPOS()" :to="{ name: 'purchases.index' }" class="summary-card">
+                <div class="summary-card-icon bg-primary">
+                  <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="summary-card-content">
+                  <h5>{{ $t("Purchase") }}</h5>
+                  <p class="summary-card-amount">
+                    <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
+                    {{ formatNumber(dashboardSummery.purchaseAmount || 0) }}
+                    <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol }}</span>
+                  </p>
+                </div>
+                <div class="summary-card-arrow">
+                  <i class="fas fa-chevron-left"></i>
+                </div>
+              </router-link>
+
+              <router-link v-if="!$isPOS()" :to="{ name: 'purchaseReturns.index' }" class="summary-card">
+                <div class="summary-card-icon bg-success">
+                  <i class="fas fa-undo-alt"></i>
+                </div>
+                <div class="summary-card-content">
+                  <h5>{{ $t("Debit Notes") }}</h5>
+                  <p class="summary-card-amount">
+                    <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
+                    {{ formatNumber(dashboardSummery.purchaseReturnAmount || 0) }}
+                    <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol }}</span>
+                  </p>
+                </div>
+                <div class="summary-card-arrow">
+                  <i class="fas fa-chevron-left"></i>
+                </div>
+              </router-link>
+
+              <router-link :to="!$isPOS() ? { name: 'invoices.index' } : { name: 'pos.create' }" class="summary-card">
+                <div class="summary-card-icon bg-info">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="summary-card-content">
+                  <h5>{{ $t("Sales") }}</h5>
+                  <p class="summary-card-amount">
+                    <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
+                    {{ formatNumber(dashboardSummery.salesAmount || 0) }}
+                    <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol }}</span>
+                  </p>
+                </div>
+                <div class="summary-card-arrow">
+                  <i class="fas fa-chevron-left"></i>
+                </div>
+              </router-link>
+
+              <router-link v-if="!$isPOS()" :to="{ name: 'invoiceReturns.index' }" class="summary-card">
+                <div class="summary-card-icon bg-warning">
+                  <i class="fas fa-receipt"></i>
+                </div>
+                <div class="summary-card-content">
+                  <h5>{{ $t("Credit Notes") }}</h5>
+                  <p class="summary-card-amount">
+                    <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
+                    {{ formatNumber(dashboardSummery.salesReturnAmount || 0) }}
+                    <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol }}</span>
+                  </p>
+                </div>
+                <div class="summary-card-arrow">
+                  <i class="fas fa-chevron-left"></i>
+                </div>
+              </router-link>
+
+              <router-link v-if="!$isPOS()" :to="{ name: 'invoicePayments.index' }" class="summary-card">
+                <div class="summary-card-icon bg-dark">
+                  <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <div class="summary-card-content">
+                  <h5>{{ $t("Client Payment") }}</h5>
+                  <p class="summary-card-amount">
+                    <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
+                    {{ formatNumber(dashboardSummery.paymentReceived || 0) }}
+                    <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol }}</span>
+                  </p>
+                </div>
+                <div class="summary-card-arrow">
+                  <i class="fas fa-chevron-left"></i>
+                </div>
+              </router-link>
+
+              <router-link v-if="!$isPOS()" :to="{ name: 'purchasePayments.index' }" class="summary-card">
+                <div class="summary-card-icon bg-secondary">
+                  <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="summary-card-content">
+                  <h5>{{ $t("Supplier Payment") }}</h5>
+                  <p class="summary-card-amount">
+                    <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
+                    {{ formatNumber(dashboardSummery.paymentSent || 0) }}
+                    <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol }}</span>
+                  </p>
+                </div>
+                <div class="summary-card-arrow">
+                  <i class="fas fa-chevron-left"></i>
+                </div>
+              </router-link>
+
+              <router-link v-if="!$isPOS()" :to="{ name: 'expenses.index' }" class="summary-card">
+                <div class="summary-card-icon bg-danger">
+                  <i class="fas fa-receipt"></i>
+                </div>
+                <div class="summary-card-content">
+                  <h5>{{ $t("Expense") }}</h5>
+                  <p class="summary-card-amount">
+                    <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
+                    {{ formatNumber(dashboardSummery.expenseAmount || 0) }}
+                    <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol }}</span>
+                  </p>
+                </div>
+                <div class="summary-card-arrow">
+                  <i class="fas fa-chevron-left"></i>
+                </div>
+              </router-link>
+
+              <router-link v-if="!$isPOS()" :to="{ name: 'transferBalances.index' }" class="summary-card">
+                <div class="summary-card-icon bg-primary">
+                  <i class="fas fa-exchange-alt"></i>
+                </div>
+                <div class="summary-card-content">
+                  <h5>{{ $t("Balance Transfers") }}</h5>
+                  <p class="summary-card-amount">
+                    <span v-if="currencyPosition === 'left'" class="saudi-riyal">{{ currencySymbol }}</span>
+                    {{ formatNumber(dashboardSummery.balanceTransfer || 0) }}
+                    <span v-if="currencyPosition === 'right'" class="saudi-riyal">{{ currencySymbol }}</span>
+                  </p>
+                </div>
+                <div class="summary-card-arrow">
+                  <i class="fas fa-chevron-left"></i>
+                </div>
+              </router-link>
+
+              <router-link :to="{ name: 'inventory.index' }" class="summary-card">
+                <div class="summary-card-icon bg-success">
+                  <i class="fas fa-boxes"></i>
+                </div>
+                <div class="summary-card-content">
+                  <h5>{{ $t("Total Stock Quantity") }}</h5>
+                  <p class="summary-card-amount">
+                    {{ dashboardSummery.totalStockQuantity || 0 }}
+                  </p>
+                </div>
+                <div class="summary-card-arrow">
+                  <i class="fas fa-chevron-left"></i>
+                </div>
+              </router-link>
+
+              <router-link :to="{ name: 'inventory.index' }" class="summary-card">
+                <div class="summary-card-icon bg-info">
+                  <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="summary-card-content">
+                  <h5>{{ $t("Total Stock Value") }}</h5>
+                  <p class="summary-card-amount">
+                    {{ dashboardSummery.totalStockValue || 0 }}
+                  </p>
+                </div>
+                <div class="summary-card-arrow">
+                  <i class="fas fa-chevron-left"></i>
+                </div>
+              </router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      v-if="(!$isPOS() && $can('recent-activities')) || ($can('top-selling-products') && translatedPieChartOptions.legend.data && translatedPieChartOptions.legend.data.length > 0)"
+      class="row">
+      <div v-if="
+        $can('top-selling-products') &&
+        translatedPieChartOptions.legend.data &&
+        translatedPieChartOptions.legend.data.length > 0
+      " class="col-md-12 col-lg-4">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+              </svg>
+              {{ $t("Top Selling Products") }} ({{ year }})
+            </h3>
+          </div>
+          <div class="card-body">
+            <template>
+              <v-chart class="chart" :key="$i18n.locale + '-pie'" :option="translatedPieChartOptions" />
+            </template>
+          </div>
+        </div>
+      </div>
+      <div v-if="$can('recent-activities')" class="col-md-12" :class="$can('top-selling-products') &&
+        translatedPieChartOptions.legend.data &&
+        translatedPieChartOptions.legend.data.length > 0
+        ? 'col-lg-8'
+        : 'col-lg-12'
+        ">
+        <RecentActivities />
+      </div>
+    </div>
+
+    <div v-if="
+      (!$isPOS() && $can('payment-sent-vs-payment-received')) ||
+      $can('top-clients')
+    " class="row">
+      <div v-if="
+        !$isPOS() &&
+        $can('payment-sent-vs-payment-received') &&
+        lineChartOptions.series[0].data &&
+        lineChartOptions.series[0].data.length > 0
+      " class="col-md-12 col-lg-8">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+              {{ $t("Payment Sent vs Payment Received") }} ({{
+                year
+              }})
+              <a href="#" class="badge badge-info ml-2" v-tooltip="$t(
+                'Payment Sent = Supplier Payment + Loan Payment <br/> Payment Received = Client Payment + Loan Recevied'
+              )
+                ">
+                <i class="fas fa-info"></i>
+              </a>
+            </h3>
+          </div>
+          <div class="card-body">
+            <template>
+              <v-chart class="chart" :key="$i18n.locale + '-line'" :option="translatedLineChartOptions" />
+            </template>
+          </div>
+        </div>
+      </div>
+      <div v-if="$can('top-clients')" class="col-md-12" :class="$can('payment-sent-vs-payment-received')
+        ? 'col-lg-4'
+        : 'col-lg-12'
+        ">
+        <TopClients />
+      </div>
+
+      <div v-if="
+        !$isPOS() &&
+        $can('sales-vs-purchases') &&
+        translatedBarChartOptions.series[0].data &&
+        translatedBarChartOptions.series[0].data.length > 0
+      " class="col-md-12 col-lg-8">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              {{ $t("Sales vs Purchases") }} ({{ year }})
+              <a href="#" class="badge badge-info ml-2" v-tooltip="$t(
+                'Monthly sales & purchases after deduction of the cost of return products.'
+              )
+                ">
+                <i class="fas fa-info"></i>
+              </a>
+            </h3>
+          </div>
+          <div class="card-body">
+            <template>
+              <v-chart class="chart" :key="$i18n.locale + '-bar'" :option="translatedBarChartOptions" />
+            </template>
+          </div>
         </div>
       </div>
     </div>
@@ -1165,14 +1097,6 @@ export default {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-/* Enhanced styling for Sales vs Purchases chart */
-.col-lg-6 .card .chart {
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
 /* Professional chart loading state for line chart */
 .col-lg-8 .chart.loading {
   display: flex;
@@ -1193,24 +1117,6 @@ export default {
 }
 
 /* Professional chart loading state for bar chart */
-.col-lg-6 .chart.loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-  border-radius: 12px;
-}
-
-.col-lg-6 .chart.loading::after {
-  content: "";
-  width: 40px;
-  height: 40px;
-  border: 3px solid #33a0d9;
-  border-top: 3px solid transparent;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
 /* Professional chart loading state */
 .chart.loading {
   display: flex;
@@ -1249,7 +1155,6 @@ export default {
   position: relative;
 }
 
-
 .card {
   margin-top: 30px;
   margin-bottom: 30px;
@@ -1258,53 +1163,13 @@ export default {
   border: 1px solid #ced4da;
 }
 
-.card-header {
-  background-color: white;
-  border-bottom: 1px solid #ced4da;
-  padding: 1.25rem 1.25rem 0 1.25rem;
-  border-radius: 20px 20px 0 0;
-}
-
 .card-body {
   padding: 1.25rem;
-}
-
-.card-footer {
-  background-color: white;
-  border-top: 1px solid #ced4da;
-  padding: 0 1.25rem 0.625rem 1.25rem;
-  border-radius: 0 0 20px 20px;
-}
-
-/* Custom Status Badge Styling */
-.badge.bg-success {
-  background: #f6fef4 !important;
-  color: #2ab930 !important;
-  font-size: 12px !important;
-  font-weight: 500 !important;
-  padding: 10px 16px;
-}
-
-.badge.bg-danger {
-  background: #fef4f4 !important;
-  color: #dc3545 !important;
-  font-size: 12px !important;
-  font-weight: 500 !important;
-  padding: 10px 16px;
 }
 
 /* Search Input Background Override */
 .form-control {
   background: #fff !important;
-}
-
-/* Create Button Styling */
-.btn-primary {
-  background: #2ab930 !important;
-  color: white !important;
-  padding: 10px 20px !important;
-
-  border: none !important;
 }
 
 /* Small box styling updates */
@@ -1488,12 +1353,114 @@ export default {
   border-left: 4px solid #dc3545;
 }
 
+/* Summary cards layout (5 per row on large screens) */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Summary card styling similar to setup cards */
+.summary-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: #f7f7fc;
+  border: 1px solid #e9ecef;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 100%;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.summary-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.summary-card-icon.bg-primary {
+  background: #0775af;
+}
+
+.summary-card-icon.bg-info {
+  background: #00c0e8;
+}
+
+.summary-card-icon.bg-success {
+  background: #34c759;
+}
+
+.summary-card-icon.bg-warning {
+  background: #0088ff;
+}
+
+.summary-card-icon.bg-dark {
+  background: #000000;
+}
+
+.summary-card-icon.bg-secondary {
+  background: #8e8e93;
+}
+
+.summary-card-icon.bg-danger {
+  background: #dc3545;
+}
+
+.summary-card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.summary-card-content h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #212529;
+  margin: 0 0 0.35rem 0;
+}
+
+.summary-card-amount {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #023033;
+  margin: 0;
+}
+
+.summary-card-arrow {
+  color: #6c757d;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.summary-card:hover {
+  border-color: #007bff;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+  transform: translateY(-2px);
+  text-decoration: none;
+  color: inherit;
+}
+
+.summary-card:hover .summary-card-arrow {
+  color: #007bff;
+  transform: translateX(-4px);
+}
+
 /* Chart card styling */
 .card .card-header {
   background: white;
-  border-bottom: 1px solid #ced4da;
-  padding: 1.25rem 1.25rem;
-  border-radius: 20px 20px 0 0;
 }
 
 .card .card-body {
@@ -1908,6 +1875,10 @@ export default {
     flex: 0 0 25%;
     max-width: 25%;
   }
+
+  .summary-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 1200px) {
@@ -1915,12 +1886,20 @@ export default {
     flex: 0 0 25%;
     max-width: 25%;
   }
+
+  .summary-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 992px) {
   .col-lg-2-4 {
     flex: 0 0 33.333333%;
     max-width: 33.333333%;
+  }
+
+  .summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -1955,6 +1934,10 @@ export default {
   .card {
     margin-top: 20px;
   }
+
+  .summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 576px) {
@@ -1971,6 +1954,10 @@ export default {
 
   .small-box .icon {
     font-size: 2.2rem;
+  }
+
+  .summary-grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 }
 
@@ -1999,10 +1986,6 @@ export default {
   .col-lg-8 .card .chart {
     padding: 20px;
   }
-
-  .col-lg-6 .card .chart {
-    padding: 20px;
-  }
 }
 
 @media (max-width: 768px) {
@@ -2015,12 +1998,6 @@ export default {
     padding: 16px;
   }
 
-  .col-lg-6 .card .chart {
-    padding: 16px;
-  }
-
-
-
 }
 
 @media (max-width: 576px) {
@@ -2030,10 +2007,6 @@ export default {
   }
 
   .col-lg-8 .card .chart {
-    padding: 12px;
-  }
-
-  .col-lg-6 .card .chart {
     padding: 12px;
   }
 }
