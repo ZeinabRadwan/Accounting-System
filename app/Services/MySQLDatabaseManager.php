@@ -116,6 +116,7 @@ class MySQLDatabaseManager implements TenantDatabaseManager
         }
 
         // Now create the MySQL user and grant privileges
+        $userCreated = false;
         try {
             Log::info("Creating MySQL user: {$dbUsername} for database: {$database}");
 
@@ -124,36 +125,79 @@ class MySQLDatabaseManager implements TenantDatabaseManager
 
             // Create user for localhost
             $this->database()->statement("CREATE USER IF NOT EXISTS '{$dbUsername}'@'{$mysqlHost}' IDENTIFIED BY '{$dbPassword}'");
+            Log::info("Created MySQL user '{$dbUsername}'@'{$mysqlHost}'");
 
             // Grant privileges only on this tenant's database
             $this->database()->statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$dbUsername}'@'{$mysqlHost}'");
+            Log::info("Granted privileges to '{$dbUsername}'@'{$mysqlHost}' on database {$database}");
 
             // Also create user for % (any host) if needed for remote connections
             if ($mysqlHost !== '%') {
-                $this->database()->statement("CREATE USER IF NOT EXISTS '{$dbUsername}'@'%' IDENTIFIED BY '{$dbPassword}'");
-                $this->database()->statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$dbUsername}'@'%'");
+                try {
+                    $this->database()->statement("CREATE USER IF NOT EXISTS '{$dbUsername}'@'%' IDENTIFIED BY '{$dbPassword}'");
+                    $this->database()->statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$dbUsername}'@'%'");
+                    Log::info("Created MySQL user '{$dbUsername}'@'%' and granted privileges");
+                } catch (\Exception $e) {
+                    Log::warning('Failed to create user for % host, continuing with localhost only: '.$e->getMessage());
+                }
             }
 
             $this->database()->statement('FLUSH PRIVILEGES');
+            $userCreated = true;
 
             Log::info("Successfully created MySQL user: {$dbUsername} with privileges on database: {$database}");
 
-            // Store credentials in tenant model
-            $this->storeTenantCredentials($tenant, $database, $dbUsername, $dbPassword);
-
-            return true;
-
         } catch (\Exception $e) {
             Log::error("Failed to create MySQL user for tenant {$database}: ".$e->getMessage());
-            // If user creation fails, we should still return true if database was created
-            // The system can fall back to using the default connection
-            if ($databaseCreated) {
-                Log::warning('Database created but user creation failed. Tenant will use default connection.');
+            Log::error('Exception trace: '.$e->getTraceAsString());
 
-                return true;
+            // Check if user was partially created
+            try {
+                $userExists = $this->checkUserExists($dbUsername);
+                if ($userExists) {
+                    Log::info("User {$dbUsername} exists, attempting to grant privileges");
+                    try {
+                        $this->database()->statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$dbUsername}'@'{$mysqlHost}'");
+                        if ($mysqlHost !== '%') {
+                            $this->database()->statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$dbUsername}'@'%'");
+                        }
+                        $this->database()->statement('FLUSH PRIVILEGES');
+                        $userCreated = true;
+                        Log::info("Successfully granted privileges to existing user {$dbUsername}");
+                    } catch (\Exception $grantException) {
+                        Log::error('Failed to grant privileges to existing user: '.$grantException->getMessage());
+                    }
+                }
+            } catch (\Exception $checkException) {
+                Log::warning('Could not check if user exists: '.$checkException->getMessage());
             }
-            throw $e;
         }
+
+        // Always try to store credentials, even if user creation had issues
+        // This way we can retry user creation later if needed
+        try {
+            $this->storeTenantCredentials($tenant, $database, $dbUsername, $dbPassword);
+            Log::info("Stored credentials for tenant {$database} with username {$dbUsername}");
+        } catch (\Exception $e) {
+            Log::error('CRITICAL: Failed to store tenant credentials: '.$e->getMessage());
+            Log::error("Database: {$database}, Username: {$dbUsername}");
+            // Re-throw this as it's critical - we need credentials stored
+            throw new Exception('Failed to store tenant credentials. Database created but credentials not saved. Error: '.$e->getMessage());
+        }
+
+        if ($databaseCreated && $userCreated) {
+            return true;
+        }
+
+        if ($databaseCreated && ! $userCreated) {
+            Log::warning('Database created but user creation failed. Credentials stored. Tenant may need manual user setup.');
+
+            // Still return true as database exists and credentials are stored
+            // Admin can manually create the user if needed
+            return true;
+        }
+
+        throw new Exception("Failed to create database '{$database}'");
     }
 
     /**
@@ -427,32 +471,111 @@ class MySQLDatabaseManager implements TenantDatabaseManager
      */
     protected function storeTenantCredentials(TenantWithDatabase $tenant, string $database, string $username, string $password): void
     {
-        try {
-            // Encrypt the password before storing
-            $encryptedPassword = Crypt::encryptString($password);
+        // Encrypt the password before storing
+        $encryptedPassword = Crypt::encryptString($password);
+        $tenantId = $tenant->getTenantKey();
 
-            // Use central connection to update tenant record
-            tenancy()->central(function () use ($tenant, $database, $username, $encryptedPassword) {
-                \DB::table('tenants')
-                    ->where('id', $tenant->getTenantKey())
+        Log::info("Attempting to store credentials for tenant ID: {$tenantId}, database: {$database}, username: {$username}");
+
+        // Try multiple approaches to store credentials
+        $stored = false;
+
+        // Approach 1: Use central connection if available
+        try {
+            if (function_exists('tenancy') && method_exists(tenancy(), 'central')) {
+                tenancy()->central(function () use ($tenantId, $database, $username, $encryptedPassword) {
+                    $updated = \DB::table('tenants')
+                        ->where('id', $tenantId)
+                        ->update([
+                            'db_name' => $database,
+                            'db_username' => $username,
+                            'db_password' => $encryptedPassword,
+                        ]);
+
+                    if ($updated === 0) {
+                        throw new Exception("No rows updated for tenant ID: {$tenantId}");
+                    }
+                });
+                $stored = true;
+                Log::info("Stored credentials using central connection for tenant: {$tenantId}");
+            }
+        } catch (\Exception $e) {
+            Log::warning('Failed to store using central connection: '.$e->getMessage());
+        }
+
+        // Approach 2: Direct database update using default connection
+        if (! $stored) {
+            try {
+                // Get the central connection name
+                $centralConnection = config('tenancy.database.central_connection', 'mysql');
+
+                $updated = \DB::connection($centralConnection)
+                    ->table('tenants')
+                    ->where('id', $tenantId)
                     ->update([
                         'db_name' => $database,
                         'db_username' => $username,
                         'db_password' => $encryptedPassword,
                     ]);
-            });
 
-            // Also update the in-memory tenant object
-            if (method_exists($tenant, 'setAttribute')) {
-                $tenant->setAttribute('db_name', $database);
-                $tenant->setAttribute('db_username', $username);
-                $tenant->setAttribute('db_password', $encryptedPassword);
+                if ($updated === 0) {
+                    throw new Exception("No rows updated for tenant ID: {$tenantId} using direct connection");
+                }
+
+                $stored = true;
+                Log::info("Stored credentials using direct connection ({$centralConnection}) for tenant: {$tenantId}");
+            } catch (\Exception $e) {
+                Log::error('Failed to store using direct connection: '.$e->getMessage());
             }
+        }
 
-            Log::info("Stored database credentials for tenant: {$database}");
+        // Approach 3: Use tenant model update
+        if (! $stored) {
+            try {
+                if (method_exists($tenant, 'update')) {
+                    $tenant->update([
+                        'db_name' => $database,
+                        'db_username' => $username,
+                        'db_password' => $encryptedPassword,
+                    ]);
+                    $stored = true;
+                    Log::info("Stored credentials using tenant model update for tenant: {$tenantId}");
+                }
+            } catch (\Exception $e) {
+                Log::error('Failed to store using tenant model: '.$e->getMessage());
+            }
+        }
+
+        // Also update the in-memory tenant object
+        if (method_exists($tenant, 'setAttribute')) {
+            $tenant->setAttribute('db_name', $database);
+            $tenant->setAttribute('db_username', $username);
+            $tenant->setAttribute('db_password', $encryptedPassword);
+        }
+
+        if (! $stored) {
+            throw new Exception("Failed to store credentials using all available methods for tenant ID: {$tenantId}");
+        }
+
+        Log::info("Successfully stored database credentials for tenant: {$database} (ID: {$tenantId})");
+    }
+
+    /**
+     * Check if MySQL user exists
+     */
+    protected function checkUserExists(string $username): bool
+    {
+        try {
+            $result = $this->database()->select(
+                'SELECT COUNT(*) as count FROM mysql.user WHERE User = ?',
+                [$username]
+            );
+
+            return isset($result[0]) && $result[0]->count > 0;
         } catch (\Exception $e) {
-            Log::error('Failed to store tenant credentials: '.$e->getMessage());
-            // Don't throw - database and user are created, credentials just not stored
+            Log::warning('Could not check if user exists: '.$e->getMessage());
+
+            return false;
         }
     }
 }
