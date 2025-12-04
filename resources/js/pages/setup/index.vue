@@ -1,8 +1,5 @@
 <template>
   <div class="setup-page">
-    <!-- breadcrumbs Start -->
-    <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
-    <!-- breadcrumbs end -->
 
     <div class="row setup-grid">
       <div v-if="$can('general-settings')" class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
