@@ -1694,10 +1694,9 @@ export default {
     // get all cost centers
     async getCostCenters() {
       try {
-        // Fetch with high perPage to get all cost centers for dropdown
+        // Fetch all cost centers for dropdown (backend handles pagination/limits)
         const { data } = await axios.get(
-          window.location.origin + "/api/cost-centers",
-          { params: { perPage: 1000 } }
+          window.location.origin + "/api/cost-centers"
         );
         // Handle paginated response
         if (data.data && Array.isArray(data.data)) {
@@ -1794,9 +1793,7 @@ export default {
 
         if (isSuperAdmin) {
           // For superadmin, get all branches
-          const { data } = await axios.get('/api/branches', {
-            params: { perPage: 1000 }
-          });
+          const { data } = await axios.get('/api/branches');
           if (data && data.data && Array.isArray(data.data)) {
             branchesData = data.data;
           } else if (Array.isArray(data)) {
@@ -1813,9 +1810,7 @@ export default {
             }
           } catch (error) {
             // Fallback to all branches if user branches fail
-            const { data } = await axios.get('/api/branches', {
-              params: { perPage: 1000 }
-            });
+            const { data } = await axios.get('/api/branches');
             if (data && data.data && Array.isArray(data.data)) {
               branchesData = data.data;
             }
