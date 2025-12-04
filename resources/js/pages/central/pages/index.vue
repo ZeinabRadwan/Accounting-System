@@ -32,69 +32,40 @@
               </div>
             </div>
             <table-loading v-show="loading" />
-            <div id="printMe" class="table-responsive table-custom mt-3">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>{{ $t('#') }}</th>
-                    <th>{{ $t('Pages') }}</th>
-                    <th>{{ $t('Slug') }}</th>
-                    <th>{{ $t('Type') }}</th>
-                    <th>{{ $t('Status') }}</th>
-                    <th class="text-right no-print">{{ $t('Action') }}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-show="items.length" v-for="(data, i) in items" :key="i">
-                    <td>
-                      <span v-if="pagination && pagination.current_page > 1">
-                        {{
-                          pagination.per_page * (pagination.current_page - 1) +
-                          (i + 1)
-                        }}
-                      </span>
-                      <span v-else>{{ i + 1 }}</span>
-                    </td>
-                    <td>{{ data.name }}</td>
-                    <td>{{ data.slug }}</td>
-                    <td>
-                      <span v-if="data.type === 0">
-                        {{ $t('Information') }}
-                      </span>
-                      <span v-if="data.type === 1">
-                        {{ $t('Need Help') }}
-                      </span>
-                    </td>
-                    <td>
-                      <span v-if="data.status === 1" class="badge bg-success">{{
-                        $t('Active')
-                      }}</span>
-                      <span v-else class="badge bg-danger">{{
-                        $t('Inactive')
-                      }}</span>
-                    </td>
-                    <td class="text-right no-print">
-                      <div class="btn-group">
-                        <router-link v-tooltip="$t('Edit')" :to="{
-                          name: 'pages.edit',
-                          params: { id: data.id },
-                        }" class="btn btn-info btn-sm">
-                          <i class="fas fa-edit" />
-                        </router-link>
-                        <a v-tooltip="$t('Delete')" href="#" class="btn btn-danger btn-sm" @click="deleteData(data.id)">
-                          <i class="fas fa-trash" />
-                        </a>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr v-show="!loading && !items.length">
-                    <td colspan="6">
-                      <EmptyTable />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <GeneralTable
+              :columns="pageColumns"
+              :rows="pagesWithIndex"
+              :loading="loading"
+              table-id="printMe"
+              wrapper-class="mt-3"
+              :show-actions="true"
+            >
+              <template #cell-type="{ row }">
+                <span v-if="row.type === 0">
+                  {{ $t('Information') }}
+                </span>
+                <span v-if="row.type === 1">
+                  {{ $t('Need Help') }}
+                </span>
+              </template>
+              <template #cell-status="{ row }">
+                <span v-if="row.status === 1" class="badge bg-success">{{ $t('Active') }}</span>
+                <span v-else class="badge bg-danger">{{ $t('Inactive') }}</span>
+              </template>
+              <template #actions="{ row }">
+                <div class="btn-group">
+                  <router-link v-tooltip="$t('Edit')" :to="{
+                    name: 'pages.edit',
+                    params: { id: row.id },
+                  }" class="btn btn-info btn-sm">
+                    <i class="fas fa-edit" />
+                  </router-link>
+                  <a v-tooltip="$t('Delete')" href="#" class="btn btn-danger btn-sm" @click="deleteData(row.id)">
+                    <i class="fas fa-trash" />
+                  </a>
+                </div>
+              </template>
+            </GeneralTable>
           </div>
           <div class="card-footer">
             <div class="dtable-footer">
@@ -123,10 +94,14 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import GeneralTable from '../../../components/GeneralTable.vue'
 
 export default {
   layout: 'central',
   middleware: ['auth', 'check-permissions'],
+  components: {
+    GeneralTable,
+  },
   metaInfo() {
     return { title: this.$t('Pages') }
   },
@@ -150,6 +125,23 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters('operations', ['items', 'loading', 'pagination']),
+    pageColumns() {
+      return [
+        { key: "index", label: this.$t("#"), sortable: false },
+        { key: "name", label: this.$t("Pages") },
+        { key: "slug", label: this.$t("Slug") },
+        { key: "type", label: this.$t("Type") },
+        { key: "status", label: this.$t("Status") },
+      ];
+    },
+    pagesWithIndex() {
+      return this.items.map((item, index) => ({
+        ...item,
+        index: this.pagination && this.pagination.current_page > 1
+          ? this.pagination.per_page * (this.pagination.current_page - 1) + (index + 1)
+          : index + 1,
+      }));
+    },
   },
   watch: {
     // watch search data

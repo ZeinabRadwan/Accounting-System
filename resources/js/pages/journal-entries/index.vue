@@ -579,6 +579,7 @@ export default {
     Pagination: () => import('~/components/Pagination'),
     TableLoading: () => import('~/components/TableLoading'),
     CurrencyDisplay: () => import('~/components/CurrencyDisplay'),
+    EmptyTable: () => import('~/components/EmptyTable'),
     vSelect
   },
   data() {

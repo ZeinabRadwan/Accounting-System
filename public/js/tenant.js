@@ -524,6 +524,67 @@ module.exports = "/images/vendor/flag-icons/flags/1x1/cefta.svg?4247899e6d860ac7
 
 /***/ }),
 
+/***/ 3612:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ EmptyTable)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EmptyTable.vue?vue&type=template&id=6ebadd0e
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "text-center py-8"
+  }, [_c('img', {
+    staticClass: "w-64 m-auto",
+    attrs: {
+      "src": "/images/empty.png",
+      "alt": "result-not-found"
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "font-bold text-lg text-gray-600 dark:text-gray-200"
+  }, [_vm._v("\n    " + _vm._s(_vm.$t('sorry')) + " 😔 " + _vm._s(_vm.$t('no_data_found')) + ".\n  ")])]);
+};
+var staticRenderFns = [];
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EmptyTable.vue?vue&type=script&lang=js
+/* harmony default export */ const EmptyTablevue_type_script_lang_js = ({
+  name: 'EmptyTable'
+});
+;// ./resources/js/components/EmptyTable.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_EmptyTablevue_type_script_lang_js = (EmptyTablevue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/EmptyTable.vue
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,componentNormalizer/* default */.A)(
+  components_EmptyTablevue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ const EmptyTable = (component.exports);
+
+/***/ }),
+
 /***/ 3650:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -33297,12 +33358,12 @@ var map = {
 		3125
 	],
 	"./assets": [
-		17047,
-		7047
+		93908,
+		3908
 	],
 	"./assets/": [
-		17047,
-		7047
+		93908,
+		3908
 	],
 	"./assets/create": [
 		90069,
@@ -33321,12 +33382,12 @@ var map = {
 		3054
 	],
 	"./assets/index": [
-		17047,
-		7047
+		93908,
+		3908
 	],
 	"./assets/index.vue": [
-		17047,
-		7047
+		93908,
+		3908
 	],
 	"./assets/show": [
 		40318,
@@ -33337,12 +33398,12 @@ var map = {
 		318
 	],
 	"./assets/types": [
-		44577,
-		4577
+		89247,
+		9247
 	],
 	"./assets/types/": [
-		44577,
-		4577
+		89247,
+		9247
 	],
 	"./assets/types/create": [
 		46456,
@@ -33361,12 +33422,12 @@ var map = {
 		9561
 	],
 	"./assets/types/index": [
-		44577,
-		4577
+		89247,
+		9247
 	],
 	"./assets/types/index.vue": [
-		44577,
-		4577
+		89247,
+		9247
 	],
 	"./auth/cross-domain-login": [
 		80476,
@@ -33449,12 +33510,12 @@ var map = {
 		1615
 	],
 	"./branches": [
-		56530,
-		6530
+		20963,
+		963
 	],
 	"./branches/": [
-		56530,
-		6530
+		20963,
+		963
 	],
 	"./branches/assign-users": [
 		45958,
@@ -33481,12 +33542,12 @@ var map = {
 		6774
 	],
 	"./branches/index": [
-		56530,
-		6530
+		20963,
+		963
 	],
 	"./branches/index.vue": [
-		56530,
-		6530
+		20963,
+		963
 	],
 	"./branches/select": [
 		5780,
@@ -33505,12 +33566,12 @@ var map = {
 		5022
 	],
 	"./cashbook/accounts": [
-		32800,
-		2800
+		37839,
+		7839
 	],
 	"./cashbook/accounts/": [
-		32800,
-		2800
+		37839,
+		7839
 	],
 	"./cashbook/accounts/create": [
 		85674,
@@ -33529,12 +33590,12 @@ var map = {
 		2612
 	],
 	"./cashbook/accounts/index": [
-		32800,
-		2800
+		37839,
+		7839
 	],
 	"./cashbook/accounts/index.vue": [
-		32800,
-		2800
+		37839,
+		7839
 	],
 	"./cashbook/accounts/show": [
 		31425,
@@ -33545,12 +33606,12 @@ var map = {
 		1425
 	],
 	"./cashbook/balances": [
-		35562,
-		5562
+		45403,
+		5403
 	],
 	"./cashbook/balances/": [
-		35562,
-		5562
+		45403,
+		5403
 	],
 	"./cashbook/balances/create": [
 		82832,
@@ -33569,20 +33630,20 @@ var map = {
 		5030
 	],
 	"./cashbook/balances/index": [
-		35562,
-		5562
+		45403,
+		5403
 	],
 	"./cashbook/balances/index.vue": [
-		35562,
-		5562
+		45403,
+		5403
 	],
 	"./cashbook/chart-of-accounts": [
-		52664,
-		2664
+		75041,
+		5041
 	],
 	"./cashbook/chart-of-accounts/": [
-		52664,
-		2664
+		75041,
+		5041
 	],
 	"./cashbook/chart-of-accounts/create": [
 		80789,
@@ -33601,12 +33662,12 @@ var map = {
 		383
 	],
 	"./cashbook/chart-of-accounts/index": [
-		52664,
-		2664
+		75041,
+		5041
 	],
 	"./cashbook/chart-of-accounts/index.vue": [
-		52664,
-		2664
+		75041,
+		5041
 	],
 	"./cashbook/chart-of-accounts/show": [
 		15434,
@@ -33625,28 +33686,28 @@ var map = {
 		6134
 	],
 	"./cashbook/transactions": [
-		16202,
-		6202
+		85439,
+		5439
 	],
 	"./cashbook/transactions/": [
-		16202,
-		6202
+		85439,
+		5439
 	],
 	"./cashbook/transactions/index": [
-		16202,
-		6202
+		85439,
+		5439
 	],
 	"./cashbook/transactions/index.vue": [
-		16202,
-		6202
+		85439,
+		5439
 	],
 	"./cashbook/transfer-balances": [
-		43487,
-		3487
+		72716,
+		2716
 	],
 	"./cashbook/transfer-balances/": [
-		43487,
-		3487
+		72716,
+		2716
 	],
 	"./cashbook/transfer-balances/create": [
 		90814,
@@ -33665,12 +33726,12 @@ var map = {
 		9459
 	],
 	"./cashbook/transfer-balances/index": [
-		43487,
-		3487
+		72716,
+		2716
 	],
 	"./cashbook/transfer-balances/index.vue": [
-		43487,
-		3487
+		72716,
+		2716
 	],
 	"./cashbook/transfer-balances/show": [
 		26477,
@@ -33721,44 +33782,44 @@ var map = {
 		3061
 	],
 	"./central/domain-requests": [
-		30766,
-		766
+		13367,
+		3367
 	],
 	"./central/domain-requests/": [
-		30766,
-		766
+		13367,
+		3367
 	],
 	"./central/domain-requests/index": [
-		30766,
-		766
+		13367,
+		3367
 	],
 	"./central/domain-requests/index.vue": [
-		30766,
-		766
+		13367,
+		3367
 	],
 	"./central/domains": [
-		89740,
-		9740
+		22683,
+		2683
 	],
 	"./central/domains/": [
-		89740,
-		9740
+		22683,
+		2683
 	],
 	"./central/domains/index": [
-		89740,
-		9740
+		22683,
+		2683
 	],
 	"./central/domains/index.vue": [
-		89740,
-		9740
+		22683,
+		2683
 	],
 	"./central/features": [
-		37566,
-		7566
+		63069,
+		3069
 	],
 	"./central/features/": [
-		37566,
-		7566
+		63069,
+		3069
 	],
 	"./central/features/create": [
 		90712,
@@ -33777,20 +33838,20 @@ var map = {
 		7359
 	],
 	"./central/features/index": [
-		37566,
-		7566
+		63069,
+		3069
 	],
 	"./central/features/index.vue": [
-		37566,
-		7566
+		63069,
+		3069
 	],
 	"./central/newsletters": [
-		21671,
-		1671
+		885,
+		885
 	],
 	"./central/newsletters/": [
-		21671,
-		1671
+		885,
+		885
 	],
 	"./central/newsletters/create": [
 		66513,
@@ -33801,20 +33862,20 @@ var map = {
 		6513
 	],
 	"./central/newsletters/index": [
-		21671,
-		1671
+		885,
+		885
 	],
 	"./central/newsletters/index.vue": [
-		21671,
-		1671
+		885,
+		885
 	],
 	"./central/pages": [
-		90601,
-		601
+		17792,
+		7792
 	],
 	"./central/pages/": [
-		90601,
-		601
+		17792,
+		7792
 	],
 	"./central/pages/create": [
 		14492,
@@ -33833,28 +33894,28 @@ var map = {
 		5473
 	],
 	"./central/pages/index": [
-		90601,
-		601
+		17792,
+		7792
 	],
 	"./central/pages/index.vue": [
-		90601,
-		601
+		17792,
+		7792
 	],
 	"./central/payments": [
-		60920,
-		920
+		8752,
+		8752
 	],
 	"./central/payments/": [
-		60920,
-		920
+		8752,
+		8752
 	],
 	"./central/payments/index": [
-		60920,
-		920
+		8752,
+		8752
 	],
 	"./central/payments/index.vue": [
-		60920,
-		920
+		8752,
+		8752
 	],
 	"./central/permission-denied": [
 		38172,
@@ -33865,12 +33926,12 @@ var map = {
 		8172
 	],
 	"./central/plans": [
-		72323,
-		2323
+		98304,
+		8304
 	],
 	"./central/plans/": [
-		72323,
-		2323
+		98304,
+		8304
 	],
 	"./central/plans/create": [
 		75284,
@@ -33889,12 +33950,12 @@ var map = {
 		3607
 	],
 	"./central/plans/index": [
-		72323,
-		2323
+		98304,
+		8304
 	],
 	"./central/plans/index.vue": [
-		72323,
-		2323
+		98304,
+		8304
 	],
 	"./central/plans/show": [
 		38353,
@@ -34065,12 +34126,12 @@ var map = {
 		244
 	],
 	"./central/setup/currency": [
-		59521,
-		9521
+		91823,
+		1823
 	],
 	"./central/setup/currency/": [
-		59521,
-		9521
+		91823,
+		1823
 	],
 	"./central/setup/currency/create": [
 		14521,
@@ -34089,12 +34150,12 @@ var map = {
 		5834
 	],
 	"./central/setup/currency/index": [
-		59521,
-		9521
+		91823,
+		1823
 	],
 	"./central/setup/currency/index.vue": [
-		59521,
-		9521
+		91823,
+		1823
 	],
 	"./central/setup/general": [
 		49132,
@@ -34121,12 +34182,12 @@ var map = {
 		6347
 	],
 	"./central/setup/permissions": [
-		8725,
-		8725
+		59611,
+		9611
 	],
 	"./central/setup/permissions/": [
-		8725,
-		8725
+		59611,
+		9611
 	],
 	"./central/setup/permissions/create": [
 		62558,
@@ -34145,20 +34206,20 @@ var map = {
 		4856
 	],
 	"./central/setup/permissions/index": [
-		8725,
-		8725
+		59611,
+		9611
 	],
 	"./central/setup/permissions/index.vue": [
-		8725,
-		8725
+		59611,
+		9611
 	],
 	"./central/setup/roles": [
-		69437,
-		9437
+		82441,
+		2441
 	],
 	"./central/setup/roles/": [
-		69437,
-		9437
+		82441,
+		2441
 	],
 	"./central/setup/roles/create": [
 		58400,
@@ -34177,12 +34238,12 @@ var map = {
 		836
 	],
 	"./central/setup/roles/index": [
-		69437,
-		9437
+		82441,
+		2441
 	],
 	"./central/setup/roles/index.vue": [
-		69437,
-		9437
+		82441,
+		2441
 	],
 	"./central/setup/sms-configuration": [
 		14204,
@@ -34209,36 +34270,36 @@ var map = {
 		986
 	],
 	"./central/subscription-requests": [
-		59678,
-		9678
+		3559,
+		3559
 	],
 	"./central/subscription-requests/": [
-		59678,
-		9678
+		3559,
+		3559
 	],
 	"./central/subscription-requests/index": [
-		59678,
-		9678
+		3559,
+		3559
 	],
 	"./central/subscription-requests/index.vue": [
-		59678,
-		9678
+		3559,
+		3559
 	],
 	"./central/subscriptions": [
-		84386,
-		4386
+		38236,
+		8236
 	],
 	"./central/subscriptions/": [
-		84386,
-		4386
+		38236,
+		8236
 	],
 	"./central/subscriptions/index": [
-		84386,
-		4386
+		38236,
+		8236
 	],
 	"./central/subscriptions/index.vue": [
-		84386,
-		4386
+		38236,
+		8236
 	],
 	"./central/template/home": [
 		11238,
@@ -34257,12 +34318,12 @@ var map = {
 		8418
 	],
 	"./central/tenants": [
-		44336,
-		4336
+		90466,
+		466
 	],
 	"./central/tenants/": [
-		44336,
-		4336
+		90466,
+		466
 	],
 	"./central/tenants/create": [
 		11892,
@@ -34281,12 +34342,12 @@ var map = {
 		8755
 	],
 	"./central/tenants/index": [
-		44336,
-		4336
+		90466,
+		466
 	],
 	"./central/tenants/index.vue": [
-		44336,
-		4336
+		90466,
+		466
 	],
 	"./central/tenants/show": [
 		29325,
@@ -34305,12 +34366,12 @@ var map = {
 		9767
 	],
 	"./clients": [
-		58503,
-		8503
+		23907,
+		3907
 	],
 	"./clients/": [
-		58503,
-		8503
+		23907,
+		3907
 	],
 	"./clients/create": [
 		10754,
@@ -34329,12 +34390,12 @@ var map = {
 		4482
 	],
 	"./clients/index": [
-		58503,
-		8503
+		23907,
+		3907
 	],
 	"./clients/index.vue": [
-		58503,
-		8503
+		23907,
+		3907
 	],
 	"./clients/show": [
 		23508,
@@ -34345,12 +34406,12 @@ var map = {
 		3508
 	],
 	"./cost-allocations": [
-		43748,
-		3748
+		7396,
+		7396
 	],
 	"./cost-allocations/": [
-		43748,
-		3748
+		7396,
+		7396
 	],
 	"./cost-allocations/create": [
 		38670,
@@ -34369,20 +34430,20 @@ var map = {
 		7618
 	],
 	"./cost-allocations/index": [
-		43748,
-		3748
+		7396,
+		7396
 	],
 	"./cost-allocations/index.vue": [
-		43748,
-		3748
+		7396,
+		7396
 	],
 	"./cost-centers": [
-		4469,
-		4469
+		59081,
+		9081
 	],
 	"./cost-centers/": [
-		4469,
-		4469
+		59081,
+		9081
 	],
 	"./cost-centers/create": [
 		7926,
@@ -34401,12 +34462,12 @@ var map = {
 		8710
 	],
 	"./cost-centers/index": [
-		4469,
-		4469
+		59081,
+		9081
 	],
 	"./cost-centers/index.vue": [
-		4469,
-		4469
+		59081,
+		9081
 	],
 	"./cost-centers/show": [
 		11612,
@@ -34433,12 +34494,12 @@ var map = {
 		6363
 	],
 	"./domain-requests": [
-		22431,
-		2431
+		9941,
+		9941
 	],
 	"./domain-requests/": [
-		22431,
-		2431
+		9941,
+		9941
 	],
 	"./domain-requests/create": [
 		11055,
@@ -34449,36 +34510,36 @@ var map = {
 		1055
 	],
 	"./domain-requests/index": [
-		22431,
-		2431
+		9941,
+		9941
 	],
 	"./domain-requests/index.vue": [
-		22431,
-		2431
+		9941,
+		9941
 	],
 	"./domains": [
-		99762,
-		9762
+		23363,
+		3363
 	],
 	"./domains/": [
-		99762,
-		9762
+		23363,
+		3363
 	],
 	"./domains/index": [
-		99762,
-		9762
+		23363,
+		3363
 	],
 	"./domains/index.vue": [
-		99762,
-		9762
+		23363,
+		3363
 	],
 	"./employees": [
-		34632,
-		4632
+		29584,
+		9584
 	],
 	"./employees/": [
-		34632,
-		4632
+		29584,
+		9584
 	],
 	"./employees/create": [
 		60657,
@@ -34489,12 +34550,12 @@ var map = {
 		657
 	],
 	"./employees/departments": [
-		76679,
-		6679
+		2763,
+		2763
 	],
 	"./employees/departments/": [
-		76679,
-		6679
+		2763,
+		2763
 	],
 	"./employees/departments/create": [
 		51682,
@@ -34513,12 +34574,12 @@ var map = {
 		1984
 	],
 	"./employees/departments/index": [
-		76679,
-		6679
+		2763,
+		2763
 	],
 	"./employees/departments/index.vue": [
-		76679,
-		6679
+		2763,
+		2763
 	],
 	"./employees/edit": [
 		91952,
@@ -34529,12 +34590,12 @@ var map = {
 		1952
 	],
 	"./employees/increments": [
-		60331,
-		331
+		88520,
+		8520
 	],
 	"./employees/increments/": [
-		60331,
-		331
+		88520,
+		8520
 	],
 	"./employees/increments/create": [
 		57032,
@@ -34553,28 +34614,28 @@ var map = {
 		6373
 	],
 	"./employees/increments/index": [
-		60331,
-		331
+		88520,
+		8520
 	],
 	"./employees/increments/index.vue": [
-		60331,
-		331
+		88520,
+		8520
 	],
 	"./employees/increments/show": [
-		10419,
-		419
+		32800,
+		2800
 	],
 	"./employees/increments/show.vue": [
-		10419,
-		419
+		32800,
+		2800
 	],
 	"./employees/index": [
-		34632,
-		4632
+		29584,
+		9584
 	],
 	"./employees/index.vue": [
-		34632,
-		4632
+		29584,
+		9584
 	],
 	"./employees/show": [
 		56261,
@@ -34593,20 +34654,20 @@ var map = {
 		1321
 	],
 	"./expenses": [
-		18270,
-		8270
+		63291,
+		3291
 	],
 	"./expenses/": [
-		18270,
-		8270
+		63291,
+		3291
 	],
 	"./expenses/categories": [
-		36249,
-		6249
+		99019,
+		9019
 	],
 	"./expenses/categories/": [
-		36249,
-		6249
+		99019,
+		9019
 	],
 	"./expenses/categories/create": [
 		7748,
@@ -34625,12 +34686,12 @@ var map = {
 		5020
 	],
 	"./expenses/categories/index": [
-		36249,
-		6249
+		99019,
+		9019
 	],
 	"./expenses/categories/index.vue": [
-		36249,
-		6249
+		99019,
+		9019
 	],
 	"./expenses/create": [
 		17290,
@@ -34649,12 +34710,12 @@ var map = {
 		31
 	],
 	"./expenses/index": [
-		18270,
-		8270
+		63291,
+		3291
 	],
 	"./expenses/index.vue": [
-		18270,
-		8270
+		63291,
+		3291
 	],
 	"./expenses/show": [
 		86460,
@@ -34665,12 +34726,12 @@ var map = {
 		6460
 	],
 	"./expenses/sub-categories": [
-		74807,
-		4807
+		70204,
+		204
 	],
 	"./expenses/sub-categories/": [
-		74807,
-		4807
+		70204,
+		204
 	],
 	"./expenses/sub-categories/create": [
 		99089,
@@ -34689,12 +34750,12 @@ var map = {
 		4390
 	],
 	"./expenses/sub-categories/index": [
-		74807,
-		4807
+		70204,
+		204
 	],
 	"./expenses/sub-categories/index.vue": [
-		74807,
-		4807
+		70204,
+		204
 	],
 	"./impersonate": [
 		97189,
@@ -34713,12 +34774,12 @@ var map = {
 		7189
 	],
 	"./inventory": [
-		87821,
-		7821
+		44590,
+		4590
 	],
 	"./inventory/": [
-		87821,
-		7821
+		44590,
+		4590
 	],
 	"./inventory/adjustments": [
 		94617,
@@ -34785,12 +34846,12 @@ var map = {
 		6761
 	],
 	"./inventory/index": [
-		87821,
-		7821
+		44590,
+		4590
 	],
 	"./inventory/index.vue": [
-		87821,
-		7821
+		44590,
+		4590
 	],
 	"./inventory/items-directory": [
 		76425,
@@ -34841,12 +34902,12 @@ var map = {
 		1121
 	],
 	"./journal-entries": [
-		53372,
-		3372
+		72498,
+		2498
 	],
 	"./journal-entries/": [
-		53372,
-		3372
+		72498,
+		2498
 	],
 	"./journal-entries/create": [
 		62145,
@@ -34865,12 +34926,12 @@ var map = {
 		3756
 	],
 	"./journal-entries/index": [
-		53372,
-		3372
+		72498,
+		2498
 	],
 	"./journal-entries/index.vue": [
-		53372,
-		3372
+		72498,
+		2498
 	],
 	"./journal-entries/show": [
 		19868,
@@ -34881,20 +34942,20 @@ var map = {
 		9868
 	],
 	"./loans": [
-		55353,
-		5353
+		91736,
+		1736
 	],
 	"./loans/": [
-		55353,
-		5353
+		91736,
+		1736
 	],
 	"./loans/authorities": [
-		48638,
-		8638
+		2882,
+		2882
 	],
 	"./loans/authorities/": [
-		48638,
-		8638
+		2882,
+		2882
 	],
 	"./loans/authorities/create": [
 		88244,
@@ -34913,12 +34974,12 @@ var map = {
 		492
 	],
 	"./loans/authorities/index": [
-		48638,
-		8638
+		2882,
+		2882
 	],
 	"./loans/authorities/index.vue": [
-		48638,
-		8638
+		2882,
+		2882
 	],
 	"./loans/authorities/show": [
 		58338,
@@ -34945,20 +35006,20 @@ var map = {
 		4583
 	],
 	"./loans/index": [
-		55353,
-		5353
+		91736,
+		1736
 	],
 	"./loans/index.vue": [
-		55353,
-		5353
+		91736,
+		1736
 	],
 	"./loans/payments": [
-		86550,
-		6550
+		74404,
+		4404
 	],
 	"./loans/payments/": [
-		86550,
-		6550
+		74404,
+		4404
 	],
 	"./loans/payments/create": [
 		2258,
@@ -34977,12 +35038,12 @@ var map = {
 		2587
 	],
 	"./loans/payments/index": [
-		86550,
-		6550
+		74404,
+		4404
 	],
 	"./loans/payments/index.vue": [
-		86550,
-		6550
+		74404,
+		4404
 	],
 	"./loans/payments/show": [
 		81944,
@@ -35001,12 +35062,12 @@ var map = {
 		6717
 	],
 	"./payments/clients/invoice": [
-		31886,
-		1886
+		66646,
+		4265
 	],
 	"./payments/clients/invoice/": [
-		31886,
-		1886
+		66646,
+		4265
 	],
 	"./payments/clients/invoice/create": [
 		25393,
@@ -35025,12 +35086,12 @@ var map = {
 		7944
 	],
 	"./payments/clients/invoice/index": [
-		31886,
-		1886
+		66646,
+		4265
 	],
 	"./payments/clients/invoice/index.vue": [
-		31886,
-		1886
+		66646,
+		4265
 	],
 	"./payments/clients/invoice/show": [
 		91415,
@@ -35041,12 +35102,12 @@ var map = {
 		1415
 	],
 	"./payments/clients/non-invoice": [
-		26726,
-		6726
+		1274,
+		8893
 	],
 	"./payments/clients/non-invoice/": [
-		26726,
-		6726
+		1274,
+		8893
 	],
 	"./payments/clients/non-invoice/create": [
 		18841,
@@ -35065,12 +35126,12 @@ var map = {
 		5644
 	],
 	"./payments/clients/non-invoice/index": [
-		26726,
-		6726
+		1274,
+		8893
 	],
 	"./payments/clients/non-invoice/index.vue": [
-		26726,
-		6726
+		1274,
+		8893
 	],
 	"./payments/clients/non-invoice/show": [
 		85258,
@@ -35081,12 +35142,12 @@ var map = {
 		5258
 	],
 	"./payments/suppliers/non-purchase": [
-		38534,
-		8534
+		15731,
+		5731
 	],
 	"./payments/suppliers/non-purchase/": [
-		38534,
-		8534
+		15731,
+		5731
 	],
 	"./payments/suppliers/non-purchase/create": [
 		9839,
@@ -35105,12 +35166,12 @@ var map = {
 		9855
 	],
 	"./payments/suppliers/non-purchase/index": [
-		38534,
-		8534
+		15731,
+		5731
 	],
 	"./payments/suppliers/non-purchase/index.vue": [
-		38534,
-		8534
+		15731,
+		5731
 	],
 	"./payments/suppliers/non-purchase/show": [
 		88790,
@@ -35121,12 +35182,12 @@ var map = {
 		8790
 	],
 	"./payments/suppliers/purchase": [
-		56130,
-		6130
+		24147,
+		4147
 	],
 	"./payments/suppliers/purchase/": [
-		56130,
-		6130
+		24147,
+		4147
 	],
 	"./payments/suppliers/purchase/create": [
 		70672,
@@ -35145,12 +35206,12 @@ var map = {
 		9157
 	],
 	"./payments/suppliers/purchase/index": [
-		56130,
-		6130
+		24147,
+		4147
 	],
 	"./payments/suppliers/purchase/index.vue": [
-		56130,
-		6130
+		24147,
+		4147
 	],
 	"./payments/suppliers/purchase/show": [
 		6891,
@@ -35161,12 +35222,12 @@ var map = {
 		6891
 	],
 	"./payroll": [
-		54277,
-		4277
+		48887,
+		8887
 	],
 	"./payroll/": [
-		54277,
-		4277
+		48887,
+		8887
 	],
 	"./payroll/create": [
 		57003,
@@ -35185,12 +35246,12 @@ var map = {
 		2528
 	],
 	"./payroll/index": [
-		54277,
-		4277
+		48887,
+		8887
 	],
 	"./payroll/index.vue": [
-		54277,
-		4277
+		48887,
+		8887
 	],
 	"./payroll/show": [
 		9154,
@@ -35209,12 +35270,12 @@ var map = {
 		9681
 	],
 	"./products": [
-		82659,
-		2659
+		81094,
+		1094
 	],
 	"./products/": [
-		82659,
-		2659
+		81094,
+		1094
 	],
 	"./products/barcode": [
 		71259,
@@ -35225,12 +35286,12 @@ var map = {
 		1259
 	],
 	"./products/categories": [
-		34112,
-		4112
+		85899,
+		5899
 	],
 	"./products/categories/": [
-		34112,
-		4112
+		85899,
+		5899
 	],
 	"./products/categories/create": [
 		8853,
@@ -35249,12 +35310,12 @@ var map = {
 		8543
 	],
 	"./products/categories/index": [
-		34112,
-		4112
+		85899,
+		5899
 	],
 	"./products/categories/index.vue": [
-		34112,
-		4112
+		85899,
+		5899
 	],
 	"./products/create": [
 		61331,
@@ -35297,12 +35358,12 @@ var map = {
 		698
 	],
 	"./products/index": [
-		82659,
-		2659
+		81094,
+		1094
 	],
 	"./products/index.vue": [
-		82659,
-		2659
+		81094,
+		1094
 	],
 	"./products/show": [
 		46541,
@@ -35313,12 +35374,12 @@ var map = {
 		6541
 	],
 	"./products/sub-categories": [
-		28800,
-		8800
+		41856,
+		1856
 	],
 	"./products/sub-categories/": [
-		28800,
-		8800
+		41856,
+		1856
 	],
 	"./products/sub-categories/create": [
 		25273,
@@ -35337,20 +35398,20 @@ var map = {
 		7614
 	],
 	"./products/sub-categories/index": [
-		28800,
-		8800
+		41856,
+		1856
 	],
 	"./products/sub-categories/index.vue": [
-		28800,
-		8800
+		41856,
+		1856
 	],
 	"./purchase-order": [
-		8868,
-		8868
+		27465,
+		7465
 	],
 	"./purchase-order/": [
-		8868,
-		8868
+		27465,
+		7465
 	],
 	"./purchase-order/create": [
 		66312,
@@ -35369,12 +35430,12 @@ var map = {
 		4594
 	],
 	"./purchase-order/index": [
-		8868,
-		8868
+		27465,
+		7465
 	],
 	"./purchase-order/index.vue": [
-		8868,
-		8868
+		27465,
+		7465
 	],
 	"./purchase-order/show": [
 		79895,
@@ -35385,12 +35446,12 @@ var map = {
 		9895
 	],
 	"./purchases": [
-		69167,
-		9167
+		5982,
+		5982
 	],
 	"./purchases/": [
-		69167,
-		9167
+		5982,
+		5982
 	],
 	"./purchases/create": [
 		44477,
@@ -35409,20 +35470,20 @@ var map = {
 		6389
 	],
 	"./purchases/index": [
-		69167,
-		9167
+		5982,
+		5982
 	],
 	"./purchases/index.vue": [
-		69167,
-		9167
+		5982,
+		5982
 	],
 	"./purchases/returns": [
-		72268,
-		2268
+		11152,
+		1152
 	],
 	"./purchases/returns/": [
-		72268,
-		2268
+		11152,
+		1152
 	],
 	"./purchases/returns/create": [
 		33782,
@@ -35441,12 +35502,12 @@ var map = {
 		8068
 	],
 	"./purchases/returns/index": [
-		72268,
-		2268
+		11152,
+		1152
 	],
 	"./purchases/returns/index.vue": [
-		72268,
-		2268
+		11152,
+		1152
 	],
 	"./purchases/returns/show": [
 		9616,
@@ -35601,12 +35662,12 @@ var map = {
 		5998
 	],
 	"./sales/invoices": [
-		67139,
-		9520
+		99156,
+		9156
 	],
 	"./sales/invoices/": [
-		67139,
-		9520
+		99156,
+		9156
 	],
 	"./sales/invoices/create": [
 		5845,
@@ -35625,12 +35686,12 @@ var map = {
 		4473
 	],
 	"./sales/invoices/index": [
-		67139,
-		9520
+		99156,
+		9156
 	],
 	"./sales/invoices/index.vue": [
-		67139,
-		9520
+		99156,
+		9156
 	],
 	"./sales/invoices/show": [
 		8417,
@@ -35649,12 +35710,12 @@ var map = {
 		8046
 	],
 	"./sales/quotations": [
-		5820,
-		5820
+		87421,
+		7421
 	],
 	"./sales/quotations/": [
-		5820,
-		5820
+		87421,
+		7421
 	],
 	"./sales/quotations/create": [
 		61992,
@@ -35673,12 +35734,12 @@ var map = {
 		1598
 	],
 	"./sales/quotations/index": [
-		5820,
-		5820
+		87421,
+		7421
 	],
 	"./sales/quotations/index.vue": [
-		5820,
-		5820
+		87421,
+		7421
 	],
 	"./sales/quotations/invoice": [
 		83418,
@@ -35697,12 +35758,12 @@ var map = {
 		2532
 	],
 	"./sales/returns": [
-		25346,
-		5346
+		20264,
+		264
 	],
 	"./sales/returns/": [
-		25346,
-		5346
+		20264,
+		264
 	],
 	"./sales/returns/create": [
 		50971,
@@ -35729,12 +35790,12 @@ var map = {
 		1059
 	],
 	"./sales/returns/index": [
-		25346,
-		5346
+		20264,
+		264
 	],
 	"./sales/returns/index.vue": [
-		25346,
-		5346
+		20264,
+		264
 	],
 	"./sales/returns/show": [
 		77480,
@@ -35817,20 +35878,20 @@ var map = {
 		148
 	],
 	"./setup/accounting-settings/account-routing": [
-		44038,
-		4038
+		76744,
+		6744
 	],
 	"./setup/accounting-settings/account-routing.vue": [
-		44038,
-		4038
+		76744,
+		6744
 	],
 	"./setup/brands": [
-		28014,
-		8014
+		90936,
+		936
 	],
 	"./setup/brands/": [
-		28014,
-		8014
+		90936,
+		936
 	],
 	"./setup/brands/create": [
 		7334,
@@ -35849,12 +35910,12 @@ var map = {
 		2406
 	],
 	"./setup/brands/index": [
-		28014,
-		8014
+		90936,
+		936
 	],
 	"./setup/brands/index.vue": [
-		28014,
-		8014
+		90936,
+		936
 	],
 	"./setup/brands/show": [
 		56697,
@@ -35865,12 +35926,12 @@ var map = {
 		6697
 	],
 	"./setup/currencies": [
-		11478,
-		1478
+		1035,
+		1035
 	],
 	"./setup/currencies/": [
-		11478,
-		1478
+		1035,
+		1035
 	],
 	"./setup/currencies/create": [
 		35846,
@@ -35889,12 +35950,12 @@ var map = {
 		4836
 	],
 	"./setup/currencies/index": [
-		11478,
-		1478
+		1035,
+		1035
 	],
 	"./setup/currencies/index.vue": [
-		11478,
-		1478
+		1035,
+		1035
 	],
 	"./setup/fiscal-years": [
 		89000,
@@ -35929,12 +35990,12 @@ var map = {
 		7830
 	],
 	"./setup/payment-methods": [
-		85342,
-		5342
+		18707,
+		8707
 	],
 	"./setup/payment-methods/": [
-		85342,
-		5342
+		18707,
+		8707
 	],
 	"./setup/payment-methods/create": [
 		11429,
@@ -35953,20 +36014,20 @@ var map = {
 		8091
 	],
 	"./setup/payment-methods/index": [
-		85342,
-		5342
+		18707,
+		8707
 	],
 	"./setup/payment-methods/index.vue": [
-		85342,
-		5342
+		18707,
+		8707
 	],
 	"./setup/permissions": [
-		21991,
-		1991
+		41757,
+		1757
 	],
 	"./setup/permissions/": [
-		21991,
-		1991
+		41757,
+		1757
 	],
 	"./setup/permissions/create": [
 		77388,
@@ -35985,20 +36046,20 @@ var map = {
 		5943
 	],
 	"./setup/permissions/index": [
-		21991,
-		1991
+		41757,
+		1757
 	],
 	"./setup/permissions/index.vue": [
-		21991,
-		1991
+		41757,
+		1757
 	],
 	"./setup/roles": [
-		58888,
-		8888
+		39139,
+		9139
 	],
 	"./setup/roles/": [
-		58888,
-		8888
+		39139,
+		9139
 	],
 	"./setup/roles/create": [
 		10648,
@@ -36017,12 +36078,12 @@ var map = {
 		1880
 	],
 	"./setup/roles/index": [
-		58888,
-		8888
+		39139,
+		9139
 	],
 	"./setup/roles/index.vue": [
-		58888,
-		8888
+		39139,
+		9139
 	],
 	"./setup/sms-configuration": [
 		5507,
@@ -36033,12 +36094,12 @@ var map = {
 		5507
 	],
 	"./setup/units": [
-		75584,
-		5584
+		17010,
+		7010
 	],
 	"./setup/units/": [
-		75584,
-		5584
+		17010,
+		7010
 	],
 	"./setup/units/create": [
 		4658,
@@ -36057,20 +36118,20 @@ var map = {
 		9169
 	],
 	"./setup/units/index": [
-		75584,
-		5584
+		17010,
+		7010
 	],
 	"./setup/units/index.vue": [
-		75584,
-		5584
+		17010,
+		7010
 	],
 	"./setup/vat-rates": [
-		71367,
-		1367
+		49990,
+		9990
 	],
 	"./setup/vat-rates/": [
-		71367,
-		1367
+		49990,
+		9990
 	],
 	"./setup/vat-rates/create": [
 		50716,
@@ -36089,12 +36150,12 @@ var map = {
 		5222
 	],
 	"./setup/vat-rates/index": [
-		71367,
-		1367
+		49990,
+		9990
 	],
 	"./setup/vat-rates/index.vue": [
-		71367,
-		1367
+		49990,
+		9990
 	],
 	"./setup/zatca": [
 		45757,
@@ -36113,12 +36174,12 @@ var map = {
 		9400
 	],
 	"./suppliers": [
-		44560,
-		4560
+		29809,
+		9809
 	],
 	"./suppliers/": [
-		44560,
-		4560
+		29809,
+		9809
 	],
 	"./suppliers/create": [
 		47462,
@@ -36137,12 +36198,12 @@ var map = {
 		4907
 	],
 	"./suppliers/index": [
-		44560,
-		4560
+		29809,
+		9809
 	],
 	"./suppliers/index.vue": [
-		44560,
-		4560
+		29809,
+		9809
 	],
 	"./suppliers/show": [
 		21670,
@@ -36161,12 +36222,12 @@ var map = {
 		3958
 	],
 	"./vouchers/receive": [
-		52886,
-		2886
+		39274,
+		9274
 	],
 	"./vouchers/receive/": [
-		52886,
-		2886
+		39274,
+		9274
 	],
 	"./vouchers/receive/create": [
 		43988,
@@ -36185,12 +36246,12 @@ var map = {
 		7556
 	],
 	"./vouchers/receive/index": [
-		52886,
-		2886
+		39274,
+		9274
 	],
 	"./vouchers/receive/index.vue": [
-		52886,
-		2886
+		39274,
+		9274
 	],
 	"./vouchers/receive/show": [
 		75201,
@@ -36201,12 +36262,12 @@ var map = {
 		5201
 	],
 	"./vouchers/send": [
-		80581,
-		581
+		14152,
+		4152
 	],
 	"./vouchers/send/": [
-		80581,
-		581
+		14152,
+		4152
 	],
 	"./vouchers/send/create": [
 		31879,
@@ -36225,12 +36286,12 @@ var map = {
 		1828
 	],
 	"./vouchers/send/index": [
-		80581,
-		581
+		14152,
+		4152
 	],
 	"./vouchers/send/index.vue": [
-		80581,
-		581
+		14152,
+		4152
 	],
 	"./vouchers/send/show": [
 		36957,
@@ -67897,26 +67958,6 @@ module.exports = "/images/vendor/flag-icons/flags/1x1/pl.svg?cd835d05865e496ff6b
 
 /***/ }),
 
-/***/ 71764:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".tab-content[data-v-753ab60e]{background:#fff;border:1px solid #e2e8f0;border-radius:12px}.tab-pane[data-v-753ab60e]{padding:0}.table-custom[data-v-753ab60e]{background:#fff;border:none;border-radius:12px;overflow:hidden}.table-responsive[data-v-753ab60e]{overflow-x:auto;width:100%}.invoices-table[data-v-753ab60e]{border-collapse:collapse;color:#000;direction:ltr;font-family:DINNextLTArabic;font-weight:400;width:100%}[dir=rtl] .invoices-table[data-v-753ab60e]{direction:rtl}.invoices-table thead th[data-v-753ab60e]{background:#eceff3;border:none;color:#2f3541;padding:10px 12px}.invoices-table thead th[data-v-753ab60e]:first-child{border-top-left-radius:12px}.invoices-table thead th[data-v-753ab60e]:last-child{border-top-right-radius:12px}[dir=rtl] .invoices-table thead th[data-v-753ab60e]:first-child{border-top-left-radius:0;border-top-right-radius:12px}[dir=rtl] .invoices-table thead th[data-v-753ab60e]:last-child{border-top-left-radius:12px;border-top-right-radius:0}.invoices-table tbody td[data-v-753ab60e]{border:none;border-bottom:1px solid #e3e7ea;color:#000;padding:10px 12px}.table-custom .table td[data-v-753ab60e],.table-custom .table thead>tr>th[data-v-753ab60e]{border-left:none!important;border-right:none!important}.invoices-table tbody tr:last-child td[data-v-753ab60e]{border-bottom:none}.invoices-table tbody tr[data-v-753ab60e]:hover{background:#f7f9fb}.invoices-table .badge.bg-success[data-v-753ab60e]{background:#daf5ca!important;border-radius:8px;color:#005523!important}.invoices-table .badge.bg-danger[data-v-753ab60e]{background:#eceff3!important;border-radius:8px;color:#545d71!important}.invoices-table a[data-v-753ab60e]{color:inherit;text-decoration:none}.invoices-table a[data-v-753ab60e]:hover{text-decoration:underline}", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
 /***/ 71899:
 /***/ ((module) => {
 
@@ -84749,6 +84790,26 @@ module.exports = "/images/vendor/flag-icons/flags/1x1/mt.svg?35575a14235408993f8
 
 /***/ }),
 
+/***/ 86445:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".table-custom[data-v-afa9fe72]{background:#fff;border:none;border-radius:12px;overflow:hidden}.table-responsive[data-v-afa9fe72]{overflow-x:auto;width:100%}.general-table[data-v-afa9fe72]{border-collapse:collapse;color:#000;direction:ltr;font-family:DINNextLTArabic;font-weight:400;width:100%}[dir=rtl] .general-table[data-v-afa9fe72]{direction:rtl}.general-table thead th[data-v-afa9fe72]{background:#eceff3;border:none;color:#2f3541;cursor:default;padding:10px 12px}.general-table thead th.sortable[data-v-afa9fe72]{cursor:pointer;-webkit-user-select:none;-moz-user-select:none;user-select:none}.general-table thead th.sortable[data-v-afa9fe72]:hover{background:#d8dfe6}.general-table thead th[data-v-afa9fe72]:first-child{border-top-left-radius:12px}.general-table thead th[data-v-afa9fe72]:last-child{border-top-right-radius:12px}[dir=rtl] .general-table thead th[data-v-afa9fe72]:first-child{border-top-left-radius:0;border-top-right-radius:12px}[dir=rtl] .general-table thead th[data-v-afa9fe72]:last-child{border-top-left-radius:12px;border-top-right-radius:0}.th-content[data-v-afa9fe72]{align-items:center;display:flex;gap:8px}.sort-icons[data-v-afa9fe72]{display:flex;flex-direction:column;gap:2px;opacity:.3;transition:opacity .2s}.general-table thead th.sortable:hover .sort-icons[data-v-afa9fe72]{opacity:.6}.sort-icons i[data-v-afa9fe72]{color:#2f3541;font-size:10px;line-height:1}.sort-icons i.active[data-v-afa9fe72]{color:#0775af;opacity:1}.general-table tbody td[data-v-afa9fe72]{border:none;border-bottom:1px solid #e3e7ea;color:#000;padding:10px 12px}.table-custom .table td[data-v-afa9fe72],.table-custom .table thead>tr>th[data-v-afa9fe72]{border-left:none!important;border-right:none!important}.general-table tbody tr:last-child td[data-v-afa9fe72]{border-bottom:none}.general-table tbody tr[data-v-afa9fe72]:hover{background:#f7f9fb}.general-table .badge.bg-success[data-v-afa9fe72]{background:#daf5ca!important;border-radius:8px;color:#005523!important}.general-table .badge.bg-danger[data-v-afa9fe72]{background:#eceff3!important;border-radius:8px;color:#545d71!important}.general-table a[data-v-afa9fe72]{color:inherit;text-decoration:none}.general-table a[data-v-afa9fe72]:hover{text-decoration:underline}.action-buttons[data-v-afa9fe72]{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}[dir=rtl] .action-buttons[data-v-afa9fe72]{justify-content:flex-start}.action-buttons .btn[data-v-afa9fe72]{font-size:.875rem;padding:4px 8px}.action-buttons .btn i[data-v-afa9fe72]{margin-right:4px}[dir=rtl] .action-buttons .btn i[data-v-afa9fe72]{margin-left:4px;margin-right:0}@media (max-width:576px){.general-table[data-v-afa9fe72]{font-size:.875rem}.general-table tbody td[data-v-afa9fe72],.general-table thead th[data-v-afa9fe72]{padding:8px 10px}.action-buttons[data-v-afa9fe72]{flex-direction:column;gap:4px}.action-buttons .btn[data-v-afa9fe72]{width:100%}}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 86649:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -86293,6 +86354,26 @@ module.exports = defineProperty;
 /***/ ((module) => {
 
 module.exports = "/images/vendor/flag-icons/flags/1x1/sj.svg?7111b15215671c0cabae683635bd2bed";
+
+/***/ }),
+
+/***/ 93267:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".tab-content[data-v-02b216d5]{background:#fff;border:1px solid #e2e8f0;border-radius:12px}.tab-pane[data-v-02b216d5]{padding:0}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
 
 /***/ }),
 
@@ -89715,6 +89796,303 @@ module.exports = defaults;
 /***/ ((module) => {
 
 module.exports = "/images/vendor/flag-icons/flags/1x1/tl.svg?d8e3bbb05aa228ef7591ec6b2a9b5154";
+
+/***/ }),
+
+/***/ 97432:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ GeneralTable)
+});
+
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/GeneralTable.vue?vue&type=template&id=afa9fe72&scoped=true
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "table-responsive table-custom",
+    "class": _vm.wrapperClass,
+    attrs: {
+      "id": _vm.tableId || undefined,
+      "dir": _vm.dir || undefined
+    }
+  }, [_c('table', {
+    staticClass: "table general-table"
+  }, [_c('thead', [_c('tr', [_vm._l(_vm.columns, function (column, index) {
+    return _c('th', {
+      key: index,
+      "class": [column.align || '', _vm.sortable && column.sortable !== false ? 'sortable' : ''],
+      on: {
+        "click": function click($event) {
+          _vm.sortable && column.sortable !== false ? _vm.handleSort(column.key) : null;
+        }
+      }
+    }, [_c('div', {
+      staticClass: "th-content"
+    }, [_c('span', [_vm._v(_vm._s(column.label))]), _vm._v(" "), _vm.sortable && column.sortable !== false ? _c('span', {
+      staticClass: "sort-icons"
+    }, [_c('i', {
+      staticClass: "fas fa-sort-up",
+      "class": {
+        active: _vm.sortColumn === column.key && _vm.sortDirection === 'asc'
+      }
+    }), _vm._v(" "), _c('i', {
+      staticClass: "fas fa-sort-down",
+      "class": {
+        active: _vm.sortColumn === column.key && _vm.sortDirection === 'desc'
+      }
+    })]) : _vm._e()])]);
+  }), _vm._v(" "), _vm.actions && _vm.actions.length > 0 || _vm.showActions ? _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v("\n                    " + _vm._s(_vm.$t("Action")) + "\n                ")]) : _vm._e()], 2)]), _vm._v(" "), _c('tbody', [_vm.sortedRows.length ? _vm._l(_vm.sortedRows, function (row, rowIndex) {
+    return _c('tr', {
+      key: rowIndex
+    }, [_vm._l(_vm.columns, function (column, colIndex) {
+      return _c('td', {
+        key: colIndex,
+        "class": column.align || ''
+      }, [_vm._t("cell-".concat(column.key), function () {
+        return [_vm._v("\n                            " + _vm._s(_vm.getCellValue(row, column.key)) + "\n                        ")];
+      }, {
+        "row": row,
+        "value": _vm.getCellValue(row, column.key),
+        "column": column
+      })], 2);
+    }), _vm._v(" "), _vm.actions && _vm.actions.length > 0 || _vm.showActions ? _c('td', {
+      staticClass: "text-right"
+    }, [_vm._t("actions", function () {
+      return [_c('div', {
+        staticClass: "action-buttons"
+      }, _vm._l(_vm.actions, function (action, actionIndex) {
+        return _c('button', {
+          directives: [{
+            name: "tooltip",
+            rawName: "v-tooltip",
+            value: action.tooltip || action.label,
+            expression: "action.tooltip || action.label"
+          }],
+          key: actionIndex,
+          "class": ['btn', 'btn-sm', action["class"] || 'btn-outline-primary'],
+          on: {
+            "click": function click($event) {
+              return _vm.handleAction(action, row, rowIndex);
+            }
+          }
+        }, [_c('i', {
+          "class": action.icon || ''
+        }), _vm._v(" "), action.showLabel ? _c('span', [_vm._v(_vm._s(action.label))]) : _vm._e()]);
+      }), 0)];
+    }, {
+      "row": row,
+      "index": rowIndex
+    })], 2) : _vm._e()], 2);
+  }) : _vm._e(), _vm._v(" "), !_vm.loading && !_vm.sortedRows.length ? _c('tr', [_c('td', {
+    attrs: {
+      "colspan": _vm.columns.length + (_vm.actions && _vm.actions.length > 0 || _vm.showActions ? 1 : 0)
+    }
+  }, [_c('EmptyTable')], 1)]) : _vm._e()], 2)])]);
+};
+var staticRenderFns = [];
+
+// EXTERNAL MODULE: ./resources/js/components/EmptyTable.vue + 3 modules
+var EmptyTable = __webpack_require__(3612);
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/GeneralTable.vue?vue&type=script&lang=js
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+
+/* harmony default export */ const GeneralTablevue_type_script_lang_js = ({
+  name: "GeneralTable",
+  components: {
+    EmptyTable: EmptyTable["default"]
+  },
+  props: {
+    columns: {
+      type: Array,
+      required: true,
+      validator: function validator(value) {
+        return value.every(function (col) {
+          return col.key && col.label;
+        });
+      }
+    },
+    rows: {
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
+    },
+    actions: {
+      type: Array,
+      "default": null,
+      validator: function validator(value) {
+        if (!value) {
+          return true;
+        }
+        return value.every(function (action) {
+          return action.handler || action.to || action.href;
+        });
+      }
+    },
+    sortable: {
+      type: Boolean,
+      "default": false
+    },
+    loading: {
+      type: Boolean,
+      "default": false
+    },
+    tableId: {
+      type: String,
+      "default": undefined
+    },
+    wrapperClass: {
+      type: String,
+      "default": ""
+    },
+    showActions: {
+      type: Boolean,
+      "default": false
+    },
+    dir: {
+      type: String,
+      "default": undefined
+    }
+  },
+  data: function data() {
+    return {
+      sortColumn: null,
+      sortDirection: "asc"
+    };
+  },
+  computed: {
+    sortedRows: function sortedRows() {
+      var _this = this;
+      if (!this.sortable || !this.sortColumn) {
+        return this.rows;
+      }
+      var sorted = _toConsumableArray(this.rows).sort(function (a, b) {
+        var aValue = _this.getCellValue(a, _this.sortColumn);
+        var bValue = _this.getCellValue(b, _this.sortColumn);
+        if (aValue === null || aValue === undefined) {
+          return 1;
+        }
+        if (bValue === null || bValue === undefined) {
+          return -1;
+        }
+        if (typeof aValue === "number" && typeof bValue === "number") {
+          return _this.sortDirection === "asc" ? aValue - bValue : bValue - aValue;
+        }
+        var aStr = String(aValue).toLowerCase();
+        var bStr = String(bValue).toLowerCase();
+        if (_this.sortDirection === "asc") {
+          return aStr.localeCompare(bStr);
+        } else {
+          return bStr.localeCompare(aStr);
+        }
+      });
+      return sorted;
+    }
+  },
+  methods: {
+    getCellValue: function getCellValue(row, key) {
+      if (key.includes(".")) {
+        var keys = key.split(".");
+        var value = row;
+        var _iterator = _createForOfIteratorHelper(keys),
+          _step;
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var _value;
+            var k = _step.value;
+            value = (_value = value) === null || _value === void 0 ? void 0 : _value[k];
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+        return value;
+      }
+      return row[key];
+    },
+    handleSort: function handleSort(columnKey) {
+      if (this.sortColumn === columnKey) {
+        this.sortDirection = this.sortDirection === "asc" ? "desc" : "asc";
+      } else {
+        this.sortColumn = columnKey;
+        this.sortDirection = "asc";
+      }
+    },
+    handleAction: function handleAction(action, row, index) {
+      if (action.handler) {
+        action.handler(row, index);
+      } else if (action.to) {
+        this.$router.push(typeof action.to === "function" ? action.to(row) : action.to);
+      } else if (action.href) {
+        window.location.href = typeof action.href === "function" ? action.href(row) : action.href;
+      } else if (action.event) {
+        this.$emit(action.event, row, index);
+      }
+    }
+  }
+});
+;// ./resources/js/components/GeneralTable.vue?vue&type=script&lang=js
+ /* harmony default export */ const components_GeneralTablevue_type_script_lang_js = (GeneralTablevue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(85072);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/GeneralTable.vue?vue&type=style&index=0&id=afa9fe72&prod&scoped=true&lang=css
+var GeneralTablevue_type_style_index_0_id_afa9fe72_prod_scoped_true_lang_css = __webpack_require__(86445);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/GeneralTable.vue?vue&type=style&index=0&id=afa9fe72&prod&scoped=true&lang=css
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = injectStylesIntoStyleTag_default()(GeneralTablevue_type_style_index_0_id_afa9fe72_prod_scoped_true_lang_css/* default */.A, options);
+
+
+
+/* harmony default export */ const components_GeneralTablevue_type_style_index_0_id_afa9fe72_prod_scoped_true_lang_css = (GeneralTablevue_type_style_index_0_id_afa9fe72_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/GeneralTable.vue?vue&type=style&index=0&id=afa9fe72&prod&scoped=true&lang=css
+
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(14486);
+;// ./resources/js/components/GeneralTable.vue
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,componentNormalizer/* default */.A)(
+  components_GeneralTablevue_type_script_lang_js,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "afa9fe72",
+  null
+  
+)
+
+/* harmony default export */ const GeneralTable = (component.exports);
 
 /***/ }),
 
@@ -118344,50 +118722,8 @@ var StockAlert_component = (0,componentNormalizer/* default */.A)(
 /* harmony default export */ const StockAlert = (StockAlert_component.exports);
 // EXTERNAL MODULE: ./resources/js/components/Pagination.vue + 5 modules
 var Pagination = __webpack_require__(8153);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EmptyTable.vue?vue&type=template&id=6ebadd0e
-var EmptyTablevue_type_template_id_6ebadd0e_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "text-center py-8"
-  }, [_c('img', {
-    staticClass: "w-64 m-auto",
-    attrs: {
-      "src": "/images/empty.png",
-      "alt": "result-not-found"
-    }
-  }), _vm._v(" "), _c('p', {
-    staticClass: "font-bold text-lg text-gray-600 dark:text-gray-200"
-  }, [_vm._v("\n    " + _vm._s(_vm.$t('sorry')) + " 😔 " + _vm._s(_vm.$t('no_data_found')) + ".\n  ")])]);
-};
-var EmptyTablevue_type_template_id_6ebadd0e_staticRenderFns = [];
-
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EmptyTable.vue?vue&type=script&lang=js
-/* harmony default export */ const EmptyTablevue_type_script_lang_js = ({
-  name: 'EmptyTable'
-});
-;// ./resources/js/components/EmptyTable.vue?vue&type=script&lang=js
- /* harmony default export */ const components_EmptyTablevue_type_script_lang_js = (EmptyTablevue_type_script_lang_js); 
-;// ./resources/js/components/EmptyTable.vue
-
-
-
-
-
-/* normalize component */
-;
-var EmptyTable_component = (0,componentNormalizer/* default */.A)(
-  components_EmptyTablevue_type_script_lang_js,
-  EmptyTablevue_type_template_id_6ebadd0e_render,
-  EmptyTablevue_type_template_id_6ebadd0e_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ const EmptyTable = (EmptyTable_component.exports);
+// EXTERNAL MODULE: ./resources/js/components/EmptyTable.vue + 3 modules
+var EmptyTable = __webpack_require__(3612);
 // EXTERNAL MODULE: ./resources/js/components/Breadcrumbs.vue + 5 modules
 var Breadcrumbs = __webpack_require__(62171);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CompanyInfo.vue?vue&type=template&id=b1f70454
@@ -118627,8 +118963,8 @@ var RecentActivitiesTabs_component = (0,componentNormalizer/* default */.A)(
 )
 
 /* harmony default export */ const RecentActivitiesTabs = (RecentActivitiesTabs_component.exports);
-;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RecentActivitiesTables.vue?vue&type=template&id=753ab60e&scoped=true
-var RecentActivitiesTablesvue_type_template_id_753ab60e_scoped_true_render = function render() {
+;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RecentActivitiesTables.vue?vue&type=template&id=02b216d5&scoped=true
+var RecentActivitiesTablesvue_type_template_id_02b216d5_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -118650,51 +118986,69 @@ var RecentActivitiesTablesvue_type_template_id_753ab60e_scoped_true_render = fun
       value: _vm.loading,
       expression: "loading"
     }]
-  }), _vm._v(" "), _c('div', {
-    staticClass: "table-responsive table-custom"
-  }, [_c('table', {
-    staticClass: "table invoices-table"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Invoice No")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Invoice Date")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Client")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Subtotal")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Net Total")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total Due")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Status")))])])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.invoices, function (data, i) {
-    return _c('tr', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.invoices.length,
-        expression: "invoices.length"
-      }],
-      key: i
-    }, [_c('td', [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', [_c('router-link', {
-      attrs: {
-        "to": {
-          name: 'invoices.show',
-          params: {
-            slug: data.slug
-          }
-        }
-      }
-    }, [_vm._v("\n                " + _vm._s(_vm._f("withPrefix")(data.invoiceNo, _vm.prefix)) + "\n              ")])], 1), _vm._v(" "), _c('td', [data.invoiceDate ? _c('span', [_vm._v(_vm._s(_vm._f("moment")(data.invoiceDate, "Do MMM, YYYY")))]) : _vm._e()]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.client))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.subTotal) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.invoiceTotal) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.due) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [data.status === 1 ? _c('span', {
-      staticClass: "badge bg-success"
-    }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
-      staticClass: "badge bg-danger"
-    }, [_vm._v(_vm._s(_vm.$t("Inactive")))])])]);
-  }), _vm._v(" "), _c('tr', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: !_vm.loading && !_vm.invoices.length,
-      expression: "!loading && !invoices.length"
-    }]
-  }, [_c('td', {
+  }), _vm._v(" "), _c('GeneralTable', {
     attrs: {
-      "colspan": "8"
-    }
-  }, [_c('EmptyTable')], 1)])], 2)])])], 1), _vm._v(" "), _c('div', {
+      "columns": _vm.invoiceColumns,
+      "rows": _vm.invoicesWithIndex,
+      "loading": _vm.loading
+    },
+    scopedSlots: _vm._u([{
+      key: "cell-invoiceNo",
+      fn: function fn(_ref) {
+        var row = _ref.row;
+        return [_c('router-link', {
+          attrs: {
+            "to": {
+              name: 'invoices.show',
+              params: {
+                slug: row.slug
+              }
+            }
+          }
+        }, [_vm._v("\n          " + _vm._s(_vm._f("withPrefix")(row.invoiceNo, _vm.prefix)) + "\n        ")])];
+      }
+    }, {
+      key: "cell-invoiceDate",
+      fn: function fn(_ref2) {
+        var row = _ref2.row;
+        return [row.invoiceDate ? _c('span', [_vm._v(_vm._s(_vm._f("moment")(row.invoiceDate, "Do MMM, YYYY")))]) : _vm._e()];
+      }
+    }, {
+      key: "cell-subTotal",
+      fn: function fn(_ref3) {
+        var row = _ref3.row;
+        return [_vm._v("\n        " + _vm._s(row.subTotal) + " "), _c('span', {
+          staticClass: "saudi-riyal"
+        }, [_vm._v("ê")])];
+      }
+    }, {
+      key: "cell-invoiceTotal",
+      fn: function fn(_ref4) {
+        var row = _ref4.row;
+        return [_vm._v("\n        " + _vm._s(row.invoiceTotal) + " "), _c('span', {
+          staticClass: "saudi-riyal"
+        }, [_vm._v("ê")])];
+      }
+    }, {
+      key: "cell-due",
+      fn: function fn(_ref5) {
+        var row = _ref5.row;
+        return [_vm._v("\n        " + _vm._s(row.due) + " "), _c('span', {
+          staticClass: "saudi-riyal"
+        }, [_vm._v("ê")])];
+      }
+    }, {
+      key: "cell-status",
+      fn: function fn(_ref6) {
+        var row = _ref6.row;
+        return [row.status === 1 ? _c('span', {
+          staticClass: "badge bg-success"
+        }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
+          staticClass: "badge bg-danger"
+        }, [_vm._v(_vm._s(_vm.$t("Inactive")))])];
+      }
+    }])
+  })], 1), _vm._v(" "), _c('div', {
     staticClass: "tab-pane fade",
     attrs: {
       "id": "purchases",
@@ -118708,51 +119062,69 @@ var RecentActivitiesTablesvue_type_template_id_753ab60e_scoped_true_render = fun
       value: _vm.loading,
       expression: "loading"
     }]
-  }), _vm._v(" "), _c('div', {
-    staticClass: "table-responsive table-custom"
-  }, [_c('table', {
-    staticClass: "table invoices-table"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Purchase No")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Date")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Supplier")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Subtotal")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Net Total")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Total Due")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Status")))])])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.purchases, function (data, i) {
-    return _c('tr', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.purchases.length,
-        expression: "purchases.length"
-      }],
-      key: i
-    }, [_c('td', [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', [_c('router-link', {
-      attrs: {
-        "to": {
-          name: 'purchases.show',
-          params: {
-            slug: data.slug
-          }
-        }
-      }
-    }, [_vm._v("\n                " + _vm._s(_vm._f("withPrefix")(data.code, _vm.prefix)) + "\n              ")]), _vm._v(" "), _c('br')], 1), _vm._v(" "), _c('td', [data.purchaseDate ? _c('span', [_vm._v(_vm._s(_vm._f("moment")(data.purchaseDate, "Do MMM, YYYY")))]) : _vm._e()]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.supplierName))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.subTotal) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.purchaseTotal) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.due) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', [data.status === 1 ? _c('span', {
-      staticClass: "badge bg-success"
-    }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
-      staticClass: "badge bg-danger"
-    }, [_vm._v(_vm._s(_vm.$t("Inactive")))])])]);
-  }), _vm._v(" "), _c('tr', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: !_vm.loading && !_vm.purchases.length,
-      expression: "!loading && !purchases.length"
-    }]
-  }, [_c('td', {
+  }), _vm._v(" "), _c('GeneralTable', {
     attrs: {
-      "colspan": "8"
-    }
-  }, [_c('EmptyTable')], 1)])], 2)])])], 1), _vm._v(" "), _c('div', {
+      "columns": _vm.purchaseColumns,
+      "rows": _vm.purchasesWithIndex,
+      "loading": _vm.loading
+    },
+    scopedSlots: _vm._u([{
+      key: "cell-code",
+      fn: function fn(_ref7) {
+        var row = _ref7.row;
+        return [_c('router-link', {
+          attrs: {
+            "to": {
+              name: 'purchases.show',
+              params: {
+                slug: row.slug
+              }
+            }
+          }
+        }, [_vm._v("\n          " + _vm._s(_vm._f("withPrefix")(row.code, _vm.prefix)) + "\n        ")]), _vm._v(" "), _c('br')];
+      }
+    }, {
+      key: "cell-purchaseDate",
+      fn: function fn(_ref8) {
+        var row = _ref8.row;
+        return [row.purchaseDate ? _c('span', [_vm._v(_vm._s(_vm._f("moment")(row.purchaseDate, "Do MMM, YYYY")))]) : _vm._e()];
+      }
+    }, {
+      key: "cell-subTotal",
+      fn: function fn(_ref9) {
+        var row = _ref9.row;
+        return [_vm._v("\n        " + _vm._s(row.subTotal) + " "), _c('span', {
+          staticClass: "saudi-riyal"
+        }, [_vm._v("ê")])];
+      }
+    }, {
+      key: "cell-purchaseTotal",
+      fn: function fn(_ref0) {
+        var row = _ref0.row;
+        return [_vm._v("\n        " + _vm._s(row.purchaseTotal) + " "), _c('span', {
+          staticClass: "saudi-riyal"
+        }, [_vm._v("ê")])];
+      }
+    }, {
+      key: "cell-due",
+      fn: function fn(_ref1) {
+        var row = _ref1.row;
+        return [_vm._v("\n        " + _vm._s(row.due) + " "), _c('span', {
+          staticClass: "saudi-riyal"
+        }, [_vm._v("ê")])];
+      }
+    }, {
+      key: "cell-status",
+      fn: function fn(_ref10) {
+        var row = _ref10.row;
+        return [row.status === 1 ? _c('span', {
+          staticClass: "badge bg-success"
+        }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
+          staticClass: "badge bg-danger"
+        }, [_vm._v(_vm._s(_vm.$t("Inactive")))])];
+      }
+    }])
+  })], 1), _vm._v(" "), _c('div', {
     staticClass: "tab-pane fade",
     attrs: {
       "id": "expenses",
@@ -118766,47 +119138,65 @@ var RecentActivitiesTablesvue_type_template_id_753ab60e_scoped_true_render = fun
       value: _vm.loading,
       expression: "loading"
     }]
-  }), _vm._v(" "), _c('div', {
-    staticClass: "table-responsive table-custom"
-  }, [_c('table', {
-    staticClass: "table invoices-table"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Sub Category")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Expense Reason")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Amount")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Account")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Date")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Status")))])])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.expenses, function (data, i) {
-    return _c('tr', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.expenses.length,
-        expression: "expenses.length"
-      }],
-      key: i
-    }, [_c('td', [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', [data.subCategory ? _c('span', [_vm._v("\n                " + _vm._s(data.subCategory.name) + " [" + _vm._s(_vm._f("withPrefix")(data.subCategory.code, _vm.subCatPrefix)) + "]\n              ")]) : _vm._e()]), _vm._v(" "), _c('td', [_c('router-link', {
-      attrs: {
-        "to": {
-          name: 'expenses.show',
-          params: {
-            slug: data.slug
-          }
-        }
-      }
-    }, [_vm._v("\n                " + _vm._s(data.reason) + "\n              ")])], 1), _vm._v(" "), _c('td', [data.transaction ? _c('span', [_vm._v("\n                " + _vm._s(data.transaction.amount) + "\n                "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]) : _vm._e()]), _vm._v(" "), _c('td', [data.account ? _c('span', [_vm._v(_vm._s(data.account.label) + " ")]) : _vm._e()]), _vm._v(" "), _c('td', [data.date ? _c('span', [_vm._v(_vm._s(_vm._f("moment")(data.date, "Do MMM, YYYY")))]) : _vm._e()]), _vm._v(" "), _c('td', [data.status === 1 ? _c('span', {
-      staticClass: "badge bg-success"
-    }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
-      staticClass: "badge bg-danger"
-    }, [_vm._v(_vm._s(_vm.$t("Inactive")))])])]);
-  }), _vm._v(" "), _c('tr', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: !_vm.loading && !_vm.expenses.length,
-      expression: "!loading && !expenses.length"
-    }]
-  }, [_c('td', {
+  }), _vm._v(" "), _c('GeneralTable', {
     attrs: {
-      "colspan": "7"
-    }
-  }, [_c('EmptyTable')], 1)])], 2)])])], 1), _vm._v(" "), _c('div', {
+      "columns": _vm.expenseColumns,
+      "rows": _vm.expensesWithIndex,
+      "loading": _vm.loading
+    },
+    scopedSlots: _vm._u([{
+      key: "cell-subCategory",
+      fn: function fn(_ref11) {
+        var row = _ref11.row;
+        return [row.subCategory ? _c('span', [_vm._v("\n          " + _vm._s(row.subCategory.name) + " [" + _vm._s(_vm._f("withPrefix")(row.subCategory.code, _vm.subCatPrefix)) + "]\n        ")]) : _vm._e()];
+      }
+    }, {
+      key: "cell-reason",
+      fn: function fn(_ref12) {
+        var row = _ref12.row;
+        return [_c('router-link', {
+          attrs: {
+            "to": {
+              name: 'expenses.show',
+              params: {
+                slug: row.slug
+              }
+            }
+          }
+        }, [_vm._v("\n          " + _vm._s(row.reason) + "\n        ")])];
+      }
+    }, {
+      key: "cell-amount",
+      fn: function fn(_ref13) {
+        var row = _ref13.row;
+        return [row.transaction ? _c('span', [_vm._v("\n          " + _vm._s(row.transaction.amount) + "\n          "), _c('span', {
+          staticClass: "saudi-riyal"
+        }, [_vm._v("ê")])]) : _vm._e()];
+      }
+    }, {
+      key: "cell-account",
+      fn: function fn(_ref14) {
+        var row = _ref14.row;
+        return [row.account ? _c('span', [_vm._v(_vm._s(row.account.label) + " ")]) : _vm._e()];
+      }
+    }, {
+      key: "cell-date",
+      fn: function fn(_ref15) {
+        var row = _ref15.row;
+        return [row.date ? _c('span', [_vm._v(_vm._s(_vm._f("moment")(row.date, "Do MMM, YYYY")))]) : _vm._e()];
+      }
+    }, {
+      key: "cell-status",
+      fn: function fn(_ref16) {
+        var row = _ref16.row;
+        return [row.status === 1 ? _c('span', {
+          staticClass: "badge bg-success"
+        }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
+          staticClass: "badge bg-danger"
+        }, [_vm._v(_vm._s(_vm.$t("Inactive")))])];
+      }
+    }])
+  })], 1), _vm._v(" "), _c('div', {
     staticClass: "tab-pane fade",
     attrs: {
       "id": "transactions",
@@ -118820,52 +119210,72 @@ var RecentActivitiesTablesvue_type_template_id_753ab60e_scoped_true_render = fun
       value: _vm.loading,
       expression: "loading"
     }]
-  }), _vm._v(" "), _c('div', {
-    staticClass: "table-responsive table-custom"
-  }, [_c('table', {
-    staticClass: "table invoices-table"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v(_vm._s(_vm.$t("#")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Reason")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Date")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Type")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Account")))]), _vm._v(" "), _c('th', [_vm._v(_vm._s(_vm.$t("Amount")))]), _vm._v(" "), _c('th', {
-    staticClass: "text-right"
-  }, [_vm._v(_vm._s(_vm.$t("Status")))])])]), _vm._v(" "), _c('tbody', [_vm._l(_vm.transactions, function (data, i) {
-    return _c('tr', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: _vm.transactions.length,
-        expression: "transactions.length"
-      }],
-      key: i
-    }, [_c('td', [_vm._v(_vm._s(++i))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.reason))]), _vm._v(" "), _c('td', [data.transactionDate ? _c('span', [_vm._v(_vm._s(_vm._f("moment")(data.transactionDate, "Do MMM, YYYY")))]) : _vm._e()]), _vm._v(" "), _c('td', [data.type === 1 ? _c('span', {
-      staticClass: "badge bg-success"
-    }, [_vm._v(_vm._s(_vm.$t("Credit")))]) : _c('span', {
-      staticClass: "badge bg-danger"
-    }, [_vm._v(_vm._s(_vm.$t("Debit")))])]), _vm._v(" "), data.account ? _c('td', [_vm._v(_vm._s(data.account.label))]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(data.amount) + " "), _c('span', {
-      staticClass: "saudi-riyal"
-    }, [_vm._v("ê")])]), _vm._v(" "), _c('td', {
-      staticClass: "text-right"
-    }, [data.status === 1 ? _c('span', {
-      staticClass: "badge bg-success"
-    }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
-      staticClass: "badge bg-danger"
-    }, [_vm._v(_vm._s(_vm.$t("Inactive")))])])]);
-  }), _vm._v(" "), _c('tr', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: !_vm.loading && !_vm.transactions.length,
-      expression: "!loading && !transactions.length"
-    }]
-  }, [_c('td', {
+  }), _vm._v(" "), _c('GeneralTable', {
     attrs: {
-      "colspan": "7"
-    }
-  }, [_c('EmptyTable')], 1)])], 2)])])], 1)]);
+      "columns": _vm.transactionColumns,
+      "rows": _vm.transactionsWithIndex,
+      "loading": _vm.loading
+    },
+    scopedSlots: _vm._u([{
+      key: "cell-transactionDate",
+      fn: function fn(_ref17) {
+        var row = _ref17.row;
+        return [row.transactionDate ? _c('span', [_vm._v(_vm._s(_vm._f("moment")(row.transactionDate, "Do MMM, YYYY")))]) : _vm._e()];
+      }
+    }, {
+      key: "cell-type",
+      fn: function fn(_ref18) {
+        var row = _ref18.row;
+        return [row.type === 1 ? _c('span', {
+          staticClass: "badge bg-success"
+        }, [_vm._v(_vm._s(_vm.$t("Credit")))]) : _c('span', {
+          staticClass: "badge bg-danger"
+        }, [_vm._v(_vm._s(_vm.$t("Debit")))])];
+      }
+    }, {
+      key: "cell-account",
+      fn: function fn(_ref19) {
+        var row = _ref19.row;
+        return [row.account ? _c('span', [_vm._v(_vm._s(row.account.label))]) : _vm._e()];
+      }
+    }, {
+      key: "cell-amount",
+      fn: function fn(_ref20) {
+        var row = _ref20.row;
+        return [_vm._v("\n        " + _vm._s(row.amount) + " "), _c('span', {
+          staticClass: "saudi-riyal"
+        }, [_vm._v("ê")])];
+      }
+    }, {
+      key: "cell-status",
+      fn: function fn(_ref21) {
+        var row = _ref21.row;
+        return [row.status === 1 ? _c('span', {
+          staticClass: "badge bg-success"
+        }, [_vm._v(_vm._s(_vm.$t("Active")))]) : _c('span', {
+          staticClass: "badge bg-danger"
+        }, [_vm._v(_vm._s(_vm.$t("Inactive")))])];
+      }
+    }])
+  })], 1)]);
 };
-var RecentActivitiesTablesvue_type_template_id_753ab60e_scoped_true_staticRenderFns = [];
+var RecentActivitiesTablesvue_type_template_id_02b216d5_scoped_true_staticRenderFns = [];
 
+// EXTERNAL MODULE: ./resources/js/components/GeneralTable.vue + 5 modules
+var GeneralTable = __webpack_require__(97432);
 ;// ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RecentActivitiesTables.vue?vue&type=script&lang=js
+function RecentActivitiesTablesvue_type_script_lang_js_typeof(o) { "@babel/helpers - typeof"; return RecentActivitiesTablesvue_type_script_lang_js_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, RecentActivitiesTablesvue_type_script_lang_js_typeof(o); }
+function RecentActivitiesTablesvue_type_script_lang_js_ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function RecentActivitiesTablesvue_type_script_lang_js_objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? RecentActivitiesTablesvue_type_script_lang_js_ownKeys(Object(t), !0).forEach(function (r) { RecentActivitiesTablesvue_type_script_lang_js_defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : RecentActivitiesTablesvue_type_script_lang_js_ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function RecentActivitiesTablesvue_type_script_lang_js_defineProperty(obj, key, value) { key = RecentActivitiesTablesvue_type_script_lang_js_toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function RecentActivitiesTablesvue_type_script_lang_js_toPropertyKey(t) { var i = RecentActivitiesTablesvue_type_script_lang_js_toPrimitive(t, "string"); return "symbol" == RecentActivitiesTablesvue_type_script_lang_js_typeof(i) ? i : i + ""; }
+function RecentActivitiesTablesvue_type_script_lang_js_toPrimitive(t, r) { if ("object" != RecentActivitiesTablesvue_type_script_lang_js_typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != RecentActivitiesTablesvue_type_script_lang_js_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
 /* harmony default export */ const RecentActivitiesTablesvue_type_script_lang_js = ({
   name: "RecentActivitiesTables",
+  components: {
+    GeneralTable: GeneralTable["default"]
+  },
   props: {
     loading: {
       type: Boolean,
@@ -118903,27 +119313,164 @@ var RecentActivitiesTablesvue_type_template_id_753ab60e_scoped_true_staticRender
       type: String,
       "default": ""
     }
+  },
+  computed: {
+    invoiceColumns: function invoiceColumns() {
+      return [{
+        key: "index",
+        label: this.$t("#"),
+        sortable: false
+      }, {
+        key: "invoiceNo",
+        label: this.$t("Invoice No")
+      }, {
+        key: "invoiceDate",
+        label: this.$t("Invoice Date")
+      }, {
+        key: "client",
+        label: this.$t("Client")
+      }, {
+        key: "subTotal",
+        label: this.$t("Subtotal")
+      }, {
+        key: "invoiceTotal",
+        label: this.$t("Net Total")
+      }, {
+        key: "due",
+        label: this.$t("Total Due")
+      }, {
+        key: "status",
+        label: this.$t("Status")
+      }];
+    },
+    purchaseColumns: function purchaseColumns() {
+      return [{
+        key: "index",
+        label: this.$t("#"),
+        sortable: false
+      }, {
+        key: "code",
+        label: this.$t("Purchase No")
+      }, {
+        key: "purchaseDate",
+        label: this.$t("Date")
+      }, {
+        key: "supplierName",
+        label: this.$t("Supplier")
+      }, {
+        key: "subTotal",
+        label: this.$t("Subtotal")
+      }, {
+        key: "purchaseTotal",
+        label: this.$t("Net Total")
+      }, {
+        key: "due",
+        label: this.$t("Total Due")
+      }, {
+        key: "status",
+        label: this.$t("Status")
+      }];
+    },
+    expenseColumns: function expenseColumns() {
+      return [{
+        key: "index",
+        label: this.$t("#"),
+        sortable: false
+      }, {
+        key: "subCategory",
+        label: this.$t("Sub Category")
+      }, {
+        key: "reason",
+        label: this.$t("Expense Reason")
+      }, {
+        key: "amount",
+        label: this.$t("Amount")
+      }, {
+        key: "account",
+        label: this.$t("Account")
+      }, {
+        key: "date",
+        label: this.$t("Date")
+      }, {
+        key: "status",
+        label: this.$t("Status")
+      }];
+    },
+    transactionColumns: function transactionColumns() {
+      return [{
+        key: "index",
+        label: this.$t("#"),
+        sortable: false
+      }, {
+        key: "reason",
+        label: this.$t("Reason")
+      }, {
+        key: "transactionDate",
+        label: this.$t("Date")
+      }, {
+        key: "type",
+        label: this.$t("Type")
+      }, {
+        key: "account",
+        label: this.$t("Account")
+      }, {
+        key: "amount",
+        label: this.$t("Amount")
+      }, {
+        key: "status",
+        label: this.$t("Status"),
+        align: "text-right"
+      }];
+    },
+    invoicesWithIndex: function invoicesWithIndex() {
+      return this.invoices.map(function (item, index) {
+        return RecentActivitiesTablesvue_type_script_lang_js_objectSpread(RecentActivitiesTablesvue_type_script_lang_js_objectSpread({}, item), {}, {
+          index: index + 1
+        });
+      });
+    },
+    purchasesWithIndex: function purchasesWithIndex() {
+      return this.purchases.map(function (item, index) {
+        return RecentActivitiesTablesvue_type_script_lang_js_objectSpread(RecentActivitiesTablesvue_type_script_lang_js_objectSpread({}, item), {}, {
+          index: index + 1
+        });
+      });
+    },
+    expensesWithIndex: function expensesWithIndex() {
+      return this.expenses.map(function (item, index) {
+        return RecentActivitiesTablesvue_type_script_lang_js_objectSpread(RecentActivitiesTablesvue_type_script_lang_js_objectSpread({}, item), {}, {
+          index: index + 1
+        });
+      });
+    },
+    transactionsWithIndex: function transactionsWithIndex() {
+      return this.transactions.map(function (item, index) {
+        return RecentActivitiesTablesvue_type_script_lang_js_objectSpread(RecentActivitiesTablesvue_type_script_lang_js_objectSpread({}, item), {}, {
+          index: index + 1
+        });
+      });
+    }
   }
 });
 ;// ./resources/js/components/RecentActivitiesTables.vue?vue&type=script&lang=js
  /* harmony default export */ const components_RecentActivitiesTablesvue_type_script_lang_js = (RecentActivitiesTablesvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RecentActivitiesTables.vue?vue&type=style&index=0&id=753ab60e&prod&scoped=true&lang=css
-var RecentActivitiesTablesvue_type_style_index_0_id_753ab60e_prod_scoped_true_lang_css = __webpack_require__(71764);
-;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RecentActivitiesTables.vue?vue&type=style&index=0&id=753ab60e&prod&scoped=true&lang=css
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RecentActivitiesTables.vue?vue&type=style&index=0&id=02b216d5&prod&scoped=true&lang=css
+var RecentActivitiesTablesvue_type_style_index_0_id_02b216d5_prod_scoped_true_lang_css = __webpack_require__(93267);
+;// ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-11.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-11.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RecentActivitiesTables.vue?vue&type=style&index=0&id=02b216d5&prod&scoped=true&lang=css
 
             
 
-var RecentActivitiesTablesvue_type_style_index_0_id_753ab60e_prod_scoped_true_lang_css_options = {};
+var RecentActivitiesTablesvue_type_style_index_0_id_02b216d5_prod_scoped_true_lang_css_options = {};
 
-RecentActivitiesTablesvue_type_style_index_0_id_753ab60e_prod_scoped_true_lang_css_options.insert = "head";
-RecentActivitiesTablesvue_type_style_index_0_id_753ab60e_prod_scoped_true_lang_css_options.singleton = false;
+RecentActivitiesTablesvue_type_style_index_0_id_02b216d5_prod_scoped_true_lang_css_options.insert = "head";
+RecentActivitiesTablesvue_type_style_index_0_id_02b216d5_prod_scoped_true_lang_css_options.singleton = false;
 
-var RecentActivitiesTablesvue_type_style_index_0_id_753ab60e_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(RecentActivitiesTablesvue_type_style_index_0_id_753ab60e_prod_scoped_true_lang_css/* default */.A, RecentActivitiesTablesvue_type_style_index_0_id_753ab60e_prod_scoped_true_lang_css_options);
+var RecentActivitiesTablesvue_type_style_index_0_id_02b216d5_prod_scoped_true_lang_css_update = injectStylesIntoStyleTag_default()(RecentActivitiesTablesvue_type_style_index_0_id_02b216d5_prod_scoped_true_lang_css/* default */.A, RecentActivitiesTablesvue_type_style_index_0_id_02b216d5_prod_scoped_true_lang_css_options);
 
 
 
-/* harmony default export */ const components_RecentActivitiesTablesvue_type_style_index_0_id_753ab60e_prod_scoped_true_lang_css = (RecentActivitiesTablesvue_type_style_index_0_id_753ab60e_prod_scoped_true_lang_css/* default */.A.locals || {});
-;// ./resources/js/components/RecentActivitiesTables.vue?vue&type=style&index=0&id=753ab60e&prod&scoped=true&lang=css
+/* harmony default export */ const components_RecentActivitiesTablesvue_type_style_index_0_id_02b216d5_prod_scoped_true_lang_css = (RecentActivitiesTablesvue_type_style_index_0_id_02b216d5_prod_scoped_true_lang_css/* default */.A.locals || {});
+;// ./resources/js/components/RecentActivitiesTables.vue?vue&type=style&index=0&id=02b216d5&prod&scoped=true&lang=css
 
 ;// ./resources/js/components/RecentActivitiesTables.vue
 
@@ -118936,11 +119483,11 @@ var RecentActivitiesTablesvue_type_style_index_0_id_753ab60e_prod_scoped_true_la
 
 var RecentActivitiesTables_component = (0,componentNormalizer/* default */.A)(
   components_RecentActivitiesTablesvue_type_script_lang_js,
-  RecentActivitiesTablesvue_type_template_id_753ab60e_scoped_true_render,
-  RecentActivitiesTablesvue_type_template_id_753ab60e_scoped_true_staticRenderFns,
+  RecentActivitiesTablesvue_type_template_id_02b216d5_scoped_true_render,
+  RecentActivitiesTablesvue_type_template_id_02b216d5_scoped_true_staticRenderFns,
   false,
   null,
-  "753ab60e",
+  "02b216d5",
   null
   
 )
@@ -119283,7 +119830,7 @@ var HasError = __webpack_require__(73883);
 
 
 // Components that are registered globaly.
-[Card, Child, Modal/* default */.A, Button["default"], Search, Checkbox, StockAlert, EmptyTable, TopClients, Pagination["default"], Breadcrumbs["default"], CompanyInfo, TableLoading["default"], RecentActivities, SettingsSidebar["default"], HasError/* default */.A, bootstrap4_AlertError, bootstrap4_AlertErrors, bootstrap4_AlertSuccess, VModal["default"], ClientForm/* default */.A].forEach(function (Component) {
+[Card, Child, Modal/* default */.A, Button["default"], Search, Checkbox, StockAlert, EmptyTable["default"], TopClients, Pagination["default"], Breadcrumbs["default"], CompanyInfo, TableLoading["default"], RecentActivities, SettingsSidebar["default"], HasError/* default */.A, bootstrap4_AlertError, bootstrap4_AlertErrors, bootstrap4_AlertSuccess, VModal["default"], ClientForm/* default */.A].forEach(function (Component) {
   vue_esm["default"].component(Component.name, Component);
 });
 // EXTERNAL MODULE: ./resources/js/helpers/can.js

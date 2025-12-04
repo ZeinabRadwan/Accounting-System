@@ -32,46 +32,28 @@
               </div>
             </div>
             <table-loading v-show="loading" />
-            <div id="printMe" class="table-responsive table-custom mt-3">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>{{ $t('#') }}</th>
-                    <th>{{ $t('Name') }}</th>
-                    <th class="text-right no-print">{{ $t('Action') }}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-show="items.length" v-for="(data, i) in items" :key="i">
-                    <td>
-                      <span v-if="pagination && pagination.current_page > 1">
-                        {{ pagination.per_page * (pagination.current_page - 1) + (i + 1) }}
-                      </span>
-                      <span v-else>{{ i + 1 }}</span>
-                    </td>
-                    <td>{{ data.name }}</td>
-                    <td class="text-right no-print">
-                      <div class="btn-group">
-                        <router-link v-tooltip="$t('Edit')" :to="{
-                          name: 'features.edit',
-                          params: { id: data.id },
-                        }" class="btn btn-info btn-sm">
-                          <i class="fas fa-edit" />
-                        </router-link>
-                        <a v-tooltip="$t('Delete')" href="#" class="btn btn-danger btn-sm" @click="deleteData(data.id)">
-                          <i class="fas fa-trash" />
-                        </a>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr v-show="!loading && !items.length">
-                    <td colspan="6">
-                      <EmptyTable />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <GeneralTable
+              :columns="featureColumns"
+              :rows="featuresWithIndex"
+              :loading="loading"
+              table-id="printMe"
+              wrapper-class="mt-3"
+              :show-actions="true"
+            >
+              <template #actions="{ row }">
+                <div class="btn-group">
+                  <router-link v-tooltip="$t('Edit')" :to="{
+                    name: 'features.edit',
+                    params: { id: row.id },
+                  }" class="btn btn-info btn-sm">
+                    <i class="fas fa-edit" />
+                  </router-link>
+                  <a v-tooltip="$t('Delete')" href="#" class="btn btn-danger btn-sm" @click="deleteData(row.id)">
+                    <i class="fas fa-trash" />
+                  </a>
+                </div>
+              </template>
+            </GeneralTable>
           </div>
           <div class="card-footer">
             <div class="dtable-footer">
@@ -100,10 +82,14 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import GeneralTable from '../../../components/GeneralTable.vue'
 
 export default {
   layout: 'central',
   middleware: ['auth', 'check-permissions'],
+  components: {
+    GeneralTable,
+  },
   metaInfo() {
     return { title: this.$t('Features') }
   },
@@ -126,6 +112,20 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters('operations', ['items', 'loading', 'pagination']),
+    featureColumns() {
+      return [
+        { key: "index", label: this.$t("#"), sortable: false },
+        { key: "name", label: this.$t("Name") },
+      ];
+    },
+    featuresWithIndex() {
+      return this.items.map((item, index) => ({
+        ...item,
+        index: this.pagination && this.pagination.current_page > 1
+          ? this.pagination.per_page * (this.pagination.current_page - 1) + (index + 1)
+          : index + 1,
+      }));
+    },
   },
   watch: {
     // watch search data

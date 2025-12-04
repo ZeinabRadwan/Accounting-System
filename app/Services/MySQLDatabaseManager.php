@@ -514,6 +514,59 @@ class MySQLDatabaseManager implements TenantDatabaseManager
     }
 
     /**
+     * Generate and store database credentials for an existing tenant
+     * This is useful when credentials are missing and need to be auto-generated
+     *
+     * @throws Exception if credential generation fails
+     */
+    public function generateCredentialsForTenant(TenantWithDatabase $tenant): void
+    {
+        $database = $tenant->database()->getName();
+        $tenantId = $tenant->getTenantKey();
+
+        Log::info("Generating credentials for existing tenant: {$tenantId}, database: {$database}");
+
+        // Generate unique MySQL user credentials
+        $dbUsername = $this->generateTenantUsername($tenant);
+        $dbPassword = Str::random(32);
+
+        // Create MySQL user and grant privileges
+        $mysqlHost = $this->getMySQLHost();
+
+        try {
+            // Create user for localhost
+            $this->database()->statement("CREATE USER IF NOT EXISTS '{$dbUsername}'@'{$mysqlHost}' IDENTIFIED BY '{$dbPassword}'");
+            Log::info("Created MySQL user '{$dbUsername}'@'{$mysqlHost}'");
+
+            // Grant privileges on the tenant database
+            $this->database()->statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$dbUsername}'@'{$mysqlHost}'");
+            Log::info("Granted privileges to '{$dbUsername}'@'{$mysqlHost}' on database {$database}");
+
+            // Also create user for % (any host) if needed
+            if ($mysqlHost !== '%') {
+                try {
+                    $this->database()->statement("CREATE USER IF NOT EXISTS '{$dbUsername}'@'%' IDENTIFIED BY '{$dbPassword}'");
+                    $this->database()->statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$dbUsername}'@'%'");
+                    Log::info("Created MySQL user '{$dbUsername}'@'%' and granted privileges");
+                } catch (\Exception $e) {
+                    Log::warning('Failed to create user for % host: '.$e->getMessage());
+                }
+            }
+
+            $this->database()->statement('FLUSH PRIVILEGES');
+
+            // Store credentials
+            $this->storeTenantCredentials($tenant, $database, $dbUsername, $dbPassword);
+
+            Log::info("Successfully generated and stored credentials for tenant {$tenantId}");
+
+        } catch (\Exception $e) {
+            Log::error("Failed to generate credentials for tenant {$tenantId}: ".$e->getMessage());
+            throw new Exception('Failed to generate database credentials for tenant: '.$e->getMessage(), 0, $e);
+        }
+    }
+
+    /**
      * Store tenant database credentials in the tenant model
      */
     protected function storeTenantCredentials(TenantWithDatabase $tenant, string $database, string $username, string $password): void

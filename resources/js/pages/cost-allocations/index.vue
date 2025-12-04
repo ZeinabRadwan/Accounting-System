@@ -23,54 +23,44 @@
               </div>
             </div>
             <table-loading v-show="loading" />
-            <div class="table-responsive table-custom mt-3">
-              <table class="table">
-                <thead>
-                  <th>{{ $t("#") }}</th>
-                  <th>{{ $t("Name") }}</th>
-                  <th>{{ $t("Source Cost Center") }}</th>
-                  <th>{{ $t("Basis Type") }}</th>
-                  <th>{{ $t("Target Centers") }}</th>
-                  <th>{{ $t("Status") }}</th>
-                  <th class="text-right">{{ $t("Action") }}</th>
-                </thead>
-                <tbody>
-                  <tr v-show="!loading && items.length <= 0">
-                    <td colspan="7">
-                      <EmptyTable />
-                    </td>
-                  </tr>
-                  <tr v-for="(item, index) in items" :key="item.id">
-                    <td>{{ index + pagination.slOffset }}</td>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.source_cost_center ? item.source_cost_center.name : '-' }}</td>
-                    <td>
-                      <span class="badge badge-info">{{ getBasisTypeLabel(item.basis_type) }}</span>
-                    </td>
-                    <td>{{ item.details ? item.details.length : 0 }}</td>
-                    <td>
-                      <span :class="['badge', item.is_active ? 'badge-success' : 'badge-danger']">
-                        {{ item.is_active ? $t('Active') : $t('Inactive') }}
-                      </span>
-                    </td>
-                    <td class="text-right">
-                      <router-link :to="{ name: 'cost-allocations.show', params: { id: item.id } }" class="btn btn-info btn-sm">
-                        <i class="fas fa-eye" />
-                      </router-link>
-                      <router-link :to="{ name: 'cost-allocations.edit', params: { id: item.id } }" class="btn btn-primary btn-sm">
-                        <i class="fas fa-edit" />
-                      </router-link>
-                      <button @click="deleteItem(item.id)" class="btn btn-danger btn-sm">
-                        <i class="fas fa-trash" />
-                      </button>
-                      <router-link :to="{ name: 'cost-allocations.execute', params: { id: item.id } }" class="btn btn-success btn-sm">
-                        <i class="fas fa-play" />
-                      </router-link>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <GeneralTable
+              :columns="costAllocationColumns"
+              :rows="costAllocationsWithIndex"
+              :loading="loading"
+              wrapper-class="mt-3"
+              :show-actions="true"
+            >
+              <template #cell-sourceCostCenter="{ row }">
+                {{ row.source_cost_center ? row.source_cost_center.name : '-' }}
+              </template>
+              <template #cell-basisType="{ row }">
+                <span class="badge badge-info">{{ getBasisTypeLabel(row.basis_type) }}</span>
+              </template>
+              <template #cell-targetCenters="{ row }">
+                {{ row.details ? row.details.length : 0 }}
+              </template>
+              <template #cell-status="{ row }">
+                <span :class="['badge', row.is_active ? 'badge-success' : 'badge-danger']">
+                  {{ row.is_active ? $t('Active') : $t('Inactive') }}
+                </span>
+              </template>
+              <template #actions="{ row }">
+                <div class="action-buttons">
+                  <router-link :to="{ name: 'cost-allocations.show', params: { id: row.id } }" class="btn btn-info btn-sm">
+                    <i class="fas fa-eye" />
+                  </router-link>
+                  <router-link :to="{ name: 'cost-allocations.edit', params: { id: row.id } }" class="btn btn-primary btn-sm">
+                    <i class="fas fa-edit" />
+                  </router-link>
+                  <button @click="deleteItem(row.id)" class="btn btn-danger btn-sm">
+                    <i class="fas fa-trash" />
+                  </button>
+                  <router-link :to="{ name: 'cost-allocations.execute', params: { id: row.id } }" class="btn btn-success btn-sm">
+                    <i class="fas fa-play" />
+                  </router-link>
+                </div>
+              </template>
+            </GeneralTable>
             <div class="dtable-footer">
               <div class="form-group row display-per-page">
                 <label>{{ $t("Per Page") }}</label>
@@ -94,10 +84,14 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import GeneralTable from '../../components/GeneralTable.vue'
 
 export default {
   name: 'CostAllocations',
   middleware: ['auth', 'check-permissions'],
+  components: {
+    GeneralTable,
+  },
   metaInfo() {
     return { title: this.$t('Cost Allocation Rules') }
   },
@@ -125,7 +119,23 @@ export default {
   computed: {
     ...mapGetters({
       currencySymbol: 'operations/currencySymbol'
-    })
+    }),
+    costAllocationColumns() {
+      return [
+        { key: "index", label: this.$t("#"), sortable: false },
+        { key: "name", label: this.$t("Name") },
+        { key: "sourceCostCenter", label: this.$t("Source Cost Center") },
+        { key: "basisType", label: this.$t("Basis Type") },
+        { key: "targetCenters", label: this.$t("Target Centers") },
+        { key: "status", label: this.$t("Status") },
+      ];
+    },
+    costAllocationsWithIndex() {
+      return this.items.map((item, index) => ({
+        ...item,
+        index: index + (this.pagination.slOffset || 0),
+      }));
+    },
   },
   watch: {
     query: {

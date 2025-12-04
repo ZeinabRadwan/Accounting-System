@@ -2,239 +2,163 @@
   <div class="tab-content" id="custom-content-below-tabContent">
     <div class="tab-pane fade active show" id="invoices" role="tabpanel" aria-labelledby="invoices-tab">
       <table-loading v-show="loading" />
-      <div class="table-responsive table-custom">
-        <table class="table invoices-table">
-          <thead>
-            <tr>
-              <th>{{ $t("#") }}</th>
-              <th>{{ $t("Invoice No") }}</th>
-              <th>{{ $t("Invoice Date") }}</th>
-              <th>{{ $t("Client") }}</th>
-              <th>{{ $t("Subtotal") }}</th>
-              <th>{{ $t("Net Total") }}</th>
-              <th>{{ $t("Total Due") }}</th>
-              <th>{{ $t("Status") }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-show="invoices.length" v-for="(data, i) in invoices" :key="i">
-              <td>{{ ++i }}</td>
-              <td>
-                <router-link :to="{
-                  name: 'invoices.show',
-                  params: { slug: data.slug },
-                }">
-                  {{ data.invoiceNo | withPrefix(prefix) }}
-                </router-link>
-              </td>
-              <td>
-                <span v-if="data.invoiceDate">{{
-                  data.invoiceDate | moment("Do MMM, YYYY")
-                  }}</span>
-              </td>
-              <td>{{ data.client }}</td>
-              <td>{{ data.subTotal }} <span class="saudi-riyal">ê</span></td>
-              <td>{{ data.invoiceTotal }} <span class="saudi-riyal">ê</span></td>
-              <td>{{ data.due }} <span class="saudi-riyal">ê</span></td>
-              <td>
-                <span v-if="data.status === 1" class="badge bg-success">{{
-                  $t("Active")
-                  }}</span>
-                <span v-else class="badge bg-danger">{{
-                  $t("Inactive")
-                  }}</span>
-              </td>
-            </tr>
-            <tr v-show="!loading && !invoices.length">
-              <td colspan="8">
-                <EmptyTable />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <GeneralTable :columns="invoiceColumns" :rows="invoicesWithIndex" :loading="loading">
+        <template #cell-invoiceNo="{ row }">
+          <router-link :to="{
+            name: 'invoices.show',
+            params: { slug: row.slug },
+          }">
+            {{ row.invoiceNo | withPrefix(prefix) }}
+          </router-link>
+        </template>
+        <template #cell-invoiceDate="{ row }">
+          <span v-if="row.invoiceDate">{{
+            row.invoiceDate | moment("Do MMM, YYYY")
+            }}</span>
+        </template>
+        <template #cell-subTotal="{ row }">
+          {{ row.subTotal }} <span class="saudi-riyal">ê</span>
+        </template>
+        <template #cell-invoiceTotal="{ row }">
+          {{ row.invoiceTotal }} <span class="saudi-riyal">ê</span>
+        </template>
+        <template #cell-due="{ row }">
+          {{ row.due }} <span class="saudi-riyal">ê</span>
+        </template>
+        <template #cell-status="{ row }">
+          <span v-if="row.status === 1" class="badge bg-success">{{
+            $t("Active")
+            }}</span>
+          <span v-else class="badge bg-danger">{{
+            $t("Inactive")
+            }}</span>
+        </template>
+      </GeneralTable>
     </div>
 
     <div class="tab-pane fade" id="purchases" role="tabpanel" aria-labelledby="purchases-tab">
       <table-loading v-show="loading" />
-      <div class="table-responsive table-custom">
-        <table class="table invoices-table">
-          <thead>
-            <tr>
-              <th>{{ $t("#") }}</th>
-              <th>{{ $t("Purchase No") }}</th>
-              <th>{{ $t("Date") }}</th>
-              <th>{{ $t("Supplier") }}</th>
-              <th>{{ $t("Subtotal") }}</th>
-              <th>{{ $t("Net Total") }}</th>
-              <th>{{ $t("Total Due") }}</th>
-              <th>{{ $t("Status") }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-show="purchases.length" v-for="(data, i) in purchases" :key="i">
-              <td>{{ ++i }}</td>
-              <td>
-                <router-link :to="{
-                  name: 'purchases.show',
-                  params: { slug: data.slug },
-                }">
-                  {{ data.code | withPrefix(prefix) }}
-                </router-link>
-                <br />
-              </td>
-              <td>
-                <span v-if="data.purchaseDate">{{
-                  data.purchaseDate | moment("Do MMM, YYYY")
-                  }}</span>
-              </td>
-              <td>{{ data.supplierName }}</td>
-              <td>{{ data.subTotal }} <span class="saudi-riyal">ê</span></td>
-              <td>{{ data.purchaseTotal }} <span class="saudi-riyal">ê</span></td>
-              <td>{{ data.due }} <span class="saudi-riyal">ê</span></td>
-              <td>
-                <span v-if="data.status === 1" class="badge bg-success">{{
-                  $t("Active")
-                  }}</span>
-                <span v-else class="badge bg-danger">{{
-                  $t("Inactive")
-                  }}</span>
-              </td>
-            </tr>
-            <tr v-show="!loading && !purchases.length">
-              <td colspan="8">
-                <EmptyTable />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <GeneralTable :columns="purchaseColumns" :rows="purchasesWithIndex" :loading="loading">
+        <template #cell-code="{ row }">
+          <router-link :to="{
+            name: 'purchases.show',
+            params: { slug: row.slug },
+          }">
+            {{ row.code | withPrefix(prefix) }}
+          </router-link>
+          <br />
+        </template>
+        <template #cell-purchaseDate="{ row }">
+          <span v-if="row.purchaseDate">{{
+            row.purchaseDate | moment("Do MMM, YYYY")
+            }}</span>
+        </template>
+        <template #cell-subTotal="{ row }">
+          {{ row.subTotal }} <span class="saudi-riyal">ê</span>
+        </template>
+        <template #cell-purchaseTotal="{ row }">
+          {{ row.purchaseTotal }} <span class="saudi-riyal">ê</span>
+        </template>
+        <template #cell-due="{ row }">
+          {{ row.due }} <span class="saudi-riyal">ê</span>
+        </template>
+        <template #cell-status="{ row }">
+          <span v-if="row.status === 1" class="badge bg-success">{{
+            $t("Active")
+            }}</span>
+          <span v-else class="badge bg-danger">{{
+            $t("Inactive")
+            }}</span>
+        </template>
+      </GeneralTable>
     </div>
 
     <div class="tab-pane fade" id="expenses" role="tabpanel" aria-labelledby="expenses-tab">
       <table-loading v-show="loading" />
-      <div class="table-responsive table-custom">
-        <table class="table invoices-table">
-          <thead>
-            <tr>
-              <th>{{ $t("#") }}</th>
-              <th>{{ $t("Sub Category") }}</th>
-              <th>{{ $t("Expense Reason") }}</th>
-              <th>{{ $t("Amount") }}</th>
-              <th>{{ $t("Account") }}</th>
-              <th>{{ $t("Date") }}</th>
-              <th>{{ $t("Status") }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-show="expenses.length" v-for="(data, i) in expenses" :key="i">
-              <td>{{ ++i }}</td>
-              <td>
-                <span v-if="data.subCategory">
-                  {{ data.subCategory.name }} [{{
-                    data.subCategory.code | withPrefix(subCatPrefix)
-                  }}]
-                </span>
-              </td>
-              <td>
-                <router-link :to="{
-                  name: 'expenses.show',
-                  params: { slug: data.slug },
-                }">
-                  {{ data.reason }}
-                </router-link>
-              </td>
-              <td>
-                <span v-if="data.transaction">
-                  {{ data.transaction.amount }}
-                  <span class="saudi-riyal">ê</span>
-                </span>
-              </td>
-              <td>
-                <span v-if="data.account">{{ data.account.label }} </span>
-              </td>
-              <td>
-                <span v-if="data.date">{{
-                  data.date | moment("Do MMM, YYYY")
-                  }}</span>
-              </td>
-              <td>
-                <span v-if="data.status === 1" class="badge bg-success">{{
-                  $t("Active")
-                  }}</span>
-                <span v-else class="badge bg-danger">{{
-                  $t("Inactive")
-                  }}</span>
-              </td>
-            </tr>
-            <tr v-show="!loading && !expenses.length">
-              <td colspan="7">
-                <EmptyTable />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <GeneralTable :columns="expenseColumns" :rows="expensesWithIndex" :loading="loading">
+        <template #cell-subCategory="{ row }">
+          <span v-if="row.subCategory">
+            {{ row.subCategory.name }} [{{
+              row.subCategory.code | withPrefix(subCatPrefix)
+            }}]
+          </span>
+        </template>
+        <template #cell-reason="{ row }">
+          <router-link :to="{
+            name: 'expenses.show',
+            params: { slug: row.slug },
+          }">
+            {{ row.reason }}
+          </router-link>
+        </template>
+        <template #cell-amount="{ row }">
+          <span v-if="row.transaction">
+            {{ row.transaction.amount }}
+            <span class="saudi-riyal">ê</span>
+          </span>
+        </template>
+        <template #cell-account="{ row }">
+          <span v-if="row.account">{{ row.account.label }} </span>
+        </template>
+        <template #cell-date="{ row }">
+          <span v-if="row.date">{{
+            row.date | moment("Do MMM, YYYY")
+            }}</span>
+        </template>
+        <template #cell-status="{ row }">
+          <span v-if="row.status === 1" class="badge bg-success">{{
+            $t("Active")
+            }}</span>
+          <span v-else class="badge bg-danger">{{
+            $t("Inactive")
+            }}</span>
+        </template>
+      </GeneralTable>
     </div>
 
     <div class="tab-pane fade" id="transactions" role="tabpanel" aria-labelledby="transactions-tab">
       <table-loading v-show="loading" />
-      <div class="table-responsive table-custom">
-        <table class="table invoices-table">
-          <thead>
-            <tr>
-              <th>{{ $t("#") }}</th>
-              <th>{{ $t("Reason") }}</th>
-              <th>{{ $t("Date") }}</th>
-              <th>{{ $t("Type") }}</th>
-              <th>{{ $t("Account") }}</th>
-              <th>{{ $t("Amount") }}</th>
-              <th class="text-right">{{ $t("Status") }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-show="transactions.length" v-for="(data, i) in transactions" :key="i">
-              <td>{{ ++i }}</td>
-              <td>{{ data.reason }}</td>
-              <td>
-                <span v-if="data.transactionDate">{{
-                  data.transactionDate | moment("Do MMM, YYYY")
-                  }}</span>
-              </td>
-              <td>
-                <span v-if="data.type === 1" class="badge bg-success">{{
-                  $t("Credit")
-                  }}</span>
-                <span v-else class="badge bg-danger">{{
-                  $t("Debit")
-                  }}</span>
-              </td>
-              <td v-if="data.account">{{ data.account.label }}</td>
-              <td>{{ data.amount }} <span class="saudi-riyal">ê</span></td>
-              <td class="text-right">
-                <span v-if="data.status === 1" class="badge bg-success">{{
-                  $t("Active")
-                  }}</span>
-                <span v-else class="badge bg-danger">{{
-                  $t("Inactive")
-                  }}</span>
-              </td>
-            </tr>
-            <tr v-show="!loading && !transactions.length">
-              <td colspan="7">
-                <EmptyTable />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <GeneralTable :columns="transactionColumns" :rows="transactionsWithIndex" :loading="loading">
+        <template #cell-transactionDate="{ row }">
+          <span v-if="row.transactionDate">{{
+            row.transactionDate | moment("Do MMM, YYYY")
+            }}</span>
+        </template>
+        <template #cell-type="{ row }">
+          <span v-if="row.type === 1" class="badge bg-success">{{
+            $t("Credit")
+            }}</span>
+          <span v-else class="badge bg-danger">{{
+            $t("Debit")
+            }}</span>
+        </template>
+        <template #cell-account="{ row }">
+          <span v-if="row.account">{{ row.account.label }}</span>
+        </template>
+        <template #cell-amount="{ row }">
+          {{ row.amount }} <span class="saudi-riyal">ê</span>
+        </template>
+        <template #cell-status="{ row }">
+          <span v-if="row.status === 1" class="badge bg-success">{{
+            $t("Active")
+            }}</span>
+          <span v-else class="badge bg-danger">{{
+            $t("Inactive")
+            }}</span>
+        </template>
+      </GeneralTable>
     </div>
   </div>
 </template>
 
 <script>
+import GeneralTable from "./GeneralTable.vue";
+
 export default {
   name: "RecentActivitiesTables",
+  components: {
+    GeneralTable,
+  },
   props: {
     loading: {
       type: Boolean,
@@ -265,6 +189,78 @@ export default {
       default: "",
     },
   },
+  computed: {
+    invoiceColumns() {
+      return [
+        { key: "index", label: this.$t("#"), sortable: false },
+        { key: "invoiceNo", label: this.$t("Invoice No") },
+        { key: "invoiceDate", label: this.$t("Invoice Date") },
+        { key: "client", label: this.$t("Client") },
+        { key: "subTotal", label: this.$t("Subtotal") },
+        { key: "invoiceTotal", label: this.$t("Net Total") },
+        { key: "due", label: this.$t("Total Due") },
+        { key: "status", label: this.$t("Status") },
+      ];
+    },
+    purchaseColumns() {
+      return [
+        { key: "index", label: this.$t("#"), sortable: false },
+        { key: "code", label: this.$t("Purchase No") },
+        { key: "purchaseDate", label: this.$t("Date") },
+        { key: "supplierName", label: this.$t("Supplier") },
+        { key: "subTotal", label: this.$t("Subtotal") },
+        { key: "purchaseTotal", label: this.$t("Net Total") },
+        { key: "due", label: this.$t("Total Due") },
+        { key: "status", label: this.$t("Status") },
+      ];
+    },
+    expenseColumns() {
+      return [
+        { key: "index", label: this.$t("#"), sortable: false },
+        { key: "subCategory", label: this.$t("Sub Category") },
+        { key: "reason", label: this.$t("Expense Reason") },
+        { key: "amount", label: this.$t("Amount") },
+        { key: "account", label: this.$t("Account") },
+        { key: "date", label: this.$t("Date") },
+        { key: "status", label: this.$t("Status") },
+      ];
+    },
+    transactionColumns() {
+      return [
+        { key: "index", label: this.$t("#"), sortable: false },
+        { key: "reason", label: this.$t("Reason") },
+        { key: "transactionDate", label: this.$t("Date") },
+        { key: "type", label: this.$t("Type") },
+        { key: "account", label: this.$t("Account") },
+        { key: "amount", label: this.$t("Amount") },
+        { key: "status", label: this.$t("Status"), align: "text-right" },
+      ];
+    },
+    invoicesWithIndex() {
+      return this.invoices.map((item, index) => ({
+        ...item,
+        index: index + 1,
+      }));
+    },
+    purchasesWithIndex() {
+      return this.purchases.map((item, index) => ({
+        ...item,
+        index: index + 1,
+      }));
+    },
+    expensesWithIndex() {
+      return this.expenses.map((item, index) => ({
+        ...item,
+        index: index + 1,
+      }));
+    },
+    transactionsWithIndex() {
+      return this.transactions.map((item, index) => ({
+        ...item,
+        index: index + 1,
+      }));
+    },
+  },
 };
 </script>
 
@@ -277,99 +273,5 @@ export default {
 
 .tab-pane {
   padding: 0;
-}
-
-.table-custom {
-  border: none;
-  background: #ffffff;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.table-responsive {
-  width: 100%;
-  overflow-x: auto;
-}
-
-.invoices-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: DINNextLTArabic;
-  font-weight: 400;
-  color: #000000;
-  direction: ltr;
-}
-
-[dir="rtl"] .invoices-table {
-  direction: rtl;
-}
-
-.invoices-table thead th {
-  background: #ECEFF3;
-  color: #2F3541;
-  padding: 10px 12px;
-  border: none;
-}
-
-.invoices-table thead th:first-child {
-  border-top-left-radius: 12px;
-}
-
-.invoices-table thead th:last-child {
-  border-top-right-radius: 12px;
-}
-
-[dir="rtl"] .invoices-table thead th:first-child {
-  border-top-left-radius: 0;
-  border-top-right-radius: 12px;
-}
-
-[dir="rtl"] .invoices-table thead th:last-child {
-  border-top-right-radius: 0;
-  border-top-left-radius: 12px;
-}
-
-.invoices-table tbody td {
-  padding: 10px 12px;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: 1px solid #E3E7EA;
-  color: #000000;
-}
-
-.table-custom .table td,
-.table-custom .table thead>tr>th {
-  border-left: none !important;
-  border-right: none !important;
-}
-
-.invoices-table tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.invoices-table tbody tr:hover {
-  background: #F7F9FB;
-}
-
-.invoices-table .badge.bg-success {
-  background: #DAF5CA !important;
-  color: #005523 !important;
-  border-radius: 8px;
-}
-
-.invoices-table .badge.bg-danger {
-  background: #ECEFF3 !important;
-  color: #545D71 !important;
-  border-radius: 8px;
-}
-
-.invoices-table a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.invoices-table a:hover {
-  text-decoration: underline;
 }
 </style>

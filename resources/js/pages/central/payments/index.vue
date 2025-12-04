@@ -23,58 +23,36 @@
           <!-- /.card-header -->
           <div class="card-body position-relative">
             <table-loading v-show="loading" />
-            <div id="printMe" class="table-responsive table-custom mt-3">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>{{ $t('ID') }}</th>
-                    <th>{{ $t('Plan') }}</th>
-                    <th>{{ $t('Month') }}</th>
-                    <th>{{ $t('Transaction Type') }}</th>
-                    <th>{{ $t('Trx ID') }}</th>
-                    <th>{{ $t('Amount') }}
-                      <span class="badge badge-info" v-tooltip="'Base Currency  <br/><small>(Converted USD)</small>'">
-                        <i class="fas fa-info"></i>
-                      </span>
-                    </th>
-                    <th>{{ $t('Payment Status') }}</th>
-                    <th>{{ $t('Created At') }}</th>
-                    <th class="text-right">{{ $t('Action') }}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-show="items.length" v-for="(payment, i) in items" :key="i">
-                    <td>{{ payment.id }}</td>
-                    <td>{{ payment.plan.name }}</td>
-                    <td>{{ payment.quantity }}</td>
-                    <td>{{ payment.method }}</td>
-                    <td>{{ payment.system_trx_id }}</td>
-                    <td>
-                      {{ payment.default_amount_rate * payment.quantity }} <span class="saudi-riyal">ê</span><br>
-                      (${{ payment.amount * payment.quantity }})
-                    </td>
-                    <td>{{ payment.status }}</td>
-                    <td>{{ payment.created_at | moment("Do MMM, YYYY HH:mm:A") }}</td>
-                    <td class="text-center no-print">
-                      <div v-if="payment.status == 'success'" class="btn-group">
-                        <button type="button" v-tooltip="$t('Download')" class="btn btn-info btn-sm"
-                          @click="download(payment.id)">
-                          <i class="fas fa-file-download" />
-                        </button>
-                      </div>
-                      <div v-else class="text-center">
-                        <p>N/A</p>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr v-show="!loading && !items.length">
-                    <td colspan="12">
-                      <EmptyTable />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <GeneralTable
+              :columns="paymentColumns"
+              :rows="paymentsWithIndex"
+              :loading="loading"
+              table-id="printMe"
+              wrapper-class="mt-3"
+              :show-actions="true"
+            >
+              <template #cell-plan="{ row }">
+                {{ row.plan.name }}
+              </template>
+              <template #cell-amount="{ row }">
+                {{ row.default_amount_rate * row.quantity }} <span class="saudi-riyal">ê</span><br>
+                (${{ row.amount * row.quantity }})
+              </template>
+              <template #cell-createdAt="{ row }">
+                {{ row.created_at | moment("Do MMM, YYYY HH:mm:A") }}
+              </template>
+              <template #actions="{ row }">
+                <div v-if="row.status == 'success'" class="btn-group">
+                  <button type="button" v-tooltip="$t('Download')" class="btn btn-info btn-sm"
+                    @click="download(row.id)">
+                    <i class="fas fa-file-download" />
+                  </button>
+                </div>
+                <div v-else class="text-center">
+                  <p>N/A</p>
+                </div>
+              </template>
+            </GeneralTable>
           </div>
           <div class="card-footer">
             <div class="dtable-footer">
@@ -103,10 +81,14 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import GeneralTable from '../../../components/GeneralTable.vue';
 
 export default {
   layout: 'central',
   middleware: ['auth', 'check-permissions'],
+  components: {
+    GeneralTable,
+  },
   metaInfo() {
     return { title: this.$t('Payments') }
   },
@@ -129,6 +111,23 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters('operations', ['items', 'loading', 'pagination', 'appInfo', 'tenant']),
+    paymentColumns() {
+      return [
+        { key: "id", label: this.$t("ID"), sortable: false },
+        { key: "plan", label: this.$t("Plan") },
+        { key: "quantity", label: this.$t("Month") },
+        { key: "method", label: this.$t("Transaction Type") },
+        { key: "system_trx_id", label: this.$t("Trx ID") },
+        { key: "amount", label: this.$t("Amount") },
+        { key: "status", label: this.$t("Payment Status") },
+        { key: "createdAt", label: this.$t("Created At") },
+      ];
+    },
+    paymentsWithIndex() {
+      return this.items.map((item) => ({
+        ...item,
+      }));
+    },
   },
   created() {
     this.getData()

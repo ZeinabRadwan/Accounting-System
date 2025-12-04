@@ -19,72 +19,42 @@
           </div>
           <div class="card-body position-relative">
             <table-loading v-show="loading" />
-            <div class="table-responsive table-custom mt-3" id="printMe">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>{{ $t('#') }}</th>
-                    <th>{{ $t('Domain') }}</th>
-                    <th>{{ $t('Type') }}</th>
-                    <th>{{ $t('Fallback') }}</th>
-                    <th>{{ $t('Primary') }}</th>
-                    <th class="text-right no-print">
-                      {{ $t('Action') }}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-show="items.length" v-for="(data, i) in items" :key="i">
-                    <td>
-                      <span v-if="pagination && pagination.current_page > 1">
-                        {{
-                          pagination.per_page * (pagination.current_page - 1) +
-                          (i + 1)
-                        }}
-                      </span>
-                      <span v-else>{{ i + 1 }}</span>
-                    </td>
-                    <td>{{ data.domain }}</td>
-                    <td>
-                      <span v-if="data.is_domain"> Domain </span>
-                      <span v-else> Sub Domain </span>
-                    </td>
-                    <td>
-                      <span class="badge badge-success" v-if="data.is_fallback">
-                        True
-                      </span>
-                      <span class="badge badge-danger" v-else> False </span>
-                    </td>
-                    <td>
-                      <span class="badge badge-success" v-if="data.is_primary">
-                        True
-                      </span>
-                      <span class="badge badge-danger" v-else> False </span>
-                    </td>
-                    <td class="text-right no-print">
-                      <div v-if="data.id" class="btn-group">
-                        <span v-if="data.is_fallback && data.is_primary">
-                          {{ $t('No action available') }}
-                        </span>
-                        <a v-if="!data.is_primary" v-tooltip="$t('Make Primary')" href="#"
-                          class="btn btn-success btn-sm" @click="makePrimary(data.id)">
-                          <i class="fas fa-check-circle"></i>
-                        </a>
-                        <a v-if="!data.is_fallback && !data.is_primary" v-tooltip="$t('Delete')" href="#"
-                          class="btn btn-danger btn-sm" @click="deleteData(data.id)">
-                          <i class="fas fa-trash" />
-                        </a>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr v-show="!loading && !items.length">
-                    <td colspan="12">
-                      <EmptyTable />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <GeneralTable
+              :columns="domainColumns"
+              :rows="domainsWithIndex"
+              :loading="loading"
+              table-id="printMe"
+              wrapper-class="mt-3"
+              :show-actions="true"
+            >
+              <template #cell-type="{ row }">
+                <span v-if="row.is_domain">Domain</span>
+                <span v-else>Sub Domain</span>
+              </template>
+              <template #cell-fallback="{ row }">
+                <span class="badge badge-success" v-if="row.is_fallback">True</span>
+                <span class="badge badge-danger" v-else>False</span>
+              </template>
+              <template #cell-primary="{ row }">
+                <span class="badge badge-success" v-if="row.is_primary">True</span>
+                <span class="badge badge-danger" v-else>False</span>
+              </template>
+              <template #actions="{ row }">
+                <div v-if="row.id" class="btn-group">
+                  <span v-if="row.is_fallback && row.is_primary">
+                    {{ $t('No action available') }}
+                  </span>
+                  <a v-if="!row.is_primary" v-tooltip="$t('Make Primary')" href="#"
+                    class="btn btn-success btn-sm" @click="makePrimary(row.id)">
+                    <i class="fas fa-check-circle"></i>
+                  </a>
+                  <a v-if="!row.is_fallback && !row.is_primary" v-tooltip="$t('Delete')" href="#"
+                    class="btn btn-danger btn-sm" @click="deleteData(row.id)">
+                    <i class="fas fa-trash" />
+                  </a>
+                </div>
+              </template>
+            </GeneralTable>
           </div>
         </div>
       </div>
@@ -94,9 +64,13 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import GeneralTable from '../../components/GeneralTable.vue'
 
 export default {
   middleware: ['auth', 'check-permissions'],
+  components: {
+    GeneralTable,
+  },
   metaInfo() {
     return { title: this.$t('Domain Management') }
   },
@@ -119,6 +93,23 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters('operations', ['items', 'loading', 'pagination', 'appInfo', 'tenant']),
+    domainColumns() {
+      return [
+        { key: "index", label: this.$t("#"), sortable: false },
+        { key: "domain", label: this.$t("Domain") },
+        { key: "type", label: this.$t("Type") },
+        { key: "fallback", label: this.$t("Fallback") },
+        { key: "primary", label: this.$t("Primary") },
+      ];
+    },
+    domainsWithIndex() {
+      return this.items.map((item, index) => ({
+        ...item,
+        index: this.pagination && this.pagination.current_page > 1
+          ? this.pagination.per_page * (this.pagination.current_page - 1) + (index + 1)
+          : index + 1,
+      }));
+    },
   },
   created() {
     this.getData()

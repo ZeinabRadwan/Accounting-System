@@ -83,123 +83,87 @@
               </div>
             </div>
             <table-loading v-show="loading" />
-            <div class="table-responsive table-custom mt-3" id="printMe" :dir="$i18n.locale === 'ar' ? 'rtl' : 'ltr'">
-              <table class="table quotations-table">
-                <thead>
-                  <th>{{ $t("#") }}</th>
-                  <th>{{ $t("Quotation No") }}</th>
-                  <th>{{ $t("Quotation Date") }}</th>
-                  <th>{{ $t("Client") }}</th>
-                  <th>{{ $t("Subtotal") }}</th>
-                  <th>{{ $t("Discount") }}</th>
-                  <th>{{ $t("Tax") }}</th>
-                  <th>{{ $t("Net Total") }}</th>
-                  <th>{{ $t("Status") }}</th>
-                  <th v-if="$can('quotation-to-invoice') ||
-                    $can('quotation-view') ||
-                    $can('quotation-edit') ||
-                    $can('quotation-delete')
-                    " class="text-right no-print">
-                    {{ $t("Action") }}
-                  </th>
-                </thead>
-                <tbody>
-                  <tr v-show="items.length" v-for="(data, i) in items" :key="i">
-                    <td>
-                      <span v-if="pagination && pagination.current_page > 1">
-                        {{
-                          pagination.per_page * (pagination.current_page - 1) +
-                          (i + 1)
-                        }}
-                      </span>
-                      <span v-else>{{ i + 1 }}</span>
-                    </td>
-                    <td>
-                      <router-link v-if="$can('quotation-view')" :to="{
-                        name: 'quotations.show',
-                        params: { slug: data.slug },
-                      }">
-                        {{ data.quotationNo | withPrefix(quotationPrefix) }}
-                      </router-link>
-                      <span v-else>{{
-                        data.quotationNo | withPrefix(quotationPrefix)
-                      }}</span>
-                    </td>
-                    <td>
-                      <span v-if="data.date">{{
-                        data.date | moment("Do MMM, YYYY")
-                      }}</span>
-                    </td>
-                    <td>{{ data.clientName }}</td>
-                    <td>{{ parseFloat((data.subTotal || 0) - (data.totalTax || 0)).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
-                    <td>{{ parseFloat(data.discount || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
-                    <td>{{ parseFloat(data.totalTax || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
-                    <td>{{ parseFloat(data.subTotal || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
-                    <td>
-                      <span v-if="data.status === 1" class="badge bg-success">{{
-                        $t("Quotation Status Approved")
-                      }}</span>
-                      <span v-else class="badge bg-danger">{{
-                        $t("Quotation Status Not Approved")
-                      }}</span>
-                    </td>
-                    <td v-if="$can('quotation-to-invoice') ||
-                        $can('quotation-view') ||
-                        $can('quotation-edit') ||
-                        $can('quotation-delete')
-                        " class="text-right no-print">
-                      <div class="action-dropdown" :class="{ open: openActionIndex === i }">
-                        <button type="button" class="action-icon-btn" :data-action-index="i" @click.stop="toggleAction(i)">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
-                            <path d="M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z" fill="#023033"/>
-                          </svg>
-                        </button>
-                        <div class="action-menu" v-if="openActionIndex === i">
-                          <div class="action-menu-header">
-                            <span class="action-menu-title">{{ $t('Actions') }}</span>
-                            <button type="button" class="action-menu-close" @click="toggleAction(i)">
-                              <i class="fas fa-times"></i>
-                            </button>
-                          </div>
-                          <ul>
-                            <li v-if="$can('quotation-to-invoice')">
-                              <router-link :to="{ name: 'quotations.invoice', params: { slug: data.slug } }">
-                                <i class="fas fa-file-invoice"></i>
-                                {{ $t('Create Invoice') }}
-                              </router-link>
-                            </li>
-                            <li v-if="$can('quotation-view')">
-                              <router-link :to="{ name: 'quotations.show', params: { slug: data.slug } }">
-                                <i class="fas fa-eye"></i>
-                                {{ $t('View') }}
-                              </router-link>
-                            </li>
-                            <li v-if="$can('quotation-edit')">
-                              <router-link :to="{ name: 'quotations.edit', params: { slug: data.slug } }">
-                                <i class="fas fa-edit"></i>
-                                {{ $t('Edit') }}
-                              </router-link>
-                            </li>
-                            <li v-if="$can('quotation-delete')">
-                              <a href="#" @click.prevent="deleteData(data.slug)">
-                                <i class="fas fa-trash"></i>
-                                {{ $t('Delete') }}
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        
-                      </div>
-                    </td>
-                  </tr>
-                  <tr v-show="!loading && !items.length">
-                    <td colspan="10">
-                      <EmptyTable />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <GeneralTable
+              :columns="quotationColumns"
+              :rows="quotationsWithIndex"
+              :loading="loading"
+              table-id="printMe"
+              wrapper-class="mt-3"
+              :show-actions="showActions"
+              :direction="$i18n.locale === 'ar' ? 'rtl' : 'ltr'"
+            >
+              <template #cell-quotationNo="{ row }">
+                <router-link v-if="$can('quotation-view')" :to="{
+                  name: 'quotations.show',
+                  params: { slug: row.slug },
+                }">
+                  {{ row.quotationNo | withPrefix(quotationPrefix) }}
+                </router-link>
+                <span v-else>{{ row.quotationNo | withPrefix(quotationPrefix) }}</span>
+              </template>
+              <template #cell-date="{ row }">
+                <span v-if="row.date">{{ row.date | moment("Do MMM, YYYY") }}</span>
+              </template>
+              <template #cell-subTotal="{ row }">
+                {{ parseFloat((row.subTotal || 0) - (row.totalTax || 0)).toFixed(2) }} <span class="saudi-riyal">ê</span>
+              </template>
+              <template #cell-discount="{ row }">
+                {{ parseFloat(row.discount || 0).toFixed(2) }} <span class="saudi-riyal">ê</span>
+              </template>
+              <template #cell-totalTax="{ row }">
+                {{ parseFloat(row.totalTax || 0).toFixed(2) }} <span class="saudi-riyal">ê</span>
+              </template>
+              <template #cell-netTotal="{ row }">
+                {{ parseFloat(row.subTotal || 0).toFixed(2) }} <span class="saudi-riyal">ê</span>
+              </template>
+              <template #cell-status="{ row }">
+                <span v-if="row.status === 1" class="badge bg-success">{{ $t("Quotation Status Approved") }}</span>
+                <span v-else class="badge bg-danger">{{ $t("Quotation Status Not Approved") }}</span>
+              </template>
+              <template #actions="{ row, index }">
+                <div class="action-dropdown" :class="{ open: openActionIndex === index }">
+                  <button type="button" class="action-icon-btn" :data-action-index="index" @click.stop="toggleAction(index)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                      <path d="M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z" fill="#023033"/>
+                    </svg>
+                  </button>
+                  <div class="action-menu" v-if="openActionIndex === index">
+                    <div class="action-menu-header">
+                      <span class="action-menu-title">{{ $t('Actions') }}</span>
+                      <button type="button" class="action-menu-close" @click="toggleAction(index)">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                    <ul>
+                      <li v-if="$can('quotation-to-invoice')">
+                        <router-link :to="{ name: 'quotations.invoice', params: { slug: row.slug } }">
+                          <i class="fas fa-file-invoice"></i>
+                          {{ $t('Create Invoice') }}
+                        </router-link>
+                      </li>
+                      <li v-if="$can('quotation-view')">
+                        <router-link :to="{ name: 'quotations.show', params: { slug: row.slug } }">
+                          <i class="fas fa-eye"></i>
+                          {{ $t('View') }}
+                        </router-link>
+                      </li>
+                      <li v-if="$can('quotation-edit')">
+                        <router-link :to="{ name: 'quotations.edit', params: { slug: row.slug } }">
+                          <i class="fas fa-edit"></i>
+                          {{ $t('Edit') }}
+                        </router-link>
+                      </li>
+                      <li v-if="$can('quotation-delete')">
+                        <a href="#" @click.prevent="deleteData(row.slug)">
+                          <i class="fas fa-trash"></i>
+                          {{ $t('Delete') }}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </template>
+            </GeneralTable>
           </div>
           <div class="card-footer">
             <div class="dtable-footer">
@@ -233,6 +197,8 @@ import moment from "moment";
 import { mapGetters } from "vuex";
 import Swal from "sweetalert2";
 import html2pdf from "html2pdf.js";
+import GeneralTable from "../../../components/GeneralTable.vue";
+
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
@@ -240,6 +206,7 @@ export default {
   },
   components: {
     DateRangePicker,
+    GeneralTable,
   },
   data: () => ({
     breadcrumbsCurrent: "Quotations",
@@ -296,6 +263,31 @@ export default {
       // Create a dynamic export URL with query parameters
       const locale = this.$i18n.locale;
       return `/quotations/export/excel?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}&locale=${locale}`;
+    },
+    showActions() {
+      return this.$can('quotation-to-invoice') || this.$can('quotation-view') || 
+             this.$can('quotation-edit') || this.$can('quotation-delete');
+    },
+    quotationColumns() {
+      return [
+        { key: "index", label: this.$t("#"), sortable: false },
+        { key: "quotationNo", label: this.$t("Quotation No") },
+        { key: "date", label: this.$t("Quotation Date") },
+        { key: "clientName", label: this.$t("Client") },
+        { key: "subTotal", label: this.$t("Subtotal") },
+        { key: "discount", label: this.$t("Discount") },
+        { key: "totalTax", label: this.$t("Tax") },
+        { key: "netTotal", label: this.$t("Net Total") },
+        { key: "status", label: this.$t("Status") },
+      ];
+    },
+    quotationsWithIndex() {
+      return this.items.map((item, index) => ({
+        ...item,
+        index: this.pagination && this.pagination.current_page > 1
+          ? this.pagination.per_page * (this.pagination.current_page - 1) + (index + 1)
+          : index + 1,
+      }));
     },
   },
   watch: {

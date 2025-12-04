@@ -22,59 +22,30 @@
         <!-- /.card-header -->
         <div class="card-body position-relative">
           <table-loading v-show="loading" />
-          <div id="printMe" class="table-responsive table-custom mt-3">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>{{ $t('#') }}</th>
-                  <th>{{ $t('Domain') }}</th>
-                  <th>{{ $t('Tenant') }}</th>
-                  <th class="text-right no-print">
-                    {{ $t('Action') }}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-show="items.length" v-for="(data, i) in items" :key="i">
-                  <td>
-                    <span v-if="pagination &&
-                      pagination.current_page > 1
-                    ">
-                      {{
-                        pagination.per_page *
-                        (pagination.current_page -
-                          1) +
-                        (i + 1)
-                      }}
-                    </span>
-                    <span v-else>{{ i + 1 }}</span>
-                  </td>
-                  <td>{{ data.domain }}</td>
-
-                  <td v-if="data.tenant">
-                    <router-link :to="{
-                      name: 'tenants.show',
-                      params: { id: data.tenant_id },
-                    }">
-                      {{ data.tenant.name }}
-                    </router-link>
-                  </td>
-                  <td class="text-right no-print">
-                    <div v-if="data.id" class="btn-group">
-                      <a v-tooltip="$t('Delete')" href="#" class="btn btn-danger btn-sm" @click="deleteData(data.id)">
-                        <i class="fas fa-trash" />
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-                <tr v-show="!loading && !items.length">
-                  <td colspan="12">
-                    <EmptyTable />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <GeneralTable
+            :columns="domainColumns"
+            :rows="domainsWithIndex"
+            :loading="loading"
+            table-id="printMe"
+            wrapper-class="mt-3"
+            :show-actions="true"
+          >
+            <template #cell-tenant="{ row }">
+              <router-link v-if="row.tenant" :to="{
+                name: 'tenants.show',
+                params: { id: row.tenant_id },
+              }">
+                {{ row.tenant.name }}
+              </router-link>
+            </template>
+            <template #actions="{ row }">
+              <div v-if="row.id" class="btn-group">
+                <a v-tooltip="$t('Delete')" href="#" class="btn btn-danger btn-sm" @click="deleteData(row.id)">
+                  <i class="fas fa-trash" />
+                </a>
+              </div>
+            </template>
+          </GeneralTable>
         </div>
         <div class="card-footer">
           <div class="dtable-footer">
@@ -102,10 +73,14 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import GeneralTable from '../../../components/GeneralTable.vue'
 
 export default {
   layout: 'central',
   middleware: ['auth', 'check-permissions'],
+  components: {
+    GeneralTable,
+  },
   metaInfo() {
     return { title: this.$t('All Domains') }
   },
@@ -133,6 +108,21 @@ export default {
       'appInfo',
       'tenant',
     ]),
+    domainColumns() {
+      return [
+        { key: "index", label: this.$t("#"), sortable: false },
+        { key: "domain", label: this.$t("Domain") },
+        { key: "tenant", label: this.$t("Tenant") },
+      ];
+    },
+    domainsWithIndex() {
+      return this.items.map((item, index) => ({
+        ...item,
+        index: this.pagination && this.pagination.current_page > 1
+          ? this.pagination.per_page * (this.pagination.current_page - 1) + (index + 1)
+          : index + 1,
+      }));
+    },
   },
   created() {
     this.getData()

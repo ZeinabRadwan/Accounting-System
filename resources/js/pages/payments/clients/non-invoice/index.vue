@@ -85,125 +85,89 @@
               </div>
             </div>
             <table-loading v-show="loading" />
-            <div class="table-responsive table-custom mt-3" id="printMe">
-              <table class="table non-invoice-payments-table">
-                <thead>
-                  <th>{{ $t("#") }}</th>
-                  <th>{{ $t("Client") }}</th>
-                  <th>{{ $t("Payment Type") }}</th>
-                  <th>{{ $t("Paid Amount") }}</th>
-                  <th>{{ $t("Account") }}</th>
-                  <th>{{ $t("Payment Date") }}</th>
-                  <th>{{ $t("Status") }}</th>
-                  <th v-if="$can('non-invoice-payment-edit') ||
-                    $can('non-invoice-payment-show') ||
-                    $can('non-invoice-payment-delete')
-                    " class="text-right no-print">
-                    {{ $t("Action") }}
-                  </th>
-                </thead>
-                <tbody>
-                  <tr v-show="items.length" v-for="(data, i) in items" :key="i" :class="{ 'cancelled-row': data.status === 2 }">
-                    <td>
-                      <span v-if="pagination && pagination.current_page > 1">
-                        {{
-                          pagination.per_page * (pagination.current_page - 1) +
-                          (i + 1)
-                        }}
-                      </span>
-                      <span v-else>{{ i + 1 }}</span>
-                    </td>
-                    <td>{{ data.clientName }}</td>
-                    <td>
-                      <span v-if="parseInt(data.type) === 1" class="badge bg-primary">{{ $t('Payment Received') }}</span>
-                      <span v-else class="badge bg-primary">{{ $t('Payment Sent') }}</span>
-                    </td>
-                    <td>{{ data.amount  }} <span class="saudi-riyal">ê</span></td>
-                    <td>
-                      <span v-if="data.account">{{ data.account.label }}</span>
-                    </td>
-                    <td>
-                      <span v-if="data.date">{{
-                        data.date | moment("Do MMM, YYYY")
-                      }}</span>
-                    </td>
-                    <td>
-                      <span v-if="data.status === 1" class="badge bg-success">{{
-                        $t("Active")
-                      }}</span>
-                      <span v-else-if="data.status === 2" class="badge bg-danger">{{
-                        $t("Cancelled")
-                      }}</span>
-                      <span v-else class="badge bg-danger">{{
-                        $t("Inactive")
-                      }}</span>
-                    </td>
-                    <td v-if="$can('non-invoice-payment-edit') ||
-                        $can('non-invoice-payment-show') ||
-                        $can('non-invoice-payment-delete')
-                        " class="text-right no-print">
-                      <div class="action-dropdown" :class="{ open: openActionIndex === i }">
-                        <button type="button" class="action-icon-btn" :data-action-index="i" @click.stop="toggleAction(i)">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
-                            <path d="M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z" fill="#023033"/>
+            <GeneralTable
+              :columns="nonInvoicePaymentColumns"
+              :rows="nonInvoicePaymentsWithIndex"
+              :loading="loading"
+              table-id="printMe"
+              wrapper-class="mt-3"
+              :show-actions="showActions"
+            >
+              <template #cell-client="{ row }">
+                {{ row.clientName }}
+              </template>
+              <template #cell-paymentType="{ row }">
+                <span v-if="parseInt(row.type) === 1" class="badge bg-primary">{{ $t('Payment Received') }}</span>
+                <span v-else class="badge bg-primary">{{ $t('Payment Sent') }}</span>
+              </template>
+              <template #cell-paidAmount="{ row }">
+                {{ row.amount }} <span class="saudi-riyal">ê</span>
+              </template>
+              <template #cell-account="{ row }">
+                <span v-if="row.account">{{ row.account.label }}</span>
+              </template>
+              <template #cell-paymentDate="{ row }">
+                <span v-if="row.date">{{ row.date | moment("Do MMM, YYYY") }}</span>
+              </template>
+              <template #cell-status="{ row }">
+                <span v-if="row.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
+                <span v-else-if="row.status === 2" class="badge bg-danger">{{ $t("Cancelled") }}</span>
+                <span v-else class="badge bg-danger">{{ $t("Inactive") }}</span>
+              </template>
+              <template #actions="{ row, index }">
+                <div class="action-dropdown" :class="{ open: openActionIndex === index }">
+                  <button type="button" class="action-icon-btn" :data-action-index="index" @click.stop="toggleAction(index)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                      <path d="M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z" fill="#023033"/>
+                    </svg>
+                  </button>
+                  <div class="action-menu" v-if="openActionIndex === index">
+                    <div class="action-menu-header">
+                      <h6 class="action-menu-title">{{ $t('Actions') }}</h6>
+                      <button type="button" class="action-menu-close" @click.stop="toggleAction(index)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <path d="M12 4L4 12M4 4L12 12" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </button>
+                    </div>
+                    <ul>
+                      <li v-if="$can('non-invoice-payment-view')">
+                        <router-link :to="{ name: 'nonInvoicePayments.show', params: { slug: row.slug } }">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M8 1C4.5 1 1.73 3.77 1.73 7C1.73 10.23 4.5 13 8 13C11.5 13 14.27 10.23 14.27 7C14.27 3.77 11.5 1 8 1ZM8 9.5C6.62 9.5 5.5 8.38 5.5 7C5.5 5.62 6.62 4.5 8 4.5C9.38 4.5 10.5 5.62 10.5 7C10.5 8.38 9.38 9.5 8 9.5Z" fill="#6B7280"/>
                           </svg>
-                        </button>
-                        <div class="action-menu" v-if="openActionIndex === i">
-                          <div class="action-menu-header">
-                            <h6 class="action-menu-title">{{ $t('Actions') }}</h6>
-                            <button type="button" class="action-menu-close" @click.stop="toggleAction(i)">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                <path d="M12 4L4 12M4 4L12 12" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                              </svg>
-                            </button>
-                          </div>
-                          <ul>
-                            <li v-if="$can('non-invoice-payment-view')">
-                              <router-link :to="{ name: 'nonInvoicePayments.show', params: { slug: data.slug } }">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                  <path d="M8 1C4.5 1 1.73 3.77 1.73 7C1.73 10.23 4.5 13 8 13C11.5 13 14.27 10.23 14.27 7C14.27 3.77 11.5 1 8 1ZM8 9.5C6.62 9.5 5.5 8.38 5.5 7C5.5 5.62 6.62 4.5 8 4.5C9.38 4.5 10.5 5.62 10.5 7C10.5 8.38 9.38 9.5 8 9.5Z" fill="#6B7280"/>
-                                </svg>
-                                {{ $t('View') }}
-                              </router-link>
-                            </li>
-                            <li v-if="$can('non-invoice-payment-edit') && data.status !== 2">
-                              <router-link :to="{ name: 'nonInvoicePayments.edit', params: { slug: data.slug } }">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                  <path d="M11.5 1.5L14.5 4.5L5.5 13.5H2.5V10.5L11.5 1.5Z" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                {{ $t('Edit') }}
-                              </router-link>
-                            </li>
-                            <li v-if="$can('non-invoice-payment-delete') && data.status === 1">
-                              <a href="#" @click.prevent="cancelPayment(data.slug)">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                  <path d="M8 1.33331C4.324 1.33331 1.33334 4.32398 1.33334 7.99998C1.33334 11.676 4.324 14.6666 8 14.6666C11.676 14.6666 14.6667 11.676 14.6667 7.99998C14.6667 4.32398 11.676 1.33331 8 1.33331ZM10.6667 10L10 10.6666L8 8.66665L6 10.6666L5.33334 10L7.33334 8L5.33334 6L6 5.33331L8 7.33331L10 5.33331L10.6667 6L8.66667 8L10.6667 10Z" stroke="#F59E0B" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                {{ $t('Cancel Payment') }}
-                              </a>
-                            </li>
-                            <li v-if="$can('non-invoice-payment-delete') && data.status === 0">
-                              <a href="#" @click.prevent="deleteData(data.slug)">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                  <path d="M2 4H14M5.5 4V2.5C5.5 2.2 5.7 2 6 2H10C10.3 2 10.5 2.2 10.5 2.5V4M12.5 4V13.5C12.5 13.8 12.3 14 12 14H4C3.7 14 3.5 13.8 3.5 13.5V4H12.5Z" stroke="#EF4444" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                {{ $t('Delete') }}
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        
-                      </div>
-                    </td>
-                  </tr>
-                  <tr v-show="!loading && !items.length">
-                    <td colspan="8">
-                      <EmptyTable />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                          {{ $t('View') }}
+                        </router-link>
+                      </li>
+                      <li v-if="$can('non-invoice-payment-edit') && row.status !== 2">
+                        <router-link :to="{ name: 'nonInvoicePayments.edit', params: { slug: row.slug } }">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M11.5 1.5L14.5 4.5L5.5 13.5H2.5V10.5L11.5 1.5Z" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                          {{ $t('Edit') }}
+                        </router-link>
+                      </li>
+                      <li v-if="$can('non-invoice-payment-delete') && row.status === 1">
+                        <a href="#" @click.prevent="cancelPayment(row.slug)">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M8 1.33331C4.324 1.33331 1.33334 4.32398 1.33334 7.99998C1.33334 11.676 4.324 14.6666 8 14.6666C11.676 14.6666 14.6667 11.676 14.6667 7.99998C14.6667 4.32398 11.676 1.33331 8 1.33331ZM10.6667 10L10 10.6666L8 8.66665L6 10.6666L5.33334 10L7.33334 8L5.33334 6L6 5.33331L8 7.33331L10 5.33331L10.6667 6L8.66667 8L10.6667 10Z" stroke="#F59E0B" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                          {{ $t('Cancel Payment') }}
+                        </a>
+                      </li>
+                      <li v-if="$can('non-invoice-payment-delete') && row.status === 0">
+                        <a href="#" @click.prevent="deleteData(row.slug)">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M2 4H14M5.5 4V2.5C5.5 2.2 5.7 2 6 2H10C10.3 2 10.5 2.2 10.5 2.5V4M12.5 4V13.5C12.5 13.8 12.3 14 12 14H4C3.7 14 3.5 13.8 3.5 13.5V4H12.5Z" stroke="#EF4444" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                          {{ $t('Delete') }}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </template>
+            </GeneralTable>
           </div>
           <div class="card-footer">
             <div class="dtable-footer">
@@ -236,6 +200,7 @@ import { mapGetters } from "vuex";
 import i18n from "~/plugins/i18n";
 import DateRangePicker from "vue2-daterange-picker";
 import html2pdf from "html2pdf.js";
+import GeneralTable from "../../../../components/GeneralTable.vue";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -244,6 +209,7 @@ export default {
   },
   components: {
     DateRangePicker,
+    GeneralTable,
   },
   data: () => ({
     breadcrumbsCurrent:
@@ -295,6 +261,28 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters("operations", ["items", "loading", "pagination"]),
+    showActions() {
+      return this.$can('non-invoice-payment-edit') || this.$can('non-invoice-payment-show') || this.$can('non-invoice-payment-delete');
+    },
+    nonInvoicePaymentColumns() {
+      return [
+        { key: "index", label: this.$t("#"), sortable: false },
+        { key: "client", label: this.$t("Client") },
+        { key: "paymentType", label: this.$t("Payment Type") },
+        { key: "paidAmount", label: this.$t("Paid Amount") },
+        { key: "account", label: this.$t("Account") },
+        { key: "paymentDate", label: this.$t("Payment Date") },
+        { key: "status", label: this.$t("Status") },
+      ];
+    },
+    nonInvoicePaymentsWithIndex() {
+      return this.items.map((item, index) => ({
+        ...item,
+        index: this.pagination && this.pagination.current_page > 1
+          ? this.pagination.per_page * (this.pagination.current_page - 1) + (index + 1)
+          : index + 1,
+      }));
+    },
     exportUrl() {
       // Create a dynamic export URL with query parameters and locale for localized headers
       const locale = this.$i18n.locale;

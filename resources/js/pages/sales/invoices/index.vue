@@ -7,7 +7,7 @@
             <!-- breadcrumbs Start -->
             <breadcrumbs :items="breadcrumbs" :current="breadcrumbsCurrent" />
             <!-- breadcrumbs end -->
-             <!-- updated -->
+            <!-- updated -->
           </div>
           <!-- /.card-header -->
           <div class="card-body position-relative">
@@ -15,7 +15,8 @@
               <div class="col-6 col-xl-8 mb-2 text-right">
                 <date-range-picker ref="picker" opens="left" :locale-data="locale" :minDate="minDate" :maxDate="maxDate"
                   :singleDatePicker="false" :showWeekNumbers="false" :showDropdowns="true" :autoApply="true"
-                  v-model="dateRange" @update="updateValues" :linkedCalendars="true" class="c-w-100" style="display: none;">
+                  v-model="dateRange" @update="updateValues" :linkedCalendars="true" class="c-w-100"
+                  style="display: none;">
                   <template v-slot:input="picker" style="min-width: 350px">
                     {{ picker.startDate | startDate }} -
                     {{ picker.endDate | endDate }}
@@ -29,51 +30,23 @@
               </div>
               <div class="col-xl-8 col-8 float-right text-right">
                 <div class="btn-group c-w-100">
-                  <a
-                    @click="refreshTable()"
-                    href="#"
-                    v-tooltip="$t('Refresh')"
-                    class="btn btn-success refresh-btn"
-                  >
+                  <a @click="refreshTable()" href="#" v-tooltip="$t('Refresh')" class="btn btn-success refresh-btn">
                     <i class="fas fa-sync"></i>
                   </a>
-                  <a
-                    :href="exportUrl"
-                    v-tooltip="$t('Export to Excel')"
-                    class="btn export-excel-btn"
-                    title="Export to Excel"
-                  >
-                    <svg
-                      width="18"
-                      height="19"
-                      viewBox="0 0 18 19"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                  <a :href="exportUrl" v-tooltip="$t('Export to Excel')" class="btn export-excel-btn"
+                    title="Export to Excel">
+                    <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M11.625 17.5001C11.625 17.699 11.546 17.8898 11.4053 18.0305C11.2647 18.1711 11.0739 18.2501 10.875 18.2501H8.24998C8.05107 18.2501 7.86031 18.1711 7.71966 18.0305C7.579 17.8898 7.49998 17.699 7.49998 17.5001V12.2501C7.49998 12.0512 7.579 11.8604 7.71966 11.7198C7.86031 11.5791 8.05107 11.5001 8.24998 11.5001C8.4489 11.5001 8.63966 11.5791 8.78031 11.7198C8.92097 11.8604 8.99998 12.0512 8.99998 12.2501V16.7501H10.875C11.0739 16.7501 11.2647 16.8291 11.4053 16.9698C11.546 17.1104 11.625 17.3012 11.625 17.5001ZM5.68592 11.6398C5.60578 11.5826 5.51514 11.5417 5.41918 11.5194C5.32323 11.4972 5.22384 11.4941 5.12668 11.5103C5.02953 11.5265 4.93651 11.5617 4.85295 11.6138C4.76939 11.6659 4.69692 11.734 4.63967 11.8142L3.37498 13.5851L2.1103 11.8142C2.05509 11.7292 1.98324 11.6564 1.89909 11.5999C1.81495 11.5435 1.72024 11.5047 1.62069 11.4859C1.52114 11.4671 1.41882 11.4687 1.31988 11.4905C1.22095 11.5123 1.12747 11.554 1.04507 11.6129C0.962677 11.6719 0.893077 11.7469 0.840473 11.8335C0.787869 11.9201 0.753352 12.0164 0.739005 12.1167C0.724657 12.217 0.730776 12.3191 0.756994 12.417C0.783211 12.5148 0.828983 12.6064 0.891547 12.6861L2.45342 14.8751L0.889672 17.0642C0.784434 17.2261 0.74571 17.4224 0.781564 17.6121C0.817419 17.8019 0.925088 17.9705 1.08215 18.0829C1.23922 18.1952 1.43357 18.2427 1.62474 18.2153C1.81591 18.188 1.98916 18.088 2.10842 17.9361L3.37498 16.1651L4.63967 17.9361C4.75893 18.088 4.93219 18.188 5.12336 18.2153C5.31453 18.188 5.50888 18.1952 5.66594 18.0829C5.82301 17.9705 5.93068 17.8019 5.96653 17.6121C6.00239 17.4224 5.96366 17.2261 5.85842 17.0642L4.29655 14.8751L5.8603 12.6861C5.91755 12.6059 5.95845 12.5153 5.98067 12.4193C6.00289 12.3234 6.00599 12.224 5.9898 12.1268C5.97361 12.0297 5.93844 11.9367 5.8863 11.8531C5.83416 11.7695 5.76607 11.6971 5.68592 11.6398ZM14.9615 14.0604C14.5865 13.9517 14.1984 13.8401 13.9819 13.7004C13.8647 13.6236 13.8665 13.6067 13.8769 13.5223C13.8783 13.4541 13.896 13.3873 13.9287 13.3274C13.9613 13.2675 14.0078 13.2164 14.0644 13.1782C14.4956 12.8857 15.5025 13.017 15.9225 13.1257C16.1149 13.1763 16.3196 13.1484 16.4915 13.0481C16.6633 12.9478 16.7883 12.7834 16.8389 12.5909C16.8895 12.3985 16.8616 12.1938 16.7613 12.0219C16.661 11.8501 16.4965 11.7251 16.304 11.6745C16.1062 11.6229 14.3353 11.1851 13.2262 11.9332C12.9924 12.0913 12.796 12.2987 12.6511 12.5408C12.5061 12.783 12.416 13.054 12.3872 13.3348C12.1997 14.8236 13.6669 15.2482 14.5434 15.5014C15.674 15.8286 15.7734 15.9626 15.7415 16.2129C15.7125 16.4389 15.6234 16.5251 15.54 16.5814C15.1087 16.8682 14.1187 16.7267 13.7081 16.6142C13.516 16.5609 13.3106 16.586 13.1371 16.6841C13.0512 16.7327 12.9757 16.7977 12.9149 16.8755C12.8541 16.9532 12.8092 17.0422 12.7828 17.1373C12.7564 17.2324 12.749 17.3318 12.761 17.4298C12.773 17.5277 12.8041 17.6224 12.8527 17.7083C12.9508 17.8818 13.1138 18.0093 13.3059 18.0626C13.7708 18.1851 14.2493 18.2481 14.73 18.2501C15.2756 18.2501 15.8831 18.1564 16.3697 17.832C16.6097 17.6724 16.8114 17.4615 16.9602 17.2146C17.109 16.9678 17.2012 16.691 17.2303 16.4042C17.4375 14.7814 15.8887 14.3286 14.9615 14.0604ZM0.749985 8.50012V1.75012C0.749985 1.3523 0.90802 0.970767 1.18932 0.689462C1.47063 0.408157 1.85216 0.250122 2.24998 0.250122H11.25C11.3485 0.250045 11.4461 0.269379 11.5371 0.30702C11.6282 0.344661 11.7109 0.399872 11.7806 0.469497L17.0306 5.7195C17.1002 5.7892 17.1554 5.87194 17.1931 5.96299C17.2307 6.05403 17.2501 6.1516 17.25 6.25012V8.50012C17.25 8.69903 17.171 8.8898 17.0303 9.03045C16.8897 9.1711 16.6989 9.25012 16.5 9.25012C16.3011 9.25012 16.1103 9.1711 15.9697 9.03045C15.829 8.8898 15.75 8.69903 15.75 8.50012V7.00012H11.25C11.0511 7.00012 10.8603 6.9211 10.7197 6.78045C10.579 6.6398 10.5 6.44903 10.5 6.25012V1.75012H2.24998V8.50012C2.24998 8.69903 2.17097 8.8898 2.03031 9.03045C1.88966 9.1711 1.6989 9.25012 1.49998 9.25012C1.30107 9.25012 1.11031 9.1711 0.969655 9.03045C0.829003 8.8898 0.749985 8.69903 0.749985 8.50012ZM12 5.50012H14.6887L12 2.81043V5.50012Z"
-                        fill="#2AB930"
-                      />
+                        fill="#2AB930" />
                     </svg>
                   </a>
-                  <a
-                    @click="exportToPDF"
-                    href="#"
-                    v-tooltip="$t('Export to PDF')"
-                    class="btn export-pdf-btn"
-                    title="Export to PDF"
-                  >
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                  <a @click="exportToPDF" href="#" v-tooltip="$t('Export to PDF')" class="btn export-pdf-btn"
+                    title="Export to PDF">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M21 14.2501C21 14.449 20.921 14.6398 20.7803 14.7805C20.6397 14.9211 20.4489 15.0001 20.25 15.0001H18V16.5001H19.5C19.6989 16.5001 19.8897 16.5791 20.0303 16.7198C20.171 16.8604 20.25 17.0512 20.25 17.2501C20.25 17.449 20.171 17.6398 20.0303 17.7805C19.8897 17.9211 19.6989 18.0001 19.5 18.0001H18V19.5001C18 19.699 17.921 19.8898 17.7803 20.0305C17.6397 20.1711 17.4489 20.2501 17.25 20.2501C17.0511 20.2501 16.8603 20.1711 16.7197 20.0305C16.579 19.8898 16.5 19.699 16.5 19.5001V14.2501C16.5 14.0512 16.579 13.8604 16.7197 13.7198C16.8603 13.5791 17.0511 13.5001 17.25 13.5001H20.25C20.4489 13.5001 20.6397 13.5791 20.7803 13.7198C20.921 13.8604 21 14.0512 21 14.2501ZM8.625 16.1251C8.625 16.8213 8.34844 17.489 7.85616 17.9813C7.36387 18.4736 6.69619 18.7501 6 18.7501H5.25V19.5001C5.25 19.699 5.17098 19.8898 5.03033 20.0305C4.88968 20.1711 4.69891 20.2501 4.5 20.2501C4.30109 20.2501 4.11032 20.1711 3.96967 20.0305C3.82902 19.8898 3.75 19.699 3.75 19.5001V14.2501C3.75 14.0512 3.82902 13.8604 3.96967 13.7198C4.11032 13.5791 4.30109 13.5001 4.5 13.5001H6C6.69619 13.5001 7.36387 13.7767 7.85616 14.269C8.34844 14.7612 8.625 15.4289 8.625 16.1251ZM7.125 16.1251C7.125 15.8268 7.00647 15.5406 6.7955 15.3296C6.58452 15.1186 6.29837 15.0001 6 15.0001H5.25V17.2501H6C6.29837 17.2501 6.58452 17.1316 6.7955 16.9206C7.00647 16.7096 7.125 16.4235 7.125 16.1251ZM15.375 16.8751C15.375 17.7702 15.0194 18.6287 14.3865 19.2616C13.7535 19.8945 12.8951 20.2501 12 20.2501H10.5C10.3011 20.2501 10.1103 20.1711 9.96967 20.0305C9.82902 19.8898 9.75 19.699 9.75 19.5001V14.2501C9.75 14.0512 9.82902 13.8604 9.96967 13.7198C10.1103 13.5791 10.3011 13.5001 10.5 13.5001H12C12.8951 13.5001 13.7535 13.8557 14.3865 14.4886C15.0194 15.1216 15.375 15.98 15.375 16.8751ZM13.875 16.8751C13.875 16.3778 13.6775 15.9009 13.3258 15.5493C12.9742 15.1977 12.4973 15.0001 12 15.0001H11.25V18.7501H12C12.4973 18.7501 12.9742 18.5526 13.3258 18.2009C13.6775 17.8493 13.875 17.3724 13.875 16.8751ZM3.75 10.5001V3.75012C3.75 3.3523 3.90804 2.97077 4.18934 2.68946C4.47064 2.40816 4.85218 2.25012 5.25 2.25012H14.25C14.3485 2.25004 14.4461 2.26938 14.5371 2.30702C14.6282 2.34466 14.7109 2.39987 14.7806 2.4695L20.0306 7.7195C20.1003 7.7892 20.1555 7.87194 20.1931 7.96299C20.2307 8.05403 20.2501 8.1516 20.25 8.25012V10.5001C20.25 10.699 20.171 10.8898 20.0303 11.0305C19.8897 11.1711 19.6989 11.2501 19.5 11.2501C19.3011 11.2501 19.1103 11.1711 18.9697 11.0305C18.829 10.8898 18.75 10.699 18.75 10.5001V9.00012H14.25C14.0511 9.00012 13.8603 8.9211 13.7197 8.78045C13.579 8.6398 13.5 8.44903 13.5 8.25012V3.75012H5.25V10.5001C5.25 10.699 5.17098 10.8898 5.03033 11.0305C4.88968 11.1711 4.69891 11.2501 4.5 11.2501C4.30109 11.2501 4.11032 11.1711 3.96967 11.0305C3.82902 10.8898 3.75 10.699 3.75 10.5001ZM15 7.50012H17.6897L15 4.81043V7.50012Z"
-                        fill="#2AB930"
-                      />
+                        fill="#2AB930" />
                     </svg>
                   </a>
                   <router-link v-if="$can('invoice-create')" :to="{ name: 'invoices.create' }" class="btn btn-primary">
@@ -84,136 +57,116 @@
               </div>
             </div>
             <table-loading v-show="loading" />
-            <div class="table-responsive table-custom mt-3" id="printMe" :dir="$i18n.locale === 'ar' ? 'rtl' : 'ltr'">
-              <table class="table invoices-table">
-                <thead>
-                  <th>{{ $t("#") }}</th>
-                  <th>{{ $t("Invoice No") }}</th>
-                  <th>{{ $t("Invoice Date") }}</th>
-                  <th>{{ $t("Client") }}</th>
-                  <th>{{ $t("Net Total") }}</th>
-                  <th>{{ $t("Discount") }}</th>
-                  <th>{{ $t("Tax") }}</th>
-                  <th>{{ $t("Total After Tax") }}</th>
-                  <th>{{ $t("Total Paid") }}</th>
-                  <th>{{ $t("Total Due") }}</th>
-                  <th>{{ $t("Status") }}</th>
-                  <th v-if="$can('invoice-view') ||
-                    $can('invoice-edit') ||
-                    $can('invoice-delete')
-                    " class="text-right no-print">
-                    {{ $t("Action") }}
-                  </th>
-                </thead>
-                <tbody>
-                  <tr v-show="items.length" v-for="(data, i) in items" :key="i">
-                    <td>
-                      <span v-if="pagination && pagination.current_page > 1">
-                        {{
-                          pagination.per_page * (pagination.current_page - 1) +
-                          (i + 1)
-                        }}
-                      </span>
-                      <span v-else>{{ i + 1 }}</span>
-                    </td>
-                    <td>
-                      <router-link v-if="$can('invoice-view')" :to="{
-                        name: 'invoices.show',
-                        params: { slug: data.slug },
-                      }">
-                        {{ data.invoiceNo | withPrefix(prefix) }}
-                      </router-link>
-                      <span v-else>{{
-                        data.invoiceNo | withPrefix(prefix)
-                      }}</span>
-                    </td>
-                    <td>
-                      <span v-if="data.invoiceDate">{{
-                        data.invoiceDate | moment("Do MMM, YYYY")
-                      }}</span>
-                    </td>
-                    <td>{{ data.client }}</td>
-                    <td v-html="formatCurrency(data.subTotal)"></td>
-                    <td v-html="formatCurrency(calculateDiscountAmount(data))"></td>
-                    <td v-html="formatCurrency(data.tax)"></td>
-                    <td v-html="formatCurrency(data.invoiceTotal)"></td>
-                    <td v-html="formatCurrency(data.totalPaid)"></td>
-                    <td v-html="formatCurrency(data.due)"></td>
-                    <td>
-                      <span v-if="data.status === 1" class="badge bg-success">{{
-                        $t("Invoice Status Sent")
-                      }}</span>
-                      <span v-else class="badge bg-danger">{{
-                        $t("Invoice Status Not Sent")
-                      }}</span>
-                    </td>
-                    <td v-if="$can('invoice-view') ||
-                        $can('invoice-edit') ||
-                        $can('invoice-delete')
-                        " class="text-right no-print">
-                      <div class="action-dropdown" :class="{ open: openActionIndex === i }">
-                        <button type="button" class="action-icon-btn" :data-action-index="i" @click.stop="toggleAction(i)">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
-                            <path d="M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z" fill="#023033"/>
-                          </svg>
-                        </button>
-                        <div class="action-menu" v-if="openActionIndex === i">
-                          <div class="action-menu-header">
-                            <span class="action-menu-title">{{ $t('Actions') }}</span>
-                            <button type="button" class="action-menu-close" @click="toggleAction(i)">
-                              <i class="fas fa-times"></i>
-                            </button>
-                          </div>
-                          <ul>
-                            <li v-if="$can('invoice-view') && data.due > 0 && data.status === 1">
-                              <a href="#" @click.prevent="handleModal(data)">
-                                <i class="fas fa-credit-card"></i>
-                                {{ $t('Add Payment?') }}
-                              </a>
-                            </li>
-                            <li v-if="$can('invoice-view') && data.due > 0 && data.status !== 1">
-                              <a href="#" @click.prevent="showInactiveMessage()" class="text-muted" style="cursor: not-allowed;">
-                                <i class="fas fa-credit-card"></i>
-                                {{ $t('Add Payment?') }}
-                              </a>
-                            </li>
-                            <li v-if="isSaudiArabia && data.status === 0">
-                              <a href="#" @click.prevent="sendInvoice(data)">
-                                <i class="fas fa-paper-plane"></i>
-                                {{ $t('Send Invoice') }}
-                              </a>
-                            </li>
-                            <li v-if="$can('invoice-return-create') && data.status === 1">
-                              <a href="#" @click.prevent="returnInvoice(data)">
-                                <i class="fas fa-undo"></i>
-                                {{ $t('Return Invoice') }}
-                              </a>
-                            </li>
-                            <li v-if="$can('invoice-view')">
-                              <router-link :to="{ name: 'invoices.show', params: { slug: data.slug } }">
-                                <i class="fas fa-eye"></i>
-                                {{ $t('View') }}
-                              </router-link>
-                            </li>
-                            <li v-if="$can('invoice-edit') && !(isSaudiArabia && data.status === 1)">
-                              <router-link :to="{ name: 'invoices.edit', params: { slug: data.slug } }">{{ $t('Edit') }}</router-link>
-                            </li>
-                            <li v-if="$can('invoice-delete') && !(isSaudiArabia && data.status === 1)">
-                              <a href="#" @click.prevent="deleteData(data.slug)">{{ $t('Delete') }}</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr v-show="!loading && !items.length">
-                    <td colspan="12">
-                      <EmptyTable />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <GeneralTable :columns="invoiceColumns" :rows="itemsWithIndex" :loading="loading" table-id="printMe"
+              wrapper-class="table-custom mt-3" :dir="$i18n.locale === 'ar' ? 'rtl' : 'ltr'"
+              :show-actions="$can('invoice-view') || $can('invoice-edit') || $can('invoice-delete')">
+              <template #cell-index="{ value }">
+                <span v-if="pagination && pagination.current_page > 1">
+                  {{ pagination.per_page * (pagination.current_page - 1) + value }}
+                </span>
+                <span v-else>{{ value }}</span>
+              </template>
+              <template #cell-invoiceNo="{ row }">
+                <router-link v-if="$can('invoice-view')" :to="{
+                  name: 'invoices.show',
+                  params: { slug: row.slug },
+                }">
+                  {{ row.invoiceNo | withPrefix(prefix) }}
+                </router-link>
+                <span v-else>{{ row.invoiceNo | withPrefix(prefix) }}</span>
+              </template>
+              <template #cell-invoiceDate="{ row }">
+                <span v-if="row.invoiceDate">{{
+                  row.invoiceDate | moment("Do MMM, YYYY")
+                }}</span>
+              </template>
+              <template #cell-subTotal="{ row }">
+                <span v-html="formatCurrency(row.subTotal)"></span>
+              </template>
+              <template #cell-discount="{ row }">
+                <span v-html="formatCurrency(calculateDiscountAmount(row))"></span>
+              </template>
+              <template #cell-tax="{ row }">
+                <span v-html="formatCurrency(row.tax)"></span>
+              </template>
+              <template #cell-invoiceTotal="{ row }">
+                <span v-html="formatCurrency(row.invoiceTotal)"></span>
+              </template>
+              <template #cell-totalPaid="{ row }">
+                <span v-html="formatCurrency(row.totalPaid)"></span>
+              </template>
+              <template #cell-due="{ row }">
+                <span v-html="formatCurrency(row.due)"></span>
+              </template>
+              <template #cell-status="{ row }">
+                <span v-if="row.status === 1" class="badge bg-success">{{
+                  $t("Invoice Status Sent")
+                }}</span>
+                <span v-else class="badge bg-danger">{{
+                  $t("Invoice Status Not Sent")
+                }}</span>
+              </template>
+              <template #actions="{ row, index }">
+                <div class="action-dropdown" :class="{ open: openActionIndex === index }">
+                  <button type="button" class="action-icon-btn" :data-action-index="index"
+                    @click.stop="toggleAction(index)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                      <path
+                        d="M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z"
+                        fill="#023033" />
+                    </svg>
+                  </button>
+                  <div class="action-menu" v-if="openActionIndex === index">
+                    <div class="action-menu-header">
+                      <span class="action-menu-title">{{ $t('Actions') }}</span>
+                      <button type="button" class="action-menu-close" @click="toggleAction(index)">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                    <ul>
+                      <li v-if="$can('invoice-view') && row.due > 0 && row.status === 1">
+                        <a href="#" @click.prevent="handleModal(row)">
+                          <i class="fas fa-credit-card"></i>
+                          {{ $t('Add Payment?') }}
+                        </a>
+                      </li>
+                      <li v-if="$can('invoice-view') && row.due > 0 && row.status !== 1">
+                        <a href="#" @click.prevent="showInactiveMessage()" class="text-muted"
+                          style="cursor: not-allowed;">
+                          <i class="fas fa-credit-card"></i>
+                          {{ $t('Add Payment?') }}
+                        </a>
+                      </li>
+                      <li v-if="isSaudiArabia && row.status === 0">
+                        <a href="#" @click.prevent="sendInvoice(row)">
+                          <i class="fas fa-paper-plane"></i>
+                          {{ $t('Send Invoice') }}
+                        </a>
+                      </li>
+                      <li v-if="$can('invoice-return-create') && row.status === 1">
+                        <a href="#" @click.prevent="returnInvoice(row)">
+                          <i class="fas fa-undo"></i>
+                          {{ $t('Return Invoice') }}
+                        </a>
+                      </li>
+                      <li v-if="$can('invoice-view')">
+                        <router-link :to="{ name: 'invoices.show', params: { slug: row.slug } }">
+                          <i class="fas fa-eye"></i>
+                          {{ $t('View') }}
+                        </router-link>
+                      </li>
+                      <li v-if="$can('invoice-edit') && !(isSaudiArabia && row.status === 1)">
+                        <router-link :to="{ name: 'invoices.edit', params: { slug: row.slug } }">{{ $t('Edit')
+                        }}</router-link>
+                      </li>
+                      <li v-if="$can('invoice-delete') && !(isSaudiArabia && row.status === 1)">
+                        <a href="#" @click.prevent="deleteData(row.slug)">{{ $t('Delete') }}</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </template>
+            </GeneralTable>
           </div>
           <!-- /.card-body -->
           <div class="card-footer">
@@ -221,11 +174,7 @@
               <div class="form-group row display-per-page">
                 <label>{{ $t("per_page") }} </label>
                 <div>
-                  <select
-                    @change="updatePerPager"
-                    v-model="perPage"
-                    class="form-control form-control-sm ml-1"
-                  >
+                  <select @change="updatePerPager" v-model="perPage" class="form-control form-control-sm ml-1">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
@@ -234,13 +183,8 @@
                 </div>
               </div>
               <!-- pagination-start -->
-              <pagination
-                v-if="pagination && pagination.last_page > 1"
-                :pagination="pagination"
-                :offset="5"
-                class="justify-flex-end"
-                @paginate="paginate"
-              />
+              <pagination v-if="pagination && pagination.last_page > 1" :pagination="pagination" :offset="5"
+                class="justify-flex-end" @paginate="paginate" />
               <!-- pagination-end -->
             </div>
           </div>
@@ -271,8 +215,8 @@
           <div class="row">
             <div class="form-group col-md-4">
               <label for="paidAmount">{{ $t("Paid Amount") }}</label>
-              <input type="number" step="any" class="form-control" :placeholder="$t('Enter an amount')"
-                required min="1" v-model="form.paidAmount" :max="form.selectedInvoice.due" />
+              <input type="number" step="any" class="form-control" :placeholder="$t('Enter an amount')" required min="1"
+                v-model="form.paidAmount" :max="form.selectedInvoice.due" />
             </div>
             <div class="form-group col-md-8">
               <label for="account">{{ $t("Account") }}
@@ -281,9 +225,9 @@
                 <v-select v-model="form.account" :options="accounts" label="label"
                   :class="{ 'is-invalid': form.errors.has('account') }" name="account"
                   :placeholder="$t('Select an account')" class="flex-grow-1">
-                   <template slot="option" slot-scope="option">
-                      <img :src="option.image" style="width: 30px; height: 30px;" />
-                      {{ option.label }}
+                  <template slot="option" slot-scope="option">
+                    <img :src="option.image" style="width: 30px; height: 30px;" />
+                    {{ option.label }}
                   </template>
                 </v-select>
                 <AccountCreateModal @accountCreated="handleAccountCreated">
@@ -323,7 +267,8 @@
               <select id="status" v-model="form.status" class="form-control"
                 :class="{ 'is-invalid': form.errors.has('status') }"
                 :disabled="form.selectedInvoice && form.selectedInvoice.status === 0">
-                <option v-if="!form.selectedInvoice || form.selectedInvoice.status === 1" value="1">{{ $t("Active") }}</option>
+                <option v-if="!form.selectedInvoice || form.selectedInvoice.status === 1" value="1">{{ $t("Active") }}
+                </option>
                 <option value="0">{{ $t("Inactive") }}</option>
               </select>
               <has-error :form="form" field="status" />
@@ -331,7 +276,7 @@
           </div>
 
 
-          
+
           <div class="form-group">
             <label for="note">{{ $t("Note") }}</label>
             <textarea id="note" v-model="form.note" class="form-control"
@@ -340,24 +285,22 @@
           </div>
           <div class="form-group col-12 d-flex flex-wrap">
             <div class="pr-5 d-flex align-items-center">
-              <toggle-button 
-                v-model="form.isSendEmail" 
+              <toggle-button v-model="form.isSendEmail"
                 :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.email_configured" />
               <span class="ml-3">{{ $t("Send Email Notification") }}</span>
-              <span v-if="!communicationConfig.loading && !communicationConfig.email_configured" 
-                    class="ml-2 text-muted small">
+              <span v-if="!communicationConfig.loading && !communicationConfig.email_configured"
+                class="ml-2 text-muted small">
                 ({{ $t("Email not configured") }})
               </span>
             </div>
           </div>
           <div class="form-group col-12 d-flex flex-wrap">
             <div class="pr-5 d-flex align-items-center">
-              <toggle-button 
-                v-model="form.isSendSMS" 
+              <toggle-button v-model="form.isSendSMS"
                 :disabled="isDemoMode || communicationConfig.loading || !communicationConfig.sms_configured" />
               <span class="ml-3">{{ $t("Send SMS Notification") }}</span>
-              <span v-if="!communicationConfig.loading && !communicationConfig.sms_configured" 
-                    class="ml-2 text-muted small">
+              <span v-if="!communicationConfig.loading && !communicationConfig.sms_configured"
+                class="ml-2 text-muted small">
                 ({{ $t("SMS not configured") }})
               </span>
             </div>
@@ -398,6 +341,7 @@ export default {
     DateRangePicker,
     ToggleButton,
     AccountCreateModal,
+    GeneralTable: () => import("~/components/GeneralTable"),
   },
   data: () => ({
     isDemoMode: window.config.isDemoMode,
@@ -455,7 +399,7 @@ export default {
       isSendSMS: false,
     }),
     openActionIndex: null,
-    
+
     // Communication configuration status
     communicationConfig: {
       email_configured: false,
@@ -483,6 +427,27 @@ export default {
     isSaudiArabia() {
       const result = !this.appInfo?.country || this.appInfo.country === 'SA';
       return result;
+    },
+    invoiceColumns() {
+      return [
+        { key: "index", label: this.$t("#"), sortable: false },
+        { key: "invoiceNo", label: this.$t("Invoice No") },
+        { key: "invoiceDate", label: this.$t("Invoice Date") },
+        { key: "client", label: this.$t("Client") },
+        { key: "subTotal", label: this.$t("Net Total"), align: "text-right" },
+        { key: "discount", label: this.$t("Discount"), align: "text-right" },
+        { key: "tax", label: this.$t("Tax"), align: "text-right" },
+        { key: "invoiceTotal", label: this.$t("Total After Tax"), align: "text-right" },
+        { key: "totalPaid", label: this.$t("Total Paid"), align: "text-right" },
+        { key: "due", label: this.$t("Total Due"), align: "text-right" },
+        { key: "status", label: this.$t("Status") },
+      ];
+    },
+    itemsWithIndex() {
+      return this.items.map((item, index) => ({
+        ...item,
+        index: index + 1,
+      }));
     },
   },
   watch: {
@@ -520,9 +485,9 @@ export default {
     async loadCommunicationConfigStatus() {
       try {
         this.communicationConfig.loading = true;
-        
+
         const response = await axios.get('/api/communication-config-status');
-        
+
         this.communicationConfig.email_configured = response.data.email_configured;
         this.communicationConfig.sms_configured = response.data.sms_configured;
         this.communicationConfig.loading = false;
@@ -555,21 +520,21 @@ export default {
     async handleAccountCreated(newAccount) {
       // Refresh accounts list
       await this.getAccounts();
-      
+
       // Find and select the newly created account
       if (newAccount && newAccount.id) {
         // Wait for accounts to be updated
         await this.$nextTick();
-        
+
         // Find the account by id, slug, or label
         const account = this.accounts.find(
-          (acc) => 
-            acc.id === newAccount.id || 
+          (acc) =>
+            acc.id === newAccount.id ||
             acc.slug === newAccount.slug ||
             acc.label === newAccount.label ||
             (acc.bankName === newAccount.bankName && acc.accountNumber === newAccount.accountNumber)
         );
-        
+
         if (account) {
           this.form.account = account;
         } else if (newAccount.id) {
@@ -583,7 +548,7 @@ export default {
     },
     toggleAction(index) {
       this.openActionIndex = this.openActionIndex === index ? null : index;
-      
+
       if (this.openActionIndex === index) {
         this.$nextTick(() => {
           this.positionDropdown(index);
@@ -598,7 +563,7 @@ export default {
         if (menu) {
           // Check if page direction is RTL
           const isRTL = document.documentElement.dir === 'rtl' || document.documentElement.getAttribute('dir') === 'rtl';
-          
+
           if (isRTL) {
             menu.style.left = '45px';
             menu.style.right = 'auto';
@@ -733,25 +698,25 @@ export default {
           margin: [10, 10, 10, 10],
           filename: `invoices-${moment().format("YYYY-MM-DD")}.pdf`,
           image: { type: "jpeg", quality: 0.98 },
-          html2canvas: { 
+          html2canvas: {
             scale: 2,
             useCORS: true,
             logging: false
           },
-          jsPDF: { 
-            unit: "mm", 
-            format: "a4", 
-            orientation: "landscape" 
+          jsPDF: {
+            unit: "mm",
+            format: "a4",
+            orientation: "landscape"
           },
           pagebreak: { mode: ["avoid-all", "css", "legacy"] }
         };
 
         // Generate and download PDF
         await html2pdf().set(opt).from(element).save();
-        
+
         // Remove the style after PDF generation
         document.head.removeChild(style);
-        
+
         this.$toast.success(
           this.$t("Success!"),
           this.$t("PDF exported successfully")
@@ -806,7 +771,7 @@ export default {
         text: this.$t("You will not be able to return to this! This will delete the invoice permanently."),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
+        confirmButtonText: this.$t("Confirm"), cancelButtonText: this.$t("Cancel"),
       }).then((result) => {
         // Send request to the server
         if (result.value) {
@@ -824,13 +789,13 @@ export default {
               } else {
                 // Show the actual error message from the API response
                 let errorMessage = this.$t("Sorry you can't delete this invoice!");
-                
+
                 if (response && typeof response === 'object' && response.message) {
                   errorMessage = response.message;
                 } else if (typeof response === 'string') {
                   errorMessage = response;
                 }
-                
+
                 this.$toast.warning(
                   this.$t("Failed!"),
                   errorMessage
@@ -868,10 +833,10 @@ export default {
 
             // Send invoice to ZATCA and create journal entries
             const response = await axios.post(`/api/invoices/${data.slug}/send-to-zatca`);
-            
+
             // Close the loading dialog
             SwalOriginal.close();
-            
+
             if (response.data.success) {
               this.$toast.success(
                 this.$t("Sent Successfully!"),
@@ -904,7 +869,7 @@ export default {
       // We'll fetch the client info from the invoice on the create page
       console.log('Full invoice data:', JSON.stringify(data, null, 2))
       console.log('Invoice slug:', data.slug)
-      
+
       this.$router.push({
         name: 'invoiceReturns.create',
         query: {
@@ -918,22 +883,22 @@ export default {
       if (amount === null || amount === undefined) {
         return '0.00';
       }
-      
+
       const numValue = Number(amount);
       const formatted = numValue.toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
       });
-      
+
       return formatted + ' <span class="saudi-riyal">ê</span>';
     },
-    
+
     // Calculate discount amount from invoice data
     calculateDiscountAmount(data) {
       if (!data || !data.discount || data.discount === 0) {
         return 0;
       }
-      
+
       // If discountType is 1 (percentage), calculate percentage of subtotal
       // If discountType is 0 (fixed), use discount value directly
       if (data.discountType === 1) {
@@ -958,12 +923,14 @@ export default {
   border: none !important;
 }
 
-.invoices-table {
+.invoices-table,
+.general-table {
   border-collapse: separate;
   border-spacing: 0;
 }
 
-.invoices-table thead th {
+.invoices-table thead th,
+.general-table thead th {
   background-color: #33a0d9;
   color: #ffffff;
   padding: 8px;
@@ -972,15 +939,18 @@ export default {
   font-weight: 400;
 }
 
-.invoices-table thead tr {
+.invoices-table thead tr,
+.general-table thead tr {
   border: none !important;
 }
 
-.invoices-table thead th:first-child {
+.invoices-table thead th:first-child,
+.general-table thead th:first-child {
   border-top-left-radius: 10px;
 }
 
-.invoices-table thead th:last-child {
+.invoices-table thead th:last-child,
+.general-table thead th:last-child {
   border-top-right-radius: 10px;
 }
 
@@ -990,17 +960,25 @@ export default {
 .invoices-table tbody td:nth-child(7),
 .invoices-table tbody td:nth-child(8),
 .invoices-table tbody td:nth-child(9),
-.invoices-table tbody td:nth-child(10) {
+.invoices-table tbody td:nth-child(10),
+.general-table tbody td:nth-child(5),
+.general-table tbody td:nth-child(6),
+.general-table tbody td:nth-child(7),
+.general-table tbody td:nth-child(8),
+.general-table tbody td:nth-child(9),
+.general-table tbody td:nth-child(10) {
   text-align: right;
 }
 
 /* RTL styles for Arabic language */
-[dir="rtl"] .invoices-table thead th:first-child {
+[dir="rtl"] .invoices-table thead th:first-child,
+[dir="rtl"] .general-table thead th:first-child {
   border-top-left-radius: 0;
   border-top-right-radius: 10px;
 }
 
-[dir="rtl"] .invoices-table thead th:last-child {
+[dir="rtl"] .invoices-table thead th:last-child,
+[dir="rtl"] .general-table thead th:last-child {
   border-top-right-radius: 0;
   border-top-left-radius: 10px;
 }
@@ -1087,6 +1065,7 @@ export default {
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1223,7 +1202,7 @@ export default {
 }
 
 /* Search Input Background Override */
-.form-control{
+.form-control {
   background: #fff !important;
 }
 
@@ -1238,23 +1217,25 @@ export default {
 
 <style>
 .dtable-footer {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-    padding: 0 0 0 10px;
-    flex-direction: column;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  padding: 0 0 0 10px;
+  flex-direction: column;
 }
+
 .card-footer .form-group.row.display-per-page {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-    width: 100%;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  width: 100%;
+  align-items: center;
 }
 
 /* Print Styles */
 @media print {
+
   /* Hide non-printable elements */
   .no-print,
   .refresh-btn,
@@ -1267,18 +1248,18 @@ export default {
   .card-footer {
     display: none !important;
   }
-  
+
   /* Set direction based on language */
   body[dir="ltr"] #printMe,
   #printMe[dir="ltr"] {
     direction: ltr;
   }
-  
+
   body[dir="rtl"] #printMe,
   #printMe[dir="rtl"] {
     direction: rtl;
   }
-  
+
   /* Print-friendly table styles */
   #printMe {
     width: 100%;
@@ -1286,19 +1267,21 @@ export default {
     margin: 0;
     padding: 0;
   }
-  
+
   .table-responsive {
     overflow: visible !important;
   }
-  
-  #printMe .invoices-table {
+
+  #printMe .invoices-table,
+  #printMe .general-table {
     width: 100%;
     border-collapse: collapse;
     border-spacing: 0;
   }
-  
+
   /* Maintain header style when printing */
-  #printMe .invoices-table thead th {
+  #printMe .invoices-table thead th,
+  #printMe .general-table thead th {
     background-color: #33a0d9 !important;
     color: #ffffff !important;
     padding: 12px 8px !important;
@@ -1306,39 +1289,47 @@ export default {
     font-weight: 500 !important;
     font-size: 13px !important;
   }
-  
+
   /* RTL adjustments for headers */
   body[dir="rtl"] #printMe .invoices-table thead th,
-  #printMe[dir="rtl"] .invoices-table thead th {
+  #printMe[dir="rtl"] .invoices-table thead th,
+  body[dir="rtl"] #printMe .general-table thead th,
+  #printMe[dir="rtl"] .general-table thead th {
     text-align: right;
   }
-  
+
   body[dir="ltr"] #printMe .invoices-table thead th,
-  #printMe[dir="ltr"] .invoices-table thead th {
+  #printMe[dir="ltr"] .invoices-table thead th,
+  body[dir="ltr"] #printMe .general-table thead th,
+  #printMe[dir="ltr"] .general-table thead th {
     text-align: left;
   }
-  
+
   /* Table body styles */
-  #printMe .invoices-table tbody tr {
+  #printMe .invoices-table tbody tr,
+  #printMe .general-table tbody tr {
     page-break-inside: avoid;
   }
-  
-  #printMe .invoices-table tbody tr:nth-child(even) {
+
+  #printMe .invoices-table tbody tr:nth-child(even),
+  #printMe .general-table tbody tr:nth-child(even) {
     background-color: #f9fafb !important;
   }
-  
-  #printMe .invoices-table tbody td {
+
+  #printMe .invoices-table tbody td,
+  #printMe .general-table tbody td {
     padding: 10px 8px !important;
     border-bottom: 1px solid #e5e7eb !important;
     font-size: 13px !important;
   }
-  
+
   /* Invoice number links */
-  #printMe .invoices-table tbody td a {
+  #printMe .invoices-table tbody td a,
+  #printMe .general-table tbody td a {
     color: #33a0d9 !important;
     font-weight: 500 !important;
   }
-  
+
   /* Maintain badge styles when printing */
   #printMe .badge.bg-success {
     background: #F6FEF4 !important;
@@ -1349,7 +1340,7 @@ export default {
     border-radius: 6px !important;
     display: inline-block !important;
   }
-  
+
   #printMe .badge.bg-danger {
     background: #FEF4F4 !important;
     color: #DC3545 !important;
@@ -1359,13 +1350,13 @@ export default {
     border-radius: 6px !important;
     display: inline-block !important;
   }
-  
+
   /* Currency symbol styling */
   #printMe .saudi-riyal {
     color: inherit !important;
     font-weight: 500 !important;
   }
-  
+
   /* Remove borders and shadows for clean print */
   .card,
   .card-body,
@@ -1375,43 +1366,55 @@ export default {
     margin: 0 !important;
     padding: 0 !important;
   }
-  
+
   /* Page break settings */
   @page {
     margin: 1cm;
     size: A4 landscape;
   }
-  
+
   /* Ensure table doesn't break in the middle */
   #printMe .invoices-table thead tr,
-  #printMe .invoices-table tbody tr {
+  #printMe .invoices-table tbody tr,
+  #printMe .general-table thead tr,
+  #printMe .general-table tbody tr {
     page-break-inside: avoid;
   }
-  
+
   /* Print URL links in blue */
   #printMe a {
     color: #33a0d9 !important;
     text-decoration: none !important;
   }
-  
+
   /* Adjust RTL text alignment */
   body[dir="rtl"] #printMe .invoices-table tbody td,
-  #printMe[dir="rtl"] .invoices-table tbody td {
+  #printMe[dir="rtl"] .invoices-table tbody td,
+  body[dir="rtl"] #printMe .general-table tbody td,
+  #printMe[dir="rtl"] .general-table tbody td {
     text-align: right;
   }
-  
+
   body[dir="ltr"] #printMe .invoices-table tbody td,
-  #printMe[dir="ltr"] .invoices-table tbody td {
+  #printMe[dir="ltr"] .invoices-table tbody td,
+  body[dir="ltr"] #printMe .general-table tbody td,
+  #printMe[dir="ltr"] .general-table tbody td {
     text-align: left;
   }
-  
+
   /* Right-align numeric columns */
   #printMe .invoices-table tbody td:nth-child(5),
   #printMe .invoices-table tbody td:nth-child(6),
   #printMe .invoices-table tbody td:nth-child(7),
   #printMe .invoices-table tbody td:nth-child(8),
   #printMe .invoices-table tbody td:nth-child(9),
-  #printMe .invoices-table tbody td:nth-child(10) {
+  #printMe .invoices-table tbody td:nth-child(10),
+  #printMe .general-table tbody td:nth-child(5),
+  #printMe .general-table tbody td:nth-child(6),
+  #printMe .general-table tbody td:nth-child(7),
+  #printMe .general-table tbody td:nth-child(8),
+  #printMe .general-table tbody td:nth-child(9),
+  #printMe .general-table tbody td:nth-child(10) {
     text-align: right !important;
   }
 }
@@ -1464,4 +1467,3 @@ export default {
   border-right: 1px solid #E5E7EB;
 }
 </style>
-

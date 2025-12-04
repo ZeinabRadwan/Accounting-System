@@ -23,45 +23,34 @@
           <!-- /.card-header -->
           <div class="card-body position-relative">
             <table-loading v-show="loading" />
-            <div id="printMe" class="table-responsive table-custom mt-3">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>{{ $t('ID') }}</th>
-                    <th>{{ $t('Tenant') }}</th>
-                    <th>{{ $t('Plan') }}</th>
-                    <th>{{ $t('Month') }}</th>
-                    <th>{{ $t('Approved By') }}</th>
-                    <th>{{ $t('Created At') }}</th>
-                    <th>{{ $t('Ends At') }}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-show="items.length" v-for="(subscription, i) in items" :key="i">
-                    <td>{{ subscription.id }}</td>
-                    <td v-if="subscription.tenant">
-                      <a :href="subscription.tenant.domain_url">
-                        {{ subscription.tenant.name }}
-                      </a>
-                    </td>
-                    <td>{{ subscription.plan?.name }}</td>
-                    <td>{{ subscription.quantity }}</td>
-                    <td>
-                      <span v-tooltip="subscription.approved_by?.email">
-                        {{ subscription.approved_by?.name }}
-                      </span>
-                    </td>
-                    <td>{{ subscription.created_at | moment('Do MMM, YYYY') }}</td>
-                    <td>{{ subscription.ends_at | moment('Do MMM, YYYY') }}</td>
-                  </tr>
-                  <tr v-show="!loading && !items.length">
-                    <td colspan="12">
-                      <EmptyTable />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <GeneralTable
+              :columns="subscriptionColumns"
+              :rows="subscriptionsWithIndex"
+              :loading="loading"
+              table-id="printMe"
+              wrapper-class="mt-3"
+              :show-actions="false"
+            >
+              <template #cell-tenant="{ row }">
+                <a v-if="row.tenant" :href="row.tenant.domain_url">
+                  {{ row.tenant.name }}
+                </a>
+              </template>
+              <template #cell-plan="{ row }">
+                {{ row.plan?.name }}
+              </template>
+              <template #cell-approvedBy="{ row }">
+                <span v-tooltip="row.approved_by?.email">
+                  {{ row.approved_by?.name }}
+                </span>
+              </template>
+              <template #cell-createdAt="{ row }">
+                {{ row.created_at | moment('Do MMM, YYYY') }}
+              </template>
+              <template #cell-endsAt="{ row }">
+                {{ row.ends_at | moment('Do MMM, YYYY') }}
+              </template>
+            </GeneralTable>
           </div>
           <div class="card-footer">
             <div class="dtable-footer">
@@ -90,10 +79,14 @@
 
 <script>
 import { mapGetters } from "vuex";
+import GeneralTable from "../../../components/GeneralTable.vue";
 
 export default {
   layout: "central",
   middleware: ["auth"],
+  components: {
+    GeneralTable,
+  },
   metaInfo() {
     return { title: this.$t("All Subscriptions") };
   },
@@ -125,6 +118,22 @@ export default {
       "appInfo",
       "tenant",
     ]),
+    subscriptionColumns() {
+      return [
+        { key: "id", label: this.$t("ID"), sortable: false },
+        { key: "tenant", label: this.$t("Tenant") },
+        { key: "plan", label: this.$t("Plan") },
+        { key: "quantity", label: this.$t("Month") },
+        { key: "approvedBy", label: this.$t("Approved By") },
+        { key: "createdAt", label: this.$t("Created At") },
+        { key: "endsAt", label: this.$t("Ends At") },
+      ];
+    },
+    subscriptionsWithIndex() {
+      return this.items.map((item) => ({
+        ...item,
+      }));
+    },
   },
   created() {
     this.getData();

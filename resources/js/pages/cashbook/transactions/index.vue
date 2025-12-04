@@ -79,65 +79,35 @@
               </div>
             </div>
             <table-loading v-show="loading" />
-            <div class="table-responsive table-custom mt-3" id="printMe">
-              <table class="table transactions-table">
-                <thead>
-                  <th>{{ $t("#") }}</th>
-                  <th>{{ $t("Reason") }}</th>
-                  <th>{{ $t("Date") }}</th>
-                  <th>{{ $t("Type") }}</th>
-                  <th>{{ $t("Account") }}</th>
-                  <th>{{ $t("Amount") }}</th>
-                  <th>{{ $t("Status") }}</th>
-                  <th class="text-right">{{ $t("Created By") }}</th>
-                </thead>
-                <tbody>
-                  <tr v-show="items.length" v-for="(data, i) in items" :key="i">
-                    <td>
-                      <span v-if="pagination.current_page > 1">
-                        {{
-                          pagination.per_page * (pagination.current_page - 1) +
-                          (i + 1)
-                        }}
-                      </span>
-                      <span v-else>{{ i + 1 }}</span>
-                    </td>
-                    <td>{{ data.reason }}</td>
-                    <td>
-                      <span v-if="data.transactionDate">{{
-                        data.transactionDate | moment("Do MMM, YYYY")
-                      }}</span>
-                    </td>
-                    <td>
-                      <span v-if="data.type === 1" class="badge bg-success">{{
-                        $t("Credit")
-                      }}</span>
-                      <span v-else class="badge bg-danger">{{
-                        $t("Debit")
-                      }}</span>
-                    </td>
-                    <td v-if="data.account">{{ data.account.label }}</td>
-                    <td>{{ data.amount  }} <span class="saudi-riyal">ê</span></td>
-                    <td>
-                      <span v-if="data.status === 1" class="badge bg-success">{{
-                        $t("Active")
-                      }}</span>
-                      <span v-else class="badge bg-danger">{{
-                        $t("Inactive")
-                      }}</span>
-                    </td>
-                    <td v-if="data.user" class="text-right">
-                      {{ data.user.name }}
-                    </td>
-                  </tr>
-                  <tr v-show="!loading && !items.length">
-                    <td colspan="8">
-                      <EmptyTable />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <GeneralTable
+              :columns="transactionColumns"
+              :rows="transactionsWithIndex"
+              :loading="loading"
+              table-id="printMe"
+              wrapper-class="mt-3"
+              :show-actions="false"
+            >
+              <template #cell-transactionDate="{ row }">
+                <span v-if="row.transactionDate">{{ row.transactionDate | moment("Do MMM, YYYY") }}</span>
+              </template>
+              <template #cell-type="{ row }">
+                <span v-if="row.type === 1" class="badge bg-success">{{ $t("Credit") }}</span>
+                <span v-else class="badge bg-danger">{{ $t("Debit") }}</span>
+              </template>
+              <template #cell-account="{ row }">
+                <span v-if="row.account">{{ row.account.label }}</span>
+              </template>
+              <template #cell-amount="{ row }">
+                {{ row.amount }} <span class="saudi-riyal">ê</span>
+              </template>
+              <template #cell-status="{ row }">
+                <span v-if="row.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
+                <span v-else class="badge bg-danger">{{ $t("Inactive") }}</span>
+              </template>
+              <template #cell-createdBy="{ row }">
+                <span v-if="row.user" class="text-right">{{ row.user.name }}</span>
+              </template>
+            </GeneralTable>
           </div>
           <div class="card-footer">
             <div class="dtable-footer">
@@ -170,6 +140,7 @@ import { mapGetters } from "vuex";
 import i18n from "~/plugins/i18n";
 import DateRangePicker from "vue2-daterange-picker";
 import html2pdf from "html2pdf.js";
+import GeneralTable from "../../../components/GeneralTable.vue";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -178,6 +149,7 @@ export default {
   },
   components: {
     DateRangePicker,
+    GeneralTable,
   },
   data: () => ({
     breadcrumbsCurrent: "Transaction History",
@@ -227,6 +199,26 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters("operations", ["items", "loading", "pagination"]),
+    transactionColumns() {
+      return [
+        { key: "index", label: this.$t("#"), sortable: false },
+        { key: "reason", label: this.$t("Reason") },
+        { key: "transactionDate", label: this.$t("Date") },
+        { key: "type", label: this.$t("Type") },
+        { key: "account", label: this.$t("Account") },
+        { key: "amount", label: this.$t("Amount") },
+        { key: "status", label: this.$t("Status") },
+        { key: "createdBy", label: this.$t("Created By"), align: "text-right" },
+      ];
+    },
+    transactionsWithIndex() {
+      return this.items.map((item, index) => ({
+        ...item,
+        index: this.pagination && this.pagination.current_page > 1
+          ? this.pagination.per_page * (this.pagination.current_page - 1) + (index + 1)
+          : index + 1,
+      }));
+    },
     exportUrl() {
       // Create a dynamic export URL with query parameters and locale for localized headers
       const locale = this.$i18n.locale;

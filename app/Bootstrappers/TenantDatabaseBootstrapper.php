@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Bootstrappers;
 
+use App\Services\MySQLDatabaseManager;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
@@ -41,15 +42,49 @@ class TenantDatabaseBootstrapper implements TenancyBootstrapper
         }
 
         // CRITICAL: Require tenant-specific credentials
+        // If missing, attempt to auto-generate them
         if (empty($dbUsername) || empty($dbPassword)) {
             $tenantId = $tenant->getTenantKey();
-            Log::error("Tenant {$tenantId} (database: {$databaseName}) is missing database credentials. Cannot initialize tenancy.");
+            Log::warning("Tenant {$tenantId} (database: {$databaseName}) is missing database credentials. Attempting to auto-generate...");
 
-            throw new \Exception(
-                'Tenant database credentials are missing. '.
-                'This tenant cannot access their database. '.
-                'Please contact the administrator to set up database credentials for this tenant.'
-            );
+            try {
+                // Use central connection to generate credentials
+                $centralConnection = config('tenancy.database.central_connection', 'mysql');
+                $dbManager = app(MySQLDatabaseManager::class);
+                $dbManager->setConnection($centralConnection);
+
+                // Generate and store credentials using the public helper method
+                $dbManager->generateCredentialsForTenant($tenant);
+
+                // Refresh tenant attributes to get the newly stored credentials
+                $tenant->refresh();
+                $dbUsername = $tenant->getAttribute('db_username');
+                $dbPassword = $tenant->getAttribute('db_password');
+
+                Log::info("Successfully auto-generated database credentials for tenant {$tenantId}");
+
+            } catch (\Exception $e) {
+                $tenantId = $tenant->getTenantKey();
+                Log::error("Failed to auto-generate credentials for tenant {$tenantId}: ".$e->getMessage());
+                Log::error('Exception trace: '.$e->getTraceAsString());
+
+                throw new \Exception(
+                    'Tenant database credentials are missing and could not be auto-generated. '.
+                    'This tenant cannot access their database. '.
+                    'Please contact the administrator to set up database credentials for this tenant. '.
+                    'Error: '.$e->getMessage()
+                );
+            }
+
+            // Double-check credentials were set
+            if (empty($dbUsername) || empty($dbPassword)) {
+                $tenantId = $tenant->getTenantKey();
+                throw new \Exception(
+                    'Tenant database credentials are missing. '.
+                    'This tenant cannot access their database. '.
+                    'Please contact the administrator to set up database credentials for this tenant.'
+                );
+            }
         }
 
         // Decrypt the password

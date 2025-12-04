@@ -23,99 +23,84 @@
           <!-- /.card-header -->
           <div class="card-body position-relative">
             <table-loading v-show="loading" />
-            <div id="printMe" class="table-responsive table-custom mt-3">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>{{ $t('ID') }}</th>
-                    <th>{{ $t('Tenant') }}</th>
-                    <th>{{ $t('Transaction ID') }}</th>
-                    <th>{{ $t('Document Path') }}</th>
-                    <th>{{ $t('Plan Name') }}</th>
-                    <th>{{ $t('Plan Price') }}</th>
-                    <th>{{ $t('Month') }}</th>
-                    <th>{{ $t('Status') }}</th>
-                    <th>{{ $t('Updated By') }}</th>
-                    <th>{{ $t('Created At') }}</th>
-                    <th class="text-right no-print">
+            <GeneralTable
+              :columns="subscriptionRequestColumns"
+              :rows="subscriptionRequestsWithIndex"
+              :loading="loading"
+              table-id="printMe"
+              wrapper-class="mt-3"
+              :show-actions="true"
+            >
+              <template #cell-tenant="{ row }">
+                <a v-if="row.tenant" :href="row.tenant.domain_url">
+                  {{ row.tenant.name }}
+                </a>
+              </template>
+              <template #cell-transactionId="{ row }">
+                {{ row.transaction_id ?? $t('Not Available') }}
+              </template>
+              <template #cell-documentPath="{ row }">
+                <a v-if="row.document_path" :href="row.document_url" target="_blank">
+                  {{ $t('Download') }}
+                </a>
+                <div v-else>
+                  {{ $t('Not Available') }}
+                </div>
+              </template>
+              <template #cell-planName="{ row }">
+                {{ row.plan.name }}
+              </template>
+              <template #cell-planPrice="{ row }">
+                {{ row.plan.amount }} <span class="saudi-riyal">ê</span>
+              </template>
+              <template #cell-status="{ row }">
+                <span v-html="row.status_html" class="text-center"></span>
+              </template>
+              <template #cell-updatedBy="{ row }">
+                <span v-if="row.status_updated_by" v-tooltip="row.status_updated_by.email">
+                  {{ row.status_updated_by.name }}
+                </span>
+                <span v-else>
+                  {{ $t('Not updated yet!') }}
+                </span>
+              </template>
+              <template #cell-createdAt="{ row }">
+                {{ row.created_at | moment('Do MMM, YYYY') }}
+              </template>
+              <template #actions="{ row }">
+                <div v-if="row.id" class="btn-group">
+                  <div class="dropdown show">
+                    <a class="btn btn-secondary dropdown-toggle" href="!#" role="button" id="dropdownMenuLink"
+                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       {{ $t("Action") }}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-show="items.length" v-for="(subscriptionRequest, i) in items" :key="i">
-                    <td>{{ subscriptionRequest.id }}</td>
-                    <td v-if="subscriptionRequest.tenant">
-                      <a :href="subscriptionRequest.tenant.domain_url">
-                        {{ subscriptionRequest.tenant.name }}
-                      </a>
-                    </td>
-                    <td>{{ subscriptionRequest.transaction_id ?? $t('Not Available') }}</td>
-                    <td>
-                      <a v-if="subscriptionRequest.document_path" :href="subscriptionRequest.document_url"
-                        target="_blank">
-                        {{ $t('Download') }}
-                      </a>
-                      <div v-else>
-                        {{ $t('Not Available') }}
-                      </div>
-                    </td>
-                    <td>{{ subscriptionRequest.plan.name }}</td>
-                    <td>{{ subscriptionRequest.plan.amount }} <span class="saudi-riyal">ê</span></td>
-                    <td>{{ subscriptionRequest.quantity }}</td>
-                    <td v-html="subscriptionRequest.status_html" class="text-center"></td>
-                    <td>
-                      <span v-if="subscriptionRequest.status_updated_by"
-                        v-tooltip="subscriptionRequest.status_updated_by.email">
-                        {{ subscriptionRequest.status_updated_by.name }}
-                      </span>
-                      <span v-else>
-                        {{ $t('Not updated yet!') }}
-                      </span>
-                    </td>
-                    <td>{{ subscriptionRequest.created_at | moment('Do MMM, YYYY') }}</td>
-                    <td class="text-right no-print">
-                      <div v-if="subscriptionRequest.id" class="btn-group">
-                        <div class="dropdown show">
-                          <a class="btn btn-secondary dropdown-toggle" href="!#" role="button" id="dropdownMenuLink"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ $t("Action") }}
-                          </a>
+                    </a>
 
-                          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <button :disabled="subscriptionRequest.status === STATUS_ACCEPTED"
-                              v-tooltip="$t('Accepted')" href="#" class="btn btn-success btn-sm dropdown-item"
-                              @click.prevent="update(subscriptionRequest.id, STATUS_ACCEPTED)">
-                              <i class="fas fa-link" />
-                              {{ $t("Accepted") }}
-                            </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <button :disabled="row.status === STATUS_ACCEPTED"
+                        v-tooltip="$t('Accepted')" href="#" class="btn btn-success btn-sm dropdown-item"
+                        @click.prevent="update(row.id, STATUS_ACCEPTED)">
+                        <i class="fas fa-link" />
+                        {{ $t("Accepted") }}
+                      </button>
 
-                            <button
-                              :disabled="subscriptionRequest.status === STATUS_REJECTED || subscriptionRequest.status === STATUS_ACCEPTED"
-                              v-tooltip="$t('Rejected')" href="#" class="btn btn-danger btn-sm dropdown-item"
-                              @click.prevent="update(subscriptionRequest.id, STATUS_REJECTED)">
-                              <i class="fas fa-times" />
-                              {{ $t("Rejected") }}
-                            </button>
+                      <button
+                        :disabled="row.status === STATUS_REJECTED || row.status === STATUS_ACCEPTED"
+                        v-tooltip="$t('Rejected')" href="#" class="btn btn-danger btn-sm dropdown-item"
+                        @click.prevent="update(row.id, STATUS_REJECTED)">
+                        <i class="fas fa-times" />
+                        {{ $t("Rejected") }}
+                      </button>
 
-                            <button :disabled="subscriptionRequest.status !== STATUS_PENDING" v-tooltip="$t('Delete')"
-                              href="#" class="btn btn-danger btn-sm dropdown-item"
-                              @click.prevent="deleteData(subscriptionRequest.id)">
-                              <i class="fas fa-trash" /> {{ $t("Delete") }}
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr v-show="!loading && !items.length">
-                    <td colspan="12">
-                      <EmptyTable />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                      <button :disabled="row.status !== STATUS_PENDING" v-tooltip="$t('Delete')"
+                        href="#" class="btn btn-danger btn-sm dropdown-item"
+                        @click.prevent="deleteData(row.id)">
+                        <i class="fas fa-trash" /> {{ $t("Delete") }}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </GeneralTable>
           </div>
           <div class="card-footer">
             <div class="dtable-footer">
@@ -144,10 +129,14 @@
 
 <script>
 import { mapGetters } from "vuex";
+import GeneralTable from "../../../components/GeneralTable.vue";
 
 export default {
   layout: "central",
   middleware: ["auth"],
+  components: {
+    GeneralTable,
+  },
   metaInfo() {
     return { title: this.$t("All Subscription Requests") };
   },
@@ -179,6 +168,25 @@ export default {
       "appInfo",
       "tenant",
     ]),
+    subscriptionRequestColumns() {
+      return [
+        { key: "id", label: this.$t("ID"), sortable: false },
+        { key: "tenant", label: this.$t("Tenant") },
+        { key: "transactionId", label: this.$t("Transaction ID") },
+        { key: "documentPath", label: this.$t("Document Path") },
+        { key: "planName", label: this.$t("Plan Name") },
+        { key: "planPrice", label: this.$t("Plan Price") },
+        { key: "quantity", label: this.$t("Month") },
+        { key: "status", label: this.$t("Status") },
+        { key: "updatedBy", label: this.$t("Updated By") },
+        { key: "createdAt", label: this.$t("Created At") },
+      ];
+    },
+    subscriptionRequestsWithIndex() {
+      return this.items.map((item) => ({
+        ...item,
+      }));
+    },
   },
   created() {
     this.getData();

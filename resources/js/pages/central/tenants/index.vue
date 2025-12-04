@@ -64,125 +64,82 @@
                   </div>
                 </div>
                 <table-loading v-show="loading" />
-                <div id="printMe" class="table-responsive table-custom mt-3">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>{{ $t("S.No") }}</th>
-                        <th>{{ $t("Domain") }}</th>
-                        <th>{{ $t("Name & Email") }}</th>
-                        <th>{{ $t("Plan") }}</th>
-                        <th>{{ $t("On Trial") }}</th>
-                        <th>{{ $t("Is Verified") }}</th>
-                        <th>{{ $t("Is Subscribed") }}</th>
-                        <th>{{ $t("Banned") }}</th>
-                        <th class="text-right no-print" v-if="!isDemoMode">
-                          {{ $t("Action") }}
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-show="items.length" v-for="(data, i) in items" :key="i">
-                        <td>
-                          <span v-if="pagination && pagination.current_page > 1">
-                            {{
-                              pagination.per_page * (pagination.current_page - 1) +
-                              (i + 1)
-                            }}
-                          </span>
-                          <span v-else>{{ i + 1 }}</span>
-                        </td>
-                        <td>
-                          {{ data.domain }}
-                        </td>
-                        <td class="profile-area">
-                          <div class="mr-2 img">
-                            <img :src="data.photo_url" :alt="data.name" class="rounded-circle" />
-                          </div>
-                          <div>
-                            <span class="text-capitalize">{{ data.name }}</span>
-                            <a :href="`mailto:${data.email}`">{{ data.email }}</a>
-                          </div>
-                        </td>
-                        <td>{{ data.plan && data.plan.name }}</td>
-                        <td>
-                          <span v-if="data.on_trial" class="badge bg-success">
-                            {{ $t("True") }}
-                          </span>
-                          <span v-else class="badge bg-danger">
-                            {{ $t("False") }}
-                          </span>
-                        </td>
-                        <td>
-                          <span v-if="data.email_verified_at" class="badge bg-success">
-                            {{ $t("True") }}
-                          </span>
-                          <span v-else class="badge bg-danger">
-                            {{ $t("False") }}
-                          </span>
-                        </td>
-                        <td>
-                          <span v-if="data.is_subscribed" class="badge bg-success">
-                            {{ $t("True") }}
-                          </span>
-                          <span v-else class="badge bg-danger">
-                            {{ $t("False") }}
-                          </span>
-                        </td>
-                        <td>
-                          <span v-if="data.is_banned == false" class="badge bg-success">{{ $t("False")
-                            }}</span>
-                          <span v-else class="badge bg-danger">{{
-                            $t("True")
-                            }}</span>
-                        </td>
-                        <td class="text-right no-print" v-if="!isDemoMode">
-                          <div class="btn-group">
-                            <router-link v-if="data.email_verified_at" v-tooltip="$t('View')" :to="{
-                              name: 'tenants.show',
-                              params: { id: data.id },
-                            }" class="btn btn-primary btn-sm">
-                              <i class="fas fa-eye" />
-                            </router-link>
-                            <button v-if="data.email_verified_at" @click="impersonate(data.id)"
-                              v-tooltip="$t('Impersonate')" class="btn btn-info btn-sm">
-                              <i class="fas fa-user-secret" />
-                            </button>
-                            <router-link v-if="data.email_verified_at" :to="{
-                              name: 'send-notification',
-                              params: { id: data.id },
-                            }" v-tooltip="$t('Send Email')" class="btn btn-secondary btn-sm">
-                              <i class="fas fa-envelope" />
-                            </router-link>
-
-                            <router-link v-if="data.email_verified_at" v-tooltip="$t('Edit')" :to="{
-                              name: 'tenants.edit',
-                              params: { id: data.id },
-                            }" class="btn btn-info btn-sm">
-                              <i class="fas fa-edit" />
-                            </router-link>
-                            <a v-if="data.email_verified_at" href="#" v-tooltip="data.is_banned
-                              ? $t('Unban')
-                              : $t('Ban')
-                              " class="btn btn-sm" :class="data.is_banned ? 'btn-success' : 'btn-warning'"
-                              @click="ban(data.id)">
-                              <i class="fas fa-ban" />
-                            </a>
-                            <a href="#" v-tooltip="$t('Archive')" class="btn btn-danger btn-sm"
-                              @click="deleteData(data.id)">
-                              <i class="fas fa-archive" />
-                            </a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr v-show="!loading && !items.length">
-                        <td colspan="9">
-                          <EmptyTable />
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                <GeneralTable
+                  :columns="tenantColumns"
+                  :rows="tenantsWithIndex"
+                  :loading="loading"
+                  table-id="printMe"
+                  wrapper-class="mt-3"
+                  :show-actions="!isDemoMode"
+                >
+                  <template #cell-nameEmail="{ row }">
+                    <div class="profile-area">
+                      <div class="mr-2 img">
+                        <img :src="row.photo_url" :alt="row.name" class="rounded-circle" />
+                      </div>
+                      <div>
+                        <span class="text-capitalize">{{ row.name }}</span>
+                        <a :href="`mailto:${row.email}`">{{ row.email }}</a>
+                      </div>
+                    </div>
+                  </template>
+                  <template #cell-plan="{ row }">
+                    {{ row.plan && row.plan.name }}
+                  </template>
+                  <template #cell-onTrial="{ row }">
+                    <span v-if="row.on_trial" class="badge bg-success">{{ $t("True") }}</span>
+                    <span v-else class="badge bg-danger">{{ $t("False") }}</span>
+                  </template>
+                  <template #cell-isVerified="{ row }">
+                    <span v-if="row.email_verified_at" class="badge bg-success">{{ $t("True") }}</span>
+                    <span v-else class="badge bg-danger">{{ $t("False") }}</span>
+                  </template>
+                  <template #cell-isSubscribed="{ row }">
+                    <span v-if="row.is_subscribed" class="badge bg-success">{{ $t("True") }}</span>
+                    <span v-else class="badge bg-danger">{{ $t("False") }}</span>
+                  </template>
+                  <template #cell-banned="{ row }">
+                    <span v-if="row.is_banned == false" class="badge bg-success">{{ $t("False") }}</span>
+                    <span v-else class="badge bg-danger">{{ $t("True") }}</span>
+                  </template>
+                  <template #actions="{ row }">
+                    <div class="btn-group">
+                      <router-link v-if="row.email_verified_at" v-tooltip="$t('View')" :to="{
+                        name: 'tenants.show',
+                        params: { id: row.id },
+                      }" class="btn btn-primary btn-sm">
+                        <i class="fas fa-eye" />
+                      </router-link>
+                      <button v-if="row.email_verified_at" @click="impersonate(row.id)"
+                        v-tooltip="$t('Impersonate')" class="btn btn-info btn-sm">
+                        <i class="fas fa-user-secret" />
+                      </button>
+                      <router-link v-if="row.email_verified_at" :to="{
+                        name: 'send-notification',
+                        params: { id: row.id },
+                      }" v-tooltip="$t('Send Email')" class="btn btn-secondary btn-sm">
+                        <i class="fas fa-envelope" />
+                      </router-link>
+                      <router-link v-if="row.email_verified_at" v-tooltip="$t('Edit')" :to="{
+                        name: 'tenants.edit',
+                        params: { id: row.id },
+                      }" class="btn btn-info btn-sm">
+                        <i class="fas fa-edit" />
+                      </router-link>
+                      <a v-if="row.email_verified_at" href="#" v-tooltip="row.is_banned
+                        ? $t('Unban')
+                        : $t('Ban')
+                        " class="btn btn-sm" :class="row.is_banned ? 'btn-success' : 'btn-warning'"
+                        @click="ban(row.id)">
+                        <i class="fas fa-ban" />
+                      </a>
+                      <a href="#" v-tooltip="$t('Archive')" class="btn btn-danger btn-sm"
+                        @click="deleteData(row.id)">
+                        <i class="fas fa-archive" />
+                      </a>
+                    </div>
+                  </template>
+                </GeneralTable>
               </div>
 
               <!-- Archived Tab Content -->
@@ -214,68 +171,44 @@
                   </div>
                 </div>
                 <table-loading v-show="archivedLoading" />
-                <div id="printArchived" class="table-responsive table-custom mt-3">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>{{ $t("S.No") }}</th>
-                        <th>{{ $t("Domain") }}</th>
-                        <th>{{ $t("Name & Email") }}</th>
-                        <th>{{ $t("Plan") }}</th>
-                        <th>{{ $t("Archived At") }}</th>
-                        <th>{{ $t("Archived By") }}</th>
-                        <th class="text-right no-print" v-if="!isDemoMode">
-                          {{ $t("Action") }}
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-show="archivedItems.length" v-for="(data, i) in archivedItems" :key="i">
-                        <td>
-                          <span v-if="archivedPagination && archivedPagination.current_page > 1">
-                            {{
-                              archivedPagination.per_page * (archivedPagination.current_page - 1) +
-                              (i + 1)
-                            }}
-                          </span>
-                          <span v-else>{{ i + 1 }}</span>
-                        </td>
-                        <td>
-                          {{ data.domain }}
-                        </td>
-                        <td class="profile-area">
-                          <div class="mr-2 img">
-                            <img :src="data.photo_url" :alt="data.name" class="rounded-circle" />
-                          </div>
-                          <div>
-                            <span class="text-capitalize">{{ data.name }}</span>
-                            <a :href="`mailto:${data.email}`">{{ data.email }}</a>
-                          </div>
-                        </td>
-                        <td>{{ data.plan && data.plan.name }}</td>
-                        <td>{{ data.archived_at ? $moment(data.archived_at).format('YYYY-MM-DD HH:mm') : '-' }}</td>
-                        <td>{{ data.archived_by_name || '-' }}</td>
-                        <td class="text-right no-print" v-if="!isDemoMode">
-                          <div class="btn-group">
-                            <button @click="restoreTenant(data.id)" v-tooltip="$t('Restore')"
-                              class="btn btn-success btn-sm">
-                              <i class="fas fa-undo" />
-                            </button>
-                            <button @click="permanentDeleteTenant(data.id)" v-tooltip="$t('Permanent Delete')"
-                              class="btn btn-danger btn-sm">
-                              <i class="fas fa-trash" />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr v-show="!archivedLoading && !archivedItems.length">
-                        <td colspan="7">
-                          <EmptyTable />
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                <GeneralTable
+                  :columns="archivedTenantColumns"
+                  :rows="archivedTenantsWithIndex"
+                  :loading="archivedLoading"
+                  table-id="printArchived"
+                  wrapper-class="mt-3"
+                  :show-actions="!isDemoMode"
+                >
+                  <template #cell-nameEmail="{ row }">
+                    <div class="profile-area">
+                      <div class="mr-2 img">
+                        <img :src="row.photo_url" :alt="row.name" class="rounded-circle" />
+                      </div>
+                      <div>
+                        <span class="text-capitalize">{{ row.name }}</span>
+                        <a :href="`mailto:${row.email}`">{{ row.email }}</a>
+                      </div>
+                    </div>
+                  </template>
+                  <template #cell-plan="{ row }">
+                    {{ row.plan && row.plan.name }}
+                  </template>
+                  <template #cell-archivedAt="{ row }">
+                    {{ row.archived_at ? $moment(row.archived_at).format('YYYY-MM-DD HH:mm') : '-' }}
+                  </template>
+                  <template #actions="{ row }">
+                    <div class="btn-group">
+                      <button @click="restoreTenant(row.id)" v-tooltip="$t('Restore')"
+                        class="btn btn-success btn-sm">
+                        <i class="fas fa-undo" />
+                      </button>
+                      <button @click="permanentDeleteTenant(row.id)" v-tooltip="$t('Permanent Delete')"
+                        class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash" />
+                      </button>
+                    </div>
+                  </template>
+                </GeneralTable>
               </div>
             </div>
           </div>
@@ -312,6 +245,7 @@ import moment from "moment";
 import { mapGetters } from "vuex";
 import axios from "axios";
 import html2pdf from "html2pdf.js";
+import GeneralTable from "../../../components/GeneralTable.vue";
 
 export default {
   layout: "central",
@@ -321,6 +255,7 @@ export default {
   },
   components: {
     DateRangePicker,
+    GeneralTable,
   },
   data: () => ({
     breadcrumbsCurrent: "Tenants",
@@ -381,6 +316,44 @@ export default {
     exportUrl() {
       // Create a dynamic export URL with query parameters
       return `/tenants/export/excel?start_date=${this.dateRange.startDate}&end_date=${this.dateRange.endDate}&term=${this.query}`;
+    },
+    tenantColumns() {
+      return [
+        { key: "index", label: this.$t("S.No"), sortable: false },
+        { key: "domain", label: this.$t("Domain") },
+        { key: "nameEmail", label: this.$t("Name & Email") },
+        { key: "plan", label: this.$t("Plan") },
+        { key: "onTrial", label: this.$t("On Trial") },
+        { key: "isVerified", label: this.$t("Is Verified") },
+        { key: "isSubscribed", label: this.$t("Is Subscribed") },
+        { key: "banned", label: this.$t("Banned") },
+      ];
+    },
+    tenantsWithIndex() {
+      return this.items.map((item, index) => ({
+        ...item,
+        index: this.pagination && this.pagination.current_page > 1
+          ? this.pagination.per_page * (this.pagination.current_page - 1) + (index + 1)
+          : index + 1,
+      }));
+    },
+    archivedTenantColumns() {
+      return [
+        { key: "index", label: this.$t("S.No"), sortable: false },
+        { key: "domain", label: this.$t("Domain") },
+        { key: "nameEmail", label: this.$t("Name & Email") },
+        { key: "plan", label: this.$t("Plan") },
+        { key: "archivedAt", label: this.$t("Archived At") },
+        { key: "archived_by_name", label: this.$t("Archived By") },
+      ];
+    },
+    archivedTenantsWithIndex() {
+      return this.archivedItems.map((item, index) => ({
+        ...item,
+        index: this.archivedPagination && this.archivedPagination.current_page > 1
+          ? this.archivedPagination.per_page * (this.archivedPagination.current_page - 1) + (index + 1)
+          : index + 1,
+      }));
     },
   },
   watch: {

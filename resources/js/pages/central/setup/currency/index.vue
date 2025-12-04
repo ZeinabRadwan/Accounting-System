@@ -31,80 +31,44 @@
                     </div>
                     <div class="card-body">
                         <table-loading v-show="loading" />
-                        <div class="table-responsive table-custom mt-3" id="printMe">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>{{ $t("#") }}</th>
-                                        <th>{{ $t("Name") }}</th>
-                                        <th>{{ $t("Code") }}</th>
-                                        <th>{{ $t("Rate") }}</th>
-                                        <th>{{ $t("Symbol") }}</th>
-                                        <th>{{ $t("Position") }}</th>
-                                        <th>{{ $t("Preview") }}</th>
-                                        <th>{{ $t("Status") }}</th>
-                                        <th class="text-right no-print">
-                                            {{ $t("Action") }}
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-show="items.length" v-for="(data, i) in items" :key="i">
-                                        <td>
-                                            <span v-if="pagination.current_page > 1
-                                            ">
-                                                {{
-                                                    pagination.per_page *
-                                                    (pagination.current_page -
-                                                1) +
-                                                (i + 1)
-                                                }}
-                                            </span>
-                                            <span v-else>{{ i + 1 }}</span>
-                                        </td>
-                                        <td>{{ data.name }}</td>
-                                        <td class="text-uppercase">{{ data.code }}</td>
-                                        <td>{{ data.rate }}</td>
-                                        <td>{{ data.symbol }}</td>
-                                        <td>{{ data.position }}</td>
-                                        <td>
-                                            <span v-if="data.position === 'left'">
-                                                {{ data.symbol }}0.00
-                                            </span>
-                                            <span v-else>0.00{{ data.symbol }}</span>
-                                        </td>
-                                        <td>
-                                            <span v-if="data.status === 1" class="badge bg-success">{{
-                                                $t("Active") }}</span>
-                                            <span v-else class="badge bg-danger">{{
-                                                $t("Inactive")
-                                                }}</span>
-                                        </td>
-                                        <td class="text-right no-print">
-                                            <div class="btn-group">
-                                                <router-link v-tooltip="$t('Edit')" :to="{
-                                                    name: 'currency.edit',
-                                                    params: { slug: data.slug },
-                                                }" class="btn btn-info btn-sm">
-                                                    <i class="fas fa-edit" />
-                                                </router-link>
-                                                <!-- Payment method's currency can not be deleted -->
-                                                <a v-if="appInfo.currency.symbol != data.symbol && data.code != 'NGN' && data.code != 'usd'"
-                                                    v-tooltip="$t('Delete')" href="#" class="btn btn-danger btn-sm"
-                                                    @click="deleteData(data.slug)">
-                                                    <i class="fas fa-trash" />
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr v-show="!loading && !items.length">
-                                        <td colspan="8">
-                                            <EmptyTable />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <GeneralTable
+                          :columns="currencyColumns"
+                          :rows="currenciesWithIndex"
+                          :loading="loading"
+                          table-id="printMe"
+                          wrapper-class="mt-3"
+                          :show-actions="true"
+                        >
+                          <template #cell-code="{ row }">
+                            <span class="text-uppercase">{{ row.code }}</span>
+                          </template>
+                          <template #cell-preview="{ row }">
+                            <span v-if="row.position === 'left'">
+                              {{ row.symbol }}0.00
+                            </span>
+                            <span v-else>0.00{{ row.symbol }}</span>
+                          </template>
+                          <template #cell-status="{ row }">
+                            <span v-if="row.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
+                            <span v-else class="badge bg-danger">{{ $t("Inactive") }}</span>
+                          </template>
+                          <template #actions="{ row }">
+                            <div class="btn-group">
+                              <router-link v-tooltip="$t('Edit')" :to="{
+                                name: 'currency.edit',
+                                params: { slug: row.slug },
+                              }" class="btn btn-info btn-sm">
+                                <i class="fas fa-edit" />
+                              </router-link>
+                              <!-- Payment method's currency can not be deleted -->
+                              <a v-if="appInfo.currency.symbol != row.symbol && row.code != 'NGN' && row.code != 'usd'"
+                                v-tooltip="$t('Delete')" href="#" class="btn btn-danger btn-sm"
+                                @click="deleteData(row.slug)">
+                                <i class="fas fa-trash" />
+                              </a>
+                            </div>
+                          </template>
+                        </GeneralTable>
                     </div>
                     <div class="card-footer">
                         <div class="dtable-footer">
@@ -135,6 +99,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import SettingsSidebar from '~/components/central/SettingsSidebar';
+import GeneralTable from '../../../../components/GeneralTable.vue';
 
 export default {
     layout: 'central',
@@ -146,6 +111,7 @@ export default {
     },
     components: {
         SettingsSidebar,
+        GeneralTable,
     },
     data: () => ({
         breadcrumbsCurrent:
@@ -172,6 +138,26 @@ export default {
     // Map Getters
     computed: {
         ...mapGetters('operations', ['appInfo', 'items', 'loading', 'pagination']),
+        currencyColumns() {
+            return [
+                { key: "index", label: this.$t("#"), sortable: false },
+                { key: "name", label: this.$t("Name") },
+                { key: "code", label: this.$t("Code") },
+                { key: "rate", label: this.$t("Rate") },
+                { key: "symbol", label: this.$t("Symbol") },
+                { key: "position", label: this.$t("Position") },
+                { key: "preview", label: this.$t("Preview") },
+                { key: "status", label: this.$t("Status") },
+            ];
+        },
+        currenciesWithIndex() {
+            return this.items.map((item, index) => ({
+                ...item,
+                index: this.pagination.current_page > 1
+                    ? this.pagination.per_page * (this.pagination.current_page - 1) + (index + 1)
+                    : index + 1,
+            }));
+        },
     },
 
     created() {
