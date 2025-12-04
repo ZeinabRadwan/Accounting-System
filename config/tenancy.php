@@ -16,9 +16,13 @@ return [
      *
      * Only relevant if you're using the domain or subdomain identification middleware.
      */
-    'central_domains' => [
+    'central_domains' => array_filter([
         env('CENTRAL_DOMAIN', 'arqam.test'),
-    ],
+        'localhost',
+        'localhost:8000',
+        '127.0.0.1',
+        '127.0.0.1:8000',
+    ]),
 
     /**
      * Tenancy bootstrappers are executed when tenancy is initialized.
@@ -27,7 +31,7 @@ return [
      * To configure their behavior, see the config keys below.
      */
     'bootstrappers' => [
-        Stancl\Tenancy\Bootstrappers\DatabaseTenancyBootstrapper::class,
+        App\Bootstrappers\TenantDatabaseBootstrapper::class,
         Stancl\Tenancy\Bootstrappers\CacheTenancyBootstrapper::class,
         Stancl\Tenancy\Bootstrappers\FilesystemTenancyBootstrapper::class,
         Stancl\Tenancy\Bootstrappers\QueueTenancyBootstrapper::class,

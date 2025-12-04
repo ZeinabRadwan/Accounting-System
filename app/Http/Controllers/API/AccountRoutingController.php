@@ -196,19 +196,63 @@ class AccountRoutingController extends Controller
     public function updateSetting($id, Request $request)
     {
         try {
-            $request->validate([
+            // Get branch_id from request first, then fall back to session/user default
+            $branchId = $request->input('branch_id', $this->getCurrentBranchId());
+
+            if (! $branchId) {
+                return $this->responseWithError('Branch ID is required');
+            }
+
+            // Normalize main_account_id: convert empty string to null
+            $mainAccountIdInput = $request->input('main_account_id');
+            if ($mainAccountIdInput === '' || $mainAccountIdInput === 'null') {
+                $request->merge(['main_account_id' => null]);
+            }
+
+            // Validate
+            $validated = $request->validate([
+                'branch_id' => 'nullable|exists:branches,id',
                 'main_account_id' => 'nullable|exists:chart_of_accounts,id',
+                'module' => 'nullable|string',
+                'setting_key' => 'nullable|string',
             ]);
 
-            $branchId = $this->getCurrentBranchId();
+            // Get the normalized value
+            $mainAccountId = $validated['main_account_id'] ?? null;
+            if ($mainAccountId !== null && $mainAccountId !== '') {
+                $mainAccountId = (int) $mainAccountId;
+            } else {
+                $mainAccountId = null;
+            }
+
+            // Try to find by ID first
             $setting = AccountRoutingSetting::where('branch_id', $branchId)
-                ->findOrFail($id);
+                ->where('id', $id)
+                ->first();
 
-            $updateData = [
-                'main_account_id' => $request->main_account_id,
-            ];
+            // If not found by ID, try to find by module and setting_key (in case ID is from different branch)
+            if (! $setting && isset($validated['module']) && isset($validated['setting_key'])) {
+                $setting = AccountRoutingSetting::where('branch_id', $branchId)
+                    ->where('module', $validated['module'])
+                    ->where('setting_key', $validated['setting_key'])
+                    ->first();
+            }
 
-            $setting->update($updateData);
+            if (! $setting) {
+                return $this->responseWithError('Setting not found for the current branch');
+            }
+
+            // Update the value using update() method for explicit update
+            $updated = $setting->update([
+                'main_account_id' => $mainAccountId,
+            ]);
+
+            if (! $updated) {
+                return $this->responseWithError('Failed to update setting');
+            }
+
+            // Refresh to get the latest data
+            $setting->refresh();
 
             return $this->responseWithSuccess('Setting updated successfully', $setting);
         } catch (Exception $e) {
@@ -236,7 +280,8 @@ class AccountRoutingController extends Controller
 
             foreach ($request->updates as $updateData) {
                 $setting = AccountRoutingSetting::where('branch_id', $branchId)
-                    ->find($updateData['id']);
+                    ->where('id', $updateData['id'])
+                    ->first();
 
                 if ($setting) {
                     $setting->update([

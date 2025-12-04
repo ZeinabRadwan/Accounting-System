@@ -642,6 +642,7 @@ class ChartOfAccountController extends Controller
     {
         $locale = $request->get('locale', app()->getLocale());
         $branchId = Auth::user()->default_branch_id ?? null;
+        $perPage = $request->get('perPage', 10);
 
         // Build eager load array - only load what's needed
         $with = ['translations']; // Always load translations
@@ -655,11 +656,17 @@ class ChartOfAccountController extends Controller
             }
         }
 
-        // Load accounts with minimal relationships
-        $accounts = ChartOfAccount::with($with)
-            ->forBranch($branchId)
-            ->ordered()
-            ->get();
+        // Build query
+        $query = ChartOfAccount::with($with)
+            ->forBranch($branchId);
+
+        // Apply type filter if provided
+        if ($request->has('type_id') && $request->type_id) {
+            $query->where('type_id', $request->type_id);
+        }
+
+        // Load accounts with pagination
+        $accounts = $query->ordered()->paginate($perPage);
 
         return ChartOfAccountTranslationResource::collection($accounts);
     }
