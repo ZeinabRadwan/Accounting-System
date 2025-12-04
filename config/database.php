@@ -59,11 +59,10 @@ return [
             'strict' => false,
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::ATTR_TIMEOUT => 3,
+                PDO::ATTR_PERSISTENT => false,
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-                PDO::ATTR_PERSISTENT => false, // Disable persistent connections to prevent connection leaks
-            ]) : [
-                PDO::ATTR_PERSISTENT => false, // Disable persistent connections to prevent connection leaks
-            ],
+            ]) : [],
         ],
 
         'pgsql' => [
