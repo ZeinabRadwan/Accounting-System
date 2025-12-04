@@ -16,6 +16,9 @@ class TenantDatabaseBootstrapper implements TenancyBootstrapper
 {
     /**
      * Bootstrap the tenant database connection.
+     * REQUIRES tenant-specific credentials - will not use root user from .env
+     *
+     * @throws \Exception if tenant credentials are missing
      */
     public function bootstrap(Tenant $tenant): void
     {
@@ -25,17 +28,53 @@ class TenantDatabaseBootstrapper implements TenancyBootstrapper
 
         $databaseName = $tenant->database()->getName();
 
-        // Get base connection config from the default MySQL connection
+        // Get base connection config from the default MySQL connection (for host/port only)
         $baseConfig = config('database.connections.mysql', []);
 
-        // Start with base config
+        // Get tenant-specific credentials - REQUIRED
+        $dbUsername = null;
+        $dbPassword = null;
+
+        if (method_exists($tenant, 'getAttribute')) {
+            $dbUsername = $tenant->getAttribute('db_username');
+            $dbPassword = $tenant->getAttribute('db_password');
+        }
+
+        // CRITICAL: Require tenant-specific credentials
+        if (empty($dbUsername) || empty($dbPassword)) {
+            $tenantId = $tenant->getTenantKey();
+            Log::error("Tenant {$tenantId} (database: {$databaseName}) is missing database credentials. Cannot initialize tenancy.");
+
+            throw new \Exception(
+                'Tenant database credentials are missing. '.
+                'This tenant cannot access their database. '.
+                'Please contact the administrator to set up database credentials for this tenant.'
+            );
+        }
+
+        // Decrypt the password
+        try {
+            $decryptedPassword = Crypt::decryptString($dbPassword);
+        } catch (\Exception $e) {
+            $tenantId = $tenant->getTenantKey();
+            Log::error("Failed to decrypt tenant password for tenant {$tenantId}: ".$e->getMessage());
+
+            throw new \Exception(
+                'Failed to decrypt tenant database credentials. '.
+                'This tenant cannot access their database. '.
+                'Please contact the administrator.'
+            );
+        }
+
+        // Build tenant config using ONLY tenant-specific credentials
+        // Do NOT use root user credentials from .env
         $tenantConfig = [
             'driver' => $baseConfig['driver'] ?? 'mysql',
             'host' => $baseConfig['host'] ?? env('DB_HOST', '127.0.0.1'),
             'port' => $baseConfig['port'] ?? env('DB_PORT', '3306'),
             'database' => $databaseName,
-            'username' => $baseConfig['username'] ?? env('DB_USERNAME'),
-            'password' => $baseConfig['password'] ?? env('DB_PASSWORD'),
+            'username' => $dbUsername, // Tenant-specific username
+            'password' => $decryptedPassword, // Tenant-specific password
             'charset' => $baseConfig['charset'] ?? 'utf8mb4',
             'collation' => $baseConfig['collation'] ?? 'utf8mb4_unicode_ci',
             'prefix' => $baseConfig['prefix'] ?? '',
@@ -45,24 +84,7 @@ class TenantDatabaseBootstrapper implements TenancyBootstrapper
             'options' => $baseConfig['options'] ?? [],
         ];
 
-        // Override with tenant-specific credentials if available
-        if (method_exists($tenant, 'getAttribute')) {
-            $dbUsername = $tenant->getAttribute('db_username');
-            $dbPassword = $tenant->getAttribute('db_password');
-
-            if ($dbUsername && $dbPassword) {
-                try {
-                    // Decrypt the password
-                    $decryptedPassword = Crypt::decryptString($dbPassword);
-                    $tenantConfig['username'] = $dbUsername;
-                    $tenantConfig['password'] = $decryptedPassword;
-
-                    Log::info("Using tenant-specific MySQL credentials for database: {$databaseName}, user: {$dbUsername}");
-                } catch (\Exception $e) {
-                    Log::warning('Failed to decrypt tenant password, using default connection: '.$e->getMessage());
-                }
-            }
-        }
+        Log::info("Using tenant-specific MySQL credentials for database: {$databaseName}, user: {$dbUsername}");
 
         // Set the tenant connection configuration
         Config::set('database.connections.tenant', $tenantConfig);

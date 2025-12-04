@@ -435,13 +435,28 @@ class MySQLDatabaseManager implements TenantDatabaseManager
 
                         Log::info("Using tenant-specific MySQL credentials for database: {$databaseName}");
                     } catch (\Exception $e) {
-                        Log::warning('Failed to decrypt tenant password, using default connection: '.$e->getMessage());
+                        Log::error('Failed to decrypt tenant password: '.$e->getMessage());
+                        // Don't fall back to default - throw error instead
+                        throw new Exception("Failed to decrypt tenant database credentials for database: {$databaseName}");
                     }
+                } else {
+                    // No credentials available - don't use root user
+                    Log::error("Tenant credentials missing for database: {$databaseName}");
+                    throw new Exception("Tenant database credentials are missing for database: {$databaseName}. Cannot establish connection.");
                 }
+            } else {
+                // No tenant context - don't use root user
+                Log::error("No tenant context available for database: {$databaseName}");
+                throw new Exception('No tenant context available. Cannot establish database connection.');
             }
         } catch (\Exception $e) {
-            // If we can't get tenant context, fall back to default credentials
-            Log::debug('Could not get tenant context for connection config: '.$e->getMessage());
+            // Re-throw if it's already our custom exception
+            if (str_contains($e->getMessage(), 'credentials') || str_contains($e->getMessage(), 'tenant')) {
+                throw $e;
+            }
+            // Otherwise log and throw
+            Log::error('Could not get tenant context for connection config: '.$e->getMessage());
+            throw new Exception('Cannot establish database connection: '.$e->getMessage());
         }
 
         return $baseConfig;
