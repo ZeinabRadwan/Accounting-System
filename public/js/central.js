@@ -35546,12 +35546,12 @@ var map = {
 		9520
 	],
 	"./sales/invoices/create": [
-		25934,
-		5934
+		5845,
+		5845
 	],
 	"./sales/invoices/create.vue": [
-		25934,
-		5934
+		5845,
+		5845
 	],
 	"./sales/invoices/edit": [
 		4473,

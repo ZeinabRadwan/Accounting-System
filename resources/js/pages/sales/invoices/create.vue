@@ -898,7 +898,16 @@ export default {
       representatives: [],
       cashiers: [],
       branches: [],
-      paymentMethods: [],
+      paymentMethods: [
+        { id: 'cash', name: 'نقدي (Cash)' },
+        { id: 'visa_mastercard', name: 'فيزا / ماستركارد (Visa / Mastercard)' },
+        { id: 'bank_transfer', name: 'تحويل بنكي (Bank Transfer)' },
+        { id: 'cheque', name: 'شيك (Cheque)' },
+        { id: 'cod', name: 'دفع عند الاستلام (Cash on Delivery)' },
+        { id: 'ewallet', name: 'محفظة إلكترونية / دفع إلكتروني (E‑wallet / Digital Wallet)' },
+        { id: 'credit_debit_card', name: 'بطاقة ائتمان/خصم (Credit / Debit Card)' },
+        { id: 'other', name: 'أي وسيلة دفع أخرى (Other / Misc)' }
+      ],
       prefix: "",
       isUpdatingChartOfAccount: false, // Flag to prevent form submission during chart of account updates
 
@@ -1246,7 +1255,6 @@ export default {
     this.getCostCenters();
     this.getEmployees();
     this.getBranches();
-    this.getPaymentMethods();
     this.loadCommunicationConfigStatus();
     this.prefix = this.appInfo.productPrefix;
     this.ensureDiscountProperties();
@@ -1864,21 +1872,6 @@ export default {
     // remove attachment
     removeAttachment(index) {
       this.form.attachments.splice(index, 1);
-    },
-
-    // get all payment methods
-    async getPaymentMethods() {
-      try {
-        const { data } = await axios.get('/api/all-payment-methods');
-        if (data && data.data && Array.isArray(data.data)) {
-          this.paymentMethods = data.data;
-        } else if (Array.isArray(data)) {
-          this.paymentMethods = data;
-        }
-      } catch (error) {
-        console.error('Error getting payment methods:', error);
-        this.paymentMethods = [];
-      }
     },
 
     // handle payment type change
