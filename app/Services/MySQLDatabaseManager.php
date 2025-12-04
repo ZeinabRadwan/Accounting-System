@@ -117,59 +117,68 @@ class MySQLDatabaseManager implements TenantDatabaseManager
 
         // Now create the MySQL user and grant privileges
         $userCreated = false;
-        try {
-            Log::info("Creating MySQL user: {$dbUsername} for database: {$database}");
 
-            // Get MySQL host (support both localhost and % for remote connections)
-            $mysqlHost = $this->getMySQLHost();
+        // Use cPanel API if configured (same as database creation)
+        if (env('CPANEL_API_TOKEN') && (app()->environment('production') || app()->environment('staging'))) {
+            $userCreated = $this->createMySQLUserViaCpanelAPI($dbUsername, $dbPassword, $database);
+        }
 
-            // Create user for localhost
-            $this->database()->statement("CREATE USER IF NOT EXISTS '{$dbUsername}'@'{$mysqlHost}' IDENTIFIED BY '{$dbPassword}'");
-            Log::info("Created MySQL user '{$dbUsername}'@'{$mysqlHost}'");
-
-            // Grant privileges only on this tenant's database
-            $this->database()->statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$dbUsername}'@'{$mysqlHost}'");
-            Log::info("Granted privileges to '{$dbUsername}'@'{$mysqlHost}' on database {$database}");
-
-            // Also create user for % (any host) if needed for remote connections
-            if ($mysqlHost !== '%') {
-                try {
-                    $this->database()->statement("CREATE USER IF NOT EXISTS '{$dbUsername}'@'%' IDENTIFIED BY '{$dbPassword}'");
-                    $this->database()->statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$dbUsername}'@'%'");
-                    Log::info("Created MySQL user '{$dbUsername}'@'%' and granted privileges");
-                } catch (\Exception $e) {
-                    Log::warning('Failed to create user for % host, continuing with localhost only: '.$e->getMessage());
-                }
-            }
-
-            $this->database()->statement('FLUSH PRIVILEGES');
-            $userCreated = true;
-
-            Log::info("Successfully created MySQL user: {$dbUsername} with privileges on database: {$database}");
-
-        } catch (\Exception $e) {
-            Log::error("Failed to create MySQL user for tenant {$database}: ".$e->getMessage());
-            Log::error('Exception trace: '.$e->getTraceAsString());
-
-            // Check if user was partially created
+        // Fallback to direct MySQL if cPanel API failed or not configured
+        if (! $userCreated) {
             try {
-                $userExists = $this->checkUserExists($dbUsername);
-                if ($userExists) {
-                    Log::info("User {$dbUsername} exists, attempting to grant privileges");
+                Log::info("Creating MySQL user via direct MySQL: {$dbUsername} for database: {$database}");
+
+                // Get MySQL host (support both localhost and % for remote connections)
+                $mysqlHost = $this->getMySQLHost();
+
+                // Create user for localhost
+                $this->database()->statement("CREATE USER IF NOT EXISTS '{$dbUsername}'@'{$mysqlHost}' IDENTIFIED BY '{$dbPassword}'");
+                Log::info("Created MySQL user '{$dbUsername}'@'{$mysqlHost}'");
+
+                // Grant privileges only on this tenant's database
+                $this->database()->statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$dbUsername}'@'{$mysqlHost}'");
+                Log::info("Granted privileges to '{$dbUsername}'@'{$mysqlHost}' on database {$database}");
+
+                // Also create user for % (any host) if needed for remote connections
+                if ($mysqlHost !== '%') {
                     try {
-                        $this->database()->statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$dbUsername}'@'{$mysqlHost}'");
-                        if ($mysqlHost !== '%') {
-                            $this->database()->statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$dbUsername}'@'%'");
-                        }
-                        $this->database()->statement('FLUSH PRIVILEGES');
-                        $userCreated = true;
-                        Log::info("Successfully granted privileges to existing user {$dbUsername}");
-                    } catch (\Exception $grantException) {
-                        Log::error('Failed to grant privileges to existing user: '.$grantException->getMessage());
+                        $this->database()->statement("CREATE USER IF NOT EXISTS '{$dbUsername}'@'%' IDENTIFIED BY '{$dbPassword}'");
+                        $this->database()->statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$dbUsername}'@'%'");
+                        Log::info("Created MySQL user '{$dbUsername}'@'%' and granted privileges");
+                    } catch (\Exception $e) {
+                        Log::warning('Failed to create user for % host, continuing with localhost only: '.$e->getMessage());
                     }
                 }
-            } catch (\Exception $checkException) {
-                Log::warning('Could not check if user exists: '.$checkException->getMessage());
+
+                $this->database()->statement('FLUSH PRIVILEGES');
+                $userCreated = true;
+
+                Log::info("Successfully created MySQL user: {$dbUsername} with privileges on database: {$database}");
+
+            } catch (\Exception $e) {
+                Log::error("Failed to create MySQL user for tenant {$database}: ".$e->getMessage());
+                Log::error('Exception trace: '.$e->getTraceAsString());
+
+                // Check if user was partially created
+                try {
+                    $userExists = $this->checkUserExists($dbUsername);
+                    if ($userExists) {
+                        Log::info("User {$dbUsername} exists, attempting to grant privileges");
+                        try {
+                            $this->database()->statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$dbUsername}'@'{$mysqlHost}'");
+                            if ($mysqlHost !== '%') {
+                                $this->database()->statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$dbUsername}'@'%'");
+                            }
+                            $this->database()->statement('FLUSH PRIVILEGES');
+                            $userCreated = true;
+                            Log::info("Successfully granted privileges to existing user {$dbUsername}");
+                        } catch (\Exception $grantException) {
+                            Log::error('Failed to grant privileges to existing user: '.$grantException->getMessage());
+                        }
+                    }
+                } catch (\Exception $checkException) {
+                    Log::warning('Could not check if user exists: '.$checkException->getMessage());
+                }
             }
         }
 
@@ -558,6 +567,99 @@ class MySQLDatabaseManager implements TenantDatabaseManager
         }
 
         Log::info("Successfully stored database credentials for tenant: {$database} (ID: {$tenantId})");
+    }
+
+    /**
+     * Create MySQL user via cPanel API
+     */
+    protected function createMySQLUserViaCpanelAPI(string $username, string $password, string $database): bool
+    {
+        try {
+            Log::info("Attempting cPanel API MySQL user creation: {$username} for database: {$database}");
+
+            $cpanelUser = env('CPANEL_USERNAME', 'accountwebsoft');
+            $apiToken = env('CPANEL_API_TOKEN');
+            $cpanelHost = env('CPANEL_HOST', 'account.websoft.sa');
+            $cpanelPort = env('CPANEL_PORT', '2083');
+
+            // Step 1: Create MySQL user via cPanel API
+            $createUserResponse = Http::withHeaders([
+                'Authorization' => "cpanel {$cpanelUser}:{$apiToken}",
+            ])->timeout(30)->get("https://{$cpanelHost}:{$cpanelPort}/execute/Mysql/create_user", [
+                'name' => $username,
+                'password' => $password,
+            ]);
+
+            $createUserData = $createUserResponse->json();
+            Log::info('cPanel API create_user response: '.json_encode($createUserData));
+
+            if (! isset($createUserData['status']) || $createUserData['status'] !== 1) {
+                // Try alternative endpoint
+                Log::info('Trying alternative cPanel API endpoint for user creation');
+                $createUserResponse2 = Http::withHeaders([
+                    'Authorization' => "cpanel {$cpanelUser}:{$apiToken}",
+                ])->timeout(30)->get("https://{$cpanelHost}:{$cpanelPort}/execute2", [
+                    'cpanel_jsonapi_version' => '2',
+                    'cpanel_jsonapi_module' => 'Mysql',
+                    'cpanel_jsonapi_func' => 'create_user',
+                    'name' => $username,
+                    'password' => $password,
+                ]);
+
+                $createUserData2 = $createUserResponse2->json();
+                Log::info('cPanel API create_user (alternative) response: '.json_encode($createUserData2));
+
+                if (! isset($createUserData2['cpanelresult']['data'][0]['result']) || $createUserData2['cpanelresult']['data'][0]['result'] !== 1) {
+                    throw new Exception('cPanel API failed to create MySQL user: '.json_encode($createUserData2));
+                }
+            }
+
+            Log::info("Successfully created MySQL user via cPanel API: {$username}");
+
+            // Step 2: Grant privileges on database via cPanel API
+            $grantResponse = Http::withHeaders([
+                'Authorization' => "cpanel {$cpanelUser}:{$apiToken}",
+            ])->timeout(30)->get("https://{$cpanelHost}:{$cpanelPort}/execute/Mysql/set_privileges_on_database", [
+                'user' => $username,
+                'database' => $database,
+                'privileges' => 'ALL PRIVILEGES',
+            ]);
+
+            $grantData = $grantResponse->json();
+            Log::info('cPanel API set_privileges_on_database response: '.json_encode($grantData));
+
+            if (! isset($grantData['status']) || $grantData['status'] !== 1) {
+                // Try alternative endpoint
+                Log::info('Trying alternative cPanel API endpoint for privileges');
+                $grantResponse2 = Http::withHeaders([
+                    'Authorization' => "cpanel {$cpanelUser}:{$apiToken}",
+                ])->timeout(30)->get("https://{$cpanelHost}:{$cpanelPort}/execute2", [
+                    'cpanel_jsonapi_version' => '2',
+                    'cpanel_jsonapi_module' => 'Mysql',
+                    'cpanel_jsonapi_func' => 'set_privileges_on_database',
+                    'user' => $username,
+                    'database' => $database,
+                    'privileges' => 'ALL PRIVILEGES',
+                ]);
+
+                $grantData2 = $grantResponse2->json();
+                Log::info('cPanel API set_privileges_on_database (alternative) response: '.json_encode($grantData2));
+
+                if (! isset($grantData2['cpanelresult']['data'][0]['result']) || $grantData2['cpanelresult']['data'][0]['result'] !== 1) {
+                    throw new Exception('cPanel API failed to grant privileges: '.json_encode($grantData2));
+                }
+            }
+
+            Log::info("Successfully granted ALL PRIVILEGES to user {$username} on database {$database} via cPanel API");
+
+            return true;
+
+        } catch (\Exception $e) {
+            Log::error('cPanel API MySQL user creation failed: '.$e->getMessage());
+            Log::error("Username: {$username}, Database: {$database}");
+
+            return false;
+        }
     }
 
     /**
