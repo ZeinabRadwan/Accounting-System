@@ -10,7 +10,8 @@ resources\js\pages\loansresources\js\pages\loans<template>
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'assetTypes.index' }" class="btn btn-info">
-                  <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                  <template
+                    v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
                     {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
 
@@ -18,7 +19,8 @@ resources\js\pages\loansresources\js\pages\loans<template>
 
                   <template v-else>
 
-                    <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                    <template
+                      v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
 
                       {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
@@ -52,8 +54,7 @@ resources\js\pages\loansresources\js\pages\loans<template>
                   <label for="name">{{ $t('Name') }}
                     <span class="required">*</span></label>
                   <input id="name" v-model="form.name" type="text" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('name') }" name="name"
-                    :placeholder="$t('Enter a name')" />
+                    :class="{ 'is-invalid': form.errors.has('name') }" name="name" :placeholder="$t('Enter a name')" />
                   <has-error :form="form" field="name" />
                 </div>
                 <div class="form-group col-md-6">
@@ -201,20 +202,9 @@ export default {
   margin-right: 0;
 }
 
-
-
 .card {
-  margin-top: 30px;
-  border-radius: 20px;
-  box-shadow: 0px 8px 20px 0px #00000014;
+  border-radius: 10px;
   border: 1px solid #CED4DA;
-}
-
-.card-header {
-  background-color: white;
-  border-bottom: 1px solid #CED4DA;
-  padding: 1.25rem 1.25rem 0 1.25rem;
-  border-radius: 20px 20px 0 0;
 }
 
 .card-body {
@@ -309,12 +299,12 @@ textarea.form-control {
     flex-direction: column;
     gap: 10px;
   }
-  
+
   .card-footer .btn {
     width: 100%;
     margin-right: 0 !important;
   }
-  
+
   .card-footer div {
     width: 100%;
     display: flex;

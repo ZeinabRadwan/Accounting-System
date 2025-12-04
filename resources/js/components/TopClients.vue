@@ -1,26 +1,26 @@
 <template>
   <div v-if="topClients && topClients.length > 0" class="card">
-    <div class="card-header">
-      <h3 class="card-title">
+    <CardHeader>
+      <template #icon>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
         </svg>
+      </template>
+      <template #title>
         {{ $t('Top Clients') }} ({{ year }})
-      </h3>
-    </div>
+      </template>
+    </CardHeader>
     <div class="card-body">
       <div class="clients-list">
-        <div v-for="(client, index) in topClients" :key="index" 
-             class="client-item" 
-             :class="{ 'top-client': index === 0 }"
-             v-tooltip="getClientTooltip(client)">
+        <div v-for="(client, index) in topClients" :key="index" class="client-item"
+          :class="{ 'top-client': index === 0 }" v-tooltip="getClientTooltip(client)">
           <div class="client-rank">
             <span class="rank-number">{{ index + 1 }}</span>
             <div v-if="index === 0" class="crown-icon">👑</div>
           </div>
           <div class="client-avatar">
-            <img :src="client.client.image || '/images/default-avatar.jpeg'"
-              class="avatar-img" alt="Client Avatar" 
+            <img :src="client.client.image || '/images/default-avatar.jpeg'" class="avatar-img" alt="Client Avatar"
               @error="$event.target.src = '/images/default-avatar.jpeg'" />
           </div>
           <div class="client-details">
@@ -28,7 +28,8 @@
             <p class="client-company">{{ client.client.company_name || 'No Company' }}</p>
           </div>
           <div class="client-metrics">
-            <div class="revenue">{{ parseFloat(client.invoice_total).toFixed(2) }} <span class="saudi-riyal">ê</span></div>
+            <div class="revenue">{{ parseFloat(client.invoice_total).toFixed(2) }} <span class="saudi-riyal">ê</span>
+            </div>
             <div class="sales-count">{{ parseFloat(client.total_invoice).toFixed(2) }} {{ $t('Sales') }}</div>
           </div>
         </div>
@@ -39,9 +40,13 @@
 
 <script>
 import axios from 'axios'
+import CardHeader from './CardHeader.vue'
 
 export default {
   name: 'TopClients',
+  components: {
+    CardHeader,
+  },
   data: () => ({
     topClients: '',
     year: new Date().getFullYear(),
@@ -67,17 +72,17 @@ export default {
     // Generate branded tooltip for clients
     getClientTooltip(client) {
       if (!client || !client.client) return ''
-      
+
       const clientData = client.client
       const revenue = parseFloat(client.invoice_total).toFixed(2)
       const salesCount = parseFloat(client.total_invoice).toFixed(2)
-      
+
       // Create a branded tooltip matching Sales vs Purchases style
       const clientName = clientData.name
       const companyName = clientData.company_name || this.$t('No Company')
       const revenueText = this.$t('Revenue')
       const salesText = this.$t('Sales')
-      
+
       return `
         <div style="padding: 12px; font-weight: 600; color: #33a0d9; margin-bottom: 8px; border-bottom: 1px solid #e2e8f0;">
           ${clientName}
@@ -105,21 +110,15 @@ export default {
 <style scoped>
 /* Card styling */
 .card {
-  margin-top: 30px;
-  margin-bottom: 0;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e2e8f0;
+
+
+  border-radius: 10px;
+
+  border: 1px solid #ced4da;
   height: 100%;
   display: flex;
   flex-direction: column;
   background: #ffffff;
-}
-
-.card-header {
-  border-bottom: 1px solid #f1f5f9;
-  padding: 1.5rem 1.5rem 1rem 1.5rem;
-  border-radius: 12px 12px 0 0;
 }
 
 .card-body {
@@ -128,23 +127,6 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: column;
-}
-
-/* Header styling */
-.card-header h3 {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-weight: 600;
-  font-size: 1.125rem;
-  color: #1e293b;
-  margin: 0;
-}
-
-.card-header h3 svg {
-  width: 20px;
-  height: 20px;
-  color: #64748b;
 }
 
 /* Clients list */
@@ -295,24 +277,24 @@ export default {
   .card-body {
     padding: 1rem;
   }
-  
+
   .client-item {
     padding: 12px;
   }
-  
+
   .client-avatar {
     margin-right: 12px;
   }
-  
+
   .client-details {
     margin-right: 12px;
   }
-  
+
   .avatar-img {
     width: 36px;
     height: 36px;
   }
-  
+
   .client-rank {
     width: 28px;
     height: 28px;
@@ -322,30 +304,22 @@ export default {
 }
 
 @media (max-width: 576px) {
-  .card-header {
-    padding: 1rem 1rem 0.75rem 1rem;
-  }
-  
-  .card-header h3 {
-    font-size: 1rem;
-  }
-  
   .client-item {
     padding: 10px;
   }
-  
+
   .client-name {
     font-size: 13px;
   }
-  
+
   .client-company {
     font-size: 11px;
   }
-  
+
   .revenue {
     font-size: 13px;
   }
-  
+
   .sales-count {
     font-size: 10px;
   }
@@ -358,7 +332,7 @@ export default {
   border: 2px solid #33A0D9 !important;
   border-radius: 12px !important;
   padding: 0 !important;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
   font-size: 13px !important;
   font-weight: 600 !important;
   max-width: 280px !important;

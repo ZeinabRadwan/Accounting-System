@@ -37,7 +37,7 @@
           <i class="fas fa-exclamation-circle"></i>
           <span>{{ subscription_limit_message }}</span>
         </div>
-        <div class="container-fluid page-padding">
+        <div class="container-fluid">
           <child />
         </div>
         <!-- /.container-fluid -->

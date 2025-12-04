@@ -1,13 +1,15 @@
 <template>
   <div class="card">
-    <div class="card-header">
-      <h3 class="card-title">
+    <CardHeader>
+      <template #icon>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
+      </template>
+      <template #title>
         {{ $t("Recent Activities") }}
-      </h3>
-    </div>
+      </template>
+    </CardHeader>
     <div class="card-body mb-3">
       <RecentActivitiesTabs @show-purchases="getPurchases" @show-expenses="getExpenses"
         @show-transactions="getTransactions" />
@@ -22,12 +24,14 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 import RecentActivitiesTabs from "./RecentActivitiesTabs.vue";
 import RecentActivitiesTables from "./RecentActivitiesTables.vue";
+import CardHeader from "./CardHeader.vue";
 
 export default {
   name: "RecentActivities",
   components: {
     RecentActivitiesTabs,
     RecentActivitiesTables,
+    CardHeader,
   },
   data: () => ({
     invoices: [],
@@ -91,10 +95,7 @@ export default {
 <style scoped>
 /* Card styling to match dashboard */
 .card {
-  margin-top: 30px;
-  margin-bottom: 30px;
-  border-radius: 20px;
-  box-shadow: 0px 8px 20px 0px #00000014;
+  border-radius: 10px;
   border: 1px solid #CED4DA;
   height: 100%;
   display: flex;
@@ -102,10 +103,6 @@ export default {
 }
 
 .card-body {
-  padding: 2rem 1.5rem;
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-  border-radius: 0 0 20px 20px;
-  position: relative;
   overflow: hidden;
   flex: 1;
   display: flex;
@@ -123,28 +120,6 @@ export default {
   opacity: 0.3;
 }
 
-/* SVG Icon styling in card header */
-.card-header h3 {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: bold;
-  font-size: 1.25rem;
-  color: #023033;
-  margin: 0;
-}
-
-.card-header h3 svg {
-  width: 44px;
-  height: 44px;
-  background: #33A0D91A;
-  color: #33A0D9;
-  border-radius: 10px;
-  padding: 8px;
-  margin-right: 12px;
-  font-weight: bold;
-  box-sizing: border-box;
-}
 
 /* Professional Card Body Animations */
 .card-body {

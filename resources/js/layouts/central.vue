@@ -8,7 +8,7 @@
         <div v-if="demo_message" class="demo-message alert alert-danger rounded-0">
           {{ demo_message }}
         </div>
-        <div class="container-fluid page-padding">
+        <div class="container-fluid">
           <child />
         </div>
         <!-- /.container-fluid -->
