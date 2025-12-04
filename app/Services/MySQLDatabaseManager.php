@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-
+use Exception;
 use Illuminate\Database\Connection;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
-use Stancl\Tenancy\Contracts\TenantDatabaseManager;
-use Stancl\Tenancy\Contracts\TenantWithDatabase;
-use Stancl\Tenancy\Exceptions\NoConnectionSetException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use Exception;
-
+use Stancl\Tenancy\Contracts\TenantDatabaseManager;
+use Stancl\Tenancy\Contracts\TenantWithDatabase;
+use Stancl\Tenancy\Exceptions\NoConnectionSetException;
 
 class MySQLDatabaseManager implements TenantDatabaseManager
 {
@@ -43,143 +42,118 @@ class MySQLDatabaseManager implements TenantDatabaseManager
     //     return $this->database()->statement("CREATE DATABASE `{$database}` CHARACTER SET `$charset` COLLATE `$collation`");
     // }
 
-
-
     public function createDatabase(TenantWithDatabase $tenant): bool
     {
         $database = $tenant->database()->getName();
-        Log::info("Creating database: {$database}");
+        Log::info("Creating database with dedicated MySQL user: {$database}");
 
-        // First, check if we have permissions to create databases
-        try {
-            $this->checkDatabasePermissions();
-        } catch (\Exception $e) {
-            Log::error("Database permission check failed: " . $e->getMessage());
+        // Check if tenant already has database credentials (for backward compatibility)
+        if (method_exists($tenant, 'getAttribute')) {
+            $existingUsername = $tenant->getAttribute('db_username');
+            $existingPassword = $tenant->getAttribute('db_password');
+
+            if ($existingUsername && $existingPassword) {
+                Log::info('Tenant already has database credentials, skipping user creation');
+                // Verify database exists
+                if ($this->databaseExists($database)) {
+                    return true;
+                }
+                // If database doesn't exist but credentials do, continue to create database
+            }
         }
 
+        // Generate unique MySQL user credentials for this tenant
+        $dbUsername = $this->generateTenantUsername($tenant);
+        $dbPassword = Str::random(32); // Strong password
+
+        // First, create the database
+        $databaseCreated = false;
+
         // Try multiple approaches for database creation
-        
+
         // Approach 1: Try direct MySQL with CREATE DATABASE
         try {
             Log::info("Attempting direct MySQL database creation for: {$database}");
             $charset = $this->database()->getConfig('charset');
             $collation = $this->database()->getConfig('collation');
-            $result = $this->database()->statement("CREATE DATABASE `{$database}` CHARACTER SET `$charset` COLLATE `$collation`");
+            $result = $this->database()->statement("CREATE DATABASE IF NOT EXISTS `{$database}` CHARACTER SET `$charset` COLLATE `$collation`");
             if ($result) {
                 Log::info("Successfully created database via direct MySQL: {$database}");
-                return true;
+                $databaseCreated = true;
             }
         } catch (\Exception $e) {
-            Log::warning("Direct MySQL creation failed for {$database}: " . $e->getMessage());
+            Log::warning("Direct MySQL creation failed for {$database}: ".$e->getMessage());
         }
 
-        // Approach 2: Try CREATE DATABASE IF NOT EXISTS
-        try {
-            Log::info("Attempting CREATE DATABASE IF NOT EXISTS for: {$database}");
-            $result = $this->database()->statement("CREATE DATABASE IF NOT EXISTS `{$database}`");
-            if ($result) {
-                Log::info("Successfully created database via IF NOT EXISTS: {$database}");
-                return true;
-            }
-        } catch (\Exception $e) {
-            Log::warning("CREATE DATABASE IF NOT EXISTS failed for {$database}: " . $e->getMessage());
-        }
-
-        // Approach 3: Try cPanel API (if configured)
-        if (env('CPANEL_API_TOKEN') && (app()->environment('production') || app()->environment('staging'))) {
+        // Approach 2: Try cPanel API (if configured and database not created yet)
+        if (! $databaseCreated && env('CPANEL_API_TOKEN') && (app()->environment('production') || app()->environment('staging'))) {
             try {
                 Log::info("Attempting cPanel API database creation for: {$database}");
-                
+
                 $cpanelUser = env('CPANEL_USERNAME', 'accountwebsoft');
                 $apiToken = env('CPANEL_API_TOKEN');
                 $cpanelHost = env('CPANEL_HOST', 'account.websoft.sa');
                 $cpanelPort = env('CPANEL_PORT', '2083');
 
-                Log::info("Using cPanel: {$cpanelHost}:{$cpanelPort} with user: {$cpanelUser}");
-
-                // Try the working API endpoint from your test
                 $response = Http::withHeaders([
-                    'Authorization' => "cpanel {$cpanelUser}:{$apiToken}"
+                    'Authorization' => "cpanel {$cpanelUser}:{$apiToken}",
                 ])->timeout(30)->get("https://{$cpanelHost}:{$cpanelPort}/execute/Mysql/create_database", [
-                    'name' => $database
+                    'name' => $database,
                 ]);
 
                 $data = $response->json();
-                Log::info("cPanel API response for {$database}: " . json_encode($data));
-
                 if (isset($data['status']) && $data['status'] === 1) {
                     Log::info("Successfully created database via cPanel API: {$database}");
-                    return true;
+                    $databaseCreated = true;
                 }
-
-                // Try alternative cPanel API endpoint
-                $response2 = Http::withHeaders([
-                    'Authorization' => "cpanel {$cpanelUser}:{$apiToken}"
-                ])->timeout(30)->get("https://{$cpanelHost}:{$cpanelPort}/execute2", [
-                    'cpanel_jsonapi_version' => '2',
-                    'cpanel_jsonapi_module' => 'Mysql',
-                    'cpanel_jsonapi_func' => 'create_database',
-                    'name' => $database
-                ]);
-
-                $data2 = $response2->json();
-                Log::info("Alternative cPanel API response for {$database}: " . json_encode($data2));
-
-                if (isset($data2['cpanelresult']['data'][0]['result']) && $data2['cpanelresult']['data'][0]['result'] === 1) {
-                    Log::info("Successfully created database via alternative cPanel API: {$database}");
-                    return true;
-                }
-
             } catch (\Exception $e) {
-                Log::error("cPanel API creation failed for {$database}: " . $e->getMessage());
+                Log::error("cPanel API creation failed for {$database}: ".$e->getMessage());
             }
         }
 
-        // Approach 4: Try to create database user and grant permissions
+        if (! $databaseCreated) {
+            throw new Exception("Failed to create database '{$database}'. Please contact your hosting provider to enable database creation or grant CREATE privileges.");
+        }
+
+        // Now create the MySQL user and grant privileges
         try {
-            Log::info("Attempting to create database user for: {$database}");
-            
-            // Try to create a database user with the same name
-            $dbUser = str_replace('accountw_', '', $database);
-            $dbPassword = Str::random(16);
-            
-            $this->database()->statement("CREATE USER IF NOT EXISTS '{$dbUser}'@'localhost' IDENTIFIED BY '{$dbPassword}'");
-            $this->database()->statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$dbUser}'@'localhost'");
-            $this->database()->statement("FLUSH PRIVILEGES");
-            
-            Log::info("Successfully created database user: {$dbUser}");
-            
-            // Now try to create the database again
-            $result = $this->database()->statement("CREATE DATABASE IF NOT EXISTS `{$database}`");
-            if ($result) {
-                Log::info("Successfully created database after user creation: {$database}");
+            Log::info("Creating MySQL user: {$dbUsername} for database: {$database}");
+
+            // Get MySQL host (support both localhost and % for remote connections)
+            $mysqlHost = $this->getMySQLHost();
+
+            // Create user for localhost
+            $this->database()->statement("CREATE USER IF NOT EXISTS '{$dbUsername}'@'{$mysqlHost}' IDENTIFIED BY '{$dbPassword}'");
+
+            // Grant privileges only on this tenant's database
+            $this->database()->statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$dbUsername}'@'{$mysqlHost}'");
+
+            // Also create user for % (any host) if needed for remote connections
+            if ($mysqlHost !== '%') {
+                $this->database()->statement("CREATE USER IF NOT EXISTS '{$dbUsername}'@'%' IDENTIFIED BY '{$dbPassword}'");
+                $this->database()->statement("GRANT ALL PRIVILEGES ON `{$database}`.* TO '{$dbUsername}'@'%'");
+            }
+
+            $this->database()->statement('FLUSH PRIVILEGES');
+
+            Log::info("Successfully created MySQL user: {$dbUsername} with privileges on database: {$database}");
+
+            // Store credentials in tenant model
+            $this->storeTenantCredentials($tenant, $database, $dbUsername, $dbPassword);
+
+            return true;
+
+        } catch (\Exception $e) {
+            Log::error("Failed to create MySQL user for tenant {$database}: ".$e->getMessage());
+            // If user creation fails, we should still return true if database was created
+            // The system can fall back to using the default connection
+            if ($databaseCreated) {
+                Log::warning('Database created but user creation failed. Tenant will use default connection.');
+
                 return true;
             }
-            
-        } catch (\Exception $e) {
-            Log::error("Database user creation failed for {$database}: " . $e->getMessage());
+            throw $e;
         }
-
-        // Final approach: Try to use existing database with different schema
-        try {
-            Log::info("Attempting to use existing database with schema approach for: {$database}");
-            
-            // Check if we can create tables in the existing database
-            $testTable = 'test_table_' . time();
-            $result = $this->database()->statement("CREATE TABLE `{$testTable}` (id INT)");
-            if ($result) {
-                $this->database()->statement("DROP TABLE `{$testTable}`");
-                Log::info("Can create tables in existing database - using schema approach");
-                
-                // For now, return true and let the system handle schema creation
-                return true;
-            }
-            
-        } catch (\Exception $e) {
-            Log::error("Schema approach failed for {$database}: " . $e->getMessage());
-        }
-
-        throw new Exception("All database creation methods failed for '{$database}'. Please contact your hosting provider to enable database creation or grant CREATE privileges.");
     }
 
     /**
@@ -189,31 +163,29 @@ class MySQLDatabaseManager implements TenantDatabaseManager
     {
         try {
             // Check if we can create databases
-            $result = $this->database()->select("SHOW GRANTS FOR CURRENT_USER()");
-            Log::info("Current user grants: " . json_encode($result));
-            
+            $result = $this->database()->select('SHOW GRANTS FOR CURRENT_USER()');
+            Log::info('Current user grants: '.json_encode($result));
+
             // Check if we have CREATE privilege
             $hasCreatePrivilege = false;
             foreach ($result as $grant) {
-                $grantText = $grant->{'Grants for ' . env('DB_USERNAME', 'accountwebsoft') . '@' . env('DB_HOST', '127.0.0.1')};
-                if (strpos($grantText, 'ALL PRIVILEGES ON *.*') !== false || 
+                $grantText = $grant->{'Grants for '.env('DB_USERNAME', 'accountwebsoft').'@'.env('DB_HOST', '127.0.0.1')};
+                if (strpos($grantText, 'ALL PRIVILEGES ON *.*') !== false ||
                     strpos($grantText, 'CREATE ON *.*') !== false) {
                     $hasCreatePrivilege = true;
                     break;
                 }
             }
-            
-            if (!$hasCreatePrivilege) {
-                Log::warning("Current database user does not have CREATE privilege on *.*");
+
+            if (! $hasCreatePrivilege) {
+                Log::warning('Current database user does not have CREATE privilege on *.*');
             } else {
-                Log::info("Current database user has CREATE privilege");
+                Log::info('Current database user has CREATE privilege');
             }
         } catch (\Exception $e) {
-            Log::warning("Could not check database permissions: " . $e->getMessage());
+            Log::warning('Could not check database permissions: '.$e->getMessage());
         }
     }
-    
-
 
     // public function callPleskApi(string $method, string $action, array $params = []): array
     // {
@@ -266,7 +238,6 @@ class MySQLDatabaseManager implements TenantDatabaseManager
     //     }
     // }
 
-
     public function buildPleskXml(string $method, string $action, array $params = []): string
     {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>';
@@ -302,62 +273,75 @@ class MySQLDatabaseManager implements TenantDatabaseManager
         try {
             $xml = simplexml_load_string($response);
             if ($xml === false) {
-                throw new Exception("Failed to parse Plesk XML response.");
+                throw new Exception('Failed to parse Plesk XML response.');
             }
 
             $json = json_encode($xml);
             $array = json_decode($json, true);
-            if (!is_array($array)) {
-                throw new Exception("Failed to convert Plesk XML to array.");
+            if (! is_array($array)) {
+                throw new Exception('Failed to convert Plesk XML to array.');
             }
 
             return $array;
         } catch (\Exception $e) {
             throw new Exception(
-                "Exception while parsing Plesk response: " . $e->getMessage(),
+                'Exception while parsing Plesk response: '.$e->getMessage(),
                 0,
                 $e
             );
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function deleteDatabase(TenantWithDatabase $tenant): bool
     {
         $databaseName = $tenant->database()->getName();
-        
+
+        // Get tenant's MySQL username if it exists
+        $dbUsername = null;
+        if (method_exists($tenant, 'getAttribute') && $tenant->getAttribute('db_username')) {
+            $dbUsername = $tenant->getAttribute('db_username');
+        }
+
+        // Drop the MySQL user first (if it exists)
+        if ($dbUsername) {
+            try {
+                Log::info("Attempting to drop MySQL user: {$dbUsername}");
+                $mysqlHost = $this->getMySQLHost();
+
+                // Drop user for both localhost and % if they exist
+                $this->database()->statement("DROP USER IF EXISTS '{$dbUsername}'@'{$mysqlHost}'");
+                if ($mysqlHost !== '%') {
+                    $this->database()->statement("DROP USER IF EXISTS '{$dbUsername}'@'%'");
+                }
+                $this->database()->statement('FLUSH PRIVILEGES');
+
+                Log::info("Successfully dropped MySQL user: {$dbUsername}");
+            } catch (\Exception $e) {
+                Log::warning("Failed to drop MySQL user '{$dbUsername}': ".$e->getMessage());
+                // Continue with database deletion even if user drop fails
+            }
+        }
+
         // Check if database exists before trying to drop it
-        if (!$this->databaseExists($databaseName)) {
+        if (! $this->databaseExists($databaseName)) {
             Log::info("Database '{$databaseName}' does not exist, skipping deletion");
+
             return true; // Return true since the goal (database not existing) is already achieved
         }
-        
+
         try {
             Log::info("Attempting to drop database: {$databaseName}");
-            $result = $this->database()->statement("DROP DATABASE `{$databaseName}`");
+            $result = $this->database()->statement("DROP DATABASE IF EXISTS `{$databaseName}`");
             Log::info("Successfully dropped database: {$databaseName}");
+
             return $result;
         } catch (\Exception $e) {
-            Log::warning("Failed to drop database '{$databaseName}': " . $e->getMessage());
+            Log::warning("Failed to drop database '{$databaseName}': ".$e->getMessage());
             // If the database doesn't exist, consider it a success
-            if (strpos($e->getMessage(), "database doesn't exist") !== false) {
+            if (strpos($e->getMessage(), "database doesn't exist") !== false ||
+                strpos($e->getMessage(), 'Unknown database') !== false) {
                 Log::info("Database '{$databaseName}' doesn't exist, considering deletion successful");
+
                 return true;
             }
             throw $e;
@@ -367,10 +351,12 @@ class MySQLDatabaseManager implements TenantDatabaseManager
     public function databaseExists(string $name): bool
     {
         try {
-            $result = $this->database()->select("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = ?", [$name]);
-            return !empty($result);
+            $result = $this->database()->select('SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = ?', [$name]);
+
+            return ! empty($result);
         } catch (\Exception $e) {
-            Log::warning("Failed to check if database exists: " . $e->getMessage());
+            Log::warning('Failed to check if database exists: '.$e->getMessage());
+
             return false;
         }
     }
@@ -379,6 +365,94 @@ class MySQLDatabaseManager implements TenantDatabaseManager
     {
         $baseConfig['database'] = $databaseName;
 
+        // Try to get tenant-specific credentials
+        // This will be called by the bootstrapper, so we need to get the tenant from context
+        try {
+            $tenant = tenancy()->tenant;
+            if ($tenant && method_exists($tenant, 'getAttribute')) {
+                $dbUsername = $tenant->getAttribute('db_username');
+                $dbPassword = $tenant->getAttribute('db_password');
+
+                if ($dbUsername && $dbPassword) {
+                    // Decrypt the password
+                    try {
+                        $decryptedPassword = Crypt::decryptString($dbPassword);
+                        $baseConfig['username'] = $dbUsername;
+                        $baseConfig['password'] = $decryptedPassword;
+
+                        Log::info("Using tenant-specific MySQL credentials for database: {$databaseName}");
+                    } catch (\Exception $e) {
+                        Log::warning('Failed to decrypt tenant password, using default connection: '.$e->getMessage());
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            // If we can't get tenant context, fall back to default credentials
+            Log::debug('Could not get tenant context for connection config: '.$e->getMessage());
+        }
+
         return $baseConfig;
+    }
+
+    /**
+     * Generate a unique MySQL username for the tenant
+     */
+    protected function generateTenantUsername(TenantWithDatabase $tenant): string
+    {
+        $tenantId = $tenant->getTenantKey();
+        // Generate username: prefix + tenant_id (max 16 chars for MySQL username limit)
+        $prefix = env('TENANT_DB_USER_PREFIX', 'tenant_');
+        $username = $prefix.Str::slug($tenantId);
+
+        // MySQL username max length is 16 characters (for MySQL 5.7+) or 32 (for MySQL 8.0+)
+        // We'll use 16 to be safe
+        if (strlen($username) > 16) {
+            $username = substr($username, 0, 16);
+        }
+
+        return $username;
+    }
+
+    /**
+     * Get MySQL host for user creation (localhost or %)
+     */
+    protected function getMySQLHost(): string
+    {
+        // Use localhost by default, but allow configuration
+        return env('MYSQL_USER_HOST', 'localhost');
+    }
+
+    /**
+     * Store tenant database credentials in the tenant model
+     */
+    protected function storeTenantCredentials(TenantWithDatabase $tenant, string $database, string $username, string $password): void
+    {
+        try {
+            // Encrypt the password before storing
+            $encryptedPassword = Crypt::encryptString($password);
+
+            // Use central connection to update tenant record
+            tenancy()->central(function () use ($tenant, $database, $username, $encryptedPassword) {
+                \DB::table('tenants')
+                    ->where('id', $tenant->getTenantKey())
+                    ->update([
+                        'db_name' => $database,
+                        'db_username' => $username,
+                        'db_password' => $encryptedPassword,
+                    ]);
+            });
+
+            // Also update the in-memory tenant object
+            if (method_exists($tenant, 'setAttribute')) {
+                $tenant->setAttribute('db_name', $database);
+                $tenant->setAttribute('db_username', $username);
+                $tenant->setAttribute('db_password', $encryptedPassword);
+            }
+
+            Log::info("Stored database credentials for tenant: {$database}");
+        } catch (\Exception $e) {
+            Log::error('Failed to store tenant credentials: '.$e->getMessage());
+            // Don't throw - database and user are created, credentials just not stored
+        }
     }
 }

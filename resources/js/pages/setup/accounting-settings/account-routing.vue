@@ -1147,7 +1147,10 @@ export default {
         } else {
           // Update existing setting
           const updateData = {
-            main_account_id: setting.main_account_id
+            main_account_id: setting.main_account_id,
+            module: setting.module,
+            setting_key: setting.setting_key,
+            branch_id: this.currentBranchId
           }
 
           const response = await this.$http.put(`/api/account-routing-settings/${setting.id}`, updateData)

@@ -9,7 +9,6 @@ use Stancl\Tenancy\Contracts\TenantWithDatabase;
 use Stancl\Tenancy\Database\Concerns\HasDatabase;
 use Stancl\Tenancy\Database\Concerns\HasDomains;
 use Stancl\Tenancy\Database\Models\Tenant as BaseTenant;
-use Stripe\Tax\Transaction;
 
 class Tenant extends BaseTenant implements TenantWithDatabase
 {
@@ -33,6 +32,7 @@ class Tenant extends BaseTenant implements TenantWithDatabase
 
     protected $hidden = [
         'password',
+        'db_password', // Hide encrypted database password
     ];
 
     protected $fillable = [
@@ -54,6 +54,9 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         'archived_by',
         'plan_id',
         'plan_ends_at',
+        'db_name',
+        'db_username',
+        'db_password',
     ];
 
     protected $casts = [
@@ -122,18 +125,14 @@ class Tenant extends BaseTenant implements TenantWithDatabase
 
     /**
      * Determine if the subscription is within its trial period.
-     *
-     * @return bool
      */
     public function onTrial(): bool
     {
         return $this->trial_ends_at && $this->trial_ends_at->isFuture();
     }
 
-
     /**
      * Determine if the subscription is within its trial period.
-     *
      */
     public function getOnTrialAttribute()
     {
