@@ -449,19 +449,42 @@ class MySQLDatabaseManager implements TenantDatabaseManager
 
     /**
      * Generate a unique MySQL username for the tenant
+     * Must match cPanel requirements (same prefix as database)
      */
     protected function generateTenantUsername(TenantWithDatabase $tenant): string
     {
         $tenantId = $tenant->getTenantKey();
-        // Generate username: prefix + tenant_id (max 16 chars for MySQL username limit)
-        $prefix = env('TENANT_DB_USER_PREFIX', 'tenant_');
-        $username = $prefix.Str::slug($tenantId);
+        $database = $tenant->database()->getName();
 
-        // MySQL username max length is 16 characters (for MySQL 5.7+) or 32 (for MySQL 8.0+)
-        // We'll use 16 to be safe
-        if (strlen($username) > 16) {
-            $username = substr($username, 0, 16);
+        // Extract prefix from database name (e.g., "accountw_" from "accountw_3ca7a9a6-...")
+        // This ensures we use the exact same prefix as the database
+        $dbPrefix = 'accountw_'; // Default prefix
+
+        // Try to extract prefix from database name
+        if (preg_match('/^([a-zA-Z0-9_]+)_/', $database, $matches)) {
+            $dbPrefix = $matches[1].'_';
+        } else {
+            // Fallback: get from config
+            $configPrefix = config('tenancy.database.prefix', env('TENANT_DB_PREFIX', 'accountw_'));
+            if ($configPrefix) {
+                $dbPrefix = str_ends_with($configPrefix, '_') ? $configPrefix : $configPrefix.'_';
+            }
         }
+
+        // Generate username: prefix + shortened tenant_id
+        // Remove hyphens and use only alphanumeric
+        $tenantIdClean = preg_replace('/[^a-zA-Z0-9]/', '', $tenantId);
+
+        // Use first 8-10 characters of tenant ID for uniqueness (after prefix)
+        // This keeps username reasonable length while maintaining uniqueness
+        $prefixLength = strlen($dbPrefix);
+        $maxLength = 32; // cPanel allows longer usernames, but let's keep it reasonable
+        $maxTenantIdLength = min($maxLength - $prefixLength, 16); // Use up to 16 chars for tenant ID part
+
+        $tenantIdPart = substr($tenantIdClean, 0, $maxTenantIdLength);
+        $username = $dbPrefix.$tenantIdPart;
+
+        Log::info("Generated MySQL username: {$username} (prefix: {$dbPrefix}, tenant ID: {$tenantId}, database: {$database})");
 
         return $username;
     }
