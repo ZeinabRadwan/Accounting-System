@@ -202,7 +202,17 @@
               " class="nav-item">
                 <router-link :to="{ name: 'purchases.index' }" class="nav-link">
                   <i class="fas fa-truck-loading nav-icon" />
-                  <p>{{ $t("Purchases List") }}</p>
+                  <p>
+                    {{ $t("Purchases List") }}
+                    <router-link
+                      v-if="$can('purchase-create')"
+                      :to="{ name: 'purchases.create' }"
+                      class="add-btn-inline"
+                      @click.stop
+                    >
+                      <i class="fas fa-plus"></i>
+                    </router-link>
+                  </p>
                 </router-link>
               </li>
               <li v-if="
