@@ -1,13 +1,16 @@
 <template>
   <div v-if="products && products.length > 0" class="card">
-    <div class="card-header">
-      <h3 class="card-title">
+    <CardHeader>
+      <template #icon>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
         </svg>
+      </template>
+      <template #title>
         {{ $t('Stock Alert') }}
-      </h3>
-    </div>
+      </template>
+    </CardHeader>
     <div class="card-body">
       <table-loading v-show="loading" />
       <div v-if="products" class="table-responsive table-custom">
@@ -58,9 +61,13 @@
 <script>
 import axios from 'axios'
 import { mapGetters } from 'vuex'
+import CardHeader from './CardHeader.vue'
 
 export default {
   name: 'StockAlert',
+  components: {
+    CardHeader,
+  },
   data: () => ({
     products: '',
     prefix: '',
@@ -91,21 +98,11 @@ export default {
 <style scoped>
 /* Card styling to match dashboard */
 .card {
-  margin-top: 30px;
-  margin-bottom: 0;
-  border-radius: 20px;
-  box-shadow: 0px 8px 20px 0px #00000014;
-  border: 1px solid #CED4DA;
+  border-radius: 10px;
+  border: 1px solid #ced4da;
   height: 100%;
   display: flex;
   flex-direction: column;
-}
-
-.card-header {
-  background-color: white;
-  border-bottom: 1px solid #CED4DA;
-  padding: 1.25rem 1.25rem 0 1.25rem;
-  border-radius: 20px 20px 0 0;
 }
 
 .card-body {
@@ -128,29 +125,6 @@ export default {
   height: 1px;
   background: linear-gradient(90deg, transparent, #33A0D9, transparent);
   opacity: 0.3;
-}
-
-/* SVG Icon styling in card header */
-.card-header h3 {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: bold;
-  font-size: 1.25rem;
-  color: #023033;
-  margin: 0;
-}
-
-.card-header h3 svg {
-  width: 44px;
-  height: 44px;
-  background: #33A0D91A;
-  color: #33A0D9;
-  border-radius: 10px;
-  padding: 8px;
-  margin-right: 12px;
-  font-weight: bold;
-  box-sizing: border-box;
 }
 
 /* Table styling to match invoices page */
@@ -268,6 +242,7 @@ export default {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -291,11 +266,11 @@ export default {
   .card-body {
     padding: 1.5rem 1rem;
   }
-  
+
   .table-custom {
     border-radius: 8px;
   }
-  
+
   .invoices-table thead th {
     padding: 6px;
     font-size: 0.85rem;
@@ -306,11 +281,11 @@ export default {
   .card-body {
     padding: 1rem 0.75rem;
   }
-  
+
   .invoices-table thead th:first-child {
     border-top-left-radius: 8px;
   }
-  
+
   .invoices-table thead th:last-child {
     border-top-right-radius: 8px;
   }

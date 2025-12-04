@@ -13,37 +13,37 @@
 
     <div v-if="$can('account-summery') && dashboardSummery">
       <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">
-            <div class="card-header-content">
-              <h3 class="card-title">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                  stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-                {{ $t("Summary") }}
-                {{ $t(form.summeryType) }}
-              </h3>
-              <div class="card-tools">
-                <select v-model="form.summeryType" @change="getSummery()" class="form-control" id="summeryType"
-                  name="summeryType">
-                  <option value="today" selected>
-                    {{ $t("Today") }}
-                  </option>
-                  <option value="last_7_days">
-                    {{ $t("Last 7 Days") }}
-                  </option>
-                  <option value="this_month">
-                    {{ $t("This Month") }}
-                  </option>
-                  <option value="this_year">
-                    {{ $t("This Year") }}
-                  </option>
-                </select>
-              </div>
-            </div>
-          </div>
+        <div class="card account-summary-card">
+          <CardHeader :rtl-row-reverse="true">
+            <template #icon>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </template>
+            <template #title>
+              {{ $t("Summary") }}
+              {{ $t(form.summeryType) }}
+            </template>
+            <template #actions>
+              <select v-model="form.summeryType" @change="getSummery()" class="form-control" id="summeryType"
+                name="summeryType">
+                <option value="today" selected>
+                  {{ $t("Today") }}
+                </option>
+                <option value="last_7_days">
+                  {{ $t("Last 7 Days") }}
+                </option>
+                <option value="this_month">
+                  {{ $t("This Month") }}
+                </option>
+                <option value="this_year">
+                  {{ $t("This Year") }}
+                </option>
+              </select>
+            </template>
+          </CardHeader>
           <div class="card-body summary-cards">
             <div class="summary-grid">
               <router-link v-if="!$isPOS()" :to="{ name: 'purchases.index' }" class="summary-card">
@@ -219,22 +219,24 @@
 
     <div
       v-if="(!$isPOS() && $can('recent-activities')) || ($can('top-selling-products') && translatedPieChartOptions.legend.data && translatedPieChartOptions.legend.data.length > 0)"
-      class="row">
+      style="display: flex; flex-wrap: wrap;">
       <div v-if="
         $can('top-selling-products') &&
         translatedPieChartOptions.legend.data &&
         translatedPieChartOptions.legend.data.length > 0
       " class="col-md-12 col-lg-4">
         <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">
+          <CardHeader>
+            <template #icon>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                 stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
               </svg>
+            </template>
+            <template #title>
               {{ $t("Top Selling Products") }} ({{ year }})
-            </h3>
-          </div>
+            </template>
+          </CardHeader>
           <div class="card-body">
             <template>
               <v-chart class="chart" :key="$i18n.locale + '-pie'" :option="translatedPieChartOptions" />
@@ -255,7 +257,7 @@
     <div v-if="
       (!$isPOS() && $can('payment-sent-vs-payment-received')) ||
       $can('top-clients')
-    " class="row">
+    " style="display: flex; flex-wrap: wrap;">
       <div v-if="
         !$isPOS() &&
         $can('payment-sent-vs-payment-received') &&
@@ -263,13 +265,15 @@
         lineChartOptions.series[0].data.length > 0
       " class="col-md-12 col-lg-8">
         <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">
+          <CardHeader>
+            <template #icon>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                 stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round"
                   d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
               </svg>
+            </template>
+            <template #title>
               {{ $t("Payment Sent vs Payment Received") }} ({{
                 year
               }})
@@ -279,8 +283,8 @@
                 ">
                 <i class="fas fa-info"></i>
               </a>
-            </h3>
-          </div>
+            </template>
+          </CardHeader>
           <div class="card-body">
             <template>
               <v-chart class="chart" :key="$i18n.locale + '-line'" :option="translatedLineChartOptions" />
@@ -302,13 +306,15 @@
         translatedBarChartOptions.series[0].data.length > 0
       " class="col-md-12 col-lg-8">
         <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">
+          <CardHeader>
+            <template #icon>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                 stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round"
                   d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
+            </template>
+            <template #title>
               {{ $t("Sales vs Purchases") }} ({{ year }})
               <a href="#" class="badge badge-info ml-2" v-tooltip="$t(
                 'Monthly sales & purchases after deduction of the cost of return products.'
@@ -316,8 +322,8 @@
                 ">
                 <i class="fas fa-info"></i>
               </a>
-            </h3>
-          </div>
+            </template>
+          </CardHeader>
           <div class="card-body">
             <template>
               <v-chart class="chart" :key="$i18n.locale + '-bar'" :option="translatedBarChartOptions" />
@@ -345,6 +351,7 @@ import {
   TooltipComponent,
   LegendComponent,
 } from "echarts/components";
+import CardHeader from "@/components/CardHeader.vue";
 
 use([
   CanvasRenderer,
@@ -363,6 +370,7 @@ export default {
   },
   components: {
     VChart,
+    CardHeader,
   },
   provide: {
     [THEME_KEY]: "vintage",
@@ -1156,15 +1164,12 @@ export default {
 }
 
 .card {
-  margin-top: 30px;
-  margin-bottom: 30px;
-  border-radius: 20px;
-  box-shadow: 0px 8px 20px 0px #00000014;
+  border-radius: 10px;
   border: 1px solid #ced4da;
 }
 
 .card-body {
-  padding: 1.25rem;
+  padding: 0.5rem;
 }
 
 /* Search Input Background Override */
@@ -1259,85 +1264,12 @@ export default {
   transform: translateY(-1px);
 }
 
-/* Card header styling */
-.card-header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-.card-header h3 {
-  color: #023033;
-  font-weight: bold;
-  font-size: 1.25rem;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* RTL support for card header */
-[dir="rtl"] .card-header-content {
-  flex-direction: row-reverse;
-}
-
-
-[dir="rtl"] .card-header h3 svg {
-  margin-right: 0;
-  margin-left: 12px;
-}
-
-/* SVG Icon styling in card header */
-.card-header h3 svg {
-  width: 44px;
-  height: 44px;
-  background: #33a0d91a;
-  color: #33a0d9;
-  border-radius: 10px;
-  padding: 8px;
-  margin-right: 12px;
-  font-weight: bold;
-  box-sizing: border-box;
-}
-
-/* RTL support for SVG icon */
-[dir="rtl"] .card-header h3 svg {
-  margin-right: 0;
-  margin-left: 12px;
-}
-
 /* RTL support for small-box icon positioning */
 [dir="rtl"] .small-box .icon {
   right: auto;
   left: 18px;
 }
 
-.card-header .card-tools {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* RTL support for card tools */
-[dir="rtl"] .card-header .card-tools {
-  flex-direction: row-reverse;
-}
-
-.card-header .card-tools .form-control {
-  border-radius: 10px;
-  border: 1px solid #ced4da;
-  padding: 8px 12px;
-  font-size: 0.875rem;
-}
-
-/* Styles for the new select dropdown position */
-.card-header .d-flex .form-control {
-  border-radius: 10px;
-  border: 1px solid #ced4da;
-  padding: 8px 12px;
-  font-size: 0.875rem;
-}
 
 /* Alert styling */
 .alert {
@@ -1928,10 +1860,6 @@ export default {
   .small-box-footer {
     padding: 10px 14px;
     font-size: 0.8rem;
-  }
-
-  .card {
-    margin-top: 20px;
   }
 
   .summary-grid {
