@@ -34275,12 +34275,12 @@ var map = {
 		8418
 	],
 	"./central/tenants": [
-		12192,
-		2192
+		97423,
+		7423
 	],
 	"./central/tenants/": [
-		12192,
-		2192
+		97423,
+		7423
 	],
 	"./central/tenants/create": [
 		11892,
@@ -34299,12 +34299,12 @@ var map = {
 		8755
 	],
 	"./central/tenants/index": [
-		12192,
-		2192
+		97423,
+		7423
 	],
 	"./central/tenants/index.vue": [
-		12192,
-		2192
+		97423,
+		7423
 	],
 	"./central/tenants/show": [
 		10040,

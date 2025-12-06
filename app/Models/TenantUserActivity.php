@@ -32,6 +32,16 @@ class TenantUserActivity extends Model
     ];
 
     /**
+     * Get the connection name for the model.
+     * This model always uses the central database connection.
+     */
+    public function getConnectionName(): ?string
+    {
+        // Always use central connection, regardless of tenant context
+        return config('tenancy.database.central_connection', 'mysql');
+    }
+
+    /**
      * Get the tenant that owns this activity.
      */
     public function tenant(): BelongsTo

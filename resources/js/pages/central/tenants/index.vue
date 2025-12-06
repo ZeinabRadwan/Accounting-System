@@ -632,14 +632,14 @@ export default {
       if (!user) {
         return "00:00:00";
       }
-      
+
       // Use current_session_seconds if available (from server calculation)
       if (user.current_session_seconds !== undefined) {
         // Calculate live: server value + time since last update
         const now = new Date();
         const lastUpdate = user.last_activity_at ? new Date(user.last_activity_at) : new Date(user.started_at);
         const secondsSinceUpdate = Math.floor((now - lastUpdate) / 1000);
-        
+
         // Only add if within 10 minutes (600 seconds) - session is still active
         if (secondsSinceUpdate <= 600) {
           return this.formatSessionTimer(user.current_session_seconds + secondsSinceUpdate);
@@ -648,7 +648,7 @@ export default {
           return this.formatSessionTimer(user.current_session_seconds);
         }
       }
-      
+
       // Fallback: calculate from started_at
       if (user.started_at) {
         const started = new Date(user.started_at);
@@ -656,7 +656,7 @@ export default {
         const currentSeconds = Math.floor((now - started) / 1000);
         return this.formatSessionTimer(currentSeconds);
       }
-      
+
       return "00:00:00";
     },
 
