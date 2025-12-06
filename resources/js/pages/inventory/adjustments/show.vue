@@ -136,41 +136,23 @@
               <div class="col-12">
                 <strong class="mt-4 mb-2 d-block">{{ $t("Adjustment Reason") }}:</strong>
                 <div class="table-responsive table-custom mt-3">
-                  <table class="table adjustments-table">
-                    <thead>
-                      <tr>
-                        <th>{{ $t("#") }}</th>
-                        <th>{{ $t("Code") }}</th>
-                        <th>{{ $t("Name") }}</th>
-                        <th>{{ $t("Purchase Price") }}</th>
-                        <th>{{ $t("Quantity") }}</th>
-                        <th class="text-right">
-                          {{ $t("Adjustment Type") }}
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody v-if="adjustedProducts">
-                      <tr v-for="(data, i) in adjustedProducts" :key="i">
-                        <td>{{ ++i }}</td>
-                        <td>
-                          {{ data.productCode | withPrefix(productPrefix) }}
-                        </td>
-                        <td>{{ data.productName }}</td>
-                        <td>{{ data.avgPurchasePrice }} <span class="saudi-riyal">ê</span></td>
-                        <td>
-                          <span v-if="data.type == 1">+</span>
-                          <span v-else>-</span>
-                          {{ data.quantity }} {{ data.productUnit }}
-                        </td>
-                        <td class="text-right">
-                          <span v-if="data.type == 1" class="badge badge-primary">{{ $t("Increment") }}</span>
-                          <span v-else class="badge badge-danger">{{
-                            $t("Decrement")
-                          }}</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <GeneralTable
+                    :columns="adjustedProductsColumns"
+                    :rows="adjustedProductsRows"
+                    :loading="loading"
+                    wrapper-class=""
+                  >
+                    <template #cell-code="{ value }">
+                      {{ value | withPrefix(productPrefix) }}
+                    </template>
+                    <template #cell-purchasePrice="{ value }">
+                      {{ value }} <span class="saudi-riyal">ê</span>
+                    </template>
+                    <template #cell-adjustmentType="{ value }">
+                      <span v-if="value === $t('Increment')" class="badge badge-primary">{{ value }}</span>
+                      <span v-else class="badge badge-danger">{{ value }}</span>
+                    </template>
+                  </GeneralTable>
                 </div>
               </div>
             </div>
@@ -263,11 +245,15 @@
 import axios from "axios";
 import { mapGetters } from "vuex";
 import html2pdf from "html2pdf.js";
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
     return { title: this.$t("Adjustment Details") };
+  },
+  components: {
+    GeneralTable,
   },
   data: () => ({
     breadcrumbsCurrent: "Adjustment Details",
@@ -295,6 +281,32 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters("operations", ["appInfo", "items", "loading", "pagination"]),
+
+    // Adjusted products columns
+    adjustedProductsColumns() {
+      return [
+        { key: "index", label: this.$t("#"), align: "text-center" },
+        { key: "code", label: this.$t("Code"), align: "text-center" },
+        { key: "name", label: this.$t("Name"), align: "text-center" },
+        { key: "purchasePrice", label: this.$t("Purchase Price"), align: "text-center" },
+        { key: "quantity", label: this.$t("Quantity"), align: "text-center" },
+        { key: "adjustmentType", label: this.$t("Adjustment Type"), align: "text-right" },
+      ];
+    },
+
+    // Adjusted products rows
+    adjustedProductsRows() {
+      if (!this.adjustedProducts || this.adjustedProducts.length === 0) return [];
+      return this.adjustedProducts.map((product, index) => ({
+        index: index + 1,
+        code: product.productCode,
+        name: product.productName,
+        purchasePrice: product.avgPurchasePrice,
+        quantity: `${product.type == 1 ? '+' : '-'}${product.quantity} ${product.productUnit}`,
+        adjustmentType: product.type == 1 ? this.$t("Increment") : this.$t("Decrement"),
+        _raw: product,
+      }));
+    },
   },
 
   watch: {

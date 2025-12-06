@@ -397,40 +397,29 @@
                   <!-- Journal Entry Lines -->
                   <h5>{{ $t('Journal Entry Lines') }}</h5>
                   <div class="table-responsive">
-                    <table class="table table-striped">
-                      <thead>
-                        <tr>
-                          <th>{{ $t('Line') }}</th>
-                          <th>{{ $t('Account') }}</th>
-                          <th>{{ $t('Description') }}</th>
-                          <th class="text-right">{{ $t('Debit') }}</th>
-                          <th class="text-right">{{ $t('Credit') }}</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="line in journalEntry.lines" :key="line.id">
-                          <td>{{ line.line_number }}</td>
-                          <td>
-                            <strong>{{ line.chart_of_account.name }}</strong>
-                            <br>
-                            <small class="text-muted">{{ line.chart_of_account.code }}</small>
-                          </td>
-                          <td>{{ line.description }}</td>
-                          <td class="text-right">
-                            <span v-if="line.debit_amount > 0" class="text-success">
-                              <CurrencyDisplay :amount="line.debit_amount" />
-                            </span>
-                            <span v-else>-</span>
-                          </td>
-                          <td class="text-right">
-                            <span v-if="line.credit_amount > 0" class="text-danger">
-                              <CurrencyDisplay :amount="line.credit_amount" />
-                            </span>
-                            <span v-else>-</span>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <GeneralTable
+                      :columns="journalEntryLinesColumns"
+                      :rows="journalEntryLinesRows"
+                      wrapper-class="table-responsive"
+                    >
+                      <template #account="{ row }">
+                        <strong>{{ row.chart_of_account?.name }}</strong>
+                        <br>
+                        <small class="text-muted">{{ row.chart_of_account?.code }}</small>
+                      </template>
+                      <template #debit_amount="{ row }">
+                        <span v-if="row.debit_amount > 0" class="text-success">
+                          <CurrencyDisplay :amount="row.debit_amount" />
+                        </span>
+                        <span v-else>-</span>
+                      </template>
+                      <template #credit_amount="{ row }">
+                        <span v-if="row.credit_amount > 0" class="text-danger">
+                          <CurrencyDisplay :amount="row.credit_amount" />
+                        </span>
+                        <span v-else>-</span>
+                      </template>
+                    </GeneralTable>
                   </div>
                 </div>
               </div>
@@ -454,6 +443,7 @@
 import axios from "axios";
 import { mapGetters } from "vuex";
 import html2pdf from "html2pdf.js";
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -462,6 +452,7 @@ export default {
   },
   components: {
     CurrencyDisplay: () => import('~/components/CurrencyDisplay'),
+    GeneralTable,
   },
   data: () => ({
     breadcrumbsCurrent: "Expense Details",
@@ -491,6 +482,24 @@ export default {
 
   computed: {
     ...mapGetters("operations", ["appInfo", "items", "loading", "pagination"]),
+    journalEntryLinesColumns() {
+      return [
+        { key: "line_number", label: this.$t("Line") },
+        { key: "account", label: this.$t("Account") },
+        { key: "description", label: this.$t("Description") },
+        { key: "debit_amount", label: this.$t("Debit") },
+        { key: "credit_amount", label: this.$t("Credit") },
+      ];
+    },
+    journalEntryLinesRows() {
+      if (!this.journalEntry || !this.journalEntry.lines) {
+        return [];
+      }
+      return this.journalEntry.lines.map((line) => ({
+        ...line,
+        account: line.chart_of_account?.name || "",
+      }));
+    },
   },
 
   watch: {

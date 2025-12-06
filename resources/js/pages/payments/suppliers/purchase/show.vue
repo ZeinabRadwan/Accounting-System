@@ -424,11 +424,15 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 import html2pdf from "html2pdf.js";
 import iziToast from "izitoast";
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
     return { title: this.$t("Supplier Purchase Payment Details") };
+  },
+  components: {
+    GeneralTable,
   },
   data: () => ({
     breadcrumbsCurrent: "Purchase Payment Details",

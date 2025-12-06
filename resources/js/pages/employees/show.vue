@@ -254,129 +254,24 @@
                         </div>
                         <table-loading v-show="loading" />
                         <div class="table-responsive table-custom mt-3">
-                          <table class="table invoices-table">
-                            <thead>
-                              <tr>
-                                <th>{{ $t("#") }}</th>
-                                <th>{{ $t("Salary Month") }}</th>
-                                <th>{{ $t("Salary Date") }}</th>
-                                <th>{{ $t("Account") }}</th>
-                                <th>{{ $t("Total Paid") }}</th>
-                                <th>{{ $t("Status") }}</th>
-                                <th
-                                  v-if="
-                                    $can('payroll-edit') ||
-                                    $can('payroll-view') ||
-                                    $can('payroll-delete')
-                                  "
-                                  class="text-right no-print"
-                                  id="element-to-hide"
-                                  data-html2canvas-ignore="true"
-                                >
-                                  {{ $t("Action") }}
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr
-                                v-show="items.length"
-                                v-for="(data, i) in items"
-                                :key="i"
-                              >
-                                <td>
-                                  <span v-if="pagination.current_page > 1">
-                                    {{
-                                      pagination.per_page *
-                                        (pagination.current_page - 1) +
-                                      (i + 1)
-                                    }}
-                                  </span>
-                                  <span v-else>{{ i + 1 }}</span>
-                                </td>
-                                <td>{{ data.salaryMonth }}</td>
-                                <td>
-                                  <span v-if="data.salaryDate">{{
-                                    data.salaryDate | moment("Do MMM, YYYY")
-                                  }}</span>
-                                </td>
-                                <td>
-                                  <span
-                                    v-if="
-                                      data.transaction &&
-                                      data.transaction.cashbook_account
-                                    "
-                                    >{{
-                                      data.transaction.cashbook_account
-                                        .account_number
-                                    }}</span
-                                  >
-                                </td>
-                                <td>
-                                  <span v-if="data.transaction">{{
-                                    data.transaction.amount}} <span class="saudi-riyal">ê</span></span>
-                                </td>
-                                <td>
-                                  <span
-                                    v-if="data.status === 1"
-                                    class="badge bg-success"
-                                    >{{ $t("Active") }}</span
-                                  >
-                                  <span v-else class="badge bg-danger">{{
-                                    $t("Inactive")
-                                  }}</span>
-                                </td>
-                                <td
-                                  v-if="
-                                    $can('payroll-edit') ||
-                                    $can('payroll-view') ||
-                                    $can('payroll-delete')
-                                  "
-                                  class="text-right no-print"
-                                  id="element-to-hide"
-                                  data-html2canvas-ignore="true"
-                                >
-                                  <div class="btn-group">
-                                    <router-link
-                                      v-if="$can('payroll-view')"
-                                      v-tooltip="$t('View')"
-                                      :to="{
-                                        name: 'payroll.show',
-                                        params: { slug: data.slug },
-                                      }"
-                                      class="btn btn-primary btn-sm"
-                                    >
-                                      <i class="fas fa-eye" />
-                                    </router-link>
-                                    <router-link
-                                      v-if="$can('payroll-edit')"
-                                      v-tooltip="$t('Edit')"
-                                      :to="{
-                                        name: 'payroll.edit',
-                                        params: { slug: data.slug },
-                                      }"
-                                      class="btn btn-info btn-sm"
-                                    >
-                                      <i class="fas fa-edit" />
-                                    </router-link>
-                                    <a
-                                      v-if="$can('payroll-delete')"
-                                      v-tooltip="$t('Delete')"
-                                      href="#"
-                                      class="btn btn-danger btn-sm"
-                                      @click="deletePayroll(data.slug)"
-                                    >
-                                      <i class="fas fa-trash" />
-                                    </a>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr v-show="!loading && !items.length">
-                                <td colspan="8">
-                                  <EmptyTable />
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                          <GeneralTable
+                            :columns="payrollColumns"
+                            :rows="payrollRows"
+                            :loading="loading"
+                            :actions="payrollActions"
+                            wrapper-class=""
+                          >
+                            <template #cell-salaryDate="{ value }">
+                              <span v-if="value">{{ value | moment("Do MMM, YYYY") }}</span>
+                            </template>
+                            <template #cell-totalPaid="{ value }">
+                              <span v-if="value">{{ value }} <span class="saudi-riyal">ê</span></span>
+                            </template>
+                            <template #cell-status="{ value }">
+                              <span v-if="value === 1" class="badge bg-success">{{ $t("Active") }}</span>
+                              <span v-else class="badge bg-danger">{{ $t("Inactive") }}</span>
+                            </template>
+                          </GeneralTable>
                         </div>
                       </div>
                       <!-- NEW PAGINATION -->
@@ -431,154 +326,40 @@
                         </div>
                         <table-loading v-show="salIncreLoading" />
                         <div class="table-responsive table-custom mt-3">
-                          <table class="table invoices-table">
-                            <thead>
-                              <tr>
-                                <th>{{ $t("#") }}</th>
-                                <th>
-                                  {{ $t("Increment Reason") }}
-                                </th>
-                                <th>
-                                  {{ $t("Basic Salary") }}
-                                </th>
-                                <th>
-                                  {{ $t("Increment Amount") }}
-                                </th>
-                                <th>
-                                  {{ $t("Present Salary") }}
-                                </th>
-                                <th>
-                                  {{ $t("Increment Date") }}
-                                </th>
-                                <th>{{ $t("Status") }}</th>
-                                <th
-                                  v-if="
-                                    $can('increment-edit') ||
-                                    $can('increment-view') ||
-                                    $can('increment-delete')
-                                  "
-                                  class="text-right no-print"
-                                  id="element-to-hide"
-                                  data-html2canvas-ignore="true"
-                                >
-                                  {{ $t("Action") }}
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr
-                                v-show="allIncrements.length"
-                                v-for="(data, i) in allIncrements"
-                                :key="i"
+                          <GeneralTable
+                            :columns="incrementsColumns"
+                            :rows="incrementsRows"
+                            :loading="salIncreLoading"
+                            :actions="incrementsActions"
+                            wrapper-class=""
+                          >
+                            <template #cell-reason="{ row }">
+                              <router-link
+                                :to="{
+                                  name: 'increments.show',
+                                  params: { slug: row._raw.slug },
+                                }"
                               >
-                                <td>
-                                  <span
-                                    v-if="
-                                      salIncrePagination &&
-                                      salIncrePagination.current_page > 1
-                                    "
-                                  >
-                                    {{
-                                      salIncrePagination.per_page *
-                                        (salIncrePagination.current_page - 1) +
-                                      (i + 1)
-                                    }}
-                                  </span>
-                                  <span v-else>{{ i + 1 }}</span>
-                                </td>
-                                <td>
-                                  <router-link
-                                    :to="{
-                                      name: 'increments.show',
-                                      params: { slug: data.slug },
-                                    }"
-                                  >
-                                    {{ data.reason }}
-                                  </router-link>
-                                </td>
-                                <td>
-                                  <span v-if="data.employee"
-                                    >{{ data.employee.salary }} <span class="saudi-riyal">ê</span>
-                                  </span>
-                                </td>
-                                <td>
-                                  {{ data.incrementAmount }} <span class="saudi-riyal">ê</span>
-                                </td>
-                                <td>
-                                  <span v-if="data.employee">
-                                    {{
-                                      (data.employee.salary +
-                                        data.incrementAmount)
-                                    }} <span class="saudi-riyal">ê</span>
-                                  </span>
-                                </td>
-                                <td>
-                                  <span v-if="data.incrementDate">{{
-                                    data.incrementDate | moment("Do MMM, YYYY")
-                                  }}</span>
-                                </td>
-                                <td>
-                                  <span
-                                    v-if="data.status === 1"
-                                    class="badge bg-success"
-                                    >{{ $t("Active") }}</span
-                                  >
-                                  <span v-else class="badge bg-danger">{{
-                                    $t("Inactive")
-                                  }}</span>
-                                </td>
-                                <td
-                                  v-if="
-                                    $can('increment-edit') ||
-                                    $can('increment-view') ||
-                                    $can('increment-delete')
-                                  "
-                                  class="text-right no-print"
-                                  id="element-to-hide"
-                                  data-html2canvas-ignore="true"
-                                >
-                                  <div class="btn-group">
-                                    <router-link
-                                      v-if="$can('increment-view')"
-                                      v-tooltip="$t('View')"
-                                      :to="{
-                                        name: 'increments.show',
-                                        params: { slug: data.slug },
-                                      }"
-                                      class="btn btn-primary btn-sm"
-                                    >
-                                      <i class="fas fa-eye" />
-                                    </router-link>
-                                    <router-link
-                                      v-if="$can('increment-edit')"
-                                      v-tooltip="$t('Edit')"
-                                      :to="{
-                                        name: 'increments.edit',
-                                        params: { slug: data.slug },
-                                      }"
-                                      class="btn btn-info btn-sm"
-                                    >
-                                      <i class="fas fa-edit" />
-                                    </router-link>
-                                    <a
-                                      v-if="$can('increment-delete')"
-                                      v-tooltip="$t('Delete')"
-                                      href="#"
-                                      class="btn btn-danger btn-sm"
-                                      @click="deleteIncrement(data.slug)"
-                                    >
-                                      <i class="fas fa-trash" />
-                                    </a>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr v-show="!loading && !allIncrements.length">
-                                <td colspan="8">
-                                  <EmptyTable />
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                                {{ row.reason }}
+                              </router-link>
+                            </template>
+                            <template #cell-basicSalary="{ value }">
+                              <span v-if="value">{{ value }} <span class="saudi-riyal">ê</span></span>
+                            </template>
+                            <template #cell-incrementAmount="{ value }">
+                              {{ value }} <span class="saudi-riyal">ê</span>
+                            </template>
+                            <template #cell-presentSalary="{ value }">
+                              <span v-if="value">{{ value }} <span class="saudi-riyal">ê</span></span>
+                            </template>
+                            <template #cell-incrementDate="{ value }">
+                              <span v-if="value">{{ value | moment("Do MMM, YYYY") }}</span>
+                            </template>
+                            <template #cell-status="{ value }">
+                              <span v-if="value === 1" class="badge bg-success">{{ $t("Active") }}</span>
+                              <span v-else class="badge bg-danger">{{ $t("Inactive") }}</span>
+                            </template>
+                          </GeneralTable>
                         </div>
                       </div>
                       <!--                  <div
@@ -783,6 +564,7 @@
 import axios from "axios";
 import { mapGetters } from "vuex";
 import avatarMixin from "~/mixins/avatarMixin";
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -790,6 +572,9 @@ export default {
     return { title: this.$t("Employee Details") };
   },
   mixins: [avatarMixin],
+  components: {
+    GeneralTable,
+  },
   data: () => ({
     breadcrumbsCurrent: "Employee Details",
     breadcrumbs: [
@@ -830,6 +615,146 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters("operations", ["items", "loading", "pagination", "appInfo"]),
+
+    // Payroll columns
+    payrollColumns() {
+      const columns = [
+        { key: "index", label: this.$t("#"), align: "text-center" },
+        { key: "salaryMonth", label: this.$t("Salary Month"), align: "text-center" },
+        { key: "salaryDate", label: this.$t("Salary Date"), align: "text-center" },
+        { key: "account", label: this.$t("Account"), align: "text-center" },
+        { key: "totalPaid", label: this.$t("Total Paid"), align: "text-center" },
+        { key: "status", label: this.$t("Status"), align: "text-center" },
+      ];
+      if (this.$can('payroll-edit') || this.$can('payroll-view') || this.$can('payroll-delete')) {
+        columns.push({ key: "action", label: this.$t("Action"), align: "text-right" });
+      }
+      return columns;
+    },
+
+    // Payroll rows
+    payrollRows() {
+      if (!this.items || this.items.length === 0) return [];
+      return this.items.map((data, i) => {
+        const index = this.pagination && this.pagination.current_page > 1
+          ? this.pagination.per_page * (this.pagination.current_page - 1) + (i + 1)
+          : i + 1;
+        return {
+          index,
+          salaryMonth: data.salaryMonth,
+          salaryDate: data.salaryDate,
+          account: data.transaction?.cashbook_account?.account_number || '-',
+          totalPaid: data.transaction?.amount || 0,
+          status: data.status,
+          action: data,
+          _raw: data,
+        };
+      });
+    },
+
+    // Payroll actions
+    payrollActions() {
+      return [
+        {
+          label: this.$t('View'),
+          icon: 'fas fa-eye',
+          class: 'btn-primary btn-sm',
+          handler: (row) => {
+            this.$router.push({ name: 'payroll.show', params: { slug: row._raw.slug } });
+          },
+          show: () => this.$can('payroll-view'),
+        },
+        {
+          label: this.$t('Edit'),
+          icon: 'fas fa-edit',
+          class: 'btn-info btn-sm',
+          handler: (row) => {
+            this.$router.push({ name: 'payroll.edit', params: { slug: row._raw.slug } });
+          },
+          show: () => this.$can('payroll-edit'),
+        },
+        {
+          label: this.$t('Delete'),
+          icon: 'fas fa-trash',
+          class: 'btn-danger btn-sm',
+          handler: (row) => {
+            this.deletePayroll(row._raw.slug);
+          },
+          show: () => this.$can('payroll-delete'),
+        },
+      ];
+    },
+
+    // Increments columns
+    incrementsColumns() {
+      const columns = [
+        { key: "index", label: this.$t("#"), align: "text-center" },
+        { key: "reason", label: this.$t("Increment Reason"), align: "text-left" },
+        { key: "basicSalary", label: this.$t("Basic Salary"), align: "text-center" },
+        { key: "incrementAmount", label: this.$t("Increment Amount"), align: "text-center" },
+        { key: "presentSalary", label: this.$t("Present Salary"), align: "text-center" },
+        { key: "incrementDate", label: this.$t("Increment Date"), align: "text-center" },
+        { key: "status", label: this.$t("Status"), align: "text-center" },
+      ];
+      if (this.$can('increment-edit') || this.$can('increment-view') || this.$can('increment-delete')) {
+        columns.push({ key: "action", label: this.$t("Action"), align: "text-right" });
+      }
+      return columns;
+    },
+
+    // Increments rows
+    incrementsRows() {
+      if (!this.allIncrements || this.allIncrements.length === 0) return [];
+      return this.allIncrements.map((data, i) => {
+        const index = this.salIncrePagination && this.salIncrePagination.current_page > 1
+          ? this.salIncrePagination.per_page * (this.salIncrePagination.current_page - 1) + (i + 1)
+          : i + 1;
+        return {
+          index,
+          reason: data.reason,
+          basicSalary: data.employee?.salary || 0,
+          incrementAmount: data.incrementAmount,
+          presentSalary: data.employee ? (data.employee.salary + data.incrementAmount) : 0,
+          incrementDate: data.incrementDate,
+          status: data.status,
+          action: data,
+          _raw: data,
+        };
+      });
+    },
+
+    // Increments actions
+    incrementsActions() {
+      return [
+        {
+          label: this.$t('View'),
+          icon: 'fas fa-eye',
+          class: 'btn-primary btn-sm',
+          handler: (row) => {
+            this.$router.push({ name: 'increments.show', params: { slug: row._raw.slug } });
+          },
+          show: () => this.$can('increment-view'),
+        },
+        {
+          label: this.$t('Edit'),
+          icon: 'fas fa-edit',
+          class: 'btn-info btn-sm',
+          handler: (row) => {
+            this.$router.push({ name: 'increments.edit', params: { slug: row._raw.slug } });
+          },
+          show: () => this.$can('increment-edit'),
+        },
+        {
+          label: this.$t('Delete'),
+          icon: 'fas fa-trash',
+          class: 'btn-danger btn-sm',
+          handler: (row) => {
+            this.deleteIncrement(row._raw.slug);
+          },
+          show: () => this.$can('increment-delete'),
+        },
+      ];
+    },
   },
   watch: {
     // watch invoice search data

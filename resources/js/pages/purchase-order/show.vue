@@ -178,59 +178,54 @@
               <div class="col-12">
                 <strong class="mb-2 d-block">{{ $t("Purchase Order Products") }}:</strong>
                 <div class="table-custom table-responsive">
-                  <table class="table table-sm text-center">
-                    <thead>
-                      <th>{{ $t("#") }}</th>
-                      <th>{{ $t("Code") }}</th>
-                      <th>{{ $t("Product Name") }}</th>
-                      <th>{{ $t("Ordered Qty") }}</th>
-                      <th>{{ $t("Unit Price") }}</th>
-                      <th>{{ $t("Total") }}</th>
-                      <th>{{ $t("Discount") }}</th>
-                      <th>{{ $t("Total After Discount") }}</th>
-                      <th>{{ $t("VAT") }}</th>
-                      <th>{{ $t("Total with VAT") }}</th>
-                    </thead>
-                    <tbody v-if="purchaseOrderProducts && purchaseOrderProducts.length > 0">
-                      <tr v-for="(data, i) in purchaseOrderProducts" :key="i">
-                        <td>{{ ++i }}</td>
-                        <td>
-                          {{ data.product.code | withPrefix(productPrefix) }}
-                        </td>
-                        <td>{{ data.product.name }}</td>
-                        <td>{{ data.quantity }}</td>
-                        <td>{{ formatNumber(data.purchase_price) }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ formatNumber(data.quantity * data.purchase_price) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                        <td>{{ formatNumber(data.discount_amount) }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ formatNumber((data.quantity * data.purchase_price) - parseFloat(data.discount_amount ||
-                          0))
-                        }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ formatNumber(data.tax_amount * data.quantity) }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ formatNumber((data.quantity * data.purchase_price) - parseFloat(data.discount_amount ||
-                          0) +
-                          parseFloat(data.tax_amount * data.quantity || 0)) }} <span class="saudi-riyal">ê</span></td>
-                      </tr>
-                      <tr>
-                        <td class="text-right" colspan="9">
-                          <strong>{{ $t("Subtotal") }}</strong>
-                        </td>
-                        <td>
-                          <strong>{{ formatNumber(getTotalWithVatSum()) }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                      </tr>
-                    </tbody>
-                    <tbody v-else>
-                      <tr>
-                        <td colspan="10" class="text-center">
-                          <div class="no-print callout callout-info">
-                            <h5>{{ $t("No products found") }}</h5>
-                            <p>{{ $t("This purchase order doesn't have any products yet.") }}</p>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <GeneralTable
+                    v-if="purchaseOrderProducts && purchaseOrderProducts.length > 0"
+                    :columns="purchaseOrderProductsColumns"
+                    :rows="purchaseOrderProductsRows"
+                    :loading="loading"
+                    wrapper-class=""
+                  >
+                    <template #cell-code="{ value }">
+                      {{ value | withPrefix(productPrefix) }}
+                    </template>
+                    <template #cell-unitPrice="{ value }">
+                      {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
+                    </template>
+                    <template #cell-total="{ value }">
+                      {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
+                    </template>
+                    <template #cell-discount="{ value }">
+                      {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
+                    </template>
+                    <template #cell-totalAfterDiscount="{ value }">
+                      {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
+                    </template>
+                    <template #cell-vat="{ value }">
+                      {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
+                    </template>
+                    <template #cell-totalWithVat="{ value }">
+                      {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
+                    </template>
+                  </GeneralTable>
+                  <div v-else class="no-print callout callout-info text-center">
+                    <h5>{{ $t("No products found") }}</h5>
+                    <p>{{ $t("This purchase order doesn't have any products yet.") }}</p>
+                  </div>
+                  <!-- Summary Row -->
+                  <div v-if="purchaseOrderProducts && purchaseOrderProducts.length > 0" class="table-responsive">
+                    <table class="table table-sm text-center">
+                      <tbody>
+                        <tr>
+                          <td class="text-right" colspan="9">
+                            <strong>{{ $t("Subtotal") }}</strong>
+                          </td>
+                          <td>
+                            <strong>{{ formatNumber(getTotalWithVatSum()) }} <span class="saudi-riyal">ê</span></strong>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -380,11 +375,15 @@ import Form from "vform";
 import axios from "axios";
 import { mapGetters } from "vuex";
 // import html2pdf from "html2pdf.js";
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
     return { title: this.$t("Purchase Order Details") };
+  },
+  components: {
+    GeneralTable,
   },
   data: () => ({
     breadcrumbsCurrent: "",
@@ -418,6 +417,40 @@ export default {
   }),
   computed: {
     ...mapGetters("operations", ["appInfo", "items", "loading", "pagination"]),
+
+    // Purchase order products columns
+    purchaseOrderProductsColumns() {
+      return [
+        { key: "index", label: this.$t("#"), align: "text-center" },
+        { key: "code", label: this.$t("Code"), align: "text-center" },
+        { key: "name", label: this.$t("Product Name"), align: "text-center" },
+        { key: "quantity", label: this.$t("Ordered Qty"), align: "text-center" },
+        { key: "unitPrice", label: this.$t("Unit Price"), align: "text-center" },
+        { key: "total", label: this.$t("Total"), align: "text-center" },
+        { key: "discount", label: this.$t("Discount"), align: "text-center" },
+        { key: "totalAfterDiscount", label: this.$t("Total After Discount"), align: "text-center" },
+        { key: "vat", label: this.$t("VAT"), align: "text-center" },
+        { key: "totalWithVat", label: this.$t("Total with VAT"), align: "text-center" },
+      ];
+    },
+
+    // Purchase order products rows
+    purchaseOrderProductsRows() {
+      if (!this.purchaseOrderProducts || this.purchaseOrderProducts.length === 0) return [];
+      return this.purchaseOrderProducts.map((product, index) => ({
+        index: index + 1,
+        code: product.product?.code || product.productCode,
+        name: product.product?.name || product.productName,
+        quantity: product.quantity,
+        unitPrice: product.purchase_price,
+        total: product.quantity * product.purchase_price,
+        discount: product.discount_amount || 0,
+        totalAfterDiscount: (product.quantity * product.purchase_price) - parseFloat(product.discount_amount || 0),
+        vat: product.tax_amount * product.quantity,
+        totalWithVat: (product.quantity * product.purchase_price) - parseFloat(product.discount_amount || 0) + parseFloat(product.tax_amount * product.quantity || 0),
+        _raw: product,
+      }));
+    },
   },
 
   watch: {

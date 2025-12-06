@@ -156,11 +156,15 @@
 
 <script>
 import axios from 'axios'
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   middleware: ['auth', 'check-permissions'],
   metaInfo() {
     return { title: this.$t('Non Invoice Payment Details') }
+  },
+  components: {
+    GeneralTable,
   },
   data: () => ({
     breadcrumbsCurrent: 'Details',

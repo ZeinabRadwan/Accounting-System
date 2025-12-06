@@ -172,49 +172,26 @@
                   <strong class="mb-2 d-block">
                     {{ $t("Loan Payments") }}:</strong>
                   <div class="table-responsive table-custom">
-                    <table class="table table-sm">
-                      <thead>
-                        <tr>
-                          <th>{{ $t("#") }}</th>
-                          <th>{{ $t("Ref. No") }}</th>
-                          <th>{{ $t("Account") }}</th>
-                          <th>{{ $t("Amount") }}</th>
-                          <th>{{ $t("Interest") }}</th>
-                          <th>{{ $t("Status") }}</th>
-                          <th class="text-right">{{ $t("Date") }}</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="(data, i) in allData.loanPayments" :key="i">
-                          <td>{{ ++i }}</td>
-                          <td>{{ data.reference_no }}</td>
-                          <td>
-                            <span v-if="
-                              data.loan_payment_transaction &&
-                              data.loan_payment_transaction.cashbook_account
-                            ">
-                              {{
-                                data.loan_payment_transaction.cashbook_account
-                                  .account_number
-                              }}
-                            </span>
-                          </td>
-                          <td>{{ data.amount }} <span class="saudi-riyal">ê</span></td>
-                          <td>{{ data.interest }} <span class="saudi-riyal">ê</span></td>
-                          <td>
-                            <span v-if="data.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
-                            <span v-else class="badge bg-danger">{{
-                              $t("Inactive")
-                            }}</span>
-                          </td>
-                          <td class="text-right">
-                            <span v-if="data.date">{{
-                              data.date | moment("Do MMM, YYYY")
-                            }}</span>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <GeneralTable
+                      :columns="loanPaymentsColumns"
+                      :rows="loanPaymentsRows"
+                      :loading="loading"
+                      wrapper-class=""
+                    >
+                      <template #cell-amount="{ value }">
+                        {{ value }} <span class="saudi-riyal">ê</span>
+                      </template>
+                      <template #cell-interest="{ value }">
+                        {{ value }} <span class="saudi-riyal">ê</span>
+                      </template>
+                      <template #cell-status="{ value }">
+                        <span v-if="value === 1" class="badge bg-success">{{ $t("Active") }}</span>
+                        <span v-else class="badge bg-danger">{{ $t("Inactive") }}</span>
+                      </template>
+                      <template #cell-date="{ value }">
+                        <span v-if="value">{{ value | moment("Do MMM, YYYY") }}</span>
+                      </template>
+                    </GeneralTable>
                   </div>
                 </div>
                 <div class="callout callout-danger mt-4 w-100 no-print" v-else>
@@ -376,11 +353,15 @@
 import { mapGetters } from "vuex";
 import axios from "axios";
 import html2pdf from "html2pdf.js";
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
     return { title: this.$t("Loan Details") };
+  },
+  components: {
+    GeneralTable,
   },
   data: () => ({
     breadcrumbsCurrent: "Loan Details",
@@ -407,6 +388,33 @@ export default {
   }),
 
   computed: {
+    // Loan payments columns
+    loanPaymentsColumns() {
+      return [
+        { key: "index", label: this.$t("#"), align: "text-center" },
+        { key: "referenceNo", label: this.$t("Ref. No"), align: "text-center" },
+        { key: "account", label: this.$t("Account"), align: "text-center" },
+        { key: "amount", label: this.$t("Amount"), align: "text-center" },
+        { key: "interest", label: this.$t("Interest"), align: "text-center" },
+        { key: "status", label: this.$t("Status"), align: "text-center" },
+        { key: "date", label: this.$t("Date"), align: "text-right" },
+      ];
+    },
+
+    // Loan payments rows
+    loanPaymentsRows() {
+      if (!this.allData || !this.allData.loanPayments || this.allData.loanPayments.length === 0) return [];
+      return this.allData.loanPayments.map((payment, index) => ({
+        index: index + 1,
+        referenceNo: payment.reference_no,
+        account: payment.loan_payment_transaction?.cashbook_account?.account_number || '-',
+        amount: payment.amount,
+        interest: payment.interest,
+        status: payment.status,
+        date: payment.date,
+        _raw: payment,
+      }));
+    },
     ...mapGetters("operations", ["appInfo", "items", "loading", "pagination"]),
   },
 

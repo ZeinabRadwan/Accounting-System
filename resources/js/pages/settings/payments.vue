@@ -9,66 +9,37 @@
           <div class="card-body position-relative">
             <table-loading v-show="loading" />
             <div class="table-responsive table-custom mt-3" id="printMe">
-              <table class="table invoices-table">
-                <thead>
-                    <th>{{ $t('ID') }}</th>
-                    <th>{{ $t('Plan') }}</th>
-                    <th>{{ $t('Month') }}</th>
-                    <th>{{ $t('Trx ID') }}</th>
-                    <th>{{ $t('Trx Type') }}</th>
-                    <th>{{ $t('Payment Status') }}</th>
-                    <th>{{ $t('Subscription Till') }}</th>
-                    <th>{{ $t('Total') }}
-                      <span class="badge badge-info"
-                        v-tooltip="'Central Panel Base Currency  <br/><small>(Converted USD)</small>'">
-                        <i class="fas fa-info"></i>
-                      </span>
-                    </th>
-                    <th>{{ $t('Action') }}</th>
-                </thead>
-                <tbody>
-                  <tr v-show="items.length" v-for="(payment, i) in items" :key="i">
-                    <td><span v-if="pagination && pagination.current_page > 1">
-                        {{
-                          pagination.per_page * (pagination.current_page - 1) +
-                          (i + 1)
-                        }}
-                      </span>
-                      <span v-else>{{ i + 1 }}</span>
-                    </td>
-                    <td>{{ payment.plan.name }}</td>
-                    <td>{{ payment.quantity }}</td>
-                    <td>{{ payment.system_trx_id }}</td>
-                    <td>{{ payment.method }}</td>
-                    <td>{{ payment.status }}</td>
-                    <td>
-                      <span v-if="payment.subscription && payment.subscription.ends_at">{{
-                        payment.subscription ? payment.subscription.ends_at : moment("Do MMM, YYYY")
-                      }}</span>
-                    </td>
-                    <td>
-                      {{ (payment.default_amount_rate * payment.quantity)}} <span class="saudi-riyal">ê</span><br>
-                      (${{ payment.amount * payment.quantity }})
-                    </td>
-                    <td class="text-center no-print">
-                      <div v-if="payment.status == 'success'" class="btn-group">
-                        <button type="button" v-tooltip="$t('Download')" class="btn btn-info btn-sm"
-                          @click="download(payment.id)">
-                          <i class="fas fa-file-download" />
-                        </button>
-                      </div>
-                      <div v-else class="text-center">
-                        <p>N/A</p>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr v-show="!loading && !items.length">
-                    <td colspan="12">
-                      <EmptyTable />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <GeneralTable
+                v-if="items && items.length > 0"
+                :columns="paymentColumns"
+                :rows="paymentRows"
+                :loading="loading"
+                wrapper-class="table-responsive"
+              >
+                <template #subscription_till="{ row }">
+                  <span v-if="row._raw.subscription && row._raw.subscription.ends_at">
+                    {{ row._raw.subscription.ends_at | moment("Do MMM, YYYY") }}
+                  </span>
+                </template>
+                <template #total="{ row }">
+                  {{ (row._raw.default_amount_rate * row._raw.quantity) }} <span class="saudi-riyal">ê</span><br>
+                  (${{ row._raw.amount * row._raw.quantity }})
+                </template>
+                <template #action="{ row }">
+                  <div v-if="row._raw.status == 'success'" class="btn-group">
+                    <button type="button" v-tooltip="$t('Download')" class="btn btn-info btn-sm"
+                      @click="download(row._raw.id)">
+                      <i class="fas fa-file-download" />
+                    </button>
+                  </div>
+                  <div v-else class="text-center">
+                    <p>N/A</p>
+                  </div>
+                </template>
+              </GeneralTable>
+              <div v-else class="text-center">
+                <EmptyTable />
+              </div>
             </div>
           </div>
           <div class="card-footer">
@@ -98,11 +69,15 @@
 
 <script>
 import { mapGetters } from "vuex";
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
     return { title: this.$t("Subscription Invoices") };
+  },
+  components: {
+    GeneralTable,
   },
   data: () => ({
     breadcrumbsCurrent: 'Subscription Invoices',
@@ -122,6 +97,39 @@ export default {
       "appInfo",
       "tenant",
     ]),
+    paymentColumns() {
+      return [
+        { key: "index", label: this.$t("ID") },
+        { key: "plan", label: this.$t("Plan") },
+        { key: "month", label: this.$t("Month") },
+        { key: "trx_id", label: this.$t("Trx ID") },
+        { key: "trx_type", label: this.$t("Trx Type") },
+        { key: "payment_status", label: this.$t("Payment Status") },
+        { key: "subscription_till", label: this.$t("Subscription Till") },
+        { key: "total", label: this.$t("Total") },
+        { key: "action", label: this.$t("Action") },
+      ];
+    },
+    paymentRows() {
+      if (!this.items) return [];
+      return this.items.map((item, index) => {
+        const rowIndex = this.pagination && this.pagination.current_page > 1
+          ? this.pagination.per_page * (this.pagination.current_page - 1) + (index + 1)
+          : index + 1;
+        return {
+          index: rowIndex,
+          plan: item.plan?.name || "",
+          month: item.quantity,
+          trx_id: item.system_trx_id || "",
+          trx_type: item.method || "",
+          payment_status: item.status || "",
+          subscription_till: item.subscription?.ends_at || "",
+          total: item.default_amount_rate * item.quantity,
+          action: item,
+          _raw: item,
+        };
+      });
+    },
   },
   created() {
     this.getData();

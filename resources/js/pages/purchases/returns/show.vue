@@ -183,74 +183,77 @@
               <div v-if="allData.purchase" class="col-12 table-responsive">
                 <strong class="mb-2 d-block">{{ $t("Return Products") }}:</strong>
                 <div class="table-custom table-responsive text-center">
-                  <table class="table table-sm purchases-create-table">
-                    <thead>
-                      <tr>
-                        <th>{{ $t("#") }}</th>
-                        <th>{{ $t("Code") }}</th>
-                        <th>{{ $t("Item Name") }}</th>
-                        <th>{{ $t("Qty") }}</th>
-                        <th>{{ $t("Price") }}</th>
-                        <th>{{ $t("Total") }}</th>
-                        <th>{{ $t("Discount") }}</th>
-                        <th>{{ $t("Total After Discount") }}</th>
-                        <th>{{ $t("VAT Type") }}</th>
-                        <th>{{ $t("VAT") }}</th>
-                        <th>{{ $t("Total with VAT") }}</th>
-                      </tr>
-                    </thead>
-                    <tbody v-if="returnProducts">
-                      <tr v-for="(data, i) in returnProducts" :key="i">
-                        <td>{{ ++i }}</td>
-                        <td v-if="data.product">
-                          {{ data.product.code | withPrefix(productPrefix) }}
-                        </td>
-                        <td v-if="data.product">{{ data.product.name }}</td>
-                        <td v-if="data.product">
-                          {{ data.returnQty }}
-                          <span v-if="data.product.itemUnit">{{
-                            data.product.itemUnit.code
-                            }}</span>
-                        </td>
-                        <td>{{ formatToTwoDecimals(data.purchasePrice) }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ formatToTwoDecimals(data.purchasePrice * data.returnQty) }} <span
-                            class="saudi-riyal">ê</span></td>
-                        <td>{{ formatToTwoDecimals(calculateUnitDiscount(data)) }} <span class="saudi-riyal">ê</span>
-                        </td>
-                        <td>{{ formatToTwoDecimals(calculateUnitNet(data)) }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ getVatRate(data) }}%</td>
-                        <td>{{ formatToTwoDecimals(calculateUnitVat(data)) }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ formatToTwoDecimals(calculateUnitTotal(data)) }} <span class="saudi-riyal">ê</span></td>
-                      </tr>
-                      <tr>
-                        <td colspan="5" class="text-right">
-                          <strong>{{ $t("Subtotal") }}</strong>
-                        </td>
-                        <td>
-                          <strong>{{ formatToTwoDecimals(calculateTotalReturnedProductCost()) }} <span
-                              class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td>
-                          <strong>{{ formatToTwoDecimals(calculateTotalReturnDiscount()) }} <span
-                              class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td>
-                          <strong>{{ formatToTwoDecimals(calculateTotalReturnedProductCost() -
-                            calculateTotalReturnDiscount()) }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td></td>
-                        <td>
-                          <strong>{{ formatToTwoDecimals(calculateTotalReturnTax()) }} <span
-                              class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td>
-                          <strong>{{ formatToTwoDecimals(calculateTotalReturnedProductCost() -
-                            calculateTotalReturnDiscount() + calculateTotalReturnTax()) }} <span
-                              class="saudi-riyal">ê</span></strong>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <GeneralTable
+                    v-if="returnProducts && returnProducts.length > 0"
+                    :columns="returnProductsColumns"
+                    :rows="returnProductsRows"
+                    :loading="loading"
+                    wrapper-class="table-responsive"
+                  >
+                    <template #code="{ row }">
+                      <span v-if="row._raw.product">
+                        {{ row._raw.product.code | withPrefix(productPrefix) }}
+                      </span>
+                    </template>
+                    <template #name="{ row }">
+                      <span v-if="row._raw.product">{{ row._raw.product.name }}</span>
+                    </template>
+                    <template #qty="{ row }">
+                      <span v-if="row._raw.product">
+                        {{ row._raw.returnQty }}
+                        <span v-if="row._raw.product.itemUnit">{{ row._raw.product.itemUnit.code }}</span>
+                      </span>
+                    </template>
+                    <template #price="{ row }">
+                      {{ formatToTwoDecimals(row._raw.purchasePrice) }} <span class="saudi-riyal">ê</span>
+                    </template>
+                    <template #total="{ row }">
+                      {{ formatToTwoDecimals(row._raw.purchasePrice * row._raw.returnQty) }} <span class="saudi-riyal">ê</span>
+                    </template>
+                    <template #discount="{ row }">
+                      {{ formatToTwoDecimals(calculateUnitDiscount(row._raw)) }} <span class="saudi-riyal">ê</span>
+                    </template>
+                    <template #totalAfterDiscount="{ row }">
+                      {{ formatToTwoDecimals(calculateUnitNet(row._raw)) }} <span class="saudi-riyal">ê</span>
+                    </template>
+                    <template #vatType="{ row }">
+                      {{ getVatRate(row._raw) }}%
+                    </template>
+                    <template #vat="{ row }">
+                      {{ formatToTwoDecimals(calculateUnitVat(row._raw)) }} <span class="saudi-riyal">ê</span>
+                    </template>
+                    <template #totalWithVat="{ row }">
+                      {{ formatToTwoDecimals(calculateUnitTotal(row._raw)) }} <span class="saudi-riyal">ê</span>
+                    </template>
+                  </GeneralTable>
+                  <!-- Summary Row -->
+                  <div v-if="returnProducts && returnProducts.length > 0" class="table-responsive mt-2">
+                    <table class="table table-sm purchases-create-table">
+                      <tbody>
+                        <tr>
+                          <td colspan="5" class="text-right">
+                            <strong>{{ $t("Subtotal") }}</strong>
+                          </td>
+                          <td>
+                            <strong>{{ formatToTwoDecimals(calculateTotalReturnedProductCost()) }} <span class="saudi-riyal">ê</span></strong>
+                          </td>
+                          <td>
+                            <strong>{{ formatToTwoDecimals(calculateTotalReturnDiscount()) }} <span class="saudi-riyal">ê</span></strong>
+                          </td>
+                          <td>
+                            <strong>{{ formatToTwoDecimals(calculateTotalReturnedProductCost() - calculateTotalReturnDiscount()) }} <span class="saudi-riyal">ê</span></strong>
+                          </td>
+                          <td></td>
+                          <td>
+                            <strong>{{ formatToTwoDecimals(calculateTotalReturnTax()) }} <span class="saudi-riyal">ê</span></strong>
+                          </td>
+                          <td>
+                            <strong>{{ formatToTwoDecimals(calculateTotalReturnedProductCost() - calculateTotalReturnDiscount() + calculateTotalReturnTax()) }} <span class="saudi-riyal">ê</span></strong>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -441,74 +444,64 @@
                 </div>
 
                 <div class="table-responsive">
-                  <table class="table table-bordered table-sm">
-                    <thead class="bg-light">
-                      <tr>
-                        <th>{{ $t("Line") }}</th>
-                        <th>{{ $t("Chart of Account") }}</th>
-                        <th>{{ $t("Description") }}</th>
-                        <th class="text-right">{{ $t("Debit") }}</th>
-                        <th class="text-right">{{ $t("Credit") }}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="(line, lineIndex) in journalEntry.lines" :key="lineIndex">
-                        <td>{{ line.line_number }}</td>
-                        <td>
-                          <strong>{{ line.chart_of_account.name }}</strong>
-                          <br />
-                          <small class="text-muted">{{
-                            line.chart_of_account.type.name
-                            }}</small>
-                        </td>
-                        <td>{{ line.description }}</td>
-                        <td class="text-right">
-                          <span v-if="line.debit_amount > 0">{{
-                            line.debit_amount
-                            }}<span class="saudi-riyal">ê</span>
-                          </span>
-                          <span v-else class="text-muted">-</span>
-                        </td>
-                        <td class="text-right">
-                          <span v-if="line.credit_amount > 0">{{
-                            line.credit_amount
-                          }} <span class="saudi-riyal">ê</span>
-                          </span>
-                          <span v-else class="text-muted">-</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                    <tfoot class="bg-light">
-                      <tr>
-                        <th colspan="3" class="text-right">
-                          {{ $t("Total") }}:
-                        </th>
-                        <th class="text-right">
-                          {{ journalEntry.total_debit }} <span class="saudi-riyal">ê</span>
-                        </th>
-                        <th class="text-right">
-                          {{ journalEntry.total_credit }} <span class="saudi-riyal">ê</span>
-                        </th>
-                      </tr>
-                      <tr>
-                        <th colspan="3" class="text-right">
-                          {{ $t("Balance") }}:
-                        </th>
-                        <th colspan="2" class="text-center">
-                          <span class="badge" :class="journalEntry.is_balanced
-                            ? 'badge-success'
-                            : 'badge-danger'
-                            ">
-                            {{
-                              journalEntry.is_balanced
-                                ? $t("Balanced")
-                                : $t("Unbalanced")
-                            }}
-                          </span>
-                        </th>
-                      </tr>
-                    </tfoot>
-                  </table>
+                  <GeneralTable
+                    :columns="journalEntryLinesColumns"
+                    :rows="journalEntry.lines || []"
+                    wrapper-class="table-responsive"
+                  >
+                    <template #chart_of_account="{ row }">
+                      <strong>{{ row.chart_of_account?.name }}</strong>
+                      <br />
+                      <small class="text-muted">{{ row.chart_of_account?.type?.name }}</small>
+                    </template>
+                    <template #debit_amount="{ row }">
+                      <span v-if="row.debit_amount > 0">
+                        {{ row.debit_amount }}<span class="saudi-riyal">ê</span>
+                      </span>
+                      <span v-else class="text-muted">-</span>
+                    </template>
+                    <template #credit_amount="{ row }">
+                      <span v-if="row.credit_amount > 0">
+                        {{ row.credit_amount }} <span class="saudi-riyal">ê</span>
+                      </span>
+                      <span v-else class="text-muted">-</span>
+                    </template>
+                  </GeneralTable>
+                  <!-- Summary Footer -->
+                  <div class="table-responsive mt-2">
+                    <table class="table table-bordered table-sm">
+                      <tfoot class="bg-light">
+                        <tr>
+                          <th colspan="3" class="text-right">
+                            {{ $t("Total") }}:
+                          </th>
+                          <th class="text-right">
+                            {{ journalEntry.total_debit }} <span class="saudi-riyal">ê</span>
+                          </th>
+                          <th class="text-right">
+                            {{ journalEntry.total_credit }} <span class="saudi-riyal">ê</span>
+                          </th>
+                        </tr>
+                        <tr>
+                          <th colspan="3" class="text-right">
+                            {{ $t("Balance") }}:
+                          </th>
+                          <th colspan="2" class="text-center">
+                            <span class="badge" :class="journalEntry.is_balanced
+                              ? 'badge-success'
+                              : 'badge-danger'
+                              ">
+                              {{
+                                journalEntry.is_balanced
+                                  ? $t("Balanced")
+                                  : $t("Unbalanced")
+                              }}
+                            </span>
+                          </th>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -528,6 +521,7 @@
 import axios from "axios";
 import { mapGetters } from "vuex";
 import SwalOriginal from "sweetalert2/dist/sweetalert2";
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -540,6 +534,7 @@ export default {
   },
   components: {
     CurrencyDisplay: () => import('~/components/CurrencyDisplay'),
+    GeneralTable,
   },
   data: () => ({
     breadcrumbs: [
@@ -600,6 +595,49 @@ export default {
       return this.allData.journalEntries.map(journalEntry => ({
         ...journalEntry,
         lines: this.sortJournalEntryLines(journalEntry.lines || [])
+      }));
+    },
+    journalEntryLinesColumns() {
+      return [
+        { key: "line_number", label: this.$t("Line") },
+        { key: "chart_of_account", label: this.$t("Chart of Account") },
+        { key: "description", label: this.$t("Description") },
+        { key: "debit_amount", label: this.$t("Debit") },
+        { key: "credit_amount", label: this.$t("Credit") },
+      ];
+    },
+    returnProductsColumns() {
+      return [
+        { key: "index", label: this.$t("#") },
+        { key: "code", label: this.$t("Code") },
+        { key: "name", label: this.$t("Item Name") },
+        { key: "qty", label: this.$t("Qty") },
+        { key: "price", label: this.$t("Price") },
+        { key: "total", label: this.$t("Total") },
+        { key: "discount", label: this.$t("Discount") },
+        { key: "totalAfterDiscount", label: this.$t("Total After Discount") },
+        { key: "vatType", label: this.$t("VAT Type") },
+        { key: "vat", label: this.$t("VAT") },
+        { key: "totalWithVat", label: this.$t("Total with VAT") },
+      ];
+    },
+    returnProductsRows() {
+      if (!this.returnProducts || this.returnProducts.length === 0) {
+        return [];
+      }
+      return this.returnProducts.map((product, index) => ({
+        index: index + 1,
+        code: product.product?.code || "",
+        name: product.product?.name || "",
+        qty: product.returnQty,
+        price: product.purchasePrice,
+        total: product.purchasePrice * product.returnQty,
+        discount: product,
+        totalAfterDiscount: product,
+        vatType: this.getVatRate(product),
+        vat: product,
+        totalWithVat: product,
+        _raw: product,
       }));
     },
   },

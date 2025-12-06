@@ -238,12 +238,16 @@
 import axios from 'axios'
 import { mapGetters } from 'vuex'
 import html2pdf from 'html2pdf.js'
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   name: 'show-receive-voucher',
   middleware: ['auth', 'check-permissions'],
   metaInfo() {
     return { title: this.$t('Receive Voucher Details') }
+  },
+  components: {
+    GeneralTable,
   },
   data() {
     return {

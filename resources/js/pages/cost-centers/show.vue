@@ -100,11 +100,16 @@
 </template>
 
 <script>
+import GeneralTable from "~/components/GeneralTable";
+
 export default {
   name: 'ShowCostCenter',
   middleware: ['auth', 'check-permissions'],
   metaInfo() {
     return { title: this.$t('Cost Center Details') }
+  },
+  components: {
+    GeneralTable,
   },
   data() {
     return {

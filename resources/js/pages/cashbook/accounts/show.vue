@@ -119,47 +119,27 @@
         <div class="row">
           <table-loading v-show="loading" />
           <div class="table-responsive table-custom">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>{{ $t("#") }}</th>
-                  <th>{{ $t("Info") }}</th>
-                  <th>{{ $t("Date") }}</th>
-                  <th>{{ $t("Credit") }}</th>
-                  <th>{{ $t("Debit") }}</th>
-                  <th>{{ $t("Balance") }}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-show="transactions.length" v-for="(data, i) in transactions" :key="i">
-                  <td>{{ ++i }}</td>
-                  <td>{{ data.reason }}</td>
-                  <td>
-                    <span v-if="data.transactionDate">{{
-                      data.transactionDate | moment("Do MMM, YYYY")
-                    }}</span>
-                  </td>
-                  <td>
-                    <span v-if="data.type === 1">{{
-                      data.amount 
-                    }}
-                    <span class="saudi-riyal">ê</span></span>
-                    <span v-else>{{ 0  }} <span class="saudi-riyal">ê</span></span>
-                  </td>
-
-                  <td>
-                    <span v-if="data.type === 1">{{ 0  }} <span class="saudi-riyal">ê</span></span>
-                    <span v-else>{{ data.amount  }} <span class="saudi-riyal">ê</span></span>
-                  </td>
-                  <td>{{ data.balance  }} <span class="saudi-riyal">ê</span></td>
-                </tr>
-                <tr v-show="!loading && !transactions.length">
-                  <td colspan="8">
-                    <EmptyTable />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <GeneralTable
+              :columns="transactionsColumns"
+              :rows="transactionsRows"
+              :loading="loading"
+              wrapper-class=""
+            >
+              <template #cell-date="{ value }">
+                <span v-if="value">{{ value | moment("Do MMM, YYYY") }}</span>
+              </template>
+              <template #cell-credit="{ row }">
+                <span v-if="row._raw.type === 1">{{ row._raw.amount }} <span class="saudi-riyal">ê</span></span>
+                <span v-else>{{ 0 }} <span class="saudi-riyal">ê</span></span>
+              </template>
+              <template #cell-debit="{ row }">
+                <span v-if="row._raw.type === 1">{{ 0 }} <span class="saudi-riyal">ê</span></span>
+                <span v-else>{{ row._raw.amount }} <span class="saudi-riyal">ê</span></span>
+              </template>
+              <template #cell-balance="{ value }">
+                {{ value }} <span class="saudi-riyal">ê</span>
+              </template>
+            </GeneralTable>
           </div>
         </div>
         <div v-show="allData.length" class="no-print callout callout-danger mt-4 w-100">
@@ -174,11 +154,15 @@
 <script>
 import axios from "axios";
 import { mapGetters } from "vuex";
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
     return { title: this.$t("Account Transactions") };
+  },
+  components: {
+    GeneralTable,
   },
   data: () => ({
     breadcrumbsCurrent: "Account Transactions",
@@ -206,6 +190,32 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters("operations", ["items", "loading", "pagination"]),
+
+    // Transactions columns
+    transactionsColumns() {
+      return [
+        { key: "index", label: this.$t("#"), align: "text-center" },
+        { key: "reason", label: this.$t("Info"), align: "text-left" },
+        { key: "date", label: this.$t("Date"), align: "text-center" },
+        { key: "credit", label: this.$t("Credit"), align: "text-center" },
+        { key: "debit", label: this.$t("Debit"), align: "text-center" },
+        { key: "balance", label: this.$t("Balance"), align: "text-center" },
+      ];
+    },
+
+    // Transactions rows
+    transactionsRows() {
+      if (!this.transactions || this.transactions.length === 0) return [];
+      return this.transactions.map((transaction, index) => ({
+        index: index + 1,
+        reason: transaction.reason,
+        date: transaction.transactionDate,
+        credit: transaction,
+        debit: transaction,
+        balance: transaction.balance,
+        _raw: transaction,
+      }));
+    },
   },
   watch: {
     // watch search data

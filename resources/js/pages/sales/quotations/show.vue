@@ -161,71 +161,53 @@
             <div class="row position-relative mt-4">
               <div class="col-12">
                 <strong class="mb-2 d-block">{{ $t("Products") }}:</strong>
-                <div class="table-custom table-responsive">
-                  <table class="table table-sm">
-                    <thead>
-                      <tr>
-                        <th>{{ $t("#") }}</th>
-                        <th>{{ $t("Code") }}</th>
-                        <th>{{ $t("Item Name") }}</th>
-                        <th>{{ $t("Qty") }}</th>
-                        <th>{{ $t("Price") }}</th>
-                        <th>{{ $t("Total") }}</th>
-                        <th>{{ $t("Discount") }}</th>
-                        <th>{{ $t("Total After Discount") }}</th>
-                        <th>{{ $t("VAT") }}</th>
-                        <th>{{ $t("Total with VAT") }}</th>
-                      </tr>
-                    </thead>
-                    <tbody v-if="allData.products">
-                      <tr v-for="(data, i) in allData.products" :key="i">
-                        <td>{{ ++i }}</td>
-                        <td>
-                          {{ data.productCode | withPrefix(productPrefix) }}
-                        </td>
-                        <td>{{ data.productName }}</td>
-                        <td>{{ data.quantity }}</td>
-                        <td>{{ formatNumber(data.salePrice) }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ formatNumber(data.salePrice * data.quantity) }} <span class="saudi-riyal">ê</span></td>
-                        <td>
-                          <span v-if="data.discountType === 'percentage'">
-                            {{ data.discount }}% ({{ calculateProductDiscountAmount(data) }} <span
-                              class="saudi-riyal">ê</span>)
-                          </span>
-                          <span v-else-if="data.discountAmount > 0">
-                            {{ calculateProductDiscountAmount(data) }} <span class="saudi-riyal">ê</span>
-                          </span>
-                          <span v-else class="text-muted">
-                            {{ $t('No Discount') }}
-                          </span>
-                        </td>
-                        <td>{{ formatNumber((data.salePrice * data.quantity) -
-                          parseFloat(calculateProductDiscountAmount(data))) }} <span class="saudi-riyal">ê</span></td>
-                        <td>
-                          <span v-if="data.taxAmount > 0">
-                            {{ formatNumber(data.taxAmount) }} <span class="saudi-riyal">ê</span>
-                            <small v-if="data.taxRate" class="text-muted d-block">
-                              ({{ data.taxRate }}%)
-                            </small>
-                          </span>
-                          <span v-else class="text-muted">
-                            {{ $t('No VAT') }}
-                          </span>
-                        </td>
-                        <td>{{ formatNumber((data.salePrice * data.quantity) -
-                          parseFloat(calculateProductDiscountAmount(data)) + (parseFloat(data.taxAmount) || 0)) }} <span
-                            class="saudi-riyal">ê</span></td>
-                      </tr>
-                      <tr>
-                        <td class="text-right" colspan="9">
-                          <strong>{{ $t("Total with VAT") }}</strong>
-                        </td>
-                        <td class="text-center">
-                          <strong>{{ calculatedTotal }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <GeneralTable
+                  :columns="quotationProductsColumns"
+                  :rows="quotationProductsRows"
+                  :loading="loading"
+                  wrapper-class=""
+                >
+                  <template #cell-code="{ value }">
+                    {{ value | withPrefix(productPrefix) }}
+                  </template>
+                  <template #cell-price="{ value }">
+                    {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
+                  </template>
+                  <template #cell-total="{ value }">
+                    {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
+                  </template>
+                  <template #cell-discount="{ row }">
+                    <span v-if="row._raw.discountType === 'percentage'">
+                      {{ row._raw.discount }}% ({{ calculateProductDiscountAmount(row._raw) }} <span
+                        class="saudi-riyal">ê</span>)
+                    </span>
+                    <span v-else-if="row._raw.discountAmount > 0">
+                      {{ calculateProductDiscountAmount(row._raw) }} <span class="saudi-riyal">ê</span>
+                    </span>
+                    <span v-else class="text-muted">
+                      {{ $t('No Discount') }}
+                    </span>
+                  </template>
+                  <template #cell-totalAfterDiscount="{ value }">
+                    {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
+                  </template>
+                  <template #cell-vat="{ row }">
+                    <span v-if="row._raw.taxAmount > 0">
+                      {{ formatNumber(row._raw.taxAmount) }} <span class="saudi-riyal">ê</span>
+                      <small v-if="row._raw.taxRate" class="text-muted d-block">
+                        ({{ row._raw.taxRate }}%)
+                      </small>
+                    </span>
+                    <span v-else class="text-muted">
+                      {{ $t('No VAT') }}
+                    </span>
+                  </template>
+                  <template #cell-totalWithVat="{ value }">
+                    {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
+                  </template>
+                </GeneralTable>
+                <div class="mt-2 text-center">
+                  <strong>{{ $t("Total with VAT") }}: {{ calculatedTotal }} <span class="saudi-riyal">ê</span></strong>
                 </div>
               </div>
             </div>
@@ -363,11 +345,15 @@ import Form from "vform";
 import axios from "axios";
 import { mapGetters } from "vuex";
 import iziToast from "izitoast";
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
     return { title: this.$t("Quotation Details") };
+  },
+  components: {
+    GeneralTable,
   },
   data: () => ({
     allData: "",
@@ -436,6 +422,40 @@ export default {
       return this.allData.products.reduce((total, product) => {
         return total + this.calculateProductDiscountAmount(product);
       }, 0);
+    },
+
+    // Quotation products columns
+    quotationProductsColumns() {
+      return [
+        { key: "index", label: this.$t("#"), align: "text-center" },
+        { key: "code", label: this.$t("Code"), align: "text-center" },
+        { key: "name", label: this.$t("Item Name"), align: "text-center" },
+        { key: "quantity", label: this.$t("Qty"), align: "text-center" },
+        { key: "price", label: this.$t("Price"), align: "text-center" },
+        { key: "total", label: this.$t("Total"), align: "text-center" },
+        { key: "discount", label: this.$t("Discount"), align: "text-center" },
+        { key: "totalAfterDiscount", label: this.$t("Total After Discount"), align: "text-center" },
+        { key: "vat", label: this.$t("VAT"), align: "text-center" },
+        { key: "totalWithVat", label: this.$t("Total with VAT"), align: "text-center" },
+      ];
+    },
+
+    // Quotation products rows
+    quotationProductsRows() {
+      if (!this.allData || !this.allData.products) return [];
+      return this.allData.products.map((product, index) => ({
+        index: index + 1,
+        code: product.productCode,
+        name: product.productName,
+        quantity: product.quantity,
+        price: product.salePrice,
+        total: product.salePrice * product.quantity,
+        discount: product,
+        totalAfterDiscount: (product.salePrice * product.quantity) - parseFloat(this.calculateProductDiscountAmount(product)),
+        vat: product,
+        totalWithVat: (product.salePrice * product.quantity) - parseFloat(this.calculateProductDiscountAmount(product)) + (parseFloat(product.taxAmount) || 0),
+        _raw: product,
+      }));
     },
 
     // Calculate total price (sum of Total column in items table)

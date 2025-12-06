@@ -417,6 +417,7 @@ import { mapGetters } from "vuex";
 import axios from "axios";
 import html2pdf from "html2pdf.js";
 import iziToast from "izitoast";
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -425,6 +426,7 @@ export default {
   },
   components: {
     barcode: VueBarcode,
+    GeneralTable,
   },
   data: () => ({
     breadcrumbsCurrent: "Product Details",

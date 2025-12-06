@@ -362,111 +362,53 @@
             <div class="row mt-4">
               <div class="col-12">
                 <strong class="mb-2 d-block">{{ $t("Invoice Products") }}:</strong>
-                <div class="table-responsive table-custom">
-                  <table class="table table-sm text-center invoices-table">
-                    <thead>
-                      <tr>
-                        <th>{{ $t("#") }}</th>
-                        <th>{{ $t("Code") }}</th>
-                        <th>{{ $t("Item Name") }}</th>
-                        <th>{{ $t("Qty") }}</th>
-                        <th v-if="allData.totalInvoiceReturn">
-                          {{ $t("Return Qty") }}
-                        </th>
-                        <th>{{ $t("Price") }}</th>
-                        <th>{{ $t("Total") }}</th>
-                        <th>{{ $t("Discount") }}</th>
-                        <th>{{ $t("Total After Discount") }}</th>
-                        <th>{{ $t("VAT") }}</th>
-                        <th>{{ $t("Total with VAT") }}</th>
-                        <!-- <th
-                           v-if="allData.totalInvoiceReturn"
-                           class="text-right"
-                         >
-                           {{ $t("Total Return") }}
-                         </th> -->
-                      </tr>
-                    </thead>
-                    <tbody v-if="invoiceProducts">
-                      <tr v-for="(data, i) in invoiceProducts" :key="i">
-                        <td>{{ ++i }}</td>
-                        <td>
-                          {{ data.productCode | withPrefix(productPrefix) }}
-                        </td>
-                        <td>{{ data.productName }}</td>
-                        <td>{{ data.quantity }} {{ data.productUnit }}</td>
-                        <td v-if="allData.totalInvoiceReturn">
-                          {{ data.returnQty }} {{ data.productUnit }}
-                        </td>
-                        <td>{{ formatNumber(data.salePrice) }} <span class="saudi-riyal">ê</span></td>
-                        <td class="align-middle">{{ formatNumber(data.salePrice * data.quantity) }} <span
-                            class="saudi-riyal">ê</span></td>
-                        <td>
-                          <span v-if="data.discountType === 'percentage'">
-                            {{ data.discountPercentage }}% ({{ formatNumber(calculateProductDiscountAmount(data)) }}
-                            <span class="saudi-riyal">ê</span>)
-                          </span>
-                          <span v-else-if="data.productDiscount > 0">
-                            {{ formatNumber(calculateProductDiscountAmount(data)) }} <span class="saudi-riyal">ê</span>
-                          </span>
-                          <span v-else class="text-muted">
-                            {{ $t('No Discount') }}
-                          </span>
-                        </td>
-                        <td class="align-middle">{{ formatNumber((data.salePrice * data.quantity) -
-                          calculateProductDiscountAmount(data)) }} <span class="saudi-riyal">ê</span></td>
-                        <td>
-                          <span v-if="data.productTax > 0">
-                            {{ formatNumber(data.productTax) }} <span class="saudi-riyal">ê</span>
-                            <small v-if="data.vatRate" class="text-muted d-block">
-                              ({{ data.vatRate.rate }}%)
-                            </small>
-                          </span>
-                          <span v-else class="text-muted">
-                            {{ $t('No VAT') }}
-                          </span>
-                        </td>
-                        <td class="align-middle">{{ formatNumber((data.salePrice * data.quantity) -
-                          calculateProductDiscountAmount(data) + (data.productTax || 0)) }} <span
-                            class="saudi-riyal">ê</span></td>
-                        <!-- <td>{{ data.unitCost  }} <span class="saudi-riyal">ê</span></td>
-                        <td
-                          v-if="allData.totalInvoiceReturn"
-                          class="text-right"
-                        >
-                          {{ (data.unitCost * data.returnQty)  }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          :colspan="allData.totalInvoiceReturn ? 12 : 11"
-                          class="text-right"
-                        >
-                          <strong>{{ $t("Subtotal") }} </strong>
-                        </td>
-                        <td class="text-right">
-                          <strong>
-                            {{ allData.subTotal  }} <span class="saudi-riyal">ê</span>
-                          </strong>
-                        </td> -->
-                        <!-- <td
-                          v-if="allData.totalInvoiceReturn"
-                          class="text-right"
-                        >
-                          <strong>{{
-                            allData.totalInvoiceReturn 
-                          }} <span class="saudi-riyal">ê</span></strong>
-                        </td> -->
-                      </tr>
-                      <tr>
-                        <td :colspan="allData.totalInvoiceReturn ? 10 : 9" class="text-center">
-                          <strong>
-                            {{ formatNumber(allData.subTotal) }} <span class="saudi-riyal">ê</span>
-                          </strong>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <GeneralTable
+                  :columns="invoiceProductsColumns"
+                  :rows="invoiceProductsRows"
+                  :loading="loading"
+                  wrapper-class=""
+                >
+                  <template #cell-code="{ value }">
+                    {{ value | withPrefix(productPrefix) }}
+                  </template>
+                  <template #cell-price="{ value }">
+                    {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
+                  </template>
+                  <template #cell-total="{ value }">
+                    {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
+                  </template>
+                  <template #cell-discount="{ row }">
+                    <span v-if="row._raw.discountType === 'percentage'">
+                      {{ row._raw.discountPercentage }}% ({{ formatNumber(calculateProductDiscountAmount(row._raw)) }}
+                      <span class="saudi-riyal">ê</span>)
+                    </span>
+                    <span v-else-if="row._raw.productDiscount > 0">
+                      {{ formatNumber(calculateProductDiscountAmount(row._raw)) }} <span class="saudi-riyal">ê</span>
+                    </span>
+                    <span v-else class="text-muted">
+                      {{ $t('No Discount') }}
+                    </span>
+                  </template>
+                  <template #cell-totalAfterDiscount="{ value }">
+                    {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
+                  </template>
+                  <template #cell-vat="{ row }">
+                    <span v-if="row._raw.productTax > 0">
+                      {{ formatNumber(row._raw.productTax) }} <span class="saudi-riyal">ê</span>
+                      <small v-if="row._raw.vatRate" class="text-muted d-block">
+                        ({{ row._raw.vatRate.rate }}%)
+                      </small>
+                    </span>
+                    <span v-else class="text-muted">
+                      {{ $t('No VAT') }}
+                    </span>
+                  </template>
+                  <template #cell-totalWithVat="{ value }">
+                    {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
+                  </template>
+                </GeneralTable>
+                <div class="mt-2 text-center">
+                  <strong>{{ $t("Subtotal") }}: {{ formatNumber(allData.subTotal) }} <span class="saudi-riyal">ê</span></strong>
                 </div>
               </div>
             </div>
@@ -534,56 +476,22 @@
                   allData.invoicePayments.length > 0
                 ">
                   <strong class="mb-2 d-block">{{ $t("Payment History") }}:</strong>
-                  <div class="table-responsive table-custom">
-                    <table class="table table-sm invoices-table">
-                      <thead>
-                        <tr>
-                          <th>{{ $t("#") }}</th>
-                          <th>{{ $t("Payment Date") }}</th>
-                          <th>{{ $t("Paid Amount") }}</th>
-                          <th>{{ $t("Account") }}</th>
-                          <th>{{ $t("Cheque No") }}</th>
-                          <th>{{ $t("Receipt No") }}</th>
-                          <th class="text-right">{{ $t("Status") }}</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="(data, i) in allData.invoicePayments" :key="i">
-                          <td>{{ ++i }}</td>
-                          <td>
-                            <span v-if="data.date">{{ data.date }}</span>
-                          </td>
-                          <td>{{ formatNumber(data.amount) }} <span class="saudi-riyal">ê</span></td>
-                          <td>
-                            <span v-if="data.account">{{
-                              data.account.label
-                            }}</span>
-                          </td>
-                          <td>
-                            {{ data.transaction?.cheque_no || data.chequeNo || '-' }}
-                          </td>
-                          <td>
-                            {{ data.transaction?.receipt_no || data.receiptNo || '-' }}
-                          </td>
-                          <td class="text-right">
-                            <span v-if="data.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
-                            <span v-else class="badge bg-danger">{{
-                              $t("Inactive")
-                            }}</span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="text-right" colspan="2">
-                            <strong>{{ $t("Total Paid") }}</strong>
-                          </td>
-                          <td colspan="5">
-                            <strong>{{
-                              formatNumber(allData.totalPaid)
-                            }} <span class="saudi-riyal">ê</span></strong>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                  <GeneralTable
+                    :columns="paymentHistoryColumns"
+                    :rows="paymentHistoryRows"
+                    :loading="loading"
+                    wrapper-class=""
+                  >
+                    <template #cell-amount="{ value }">
+                      {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
+                    </template>
+                    <template #cell-status="{ value }">
+                      <span v-if="value === 1" class="badge bg-success">{{ $t("Active") }}</span>
+                      <span v-else class="badge bg-danger">{{ $t("Inactive") }}</span>
+                    </template>
+                  </GeneralTable>
+                  <div class="mt-2 text-right">
+                    <strong>{{ $t("Total Paid") }}: {{ formatNumber(allData.totalPaid) }} <span class="saudi-riyal">ê</span></strong>
                   </div>
                 </div>
                 <div class="no-print callout callout-danger mt-4 w-100" v-else>
@@ -907,6 +815,7 @@ import Swal from "sweetalert2";
 import SwalOriginal from "sweetalert2/dist/sweetalert2";
 import { ToggleButton } from "vue-js-toggle-button";
 import AccountCreateModal from "~/components/AccountCreateModal";
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -916,6 +825,7 @@ export default {
   components: {
     ToggleButton,
     AccountCreateModal,
+    GeneralTable,
   },
   data: () => ({
     allData: "",
@@ -1051,6 +961,75 @@ export default {
       const total = this.totalPrice - this.totalProductDiscount + this.totalProductVat;
       const paid = this.allData.totalPaid || 0;
       return total - paid;
+    },
+
+    // Payment history columns
+    paymentHistoryColumns() {
+      return [
+        { key: "index", label: this.$t("#"), align: "" },
+        { key: "date", label: this.$t("Payment Date"), align: "" },
+        { key: "amount", label: this.$t("Paid Amount"), align: "" },
+        { key: "account", label: this.$t("Account"), align: "" },
+        { key: "chequeNo", label: this.$t("Cheque No"), align: "" },
+        { key: "receiptNo", label: this.$t("Receipt No"), align: "" },
+        { key: "status", label: this.$t("Status"), align: "text-right" },
+      ];
+    },
+
+    // Payment history rows
+    paymentHistoryRows() {
+      if (!this.allData || !this.allData.invoicePayments) return [];
+      return this.allData.invoicePayments.map((payment, index) => ({
+        index: index + 1,
+        date: payment.date || "",
+        amount: payment.amount,
+        account: payment.account ? payment.account.label : "",
+        chequeNo: payment.transaction?.cheque_no || payment.chequeNo || "-",
+        receiptNo: payment.transaction?.receipt_no || payment.receiptNo || "-",
+        status: payment.status,
+        _raw: payment,
+      }));
+    },
+
+    // Invoice products columns
+    invoiceProductsColumns() {
+      const columns = [
+        { key: "index", label: this.$t("#"), align: "text-center" },
+        { key: "code", label: this.$t("Code"), align: "text-center" },
+        { key: "name", label: this.$t("Item Name"), align: "text-center" },
+        { key: "quantity", label: this.$t("Qty"), align: "text-center" },
+      ];
+      if (this.allData && this.allData.totalInvoiceReturn) {
+        columns.push({ key: "returnQty", label: this.$t("Return Qty"), align: "text-center" });
+      }
+      columns.push(
+        { key: "price", label: this.$t("Price"), align: "text-center" },
+        { key: "total", label: this.$t("Total"), align: "text-center" },
+        { key: "discount", label: this.$t("Discount"), align: "text-center" },
+        { key: "totalAfterDiscount", label: this.$t("Total After Discount"), align: "text-center" },
+        { key: "vat", label: this.$t("VAT"), align: "text-center" },
+        { key: "totalWithVat", label: this.$t("Total with VAT"), align: "text-center" }
+      );
+      return columns;
+    },
+
+    // Invoice products rows
+    invoiceProductsRows() {
+      if (!this.invoiceProducts) return [];
+      return this.invoiceProducts.map((product, index) => ({
+        index: index + 1,
+        code: product.productCode,
+        name: product.productName,
+        quantity: `${product.quantity} ${product.productUnit}`,
+        returnQty: this.allData && this.allData.totalInvoiceReturn ? `${product.returnQty} ${product.productUnit}` : null,
+        price: product.salePrice,
+        total: product.salePrice * product.quantity,
+        discount: product,
+        totalAfterDiscount: (product.salePrice * product.quantity) - this.calculateProductDiscountAmount(product),
+        vat: product,
+        totalWithVat: (product.salePrice * product.quantity) - this.calculateProductDiscountAmount(product) + (product.productTax || 0),
+        _raw: product,
+      }));
     },
   },
 

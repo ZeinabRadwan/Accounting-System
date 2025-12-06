@@ -103,10 +103,15 @@
 </template>
 
 <script>
+import GeneralTable from "~/components/GeneralTable";
+
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
     return { title: this.$t("View Branch") };
+  },
+  components: {
+    GeneralTable,
   },
   data() {
     return {

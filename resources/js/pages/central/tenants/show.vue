@@ -123,62 +123,39 @@
                 <div class="card-body p-0 position-relative">
                   <table-loading v-show="loading" />
                   <div class="table-responsive table-custom mt-3" id="printMe">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th>{{ $t('ID') }}</th>
-                          <th>{{ $t('Plan') }}</th>
-                          <th>{{ $t('Qty') }}</th>
-                          <th>{{ $t('Transaction Type') }}</th>
-                          <th>{{ $t('Trx ID') }}</th>
-                          <th>{{ $t('Amount') }}
-                            <span class="badge badge-info"
-                              v-tooltip="'Base Currency  <br/><small>(Converted USD)</small>'">
-                              <i class="fas fa-info"></i>
-                            </span>
-                          </th>
-                          <th>{{ $t('Payment Status') }}</th>
-                          <th>{{ $t('Created At') }}</th>
-                          <th class="text-right">{{ $t('Action') }}</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-show="data && data.tenant_invoices" v-for="(tenant_invoice, i) in data &&
-      data.tenant_invoices" :key="i">
-                          <td>{{ tenant_invoice.id }}</td>
-                          <td>{{ tenant_invoice.plan.name }}</td>
-                          <td>{{ tenant_invoice.quantity }}</td>
-                          <td>{{ tenant_invoice.method }}</td>
-                          <td>{{ tenant_invoice.system_trx_id }}</td>
-                          <td>
-                            {{ tenant_invoice.default_amount_rate *
-      tenant_invoice.quantity  }} <span class="saudi-riyal">ê</span>
-                            <br>
-                            (${{ tenant_invoice.amount * tenant_invoice.quantity }})
-                          </td>
-                          <td>{{ tenant_invoice.status }}</td>
-                          <td>{{ tenant_invoice.created_at | moment("Do MMM, YYYY HH:mm:A") }}</td>
-                          <td class="text-center no-print">
-                            <div v-if="tenant_invoice.status == 'success'" class="btn-group">
-                              <button type="button" v-tooltip="$t('Download')" class="btn btn-info btn-sm"
-                                @click="download(tenant_invoice.id)">
-                                <i class="fas fa-file-download" />
-                              </button>
-                            </div>
-                            <div v-else class="text-center">
-                              <p>N/A</p>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr v-show="data.tenant_invoices &&
-      data.tenant_invoices.length < 1
-      ">
-                          <td colspan="12">
-                            <EmptyTable />
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <GeneralTable
+                      v-if="data && data.tenant_invoices && data.tenant_invoices.length > 0"
+                      :columns="tenantInvoiceColumns"
+                      :rows="tenantInvoiceRows"
+                      :loading="loading"
+                      wrapper-class="table-responsive"
+                    >
+                      <template #amount="{ row }">
+                        {{ row.default_amount_rate * row.quantity }} <span class="saudi-riyal">ê</span>
+                        <br>
+                        (${{ row.amount * row.quantity }})
+                      </template>
+                      <template #status="{ row }">
+                        {{ row.status }}
+                      </template>
+                      <template #created_at="{ row }">
+                        {{ row.created_at | moment("Do MMM, YYYY HH:mm:A") }}
+                      </template>
+                      <template #action="{ row }">
+                        <div v-if="row.status == 'success'" class="btn-group">
+                          <button type="button" v-tooltip="$t('Download')" class="btn btn-info btn-sm"
+                            @click="download(row.id)">
+                            <i class="fas fa-file-download" />
+                          </button>
+                        </div>
+                        <div v-else class="text-center">
+                          <p>N/A</p>
+                        </div>
+                      </template>
+                    </GeneralTable>
+                    <div v-else class="text-center">
+                      <EmptyTable />
+                    </div>
                   </div>
                 </div>
                 <!-- /.card-body -->
@@ -194,6 +171,7 @@
 import axios from "axios";
 import { mapGetters } from "vuex";
 import avatarMixin from "~/mixins/avatarMixin";
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   layout: "central",
@@ -201,6 +179,9 @@ export default {
   mixins: [avatarMixin],
   metaInfo() {
     return { title: this.$t("Tenant Details") };
+  },
+  components: {
+    GeneralTable,
   },
   data: () => ({
     breadcrumbsCurrent: "Tenant Details",
@@ -226,6 +207,28 @@ export default {
 
   computed: {
     ...mapGetters("operations", ["appInfo"]),
+    tenantInvoiceColumns() {
+      return [
+        { key: "id", label: this.$t("ID") },
+        { key: "plan", label: this.$t("Plan") },
+        { key: "quantity", label: this.$t("Qty") },
+        { key: "method", label: this.$t("Transaction Type") },
+        { key: "system_trx_id", label: this.$t("Trx ID") },
+        { key: "amount", label: this.$t("Amount") },
+        { key: "status", label: this.$t("Payment Status") },
+        { key: "created_at", label: this.$t("Created At") },
+        { key: "action", label: this.$t("Action") },
+      ];
+    },
+    tenantInvoiceRows() {
+      if (!this.data || !this.data.tenant_invoices) {
+        return [];
+      }
+      return this.data.tenant_invoices.map((invoice) => ({
+        ...invoice,
+        plan: invoice.plan?.name || "",
+      }));
+    },
   },
 
   created() {

@@ -434,146 +434,107 @@
                             </div>
                           </div>
                         <table-loading v-show="loading" />
-                        <div class="table-responsive table-custom mt-3">
-                          <table class="table invoices-table">
-                            <thead>
-                                <th>{{ $t("#") }}</th>
-                                <th>
-                                  {{ $t("Purchase No") }}
-                                </th>
-                                <th>{{ $t("Date") }}</th>
-                                <th>{{ $t("Subtotal") }}</th>
-                                <th>{{ $t("Transport") }}</th>
-                                <th>{{ $t("Discount") }}</th>
-                                <th>{{ $t("Net Total") }}</th>
-                                <th>{{ $t("Total Paid") }}</th>
-                                <th>{{ $t("Total Due") }}</th>
-                                <th>{{ $t("Status") }}</th>
-                                <th
-                                  v-if="
-                                    $can('purchase-edit') ||
-                                    $can('purchase-view') ||
-                                    $can('purchase-delete')
-                                  "
-                                  class="text-right no-print"
-                                  id="element-to-hide"
-                                  data-html2canvas-ignore="true"
-                                >
-                                  {{ $t("Action") }}
-                                </th>
-                            </thead>
-                            <tbody>
-                              <tr
-                                v-show="items && items.length"
-                                v-for="(data, i) in items"
-                                :key="i"
-                              >
-                                <td>
-                                  <span
-                                    v-if="
-                                      pagination && pagination.current_page > 1
-                                    "
-                                  >
-                                    {{
-                                      pagination.per_page *
-                                        (pagination.current_page - 1) +
-                                      (i + 1)
-                                    }}
-                                  </span>
-                                  <span v-else>{{ i + 1 }}</span>
-                                </td>
-                                <td>
-                                  <router-link
-                                    v-if="$can('purchase-view')"
-                                    :to="{
-                                      name: 'purchases.show',
-                                      params: { slug: data.slug },
-                                    }"
-                                  >
-                                    {{ data.code | withPrefix(purchasePrefix) }}
-                                  </router-link>
-                                  <span v-else
-                                    >{{
-                                      data.code | withPrefix(purchasePrefix)
-                                    }}
-                                  </span>
-                                </td>
-                                <td>
-                                  <span v-if="data.purchaseDate">{{
-                                    data.purchaseDate | moment("Do MMM, YYYY")
-                                  }}</span>
-                                </td>
-                                <td>{{ data.subTotal  }} <span class="saudi-riyal">ê</span></td>
-                                <td>{{ data.transport  }} <span class="saudi-riyal">ê</span></td>
-                                <td>{{ data.totalDiscount  }} <span class="saudi-riyal">ê</span></td>
-                                <td>{{ data.purchaseTotal  }} <span class="saudi-riyal">ê</span></td>
-                                <td>{{ data.totalPaid  }} <span class="saudi-riyal">ê</span></td>
-                                <td>{{ data.due  }} <span class="saudi-riyal">ê</span></td>
-                                <td>
-                                  <span
-                                    v-if="data.status === 1"
-                                    class="badge bg-success"
-                                    >{{ $t("Active") }}</span
-                                  >
-                                  <span v-else class="badge bg-danger">{{
-                                    $t("Inactive")
-                                  }}</span>
-                                </td>
-                                <td
-                                  v-if="
-                                    $can('purchase-edit') ||
-                                    $can('purchase-view') ||
-                                    $can('purchase-delete')
-                                  "
-                                  class="text-right no-print"
-                                  id="element-to-hide"
-                                  data-html2canvas-ignore="true"
-                                >
-                                  <div class="action-dropdown" :class="{ open: openActionIndex === i }">
-                                    <button type="button" class="action-icon-btn" :data-action-index="i" @click.stop="toggleAction(i)">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
-                                        <path d="M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z" fill="#023033"/>
-                                      </svg>
-                                    </button>
-                                    <div class="action-menu" v-if="openActionIndex === i">
-                                      <div class="action-menu-header">
-                                        <span class="action-menu-title">{{ $t('Actions') }}</span>
-                                        <button type="button" class="action-menu-close" @click="toggleAction(i)">
-                                          <i class="fas fa-times"></i>
-                                        </button>
-                                      </div>
-                                      <ul>
-                                        <li v-if="$can('purchase-view')">
-                                          <router-link :to="{ name: 'purchases.show', params: { slug: data.slug } }">
-                                            <i class="fas fa-eye"></i>
-                                            {{ $t('View') }}
+                        <GeneralTable
+                          :columns="supplierPurchasesColumns"
+                          :rows="supplierPurchasesRows"
+                          :loading="loading"
+                          wrapper-class="mt-3"
+                        >
+                          <template #cell-code="{ row }">
+                            <router-link
+                              v-if="$can('purchase-view')"
+                              :to="{
+                                name: 'purchases.show',
+                                params: { slug: row._raw.slug },
+                              }"
+                            >
+                              {{ row.code | withPrefix(purchasePrefix) }}
+                            </router-link>
+                            <span v-else>{{
+                              row.code | withPrefix(purchasePrefix)
+                            }}</span>
+                          </template>
+                          <template #cell-purchaseDate="{ value }">
+                            <span v-if="value">{{
+                              value | moment("Do MMM, YYYY")
+                            }}</span>
+                          </template>
+                          <template #cell-subTotal="{ value }">
+                            {{ parseFloat(value || 0).toFixed(2) }} <span class="saudi-riyal">ê</span>
+                          </template>
+                          <template #cell-transport="{ value }">
+                            {{ parseFloat(value || 0).toFixed(2) }} <span class="saudi-riyal">ê</span>
+                          </template>
+                          <template #cell-totalDiscount="{ value }">
+                            {{ parseFloat(value || 0).toFixed(2) }} <span class="saudi-riyal">ê</span>
+                          </template>
+                          <template #cell-purchaseTotal="{ value }">
+                            {{ parseFloat(value || 0).toFixed(2) }} <span class="saudi-riyal">ê</span>
+                          </template>
+                          <template #cell-totalPaid="{ value }">
+                            {{ parseFloat(value || 0).toFixed(2) }} <span class="saudi-riyal">ê</span>
+                          </template>
+                          <template #cell-due="{ value }">
+                            {{ parseFloat(value || 0).toFixed(2) }} <span class="saudi-riyal">ê</span>
+                          </template>
+                          <template #cell-status="{ value }">
+                            <span
+                              v-if="value === 1"
+                              class="badge bg-success"
+                              >{{ $t("Active") }}</span
+                            >
+                            <span v-else class="badge bg-danger">{{
+                              $t("Inactive")
+                            }}</span>
+                          </template>
+                          <template #actions="{ row, index }">
+                            <div
+                              v-if="
+                                $can('purchase-edit') ||
+                                $can('purchase-view') ||
+                                $can('purchase-delete')
+                              "
+                              class="action-dropdown no-print"
+                              :class="{ open: openActionIndex === index }"
+                              id="element-to-hide"
+                              data-html2canvas-ignore="true"
+                            >
+                              <button type="button" class="action-icon-btn" :data-action-index="index" @click.stop="toggleAction(index)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                                  <path d="M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z" fill="#023033"/>
+                                </svg>
+                              </button>
+                              <div class="action-menu" v-if="openActionIndex === index">
+                                <div class="action-menu-header">
+                                  <span class="action-menu-title">{{ $t('Actions') }}</span>
+                                  <button type="button" class="action-menu-close" @click="toggleAction(index)">
+                                    <i class="fas fa-times"></i>
+                                  </button>
+                                </div>
+                                <ul>
+                                  <li v-if="$can('purchase-view')">
+                                    <router-link :to="{ name: 'purchases.show', params: { slug: row._raw.slug } }">
+                                      <i class="fas fa-eye"></i>
+                                      {{ $t('View') }}
                                     </router-link>
-                                        </li>
-                                        <li v-if="$can('purchase-edit')">
-                                          <router-link :to="{ name: 'purchases.edit', params: { slug: data.slug } }">
-                                            <i class="fas fa-edit"></i>
-                                            {{ $t('Edit') }}
+                                  </li>
+                                  <li v-if="$can('purchase-edit')">
+                                    <router-link :to="{ name: 'purchases.edit', params: { slug: row._raw.slug } }">
+                                      <i class="fas fa-edit"></i>
+                                      {{ $t('Edit') }}
                                     </router-link>
-                                        </li>
-                                        <li v-if="$can('purchase-delete')">
-                                          <a href="#" @click.prevent="deletePurchaseData(data.slug)">
-                                            <i class="fas fa-trash"></i>
-                                            {{ $t('Delete') }}
-                                          </a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr v-show="!loading && items && !items.length">
-                                <td colspan="11">
-                                  <EmptyTable />
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
+                                  </li>
+                                  <li v-if="$can('purchase-delete')">
+                                    <a href="#" @click.prevent="deletePurchaseData(row._raw.slug)">
+                                      <i class="fas fa-trash"></i>
+                                      {{ $t('Delete') }}
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </template>
+                        </GeneralTable>
                       </div>
                       <!-- /.card-body -->
                       <div class="card-footer">
@@ -662,151 +623,88 @@
                         </div>
                         <table-loading v-show="returnLoading" />
                         <div class="table-responsive table-custom mt-3">
-                          <table class="table invoices-table">
-                            <thead>
-                                <th>{{ $t("#") }}</th>
-                                <th>
-                                  {{ $t("Return No") }}
-                                </th>
-                                <th>
-                                  {{ $t("Purchase No") }}
-                                </th>
-                                <th>
-                                  {{
-                                    $t("Return Reason")
-                                  }}
-                                </th>
-                                <th>{{ $t("Cost of Return Products") }}</th>
-                                <th>{{ $t("Date") }}</th>
-                                <th>{{ $t("Status") }}</th>
-                                <th
-                                  v-if="
-                                    $can('purchase-return-edit') ||
-                                    $can('purchase-return-view') ||
-                                    $can('purchase-return-delete')
-                                  "
-                                  class="text-right no-print"
-                                  id="element-to-hide"
-                                  data-html2canvas-ignore="true"
-                                >
-                                  {{ $t("Action") }}
-                                </th>
-                            </thead>
-                            <tbody>
-                              <tr
-                                v-show="allReturns && allReturns.length"
-                                v-for="(data, i) in allReturns"
-                                :key="i"
+                          <GeneralTable
+                            v-if="allReturns && allReturns.length > 0"
+                            :columns="purchaseReturnsColumns"
+                            :rows="purchaseReturnsRows"
+                            :loading="returnLoading"
+                            wrapper-class="table-responsive"
+                          >
+                            <template #returnNo="{ row }">
+                              <router-link
+                                v-if="$can('purchase-return-view')"
+                                :to="{
+                                  name: 'purchaseReturns.show',
+                                  params: { slug: row._raw.slug },
+                                }"
                               >
-                                <td>
-                                  <span
-                                    v-if="
-                                      returnPagination &&
-                                      returnPagination.current_page > 1
-                                    "
-                                  >
-                                    {{
-                                      returnPagination.per_page *
-                                        (returnPagination.current_page - 1) +
-                                      (i + 1)
-                                    }}
-                                  </span>
-                                  <span v-else>{{ i + 1 }}</span>
-                                </td>
-                                <td>
-                                  <router-link
-                                    v-if="$can('purchase-return-view')"
-                                    :to="{
-                                      name: 'purchaseReturns.show',
-                                      params: { slug: data.slug },
-                                    }"
-                                  >
-                                    {{
-                                      data.purReturnNo
-                                        | withPrefix(purchaseReturnPrefix)
-                                    }}
-                                  </router-link>
-                                  <span v-else>{{
-                                    data.purReturnNo
-                                      | withPrefix(purchaseReturnPrefix)
-                                  }}</span>
-                                </td>
-                                <td>
-                                  {{
-                                    data.purchaseNo | withPrefix(purchasePrefix)
-                                  }}
-                                </td>
-                                <td>{{ data.reason }}</td>
-                                <td>{{ data.totalReturn  }} <span class="saudi-riyal">ê</span></td>
-                                <td>
-                                  <span v-if="data.returnDate">{{
-                                    data.returnDate | moment("Do MMM, YYYY")
-                                  }}</span>
-                                </td>
-                                <td>
-                                  <span
-                                    v-if="data.status === 1"
-                                    class="badge bg-success"
-                                    >{{ $t("Active") }}</span
-                                  >
-                                  <span v-else class="badge bg-danger">{{
-                                    $t("Inactive")
-                                  }}</span>
-                                </td>
-                                <td
-                                  v-if="
-                                    $can('purchase-return-edit') ||
-                                    $can('purchase-return-view') ||
-                                    $can('purchase-return-delete')
-                                  "
-                                  class="text-right no-print"
-                                  id="element-to-hide"
-                                  data-html2canvas-ignore="true"
-                                >
-                                  <div class="action-dropdown" :class="{ open: openActionIndex === i }">
-                                    <button type="button" class="action-icon-btn" :data-action-index="i" @click.stop="toggleAction(i)">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
-                                        <path d="M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z" fill="#023033"/>
-                                      </svg>
+                                {{ row._raw.purReturnNo | withPrefix(purchaseReturnPrefix) }}
+                              </router-link>
+                              <span v-else>
+                                {{ row._raw.purReturnNo | withPrefix(purchaseReturnPrefix) }}
+                              </span>
+                            </template>
+                            <template #purchaseNo="{ row }">
+                              {{ row._raw.purchaseNo | withPrefix(purchasePrefix) }}
+                            </template>
+                            <template #cost="{ row }">
+                              {{ row._raw.totalReturn }} <span class="saudi-riyal">ê</span>
+                            </template>
+                            <template #date="{ row }">
+                              <span v-if="row._raw.returnDate">
+                                {{ row._raw.returnDate | moment("Do MMM, YYYY") }}
+                              </span>
+                            </template>
+                            <template #status="{ row }">
+                              <span
+                                v-if="row._raw.status === 1"
+                                class="badge bg-success"
+                              >{{ $t("Active") }}</span>
+                              <span v-else class="badge bg-danger">
+                                {{ $t("Inactive") }}
+                              </span>
+                            </template>
+                            <template #actions="{ row, index }">
+                              <div class="action-dropdown" :class="{ open: openActionIndex === index }">
+                                <button type="button" class="action-icon-btn" :data-action-index="index" @click.stop="toggleAction(index)">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                                    <path d="M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z" fill="#023033"/>
+                                  </svg>
+                                </button>
+                                <div class="action-menu" v-if="openActionIndex === index">
+                                  <div class="action-menu-header">
+                                    <span class="action-menu-title">{{ $t('Actions') }}</span>
+                                    <button type="button" class="action-menu-close" @click="toggleAction(index)">
+                                      <i class="fas fa-times"></i>
                                     </button>
-                                    <div class="action-menu" v-if="openActionIndex === i">
-                                      <div class="action-menu-header">
-                                        <span class="action-menu-title">{{ $t('Actions') }}</span>
-                                        <button type="button" class="action-menu-close" @click="toggleAction(i)">
-                                          <i class="fas fa-times"></i>
-                                        </button>
-                                      </div>
-                                      <ul>
-                                        <li v-if="$can('purchase-return-view')">
-                                          <router-link :to="{ name: 'purchaseReturns.show', params: { slug: data.slug } }">
-                                            <i class="fas fa-eye"></i>
-                                            {{ $t('View') }}
-                                    </router-link>
-                                        </li>
-                                        <li v-if="$can('purchase-return-edit')">
-                                          <router-link :to="{ name: 'purchaseReturns.edit', params: { slug: data.slug } }">
-                                            <i class="fas fa-edit"></i>
-                                            {{ $t('Edit') }}
-                                    </router-link>
-                                        </li>
-                                        <li v-if="$can('purchase-return-delete')">
-                                          <a href="#" @click.prevent="deletePurchaseReturnData(data.slug)">
-                                            <i class="fas fa-trash"></i>
-                                            {{ $t('Delete') }}
-                                          </a>
-                                        </li>
-                                      </ul>
-                                    </div>
                                   </div>
-                                </td>
-                              </tr>
-                              <tr v-show="!loading && !allReturns.length">
-                                <td colspan="8">
-                                  <EmptyTable />
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                                  <ul>
+                                    <li v-if="$can('purchase-return-view')">
+                                      <router-link :to="{ name: 'purchaseReturns.show', params: { slug: row._raw.slug } }">
+                                        <i class="fas fa-eye"></i>
+                                        {{ $t('View') }}
+                                      </router-link>
+                                    </li>
+                                    <li v-if="$can('purchase-return-edit')">
+                                      <router-link :to="{ name: 'purchaseReturns.edit', params: { slug: row._raw.slug } }">
+                                        <i class="fas fa-edit"></i>
+                                        {{ $t('Edit') }}
+                                      </router-link>
+                                    </li>
+                                    <li v-if="$can('purchase-return-delete')">
+                                      <a href="#" @click.prevent="deletePurchaseReturnData(row._raw.slug)">
+                                        <i class="fas fa-trash"></i>
+                                        {{ $t('Delete') }}
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </template>
+                          </GeneralTable>
+                          <div v-else class="text-center">
+                            <EmptyTable />
+                          </div>
                         </div>
                       </div>
                       <!-- /.card-body -->
@@ -898,146 +796,90 @@
                         </div>
                         <table-loading v-show="paymentsLoading" />
                         <div class="table-responsive table-custom mt-3">
-                          <table class="table invoices-table">
-                            <thead>
-                                <th>{{ $t("#") }}</th>
-                                <th>
-                                  {{ $t("Purchase No") }}
-                                </th>
-                                <th>{{ $t("Total") }}</th>
-                                <th>{{ $t("Paid Amount") }}</th>
-                                <th>{{ $t("Account") }}</th>
-                                <th>{{ $t("Payment Date") }}</th>
-                                <th>{{ $t("Status") }}</th>
-                                <th
-                                  v-if="
-                                    $can('purchase-payment-edit') ||
-                                    $can('purchase-payment-view') ||
-                                    $can('purchase-payment-delete')
-                                  "
-                                  class="text-right no-print"
-                                  id="element-to-hide"
-                                  data-html2canvas-ignore="true"
-                                >
-                                  {{ $t("Action") }}
-                                </th>
-                            </thead>
-                            <tbody>
-                              <tr
-                                v-show="allPayments && allPayments.length"
-                                v-for="(data, i) in allPayments"
-                                :key="i"
+                          <GeneralTable
+                            v-if="allPayments && allPayments.length > 0"
+                            :columns="paymentsColumns"
+                            :rows="paymentsRows"
+                            :loading="paymentsLoading"
+                            wrapper-class="table-responsive"
+                          >
+                            <template #purchaseNo="{ row }">
+                              <router-link
+                                v-if="row._raw.purchase && $can('purchase-view')"
+                                :to="{
+                                  name: 'purchases.show',
+                                  params: { slug: row._raw.purchase.slug },
+                                }"
                               >
-                                <td>
-                                  <span
-                                    v-if="
-                                      paymentPagination &&
-                                      paymentPagination.current_page > 1
-                                    "
-                                  >
-                                    {{
-                                      paymentPagination.per_page *
-                                        (paymentPagination.current_page - 1) +
-                                      (i + 1)
-                                    }}
-                                  </span>
-                                  <span v-else>{{ i + 1 }}</span>
-                                </td>
-                                <td v-if="data.purchase">
-                                  <router-link
-                                    v-if="$can('purchase-view')"
-                                    :to="{
-                                      name: 'purchases.show',
-                                      params: { slug: data.purchase.slug },
-                                    }"
-                                  >
-                                    {{ data.purchase.purchaseNo }}
-                                  </router-link>
-                                  <span v-else>{{
-                                    data.purchase.purchaseNo
-                                  }}</span>
-                                </td>
-
-                                <td v-if="data.purchase">
-                                  {{
-                                    data.purchase.purchaseTotal 
-                                  }} <span class="saudi-riyal">ê</span>
-                                </td>
-                                <td>{{ data.amount  }} <span class="saudi-riyal">ê</span></td>
-                                <td>
-                                  <span v-if="data.account">{{
-                                    data.account.label
-                                  }}</span>
-                                </td>
-                                <td>
-                                  <span v-if="data.date">{{
-                                    data.date | moment("Do MMM, YYYY")
-                                  }}</span>
-                                </td>
-                                <td>
-                                  <span
-                                    v-if="data.status === 1"
-                                    class="badge bg-success"
-                                    >{{ $t("Active") }}</span
-                                  >
-                                  <span v-else class="badge bg-danger">{{
-                                    $t("Inactive")
-                                  }}</span>
-                                </td>
-                                <td
-                                  v-if="
-                                    $can('purchase-payment-edit') ||
-                                    $can('purchase-payment-view') ||
-                                    $can('purchase-payment-delete')
-                                  "
-                                  class="text-right no-print"
-                                  id="element-to-hide"
-                                  data-html2canvas-ignore="true"
-                                >
-                                  <div class="action-dropdown" :class="{ open: openActionIndex === i }">
-                                    <button type="button" class="action-icon-btn" :data-action-index="i" @click.stop="toggleAction(i)">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
-                                        <path d="M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z" fill="#023033"/>
-                                      </svg>
+                                {{ row._raw.purchase.purchaseNo }}
+                              </router-link>
+                              <span v-else-if="row._raw.purchase">
+                                {{ row._raw.purchase.purchaseNo }}
+                              </span>
+                            </template>
+                            <template #purchaseTotal="{ row }">
+                              <span v-if="row._raw.purchase">
+                                {{ row._raw.purchase.purchaseTotal }} <span class="saudi-riyal">ê</span>
+                              </span>
+                            </template>
+                            <template #paidAmount="{ row }">
+                              {{ row._raw.amount }} <span class="saudi-riyal">ê</span>
+                            </template>
+                            <template #date="{ row }">
+                              <span v-if="row._raw.date">
+                                {{ row._raw.date | moment("Do MMM, YYYY") }}
+                              </span>
+                            </template>
+                            <template #status="{ row }">
+                              <span
+                                v-if="row._raw.status === 1"
+                                class="badge bg-success"
+                              >{{ $t("Active") }}</span>
+                              <span v-else class="badge bg-danger">
+                                {{ $t("Inactive") }}
+                              </span>
+                            </template>
+                            <template #actions="{ row, index }">
+                              <div class="action-dropdown" :class="{ open: openActionIndex === index }">
+                                <button type="button" class="action-icon-btn" :data-action-index="index" @click.stop="toggleAction(index)">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                                    <path d="M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z" fill="#023033"/>
+                                  </svg>
+                                </button>
+                                <div class="action-menu" v-if="openActionIndex === index">
+                                  <div class="action-menu-header">
+                                    <span class="action-menu-title">{{ $t('Actions') }}</span>
+                                    <button type="button" class="action-menu-close" @click="toggleAction(index)">
+                                      <i class="fas fa-times"></i>
                                     </button>
-                                    <div class="action-menu" v-if="openActionIndex === i">
-                                      <div class="action-menu-header">
-                                        <span class="action-menu-title">{{ $t('Actions') }}</span>
-                                        <button type="button" class="action-menu-close" @click="toggleAction(i)">
-                                          <i class="fas fa-times"></i>
-                                        </button>
-                                      </div>
-                                      <ul>
-                                        <li v-if="$can('purchase-payment-view')">
-                                          <router-link :to="{ name: 'purchasePayments.show', params: { slug: data.slug } }">
-                                            <i class="fas fa-eye"></i>
-                                            {{ $t('View') }}
-                                    </router-link>
-                                        </li>
-                                        <li v-if="$can('purchase-payment-edit')">
-                                          <router-link :to="{ name: 'purchasePayments.edit', params: { slug: data.slug } }">
-                                            <i class="fas fa-edit"></i>
-                                            {{ $t('Edit') }}
-                                    </router-link>
-                                        </li>
-                                        <li v-if="$can('purchase-payment-delete')">
-                                          <a href="#" @click.prevent="deletePaymentData(data.slug)">
-                                            <i class="fas fa-trash"></i>
-                                            {{ $t('Delete') }}
-                                          </a>
-                                        </li>
-                                      </ul>
-                                    </div>
                                   </div>
-                                </td>
-                              </tr>
-                              <tr v-show="!loading && !allPayments.length">
-                                <td colspan="8">
-                                  <EmptyTable />
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                                  <ul>
+                                    <li v-if="$can('purchase-payment-view')">
+                                      <router-link :to="{ name: 'purchasePayments.show', params: { slug: row._raw.slug } }">
+                                        <i class="fas fa-eye"></i>
+                                        {{ $t('View') }}
+                                      </router-link>
+                                    </li>
+                                    <li v-if="$can('purchase-payment-edit')">
+                                      <router-link :to="{ name: 'purchasePayments.edit', params: { slug: row._raw.slug } }">
+                                        <i class="fas fa-edit"></i>
+                                        {{ $t('Edit') }}
+                                      </router-link>
+                                    </li>
+                                    <li v-if="$can('purchase-payment-delete')">
+                                      <a href="#" @click.prevent="deletePaymentData(row._raw.slug)">
+                                        <i class="fas fa-trash"></i>
+                                        {{ $t('Delete') }}
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </template>
+                          </GeneralTable>
+                          <div v-else class="text-center">
+                            <EmptyTable />
+                          </div>
                         </div>
                       </div>
                       <!-- /.card-body -->
@@ -1570,6 +1412,7 @@ import { mapGetters } from "vuex";
 import html2pdf from "html2pdf.js";
 import DateRangePicker from "vue2-daterange-picker";
 import avatarMixin from "~/mixins/avatarMixin";
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -1579,6 +1422,7 @@ export default {
   mixins: [avatarMixin],
   components: {
     DateRangePicker,
+    GeneralTable,
   },
   data: () => ({
     breadcrumbsCurrent: "Supplier Details",
@@ -1705,6 +1549,223 @@ export default {
         if (balance.includes(query)) return true;
         
         return false;
+      });
+    },
+
+    // Supplier purchases columns
+    supplierPurchasesColumns() {
+      const columns = [
+        { key: "index", label: this.$t("#"), align: "" },
+        { key: "code", label: this.$t("Purchase No"), align: "" },
+        { key: "purchaseDate", label: this.$t("Date"), align: "" },
+        { key: "subTotal", label: this.$t("Subtotal"), align: "" },
+        { key: "transport", label: this.$t("Transport"), align: "" },
+        { key: "totalDiscount", label: this.$t("Discount"), align: "" },
+        { key: "purchaseTotal", label: this.$t("Net Total"), align: "" },
+        { key: "totalPaid", label: this.$t("Total Paid"), align: "" },
+        { key: "due", label: this.$t("Total Due"), align: "" },
+        { key: "status", label: this.$t("Status"), align: "" },
+      ];
+      if (
+        this.$can('purchase-edit') ||
+        this.$can('purchase-view') ||
+        this.$can('purchase-delete')
+      ) {
+        columns.push({ key: "actions", label: this.$t("Action"), align: "text-right" });
+      }
+      return columns;
+    },
+
+    // Supplier purchases rows
+    supplierPurchasesRows() {
+      if (!this.items) return [];
+      return this.items.map((item, index) => {
+        const rowIndex = this.pagination && this.pagination.current_page > 1
+          ? this.pagination.per_page * (this.pagination.current_page - 1) + (index + 1)
+          : index + 1;
+        return {
+          index: rowIndex,
+          code: item.code,
+          purchaseDate: item.purchaseDate,
+          subTotal: item.subTotal || 0,
+          transport: item.transport || 0,
+          totalDiscount: item.totalDiscount || 0,
+          purchaseTotal: item.purchaseTotal || 0,
+          totalPaid: item.totalPaid || 0,
+          due: item.due || 0,
+          status: item.status,
+          _raw: item,
+        };
+      });
+    },
+
+    // Purchase returns columns
+    purchaseReturnsColumns() {
+      const columns = [
+        { key: "index", label: this.$t("#"), align: "" },
+        { key: "returnNo", label: this.$t("Return No"), align: "" },
+        { key: "purchaseNo", label: this.$t("Purchase No"), align: "" },
+        { key: "reason", label: this.$t("Return Reason"), align: "" },
+        { key: "cost", label: this.$t("Cost of Return Products"), align: "" },
+        { key: "date", label: this.$t("Date"), align: "" },
+        { key: "status", label: this.$t("Status"), align: "" },
+      ];
+      if (
+        this.$can('purchase-return-edit') ||
+        this.$can('purchase-return-view') ||
+        this.$can('purchase-return-delete')
+      ) {
+        columns.push({ key: "actions", label: this.$t("Action"), align: "text-right" });
+      }
+      return columns;
+    },
+
+    // Purchase returns rows
+    purchaseReturnsRows() {
+      if (!this.allReturns) return [];
+      return this.allReturns.map((item, index) => {
+        const rowIndex = this.returnPagination && this.returnPagination.current_page > 1
+          ? this.returnPagination.per_page * (this.returnPagination.current_page - 1) + (index + 1)
+          : index + 1;
+        return {
+          index: rowIndex,
+          returnNo: item.purReturnNo,
+          purchaseNo: item.purchaseNo,
+          reason: item.reason,
+          cost: item.totalReturn,
+          date: item.returnDate,
+          status: item.status,
+          _raw: item,
+        };
+      });
+    },
+
+    // Payments columns
+    paymentsColumns() {
+      const columns = [
+        { key: "index", label: this.$t("#"), align: "" },
+        { key: "purchaseNo", label: this.$t("Purchase No"), align: "" },
+        { key: "purchaseTotal", label: this.$t("Purchase Total"), align: "" },
+        { key: "paidAmount", label: this.$t("Paid Amount"), align: "" },
+        { key: "account", label: this.$t("Account"), align: "" },
+        { key: "date", label: this.$t("Date"), align: "" },
+        { key: "status", label: this.$t("Status"), align: "" },
+      ];
+      if (
+        this.$can('purchase-payment-edit') ||
+        this.$can('purchase-payment-view') ||
+        this.$can('purchase-payment-delete')
+      ) {
+        columns.push({ key: "actions", label: this.$t("Action"), align: "text-right" });
+      }
+      return columns;
+    },
+
+    // Payments rows
+    paymentsRows() {
+      if (!this.allPayments) return [];
+      return this.allPayments.map((item, index) => {
+        const rowIndex = this.paymentPagination && this.paymentPagination.current_page > 1
+          ? this.paymentPagination.per_page * (this.paymentPagination.current_page - 1) + (index + 1)
+          : index + 1;
+        return {
+          index: rowIndex,
+          purchaseNo: item.purchase?.purchaseNo || "",
+          purchaseTotal: item.purchase?.purchaseTotal || 0,
+          paidAmount: item.amount || 0,
+          account: item.account?.label || "",
+          date: item.date || "",
+          status: item.status || 0,
+          _raw: item,
+        };
+      });
+    },
+
+    // Transactions columns
+    transactionsColumns() {
+      return [
+        { key: "index", label: this.$t("#"), align: "" },
+        { key: "paymentType", label: this.$t("Payment Type"), align: "" },
+        { key: "paidAmount", label: this.$t("Paid Amount"), align: "" },
+        { key: "account", label: this.$t("Account"), align: "" },
+        { key: "date", label: this.$t("Date"), align: "" },
+        { key: "status", label: this.$t("Status"), align: "" },
+      ];
+    },
+
+    // Transactions rows
+    transactionsRows() {
+      if (!this.allTransactions) return [];
+      return this.allTransactions.map((item, index) => {
+        const rowIndex = this.transactionPagination && this.transactionPagination.current_page > 1
+          ? this.transactionPagination.per_page * (this.transactionPagination.current_page - 1) + (index + 1)
+          : index + 1;
+        return {
+          index: rowIndex,
+          paymentType: item.paymentType || "",
+          paidAmount: item.paidAmount || 0,
+          account: item.account?.label || "",
+          date: item.date || "",
+          status: item.status || 0,
+          _raw: item,
+        };
+      });
+    },
+
+    // Ledger columns
+    ledgerColumns() {
+      return [
+        { key: "index", label: this.$t("#"), align: "" },
+        { key: "date", label: this.$t("Date"), align: "" },
+        { key: "info", label: this.$t("Info"), align: "" },
+        { key: "credit", label: this.$t("Credit"), align: "" },
+        { key: "debit", label: this.$t("Debit"), align: "" },
+        { key: "balance", label: this.$t("Balance"), align: "" },
+      ];
+    },
+
+    // Ledger rows
+    ledgerRows() {
+      if (!this.filteredLedgerItems) return [];
+      return this.filteredLedgerItems.map((item, index) => {
+        return {
+          index: index + 1,
+          date: item.original_date,
+          info: item.particulars,
+          credit: item.credit || 0,
+          debit: item.debit || 0,
+          balance: item.balance || 0,
+          _raw: item,
+        };
+      });
+    },
+
+    // Activity log columns
+    activityLogColumns() {
+      return [
+        { key: "index", label: this.$t("#"), align: "" },
+        { key: "event", label: this.$t("Event"), align: "" },
+        { key: "user", label: this.$t("User"), align: "" },
+        { key: "description", label: this.$t("Description"), align: "" },
+        { key: "date", label: this.$t("Date"), align: "" },
+      ];
+    },
+
+    // Activity log rows
+    activityLogRows() {
+      if (!this.allActivityLog) return [];
+      return this.allActivityLog.map((item, index) => {
+        const rowIndex = this.allActivityLogPagination && this.allActivityLogPagination.current_page > 1
+          ? this.allActivityLogPagination.per_page * (this.allActivityLogPagination.current_page - 1) + (index + 1)
+          : index + 1;
+        return {
+          index: rowIndex,
+          event: item.event,
+          user: item.causer_name,
+          description: item.description,
+          date: item.performedAt,
+          _raw: item,
+        };
       });
     },
   },

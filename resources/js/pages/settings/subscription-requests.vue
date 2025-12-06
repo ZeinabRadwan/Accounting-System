@@ -10,51 +10,34 @@
           <div class="card-body position-relative">
             <table-loading v-show="loading" />
             <div class="table-responsive table-custom mt-3" id="printMe">
-              <table class="table invoices-table">
-                <thead>
-                    <th>{{ $t('ID') }}</th>
-                    <th>{{ $t('Transaction ID') }}</th>
-                    <th>{{ $t('Document Path') }}</th>
-                    <th>{{ $t('Plan Name') }}</th>
-                    <th>{{ $t('Plan Price') }}</th>
-                    <th>{{ $t('Month') }}</th>
-                    <th>{{ $t('Status') }}</th>
-                    <th>{{ $t('Created At') }}</th>
-                </thead>
-                <tbody>
-                  <tr v-show="items.length" v-for="(subscriptionRequest, i) in items" :key="i">
-                    <td>
-                      <span v-if="pagination && pagination.current_page > 1">
-                        {{
-                          pagination.per_page * (pagination.current_page - 1) +
-                          (i + 1)
-                        }}
-                      </span>
-                      <span v-else>{{ i + 1 }}</span>
-                    </td>
-                    <td>{{ subscriptionRequest.transaction_id ?? $t('Not Available') }}</td>
-                    <td>
-                      <a v-if="subscriptionRequest.document_path" :href="subscriptionRequest.document_url"
-                        target="_blank">
-                        {{ $t('Download') }}
-                      </a>
-                      <div v-else>
-                        {{ $t('Not Available') }}
-                      </div>
-                    </td>
-                    <td>{{ subscriptionRequest.plan.name }}</td>
-                    <td>{{ subscriptionRequest.plan.amount}} <span class="saudi-riyal">ê</span></td>
-                    <td>{{ subscriptionRequest.quantity }}</td>
-                    <td v-html="subscriptionRequest.status_html"></td>
-                    <td>{{ subscriptionRequest.created_at | moment('Do MMM, YYYY') }}</td>
-                  </tr>
-                  <tr v-show="!loading && !items.length">
-                    <td colspan="12">
-                      <EmptyTable />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <GeneralTable
+                v-if="items && items.length > 0"
+                :columns="subscriptionRequestColumns"
+                :rows="subscriptionRequestRows"
+                :loading="loading"
+                wrapper-class="table-responsive"
+              >
+                <template #document_path="{ row }">
+                  <a v-if="row._raw.document_path" :href="row._raw.document_url" target="_blank">
+                    {{ $t('Download') }}
+                  </a>
+                  <div v-else>
+                    {{ $t('Not Available') }}
+                  </div>
+                </template>
+                <template #plan_price="{ row }">
+                  {{ row._raw.plan?.amount }} <span class="saudi-riyal">ê</span>
+                </template>
+                <template #status="{ row }">
+                  <span v-html="row._raw.status_html"></span>
+                </template>
+                <template #created_at="{ row }">
+                  {{ row._raw.created_at | moment('Do MMM, YYYY') }}
+                </template>
+              </GeneralTable>
+              <div v-else class="text-center">
+                <EmptyTable />
+              </div>
             </div>
           </div>
           <div class="card-footer">
@@ -84,11 +67,15 @@
 
 <script>
 import { mapGetters } from "vuex";
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
     return { title: this.$t("Subscription Invoices") };
+  },
+  components: {
+    GeneralTable,
   },
   data: () => ({
     breadcrumbsCurrent: 'Subscription Requests',
@@ -108,6 +95,37 @@ export default {
       "appInfo",
       "tenant",
     ]),
+    subscriptionRequestColumns() {
+      return [
+        { key: "index", label: this.$t("ID") },
+        { key: "transaction_id", label: this.$t("Transaction ID") },
+        { key: "document_path", label: this.$t("Document Path") },
+        { key: "plan_name", label: this.$t("Plan Name") },
+        { key: "plan_price", label: this.$t("Plan Price") },
+        { key: "month", label: this.$t("Month") },
+        { key: "status", label: this.$t("Status") },
+        { key: "created_at", label: this.$t("Created At") },
+      ];
+    },
+    subscriptionRequestRows() {
+      if (!this.items) return [];
+      return this.items.map((item, index) => {
+        const rowIndex = this.pagination && this.pagination.current_page > 1
+          ? this.pagination.per_page * (this.pagination.current_page - 1) + (index + 1)
+          : index + 1;
+        return {
+          index: rowIndex,
+          transaction_id: item.transaction_id ?? this.$t('Not Available'),
+          document_path: item.document_path,
+          plan_name: item.plan?.name || "",
+          plan_price: item.plan?.amount || 0,
+          month: item.quantity,
+          status: item.status_html,
+          created_at: item.created_at,
+          _raw: item,
+        };
+      });
+    },
   },
   created() {
     this.getData();

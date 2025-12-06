@@ -391,11 +391,15 @@
 import { mapGetters } from "vuex";
 import axios from "axios";
 import html2pdf from "html2pdf.js";
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
     return { title: this.$t("Loan Payment Details") };
+  },
+  components: {
+    GeneralTable,
   },
   data: () => ({
     breadcrumbsCurrent: "Loan Payment Details",

@@ -95,12 +95,16 @@
 
 <script>
 import axios from "axios";
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   layout: "central",
   middleware: ["auth", "check-permissions"],
   metaInfo() {
     return { title: this.$t("Plans") };
+  },
+  components: {
+    GeneralTable,
   },
   data: () => ({
     breadcrumbsCurrent: "setup.plans.view.breadcrumbs_current",

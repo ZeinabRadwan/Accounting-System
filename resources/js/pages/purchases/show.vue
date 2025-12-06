@@ -326,76 +326,30 @@
                 <strong class="mb-2 d-block"
                   >{{ $t("Payment History") }}:</strong
                 >
-                <div
-                  v-if="allData.payments && allData.payments.length > 0"
-                  class="table-custom table-responsive"
-                >
-                  <table class="table table-sm">
-                    <thead>
-                        <th>{{ $t("#") }}</th>
-                        <th>{{ $t("Payment Date") }}</th>
-                        <th>{{ $t("Paid Amount") }}</th>
-                        <th>{{ $t("Account") }}</th>
-                        <th>{{ $t("Cheque No") }}</th>
-                        <th>{{ $t("Receipt No") }}</th>
-                        <th class="text-right">{{ $t("Status") }}</th>
-                    </thead>
-                    <tbody>
-                      <tr v-for="(data, i) in allData.payments" :key="i">
-                        <td>{{ ++i }}</td>
-                        <td>
-                          <span v-if="data.date">{{ data.date }}</span>
-                        </td>
-                        <td>
-                          <span v-if="data.amount">{{
-                            data.amount 
-                          }} <span class="saudi-riyal">ê</span></span>
-                        </td>
-                        <td>
-                          <span
-                            v-if="
-                              data.purchase_payment_transaction &&
-                              data.purchase_payment_transaction.cashbook_account
-                            "
-                            >{{
-                              data.purchase_payment_transaction.cashbook_account
-                                .bank_name
-                            }}
-                            ({{
-                              data.purchase_payment_transaction.cashbook_account
-                                .account_number
-                            }})</span
-                          >
-                        </td>
-                        <td v-if="data.purchase_payment_transaction">
-                          {{ data.purchase_payment_transaction.cheque_no }}
-                        </td>
-                        <td v-if="data.purchase_payment_transaction">
-                          {{ data.purchase_payment_transaction.receipt_no }}
-                        </td>
-                        <td class="text-right">
-                          <span
-                            v-if="data.status == 1"
-                            class="badge bg-success"
-                            >{{ $t("Active") }}</span
-                          >
-                          <span v-else class="badge bg-danger">{{
-                            $t("Inactive")
-                          }}</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="text-right" colspan="2">
-                          <strong>{{ $t("Total Paid") }}</strong>
-                        </td>
-                        <td colspan="5">
-                          <strong>{{
-                            formatNumber(allData.totalPaid)
-                          }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div v-if="allData.payments && allData.payments.length > 0">
+                  <GeneralTable
+                    :columns="purchasePaymentHistoryColumns"
+                    :rows="purchasePaymentHistoryRows"
+                    :loading="loading"
+                    wrapper-class=""
+                  >
+                    <template #cell-amount="{ value }">
+                      {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
+                    </template>
+                    <template #cell-status="{ value }">
+                      <span
+                        v-if="value == 1"
+                        class="badge bg-success"
+                        >{{ $t("Active") }}</span
+                      >
+                      <span v-else class="badge bg-danger">{{
+                        $t("Inactive")
+                      }}</span>
+                    </template>
+                  </GeneralTable>
+                  <div class="mt-2 text-right">
+                    <strong>{{ $t("Total Paid") }}: {{ formatNumber(allData.totalPaid) }} <span class="saudi-riyal">ê</span></strong>
+                  </div>
                 </div>
                 <div class="no-print callout callout-danger mt-4 w-100" v-else>
                   <h5>{{ $t("No payments available yet!") }}</h5>
@@ -628,11 +582,15 @@ import { mapGetters } from "vuex";
 import html2pdf from "html2pdf.js";
 import Swal from "sweetalert2";
 import SwalOriginal from "sweetalert2/dist/sweetalert2";
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
     return { title: this.$t("Purchase Details") };
+  },
+  components: {
+    GeneralTable,
   },
   data: () => ({
     breadcrumbsCurrent: "Purchase Details",
@@ -708,6 +666,36 @@ export default {
       const total = this.totalPrice - this.totalProductDiscount + this.totalProductVat;
       const paid = parseFloat(this.allData.totalPaid) || 0;
       return total - paid;
+    },
+
+    // Purchase payment history columns
+    purchasePaymentHistoryColumns() {
+      return [
+        { key: "index", label: this.$t("#"), align: "" },
+        { key: "date", label: this.$t("Payment Date"), align: "" },
+        { key: "amount", label: this.$t("Paid Amount"), align: "" },
+        { key: "account", label: this.$t("Account"), align: "" },
+        { key: "chequeNo", label: this.$t("Cheque No"), align: "" },
+        { key: "receiptNo", label: this.$t("Receipt No"), align: "" },
+        { key: "status", label: this.$t("Status"), align: "text-right" },
+      ];
+    },
+
+    // Purchase payment history rows
+    purchasePaymentHistoryRows() {
+      if (!this.allData || !this.allData.payments) return [];
+      return this.allData.payments.map((payment, index) => ({
+        index: index + 1,
+        date: payment.date || "",
+        amount: payment.amount || 0,
+        account: payment.purchase_payment_transaction?.cashbook_account
+          ? `${payment.purchase_payment_transaction.cashbook_account.bank_name} (${payment.purchase_payment_transaction.cashbook_account.account_number})`
+          : "",
+        chequeNo: payment.purchase_payment_transaction?.cheque_no || "",
+        receiptNo: payment.purchase_payment_transaction?.receipt_no || "",
+        status: payment.status,
+        _raw: payment,
+      }));
     },
   },
 

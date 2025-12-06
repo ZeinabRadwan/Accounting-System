@@ -96,52 +96,34 @@
               <div v-if="allData.loans && allData.loans.length > 0" class="col-12">
                 <strong class="mt-4 mb-2 d-block">{{ $t("All Loans") }}:</strong>
                 <div class="table-responsive table-custom">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>{{ $t("#") }}</th>
-                        <th>{{ $t("Ref. No") }}</th>
-                        <th>{{ $t("Account") }}</th>
-                        <th>{{ $t("Amount") }}</th>
-                        <th>{{ $t("Payable") }}</th>
-                        <th>{{ $t("Interest") }}</th>
-                        <th>{{ $t("Due") }}</th>
-                        <th>{{ $t("Installment") }}</th>
-                        <th>{{ $t("Status") }}</th>
-                        <th class="text-right">{{ $t("Date") }}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="(data, i) in allData.loans" :key="i">
-                        <td>{{ ++i }}</td>
-                        <td>{{ data.reference }}</td>
-                        <td>
-                          {{ data.transaction.cashbook_account.account_number }}
-                        </td>
-                        <td>{{ data.transaction.amount }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ data.payable }} <span class="saudi-riyal">ê</span></td>
-                        <td>
-                          <span v-if="data.loanType == 1">
-                            {{ data.interestAmount }} <span class="saudi-riyal">ê</span> ({{
-                              data.interestRate
-                            }}%)
-                          </span>
-                          <span v-else>{{ 0 }} <span class="saudi-riyal">ê</span></span>
-                        </td>
-                        <td>{{ data.due }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ data.installment }}</td>
-                        <td>
-                          <span v-if="data.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
-                          <span v-else class="badge bg-danger">{{
-                            $t("Inactive")
-                          }}</span>
-                        </td>
-                        <td class="text-right">
-                          {{ data.date | moment("Do MMM, YYYY") }}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <GeneralTable
+                    :columns="loanColumns"
+                    :rows="loanRows"
+                    wrapper-class="table-responsive"
+                  >
+                    <template #amount="{ row }">
+                      {{ row.transaction?.amount }} <span class="saudi-riyal">ê</span>
+                    </template>
+                    <template #payable="{ row }">
+                      {{ row.payable }} <span class="saudi-riyal">ê</span>
+                    </template>
+                    <template #interest="{ row }">
+                      <span v-if="row.loanType == 1">
+                        {{ row.interestAmount }} <span class="saudi-riyal">ê</span> ({{ row.interestRate }}%)
+                      </span>
+                      <span v-else>{{ 0 }} <span class="saudi-riyal">ê</span></span>
+                    </template>
+                    <template #due="{ row }">
+                      {{ row.due }} <span class="saudi-riyal">ê</span>
+                    </template>
+                    <template #status="{ row }">
+                      <span v-if="row.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
+                      <span v-else class="badge bg-danger">{{ $t("Inactive") }}</span>
+                    </template>
+                    <template #date="{ row }">
+                      {{ row.date | moment("Do MMM, YYYY") }}
+                    </template>
+                  </GeneralTable>
                 </div>
               </div>
               <div class="callout callout-danger mt-3 w-100" v-else>
@@ -324,11 +306,15 @@
 import { mapGetters } from "vuex";
 import axios from "axios";
 import html2pdf from "html2pdf.js";
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
     return { title: this.$t("View Loan Authority") };
+  },
+  components: {
+    GeneralTable,
   },
   data: () => ({
     breadcrumbsCurrent: "Authority Details",
@@ -352,6 +338,30 @@ export default {
   }),
   computed: {
     ...mapGetters("operations", ["appInfo", "items", "loading", "pagination"]),
+    loanColumns() {
+      return [
+        { key: "index", label: this.$t("#") },
+        { key: "reference", label: this.$t("Ref. No") },
+        { key: "account", label: this.$t("Account") },
+        { key: "amount", label: this.$t("Amount") },
+        { key: "payable", label: this.$t("Payable") },
+        { key: "interest", label: this.$t("Interest") },
+        { key: "due", label: this.$t("Due") },
+        { key: "installment", label: this.$t("Installment") },
+        { key: "status", label: this.$t("Status") },
+        { key: "date", label: this.$t("Date") },
+      ];
+    },
+    loanRows() {
+      if (!this.allData || !this.allData.loans) {
+        return [];
+      }
+      return this.allData.loans.map((loan, index) => ({
+        ...loan,
+        index: index + 1,
+        account: loan.transaction?.cashbook_account?.account_number || "",
+      }));
+    },
   },
 
   watch: {

@@ -10,34 +10,16 @@
           <div class="btn-group">
             <ul class="nav nav-tabs" id="client-main-tabs" role="tablist">
               <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  id="details-tab"
-                  data-toggle="pill"
-                  href="#details"
-                  role="tab"
-                  aria-controls="details-tab"
-                  aria-selected="true"
-                  @click="loadInitialData"
-                >
+                <a class="nav-link active" id="details-tab" data-toggle="pill" href="#details" role="tab"
+                  aria-controls="details-tab" aria-selected="true" @click="loadInitialData">
                   <i class="fa fa-info"></i>
-                  {{ $t("Details") }}</a
-                >
+                  {{ $t("Details") }}</a>
               </li>
               <li class="nav-item">
-                <a
-                  @click="getActivity"
-                  class="nav-link"
-                  id="activity-log-tab"
-                  data-toggle="pill"
-                  href="#activity-log"
-                  role="tab"
-                  aria-controls="activity-log-tab"
-                  aria-selected="false"
-                >
+                <a @click="getActivity" class="nav-link" id="activity-log-tab" data-toggle="pill" href="#activity-log"
+                  role="tab" aria-controls="activity-log-tab" aria-selected="false">
                   <i class="nav-icon fa fa-bell" aria-hidden="true"></i>
-                  {{ $t("Activity log") }}</a
-                >
+                  {{ $t("Activity log") }}</a>
               </li>
             </ul>
           </div>
@@ -52,16 +34,9 @@
             <div>
               <div class="card-body box-profile">
                 <div class="text-center mb-2">
-                  <a
-                    href="#"
-                    id="show-modal"
-                    @click="previewModal(allData.image || '')"
-                  >
-                    <img
-                      :src="allData.image || 'http://zeinab.localhost:8000/images/default-avatar.jpeg'"
-                      class="profile-user-img img-fluid img-circle"
-                      loading="lazy"
-                    />
+                  <a href="#" id="show-modal" @click="previewModal(allData.image || '')">
+                    <img :src="allData.image || 'http://zeinab.localhost:8000/images/default-avatar.jpeg'"
+                      class="profile-user-img img-fluid img-circle" loading="lazy" />
                   </a>
                 </div>
                 <h3 class="profile-username text-center">{{ allData.name }}</h3>
@@ -88,10 +63,7 @@
                     <strong>{{ $t("Company Name") }}</strong>
                     <span class="float-right">{{ allData.companyName }}</span>
                   </li>
-                  <li
-                    v-if="allData.taxRegistrationNumber"
-                    class="list-group-item"
-                  >
+                  <li v-if="allData.taxRegistrationNumber" class="list-group-item">
                     <strong>{{ $t("Tax Registration Number") }}</strong>
                     <span class="float-right">{{
                       allData.taxRegistrationNumber
@@ -108,11 +80,7 @@
                     </span>
                   </li>
                 </ul>
-                <span
-                  v-if="allData.status === 1"
-                  class="btn-block btn bg-success"
-                  >{{ $t("Active") }}</span
-                >
+                <span v-if="allData.status === 1" class="btn-block btn bg-success">{{ $t("Active") }}</span>
                 <span v-else class="btn-block btn bg-danger">{{
                   $t("Inactive")
                 }}</span>
@@ -142,17 +110,19 @@
                         </div>
                         <div class="col-6 text-right">
                           <h6 class="text-white">
-                             {{ parseFloat(allData.clientInvoiceTotal || 0).toFixed(2) }} <span class="saudi-riyal" dir="rtl">ê</span>
+                            {{ parseFloat(allData.clientInvoiceTotal || 0).toFixed(2) }} <span class="saudi-riyal"
+                              dir="rtl">ê</span>
                           </h6>
                           <h6 class="text-white">
-                             {{ parseFloat(allData.nonInvoiceDue || 0).toFixed(2) }} <span class="saudi-riyal" dir="rtl">ê</span>
+                            {{ parseFloat(allData.nonInvoiceDue || 0).toFixed(2) }} <span class="saudi-riyal"
+                              dir="rtl">ê</span>
                           </h6>
                           <hr />
                           <h4 class="text-white mb-1">
                             {{
-                               (parseFloat(allData.clientInvoiceTotal || 0) +
-                                 parseFloat(allData.nonInvoiceDue || 0)).toFixed(2)
-                             }}<span class="saudi-riyal" dir="rtl">ê</span>
+                              (parseFloat(allData.clientInvoiceTotal || 0) +
+                                parseFloat(allData.nonInvoiceDue || 0)).toFixed(2)
+                            }}<span class="saudi-riyal" dir="rtl">ê</span>
                           </h4>
                         </div>
                       </div>
@@ -179,16 +149,19 @@
                         </div>
                         <div class="col-6 text-right">
                           <h6 class="text-white">
-                             {{ parseFloat(allData.clientDue || 0).toFixed(2) }} <span class="saudi-riyal" dir="rtl">ê</span>
+                            {{ parseFloat(allData.clientDue || 0).toFixed(2) }} <span class="saudi-riyal"
+                              dir="rtl">ê</span>
                           </h6>
                           <h6 class="text-white">
-                             {{ parseFloat(allData.nonInvoiceCurrentDue || 0).toFixed(2) }} <span class="saudi-riyal" dir="rtl">ê</span>
+                            {{ parseFloat(allData.nonInvoiceCurrentDue || 0).toFixed(2) }} <span class="saudi-riyal"
+                              dir="rtl">ê</span>
                           </h6>
                           <hr />
                           <h4 class="text-white mb-1">
                             {{
-                               (parseFloat(allData.clientDue || 0) + parseFloat(allData.nonInvoiceCurrentDue || 0)).toFixed(2)
-                             }}<span class="saudi-riyal" dir="rtl">ê</span>
+                              (parseFloat(allData.clientDue || 0) + parseFloat(allData.nonInvoiceCurrentDue ||
+                                0)).toFixed(2)
+                            }}<span class="saudi-riyal" dir="rtl">ê</span>
                           </h4>
                         </div>
                       </div>
@@ -197,110 +170,58 @@
                 </div>
               </div>
             </div>
-            <div
-              v-if="
-                $can('invoice-list') ||
-                $can('invoice-return-list') ||
-                $can('invoice-payment-list') ||
-                $can('non-invoice-payment-list')
-              "
-            >
+            <div v-if="
+              $can('invoice-list') ||
+              $can('invoice-return-list') ||
+              $can('invoice-payment-list') ||
+              $can('non-invoice-payment-list')
+            ">
               <div class="card-header p-2">
                 <div class="row">
-                   <div class="col-md-12">
-                     <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
-                       <li v-if="$can('invoice-list')" class="nav-item">
-                         <a
-                           class="nav-link active"
-                           id="invoices-tab"
-                           data-toggle="pill"
-                           href="#invoices"
-                           role="tab"
-                           aria-controls="invoices-tab"
-                           aria-selected="true"
-                           @click="activeTab = 'invoices'"
-                         >
-                           <i class="fas fa-file-invoice"></i>
-                           {{ $t("Invoices") }}
-                           <span v-if="pagination" class="badge badge-dark">{{
-                             pagination.total
-                           }}</span>
-                         </a>
-                       </li>
+                  <div class="col-md-12">
+                    <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
+                      <li v-if="$can('invoice-list')" class="nav-item">
+                        <a class="nav-link active" id="invoices-tab" data-toggle="pill" href="#invoices" role="tab"
+                          aria-controls="invoices-tab" aria-selected="true" @click="activeTab = 'invoices'">
+                          <i class="fas fa-file-invoice"></i>
+                          {{ $t("Invoices") }}
+                          <span v-if="pagination" class="badge badge-dark">{{
+                            pagination.total
+                          }}</span>
+                        </a>
+                      </li>
                       <li v-if="$can('invoice-return-list')" class="nav-item">
-                        <a
-                          class="nav-link"
-                          id="invoice-returns-tab"
-                          data-toggle="pill"
-                          href="#invoice-returns"
-                          role="tab"
-                          aria-controls="invoice-returns-tab"
-                          aria-selected="false"
-                          @click="getInvoiceReturns"
-                        >
+                        <a class="nav-link" id="invoice-returns-tab" data-toggle="pill" href="#invoice-returns"
+                          role="tab" aria-controls="invoice-returns-tab" aria-selected="false"
+                          @click="getInvoiceReturns">
                           <i class="fas fa-undo-alt"></i>
                           {{ $t("Invoice Returns") }}
-                          <span
-                            v-if="invoiceReturnPagination"
-                            class="badge badge-dark"
-                            >{{ invoiceReturnPagination.total }}</span
-                          >
+                          <span v-if="invoiceReturnPagination" class="badge badge-dark">{{ invoiceReturnPagination.total
+                          }}</span>
                         </a>
                       </li>
                       <li v-if="$can('invoice-payment-list')" class="nav-item">
-                        <a
-                          class="nav-link"
-                          id="invoice-payments-tab"
-                          data-toggle="pill"
-                          href="#invoice-payments"
-                          role="tab"
-                          aria-controls="invoice-payments-tab"
-                          aria-selected="false"
-                          @click="getInvoicePayments"
-                        >
+                        <a class="nav-link" id="invoice-payments-tab" data-toggle="pill" href="#invoice-payments"
+                          role="tab" aria-controls="invoice-payments-tab" aria-selected="false"
+                          @click="getInvoicePayments">
                           <i class="fas fa-receipt"></i>
                           {{ $t("Invoice Payments") }}
-                          <span
-                            v-if="paymentPagination"
-                            class="badge badge-dark"
-                            >{{ paymentPagination.total }}</span
-                          >
+                          <span v-if="paymentPagination" class="badge badge-dark">{{ paymentPagination.total }}</span>
                         </a>
                       </li>
-                      <li
-                        v-if="$can('non-invoice-payment-list')"
-                        class="nav-item"
-                      >
-                        <a
-                          class="nav-link"
-                          id="non-invoice-transactions-tab"
-                          data-toggle="pill"
-                          href="#non-invoice-transactions"
-                          role="tab"
-                          aria-controls="non-invoice-transactions-tab"
-                          aria-selected="false"
-                          @click="nonInvoiceTransactions"
-                        >
+                      <li v-if="$can('non-invoice-payment-list')" class="nav-item">
+                        <a class="nav-link" id="non-invoice-transactions-tab" data-toggle="pill"
+                          href="#non-invoice-transactions" role="tab" aria-controls="non-invoice-transactions-tab"
+                          aria-selected="false" @click="nonInvoiceTransactions">
                           <i class="fas fa-money-bill"></i>
                           {{ $t("Non Invoice Transactions") }}
-                          <span
-                            v-if="nonInvoicePagination"
-                            class="badge badge-dark"
-                            >{{ nonInvoicePagination.total }}</span
-                          >
+                          <span v-if="nonInvoicePagination" class="badge badge-dark">{{ nonInvoicePagination.total
+                          }}</span>
                         </a>
                       </li>
                       <li v-if="$can('invoice-list')" class="nav-item">
-                        <a
-                          class="nav-link"
-                          id="ledger-tab"
-                          data-toggle="pill"
-                          href="#ledger"
-                          role="tab"
-                          aria-controls="ledger-tab"
-                          aria-selected="false"
-                          @click="getLedger"
-                        >
+                        <a class="nav-link" id="ledger-tab" data-toggle="pill" href="#ledger" role="tab"
+                          aria-controls="ledger-tab" aria-selected="false" @click="getLedger">
                           <i class="fas fa-list-ul"></i>
                           {{ $t("Ledger") }}
                         </a>
@@ -325,269 +246,14 @@
                     {{ allData.email }}<br />
                     <hr />
                   </div>
-                   <!-- Invoices -->
-                   <div class="tab-pane fade active show" id="invoices" role="tabpanel" aria-labelledby="invoices-tab">
-                     <div class="row">
-                       <div class="col-6 col-xl-8 mb-2 text-right">
-                         <date-range-picker ref="picker" opens="left" :locale-data="locale" :minDate="minDate" :maxDate="maxDate"
-                           :singleDatePicker="false" :showWeekNumbers="false" :showDropdowns="true" :autoApply="true"
-                           v-model="dateRange" @update="updateValues('invoice')" :linkedCalendars="true" class="c-w-100" style="display: none;">
-                           <template v-slot:input="picker" style="min-width: 350px">
-                            {{ picker.startDate | startDate }} -
-                            {{ picker.endDate | endDate }}
-                          </template>
-                        </date-range-picker>
-                      </div>
-                    </div>
-                     <div class="row">
-                       <div class="col-6 col-xl-4 mb-2">
-                         <search v-model="query" @reset-pagination="resetPagination()" @reload="reload" />
-                       </div>
-                       <div class="col-xl-8 col-8 float-right text-right">
-                         <div class="btn-group c-w-100">
-                           <a
-                             @click="refreshTable(activeTab)"
-                             href="#"
-                             v-tooltip="$t('Refresh')"
-                             class="btn btn-success refresh-btn"
-                           >
-                             <i class="fas fa-sync"></i>
-                           </a>
-                          <a
-                            href="/clients/pdf"
-                            v-tooltip="$t('Export to PDF')"
-                            class="btn export-pdf-btn"
-                            title="Export to PDF"
-                          >
-                             <svg
-                               width="24"
-                               height="24"
-                               viewBox="0 0 24 24"
-                               fill="none"
-                               xmlns="http://www.w3.org/2000/svg"
-                             >
-                               <path
-                                 d="M21 14.2501C21 14.449 20.921 14.6398 20.7803 14.7805C20.6397 14.9211 20.4489 15.0001 20.25 15.0001H18V16.5001H19.5C19.6989 16.5001 19.8897 16.5791 20.0303 16.7198C20.171 16.8604 20.25 17.0512 20.25 17.2501C20.25 17.449 20.171 17.6398 20.0303 17.7805C19.8897 17.9211 19.6989 18.0001 19.5 18.0001H18V19.5001C18 19.699 17.921 19.8898 17.7803 20.0305C17.6397 20.1711 17.4489 20.2501 17.25 20.2501C17.0511 20.2501 16.8603 20.1711 16.7197 20.0305C16.579 19.8898 16.5 19.699 16.5 19.5001V14.2501C16.5 14.0512 16.579 13.8604 16.7197 13.7198C16.8603 13.5791 17.0511 13.5001 17.25 13.5001H20.25C20.4489 13.5001 20.6397 13.5791 20.7803 13.7198C20.921 13.8604 21 14.0512 21 14.2501ZM8.625 16.1251C8.625 16.8213 8.34844 17.489 7.85616 17.9813C7.36387 18.4736 6.69619 18.7501 6 18.7501H5.25V19.5001C5.25 19.699 5.17098 19.8898 5.03033 20.0305C4.88968 20.1711 4.69891 20.2501 4.5 20.2501C4.30109 20.2501 4.11032 20.1711 3.96967 20.0305C3.82902 19.8898 3.75 19.699 3.75 19.5001V14.2501C3.75 14.0512 3.82902 13.8604 3.96967 13.7198C4.11032 13.5791 4.30109 13.5001 4.5 13.5001H6C6.69619 13.5001 7.36387 13.7767 7.85616 14.269C8.34844 14.7612 8.625 15.4289 8.625 16.1251ZM7.125 16.1251C7.125 15.8268 7.00647 15.5406 6.7955 15.3296C6.58452 15.1186 6.29837 15.0001 6 15.0001H5.25V17.2501H6C6.29837 17.2501 6.58452 17.1316 6.7955 16.9206C7.00647 16.7096 7.125 16.4235 7.125 16.1251ZM15.375 16.8751C15.375 17.7702 15.0194 18.6287 14.3865 19.2616C13.7535 19.8945 12.8951 20.2501 12 20.2501H10.5C10.3011 20.2501 10.1103 20.1711 9.96967 20.0305C9.82902 19.8898 9.75 19.699 9.75 19.5001V14.2501C9.75 14.0512 9.82902 13.8604 9.96967 13.7198C10.1103 13.5791 10.3011 13.5001 10.5 13.5001H12C12.8951 13.5001 13.7535 13.8557 14.3865 14.4886C15.0194 15.1216 15.375 15.98 15.375 16.8751ZM13.875 16.8751C13.875 16.3778 13.6775 15.9009 13.3258 15.5493C12.9742 15.1977 12.4973 15.0001 12 15.0001H11.25V18.7501H12C12.4973 18.7501 12.9742 18.5526 13.3258 18.2009C13.6775 17.8493 13.875 17.3724 13.875 16.8751ZM3.75 10.5001V3.75012C3.75 3.3523 3.90804 2.97077 4.18934 2.68946C4.47064 2.40816 4.85218 2.25012 5.25 2.25012H14.25C14.3485 2.25004 14.4461 2.26938 14.5371 2.30702C14.6282 2.34466 14.7109 2.39987 14.7806 2.4695L20.0306 7.7195C20.1003 7.7892 20.1555 7.87194 20.1931 7.96299C20.2307 8.05403 20.2501 8.1516 20.25 8.25012V10.5001C20.25 10.699 20.171 10.8898 20.0303 11.0305C19.8897 11.1711 19.6989 11.2501 19.5 11.2501C19.3011 11.2501 19.1103 11.1711 18.9697 11.0305C18.829 10.8898 18.75 10.699 18.75 10.5001V9.00012H14.25C14.0511 9.00012 13.8603 8.9211 13.7197 8.78045C13.579 8.6398 13.5 8.44903 13.5 8.25012V3.75012H5.25V10.5001C5.25 10.699 5.17098 10.8898 5.03033 11.0305C4.88968 11.1711 4.69891 11.2501 4.5 11.2501C4.30109 11.2501 4.11032 11.1711 3.96967 11.0305C3.82902 10.8898 3.75 10.699 3.75 10.5001ZM15 7.50012H17.6897L15 4.81043V7.50012Z"
-                                 fill="#2AB930"
-                               />
-                             </svg>
-                           </a>
-                           <router-link
-                             :to="{ name: 'clients.index' }"
-                             class="btn btn-primary"
-                             title="Back"
-                             v-tooltip="$t('Back')"
-                           >
-                             <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
-
-                               {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
-
-                             </template>
-
-                             <template v-else>
-
-                               <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
-
-
-                                 {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
-
-
-                               </template>
-
-
-                               <template v-else>
-
-
-                                 <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
-
-
-                               </template>
-
-                             </template>
-                           </router-link>
-                         </div>
-                       </div>
-                     </div>
-                    <table-loading v-show="loading" />
-                    <div class="table-responsive table-custom mt-3">
-                       <table class="table invoices-table">
-                        <thead>
-                            <th>{{ $t("#") }}</th>
-                            <th>{{ $t("Invoice No") }}</th>
-                            <th>{{ $t("Invoice Date") }}</th>
-                            <th>{{ $t("Client") }}</th>
-                            <th>{{ $t("Net Total") }}</th>
-                            <th>{{ $t("Total Paid") }}</th>
-                            <th>{{ $t("Total Due") }}</th>
-                            <th>{{ $t("Status") }}</th>
-                            <th
-                              v-if="
-                                $can('invoice-view') ||
-                                $can('invoice-edit') ||
-                                $can('invoice-delete')
-                              "
-                              class="text-right no-print"
-                              id="element-to-hide"
-                              data-html2canvas-ignore="true"
-                            >
-                              {{ $t("Action") }}
-                            </th>
-                        </thead>
-                        <tbody>
-                          <tr
-                            v-show="items && items.length"
-                            v-for="(data, i) in items"
-                            :key="i"
-                          >
-                            <td>
-                              <span
-                                v-if="pagination && pagination.current_page > 1"
-                              >
-                                {{
-                                  pagination.per_page *
-                                    (pagination.current_page - 1) +
-                                  (i + 1)
-                                }}
-                              </span>
-                              <span v-else>{{ i + 1 }}</span>
-                            </td>
-                            <td>
-                              <router-link
-                                v-if="$can('invoice-view')"
-                                :to="{
-                                  name: 'invoices.show',
-                                  params: { slug: data.slug },
-                                }"
-                              >
-                                {{ data.invoiceNo | withPrefix(invoicePrefix) }}
-                              </router-link>
-                              <span v-else>{{
-                                data.invoiceNo | withPrefix(invoicePrefix)
-                              }}</span>
-                            </td>
-                            <td>
-                              <span v-if="data.invoiceDate">{{
-                                data.invoiceDate | moment("Do MMM, YYYY")
-                              }}</span>
-                            </td>
-                            <td>{{ data.client }}</td>
-                            <td>{{ parseFloat(data.invoiceTotal || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
-                            <td>{{ parseFloat(data.totalPaid || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
-                            <td>{{ parseFloat(data.due || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
-                            <td>
-                              <span
-                                v-if="data.status === 1"
-                                class="badge bg-success"
-                                >{{ $t("Active") }}</span
-                              >
-                              <span v-else class="badge bg-danger">{{
-                                $t("Inactive")
-                              }}</span>
-                            </td>
-                            <td
-                              v-if="
-                                $can('invoice-view') ||
-                                $can('invoice-edit') ||
-                                $can('invoice-delete')
-                              "
-                              class="text-right no-print"
-                              id="element-to-hide"
-                              data-html2canvas-ignore="true"
-                            >
-                               <div class="action-dropdown" :class="{ open: openActionIndex === i }">
-                                 <button type="button" class="action-icon-btn" :data-action-index="i" @click.stop="toggleAction(i)">
-                                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
-                                     <path d="M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z" fill="#023033"/>
-                                   </svg>
-                                 </button>
-                                 <div class="action-menu" v-if="openActionIndex === i">
-                                   <div class="action-menu-header">
-                                     <span class="action-menu-title">{{ $t('Actions') }}</span>
-                                     <button type="button" class="action-menu-close" @click="toggleAction(i)">
-                                       <i class="fas fa-times"></i>
-                                     </button>
-                                   </div>
-                                   <ul>
-                                    <li v-if="$can('invoice-view') && data.due > 0 && data.status === 1">
-                                       <a href="#" @click.prevent="handleModal(data)">
-                                         <i class="fas fa-credit-card"></i>
-                                         {{ $t('Add Payment?') }}
-                                       </a>
-                                     </li>
-                                     <li v-if="isSaudiArabia && data.status === 0">
-                                       <a href="#" @click.prevent="sendInvoice(data)">
-                                         <i class="fas fa-paper-plane"></i>
-                                         {{ $t('Send Invoice') }}
-                                       </a>
-                                     </li>
-                                     <li v-if="$can('invoice-view')">
-                                       <router-link :to="{ name: 'invoices.show', params: { slug: data.slug } }">
-                                         <i class="fas fa-eye"></i>
-                                         {{ $t('View') }}
-                                </router-link>
-                                     </li>
-                                     <li v-if="$can('invoice-edit') && !(isSaudiArabia && data.status === 1)">
-                                       <router-link :to="{ name: 'invoices.edit', params: { slug: data.slug } }">
-                                         <i class="fas fa-edit"></i>
-                                         {{ $t('Edit') }}
-                                </router-link>
-                                     </li>
-                                     <li v-if="$can('invoice-delete') && !(isSaudiArabia && data.status === 1)">
-                                       <a href="#" @click.prevent="deleteInvoiceData(data.slug)">
-                                         <i class="fas fa-trash"></i>
-                                         {{ $t('Delete') }}
-                                       </a>
-                                     </li>
-                                   </ul>
-                                 </div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr v-show="!loading && items && !items.length">
-                            <td colspan="9">
-                              <EmptyTable />
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer">
-                      <div class="dtable-footer">
-                        <div class="form-group row display-per-page">
-                          <label>{{ $t("per_page") }} </label>
-                          <div>
-                            <select
-                              @change="updatePerPager('invoice')"
-                              v-model="perPage"
-                              class="form-control form-control-sm ml-1"
-                            >
-                              <option value="10">10</option>
-                              <option value="25">25</option>
-                              <option value="50">50</option>
-                              <option value="100">100</option>
-                            </select>
-                          </div>
-                        </div>
-                        <!-- pagination-start -->
-                        <pagination
-                          v-if="pagination && pagination.last_page > 1"
-                          :pagination="pagination"
-                          :offset="5"
-                          class="justify-flex-end"
-                          @paginate="paginate"
-                        />
-                        <!-- pagination-end -->
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Invoices Returns -->
-                  <div class="tab-pane fade" id="invoice-returns" role="tabpanel" aria-labelledby="invoice-returns-tab">
+                  <!-- Invoices -->
+                  <div class="tab-pane fade active show" id="invoices" role="tabpanel" aria-labelledby="invoices-tab">
                     <div class="row">
                       <div class="col-6 col-xl-8 mb-2 text-right">
-                        <date-range-picker ref="picker" opens="left" :locale-data="locale" :minDate="minDate" :maxDate="maxDate"
-                          :singleDatePicker="false" :showWeekNumbers="false" :showDropdowns="true" :autoApply="true"
-                          v-model="dateRange" @update="updateValues('invoice-returns')" :linkedCalendars="true" class="c-w-100" style="display: none;">
+                        <date-range-picker ref="picker" opens="left" :locale-data="locale" :minDate="minDate"
+                          :maxDate="maxDate" :singleDatePicker="false" :showWeekNumbers="false" :showDropdowns="true"
+                          :autoApply="true" v-model="dateRange" @update="updateValues('invoice')"
+                          :linkedCalendars="true" class="c-w-100" style="display: none;">
                           <template v-slot:input="picker" style="min-width: 350px">
                             {{ picker.startDate | startDate }} -
                             {{ picker.endDate | endDate }}
@@ -597,44 +263,27 @@
                     </div>
                     <div class="row">
                       <div class="col-6 col-xl-4 mb-2">
-                        <search v-model="invoiceReturnQuery" @reset-pagination="resetReturnPagination()" @reload="returnReload" />
+                        <search v-model="query" @reset-pagination="resetPagination()" @reload="reload" />
                       </div>
                       <div class="col-xl-8 col-8 float-right text-right">
                         <div class="btn-group c-w-100">
-                          <a
-                            @click="refreshTable(activeTab)"
-                            href="#"
-                            v-tooltip="$t('Refresh')"
-                            class="btn btn-success refresh-btn"
-                          >
+                          <a @click="refreshTable(activeTab)" href="#" v-tooltip="$t('Refresh')"
+                            class="btn btn-success refresh-btn">
                             <i class="fas fa-sync"></i>
                           </a>
-                          <a
-                            href="/clients/pdf"
-                            v-tooltip="$t('Export to PDF')"
-                            class="btn export-pdf-btn"
-                            title="Export to PDF"
-                          >
-                            <svg
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
+                          <a href="/clients/pdf" v-tooltip="$t('Export to PDF')" class="btn export-pdf-btn"
+                            title="Export to PDF">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
                               <path
                                 d="M21 14.2501C21 14.449 20.921 14.6398 20.7803 14.7805C20.6397 14.9211 20.4489 15.0001 20.25 15.0001H18V16.5001H19.5C19.6989 16.5001 19.8897 16.5791 20.0303 16.7198C20.171 16.8604 20.25 17.0512 20.25 17.2501C20.25 17.449 20.171 17.6398 20.0303 17.7805C19.8897 17.9211 19.6989 18.0001 19.5 18.0001H18V19.5001C18 19.699 17.921 19.8898 17.7803 20.0305C17.6397 20.1711 17.4489 20.2501 17.25 20.2501C17.0511 20.2501 16.8603 20.1711 16.7197 20.0305C16.579 19.8898 16.5 19.699 16.5 19.5001V14.2501C16.5 14.0512 16.579 13.8604 16.7197 13.7198C16.8603 13.5791 17.0511 13.5001 17.25 13.5001H20.25C20.4489 13.5001 20.6397 13.5791 20.7803 13.7198C20.921 13.8604 21 14.0512 21 14.2501ZM8.625 16.1251C8.625 16.8213 8.34844 17.489 7.85616 17.9813C7.36387 18.4736 6.69619 18.7501 6 18.7501H5.25V19.5001C5.25 19.699 5.17098 19.8898 5.03033 20.0305C4.88968 20.1711 4.69891 20.2501 4.5 20.2501C4.30109 20.2501 4.11032 20.1711 3.96967 20.0305C3.82902 19.8898 3.75 19.699 3.75 19.5001V14.2501C3.75 14.0512 3.82902 13.8604 3.96967 13.7198C4.11032 13.5791 4.30109 13.5001 4.5 13.5001H6C6.69619 13.5001 7.36387 13.7767 7.85616 14.269C8.34844 14.7612 8.625 15.4289 8.625 16.1251ZM7.125 16.1251C7.125 15.8268 7.00647 15.5406 6.7955 15.3296C6.58452 15.1186 6.29837 15.0001 6 15.0001H5.25V17.2501H6C6.29837 17.2501 6.58452 17.1316 6.7955 16.9206C7.00647 16.7096 7.125 16.4235 7.125 16.1251ZM15.375 16.8751C15.375 17.7702 15.0194 18.6287 14.3865 19.2616C13.7535 19.8945 12.8951 20.2501 12 20.2501H10.5C10.3011 20.2501 10.1103 20.1711 9.96967 20.0305C9.82902 19.8898 9.75 19.699 9.75 19.5001V14.2501C9.75 14.0512 9.82902 13.8604 9.96967 13.7198C10.1103 13.5791 10.3011 13.5001 10.5 13.5001H12C12.8951 13.5001 13.7535 13.8557 14.3865 14.4886C15.0194 15.1216 15.375 15.98 15.375 16.8751ZM13.875 16.8751C13.875 16.3778 13.6775 15.9009 13.3258 15.5493C12.9742 15.1977 12.4973 15.0001 12 15.0001H11.25V18.7501H12C12.4973 18.7501 12.9742 18.5526 13.3258 18.2009C13.6775 17.8493 13.875 17.3724 13.875 16.8751ZM3.75 10.5001V3.75012C3.75 3.3523 3.90804 2.97077 4.18934 2.68946C4.47064 2.40816 4.85218 2.25012 5.25 2.25012H14.25C14.3485 2.25004 14.4461 2.26938 14.5371 2.30702C14.6282 2.34466 14.7109 2.39987 14.7806 2.4695L20.0306 7.7195C20.1003 7.7892 20.1555 7.87194 20.1931 7.96299C20.2307 8.05403 20.2501 8.1516 20.25 8.25012V10.5001C20.25 10.699 20.171 10.8898 20.0303 11.0305C19.8897 11.1711 19.6989 11.2501 19.5 11.2501C19.3011 11.2501 19.1103 11.1711 18.9697 11.0305C18.829 10.8898 18.75 10.699 18.75 10.5001V9.00012H14.25C14.0511 9.00012 13.8603 8.9211 13.7197 8.78045C13.579 8.6398 13.5 8.44903 13.5 8.25012V3.75012H5.25V10.5001C5.25 10.699 5.17098 10.8898 5.03033 11.0305C4.88968 11.1711 4.69891 11.2501 4.5 11.2501C4.30109 11.2501 4.11032 11.1711 3.96967 11.0305C3.82902 10.8898 3.75 10.699 3.75 10.5001ZM15 7.50012H17.6897L15 4.81043V7.50012Z"
-                                fill="#2AB930"
-                              />
+                                fill="#2AB930" />
                             </svg>
                           </a>
-                          <router-link
-                            :to="{ name: 'clients.index' }"
-                            class="btn btn-primary"
-                            title="Back"
-                            v-tooltip="$t('Back')"
-                          >
-                            <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                          <router-link :to="{ name: 'clients.index' }" class="btn btn-primary" title="Back"
+                            v-tooltip="$t('Back')">
+                            <template
+                              v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
                               {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
 
@@ -642,7 +291,192 @@
 
                             <template v-else>
 
-                              <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                              <template
+                                v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+
+
+                                {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+
+
+                              </template>
+
+
+                              <template v-else>
+
+
+                                <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+
+
+                              </template>
+
+                            </template>
+                          </router-link>
+                        </div>
+                      </div>
+                    </div>
+                    <table-loading v-show="loading" />
+                    <GeneralTable :columns="clientInvoicesColumns" :rows="clientInvoicesRows" :loading="loading"
+                      wrapper-class="mt-3">
+                      <template #cell-invoiceNo="{ row }">
+                        <router-link v-if="$can('invoice-view')" :to="{
+                          name: 'invoices.show',
+                          params: { slug: row._raw.slug },
+                        }">
+                          {{ row.invoiceNo | withPrefix(invoicePrefix) }}
+                        </router-link>
+                        <span v-else>{{
+                          row.invoiceNo | withPrefix(invoicePrefix)
+                        }}</span>
+                      </template>
+                      <template #cell-invoiceDate="{ value }">
+                        <span v-if="value">{{
+                          value | moment("Do MMM, YYYY")
+                        }}</span>
+                      </template>
+                      <template #cell-invoiceTotal="{ value }">
+                        {{ parseFloat(value || 0).toFixed(2) }} <span class="saudi-riyal">ê</span>
+                      </template>
+                      <template #cell-totalPaid="{ value }">
+                        {{ parseFloat(value || 0).toFixed(2) }} <span class="saudi-riyal">ê</span>
+                      </template>
+                      <template #cell-due="{ value }">
+                        {{ parseFloat(value || 0).toFixed(2) }} <span class="saudi-riyal">ê</span>
+                      </template>
+                      <template #cell-status="{ value }">
+                        <span v-if="value === 1" class="badge bg-success">{{ $t("Active") }}</span>
+                        <span v-else class="badge bg-danger">{{
+                          $t("Inactive")
+                        }}</span>
+                      </template>
+                      <template #actions="{ row, index }">
+                        <div v-if="
+                          $can('invoice-view') ||
+                          $can('invoice-edit') ||
+                          $can('invoice-delete')
+                        " class="action-dropdown no-print" :class="{ open: openActionIndex === index }"
+                          id="element-to-hide" data-html2canvas-ignore="true">
+                          <button type="button" class="action-icon-btn" :data-action-index="index"
+                            @click.stop="toggleAction(index)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25"
+                              fill="none">
+                              <path
+                                d="M13.125 12.7858C13.125 13.0083 13.059 13.2258 12.9354 13.4108C12.8118 13.5958 12.6361 13.74 12.4305 13.8252C12.225 13.9103 11.9988 13.9326 11.7805 13.8892C11.5623 13.8458 11.3618 13.7387 11.2045 13.5813C11.0472 13.424 10.94 13.2235 10.8966 13.0053C10.8532 12.7871 10.8755 12.5609 10.9606 12.3553C11.0458 12.1497 11.19 11.974 11.375 11.8504C11.56 11.7268 11.7775 11.6608 12 11.6608C12.2984 11.6608 12.5845 11.7794 12.7955 11.9903C13.0065 12.2013 13.125 12.4875 13.125 12.7858ZM12 7.53583C12.2225 7.53583 12.44 7.46985 12.625 7.34623C12.81 7.22262 12.9542 7.04691 13.0394 6.84135C13.1245 6.63578 13.1468 6.40958 13.1034 6.19135C13.06 5.97312 12.9528 5.77267 12.7955 5.61533C12.6382 5.458 12.4377 5.35085 12.2195 5.30744C12.0012 5.26404 11.775 5.28632 11.5695 5.37146C11.3639 5.45661 11.1882 5.60081 11.0646 5.78581C10.941 5.97082 10.875 6.18832 10.875 6.41083C10.875 6.7092 10.9935 6.99534 11.2045 7.20632C11.4155 7.4173 11.7016 7.53583 12 7.53583ZM12 18.0358C11.7775 18.0358 11.56 18.1018 11.375 18.2254C11.19 18.349 11.0458 18.5247 10.9606 18.7303C10.8755 18.9359 10.8532 19.1621 10.8966 19.3803C10.94 19.5985 11.0472 19.799 11.2045 19.9563C11.3618 20.1137 11.5623 20.2208 11.7805 20.2642C11.9988 20.3076 12.225 20.2853 12.4305 20.2002C12.6361 20.115 12.8118 19.9708 12.9354 19.7858C13.059 19.6008 13.125 19.3833 13.125 19.1608C13.125 18.8625 13.0065 18.5763 12.7955 18.3653C12.5845 18.1544 12.2984 18.0358 12 18.0358Z"
+                                fill="#023033" />
+                            </svg>
+                          </button>
+                          <div class="action-menu" v-if="openActionIndex === index">
+                            <div class="action-menu-header">
+                              <span class="action-menu-title">{{ $t('Actions') }}</span>
+                              <button type="button" class="action-menu-close" @click="toggleAction(index)">
+                                <i class="fas fa-times"></i>
+                              </button>
+                            </div>
+                            <ul>
+                              <li v-if="$can('invoice-view') && row._raw.due > 0 && row._raw.status === 1">
+                                <a href="#" @click.prevent="handleModal(row._raw)">
+                                  <i class="fas fa-credit-card"></i>
+                                  {{ $t('Add Payment?') }}
+                                </a>
+                              </li>
+                              <li v-if="isSaudiArabia && row._raw.status === 0">
+                                <a href="#" @click.prevent="sendInvoice(row._raw)">
+                                  <i class="fas fa-paper-plane"></i>
+                                  {{ $t('Send Invoice') }}
+                                </a>
+                              </li>
+                              <li v-if="$can('invoice-view')">
+                                <router-link :to="{ name: 'invoices.show', params: { slug: row._raw.slug } }">
+                                  <i class="fas fa-eye"></i>
+                                  {{ $t('View') }}
+                                </router-link>
+                              </li>
+                              <li v-if="$can('invoice-edit') && !(isSaudiArabia && row._raw.status === 1)">
+                                <router-link :to="{ name: 'invoices.edit', params: { slug: row._raw.slug } }">
+                                  <i class="fas fa-edit"></i>
+                                  {{ $t('Edit') }}
+                                </router-link>
+                              </li>
+                              <li v-if="$can('invoice-delete') && !(isSaudiArabia && row._raw.status === 1)">
+                                <a href="#" @click.prevent="deleteInvoiceData(row._raw.slug)">
+                                  <i class="fas fa-trash"></i>
+                                  {{ $t('Delete') }}
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </template>
+                    </GeneralTable>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                      <div class="dtable-footer">
+                        <div class="form-group row display-per-page">
+                          <label>{{ $t("per_page") }} </label>
+                          <div>
+                            <select @change="updatePerPager('invoice')" v-model="perPage"
+                              class="form-control form-control-sm ml-1">
+                              <option value="10">10</option>
+                              <option value="25">25</option>
+                              <option value="50">50</option>
+                              <option value="100">100</option>
+                            </select>
+                          </div>
+                        </div>
+                        <!-- pagination-start -->
+                        <pagination v-if="pagination && pagination.last_page > 1" :pagination="pagination" :offset="5"
+                          class="justify-flex-end" @paginate="paginate" />
+                        <!-- pagination-end -->
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Invoices Returns -->
+                  <div class="tab-pane fade" id="invoice-returns" role="tabpanel" aria-labelledby="invoice-returns-tab">
+                    <div class="row">
+                      <div class="col-6 col-xl-8 mb-2 text-right">
+                        <date-range-picker ref="picker" opens="left" :locale-data="locale" :minDate="minDate"
+                          :maxDate="maxDate" :singleDatePicker="false" :showWeekNumbers="false" :showDropdowns="true"
+                          :autoApply="true" v-model="dateRange" @update="updateValues('invoice-returns')"
+                          :linkedCalendars="true" class="c-w-100" style="display: none;">
+                          <template v-slot:input="picker" style="min-width: 350px">
+                            {{ picker.startDate | startDate }} -
+                            {{ picker.endDate | endDate }}
+                          </template>
+                        </date-range-picker>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-6 col-xl-4 mb-2">
+                        <search v-model="invoiceReturnQuery" @reset-pagination="resetReturnPagination()"
+                          @reload="returnReload" />
+                      </div>
+                      <div class="col-xl-8 col-8 float-right text-right">
+                        <div class="btn-group c-w-100">
+                          <a @click="refreshTable(activeTab)" href="#" v-tooltip="$t('Refresh')"
+                            class="btn btn-success refresh-btn">
+                            <i class="fas fa-sync"></i>
+                          </a>
+                          <a href="/clients/pdf" v-tooltip="$t('Export to PDF')" class="btn export-pdf-btn"
+                            title="Export to PDF">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M21 14.2501C21 14.449 20.921 14.6398 20.7803 14.7805C20.6397 14.9211 20.4489 15.0001 20.25 15.0001H18V16.5001H19.5C19.6989 16.5001 19.8897 16.5791 20.0303 16.7198C20.171 16.8604 20.25 17.0512 20.25 17.2501C20.25 17.449 20.171 17.6398 20.0303 17.7805C19.8897 17.9211 19.6989 18.0001 19.5 18.0001H18V19.5001C18 19.699 17.921 19.8898 17.7803 20.0305C17.6397 20.1711 17.4489 20.2501 17.25 20.2501C17.0511 20.2501 16.8603 20.1711 16.7197 20.0305C16.579 19.8898 16.5 19.699 16.5 19.5001V14.2501C16.5 14.0512 16.579 13.8604 16.7197 13.7198C16.8603 13.5791 17.0511 13.5001 17.25 13.5001H20.25C20.4489 13.5001 20.6397 13.5791 20.7803 13.7198C20.921 13.8604 21 14.0512 21 14.2501ZM8.625 16.1251C8.625 16.8213 8.34844 17.489 7.85616 17.9813C7.36387 18.4736 6.69619 18.7501 6 18.7501H5.25V19.5001C5.25 19.699 5.17098 19.8898 5.03033 20.0305C4.88968 20.1711 4.69891 20.2501 4.5 20.2501C4.30109 20.2501 4.11032 20.1711 3.96967 20.0305C3.82902 19.8898 3.75 19.699 3.75 19.5001V14.2501C3.75 14.0512 3.82902 13.8604 3.96967 13.7198C4.11032 13.5791 4.30109 13.5001 4.5 13.5001H6C6.69619 13.5001 7.36387 13.7767 7.85616 14.269C8.34844 14.7612 8.625 15.4289 8.625 16.1251ZM7.125 16.1251C7.125 15.8268 7.00647 15.5406 6.7955 15.3296C6.58452 15.1186 6.29837 15.0001 6 15.0001H5.25V17.2501H6C6.29837 17.2501 6.58452 17.1316 6.7955 16.9206C7.00647 16.7096 7.125 16.4235 7.125 16.1251ZM15.375 16.8751C15.375 17.7702 15.0194 18.6287 14.3865 19.2616C13.7535 19.8945 12.8951 20.2501 12 20.2501H10.5C10.3011 20.2501 10.1103 20.1711 9.96967 20.0305C9.82902 19.8898 9.75 19.699 9.75 19.5001V14.2501C9.75 14.0512 9.82902 13.8604 9.96967 13.7198C10.1103 13.5791 10.3011 13.5001 10.5 13.5001H12C12.8951 13.5001 13.7535 13.8557 14.3865 14.4886C15.0194 15.1216 15.375 15.98 15.375 16.8751ZM13.875 16.8751C13.875 16.3778 13.6775 15.9009 13.3258 15.5493C12.9742 15.1977 12.4973 15.0001 12 15.0001H11.25V18.7501H12C12.4973 18.7501 12.9742 18.5526 13.3258 18.2009C13.6775 17.8493 13.875 17.3724 13.875 16.8751ZM3.75 10.5001V3.75012C3.75 3.3523 3.90804 2.97077 4.18934 2.68946C4.47064 2.40816 4.85218 2.25012 5.25 2.25012H14.25C14.3485 2.25004 14.4461 2.26938 14.5371 2.30702C14.6282 2.34466 14.7109 2.39987 14.7806 2.4695L20.0306 7.7195C20.1003 7.7892 20.1555 7.87194 20.1931 7.96299C20.2307 8.05403 20.2501 8.1516 20.25 8.25012V10.5001C20.25 10.699 20.171 10.8898 20.0303 11.0305C19.8897 11.1711 19.6989 11.2501 19.5 11.2501C19.3011 11.2501 19.1103 11.1711 18.9697 11.0305C18.829 10.8898 18.75 10.699 18.75 10.5001V9.00012H14.25C14.0511 9.00012 13.8603 8.9211 13.7197 8.78045C13.579 8.6398 13.5 8.44903 13.5 8.25012V3.75012H5.25V10.5001C5.25 10.699 5.17098 10.8898 5.03033 11.0305C4.88968 11.1711 4.69891 11.2501 4.5 11.2501C4.30109 11.2501 4.11032 11.1711 3.96967 11.0305C3.82902 10.8898 3.75 10.699 3.75 10.5001ZM15 7.50012H17.6897L15 4.81043V7.50012Z"
+                                fill="#2AB930" />
+                            </svg>
+                          </a>
+                          <router-link :to="{ name: 'clients.index' }" class="btn btn-primary" title="Back"
+                            v-tooltip="$t('Back')">
+                            <template
+                              v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+
+                              {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+
+                            </template>
+
+                            <template v-else>
+
+                              <template
+                                v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
 
                                 {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
@@ -665,139 +499,78 @@
                       </div>
                     </div>
                     <table-loading v-show="invoiceReturnLoading" />
-                    <div class="table-responsive table-custom mt-3">
-                       <table class="table invoices-table">
-                        <thead>
-                            <th>{{ $t("#") }}</th>
-                            <th>{{ $t("Return No") }}</th>
-                            <th>{{ $t("Invoice No") }}</th>
-                            <th>{{ $t("Client") }}</th>
-                            <th>{{ $t("Return Reason") }}</th>
-                            <th>{{ $t("Cost of Return Products") }}</th>
-                            <th>{{ $t("Date") }}</th>
-                            <th>{{ $t("Status") }}</th>
-                            <th
-                              v-if="
-                                $can('invoice-return-edit') ||
-                                $can('invoice-return-view') ||
-                                $can('invoice-return-delete')
-                              "
-                              class="text-right no-print"
-                              id="element-to-hide"
-                              data-html2canvas-ignore="true"
-                            >
-                              {{ $t("Action") }}
-                            </th>
-                        </thead>
-                        <tbody>
-                          <tr
-                            v-show="allReturns.length"
-                            v-for="(data, i) in allReturns"
-                            :key="i"
-                          >
-                            <td>
-                              <span
-                                v-if="pagination && pagination.current_page > 1"
-                              >
-                                {{
-                                  pagination.per_page *
-                                    (pagination.current_page - 1) +
-                                  (i + 1)
-                                }}
-                              </span>
-                              <span v-else>{{ i + 1 }}</span>
-                            </td>
-                            <td>
-                              <router-link
-                                v-if="$can('invoice-return-view')"
-                                :to="{
-                                  name: 'invoiceReturns.show',
-                                  params: { slug: data.invoiceSlug },
-                                }"
-                              >
-                                {{
-                                  data.returnNo
-                                    | withPrefix(invoiceReturnPrefix)
-                                }}
-                              </router-link>
-                              <span v-else>{{
-                                data.returnNo | withPrefix(invoiceReturnPrefix)
-                              }}</span>
-                            </td>
-                            <td>
-                              {{ data.invoiceNo | withPrefix(invoicePrefix) }}
-                            </td>
-                            <td>{{ data.clientName }}</td>
-                            <td>{{ data.reason }}</td>
-                            <td>{{ parseFloat(data.totalReturn || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
-                            <td>
-                              <span v-if="data.returnDate">{{
-                                data.returnDate | moment("Do MMM, YYYY")
-                              }}</span>
-                            </td>
-                            <td>
-                              <span
-                                v-if="data.status === 1"
-                                class="badge bg-success"
-                                >{{ $t("Active") }}</span
-                              >
-                              <span v-else class="badge bg-danger">{{
-                                $t("Inactive")
-                              }}</span>
-                            </td>
-                            <td
-                              v-if="
-                                $can('invoice-return-edit') ||
-                                $can('invoice-return-view') ||
-                                $can('invoice-return-delete')
-                              "
-                              class="text-right no-print"
-                              id="element-to-hide"
-                              data-html2canvas-ignore="true"
-                            >
-                              <div class="btn-group">
-                                <a v-if="isSaudiArabia && data.status === 0" v-tooltip="$t('Send Credit Note')"
-                                  class="btn btn-success btn-sm" @click="sendCreditNote(data)">
-                                  <i class="fas fa-paper-plane" />
-                                </a>
-                                <router-link v-if="$can('invoice-return-view')" v-tooltip="$t('View')" :to="{
-                                  name: 'invoiceReturns.show',
-                                  params: { slug: data.slug },
-                                }" class="btn btn-primary btn-sm">
-                                  <i class="fas fa-eye" />
-                                </router-link>
-                                <router-link v-if="$can('invoice-return-edit') && !(isSaudiArabia && data.status === 1)" v-tooltip="$t('Edit')" :to="{
-                                  name: 'invoiceReturns.edit',
-                                  params: { slug: data.slug },
-                                }" class="btn btn-info btn-sm">
-                                  <i class="fas fa-edit" />
-                                </router-link>
-                                <a v-if="$can('invoice-return-delete') && !(isSaudiArabia && data.status === 1)" v-tooltip="$t('Delete')" href="#"
-                                  class="btn btn-danger btn-sm" @click="deleteInvoiceReturnData(data.slug)">
-                                  <i class="fas fa-trash" />
-                                </a>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr v-show="!loading && !allReturns.length">
-                            <td colspan="9">
-                              <EmptyTable />
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+                    <GeneralTable :columns="invoiceReturnsColumns" :rows="invoiceReturnsRows"
+                      :loading="invoiceReturnLoading" wrapper-class="mt-3">
+                      <template #cell-returnNo="{ row }">
+                        <router-link v-if="$can('invoice-return-view')" :to="{
+                          name: 'invoiceReturns.show',
+                          params: { slug: row._raw.invoiceSlug },
+                        }">
+                          {{
+                            row.returnNo
+                            | withPrefix(invoiceReturnPrefix)
+                          }}
+                        </router-link>
+                        <span v-else>{{
+                          row.returnNo | withPrefix(invoiceReturnPrefix)
+                        }}</span>
+                      </template>
+                      <template #cell-invoiceNo="{ value }">
+                        {{ value | withPrefix(invoicePrefix) }}
+                      </template>
+                      <template #cell-totalReturn="{ value }">
+                        {{ parseFloat(value || 0).toFixed(2) }} <span class="saudi-riyal">ê</span>
+                      </template>
+                      <template #cell-returnDate="{ value }">
+                        <span v-if="value">{{
+                          value | moment("Do MMM, YYYY")
+                        }}</span>
+                      </template>
+                      <template #cell-status="{ value }">
+                        <span v-if="value === 1" class="badge bg-success">{{ $t("Active") }}</span>
+                        <span v-else class="badge bg-danger">{{
+                          $t("Inactive")
+                        }}</span>
+                      </template>
+                      <template #actions="{ row, index }">
+                        <div v-if="
+                          $can('invoice-return-edit') ||
+                          $can('invoice-return-view') ||
+                          $can('invoice-return-delete')
+                        " class="btn-group no-print" id="element-to-hide" data-html2canvas-ignore="true">
+                          <a v-if="isSaudiArabia && row._raw.status === 0" v-tooltip="$t('Send Credit Note')"
+                            class="btn btn-success btn-sm" @click="sendCreditNote(row._raw)">
+                            <i class="fas fa-paper-plane" />
+                          </a>
+                          <router-link v-if="$can('invoice-return-view')" v-tooltip="$t('View')" :to="{
+                            name: 'invoiceReturns.show',
+                            params: { slug: row._raw.slug },
+                          }" class="btn btn-primary btn-sm">
+                            <i class="fas fa-eye" />
+                          </router-link>
+                          <router-link v-if="$can('invoice-return-edit') && !(isSaudiArabia && row._raw.status === 1)"
+                            v-tooltip="$t('Edit')" :to="{
+                              name: 'invoiceReturns.edit',
+                              params: { slug: row._raw.slug },
+                            }" class="btn btn-info btn-sm">
+                            <i class="fas fa-edit" />
+                          </router-link>
+                          <a v-if="$can('invoice-return-delete') && !(isSaudiArabia && row._raw.status === 1)"
+                            v-tooltip="$t('Delete')" href="#" class="btn btn-danger btn-sm"
+                            @click="deleteInvoiceReturnData(row._raw.slug)">
+                            <i class="fas fa-trash" />
+                          </a>
+                        </div>
+                      </template>
+                    </GeneralTable>
                     <!-- /.card-body -->
                     <div class="card-footer">
                       <div class="dtable-footer">
                         <div class="form-group row display-per-page">
                           <label>{{ $t("per_page") }} </label>
                           <div>
-                            <select
-                              @change="updatePerPager('invoice-returns')"
-                              v-model="perPage"
-                              class="form-control form-control-sm ml-1"
-                            >
+                            <select @change="updatePerPager('invoice-returns')" v-model="perPage"
+                              class="form-control form-control-sm ml-1">
                               <option value="10">10</option>
                               <option value="25">25</option>
                               <option value="50">50</option>
@@ -806,59 +579,31 @@
                           </div>
                         </div>
                         <!-- pagination-start -->
-                        <pagination
-                          v-if="
-                            invoiceReturnPagination &&
-                            invoiceReturnPagination.last_page > 1
-                          "
-                          :pagination="
-                            allReturns
-                              ? invoiceReturnPagination
-                              : { current_page: 1 }
-                          "
-                          :offset="5"
-                          class="justify-flex-end"
-                          @paginate="invoiceReturnPaginate"
-                        />
+                        <pagination v-if="
+                          invoiceReturnPagination &&
+                          invoiceReturnPagination.last_page > 1
+                        " :pagination="allReturns
+                          ? invoiceReturnPagination
+                          : { current_page: 1 }
+                          " :offset="5" class="justify-flex-end" @paginate="invoiceReturnPaginate" />
                         <!-- pagination-end -->
                       </div>
                     </div>
                   </div>
                   <!-- Invoices Payments -->
-                  <div class="tab-pane fade" id="invoice-payments" role="tabpanel" aria-labelledby="invoice-payments-tab">
-                    <div
-                      class="row no-print"
-                      id="element-to-hide"
-                      data-html2canvas-ignore="true"
-                    >
+                  <div class="tab-pane fade" id="invoice-payments" role="tabpanel"
+                    aria-labelledby="invoice-payments-tab">
+                    <div class="row no-print" id="element-to-hide" data-html2canvas-ignore="true">
                       <div class="col-12 col-md-9 mb-2">
-                        <search
-                          v-model="paymentsQuery"
-                          @reset-pagination="resetPaymentsPagination"
-                          @reload="paymentsReload"
-                        />
+                        <search v-model="paymentsQuery" @reset-pagination="resetPaymentsPagination"
+                          @reload="paymentsReload" />
                       </div>
                       <div class="col-12 col-md-3 text-right pull-right">
-                        <date-range-picker
-                          ref="picker"
-                          opens="left"
-                          :locale-data="locale"
-                          :minDate="minDate"
-                          :maxDate="maxDate"
-                          :singleDatePicker="false"
-                          :showWeekNumbers="false"
-                          :showDropdowns="true"
-                          :autoApply="true"
-                          v-model="dateRange"
-                          @update="updateValues('invoice-payments')"
-                          :linkedCalendars="true"
-                          class="c-w-100"
-                          style="display: none;"
-                        >
-                          <template
-                            v-slot:input="picker"
-                            style="min-width: 350px"
-                          >
+                        <date-range-picker ref="picker" opens="left" :locale-data="locale" :minDate="minDate"
+                          :maxDate="maxDate" :singleDatePicker="false" :showWeekNumbers="false" :showDropdowns="true"
+                          :autoApply="true" v-model="dateRange" @update="updateValues('invoice-payments')"
+                          :linkedCalendars="true" class="c-w-100" style="display: none;">
+                          <template v-slot:input="picker" style="min-width: 350px">
                             {{ picker.startDate | startDate }} -
                             {{ picker.endDate | endDate }}
                           </template>
@@ -867,140 +612,59 @@
                     </div>
                     <table-loading v-show="paymentsLoading" />
                     <div class="table-responsive table-custom mt-3">
-                       <table class="table invoices-table">
-                        <thead>
-                            <th>{{ $t("#") }}</th>
-                            <th>{{ $t("Invoice No") }}</th>
-                            <th>{{ $t("Total") }}</th>
-                            <th>{{ $t("Paid Amount") }}</th>
-                            <th>{{ $t("Account") }}</th>
-                            <th>{{ $t("Payment Date") }}</th>
-                            <th>{{ $t("Status") }}</th>
-                            <th
-                              v-if="
-                                $can('invoice-payment-edit') ||
-                                $can('invoice-payment-view') ||
-                                $can('invoice-payment-delete')
-                              "
-                              class="text-right no-print"
-                              id="element-to-hide"
-                              data-html2canvas-ignore="true"
-                            >
-                              {{ $t("Action") }}
-                            </th>
-                        </thead>
-                        <tbody>
-                          <tr
-                            v-show="allPayments.length"
-                            v-for="(data, i) in allPayments"
-                            :key="i"
-                          >
-                            <td>
-                              <span
-                                v-if="pagination && pagination.current_page > 1"
-                              >
-                                {{
-                                  pagination.per_page *
-                                    (pagination.current_page - 1) +
-                                  (i + 1)
-                                }}
-                              </span>
-                              <span v-else>{{ i + 1 }}</span>
-                            </td>
-                            <td v-if="data.invoice && invoicePrefix">
-                              <router-link
-                                v-if="$can('invoice-view')"
-                                :to="{
-                                  name: 'invoices.show',
-                                  params: { slug: data.invoice.slug },
-                                }"
-                              >
-                                {{
-                                  data.invoice.invoiceNo
-                                    | withPrefix(invoicePrefix)
-                                }}
-                              </router-link>
-                              <span v-else>{{
-                                data.invoice.invoiceNo
-                                  | withPrefix(invoicePrefix)
-                              }}</span>
-                            </td>
-                            <td v-if="data.invoice">
-                              {{ parseFloat(data.invoice.invoiceTotal || 0).toFixed(2) }} <span class="saudi-riyal">ê</span>
-                            </td>
-                            <td>{{ parseFloat(data.amount || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
-                            <td>
-                              <span v-if="data.account">{{
-                                data.account.label
-                              }}</span>
-                            </td>
-                            <td>
-                              <span v-if="data.date">{{
-                                data.date | moment("Do MMM, YYYY")
-                              }}</span>
-                            </td>
-                            <td>
-                              <span
-                                v-if="data.status === 1"
-                                class="badge bg-success"
-                                >{{ $t("Active") }}</span
-                              >
-                              <span v-else class="badge bg-danger">{{
-                                $t("Inactive")
-                              }}</span>
-                            </td>
-                            <td
-                              v-if="
-                                $can('invoice-payment-edit') ||
-                                $can('invoice-payment-view') ||
-                                $can('invoice-payment-delete')
-                              "
-                              class="text-right no-print"
-                              id="element-to-hide"
-                              data-html2canvas-ignore="true"
-                            >
-                              <div class="btn-group">
-                                <router-link
-                                  v-if="$can('invoice-payment-view')"
-                                  v-tooltip="$t('View')"
-                                  :to="{
-                                    name: 'invoicePayments.show',
-                                    params: { slug: data.slug },
-                                  }"
-                                  class="btn btn-primary btn-sm"
-                                >
-                                  <i class="fas fa-eye" />
-                                </router-link>
-                                <router-link
-                                  v-if="$can('invoice-payment-edit')"
-                                  v-tooltip="$t('Edit')"
-                                  :to="{
-                                    name: 'invoicePayments.edit',
-                                    params: { slug: data.slug },
-                                  }"
-                                  class="btn btn-info btn-sm"
-                                >
-                                  <i class="fas fa-edit" />
-                                </router-link>
-                                <a
-                                  v-if="$can('invoice-payment-delete')"
-                                  v-tooltip="$t('Delete')"
-                                  href="#"
-                                  class="btn btn-danger btn-sm"
-                                  @click="deletePaymentData(data.slug)"
-                                >
-                                  <i class="fas fa-trash" />
-                                </a>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr v-show="!loading && !allPayments.length">
-                            <td colspan="9">
-                              <EmptyTable />
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      <GeneralTable v-if="allPayments && allPayments.length > 0" :columns="invoicePaymentsColumns"
+                        :rows="invoicePaymentsRows" :loading="paymentsLoading" wrapper-class="table-responsive">
+                        <template #invoiceNo="{ row }">
+                          <span v-if="row._raw.invoice && invoicePrefix">
+                            <router-link v-if="$can('invoice-view')" :to="{
+                              name: 'invoices.show',
+                              params: { slug: row._raw.invoice.slug },
+                            }">
+                              {{ row._raw.invoice.invoiceNo | withPrefix(invoicePrefix) }}
+                            </router-link>
+                            <span v-else>{{ row._raw.invoice.invoiceNo | withPrefix(invoicePrefix) }}</span>
+                          </span>
+                        </template>
+                        <template #total="{ row }">
+                          <span v-if="row._raw.invoice">
+                            {{ parseFloat(row._raw.invoice.invoiceTotal || 0).toFixed(2) }} <span
+                              class="saudi-riyal">ê</span>
+                          </span>
+                        </template>
+                        <template #paidAmount="{ row }">
+                          {{ parseFloat(row._raw.amount || 0).toFixed(2) }} <span class="saudi-riyal">ê</span>
+                        </template>
+                        <template #paymentDate="{ row }">
+                          <span v-if="row._raw.date">{{ row._raw.date | moment("Do MMM, YYYY") }}</span>
+                        </template>
+                        <template #status="{ row }">
+                          <span v-if="row._raw.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
+                          <span v-else class="badge bg-danger">{{ $t("Inactive") }}</span>
+                        </template>
+                        <template #actions="{ row }">
+                          <div class="btn-group">
+                            <router-link v-if="$can('invoice-payment-view')" v-tooltip="$t('View')" :to="{
+                              name: 'invoicePayments.show',
+                              params: { slug: row._raw.slug },
+                            }" class="btn btn-primary btn-sm">
+                              <i class="fas fa-eye" />
+                            </router-link>
+                            <router-link v-if="$can('invoice-payment-edit')" v-tooltip="$t('Edit')" :to="{
+                              name: 'invoicePayments.edit',
+                              params: { slug: row._raw.slug },
+                            }" class="btn btn-info btn-sm">
+                              <i class="fas fa-edit" />
+                            </router-link>
+                            <a v-if="$can('invoice-payment-delete')" v-tooltip="$t('Delete')" href="#"
+                              class="btn btn-danger btn-sm" @click="deletePaymentData(row._raw.slug)">
+                              <i class="fas fa-trash" />
+                            </a>
+                          </div>
+                        </template>
+                      </GeneralTable>
+                      <div v-else class="text-center">
+                        <EmptyTable />
+                      </div>
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
@@ -1008,11 +672,8 @@
                         <div class="form-group row display-per-page">
                           <label>{{ $t("per_page") }} </label>
                           <div>
-                            <select
-                              @change="updatePerPager('invoice-payments')"
-                              v-model="perPage"
-                              class="form-control form-control-sm ml-1"
-                            >
+                            <select @change="updatePerPager('invoice-payments')" v-model="perPage"
+                              class="form-control form-control-sm ml-1">
                               <option value="10">10</option>
                               <option value="25">25</option>
                               <option value="50">50</option>
@@ -1021,54 +682,28 @@
                           </div>
                         </div>
                         <!-- pagination-start -->
-                        <pagination
-                          v-if="
-                            paymentPagination && paymentPagination.last_page > 1
-                          "
-                          :pagination="paymentPagination"
-                          :offset="5"
-                          class="justify-flex-end"
-                          @paginate="paymentsPaginate"
-                        />
+                        <pagination v-if="
+                          paymentPagination && paymentPagination.last_page > 1
+                        " :pagination="paymentPagination" :offset="5" class="justify-flex-end"
+                          @paginate="paymentsPaginate" />
                         <!-- pagination-end -->
                       </div>
                     </div>
                   </div>
                   <!-- Invoices Transactions -->
-                  <div class="tab-pane fade" id="non-invoice-transactions" role="tabpanel" aria-labelledby="non-invoice-transactions-tab">
-                    <div
-                      class="row no-print"
-                      id="element-to-hide"
-                      data-html2canvas-ignore="true"
-                    >
+                  <div class="tab-pane fade" id="non-invoice-transactions" role="tabpanel"
+                    aria-labelledby="non-invoice-transactions-tab">
+                    <div class="row no-print" id="element-to-hide" data-html2canvas-ignore="true">
                       <div class="col-12 col-md-9 mb-2">
-                        <search
-                          v-model="nonInvoiceQuery"
-                          @reset-pagination="resetNonInvoiceTransPagination"
-                          @reload="nonInvoiceTransReload"
-                        />
+                        <search v-model="nonInvoiceQuery" @reset-pagination="resetNonInvoiceTransPagination"
+                          @reload="nonInvoiceTransReload" />
                       </div>
                       <div class="col-12 col-md-3 text-right pull-right">
-                        <date-range-picker
-                          ref="picker"
-                          opens="left"
-                          :locale-data="locale"
-                          :minDate="minDate"
-                          :maxDate="maxDate"
-                          :singleDatePicker="false"
-                          :showWeekNumbers="false"
-                          :showDropdowns="true"
-                          :autoApply="true"
-                          v-model="dateRange"
-                          @update="updateValues('non-invoice-transactions')"
-                          :linkedCalendars="true"
-                          class="c-w-100"
-                          style="display: none;"
-                        >
-                          <template
-                            v-slot:input="picker"
-                            style="min-width: 350px"
-                          >
+                        <date-range-picker ref="picker" opens="left" :locale-data="locale" :minDate="minDate"
+                          :maxDate="maxDate" :singleDatePicker="false" :showWeekNumbers="false" :showDropdowns="true"
+                          :autoApply="true" v-model="dateRange" @update="updateValues('non-invoice-transactions')"
+                          :linkedCalendars="true" class="c-w-100" style="display: none;">
+                          <template v-slot:input="picker" style="min-width: 350px">
                             {{ picker.startDate | startDate }} -
                             {{ picker.endDate | endDate }}
                           </template>
@@ -1077,117 +712,41 @@
                     </div>
                     <table-loading v-show="nonInvoiceTransLoading" />
                     <div class="table-responsive table-custom mt-3">
-                       <table class="table invoices-table">
-                        <thead>
-                            <th>{{ $t("#") }}</th>
-                            <th>{{ $t("Payment Type") }}</th>
-                            <th>{{ $t("Paid Amount") }}</th>
-                            <th>{{ $t("Account") }}</th>
-                            <th>{{ $t("Payment Date") }}</th>
-                            <th>{{ $t("Status") }}</th>
-                            <th
-                              v-if="
-                                $can('non-invoice-payment-edit') ||
-                                $can('non-invoice-payment-view') ||
-                                $can('non-invoice-payment-delete')
-                              "
-                              class="text-right no-print"
-                              id="element-to-hide"
-                              data-html2canvas-ignore="true"
-                            >
-                              {{ $t("Action") }}
-                            </th>
-                        </thead>
-                        <tbody>
-                          <tr
-                            v-show="allNonInvoiceTrans.length"
-                            v-for="(data, i) in allNonInvoiceTrans"
-                            :key="i"
-                          >
-                            <td>
-                              <span
-                                v-if="pagination && pagination.current_page > 1"
-                              >
-                                {{
-                                  pagination.per_page *
-                                    (pagination.current_page - 1) +
-                                  (i + 1)
-                                }}
-                              </span>
-                              <span v-else>{{ i + 1 }}</span>
-                            </td>
-                            <td>
-                              <span
-                                v-if="data.type === 1"
-                                class="badge bg-primary"
-                                >{{ $t("Due Paid") }}</span
-                              >
-                              <span v-else class="badge bg-danger">{{
-                                $t("Due Added")
-                              }}</span>
-                            </td>
-                            <td>{{ parseFloat(data.amount || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
-                            <td>
-                              <span v-if="data.account">{{
-                                data.account.label
-                              }}</span>
-                            </td>
-                            <td>
-                              <span v-if="data.date">{{
-                                data.date | moment("Do MMM, YYYY")
-                              }}</span>
-                            </td>
-                            <td>
-                              <span
-                                v-if="data.status === 1"
-                                class="badge bg-success"
-                                >{{ $t("Active") }}</span
-                              >
-                              <span v-else class="badge bg-danger">{{
-                                $t("Inactive")
-                              }}</span>
-                            </td>
-                            <td
-                              v-if="
-                                $can('non-invoice-payment-edit') ||
-                                $can('non-invoice-payment-view') ||
-                                $can('non-invoice-payment-delete')
-                              "
-                              class="text-right no-print"
-                              id="element-to-hide"
-                              data-html2canvas-ignore="true"
-                            >
-                              <div class="btn-group">
-                                <router-link
-                                  v-if="$can('non-invoice-payment-edit')"
-                                  v-tooltip="$t('Edit')"
-                                  :to="{
-                                    name: 'nonInvoicePayments.edit',
-                                    params: { slug: data.slug },
-                                  }"
-                                  class="btn btn-info btn-sm"
-                                >
-                                  <i class="fas fa-edit" />
-                                </router-link>
-                                <a
-                                  v-if="$can('non-invoice-payment-delete')"
-                                  v-tooltip="$t('Delete')"
-                                  href="#"
-                                  class="btn btn-danger btn-sm"
-                                  @click="deleteNonInvoicePayment(data.slug)"
-                                >
-                                  <i class="fas fa-trash" />
-                                </a>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr v-show="!loading && !allNonInvoiceTrans.length">
-                            <td colspan="7">
-                              <EmptyTable />
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      <GeneralTable v-if="allNonInvoiceTrans && allNonInvoiceTrans.length > 0"
+                        :columns="nonInvoiceTransColumns" :rows="nonInvoiceTransRows" :loading="nonInvoiceTransLoading"
+                        wrapper-class="table-responsive">
+                        <template #paymentType="{ row }">
+                          <span v-if="row._raw.type === 1" class="badge bg-primary">{{ $t("Due Paid") }}</span>
+                          <span v-else class="badge bg-danger">{{ $t("Due Added") }}</span>
+                        </template>
+                        <template #paidAmount="{ row }">
+                          {{ parseFloat(row._raw.amount || 0).toFixed(2) }} <span class="saudi-riyal">ê</span>
+                        </template>
+                        <template #paymentDate="{ row }">
+                          <span v-if="row._raw.date">{{ row._raw.date | moment("Do MMM, YYYY") }}</span>
+                        </template>
+                        <template #status="{ row }">
+                          <span v-if="row._raw.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
+                          <span v-else class="badge bg-danger">{{ $t("Inactive") }}</span>
+                        </template>
+                        <template #actions="{ row }">
+                          <div class="btn-group">
+                            <router-link v-if="$can('non-invoice-payment-edit')" v-tooltip="$t('Edit')" :to="{
+                              name: 'nonInvoicePayments.edit',
+                              params: { slug: row._raw.slug },
+                            }" class="btn btn-info btn-sm">
+                              <i class="fas fa-edit" />
+                            </router-link>
+                            <a v-if="$can('non-invoice-payment-delete')" v-tooltip="$t('Delete')" href="#"
+                              class="btn btn-danger btn-sm" @click="deleteNonInvoicePayment(row._raw.slug)">
+                              <i class="fas fa-trash" />
+                            </a>
+                          </div>
+                        </template>
+                      </GeneralTable>
+                      <div v-else class="text-center">
+                        <EmptyTable />
+                      </div>
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
@@ -1195,11 +754,8 @@
                         <div class="form-group row display-per-page">
                           <label>{{ $t("per_page") }} </label>
                           <div>
-                            <select
-                              @change="updatePerPager('non-invoice-transactions')"
-                              v-model="perPage"
-                              class="form-control form-control-sm ml-1"
-                            >
+                            <select @change="updatePerPager('non-invoice-transactions')" v-model="perPage"
+                              class="form-control form-control-sm ml-1">
                               <option value="10">10</option>
                               <option value="25">25</option>
                               <option value="50">50</option>
@@ -1208,16 +764,11 @@
                           </div>
                         </div>
                         <!-- pagination-start -->
-                        <pagination
-                          v-if="
-                            nonInvoicePagination &&
-                            nonInvoicePagination.last_page > 1
-                          "
-                          :pagination="nonInvoicePagination"
-                          :offset="5"
-                          class="justify-flex-end"
-                          @paginate="nonInvoiceTransPaginate"
-                        />
+                        <pagination v-if="
+                          nonInvoicePagination &&
+                          nonInvoicePagination.last_page > 1
+                        " :pagination="nonInvoicePagination" :offset="5" class="justify-flex-end"
+                          @paginate="nonInvoiceTransPaginate" />
                         <!-- pagination-end -->
                       </div>
                     </div>
@@ -1227,107 +778,105 @@
                     <table-loading v-show="loading" />
                     <div class="row no-print mb-3">
                       <div class="col-6 col-xl-4 mb-2">
-                        <search
-                          v-model="ledgerSearchQuery"
-                          @reload="ledgerReload"
-                        />
+                        <search v-model="ledgerSearchQuery" @reload="ledgerReload" />
                       </div>
                     </div>
                     <div class="table-responsive table-custom mt-3">
-                       <table class="table invoices-table">
-                        <thead>
-                            <th>{{ $t("#") }}</th>
-                            <th>{{ $t("Date") }}</th>
-                            <th>{{ $t("Info") }}</th>
-                            <th>{{ $t("Credit") }}</th>
-                            <th>{{ $t("Debit") }}</th>
-                            <th>{{ $t("Discount") }}</th>
-                            <th>{{ $t("Balance") }}</th>
-                        </thead>
-                        <tbody>
-                          <tr v-for="(data, i) in filteredLedgerItems" :key="i">
-                            <td>{{ i + 1 }}</td>
-                            <td>
-                              {{ data.original_date | moment("Do MMM, YYYY") }}
-                            </td>
-                            <td>
-                              <router-link
-                                v-if="
-                                  $can('invoice-view') &&
-                                  data.action_type == 'invoice'
-                                "
-                                :to="{
-                                  name: 'invoices.show',
-                                  params: { slug: data.slug },
-                                }"
-                              >
-                                {{ data.particulars }}
-                              </router-link>
-                              <router-link
-                                v-if="data.action_type == 'invoice-payment'"
-                                :to="{
-                                  name: 'invoicePayments.show',
-                                  params: { slug: data.slug },
-                                }"
-                              >
-                                {{ data.particulars }}
-                              </router-link>
-                              <router-link
-                                v-if="
-                                  $can('invoice-return-view') &&
-                                  data.action_type == 'invoice-return'
-                                "
-                                :to="{
-                                  name: 'invoiceReturns.show',
-                                  params: { slug: data.slug },
-                                }"
-                              >
-                                {{ data.particulars }}
-                              </router-link>
-                            </td>
-                            <td>{{ parseFloat(data.credit || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
-                            <td>{{ parseFloat(data.debit || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
-                            <td>{{ parseFloat(data.discount || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
-                            <td>{{ parseFloat(data.balance || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
-                          </tr>
-                          <tr v-if="filteredLedgerItems[filteredLedgerItems.length - 1]">
-                            <td>{{ filteredLedgerItems.length + 1 }}</td>
-                            <td>{{ date | moment("Do MMM, YYYY") }}</td>
-                            <td>{{ $t("Non Invoice Due") }}</td>
-                            <td>{{ (0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
-                            <td>
-                              {{ parseFloat(allData.nonInvoiceCurrentDue || 0).toFixed(2) }} <span class="saudi-riyal">ê</span>
-                            </td>
-                            <td>{{ (0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
-                            <td>
-                              {{
-                                (parseFloat(filteredLedgerItems[filteredLedgerItems.length - 1].balance || 0) +
-                                  parseFloat(allData.nonInvoiceCurrentDue || 0)).toFixed(2)
-                              }}<span class="saudi-riyal">ê</span>
-                            </td>
-                          </tr>
-                        </tbody>
-                        <tfoot>
-                          <tr v-if="filteredLedgerItems[filteredLedgerItems.length - 1]">
-                            <td colspan="3">{{ $t("Summery") }}</td>
-                            <td>{{ parseFloat(ledgerTotalCredit || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
-                            <td>
-                              {{
-                                (parseFloat(ledgerTotalDebit || 0) +
-                                  parseFloat(allData.nonInvoiceCurrentDue || 0)).toFixed(2)
-                              }}<span class="saudi-riyal">ê</span>
-                            </td>
-                            <td>{{ parseFloat(ledgerTotalDiscount || 0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
-                            <td>
-                              {{
-                                (parseFloat(filteredLedgerItems[filteredLedgerItems.length - 1].balance || 0) +
-                                  parseFloat(allData.nonInvoiceCurrentDue || 0)).toFixed(2)
-                              }}<span class="saudi-riyal">ê</span>
-                              [{{ $t("Total Due") }}]
-                            </td>
-                          </tr>
-                        </tfoot>
-                      </table>
+                      <GeneralTable v-if="filteredLedgerItems && filteredLedgerItems.length > 0"
+                        :columns="ledgerItemsColumns" :rows="ledgerItemsRows" :loading="loading"
+                        wrapper-class="table-responsive">
+                        <template #date="{ row }">
+                          {{ row._raw.original_date | moment("Do MMM, YYYY") }}
+                        </template>
+                        <template #info="{ row }">
+                          <router-link v-if="$can('invoice-view') && row._raw.action_type == 'invoice'" :to="{
+                            name: 'invoices.show',
+                            params: { slug: row._raw.slug },
+                          }">
+                            {{ row._raw.particulars }}
+                          </router-link>
+                          <router-link v-else-if="row._raw.action_type == 'invoice-payment'" :to="{
+                            name: 'invoicePayments.show',
+                            params: { slug: row._raw.slug },
+                          }">
+                            {{ row._raw.particulars }}
+                          </router-link>
+                          <router-link
+                            v-else-if="$can('invoice-return-view') && row._raw.action_type == 'invoice-return'" :to="{
+                              name: 'invoiceReturns.show',
+                              params: { slug: row._raw.slug },
+                            }">
+                            {{ row._raw.particulars }}
+                          </router-link>
+                          <span v-else>{{ row._raw.particulars }}</span>
+                        </template>
+                        <template #credit="{ row }">
+                          {{ parseFloat(row._raw.credit || 0).toFixed(2) }} <span class="saudi-riyal">ê</span>
+                        </template>
+                        <template #debit="{ row }">
+                          {{ parseFloat(row._raw.debit || 0).toFixed(2) }} <span class="saudi-riyal">ê</span>
+                        </template>
+                        <template #discount="{ row }">
+                          {{ parseFloat(row._raw.discount || 0).toFixed(2) }} <span class="saudi-riyal">ê</span>
+                        </template>
+                        <template #balance="{ row }">
+                          {{ parseFloat(row._raw.balance || 0).toFixed(2) }} <span class="saudi-riyal">ê</span>
+                        </template>
+                      </GeneralTable>
+                      <!-- Non Invoice Due Row -->
+                      <div v-if="filteredLedgerItems && filteredLedgerItems.length > 0" class="table-responsive mt-2">
+                        <table class="table invoices-table">
+                          <tbody>
+                            <tr>
+                              <td>{{ filteredLedgerItems.length + 1 }}</td>
+                              <td>{{ date | moment("Do MMM, YYYY") }}</td>
+                              <td>{{ $t("Non Invoice Due") }}</td>
+                              <td>{{ (0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
+                              <td>
+                                {{ parseFloat(allData.nonInvoiceCurrentDue || 0).toFixed(2) }} <span
+                                  class="saudi-riyal">ê</span>
+                              </td>
+                              <td>{{ (0).toFixed(2) }} <span class="saudi-riyal">ê</span></td>
+                              <td>
+                                {{
+                                  (parseFloat(filteredLedgerItems[filteredLedgerItems.length - 1].balance || 0) +
+                                    parseFloat(allData.nonInvoiceCurrentDue || 0)).toFixed(2)
+                                }}<span class="saudi-riyal">ê</span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <!-- Summary Footer -->
+                      <div v-if="filteredLedgerItems && filteredLedgerItems.length > 0" class="table-responsive mt-2">
+                        <table class="table invoices-table">
+                          <tfoot>
+                            <tr>
+                              <td colspan="3">{{ $t("Summery") }}</td>
+                              <td>{{ parseFloat(ledgerTotalCredit || 0).toFixed(2) }} <span class="saudi-riyal">ê</span>
+                              </td>
+                              <td>
+                                {{
+                                  (parseFloat(ledgerTotalDebit || 0) +
+                                    parseFloat(allData.nonInvoiceCurrentDue || 0)).toFixed(2)
+                                }}<span class="saudi-riyal">ê</span>
+                              </td>
+                              <td>{{ parseFloat(ledgerTotalDiscount || 0).toFixed(2) }} <span
+                                  class="saudi-riyal">ê</span></td>
+                              <td>
+                                {{
+                                  (parseFloat(filteredLedgerItems[filteredLedgerItems.length - 1].balance || 0) +
+                                    parseFloat(allData.nonInvoiceCurrentDue || 0)).toFixed(2)
+                                }}<span class="saudi-riyal">ê</span>
+                                [{{ $t("Total Due") }}]
+                              </td>
+                            </tr>
+                          </tfoot>
+                        </table>
+                      </div>
+                      <div v-else class="text-center">
+                        <EmptyTable />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1351,80 +900,45 @@
           <div class="card-body position-relative">
             <div class="row">
               <div class="col-6 col-xl-4 mb-2">
-                <search
-                  v-model="activitySearchQuery"
-                  @reset-pagination="resetActivityPagination()"
-                  @reload="activityReload"
-                />
+                <search v-model="activitySearchQuery" @reset-pagination="resetActivityPagination()"
+                  @reload="activityReload" />
               </div>
               <div class="col-xl-8 col-8 float-right text-right">
                 <div class="btn-group c-w-100">
-                  <a
-                    @click="refreshActivityTable()"
-                    href="#"
-                    v-tooltip="$t('Refresh')"
-                    class="btn btn-success refresh-btn"
-                  >
+                  <a @click="refreshActivityTable()" href="#" v-tooltip="$t('Refresh')"
+                    class="btn btn-success refresh-btn">
                     <i class="fas fa-sync"></i>
                   </a>
                 </div>
               </div>
             </div>
             <div id="printMe" class="table-responsive table-custom mt-3">
-              <table class="table invoices-table">
-                <thead>
-                    <th>{{ $t("#") }}</th>
-                    <th>{{ $t("Event") }}</th>
-                    <th>{{ $t("User") }}</th>
-                    <th>{{ $t("Description") }}</th>
-                    <th>{{ $t("Date") }}</th>
-                </thead>
-                <tbody>
-                  <tr
-                    v-show="allActivityLog.length"
-                    v-for="(data, i) in allActivityLog"
-                    :key="i"
-                  >
-                    <td>
-                      <span
-                        v-if="allActivityLogPagination && allActivityLogPagination.current_page > 1"
-                      >
-                        {{
-                          allActivityLogPagination.per_page *
-                            (allActivityLogPagination.current_page - 1) +
-                          (i + 1)
-                        }}
-                      </span>
-                      <span v-else>{{ i + 1 }}</span>
-                    </td>
-                    <td>
-                      <span v-if="data.event === 'Update'" class="badge bg-info">
-                        <i class="fa fa-magic mr-1"></i>
-                        {{ $t("Update") }}
-                      </span>
-                      <span v-else-if="data.event === 'Create'" class="badge bg-success">
-                        <i class="fa fa-plus-circle mr-1"></i>
-                        {{ $t("Create") }}
-                      </span>
-                      <span v-else-if="data.event === 'Delete'" class="badge bg-danger">
-                        <i class="fa fa-trash mr-1"></i>
-                        {{ $t("Delete") }}
-                      </span>
-                      <span v-else class="badge bg-secondary">
-                        {{ data.event }}
-                      </span>
-                    </td>
-                    <td>{{ data.causer_name }}</td>
-                    <td>{{ $t(data.description) }}</td>
-                    <td>{{ data.performedAt }}</td>
-                  </tr>
-                  <tr v-show="!activityLoading && !allActivityLog.length">
-                    <td colspan="5" class="text-center">
-                      <EmptyTable />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <GeneralTable v-if="allActivityLog && allActivityLog.length > 0" :columns="activityLogColumns"
+                :rows="activityLogRows" :loading="activityLoading" wrapper-class="table-responsive">
+                <template #event="{ row }">
+                  <span v-if="row._raw.event === 'Update'" class="badge bg-info">
+                    <i class="fa fa-magic mr-1"></i>
+                    {{ $t("Update") }}
+                  </span>
+                  <span v-else-if="row._raw.event === 'Create'" class="badge bg-success">
+                    <i class="fa fa-plus-circle mr-1"></i>
+                    {{ $t("Create") }}
+                  </span>
+                  <span v-else-if="row._raw.event === 'Delete'" class="badge bg-danger">
+                    <i class="fa fa-trash mr-1"></i>
+                    {{ $t("Delete") }}
+                  </span>
+                  <span v-else class="badge bg-secondary">
+                    {{ row._raw.event }}
+                  </span>
+                </template>
+                <template #description="{ row }">
+                  {{ $t(row._raw.description) }}
+                </template>
+              </GeneralTable>
+              <div v-else class="text-center">
+                <EmptyTable />
+              </div>
             </div>
           </div>
           <div class="card-footer">
@@ -1432,11 +946,7 @@
               <div class="form-group row display-per-page">
                 <label>{{ $t("per_page") }} </label>
                 <div>
-                  <select
-                    @change="updateActivityPerPager"
-                    v-model="perPage"
-                    class="form-control form-control-sm ml-1"
-                  >
+                  <select @change="updateActivityPerPager" v-model="perPage" class="form-control form-control-sm ml-1">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
@@ -1445,20 +955,13 @@
                 </div>
               </div>
               <!-- pagination-start -->
-              <pagination
-                v-if="
-                  allActivityLogPagination &&
-                  allActivityLogPagination.last_page > 1
-                "
-                :pagination="
-                  allActivityLog
-                    ? allActivityLogPagination
-                    : { current_page: 1 }
-                "
-                :offset="5"
-                class="justify-flex-end"
-                @paginate="activityPaginate"
-              />
+              <pagination v-if="
+                allActivityLogPagination &&
+                allActivityLogPagination.last_page > 1
+              " :pagination="allActivityLog
+                ? allActivityLogPagination
+                : { current_page: 1 }
+                " :offset="5" class="justify-flex-end" @paginate="activityPaginate" />
               <!-- pagination-end -->
             </div>
           </div>
@@ -1485,6 +988,7 @@ import html2pdf from "html2pdf.js";
 import DateRangePicker from "vue2-daterange-picker";
 import avatarMixin from "~/mixins/avatarMixin";
 import SwalOriginal from "sweetalert2/dist/sweetalert2";
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -1494,6 +998,7 @@ export default {
   mixins: [avatarMixin],
   components: {
     DateRangePicker,
+    GeneralTable,
   },
   data: () => ({
     breadcrumbsCurrent: "Client Details",
@@ -1564,7 +1069,7 @@ export default {
     headerShow: false,
     date: new Date().toISOString().slice(0, 10),
     activeTab: "invoices",
-     openActionIndex: null,
+    openActionIndex: null,
   }),
   filters: {
     startDate(val) {
@@ -1603,7 +1108,7 @@ export default {
         const debit = (item.debit || 0).toString();
         const discount = (item.discount || 0).toString();
         const balance = (item.balance || 0).toString();
-        
+
         return (
           date.includes(query) ||
           particulars.includes(query) ||
@@ -1612,6 +1117,229 @@ export default {
           discount.includes(query) ||
           balance.includes(query)
         );
+      });
+    },
+
+    // Client invoices columns
+    clientInvoicesColumns() {
+      const columns = [
+        { key: "index", label: this.$t("#"), align: "" },
+        { key: "invoiceNo", label: this.$t("Invoice No"), align: "" },
+        { key: "invoiceDate", label: this.$t("Invoice Date"), align: "" },
+        { key: "client", label: this.$t("Client"), align: "" },
+        { key: "invoiceTotal", label: this.$t("Net Total"), align: "" },
+        { key: "totalPaid", label: this.$t("Total Paid"), align: "" },
+        { key: "due", label: this.$t("Total Due"), align: "" },
+        { key: "status", label: this.$t("Status"), align: "" },
+      ];
+      if (
+        this.$can('invoice-view') ||
+        this.$can('invoice-edit') ||
+        this.$can('invoice-delete')
+      ) {
+        columns.push({ key: "actions", label: this.$t("Action"), align: "text-right" });
+      }
+      return columns;
+    },
+
+    // Client invoices rows
+    clientInvoicesRows() {
+      if (!this.items) return [];
+      return this.items.map((item, index) => {
+        const rowIndex = this.pagination && this.pagination.current_page > 1
+          ? this.pagination.per_page * (this.pagination.current_page - 1) + (index + 1)
+          : index + 1;
+        return {
+          index: rowIndex,
+          invoiceNo: item.invoiceNo,
+          invoiceDate: item.invoiceDate,
+          client: item.client,
+          invoiceTotal: item.invoiceTotal || 0,
+          totalPaid: item.totalPaid || 0,
+          due: item.due || 0,
+          status: item.status,
+          _raw: item,
+        };
+      });
+    },
+
+    // Invoice returns columns
+    invoiceReturnsColumns() {
+      const columns = [
+        { key: "index", label: this.$t("#"), align: "" },
+        { key: "returnNo", label: this.$t("Return No"), align: "" },
+        { key: "invoiceNo", label: this.$t("Invoice No"), align: "" },
+        { key: "clientName", label: this.$t("Client"), align: "" },
+        { key: "reason", label: this.$t("Reason"), align: "" },
+        { key: "totalReturn", label: this.$t("Total Return"), align: "" },
+        { key: "returnDate", label: this.$t("Return Date"), align: "" },
+        { key: "status", label: this.$t("Status"), align: "" },
+      ];
+      if (
+        this.$can('invoice-return-edit') ||
+        this.$can('invoice-return-view') ||
+        this.$can('invoice-return-delete')
+      ) {
+        columns.push({ key: "actions", label: this.$t("Action"), align: "text-right" });
+      }
+      return columns;
+    },
+
+    // Invoice returns rows
+    invoiceReturnsRows() {
+      if (!this.allReturns) return [];
+      return this.allReturns.map((item, index) => {
+        const rowIndex = this.invoiceReturnPagination && this.invoiceReturnPagination.current_page > 1
+          ? this.invoiceReturnPagination.per_page * (this.invoiceReturnPagination.current_page - 1) + (index + 1)
+          : index + 1;
+        return {
+          index: rowIndex,
+          returnNo: item.returnNo,
+          invoiceNo: item.invoiceNo,
+          clientName: item.clientName,
+          reason: item.reason,
+          totalReturn: item.totalReturn || 0,
+          returnDate: item.returnDate,
+          status: item.status,
+          _raw: item,
+        };
+      });
+    },
+
+    // Invoice payments columns
+    invoicePaymentsColumns() {
+      const columns = [
+        { key: "index", label: this.$t("#"), align: "" },
+        { key: "invoiceNo", label: this.$t("Invoice No"), align: "" },
+        { key: "total", label: this.$t("Total"), align: "" },
+        { key: "paidAmount", label: this.$t("Paid Amount"), align: "" },
+        { key: "account", label: this.$t("Account"), align: "" },
+        { key: "paymentDate", label: this.$t("Payment Date"), align: "" },
+        { key: "status", label: this.$t("Status"), align: "" },
+      ];
+      if (
+        this.$can('invoice-payment-edit') ||
+        this.$can('invoice-payment-view') ||
+        this.$can('invoice-payment-delete')
+      ) {
+        columns.push({ key: "actions", label: this.$t("Action"), align: "text-right" });
+      }
+      return columns;
+    },
+
+    // Invoice payments rows
+    invoicePaymentsRows() {
+      if (!this.allPayments) return [];
+      return this.allPayments.map((item, index) => {
+        const rowIndex = this.paymentPagination && this.paymentPagination.current_page > 1
+          ? this.paymentPagination.per_page * (this.paymentPagination.current_page - 1) + (index + 1)
+          : index + 1;
+        return {
+          index: rowIndex,
+          invoiceNo: item.invoice?.invoiceNo || "",
+          total: item.invoice?.invoiceTotal || 0,
+          paidAmount: item.amount || 0,
+          account: item.account?.label || "",
+          paymentDate: item.date || "",
+          status: item.status,
+          _raw: item,
+        };
+      });
+    },
+
+    // Non-invoice transactions columns
+    nonInvoiceTransColumns() {
+      const columns = [
+        { key: "index", label: this.$t("#"), align: "" },
+        { key: "paymentType", label: this.$t("Payment Type"), align: "" },
+        { key: "paidAmount", label: this.$t("Paid Amount"), align: "" },
+        { key: "account", label: this.$t("Account"), align: "" },
+        { key: "paymentDate", label: this.$t("Payment Date"), align: "" },
+        { key: "status", label: this.$t("Status"), align: "" },
+      ];
+      if (
+        this.$can('non-invoice-payment-edit') ||
+        this.$can('non-invoice-payment-view') ||
+        this.$can('non-invoice-payment-delete')
+      ) {
+        columns.push({ key: "actions", label: this.$t("Action"), align: "text-right" });
+      }
+      return columns;
+    },
+
+    // Non-invoice transactions rows
+    nonInvoiceTransRows() {
+      if (!this.allNonInvoiceTrans) return [];
+      return this.allNonInvoiceTrans.map((item, index) => {
+        const rowIndex = this.nonInvoicePagination && this.nonInvoicePagination.current_page > 1
+          ? this.nonInvoicePagination.per_page * (this.nonInvoicePagination.current_page - 1) + (index + 1)
+          : index + 1;
+        return {
+          index: rowIndex,
+          paymentType: item.type,
+          paidAmount: item.amount || 0,
+          account: item.account?.label || "",
+          paymentDate: item.date || "",
+          status: item.status,
+          _raw: item,
+        };
+      });
+    },
+
+    // Ledger items columns
+    ledgerItemsColumns() {
+      return [
+        { key: "index", label: this.$t("#"), align: "" },
+        { key: "date", label: this.$t("Date"), align: "" },
+        { key: "info", label: this.$t("Info"), align: "" },
+        { key: "credit", label: this.$t("Credit"), align: "" },
+        { key: "debit", label: this.$t("Debit"), align: "" },
+        { key: "discount", label: this.$t("Discount"), align: "" },
+        { key: "balance", label: this.$t("Balance"), align: "" },
+      ];
+    },
+
+    // Ledger items rows
+    ledgerItemsRows() {
+      if (!this.filteredLedgerItems) return [];
+      return this.filteredLedgerItems.map((item, index) => ({
+        index: index + 1,
+        date: item.original_date || "",
+        info: item.particulars || "",
+        credit: item.credit || 0,
+        debit: item.debit || 0,
+        discount: item.discount || 0,
+        balance: item.balance || 0,
+        _raw: item,
+      }));
+    },
+
+    // Activity log columns
+    activityLogColumns() {
+      return [
+        { key: "index", label: this.$t("#"), align: "" },
+        { key: "event", label: this.$t("Event"), align: "" },
+        { key: "user", label: this.$t("User"), align: "" },
+        { key: "description", label: this.$t("Description"), align: "" },
+        { key: "date", label: this.$t("Date"), align: "" },
+      ];
+    },
+
+    // Activity log rows
+    activityLogRows() {
+      if (!this.allActivityLog) return [];
+      return this.allActivityLog.map((item, index) => {
+        const rowIndex = this.allActivityLogPagination && this.allActivityLogPagination.current_page > 1
+          ? this.allActivityLogPagination.per_page * (this.allActivityLogPagination.current_page - 1) + (index + 1)
+          : index + 1;
+        return {
+          index: rowIndex,
+          event: item.event || "",
+          user: item.causer_name || "",
+          description: item.description || "",
+          date: item.performedAt || "",
+          _raw: item,
+        };
       });
     },
   },
@@ -1714,15 +1442,15 @@ export default {
     formatPhoneNumber(phoneNumber) {
       return phoneNumber;
       if (!phoneNumber) return '';
-      
+
       // Remove all non-digit characters except +
       let cleaned = phoneNumber.replace(/[^\d+]/g, '');
-      
+
       // If it starts with +, keep it
       if (cleaned.startsWith('+')) {
         // Remove the + for processing
         let digits = cleaned.substring(1);
-        
+
         // Format based on country code
         if (digits.startsWith('1') && digits.length === 11) {
           // US/Canada format: +1 (XXX) XXX-XXXX
@@ -1934,12 +1662,12 @@ export default {
         : 1;
       const { data } = await axios.get(
         window.location.origin +
-          "/api/client/" +
-          this.$route.params.slug +
-          "/invoice-returns?page=" +
-          currentPage +
-          "&perPage=" +
-          this.perPage
+        "/api/client/" +
+        this.$route.params.slug +
+        "/invoice-returns?page=" +
+        currentPage +
+        "&perPage=" +
+        this.perPage
       );
       this.allReturns = data.data;
       this.invoiceReturnPagination = data.meta;
@@ -1954,19 +1682,19 @@ export default {
         : 1;
       const { data } = await axios.get(
         window.location.origin +
-          "/api/client/" +
-          this.$route.params.slug +
-          "/invoice-returns/search" +
-          "?term=" +
-          this.invoiceReturnQuery +
-          "&page=" +
-          currentPage +
-          "&perPage=" +
-          this.perPage +
-          "&startDate=" +
-          this.dateRange.startDate +
-          "&endDate=" +
-          this.dateRange.endDate
+        "/api/client/" +
+        this.$route.params.slug +
+        "/invoice-returns/search" +
+        "?term=" +
+        this.invoiceReturnQuery +
+        "&page=" +
+        currentPage +
+        "&perPage=" +
+        this.perPage +
+        "&startDate=" +
+        this.dateRange.startDate +
+        "&endDate=" +
+        this.dateRange.endDate
       );
       this.allReturns = data.data;
       this.invoiceReturnPagination = data.meta;
@@ -1998,12 +1726,12 @@ export default {
         : 1;
       const { data } = await axios.get(
         window.location.origin +
-          "/api/client/" +
-          this.$route.params.slug +
-          "/invoice-payments?page=" +
-          currentPage +
-          "&perPage=" +
-          this.perPage
+        "/api/client/" +
+        this.$route.params.slug +
+        "/invoice-payments?page=" +
+        currentPage +
+        "&perPage=" +
+        this.perPage
       );
       this.allPayments = data.data;
       this.paymentPagination = data.meta;
@@ -2018,19 +1746,19 @@ export default {
         : 1;
       const { data } = await axios.get(
         window.location.origin +
-          "/api/client/" +
-          this.$route.params.slug +
-          "/invoice-payments/search" +
-          "?term=" +
-          this.paymentsQuery +
-          "&page=" +
-          currentPage +
-          "&perPage=" +
-          this.perPage +
-          "&startDate=" +
-          this.dateRange.startDate +
-          "&endDate=" +
-          this.dateRange.endDate
+        "/api/client/" +
+        this.$route.params.slug +
+        "/invoice-payments/search" +
+        "?term=" +
+        this.paymentsQuery +
+        "&page=" +
+        currentPage +
+        "&perPage=" +
+        this.perPage +
+        "&startDate=" +
+        this.dateRange.startDate +
+        "&endDate=" +
+        this.dateRange.endDate
       );
       this.allPayments = data.data;
       this.paymentPagination = data.meta;
@@ -2062,12 +1790,12 @@ export default {
         : 1;
       const { data } = await axios.get(
         window.location.origin +
-          "/api/client/" +
-          this.$route.params.slug +
-          "/non-invoice-payments?page=" +
-          currentPage +
-          "&perPage=" +
-          this.perPage
+        "/api/client/" +
+        this.$route.params.slug +
+        "/non-invoice-payments?page=" +
+        currentPage +
+        "&perPage=" +
+        this.perPage
       );
       this.allNonInvoiceTrans = data.data;
       this.nonInvoicePagination = data.meta;
@@ -2082,19 +1810,19 @@ export default {
         : 1;
       const { data } = await axios.get(
         window.location.origin +
-          "/api/client/" +
-          this.$route.params.slug +
-          "/non-invoice-payments/search" +
-          "?term=" +
-          this.nonInvoiceQuery +
-          "&page=" +
-          currentPage +
-          "&perPage=" +
-          this.perPage +
-          "&startDate=" +
-          this.dateRange.startDate +
-          "&endDate=" +
-          this.dateRange.endDate
+        "/api/client/" +
+        this.$route.params.slug +
+        "/non-invoice-payments/search" +
+        "?term=" +
+        this.nonInvoiceQuery +
+        "&page=" +
+        currentPage +
+        "&perPage=" +
+        this.perPage +
+        "&startDate=" +
+        this.dateRange.startDate +
+        "&endDate=" +
+        this.dateRange.endDate
       );
       this.allNonInvoiceTrans = data.data;
       this.nonInvoicePagination = data.meta;
@@ -2134,9 +1862,9 @@ export default {
       this.activeTab = "ledger";
       const { data } = await axios.get(
         window.location.origin +
-          "/api/client/" +
-          this.$route.params.slug +
-          "/ledger"
+        "/api/client/" +
+        this.$route.params.slug +
+        "/ledger"
       );
       this.ledgerItems = data.items;
       this.ledgerTotalDiscount = data.totalDiscount;
@@ -2245,7 +1973,7 @@ export default {
         text: this.$t("You will not be able to return to this!"),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
+        confirmButtonText: this.$t("Confirm"), cancelButtonText: this.$t("Cancel"),
       }).then((result) => {
         // Send request to the server
         if (result.value) {
@@ -2279,7 +2007,7 @@ export default {
         text: this.$t("You will not be able to return to this!"),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
+        confirmButtonText: this.$t("Confirm"), cancelButtonText: this.$t("Cancel"),
       }).then((result) => {
         // Send request to the server
         if (result.value) {
@@ -2313,7 +2041,7 @@ export default {
         text: this.$t("You will not be able to return to this!"),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
+        confirmButtonText: this.$t("Confirm"), cancelButtonText: this.$t("Cancel"),
       }).then((result) => {
         // Send request to the server
         if (result.value) {
@@ -2347,7 +2075,7 @@ export default {
         text: this.$t("You will not be able to return to this!"),
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$t("Confirm"),cancelButtonText: this.$t("Cancel"),
+        confirmButtonText: this.$t("Confirm"), cancelButtonText: this.$t("Cancel"),
       }).then((result) => {
         // Send request to the server
         if (result.value) {
@@ -2390,7 +2118,7 @@ export default {
       console.log('Send invoice clicked for:', data);
       console.log('isSaudiArabia:', this.isSaudiArabia);
       console.log('data.status:', data.status);
-      
+
       SwalOriginal.fire({
         title: this.$t("Send Invoice to ZATCA"),
         text: this.$t("Do you want to send this invoice to ZATCA?"),
@@ -2416,10 +2144,10 @@ export default {
 
             // Send invoice to ZATCA and create journal entries
             const response = await axios.post(`/api/invoices/${data.slug}/send-to-zatca`);
-            
+
             // Close the loading dialog
             SwalOriginal.close();
-            
+
             if (response.data.success) {
               this.$toast.success(
                 this.$t("Sent Successfully!"),
@@ -2451,7 +2179,7 @@ export default {
       console.log('Send credit note clicked for:', data);
       console.log('isSaudiArabia:', this.isSaudiArabia);
       console.log('data.status:', data.status);
-      
+
       SwalOriginal.fire({
         title: this.$t("Send Credit Note to ZATCA"),
         text: this.$t("Do you want to send this credit note to ZATCA?"),
@@ -2477,10 +2205,10 @@ export default {
 
             // Send credit note to ZATCA and create journal entries
             const response = await axios.post(`/api/invoice-returns/${data.slug}/send-to-zatca`);
-            
+
             // Close the loading dialog
             SwalOriginal.close();
-            
+
             if (response.data.success) {
               this.$toast.success(
                 this.$t("Sent Successfully!"),
@@ -2518,6 +2246,7 @@ export default {
 tfoot {
   font-weight: 700;
 }
+
 .nav-pills .nav-item {
   background: #ddd;
   margin: 2px;
@@ -2656,6 +2385,7 @@ tfoot {
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -2853,6 +2583,7 @@ tfoot {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -2910,9 +2641,9 @@ tfoot {
   padding: 0;
 }
 
-  #client-main-tabContent .tab-pane {
-    padding: 0;
-  }
+#client-main-tabContent .tab-pane {
+  padding: 0;
+}
 
 /* Box Profile Styling */
 .card-body.box-profile {
@@ -2966,7 +2697,7 @@ tfoot {
     font-size: 0.9rem;
     margin-right: 4px;
   }
-  
+
   #client-main-tabs .nav-link {
     padding: 10px 16px;
     font-size: 0.9rem;
@@ -2978,17 +2709,17 @@ tfoot {
   .nav-tabs {
     margin-bottom: 1rem;
   }
-  
+
   .nav-tabs .nav-link {
     padding: 8px 12px;
     font-size: 0.85rem;
     margin-right: 2px;
   }
-  
+
   #client-main-tabs {
     margin-bottom: 1rem;
   }
-  
+
   #client-main-tabs .nav-link {
     padding: 8px 12px;
     font-size: 0.85rem;

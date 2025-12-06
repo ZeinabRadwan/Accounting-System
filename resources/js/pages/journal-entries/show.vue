@@ -112,47 +112,36 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>{{ $t('Line Number') }}</th>
-                    <th>{{ $t('Chart of Account') }}</th>
-                    <th>{{ $t('Cost Center') }}</th>
-                    <th>{{ $t('Description') }}</th>
-                    <th class="text-right">{{ $t('Debit Amount') }}</th>
-                    <th class="text-right">{{ $t('Credit Amount') }}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="line in sortedLines" :key="line.id">
-                    <td>{{ line.line_number }}</td>
-                    <td>
-                      <strong>{{ line.chart_of_account.code }}</strong><br>
-                      <small>{{ line.chart_of_account.name }}</small>
-                    </td>
-                    <td>
-                      <span v-if="line.cost_center">
-                        <strong>{{ line.cost_center.code }}</strong><br>
-                        <small>{{ line.cost_center.name }}</small>
-                      </span>
-                      <span v-else class="text-muted">-</span>
-                    </td>
-                    <td>{{ line.description || '-' }}</td>
-                    <td class="text-right">
-                      <span v-if="line.debit_amount > 0" class="text-success">
-                        <CurrencyDisplay :amount="line.debit_amount" :disable-rtl="true"/>
-                      </span>
-                      <span v-else>-</span>
-                    </td>
-                    <td class="text-right">
-                      <span v-if="line.credit_amount > 0" class="text-danger">
-                        <CurrencyDisplay :amount="line.credit_amount" :disable-rtl="true" />
-                      </span>
-                      <span v-else>-</span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <GeneralTable
+                :columns="journalEntryLinesColumns"
+                :rows="journalEntryLinesRows"
+                :loading="loading"
+                wrapper-class=""
+              >
+                <template #cell-chartOfAccount="{ row }">
+                  <strong>{{ row._raw.chart_of_account.code }}</strong><br>
+                  <small>{{ row._raw.chart_of_account.name }}</small>
+                </template>
+                <template #cell-costCenter="{ row }">
+                  <span v-if="row._raw.cost_center">
+                    <strong>{{ row._raw.cost_center.code }}</strong><br>
+                    <small>{{ row._raw.cost_center.name }}</small>
+                  </span>
+                  <span v-else class="text-muted">-</span>
+                </template>
+                <template #cell-debitAmount="{ row }">
+                  <span v-if="row._raw.debit_amount > 0" class="text-success">
+                    <CurrencyDisplay :amount="row._raw.debit_amount" :disable-rtl="true"/>
+                  </span>
+                  <span v-else>-</span>
+                </template>
+                <template #cell-creditAmount="{ row }">
+                  <span v-if="row._raw.credit_amount > 0" class="text-danger">
+                    <CurrencyDisplay :amount="row._raw.credit_amount" :disable-rtl="true" />
+                  </span>
+                  <span v-else>-</span>
+                </template>
+              </GeneralTable>
             </div>
           </div>
         </div>
@@ -294,6 +283,7 @@
 
 <script>
 import Swal from 'sweetalert2'
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   name: 'ShowJournalEntry',
@@ -303,6 +293,7 @@ export default {
   },
   components: {
     CurrencyDisplay: () => import('~/components/CurrencyDisplay'),
+    GeneralTable,
   },
   data() {
     return {
@@ -343,7 +334,33 @@ export default {
         // If both are same type, maintain original order by line number
         return a.line_number - b.line_number
       })
-    }
+    },
+
+    // Journal entry lines columns
+    journalEntryLinesColumns() {
+      return [
+        { key: "lineNumber", label: this.$t('Line Number'), align: "text-center" },
+        { key: "chartOfAccount", label: this.$t('Chart of Account'), align: "text-left" },
+        { key: "costCenter", label: this.$t('Cost Center'), align: "text-left" },
+        { key: "description", label: this.$t('Description'), align: "text-left" },
+        { key: "debitAmount", label: this.$t('Debit Amount'), align: "text-right" },
+        { key: "creditAmount", label: this.$t('Credit Amount'), align: "text-right" },
+      ];
+    },
+
+    // Journal entry lines rows
+    journalEntryLinesRows() {
+      if (!this.sortedLines || this.sortedLines.length === 0) return [];
+      return this.sortedLines.map((line) => ({
+        lineNumber: line.line_number,
+        chartOfAccount: line,
+        costCenter: line,
+        description: line.description || '-',
+        debitAmount: line,
+        creditAmount: line,
+        _raw: line,
+      }));
+    },
   },
   async created() {
     await this.loadJournalEntry()

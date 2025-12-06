@@ -188,11 +188,15 @@
 <script>
 import axios from "axios";
 import { mapGetters } from "vuex";
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
     return { title: this.$t("Brand Details") };
+  },
+  components: {
+    GeneralTable,
   },
   data: () => ({
     breadcrumbsCurrent: "Brand Details",

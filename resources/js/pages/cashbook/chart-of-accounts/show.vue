@@ -149,56 +149,43 @@
       <!-- Journal Entries Table -->
       <div class="table-container" v-if="journalEntries.length > 0">
         <div class="table-wrapper">
-          <table class="journal-table">
-            <thead>
-              <tr>
-                <th class="date-col">{{ $t("Date") }}</th>
-                <th class="reference-col">{{ $t("Reference") }}</th>
-                <th class="description-col">{{ $t("Description") }}</th>
-                <th class="amount-col">{{ $t("Debit") }}</th>
-                <th class="amount-col">{{ $t("Credit") }}</th>
-                <th class="balance-col">{{ $t("Balance") }}</th>
-                <th class="status-col">{{ $t("Status") }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="entry in journalEntries" :key="entry.id" class="journal-row">
-                <td class="date-cell">
-                  <span class="date-text">{{ entry.entry_date | moment("MMM DD, YYYY") }}</span>
-                </td>
-                <td class="reference-cell">
-                  <span class="reference-badge">{{ entry.reference }}</span>
-                </td>
-                <td class="description-cell">
-                  <span class="description-text">{{ entry.description }}</span>
-                </td>
-                <td class="amount-cell">
-                  <span class="amount-value debit-amount" v-if="entry.debit_amount > 0">
-                    {{ entry.formatted_debit_amount }}
-                  </span>
-                  <span class="amount-value empty-amount" v-else>-</span>
-                </td>
-                <td class="amount-cell">
-                  <span class="amount-value credit-amount" v-if="entry.credit_amount > 0">
-                    {{ entry.formatted_credit_amount }}
-                  </span>
-                  <span class="amount-value empty-amount" v-else>-</span>
-                </td>
-                <td class="balance-cell">
-                  <span class="balance-badge" 
-                        :class="entry.balance_type === 'Debit' ? 'balance-debit' : 'balance-credit'">
-                    {{ entry.formatted_balance_with_type || '0.00 ' + $t('Debit') }}
-                  </span>
-                </td>
-                <td class="status-cell">
-                  <span class="status-badge" 
-                        :class="entry.status === 'posted' ? 'status-posted' : 'status-draft'">
-                    {{ entry.formatted_status }}
-                  </span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <GeneralTable
+            :columns="journalEntriesColumns"
+            :rows="journalEntriesRows"
+            :loading="loading"
+            wrapper-class=""
+          >
+            <template #cell-date="{ value }">
+              <span class="date-text">{{ value | moment("MMM DD, YYYY") }}</span>
+            </template>
+            <template #cell-reference="{ value }">
+              <span class="reference-badge">{{ value }}</span>
+            </template>
+            <template #cell-debit="{ row }">
+              <span class="amount-value debit-amount" v-if="row._raw.debit_amount > 0">
+                {{ row._raw.formatted_debit_amount }}
+              </span>
+              <span class="amount-value empty-amount" v-else>-</span>
+            </template>
+            <template #cell-credit="{ row }">
+              <span class="amount-value credit-amount" v-if="row._raw.credit_amount > 0">
+                {{ row._raw.formatted_credit_amount }}
+              </span>
+              <span class="amount-value empty-amount" v-else>-</span>
+            </template>
+            <template #cell-balance="{ row }">
+              <span class="balance-badge" 
+                    :class="row._raw.balance_type === 'Debit' ? 'balance-debit' : 'balance-credit'">
+                {{ row._raw.formatted_balance_with_type || '0.00 ' + $t('Debit') }}
+              </span>
+            </template>
+            <template #cell-status="{ row }">
+              <span class="status-badge" 
+                    :class="row._raw.status === 'posted' ? 'status-posted' : 'status-draft'">
+                {{ row._raw.formatted_status }}
+              </span>
+            </template>
+          </GeneralTable>
         </div>
       </div>
 
@@ -237,11 +224,15 @@
 import axios from "axios";
 import { mapGetters } from "vuex";
 import moment from "moment";
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
   metaInfo() {
     return { title: this.$t("Chart of Account Details") };
+  },
+  components: {
+    GeneralTable,
   },
   data: () => ({
     breadcrumbsCurrent: "Chart of Account Details",
@@ -270,6 +261,34 @@ export default {
   // Map Getters
   computed: {
     ...mapGetters("operations", ["pagination"]),
+
+    // Journal entries columns
+    journalEntriesColumns() {
+      return [
+        { key: "date", label: this.$t("Date"), align: "text-left" },
+        { key: "reference", label: this.$t("Reference"), align: "text-left" },
+        { key: "description", label: this.$t("Description"), align: "text-left" },
+        { key: "debit", label: this.$t("Debit"), align: "text-right" },
+        { key: "credit", label: this.$t("Credit"), align: "text-right" },
+        { key: "balance", label: this.$t("Balance"), align: "text-right" },
+        { key: "status", label: this.$t("Status"), align: "text-center" },
+      ];
+    },
+
+    // Journal entries rows
+    journalEntriesRows() {
+      if (!this.journalEntries || this.journalEntries.length === 0) return [];
+      return this.journalEntries.map((entry) => ({
+        date: entry.entry_date,
+        reference: entry.reference,
+        description: entry.description,
+        debit: entry,
+        credit: entry,
+        balance: entry,
+        status: entry,
+        _raw: entry,
+      }));
+    },
   },
   
   watch: {

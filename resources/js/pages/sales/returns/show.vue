@@ -219,65 +219,63 @@
               <table-loading v-show="loading" />
               <div class="col-12">
                 <strong class="mt-3">{{ $t("Return Products") }}:</strong>
-                <div
-                  v-if="allData.invoice"
-                  class="table-custom table-responsive text-center"
-                >
-                  <table class="table table-sm invoices-create-table">
-                    <thead>
-                      <tr>
-                        <th>{{ $t("#") }}</th>
-                        <th>{{ $t("Code") }}</th>
-                        <th>{{ $t("Item Name") }}</th>
-                        <th>{{ $t("Qty") }}</th>
-                        <th>{{ $t("Price") }}</th>
-                        <th>{{ $t("Total") }}</th>
-                        <th>{{ $t("Discount") }}</th>
-                        <th>{{ $t("Total After Discount") }}</th>
-                        <th>{{ $t("VAT Type") }}</th>
-                        <th>{{ $t("VAT") }}</th>
-                        <th>{{ $t("Total with VAT") }}</th>
-                      </tr>
-                    </thead>
-                    <tbody v-if="returnProducts">
-                      <tr v-for="(data, i) in returnProducts" :key="i">
-                        <td>{{ ++i }}</td>
-                        <td>
-                          {{ data.productCode | withPrefix(productPrefix) }}
-                        </td>
-                        <td>{{ data.productName }}</td>
-                        <td>{{ data.returnQty }} {{ data.productUnit }}</td>
-                        <td>{{ formatToTwoDecimals(data.salePrice) }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ formatToTwoDecimals(data.salePrice * data.returnQty) }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ formatToTwoDecimals(calculateReturnDiscount(data)) }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ formatToTwoDecimals(calculateReturnNet(data)) }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ getVatRate(data) }}%</td>
-                        <td>{{ formatToTwoDecimals(calculateReturnVat(data)) }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ formatToTwoDecimals(calculateReturnTotal(data)) }} <span class="saudi-riyal">ê</span></td>
-                      </tr>
-                      <tr>
-                        <td colspan="5" class="text-right">
-                          <strong>{{ $t("Subtotal") }}</strong>
-                        </td>
-                        <td>
-                          <strong>{{ formatToTwoDecimals(calculateTotalReturnedProductCost()) }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td>
-                          <strong>{{ formatToTwoDecimals(calculateTotalReturnDiscount()) }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td>
-                          <strong>{{ formatToTwoDecimals(calculateTotalReturnedProductCost() - calculateTotalReturnDiscount()) }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td></td>
-                        <td>
-                          <strong>{{ formatToTwoDecimals(calculateTotalReturnTax()) }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td>
-                          <strong>{{ formatToTwoDecimals(calculateTotalReturnedProductCost() - calculateTotalReturnDiscount() + calculateTotalReturnTax()) }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div v-if="allData.invoice" class="table-custom table-responsive text-center">
+                  <GeneralTable
+                    :columns="returnProductsColumns"
+                    :rows="returnProductsRows"
+                    :loading="loading"
+                    wrapper-class=""
+                  >
+                    <template #cell-code="{ value }">
+                      {{ value | withPrefix(productPrefix) }}
+                    </template>
+                    <template #cell-price="{ value }">
+                      {{ formatToTwoDecimals(value) }} <span class="saudi-riyal">ê</span>
+                    </template>
+                    <template #cell-total="{ value }">
+                      {{ formatToTwoDecimals(value) }} <span class="saudi-riyal">ê</span>
+                    </template>
+                    <template #cell-discount="{ row }">
+                      {{ formatToTwoDecimals(calculateReturnDiscount(row._raw)) }} <span class="saudi-riyal">ê</span>
+                    </template>
+                    <template #cell-totalAfterDiscount="{ value }">
+                      {{ formatToTwoDecimals(value) }} <span class="saudi-riyal">ê</span>
+                    </template>
+                    <template #cell-vat="{ row }">
+                      {{ formatToTwoDecimals(calculateReturnVat(row._raw)) }} <span class="saudi-riyal">ê</span>
+                    </template>
+                    <template #cell-totalWithVat="{ value }">
+                      {{ formatToTwoDecimals(value) }} <span class="saudi-riyal">ê</span>
+                    </template>
+                  </GeneralTable>
+                  <!-- Summary Row -->
+                  <div v-if="returnProducts && returnProducts.length > 0" class="table-responsive">
+                    <table class="table table-sm invoices-create-table">
+                      <tbody>
+                        <tr>
+                          <td colspan="5" class="text-right">
+                            <strong>{{ $t("Subtotal") }}</strong>
+                          </td>
+                          <td>
+                            <strong>{{ formatToTwoDecimals(calculateTotalReturnedProductCost()) }} <span class="saudi-riyal">ê</span></strong>
+                          </td>
+                          <td>
+                            <strong>{{ formatToTwoDecimals(calculateTotalReturnDiscount()) }} <span class="saudi-riyal">ê</span></strong>
+                          </td>
+                          <td>
+                            <strong>{{ formatToTwoDecimals(calculateTotalReturnedProductCost() - calculateTotalReturnDiscount()) }} <span class="saudi-riyal">ê</span></strong>
+                          </td>
+                          <td></td>
+                          <td>
+                            <strong>{{ formatToTwoDecimals(calculateTotalReturnTax()) }} <span class="saudi-riyal">ê</span></strong>
+                          </td>
+                          <td>
+                            <strong>{{ formatToTwoDecimals(calculateTotalReturnedProductCost() - calculateTotalReturnDiscount() + calculateTotalReturnTax()) }} <span class="saudi-riyal">ê</span></strong>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -755,6 +753,7 @@ import { mapGetters } from "vuex";
 import html2pdf from "html2pdf.js";
 import SwalOriginal from "sweetalert2/dist/sweetalert2";
 import iziToast from "izitoast";
+import GeneralTable from "~/components/GeneralTable";
 
 export default {
   middleware: ["auth", "check-permissions"],
@@ -767,6 +766,7 @@ export default {
   },
   components: {
     CurrencyDisplay: () => import('~/components/CurrencyDisplay'),
+    GeneralTable,
   },
   data: () => ({
     breadcrumbs: [
@@ -828,6 +828,42 @@ export default {
       return this.allData.journalEntries.map(journalEntry => ({
         ...journalEntry,
         lines: this.sortJournalEntryLines(journalEntry.lines || [])
+      }));
+    },
+
+    // Return products columns
+    returnProductsColumns() {
+      return [
+        { key: "index", label: this.$t("#"), align: "text-center" },
+        { key: "code", label: this.$t("Code"), align: "text-center" },
+        { key: "name", label: this.$t("Item Name"), align: "text-center" },
+        { key: "quantity", label: this.$t("Qty"), align: "text-center" },
+        { key: "price", label: this.$t("Price"), align: "text-center" },
+        { key: "total", label: this.$t("Total"), align: "text-center" },
+        { key: "discount", label: this.$t("Discount"), align: "text-center" },
+        { key: "totalAfterDiscount", label: this.$t("Total After Discount"), align: "text-center" },
+        { key: "vatType", label: this.$t("VAT Type"), align: "text-center" },
+        { key: "vat", label: this.$t("VAT"), align: "text-center" },
+        { key: "totalWithVat", label: this.$t("Total with VAT"), align: "text-center" },
+      ];
+    },
+
+    // Return products rows
+    returnProductsRows() {
+      if (!this.returnProducts || this.returnProducts.length === 0) return [];
+      return this.returnProducts.map((product, index) => ({
+        index: index + 1,
+        code: product.productCode,
+        name: product.productName,
+        quantity: `${product.returnQty} ${product.productUnit}`,
+        price: product.salePrice,
+        total: product.salePrice * product.returnQty,
+        discount: product,
+        totalAfterDiscount: this.calculateReturnNet(product),
+        vatType: `${this.getVatRate(product)}%`,
+        vat: product,
+        totalWithVat: this.calculateReturnTotal(product),
+        _raw: product,
       }));
     },
   },

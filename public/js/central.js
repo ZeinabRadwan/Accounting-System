@@ -33347,12 +33347,12 @@ var map = {
 		3908
 	],
 	"./assets/show": [
-		40318,
-		318
+		14262,
+		4262
 	],
 	"./assets/show.vue": [
-		40318,
-		318
+		14262,
+		4262
 	],
 	"./assets/types": [
 		89247,
@@ -33515,12 +33515,12 @@ var map = {
 		5780
 	],
 	"./branches/show": [
-		95022,
-		5022
+		79355,
+		9355
 	],
 	"./branches/show.vue": [
-		95022,
-		5022
+		79355,
+		9355
 	],
 	"./cashbook/accounts": [
 		37839,
@@ -33555,12 +33555,12 @@ var map = {
 		7839
 	],
 	"./cashbook/accounts/show": [
-		31425,
-		1425
+		73601,
+		3601
 	],
 	"./cashbook/accounts/show.vue": [
-		31425,
-		1425
+		73601,
+		3601
 	],
 	"./cashbook/balances": [
 		45403,
@@ -33627,12 +33627,12 @@ var map = {
 		5041
 	],
 	"./cashbook/chart-of-accounts/show": [
-		15434,
-		5434
+		34895,
+		4895
 	],
 	"./cashbook/chart-of-accounts/show.vue": [
-		15434,
-		5434
+		34895,
+		4895
 	],
 	"./cashbook/chart-of-accounts/tree": [
 		56134,
@@ -33691,12 +33691,12 @@ var map = {
 		2716
 	],
 	"./cashbook/transfer-balances/show": [
-		26477,
-		6477
+		45834,
+		5834
 	],
 	"./cashbook/transfer-balances/show.vue": [
-		26477,
-		6477
+		45834,
+		5834
 	],
 	"./central/activity-log": [
 		31234,
@@ -33788,11 +33788,11 @@ var map = {
 	],
 	"./central/features/edit": [
 		67359,
-		7359
+		9740
 	],
 	"./central/features/edit.vue": [
 		67359,
-		7359
+		9740
 	],
 	"./central/features/index": [
 		63069,
@@ -33915,12 +33915,12 @@ var map = {
 		8304
 	],
 	"./central/plans/show": [
-		38353,
-		8353
+		63967,
+		3967
 	],
 	"./central/plans/show.vue": [
-		38353,
-		8353
+		63967,
+		3967
 	],
 	"./central/profile": [
 		98098,
@@ -34100,11 +34100,11 @@ var map = {
 	],
 	"./central/setup/currency/edit": [
 		83453,
-		5834
+		3453
 	],
 	"./central/setup/currency/edit.vue": [
 		83453,
-		5834
+		3453
 	],
 	"./central/setup/currency/index": [
 		91823,
@@ -34307,12 +34307,12 @@ var map = {
 		466
 	],
 	"./central/tenants/show": [
-		29325,
-		9325
+		10040,
+		40
 	],
 	"./central/tenants/show.vue": [
-		29325,
-		9325
+		10040,
+		40
 	],
 	"./central/version": [
 		39767,
@@ -34355,12 +34355,12 @@ var map = {
 		3907
 	],
 	"./clients/show": [
-		23508,
-		3508
+		51663,
+		1663
 	],
 	"./clients/show.vue": [
-		23508,
-		3508
+		51663,
+		1663
 	],
 	"./cost-allocations": [
 		7396,
@@ -34427,12 +34427,12 @@ var map = {
 		9081
 	],
 	"./cost-centers/show": [
-		11612,
-		1612
+		65689,
+		5689
 	],
 	"./cost-centers/show.vue": [
-		11612,
-		1612
+		65689,
+		5689
 	],
 	"./cost-centers/tree": [
 		41551,
@@ -34579,12 +34579,12 @@ var map = {
 		8520
 	],
 	"./employees/increments/show": [
-		32800,
-		2800
+		38782,
+		8782
 	],
 	"./employees/increments/show.vue": [
-		32800,
-		2800
+		38782,
+		8782
 	],
 	"./employees/index": [
 		29584,
@@ -34595,12 +34595,12 @@ var map = {
 		9584
 	],
 	"./employees/show": [
-		56261,
-		6261
+		65844,
+		5844
 	],
 	"./employees/show.vue": [
-		56261,
-		6261
+		65844,
+		5844
 	],
 	"./errors/404": [
 		1321,
@@ -34675,12 +34675,12 @@ var map = {
 		3291
 	],
 	"./expenses/show": [
-		86460,
-		6460
+		42373,
+		2373
 	],
 	"./expenses/show.vue": [
-		86460,
-		6460
+		42373,
+		2373
 	],
 	"./expenses/sub-categories": [
 		70204,
@@ -34771,12 +34771,12 @@ var map = {
 		4617
 	],
 	"./inventory/adjustments/show": [
-		41560,
-		1560
+		39635,
+		9635
 	],
 	"./inventory/adjustments/show.vue": [
-		41560,
-		1560
+		39635,
+		9635
 	],
 	"./inventory/count": [
 		44559,
@@ -34891,12 +34891,12 @@ var map = {
 		2498
 	],
 	"./journal-entries/show": [
-		19868,
-		9868
+		61594,
+		1594
 	],
 	"./journal-entries/show.vue": [
-		19868,
-		9868
+		61594,
+		1594
 	],
 	"./loans": [
 		91736,
@@ -34939,12 +34939,12 @@ var map = {
 		2882
 	],
 	"./loans/authorities/show": [
-		58338,
-		8338
+		87560,
+		7560
 	],
 	"./loans/authorities/show.vue": [
-		58338,
-		8338
+		87560,
+		7560
 	],
 	"./loans/create": [
 		75412,
@@ -35003,20 +35003,20 @@ var map = {
 		4404
 	],
 	"./loans/payments/show": [
-		81944,
-		1944
+		7485,
+		7485
 	],
 	"./loans/payments/show.vue": [
-		81944,
-		1944
+		7485,
+		7485
 	],
 	"./loans/show": [
-		36717,
-		6717
+		46497,
+		6497
 	],
 	"./loans/show.vue": [
-		36717,
-		6717
+		46497,
+		6497
 	],
 	"./payments/clients/invoice": [
 		66646,
@@ -35051,12 +35051,12 @@ var map = {
 		4265
 	],
 	"./payments/clients/invoice/show": [
-		91415,
-		1415
+		72483,
+		2483
 	],
 	"./payments/clients/invoice/show.vue": [
-		91415,
-		1415
+		72483,
+		2483
 	],
 	"./payments/clients/non-invoice": [
 		1274,
@@ -35091,12 +35091,12 @@ var map = {
 		8893
 	],
 	"./payments/clients/non-invoice/show": [
-		85258,
-		5258
+		1248,
+		1248
 	],
 	"./payments/clients/non-invoice/show.vue": [
-		85258,
-		5258
+		1248,
+		1248
 	],
 	"./payments/suppliers/non-purchase": [
 		15731,
@@ -35171,12 +35171,12 @@ var map = {
 		4147
 	],
 	"./payments/suppliers/purchase/show": [
-		6891,
-		6891
+		96823,
+		6823
 	],
 	"./payments/suppliers/purchase/show.vue": [
-		6891,
-		6891
+		96823,
+		6823
 	],
 	"./payroll": [
 		48887,
@@ -35211,12 +35211,12 @@ var map = {
 		8887
 	],
 	"./payroll/show": [
-		9154,
-		9154
+		50475,
+		475
 	],
 	"./payroll/show.vue": [
-		9154,
-		9154
+		50475,
+		475
 	],
 	"./permission-denied": [
 		79681,
@@ -35323,12 +35323,12 @@ var map = {
 		1094
 	],
 	"./products/show": [
-		46541,
-		6541
+		11373,
+		1373
 	],
 	"./products/show.vue": [
-		46541,
-		6541
+		11373,
+		1373
 	],
 	"./products/sub-categories": [
 		41856,
@@ -35395,12 +35395,12 @@ var map = {
 		7465
 	],
 	"./purchase-order/show": [
-		79895,
-		9895
+		1848,
+		1848
 	],
 	"./purchase-order/show.vue": [
-		79895,
-		9895
+		1848,
+		1848
 	],
 	"./purchases": [
 		5982,
@@ -35467,20 +35467,20 @@ var map = {
 		1152
 	],
 	"./purchases/returns/show": [
-		9616,
-		9616
+		74916,
+		4916
 	],
 	"./purchases/returns/show.vue": [
-		9616,
-		9616
+		74916,
+		4916
 	],
 	"./purchases/show": [
-		71709,
-		1709
+		72777,
+		2777
 	],
 	"./purchases/show.vue": [
-		71709,
-		1709
+		72777,
+		2777
 	],
 	"./reports/account-statement": [
 		89861,
@@ -35604,11 +35604,11 @@ var map = {
 	],
 	"./reports/trial-balance": [
 		69154,
-		6773
+		9154
 	],
 	"./reports/trial-balance.vue": [
 		69154,
-		6773
+		9154
 	],
 	"./reports/vat-report": [
 		95998,
@@ -35651,12 +35651,12 @@ var map = {
 		9156
 	],
 	"./sales/invoices/show": [
-		8417,
-		8417
+		48488,
+		8488
 	],
 	"./sales/invoices/show.vue": [
-		8417,
-		8417
+		48488,
+		8488
 	],
 	"./sales/pos/create": [
 		28046,
@@ -35707,12 +35707,12 @@ var map = {
 		3418
 	],
 	"./sales/quotations/show": [
-		52532,
-		2532
+		68532,
+		8532
 	],
 	"./sales/quotations/show.vue": [
-		52532,
-		2532
+		68532,
+		8532
 	],
 	"./sales/returns": [
 		20264,
@@ -35755,12 +35755,12 @@ var map = {
 		264
 	],
 	"./sales/returns/show": [
-		77480,
-		7480
+		38155,
+		8155
 	],
 	"./sales/returns/show.vue": [
-		77480,
-		7480
+		38155,
+		8155
 	],
 	"./settings": [
 		67241,
@@ -35787,12 +35787,12 @@ var map = {
 		7241
 	],
 	"./settings/payments": [
-		63321,
-		3321
+		58802,
+		8802
 	],
 	"./settings/payments.vue": [
-		63321,
-		3321
+		58802,
+		8802
 	],
 	"./settings/print-templates": [
 		8222,
@@ -35811,12 +35811,12 @@ var map = {
 		4665
 	],
 	"./settings/subscription-requests": [
-		91011,
-		1011
+		56242,
+		6242
 	],
 	"./settings/subscription-requests.vue": [
-		91011,
-		1011
+		56242,
+		6242
 	],
 	"./setup": [
 		30241,
@@ -35875,12 +35875,12 @@ var map = {
 		936
 	],
 	"./setup/brands/show": [
-		56697,
-		6697
+		29603,
+		9603
 	],
 	"./setup/brands/show.vue": [
-		56697,
-		6697
+		29603,
+		9603
 	],
 	"./setup/currencies": [
 		1035,
@@ -36163,12 +36163,12 @@ var map = {
 		9809
 	],
 	"./suppliers/show": [
-		21670,
-		1670
+		7359,
+		7359
 	],
 	"./suppliers/show.vue": [
-		21670,
-		1670
+		7359,
+		7359
 	],
 	"./tenant-initialization": [
 		63958,
@@ -36211,12 +36211,12 @@ var map = {
 		9274
 	],
 	"./vouchers/receive/show": [
-		75201,
-		5201
+		7209,
+		7209
 	],
 	"./vouchers/receive/show.vue": [
-		75201,
-		5201
+		7209,
+		7209
 	],
 	"./vouchers/send": [
 		14152,
@@ -36251,12 +36251,12 @@ var map = {
 		4152
 	],
 	"./vouchers/send/show": [
-		36957,
-		6957
+		2127,
+		2127
 	],
 	"./vouchers/send/show.vue": [
-		36957,
-		6957
+		2127,
+		2127
 	],
 	"./welcome": [
 		20944,
