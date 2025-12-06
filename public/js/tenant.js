@@ -35694,12 +35694,12 @@ var map = {
 		9156
 	],
 	"./sales/invoices/show": [
-		48488,
-		8488
+		17033,
+		7033
 	],
 	"./sales/invoices/show.vue": [
-		48488,
-		8488
+		17033,
+		7033
 	],
 	"./sales/pos/create": [
 		28046,

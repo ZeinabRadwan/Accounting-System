@@ -135,136 +135,43 @@
             </div>
             <!-- /.row -->
 
+            <!-- Invoice Header Information Table -->
             <div class="row mt-3">
               <div class="col-12">
-                <div class="table-responsive table-custom">
-                  <table class="table invoices-table">
-                    <thead>
-                      <tr>
-                        <th v-if="allData.invoiceNo">
-                          {{ $t("Invoice No") }}
-                        </th>
-                        <th v-if="allData.invoiceDate">
-                          {{ $t("Invoice Date") }}
-                        </th>
-                        <th v-if="allData.reference">
-                          {{ $t("Reference") }}
-                        </th>
-                        <th v-if="allData.poReference">
-                          {{ $t("PO Reference") }}
-                        </th>
-                        <th v-if="allData.paymentTerms">
-                          {{ $t("Payment Terms") }}
-                        </th>
-                        <th v-if="allData.deliveryPlace" style="display: none;">
-                          {{ $t("Delivery Place") }}
-                        </th>
-                        <th v-if="allData.note">{{ $t("Note") }}</th>
-                        <th>{{ $t("Status") }}</th>
-                        <th class="text-right">
-                          {{ $t("Created By") }}
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td v-if="allData.invoiceNo">
-                          {{ allData.invoiceNo | withPrefix(invoicePrefix) }}
-                        </td>
-                        <td v-if="allData.invoiceDate">
-                          {{ allData.invoiceDate | moment("Do MMM, YYYY") }}
-                        </td>
-                        <td v-if="allData.reference">
-                          {{ allData.reference }}
-                        </td>
-                        <td v-if="allData.poReference">
-                          {{ allData.poReference }}
-                        </td>
-                        <td v-if="allData.paymentTerms">
-                          {{ allData.paymentTerms }}
-                        </td>
-                        <td v-if="allData.deliveryPlace" style="display: none;">
-                          {{ allData.deliveryPlace }}
-                        </td>
-                        <td v-if="allData.note">{{ allData.note }}</td>
-                        <td>
-                          <span v-if="allData.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
-                          <span v-else class="badge bg-danger">{{
-                            $t("Inactive")
-                          }}</span>
-                        </td>
-                        <td class="text-right">
-                          {{ allData.createdBy }}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-
-            <!-- New Invoice Fields Section -->
-            <div class="row mt-3">
-              <div class="col-12">
-                <div class="table-responsive table-custom">
-                  <table class="table invoices-table">
-                    <thead>
-                      <tr>
-                        <th v-if="allData.costCenter || allData.cost_center_id">
-                          {{ $t("Cost Center") }}
-                        </th>
-                        <th v-if="allData.branch || allData.branch_id">
-                          {{ $t("Branch") }}
-                        </th>
-                        <th v-if="allData.representative || allData.representative_id">
-                          {{ $t("Sales Representative") }}
-                        </th>
-                        <th v-if="allData.cashier || allData.cashier_id">
-                          {{ $t("Cashier") }}
-                        </th>
-                        <th v-if="allData.sale_status">
-                          {{ $t("Sale Status") }}
-                        </th>
-                        <th v-if="allData.current_date">
-                          {{ $t("Date") }}
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td v-if="allData.costCenter || allData.cost_center_id">
-                          {{ allData.costCenter ? allData.costCenter.name : '-' }}
-                        </td>
-                        <td v-if="allData.branch || allData.branch_id">
-                          {{ allData.branch ? allData.branch.name : '-' }}
-                        </td>
-                        <td v-if="allData.representative || allData.representative_id">
-                          {{ allData.representative ? allData.representative.name : '-' }}
-                        </td>
-                        <td v-if="allData.cashier || allData.cashier_id">
-                          {{ allData.cashier ? allData.cashier.name : '-' }}
-                        </td>
-                        <td v-if="allData.sale_status">
-                          <span v-if="allData.sale_status === 'مكتملة'" class="badge bg-success">
-                            {{ $t("Completed") }}
-                          </span>
-                          <span v-else-if="allData.sale_status === 'معلقة'" class="badge bg-warning">
-                            {{ $t("Pending") }}
-                          </span>
-                          <span v-else>{{ allData.sale_status }}</span>
-                        </td>
-                        <td v-if="allData.current_date">
-                          {{ allData.current_date | moment("Do MMM, YYYY") }}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                <GeneralTable
+                  :columns="invoiceHeaderColumns"
+                  :rows="invoiceHeaderRows"
+                  :loading="loading"
+                  wrapper-class=""
+                >
+                  <template #cell-invoiceNo="{ value }">
+                    {{ value | withPrefix(invoicePrefix) }}
+                  </template>
+                  <template #cell-invoiceDate="{ value }">
+                    {{ value | moment("Do MMM, YYYY") }}
+                  </template>
+                  <template #cell-status="{ value }">
+                    <span v-if="value === 1" class="badge bg-success">{{ $t("Active") }}</span>
+                    <span v-else class="badge bg-danger">{{ $t("Inactive") }}</span>
+                  </template>
+                  <template #cell-saleStatus="{ value }">
+                    <span v-if="value === 'مكتملة'" class="badge bg-success">
+                      {{ $t("Completed") }} (مكتملة)
+                    </span>
+                    <span v-else-if="value === 'معلقة'" class="badge bg-warning">
+                      {{ $t("Pending") }} (معلقة)
+                    </span>
+                    <span v-else>{{ value || '-' }}</span>
+                  </template>
+                  <template #cell-date="{ value }">
+                    {{ value | moment("Do MMM, YYYY") }}
+                  </template>
+                </GeneralTable>
               </div>
             </div>
 
             <!-- Invoice-Level Discount Section -->
-            <div class="row mt-3" v-if="allData.discount_type && allData.discount_value">
+            <div class="row mt-3" v-if="allData.discountOnTotalType && allData.discountOnTotalValue">
               <div class="col-12">
                 <div class="table-responsive table-custom">
                   <table class="table invoices-table">
@@ -279,47 +186,14 @@
                       <tr>
                         <td>{{ $t("Invoice Discount") }}</td>
                         <td>
-                          <span v-if="allData.discount_type === 'percentage'">{{ $t("%") }}</span>
-                          <span v-else-if="allData.discount_type === 'fixed'">{{ $t("Fixed") }}</span>
-                          <span v-else>{{ allData.discount_type }}</span>
+                          <span v-if="allData.discountOnTotalType === 'percentage'">{{ $t("%") }}</span>
+                          <span v-else-if="allData.discountOnTotalType === 'fixed'">{{ $t("Fixed") }}</span>
+                          <span v-else>{{ allData.discountOnTotalType }}</span>
                         </td>
                         <td>
-                          {{ formatNumber(allData.discount_value) }}
-                          <span v-if="allData.discount_type === 'percentage'">%</span>
+                          {{ formatNumber(allData.discountOnTotalValue) }}
+                          <span v-if="allData.discountOnTotalType === 'percentage'">%</span>
                           <span v-else class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-
-            <!-- Payment Information Section -->
-            <div class="row mt-3" v-if="allData.is_paid !== undefined">
-              <div class="col-12">
-                <div class="table-responsive table-custom">
-                  <table class="table invoices-table">
-                    <thead>
-                      <tr>
-                        <th>{{ $t("Payment Type") }}</th>
-                        <th v-if="allData.is_paid && (allData.paymentMethod || allData.payment_method_id)">
-                          {{ $t("Payment Method") }}
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <span v-if="allData.is_paid" class="badge bg-success">
-                            {{ $t("Paid") }}
-                          </span>
-                          <span v-else class="badge bg-warning">
-                            {{ $t("On Credit") }}
-                          </span>
-                        </td>
-                        <td v-if="allData.is_paid && (allData.paymentMethod || allData.payment_method_id)">
-                          {{ allData.paymentMethod ? allData.paymentMethod.name : '-' }}
                         </td>
                       </tr>
                     </tbody>
@@ -475,7 +349,21 @@
                   allData.invoicePayments &&
                   allData.invoicePayments.length > 0
                 ">
-                  <strong class="mb-2 d-block">{{ $t("Payment History") }}:</strong>
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <strong>{{ $t("Payment History") }}:</strong>
+                    <div v-if="allData.paymentType !== undefined || allData.is_paid !== undefined">
+                      <strong>{{ $t("Payment Type") }}:</strong>
+                      <span v-if="allData.paymentType === 'paid' || allData.is_paid" class="badge bg-success ml-2">
+                        {{ $t("Paid") }} (مدفوع)
+                      </span>
+                      <span v-else class="badge bg-warning ml-2">
+                        {{ $t("On Credit") }} (بيع آجل)
+                      </span>
+                      <span v-if="(allData.paymentType === 'paid' || allData.is_paid) && (allData.paymentMethod || allData.payment_method_id)" class="ml-2">
+                        - {{ allData.paymentMethod ? allData.paymentMethod.name : '-' }}
+                      </span>
+                    </div>
+                  </div>
                   <GeneralTable
                     :columns="paymentHistoryColumns"
                     :rows="paymentHistoryRows"
@@ -495,7 +383,21 @@
                   </div>
                 </div>
                 <div class="no-print callout callout-danger mt-4 w-100" v-else>
-                  <h5>{{ $t("No payments available yet!") }}</h5>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">{{ $t("No payments available yet!") }}</h5>
+                    <div v-if="allData.paymentType !== undefined || allData.is_paid !== undefined" class="ml-3">
+                      <strong>{{ $t("Payment Type") }}:</strong>
+                      <span v-if="allData.paymentType === 'paid' || allData.is_paid" class="badge bg-success ml-2">
+                        {{ $t("Paid") }} (مدفوع)
+                      </span>
+                      <span v-else class="badge bg-warning ml-2">
+                        {{ $t("On Credit") }} (بيع آجل)
+                      </span>
+                      <span v-if="(allData.paymentType === 'paid' || allData.is_paid) && (allData.paymentMethod || allData.payment_method_id)" class="ml-2">
+                        - {{ allData.paymentMethod ? allData.paymentMethod.name : '-' }}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="col-lg-12 col-xl-4 text-lg-right mt-4">
@@ -961,6 +863,40 @@ export default {
       const total = this.totalPrice - this.totalProductDiscount + this.totalProductVat;
       const paid = this.allData.totalPaid || 0;
       return total - paid;
+    },
+
+    // Invoice header columns
+    invoiceHeaderColumns() {
+      return [
+        { key: "invoiceNo", label: this.$t("Invoice No"), align: "text-center" },
+        { key: "invoiceDate", label: this.$t("Invoice Date"), align: "text-center" },
+        { key: "status", label: this.$t("Status"), align: "text-center" },
+        { key: "createdBy", label: this.$t("Created By"), align: "text-center" },
+        { key: "costCenter", label: this.$t("Cost Center"), align: "text-center" },
+        { key: "branch", label: this.$t("Branch"), align: "text-center" },
+        { key: "representative", label: this.$t("Sales Representative"), align: "text-center" },
+        { key: "cashier", label: this.$t("Cashier"), align: "text-center" },
+        { key: "saleStatus", label: this.$t("Sale Status"), align: "text-center" },
+        { key: "date", label: this.$t("Date"), align: "text-center" },
+      ];
+    },
+
+    // Invoice header rows
+    invoiceHeaderRows() {
+      if (!this.allData) return [];
+      
+      return [{
+        invoiceNo: this.allData.invoiceNo || '',
+        invoiceDate: this.allData.invoiceDate || '',
+        status: this.allData.status !== undefined ? this.allData.status : null,
+        createdBy: this.allData.createdBy || '-',
+        costCenter: this.allData.costCenter ? this.allData.costCenter.name : (this.allData.cost_center_id ? '-' : '-'),
+        branch: this.allData.branch ? this.allData.branch.name : (this.allData.branch_id ? '-' : '-'),
+        representative: this.allData.representative ? this.allData.representative.name : (this.allData.representative_id ? '-' : '-'),
+        cashier: this.allData.cashier ? this.allData.cashier.name : (this.allData.cashier_id ? '-' : '-'),
+        saleStatus: this.allData.saleStatus || this.allData.sale_status || '-',
+        date: this.allData.current_date || this.allData.invoiceDate || '',
+      }];
     },
 
     // Payment history columns

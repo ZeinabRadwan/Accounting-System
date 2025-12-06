@@ -14,19 +14,69 @@ class InvoiceResource extends JsonResource
      */
     public function toArray($request)
     {
+        // Handle attachments - check if column exists and decode JSON if present
+        $attachments = [];
+        if (property_exists($this, 'attachments') && isset($this->attachments) && ! empty($this->attachments)) {
+            if (is_string($this->attachments)) {
+                $attachments = json_decode($this->attachments, true) ?? [];
+            } else {
+                $attachments = $this->attachments;
+            }
+        }
+
+        // Format attachments with URLs
+        $formattedAttachments = [];
+        if (! empty($attachments)) {
+            foreach ($attachments as $attachment) {
+                if (is_string($attachment)) {
+                    $formattedAttachments[] = [
+                        'name' => basename($attachment),
+                        'url' => asset('storage/'.$attachment),
+                        'path' => $attachment,
+                    ];
+                } elseif (is_array($attachment)) {
+                    $formattedAttachments[] = array_merge([
+                        'name' => $attachment['name'] ?? basename($attachment['path'] ?? ''),
+                        'url' => isset($attachment['path']) ? asset('storage/'.$attachment['path']) : ($attachment['url'] ?? ''),
+                        'path' => $attachment['path'] ?? '',
+                    ], $attachment);
+                }
+            }
+        }
+
         return [
             'id' => $this->id,
+            'branch_id' => $this->branch_id,
+            'cost_center_id' => $this->cost_center_id,
+            'sale_status' => $this->sale_status,
+            'representative_id' => $this->representative_id,
+            'cashier_id' => $this->cashier_id,
             'invoiceNo' => $this->invoice_no,
             'label' => config('config.invoicePrefix').$this->invoice_no,
             'slug' => $this->slug,
             'reference' => $this->reference,
+            'transport' => $this->transport,
+            'discount_type' => $this->discount_type,
+            'discount' => $this->discount,
+            'sub_total' => $this->sub_total,
+            'po_reference' => $this->po_reference,
+            'payment_terms' => $this->payment_terms,
+            'delivery_place' => $this->delivery_place,
+            'invoice_date' => $this->invoice_date,
+            'note' => $this->note,
+            'status' => (int) $this->status,
+            'is_paid' => (int) $this->is_paid,
+            'client_id' => $this->client_id,
+            'tax_id' => $this->tax_id,
+            'created_by' => $this->created_by,
+            'fiscal_year_id' => $this->fiscal_year_id,
+            'accounting_period_id' => $this->accounting_period_id,
             'client' => new ClientListResource($this->client),
             'invoicePayments' => PaymentVoucherListResource::collection($this->paymentVouchers),
             'invoiceProducts' => InvoiceProductResource::collection($this->invoiceProducts),
             'discountType' => $this->discount_type,
-            'discount' => $this->discountAmount(),
+            'discountAmount' => $this->discountAmount(),
             'discountPercentage' => $this->discountPercentage(),
-            'transport' => $this->transport,
             'taxRate' => $this->invoiceTax,
             'tax' => $this->taxAmount(),
             'subTotal' => $this->sub_total,
@@ -39,9 +89,41 @@ class InvoiceResource extends JsonResource
             'paymentTerms' => $this->payment_terms,
             'deliveryPlace' => $this->delivery_place,
             'invoiceDate' => $this->invoice_date,
-            'note' => $this->note,
-            'status' => (int) $this->status,
-            'createdBy' => $this->user->name,
+            'createdBy' => $this->user->name ?? null,
+            // New fields
+            'branch' => $this->branch ? [
+                'id' => $this->branch->id,
+                'name' => $this->branch->name,
+                'slug' => $this->branch->slug ?? null,
+            ] : null,
+            'costCenter' => $this->costCenter ? [
+                'id' => $this->costCenter->id,
+                'name' => $this->costCenter->name,
+                'code' => $this->costCenter->code ?? null,
+            ] : null,
+            'representative' => $this->representative ? [
+                'id' => $this->representative->id,
+                'name' => $this->representative->name,
+                'slug' => $this->representative->slug ?? null,
+            ] : null,
+            'cashier' => $this->cashier ? [
+                'id' => $this->cashier->id,
+                'name' => $this->cashier->name,
+                'slug' => $this->cashier->slug ?? null,
+            ] : null,
+            'paymentMethod' => $this->paymentMethod ? [
+                'id' => $this->paymentMethod->id,
+                'name' => $this->paymentMethod->name,
+                'slug' => $this->paymentMethod->slug ?? null,
+                'code' => $this->paymentMethod->code ?? null,
+            ] : null,
+            'paymentType' => $this->is_paid ? 'paid' : 'due',
+            'payment_method_id' => property_exists($this, 'payment_method_id') ? $this->payment_method_id : null,
+            'attachments' => $formattedAttachments,
+            'saleStatus' => $this->sale_status,
+            'discountOnTotalType' => property_exists($this, 'discount_on_total_type') ? $this->discount_on_total_type : null,
+            'discountOnTotalValue' => property_exists($this, 'discount_on_total_value') ? $this->discount_on_total_value : null,
+            'current_date' => $this->invoice_date, // Alias for invoice_date
         ];
     }
 }

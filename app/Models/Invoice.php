@@ -387,4 +387,36 @@ class Invoice extends Model
     {
         return $this->belongsTo(Branch::class);
     }
+
+    /**
+     * Get the cost center for this invoice.
+     */
+    public function costCenter()
+    {
+        return $this->belongsTo(CostCenter::class, 'cost_center_id');
+    }
+
+    /**
+     * Get the representative (employee) for this invoice.
+     */
+    public function representative()
+    {
+        return $this->belongsTo(Employee::class, 'representative_id');
+    }
+
+    /**
+     * Get the cashier (employee) for this invoice.
+     */
+    public function cashier()
+    {
+        return $this->belongsTo(Employee::class, 'cashier_id');
+    }
+
+    /**
+     * Get the payment method for this invoice.
+     */
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class, 'payment_method_id');
+    }
 }

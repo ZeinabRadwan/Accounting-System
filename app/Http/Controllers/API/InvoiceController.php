@@ -531,6 +531,11 @@ class InvoiceController extends Controller
                 'invoiceProducts.product.salesAccount',
                 'invoiceTax',
                 'user',
+                'branch',
+                'costCenter',
+                'representative',
+                'cashier',
+                'paymentMethod',
             ])->first();
 
             return new InvoiceResource($invoice);
