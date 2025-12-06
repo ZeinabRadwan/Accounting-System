@@ -46,7 +46,7 @@ class TenantActivityService
                 'last_activity_at' => now(),
                 'total_seconds' => 0,
                 'is_active' => true,
-                'expires_at' => now()->addMinutes(10),
+                'expires_at' => now()->addMinutes(1),
             ]);
 
             return $session;
@@ -158,8 +158,8 @@ class TenantActivityService
                 $currentSessionDuration = $latestSession->total_seconds;
                 if ($latestSession->last_activity_at) {
                     $secondsSinceLastActivity = now()->diffInSeconds($latestSession->last_activity_at);
-                    // Only add if within 10 minutes (600 seconds) - session is still active
-                    if ($secondsSinceLastActivity <= 600) {
+                    // Only add if within 1 minute (60 seconds) - session is still active
+                    if ($secondsSinceLastActivity <= 60) {
                         $currentSessionDuration += $secondsSinceLastActivity;
                     }
                 } else {
