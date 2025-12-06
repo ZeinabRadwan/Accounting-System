@@ -72,13 +72,13 @@ class TenantUserActivity extends Model
         // Calculate seconds since last activity
         $secondsSinceLastActivity = $now->diffInSeconds($lastActivity);
 
-        // Only add time if it's within the activity window (less than 10 minutes)
-        if ($secondsSinceLastActivity <= 600) {
+        // Only add time if it's within the activity window (less than 1 minute)
+        if ($secondsSinceLastActivity <= 60) {
             $this->total_seconds += $secondsSinceLastActivity;
         }
 
         $this->last_activity_at = $now;
-        $this->expires_at = $now->copy()->addMinutes(10);
+        $this->expires_at = $now->copy()->addMinutes(1);
         $this->save();
     }
 
