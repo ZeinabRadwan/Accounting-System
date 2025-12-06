@@ -35454,12 +35454,12 @@ var map = {
 		5982
 	],
 	"./purchases/create": [
-		33526,
-		3526
+		78864,
+		8864
 	],
 	"./purchases/create.vue": [
-		33526,
-		3526
+		78864,
+		8864
 	],
 	"./purchases/edit": [
 		46389,

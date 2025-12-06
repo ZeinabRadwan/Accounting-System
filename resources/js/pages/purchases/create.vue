@@ -10,23 +10,50 @@
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100 header-buttons">
                 <router-link :to="{ name: 'purchases.index' }" class="btn btn-info">
-                  <template v-if="isRTL || $i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                  <template v-if="isRTL">
                     {{ $t("Back") }} <i class="fas fa-long-arrow-alt-left" />
                   </template>
                   <template v-else>
-                    <i class="fas fa-long-arrow-alt-left" /> {{ $t("Back") }}
+                    <template
+                      v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+
+                      {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+
+                    </template>
+
+                    <template v-else>
+
+                      <template
+                        v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+
+
+                        {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
+
+
+                      </template>
+
+
+                      <template v-else>
+
+
+                        <i class="fas fa-long-arrow-alt-left" /> {{ $t('Back') }}
+
+
+                      </template>
+
+                    </template>
                   </template>
                 </router-link>
-                <button type="submit" class="btn btn-success" :form="'purchaseCreateForm'" :title="$t('Save')">
+                <button type="submit" class="btn btn-success" :form="'purchaseCreateForm'" title="Save">
                   <i class="fas fa-save" />
                 </button>
               </div>
             </div>
           </div>
-          <!-- /.card-header -->
-            <div class="card-body">
-              <!-- form start -->
-              <form id="purchaseCreateForm" role="form" @submit.prevent="savePurchase" @keydown="form.onKeydown($event)">
+
+          <div class="card-body">
+            <!-- Add the missing form element with submit handler -->
+            <form id="purchaseCreateForm" @submit.prevent="handleFormSubmit">
               <!-- Row 1: Cost Center / Branch / Purchase Status / Date -->
               <div class="row">
                 <div class="form-group col-md-3">
@@ -445,24 +472,10 @@
               </div>
             </form>
             <!-- /.card-body -->
-            <div class="card-footer">
-              <div class="dtable-footer">
-                <div class="form-group row display-per-page footer-buttons d-flex justify-content-between w-100">
-                  <button type="submit" :disabled="form.busy" class="btn btn-success" @click="savePurchase">
-                    <i :class="form.busy ? 'fas fa-spinner fa-spin' : 'fas fa-save'" /> 
-                    {{ form.busy ? $t("Saving...") : $t("Save") }}
-                  </button>
-                  <button type="reset" class="btn btn-info" @click="form.reset()">
-                    <i class="fas fa-power-off" /> {{ $t("Reset") }}
-                  </button>
-                </div>
-              </div>
-            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  </div>
 </template>
 
 <script>
@@ -508,6 +521,7 @@ export default {
     ],
     isAutoAssigningSupplier: false,
     isAutoAssigningProduct: null,
+    isSubmitting: false,
     suppliers: [], // Local suppliers array instead of using shared items
     form: new Form({
       supplier: "",
@@ -1399,6 +1413,43 @@ export default {
       
       return;
     },
+
+    // Handle form submission with payment validation
+    async handleFormSubmit(event) {
+      // Set submitting flag to prevent field resets
+      this.isSubmitting = true;
+
+      try {
+        // Validate payment fields first if payment is enabled
+        if (this.form.addPayment == 1) {
+          if (!this.form.account) {
+            event.preventDefault();
+            toast.fire({
+              type: "error",
+              title: this.$t("Validation Error"),
+              text: this.$t("Please select an account")
+            });
+            return;
+          }
+          if (!this.form.totalPaid || Number(this.form.totalPaid) <= 0) {
+            event.preventDefault();
+            toast.fire({
+              type: "error",
+              title: this.$t("Validation Error"),
+              text: this.$t("Please enter the total amount paid")
+            });
+            return;
+          }
+        }
+
+        // If payment validation passes, proceed with purchase creation
+        await this.savePurchase();
+      } finally {
+        // Reset submitting flag
+        this.isSubmitting = false;
+      }
+    },
+
     // save purchase
     async savePurchase() {
 
