@@ -26,6 +26,7 @@ class UserSeeder extends Seeder
                     'password' => Hash::make('arqam2024'),
                     'account_role' => 1,
                     'is_active' => 1,
+                    'locale' => 'en',
                 ],
             ]);
         }

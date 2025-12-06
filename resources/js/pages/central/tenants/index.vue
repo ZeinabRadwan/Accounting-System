@@ -64,14 +64,8 @@
                   </div>
                 </div>
                 <table-loading v-show="loading" />
-                <GeneralTable
-                  :columns="tenantColumns"
-                  :rows="tenantsWithIndex"
-                  :loading="loading"
-                  table-id="printMe"
-                  wrapper-class="mt-3"
-                  :show-actions="!isDemoMode"
-                >
+                <GeneralTable :columns="tenantColumns" :rows="tenantsWithIndex" :loading="loading" table-id="printMe"
+                  wrapper-class="mt-3" :show-actions="!isDemoMode">
                   <template #cell-nameEmail="{ row }">
                     <div class="profile-area">
                       <div class="mr-2 img">
@@ -102,15 +96,37 @@
                     <span v-if="row.is_banned == false" class="badge bg-success">{{ $t("False") }}</span>
                     <span v-else class="badge bg-danger">{{ $t("True") }}</span>
                   </template>
+                  <template #cell-sessionStatus="{ row }">
+                    <div v-if="row.activity_stats">
+                      <span v-if="row.activity_stats.has_active_sessions" class="badge bg-success">
+                        <i class="fas fa-circle"></i> {{ $t("Active") }}
+                      </span>
+                      <span v-else class="badge bg-secondary">
+                        <i class="fas fa-circle"></i> {{ $t("Inactive") }}
+                      </span>
+                    </div>
+                    <span v-else class="badge bg-secondary">{{ $t("Inactive") }}</span>
+                  </template>
                   <template #cell-activeUsers="{ row }">
                     <div v-if="row.activity_stats && row.activity_stats.active_users">
                       <span class="badge bg-info mr-1">
                         {{ row.activity_stats.active_users.length }} {{ $t("Active") }}
                       </span>
                       <div v-if="row.activity_stats.active_users.length > 0" class="mt-1">
-                        <small v-for="(user, index) in row.activity_stats.active_users" :key="index" class="d-block text-muted">
+                        <small v-for="(user, index) in row.activity_stats.active_users" :key="index"
+                          class="d-block text-muted">
                           <i class="fas fa-user-circle"></i> {{ user.user_name || user.user_email || user.user_id }}
                         </small>
+                      </div>
+                    </div>
+                    <span v-else class="text-muted">-</span>
+                  </template>
+                  <template #cell-sessionTimer="{ row }">
+                    <div
+                      v-if="row.activity_stats && row.activity_stats.active_users && row.activity_stats.active_users.length > 0">
+                      <div class="font-weight-bold text-primary"
+                        v-for="(user, index) in row.activity_stats.active_users" :key="index">
+                        {{ formatSessionTimerLive(user) }}
                       </div>
                     </div>
                     <span v-else class="text-muted">-</span>
@@ -134,8 +150,8 @@
                       }" class="btn btn-primary btn-sm">
                         <i class="fas fa-eye" />
                       </router-link>
-                      <button v-if="row.email_verified_at" @click="impersonate(row.id)"
-                        v-tooltip="$t('Impersonate')" class="btn btn-info btn-sm">
+                      <button v-if="row.email_verified_at" @click="impersonate(row.id)" v-tooltip="$t('Impersonate')"
+                        class="btn btn-info btn-sm">
                         <i class="fas fa-user-secret" />
                       </button>
                       <router-link v-if="row.email_verified_at" :to="{
@@ -157,8 +173,7 @@
                         @click="ban(row.id)">
                         <i class="fas fa-ban" />
                       </a>
-                      <a href="#" v-tooltip="$t('Archive')" class="btn btn-danger btn-sm"
-                        @click="deleteData(row.id)">
+                      <a href="#" v-tooltip="$t('Archive')" class="btn btn-danger btn-sm" @click="deleteData(row.id)">
                         <i class="fas fa-archive" />
                       </a>
                     </div>
@@ -173,12 +188,8 @@
                     <search v-model="archivedQuery" @reset-pagination="resetPagination()" @reload="reloadArchived" />
                   </div>
                   <div class="col-6 col-xl-8 mb-2 text-right">
-                    <button 
-                      v-if="archivedItems.length > 0 && !isDemoMode" 
-                      @click="deleteAllArchivedTenants" 
-                      class="btn btn-danger"
-                      :disabled="deletingAllArchived"
-                    >
+                    <button v-if="archivedItems.length > 0 && !isDemoMode" @click="deleteAllArchivedTenants"
+                      class="btn btn-danger" :disabled="deletingAllArchived">
                       <i class="fas fa-trash-alt mr-1"></i>
                       <span v-if="deletingAllArchived">{{ $t("Deleting...") }}</span>
                       <span v-else>{{ $t("Delete All Archived") }}</span>
@@ -195,14 +206,8 @@
                   </div>
                 </div>
                 <table-loading v-show="archivedLoading" />
-                <GeneralTable
-                  :columns="archivedTenantColumns"
-                  :rows="archivedTenantsWithIndex"
-                  :loading="archivedLoading"
-                  table-id="printArchived"
-                  wrapper-class="mt-3"
-                  :show-actions="!isDemoMode"
-                >
+                <GeneralTable :columns="archivedTenantColumns" :rows="archivedTenantsWithIndex"
+                  :loading="archivedLoading" table-id="printArchived" wrapper-class="mt-3" :show-actions="!isDemoMode">
                   <template #cell-nameEmail="{ row }">
                     <div class="profile-area">
                       <div class="mr-2 img">
@@ -222,8 +227,7 @@
                   </template>
                   <template #actions="{ row }">
                     <div class="btn-group">
-                      <button @click="restoreTenant(row.id)" v-tooltip="$t('Restore')"
-                        class="btn btn-success btn-sm">
+                      <button @click="restoreTenant(row.id)" v-tooltip="$t('Restore')" class="btn btn-success btn-sm">
                         <i class="fas fa-undo" />
                       </button>
                       <button @click="permanentDeleteTenant(row.id)" v-tooltip="$t('Permanent Delete')"
@@ -325,6 +329,8 @@ export default {
     archivedLoading: false,
     archivedPagination: null,
     deletingAllArchived: false,
+    refreshInterval: null,
+    timerUpdateInterval: null,
   }),
   filters: {
     startDate(val) {
@@ -351,7 +357,9 @@ export default {
         { key: "isVerified", label: this.$t("Is Verified") },
         { key: "isSubscribed", label: this.$t("Is Subscribed") },
         { key: "banned", label: this.$t("Banned") },
+        { key: "sessionStatus", label: this.$t("Session Status") },
         { key: "activeUsers", label: this.$t("Active Users") },
+        { key: "sessionTimer", label: this.$t("Active Duration") },
         { key: "workingTime", label: this.$t("Working Time") },
       ];
     },
@@ -412,6 +420,28 @@ export default {
     this.getData();
     this.getArchivedData();
     this.clientPrefix = this.appInfo.clientPrefix;
+
+    // Set up auto-refresh every 30 seconds to update session data from server
+    this.refreshInterval = setInterval(() => {
+      if (this.activeTab === 'active') {
+        this.getData();
+      }
+    }, 30000); // Refresh every 30 seconds
+
+    // Set up timer update every second for real-time display
+    this.timerUpdateInterval = setInterval(() => {
+      // Force Vue to re-render to update timers
+      this.$forceUpdate();
+    }, 1000); // Update every second
+  },
+  beforeDestroy() {
+    // Clear intervals when component is destroyed
+    if (this.refreshInterval) {
+      clearInterval(this.refreshInterval);
+    }
+    if (this.timerUpdateInterval) {
+      clearInterval(this.timerUpdateInterval);
+    }
   },
   methods: {
     // filter data for selected date range
@@ -584,6 +614,50 @@ export default {
       const hours = Math.floor(seconds / 3600);
       const minutes = Math.floor((seconds % 3600) / 60);
       return `${hours}h ${minutes}m`;
+    },
+
+    // Format session timer (HH:MM:SS)
+    formatSessionTimer(seconds) {
+      if (!seconds || seconds === 0) {
+        return "00:00:00";
+      }
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const secs = seconds % 60;
+      return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    },
+
+    // Format session timer with live calculation
+    formatSessionTimerLive(user) {
+      if (!user) {
+        return "00:00:00";
+      }
+      
+      // Use current_session_seconds if available (from server calculation)
+      if (user.current_session_seconds !== undefined) {
+        // Calculate live: server value + time since last update
+        const now = new Date();
+        const lastUpdate = user.last_activity_at ? new Date(user.last_activity_at) : new Date(user.started_at);
+        const secondsSinceUpdate = Math.floor((now - lastUpdate) / 1000);
+        
+        // Only add if within 10 minutes (600 seconds) - session is still active
+        if (secondsSinceUpdate <= 600) {
+          return this.formatSessionTimer(user.current_session_seconds + secondsSinceUpdate);
+        } else {
+          // Session expired, return the stored value
+          return this.formatSessionTimer(user.current_session_seconds);
+        }
+      }
+      
+      // Fallback: calculate from started_at
+      if (user.started_at) {
+        const started = new Date(user.started_at);
+        const now = new Date();
+        const currentSeconds = Math.floor((now - started) / 1000);
+        return this.formatSessionTimer(currentSeconds);
+      }
+      
+      return "00:00:00";
     },
 
     // delete data

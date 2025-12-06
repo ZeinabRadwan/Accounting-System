@@ -34318,12 +34318,12 @@ var map = {
 		8418
 	],
 	"./central/tenants": [
-		76764,
-		6764
+		12192,
+		2192
 	],
 	"./central/tenants/": [
-		76764,
-		6764
+		12192,
+		2192
 	],
 	"./central/tenants/create": [
 		11892,
@@ -34342,12 +34342,12 @@ var map = {
 		8755
 	],
 	"./central/tenants/index": [
-		76764,
-		6764
+		12192,
+		2192
 	],
 	"./central/tenants/index.vue": [
-		76764,
-		6764
+		12192,
+		2192
 	],
 	"./central/tenants/show": [
 		10040,
@@ -119889,7 +119889,7 @@ var TenantActivityService = /*#__PURE__*/function () {
     this.heartbeatInterval = null;
     this.activityTimeout = null;
     this.lastActivityTime = Date.now();
-    this.heartbeatIntervalMs = 2 * 60 * 1000; // 2 minutes
+    this.heartbeatIntervalMs = 30 * 1000; // 30 seconds - more frequent updates
     this.inactivityTimeoutMs = 10 * 60 * 1000; // 10 minutes
     this.isActive = false;
     this.activityEvents = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];

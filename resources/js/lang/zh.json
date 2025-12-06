@@ -1434,6 +1434,8 @@
   "Tenants": "租户",
   "Active Tenants": "活跃租户",
   "Active Users": "活跃用户",
+  "Session Status": "会话状态",
+  "Active Duration": "活动时长",
   "Working Time": "工作时间",
   "Archived Tenants": "已归档租户",
   "Subscribers": "订阅者",

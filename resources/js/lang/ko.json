@@ -1434,6 +1434,8 @@
   "Tenants": "임차인",
   "Active Tenants": "활성 임차인",
   "Active Users": "활성 사용자",
+  "Session Status": "세션 상태",
+  "Active Duration": "활성 기간",
   "Working Time": "작업 시간",
   "Archived Tenants": "보관된 임차인",
   "Subscribers": "구독자",

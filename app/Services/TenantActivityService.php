@@ -129,19 +129,34 @@ class TenantActivityService
 
         return [
             'active_users' => $activeSessions->map(function ($session) {
+                // Calculate current session duration (total_seconds + time since last activity)
+                $currentDuration = $session->total_seconds;
+                if ($session->last_activity_at) {
+                    $secondsSinceLastActivity = now()->diffInSeconds($session->last_activity_at);
+                    // Only add if within 10 minutes (600 seconds)
+                    if ($secondsSinceLastActivity <= 600) {
+                        $currentDuration += $secondsSinceLastActivity;
+                    }
+                } else {
+                    // If no last_activity_at, calculate from started_at
+                    $currentDuration = now()->diffInSeconds($session->started_at);
+                }
+
                 return [
                     'user_id' => $session->user_id,
                     'user_name' => $session->user_name,
                     'user_email' => $session->user_email,
                     'session_id' => $session->session_id,
-                    'started_at' => $session->started_at,
-                    'last_activity_at' => $session->last_activity_at,
+                    'started_at' => $session->started_at ? $session->started_at->toDateTimeString() : null,
+                    'last_activity_at' => $session->last_activity_at ? $session->last_activity_at->toDateTimeString() : null,
                     'total_seconds' => $session->total_seconds,
+                    'current_session_seconds' => $currentDuration,
                 ];
             }),
             'total_working_seconds' => $totalWorkingTime,
             'total_working_hours' => round($totalWorkingTime / 3600, 2),
             'unique_users_count' => $uniqueUsers,
+            'has_active_sessions' => $activeSessions->count() > 0,
         ];
     }
 }

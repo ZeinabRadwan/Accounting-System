@@ -1434,6 +1434,8 @@
   "Tenants": "ผู้เช่า",
   "Active Tenants": "ผู้เช่าที่ใช้งานอยู่",
   "Active Users": "ผู้ใช้ที่ใช้งานอยู่",
+  "Session Status": "สถานะเซสชัน",
+  "Active Duration": "ระยะเวลาที่ใช้งาน",
   "Working Time": "เวลาทำงาน",
   "Archived Tenants": "ผู้เช่าที่ถูกเก็บถาวร",
   "Subscribers": "สมาชิก",
