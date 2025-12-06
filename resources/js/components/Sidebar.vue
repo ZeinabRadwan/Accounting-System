@@ -602,7 +602,13 @@
               <li v-if="$can('expense-list')" class="nav-item">
                 <router-link :to="{ name: 'expenses.index' }" class="nav-link">
                   <i class="fas fa-list-ul nav-icon" />
-                  <p>{{ $t("Expenses List") }}</p>
+                  <p>
+                    {{ $t("Expenses List") }}
+                    <router-link v-if="$can('expense-create')" :to="{ name: 'expenses.create' }" class="add-btn-inline"
+                      @click.stop>
+                      <i class="fas fa-plus"></i>
+                    </router-link>
+                  </p>
                 </router-link>
               </li>
             </ul>

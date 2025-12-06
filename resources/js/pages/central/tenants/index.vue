@@ -598,11 +598,12 @@ export default {
     // Format working time
     formatWorkingTime(seconds) {
       if (!seconds || seconds === 0) {
-        return "0h 0m";
+        return "0h 0m 0s";
       }
       const hours = Math.floor(seconds / 3600);
       const minutes = Math.floor((seconds % 3600) / 60);
-      return `${hours}h ${minutes}m`;
+      const secs = seconds % 60;
+      return `${hours}h ${minutes}m ${secs}s`;
     },
 
     // Format session timer (HH:MM:SS)

@@ -184,6 +184,21 @@
                         <th v-if="allData.purchaseNo">
                           {{ $t("Purchase No") }}
                         </th>
+                        <th v-if="allData.costCenter">
+                          {{ $t("Cost Center") }}
+                        </th>
+                        <th v-if="allData.branch">
+                          {{ $t("Branch") }}
+                        </th>
+                        <th v-if="allData.purchase_status">
+                          {{ $t("Purchase Status") }}
+                        </th>
+                        <th v-if="allData.purchaseDate">
+                          {{ $t("Date") }}
+                        </th>
+                        <th v-if="allData.reference">
+                          {{ $t("Reference Number") }}
+                        </th>
                         <th v-if="allData.poReference">
                           {{ $t("PO Reference") }}
                         </th>
@@ -193,10 +208,19 @@
                         <th v-if="allData.poDate">
                           {{ $t("PO Date") }}
                         </th>
-                        <th v-if="allData.purchaseDate">
-                          {{ $t("Purchase Date") }}
+                        <th v-if="allData.discount_type || allData.discount_value">
+                          {{ $t("Discount on Total Invoice") }}
                         </th>
-                        <th v-if="allData.note">{{ $t("Note") }}</th>
+                        <th v-if="allData.payment_type">
+                          {{ $t("Payment Type") }}
+                        </th>
+                        <th v-if="allData.paymentMethod || allData.payment_method_id">
+                          {{ $t("Payment Method") }}
+                        </th>
+                        <th v-if="allData.attachments && allData.attachments.length > 0">
+                          {{ $t("Attachments") }}
+                        </th>
+                        <th v-if="allData.note">{{ $t("Notes") }}</th>
                         <th>{{ $t("Status") }}</th>
                         <th class="text-right">
                           {{ $t("Created By") }}
@@ -208,6 +232,29 @@
                         <td v-if="allData.purchaseNo">
                           {{ allData.purchaseNo | withPrefix(purchasePrefix) }}
                         </td>
+                        <td v-if="allData.costCenter">
+                          {{ allData.costCenter.name }}
+                        </td>
+                        <td v-if="allData.branch">
+                          {{ allData.branch.name }}
+                        </td>
+                        <td v-if="allData.purchase_status">
+                          <span v-if="allData.purchase_status === 'تم الاستلام'" class="badge bg-success">
+                            {{ $t("Received") }} ({{ allData.purchase_status }})
+                          </span>
+                          <span v-else-if="allData.purchase_status === 'معلقة'" class="badge bg-warning">
+                            {{ $t("Pending") }} ({{ allData.purchase_status }})
+                          </span>
+                          <span v-else class="badge bg-secondary">
+                            {{ allData.purchase_status }}
+                          </span>
+                        </td>
+                        <td v-if="allData.purchaseDate">
+                          {{ allData.purchaseDate | moment("Do MMM, YYYY") }}
+                        </td>
+                        <td v-if="allData.reference">
+                          {{ allData.reference }}
+                        </td>
                         <td v-if="allData.poReference">
                           {{ allData.poReference }}
                         </td>
@@ -217,8 +264,36 @@
                         <td v-if="allData.poDate">
                           {{ allData.poDate | moment("Do MMM, YYYY") }}
                         </td>
-                        <td v-if="allData.purchaseDate">
-                          {{ allData.purchaseDate | moment("Do MMM, YYYY") }}
+                        <td v-if="allData.discount_type || allData.discount_value">
+                          <span v-if="allData.discount_type === 'percentage'">
+                            {{ allData.discount_value }}%
+                          </span>
+                          <span v-else>
+                            {{ formatNumber(allData.discount_value) }} <span class="saudi-riyal">ê</span>
+                          </span>
+                        </td>
+                        <td v-if="allData.payment_type">
+                          <span class="badge" :class="allData.payment_type === 'paid' ? 'bg-success' : 'bg-danger'">
+                            {{ allData.payment_type === 'paid' ? $t("Paid") : $t("On Credit") }}
+                          </span>
+                        </td>
+                        <td v-if="allData.paymentMethod || allData.payment_method_id">
+                          <span v-if="allData.paymentMethod">
+                            {{ allData.paymentMethod.name }}
+                          </span>
+                          <span v-else-if="allData.payment_method_id">
+                            {{ getPaymentMethodName(allData.payment_method_id) }}
+                          </span>
+                        </td>
+                        <td v-if="allData.attachments && allData.attachments.length > 0">
+                          <div class="d-flex flex-column">
+                            <a v-for="(attachment, index) in allData.attachments" :key="index" 
+                               :href="attachment.url" 
+                               target="_blank" 
+                               class="mb-1">
+                              <i class="fas fa-file"></i> {{ attachment.name }}
+                            </a>
+                          </div>
                         </td>
                         <td v-if="allData.note">{{ allData.note }}</td>
                         <td>
@@ -394,7 +469,24 @@
                           }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
-                      <tr v-if="!isSaudiArabia && allData.discount > 0">
+                      <tr v-if="allData.discount_type || allData.discount_value">
+                        <th>
+                          {{ $t("Discount on Total Invoice") }}
+                          <span v-if="allData.discount_type === 'percentage'"
+                            >({{ allData.discount_value }}%)</span
+                          >
+                          :
+                        </th>
+                        <td>
+                          <span v-if="allData.discount_type === 'percentage'">
+                            {{ formatNumber((totalPrice - totalProductDiscount + totalProductVat) * (allData.discount_value / 100)) }} <span class="saudi-riyal">ê</span>
+                          </span>
+                          <span v-else>
+                            {{ formatNumber(allData.discount_value) }} <span class="saudi-riyal">ê</span>
+                          </span>
+                        </td>
+                      </tr>
+                      <tr v-if="!isSaudiArabia && allData.discount > 0 && !allData.discount_type">
                         <th>
                           {{ $t("Discount") }}
                           <span v-if="allData.discountType == 1"
@@ -722,6 +814,20 @@ export default {
     formatNumber(value) {
       if (value === null || value === undefined || value === '') return '0.00';
       return parseFloat(value).toFixed(2);
+    },
+
+    // Get payment method name by ID
+    getPaymentMethodName(methodId) {
+      const methods = {
+        'cash': 'نقدي (Cash)',
+        'visa': 'فيزا (Visa)',
+        'mada': 'مدى (Mada)',
+        'mastercard': 'ماستركارد (Mastercard)',
+        'bank_transfer': 'تحويل بنكي (Bank Transfer)',
+        'stc_pay': 'STC Pay',
+        'amex': 'أمريكان إكسبريس (American Express)'
+      };
+      return methods[methodId] || methodId;
     },
 
     // Calculate total with VAT sum for all items

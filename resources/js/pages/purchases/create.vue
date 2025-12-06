@@ -27,8 +27,44 @@
             <div class="card-body">
               <!-- form start -->
               <form id="purchaseCreateForm" role="form" @submit.prevent="savePurchase" @keydown="form.onKeydown($event)">
+              <!-- Row 1: Cost Center / Branch / Purchase Status / Date -->
+              <div class="row">
+                <div class="form-group col-md-3">
+                  <label for="costCenter">{{ $t("Cost Center") }}</label>
+                  <v-select class="flex-grow-1" v-model="form.costCenter" :options="costCenters" label="name"
+                    :class="{ 'is-invalid': form.errors.has('cost_center_id') }" name="costCenter"
+                    :placeholder="$t('Select a cost center')" @input="onCostCenterChange" />
+                  <has-error :form="form" field="cost_center_id" />
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="branch">{{ $t("Branch") }}</label>
+                  <v-select class="flex-grow-1" v-model="form.branch" :options="branches" label="name"
+                    :class="{ 'is-invalid': form.errors.has('branch_id') }" name="branch"
+                    :placeholder="$t('Select a branch')" @input="onBranchChange" />
+                  <has-error :form="form" field="branch_id" />
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="purchaseStatus">{{ $t("Purchase Status") }}</label>
+                  <select id="purchaseStatus" v-model="form.purchaseStatus" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('purchase_status') }" name="purchaseStatus"
+                    @change="onPurchaseStatusChange">
+                    <option value="">{{ $t("Select") }}</option>
+                    <option value="تم الاستلام">{{ $t("Received") }}</option>
+                    <option value="معلقة">{{ $t("Pending") }}</option>
+                  </select>
+                  <has-error :form="form" field="purchase_status" />
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="purchaseDate">{{ $t("Date") }}</label>
+                  <input id="purchaseDate" v-model="form.purchaseDate" type="date" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('purchase_date') }" name="purchaseDate" readonly />
+                  <has-error :form="form" field="purchase_date" />
+                </div>
+              </div>
+
+              <!-- Row 2: Supplier / Date / Reference Number -->
               <div class="row" v-if="suppliers && products">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                   <label for="supplier">{{ $t("Supplier") }}
                     <span class="required">*</span></label>
                   <div class="row">
@@ -65,14 +101,18 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-group col-md-6">
-                  <label for="poReference">{{
-                    $t("PO Reference")
-                  }}</label>
-                  <input id="poReference" v-model="form.poReference" type="text" step="any" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('poReference') }" name="poReference" :placeholder="$t('Enter PO reference')
-                      " />
-                  <has-error :form="form" field="poReference" />
+                <div class="form-group col-md-4">
+                  <label for="purchaseDate2">{{ $t("Date") }}</label>
+                  <input id="purchaseDate2" v-model="form.purchaseDate" type="date" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('purchase_date') }" name="purchaseDate2" readonly />
+                  <has-error :form="form" field="purchase_date" />
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="reference">{{ $t("Reference Number") }}</label>
+                  <input id="reference" v-model="form.reference" type="text" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('reference') }" name="reference"
+                    :placeholder="$t('Enter reference number')" />
+                  <has-error :form="form" field="reference" />
                 </div>
               </div>
               <div class="row" v-if="products">
@@ -133,7 +173,8 @@
                 @remove-item="removeItem"
               />
               <div class="row">
-                <div class="form-group col-md-6 col-xl-3">
+                <!-- Payment Terms field hidden as per requirements -->
+                <div class="form-group col-md-6 col-xl-3" style="display: none;">
                   <label for="paymentTerms">{{
                     $t("Payment Terms")
                   }}</label>
@@ -160,12 +201,44 @@
                   <has-error :form="form" field="totalTax" />
                 </div>
               </div>
+              <!-- Discount Section (Like Invoices) -->
+              <div class="row" v-if="form.selectedProducts && form.selectedProducts.length > 0">
+                <div class="form-group col-md-6">
+                  <label for="discount_type">{{ $t("Discount Type") }}</label>
+                  <div class="input-group">
+                    <select id="discount_type" v-model="form.discount_type" class="form-control form-control-sm"
+                      style="width: 85px;" :class="{ 'is-invalid': form.errors.has('discount_type') }"
+                      name="discount_type" @change="calculateSum(); clearFieldError('discount_type')">
+                      <option value="percentage">{{ $t("%") }}</option>
+                      <option value="fixed">{{ $t("Fixed") }}</option>
+                    </select>
+                    <input id="discount_value" v-model="form.discount_value" type="number" step="any" min="0"
+                      :max="form.discount_type === 'percentage' ? 100 : form.netTotal"
+                      class="form-control form-control-sm" style="width: 80px;"
+                      :class="{ 'is-invalid': form.errors.has('discount_value') }" name="discount_value" placeholder="0"
+                      @change="calculateSum" @keyup="calculateSum" @input="clearFieldError('discount_value')" />
+                  </div>
+                  <div v-if="form.errors.has('discount_type') || form.errors.has('discount_value')"
+                    class="invalid-feedback d-block">
+                    <span v-if="form.errors.has('discount_type')" class="d-block">{{ form.errors.get('discount_type')
+                    }}</span>
+                    <span v-if="form.errors.has('discount_value')" class="d-block">{{ form.errors.get('discount_value')
+                    }}</span>
+                  </div>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="total_amount">{{ $t("Amount") }}</label>
+                  <input id="total_amount" v-model="form.netTotal" type="number" step="any" class="form-control"
+                    name="total_amount" readonly />
+                </div>
+              </div>
+
               <div v-if="form.selectedProducts && form.selectedProducts.length > 0" class="row">
-                <div class="form-group col-md-6 col-xl-3" v-if="!isSaudiArabia">
+                <!-- Old discount field hidden for non-Saudi -->
+                <div class="form-group col-md-6 col-xl-3" v-if="!isSaudiArabia" style="display: none;">
                   <label for="discount">{{
                     $t("Discount")
                   }}</label>
-                  <!-- Debug: isSaudiArabia = {{ isSaudiArabia }} -->
                   <input id="discount" v-model="form.discount" type="number" step="any" min="1" :max="form.subTotal"
                     class="form-control" :class="{ 'is-invalid': form.errors.has('discount') }" name="discount"
                     :placeholder="$t('Enter discount')
@@ -270,8 +343,57 @@
                   <has-error :form="form" field="receiptNo" />
                 </div>
               </div>
+              <!-- Payment Section -->
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label>{{ $t("Payment Type") }}</label>
+                  <div class="d-flex align-items-center">
+                    <toggle-button v-model="form.isPaid" :labels="{ checked: $t('Paid'), unchecked: $t('On Credit') }"
+                      :color="{ checked: '#2AB930', unchecked: '#dc3545' }" :sync="true" @change="onPaymentTypeChange"
+                      class="mr-2" />
+                    <span class="ml-2">{{ form.isPaid ? $t("Paid") : $t("On Credit") }}</span>
+                  </div>
+                </div>
+                <div class="form-group col-md-6" v-if="form.isPaid">
+                  <label for="payment_method_id">{{ $t("Payment Method") }}</label>
+                  <select id="payment_method_id" v-model="form.payment_method_id" class="form-control"
+                    :class="{ 'is-invalid': form.errors.has('payment_method_id') }" name="payment_method_id"
+                    @change="clearFieldError('payment_method_id')">
+                    <option value="">{{ $t("Select") }}</option>
+                    <option v-for="method in paymentMethods" :key="method.id" :value="method.id">
+                      {{ method.name }}
+                    </option>
+                  </select>
+                  <has-error :form="form" field="payment_method_id" />
+                </div>
+              </div>
+
+              <!-- Attachments -->
               <div class="form-group">
-                <label for="note">{{ $t("Note") }}</label>
+                <label for="attachments">{{ $t("Attachments") }}</label>
+                <input id="attachments" type="file" multiple class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('attachments') }" name="attachments"
+                  @change="onAttachmentChange" />
+                <has-error :form="form" field="attachments" />
+                <div v-if="form.attachments && form.attachments.length > 0" class="mt-2">
+                  <small class="text-muted">{{ $t("Selected files") }}:</small>
+                  <ul class="list-unstyled mt-1">
+                    <li v-for="(file, index) in form.attachments" :key="index"
+                      class="d-flex justify-content-between align-items-center mb-1">
+                      <span class="text-truncate" style="max-width: 70%;">
+                        <i class="fas fa-file mr-1"></i>{{ file.name }}
+                      </span>
+                      <button type="button" class="btn btn-sm btn-danger" @click="removeAttachment(index)">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Notes Section -->
+              <div class="form-group">
+                <label for="note">{{ $t("Notes") }}</label>
                 <textarea id="note" v-model="form.note" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('note') }" :placeholder="$t('Write your note here!')" />
                 <has-error :form="form" field="note" />
@@ -399,6 +521,8 @@ export default {
       subTotal: 0,
       netTotal: 0,
       discount: "",
+      discount_type: "percentage", // "percentage" or "fixed"
+      discount_value: 0,
       transportCost: "",
       transportTaxableCost: "",
       transportVatAmount: 0,
@@ -409,21 +533,41 @@ export default {
       totalTax: 0,
       totalPaid: "",
       poReference: "",
+      reference: "",
       paymentTerms: "",
       addPayment: "",
       chequeNo: "",
       receiptNo: "",
       poDate: new Date().toISOString().slice(0, 10),
       purchaseDate: new Date().toISOString().slice(0, 10),
+      purchase_status: "",
       note: "",
       status: 0, // Default to inactive for ZATCA compatibility
       isSendEmail: false,
       isSendSMS: false,
       totalDiscount: 0,
+      costCenter: null,
+      cost_center_id: null,
+      branch: null,
+      branch_id: null,
+      isPaid: false,
+      payment_method_id: null,
+      attachments: [],
     }),
     products: "",
     accounts: "",
     taxes: "",
+    costCenters: [],
+    branches: [],
+    paymentMethods: [
+      { id: 'cash', name: 'نقدي (Cash)' },
+      { id: 'visa', name: 'فيزا (Visa)' },
+      { id: 'mada', name: 'مدى (Mada)' },
+      { id: 'mastercard', name: 'ماستركارد (Mastercard)' },
+      { id: 'bank_transfer', name: 'تحويل بنكي (Bank Transfer)' },
+      { id: 'stc_pay', name: 'STC Pay' },
+      { id: 'amex', name: 'أمريكان إكسبريس (American Express)' }
+    ],
     
     // Communication configuration status
     communicationConfig: {
@@ -554,6 +698,8 @@ export default {
       this.getProducts(),
       this.getAccounts(),
       this.getTaxes(),
+      this.getCostCenters(),
+      this.getBranches(),
       this.loadCommunicationConfigStatus()
     ]);
     
@@ -1245,6 +1391,18 @@ export default {
       // Update Net Total using the dedicated method
       this.updateNetTotal();
       
+      // Apply invoice-level discount if set
+      if (this.form.discount_type && this.form.discount_value > 0) {
+        let totalWithVat = this.form.netTotal;
+        let invoiceDiscount = 0;
+        if (this.form.discount_type === 'percentage') {
+          invoiceDiscount = totalWithVat * (this.form.discount_value / 100);
+        } else {
+          invoiceDiscount = this.form.discount_value;
+        }
+        this.form.netTotal = Number((totalWithVat - invoiceDiscount).toFixed(2));
+      }
+      
       return;
     },
     // save purchase
@@ -1311,28 +1469,134 @@ export default {
         // Submit the form
         
         // Prepare the form data
-        const formData = this.form.data();
+        let formData;
         
-        // Convert addPayment to boolean for backend validation
-        formData.addPayment = this.form.addPayment == 1;
-        
-        // Only include payment-related fields if payment is being added
-        if (this.form.addPayment == 1) {
-          formData.account = this.form.account;
-          formData.totalPaid = this.form.totalPaid;
+        // If attachments exist, use FormData; otherwise use regular form data
+        if (this.form.attachments && this.form.attachments.length > 0) {
+          // Create FormData for file uploads
+          const formDataObj = this.form.data();
+          formData = new FormData();
+          
+          // Helper function to append values
+          const appendIfDefined = (key, value) => {
+            if (value !== null && value !== undefined && value !== '') {
+              formData.append(key, value);
+            }
+          };
+          
+          // Append all form fields
+          appendIfDefined('supplier[id]', formDataObj.supplier?.id);
+          appendIfDefined('transportCost', formDataObj.transportCost);
+          appendIfDefined('transportTaxableCost', formDataObj.transportTaxableCost);
+          appendIfDefined('subTotal', formDataObj.subTotal);
+          appendIfDefined('netTotal', formDataObj.netTotal);
+          appendIfDefined('discount', formDataObj.discount);
+          appendIfDefined('discount_type', formDataObj.discount_type);
+          appendIfDefined('discount_value', formDataObj.discount_value);
+          appendIfDefined('poReference', formDataObj.poReference);
+          appendIfDefined('reference', formDataObj.reference);
+          appendIfDefined('paymentTerms', formDataObj.paymentTerms);
+          appendIfDefined('purchaseDate', formDataObj.purchaseDate);
+          appendIfDefined('poDate', formDataObj.poDate);
+          appendIfDefined('note', formDataObj.note);
+          appendIfDefined('status', formDataObj.status);
+          appendIfDefined('isSendEmail', formDataObj.isSendEmail ? 1 : 0);
+          appendIfDefined('isSendSMS', formDataObj.isSendSMS ? 1 : 0);
+          appendIfDefined('addPayment', this.form.addPayment == 1 ? 1 : 0);
+          appendIfDefined('cost_center_id', formDataObj.cost_center_id);
+          appendIfDefined('branch_id', formDataObj.branch_id);
+          appendIfDefined('purchase_status', formDataObj.purchase_status);
+          appendIfDefined('isPaid', formDataObj.isPaid ? 1 : 0);
+          appendIfDefined('payment_method_id', formDataObj.payment_method_id);
+          
+          // Handle orderTax - only include if country is NOT Saudi Arabia
+          if (!this.isSaudiArabia && formDataObj.orderTax) {
+            appendIfDefined('orderTax[id]', formDataObj.orderTax.id);
+          }
+          
+          // Only include payment-related fields if payment is being added
+          if (this.form.addPayment == 1) {
+            appendIfDefined('account[id]', formDataObj.account?.id);
+            appendIfDefined('totalPaid', formDataObj.totalPaid);
+          }
+          
+          // Append selectedProducts array
+          if (Array.isArray(formDataObj.selectedProducts)) {
+            formDataObj.selectedProducts.forEach((product, index) => {
+              Object.keys(product).forEach(prodKey => {
+                const prodValue = product[prodKey];
+                if (prodValue !== null && prodValue !== undefined && prodValue !== '') {
+                  // Handle nested objects in products
+                  if (typeof prodValue === 'object' && !Array.isArray(prodValue) && prodValue.id) {
+                    formData.append(`selectedProducts[${index}][${prodKey}][id]`, prodValue.id);
+                  } else {
+                    formData.append(`selectedProducts[${index}][${prodKey}]`, prodValue);
+                  }
+                }
+              });
+            });
+          }
+          
+          // Append attachments using attachments[] format
+          this.form.attachments.forEach((file) => {
+            if (file instanceof File) {
+              formData.append('attachments[]', file);
+            }
+          });
+          
+          // Submit using axios with FormData
+          const response = await this.$axios.post("/api/purchases", formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          });
+          
+          toast.fire({
+            type: "success",
+            title: this.$t("Purchase added successfully"),
+          });
+          
+          this.clearTemporaryData()
+          this.$router.push({
+            name: "purchases.show",
+            params: { slug: response.data.data.slug },
+          });
         } else {
-          // Remove payment-related fields if not adding payment
-          delete formData.account;
-          delete formData.totalPaid;
+          // No attachments, use regular form data
+          formData = this.form.data();
+          
+          // Convert addPayment to boolean for backend validation
+          formData.addPayment = this.form.addPayment == 1;
+          
+          // Only include payment-related fields if payment is being added
+          if (this.form.addPayment == 1) {
+            formData.account = this.form.account;
+            formData.totalPaid = this.form.totalPaid;
+          } else {
+            // Remove payment-related fields if not adding payment
+            delete formData.account;
+            delete formData.totalPaid;
+          }
+          
+          // Handle orderTax - only include if country is NOT Saudi Arabia
+          if (this.isSaudiArabia) {
+            delete formData.orderTax;
+          }
+          
+          // Use direct axios call instead of form.post to have better control over error handling
+          const response = await this.$axios.post("/api/purchases", formData);
+          
+          toast.fire({
+            type: "success",
+            title: this.$t("Purchase added successfully"),
+          });
+          
+          this.clearTemporaryData()
+          this.$router.push({
+            name: "purchases.show",
+            params: { slug: response.data.data.slug },
+          });
         }
-        
-        // Handle orderTax - only include if country is NOT Saudi Arabia
-        if (this.isSaudiArabia) {
-          delete formData.orderTax;
-        }
-        
-        // Use direct axios call instead of form.post to have better control over error handling
-        const response = await this.$axios.post("/api/purchases", formData);
         
         toast.fire({
           type: "success",
@@ -1483,6 +1747,127 @@ export default {
           this.form.supplier = { ...updatedSupplier };
         }
       }
+    },
+
+    // get all cost centers
+    async getCostCenters() {
+      try {
+        const { data } = await axios.get(
+          window.location.origin + "/api/cost-centers"
+        );
+        if (data.data) {
+          this.costCenters = data.data;
+        } else if (Array.isArray(data)) {
+          this.costCenters = data;
+        } else {
+          this.costCenters = [];
+        }
+      } catch (error) {
+        console.error('Error getting cost centers:', error);
+        this.costCenters = [];
+      }
+    },
+
+    // handle cost center change
+    onCostCenterChange(costCenter) {
+      if (costCenter && costCenter.id) {
+        this.form.cost_center_id = costCenter.id;
+      } else {
+        this.form.cost_center_id = null;
+      }
+      this.clearFieldError('cost_center_id');
+    },
+
+    // get all branches
+    async getBranches() {
+      try {
+        let branchesData = [];
+        const user = this.$store.getters['auth/user'];
+        
+        if (user && user.account_role === 1) {
+          // For superadmin, get all branches
+          const { data } = await axios.get('/api/branches');
+          if (data.data) {
+            branchesData = data.data;
+          } else if (Array.isArray(data)) {
+            branchesData = data;
+          }
+        } else {
+          // For normal users, get their assigned branches
+          try {
+            const { data } = await axios.get(`/api/users/${user.id}/branches`);
+            if (Array.isArray(data)) {
+              branchesData = data;
+            } else if (data.data) {
+              branchesData = data.data;
+            }
+          } catch (error) {
+            // Fallback to all branches if user branches fail
+            const { data } = await axios.get('/api/branches');
+            if (data.data) {
+              branchesData = data.data;
+            }
+          }
+        }
+        this.branches = branchesData;
+      } catch (error) {
+        console.error('Error getting branches:', error);
+        this.branches = [];
+      }
+    },
+
+    // handle branch change
+    onBranchChange(branch) {
+      if (branch && branch.id) {
+        this.form.branch_id = branch.id;
+      } else {
+        this.form.branch_id = null;
+      }
+      this.clearFieldError('branch_id');
+    },
+
+    // handle purchase status change
+    onPurchaseStatusChange() {
+      this.clearFieldError('purchase_status');
+    },
+
+    // handle payment type change
+    onPaymentTypeChange(value) {
+      this.form.isPaid = value;
+      // Clear payment method when switching to credit
+      if (!value) {
+        this.form.payment_method_id = null;
+      }
+    },
+
+    // handle attachment change
+    onAttachmentChange(event) {
+      const files = Array.from(event.target.files || []);
+      const validFiles = files.filter(file => {
+        // Validate file size (10MB max)
+        if (file.size > 10 * 1024 * 1024) {
+          toast.fire({
+            type: "error",
+            title: this.$t("File too large"),
+            text: `${file.name} ${this.$t("exceeds 10MB limit")}`
+          });
+          return false;
+        }
+        return true;
+      });
+      
+      // Add valid files to attachments array
+      this.form.attachments = [...this.form.attachments, ...validFiles];
+    },
+
+    // remove attachment
+    removeAttachment(index) {
+      this.form.attachments.splice(index, 1);
+    },
+
+    // clear field error
+    clearFieldError(field) {
+      this.form.errors.clear(field);
     },
     // save form data temporarily
     saveTemporary() {

@@ -17,7 +17,7 @@ class Purchase extends Model
      * @var array
      */
     protected $fillable = [
-        'purchase_no', 'slug', 'supplier_id', 'discount', 'transport', 'transport_taxable', 'transport_non_taxable', 'sub_total', 'tax_id', 'po_reference', 'payment_terms', 'po_date', 'purchase_date', 'created_by', 'note', 'status', 'is_paid', 'fiscal_year_id', 'accounting_period_id', 'branch_id',
+        'purchase_no', 'slug', 'supplier_id', 'discount', 'discount_type', 'discount_value', 'transport', 'transport_taxable', 'transport_non_taxable', 'sub_total', 'tax_id', 'po_reference', 'reference', 'payment_terms', 'po_date', 'purchase_date', 'created_by', 'note', 'status', 'is_paid', 'payment_type', 'payment_method_id', 'purchase_status', 'fiscal_year_id', 'accounting_period_id', 'branch_id', 'cost_center_id', 'attachments',
     ];
 
     protected $appends = ['calculated_due', 'calculated_tax', 'calculated_total'];
@@ -189,5 +189,21 @@ class Purchase extends Model
     public function branch()
     {
         return $this->belongsTo(Branch::class);
+    }
+
+    /**
+     * Get the cost center for this purchase.
+     */
+    public function costCenter()
+    {
+        return $this->belongsTo(CostCenter::class, 'cost_center_id');
+    }
+
+    /**
+     * Get the payment method for this purchase.
+     */
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class, 'payment_method_id');
     }
 }

@@ -87,10 +87,13 @@ class PurchaseController extends Controller
             'supplier' => 'required',
             'selectedProducts' => 'required|array|min:1',
             'selectedProducts.*' => 'required|distinct',
-            'discount' => 'nullable|numeric'.$request->subTotal,
+            'discount' => 'nullable|numeric',
+            'discount_type' => 'nullable|in:percentage,fixed',
+            'discount_value' => 'nullable|numeric|min:0',
             'orderTax' => 'nullable', // VAT is not required for purchases (bills)
             'netTotal' => 'required|numeric|min:1',
             'poReference' => 'nullable|string|max:255',
+            'reference' => 'nullable|string|max:255',
             'paymentTerms' => 'nullable|string|max:255',
             'account' => $request->addPayment == true ? 'required' : 'nullable',
             'availableBalance' => $request->addPayment == true ? 'required|numeric' : 'nullable',
@@ -100,6 +103,13 @@ class PurchaseController extends Controller
             'purchaseDate' => 'nullable|date_format:Y-m-d',
             'poDate' => 'nullable|date_format:Y-m-d',
             'note' => 'nullable|string|max:255',
+            'cost_center_id' => 'nullable|exists:cost_centers,id',
+            'branch_id' => 'nullable|exists:branches,id',
+            'purchase_status' => 'nullable|in:تم الاستلام,معلقة',
+            'isPaid' => 'nullable|boolean',
+            'payment_method_id' => 'nullable|string|max:255',
+            'attachments' => 'nullable|array',
+            'attachments.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:10240', // 10MB max per file
         ];
 
         // Add transport cost validation based on supplier tax status
@@ -253,27 +263,56 @@ class PurchaseController extends Controller
             // Add transport total to sub_total
             $subTotal += $transportTotal;
 
+            // Handle attachments
+            $attachments = [];
+            if ($request->hasFile('attachments')) {
+                foreach ($request->file('attachments') as $file) {
+                    $path = $file->store('purchases/attachments', 'tenant-public');
+                    $attachments[] = [
+                        'name' => $file->getClientOriginalName(),
+                        'path' => $path,
+                        'size' => $file->getSize(),
+                        'mime_type' => $file->getMimeType(),
+                    ];
+                }
+            }
+
+            // Determine payment type from isPaid
+            $paymentType = $request->isPaid ? 'paid' : 'due';
+
+            // Override branch_id if provided in request
+            $finalBranchId = $request->branch_id ?? $branchId;
+
             // create purchase
             $purchase = Purchase::create([
                 'purchase_no' => $code,
                 'slug' => uniqid(),
                 'supplier_id' => $request->supplier['id'],
                 'discount' => $totalProductDiscount, // Sum of all product discount amounts
+                'discount_type' => $request->discount_type ?? 'fixed',
+                'discount_value' => $request->discount_value ?? 0,
                 'transport' => $isSupplierTaxable ? $transportTotal : ($request->transportCost ?? 0), // Keep transport for backward compatibility
                 'transport_taxable' => $isSupplierTaxable ? $transportTaxable : null,
                 'transport_non_taxable' => null, // Deprecated, kept for backward compatibility
                 'tax_id' => $isSaudiArabia ? null : ($request->orderTax ? $request->orderTax['id'] : null), // VAT only when NOT Saudi Arabia
                 'sub_total' => $subTotal, // Calculated following the exact pseudocode logic
                 'po_reference' => $request->poReference,
+                'reference' => $request->reference,
                 'payment_terms' => $request->paymentTerms,
                 'po_date' => $request->poDate,
                 'purchase_date' => $request->purchaseDate,
+                'purchase_status' => $request->purchase_status,
                 'note' => clean($request->note),
                 'status' => $request->status,
+                'is_paid' => $request->isPaid ?? false,
+                'payment_type' => $paymentType,
+                'payment_method_id' => $request->payment_method_id,
+                'attachments' => ! empty($attachments) ? json_encode($attachments) : null,
                 'created_by' => $userId,
                 'fiscal_year_id' => $currentFiscalYearId,
                 'accounting_period_id' => $currentAccountingPeriodId,
-                'branch_id' => $branchId,
+                'branch_id' => $finalBranchId,
+                'cost_center_id' => $request->cost_center_id,
             ]);
 
             // store purchase products
@@ -461,7 +500,7 @@ class PurchaseController extends Controller
     public function show($slug)
     {
         try {
-            $purchase = Purchase::with('supplier', 'purchaseProducts.purchase', 'purchaseReturn', 'purchasePayments.purchasePaymentTransaction.cashbookAccount', 'purchaseProducts.product.productUnit', 'purchaseProducts.product.productTax', 'purchaseProducts.product.proSubCategory.category', 'user')->where('slug', $slug)->first();
+            $purchase = Purchase::with('supplier', 'purchaseProducts.purchase', 'purchaseReturn', 'purchasePayments.purchasePaymentTransaction.cashbookAccount', 'purchaseProducts.product.productUnit', 'purchaseProducts.product.productTax', 'purchaseProducts.product.proSubCategory.category', 'user', 'branch', 'costCenter', 'paymentMethod')->where('slug', $slug)->first();
 
             if (! $purchase) {
                 return $this->responseWithError('Purchase not found');

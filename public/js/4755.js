@@ -2925,7 +2925,7 @@ module.exports = function (R, S) {
 
 "use strict";
 
-var toPrimitive = __webpack_require__(95158);
+var toPrimitive = __webpack_require__(72777);
 var isSymbol = __webpack_require__(10757);
 
 // `ToPropertyKey` abstract operation
@@ -3884,6 +3884,40 @@ $({ target: 'Array', proto: true, forced: FORCED }, {
     return $reduce(this, callbackfn, length, length > 1 ? arguments[1] : undefined);
   }
 });
+
+
+/***/ }),
+
+/***/ 72777:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var call = __webpack_require__(69565);
+var isObject = __webpack_require__(20034);
+var isSymbol = __webpack_require__(10757);
+var getMethod = __webpack_require__(55966);
+var ordinaryToPrimitive = __webpack_require__(84270);
+var wellKnownSymbol = __webpack_require__(78227);
+
+var $TypeError = TypeError;
+var TO_PRIMITIVE = wellKnownSymbol('toPrimitive');
+
+// `ToPrimitive` abstract operation
+// https://tc39.es/ecma262/#sec-toprimitive
+module.exports = function (input, pref) {
+  if (!isObject(input) || isSymbol(input)) return input;
+  var exoticToPrim = getMethod(input, TO_PRIMITIVE);
+  var result;
+  if (exoticToPrim) {
+    if (pref === undefined) pref = 'default';
+    result = call(exoticToPrim, input, pref);
+    if (!isObject(result) || isSymbol(result)) return result;
+    throw new $TypeError("Can't convert object to primitive value");
+  }
+  if (pref === undefined) pref = 'number';
+  return ordinaryToPrimitive(input, pref);
+};
 
 
 /***/ }),
@@ -12718,40 +12752,6 @@ module.exports = typeof documentAll == 'undefined' && documentAll !== undefined 
   return typeof argument == 'function' || argument === documentAll;
 } : function (argument) {
   return typeof argument == 'function';
-};
-
-
-/***/ }),
-
-/***/ 95158:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-var call = __webpack_require__(69565);
-var isObject = __webpack_require__(20034);
-var isSymbol = __webpack_require__(10757);
-var getMethod = __webpack_require__(55966);
-var ordinaryToPrimitive = __webpack_require__(84270);
-var wellKnownSymbol = __webpack_require__(78227);
-
-var $TypeError = TypeError;
-var TO_PRIMITIVE = wellKnownSymbol('toPrimitive');
-
-// `ToPrimitive` abstract operation
-// https://tc39.es/ecma262/#sec-toprimitive
-module.exports = function (input, pref) {
-  if (!isObject(input) || isSymbol(input)) return input;
-  var exoticToPrim = getMethod(input, TO_PRIMITIVE);
-  var result;
-  if (exoticToPrim) {
-    if (pref === undefined) pref = 'default';
-    result = call(exoticToPrim, input, pref);
-    if (!isObject(result) || isSymbol(result)) return result;
-    throw new $TypeError("Can't convert object to primitive value");
-  }
-  if (pref === undefined) pref = 'number';
-  return ordinaryToPrimitive(input, pref);
 };
 
 
