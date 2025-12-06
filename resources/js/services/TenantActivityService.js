@@ -7,7 +7,7 @@ class TenantActivityService {
     this.activityTimeout = null
     this.lastActivityTime = Date.now()
     this.heartbeatIntervalMs = 30 * 1000 // 30 seconds - more frequent updates
-    this.inactivityTimeoutMs = 1 * 60 * 1000 // 1 minute
+    this.inactivityTimeoutMs = 10 * 60 * 1000 // 10 minutes
     this.isActive = false
     this.activityEvents = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click']
   }
