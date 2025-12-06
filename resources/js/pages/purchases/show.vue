@@ -44,10 +44,11 @@
               class="btn btn-success">
               <i class="fas fa-paper-plane"></i> {{ $t("Send Purchase to ZATCA") }}
             </a>
-            <a v-if="allData && allData.status === 1 && calculateDueAmount > 0" @click.prevent="addPayment()" href="#"
+            <!-- Add Payment button hidden -->
+            <!-- <a v-if="allData && allData.status === 1 && calculateDueAmount > 0" @click.prevent="addPayment()" href="#"
               class="btn btn-primary">
               <i class="fas fa-money-bill" /> {{ $t("Add Payment") }}
-            </a>
+            </a> -->
             <a v-if="$can('purchase-return-create') && allData && allData.status === 1"
               @click.prevent="returnPurchase(allData)" href="#" class="btn btn-warning">
               <i class="fas fa-undo"></i> {{ $t("Return Purchase") }}
@@ -403,7 +404,7 @@
                           <span v-if="allData.discount_type === 'percentage'">
                             {{ formatNumber((totalPrice - totalProductDiscount + totalProductVat) *
                               (allData.discount_value
-                            / 100)) }} <span class="saudi-riyal">ê</span>
+                                / 100)) }} <span class="saudi-riyal">ê</span>
                           </span>
                           <span v-else>
                             {{ formatNumber(allData.discount_value) }} <span class="saudi-riyal">ê</span>

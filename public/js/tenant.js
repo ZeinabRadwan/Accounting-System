@@ -35518,12 +35518,12 @@ var map = {
 		4916
 	],
 	"./purchases/show": [
-		2570,
-		2570
+		63970,
+		3970
 	],
 	"./purchases/show.vue": [
-		2570,
-		2570
+		63970,
+		3970
 	],
 	"./reports/account-statement": [
 		89861,
