@@ -62,9 +62,9 @@
                 </div>
               </div>
 
-              <!-- Row 2: Supplier / Date / Reference Number -->
+              <!-- Row 2: Supplier / Reference Number -->
               <div class="row" v-if="suppliers && products">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                   <label for="supplier">{{ $t("Supplier") }}
                     <span class="required">*</span></label>
                   <div class="row">
@@ -101,13 +101,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-group col-md-4">
-                  <label for="purchaseDate2">{{ $t("Date") }}</label>
-                  <input id="purchaseDate2" v-model="form.purchaseDate" type="date" class="form-control"
-                    :class="{ 'is-invalid': form.errors.has('purchase_date') }" name="purchaseDate2" readonly />
-                  <has-error :form="form" field="purchase_date" />
-                </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                   <label for="reference">{{ $t("Reference Number") }}</label>
                   <input id="reference" v-model="form.reference" type="text" class="form-control"
                     :class="{ 'is-invalid': form.errors.has('reference') }" name="reference"

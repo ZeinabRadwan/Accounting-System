@@ -34543,11 +34543,11 @@ var map = {
 	],
 	"./employees/create": [
 		60657,
-		3038
+		657
 	],
 	"./employees/create.vue": [
 		60657,
-		3038
+		657
 	],
 	"./employees/departments": [
 		2763,
@@ -35454,12 +35454,12 @@ var map = {
 		5982
 	],
 	"./purchases/create": [
-		30657,
-		657
+		33526,
+		3526
 	],
 	"./purchases/create.vue": [
-		30657,
-		657
+		33526,
+		3526
 	],
 	"./purchases/edit": [
 		46389,
@@ -35518,12 +35518,12 @@ var map = {
 		4916
 	],
 	"./purchases/show": [
-		54177,
-		4177
+		2570,
+		2570
 	],
 	"./purchases/show.vue": [
-		54177,
-		4177
+		2570,
+		2570
 	],
 	"./reports/account-statement": [
 		89861,

@@ -10,50 +10,29 @@
           <div class="btn-group">
             <ul class="nav nav-pills">
               <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  href="#details"
-                  data-toggle="tab"
-                  @click="getPurchase"
-                >
+                <a class="nav-link active" href="#details" data-toggle="tab" @click="getPurchase">
                   <i class="fa fa-info"></i>
-                  {{ $t("Details") }}</a
-                >
+                  {{ $t("Details") }}</a>
               </li>
               <li class="nav-item">
-                <a
-                  @click="getActivity"
-                  class="nav-link"
-                  href="#activity-log"
-                  data-toggle="tab"
-                >
+                <a @click="getActivity" class="nav-link" href="#activity-log" data-toggle="tab">
                   <i class="nav-icon fa fa-bell" aria-hidden="true"></i>
-                  {{ $t("Activity log") }}</a
-                >
+                  {{ $t("Activity log") }}</a>
               </li>
             </ul>
           </div>
 
           <div class="btn-group">
-            <a
-              @click="communicationConfig.sms_configured ? notify((form.isSendSMS = true)) : null"
-              href="#"
-              :class="[
-                'btn',
-                communicationConfig.sms_configured ? 'btn-secondary' : 'btn-secondary disabled'
-              ]"
-              :disabled="!communicationConfig.sms_configured"
+            <a @click="communicationConfig.sms_configured ? notify((form.isSendSMS = true)) : null" href="#" :class="[
+              'btn',
+              communicationConfig.sms_configured ? 'btn-secondary' : 'btn-secondary disabled'
+            ]" :disabled="!communicationConfig.sms_configured"
               :title="!communicationConfig.sms_configured ? $t('SMS settings not configured') : ''"
-              v-tooltip="!communicationConfig.sms_configured ? $t('SMS settings not configured') : ''"
-            >
+              v-tooltip="!communicationConfig.sms_configured ? $t('SMS settings not configured') : ''">
               <i class="fas fa-sms"></i> {{ $t("SMS") }}
             </a>
-            <a
-              @click="notify((form.isSendEmail = true))"
-              href="#"
-              class="btn btn-success"
-              ><i class="fas fa-paper-plane"></i> {{ $t("email") }}</a
-            >
+            <a @click="notify((form.isSendEmail = true))" href="#" class="btn btn-success"><i
+                class="fas fa-paper-plane"></i> {{ $t("email") }}</a>
             <!-- New preview and download PDF buttons -->
             <a @click="previewPDF" href="#" class="btn btn-info">
               <i class="fas fa-eye"></i> {{ $t("Preview PDF") }}
@@ -61,45 +40,27 @@
             <a @click="downloadPDF" href="#" class="btn btn-info">
               <i class="fas fa-download"></i> {{ $t("download") }}
             </a>
-            <a 
-              v-if="isSaudiArabia && allData && allData.status === 0"
-              @click="sendPurchase(allData)" 
-              href="#" 
-              class="btn btn-success"
-            >
+            <a v-if="isSaudiArabia && allData && allData.status === 0" @click="sendPurchase(allData)" href="#"
+              class="btn btn-success">
               <i class="fas fa-paper-plane"></i> {{ $t("Send Purchase to ZATCA") }}
             </a>
-            <a
-              v-if="allData && allData.status === 1 && calculateDueAmount > 0"
-              @click.prevent="addPayment()"
-              href="#"
-              class="btn btn-primary"
-            >
+            <a v-if="allData && allData.status === 1 && calculateDueAmount > 0" @click.prevent="addPayment()" href="#"
+              class="btn btn-primary">
               <i class="fas fa-money-bill" /> {{ $t("Add Payment") }}
             </a>
-            <a 
-              v-if="$can('purchase-return-create') && allData && allData.status === 1"
-              @click.prevent="returnPurchase(allData)" 
-              href="#" 
-              class="btn btn-warning"
-            >
+            <a v-if="$can('purchase-return-create') && allData && allData.status === 1"
+              @click.prevent="returnPurchase(allData)" href="#" class="btn btn-warning">
               <i class="fas fa-undo"></i> {{ $t("Return Purchase") }}
             </a>
-            <router-link
-              v-if="$can('purchase-edit')"
-              :to="{
-                name: 'purchases.edit',
-                params: { slug: allData.slug },
-              }"
-              class="btn btn-info"
-            >
+            <router-link v-if="$can('purchase-edit')" :to="{
+              name: 'purchases.edit',
+              params: { slug: allData.slug },
+            }" class="btn btn-info">
               <i class="fas fa-edit" /> {{ $t("Edit") }}
             </router-link>
-            <router-link
-              :to="{ name: 'purchases.index' }"
-              class="btn btn-info float-right"
-            >
-              <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+            <router-link :to="{ name: 'purchases.index' }" class="btn btn-info float-right">
+              <template
+                v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
                 {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
 
@@ -107,7 +68,8 @@
 
               <template v-else>
 
-                <template v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
+                <template
+                  v-if="$i18n.locale === 'ar' || (typeof document !== 'undefined' && document.documentElement.getAttribute('dir') === 'rtl')">
 
 
                   {{ $t('Back') }} <i class="fas fa-long-arrow-alt-left" />
@@ -143,9 +105,7 @@
                 <CompanyInfo />
               </div>
               <!-- /.col -->
-              <div
-                class="col-sm-8 invoice-col float-right text-md-right"
-              >
+              <div class="col-sm-8 invoice-col float-right text-md-right">
                 <h5>{{ $t("Supplier Details") }}</h5>
                 <div v-if="allData.supplier">
                   <strong>{{ $t("Supplier ID") }}:</strong>
@@ -153,162 +113,135 @@
                   }}<br />
                   <strong>{{ $t("Supplier Name") }}:</strong>
                   {{ allData.supplier.name }}<br />
-                  <span v-if="allData.supplier.companyName"
-                    ><strong>{{ $t("Company Name") }}:</strong>
-                    {{ allData.supplier.companyName }}<br
-                  /></span>
-                  <span v-if="allData.supplier.email"
-                    ><strong>{{ $t("Email") }}:</strong>
-                    {{ allData.supplier.email }}<br
-                  /></span>
-                  <span v-if="allData.supplier.phoneNumber"
-                    ><strong>{{ $t("Contact Number") }}:</strong>
-                    {{ allData.supplier.phoneNumber }}<br
-                  /></span>
-                  <span v-if="allData.supplier.address"
-                    ><strong>{{ $t("Address") }}:</strong>
-                    {{ allData.supplier.address }}<br
-                  /></span>
+                  <span v-if="allData.supplier.companyName"><strong>{{ $t("Company Name") }}:</strong>
+                    {{ allData.supplier.companyName }}<br /></span>
+                  <span v-if="allData.supplier.email"><strong>{{ $t("Email") }}:</strong>
+                    {{ allData.supplier.email }}<br /></span>
+                  <span v-if="allData.supplier.phoneNumber"><strong>{{ $t("Contact Number") }}:</strong>
+                    {{ allData.supplier.phoneNumber }}<br /></span>
+                  <span v-if="allData.supplier.address"><strong>{{ $t("Address") }}:</strong>
+                    {{ allData.supplier.address }}<br /></span>
                 </div>
               </div>
               <!-- /.col -->
             </div>
             <!-- /.row -->
 
+            <!-- Purchase Header Information Table -->
             <div class="row mt-3">
               <div class="col-12">
+                <GeneralTable :columns="purchaseHeaderColumns" :rows="purchaseHeaderRows" :loading="loading"
+                  wrapper-class="">
+                  <template #cell-purchaseNo="{ value }">
+                    {{ value | withPrefix(purchasePrefix) }}
+                  </template>
+                  <template #cell-purchaseDate="{ value }">
+                    {{ value | moment("Do MMM, YYYY") }}
+                  </template>
+                  <template #cell-status="{ value }">
+                    <span v-if="value === 1" class="badge bg-success">{{ $t("Active") }}</span>
+                    <span v-else class="badge bg-danger">{{ $t("Inactive") }}</span>
+                  </template>
+                  <template #cell-purchaseStatus="{ value }">
+                    <span v-if="value === 'تم الاستلام'" class="badge bg-success">
+                      {{ $t("Received") }} ({{ value }})
+                    </span>
+                    <span v-else-if="value === 'معلقة'" class="badge bg-warning">
+                      {{ $t("Pending") }} ({{ value }})
+                    </span>
+                    <span v-else>{{ value || '-' }}</span>
+                  </template>
+                  <template #cell-date="{ value }">
+                    {{ value | moment("Do MMM, YYYY") }}
+                  </template>
+                  <template #cell-paymentType="{ value }">
+                    <span v-if="value === 'paid'" class="badge bg-success">
+                      {{ $t("Paid") }} (مدفوع)
+                    </span>
+                    <span v-else-if="value === 'due'" class="badge bg-warning">
+                      {{ $t("On Credit") }} (أجل)
+                    </span>
+                    <span v-else>{{ value || '-' }}</span>
+                  </template>
+                </GeneralTable>
+              </div>
+            </div>
+
+            <!-- Purchase-Level Discount Section -->
+            <div class="row mt-3" v-if="allData.discount_type && allData.discount_value">
+              <div class="col-12">
                 <div class="table-responsive table-custom">
-                  <table class="table table-bordered">
+                  <table class="table invoices-table">
                     <thead>
                       <tr>
-                        <th v-if="allData.purchaseNo">
-                          {{ $t("Purchase No") }}
-                        </th>
-                        <th v-if="allData.costCenter">
-                          {{ $t("Cost Center") }}
-                        </th>
-                        <th v-if="allData.branch">
-                          {{ $t("Branch") }}
-                        </th>
-                        <th v-if="allData.purchase_status">
-                          {{ $t("Purchase Status") }}
-                        </th>
-                        <th v-if="allData.purchaseDate">
-                          {{ $t("Date") }}
-                        </th>
-                        <th v-if="allData.reference">
-                          {{ $t("Reference Number") }}
-                        </th>
-                        <th v-if="allData.poReference">
-                          {{ $t("PO Reference") }}
-                        </th>
-                        <th v-if="allData.paymentTerms">
-                          {{ $t("Payment Terms") }}
-                        </th>
-                        <th v-if="allData.poDate">
-                          {{ $t("PO Date") }}
-                        </th>
-                        <th v-if="allData.discount_type || allData.discount_value">
-                          {{ $t("Discount on Total Invoice") }}
-                        </th>
-                        <th v-if="allData.payment_type">
-                          {{ $t("Payment Type") }}
-                        </th>
-                        <th v-if="allData.paymentMethod || allData.payment_method_id">
-                          {{ $t("Payment Method") }}
-                        </th>
-                        <th v-if="allData.attachments && allData.attachments.length > 0">
-                          {{ $t("Attachments") }}
-                        </th>
-                        <th v-if="allData.note">{{ $t("Notes") }}</th>
-                        <th>{{ $t("Status") }}</th>
-                        <th class="text-right">
-                          {{ $t("Created By") }}
-                        </th>
+                        <th>{{ $t("Purchase Discount") }}</th>
+                        <th>{{ $t("Discount Type") }}</th>
+                        <th>{{ $t("Discount Value") }}</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td v-if="allData.purchaseNo">
-                          {{ allData.purchaseNo | withPrefix(purchasePrefix) }}
-                        </td>
-                        <td v-if="allData.costCenter">
-                          {{ allData.costCenter.name }}
-                        </td>
-                        <td v-if="allData.branch">
-                          {{ allData.branch.name }}
-                        </td>
-                        <td v-if="allData.purchase_status">
-                          <span v-if="allData.purchase_status === 'تم الاستلام'" class="badge bg-success">
-                            {{ $t("Received") }} ({{ allData.purchase_status }})
-                          </span>
-                          <span v-else-if="allData.purchase_status === 'معلقة'" class="badge bg-warning">
-                            {{ $t("Pending") }} ({{ allData.purchase_status }})
-                          </span>
-                          <span v-else class="badge bg-secondary">
-                            {{ allData.purchase_status }}
-                          </span>
-                        </td>
-                        <td v-if="allData.purchaseDate">
-                          {{ allData.purchaseDate | moment("Do MMM, YYYY") }}
-                        </td>
-                        <td v-if="allData.reference">
-                          {{ allData.reference }}
-                        </td>
-                        <td v-if="allData.poReference">
-                          {{ allData.poReference }}
-                        </td>
-                        <td v-if="allData.paymentTerms">
-                          {{ allData.paymentTerms }}
-                        </td>
-                        <td v-if="allData.poDate">
-                          {{ allData.poDate | moment("Do MMM, YYYY") }}
-                        </td>
-                        <td v-if="allData.discount_type || allData.discount_value">
-                          <span v-if="allData.discount_type === 'percentage'">
-                            {{ allData.discount_value }}%
-                          </span>
-                          <span v-else>
-                            {{ formatNumber(allData.discount_value) }} <span class="saudi-riyal">ê</span>
-                          </span>
-                        </td>
-                        <td v-if="allData.payment_type">
-                          <span class="badge" :class="allData.payment_type === 'paid' ? 'bg-success' : 'bg-danger'">
-                            {{ allData.payment_type === 'paid' ? $t("Paid") : $t("On Credit") }}
-                          </span>
-                        </td>
-                        <td v-if="allData.paymentMethod || allData.payment_method_id">
-                          <span v-if="allData.paymentMethod">
-                            {{ allData.paymentMethod.name }}
-                          </span>
-                          <span v-else-if="allData.payment_method_id">
-                            {{ getPaymentMethodName(allData.payment_method_id) }}
-                          </span>
-                        </td>
-                        <td v-if="allData.attachments && allData.attachments.length > 0">
-                          <div class="d-flex flex-column">
-                            <a v-for="(attachment, index) in allData.attachments" :key="index" 
-                               :href="attachment.url" 
-                               target="_blank" 
-                               class="mb-1">
-                              <i class="fas fa-file"></i> {{ attachment.name }}
-                            </a>
-                          </div>
-                        </td>
-                        <td v-if="allData.note">{{ allData.note }}</td>
+                        <td>{{ $t("Purchase Discount") }}</td>
                         <td>
-                          <span
-                            v-if="allData.status === 1"
-                            class="badge bg-success"
-                            >{{ $t("Active") }}</span
-                          >
-                          <span v-else class="badge bg-danger">{{
-                            $t("Inactive")
-                          }}</span>
+                          <span v-if="allData.discount_type === 'percentage'">{{ $t("%") }}</span>
+                          <span v-else-if="allData.discount_type === 'fixed'">{{ $t("Fixed") }}</span>
+                          <span v-else>{{ allData.discount_type }}</span>
                         </td>
-                        <td class="text-right">
-                          {{ allData.createdBy }}
+                        <td>
+                          {{ formatNumber(allData.discount_value) }}
+                          <span v-if="allData.discount_type === 'percentage'">%</span>
+                          <span v-else class="saudi-riyal">ê</span>
                         </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Attachments Section -->
+            <div class="row mt-3" v-if="allData.attachments && allData.attachments.length > 0">
+              <div class="col-12">
+                <div class="table-responsive table-custom">
+                  <table class="table invoices-table">
+                    <thead>
+                      <tr>
+                        <th>{{ $t("Attachments") }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <ul class="list-unstyled mb-0">
+                            <li v-for="(attachment, index) in allData.attachments" :key="index" class="mb-2">
+                              <a :href="attachment.url || attachment.path" target="_blank"
+                                class="d-flex align-items-center">
+                                <i class="fas fa-file mr-2"></i>
+                                <span>{{ attachment.name || attachment.file_name || `Attachment ${index + 1}` }}</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Notes Section -->
+            <div class="row mt-3" v-if="allData.note">
+              <div class="col-12">
+                <div class="table-responsive table-custom">
+                  <table class="table invoices-table">
+                    <thead>
+                      <tr>
+                        <th>{{ $t("Notes") }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{ allData.note }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -317,80 +250,46 @@
             </div>
 
             <!-- Table row -->
-            <div class="row position-relative mt-4 mb-4">
+            <div class="row mt-4">
               <div class="col-12">
-                <strong class="mb-2 d-block"
-                  >{{ $t("Purchase Products") }}:</strong
-                >
-                <div class="table-custom table-responsive">
-                  <table class="table table-sm text-center">
-                    <thead>
-                        <th>{{ $t("#") }}</th>
-                        <th>{{ $t("Code") }}</th>
-                        <th>{{ $t("Product Name") }}</th>
-                        <th>{{ $t("Purchased Qty") }}</th>
-                        <th v-if="allData.purchaseReturn">
-                          {{ $t("Returned Qty") }}
-                        </th>
-                        <th>{{ $t("Unit Price") }}</th>
-                        <th>{{ $t("Total") }}</th>
-                        <th>{{ $t("Discount") }}</th>
-                        <th>{{ $t("Total After Discount") }}</th>
-                        <th>{{ $t("VAT") }}</th>
-                        <th>{{ $t("Total with VAT") }}</th>
-                        <th
-                          v-if="allData.purchaseReturn"
-                          :class="allData.purchaseReturn ? 'text-right' : ''"
-                        >
-                          {{ $t("Total Return") }}
-                        </th>
-                    </thead>
-                    <tbody v-if="purchaseProducts">
-                      <tr v-for="(data, i) in purchaseProducts" :key="i">
-                        <td>{{ ++i }}</td>
-                        <td>
-                          {{ data.productCode | withPrefix(productPrefix) }}
-                        </td>
-                        <td>{{ data.productName }}</td>
-                        <td>{{ data.quantity }} {{ data.productUnit }}</td>
-                        <td v-if="allData.purchaseReturn">
-                          {{ data.returnQty > 0 ? data.returnQty : 0 }}
-                          {{ data.productUnit }}
-                        </td>
-                        <td>{{ data.purchasePrice  }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ data.grossTotal  }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ data.discountAmount  }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ data.totalAfterDiscount  }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ data.taxTotal  }} <span class="saudi-riyal">ê</span></td>
-                        <td>{{ data.lineTotal  }} <span class="saudi-riyal">ê</span></td>
-                        <td
-                          v-if="allData.purchaseReturn"
-                          :class="allData.purchaseReturn ? 'text-right' : ''"
-                        >
-                          {{ (data.unitCost * data.returnQty)  }} <span class="saudi-riyal">ê</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          class="text-right"
-                          :colspan="allData.purchaseReturn ? 11 : 9"
-                        >
-                          <strong>{{ $t("Total with VAT") }}</strong>
-                        </td>
-                        <td>
-                          <strong>{{ formatNumber(getTotalWithVatSum()) }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                        <td
-                          v-if="allData.purchaseReturn"
-                          :class="allData.purchaseReturn ? 'text-right' : ''"
-                        >
-                          <strong>{{
-                            allData.purchaseReturn.totalReturn 
-                          }} <span class="saudi-riyal">ê</span></strong>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <strong class="mb-2 d-block">{{ $t("Purchase Products") }}:</strong>
+                <GeneralTable :columns="purchaseProductsColumns" :rows="purchaseProductsRows" :loading="loading"
+                  wrapper-class="">
+                  <template #cell-code="{ value }">
+                    {{ value | withPrefix(productPrefix) }}
+                  </template>
+                  <template #cell-price="{ value }">
+                    {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
+                  </template>
+                  <template #cell-total="{ value }">
+                    {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
+                  </template>
+                  <template #cell-discount="{ value }">
+                    <span v-if="value > 0">
+                      {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
+                    </span>
+                    <span v-else class="text-muted">
+                      {{ $t('No Discount') }}
+                    </span>
+                  </template>
+                  <template #cell-totalAfterDiscount="{ value }">
+                    {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
+                  </template>
+                  <template #cell-vat="{ value }">
+                    <span v-if="value > 0">
+                      {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
+                    </span>
+                    <span v-else class="text-muted">
+                      {{ $t('No VAT') }}
+                    </span>
+                  </template>
+                  <template #cell-totalWithVat="{ value }">
+                    {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
+                  </template>
+                </GeneralTable>
+                <div class="mt-2 text-center">
+                  <strong>{{ $t("Subtotal") }}: {{ formatNumber(allData.subTotal) }} <span
+                      class="saudi-riyal">ê</span></strong>
                 </div>
               </div>
             </div>
@@ -398,44 +297,68 @@
             <!-- /.row -->
             <div class="row mt-4" id="page-break">
               <div class="col-lg-12 col-xl-8">
-                <strong class="mb-2 d-block"
-                  >{{ $t("Payment History") }}:</strong
-                >
-                <div v-if="allData.payments && allData.payments.length > 0">
-                  <GeneralTable
-                    :columns="purchasePaymentHistoryColumns"
-                    :rows="purchasePaymentHistoryRows"
-                    :loading="loading"
-                    wrapper-class=""
-                  >
+                <div v-if="
+                  allData.payments &&
+                  allData.payments.length > 0
+                ">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <strong>{{ $t("Payment History") }}:</strong>
+                    <div v-if="allData.paymentType !== undefined || allData.payment_type !== undefined">
+                      <strong>{{ $t("Payment Type") }}:</strong>
+                      <span v-if="allData.paymentType === 'paid' || allData.payment_type === 'paid'"
+                        class="badge bg-success ml-2">
+                        {{ $t("Paid") }} (مدفوع)
+                      </span>
+                      <span v-else class="badge bg-warning ml-2">
+                        {{ $t("On Credit") }} (أجل)
+                      </span>
+                      <span
+                        v-if="(allData.paymentType === 'paid' || allData.payment_type === 'paid') && (allData.paymentMethod || allData.payment_method_id)"
+                        class="ml-2">
+                        - {{ allData.paymentMethod ? allData.paymentMethod.name : (allData.payment_method_id ?
+                          getPaymentMethodName(allData.payment_method_id) : '-') }}
+                      </span>
+                    </div>
+                  </div>
+                  <GeneralTable :columns="purchasePaymentHistoryColumns" :rows="purchasePaymentHistoryRows"
+                    :loading="loading" wrapper-class="">
                     <template #cell-amount="{ value }">
                       {{ formatNumber(value) }} <span class="saudi-riyal">ê</span>
                     </template>
                     <template #cell-status="{ value }">
-                      <span
-                        v-if="value == 1"
-                        class="badge bg-success"
-                        >{{ $t("Active") }}</span
-                      >
-                      <span v-else class="badge bg-danger">{{
-                        $t("Inactive")
-                      }}</span>
+                      <span v-if="value === 1" class="badge bg-success">{{ $t("Active") }}</span>
+                      <span v-else class="badge bg-danger">{{ $t("Inactive") }}</span>
                     </template>
                   </GeneralTable>
                   <div class="mt-2 text-right">
-                    <strong>{{ $t("Total Paid") }}: {{ formatNumber(allData.totalPaid) }} <span class="saudi-riyal">ê</span></strong>
+                    <strong>{{ $t("Total Paid") }}: {{ formatNumber(allData.totalPaid) }} <span
+                        class="saudi-riyal">ê</span></strong>
                   </div>
                 </div>
                 <div class="no-print callout callout-danger mt-4 w-100" v-else>
-                  <h5>{{ $t("No payments available yet!") }}</h5>
-                  <p>{{ $t("You haven/'t add any payment for this purchase. After adding payments you will see the list here.") }}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">{{ $t("No payments available yet!") }}</h5>
+                    <div v-if="allData.paymentType !== undefined || allData.payment_type !== undefined" class="ml-3">
+                      <strong>{{ $t("Payment Type") }}:</strong>
+                      <span v-if="allData.paymentType === 'paid' || allData.payment_type === 'paid'"
+                        class="badge bg-success ml-2">
+                        {{ $t("Paid") }} (مدفوع)
+                      </span>
+                      <span v-else class="badge bg-warning ml-2">
+                        {{ $t("On Credit") }} (أجل)
+                      </span>
+                      <span
+                        v-if="(allData.paymentType === 'paid' || allData.payment_type === 'paid') && (allData.paymentMethod || allData.payment_method_id)"
+                        class="ml-2">
+                        - {{ allData.paymentMethod ? allData.paymentMethod.name : (allData.payment_method_id ?
+                          getPaymentMethodName(allData.payment_method_id) : '-') }}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="col-lg-12 col-xl-4 text-lg-right mt-4 pt-2">
-                <div
-                  class="table-responsive table-custom table-border-y-0"
-                  v-if="allData.supplier"
-                >
+                <div class="table-responsive table-custom table-border-y-0" v-if="allData.supplier">
                   <table class="table">
                     <tbody>
                       <tr class="bg-sub-light text-bold">
@@ -451,7 +374,8 @@
 
                       <tr class="bg-green-light text-bold">
                         <th>{{ $t("Total After Discount") }}:</th>
-                        <td>{{ formatNumber(totalPrice - totalProductDiscount) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatNumber(totalPrice - totalProductDiscount) }} <span class="saudi-riyal">ê</span>
+                        </td>
                       </tr>
 
                       <tr>
@@ -465,21 +389,21 @@
                         <th>{{ $t("Cost of Return Products") }}:</th>
                         <td>
                           {{
-                            allData.purchaseReturn.totalReturn 
+                            allData.purchaseReturn.totalReturn
                           }} <span class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr v-if="allData.discount_type || allData.discount_value">
                         <th>
                           {{ $t("Discount on Total Invoice") }}
-                          <span v-if="allData.discount_type === 'percentage'"
-                            >({{ allData.discount_value }}%)</span
-                          >
+                          <span v-if="allData.discount_type === 'percentage'">({{ allData.discount_value }}%)</span>
                           :
                         </th>
                         <td>
                           <span v-if="allData.discount_type === 'percentage'">
-                            {{ formatNumber((totalPrice - totalProductDiscount + totalProductVat) * (allData.discount_value / 100)) }} <span class="saudi-riyal">ê</span>
+                            {{ formatNumber((totalPrice - totalProductDiscount + totalProductVat) *
+                              (allData.discount_value
+                            / 100)) }} <span class="saudi-riyal">ê</span>
                           </span>
                           <span v-else>
                             {{ formatNumber(allData.discount_value) }} <span class="saudi-riyal">ê</span>
@@ -489,9 +413,7 @@
                       <tr v-if="!isSaudiArabia && allData.discount > 0 && !allData.discount_type">
                         <th>
                           {{ $t("Discount") }}
-                          <span v-if="allData.discountType == 1"
-                            >({{ allData.discount }}%)</span
-                          >
+                          <span v-if="allData.discountType == 1">({{ allData.discount }}%)</span>
                           :
                         </th>
                         <td>
@@ -507,9 +429,7 @@
                       <tr v-if="!isSaudiArabia && allData.tax > 0">
                         <th>
                           {{ $t("Tax") }}
-                          <span v-if="allData.taxRate"
-                            >({{ allData.taxRate }}%)</span
-                          >:
+                          <span v-if="allData.taxRate">({{ allData.taxRate }}%)</span>:
                         </th>
                         <td>
                           {{ formatNumber(allData.tax) }} <span class="saudi-riyal">ê</span>
@@ -519,7 +439,8 @@
                         <th>{{ $t("Total with VAT") }}:</th>
                         <td>
                           <span class="equal-sign">=</span>
-                          {{ formatNumber(totalPrice - totalProductDiscount + totalProductVat) }} <span class="saudi-riyal">ê</span>
+                          {{ formatNumber(totalPrice - totalProductDiscount + totalProductVat) }} <span
+                            class="saudi-riyal">ê</span>
                         </td>
                       </tr>
                       <tr>
@@ -530,12 +451,10 @@
                       </tr>
                       <tr class="bg-red-light">
                         <th>{{ $t("Due") }}:</th>
-                        <td>{{ formatNumber((totalPrice - totalProductDiscount + totalProductVat) - (parseFloat(allData.totalPaid) || 0)) }} <span class="saudi-riyal">ê</span></td>
+                        <td>{{ formatNumber((totalPrice - totalProductDiscount + totalProductVat) -
+                          (parseFloat(allData.totalPaid) || 0)) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
-                      <tr
-                        class="bg-green-light"
-                        v-if="allData.accountReceivable"
-                      >
+                      <tr class="bg-green-light" v-if="allData.accountReceivable">
                         <th>{{ $t("Account Receivable") }}:</th>
                         <td>{{ formatNumber(allData.accountReceivable) }} <span class="saudi-riyal">ê</span></td>
                       </tr>
@@ -561,12 +480,7 @@
             </div>
             <div class="col-xl-8 col-8 float-right text-right">
               <div class="btn-group c-w-100">
-                <a
-                  @click="refreshTable()"
-                  href="#"
-                  v-tooltip="$t('Refresh')"
-                  class="btn btn-success"
-                >
+                <a @click="refreshTable()" href="#" v-tooltip="$t('Refresh')" class="btn btn-success">
                   <i class="fas fa-sync"></i>
                 </a>
               </div>
@@ -576,40 +490,18 @@
           <div class="card-body position-relative">
             <div class="row">
               <div class="col-6 col-xl-4 mb-2">
-                <search
-                  v-model="query"
-                  @reset-pagination="resetPagination()"
-                  @reload="reload"
-                />
+                <search v-model="query" @reset-pagination="resetPagination()" @reload="reload" />
               </div>
             </div>
             <div id="printMe" class="table-responsive table-custom mt-3">
-              <div
-                v-show="items.length > 0"
-                v-for="(data, i) in items"
-                :key="i"
-              >
+              <div v-show="items.length > 0" v-for="(data, i) in items" :key="i">
                 <div class="card mb-0 border border-gray">
                   <div class="card-body py-1">
                     <div class="row">
-                      <div
-                        class="col-1 d-flex justify-content-center align-items-center"
-                      >
-                        <i
-                          v-if="data.event == 'Update'"
-                          class="fa fa-magic"
-                          aria-hidden="true"
-                        ></i>
-                        <i
-                          v-if="data.event == 'Create'"
-                          class="fa fa-plus-circle"
-                          aria-hidden="true"
-                        ></i>
-                        <i
-                          v-if="data.event == 'Delete'"
-                          class="fa fa-trash"
-                          aria-hidden="true"
-                        ></i>
+                      <div class="col-1 d-flex justify-content-center align-items-center">
+                        <i v-if="data.event == 'Update'" class="fa fa-magic" aria-hidden="true"></i>
+                        <i v-if="data.event == 'Create'" class="fa fa-plus-circle" aria-hidden="true"></i>
+                        <i v-if="data.event == 'Delete'" class="fa fa-trash" aria-hidden="true"></i>
                       </div>
                       <div class="col-11">
                         <div class="row">
@@ -638,11 +530,7 @@
               <div class="form-group row display-per-page">
                 <label>{{ $t("per_page") }} </label>
                 <div>
-                  <select
-                    @change="updatePerPager"
-                    v-model="perPage"
-                    class="form-control form-control-sm ml-1"
-                  >
+                  <select @change="updatePerPager" v-model="perPage" class="form-control form-control-sm ml-1">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
@@ -651,13 +539,8 @@
                 </div>
               </div>
               <!-- pagination-start -->
-              <pagination
-                v-if="pagination && pagination.last_page > 1"
-                :pagination="pagination"
-                :offset="5"
-                class="justify-flex-end"
-                @paginate="paginate"
-              />
+              <pagination v-if="pagination && pagination.last_page > 1" :pagination="pagination" :offset="5"
+                class="justify-flex-end" @paginate="paginate" />
               <!-- pagination-end -->
             </div>
           </div>
@@ -671,8 +554,6 @@
 import Form from "vform";
 import axios from "axios";
 import { mapGetters } from "vuex";
-import html2pdf from "html2pdf.js";
-import Swal from "sweetalert2";
 import SwalOriginal from "sweetalert2/dist/sweetalert2";
 import GeneralTable from "~/components/GeneralTable";
 
@@ -722,12 +603,12 @@ export default {
   }),
   computed: {
     ...mapGetters("operations", ["appInfo", "items", "loading", "pagination"]),
-    
+
     // Check if the country is Saudi Arabia
     isSaudiArabia() {
       return this.appInfo && this.appInfo.country === 'SA'
     },
-    
+
     // Calculate total price (sum of Total column in items table)
     totalPrice() {
       if (!this.purchaseProducts) return 0;
@@ -735,7 +616,7 @@ export default {
         return total + (parseFloat(product.grossTotal) || 0);
       }, 0);
     },
-    
+
     // Calculate total product discount
     totalProductDiscount() {
       if (!this.purchaseProducts) return 0;
@@ -743,7 +624,7 @@ export default {
         return total + (parseFloat(product.discountAmount) || 0);
       }, 0);
     },
-    
+
     // Calculate total product VAT
     totalProductVat() {
       if (!this.purchaseProducts) return 0;
@@ -751,13 +632,129 @@ export default {
         return total + (parseFloat(product.taxTotal) || 0);
       }, 0);
     },
-    
+
     // Calculate due amount
     calculateDueAmount() {
       if (!this.allData) return 0;
       const total = this.totalPrice - this.totalProductDiscount + this.totalProductVat;
       const paid = parseFloat(this.allData.totalPaid) || 0;
       return total - paid;
+    },
+
+    // Purchase header columns
+    purchaseHeaderColumns() {
+      const columns = [
+        { key: "purchaseNo", label: this.$t("Purchase No"), align: "text-center" },
+        { key: "purchaseDate", label: this.$t("Purchase Date"), align: "text-center" },
+        { key: "status", label: this.$t("Status"), align: "text-center" },
+        { key: "createdBy", label: this.$t("Created By"), align: "text-center" },
+      ];
+
+      if (this.allData && this.allData.costCenter) {
+        columns.push({ key: "costCenter", label: this.$t("Cost Center"), align: "text-center" });
+      }
+      if (this.allData && this.allData.branch) {
+        columns.push({ key: "branch", label: this.$t("Branch"), align: "text-center" });
+      }
+      if (this.allData && this.allData.purchase_status) {
+        columns.push({ key: "purchaseStatus", label: this.$t("Purchase Status"), align: "text-center" });
+      }
+      if (this.allData && this.allData.purchaseDate) {
+        columns.push({ key: "date", label: this.$t("Date"), align: "text-center" });
+      }
+      if (this.allData && this.allData.reference) {
+        columns.push({ key: "reference", label: this.$t("Reference Number"), align: "text-center" });
+      }
+      if (this.allData && this.allData.payment_type) {
+        columns.push({ key: "paymentType", label: this.$t("Payment Type"), align: "text-center" });
+      }
+      if (this.allData && (this.allData.paymentMethod || this.allData.payment_method_id)) {
+        columns.push({ key: "paymentMethod", label: this.$t("Payment Method"), align: "text-center" });
+      }
+
+      return columns;
+    },
+
+    // Purchase header rows
+    purchaseHeaderRows() {
+      if (!this.allData) return [];
+
+      const row = {
+        purchaseNo: this.allData.purchaseNo || '',
+        purchaseDate: this.allData.purchaseDate || '',
+        status: this.allData.status !== undefined ? this.allData.status : null,
+        createdBy: this.allData.createdBy || '-',
+      };
+
+      if (this.allData.costCenter) {
+        row.costCenter = this.allData.costCenter.name || '-';
+      }
+      if (this.allData.branch) {
+        row.branch = this.allData.branch.name || '-';
+      }
+      if (this.allData.purchase_status) {
+        row.purchaseStatus = this.allData.purchase_status;
+      }
+      if (this.allData.purchaseDate) {
+        row.date = this.allData.purchaseDate;
+      }
+      if (this.allData.reference) {
+        row.reference = this.allData.reference;
+      }
+      if (this.allData.payment_type) {
+        row.paymentType = this.allData.payment_type;
+      }
+      if (this.allData.paymentMethod || this.allData.payment_method_id) {
+        row.paymentMethod = this.allData.paymentMethod ? this.allData.paymentMethod.name : this.getPaymentMethodName(this.allData.payment_method_id);
+      }
+
+      return [row];
+    },
+
+    // Purchase products columns
+    purchaseProductsColumns() {
+      const columns = [
+        { key: "index", label: this.$t("#"), align: "text-center" },
+        { key: "code", label: this.$t("Code"), align: "text-center" },
+        { key: "name", label: this.$t("Item Name"), align: "text-center" },
+        { key: "quantity", label: this.$t("Qty"), align: "text-center" },
+      ];
+      if (this.allData && this.allData.purchaseReturn) {
+        columns.push({ key: "returnQty", label: this.$t("Return Qty"), align: "text-center" });
+      }
+      columns.push(
+        { key: "price", label: this.$t("Price"), align: "text-center" },
+        { key: "total", label: this.$t("Total"), align: "text-center" },
+        { key: "discount", label: this.$t("Discount"), align: "text-center" },
+        { key: "totalAfterDiscount", label: this.$t("Total After Discount"), align: "text-center" },
+        { key: "vat", label: this.$t("VAT"), align: "text-center" },
+        { key: "totalWithVat", label: this.$t("Total with VAT"), align: "text-center" }
+      );
+      return columns;
+    },
+
+    // Purchase products rows
+    purchaseProductsRows() {
+      if (!this.purchaseProducts || !this.purchaseProducts.length) return [];
+      return this.purchaseProducts.map((product, index) => {
+        const row = {
+          index: index + 1,
+          code: product.productCode || '',
+          name: product.productName || '',
+          quantity: `${product.quantity || 0} ${product.productUnit || ''}`,
+          price: parseFloat(product.purchasePrice) || 0,
+          total: parseFloat(product.grossTotal) || 0,
+          discount: parseFloat(product.discountAmount) || 0,
+          totalAfterDiscount: parseFloat(product.totalAfterDiscount) || 0,
+          vat: parseFloat(product.taxTotal) || 0,
+          totalWithVat: parseFloat(product.lineTotal) || 0,
+          _raw: product,
+        };
+        if (this.allData && this.allData.purchaseReturn) {
+          row.returnQty = `${product.returnQty > 0 ? product.returnQty : 0} ${product.productUnit || ''}`;
+        }
+        return row;
+      });
     },
 
     // Purchase payment history columns
@@ -842,9 +839,9 @@ export default {
     async loadCommunicationConfigStatus() {
       try {
         this.communicationConfig.loading = true;
-        
+
         const response = await axios.get('/api/communication-config-status');
-        
+
         this.communicationConfig.email_configured = response.data.email_configured;
         this.communicationConfig.sms_configured = response.data.sms_configured;
         this.communicationConfig.loading = false;
@@ -892,8 +889,8 @@ export default {
         await this.form
           .post(
             window.location.origin +
-              "/api/purchase/notify/" +
-              this.$route.params.slug
+            "/api/purchase/notify/" +
+            this.$route.params.slug
           )
           .then(() => {
             toast.fire({
@@ -919,7 +916,7 @@ export default {
     //   const printUrl = `/print/purchase/${this.$route.params.slug}`;
     //   window.open(printUrl, '_blank');
     // },
-    
+
     // download PDF
     downloadPDF() {
       const params = new URLSearchParams();
@@ -1015,7 +1012,7 @@ export default {
       console.log('Send purchase clicked for:', data);
       console.log('isSaudiArabia:', this.isSaudiArabia);
       console.log('data.status:', data.status);
-      
+
       SwalOriginal.fire({
         title: this.$t("Send Purchase to ZATCA"),
         text: this.$t("Do you want to send this purchase to ZATCA?"),
@@ -1043,10 +1040,10 @@ export default {
 
             // Send purchase to ZATCA and create journal entries
             const response = await axios.post(`/api/purchases/${data.slug}/send-to-zatca`);
-            
+
             // Close the loading dialog
             SwalOriginal.close();
-            
+
             if (response.data.success) {
               this.$toast.success(
                 this.$t("Sent Successfully!"),
@@ -1079,7 +1076,7 @@ export default {
       // We'll fetch the supplier info from the purchase on the create page
       console.log('Full purchase data:', JSON.stringify(data, null, 2))
       console.log('Purchase slug:', data.slug)
-      
+
       this.$router.push({
         name: 'purchaseReturns.create',
         query: {
