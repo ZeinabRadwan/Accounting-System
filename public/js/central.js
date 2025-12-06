@@ -34275,12 +34275,12 @@ var map = {
 		8418
 	],
 	"./central/tenants": [
-		97423,
-		7423
+		41170,
+		1170
 	],
 	"./central/tenants/": [
-		97423,
-		7423
+		41170,
+		1170
 	],
 	"./central/tenants/create": [
 		11892,
@@ -34299,12 +34299,12 @@ var map = {
 		8755
 	],
 	"./central/tenants/index": [
-		97423,
-		7423
+		41170,
+		1170
 	],
 	"./central/tenants/index.vue": [
-		97423,
-		7423
+		41170,
+		1170
 	],
 	"./central/tenants/show": [
 		10040,
@@ -68762,27 +68762,48 @@ var actions = {
   },
   logout: function logout(_ref7) {
     return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-      var commit;
+      var commit, tenantActivityService;
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) switch (_context2.prev = _context2.next) {
           case 0:
             commit = _ref7.commit;
             _context2.prev = 1;
             _context2.next = 4;
-            return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/logout');
+            return __webpack_require__.e(/* import() */ 6593).then(__webpack_require__.bind(__webpack_require__, 86593)).then(function (m) {
+              return m["default"];
+            });
           case 4:
-            _context2.next = 8;
+            tenantActivityService = _context2.sent;
+            _context2.next = 7;
+            return Promise.race([tenantActivityService.stop(), new Promise(function (resolve) {
+              return setTimeout(resolve, 1000);
+            }) // 1 second timeout
+            ]);
+          case 7:
+            _context2.next = 12;
             break;
-          case 6:
-            _context2.prev = 6;
-            _context2.t0 = _context2["catch"](1);
-          case 8:
-            commit(_mutation_types__WEBPACK_IMPORTED_MODULE_2__/* .LOGOUT */ .T_);
           case 9:
+            _context2.prev = 9;
+            _context2.t0 = _context2["catch"](1);
+            // Silently fail - don't block logout
+            console.debug('Failed to stop activity tracking on logout:', _context2.t0);
+          case 12:
+            _context2.prev = 12;
+            _context2.next = 15;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/logout');
+          case 15:
+            _context2.next = 19;
+            break;
+          case 17:
+            _context2.prev = 17;
+            _context2.t1 = _context2["catch"](12);
+          case 19:
+            commit(_mutation_types__WEBPACK_IMPORTED_MODULE_2__/* .LOGOUT */ .T_);
+          case 20:
           case "end":
             return _context2.stop();
         }
-      }, _callee2, null, [[1, 6]]);
+      }, _callee2, null, [[1, 9], [12, 17]]);
     }))();
   },
   fetchOauthUrl: function fetchOauthUrl(ctx, _ref8) {

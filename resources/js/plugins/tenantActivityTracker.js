@@ -14,19 +14,21 @@ export default {
       }
     }
 
-    // Stop tracking when user logs out
-    const stopTracking = () => {
-      tenantActivityService.stop()
+    // Stop tracking when user logs out - make it synchronous to ensure it completes
+    const stopTracking = async () => {
+      // Wait for stop to complete before allowing logout to proceed
+      await tenantActivityService.stop()
     }
 
     // Watch for auth state changes
     store.watch(
       (state) => state.auth.check,
-      (isAuthenticated) => {
+      async (isAuthenticated) => {
         if (isAuthenticated) {
           startTracking()
         } else {
-          stopTracking()
+          // Ensure session is ended before logout completes
+          await stopTracking()
         }
       }
     )
@@ -35,6 +37,15 @@ export default {
     if (store.getters['auth/check']) {
       startTracking()
     }
+
+    // Handle page unload (browser close, tab close, navigation away)
+    window.addEventListener('beforeunload', () => {
+      // End session when page is being closed
+      if (store.getters['auth/check']) {
+        // Use sendBeacon for reliability during page unload
+        tenantActivityService.endSessionOnUnload()
+      }
+    })
 
     // Also listen to router navigation to ensure tracking is active
     Vue.mixin({

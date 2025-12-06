@@ -131,7 +131,10 @@ class TenantActivityService
     {
         // Execute in central database context
         return tenancy()->central(function () use ($tenant) {
-            // Get active users
+            // First, clean up expired sessions for this tenant
+            $this->doCleanupExpiredSessions($tenant);
+
+            // Get active sessions (only truly active ones)
             $activeSessions = TenantUserActivity::where('tenant_id', $tenant->id)
                 ->where('is_active', true)
                 ->where(function ($query) {
@@ -140,45 +143,36 @@ class TenantActivityService
                 })
                 ->get();
 
-            // Get total working time (sum of all sessions, including inactive)
+            // Get total working time (sum of total_seconds from all sessions, including inactive)
+            // This accumulates all working hours from all sessions
             $totalWorkingTime = TenantUserActivity::where('tenant_id', $tenant->id)
                 ->sum('total_seconds');
 
-            // Get unique users who have accessed
-            $uniqueUsers = TenantUserActivity::where('tenant_id', $tenant->id)
-                ->distinct('user_id')
-                ->count('user_id');
+            // Calculate current active session duration for display
+            $currentSessionDuration = 0;
+            if ($activeSessions->count() > 0) {
+                // Get the most recent active session
+                $latestSession = $activeSessions->sortByDesc('last_activity_at')->first();
+
+                // Calculate current session duration: total_seconds + time since last activity
+                $currentSessionDuration = $latestSession->total_seconds;
+                if ($latestSession->last_activity_at) {
+                    $secondsSinceLastActivity = now()->diffInSeconds($latestSession->last_activity_at);
+                    // Only add if within 10 minutes (600 seconds) - session is still active
+                    if ($secondsSinceLastActivity <= 600) {
+                        $currentSessionDuration += $secondsSinceLastActivity;
+                    }
+                } else {
+                    // If no last_activity_at, calculate from started_at
+                    $currentSessionDuration = now()->diffInSeconds($latestSession->started_at);
+                }
+            }
 
             return [
-                'active_users' => $activeSessions->map(function ($session) {
-                    // Calculate current session duration (total_seconds + time since last activity)
-                    $currentDuration = $session->total_seconds;
-                    if ($session->last_activity_at) {
-                        $secondsSinceLastActivity = now()->diffInSeconds($session->last_activity_at);
-                        // Only add if within 10 minutes (600 seconds)
-                        if ($secondsSinceLastActivity <= 600) {
-                            $currentDuration += $secondsSinceLastActivity;
-                        }
-                    } else {
-                        // If no last_activity_at, calculate from started_at
-                        $currentDuration = now()->diffInSeconds($session->started_at);
-                    }
-
-                    return [
-                        'user_id' => $session->user_id,
-                        'user_name' => $session->user_name,
-                        'user_email' => $session->user_email,
-                        'session_id' => $session->session_id,
-                        'started_at' => $session->started_at ? $session->started_at->toDateTimeString() : null,
-                        'last_activity_at' => $session->last_activity_at ? $session->last_activity_at->toDateTimeString() : null,
-                        'total_seconds' => $session->total_seconds,
-                        'current_session_seconds' => $currentDuration,
-                    ];
-                }),
-                'total_working_seconds' => $totalWorkingTime,
-                'total_working_hours' => round($totalWorkingTime / 3600, 2),
-                'unique_users_count' => $uniqueUsers,
                 'has_active_sessions' => $activeSessions->count() > 0,
+                'current_session_duration' => $currentSessionDuration, // Current active session duration in seconds
+                'total_working_seconds' => $totalWorkingTime, // Accumulated working time from all sessions
+                'total_working_hours' => round($totalWorkingTime / 3600, 2),
             ];
         });
     }

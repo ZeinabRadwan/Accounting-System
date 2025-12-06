@@ -85,6 +85,19 @@ export const actions = {
   },
 
   async logout ({ commit }) {
+    // End tenant activity session before logging out
+    // Use Promise.race to ensure logout doesn't hang if session end takes too long
+    try {
+      const tenantActivityService = await import('~/services/TenantActivityService').then(m => m.default)
+      await Promise.race([
+        tenantActivityService.stop(),
+        new Promise(resolve => setTimeout(resolve, 1000)) // 1 second timeout
+      ])
+    } catch (e) {
+      // Silently fail - don't block logout
+      console.debug('Failed to stop activity tracking on logout:', e)
+    }
+
     try {
       await axios.post('/api/logout')
     } catch (e) { }

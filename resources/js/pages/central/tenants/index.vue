@@ -107,26 +107,10 @@
                     </div>
                     <span v-else class="badge bg-secondary">{{ $t("Inactive") }}</span>
                   </template>
-                  <template #cell-activeUsers="{ row }">
-                    <div v-if="row.activity_stats && row.activity_stats.active_users">
-                      <span class="badge bg-info mr-1">
-                        {{ row.activity_stats.active_users.length }} {{ $t("Active") }}
-                      </span>
-                      <div v-if="row.activity_stats.active_users.length > 0" class="mt-1">
-                        <small v-for="(user, index) in row.activity_stats.active_users" :key="index"
-                          class="d-block text-muted">
-                          <i class="fas fa-user-circle"></i> {{ user.user_name || user.user_email || user.user_id }}
-                        </small>
-                      </div>
-                    </div>
-                    <span v-else class="text-muted">-</span>
-                  </template>
                   <template #cell-sessionTimer="{ row }">
-                    <div
-                      v-if="row.activity_stats && row.activity_stats.active_users && row.activity_stats.active_users.length > 0">
-                      <div class="font-weight-bold text-primary"
-                        v-for="(user, index) in row.activity_stats.active_users" :key="index">
-                        {{ formatSessionTimerLive(user) }}
+                    <div v-if="row.activity_stats && row.activity_stats.has_active_sessions">
+                      <div class="font-weight-bold text-primary">
+                        {{ formatSessionTimerLive(row.activity_stats) }}
                       </div>
                     </div>
                     <span v-else class="text-muted">-</span>
@@ -331,6 +315,7 @@ export default {
     deletingAllArchived: false,
     refreshInterval: null,
     timerUpdateInterval: null,
+    lastDataUpdate: null,
   }),
   filters: {
     startDate(val) {
@@ -358,7 +343,6 @@ export default {
         { key: "isSubscribed", label: this.$t("Is Subscribed") },
         { key: "banned", label: this.$t("Banned") },
         { key: "sessionStatus", label: this.$t("Session Status") },
-        { key: "activeUsers", label: this.$t("Active Users") },
         { key: "sessionTimer", label: this.$t("Active Duration") },
         { key: "workingTime", label: this.$t("Working Time") },
       ];
@@ -420,6 +404,7 @@ export default {
     this.getData();
     this.getArchivedData();
     this.clientPrefix = this.appInfo.clientPrefix;
+    this.lastDataUpdate = Date.now();
 
     // Set up auto-refresh every 30 seconds to update session data from server
     this.refreshInterval = setInterval(() => {
@@ -483,6 +468,8 @@ export default {
         path: "/api/tenants?page=",
         currentPage: currentPage + "&perPage=" + this.perPage,
       });
+      // Track when data was last updated for live timer calculation
+      this.lastDataUpdate = Date.now();
     },
 
     async impersonate(id) {
@@ -520,6 +507,8 @@ export default {
         startDate: this.dateRange.startDate,
         endDate: this.dateRange.endDate,
       });
+      // Track when data was last updated for live timer calculation
+      this.lastDataUpdate = Date.now();
     },
 
     // Reload after search
@@ -627,37 +616,24 @@ export default {
       return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
     },
 
-    // Format session timer with live calculation
-    formatSessionTimerLive(user) {
-      if (!user) {
+    // Format session timer with live calculation for current active session
+    formatSessionTimerLive(activityStats) {
+      if (!activityStats || !activityStats.has_active_sessions) {
         return "00:00:00";
       }
 
-      // Use current_session_seconds if available (from server calculation)
-      if (user.current_session_seconds !== undefined) {
-        // Calculate live: server value + time since last update
-        const now = new Date();
-        const lastUpdate = user.last_activity_at ? new Date(user.last_activity_at) : new Date(user.started_at);
-        const secondsSinceUpdate = Math.floor((now - lastUpdate) / 1000);
+      // Get current session duration from server
+      const currentDuration = activityStats.current_session_duration || 0;
 
-        // Only add if within 10 minutes (600 seconds) - session is still active
-        if (secondsSinceUpdate <= 600) {
-          return this.formatSessionTimer(user.current_session_seconds + secondsSinceUpdate);
-        } else {
-          // Session expired, return the stored value
-          return this.formatSessionTimer(user.current_session_seconds);
-        }
+      // The server already calculates this correctly, but we can add a small buffer
+      // for real-time display (time since last data update, max 30 seconds)
+      if (this.lastDataUpdate) {
+        const secondsSinceUpdate = Math.floor((Date.now() - this.lastDataUpdate) / 1000);
+        const liveBuffer = Math.min(30, secondsSinceUpdate);
+        return this.formatSessionTimer(currentDuration + liveBuffer);
       }
 
-      // Fallback: calculate from started_at
-      if (user.started_at) {
-        const started = new Date(user.started_at);
-        const now = new Date();
-        const currentSeconds = Math.floor((now - started) / 1000);
-        return this.formatSessionTimer(currentSeconds);
-      }
-
-      return "00:00:00";
+      return this.formatSessionTimer(currentDuration);
     },
 
     // delete data

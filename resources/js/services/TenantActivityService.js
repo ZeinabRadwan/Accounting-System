@@ -41,8 +41,30 @@ class TenantActivityService {
   /**
    * Stop tracking user activity
    */
-  stop() {
+  async stop() {
+    if (!this.isActive && !this.sessionId) {
+      return // Already stopped
+    }
+
     this.isActive = false
+
+    // End the session on the server if we have a session ID
+    if (this.sessionId) {
+      try {
+        // Use a timeout to ensure this completes even if logout redirects
+        await Promise.race([
+          axios.post('/api/activity/heartbeat', {
+            session_id: this.sessionId,
+            end_session: true
+          }),
+          new Promise(resolve => setTimeout(resolve, 2000)) // 2 second timeout
+        ])
+      } catch (error) {
+        // Silently fail - don't interrupt user experience
+        console.debug('Failed to end session:', error)
+      }
+      this.sessionId = null
+    }
 
     // Clear intervals
     if (this.heartbeatInterval) {
@@ -57,6 +79,25 @@ class TenantActivityService {
 
     // Remove activity listeners
     this.removeActivityListeners()
+  }
+
+  /**
+   * End session on page unload (using sendBeacon for reliability)
+   */
+  endSessionOnUnload() {
+    if (this.sessionId) {
+      try {
+        // Use sendBeacon for reliable delivery during page unload
+        // sendBeacon sends as FormData or Blob, so we'll use a simple approach
+        const data = new Blob([JSON.stringify({
+          session_id: this.sessionId,
+          end_session: true
+        })], { type: 'application/json' })
+        navigator.sendBeacon('/api/activity/heartbeat', data)
+      } catch (error) {
+        console.debug('Failed to end session on unload:', error)
+      }
+    }
   }
 
   /**

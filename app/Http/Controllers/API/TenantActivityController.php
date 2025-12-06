@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Services\TenantActivityService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Stancl\Tenancy\Facades\Tenancy;
 
 class TenantActivityController extends Controller
 {
@@ -19,6 +18,33 @@ class TenantActivityController extends Controller
      */
     public function heartbeat(Request $request)
     {
+        // Handle sendBeacon requests (Blob/JSON)
+        $content = $request->getContent();
+        if (! empty($content) && $request->header('Content-Type') === 'application/json') {
+            try {
+                $jsonData = json_decode($content, true);
+                if ($jsonData) {
+                    $request->merge($jsonData);
+                }
+            } catch (\Exception $e) {
+                // Ignore JSON decode errors
+            }
+        }
+
+        $sessionId = $request->input('session_id');
+        $endSession = $request->input('end_session', false);
+
+        // If ending session, allow it even without authentication (for logout/unload scenarios)
+        if ($endSession && $sessionId) {
+            $this->activityService->endSession($sessionId);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Session ended',
+            ]);
+        }
+
+        // For regular heartbeats, require authentication
         $user = Auth::user();
 
         if (! $user) {
@@ -28,7 +54,7 @@ class TenantActivityController extends Controller
             ], 401);
         }
 
-        $tenant = Tenancy::tenant();
+        $tenant = tenant();
 
         if (! $tenant) {
             return response()->json([
@@ -36,8 +62,6 @@ class TenantActivityController extends Controller
                 'message' => 'Tenant context not found',
             ], 400);
         }
-
-        $sessionId = $request->input('session_id');
 
         if ($sessionId) {
             // Update existing session
