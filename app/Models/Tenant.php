@@ -106,6 +106,11 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         return $this->hasMany(Payment::class);
     }
 
+    public function userActivities(): HasMany
+    {
+        return $this->hasMany(TenantUserActivity::class);
+    }
+
     public function isSubscribed(): Attribute
     {
         return new Attribute(

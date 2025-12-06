@@ -102,6 +102,30 @@
                     <span v-if="row.is_banned == false" class="badge bg-success">{{ $t("False") }}</span>
                     <span v-else class="badge bg-danger">{{ $t("True") }}</span>
                   </template>
+                  <template #cell-activeUsers="{ row }">
+                    <div v-if="row.activity_stats && row.activity_stats.active_users">
+                      <span class="badge bg-info mr-1">
+                        {{ row.activity_stats.active_users.length }} {{ $t("Active") }}
+                      </span>
+                      <div v-if="row.activity_stats.active_users.length > 0" class="mt-1">
+                        <small v-for="(user, index) in row.activity_stats.active_users" :key="index" class="d-block text-muted">
+                          <i class="fas fa-user-circle"></i> {{ user.user_name || user.user_email || user.user_id }}
+                        </small>
+                      </div>
+                    </div>
+                    <span v-else class="text-muted">-</span>
+                  </template>
+                  <template #cell-workingTime="{ row }">
+                    <div v-if="row.activity_stats">
+                      <div class="font-weight-bold">
+                        {{ formatWorkingTime(row.activity_stats.total_working_seconds) }}
+                      </div>
+                      <small class="text-muted">
+                        {{ $t("Total") }}: {{ row.activity_stats.total_working_hours }} {{ $t("hours") }}
+                      </small>
+                    </div>
+                    <span v-else class="text-muted">-</span>
+                  </template>
                   <template #actions="{ row }">
                     <div class="btn-group">
                       <router-link v-if="row.email_verified_at" v-tooltip="$t('View')" :to="{
@@ -327,6 +351,8 @@ export default {
         { key: "isVerified", label: this.$t("Is Verified") },
         { key: "isSubscribed", label: this.$t("Is Subscribed") },
         { key: "banned", label: this.$t("Banned") },
+        { key: "activeUsers", label: this.$t("Active Users") },
+        { key: "workingTime", label: this.$t("Working Time") },
       ];
     },
     tenantsWithIndex() {
@@ -548,6 +574,16 @@ export default {
           );
         }
       }
+    },
+
+    // Format working time
+    formatWorkingTime(seconds) {
+      if (!seconds || seconds === 0) {
+        return "0h 0m";
+      }
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      return `${hours}h ${minutes}m`;
     },
 
     // delete data

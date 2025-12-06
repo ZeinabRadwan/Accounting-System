@@ -7,6 +7,7 @@ import router from '~/router/tenant'
 import i18n from '~/plugins/i18n'
 import can from '~/helpers/can'
 import systemType from '~/plugins/systemType'
+import tenantActivityTracker from '~/plugins/tenantActivityTracker'
 import App from '~/components/App'
 import VuePageTransition from 'vue-page-transition'
 import Clipboard from 'v-clipboard'
@@ -69,6 +70,9 @@ Vue.prototype.$http = axios
 
 // Use system type plugin
 Vue.use(systemType)
+
+// Use tenant activity tracker plugin
+Vue.use(tenantActivityTracker)
 
 /* eslint-disable no-new */
  

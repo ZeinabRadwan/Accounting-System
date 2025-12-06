@@ -11,7 +11,6 @@ class TenantResource extends JsonResource
      * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
-     *
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
@@ -23,6 +22,12 @@ class TenantResource extends JsonResource
         if ($this->tenant_invoices) {
             $data->add([
                 'tenant_invoices' => $this->tenant_invoices,
+            ]);
+        }
+
+        if (isset($this->activity_stats)) {
+            $data->add([
+                'activity_stats' => $this->activity_stats,
             ]);
         }
 

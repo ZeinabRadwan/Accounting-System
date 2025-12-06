@@ -172,6 +172,9 @@ Route::middleware([
         Route::get('user', [UserController::class, 'current']);
         Route::get('all-user', [UserController::class, 'allUser']);
 
+        // Tenant activity tracking
+        Route::post('activity/heartbeat', [App\Http\Controllers\API\TenantActivityController::class, 'heartbeat']);
+
         // Branch management routes
         Route::get('branches', [App\Http\Controllers\API\BranchController::class, 'index']);
         Route::get('branches/search', [App\Http\Controllers\API\BranchController::class, 'search']);

@@ -12,6 +12,7 @@ use App\Models\Invoice;
 use App\Models\Purchase;
 use App\Models\Supplier;
 use App\Models\Tenant;
+use App\Services\TenantActivityService;
 use App\Services\TenantService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -24,9 +25,17 @@ class TenantController extends Controller
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(Request $request)
+    public function index(Request $request, TenantActivityService $activityService)
     {
         $tenants = Tenant::with('plan')->active()->latest()->paginate($request->perPage);
+
+        // Add activity data to each tenant
+        $tenants->getCollection()->transform(function ($tenant) use ($activityService) {
+            $activityStats = $activityService->getActivityStats($tenant);
+            $tenant->activity_stats = $activityStats;
+
+            return $tenant;
+        });
 
         return TenantResource::collection($tenants);
     }
