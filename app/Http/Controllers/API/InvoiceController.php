@@ -915,6 +915,9 @@ class InvoiceController extends Controller
             // Update invoice status to active (sent to ZATCA)
             $invoice->update(['status' => 1]);
 
+            // Reload invoice with journal entry relationship
+            $invoice->load('journalEntry');
+
             // Here you would add actual ZATCA integration
             // For now, we'll just simulate the ZATCA sending
             // You can integrate with ZATCA API here
@@ -932,6 +935,10 @@ class InvoiceController extends Controller
                 'invoice_id' => $invoice->id,
                 'invoice_no' => $invoice->invoice_no,
                 'status' => 'sent_to_zatca',
+                'journalEntry' => $invoice->journalEntry ? [
+                    'id' => $invoice->journalEntry->id,
+                    'entry_number' => $invoice->journalEntry->entry_number,
+                ] : null,
             ]);
 
         } catch (Exception $e) {
