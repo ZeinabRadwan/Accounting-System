@@ -17,7 +17,16 @@ class Expense extends Model
      * @var array
      */
     protected $fillable = [
-        'reason', 'slug', 'sub_cat_id', 'transaction_id', 'amount', 'expense_account_id', 'date', 'created_by', 'note', 'image_path', 'status', 'branch_id',
+        'reason', 'slug', 'sub_cat_id', 'transaction_id', 'amount', 'expense_account_id', 'date', 'created_by', 'note', 'image_path', 'status', 'branch_id', 'cost_center_id', 'reference', 'tax_id', 'attachments',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'attachments' => 'array',
     ];
 
     /**
@@ -96,6 +105,14 @@ class Expense extends Model
     public function costCenter()
     {
         return $this->belongsTo(CostCenter::class, 'cost_center_id');
+    }
+
+    /**
+     * Get the tax rate for this expense.
+     */
+    public function tax()
+    {
+        return $this->belongsTo(VatRate::class, 'tax_id');
     }
 
     /**

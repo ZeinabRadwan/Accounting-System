@@ -43,7 +43,7 @@ class ExpenseController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user', 'branch', 'costCenter');
+        $query = Expense::with('expSubCategory.expCategory', 'expTransaction.cashbookAccount', 'user', 'branch', 'costCenter', 'tax');
         
         // Apply branch filter for non-superadmin users
         $user = Auth::user();
@@ -91,6 +91,43 @@ class ExpenseController extends Controller
             // store transaction
             $transaction = $this->transactionService->createTransactionFromExpense($request, $userId);
 
+            // Handle attachments
+            $attachments = [];
+            if ($request->hasFile('attachments')) {
+                foreach ($request->file('attachments') as $file) {
+                    $path = $file->store('expenses/attachments', 'tenant-public');
+                    $attachments[] = [
+                        'name' => $file->getClientOriginalName(),
+                        'path' => $path,
+                        'size' => $file->getSize(),
+                        'mime_type' => $file->getMimeType(),
+                    ];
+                }
+            }
+
+            // Handle branch_id from request or use default
+            $finalBranchId = $request->branch_id ?? $branchId;
+
+            // Handle cost_center_id
+            $costCenterId = null;
+            if ($request->cost_center_id) {
+                $costCenterId = $request->cost_center_id;
+            } elseif (isset($request->costCenter) && isset($request->costCenter['id'])) {
+                $costCenterId = $request->costCenter['id'];
+            }
+
+            // Handle tax_id from orderTax
+            $taxId = null;
+            if (isset($request->orderTax) && isset($request->orderTax['id'])) {
+                $taxId = $request->orderTax['id'];
+            }
+
+            // Handle reference - convert empty string to null
+            $reference = $request->reference ?? null;
+            if ($reference === '') {
+                $reference = null;
+            }
+
             // Debug: Log the amount being saved
             Log::info('Creating expense with amount: ' . $request->amount);
             
@@ -106,7 +143,11 @@ class ExpenseController extends Controller
                 'note' => clean($request->note),
                 'image_path' => $imageName,
                 'status' => $request->status,
-                'branch_id' => $branchId,
+                'branch_id' => $finalBranchId,
+                'cost_center_id' => $costCenterId,
+                'reference' => $reference,
+                'tax_id' => $taxId,
+                'attachments' => !empty($attachments) ? json_encode($attachments) : null,
             ]);
             
             // Debug: Log the created expense amount

@@ -122,16 +122,12 @@
               </template>
               <template #cell-category="{ row }">
                 <span v-if="row.category">
-                  {{ row.category.name }}[{
-                    row.category.code | withPrefix(catPrefix)
-                  }}]
+                  {{ row.category.name }}
                 </span>
               </template>
               <template #cell-subCategory="{ row }">
                 <span v-if="row.subCategory">
-                  {{ row.subCategory.name }} [{
-                    row.subCategory.code | withPrefix(subCatPrefix)
-                  }}]
+                  {{ row.subCategory.name }}
                 </span>
               </template>
               <template #cell-amount="{ row }">
