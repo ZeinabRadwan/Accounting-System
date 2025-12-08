@@ -91,10 +91,23 @@ class BusinessTransactionJournalService
                 return $existingJournalEntry;
             }
 
-            // Validate client has chart of account
-            if (! $invoice->client || ! $invoice->client->isChartOfAccountConnected()) {
-                throw new Exception('Client must have a Chart of Account assigned for journal entries.');
+            // Validate client exists and load relationship explicitly
+            if (! $invoice->client) {
+                throw new Exception('Invoice must have a client assigned for journal entries.');
             }
+
+            // Ensure client relationship is loaded
+            if (! $invoice->relationLoaded('client')) {
+                $invoice->load('client');
+            }
+
+            // Ensure client's chartOfAccount relationship is loaded
+            if (! $invoice->client->relationLoaded('chartOfAccount')) {
+                $invoice->client->load('chartOfAccount');
+            }
+
+            // DO NOT use ensureChartOfAccountLoaded() here - it assigns default account (12301)
+            // Instead, we'll create a specific account for the client (like suppliers)
 
             $totalDiscountAmount = 0;
 
@@ -127,11 +140,111 @@ class BusinessTransactionJournalService
             }
 
             // Get client-specific accounts receivable account
+            // Use the actual account assigned to the client (from client's chart_of_account_id)
+            // This ensures each client uses their own ledger account, not a static 12301
+            // IMPORTANT: Similar to purchases where suppliers get their own accounts, clients should too
+
+            // Get branch ID first (needed for routing settings and account creation)
+            $branchId = $invoice->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0);
+
+            // Refresh client data to ensure we have the latest chart_of_account_id
+            $invoice->client->refresh();
+
+            // Get the routing setting to check the main account code
+            $routingSetting = \App\Models\AccountRoutingSetting::where('setting_key', 'clients_account')
+                ->where('is_active', true)
+                ->where('branch_id', $branchId)
+                ->first();
+
+            $mainAccountCode = null;
+            if ($routingSetting && $routingSetting->main_account_id) {
+                $mainAccount = \App\Models\ChartOfAccount::find($routingSetting->main_account_id);
+                if ($mainAccount) {
+                    $mainAccountCode = $mainAccount->code;
+                }
+            }
+
+            // Check if client has chart_of_account_id assigned
+            $needsNewAccount = false;
+            if (! $invoice->client->chart_of_account_id) {
+                $needsNewAccount = true;
+                Log::info("Client {$invoice->client->name} (ID: {$invoice->client->id}) doesn't have a chart of account. Creating one automatically...");
+            } else {
+                // Check if client is using the main account (12301) instead of a child account
+                $currentAccount = $invoice->client->chartOfAccount;
+                if ($currentAccount && $mainAccountCode && $currentAccount->code === $mainAccountCode) {
+                    $needsNewAccount = true;
+                    Log::warning(
+                        "Client {$invoice->client->name} (ID: {$invoice->client->id}) is using the main account {$mainAccountCode} ".
+                        'instead of a child account. Creating a child account automatically...'
+                    );
+                }
+            }
+
+            // If client doesn't have a chart of account OR is using the main account, create a child account (like suppliers)
+            if ($needsNewAccount) {
+                try {
+                    $routingService = new \App\Services\AccountRoutingService;
+                    $clientAccount = $routingService->createClientAccount($invoice->client->name, $branchId);
+
+                    if ($clientAccount) {
+                        // Update the client with the new account
+                        $invoice->client->chart_of_account_id = $clientAccount->id;
+                        $invoice->client->save();
+
+                        // Reload the relationship
+                        $invoice->client->load('chartOfAccount');
+
+                        Log::info(
+                            "Created chart of account for client {$invoice->client->name}: ".
+                            "Account ID {$clientAccount->id}, Code {$clientAccount->code}, Name {$clientAccount->name}. ".
+                            'This is a child account under the main clients account, similar to how suppliers work.'
+                        );
+                    } else {
+                        throw new Exception('Failed to create chart of account for client. Please configure client account routing settings (clients_account) with routing_type = main_account_per_each.');
+                    }
+                } catch (\Exception $e) {
+                    Log::error("Failed to auto-create chart of account for client {$invoice->client->name}: ".$e->getMessage());
+                    throw new Exception(
+                        'Client "'.($invoice->client->name ?? 'Unknown').'" does not have a Chart of Account assigned. '.
+                        'Please assign a Chart of Account to this client, or ensure client account routing is configured to auto-create accounts. '.
+                        'Error: '.$e->getMessage()
+                    );
+                }
+            }
+
+            // Reload the relationship to ensure we have the latest data
+            $invoice->client->load('chartOfAccount');
             $clientAccountsReceivableAccount = $invoice->client->chartOfAccount;
 
             if (! $clientAccountsReceivableAccount) {
-                throw new Exception('Client Chart of Account not found.');
+                throw new Exception(
+                    'Client "'.($invoice->client->name ?? 'Unknown').'" Chart of Account not found. '.
+                    'Please assign a Chart of Account to this client. '.
+                    'The client currently has chart_of_account_id = '.($invoice->client->chart_of_account_id ?? 'NULL').'. '.
+                    'This should work the same way as Purchases where suppliers automatically get their own accounts.'
+                );
             }
+
+            // Verify the account code is NOT the main account (12301) - it should be a child account like 12301-001
+            if ($mainAccountCode && $clientAccountsReceivableAccount->code === $mainAccountCode) {
+                Log::warning(
+                    "WARNING: Client {$invoice->client->name} is using the main account {$mainAccountCode} instead of a child account. ".
+                    'This means the client was assigned the default account. '.
+                    "Please ensure client account routing is configured with routing_type = 'main_account_per_each' to create child accounts."
+                );
+            }
+
+            // Log the account being used for debugging - verify it's not a static 12301
+            // Compare with purchase behavior: purchases use supplier->chartOfAccount (actual account)
+            Log::info(
+                "Invoice {$invoice->invoice_no} - Using client's actual chart of account (same as purchases use supplier account): ".
+                "Client ID: {$invoice->client->id}, Client Name: {$invoice->client->name}, ".
+                'Client chart_of_account_id: '.($invoice->client->chart_of_account_id ?? 'NULL').', '.
+                "Account ID: {$clientAccountsReceivableAccount->id}, Account Code: {$clientAccountsReceivableAccount->code}, ".
+                "Account Name: {$clientAccountsReceivableAccount->name}. ".
+                'If this shows 12301, the client was assigned the default account - assign a specific account to the client.'
+            );
 
             if ($totalDiscountAmount > 0) {
                 $discountAccount = $this->getDiscountAllowedAccount($invoice->branch_id);
@@ -159,13 +272,14 @@ class BusinessTransactionJournalService
 
             // Get default fiscal year and accounting period
             $defaults = $this->getDefaultFiscalYearAndPeriod();
-            $branchId = $invoice->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0);
+            // Note: branchId is already defined earlier in the function
 
             // Create journal entry for the invoice itself (AR, Sales, VAT)
+            // Reference must contain invoice number for matching JE ⇄ invoice
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $invoice->invoice_date,
-                'reference' => $invoice->invoice_no,
+                'reference' => $invoice->invoice_no, // Invoice number for matching
                 'description' => __('journal.sale_invoice', ['number' => $invoice->invoice_no]),
                 'total_debit' => $totalAmount,
                 'total_credit' => $totalAmount,
@@ -269,65 +383,105 @@ class BusinessTransactionJournalService
                     continue;
                 }
 
-                // unit_cost is already calculated when saving invoice products
-                $lineCost = ($invoiceProduct->unit_cost ?? 0) * $invoiceProduct->quantity;
+                // COGS must use sale_price (net amount without VAT) only
+                // sale_price = net amount per unit (without VAT - CORRECT for COGS)
+                // purchase_price = purchase cost (WRONG for COGS)
+                // unit_cost = (sale_price * quantity - discount + tax) / quantity (includes VAT - WRONG for COGS)
+                $lineCost = ($invoiceProduct->sale_price ?? 0) * ($invoiceProduct->quantity ?? 0);
                 $totalCogsAmount += $lineCost;
+
+                Log::info("COGS calculation for product {$product->name}: sale_price={$invoiceProduct->sale_price}, quantity={$invoiceProduct->quantity}, lineCost={$lineCost}");
             }
 
+            // Always create COGS journal entry if there are inventory products (non-service products)
+            // COGS JE is mandatory when invoice contains inventory items
+            // COGS must use net amount only (sale_price * quantity), excluding VAT
             if ($totalCogsAmount > 0) {
                 // Get Inventory and Cost of Sales accounts from routing settings
                 $inventoryAccount = $this->getInventoryAccount($branchId);
                 $costOfSalesAccount = $this->getCostOfSalesAccount($branchId);
 
+                // COGS journal entry is required - provide detailed error message if accounts are not configured
                 if (! $inventoryAccount || ! $costOfSalesAccount) {
-                    // Log warning but don't throw exception - allow main journal entry to be created
-                    Log::warning('COGS journal entry skipped for invoice '.$invoice->invoice_no.': Inventory and Cost of Sales accounts must be configured in account routing settings.');
-                } else {
-                    $cogsJournalEntry = JournalEntry::create([
-                        'entry_number' => JournalEntry::generateEntryNumber(),
-                        'entry_date' => $invoice->invoice_date,
-                        'reference' => $invoice->invoice_no.'-COGS',
-                        'description' => __('journal.cogs_for_sale_invoice', ['number' => $invoice->invoice_no]),
-                        'total_debit' => $totalCogsAmount,
-                        'total_credit' => $totalCogsAmount,
-                        'status' => 'posted',
-                        'created_by' => $userId,
-                        'posted_by' => $userId,
-                        'posted_at' => now(),
-                        'source_type' => Invoice::class,
-                        'source_id' => $invoice->id,
-                        'fiscal_year_id' => $defaults['fiscal_year_id'],
-                        'accounting_period_id' => $defaults['accounting_period_id'],
-                        'branch_id' => $branchId,
-                    ]);
+                    $missingAccounts = [];
+                    if (! $inventoryAccount) {
+                        $missingAccounts[] = 'Inventory Account (المخزون)';
+                    }
+                    if (! $costOfSalesAccount) {
+                        $missingAccounts[] = 'Cost of Sales Account (تكلفة المبيعات)';
+                    }
 
-                    // Dr Cost of Sales
-                    $this->createJournalEntryLine(
-                        $cogsJournalEntry,
-                        $costOfSalesAccount->id,
-                        $totalCogsAmount,
-                        0,
-                        1,
-                        __('journal.cost_of_sales_for_invoice', ['number' => $invoice->invoice_no])
+                    throw new Exception(
+                        'COGS journal entry is required for invoice '.$invoice->invoice_no.' but the following accounts must be configured in Account Routing Settings: '.
+                        implode(', ', $missingAccounts).'. '.
+                        'Please go to Settings > Account Routing and configure these accounts under the Inventory module.'
                     );
-
-                    // Cr Inventory
-                    $this->createJournalEntryLine(
-                        $cogsJournalEntry,
-                        $inventoryAccount->id,
-                        0,
-                        $totalCogsAmount,
-                        2,
-                        __('journal.inventory_reduction_for_invoice', ['number' => $invoice->invoice_no])
-                    );
-
-                    // Optionally link COGS journal to invoice as well
-                    \App\Models\InvoiceJournal::create([
-                        'invoice_id' => $invoice->id,
-                        'journal_entry_id' => $cogsJournalEntry->id,
-                        'type' => 'sale_cogs',
-                    ]);
                 }
+
+                // Log COGS calculation details for debugging
+                Log::info(
+                    "Invoice {$invoice->invoice_no} - COGS Calculation: ".
+                    "Total COGS Amount = {$totalCogsAmount} (net amount only, excluding VAT). ".
+                    "Invoice Total = {$totalAmount} (sales + VAT). ".
+                    'COGS should be less than invoice total.'
+                );
+
+                // Create COGS journal entry with invoice number in reference for matching
+                $cogsJournalEntry = JournalEntry::create([
+                    'entry_number' => JournalEntry::generateEntryNumber(),
+                    'entry_date' => $invoice->invoice_date,
+                    'reference' => $invoice->invoice_no.'-COGS', // Invoice number for matching JE ⇄ invoice
+                    'description' => __('journal.cogs_for_sale_invoice', ['number' => $invoice->invoice_no]),
+                    'total_debit' => $totalCogsAmount,
+                    'total_credit' => $totalCogsAmount,
+                    'status' => 'posted',
+                    'created_by' => $userId,
+                    'posted_by' => $userId,
+                    'posted_at' => now(),
+                    'source_type' => Invoice::class,
+                    'source_id' => $invoice->id,
+                    'fiscal_year_id' => $defaults['fiscal_year_id'],
+                    'accounting_period_id' => $defaults['accounting_period_id'],
+                    'branch_id' => $branchId,
+                ]);
+
+                // Dr Cost of Sales (using net amount only, excluding VAT)
+                // This is based on sale_price, not the invoice total
+                $this->createJournalEntryLine(
+                    $cogsJournalEntry,
+                    $costOfSalesAccount->id,
+                    $totalCogsAmount,
+                    0,
+                    1,
+                    __('journal.cost_of_sales_for_invoice', ['number' => $invoice->invoice_no])
+                );
+
+                // Cr Inventory (using net amount only, excluding VAT)
+                // This reduces inventory by the sale_price amount, not the invoice total
+                $this->createJournalEntryLine(
+                    $cogsJournalEntry,
+                    $inventoryAccount->id,
+                    0,
+                    $totalCogsAmount,
+                    2,
+                    __('journal.inventory_reduction_for_invoice', ['number' => $invoice->invoice_no])
+                );
+
+                // Link COGS journal to invoice
+                \App\Models\InvoiceJournal::create([
+                    'invoice_id' => $invoice->id,
+                    'journal_entry_id' => $cogsJournalEntry->id,
+                    'type' => 'sale_cogs',
+                ]);
+
+                Log::info(
+                    "COGS journal entry created for invoice {$invoice->invoice_no}: ".
+                    "Amount = {$totalCogsAmount} (net amount only, excluding VAT). ".
+                    'This is calculated as sum(sale_price * quantity) for all inventory products.'
+                );
+            } else {
+                // Log when COGS is skipped (only service products or no inventory products)
+                Log::info("COGS journal entry skipped for invoice {$invoice->invoice_no}: No inventory products found (only service products or zero quantity).");
             }
 
             DB::commit();

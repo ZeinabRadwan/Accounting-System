@@ -857,10 +857,22 @@ class InvoiceController extends Controller
     public function sendToZatca($slug)
     {
         try {
-            $invoice = Invoice::where('slug', $slug)->with('client', 'invoiceProducts.product', 'invoicePayments')->first();
+            // Load invoice with all necessary relationships, including client's chartOfAccount
+            $invoice = Invoice::where('slug', $slug)
+                ->with([
+                    'client.chartOfAccount', // Explicitly load client's chartOfAccount relationship
+                    'invoiceProducts.product',
+                    'invoicePayments',
+                ])
+                ->first();
 
             if (! $invoice) {
                 return $this->responseWithError('Invoice not found');
+            }
+
+            // Ensure client's chartOfAccount is loaded (double-check)
+            if ($invoice->client && ! $invoice->client->relationLoaded('chartOfAccount')) {
+                $invoice->client->load('chartOfAccount');
             }
 
             // Get country setting
