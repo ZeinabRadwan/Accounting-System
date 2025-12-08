@@ -459,7 +459,7 @@ export default {
       return this.items.map((item, index) => {
         // Find journal entry for this invoice by reference (invoiceNo)
         const journalEntry = this.journalEntriesMap[item.invoiceNo] || item.journalEntry || null;
-        
+
         return {
           ...item,
           index: index + 1,
@@ -649,17 +649,17 @@ export default {
       // Reload journal entries after fetching invoices
       await this.loadJournalEntries();
     },
-    
+
     // Load journal entries and map them by invoice number (reference)
     async loadJournalEntries() {
       try {
         // Get invoice numbers from current items
         const invoiceNumbers = this.items.map(item => item.invoiceNo).filter(Boolean);
-        
+
         if (invoiceNumbers.length === 0) {
           return;
         }
-        
+
         // Fetch journal entries for all invoices at once
         // We'll search for each invoice number, but we can optimize by getting all entries
         const response = await axios.get('/api/journal-entries', {
@@ -667,7 +667,7 @@ export default {
             perPage: 1000, // Get a large number to cover all invoices
           }
         });
-        
+
         // Create a map of invoice numbers to journal entries
         const map = {};
         if (response.data && response.data.data) {
@@ -675,7 +675,7 @@ export default {
             // Check if reference matches an invoice number (could be invoiceNo or invoiceNo-COGS)
             const reference = entry.reference || '';
             if (!reference) return;
-            
+
             // Extract invoice number (remove -COGS suffix if present)
             const invoiceNo = reference.replace(/-COGS$/, '');
             if (invoiceNo && invoiceNumbers.includes(invoiceNo) && !map[invoiceNo]) {

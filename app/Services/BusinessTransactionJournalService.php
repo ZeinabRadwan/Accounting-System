@@ -2002,7 +2002,8 @@ class BusinessTransactionJournalService
             }
 
             $totalReturnAmount = 0;
-            $purchaseExpensesByAccount = [];
+            $totalInventoryAmount = 0;
+            $totalVatAmount = 0;
 
             foreach ($returnProducts as $returnProduct) {
                 $product = $returnProduct->product;
@@ -2013,35 +2014,71 @@ class BusinessTransactionJournalService
                     continue;
                 }
 
-                // Calculate return amount with VAT
+                // Skip service products (products without inventory tracking)
+                if ($product->is_service) {
+                    \Illuminate\Support\Facades\Log::info("Skipping service product '{$product->name}' from purchase return journal entry (no inventory tracking)");
+                    // Still include VAT for service products
+                    $returnAmount = $this->calculateReturnAmountWithVat($returnProduct, $purchaseReturn);
+                    $totalReturnAmount += $returnAmount;
+                    // Calculate VAT amount for service products
+                    $vatAmount = $this->calculateVatAmountForReturn($returnProduct, $purchaseReturn);
+                    $totalVatAmount += $vatAmount;
+
+                    continue;
+                }
+
+                // Calculate inventory amount: product cost × quantity (without VAT)
+                $productCost = $returnProduct->purchase_price ?? 0;
+                $quantity = $returnProduct->quantity ?? 0;
+                $lineInventoryAmount = $productCost * $quantity;
+                $totalInventoryAmount += $lineInventoryAmount;
+
+                // Calculate return amount with VAT for total
                 $returnAmount = $this->calculateReturnAmountWithVat($returnProduct, $purchaseReturn);
                 $totalReturnAmount += $returnAmount;
 
-                // Get the product's purchase expense account
-                $purchaseAccount = $product->getPurchaseAccountWithFallback();
+                // Calculate VAT amount
+                $vatAmount = $this->calculateVatAmountForReturn($returnProduct, $purchaseReturn);
+                $totalVatAmount += $vatAmount;
+            }
 
-                if ($purchaseAccount) {
-                    $accountId = $purchaseAccount->id;
+            // Skip journal entry if no products have inventory tracking (all are services)
+            if ($totalInventoryAmount == 0 && $totalVatAmount == 0) {
+                \Illuminate\Support\Facades\Log::info("Skipping journal entry creation for purchase return {$purchaseReturn->code}: No products with inventory tracking found.");
+                DB::rollBack();
+                throw new Exception('Cannot create journal entry: All products in this purchase return are services and do not have inventory tracking.');
+            }
 
-                    if (! isset($purchaseExpensesByAccount[$accountId])) {
-                        $purchaseExpensesByAccount[$accountId] = [
-                            'account' => $purchaseAccount,
-                            'total' => 0,
-                        ];
-                    }
+            // Get Inventory account from routing settings
+            $inventoryAccount = $this->getInventoryAccount($purchaseReturn->branch_id);
+            if ($totalInventoryAmount > 0 && ! $inventoryAccount) {
+                throw new Exception('Inventory account must be configured in account routing settings to create purchase return journal entry.');
+            }
 
-                    $purchaseExpensesByAccount[$accountId]['total'] += $returnAmount;
-                } else {
-                    \Illuminate\Support\Facades\Log::warning('No purchase account found for product: '.$product->name.' (ID: '.$product->id.')');
+            // Get VAT Input account if VAT exists
+            $vatAccount = null;
+            if ($totalVatAmount > 0) {
+                $vatAccount = $this->getVatAccountForPurchase($purchaseReturn->purchase);
+                if (! $vatAccount) {
+                    throw new Exception('VAT Input account must be configured in account routing settings to create purchase return journal entry with VAT.');
                 }
             }
 
             // Debug: Log the calculated amounts
             \Illuminate\Support\Facades\Log::info('Purchase Return Journal - Total Return Amount: '.$totalReturnAmount);
-            \Illuminate\Support\Facades\Log::info('Purchase Return Journal - Purchase Accounts: '.json_encode($purchaseExpensesByAccount));
+            \Illuminate\Support\Facades\Log::info('Purchase Return Journal - Total Inventory Amount: '.$totalInventoryAmount);
+            \Illuminate\Support\Facades\Log::info('Purchase Return Journal - Total VAT Amount: '.$totalVatAmount);
 
             // Get default fiscal year and accounting period
             $defaults = $this->getDefaultFiscalYearAndPeriod();
+
+            // Calculate total amount = inventory + VAT
+            $totalAmount = $totalInventoryAmount + $totalVatAmount;
+
+            // Validate balance
+            if (abs($totalAmount - ($totalInventoryAmount + $totalVatAmount)) > 0.01) {
+                throw new Exception('Journal entry calculation error: Total amount does not match inventory + VAT.');
+            }
 
             // Create journal entry
             $journalEntry = JournalEntry::create([
@@ -2049,8 +2086,8 @@ class BusinessTransactionJournalService
                 'entry_date' => $purchaseReturn->date,
                 'reference' => 'PR-'.$purchaseReturn->code.'-'.time(), // Make reference unique
                 'description' => __('journal.purchase_return', ['code' => $purchaseReturn->code]),
-                'total_debit' => $totalReturnAmount,
-                'total_credit' => $totalReturnAmount,
+                'total_debit' => $totalAmount,
+                'total_credit' => $totalAmount,
                 'status' => 'posted',
                 'created_by' => $userId,
                 'posted_by' => $userId,
@@ -2059,29 +2096,45 @@ class BusinessTransactionJournalService
                 'source_id' => $purchaseReturn->id,
                 'fiscal_year_id' => $defaults['fiscal_year_id'],
                 'accounting_period_id' => $defaults['accounting_period_id'],
+                'branch_id' => $purchaseReturn->branch_id ?? (int) (Auth::user()->default_branch_id ?? 0),
             ]);
 
             $lineNumber = 1;
 
-            // Create purchase expense reversal lines (Credit to reverse purchase expenses)
-            foreach ($purchaseExpensesByAccount as $accountId => $expenseData) {
+            // Line 1: Debit Inventory (to reduce inventory for returned items)
+            if ($totalInventoryAmount > 0 && $inventoryAccount) {
+                \Illuminate\Support\Facades\Log::info("Creating journal line {$lineNumber}: Debit Inventory - Account ID: {$inventoryAccount->id}, Amount: {$totalInventoryAmount}");
                 $this->createJournalEntryLine(
                     $journalEntry,
-                    $accountId,
-                    0, // debit
-                    $expenseData['total'], // credit (to reverse the expense)
+                    $inventoryAccount->id,
+                    $totalInventoryAmount, // debit (to reduce inventory)
+                    0, // credit
                     $lineNumber,
-                    __('journal.purchase_return_reverse_expense', ['code' => $purchaseReturn->code])
+                    __('journal.inventory_reduction_for_purchase_return', ['code' => $purchaseReturn->code])
                 );
                 $lineNumber++;
             }
 
-            // Create accounts payable reduction line (Debit to reduce what we owe the supplier)
+            // Line 2: Debit VAT Input (if applicable) - to reverse VAT input
+            if ($totalVatAmount > 0 && $vatAccount) {
+                \Illuminate\Support\Facades\Log::info("Creating journal line {$lineNumber}: Debit VAT Input - Account ID: {$vatAccount->id}, Amount: {$totalVatAmount}");
+                $this->createJournalEntryLine(
+                    $journalEntry,
+                    $vatAccount->id,
+                    $totalVatAmount, // debit (to reverse VAT input)
+                    0, // credit
+                    $lineNumber,
+                    __('journal.vat_input_reversal_for_purchase_return', ['code' => $purchaseReturn->code])
+                );
+                $lineNumber++;
+            }
+
+            // Line 3: Credit Supplier Account (to reduce what we owe the supplier)
             $this->createJournalEntryLine(
                 $journalEntry,
                 $supplierAccountsPayableAccount->id,
-                $totalReturnAmount, // debit (to reduce payable)
-                0, // credit
+                0, // debit
+                $totalAmount, // credit (to reduce payable)
                 $lineNumber,
                 __('journal.purchase_return_reduce_payable', ['code' => $purchaseReturn->code])
             );
@@ -2148,6 +2201,57 @@ class BusinessTransactionJournalService
         } else {
             // Fallback: if original product not found, use simple calculation
             return round($returnQty * $purchasePrice, 2);
+        }
+    }
+
+    /**
+     * Calculate VAT amount for a purchase return product
+     */
+    private function calculateVatAmountForReturn($returnProduct, $purchaseReturn)
+    {
+        $returnQty = $returnProduct->quantity;
+        $purchasePrice = $returnProduct->purchase_price;
+
+        // Get the original purchase product to get tax information
+        $originalProduct = \App\Models\PurchaseProduct::where('purchase_id', $purchaseReturn->purchase_id)
+            ->where('product_id', $returnProduct->product_id)
+            ->first();
+
+        if ($originalProduct) {
+            // Calculate unit discount
+            $unitDiscount = $originalProduct->discount_amount > 0 && $originalProduct->quantity > 0
+                ? $originalProduct->discount_amount / $originalProduct->quantity
+                : 0;
+
+            // Calculate unit net (price after discount)
+            $unitNet = $purchasePrice - $unitDiscount;
+
+            // Get VAT rate from the product's tax information or use default
+            $vatRate = 15; // Default VAT rate for purchases
+            if ($returnProduct->product && $returnProduct->product->productTax) {
+                $vatRate = $returnProduct->product->productTax->rate;
+            } elseif ($purchaseReturn->purchase && $purchaseReturn->purchase->purchaseTax) {
+                $vatRate = $purchaseReturn->purchase->purchaseTax->rate;
+            }
+
+            // Calculate unit VAT
+            $unitVat = ($unitNet * $vatRate) / 100;
+
+            // Calculate total VAT for returned quantity
+            $totalVat = $unitVat * $returnQty;
+
+            return round($totalVat, 2);
+        } else {
+            // Fallback: if original product not found, calculate VAT from price
+            $vatRate = 15; // Default VAT rate
+            if ($returnProduct->product && $returnProduct->product->productTax) {
+                $vatRate = $returnProduct->product->productTax->rate;
+            } elseif ($purchaseReturn->purchase && $purchaseReturn->purchase->purchaseTax) {
+                $vatRate = $purchaseReturn->purchase->purchaseTax->rate;
+            }
+            $unitVat = ($purchasePrice * $vatRate) / 100;
+
+            return round($unitVat * $returnQty, 2);
         }
     }
 }
