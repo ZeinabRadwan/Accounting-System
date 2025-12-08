@@ -166,6 +166,15 @@
                   <template #cell-date="{ value }">
                     {{ value | moment("Do MMM, YYYY") }}
                   </template>
+                  <template #cell-journalEntry="{ value }">
+                    <router-link v-if="value && value.id" 
+                      :to="{ name: 'journal-entries.show', params: { id: value.id } }" 
+                      class="badge bg-info text-white" 
+                      style="text-decoration: none;">
+                      {{ value.entry_number || `#${value.id}` }}
+                    </router-link>
+                    <span v-else class="text-muted">-</span>
+                  </template>
                 </GeneralTable>
               </div>
             </div>
@@ -867,7 +876,7 @@ export default {
 
     // Invoice header columns
     invoiceHeaderColumns() {
-      return [
+      const columns = [
         { key: "invoiceNo", label: this.$t("Invoice No"), align: "text-center" },
         { key: "invoiceDate", label: this.$t("Invoice Date"), align: "text-center" },
         { key: "status", label: this.$t("Status"), align: "text-center" },
@@ -879,6 +888,13 @@ export default {
         { key: "saleStatus", label: this.$t("Sale Status"), align: "text-center" },
         { key: "date", label: this.$t("Date"), align: "text-center" },
       ];
+
+      // Add journal entry column if journal entry exists
+      if (this.allData && this.allData.journalEntry) {
+        columns.push({ key: "journalEntry", label: this.$t("Journal Entry"), align: "text-center" });
+      }
+
+      return columns;
     },
 
     // Invoice header rows
@@ -896,6 +912,7 @@ export default {
         cashier: this.allData.cashier ? this.allData.cashier.name : (this.allData.cashier_id ? '-' : '-'),
         saleStatus: this.allData.saleStatus || this.allData.sale_status || '-',
         date: this.allData.current_date || this.allData.invoiceDate || '',
+        journalEntry: this.allData.journalEntry || null,
       }];
     },
 

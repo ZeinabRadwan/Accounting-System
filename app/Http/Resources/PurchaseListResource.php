@@ -33,6 +33,13 @@ class PurchaseListResource extends JsonResource
             'accountReceivable' => isset($this->purchaseReturn->returnTransaction) ? $this->purchaseReturn->returnTransaction->amount : null,
             'note' => $this->note,
             'status' => (int) $this->status,
+            'journalEntry' => $this->whenLoaded('journalEntry', function () {
+                return $this->journalEntry ? [
+                    'id' => $this->journalEntry->id,
+                    'entry_number' => $this->journalEntry->entry_number,
+                    'slug' => $this->journalEntry->slug ?? null,
+                ] : null;
+            }),
         ];
     }
 }

@@ -124,6 +124,13 @@ class InvoiceResource extends JsonResource
             'discountOnTotalType' => property_exists($this, 'discount_on_total_type') ? $this->discount_on_total_type : null,
             'discountOnTotalValue' => property_exists($this, 'discount_on_total_value') ? $this->discount_on_total_value : null,
             'current_date' => $this->invoice_date, // Alias for invoice_date
+            'journalEntry' => $this->whenLoaded('journalEntry', function () {
+                return $this->journalEntry ? [
+                    'id' => $this->journalEntry->id,
+                    'entry_number' => $this->journalEntry->entry_number,
+                    'slug' => $this->journalEntry->slug ?? null,
+                ] : null;
+            }),
         ];
     }
 }

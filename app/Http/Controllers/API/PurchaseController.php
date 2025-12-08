@@ -43,7 +43,7 @@ class PurchaseController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Purchase::with('supplier', 'purchasePayments', 'purchaseTax', 'purchaseReturn');
+        $query = Purchase::with('supplier', 'purchasePayments', 'purchaseTax', 'purchaseReturn', 'journalEntry');
 
         // Apply branch filter for non-superadmin users
         $user = Auth::user();
@@ -512,7 +512,7 @@ class PurchaseController extends Controller
     public function show($slug)
     {
         try {
-            $purchase = Purchase::with('supplier', 'purchaseProducts.purchase', 'purchaseReturn', 'purchasePayments.purchasePaymentTransaction.cashbookAccount', 'purchaseProducts.product.productUnit', 'purchaseProducts.product.productTax', 'purchaseProducts.product.proSubCategory.category', 'user', 'branch', 'costCenter', 'paymentMethod')->where('slug', $slug)->first();
+            $purchase = Purchase::with('supplier', 'purchaseProducts.purchase', 'purchaseReturn', 'purchasePayments.purchasePaymentTransaction.cashbookAccount', 'purchaseProducts.product.productUnit', 'purchaseProducts.product.productTax', 'purchaseProducts.product.proSubCategory.category', 'user', 'branch', 'costCenter', 'paymentMethod', 'journalEntry')->where('slug', $slug)->first();
 
             if (! $purchase) {
                 return $this->responseWithError('Purchase not found');
@@ -834,7 +834,7 @@ class PurchaseController extends Controller
     public function search(Request $request)
     {
         $term = $request->term;
-        $query = Purchase::with('supplier', 'purchasePayments', 'purchaseTax', 'purchaseReturn', 'user');
+        $query = Purchase::with('supplier', 'purchasePayments', 'purchaseTax', 'purchaseReturn', 'user', 'journalEntry');
 
         // Apply branch filter for non-superadmin users
         $user = Auth::user();

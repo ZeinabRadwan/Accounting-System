@@ -98,6 +98,16 @@
               <template #cell-due="{ row }">
                 <span v-html="formatCurrency(row.due)"></span>
               </template>
+              <template #cell-journalEntry="{ row }">
+                <span v-if="row.journalEntry">
+                  <router-link :to="{ name: 'journal-entries.show', params: { id: row.journalEntry.id } }" 
+                    class="badge bg-info text-white" 
+                    style="text-decoration: none;">
+                    {{ row.journalEntry.entry_number || `#${row.journalEntry.id}` }}
+                  </router-link>
+                </span>
+                <span v-else class="text-muted">-</span>
+              </template>
               <template #cell-status="{ row }">
                 <span v-if="row.status === 1" class="badge bg-success">{{
                   $t("Invoice Status Sent")

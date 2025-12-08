@@ -97,6 +97,16 @@
               <template #cell-due="{ row }">
                 {{ parseFloat(row.due).toFixed(2) }} <span class="saudi-riyal">ê</span>
               </template>
+              <template #cell-journalEntry="{ row }">
+                <span v-if="row.journalEntry">
+                  <router-link :to="{ name: 'journal-entries.show', params: { id: row.journalEntry.id } }" 
+                    class="badge bg-info text-white" 
+                    style="text-decoration: none;">
+                    {{ row.journalEntry.entry_number || `#${row.journalEntry.id}` }}
+                  </router-link>
+                </span>
+                <span v-else class="text-muted">-</span>
+              </template>
               <template #cell-status="{ row }">
                 <span v-if="row.status === 1" class="badge bg-success">{{
                   $t("Active")
@@ -436,6 +446,7 @@ export default {
         { key: "purchaseTotal", label: this.$t("Net Total") },
         { key: "totalPaid", label: this.$t("Total Paid") },
         { key: "due", label: this.$t("Total Due") },
+        { key: "journalEntry", label: this.$t("Journal Entry"), sortable: false },
         { key: "status", label: this.$t("Status") },
       ];
     },

@@ -84,6 +84,13 @@ class PurchaseProductsResource extends JsonResource
             'createdBy' => $this->user->name,
             'branch' => $this->branch,
             'costCenter' => $this->costCenter,
+            'journalEntry' => $this->whenLoaded('journalEntry', function () {
+                return $this->journalEntry ? [
+                    'id' => $this->journalEntry->id,
+                    'entry_number' => $this->journalEntry->entry_number,
+                    'slug' => $this->journalEntry->slug ?? null,
+                ] : null;
+            }),
         ];
     }
 }

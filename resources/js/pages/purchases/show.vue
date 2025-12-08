@@ -647,6 +647,11 @@ export default {
         { key: "createdBy", label: this.$t("Created By"), align: "text-center" },
       ];
 
+      // Add journal entry column if journal entry exists
+      if (this.allData && this.allData.journalEntry) {
+        columns.push({ key: "journalEntry", label: this.$t("Journal Entry"), align: "text-center" });
+      }
+
       if (this.allData && this.allData.costCenter) {
         columns.push({ key: "costCenter", label: this.$t("Cost Center"), align: "text-center" });
       }
@@ -681,6 +686,7 @@ export default {
         purchaseDate: this.allData.purchaseDate || '',
         status: this.allData.status !== undefined ? this.allData.status : null,
         createdBy: this.allData.createdBy || '-',
+        journalEntry: this.allData.journalEntry || null,
       };
 
       if (this.allData.costCenter) {

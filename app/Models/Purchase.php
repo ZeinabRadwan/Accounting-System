@@ -206,4 +206,30 @@ class Purchase extends Model
     {
         return $this->belongsTo(PaymentMethod::class, 'payment_method_id');
     }
+
+    /**
+     * Get the journal entries for this purchase.
+     */
+    public function journalEntries()
+    {
+        return $this->morphMany(JournalEntry::class, 'source', 'source_type', 'source_id');
+    }
+
+    /**
+     * Get the purchase journal entries via pivot table.
+     */
+    public function purchaseJournals()
+    {
+        return $this->hasMany(PurchaseJournal::class);
+    }
+
+    /**
+     * Get the main journal entry for this purchase (first one).
+     */
+    public function journalEntry()
+    {
+        return $this->morphOne(JournalEntry::class, 'source', 'source_type', 'source_id')
+            ->where('entry_type', \App\Enums\JournalEntryType::Purchases)
+            ->orderBy('id', 'desc');
+    }
 }

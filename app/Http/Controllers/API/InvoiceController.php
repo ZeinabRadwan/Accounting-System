@@ -48,7 +48,7 @@ class InvoiceController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Invoice::with('client', 'invoiceTax', 'invoicePayments', 'invoiceReturn');
+        $query = Invoice::with('client', 'invoiceTax', 'invoicePayments', 'invoiceReturn', 'journalEntry');
 
         // Apply branch filter for non-superadmin users
         $user = Auth::user();
@@ -532,6 +532,7 @@ class InvoiceController extends Controller
                 'invoiceProducts.product.productUnit',
                 'invoiceProducts.product.productTax',
                 'invoiceProducts.product.salesAccount',
+                'journalEntry',
                 'invoiceTax',
                 'user',
                 'branch',

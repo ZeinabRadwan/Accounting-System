@@ -419,4 +419,30 @@ class Invoice extends Model
     {
         return $this->belongsTo(PaymentMethod::class, 'payment_method_id');
     }
+
+    /**
+     * Get the journal entries for this invoice.
+     */
+    public function journalEntries()
+    {
+        return $this->morphMany(JournalEntry::class, 'source', 'source_type', 'source_id');
+    }
+
+    /**
+     * Get the invoice journal entries via pivot table.
+     */
+    public function invoiceJournals()
+    {
+        return $this->hasMany(InvoiceJournal::class);
+    }
+
+    /**
+     * Get the main journal entry for this invoice (first one).
+     */
+    public function journalEntry()
+    {
+        return $this->morphOne(JournalEntry::class, 'source', 'source_type', 'source_id')
+            ->where('entry_type', \App\Enums\JournalEntryType::Sales)
+            ->orderBy('id', 'desc');
+    }
 }
