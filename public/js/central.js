@@ -35403,12 +35403,12 @@ var map = {
 		1848
 	],
 	"./purchases": [
-		36476,
-		6476
+		33154,
+		3154
 	],
 	"./purchases/": [
-		36476,
-		6476
+		33154,
+		3154
 	],
 	"./purchases/create": [
 		41757,
@@ -35427,12 +35427,12 @@ var map = {
 		6389
 	],
 	"./purchases/index": [
-		36476,
-		6476
+		33154,
+		3154
 	],
 	"./purchases/index.vue": [
-		36476,
-		6476
+		33154,
+		3154
 	],
 	"./purchases/returns": [
 		99658,
@@ -35475,12 +35475,12 @@ var map = {
 		8229
 	],
 	"./purchases/show": [
-		46597,
-		6597
+		90546,
+		546
 	],
 	"./purchases/show.vue": [
-		46597,
-		6597
+		90546,
+		546
 	],
 	"./reports/account-statement": [
 		89861,

@@ -135,10 +135,6 @@
                   <template #cell-purchaseDate="{ value }">
                     {{ value | moment("Do MMM, YYYY") }}
                   </template>
-                  <template #cell-status="{ value }">
-                    <span v-if="value === 1" class="badge bg-success">{{ $t("Active") }}</span>
-                    <span v-else class="badge bg-danger">{{ $t("Inactive") }}</span>
-                  </template>
                   <template #cell-purchaseStatus="{ value }">
                     <span v-if="value === 'تم الاستلام'" class="badge bg-success">
                       {{ $t("Received") }} ({{ value }})
@@ -652,7 +648,6 @@ export default {
       const columns = [
         { key: "purchaseNo", label: this.$t("Purchase No"), align: "text-center" },
         { key: "purchaseDate", label: this.$t("Purchase Date"), align: "text-center" },
-        { key: "status", label: this.$t("Status"), align: "text-center" },
         { key: "createdBy", label: this.$t("Created By"), align: "text-center" },
       ];
 
@@ -693,7 +688,6 @@ export default {
       const row = {
         purchaseNo: this.allData.purchaseNo || '',
         purchaseDate: this.allData.purchaseDate || '',
-        status: this.allData.status !== undefined ? this.allData.status : null,
         createdBy: this.allData.createdBy || '-',
         journalEntry: this.allData.journalEntry || null,
       };

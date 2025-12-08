@@ -107,14 +107,6 @@
                 </span>
                 <span v-else class="text-muted">-</span>
               </template>
-              <template #cell-status="{ row }">
-                <span v-if="row.status === 1" class="badge bg-success">{{
-                  $t("Active")
-                }}</span>
-                <span v-else class="badge bg-danger">{{
-                  $t("Inactive")
-                }}</span>
-              </template>
               <template #actions="{ row, index }">
                 <div class="action-dropdown" :class="{ open: openActionIndex === index }">
                   <button type="button" class="action-icon-btn" :data-action-index="index"
@@ -296,15 +288,6 @@
                 :class="{ 'is-invalid': form.errors.has('paymentDate') }" name="paymentDate" />
               <has-error :form="form" field="paymentDate" />
             </div>
-            <div class="form-group col-md-6">
-              <label for="status">{{ $t("Status") }}</label>
-              <select id="status" v-model="form.status" class="form-control"
-                :class="{ 'is-invalid': form.errors.has('status') }">
-                <option value="1">{{ $t("Active") }}</option>
-                <option value="0">{{ $t("Inactive") }}</option>
-              </select>
-              <has-error :form="form" field="status" />
-            </div>
           </div>
           <div class="form-group">
             <label for="note">{{ $t("Note") }}</label>
@@ -447,7 +430,6 @@ export default {
         { key: "totalPaid", label: this.$t("Total Paid") },
         { key: "due", label: this.$t("Total Due") },
         { key: "journalEntry", label: this.$t("Journal Entry"), sortable: false },
-        { key: "status", label: this.$t("Status") },
       ];
     },
     itemsWithIndex() {
