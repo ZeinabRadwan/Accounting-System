@@ -109,6 +109,16 @@
               <template #cell-returnDate="{ row }">
                 <span v-if="row.returnDate">{{ row.returnDate | moment("Do MMM, YYYY") }}</span>
               </template>
+              <template #cell-journalEntry="{ row }">
+                <span v-if="row.journalEntry">
+                  <router-link :to="{ name: 'journal-entries.show', params: { id: row.journalEntry.id } }" 
+                    class="badge bg-info text-white" 
+                    style="text-decoration: none;">
+                    {{ row.journalEntry.entry_number || `#${row.journalEntry.id}` }}
+                  </router-link>
+                </span>
+                <span v-else class="text-muted">-</span>
+              </template>
               <template #cell-status="{ row }">
                 <span v-if="row.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
                 <span v-else class="badge bg-danger">{{ $t("Inactive") }}</span>
@@ -293,6 +303,7 @@ export default {
         { key: "reason", label: this.$t("Return Reason") },
         { key: "totalReturn", label: this.$t("Cost of Return Products") },
         { key: "returnDate", label: this.$t("Date") },
+        { key: "journalEntry", label: this.$t("Journal Entry"), sortable: false },
         { key: "status", label: this.$t("Status") },
       ];
     },

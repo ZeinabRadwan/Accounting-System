@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PurchaseReturn extends Model
 {
-    use Sluggable, HasFactory, SoftDeletes;
+    use HasFactory, Sluggable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -22,8 +22,6 @@ class PurchaseReturn extends Model
 
     /**
      * Return the sluggable configuration array for this model.
-     *
-     * @return array
      */
     public function sluggable(): array
     {
@@ -64,5 +62,22 @@ class PurchaseReturn extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    /**
+     * Get the journal entries for this purchase return.
+     */
+    public function journalEntries()
+    {
+        return $this->morphMany(JournalEntry::class, 'source', 'source_type', 'source_id');
+    }
+
+    /**
+     * Get the main journal entry for this purchase return (first one).
+     */
+    public function journalEntry()
+    {
+        return $this->morphOne(JournalEntry::class, 'source', 'source_type', 'source_id')
+            ->orderBy('id', 'desc');
     }
 }

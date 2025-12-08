@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class InvoiceReturn extends Model
 {
-    use Sluggable, HasFactory, SoftDeletes;
+    use HasFactory, Sluggable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -22,8 +22,6 @@ class InvoiceReturn extends Model
 
     /**
      * Return the sluggable configuration array for this model.
-     *
-     * @return array
      */
     public function sluggable(): array
     {
@@ -80,6 +78,15 @@ class InvoiceReturn extends Model
     public function latestJournalEntry()
     {
         return $this->morphOne(\App\Models\JournalEntry::class, 'source')->latest();
+    }
+
+    /**
+     * Get the main journal entry for this invoice return (first one).
+     */
+    public function journalEntry()
+    {
+        return $this->morphOne(\App\Models\JournalEntry::class, 'source', 'source_type', 'source_id')
+            ->orderBy('id', 'desc');
     }
 
     /**

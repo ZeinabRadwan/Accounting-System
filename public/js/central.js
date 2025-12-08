@@ -35435,12 +35435,12 @@ var map = {
 		2318
 	],
 	"./purchases/returns": [
-		11152,
-		1152
+		92311,
+		2311
 	],
 	"./purchases/returns/": [
-		11152,
-		1152
+		92311,
+		2311
 	],
 	"./purchases/returns/create": [
 		33782,
@@ -35459,20 +35459,20 @@ var map = {
 		8068
 	],
 	"./purchases/returns/index": [
-		11152,
-		1152
+		92311,
+		2311
 	],
 	"./purchases/returns/index.vue": [
-		11152,
-		1152
+		92311,
+		2311
 	],
 	"./purchases/returns/show": [
-		74916,
-		4916
+		83966,
+		3966
 	],
 	"./purchases/returns/show.vue": [
-		74916,
-		4916
+		83966,
+		3966
 	],
 	"./purchases/show": [
 		26449,
@@ -35715,12 +35715,12 @@ var map = {
 		8532
 	],
 	"./sales/returns": [
-		20264,
-		264
+		90622,
+		622
 	],
 	"./sales/returns/": [
-		20264,
-		264
+		90622,
+		622
 	],
 	"./sales/returns/create": [
 		50971,
@@ -35747,20 +35747,20 @@ var map = {
 		1059
 	],
 	"./sales/returns/index": [
-		20264,
-		264
+		90622,
+		622
 	],
 	"./sales/returns/index.vue": [
-		20264,
-		264
+		90622,
+		622
 	],
 	"./sales/returns/show": [
-		38155,
-		8155
+		44791,
+		4791
 	],
 	"./sales/returns/show.vue": [
-		38155,
-		8155
+		44791,
+		4791
 	],
 	"./settings": [
 		67241,

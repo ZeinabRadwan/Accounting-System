@@ -135,6 +135,7 @@
                         </th>
                         <th v-if="allData.note">{{ $t("Note") }}</th>
                         <th>{{ $t("Status") }}</th>
+                        <th v-if="allData.journalEntry">{{ $t("Journal Entry") }}</th>
                         <th v-if="allData.createdBy" class="text-right">
                           {{ $t("Created By") }}
                         </th>
@@ -166,6 +167,14 @@
                           <span v-else class="badge bg-danger">{{
                             $t("Inactive")
                             }}</span>
+                        </td>
+                        <td v-if="allData.journalEntry">
+                          <router-link 
+                            :to="{ name: 'journal-entries.show', params: { id: allData.journalEntry.id } }" 
+                            class="badge bg-info text-white" 
+                            style="text-decoration: none;">
+                            {{ allData.journalEntry.entry_number || `#${allData.journalEntry.id}` }}
+                          </router-link>
                         </td>
                         <td v-if="allData.createdBy" class="text-right">
                           {{ allData.createdBy }}

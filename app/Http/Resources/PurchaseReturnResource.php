@@ -29,6 +29,13 @@ class PurchaseReturnResource extends JsonResource
             'note' => $this->note,
             'status' => (int) $this->status,
             'createdBy' => $this->user->name,
+            'journalEntry' => $this->whenLoaded('journalEntry', function () {
+                return $this->journalEntry ? [
+                    'id' => $this->journalEntry->id,
+                    'entry_number' => $this->journalEntry->entry_number,
+                    'slug' => $this->journalEntry->slug ?? null,
+                ] : null;
+            }),
         ];
     }
 }

@@ -19,7 +19,7 @@ class InvoiceReturnListResource extends JsonResource
         $subtotal = 0;
         $totalDiscount = 0;
         $totalTax = 0;
-        
+
         if ($this->relationLoaded('invoiceReturnProducts') && $this->invoiceReturnProducts) {
             foreach ($this->invoiceReturnProducts as $returnProduct) {
                 if ($returnProduct->quantity > 0) {
@@ -27,21 +27,21 @@ class InvoiceReturnListResource extends JsonResource
                     $invoiceProduct = \App\Models\InvoiceProduct::where('invoice_id', $this->invoice_id)
                         ->where('product_id', $returnProduct->product_id)
                         ->first();
-                    
+
                     if ($invoiceProduct) {
                         $returnQty = $returnProduct->quantity;
                         $invoiceQty = $invoiceProduct->quantity;
-                        
+
                         // Subtotal = sale_price × return_qty (before discount)
                         $subtotal += $invoiceProduct->sale_price * $returnQty;
-                        
+
                         // Return Discount = (discount_amount / invoice_qty) × return_qty
                         // This matches calculateReturnDiscount() in show.vue
                         if ($invoiceQty > 0) {
                             $perUnitDiscount = round($invoiceProduct->discount_amount / $invoiceQty, 2);
                             $totalDiscount += $perUnitDiscount * $returnQty;
                         }
-                        
+
                         // Return VAT = (tax_amount / invoice_qty) × return_qty
                         // This matches calculateReturnVat() in show.vue
                         if ($invoiceQty > 0) {
@@ -52,11 +52,11 @@ class InvoiceReturnListResource extends JsonResource
                 }
             }
         }
-        
+
         // Net Total = Subtotal - Discount + VAT
         // This matches calculateTotalReturnedProductCost() - calculateTotalReturnDiscount() + calculateTotalReturnTax() in show.vue
         $netTotal = $subtotal - $totalDiscount + $totalTax;
-        
+
         return [
             'id' => $this->id,
             'reason' => $this->reason,
@@ -72,6 +72,13 @@ class InvoiceReturnListResource extends JsonResource
             'note' => $this->note,
             'status' => (int) $this->status,
             'createdBy' => $this->user,
+            'journalEntry' => $this->whenLoaded('journalEntry', function () {
+                return $this->journalEntry ? [
+                    'id' => $this->journalEntry->id,
+                    'entry_number' => $this->journalEntry->entry_number,
+                    'slug' => $this->journalEntry->slug ?? null,
+                ] : null;
+            }),
         ];
     }
 }

@@ -2,27 +2,26 @@
 
 namespace App\Http\Controllers\API;
 
-use Exception;
-use App\Rules\MinOne;
-use App\Models\Product;
-use Illuminate\Http\Request;
-use App\Models\PurchaseReturn;
-use App\Models\AccountTransaction;
-use App\Models\GeneralSetting;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Models\PurchaseReturnProduct;
-use App\Interfaces\ITransactionService;
-use App\Http\Resources\PurchaseReturnResource;
-use App\Http\Resources\PurchaseReturnListReource;
 use App\Http\Requests\Purchase\StorePurchaseReturnRequest;
 use App\Http\Requests\Purchase\UpdatePurchaseReturnRequest;
+use App\Http\Resources\PurchaseReturnListReource;
+use App\Http\Resources\PurchaseReturnResource;
+use App\Interfaces\ITransactionService;
+use App\Models\AccountTransaction;
+use App\Models\GeneralSetting;
+use App\Models\Product;
+use App\Models\PurchaseReturn;
+use App\Models\PurchaseReturnProduct;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PurchaseReturnController extends Controller
 {
-
     protected ITransactionService $transactionService;
+
     // define middleware
     public function __construct(ITransactionService $transactionService)
     {
@@ -43,20 +42,21 @@ class PurchaseReturnController extends Controller
     public function index(Request $request)
     {
         $query = PurchaseReturn::with('purchase.supplier', 'purchase.purchaseTax', 'purchaseReturnProducts.product.productTax');
-        
+
         // Apply branch filter for non-superadmin users
         $user = Auth::user();
         // if ((int) $user->account_role !== 1) {
-            $branchIds = $this->getUserBranchIds($user);
-            $query->whereIn('branch_id', $branchIds);
+        $branchIds = $this->getUserBranchIds($user);
+        $query->whereIn('branch_id', $branchIds);
         // }
-        
+
         return PurchaseReturnListReource::collection($query->latest()->paginate($request->perPage));
     }
-    
+
     private function getUserBranchIds($user)
     {
         $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+
         return [$defaultBranchId > 0 ? $defaultBranchId : 0];
     }
 
@@ -108,16 +108,16 @@ class PurchaseReturnController extends Controller
             ]);
 
             // Ensure the purchase return was created successfully
-            if (!$purchaseReturn || !$purchaseReturn->id) {
+            if (! $purchaseReturn || ! $purchaseReturn->id) {
                 throw new \Exception('Failed to create purchase return');
             }
-            
+
             // Log the created purchase return for debugging
-            \Illuminate\Support\Facades\Log::info('Created purchase return with ID: ' . $purchaseReturn->id);
-            
+            \Illuminate\Support\Facades\Log::info('Created purchase return with ID: '.$purchaseReturn->id);
+
             // Verify the purchase return exists in the database
             $verifyReturn = PurchaseReturn::find($purchaseReturn->id);
-            if (!$verifyReturn) {
+            if (! $verifyReturn) {
                 throw new \Exception('Purchase return was not properly saved to database');
             }
 
@@ -126,16 +126,16 @@ class PurchaseReturnController extends Controller
                 $returnQty = (int) $selectedProduct['returnQty'];
                 if ($returnQty > 0) {
                     $product = Product::where('slug', $selectedProduct['slug'])->first();
-                    
-                    if (!$product) {
-                        throw new \Exception('Product not found: ' . $selectedProduct['slug']);
+
+                    if (! $product) {
+                        throw new \Exception('Product not found: '.$selectedProduct['slug']);
                     }
-                    
+
                     // Validate that return quantity doesn't exceed available inventory
                     if ($returnQty > $product->inventory_count) {
-                        throw new \Exception('Return quantity (' . $returnQty . ') cannot exceed available inventory (' . $product->inventory_count . ') for product: ' . $product->name);
+                        throw new \Exception('Return quantity ('.$returnQty.') cannot exceed available inventory ('.$product->inventory_count.') for product: '.$product->name);
                     }
-                    
+
                     // calculate new purchase price
                     $currentStockPrice = $product->inventory_count * $product->purchase_price;
 
@@ -143,7 +143,7 @@ class PurchaseReturnController extends Controller
                     $purchaseStockPrice = $returnQty * $selectedProduct['purchasePrice'];
                     $totalStockPrice = $currentStockPrice - $purchaseStockPrice;
                     $totalQty = $product->inventory_count - $returnQty;
-                    
+
                     // Prevent division by zero - if totalQty is zero, set unitCost to 0
                     $unitCost = $totalQty > 0 ? $totalStockPrice / $totalQty : 0;
 
@@ -153,20 +153,20 @@ class PurchaseReturnController extends Controller
                         'inventory_count' => $totalQty,
                     ]);
 
-                    \Illuminate\Support\Facades\Log::info('Creating purchase return product with return_id: ' . $purchaseReturn->id . ', product_id: ' . $selectedProduct['id']);
-                    
+                    \Illuminate\Support\Facades\Log::info('Creating purchase return product with return_id: '.$purchaseReturn->id.', product_id: '.$selectedProduct['id']);
+
                     $returnProduct = PurchaseReturnProduct::create([
                         'return_id' => $purchaseReturn->id,
                         'product_id' => $selectedProduct['id'],
                         'purchase_price' => $selectedProduct['purchasePrice'],
                         'quantity' => $returnQty,
                     ]);
-                    
-                    if (!$returnProduct) {
-                        throw new \Exception('Failed to create purchase return product for product ID: ' . $selectedProduct['id']);
+
+                    if (! $returnProduct) {
+                        throw new \Exception('Failed to create purchase return product for product ID: '.$selectedProduct['id']);
                     }
-                    
-                    \Illuminate\Support\Facades\Log::info('Successfully created purchase return product with ID: ' . $returnProduct->id);
+
+                    \Illuminate\Support\Facades\Log::info('Successfully created purchase return product with ID: '.$returnProduct->id);
                 }
             }
 
@@ -183,11 +183,11 @@ class PurchaseReturnController extends Controller
                 ->causedBy(Auth::user())
                 ->performedOn($purchaseReturn)
                 ->withProperties([
-                    'name' => "",
-                    'code' => '[' . config('config.purchaseReturnPrefix') . '-' . $code . ']',
+                    'name' => '',
+                    'code' => '['.config('config.purchaseReturnPrefix').'-'.$code.']',
                     'event' => 'Create',
                     'slug' => $purchaseReturn->slug,
-                    'routeName' => 'purchaseReturns.show'
+                    'routeName' => 'purchaseReturns.show',
                 ])
                 ->useLog('Purchase return Created')
                 ->log('Purchase return Created');
@@ -199,6 +199,7 @@ class PurchaseReturnController extends Controller
             ]);
         } catch (Exception $e) {
             DB::rollback();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -212,7 +213,7 @@ class PurchaseReturnController extends Controller
     public function show($slug)
     {
         try {
-            $purchaseReturn = PurchaseReturn::where('slug', $slug)->with('purchase.supplier', 'purchaseReturnProducts.purchaseReturn', 'purchaseReturnProducts.product.proSubCategory.category', 'purchaseReturnProducts.product.productUnit', 'purchaseReturnProducts.product.productTax', 'user', 'returnTransaction.cashbookAccount')->first();
+            $purchaseReturn = PurchaseReturn::where('slug', $slug)->with('purchase.supplier', 'purchaseReturnProducts.purchaseReturn', 'purchaseReturnProducts.product.proSubCategory.category', 'purchaseReturnProducts.product.productUnit', 'purchaseReturnProducts.product.productTax', 'user', 'returnTransaction.cashbookAccount', 'journalEntry')->first();
 
             return new PurchaseReturnResource($purchaseReturn);
         } catch (Exception $e) {
@@ -230,8 +231,8 @@ class PurchaseReturnController extends Controller
     public function update(UpdatePurchaseReturnRequest $request, $slug)
     {
         $purchaseReturn = PurchaseReturn::where('slug', $slug)
-                                        ->with('purchase.supplier', 'purchaseReturnProducts.product.proSubCategory.category', 'purchaseReturnProducts.product.productUnit', 'returnTransaction.cashbookAccount')
-                                        ->first();
+            ->with('purchase.supplier', 'purchaseReturnProducts.product.proSubCategory.category', 'purchaseReturnProducts.product.productUnit', 'returnTransaction.cashbookAccount')
+            ->first();
 
         try {
             DB::beginTransaction();
@@ -296,16 +297,16 @@ class PurchaseReturnController extends Controller
                 $purchasePrice = (float) $selectedProduct['price'];
 
                 $product = Product::where('slug', $selectedProduct['slug'])->first();
-                
-                if (!$product) {
-                    throw new \Exception('Product not found: ' . $selectedProduct['slug']);
+
+                if (! $product) {
+                    throw new \Exception('Product not found: '.$selectedProduct['slug']);
                 }
-                
+
                 // Validate that return quantity doesn't exceed available inventory
                 if ($returnedQty > $product->inventory_count) {
-                    throw new \Exception('Return quantity (' . $returnedQty . ') cannot exceed available inventory (' . $product->inventory_count . ') for product: ' . $product->name);
+                    throw new \Exception('Return quantity ('.$returnedQty.') cannot exceed available inventory ('.$product->inventory_count.') for product: '.$product->name);
                 }
-                
+
                 // calculate new purchase price
                 $currentStockPrice = $product->inventory_count * $product->purchase_price;
 
@@ -313,7 +314,7 @@ class PurchaseReturnController extends Controller
                 $returnedStockPrice = ($oldQty - $returnedQty) * $purchasePrice;
                 $totalStockPrice = $currentStockPrice + $returnedStockPrice;
                 $totalQty = $product->inventory_count + $oldQty - $returnedQty;
-                
+
                 // Prevent division by zero - if totalQty is zero, set unitCost to 0
                 $unitCost = $totalQty > 0 ? $totalStockPrice / $totalQty : 0;
                 // update product purchase price
@@ -330,17 +331,16 @@ class PurchaseReturnController extends Controller
                 ]);
             }
 
-
             // add activity log
             activity()
                 ->causedBy(Auth::user())
                 ->performedOn($purchaseReturn)
                 ->withProperties([
-                    'name' => "",
-                    'code' => '[' . config('config.purchaseReturnPrefix') . '-' . $purchaseReturn->code . ']',
+                    'name' => '',
+                    'code' => '['.config('config.purchaseReturnPrefix').'-'.$purchaseReturn->code.']',
                     'event' => 'Update',
                     'slug' => $purchaseReturn->slug,
-                    'routeName' => 'purchaseReturns.show'
+                    'routeName' => 'purchaseReturns.show',
                 ])
                 ->useLog('Purchase return Updated')
                 ->log('Purchase return Updated');
@@ -357,6 +357,7 @@ class PurchaseReturnController extends Controller
             ]);
         } catch (Exception $e) {
             DB::rollback();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -372,21 +373,20 @@ class PurchaseReturnController extends Controller
         try {
             DB::beginTransaction();
 
-            $purchaseReturn = PurchaseReturn::where('slug', $slug)->with('purchaseReturnProducts.product', 'purchase', 'returnTransaction')->first();
+            $purchaseReturn = PurchaseReturn::where('slug', $slug)->with('purchaseReturnProducts.product', 'purchase', 'returnTransaction', 'journalEntry')->first();
             // update purchase
             $purchaseReturn->purchase->update([
                 'is_paid' => $purchaseReturn->purchase->totalDue() == 0 ? 1 : 0,
             ]);
-
 
             // add activity log
             activity()
                 ->causedBy(Auth::user())
                 ->performedOn($purchaseReturn)
                 ->withProperties([
-                    'name' => "",
-                    'code' => '[' . config('config.purchaseReturnPrefix') . '-' . $purchaseReturn->code . ']',
-                    'event' => 'Delete'
+                    'name' => '',
+                    'code' => '['.config('config.purchaseReturnPrefix').'-'.$purchaseReturn->code.']',
+                    'event' => 'Delete',
                 ])
                 ->useLog('Purchase return Deleted')
                 ->log('Purchase return Deleted');
@@ -399,6 +399,7 @@ class PurchaseReturnController extends Controller
             return $this->responseWithSuccess('Purchase return deleted successfully');
         } catch (Exception $e) {
             DB::rollback();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -417,8 +418,8 @@ class PurchaseReturnController extends Controller
         // Apply branch filter
         $user = Auth::user();
         // if ((int) $user->account_role !== 1) {
-            $branchIds = $this->getUserBranchIds($user);
-            $query->whereIn('branch_id', $branchIds);
+        $branchIds = $this->getUserBranchIds($user);
+        $query->whereIn('branch_id', $branchIds);
         // }
 
         if ($request->startDate && $request->endDate) {
@@ -453,9 +454,9 @@ class PurchaseReturnController extends Controller
     public function sendToZatca($slug)
     {
         try {
-            $purchaseReturn = PurchaseReturn::where('slug', $slug)->with('purchase.supplier', 'purchaseReturnProducts.product')->first();
-            
-            if (!$purchaseReturn) {
+            $purchaseReturn = PurchaseReturn::where('slug', $slug)->with('purchase.supplier', 'purchaseReturnProducts.product', 'journalEntry')->first();
+
+            if (! $purchaseReturn) {
                 return $this->responseWithError('Purchase return not found');
             }
 
@@ -464,7 +465,7 @@ class PurchaseReturnController extends Controller
             $isSaudiArabia = $country === 'SA';
 
             // Only allow for Saudi Arabia
-            if (!$isSaudiArabia) {
+            if (! $isSaudiArabia) {
                 return $this->responseWithError('This feature is only available for Saudi Arabia');
             }
 
@@ -479,14 +480,15 @@ class PurchaseReturnController extends Controller
 
             // Create journal entry for purchase return (now that we're sending to ZATCA)
             try {
-                \Illuminate\Support\Facades\Log::info('Creating journal entry for ZATCA purchase return: ' . $purchaseReturn->code);
-                $journalService = new \App\Services\BusinessTransactionJournalService();
+                \Illuminate\Support\Facades\Log::info('Creating journal entry for ZATCA purchase return: '.$purchaseReturn->code);
+                $journalService = new \App\Services\BusinessTransactionJournalService;
                 $journalEntry = $journalService->createPurchaseReturnJournal($purchaseReturn, $userId);
-                \Illuminate\Support\Facades\Log::info('Journal entry created successfully for ZATCA purchase return: ' . $purchaseReturn->code);
+                \Illuminate\Support\Facades\Log::info('Journal entry created successfully for ZATCA purchase return: '.$purchaseReturn->code);
             } catch (\Exception $e) {
-                \Illuminate\Support\Facades\Log::error('Failed to create journal entry for ZATCA purchase return: ' . $e->getMessage());
+                \Illuminate\Support\Facades\Log::error('Failed to create journal entry for ZATCA purchase return: '.$e->getMessage());
                 DB::rollback();
-                return $this->responseWithError('Failed to create journal entries: ' . $e->getMessage());
+
+                return $this->responseWithError('Failed to create journal entries: '.$e->getMessage());
             }
 
             // Update purchase return status to active (sent to ZATCA)
@@ -495,12 +497,12 @@ class PurchaseReturnController extends Controller
             // Here you would add actual ZATCA integration
             // For now, we'll just simulate the ZATCA sending
             // You can integrate with ZATCA API here
-            
+
             // Log the ZATCA sending
             \Illuminate\Support\Facades\Log::info("Purchase return {$purchaseReturn->code} sent to ZATCA", [
                 'purchase_return_id' => $purchaseReturn->id,
                 'user_id' => $userId,
-                'timestamp' => now()
+                'timestamp' => now(),
             ]);
 
             DB::commit();
@@ -508,13 +510,14 @@ class PurchaseReturnController extends Controller
             return $this->responseWithSuccess('Purchase return sent to ZATCA successfully and journal entries created', [
                 'purchase_return_id' => $purchaseReturn->id,
                 'purchase_return_code' => $purchaseReturn->code,
-                'status' => 'sent_to_zatca'
+                'status' => 'sent_to_zatca',
             ]);
 
         } catch (Exception $e) {
             DB::rollback();
-            \Illuminate\Support\Facades\Log::error('Error sending purchase return to ZATCA: ' . $e->getMessage());
-            return $this->responseWithError('Failed to send purchase return to ZATCA: ' . $e->getMessage());
+            \Illuminate\Support\Facades\Log::error('Error sending purchase return to ZATCA: '.$e->getMessage());
+
+            return $this->responseWithError('Failed to send purchase return to ZATCA: '.$e->getMessage());
         }
     }
 }

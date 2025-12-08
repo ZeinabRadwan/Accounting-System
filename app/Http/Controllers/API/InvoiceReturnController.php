@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers\API;
 
-use Exception;
-use App\Rules\MinOne;
-use App\Models\Product;
-use Illuminate\Http\Request;
-use App\Models\InvoiceReturn;
-use App\Models\AccountTransaction;
-use App\Models\GeneralSetting;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\InvoiceReturnProduct;
-use Illuminate\Support\Facades\Auth;
-use App\Interfaces\ITransactionService;
-use App\Http\Resources\InvoiceReturnResource;
-use App\Http\Resources\InvoiceReturnListResource;
 use App\Http\Requests\Invoice\StoreInvoiceReturnRequest;
 use App\Http\Requests\Invoice\UpdateInvoiceReturnRequest;
+use App\Http\Resources\InvoiceReturnListResource;
+use App\Http\Resources\InvoiceReturnResource;
+use App\Interfaces\ITransactionService;
+use App\Models\AccountTransaction;
+use App\Models\GeneralSetting;
+use App\Models\InvoiceReturn;
+use App\Models\InvoiceReturnProduct;
+use App\Models\Product;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class InvoiceReturnController extends Controller
 {
     protected ITransactionService $transactionService;
+
     // define middleware
     public function __construct(ITransactionService $transactionService)
     {
@@ -41,21 +41,22 @@ class InvoiceReturnController extends Controller
      */
     public function index(Request $request)
     {
-        $query = InvoiceReturn::with('invoice.client', 'user');
-        
+        $query = InvoiceReturn::with('invoice.client', 'user', 'journalEntry');
+
         // Apply branch filter for non-superadmin users
         $user = Auth::user();
         // if ((int) $user->account_role !== 1) {
-            $branchIds = $this->getUserBranchIds($user);
-            $query->whereIn('branch_id', $branchIds);
+        $branchIds = $this->getUserBranchIds($user);
+        $query->whereIn('branch_id', $branchIds);
         // }
-        
+
         return InvoiceReturnListResource::collection($query->latest()->paginate($request->perPage));
     }
-    
+
     private function getUserBranchIds($user)
     {
         $defaultBranchId = (int) ($user->default_branch_id ?? 0);
+
         return [$defaultBranchId > 0 ? $defaultBranchId : 0];
     }
 
@@ -84,21 +85,21 @@ class InvoiceReturnController extends Controller
             $currentAccountingPeriodId = GeneralSetting::where('key', 'current_accounting_period_id')->first()?->value;
 
             // Validate that the settings exist
-            if (!$currentFiscalYearId) {
+            if (! $currentFiscalYearId) {
                 return $this->responseWithError('Current fiscal year is not configured in system settings.');
             }
-            if (!$currentAccountingPeriodId) {
+            if (! $currentAccountingPeriodId) {
                 return $this->responseWithError('Current accounting period is not configured in system settings.');
             }
 
             // Validate that the fiscal year and accounting period exist in their respective tables
             $fiscalYear = \App\Models\FiscalYear::find($currentFiscalYearId);
-            if (!$fiscalYear) {
+            if (! $fiscalYear) {
                 return $this->responseWithError('The configured fiscal year does not exist.');
             }
 
             $accountingPeriod = \App\Models\AccountingPeriod::find($currentAccountingPeriodId);
-            if (!$accountingPeriod) {
+            if (! $accountingPeriod) {
                 return $this->responseWithError('The configured accounting period does not exist.');
             }
 
@@ -126,23 +127,23 @@ class InvoiceReturnController extends Controller
                     $invoiceProduct = \App\Models\InvoiceProduct::where('invoice_id', $request->invoice['id'])
                         ->where('product_id', $selectedProduct['id'])
                         ->first();
-                    
+
                     if ($invoiceProduct) {
                         // unit_discount = round(discount_amount / quantity, 2)
                         $unitDiscount = round($invoiceProduct->discount_amount / $invoiceProduct->quantity, 2);
-                        
+
                         // unit_net = sale_price - unit_discount
                         $unitNet = $invoiceProduct->sale_price - $unitDiscount;
-                        
+
                         // unit_vat = round(unit_net * 0.20, 2)
                         $unitVat = round($unitNet * 0.20, 2);
-                        
+
                         // unit_total = unit_net + unit_vat
                         $unitTotal = $unitNet + $unitVat;
-                        
+
                         // return_total = round(unit_total * return_qty, 2)
                         $returnTotal = round($unitTotal * $selectedProduct['returnQty'], 2);
-                        
+
                         $calculatedTotalReturn += $returnTotal;
                     }
                 }
@@ -194,17 +195,17 @@ class InvoiceReturnController extends Controller
             // For Saudi Arabia, returns are created as inactive (0) and journal entries are created when sent to ZATCA
             if ($request->status == 1) {
                 try {
-                    \Illuminate\Support\Facades\Log::info('Creating journal entry for active invoice return: ' . $invoiceReturn->return_no);
-                    $journalService = new \App\Services\BusinessTransactionJournalService();
+                    \Illuminate\Support\Facades\Log::info('Creating journal entry for active invoice return: '.$invoiceReturn->return_no);
+                    $journalService = new \App\Services\BusinessTransactionJournalService;
                     $journalEntry = $journalService->createInvoiceReturnJournal($invoiceReturn, $userId);
-                    \Illuminate\Support\Facades\Log::info('Journal entry created successfully for invoice return: ' . $invoiceReturn->return_no);
+                    \Illuminate\Support\Facades\Log::info('Journal entry created successfully for invoice return: '.$invoiceReturn->return_no);
                 } catch (\Exception $e) {
                     // Log the error but don't fail the return creation
-                    \Illuminate\Support\Facades\Log::error('Failed to create journal entry for invoice return: ' . $e->getMessage());
-                    \Illuminate\Support\Facades\Log::error('Stack trace: ' . $e->getTraceAsString());
+                    \Illuminate\Support\Facades\Log::error('Failed to create journal entry for invoice return: '.$e->getMessage());
+                    \Illuminate\Support\Facades\Log::error('Stack trace: '.$e->getTraceAsString());
                 }
             } else {
-                \Illuminate\Support\Facades\Log::info('Skipping journal entry creation for inactive invoice return: ' . $invoiceReturn->return_no . ' (status: ' . $request->status . ')');
+                \Illuminate\Support\Facades\Log::info('Skipping journal entry creation for inactive invoice return: '.$invoiceReturn->return_no.' (status: '.$request->status.')');
             }
 
             // add activity log
@@ -212,11 +213,11 @@ class InvoiceReturnController extends Controller
                 ->causedBy(Auth::user())
                 ->performedOn($invoiceReturn)
                 ->withProperties([
-                    'name' => "",
-                    'code' => '[' . config('config.invoiceReturnPrefix') . '-' . $code . ']',
+                    'name' => '',
+                    'code' => '['.config('config.invoiceReturnPrefix').'-'.$code.']',
                     'event' => 'Create',
                     'slug' => $invoiceReturn->slug,
-                    'routeName' => 'invoiceReturns.show'
+                    'routeName' => 'invoiceReturns.show',
                 ])
                 ->useLog('Invoice Return Created')
                 ->log('Invoice Return Created');
@@ -228,6 +229,7 @@ class InvoiceReturnController extends Controller
             ]);
         } catch (Exception $e) {
             DB::rollback();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -241,7 +243,7 @@ class InvoiceReturnController extends Controller
      */
     public function update(UpdateInvoiceReturnRequest $request, $slug)
     {
-        $invoiceReturn = InvoiceReturn::where('slug', $slug)->with('invoiceReturnProducts', 'user')->first();
+        $invoiceReturn = InvoiceReturn::where('slug', $slug)->with('invoiceReturnProducts', 'user', 'journalEntry')->first();
 
         try {
             DB::beginTransaction();
@@ -251,21 +253,21 @@ class InvoiceReturnController extends Controller
             $currentAccountingPeriodId = GeneralSetting::where('key', 'current_accounting_period_id')->first()?->value;
 
             // Validate that the settings exist
-            if (!$currentFiscalYearId) {
+            if (! $currentFiscalYearId) {
                 return $this->responseWithError('Current fiscal year is not configured in system settings.');
             }
-            if (!$currentAccountingPeriodId) {
+            if (! $currentAccountingPeriodId) {
                 return $this->responseWithError('Current accounting period is not configured in system settings.');
             }
 
             // Validate that the fiscal year and accounting period exist in their respective tables
             $fiscalYear = \App\Models\FiscalYear::find($currentFiscalYearId);
-            if (!$fiscalYear) {
+            if (! $fiscalYear) {
                 return $this->responseWithError('The configured fiscal year does not exist.');
             }
 
             $accountingPeriod = \App\Models\AccountingPeriod::find($currentAccountingPeriodId);
-            if (!$accountingPeriod) {
+            if (! $accountingPeriod) {
                 return $this->responseWithError('The configured accounting period does not exist.');
             }
 
@@ -322,23 +324,23 @@ class InvoiceReturnController extends Controller
                     $invoiceProduct = \App\Models\InvoiceProduct::where('invoice_id', $invoiceReturn->invoice_id)
                         ->where('product_id', $selectedProduct['id'])
                         ->first();
-                    
+
                     if ($invoiceProduct) {
                         // unit_discount = round(discount_amount / quantity, 2)
                         $unitDiscount = round($invoiceProduct->discount_amount / $invoiceProduct->quantity, 2);
-                        
+
                         // unit_net = sale_price - unit_discount
                         $unitNet = $invoiceProduct->sale_price - $unitDiscount;
-                        
+
                         // unit_vat = round(unit_net * 0.20, 2)
                         $unitVat = round($unitNet * 0.20, 2);
-                        
+
                         // unit_total = unit_net + unit_vat
                         $unitTotal = $unitNet + $unitVat;
-                        
+
                         // return_total = round(unit_total * return_qty, 2)
                         $returnTotal = round($unitTotal * $selectedProduct['returnQty'], 2);
-                        
+
                         $calculatedTotalReturn += $returnTotal;
                     }
                 }
@@ -379,11 +381,11 @@ class InvoiceReturnController extends Controller
 
             // Create journal entry for invoice return update (after products are updated)
             try {
-                $journalService = new \App\Services\BusinessTransactionJournalService();
+                $journalService = new \App\Services\BusinessTransactionJournalService;
                 $journalEntry = $journalService->createInvoiceReturnJournal($invoiceReturn, $userId);
             } catch (\Exception $e) {
                 // Log the error but don't fail the return update
-                \Illuminate\Support\Facades\Log::error('Failed to create journal entry for invoice return update: ' . $e->getMessage());
+                \Illuminate\Support\Facades\Log::error('Failed to create journal entry for invoice return update: '.$e->getMessage());
             }
 
             // update invoice
@@ -397,11 +399,11 @@ class InvoiceReturnController extends Controller
                 ->causedBy(Auth::user())
                 ->performedOn($invoiceReturn)
                 ->withProperties([
-                    'name' => "",
-                    'code' => '[' . config('config.invoiceReturnPrefix') . '-' . $invoiceReturn->return_no . ']',
+                    'name' => '',
+                    'code' => '['.config('config.invoiceReturnPrefix').'-'.$invoiceReturn->return_no.']',
                     'event' => 'Update',
                     'slug' => $invoiceReturn->slug,
-                    'routeName' => 'invoiceReturns.show'
+                    'routeName' => 'invoiceReturns.show',
                 ])
                 ->useLog('Invoice Return Updated')
                 ->log('Invoice Return Updated');
@@ -411,6 +413,7 @@ class InvoiceReturnController extends Controller
             return $this->responseWithSuccess('Invoice return updated successfully');
         } catch (Exception $e) {
             DB::rollback();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -430,8 +433,8 @@ class InvoiceReturnController extends Controller
                         'invoice' => [
                             'client',
                             'invoiceProducts' => [
-                                'vatRate'
-                            ]
+                                'vatRate',
+                            ],
                         ],
                         'invoiceReturnProducts' => [
                             'invoiceReturn',
@@ -444,12 +447,12 @@ class InvoiceReturnController extends Controller
                         'journalEntries' => [
                             'lines' => [
                                 'chartOfAccount' => [
-                                    'type'
-                                ]
+                                    'type',
+                                ],
                             ],
                             'creator',
-                            'poster'
-                        ]
+                            'poster',
+                        ],
                     ],
                 )->firstOrFail();
 
@@ -471,7 +474,7 @@ class InvoiceReturnController extends Controller
             DB::beginTransaction();
 
             $invoiceReturn = InvoiceReturn::where('slug', $slug)->with('invoiceReturnProducts.product', 'invoice',
-                'returnTransaction')->first();
+                'returnTransaction', 'journalEntry')->first();
             // update invoice
             $invoice = $invoiceReturn->invoice;
             $isPaid = $invoiceReturn->invoice->totalDue() == 0 ? 1 : 0;
@@ -489,9 +492,9 @@ class InvoiceReturnController extends Controller
                 ->causedBy(Auth::user())
                 ->performedOn($invoiceReturn)
                 ->withProperties([
-                    'name' => "",
-                    'code' => '[' . config('config.invoiceReturnPrefix') . '-' . $invoiceReturn->return_no . ']',
-                    'event' => 'Delete'
+                    'name' => '',
+                    'code' => '['.config('config.invoiceReturnPrefix').'-'.$invoiceReturn->return_no.']',
+                    'event' => 'Delete',
                 ])
                 ->useLog('Invoice Return Deleted')
                 ->log('Invoice Return Deleted');
@@ -503,6 +506,7 @@ class InvoiceReturnController extends Controller
             return $this->responseWithSuccess('Invoice return deleted successfully!');
         } catch (Exception $e) {
             DB::rollback();
+
             return $this->responseWithError($e->getMessage());
         }
     }
@@ -516,13 +520,13 @@ class InvoiceReturnController extends Controller
     public function search(Request $request)
     {
         $term = $request->term;
-        $query = InvoiceReturn::with('invoice.client', 'user', 'invoiceReturnProducts');
+        $query = InvoiceReturn::with('invoice.client', 'user', 'invoiceReturnProducts', 'journalEntry');
 
         // Apply branch filter
         $user = Auth::user();
         // if ((int) $user->account_role !== 1) {
-            $branchIds = $this->getUserBranchIds($user);
-            $query->whereIn('branch_id', $branchIds);
+        $branchIds = $this->getUserBranchIds($user);
+        $query->whereIn('branch_id', $branchIds);
         // }
 
         if ($request->startDate && $request->endDate) {
@@ -555,8 +559,8 @@ class InvoiceReturnController extends Controller
     {
         try {
             $invoiceReturn = InvoiceReturn::where('slug', $slug)->first();
-            
-            if (!$invoiceReturn) {
+
+            if (! $invoiceReturn) {
                 return $this->responseWithError('Credit note not found');
             }
 
@@ -568,7 +572,7 @@ class InvoiceReturnController extends Controller
             $isSaudiArabia = $country === 'SA';
 
             // Only allow for Saudi Arabia
-            if (!$isSaudiArabia) {
+            if (! $isSaudiArabia) {
                 return $this->responseWithError('This feature is only available for Saudi Arabia');
             }
 
@@ -583,27 +587,28 @@ class InvoiceReturnController extends Controller
 
             // Create journal entry for credit note (now that we're sending to ZATCA)
             try {
-                \Illuminate\Support\Facades\Log::info('Creating journal entry for ZATCA credit note: ' . $invoiceReturn->return_no);
-                $journalService = new \App\Services\BusinessTransactionJournalService();
+                \Illuminate\Support\Facades\Log::info('Creating journal entry for ZATCA credit note: '.$invoiceReturn->return_no);
+                $journalService = new \App\Services\BusinessTransactionJournalService;
                 $journalEntry = $journalService->createInvoiceReturnJournal($invoiceReturn, $userId);
-                \Illuminate\Support\Facades\Log::info('Journal entry created successfully for ZATCA credit note: ' . $invoiceReturn->return_no);
+                \Illuminate\Support\Facades\Log::info('Journal entry created successfully for ZATCA credit note: '.$invoiceReturn->return_no);
             } catch (\Exception $e) {
-                \Illuminate\Support\Facades\Log::error('Failed to create journal entry for ZATCA credit note: ' . $e->getMessage());
+                \Illuminate\Support\Facades\Log::error('Failed to create journal entry for ZATCA credit note: '.$e->getMessage());
                 DB::rollback();
                 $errorMessage = $e->getMessage();
-                
+
                 // Try to get full translation first
-                $fullErrorKey = 'Failed to create journal entries: ' . $errorMessage;
-                $fullTranslation = trans('messages.' . $fullErrorKey, [], app()->getLocale());
-                
+                $fullErrorKey = 'Failed to create journal entries: '.$errorMessage;
+                $fullTranslation = trans('messages.'.$fullErrorKey, [], app()->getLocale());
+
                 // If translation exists (not the same as key), use it
                 if ($fullTranslation !== $fullErrorKey) {
                     return $this->responseWithError($fullTranslation);
                 }
-                
+
                 // Otherwise, translate prefix and append error message
                 $localizedPrefix = __('messages.Failed to create journal entries: ');
-                return $this->responseWithError($localizedPrefix . $errorMessage);
+
+                return $this->responseWithError($localizedPrefix.$errorMessage);
             }
 
             // Update credit note status to active (sent to ZATCA)
@@ -612,12 +617,12 @@ class InvoiceReturnController extends Controller
             // Here you would add actual ZATCA integration
             // For now, we'll just simulate the ZATCA sending
             // You can integrate with ZATCA API here
-            
+
             // Log the ZATCA sending
             \Illuminate\Support\Facades\Log::info("Credit note {$invoiceReturn->return_no} sent to ZATCA", [
                 'credit_note_id' => $invoiceReturn->id,
                 'user_id' => $userId,
-                'timestamp' => now()
+                'timestamp' => now(),
             ]);
 
             DB::commit();
@@ -625,13 +630,14 @@ class InvoiceReturnController extends Controller
             return $this->responseWithSuccess('Credit note sent to ZATCA successfully and journal entries created', [
                 'credit_note_id' => $invoiceReturn->id,
                 'credit_note_no' => $invoiceReturn->return_no,
-                'status' => 'sent_to_zatca'
+                'status' => 'sent_to_zatca',
             ]);
 
         } catch (Exception $e) {
             DB::rollback();
-            \Illuminate\Support\Facades\Log::error('Error sending credit note to ZATCA: ' . $e->getMessage());
-            return $this->responseWithError('Failed to send credit note to ZATCA: ' . $e->getMessage());
+            \Illuminate\Support\Facades\Log::error('Error sending credit note to ZATCA: '.$e->getMessage());
+
+            return $this->responseWithError('Failed to send credit note to ZATCA: '.$e->getMessage());
         }
     }
 
@@ -644,12 +650,12 @@ class InvoiceReturnController extends Controller
     {
         // Get return prefix from general settings
         $returnPrefix = getGeneralSettingsInfo()['invoiceReturnPrefix'] ?? 'RET';
-        
+
         // Get the last return to determine the next number
-        $lastReturn = InvoiceReturn::where('return_no', 'like', $returnPrefix . '%')
-            ->orderByRaw('CAST(SUBSTRING(return_no, ' . (strlen($returnPrefix) + 1) . ') AS UNSIGNED) DESC')
+        $lastReturn = InvoiceReturn::where('return_no', 'like', $returnPrefix.'%')
+            ->orderByRaw('CAST(SUBSTRING(return_no, '.(strlen($returnPrefix) + 1).') AS UNSIGNED) DESC')
             ->first();
-        
+
         if ($lastReturn) {
             // Extract the numeric part from the last return_no
             $lastNumber = (int) substr($lastReturn->return_no, strlen($returnPrefix));
@@ -658,8 +664,8 @@ class InvoiceReturnController extends Controller
             // If no returns exist, start with 1
             $nextNumber = 1;
         }
-        
+
         // Format the number with leading zeros (e.g., 001, 002, etc.)
-        return $returnPrefix . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        return $returnPrefix.str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
     }
 }

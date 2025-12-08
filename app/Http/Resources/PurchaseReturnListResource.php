@@ -26,6 +26,13 @@ class PurchaseReturnListResource extends JsonResource
             'returnDate' => $this->date,
             'note' => $this->note,
             'status' => (int) $this->status,
+            'journalEntry' => $this->whenLoaded('journalEntry', function () {
+                return $this->journalEntry ? [
+                    'id' => $this->journalEntry->id,
+                    'entry_number' => $this->journalEntry->entry_number,
+                    'slug' => $this->journalEntry->slug ?? null,
+                ] : null;
+            }),
         ];
     }
 }

@@ -29,8 +29,15 @@ class InvoiceReturnResource extends JsonResource
             'note' => $this->note,
             'status' => (int) $this->status,
             'createdBy' => $this->user->name,
-            'journalEntries' => $this->whenLoaded('journalEntries', function() {
+            'journalEntries' => $this->whenLoaded('journalEntries', function () {
                 return JournalEntryResource::collection($this->journalEntries);
+            }),
+            'journalEntry' => $this->whenLoaded('journalEntry', function () {
+                return $this->journalEntry ? [
+                    'id' => $this->journalEntry->id,
+                    'entry_number' => $this->journalEntry->entry_number,
+                    'slug' => $this->journalEntry->slug ?? null,
+                ] : null;
             }),
         ];
     }

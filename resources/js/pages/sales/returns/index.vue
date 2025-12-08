@@ -111,6 +111,16 @@
                 <template #cell-netTotal="{ row }">
                   <span v-html="formatCurrency(row.netTotal || row.totalReturn || 0)"></span>
                 </template>
+                <template #cell-journalEntry="{ row }">
+                  <span v-if="row.journalEntry">
+                    <router-link :to="{ name: 'journal-entries.show', params: { id: row.journalEntry.id } }" 
+                      class="badge bg-info text-white" 
+                      style="text-decoration: none;">
+                      {{ row.journalEntry.entry_number || `#${row.journalEntry.id}` }}
+                    </router-link>
+                  </span>
+                  <span v-else class="text-muted">-</span>
+                </template>
                 <template #cell-status="{ row }">
                   <span v-if="row.status === 1" class="badge bg-success">{{ $t("Active") }}</span>
                   <span v-else class="badge bg-danger">{{ $t("Inactive") }}</span>
@@ -308,6 +318,7 @@ export default {
         { key: "returnDate", label: this.$t("Date") },
         { key: "subtotal", label: this.$t("Subtotal") },
         { key: "netTotal", label: this.$t("Net Total") },
+        { key: "journalEntry", label: this.$t("Journal Entry"), sortable: false },
         { key: "status", label: this.$t("Status") },
       ];
     },
