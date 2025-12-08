@@ -35403,20 +35403,20 @@ var map = {
 		1848
 	],
 	"./purchases": [
-		5982,
-		5982
+		64544,
+		4544
 	],
 	"./purchases/": [
-		5982,
-		5982
+		64544,
+		4544
 	],
 	"./purchases/create": [
-		17150,
-		7150
+		41757,
+		4138
 	],
 	"./purchases/create.vue": [
-		17150,
-		7150
+		41757,
+		4138
 	],
 	"./purchases/edit": [
 		46389,
@@ -35427,12 +35427,12 @@ var map = {
 		6389
 	],
 	"./purchases/index": [
-		5982,
-		5982
+		64544,
+		4544
 	],
 	"./purchases/index.vue": [
-		5982,
-		5982
+		64544,
+		4544
 	],
 	"./purchases/returns": [
 		11152,
@@ -35475,12 +35475,12 @@ var map = {
 		4916
 	],
 	"./purchases/show": [
-		63970,
-		3970
+		54468,
+		4468
 	],
 	"./purchases/show.vue": [
-		63970,
-		3970
+		54468,
+		4468
 	],
 	"./reports/account-statement": [
 		89861,
@@ -35979,11 +35979,11 @@ var map = {
 		8707
 	],
 	"./setup/permissions": [
-		41757,
+		86519,
 		1757
 	],
 	"./setup/permissions/": [
-		41757,
+		86519,
 		1757
 	],
 	"./setup/permissions/create": [
@@ -36003,11 +36003,11 @@ var map = {
 		5943
 	],
 	"./setup/permissions/index": [
-		41757,
+		86519,
 		1757
 	],
 	"./setup/permissions/index.vue": [
-		41757,
+		86519,
 		1757
 	],
 	"./setup/roles": [

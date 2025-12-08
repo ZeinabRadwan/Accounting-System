@@ -367,44 +367,42 @@ class PurchaseController extends Controller
                 ]);
             }
 
-            // Create journal entry for purchase (skip for Saudi Arabia)
+            // Create journal entry for purchase (always create, regardless of country)
             $journalEntriesCreated = false;
-            if (! $isSaudiArabia) {
-                try {
-                    Log::info('Starting journal entry creation for purchase: '.$purchase->purchase_no);
-                    $journalService = new BusinessTransactionJournalService;
-                    
-                    // Get payment account if payment is being added
-                    $paymentAccount = null;
-                    if ($request->addPayment == true && isset($request->account['id'])) {
-                        $account = Account::find($request->account['id']);
-                        if ($account && $account->isChartOfAccountConnected()) {
-                            $paymentAccount = $account->chartOfAccount;
-                            Log::info('Using payment account (cash/bank) for purchase journal: Account ID '.$paymentAccount->id);
-                        }
-                    }
-                    
-                    $journalEntry = $journalService->createPurchaseJournal($purchase, $userId, $paymentAccount);
-                    $journalEntriesCreated = true;
-                    Log::info('Journal entry created successfully for purchase: '.$purchase->purchase_no.' with ID: '.$journalEntry->id);
+            try {
+                Log::info('Starting journal entry creation for purchase: '.$purchase->purchase_no);
+                $journalService = new BusinessTransactionJournalService;
 
-                    // Check if purchase_journals record was created
-                    $purchaseJournal = \App\Models\PurchaseJournal::where('purchase_id', $purchase->id)
-                        ->where('journal_entry_id', $journalEntry->id)
-                        ->first();
-
-                    if ($purchaseJournal) {
-                        Log::info('Purchase journal bridge record created successfully: '.$purchaseJournal->id);
-                    } else {
-                        Log::error('Purchase journal bridge record NOT created for purchase: '.$purchase->purchase_no);
+                // Get payment account if payment is being added
+                $paymentAccount = null;
+                if ($request->addPayment == true && isset($request->account['id'])) {
+                    $account = Account::find($request->account['id']);
+                    if ($account && $account->isChartOfAccountConnected()) {
+                        $paymentAccount = $account->chartOfAccount;
+                        Log::info('Using payment account (cash/bank) for purchase journal: Account ID '.$paymentAccount->id);
                     }
-                } catch (\Exception $e) {
-                    // Log the error but don't fail the purchase creation
-                    Log::error('Failed to create journal entry for purchase: '.$e->getMessage());
-                    Log::error('Purchase ID: '.$purchase->id);
-                    Log::error('User ID: '.$userId);
-                    Log::error('Exception trace: '.$e->getTraceAsString());
                 }
+
+                $journalEntry = $journalService->createPurchaseJournal($purchase, $userId, $paymentAccount);
+                $journalEntriesCreated = true;
+                Log::info('Journal entry created successfully for purchase: '.$purchase->purchase_no.' with ID: '.$journalEntry->id);
+
+                // Check if purchase_journals record was created
+                $purchaseJournal = \App\Models\PurchaseJournal::where('purchase_id', $purchase->id)
+                    ->where('journal_entry_id', $journalEntry->id)
+                    ->first();
+
+                if ($purchaseJournal) {
+                    Log::info('Purchase journal bridge record created successfully: '.$purchaseJournal->id);
+                } else {
+                    Log::error('Purchase journal bridge record NOT created for purchase: '.$purchase->purchase_no);
+                }
+            } catch (\Exception $e) {
+                // Log the error but don't fail the purchase creation
+                Log::error('Failed to create journal entry for purchase: '.$e->getMessage());
+                Log::error('Purchase ID: '.$purchase->id);
+                Log::error('User ID: '.$userId);
+                Log::error('Exception trace: '.$e->getTraceAsString());
             }
 
             // store transaction

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\JournalEntryType;
 use App\Models\AccountingPeriod;
 use App\Models\AccountRoutingSetting;
 use App\Models\AccountTransaction;
@@ -262,12 +263,12 @@ class BusinessTransactionJournalService
             $totalCogsAmount = 0;
             foreach ($invoiceProducts as $invoiceProduct) {
                 $product = $invoiceProduct->product;
-                
+
                 // Skip service products (products without inventory tracking)
                 if ($product && $product->is_service) {
                     continue;
                 }
-                
+
                 // unit_cost is already calculated when saving invoice products
                 $lineCost = ($invoiceProduct->unit_cost ?? 0) * $invoiceProduct->quantity;
                 $totalCogsAmount += $lineCost;
@@ -499,11 +500,23 @@ class BusinessTransactionJournalService
 
             Log::info("Found {$purchaseProducts->count()} purchase products for PO {$purchase->purchase_no}");
 
-            // Calculate inventory amount = sum of (product cost × quantity) for all products
+            // Calculate inventory amount = sum of (product cost × quantity) for all products with inventory tracking
             $totalInventoryAmount = 0;
             $totalVatAmount = 0;
 
             foreach ($purchaseProducts as $purchaseProduct) {
+                // Skip products without inventory tracking (services)
+                $product = $purchaseProduct->product;
+                if ($product && $product->is_service) {
+                    $productName = $product->name ?? 'Unknown';
+                    Log::info("Skipping service product '{$productName}' from journal entry (no inventory tracking)");
+                    // Still include VAT for service products
+                    $productVatAmount = $purchaseProduct->tax_amount ?? 0;
+                    $totalVatAmount += $productVatAmount;
+
+                    continue;
+                }
+
                 // Calculate inventory amount: product cost × quantity
                 $productCost = $purchaseProduct->purchase_price ?? 0;
                 $quantity = $purchaseProduct->quantity ?? 0;
@@ -514,8 +527,15 @@ class BusinessTransactionJournalService
                 $productVatAmount = $purchaseProduct->tax_amount ?? 0;
                 $totalVatAmount += $productVatAmount;
 
-                $productName = $purchaseProduct->product->name ?? 'Unknown';
+                $productName = $product->name ?? 'Unknown';
                 Log::info("Product: {$productName}, Cost: {$productCost}, Quantity: {$quantity}, Inventory Amount: {$lineInventoryAmount}, VAT: {$productVatAmount}");
+            }
+
+            // Skip journal entry if no products have inventory tracking (all are services)
+            if ($totalInventoryAmount == 0) {
+                Log::info("Skipping journal entry creation for purchase {$purchase->purchase_no}: No products with inventory tracking found.");
+                DB::rollBack();
+                throw new Exception('Cannot create journal entry: All products in this purchase are services and do not have inventory tracking.');
             }
 
             // Get Inventory account from routing settings
@@ -546,7 +566,7 @@ class BusinessTransactionJournalService
             $journalEntry = JournalEntry::create([
                 'entry_number' => JournalEntry::generateEntryNumber(),
                 'entry_date' => $purchase->purchase_date,
-                'entry_type' => 'purchase',
+                'entry_type' => JournalEntryType::Purchases,
                 'reference' => $reference,
                 'description' => __('journal.purchase', ['number' => $purchase->purchase_no]),
                 'total_debit' => $totalAmount,

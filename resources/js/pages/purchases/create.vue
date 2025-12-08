@@ -336,11 +336,8 @@
                 <label for="addPayment">{{ $t("Add Payment?") }}</label>
                 <select id="addPayment" v-model="form.addPayment" class="form-control"
                   :class="{ 'is-invalid': form.errors.has('addPayment') }" name="addPayment">
-                  <option value="" selected disabled>
-                    {{ $t("Select an option") }}
-                  </option>
+                  <option value="0" selected>{{ $t("No") }}</option>
                   <option value="1">{{ $t("Yes") }}</option>
-                  <option value="0">{{ $t("No") }}</option>
                 </select>
                 <has-error :form="form" field="addPayment" />
               </div>
@@ -394,30 +391,6 @@
                   :class="{ 'is-invalid': form.errors.has('receiptNo') }" name="receiptNo"
                   :placeholder="$t('Enter a receipt no')" />
                 <has-error :form="form" field="receiptNo" />
-              </div>
-            </div>
-            <!-- Payment Section -->
-            <div class="row">
-              <div class="form-group col-md-6">
-                <label>{{ $t("Payment Type") }}</label>
-                <div class="d-flex align-items-center">
-                  <toggle-button v-model="form.isPaid" :labels="{ checked: $t('Paid'), unchecked: $t('On Credit') }"
-                    :color="{ checked: '#2AB930', unchecked: '#dc3545' }" :sync="true" @change="onPaymentTypeChange"
-                    class="mr-2" />
-                  <span class="ml-2">{{ form.isPaid ? $t("Paid") : $t("On Credit") }}</span>
-                </div>
-              </div>
-              <div class="form-group col-md-6" v-if="form.isPaid">
-                <label for="payment_method_id">{{ $t("Payment Method") }}</label>
-                <select id="payment_method_id" v-model="form.payment_method_id" class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('payment_method_id') }" name="payment_method_id"
-                  @change="clearFieldError('payment_method_id')">
-                  <option value="">{{ $t("Select") }}</option>
-                  <option v-for="method in paymentMethods" :key="method.id" :value="method.id">
-                    {{ method.name }}
-                  </option>
-                </select>
-                <has-error :form="form" field="payment_method_id" />
               </div>
             </div>
 
@@ -500,6 +473,22 @@
                 </span>
               </div>
             </div>
+
+            <!-- Form Actions -->
+            <div class="card-footer">
+              <div class="dtable-footer">
+                <div class="form-group row display-per-page footer-buttons d-flex justify-content-between w-100">
+                  <button :disabled="form.busy || !isFormReady" class="btn btn-success" type="submit" form="purchaseCreateForm">
+                    <i v-if="form.busy" class="fas fa-spinner fa-spin"></i>
+                    <i v-else class="fas fa-save"></i>
+                    {{ form.busy ? $t("Saving...") : $t("Complete Process") }}
+                  </button>
+                  <button type="button" class="btn btn-secondary ml-2" @click="resetForm" :disabled="form.busy">
+                    <i class="fas fa-power-off" /> {{ $t("Reset") }}
+                  </button>
+                </div>
+              </div>
+            </div>
           </form>
           <!-- /.card-body -->
         </div>
@@ -517,6 +506,7 @@ import ProductCreateModal from '~/components/ProductCreateModal'
 import SupplierCreateModal from '~/components/SupplierCreateModal'
 import ItemsTable from '~/components/ItemsTable'
 import RTLMixin from '~/mixins/RTLMixin'
+import Swal from "sweetalert2";
 
 import { ToWords } from 'to-words';
 
@@ -573,7 +563,7 @@ export default {
       poReference: "",
       reference: "",
       paymentTerms: "",
-      addPayment: "",
+      addPayment: "0", // Default to "No" (field is hidden)
       chequeNo: "",
       receiptNo: "",
       poDate: new Date().toISOString().slice(0, 10),
@@ -588,8 +578,6 @@ export default {
       cost_center_id: null,
       branch: null,
       branch_id: null,
-      isPaid: false,
-      payment_method_id: null,
       attachments: [],
     }),
     products: "",
@@ -684,6 +672,12 @@ export default {
       });
 
       return isTaxable;
+    },
+    // Check if form is ready to submit
+    isFormReady() {
+      return this.form.supplier &&
+        this.form.selectedProducts &&
+        this.form.selectedProducts.length > 0;
     },
   },
   watch: {
@@ -1600,8 +1594,6 @@ export default {
           appendIfDefined('cost_center_id', formDataObj.cost_center_id);
           appendIfDefined('branch_id', formDataObj.branch_id);
           appendIfDefined('purchase_status', formDataObj.purchase_status);
-          appendIfDefined('isPaid', formDataObj.isPaid ? 1 : 0);
-          appendIfDefined('payment_method_id', formDataObj.payment_method_id);
 
           // Handle orderTax - only include if country is NOT Saudi Arabia
           if (!this.isSaudiArabia && formDataObj.orderTax) {
@@ -1612,6 +1604,7 @@ export default {
           if (this.form.addPayment == 1) {
             appendIfDefined('account[id]', formDataObj.account?.id);
             appendIfDefined('totalPaid', formDataObj.totalPaid);
+            appendIfDefined('availableBalance', formDataObj.availableBalance);
           }
 
           // Append selectedProducts array
@@ -1655,8 +1648,7 @@ export default {
             setTimeout(() => {
               toast.fire({
                 type: "success",
-                title: this.$t("Purchase Journal Entry Created Successfully"),
-                text: this.$t("Journal entry has been automatically created for this purchase"),
+                title: this.$t("Journal Entry Created Successfully"),
                 timer: 4000,
                 timerProgressBar: true,
               });
@@ -1679,10 +1671,12 @@ export default {
           if (this.form.addPayment == 1) {
             formData.account = this.form.account;
             formData.totalPaid = this.form.totalPaid;
+            formData.availableBalance = this.form.availableBalance;
           } else {
             // Remove payment-related fields if not adding payment
             delete formData.account;
             delete formData.totalPaid;
+            delete formData.availableBalance;
           }
 
           // Handle orderTax - only include if country is NOT Saudi Arabia
@@ -1703,8 +1697,7 @@ export default {
             setTimeout(() => {
               toast.fire({
                 type: "success",
-                title: this.$t("Purchase Journal Entry Created Successfully"),
-                text: this.$t("Journal entry has been automatically created for this purchase"),
+                title: this.$t("Journal Entry Created Successfully"),
                 timer: 4000,
                 timerProgressBar: true,
               });
@@ -1717,17 +1710,6 @@ export default {
             params: { slug: response.data.data.slug },
           });
         }
-
-        toast.fire({
-          type: "success",
-          title: this.$t("Purchase added successfully"),
-        });
-
-        this.clearTemporaryData()
-        this.$router.push({
-          name: "purchases.show",
-          params: { slug: response.data.data.slug },
-        });
       } catch (error) {
         if (error.response && error.response.data && error.response.data.errors) {
           // Validation errors from backend - show all errors in one notification
@@ -1951,14 +1933,6 @@ export default {
       this.clearFieldError('purchase_status');
     },
 
-    // handle payment type change
-    onPaymentTypeChange(value) {
-      this.form.isPaid = value;
-      // Clear payment method when switching to credit
-      if (!value) {
-        this.form.payment_method_id = null;
-      }
-    },
 
     // handle attachment change
     onAttachmentChange(event) {
@@ -2047,6 +2021,104 @@ export default {
     // clear temporary data
     clearTemporaryData() {
       localStorage.removeItem('purchaseTempData')
+    },
+
+    // Reset form
+    resetForm() {
+      // Prevent reset during form submission
+      if (this.form.busy) {
+        return;
+      }
+
+      // Confirm reset action
+      Swal.fire({
+        title: this.$t("Reset Form"),
+        text: this.$t("Are you sure you want to reset the form? All entered data will be lost."),
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: this.$t("Yes, Reset"),
+        cancelButtonText: this.$t("Cancel"),
+        confirmButtonColor: "#dc3545",
+        cancelButtonColor: "#6c757d",
+      }).then((result) => {
+        if (result.value) {
+          // Reset form fields
+          this.form.reset();
+          this.form.errors.clear();
+          this.form.selectedProducts = [];
+          this.form.subTotal = 0;
+          this.form.netTotal = 0;
+          this.form.totalProductTax = 0;
+          this.form.totalTax = 0;
+          this.form.totalDiscount = 0;
+          this.form.discount = "";
+          this.form.discount_type = "percentage";
+          this.form.discount_value = 0;
+          this.form.transportCost = "";
+          this.form.transportTaxableCost = "";
+          this.form.transportVatAmount = 0;
+          this.form.orderTax = "";
+          this.form.account = "";
+          this.form.availableBalance = "";
+          this.form.totalPaid = "";
+          this.form.poReference = "";
+          this.form.reference = "";
+          this.form.paymentTerms = "";
+          this.form.addPayment = "0"; // Default to "No"
+          this.form.chequeNo = "";
+          this.form.receiptNo = "";
+          this.form.poDate = new Date().toISOString().slice(0, 10);
+          this.form.purchaseDate = new Date().toISOString().slice(0, 10);
+          this.form.purchase_status = "";
+          this.form.note = "";
+          this.form.status = 0;
+          this.form.isSendEmail = false;
+          this.form.isSendSMS = false;
+          this.form.costCenter = null;
+          this.form.cost_center_id = null;
+          this.form.branch = null;
+          this.form.branch_id = null;
+          this.form.attachments = [];
+          this.form.supplier = "";
+
+          // Reset supplier selection - set to first supplier if available
+          if (this.suppliers && this.suppliers.length > 0) {
+            this.form.supplier = this.suppliers[0];
+          }
+
+          // Reset account selection - set to default account if available
+          if (this.accounts && this.accounts.length > 0) {
+            let defaultAccountSlug = this.appInfo.defaultAccountSlug;
+            this.form.account = this.accounts.find(
+              (account) => account.slug == defaultAccountSlug
+            ) || this.accounts[0];
+            this.updateBalance();
+          }
+
+          // Reset orderTax - set to default VAT rate if available
+          if (this.taxes && this.taxes.length > 0) {
+            let defaultVatRateSlug = this.appInfo.defaultVatRateSlug;
+            this.form.orderTax = this.taxes.find(
+              (tax) => tax.slug === defaultVatRateSlug
+            ) || this.taxes[0];
+            this.updateTax();
+          }
+
+          // Clear temporary data
+          this.clearTemporaryData();
+
+          // Recalculate sums
+          this.calculateSum();
+
+          // Show success message
+          toast.fire({
+            type: "success",
+            title: this.$t("Form Reset"),
+            text: this.$t("Form has been reset successfully"),
+            timer: 2000,
+          });
+        }
+      });
     },
 
     // Load purchase order data and populate form
