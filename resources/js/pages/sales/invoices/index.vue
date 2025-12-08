@@ -848,11 +848,24 @@ export default {
             SwalOriginal.close();
 
             if (response.data.success) {
-              // Update the invoice row immediately with journal entry data from response
+              this.$toast.success(
+                this.$t("Sent Successfully!"),
+                this.$t("Invoice has been sent to ZATCA and journal entries have been created.")
+              );
+              
+              // Refresh the table to update the status and journal entry
+              await this.getData();
+              
+              // Update the invoice row immediately with journal entry data from response after refresh
               if (response.data.data && response.data.data.journalEntry) {
-                const invoiceIndex = this.items.findIndex(item => item.slug === data.slug || item.id === response.data.data.invoice_id);
-                if (invoiceIndex !== -1) {
-                  // Update the invoice item with journal entry data
+                await this.$nextTick();
+                const invoiceIndex = this.items.findIndex(item => 
+                  item.slug === data.slug || 
+                  item.id === response.data.data.invoice_id ||
+                  item.invoiceNo === response.data.data.invoice_no
+                );
+                if (invoiceIndex !== -1 && this.items[invoiceIndex]) {
+                  // Force update using Vue.set for reactivity
                   this.$set(this.items, invoiceIndex, {
                     ...this.items[invoiceIndex],
                     journalEntry: response.data.data.journalEntry,
@@ -860,13 +873,6 @@ export default {
                   });
                 }
               }
-
-              this.$toast.success(
-                this.$t("Sent Successfully!"),
-                this.$t("Invoice has been sent to ZATCA and journal entries have been created.")
-              );
-              // Refresh the table to update the status and ensure data is in sync
-              this.getData();
             } else {
               this.$toast.error(
                 this.$t("Failed!"),

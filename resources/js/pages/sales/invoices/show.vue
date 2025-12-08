@@ -1228,21 +1228,26 @@ export default {
             SwalOriginal.close();
 
             if (response.data.success) {
-              // Update the invoice data immediately with journal entry data from response
-              if (response.data.data && response.data.data.journalEntry) {
-                this.allData = {
-                  ...this.allData,
-                  journalEntry: response.data.data.journalEntry,
-                  status: 1, // Update status to sent
-                };
-              }
-
               this.$toast.success(
                 this.$t("Sent Successfully!"),
                 this.$t("Invoice has been sent to ZATCA and journal entries have been created.")
               );
+
+              // Update the invoice data immediately with journal entry data from response
+              if (response.data.data && response.data.data.journalEntry) {
+                this.allData = {
+                  ...this.allData,
+                  journalEntry: {
+                    id: response.data.data.journalEntry.id,
+                    entry_number: response.data.data.journalEntry.entry_number,
+                    slug: response.data.data.journalEntry.slug || null,
+                  },
+                  status: 1, // Update status to sent
+                };
+              }
+
               // Refresh the invoice data to update the status and ensure data is in sync
-              this.getInvoice();
+              await this.getInvoice();
             } else {
               this.$toast.error(
                 this.$t("Failed!"),
